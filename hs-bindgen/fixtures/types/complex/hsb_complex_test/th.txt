@@ -672,8 +672,7 @@ volatile_complex_double = unsafePerformIO hs_bindgen_e86c9014eb507c96
 foreign import ccall unsafe "hs_bindgen_b548dda6b5993793" hs_bindgen_b548dda6b5993793_base ::
     IO (Ptr Void)
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array@
-hs_bindgen_b548dda6b5993793 :: IO (Ptr (ConstantArray 10
-                                                      (Complex CFloat)))
+hs_bindgen_b548dda6b5993793 :: IO (Ptr (Array 10 (Complex CFloat)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array@
 hs_bindgen_b548dda6b5993793 = fromFFIType hs_bindgen_b548dda6b5993793_base
 {-# NOINLINE complex_float_array #-}
@@ -683,7 +682,7 @@ hs_bindgen_b548dda6b5993793 = fromFFIType hs_bindgen_b548dda6b5993793_base
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_float_array :: Ptr (ConstantArray 10 (Complex CFloat))
+complex_float_array :: Ptr (Array 10 (Complex CFloat))
 {-| __C declaration:__ @complex_float_array@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 30:23@
@@ -695,8 +694,8 @@ complex_float_array = unsafePerformIO hs_bindgen_b548dda6b5993793
 foreign import ccall unsafe "hs_bindgen_c56913da40952669" hs_bindgen_c56913da40952669_base ::
     IO (Ptr Void)
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array@
-hs_bindgen_c56913da40952669 :: IO (Ptr (ConstantArray 10
-                                                      (Complex CDouble)))
+hs_bindgen_c56913da40952669 :: IO (Ptr (Array 10
+                                              (Complex CDouble)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array@
 hs_bindgen_c56913da40952669 = fromFFIType hs_bindgen_c56913da40952669_base
 {-# NOINLINE complex_double_array #-}
@@ -706,7 +705,7 @@ hs_bindgen_c56913da40952669 = fromFFIType hs_bindgen_c56913da40952669_base
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_double_array :: Ptr (ConstantArray 10 (Complex CDouble))
+complex_double_array :: Ptr (Array 10 (Complex CDouble))
 {-| __C declaration:__ @complex_double_array@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 31:23@

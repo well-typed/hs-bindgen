@@ -28,10 +28,10 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
@@ -561,8 +561,9 @@ __defined at:__ @functions\/callbacks.h 32:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull_Aux = SampleBufferFull_Aux
-  { un_SampleBufferFull_Aux :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
+  { un_SampleBufferFull_Aux :: ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 10) FC.CInt) -> IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull_Aux) "un_SampleBufferFull_Aux")
          ) => GHC.Records.HasField "un_SampleBufferFull_Aux" (Ptr.Ptr SampleBufferFull_Aux) (Ptr.Ptr ty) where
@@ -573,7 +574,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull_Aux
 instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Aux "un_SampleBufferFull_Aux" where
 
   type CFieldType SampleBufferFull_Aux "un_SampleBufferFull_Aux" =
-    ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
+    ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 10) FC.CInt) -> IO ()
 
   offset# = \_ -> \_ -> 0
 

@@ -573,7 +573,7 @@ nesString1 = unsafePerformIO hs_bindgen_78918168bc760476
 foreign import ccall unsafe "hs_bindgen_c6c52463f890e752" hs_bindgen_c6c52463f890e752_base ::
     IO (Ptr Void)
 -- __unique:__ @test_globalsglobals_Example_get_nesString2@
-hs_bindgen_c6c52463f890e752 :: IO (Ptr (ConstantArray 3 CChar))
+hs_bindgen_c6c52463f890e752 :: IO (Ptr (Array 3 CChar))
 -- __unique:__ @test_globalsglobals_Example_get_nesString2@
 hs_bindgen_c6c52463f890e752 = fromFFIType hs_bindgen_c6c52463f890e752_base
 {-# NOINLINE nesString2 #-}
@@ -583,7 +583,7 @@ hs_bindgen_c6c52463f890e752 = fromFFIType hs_bindgen_c6c52463f890e752_base
 
     __exported by:__ @globals\/globals.h@
 -}
-nesString2 :: Ptr (ConstantArray 3 CChar)
+nesString2 :: Ptr (Array 3 CChar)
 {-| __C declaration:__ @nesString2@
 
     __defined at:__ @globals\/globals.h 39:9@
@@ -749,8 +749,8 @@ nesCompound = unsafePerformIO hs_bindgen_089dfddcc6667ac2
 foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bfc3030_base ::
     IO (Ptr Void)
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
-hs_bindgen_798af9a98bfc3030 :: IO (Ptr (ConstantArray 4
-                                                      HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_798af9a98bfc3030 :: IO (Ptr (Array 4
+                                              HsBindgen.Runtime.Prelude.Word8))
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
 hs_bindgen_798af9a98bfc3030 = fromFFIType hs_bindgen_798af9a98bfc3030_base
 {-# NOINLINE nesInitList #-}
@@ -760,8 +760,7 @@ hs_bindgen_798af9a98bfc3030 = fromFFIType hs_bindgen_798af9a98bfc3030_base
 
     __exported by:__ @globals\/globals.h@
 -}
-nesInitList :: Ptr (ConstantArray 4
-                                  HsBindgen.Runtime.Prelude.Word8)
+nesInitList :: Ptr (Array 4 HsBindgen.Runtime.Prelude.Word8)
 {-| __C declaration:__ @nesInitList@
 
     __defined at:__ @globals\/globals.h 47:9@
@@ -795,8 +794,8 @@ nesBool = unsafePerformIO hs_bindgen_846b0fde4d102012
 foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f8b883_base ::
     IO (Ptr Void)
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
-hs_bindgen_b243f9b292f8b883 :: IO (Ptr (ConstantArray 4096
-                                                      HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_b243f9b292f8b883 :: IO (Ptr (Array 4096
+                                              HsBindgen.Runtime.Prelude.Word8))
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
 hs_bindgen_b243f9b292f8b883 = fromFFIType hs_bindgen_b243f9b292f8b883_base
 {-# NOINLINE streamBinary #-}
@@ -812,8 +811,7 @@ __defined at:__ @globals\/globals.h 60:9@
 
 __exported by:__ @globals\/globals.h@
 -}
-streamBinary :: Ptr (ConstantArray 4096
-                                   HsBindgen.Runtime.Prelude.Word8)
+streamBinary :: Ptr (Array 4096 HsBindgen.Runtime.Prelude.Word8)
 {-| Additional examples of global variables, abstracted from real examples
 
   The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).

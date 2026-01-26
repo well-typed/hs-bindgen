@@ -1,73 +1,73 @@
 -- addDependentFile examples/golden/binding-specs/fun_arg/typedef/array_known_size.h
 -- #include <binding-specs/fun_arg/typedef/array_known_size.h>
 -- void hs_bindgen_99bb90e6d7637d2c (
---   signed int *arg1
+--   signed int arg1[3]
 -- )
 -- {
 --   foo(arg1);
 -- }
 -- void hs_bindgen_392e3092a2681c13 (
---   signed int *arg1
+--   A arg1
 -- )
 -- {
 --   fooA(arg1);
 -- }
 -- void hs_bindgen_6011faf8531be4fa (
---   signed int *arg1
+--   B arg1
 -- )
 -- {
 --   fooB(arg1);
 -- }
 -- void hs_bindgen_40a50b8e6ac3b09d (
---   signed int *arg1
+--   C arg1
 -- )
 -- {
 --   fooC(arg1);
 -- }
 -- void hs_bindgen_32b4f35bf27a4bf8 (
---   signed int *arg1
+--   D arg1
 -- )
 -- {
 --   fooD(arg1);
 -- }
 -- void hs_bindgen_6e59183c0a861d01 (
---   signed int *arg1
+--   E arg1
 -- )
 -- {
 --   fooE(arg1);
 -- }
 -- void hs_bindgen_51195acecf6b880e (
---   signed int *arg1
+--   signed int arg1[3]
 -- )
 -- {
 --   foo(arg1);
 -- }
 -- void hs_bindgen_eb4a794c10ca94f9 (
---   signed int *arg1
+--   A arg1
 -- )
 -- {
 --   fooA(arg1);
 -- }
 -- void hs_bindgen_a11eb4471a953b64 (
---   signed int *arg1
+--   B arg1
 -- )
 -- {
 --   fooB(arg1);
 -- }
 -- void hs_bindgen_1dea92b3f3346311 (
---   signed int *arg1
+--   C arg1
 -- )
 -- {
 --   fooC(arg1);
 -- }
 -- void hs_bindgen_dba6d56e1a316e2d (
---   signed int *arg1
+--   D arg1
 -- )
 -- {
 --   fooD(arg1);
 -- }
 -- void hs_bindgen_23b6f403a534aeae (
---   signed int *arg1
+--   E arg1
 -- )
 -- {
 --   fooE(arg1);
@@ -127,20 +127,20 @@
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 newtype A
-    = A {un_A :: (ConstantArray 3 CInt)}
+    = A {un_A :: (Array 3 CInt)}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 6:13@
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
       -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType A "un_A") =>
          HasField "un_A" (Ptr A) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_A")
 instance HasCField A "un_A"
-    where type CFieldType A "un_A" = ConstantArray 3 CInt
+    where type CFieldType A "un_A" = Array 3 CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @B@
 
@@ -156,8 +156,8 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
       -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType B "un_B") =>
          HasField "un_B" (Ptr B) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_B")
@@ -178,6 +178,7 @@ newtype E
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
       -}
+    deriving newtype HasFFIType
 instance TyEq ty (CFieldType E "un_E") =>
          HasField "un_E" (Ptr E) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_E")
@@ -189,7 +190,7 @@ foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
-hs_bindgen_99bb90e6d7637d2c :: Ptr CInt -> IO Unit
+hs_bindgen_99bb90e6d7637d2c :: Array 3 CInt -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 hs_bindgen_99bb90e6d7637d2c = fromFFIType hs_bindgen_99bb90e6d7637d2c_base
 {-| __C declaration:__ @foo@
@@ -198,7 +199,7 @@ hs_bindgen_99bb90e6d7637d2c = fromFFIType hs_bindgen_99bb90e6d7637d2c_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-foo :: Ptr CInt -> IO Unit
+foo :: Array 3 CInt -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 4:6@
@@ -211,7 +212,7 @@ foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
-hs_bindgen_392e3092a2681c13 :: Ptr CInt -> IO Unit
+hs_bindgen_392e3092a2681c13 :: A -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 hs_bindgen_392e3092a2681c13 = fromFFIType hs_bindgen_392e3092a2681c13_base
 {-| __C declaration:__ @fooA@
@@ -220,7 +221,7 @@ hs_bindgen_392e3092a2681c13 = fromFFIType hs_bindgen_392e3092a2681c13_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooA :: Ptr CInt -> IO Unit
+fooA :: A -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 9:6@
@@ -233,7 +234,7 @@ foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
-hs_bindgen_6011faf8531be4fa :: Ptr CInt -> IO Unit
+hs_bindgen_6011faf8531be4fa :: B -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 hs_bindgen_6011faf8531be4fa = fromFFIType hs_bindgen_6011faf8531be4fa_base
 {-| __C declaration:__ @fooB@
@@ -242,7 +243,7 @@ hs_bindgen_6011faf8531be4fa = fromFFIType hs_bindgen_6011faf8531be4fa_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooB :: Ptr CInt -> IO Unit
+fooB :: B -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 10:6@
@@ -255,7 +256,7 @@ foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
-hs_bindgen_40a50b8e6ac3b09d :: Ptr CInt -> IO Unit
+hs_bindgen_40a50b8e6ac3b09d :: M.C -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 hs_bindgen_40a50b8e6ac3b09d = fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
 {-| __C declaration:__ @fooC@
@@ -264,7 +265,7 @@ hs_bindgen_40a50b8e6ac3b09d = fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooC :: Ptr CInt -> IO Unit
+fooC :: M.C -> IO Unit
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 21:6@
@@ -277,7 +278,7 @@ foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
-hs_bindgen_32b4f35bf27a4bf8 :: Ptr CInt -> IO Unit
+hs_bindgen_32b4f35bf27a4bf8 :: M.D -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 hs_bindgen_32b4f35bf27a4bf8 = fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
 {-| __C declaration:__ @fooD@
@@ -286,7 +287,7 @@ hs_bindgen_32b4f35bf27a4bf8 = fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooD :: Ptr CInt -> IO Unit
+fooD :: M.D -> IO Unit
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 22:6@
@@ -299,7 +300,7 @@ foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
-hs_bindgen_6e59183c0a861d01 :: Ptr CInt -> IO Unit
+hs_bindgen_6e59183c0a861d01 :: E -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 hs_bindgen_6e59183c0a861d01 = fromFFIType hs_bindgen_6e59183c0a861d01_base
 {-| __C declaration:__ @fooE@
@@ -308,7 +309,7 @@ hs_bindgen_6e59183c0a861d01 = fromFFIType hs_bindgen_6e59183c0a861d01_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooE :: Ptr CInt -> IO Unit
+fooE :: E -> IO Unit
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 23:6@
@@ -321,7 +322,7 @@ foreign import ccall unsafe "hs_bindgen_51195acecf6b880e" hs_bindgen_51195acecf6
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
-hs_bindgen_51195acecf6b880e :: Ptr CInt -> IO Unit
+hs_bindgen_51195acecf6b880e :: Array 3 CInt -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 hs_bindgen_51195acecf6b880e = fromFFIType hs_bindgen_51195acecf6b880e_base
 {-| __C declaration:__ @foo@
@@ -330,7 +331,7 @@ hs_bindgen_51195acecf6b880e = fromFFIType hs_bindgen_51195acecf6b880e_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-foo :: Ptr CInt -> IO Unit
+foo :: Array 3 CInt -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 4:6@
@@ -343,7 +344,7 @@ foreign import ccall unsafe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10c
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
-hs_bindgen_eb4a794c10ca94f9 :: Ptr CInt -> IO Unit
+hs_bindgen_eb4a794c10ca94f9 :: A -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 hs_bindgen_eb4a794c10ca94f9 = fromFFIType hs_bindgen_eb4a794c10ca94f9_base
 {-| __C declaration:__ @fooA@
@@ -352,7 +353,7 @@ hs_bindgen_eb4a794c10ca94f9 = fromFFIType hs_bindgen_eb4a794c10ca94f9_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooA :: Ptr CInt -> IO Unit
+fooA :: A -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 9:6@
@@ -365,7 +366,7 @@ foreign import ccall unsafe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a9
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
-hs_bindgen_a11eb4471a953b64 :: Ptr CInt -> IO Unit
+hs_bindgen_a11eb4471a953b64 :: B -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 hs_bindgen_a11eb4471a953b64 = fromFFIType hs_bindgen_a11eb4471a953b64_base
 {-| __C declaration:__ @fooB@
@@ -374,7 +375,7 @@ hs_bindgen_a11eb4471a953b64 = fromFFIType hs_bindgen_a11eb4471a953b64_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooB :: Ptr CInt -> IO Unit
+fooB :: B -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 10:6@
@@ -387,7 +388,7 @@ foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f33
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
-hs_bindgen_1dea92b3f3346311 :: Ptr CInt -> IO Unit
+hs_bindgen_1dea92b3f3346311 :: M.C -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 hs_bindgen_1dea92b3f3346311 = fromFFIType hs_bindgen_1dea92b3f3346311_base
 {-| __C declaration:__ @fooC@
@@ -396,7 +397,7 @@ hs_bindgen_1dea92b3f3346311 = fromFFIType hs_bindgen_1dea92b3f3346311_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooC :: Ptr CInt -> IO Unit
+fooC :: M.C -> IO Unit
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 21:6@
@@ -409,7 +410,7 @@ foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a3
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
-hs_bindgen_dba6d56e1a316e2d :: Ptr CInt -> IO Unit
+hs_bindgen_dba6d56e1a316e2d :: M.D -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 hs_bindgen_dba6d56e1a316e2d = fromFFIType hs_bindgen_dba6d56e1a316e2d_base
 {-| __C declaration:__ @fooD@
@@ -418,7 +419,7 @@ hs_bindgen_dba6d56e1a316e2d = fromFFIType hs_bindgen_dba6d56e1a316e2d_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooD :: Ptr CInt -> IO Unit
+fooD :: M.D -> IO Unit
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 22:6@
@@ -431,7 +432,7 @@ foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a53
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
-hs_bindgen_23b6f403a534aeae :: Ptr CInt -> IO Unit
+hs_bindgen_23b6f403a534aeae :: E -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 hs_bindgen_23b6f403a534aeae = fromFFIType hs_bindgen_23b6f403a534aeae_base
 {-| __C declaration:__ @fooE@
@@ -440,7 +441,7 @@ hs_bindgen_23b6f403a534aeae = fromFFIType hs_bindgen_23b6f403a534aeae_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooE :: Ptr CInt -> IO Unit
+fooE :: E -> IO Unit
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 23:6@
@@ -452,7 +453,7 @@ fooE = hs_bindgen_23b6f403a534aeae
 foreign import ccall unsafe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c10652_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 :: IO (FunPtr (ConstantArray 3 CInt ->
+hs_bindgen_2020929269c10652 :: IO (FunPtr (Array 3 CInt ->
                                            IO Unit))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
 hs_bindgen_2020929269c10652 = fromFFIType hs_bindgen_2020929269c10652_base
@@ -463,7 +464,7 @@ hs_bindgen_2020929269c10652 = fromFFIType hs_bindgen_2020929269c10652_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-foo :: FunPtr (ConstantArray 3 CInt -> IO Unit)
+foo :: FunPtr (Array 3 CInt -> IO Unit)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h 4:6@

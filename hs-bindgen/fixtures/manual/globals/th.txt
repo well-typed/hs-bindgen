@@ -314,20 +314,20 @@ instance TyEq ty (CFieldType Tuple "tuple_y") =>
     __exported by:__ @manual\/globals.h@
 -}
 newtype Triplet
-    = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
+    = Triplet {un_Triplet :: (Array 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
            __defined at:__ @manual\/globals.h 81:13@
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Triplet "un_Triplet") =>
          HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Triplet")
 instance HasCField Triplet "un_Triplet"
-    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+    where type CFieldType Triplet "un_Triplet" = Array 3 CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @list@
 
@@ -336,19 +336,20 @@ instance HasCField Triplet "un_Triplet"
     __exported by:__ @manual\/globals.h@
 -}
 newtype List
-    = List {un_List :: (IncompleteArray CInt)}
+    = List {un_List :: (Array CInt)}
       {- ^ __C declaration:__ @list@
 
            __defined at:__ @manual\/globals.h 85:13@
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock (Eq, Show)
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType List "un_List") =>
          HasField "un_List" (Ptr List) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_List")
 instance HasCField List "un_List"
-    where type CFieldType List "un_List" = IncompleteArray CInt
+    where type CFieldType List "un_List" = Array CInt
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_manualglobals_Example_get_globalConfig@
 foreign import ccall unsafe "hs_bindgen_1b18b112a828e595" hs_bindgen_1b18b112a828e595_base ::
@@ -456,7 +457,7 @@ anotherGlobalConstant = unsafePerformIO (peek (unConstPtr hs_bindgen_c8344b69b41
 foreign import ccall unsafe "hs_bindgen_8850207312ee9ee9" hs_bindgen_8850207312ee9ee9_base ::
     IO (Ptr Void)
 -- __unique:__ @test_manualglobals_Example_get_constArray1@
-hs_bindgen_8850207312ee9ee9 :: IO (ConstPtr (ConstantArray 4 CInt))
+hs_bindgen_8850207312ee9ee9 :: IO (ConstPtr (Array 4 CInt))
 -- __unique:__ @test_manualglobals_Example_get_constArray1@
 hs_bindgen_8850207312ee9ee9 = fromFFIType hs_bindgen_8850207312ee9ee9_base
 {-# NOINLINE hs_bindgen_ab47d9c9aff882f7 #-}
@@ -470,7 +471,7 @@ __exported by:__ @manual\/globals.h@
 
 __unique:__ @test_manualglobals_Example_constArray1@
 -}
-hs_bindgen_ab47d9c9aff882f7 :: ConstPtr (ConstantArray 4 CInt)
+hs_bindgen_ab47d9c9aff882f7 :: ConstPtr (Array 4 CInt)
 {-| An array of known size of const ints
 
 __C declaration:__ @constArray1@
@@ -483,34 +484,41 @@ __unique:__ @test_manualglobals_Example_constArray1@
 -}
 hs_bindgen_ab47d9c9aff882f7 = unsafePerformIO hs_bindgen_8850207312ee9ee9
 {-# NOINLINE constArray1 #-}
-constArray1 :: ConstantArray 4 CInt
+constArray1 :: Array 4 CInt
 constArray1 = unsafePerformIO (peek (unConstPtr hs_bindgen_ab47d9c9aff882f7))
 -- __unique:__ @test_manualglobals_Example_get_constArray2@
 foreign import ccall unsafe "hs_bindgen_c6ce2097d2a21fc1" hs_bindgen_c6ce2097d2a21fc1_base ::
     IO (Ptr Void)
 -- __unique:__ @test_manualglobals_Example_get_constArray2@
-hs_bindgen_c6ce2097d2a21fc1 :: IO (ConstPtr (IncompleteArray CInt))
+hs_bindgen_c6ce2097d2a21fc1 :: IO (ConstPtr (Array CInt))
 -- __unique:__ @test_manualglobals_Example_get_constArray2@
 hs_bindgen_c6ce2097d2a21fc1 = fromFFIType hs_bindgen_c6ce2097d2a21fc1_base
+{-# NOINLINE hs_bindgen_a32438e6e1e020a7 #-}
+{-| An array of unknown size of const insts
+
+__C declaration:__ @constArray2@
+
+__defined at:__ @manual\/globals.h 50:18@
+
+__exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constArray2@
+-}
+hs_bindgen_a32438e6e1e020a7 :: ConstPtr (Array CInt)
+{-| An array of unknown size of const insts
+
+__C declaration:__ @constArray2@
+
+__defined at:__ @manual\/globals.h 50:18@
+
+__exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constArray2@
+-}
+hs_bindgen_a32438e6e1e020a7 = unsafePerformIO hs_bindgen_c6ce2097d2a21fc1
 {-# NOINLINE constArray2 #-}
-{-| An array of unknown size of const insts
-
-__C declaration:__ @constArray2@
-
-__defined at:__ @manual\/globals.h 50:18@
-
-__exported by:__ @manual\/globals.h@
--}
-constArray2 :: ConstPtr (IncompleteArray CInt)
-{-| An array of unknown size of const insts
-
-__C declaration:__ @constArray2@
-
-__defined at:__ @manual\/globals.h 50:18@
-
-__exported by:__ @manual\/globals.h@
--}
-constArray2 = unsafePerformIO hs_bindgen_c6ce2097d2a21fc1
+constArray2 :: Array CInt
+constArray2 = unsafePerformIO (peek (unConstPtr hs_bindgen_a32438e6e1e020a7))
 -- __unique:__ @test_manualglobals_Example_get_constTuple@
 foreign import ccall unsafe "hs_bindgen_ab75c76aaa5e35e5" hs_bindgen_ab75c76aaa5e35e5_base ::
     IO (Ptr Void)
@@ -922,18 +930,25 @@ foreign import ccall unsafe "hs_bindgen_3b641c8e9aefc9e3" hs_bindgen_3b641c8e9ae
 hs_bindgen_3b641c8e9aefc9e3 :: IO (ConstPtr List)
 -- __unique:__ @test_manualglobals_Example_get_d2@
 hs_bindgen_3b641c8e9aefc9e3 = fromFFIType hs_bindgen_3b641c8e9aefc9e3_base
+{-# NOINLINE hs_bindgen_e41cd95c7de0fa40 #-}
+{-| __C declaration:__ @d2@
+
+    __defined at:__ @manual\/globals.h 87:19@
+
+    __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_d2@
+-}
+hs_bindgen_e41cd95c7de0fa40 :: ConstPtr List
+{-| __C declaration:__ @d2@
+
+    __defined at:__ @manual\/globals.h 87:19@
+
+    __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_d2@
+-}
+hs_bindgen_e41cd95c7de0fa40 = unsafePerformIO hs_bindgen_3b641c8e9aefc9e3
 {-# NOINLINE d2 #-}
-{-| __C declaration:__ @d2@
-
-    __defined at:__ @manual\/globals.h 87:19@
-
-    __exported by:__ @manual\/globals.h@
--}
-d2 :: ConstPtr List
-{-| __C declaration:__ @d2@
-
-    __defined at:__ @manual\/globals.h 87:19@
-
-    __exported by:__ @manual\/globals.h@
--}
-d2 = unsafePerformIO hs_bindgen_3b641c8e9aefc9e3
+d2 :: List
+d2 = unsafePerformIO (peek (unConstPtr hs_bindgen_e41cd95c7de0fa40))

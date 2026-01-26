@@ -18,7 +18,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.HasCField
 import GHC.Exts ((*#), (+#))
@@ -599,7 +599,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets_Aux) "tripl
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"triplets_len")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets_Aux where
+instance HsBindgen.Runtime.FlexibleArrayMember.Offset ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt) Triplets_Aux where
 
   offset = \_ty0 -> 4
 
@@ -612,4 +612,4 @@ __defined at:__ @edge-cases\/flam.h 26:8@
 __exported by:__ @edge-cases\/flam.h@
 -}
 type Triplets =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) Triplets_Aux
+  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)) Triplets_Aux

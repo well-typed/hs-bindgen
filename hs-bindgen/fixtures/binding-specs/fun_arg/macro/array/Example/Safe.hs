@@ -5,29 +5,29 @@
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
+import Example
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <binding-specs/fun_arg/macro/array.h>"
   , "void hs_bindgen_2a6ef3a515232132 ("
-  , "  signed int *arg1"
+  , "  MyArray arg1"
   , ")"
   , "{"
   , "  foo(arg1);"
   , "}"
   , "void hs_bindgen_4449a68917cbc499 ("
-  , "  signed int *arg1"
+  , "  A arg1"
   , ")"
   , "{"
   , "  fooA(arg1);"
   , "}"
   , "void hs_bindgen_05766199d1b077bb ("
-  , "  signed int *arg1"
+  , "  B arg1"
   , ")"
   , "{"
   , "  fooB(arg1);"
@@ -41,7 +41,7 @@ foreign import ccall safe "hs_bindgen_2a6ef3a515232132" hs_bindgen_2a6ef3a515232
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 hs_bindgen_2a6ef3a515232132 ::
-     Ptr.Ptr FC.CInt
+     MyArray
   -> IO ()
 hs_bindgen_2a6ef3a515232132 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2a6ef3a515232132_base
@@ -53,7 +53,7 @@ hs_bindgen_2a6ef3a515232132 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 foo ::
-     Ptr.Ptr FC.CInt
+     MyArray
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_2a6ef3a515232132
@@ -65,7 +65,7 @@ foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 hs_bindgen_4449a68917cbc499 ::
-     Ptr.Ptr FC.CInt
+     A
   -> IO ()
 hs_bindgen_4449a68917cbc499 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4449a68917cbc499_base
@@ -77,7 +77,7 @@ hs_bindgen_4449a68917cbc499 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 fooA ::
-     Ptr.Ptr FC.CInt
+     A
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_4449a68917cbc499
@@ -89,7 +89,7 @@ foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b07
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 hs_bindgen_05766199d1b077bb ::
-     Ptr.Ptr FC.CInt
+     B
   -> IO ()
 hs_bindgen_05766199d1b077bb =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_05766199d1b077bb_base
@@ -101,7 +101,7 @@ hs_bindgen_05766199d1b077bb =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 fooB ::
-     Ptr.Ptr FC.CInt
+     B
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_05766199d1b077bb

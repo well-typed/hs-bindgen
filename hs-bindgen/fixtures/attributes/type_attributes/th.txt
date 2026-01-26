@@ -6,7 +6,7 @@
     __exported by:__ @attributes\/type_attributes.h@
 -}
 data S
-    = S {s_f :: (ConstantArray 3 CShort)
+    = S {s_f :: (Array 3 CShort)
          {- ^ __C declaration:__ @f@
 
               __defined at:__ @attributes\/type_attributes.h 8:18@
@@ -27,7 +27,7 @@ instance Storable S
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S s_f_3 -> pokeCField (Proxy @"s_f") ptr_1 s_f_3
 instance HasCField S "s_f"
-    where type CFieldType S "s_f" = ConstantArray 3 CShort
+    where type CFieldType S "s_f" = Array 3 CShort
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S "s_f") =>
          HasField "s_f" (Ptr S) (Ptr ty)
@@ -73,7 +73,7 @@ instance HasCField More_aligned_int "un_More_aligned_int"
     __exported by:__ @attributes\/type_attributes.h@
 -}
 data S2
-    = S2 {s2_f :: (ConstantArray 3 CShort)
+    = S2 {s2_f :: (Array 3 CShort)
           {- ^ __C declaration:__ @f@
 
                __defined at:__ @attributes\/type_attributes.h 11:19@
@@ -94,7 +94,7 @@ instance Storable S2
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2 s2_f_3 -> pokeCField (Proxy @"s2_f") ptr_1 s2_f_3
 instance HasCField S2 "s2_f"
-    where type CFieldType S2 "s2_f" = ConstantArray 3 CShort
+    where type CFieldType S2 "s2_f" = Array 3 CShort
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S2 "s2_f") =>
          HasField "s2_f" (Ptr S2) (Ptr ty)

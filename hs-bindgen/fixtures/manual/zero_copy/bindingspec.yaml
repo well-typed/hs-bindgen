@@ -92,6 +92,8 @@ hstypes:
       - un_Matrix
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: MyInt
@@ -169,6 +171,8 @@ hstypes:
       - un_Triplet
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: Vector

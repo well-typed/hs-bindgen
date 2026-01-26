@@ -8,8 +8,8 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.UnknownSize.Mutable
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified M
 import Data.Void (Void)
@@ -73,7 +73,7 @@ foreign import ccall unsafe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO ()))
+hs_bindgen_2020929269c10652 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt) -> IO ()))
 hs_bindgen_2020929269c10652 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2020929269c10652_base
 
@@ -84,7 +84,7 @@ hs_bindgen_2020929269c10652 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-foo :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO ())
+foo :: Ptr.FunPtr ((HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt) -> IO ())
 foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2020929269c10652
 

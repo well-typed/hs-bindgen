@@ -9,7 +9,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -269,7 +269,7 @@ foreign import ccall unsafe "hs_bindgen_c6c52463f890e752" hs_bindgen_c6c52463f89
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesString2@
-hs_bindgen_c6c52463f890e752 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar))
+hs_bindgen_c6c52463f890e752 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CChar))
 hs_bindgen_c6c52463f890e752 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c6c52463f890e752_base
 
@@ -280,7 +280,7 @@ hs_bindgen_c6c52463f890e752 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesString2 :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar)
+nesString2 :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CChar)
 nesString2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c6c52463f890e752
 
@@ -429,7 +429,7 @@ foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bf
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
-hs_bindgen_798af9a98bfc3030 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_798af9a98bfc3030 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) HsBindgen.Runtime.Prelude.Word8))
 hs_bindgen_798af9a98bfc3030 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_798af9a98bfc3030_base
 
@@ -440,7 +440,7 @@ hs_bindgen_798af9a98bfc3030 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesInitList :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
+nesInitList :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) HsBindgen.Runtime.Prelude.Word8)
 nesInitList =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_798af9a98bfc3030
 
@@ -469,7 +469,7 @@ foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
-hs_bindgen_b243f9b292f8b883 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_b243f9b292f8b883 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4096) HsBindgen.Runtime.Prelude.Word8))
 hs_bindgen_b243f9b292f8b883 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b243f9b292f8b883_base
 
@@ -486,7 +486,7 @@ __defined at:__ @globals\/globals.h 60:9@
 
 __exported by:__ @globals\/globals.h@
 -}
-streamBinary :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
+streamBinary :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4096) HsBindgen.Runtime.Prelude.Word8)
 streamBinary =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b243f9b292f8b883
 

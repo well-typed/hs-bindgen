@@ -24,9 +24,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.ByteArray
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
@@ -839,21 +839,21 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Drawing) "drawing_co
     __exported by:__ @manual\/zero_copy.h@
 -}
 data Tic_tac_toe = Tic_tac_toe
-  { tic_tac_toe_row1 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { tic_tac_toe_row1 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
     {- ^ __C declaration:__ @row1@
 
          __defined at:__ @manual\/zero_copy.h 64:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
-  , tic_tac_toe_row2 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  , tic_tac_toe_row2 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
     {- ^ __C declaration:__ @row2@
 
          __defined at:__ @manual\/zero_copy.h 65:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
-  , tic_tac_toe_row3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  , tic_tac_toe_row3 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
     {- ^ __C declaration:__ @row3@
 
          __defined at:__ @manual\/zero_copy.h 66:7@
@@ -888,7 +888,7 @@ instance F.Storable Tic_tac_toe where
 instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row1" where
 
   type CFieldType Tic_tac_toe "tic_tac_toe_row1" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -901,7 +901,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
 instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row2" where
 
   type CFieldType Tic_tac_toe "tic_tac_toe_row2" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
 
   offset# = \_ -> \_ -> 12
 
@@ -914,7 +914,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
 instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row3" where
 
   type CFieldType Tic_tac_toe "tic_tac_toe_row3" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
 
   offset# = \_ -> \_ -> 24
 
@@ -1039,10 +1039,10 @@ type Vector =
     __exported by:__ @manual\/zero_copy.h@
 -}
 newtype Triplet = Triplet
-  { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { un_Triplet :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet")
          ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
@@ -1053,7 +1053,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet
 instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
   type CFieldType Triplet "un_Triplet" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -1064,10 +1064,10 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
     __exported by:__ @manual\/zero_copy.h@
 -}
 newtype Matrix = Matrix
-  { un_Matrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
+  { un_Matrix :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) Triplet
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
          ) => GHC.Records.HasField "un_Matrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
@@ -1078,6 +1078,6 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
 instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
 
   type CFieldType Matrix "un_Matrix" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) Triplet
 
   offset# = \_ -> \_ -> 0

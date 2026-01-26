@@ -36,12 +36,12 @@ getInstances instanceMap name = aux
             | otherwise -> case Map.lookup name' instanceMap of
                 Just instances -> aux (acc /\ instances) hsTypes
                 Nothing -> panicPure $ "type not found: " ++ show name'
-          HsConstArray _n hsType' ->
-            -- constrain by ConstantArray item type in next step
-            aux (acc /\ cArrayInsts) $ hsType' : hsTypes
-          HsIncompleteArray hsType' ->
-            -- constrain by Array item type in next step
-            aux (acc /\ arrayInsts) $ hsType' : hsTypes
+          HsConstArray _n _hsType' ->
+            -- do *not* constrain by array item type in next step
+            aux (acc /\ cArrayInsts) hsTypes
+          HsIncompleteArray _hsType' ->
+            -- do *not* constrain by array item type in next step
+            aux (acc /\ arrayInsts) hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsStablePtr{} -> aux (acc /\ ptrInsts) hsTypes
@@ -184,17 +184,25 @@ getInstances instanceMap name = aux
     cArrayInsts :: Set TypeClass
     cArrayInsts = Set.fromList [
         Eq
+      , Ord
       , ReadRaw
       , Show
       , StaticSize
       , Storable
       , WriteRaw
+      , HasFFIType
       ]
 
     arrayInsts :: Set TypeClass
     arrayInsts = Set.fromList [
         Eq
+      , Ord
+      , ReadRaw
       , Show
+      , StaticSize
+      , Storable
+      , WriteRaw
+      , HasFFIType
       ]
 
     hsTypeSpecInsts :: HsTypeSpec -> Set TypeClass

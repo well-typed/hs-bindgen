@@ -858,8 +858,8 @@ __defined at:__ @functions\/callbacks.h 32:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull_Aux
-    = SampleBufferFull_Aux {un_SampleBufferFull_Aux :: (ConstantArray 10
-                                                                      CInt ->
+    = SampleBufferFull_Aux {un_SampleBufferFull_Aux :: (Array 10
+                                                              CInt ->
                                                         IO Unit)}
       {- ^ Auxiliary type used by 'SampleBufferFull'
 
@@ -869,6 +869,7 @@ newtype SampleBufferFull_Aux
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving newtype HasFFIType
 instance TyEq ty
               (CFieldType SampleBufferFull_Aux "un_SampleBufferFull_Aux") =>
          HasField "un_SampleBufferFull_Aux"
@@ -877,7 +878,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"un_SampleBufferFull_Aux")
 instance HasCField SampleBufferFull_Aux "un_SampleBufferFull_Aux"
     where type CFieldType SampleBufferFull_Aux
-                          "un_SampleBufferFull_Aux" = ConstantArray 10 CInt -> IO Unit
+                          "un_SampleBufferFull_Aux" = Array 10 CInt -> IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SampleBufferFull@
 

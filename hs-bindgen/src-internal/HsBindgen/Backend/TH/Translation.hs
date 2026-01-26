@@ -43,18 +43,22 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
+import HsBindgen.Runtime.Array.KnownSize qualified
+import HsBindgen.Runtime.Array.KnownSize.Const.Mutable qualified
+import HsBindgen.Runtime.Array.KnownSize.Mutable qualified
+import HsBindgen.Runtime.Array.UnknownSize qualified
+import HsBindgen.Runtime.Array.UnknownSize.Const.Mutable qualified
+import HsBindgen.Runtime.Array.UnknownSize.Mutable qualified
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
-import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
-import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.Runtime.TypeEquality qualified
@@ -105,21 +109,29 @@ mkGlobal = \case
       Foreign_FunPtr          -> ''Foreign.Ptr.FunPtr
       Foreign_plusPtr         -> 'Foreign.Ptr.plusPtr
       Foreign_StablePtr       -> ''Foreign.StablePtr.StablePtr
-      ConstantArray           -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
-      IncompleteArray         -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
       IO_type                 -> ''IO
       CharValue_tycon         -> ''CExpr.Runtime.CharValue
       CharValue_constructor   -> 'CExpr.Runtime.CharValue
       CharValue_fromAddr      -> 'CExpr.Runtime.charValueFromAddr
       CAPI_with               -> 'Foreign.with
       CAPI_allocaAndPeek      -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
-      ConstantArray_withPtr   -> 'HsBindgen.Runtime.ConstantArray.withPtr
-      IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
 
       -- Flexible array members
       FlexibleArrayMember_Offset_class  -> ''HsBindgen.Runtime.FlexibleArrayMember.Offset
       FlexibleArrayMember_Offset_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.offset
       WithFlexibleArrayMember           -> ''HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember
+
+      -- Array
+      ArrayUnknownSize                     -> ''HsBindgen.Runtime.Array.UnknownSize.Array
+      ArrayUnknownSizeMutable              -> ''HsBindgen.Runtime.Array.UnknownSize.Mutable.Array
+      ArrayUnknownSizeMutable_withPtr      -> 'HsBindgen.Runtime.Array.UnknownSize.Mutable.withPtr
+      ArrayUnknownSizeConstMutable         -> ''HsBindgen.Runtime.Array.UnknownSize.Const.Mutable.Array
+      ArrayUnknownSizeConstMutable_withPtr -> 'HsBindgen.Runtime.Array.UnknownSize.Const.Mutable.withPtr
+      ArrayKnownSize                       -> ''HsBindgen.Runtime.Array.KnownSize.Array
+      ArrayKnownSizeMutable                -> ''HsBindgen.Runtime.Array.KnownSize.Mutable.Array
+      ArrayKnownSizeMutable_withPtr        -> 'HsBindgen.Runtime.Array.KnownSize.Mutable.withPtr
+      ArrayKnownSizeConstMutable           -> ''HsBindgen.Runtime.Array.KnownSize.Const.Mutable.Array
+      ArrayKnownSizeConstMutable_withPtr   -> 'HsBindgen.Runtime.Array.KnownSize.Const.Mutable.withPtr
 
       -- HasCField
       HasCField_class       -> ''HsBindgen.Runtime.HasCField.HasCField
@@ -373,8 +385,6 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Foreign_FunPtr        -> panicPure "type in expression"
     Foreign_plusPtr       -> TH.varE name
     Foreign_StablePtr     -> panicPure "type in expression"
-    ConstantArray         -> panicPure "type in expression"
-    IncompleteArray       -> panicPure "type in expression"
     IO_type               -> panicPure "type in expression"
     FlexibleArrayMember_Offset_class -> panicPure "class in expression"
     FlexibleArrayMember_Offset_offset -> TH.varE name
@@ -386,8 +396,19 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ByteArray_getUnionPayload -> TH.varE name
     CAPI_with             -> TH.varE name
     CAPI_allocaAndPeek    -> TH.varE name
-    ConstantArray_withPtr -> TH.varE name
-    IncompleteArray_withPtr -> TH.varE name
+
+    -- Array
+    ArrayUnknownSize                     -> panicPure "type in expression"
+    ArrayUnknownSizeMutable              -> panicPure "type in expression"
+    ArrayUnknownSizeMutable_withPtr      -> TH.varE name
+    ArrayUnknownSizeConstMutable         -> panicPure "type in expression"
+    ArrayUnknownSizeConstMutable_withPtr -> TH.varE name
+    ArrayKnownSize                       -> panicPure "type in expression"
+    ArrayKnownSizeMutable                -> panicPure "type in expression"
+    ArrayKnownSizeMutable_withPtr        -> TH.varE name
+    ArrayKnownSizeConstMutable           -> panicPure "type in expression"
+    ArrayKnownSizeConstMutable_withPtr   -> TH.varE name
+
 
     -- HasCField
     HasCField_class -> panicPure "class in expression"

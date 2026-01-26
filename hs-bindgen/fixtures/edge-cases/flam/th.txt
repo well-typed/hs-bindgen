@@ -264,7 +264,6 @@ instance HasCField Triplets_Aux "triplets_len"
 instance TyEq ty (CFieldType Triplets_Aux "triplets_len") =>
          HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"triplets_len")
-instance Offset (ConstantArray 3 CInt) Triplets_Aux
+instance Offset (Array 3 CInt) Triplets_Aux
     where offset = \_ty_0 -> 4
-type Triplets = WithFlexibleArrayMember (ConstantArray 3 CInt)
-                                        Triplets_Aux
+type Triplets = WithFlexibleArrayMember (Array 3 CInt) Triplets_Aux

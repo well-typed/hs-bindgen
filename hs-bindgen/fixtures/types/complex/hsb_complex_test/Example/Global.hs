@@ -11,8 +11,8 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -365,7 +365,7 @@ foreign import ccall unsafe "hs_bindgen_b548dda6b5993793" hs_bindgen_b548dda6b59
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array@
-hs_bindgen_b548dda6b5993793 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CFloat)))
+hs_bindgen_b548dda6b5993793 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 10) (Data.Complex.Complex FC.CFloat)))
 hs_bindgen_b548dda6b5993793 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b548dda6b5993793_base
 
@@ -376,7 +376,7 @@ hs_bindgen_b548dda6b5993793 =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_float_array :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CFloat))
+complex_float_array :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 10) (Data.Complex.Complex FC.CFloat))
 complex_float_array =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b548dda6b5993793
 
@@ -385,7 +385,7 @@ foreign import ccall unsafe "hs_bindgen_c56913da40952669" hs_bindgen_c56913da409
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array@
-hs_bindgen_c56913da40952669 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CDouble)))
+hs_bindgen_c56913da40952669 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 10) (Data.Complex.Complex FC.CDouble)))
 hs_bindgen_c56913da40952669 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c56913da40952669_base
 
@@ -396,6 +396,6 @@ hs_bindgen_c56913da40952669 =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_double_array :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CDouble))
+complex_double_array :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 10) (Data.Complex.Complex FC.CDouble))
 complex_double_array =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c56913da40952669

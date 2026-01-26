@@ -28,9 +28,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified GHC.Word
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
@@ -400,7 +400,7 @@ data A_typedef_struct_t = A_typedef_struct_t
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.Prelude.Word32
+  , a_typedef_struct_t_field_7 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 7) HsBindgen.Runtime.Prelude.Word32
     {- ^ __C declaration:__ @field_7@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 44:31@
@@ -414,14 +414,14 @@ data A_typedef_struct_t = A_typedef_struct_t
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_9 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) Another_typedef_enum_e
+  , a_typedef_struct_t_field_9 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) Another_typedef_enum_e
     {- ^ __C declaration:__ @field_9@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 46:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_10 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Another_typedef_enum_e)
+  , a_typedef_struct_t_field_10 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) Another_typedef_enum_e)
     {- ^ __C declaration:__ @field_10@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 47:31@
@@ -574,7 +574,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_7" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_7" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.Prelude.Word32
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 7) HsBindgen.Runtime.Prelude.Word32
 
   offset# = \_ -> \_ -> 32
 
@@ -600,7 +600,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_9" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_9" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 4) Another_typedef_enum_e
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) Another_typedef_enum_e
 
   offset# = \_ -> \_ -> 64
 
@@ -613,7 +613,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_10" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_10" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 5) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Another_typedef_enum_e)
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) Another_typedef_enum_e)
 
   offset# = \_ -> \_ -> 80
 

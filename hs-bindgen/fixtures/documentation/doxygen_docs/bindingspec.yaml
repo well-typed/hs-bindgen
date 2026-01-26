@@ -138,6 +138,8 @@ hstypes:
       - un_Filename_t
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: Flexible_array

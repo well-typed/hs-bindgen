@@ -22,8 +22,8 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.Bitfield
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import Data.Bits (FiniteBits)
@@ -304,7 +304,7 @@ data A = A
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
-  , a_samples :: (HsBindgen.Runtime.ConstantArray.ConstantArray 128) FC.CChar
+  , a_samples :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 128) FC.CChar
     {- ^ __C declaration:__ @samples@
 
          __defined at:__ @edge-cases\/spec_examples.h 26:8@
@@ -381,7 +381,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "a_label")
 instance HsBindgen.Runtime.HasCField.HasCField A "a_samples" where
 
   type CFieldType A "a_samples" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 128) FC.CChar
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 128) FC.CChar
 
   offset# = \_ -> \_ -> 16
 

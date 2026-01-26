@@ -21,6 +21,8 @@ hstypes:
       - un_A
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: B
@@ -31,6 +33,8 @@ hstypes:
       - un_B
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: E
@@ -39,3 +43,5 @@ hstypes:
       constructor: E
       fields:
       - un_E
+  instances:
+  - HasFFIType

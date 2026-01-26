@@ -17,11 +17,12 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
+import qualified HsBindgen.Runtime.Array.UnknownSize.Mutable
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.HasFFIType
 import HsBindgen.Runtime.TypeEquality (TyEq)
-import Prelude (Eq, Show)
+import Prelude (Eq, Ord, Show)
 
 {-| __C declaration:__ @triplet@
 
@@ -30,10 +31,10 @@ import Prelude (Eq, Show)
     __exported by:__ @manual\/arrays.h@
 -}
 newtype Triplet = Triplet
-  { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { un_Triplet :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet")
          ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
@@ -44,7 +45,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet
 instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
   type CFieldType Triplet "un_Triplet" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -55,10 +56,10 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
     __exported by:__ @manual\/arrays.h@
 -}
 newtype Matrix = Matrix
-  { un_Matrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
+  { un_Matrix :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) Triplet
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
          ) => GHC.Records.HasField "un_Matrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
@@ -69,7 +70,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
 instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
 
   type CFieldType Matrix "un_Matrix" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) Triplet
 
   offset# = \_ -> \_ -> 0
 
@@ -82,9 +83,10 @@ __defined at:__ @manual\/arrays.h 44:15@
 __exported by:__ @manual\/arrays.h@
 -}
 newtype Triplet_ptrs = Triplet_ptrs
-  { un_Triplet_ptrs :: HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+  { un_Triplet_ptrs :: HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt))
   }
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet_ptrs) "un_Triplet_ptrs")
          ) => GHC.Records.HasField "un_Triplet_ptrs" (Ptr.Ptr Triplet_ptrs) (Ptr.Ptr ty) where
@@ -95,6 +97,6 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet_ptrs) "un_Tr
 instance HsBindgen.Runtime.HasCField.HasCField Triplet_ptrs "un_Triplet_ptrs" where
 
   type CFieldType Triplet_ptrs "un_Triplet_ptrs" =
-    HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+    HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt))
 
   offset# = \_ -> \_ -> 0
