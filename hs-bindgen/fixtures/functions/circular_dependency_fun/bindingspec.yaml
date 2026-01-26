@@ -28,7 +28,7 @@ hstypes:
       - un_Fun_ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

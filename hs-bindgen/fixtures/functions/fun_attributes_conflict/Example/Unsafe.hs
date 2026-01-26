@@ -7,7 +7,7 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -49,7 +49,7 @@ hs_bindgen_648d4f0fd0df4c79 ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_648d4f0fd0df4c79 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_648d4f0fd0df4c79_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_648d4f0fd0df4c79_base
 
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
@@ -79,7 +79,7 @@ hs_bindgen_632a1e6eb5ceeda7 ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_632a1e6eb5ceeda7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_632a1e6eb5ceeda7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_632a1e6eb5ceeda7_base
 
 {-|
 
@@ -107,7 +107,7 @@ hs_bindgen_56d75b1ff2482f13 ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_56d75b1ff2482f13 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_56d75b1ff2482f13_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_56d75b1ff2482f13_base
 
 {-|
 
@@ -135,7 +135,7 @@ hs_bindgen_eac2f9645ef29119 ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_eac2f9645ef29119 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_eac2f9645ef29119_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_eac2f9645ef29119_base
 
 {-|
 

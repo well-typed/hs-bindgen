@@ -66,7 +66,7 @@ hstypes:
       - un_DataValidator
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -78,7 +78,7 @@ hstypes:
       - un_FileOpenedNotification
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -95,7 +95,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -118,7 +118,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -160,7 +160,7 @@ hstypes:
       - un_MeasurementReceived
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -172,7 +172,7 @@ hstypes:
       - un_MeasurementReceived2
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -201,7 +201,7 @@ hstypes:
       - un_Processor_mode
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -214,7 +214,7 @@ hstypes:
       - un_ProgressUpdate
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -226,7 +226,7 @@ hstypes:
       - un_SampleBufferFull
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

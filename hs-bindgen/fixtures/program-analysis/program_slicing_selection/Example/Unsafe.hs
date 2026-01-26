@@ -8,7 +8,7 @@ module Example.Unsafe where
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -40,7 +40,7 @@ hs_bindgen_654858ed6a5db417 ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FileOperationStatus
 hs_bindgen_654858ed6a5db417 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_654858ed6a5db417_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_654858ed6a5db417_base
 
 {-| __C declaration:__ @read_file_chunk@
 

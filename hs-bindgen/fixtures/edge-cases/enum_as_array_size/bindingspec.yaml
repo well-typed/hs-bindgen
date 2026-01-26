@@ -15,7 +15,7 @@ hstypes:
       - un_Test
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

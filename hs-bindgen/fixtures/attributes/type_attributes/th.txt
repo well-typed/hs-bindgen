@@ -48,7 +48,7 @@ newtype More_aligned_int
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -395,7 +395,7 @@ newtype T1
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -428,7 +428,7 @@ newtype Short_a
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,

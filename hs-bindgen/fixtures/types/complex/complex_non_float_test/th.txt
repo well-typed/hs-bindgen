@@ -37,7 +37,7 @@ foreign import ccall unsafe "hs_bindgen_f3018b1e87470bdd" hs_bindgen_f3018b1e874
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short@
 hs_bindgen_f3018b1e87470bdd :: IO (Ptr (Complex CUShort))
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short@
-hs_bindgen_f3018b1e87470bdd = fromBaseForeignType hs_bindgen_f3018b1e87470bdd_base
+hs_bindgen_f3018b1e87470bdd = fromFFIType hs_bindgen_f3018b1e87470bdd_base
 {-# NOINLINE global_complex_unsigned_short #-}
 {-| __C declaration:__ @global_complex_unsigned_short@
 
@@ -59,7 +59,7 @@ foreign import ccall unsafe "hs_bindgen_a553be84170a3efa" hs_bindgen_a553be84170
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short@
 hs_bindgen_a553be84170a3efa :: IO (Ptr (Complex CShort))
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short@
-hs_bindgen_a553be84170a3efa = fromBaseForeignType hs_bindgen_a553be84170a3efa_base
+hs_bindgen_a553be84170a3efa = fromFFIType hs_bindgen_a553be84170a3efa_base
 {-# NOINLINE global_complex_short #-}
 {-| __C declaration:__ @global_complex_short@
 
@@ -81,7 +81,7 @@ foreign import ccall unsafe "hs_bindgen_072fc08ef6d9395a" hs_bindgen_072fc08ef6d
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int@
 hs_bindgen_072fc08ef6d9395a :: IO (Ptr (Complex CUInt))
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int@
-hs_bindgen_072fc08ef6d9395a = fromBaseForeignType hs_bindgen_072fc08ef6d9395a_base
+hs_bindgen_072fc08ef6d9395a = fromFFIType hs_bindgen_072fc08ef6d9395a_base
 {-# NOINLINE global_complex_unsigned_int #-}
 {-| __C declaration:__ @global_complex_unsigned_int@
 
@@ -103,7 +103,7 @@ foreign import ccall unsafe "hs_bindgen_1199a9d54fe334cb" hs_bindgen_1199a9d54fe
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int@
 hs_bindgen_1199a9d54fe334cb :: IO (Ptr (Complex CInt))
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int@
-hs_bindgen_1199a9d54fe334cb = fromBaseForeignType hs_bindgen_1199a9d54fe334cb_base
+hs_bindgen_1199a9d54fe334cb = fromFFIType hs_bindgen_1199a9d54fe334cb_base
 {-# NOINLINE global_complex_int #-}
 {-| __C declaration:__ @global_complex_int@
 
@@ -125,7 +125,7 @@ foreign import ccall unsafe "hs_bindgen_7c8cb41a7febc6fc" hs_bindgen_7c8cb41a7fe
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char@
 hs_bindgen_7c8cb41a7febc6fc :: IO (Ptr (Complex CChar))
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char@
-hs_bindgen_7c8cb41a7febc6fc = fromBaseForeignType hs_bindgen_7c8cb41a7febc6fc_base
+hs_bindgen_7c8cb41a7febc6fc = fromFFIType hs_bindgen_7c8cb41a7febc6fc_base
 {-# NOINLINE global_complex_char #-}
 {-| __C declaration:__ @global_complex_char@
 

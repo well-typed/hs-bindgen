@@ -94,7 +94,7 @@ globalExtensions = \case
     HasCBitfield_bitWidth# -> Set.singleton TH.MagicHash
     NomEq_class -> Set.singleton TH.TypeOperators
     HasField_class -> Set.singleton TH.UndecidableInstances
-    HasBaseForeignType_class -> Set.singleton TH.UndecidableInstances
+    HasFFIType_class -> Set.singleton TH.UndecidableInstances
     Prim_class -> Set.singleton TH.UnboxedTuples
     _ -> mempty
 

@@ -50,7 +50,7 @@ newtype FileOperationStatus
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
     deriving stock (Eq, Ord)
-    deriving newtype HasBaseForeignType
+    deriving newtype HasFFIType
 instance Storable FileOperationStatus
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -229,7 +229,7 @@ hs_bindgen_b2a91b3b7edf2ad3 :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                Ptr Void ->
                                HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
-hs_bindgen_b2a91b3b7edf2ad3 = fromBaseForeignType hs_bindgen_b2a91b3b7edf2ad3_base
+hs_bindgen_b2a91b3b7edf2ad3 = fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
@@ -257,7 +257,7 @@ hs_bindgen_654858ed6a5db417 :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                Ptr Void ->
                                HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
-hs_bindgen_654858ed6a5db417 = fromBaseForeignType hs_bindgen_654858ed6a5db417_base
+hs_bindgen_654858ed6a5db417 = fromFFIType hs_bindgen_654858ed6a5db417_base
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
@@ -283,7 +283,7 @@ hs_bindgen_6e12e70d71890a10 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile -
                                            HsBindgen.Runtime.Prelude.CSize ->
                                            IO FileOperationStatus))
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
-hs_bindgen_6e12e70d71890a10 = fromBaseForeignType hs_bindgen_6e12e70d71890a10_base
+hs_bindgen_6e12e70d71890a10 = fromFFIType hs_bindgen_6e12e70d71890a10_base
 {-# NOINLINE read_file_chunk #-}
 {-| __C declaration:__ @read_file_chunk@
 

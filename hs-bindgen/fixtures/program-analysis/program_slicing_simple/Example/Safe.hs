@@ -9,7 +9,7 @@ import qualified Foreign
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -37,7 +37,7 @@ hs_bindgen_48dbbf4b09b5b3c1 ::
   -> Uint32_t
   -> IO FC.CInt
 hs_bindgen_48dbbf4b09b5b3c1 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_48dbbf4b09b5b3c1_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
 
 {-| __C declaration:__ @bar@
 

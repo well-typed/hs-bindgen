@@ -19,7 +19,7 @@ data HsPrimType =
     | HsPrimCStringLen
     | HsPrimCPtrdiff
 
-      -- * Basic foreign types (see 'BasicForeignType')
+      -- * Basic FFI types (see 'BasicFFIType')
     | HsPrimChar
     | HsPrimInt
     | HsPrimDouble

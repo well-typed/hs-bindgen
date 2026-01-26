@@ -49,8 +49,8 @@ import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.HasBaseForeignType qualified
 import HsBindgen.Runtime.HasCField qualified
+import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -339,12 +339,12 @@ resolveGlobal = \case
     Proxy_type        -> importQ ''Data.Proxy.Proxy
     Proxy_constructor -> importQ 'Data.Proxy.Proxy
 
-    -- HasBaseForeignType
-    HasBaseForeignType_class                         -> importQ ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
-    HasBaseForeignType_fromBaseForeignType           -> importQ 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
-    HasBaseForeignType_toBaseForeignType             -> importQ 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
-    HasBaseForeignType_castFunPtrFromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
-    HasBaseForeignType_castFunPtrToBaseForeignType   -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+    -- HasFFIType
+    HasFFIType_class                 -> importQ ''HsBindgen.Runtime.HasFFIType.HasFFIType
+    HasFFIType_fromFFIType           -> importQ 'HsBindgen.Runtime.HasFFIType.fromFFIType
+    HasFFIType_toFFIType             -> importQ 'HsBindgen.Runtime.HasFFIType.toFFIType
+    HasFFIType_castFunPtrFromFFIType -> importQ 'HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType
+    HasFFIType_castFunPtrToFFIType   -> importQ 'HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType
 
     -- Functor
     Functor_fmap -> importQ 'fmap

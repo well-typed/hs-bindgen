@@ -524,7 +524,7 @@ newtype MyInt
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -748,7 +748,7 @@ foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d
 hs_bindgen_350cceac1101d344 :: ConstPtr Vector ->
                                Ptr Vector -> IO CInt
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
-hs_bindgen_350cceac1101d344 = fromBaseForeignType hs_bindgen_350cceac1101d344_base
+hs_bindgen_350cceac1101d344 = fromFFIType hs_bindgen_350cceac1101d344_base
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h 77:5@
@@ -772,7 +772,7 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
 hs_bindgen_2ff371c815d92b04 :: ConstPtr Triplet ->
                                Ptr Triplet -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
-hs_bindgen_2ff371c815d92b04 = fromBaseForeignType hs_bindgen_2ff371c815d92b04_base
+hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -796,7 +796,7 @@ foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51
 hs_bindgen_f9655173d51bbaac :: ConstPtr Vector ->
                                Ptr Vector -> IO CInt
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
-hs_bindgen_f9655173d51bbaac = fromBaseForeignType hs_bindgen_f9655173d51bbaac_base
+hs_bindgen_f9655173d51bbaac = fromFFIType hs_bindgen_f9655173d51bbaac_base
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h 77:5@
@@ -820,7 +820,7 @@ foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627d
 hs_bindgen_ea25667627dd5ed2 :: ConstPtr Triplet ->
                                Ptr Triplet -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
-hs_bindgen_ea25667627dd5ed2 = fromBaseForeignType hs_bindgen_ea25667627dd5ed2_base
+hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -842,7 +842,7 @@ foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63
 hs_bindgen_44cb8687c63f0086 :: IO (FunPtr (ConstPtr Vector ->
                                            Ptr Vector -> IO CInt))
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
-hs_bindgen_44cb8687c63f0086 = fromBaseForeignType hs_bindgen_44cb8687c63f0086_base
+hs_bindgen_44cb8687c63f0086 = fromFFIType hs_bindgen_44cb8687c63f0086_base
 {-# NOINLINE reverse #-}
 {-| __C declaration:__ @reverse@
 
@@ -865,7 +865,7 @@ foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aef
 hs_bindgen_1bf30b28aefee5bf :: IO (FunPtr (Matrix ->
                                            Matrix -> IO Unit))
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
-hs_bindgen_1bf30b28aefee5bf = fromBaseForeignType hs_bindgen_1bf30b28aefee5bf_base
+hs_bindgen_1bf30b28aefee5bf = fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
 

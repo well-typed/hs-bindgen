@@ -104,7 +104,7 @@ foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" hs_bindgen_1c811bfb80de8
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
 hs_bindgen_1c811bfb80de8f77 :: CDouble -> CDouble
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
-hs_bindgen_1c811bfb80de8f77 = fromBaseForeignType hs_bindgen_1c811bfb80de8f77_base
+hs_bindgen_1c811bfb80de8f77 = fromFFIType hs_bindgen_1c811bfb80de8f77_base
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h 1:8@
@@ -129,7 +129,7 @@ foreign import ccall safe "hs_bindgen_180022d3518c53bd" hs_bindgen_180022d3518c5
 hs_bindgen_180022d3518c53bd :: CDouble ->
                                CDouble -> CDouble -> IO CDouble
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
-hs_bindgen_180022d3518c53bd = fromBaseForeignType hs_bindgen_180022d3518c53bd_base
+hs_bindgen_180022d3518c53bd = fromFFIType hs_bindgen_180022d3518c53bd_base
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h 3:22@
@@ -150,7 +150,7 @@ foreign import ccall safe "hs_bindgen_d72558f6f977200c" hs_bindgen_d72558f6f9772
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
 hs_bindgen_d72558f6f977200c :: IO Unit
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
-hs_bindgen_d72558f6f977200c = fromBaseForeignType hs_bindgen_d72558f6f977200c_base
+hs_bindgen_d72558f6f977200c = fromFFIType hs_bindgen_d72558f6f977200c_base
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
@@ -171,7 +171,7 @@ foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" hs_bindgen_d8523e2ccea5c
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
 hs_bindgen_d8523e2ccea5c7ba :: IO Unit
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
-hs_bindgen_d8523e2ccea5c7ba = fromBaseForeignType hs_bindgen_d8523e2ccea5c7ba_base
+hs_bindgen_d8523e2ccea5c7ba = fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@
@@ -194,7 +194,7 @@ foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" hs_bindgen_48cbd3cd1c6e8
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 hs_bindgen_48cbd3cd1c6e874f :: CChar -> CDouble -> IO CInt
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
-hs_bindgen_48cbd3cd1c6e874f = fromBaseForeignType hs_bindgen_48cbd3cd1c6e874f_base
+hs_bindgen_48cbd3cd1c6e874f = fromFFIType hs_bindgen_48cbd3cd1c6e874f_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/simple_func.h 11:5@
@@ -216,7 +216,7 @@ foreign import ccall unsafe "hs_bindgen_da5d889180d72efd" hs_bindgen_da5d889180d
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 hs_bindgen_da5d889180d72efd :: CDouble -> CDouble
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
-hs_bindgen_da5d889180d72efd = fromBaseForeignType hs_bindgen_da5d889180d72efd_base
+hs_bindgen_da5d889180d72efd = fromFFIType hs_bindgen_da5d889180d72efd_base
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h 1:8@
@@ -241,7 +241,7 @@ foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" hs_bindgen_d02f37acceb
 hs_bindgen_d02f37accebc0cb3 :: CDouble ->
                                CDouble -> CDouble -> IO CDouble
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
-hs_bindgen_d02f37accebc0cb3 = fromBaseForeignType hs_bindgen_d02f37accebc0cb3_base
+hs_bindgen_d02f37accebc0cb3 = fromFFIType hs_bindgen_d02f37accebc0cb3_base
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h 3:22@
@@ -262,7 +262,7 @@ foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" hs_bindgen_9ea56ae4fab
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 hs_bindgen_9ea56ae4fab9a418 :: IO Unit
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
-hs_bindgen_9ea56ae4fab9a418 = fromBaseForeignType hs_bindgen_9ea56ae4fab9a418_base
+hs_bindgen_9ea56ae4fab9a418 = fromFFIType hs_bindgen_9ea56ae4fab9a418_base
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
@@ -283,7 +283,7 @@ foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" hs_bindgen_a3d1783059e
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 hs_bindgen_a3d1783059ec7820 :: IO Unit
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
-hs_bindgen_a3d1783059ec7820 = fromBaseForeignType hs_bindgen_a3d1783059ec7820_base
+hs_bindgen_a3d1783059ec7820 = fromFFIType hs_bindgen_a3d1783059ec7820_base
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@
@@ -306,7 +306,7 @@ foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" hs_bindgen_91392ef466a
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 hs_bindgen_91392ef466aa34e7 :: CChar -> CDouble -> IO CInt
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
-hs_bindgen_91392ef466aa34e7 = fromBaseForeignType hs_bindgen_91392ef466aa34e7_base
+hs_bindgen_91392ef466aa34e7 = fromFFIType hs_bindgen_91392ef466aa34e7_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/simple_func.h 11:5@
@@ -327,7 +327,7 @@ foreign import ccall unsafe "hs_bindgen_97654202e0d79fbb" hs_bindgen_97654202e0d
 -- __unique:__ @test_functionssimple_func_Example_get_erf@
 hs_bindgen_97654202e0d79fbb :: IO (FunPtr (CDouble -> IO CDouble))
 -- __unique:__ @test_functionssimple_func_Example_get_erf@
-hs_bindgen_97654202e0d79fbb = fromBaseForeignType hs_bindgen_97654202e0d79fbb_base
+hs_bindgen_97654202e0d79fbb = fromFFIType hs_bindgen_97654202e0d79fbb_base
 {-# NOINLINE erf #-}
 {-| __C declaration:__ @erf@
 
@@ -350,7 +350,7 @@ foreign import ccall unsafe "hs_bindgen_4c8418e152e9ddbc" hs_bindgen_4c8418e152e
 hs_bindgen_4c8418e152e9ddbc :: IO (FunPtr (CDouble ->
                                            CDouble -> CDouble -> IO CDouble))
 -- __unique:__ @test_functionssimple_func_Example_get_bad_fma@
-hs_bindgen_4c8418e152e9ddbc = fromBaseForeignType hs_bindgen_4c8418e152e9ddbc_base
+hs_bindgen_4c8418e152e9ddbc = fromFFIType hs_bindgen_4c8418e152e9ddbc_base
 {-# NOINLINE bad_fma #-}
 {-| __C declaration:__ @bad_fma@
 
@@ -372,7 +372,7 @@ foreign import ccall unsafe "hs_bindgen_a271856b1fcc9477" hs_bindgen_a271856b1fc
 -- __unique:__ @test_functionssimple_func_Example_get_no_args@
 hs_bindgen_a271856b1fcc9477 :: IO (FunPtr (IO Unit))
 -- __unique:__ @test_functionssimple_func_Example_get_no_args@
-hs_bindgen_a271856b1fcc9477 = fromBaseForeignType hs_bindgen_a271856b1fcc9477_base
+hs_bindgen_a271856b1fcc9477 = fromFFIType hs_bindgen_a271856b1fcc9477_base
 {-# NOINLINE no_args #-}
 {-| __C declaration:__ @no_args@
 
@@ -394,7 +394,7 @@ foreign import ccall unsafe "hs_bindgen_73f2a4bbf4a49702" hs_bindgen_73f2a4bbf4a
 -- __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
 hs_bindgen_73f2a4bbf4a49702 :: IO (FunPtr (IO Unit))
 -- __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
-hs_bindgen_73f2a4bbf4a49702 = fromBaseForeignType hs_bindgen_73f2a4bbf4a49702_base
+hs_bindgen_73f2a4bbf4a49702 = fromFFIType hs_bindgen_73f2a4bbf4a49702_base
 {-# NOINLINE no_args_no_void #-}
 {-| __C declaration:__ @no_args_no_void@
 
@@ -417,7 +417,7 @@ foreign import ccall unsafe "hs_bindgen_5416cbf886368c01" hs_bindgen_5416cbf8863
 hs_bindgen_5416cbf886368c01 :: IO (FunPtr (CChar ->
                                            CDouble -> IO CInt))
 -- __unique:__ @test_functionssimple_func_Example_get_fun@
-hs_bindgen_5416cbf886368c01 = fromBaseForeignType hs_bindgen_5416cbf886368c01_base
+hs_bindgen_5416cbf886368c01 = fromFFIType hs_bindgen_5416cbf886368c01_base
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 

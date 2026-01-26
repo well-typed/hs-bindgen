@@ -21,7 +21,7 @@ hstypes:
       - un_A
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -33,7 +33,7 @@ hstypes:
       - un_B
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -44,4 +44,4 @@ hstypes:
       fields:
       - un_E
   instances:
-  - HasBaseForeignType
+  - HasFFIType

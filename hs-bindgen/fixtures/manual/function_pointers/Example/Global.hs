@@ -10,7 +10,7 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -48,7 +48,7 @@ foreign import ccall unsafe "hs_bindgen_8ca6ae5d7bf88149" hs_bindgen_8ca6ae5d7bf
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var@
 hs_bindgen_8ca6ae5d7bf88149 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
 hs_bindgen_8ca6ae5d7bf88149 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8ca6ae5d7bf88149_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8ca6ae5d7bf88149_base
 
 {-# NOINLINE hs_bindgen_505081298c324425 #-}
 {-| A global variable pointing to a function like apply1_nopointer().
@@ -77,7 +77,7 @@ foreign import ccall unsafe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct@
 hs_bindgen_33a4962ebf2e9daf :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Struct)
 hs_bindgen_33a4962ebf2e9daf =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_33a4962ebf2e9daf_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_33a4962ebf2e9daf_base
 
 {-# NOINLINE hs_bindgen_96ffcf57d318ddc0 #-}
 {-| __C declaration:__ @apply1_struct@
@@ -104,7 +104,7 @@ foreign import ccall unsafe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_union@
 hs_bindgen_d1ddd3b607c95874 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Union)
 hs_bindgen_d1ddd3b607c95874 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d1ddd3b607c95874_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d1ddd3b607c95874_base
 
 {-# NOINLINE hs_bindgen_8368fc70f5e0aec5 #-}
 {-| __C declaration:__ @apply1_union@

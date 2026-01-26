@@ -69,13 +69,13 @@ getInstances instanceMap name = aux
     (/\) = Set.intersection
 
     ioInsts :: Set TypeClass
-    ioInsts = Set.singleton HasBaseForeignType
+    ioInsts = Set.singleton HasFFIType
 
     funInsts :: Set TypeClass
-    funInsts = Set.singleton HasBaseForeignType
+    funInsts = Set.singleton HasFFIType
 
     blockInsts :: Set TypeClass
-    blockInsts = Set.singleton HasBaseForeignType
+    blockInsts = Set.singleton HasFFIType
 
     hsPrimTypeInsts :: HsPrimType -> Set TypeClass
     hsPrimTypeInsts = \case
@@ -122,7 +122,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
-      , HasBaseForeignType
+      , HasFFIType
       ]
 
     integralInsts :: Set TypeClass
@@ -145,7 +145,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
-      , HasBaseForeignType
+      , HasFFIType
       ]
 
     floatingInsts :: Set TypeClass
@@ -166,7 +166,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
-      , HasBaseForeignType
+      , HasFFIType
       ]
 
     ptrInsts :: Set TypeClass
@@ -178,7 +178,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
-      , HasBaseForeignType
+      , HasFFIType
       ]
 
     cArrayInsts :: Set TypeClass

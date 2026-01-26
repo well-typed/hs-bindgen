@@ -176,7 +176,7 @@ hstypes:
       - un_Struct5_t
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -188,7 +188,7 @@ hstypes:
       - un_Struct6
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

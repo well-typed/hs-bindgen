@@ -198,7 +198,7 @@ bindingSpec = BindingSpec.BindingSpec{
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
-      , Hs.HasBaseForeignType
+      , Hs.HasFFIType
       ]
     timeI = [
         Hs.Enum
@@ -212,7 +212,7 @@ bindingSpec = BindingSpec.BindingSpec{
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
-      , Hs.HasBaseForeignType
+      , Hs.HasFFIType
       ]
 
 {-------------------------------------------------------------------------------

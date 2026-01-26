@@ -17,7 +17,7 @@ hstypes:
       fields:
       - un_C
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: D
   representation:
     newtype:
@@ -25,4 +25,4 @@ hstypes:
       fields:
       - un_D
   instances:
-  - HasBaseForeignType
+  - HasFFIType

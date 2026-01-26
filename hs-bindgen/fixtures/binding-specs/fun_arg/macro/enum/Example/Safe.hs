@@ -6,7 +6,7 @@
 module Example.Safe where
 
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -43,7 +43,7 @@ hs_bindgen_d49a011eb7da5969 ::
      MyEnum
   -> IO ()
 hs_bindgen_d49a011eb7da5969 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d49a011eb7da5969_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d49a011eb7da5969_base
 
 {-| __C declaration:__ @foo@
 
@@ -67,7 +67,7 @@ hs_bindgen_32c6f6f9bb440690 ::
      A
   -> IO ()
 hs_bindgen_32c6f6f9bb440690 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_32c6f6f9bb440690_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32c6f6f9bb440690_base
 
 {-| __C declaration:__ @fooA@
 
@@ -91,7 +91,7 @@ hs_bindgen_16e7856908d06f71 ::
      B
   -> IO ()
 hs_bindgen_16e7856908d06f71 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_16e7856908d06f71_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_16e7856908d06f71_base
 
 {-| __C declaration:__ @fooB@
 

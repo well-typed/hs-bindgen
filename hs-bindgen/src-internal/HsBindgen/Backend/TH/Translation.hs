@@ -52,8 +52,8 @@ import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.FunPtr qualified
-import HsBindgen.Runtime.HasBaseForeignType qualified
 import HsBindgen.Runtime.HasCField qualified
+import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -147,12 +147,12 @@ mkGlobal = \case
       Proxy_type        -> ''Data.Proxy.Proxy
       Proxy_constructor -> 'Data.Proxy.Proxy
 
-      -- HasBaseForeignType
-      HasBaseForeignType_class                         -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
-      HasBaseForeignType_fromBaseForeignType           -> 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
-      HasBaseForeignType_toBaseForeignType             -> 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
-      HasBaseForeignType_castFunPtrFromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
-      HasBaseForeignType_castFunPtrToBaseForeignType   -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+      -- HasFFIType
+      HasFFIType_class                 -> ''HsBindgen.Runtime.HasFFIType.HasFFIType
+      HasFFIType_fromFFIType           -> 'HsBindgen.Runtime.HasFFIType.fromFFIType
+      HasFFIType_toFFIType             -> 'HsBindgen.Runtime.HasFFIType.toFFIType
+      HasFFIType_castFunPtrFromFFIType -> 'HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType
+      HasFFIType_castFunPtrToFFIType   -> 'HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType
 
       -- Functor
       Functor_fmap -> 'fmap
@@ -415,12 +415,12 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Proxy_type -> panicPure "type in expression"
     Proxy_constructor -> TH.conE name
 
-    -- HasBaseForeignType
-    HasBaseForeignType_class -> panicPure "class in expression"
-    HasBaseForeignType_fromBaseForeignType -> TH.varE name
-    HasBaseForeignType_toBaseForeignType -> TH.varE name
-    HasBaseForeignType_castFunPtrFromBaseForeignType -> TH.varE name
-    HasBaseForeignType_castFunPtrToBaseForeignType -> TH.varE name
+    -- HasFFIType
+    HasFFIType_class -> panicPure "class in expression"
+    HasFFIType_fromFFIType -> TH.varE name
+    HasFFIType_toFFIType -> TH.varE name
+    HasFFIType_castFunPtrFromFFIType -> TH.varE name
+    HasFFIType_castFunPtrToFFIType -> TH.varE name
 
     -- Functor
     Functor_fmap -> TH.varE name

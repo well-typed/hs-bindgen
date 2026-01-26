@@ -24,7 +24,7 @@ hstypes:
       - un_A
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -37,7 +37,7 @@ hstypes:
       - un_B
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -49,7 +49,7 @@ hstypes:
       fields:
       - un_E
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: MyEnum
   representation:
     newtype:
@@ -58,7 +58,7 @@ hstypes:
       - un_MyEnum
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

@@ -6,7 +6,7 @@
 module Example.Safe where
 
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import qualified M
 import Example
@@ -62,7 +62,7 @@ hs_bindgen_99bb90e6d7637d2c ::
      MyEnum
   -> IO ()
 hs_bindgen_99bb90e6d7637d2c =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_99bb90e6d7637d2c_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_99bb90e6d7637d2c_base
 
 {-| __C declaration:__ @foo@
 
@@ -86,7 +86,7 @@ hs_bindgen_392e3092a2681c13 ::
      A
   -> IO ()
 hs_bindgen_392e3092a2681c13 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_392e3092a2681c13_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_392e3092a2681c13_base
 
 {-| __C declaration:__ @fooA@
 
@@ -110,7 +110,7 @@ hs_bindgen_6011faf8531be4fa ::
      B
   -> IO ()
 hs_bindgen_6011faf8531be4fa =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6011faf8531be4fa_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6011faf8531be4fa_base
 
 {-| __C declaration:__ @fooB@
 
@@ -134,7 +134,7 @@ hs_bindgen_40a50b8e6ac3b09d ::
      M.C
   -> IO ()
 hs_bindgen_40a50b8e6ac3b09d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_40a50b8e6ac3b09d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
 
 {-| __C declaration:__ @fooC@
 
@@ -158,7 +158,7 @@ hs_bindgen_32b4f35bf27a4bf8 ::
      M.D
   -> IO ()
 hs_bindgen_32b4f35bf27a4bf8 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_32b4f35bf27a4bf8_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
 
 {-| __C declaration:__ @fooD@
 
@@ -182,7 +182,7 @@ hs_bindgen_6e59183c0a861d01 ::
      E
   -> IO ()
 hs_bindgen_6e59183c0a861d01 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6e59183c0a861d01_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6e59183c0a861d01_base
 
 {-| __C declaration:__ @fooE@
 

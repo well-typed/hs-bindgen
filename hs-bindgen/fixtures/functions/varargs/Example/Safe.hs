@@ -5,7 +5,7 @@
 
 module Example.Safe where
 
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -24,7 +24,7 @@ foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80
 -- __unique:__ @test_functionsvarargs_Example_Safe_h@
 hs_bindgen_77a4bac5bbe80f62 :: IO ()
 hs_bindgen_77a4bac5bbe80f62 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_77a4bac5bbe80f62_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_77a4bac5bbe80f62_base
 
 {-| __C declaration:__ @h@
 

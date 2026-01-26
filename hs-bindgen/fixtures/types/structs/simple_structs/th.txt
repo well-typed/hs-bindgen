@@ -495,7 +495,7 @@ newtype S7a
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType S7a "un_S7a") =>
          HasField "un_S7a" (Ptr S7a) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_S7a")
@@ -587,7 +587,7 @@ newtype S7b
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType S7b "un_S7b") =>
          HasField "un_S7b" (Ptr S7b) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_S7b")

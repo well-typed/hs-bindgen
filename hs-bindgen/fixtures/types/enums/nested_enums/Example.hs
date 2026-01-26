@@ -24,8 +24,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -40,7 +40,7 @@ newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance F.Storable EnumA where
 
@@ -179,7 +179,7 @@ newtype ExB_fieldB1 = ExB_fieldB1
   { un_ExB_fieldB1 :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance F.Storable ExB_fieldB1 where
 

@@ -7,7 +7,7 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -44,7 +44,7 @@ hs_bindgen_969f916bf9590709 ::
      Ptr.Ptr FC.CInt
   -> IO ()
 hs_bindgen_969f916bf9590709 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_969f916bf9590709_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_969f916bf9590709_base
 
 {-| __C declaration:__ @foo@
 
@@ -68,7 +68,7 @@ hs_bindgen_fb89f30695d9a112 ::
      Ptr.Ptr FC.CInt
   -> IO ()
 hs_bindgen_fb89f30695d9a112 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fb89f30695d9a112_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fb89f30695d9a112_base
 
 {-| __C declaration:__ @fooA@
 
@@ -92,7 +92,7 @@ hs_bindgen_6882cd6e82766148 ::
      Ptr.Ptr FC.CInt
   -> IO ()
 hs_bindgen_6882cd6e82766148 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6882cd6e82766148_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6882cd6e82766148_base
 
 {-| __C declaration:__ @fooB@
 

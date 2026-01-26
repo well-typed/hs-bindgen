@@ -478,13 +478,13 @@ enumDecs opts haddockConfig info enum spec = do
         candidateInsts = Set.empty
 
         knownInsts :: Set Hs.TypeClass
-        knownInsts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable, Hs.HasBaseForeignType]) $
+        knownInsts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable, Hs.HasFFIType]) $
             Set.fromList (snd <$> opts.deriveEnum)
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl : primDecl : Hs.hasBaseForeignTypeDecs nt ++
+        Hs.DeclNewtype nt : storableDecl : primDecl : Hs.hasFFITypeDecs nt ++
         optDecls ++ cEnumInstanceDecls ++ valueDecls
       where
         hsStruct :: Hs.Struct (S Z)
@@ -636,7 +636,7 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
         candidateInsts = Set.unions
                       [ Set.singleton Hs.Storable
                       , Set.singleton Hs.Bitfield
-                      , Set.singleton Hs.HasBaseForeignType
+                      , Set.singleton Hs.HasFFIType
                       , Set.fromList (snd <$> opts.deriveTypedef)
                       ]
 
@@ -653,7 +653,7 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
         ++ primDecl
         ++ optDecls
         ++ typedefFieldDecls nt
-        ++ Hs.hasBaseForeignTypeDecs nt
+        ++ Hs.hasFFITypeDecs nt
       where
         storableDecl :: [Hs.Decl]
         storableDecl
@@ -919,7 +919,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.unions [
             Set.singleton Hs.Storable
-          , Set.singleton Hs.HasBaseForeignType
+          , Set.singleton Hs.HasFFIType
           , Set.fromList (snd <$> opts.deriveTypedef)
           ]
 
@@ -929,7 +929,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl ++ Hs.hasBaseForeignTypeDecs nt ++ optDecls
+        Hs.DeclNewtype nt : storableDecl ++ Hs.hasFFITypeDecs nt ++ optDecls
       where
         storableDecl :: [Hs.Decl]
         storableDecl

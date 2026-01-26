@@ -9,7 +9,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -37,7 +37,7 @@ hs_bindgen_32187cc02676ee72 ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CBool
 hs_bindgen_32187cc02676ee72 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_32187cc02676ee72_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32187cc02676ee72_base
 
 {-| __C declaration:__ @list_example@
 

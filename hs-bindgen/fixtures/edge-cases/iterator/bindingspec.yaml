@@ -20,7 +20,7 @@ hstypes:
       fields:
       - un_Counter
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: Toggle
   representation:
     newtype:
@@ -28,7 +28,7 @@ hstypes:
       fields:
       - un_Toggle
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: VarCounter
   representation:
     newtype:
@@ -36,4 +36,4 @@ hstypes:
       fields:
       - un_VarCounter
   instances:
-  - HasBaseForeignType
+  - HasFFIType

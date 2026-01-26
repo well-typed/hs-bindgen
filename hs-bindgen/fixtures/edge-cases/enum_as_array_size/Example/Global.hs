@@ -12,7 +12,7 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -34,7 +34,7 @@ foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e3
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
 hs_bindgen_30b94bcf7e387817 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar))
 hs_bindgen_30b94bcf7e387817 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_30b94bcf7e387817_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_30b94bcf7e387817_base
 
 {-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 {-| __C declaration:__ @test_array@

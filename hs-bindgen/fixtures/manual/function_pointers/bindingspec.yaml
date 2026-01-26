@@ -38,4 +38,4 @@ hstypes:
       fields:
       - un_Int2int
   instances:
-  - HasBaseForeignType
+  - HasFFIType

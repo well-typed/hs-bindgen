@@ -128,7 +128,7 @@ newtype Struct5_t
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Struct5_t "un_Struct5_t") =>
          HasField "un_Struct5_t" (Ptr Struct5_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct5_t")
@@ -183,7 +183,7 @@ newtype Struct6
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Struct6 "un_Struct6") =>
          HasField "un_Struct6" (Ptr Struct6) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct6")

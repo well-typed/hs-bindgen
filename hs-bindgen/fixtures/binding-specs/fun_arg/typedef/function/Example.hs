@@ -19,8 +19,8 @@ import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified M
 import qualified Prelude as P
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -35,7 +35,7 @@ import Prelude (IO)
 newtype A = A
   { un_A :: FC.CInt -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
      (GHC.Int.Int32 -> IO GHC.Int.Int32)
@@ -47,7 +47,7 @@ hs_bindgen_0c7d4776a632d026 ::
   -> IO (Ptr.FunPtr A)
 hs_bindgen_0c7d4776a632d026 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_0c7d4776a632d026_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_0c7d4776a632d026_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_0cf9a6d50f563441_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
@@ -59,7 +59,7 @@ hs_bindgen_0cf9a6d50f563441 ::
   -> A
 hs_bindgen_0cf9a6d50f563441 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_0cf9a6d50f563441_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_0cf9a6d50f563441_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr A where
 
@@ -90,7 +90,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A "un_A" where
 newtype B = B
   { un_B :: A
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "un_B")
          ) => GHC.Records.HasField "un_B" (Ptr.Ptr B) (Ptr.Ptr ty) where

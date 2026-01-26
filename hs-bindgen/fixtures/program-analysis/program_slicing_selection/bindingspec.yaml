@@ -29,7 +29,7 @@ hstypes:
       - un_FileOperationStatus
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

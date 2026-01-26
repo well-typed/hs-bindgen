@@ -17,7 +17,7 @@ newtype Foo_enum
            __exported by:__ @types\/enums\/enum_cpp_syntax.h@
       -}
     deriving stock (Eq, Ord)
-    deriving newtype HasBaseForeignType
+    deriving newtype HasFFIType
 instance Storable Foo_enum
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
