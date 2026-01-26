@@ -6,7 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (Double, IO)
 
@@ -30,7 +30,7 @@ hs_bindgen_06a412f170b5ff91 ::
      FC.CDouble
   -> IO FC.CDouble
 hs_bindgen_06a412f170b5ff91 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_06a412f170b5ff91_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_06a412f170b5ff91_base
 
 {-| __C declaration:__ @_acos@
 

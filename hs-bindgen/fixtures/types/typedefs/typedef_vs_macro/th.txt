@@ -15,7 +15,7 @@ newtype T1
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -48,7 +48,7 @@ newtype T2
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -81,7 +81,7 @@ newtype M1
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bits,
                       Bounded,
@@ -107,7 +107,7 @@ newtype M2
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bits,
                       Bounded,
@@ -132,7 +132,7 @@ newtype M3
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 {-| __C declaration:__ @struct ExampleStruct@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 8:8@
@@ -265,7 +265,7 @@ newtype Uint64_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bits,
                       Bounded,

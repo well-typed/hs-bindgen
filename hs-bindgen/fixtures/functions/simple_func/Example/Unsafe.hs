@@ -7,7 +7,7 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (Double, IO)
 
@@ -54,7 +54,7 @@ hs_bindgen_da5d889180d72efd ::
      FC.CDouble
   -> FC.CDouble
 hs_bindgen_da5d889180d72efd =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_da5d889180d72efd_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_da5d889180d72efd_base
 
 {-|
 
@@ -86,7 +86,7 @@ hs_bindgen_d02f37accebc0cb3 ::
   -> FC.CDouble
   -> IO FC.CDouble
 hs_bindgen_d02f37accebc0cb3 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d02f37accebc0cb3_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d02f37accebc0cb3_base
 
 {-| __C declaration:__ @bad_fma@
 
@@ -111,7 +111,7 @@ foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" hs_bindgen_9ea56ae4fab
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 hs_bindgen_9ea56ae4fab9a418 :: IO ()
 hs_bindgen_9ea56ae4fab9a418 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9ea56ae4fab9a418_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9ea56ae4fab9a418_base
 
 {-| __C declaration:__ @no_args@
 
@@ -129,7 +129,7 @@ foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" hs_bindgen_a3d1783059e
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 hs_bindgen_a3d1783059ec7820 :: IO ()
 hs_bindgen_a3d1783059ec7820 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a3d1783059ec7820_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a3d1783059ec7820_base
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -152,7 +152,7 @@ hs_bindgen_91392ef466aa34e7 ::
   -> FC.CDouble
   -> IO FC.CInt
 hs_bindgen_91392ef466aa34e7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_91392ef466aa34e7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_91392ef466aa34e7_base
 
 {-| __C declaration:__ @fun@
 

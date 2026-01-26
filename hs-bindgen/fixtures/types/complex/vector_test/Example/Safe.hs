@@ -7,7 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -36,7 +36,7 @@ hs_bindgen_cd5f566bc96dcba0 ::
   -> FC.CDouble
   -> IO (Ptr.Ptr Vector)
 hs_bindgen_cd5f566bc96dcba0 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cd5f566bc96dcba0_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cd5f566bc96dcba0_base
 
 {-| __C declaration:__ @new_vector@
 

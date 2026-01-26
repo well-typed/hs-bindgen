@@ -10,7 +10,7 @@ import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -133,7 +133,7 @@ hs_bindgen_7eada9f65d982412 ::
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CInt
 hs_bindgen_7eada9f65d982412 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7eada9f65d982412_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7eada9f65d982412_base
 
 {-|
 
@@ -190,7 +190,7 @@ hs_bindgen_fb85499c501da1a7 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
   -> IO FC.CBool
 hs_bindgen_fb85499c501da1a7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fb85499c501da1a7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fb85499c501da1a7_base
 
 {-|
 
@@ -231,7 +231,7 @@ hs_bindgen_a73fc7b108035c5c ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_a73fc7b108035c5c =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a73fc7b108035c5c_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a73fc7b108035c5c_base
 
 {-|
 
@@ -284,7 +284,7 @@ hs_bindgen_9b7f6745401b4652 ::
      FC.CInt
   -> IO FC.CBool
 hs_bindgen_9b7f6745401b4652 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9b7f6745401b4652_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9b7f6745401b4652_base
 
 {-|
 
@@ -327,7 +327,7 @@ hs_bindgen_825411dc114e599b ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CBool
 hs_bindgen_825411dc114e599b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_825411dc114e599b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_825411dc114e599b_base
 
 {-|
 
@@ -403,7 +403,7 @@ hs_bindgen_17264dcff7e9b698 ::
      Ptr.Ptr Void
   -> IO (Ptr.Ptr Void)
 hs_bindgen_17264dcff7e9b698 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_17264dcff7e9b698_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_17264dcff7e9b698_base
 
 {-|
 
@@ -446,7 +446,7 @@ hs_bindgen_c8ca619ec2e70d8d ::
      HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
   -> IO FC.CInt
 hs_bindgen_c8ca619ec2e70d8d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c8ca619ec2e70d8d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c8ca619ec2e70d8d_base
 
 {-|
 
@@ -489,7 +489,7 @@ hs_bindgen_25e1070e2ce10048 ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_25e1070e2ce10048 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_25e1070e2ce10048_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_25e1070e2ce10048_base
 
 {-|
 
@@ -528,7 +528,7 @@ hs_bindgen_a9eeeb09808e71cc ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_a9eeeb09808e71cc =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a9eeeb09808e71cc_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a9eeeb09808e71cc_base
 
 {-|
 
@@ -569,7 +569,7 @@ hs_bindgen_0c0057f1700372a7 ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CInt
 hs_bindgen_0c0057f1700372a7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0c0057f1700372a7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0c0057f1700372a7_base
 
 {-|
 
@@ -619,7 +619,7 @@ hs_bindgen_294db77671f95524 ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO (Ptr.Ptr Void)
 hs_bindgen_294db77671f95524 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_294db77671f95524_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_294db77671f95524_base
 
 {-|
 
@@ -674,7 +674,7 @@ hs_bindgen_f5bc63a9952c2618 ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_f5bc63a9952c2618 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f5bc63a9952c2618_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f5bc63a9952c2618_base
 
 {-|
 
@@ -715,7 +715,7 @@ hs_bindgen_c4e7e99dba20204d ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO Status_code_t
 hs_bindgen_c4e7e99dba20204d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c4e7e99dba20204d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c4e7e99dba20204d_base
 
 {-|
 
@@ -823,7 +823,7 @@ hs_bindgen_935f2aead358d9ef ::
      Ptr.Ptr FC.CChar
   -> IO FC.CInt
 hs_bindgen_935f2aead358d9ef =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_935f2aead358d9ef_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_935f2aead358d9ef_base
 
 {-|
 
@@ -851,7 +851,7 @@ hs_bindgen_39fef54c23d4e1ee ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_39fef54c23d4e1ee =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_39fef54c23d4e1ee_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_39fef54c23d4e1ee_base
 
 {-|
 

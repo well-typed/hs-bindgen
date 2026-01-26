@@ -8,7 +8,7 @@ module Example.Unsafe where
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -37,7 +37,7 @@ hs_bindgen_4e22c71ca196dc5e ::
   -> Ptr.Ptr T
   -> IO ()
 hs_bindgen_4e22c71ca196dc5e =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4e22c71ca196dc5e_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4e22c71ca196dc5e_base
 
 {-| __C declaration:__ @fun@
 

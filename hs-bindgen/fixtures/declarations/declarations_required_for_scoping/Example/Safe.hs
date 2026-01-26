@@ -6,7 +6,7 @@
 module Example.Safe where
 
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -31,7 +31,7 @@ hs_bindgen_0d1c75136a36e326 ::
      A
   -> IO ()
 hs_bindgen_0d1c75136a36e326 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0d1c75136a36e326_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0d1c75136a36e326_base
 
 {-| __C declaration:__ @f@
 

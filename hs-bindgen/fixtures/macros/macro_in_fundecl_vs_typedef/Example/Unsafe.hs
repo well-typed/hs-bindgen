@@ -8,7 +8,7 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -100,7 +100,7 @@ hs_bindgen_df7e2b8e86de411a ::
   -> TC
   -> IO FC.CChar
 hs_bindgen_df7e2b8e86de411a =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_df7e2b8e86de411a_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_df7e2b8e86de411a_base
 
 {-| __C declaration:__ @quux1@
 
@@ -128,7 +128,7 @@ hs_bindgen_6f0b13ed02b696df ::
   -> FC.CChar
   -> IO TC
 hs_bindgen_6f0b13ed02b696df =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6f0b13ed02b696df_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6f0b13ed02b696df_base
 
 {-| __C declaration:__ @quux2@
 
@@ -156,7 +156,7 @@ hs_bindgen_f92059cc98dde342 ::
   -> Ptr.Ptr TC
   -> IO (Ptr.Ptr MC)
 hs_bindgen_f92059cc98dde342 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f92059cc98dde342_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f92059cc98dde342_base
 
 {-| __C declaration:__ @wam1@
 
@@ -184,7 +184,7 @@ hs_bindgen_3e6ecd1b2cc616bc ::
   -> Ptr.Ptr MC
   -> IO (Ptr.Ptr TC)
 hs_bindgen_3e6ecd1b2cc616bc =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3e6ecd1b2cc616bc_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3e6ecd1b2cc616bc_base
 
 {-| __C declaration:__ @wam2@
 
@@ -212,7 +212,7 @@ hs_bindgen_ffa9d5a3e8f0f221 ::
   -> MC
   -> IO ()
 hs_bindgen_ffa9d5a3e8f0f221 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ffa9d5a3e8f0f221_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ffa9d5a3e8f0f221_base
 
 {-| __C declaration:__ @struct_typedef1@
 
@@ -240,7 +240,7 @@ hs_bindgen_4801667560542114 ::
   -> MC
   -> IO ()
 hs_bindgen_4801667560542114 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4801667560542114_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4801667560542114_base
 
 {-| __C declaration:__ @struct_typedef2@
 
@@ -268,7 +268,7 @@ hs_bindgen_04fa5bbd479146eb ::
   -> MC
   -> IO ()
 hs_bindgen_04fa5bbd479146eb =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_04fa5bbd479146eb_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_04fa5bbd479146eb_base
 
 {-| __C declaration:__ @struct_typedef3@
 
@@ -296,7 +296,7 @@ hs_bindgen_08025fd0bd589ac2 ::
   -> MC
   -> IO ()
 hs_bindgen_08025fd0bd589ac2 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_08025fd0bd589ac2_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_08025fd0bd589ac2_base
 
 {-| __C declaration:__ @struct_name1@
 
@@ -324,7 +324,7 @@ hs_bindgen_9de286608f952fc7 ::
   -> MC
   -> IO ()
 hs_bindgen_9de286608f952fc7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9de286608f952fc7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9de286608f952fc7_base
 
 {-| __C declaration:__ @struct_name2@
 
@@ -352,7 +352,7 @@ hs_bindgen_38cce6bb1ac71578 ::
   -> MC
   -> IO ()
 hs_bindgen_38cce6bb1ac71578 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_38cce6bb1ac71578_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_38cce6bb1ac71578_base
 
 {-| __C declaration:__ @struct_name3@
 

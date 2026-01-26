@@ -37,7 +37,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

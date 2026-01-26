@@ -51,7 +51,7 @@ hstypes:
       - un_EnumA
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -64,7 +64,7 @@ hstypes:
       - un_EnumB
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -77,7 +77,7 @@ hstypes:
       - un_EnumC
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -90,7 +90,7 @@ hstypes:
       - un_EnumD_t
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -103,7 +103,7 @@ hstypes:
       - un_First
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -116,7 +116,7 @@ hstypes:
       - un_Nonseq
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -129,7 +129,7 @@ hstypes:
       - un_Packed
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -142,7 +142,7 @@ hstypes:
       - un_Same
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -155,7 +155,7 @@ hstypes:
       - un_Second
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

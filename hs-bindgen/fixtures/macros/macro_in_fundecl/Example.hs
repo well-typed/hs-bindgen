@@ -15,7 +15,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.FunPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified Prelude as P
 import Data.Bits (FiniteBits)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
@@ -30,7 +30,7 @@ newtype I = I
   { un_I :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @C@
 
@@ -42,7 +42,7 @@ newtype C = C
   { un_C :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @F@
 
@@ -54,7 +54,7 @@ newtype F = F
   { un_F :: FC.CFloat
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
 {-| __C declaration:__ @L@
 
@@ -66,7 +66,7 @@ newtype L = L
   { un_L :: FC.CLong
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @S@
 
@@ -78,7 +78,7 @@ newtype S = S
   { un_S :: FC.CShort
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 foreign import ccall safe "wrapper" hs_bindgen_074b9de694d8f359_base ::
      (GHC.Int.Int16 -> IO GHC.Int.Int32)
@@ -90,7 +90,7 @@ hs_bindgen_074b9de694d8f359 ::
   -> IO (Ptr.FunPtr (FC.CShort -> IO I))
 hs_bindgen_074b9de694d8f359 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_074b9de694d8f359_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_074b9de694d8f359_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_c7a8adce35e64925_base ::
      Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32)
@@ -102,7 +102,7 @@ hs_bindgen_c7a8adce35e64925 ::
   -> FC.CShort -> IO I
 hs_bindgen_c7a8adce35e64925 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_c7a8adce35e64925_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_c7a8adce35e64925_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (FC.CShort -> IO I) where
 
@@ -122,7 +122,7 @@ hs_bindgen_ffdbafa239adf14e ::
   -> IO (Ptr.FunPtr (S -> IO FC.CInt))
 hs_bindgen_ffdbafa239adf14e =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_ffdbafa239adf14e_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_ffdbafa239adf14e_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_9c8a77fe3560cebd_base ::
      Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32)
@@ -134,7 +134,7 @@ hs_bindgen_9c8a77fe3560cebd ::
   -> S -> IO FC.CInt
 hs_bindgen_9c8a77fe3560cebd =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_9c8a77fe3560cebd_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_9c8a77fe3560cebd_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (S -> IO FC.CInt) where
 

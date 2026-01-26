@@ -23,4 +23,4 @@ hstypes:
   - Real
   - Show
   - Storable
-  - HasBaseForeignType
+  - HasFFIType

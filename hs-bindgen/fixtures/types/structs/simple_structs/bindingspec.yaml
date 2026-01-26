@@ -126,7 +126,7 @@ hstypes:
       - un_S7a
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -150,7 +150,7 @@ hstypes:
       - un_S7b
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

@@ -8,7 +8,7 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -160,7 +160,7 @@ hs_bindgen_d07f3a3e526e7017 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_d07f3a3e526e7017 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d07f3a3e526e7017_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d07f3a3e526e7017_base
 
 {-| __C declaration:__ @readFileWithProcessor@
 
@@ -188,7 +188,7 @@ hs_bindgen_cb0219aedd5afed5 ::
   -> FC.CInt
   -> IO ()
 hs_bindgen_cb0219aedd5afed5 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cb0219aedd5afed5_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cb0219aedd5afed5_base
 
 {-| __C declaration:__ @watchTemperature@
 
@@ -214,7 +214,7 @@ hs_bindgen_d96938841a039f9b ::
      FileOpenedNotification
   -> IO ()
 hs_bindgen_d96938841a039f9b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d96938841a039f9b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d96938841a039f9b_base
 
 {-| __C declaration:__ @onFileOpened@
 
@@ -238,7 +238,7 @@ hs_bindgen_3cb24888fc3e1751 ::
      ProgressUpdate
   -> IO ()
 hs_bindgen_3cb24888fc3e1751 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3cb24888fc3e1751_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3cb24888fc3e1751_base
 
 {-| __C declaration:__ @onProgressChanged@
 
@@ -264,7 +264,7 @@ hs_bindgen_567ea6dc040b50a1 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_567ea6dc040b50a1 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_567ea6dc040b50a1_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_567ea6dc040b50a1_base
 
 {-| __C declaration:__ @validateInput@
 
@@ -290,7 +290,7 @@ hs_bindgen_aab80c08edfa6b4b ::
      MeasurementReceived
   -> IO ()
 hs_bindgen_aab80c08edfa6b4b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_aab80c08edfa6b4b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_aab80c08edfa6b4b_base
 
 {-| __C declaration:__ @onNewMeasurement@
 
@@ -314,7 +314,7 @@ hs_bindgen_6c8fae51df7c46a1 ::
      MeasurementReceived2
   -> IO ()
 hs_bindgen_6c8fae51df7c46a1 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6c8fae51df7c46a1_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6c8fae51df7c46a1_base
 
 {-| __C declaration:__ @onNewMeasurement2@
 
@@ -338,7 +338,7 @@ hs_bindgen_d44afeb36d2ae523 ::
      SampleBufferFull
   -> IO ()
 hs_bindgen_d44afeb36d2ae523 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d44afeb36d2ae523_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d44afeb36d2ae523_base
 
 {-| __C declaration:__ @onBufferReady@
 
@@ -364,7 +364,7 @@ hs_bindgen_523fee13fb646cad ::
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
   -> IO ()
 hs_bindgen_523fee13fb646cad =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_523fee13fb646cad_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_523fee13fb646cad_base
 
 {-| __C declaration:__ @transformMeasurement@
 
@@ -390,7 +390,7 @@ hs_bindgen_98d0c5bd1271eeb7 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
   -> IO ()
 hs_bindgen_98d0c5bd1271eeb7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_98d0c5bd1271eeb7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_98d0c5bd1271eeb7_base
 
 {-| __C declaration:__ @processWithCallbacks@
 
@@ -414,7 +414,7 @@ hs_bindgen_b96f4d4d7893e301 ::
      Ptr.Ptr MeasurementHandler
   -> IO ()
 hs_bindgen_b96f4d4d7893e301 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b96f4d4d7893e301_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b96f4d4d7893e301_base
 
 {-| __C declaration:__ @registerHandler@
 
@@ -440,7 +440,7 @@ hs_bindgen_c062ded603732aae ::
   -> Ptr.Ptr DataPipeline
   -> IO ()
 hs_bindgen_c062ded603732aae =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c062ded603732aae_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c062ded603732aae_base
 
 {-| __C declaration:__ @executePipeline@
 
@@ -468,7 +468,7 @@ hs_bindgen_02d41a1f48eebff7 ::
   -> Ptr.Ptr Processor
   -> IO ()
 hs_bindgen_02d41a1f48eebff7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_02d41a1f48eebff7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_02d41a1f48eebff7_base
 
 {-| __C declaration:__ @runProcessor@
 
@@ -496,7 +496,7 @@ hs_bindgen_39704c8b14c2ce3c ::
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
   -> IO ()
 hs_bindgen_39704c8b14c2ce3c =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_39704c8b14c2ce3c_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_39704c8b14c2ce3c_base
 
 {-| __C declaration:__ @processMeasurementWithValidation@
 
@@ -523,7 +523,7 @@ hs_bindgen_10c383cdf6eddb0d ::
      Ptr.FunPtr (Foo -> IO ())
   -> IO ()
 hs_bindgen_10c383cdf6eddb0d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_10c383cdf6eddb0d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_10c383cdf6eddb0d_base
 
 {-| __C declaration:__ @f@
 
@@ -547,7 +547,7 @@ hs_bindgen_831d03bed0065a4e ::
      Ptr.FunPtr (Foo2 -> IO ())
   -> IO ()
 hs_bindgen_831d03bed0065a4e =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_831d03bed0065a4e_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_831d03bed0065a4e_base
 
 {-| __C declaration:__ @f2@
 

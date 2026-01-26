@@ -31,7 +31,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -52,7 +52,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
-  - HasBaseForeignType
+  - HasFFIType
   - Num
   - Ord
   - Prim
@@ -74,7 +74,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -96,7 +96,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -118,7 +118,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

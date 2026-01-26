@@ -133,7 +133,7 @@ newtype Another_typedef_enum_e
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord)
-    deriving newtype HasBaseForeignType
+    deriving newtype HasFFIType
 instance Storable Another_typedef_enum_e
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -247,7 +247,7 @@ newtype A_type_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -280,7 +280,7 @@ newtype Var_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -593,7 +593,7 @@ newtype A_typedef_enum_e
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord)
-    deriving newtype HasBaseForeignType
+    deriving newtype HasFFIType
 instance Storable A_typedef_enum_e
     where sizeOf = \_ -> 1 :: Int
           alignment = \_ -> 1 :: Int
@@ -699,7 +699,7 @@ newtype Callback_t_Aux
 
       __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving newtype HasBaseForeignType
+    deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
     Ptr Void -> Word32 -> IO Word32
  -> IO (FunPtr (Ptr Void -> Word32 -> IO Word32))
@@ -707,7 +707,7 @@ foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
 hs_bindgen_b6b6922e35047658 :: Callback_t_Aux ->
                                IO (FunPtr Callback_t_Aux)
 -- __unique:__ @toCallback_t_Aux@
-hs_bindgen_b6b6922e35047658 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_b6b6922e35047658_base (toBaseForeignType fun_0))
+hs_bindgen_b6b6922e35047658 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_b6b6922e35047658_base (toFFIType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
     FunPtr (Ptr Void -> Word32 -> IO Word32)
  -> Ptr Void
@@ -717,7 +717,7 @@ foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
 hs_bindgen_d6debb4b8d5bb869 :: FunPtr Callback_t_Aux ->
                                Callback_t_Aux
 -- __unique:__ @fromCallback_t_Aux@
-hs_bindgen_d6debb4b8d5bb869 = \funPtr_0 -> fromBaseForeignType (hs_bindgen_d6debb4b8d5bb869_base (castFunPtrToBaseForeignType funPtr_0))
+hs_bindgen_d6debb4b8d5bb869 = \funPtr_0 -> fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (castFunPtrToFFIType funPtr_0))
 instance ToFunPtr Callback_t_Aux
     where toFunPtr = hs_bindgen_b6b6922e35047658
 instance FromFunPtr Callback_t_Aux
@@ -746,7 +746,7 @@ newtype Callback_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Callback_t "un_Callback_t") =>
          HasField "un_Callback_t" (Ptr Callback_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Callback_t")
@@ -766,7 +766,7 @@ hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->
                                Ptr HsBindgen.Runtime.Prelude.Word8 ->
                                IO HsBindgen.Runtime.Prelude.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
-hs_bindgen_57cb99ed92c001ad = fromBaseForeignType hs_bindgen_57cb99ed92c001ad_base
+hs_bindgen_57cb99ed92c001ad = fromFFIType hs_bindgen_57cb99ed92c001ad_base
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
@@ -796,7 +796,7 @@ hs_bindgen_2a91c367a9380a63 :: Ptr A_type_t ->
                                Ptr HsBindgen.Runtime.Prelude.Word8 ->
                                IO HsBindgen.Runtime.Prelude.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
-hs_bindgen_2a91c367a9380a63 = fromBaseForeignType hs_bindgen_2a91c367a9380a63_base
+hs_bindgen_2a91c367a9380a63 = fromFFIType hs_bindgen_2a91c367a9380a63_base
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
@@ -823,7 +823,7 @@ hs_bindgen_1ade3cfc18679577 :: IO (FunPtr (Ptr A_type_t ->
                                            IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
                                            IO HsBindgen.Runtime.Prelude.Int32))
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
-hs_bindgen_1ade3cfc18679577 = fromBaseForeignType hs_bindgen_1ade3cfc18679577_base
+hs_bindgen_1ade3cfc18679577 = fromFFIType hs_bindgen_1ade3cfc18679577_base
 {-# NOINLINE some_fun #-}
 {-| __C declaration:__ @some_fun@
 
@@ -848,7 +848,7 @@ foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
 hs_bindgen_226b16768d8906f3 :: IO (Ptr Var_t)
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
-hs_bindgen_226b16768d8906f3 = fromBaseForeignType hs_bindgen_226b16768d8906f3_base
+hs_bindgen_226b16768d8906f3 = fromFFIType hs_bindgen_226b16768d8906f3_base
 {-# NOINLINE v #-}
 {-| __C declaration:__ @v@
 

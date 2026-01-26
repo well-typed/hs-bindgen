@@ -8,7 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -63,7 +63,7 @@ foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb14
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_erf@
 hs_bindgen_7d72952bb141f2c8 :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 hs_bindgen_7d72952bb141f2c8 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7d72952bb141f2c8_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7d72952bb141f2c8_base
 
 {-# NOINLINE erf_random_user_specified_suffix #-}
 {-| __C declaration:__ @erf@
@@ -83,7 +83,7 @@ foreign import ccall unsafe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d94
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_bad_fma@
 hs_bindgen_d8b56ce4d948e996 :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
 hs_bindgen_d8b56ce4d948e996 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d8b56ce4d948e996_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d8b56ce4d948e996_base
 
 {-# NOINLINE bad_fma_random_user_specified_suffix #-}
 {-| __C declaration:__ @bad_fma@
@@ -103,7 +103,7 @@ foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
 hs_bindgen_b07b517c1cb304fc :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_b07b517c1cb304fc =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b07b517c1cb304fc_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b07b517c1cb304fc_base
 
 {-# NOINLINE no_args_random_user_specified_suffix #-}
 {-| __C declaration:__ @no_args@
@@ -123,7 +123,7 @@ foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff85600
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
 hs_bindgen_cc43ff8560009309 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_cc43ff8560009309 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cc43ff8560009309_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cc43ff8560009309_base
 
 {-# NOINLINE no_args_no_void_random_user_specified_suffix #-}
 {-| __C declaration:__ @no_args_no_void@
@@ -143,7 +143,7 @@ foreign import ccall unsafe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_fun@
 hs_bindgen_14a306e8e8f0ba6c :: IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
 hs_bindgen_14a306e8e8f0ba6c =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_14a306e8e8f0ba6c_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_14a306e8e8f0ba6c_base
 
 {-# NOINLINE fun_random_user_specified_suffix #-}
 {-| __C declaration:__ @fun@

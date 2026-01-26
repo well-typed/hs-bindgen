@@ -22,7 +22,7 @@ newtype Int_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -187,7 +187,7 @@ foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 hs_bindgen_6f47e5cbb92690b9 :: IO (Ptr CInt)
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
-hs_bindgen_6f47e5cbb92690b9 = fromBaseForeignType hs_bindgen_6f47e5cbb92690b9_base
+hs_bindgen_6f47e5cbb92690b9 = fromFFIType hs_bindgen_6f47e5cbb92690b9_base
 {-# NOINLINE x #-}
 {-| __C declaration:__ @x@
 

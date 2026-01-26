@@ -18,7 +18,7 @@ hstypes:
       - un_Foo_enum
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

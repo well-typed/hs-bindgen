@@ -45,7 +45,7 @@ hstypes:
       - un_F1
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -57,7 +57,7 @@ hstypes:
       - un_FunctionPointer_Function
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -68,7 +68,7 @@ hstypes:
       fields:
       - un_G1
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: G2
   representation:
     newtype:
@@ -77,7 +77,7 @@ hstypes:
       - un_G2
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -88,7 +88,7 @@ hstypes:
       fields:
       - un_H1
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: H2
   representation:
     newtype:
@@ -96,7 +96,7 @@ hstypes:
       fields:
       - un_H2
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: H3
   representation:
     newtype:
@@ -105,7 +105,7 @@ hstypes:
       - un_H3
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -116,7 +116,7 @@ hstypes:
       fields:
       - un_Int2int
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: Intptr
   representation:
     newtype:
@@ -125,7 +125,7 @@ hstypes:
       - un_Intptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -142,7 +142,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -159,4 +159,4 @@ hstypes:
       fields:
       - un_NonFunctionPointer_Function
   instances:
-  - HasBaseForeignType
+  - HasFFIType

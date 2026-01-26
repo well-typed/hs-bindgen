@@ -1,6 +1,6 @@
 module HsBindgen.Backend.Hs.Translation.Newtype (
     newtypeDec
-  , hasBaseForeignTypeDecs
+  , hasFFITypeDecs
   ) where
 
 import Control.Monad.State qualified as State
@@ -49,16 +49,16 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
         insts :: Set Hs.TypeClass
         insts = knownInsts <> resolvedInsts
 
-hasBaseForeignTypeDecs ::
+hasFFITypeDecs ::
      Hs.Newtype
   -> [Hs.Decl]
-hasBaseForeignTypeDecs nt =
-    [mk | HasBaseForeignType `elem` nt.instances]
+hasFFITypeDecs nt =
+    [mk | HasFFIType `elem` nt.instances]
   where
     mk :: Hs.Decl
     mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
           strategy = Hs.DeriveNewtype
-        , clss     = HasBaseForeignType
+        , clss     = HasFFIType
         , name     = nt.name
         , comment  = Nothing
         }

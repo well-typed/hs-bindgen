@@ -200,7 +200,7 @@ newtype Point2b
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Point2b "un_Point2b") =>
          HasField "un_Point2b" (Ptr Point2b) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Point2b")
@@ -292,7 +292,7 @@ newtype Point3a
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Point3a "un_Point3a") =>
          HasField "un_Point3a" (Ptr Point3a) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Point3a")
@@ -314,7 +314,7 @@ newtype Point3b
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Point3b "un_Point3b") =>
          HasField "un_Point3b" (Ptr Point3b) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Point3b")
@@ -329,7 +329,7 @@ foreign import ccall safe "hs_bindgen_c97a0d4458699ad7" hs_bindgen_c97a0d4458699
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
 hs_bindgen_c97a0d4458699ad7 :: Ptr Point2a -> Point2b -> IO Unit
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
-hs_bindgen_c97a0d4458699ad7 = fromBaseForeignType hs_bindgen_c97a0d4458699ad7_base
+hs_bindgen_c97a0d4458699ad7 = fromFFIType hs_bindgen_c97a0d4458699ad7_base
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
@@ -352,7 +352,7 @@ foreign import ccall unsafe "hs_bindgen_f90e97b8d269be4e" hs_bindgen_f90e97b8d26
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
 hs_bindgen_f90e97b8d269be4e :: Ptr Point2a -> Point2b -> IO Unit
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
-hs_bindgen_f90e97b8d269be4e = fromBaseForeignType hs_bindgen_f90e97b8d269be4e_base
+hs_bindgen_f90e97b8d269be4e = fromFFIType hs_bindgen_f90e97b8d269be4e_base
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
@@ -374,7 +374,7 @@ foreign import ccall unsafe "hs_bindgen_8361517d92bfbc76" hs_bindgen_8361517d92b
 hs_bindgen_8361517d92bfbc76 :: IO (FunPtr (Point2a ->
                                            Point2b -> IO Unit))
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
-hs_bindgen_8361517d92bfbc76 = fromBaseForeignType hs_bindgen_8361517d92bfbc76_base
+hs_bindgen_8361517d92bfbc76 = fromFFIType hs_bindgen_8361517d92bfbc76_base
 {-# NOINLINE test #-}
 {-| __C declaration:__ @test@
 

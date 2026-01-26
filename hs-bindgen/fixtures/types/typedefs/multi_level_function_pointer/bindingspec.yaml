@@ -33,7 +33,7 @@ hstypes:
       - un_F1
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -45,7 +45,7 @@ hstypes:
       - un_F2
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -57,7 +57,7 @@ hstypes:
       - un_F3
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -69,7 +69,7 @@ hstypes:
       - un_F4
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -81,7 +81,7 @@ hstypes:
       - un_F5
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -93,7 +93,7 @@ hstypes:
       - un_F6
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -110,7 +110,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

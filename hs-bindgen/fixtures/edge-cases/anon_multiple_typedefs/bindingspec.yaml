@@ -74,7 +74,7 @@ hstypes:
       - un_Point2b
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -86,7 +86,7 @@ hstypes:
       - un_Point3a
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -110,7 +110,7 @@ hstypes:
       - un_Point3b
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

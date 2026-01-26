@@ -24,7 +24,7 @@ hstypes:
       - un_EnumA
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -57,7 +57,7 @@ hstypes:
       - un_ExB_fieldB1
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

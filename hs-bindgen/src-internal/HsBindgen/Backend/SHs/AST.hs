@@ -121,12 +121,12 @@ data Global =
   | Proxy_type
   | Proxy_constructor
 
-    -- HasBaseForeignType
-  | HasBaseForeignType_class
-  | HasBaseForeignType_fromBaseForeignType
-  | HasBaseForeignType_toBaseForeignType
-  | HasBaseForeignType_castFunPtrFromBaseForeignType
-  | HasBaseForeignType_castFunPtrToBaseForeignType
+    -- HasFFIType
+  | HasFFIType_class
+  | HasFFIType_fromFFIType
+  | HasFFIType_toFFIType
+  | HasFFIType_castFunPtrFromFFIType
+  | HasFFIType_castFunPtrToFFIType
 
     -- Functor
   | Functor_fmap

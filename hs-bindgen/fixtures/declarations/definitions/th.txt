@@ -175,7 +175,7 @@ foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d0944
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
 hs_bindgen_9cdc88a6d09442d6 :: CDouble -> IO CInt
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
-hs_bindgen_9cdc88a6d09442d6 = fromBaseForeignType hs_bindgen_9cdc88a6d09442d6_base
+hs_bindgen_9cdc88a6d09442d6 = fromFFIType hs_bindgen_9cdc88a6d09442d6_base
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h 13:5@
@@ -197,7 +197,7 @@ foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f3
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 hs_bindgen_07fd5b433f381094 :: CDouble -> IO CInt
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
-hs_bindgen_07fd5b433f381094 = fromBaseForeignType hs_bindgen_07fd5b433f381094_base
+hs_bindgen_07fd5b433f381094 = fromFFIType hs_bindgen_07fd5b433f381094_base
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h 13:5@
@@ -218,7 +218,7 @@ foreign import ccall unsafe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce
 -- __unique:__ @test_declarationsdefinitions_Example_get_foo@
 hs_bindgen_8bb82cd68ce8efe4 :: IO (FunPtr (CDouble -> IO CInt))
 -- __unique:__ @test_declarationsdefinitions_Example_get_foo@
-hs_bindgen_8bb82cd68ce8efe4 = fromBaseForeignType hs_bindgen_8bb82cd68ce8efe4_base
+hs_bindgen_8bb82cd68ce8efe4 = fromFFIType hs_bindgen_8bb82cd68ce8efe4_base
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
@@ -240,7 +240,7 @@ foreign import ccall unsafe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c
 -- __unique:__ @test_declarationsdefinitions_Example_get_n@
 hs_bindgen_417f0d4479c97357 :: IO (Ptr CInt)
 -- __unique:__ @test_declarationsdefinitions_Example_get_n@
-hs_bindgen_417f0d4479c97357 = fromBaseForeignType hs_bindgen_417f0d4479c97357_base
+hs_bindgen_417f0d4479c97357 = fromFFIType hs_bindgen_417f0d4479c97357_base
 {-# NOINLINE n #-}
 {-| __C declaration:__ @n@
 

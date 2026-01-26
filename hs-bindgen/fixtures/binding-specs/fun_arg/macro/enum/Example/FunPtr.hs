@@ -7,7 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -48,7 +48,7 @@ foreign import ccall unsafe "hs_bindgen_098964a440956602" hs_bindgen_098964a4409
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
 hs_bindgen_098964a440956602 :: IO (Ptr.FunPtr (MyEnum -> IO ()))
 hs_bindgen_098964a440956602 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_098964a440956602_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_098964a440956602_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -68,7 +68,7 @@ foreign import ccall unsafe "hs_bindgen_86b685b9d27ce50e" hs_bindgen_86b685b9d27
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
 hs_bindgen_86b685b9d27ce50e :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_86b685b9d27ce50e =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_86b685b9d27ce50e_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_86b685b9d27ce50e_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -88,7 +88,7 @@ foreign import ccall unsafe "hs_bindgen_9383ae52414c2c19" hs_bindgen_9383ae52414
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
 hs_bindgen_9383ae52414c2c19 :: IO (Ptr.FunPtr (B -> IO ()))
 hs_bindgen_9383ae52414c2c19 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9383ae52414c2c19_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9383ae52414c2c19_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@

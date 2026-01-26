@@ -24,8 +24,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified M
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -41,7 +41,7 @@ newtype MyEnum = MyEnum
   { un_MyEnum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance F.Storable MyEnum where
 
@@ -122,7 +122,7 @@ newtype A = A
   { un_A :: MyEnum
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "un_A")
          ) => GHC.Records.HasField "un_A" (Ptr.Ptr A) (Ptr.Ptr ty) where
@@ -146,7 +146,7 @@ newtype B = B
   { un_B :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "un_B")
          ) => GHC.Records.HasField "un_B" (Ptr.Ptr B) (Ptr.Ptr ty) where
@@ -169,7 +169,7 @@ instance HsBindgen.Runtime.HasCField.HasCField B "un_B" where
 newtype E = E
   { un_E :: M.C
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "un_E")
          ) => GHC.Records.HasField "un_E" (Ptr.Ptr E) (Ptr.Ptr ty) where

@@ -5,7 +5,7 @@
 
 module Example.Safe where
 
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -32,7 +32,7 @@ foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
 hs_bindgen_2010521804ef9a6e :: IO ()
 hs_bindgen_2010521804ef9a6e =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2010521804ef9a6e_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2010521804ef9a6e_base
 
 {-| __C declaration:__ @ϒ@
 
@@ -50,7 +50,7 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
 -- __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
 hs_bindgen_3bc3e53cc82c9580 :: IO ()
 hs_bindgen_3bc3e53cc82c9580 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3bc3e53cc82c9580_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3bc3e53cc82c9580_base
 
 {-| __C declaration:__ @拜拜@
 
@@ -68,7 +68,7 @@ foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d
 -- __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
 hs_bindgen_ad8eb47027b2d49d :: IO ()
 hs_bindgen_ad8eb47027b2d49d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ad8eb47027b2d49d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ad8eb47027b2d49d_base
 
 {-| __C declaration:__ @Say拜拜@
 

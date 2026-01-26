@@ -149,7 +149,7 @@ foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fd
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 hs_bindgen_4ad25504590fdd2b :: Ptr Thing -> IO CInt
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
-hs_bindgen_4ad25504590fdd2b = fromBaseForeignType hs_bindgen_4ad25504590fdd2b_base
+hs_bindgen_4ad25504590fdd2b = fromFFIType hs_bindgen_4ad25504590fdd2b_base
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h 6:5@
@@ -172,7 +172,7 @@ foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 hs_bindgen_04a435522bf64978 :: CInt -> Ptr Thing -> IO Unit
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
-hs_bindgen_04a435522bf64978 = fromBaseForeignType hs_bindgen_04a435522bf64978_base
+hs_bindgen_04a435522bf64978 = fromFFIType hs_bindgen_04a435522bf64978_base
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h 7:14@
@@ -198,7 +198,7 @@ foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7c
 hs_bindgen_5e3271324df7ced2 :: CInt ->
                                Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
-hs_bindgen_5e3271324df7ced2 = fromBaseForeignType hs_bindgen_5e3271324df7ced2_base
+hs_bindgen_5e3271324df7ced2 = fromFFIType hs_bindgen_5e3271324df7ced2_base
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h 9:14@
@@ -223,7 +223,7 @@ foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2
 hs_bindgen_3525c7d1c72f2fae :: CInt ->
                                Ptr Thing -> CDouble -> IO CChar
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
-hs_bindgen_3525c7d1c72f2fae = fromBaseForeignType hs_bindgen_3525c7d1c72f2fae_base
+hs_bindgen_3525c7d1c72f2fae = fromFFIType hs_bindgen_3525c7d1c72f2fae_base
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h 10:6@
@@ -245,7 +245,7 @@ foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
 hs_bindgen_0bdddf60550fc97b :: Ptr Thing -> IO CInt
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
-hs_bindgen_0bdddf60550fc97b = fromBaseForeignType hs_bindgen_0bdddf60550fc97b_base
+hs_bindgen_0bdddf60550fc97b = fromFFIType hs_bindgen_0bdddf60550fc97b_base
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h 6:5@
@@ -268,7 +268,7 @@ foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
 hs_bindgen_c293d866e22be6fc :: CInt -> Ptr Thing -> IO Unit
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
-hs_bindgen_c293d866e22be6fc = fromBaseForeignType hs_bindgen_c293d866e22be6fc_base
+hs_bindgen_c293d866e22be6fc = fromFFIType hs_bindgen_c293d866e22be6fc_base
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h 7:14@
@@ -294,7 +294,7 @@ foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490
 hs_bindgen_cfd51a9e490a997c :: CInt ->
                                Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
-hs_bindgen_cfd51a9e490a997c = fromBaseForeignType hs_bindgen_cfd51a9e490a997c_base
+hs_bindgen_cfd51a9e490a997c = fromFFIType hs_bindgen_cfd51a9e490a997c_base
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h 9:14@
@@ -319,7 +319,7 @@ foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee504
 hs_bindgen_23fac8ee5044da6e :: CInt ->
                                Ptr Thing -> CDouble -> IO CChar
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
-hs_bindgen_23fac8ee5044da6e = fromBaseForeignType hs_bindgen_23fac8ee5044da6e_base
+hs_bindgen_23fac8ee5044da6e = fromFFIType hs_bindgen_23fac8ee5044da6e_base
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h 10:6@
@@ -340,7 +340,7 @@ foreign import ccall unsafe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
 hs_bindgen_17a14e7ffaa1e2e5 :: IO (FunPtr (Thing -> IO CInt))
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
-hs_bindgen_17a14e7ffaa1e2e5 = fromBaseForeignType hs_bindgen_17a14e7ffaa1e2e5_base
+hs_bindgen_17a14e7ffaa1e2e5 = fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
 {-# NOINLINE thing_fun_1 #-}
 {-| __C declaration:__ @thing_fun_1@
 
@@ -362,7 +362,7 @@ foreign import ccall unsafe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57e
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
 hs_bindgen_91748ffd57eae163 :: IO (FunPtr (CInt -> IO Thing))
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
-hs_bindgen_91748ffd57eae163 = fromBaseForeignType hs_bindgen_91748ffd57eae163_base
+hs_bindgen_91748ffd57eae163 = fromFFIType hs_bindgen_91748ffd57eae163_base
 {-# NOINLINE thing_fun_2 #-}
 {-| __C declaration:__ @thing_fun_2@
 
@@ -385,7 +385,7 @@ foreign import ccall unsafe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314
 hs_bindgen_84d98a03314ff518 :: IO (FunPtr (CInt ->
                                            Thing -> CDouble -> IO Thing))
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
-hs_bindgen_84d98a03314ff518 = fromBaseForeignType hs_bindgen_84d98a03314ff518_base
+hs_bindgen_84d98a03314ff518 = fromFFIType hs_bindgen_84d98a03314ff518_base
 {-# NOINLINE thing_fun_3a #-}
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -408,7 +408,7 @@ foreign import ccall unsafe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b1
 hs_bindgen_855ae9088b15005e :: IO (FunPtr (CInt ->
                                            Thing -> CDouble -> IO CChar))
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
-hs_bindgen_855ae9088b15005e = fromBaseForeignType hs_bindgen_855ae9088b15005e_base
+hs_bindgen_855ae9088b15005e = fromFFIType hs_bindgen_855ae9088b15005e_base
 {-# NOINLINE thing_fun_3b #-}
 {-| __C declaration:__ @thing_fun_3b@
 

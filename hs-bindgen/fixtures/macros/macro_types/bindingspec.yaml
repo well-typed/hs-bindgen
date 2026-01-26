@@ -37,7 +37,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -59,7 +59,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -80,7 +80,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
-  - HasBaseForeignType
+  - HasFFIType
   - Num
   - Ord
   - Prim
@@ -98,7 +98,7 @@ hstypes:
       - un_PtrInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -110,7 +110,7 @@ hstypes:
       - un_PtrPtrChar
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -125,7 +125,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
-  - HasBaseForeignType
+  - HasFFIType
   - Num
   - Ord
   - Prim
@@ -147,7 +147,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

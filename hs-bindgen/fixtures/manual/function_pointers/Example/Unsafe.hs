@@ -8,7 +8,7 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -82,7 +82,7 @@ hs_bindgen_db669c022bc12e81 ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_db669c022bc12e81 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_db669c022bc12e81_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_db669c022bc12e81_base
 
 {-| __C declaration:__ @square@
 
@@ -107,7 +107,7 @@ hs_bindgen_0bb46b9dde136391 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_0bb46b9dde136391 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0bb46b9dde136391_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0bb46b9dde136391_base
 
 {-| __C declaration:__ @plus@
 
@@ -133,7 +133,7 @@ hs_bindgen_3ff551d60859d359 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_3ff551d60859d359 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3ff551d60859d359_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3ff551d60859d359_base
 
 {-| __C declaration:__ @apply1@
 
@@ -163,7 +163,7 @@ hs_bindgen_4c92d113161d27cf ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_4c92d113161d27cf =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4c92d113161d27cf_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4c92d113161d27cf_base
 
 {-| __C declaration:__ @apply2@
 
@@ -193,7 +193,7 @@ hs_bindgen_2f904bf3ce7a5f06 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_2f904bf3ce7a5f06 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2f904bf3ce7a5f06_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2f904bf3ce7a5f06_base
 
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
@@ -221,7 +221,7 @@ hs_bindgen_966092b638965558 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_966092b638965558 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_966092b638965558_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_966092b638965558_base
 
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
@@ -244,7 +244,7 @@ foreign import ccall unsafe "hs_bindgen_99a8340e6e6029c5" hs_bindgen_99a8340e6e6
 -- __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_res@
 hs_bindgen_99a8340e6e6029c5 :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 hs_bindgen_99a8340e6e6029c5 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_99a8340e6e6029c5_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_99a8340e6e6029c5_base
 
 {-| A function returning a pointer to a function like apply1_nopointer().
 

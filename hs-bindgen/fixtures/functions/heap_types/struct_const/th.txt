@@ -76,7 +76,7 @@ foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb564198
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 hs_bindgen_67465eb5641985dc :: ConstPtr T -> ConstPtr T -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
-hs_bindgen_67465eb5641985dc = fromBaseForeignType hs_bindgen_67465eb5641985dc_base
+hs_bindgen_67465eb5641985dc = fromFFIType hs_bindgen_67465eb5641985dc_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const.h 9:9@
@@ -99,7 +99,7 @@ foreign import ccall unsafe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e329
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 hs_bindgen_4351e21e32969011 :: ConstPtr T -> ConstPtr T -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
-hs_bindgen_4351e21e32969011 = fromBaseForeignType hs_bindgen_4351e21e32969011_base
+hs_bindgen_4351e21e32969011 = fromFFIType hs_bindgen_4351e21e32969011_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const.h 9:9@
@@ -120,7 +120,7 @@ foreign import ccall unsafe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac7
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
 hs_bindgen_564814e9ac709cad :: IO (FunPtr (T -> IO T))
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
-hs_bindgen_564814e9ac709cad = fromBaseForeignType hs_bindgen_564814e9ac709cad_base
+hs_bindgen_564814e9ac709cad = fromFFIType hs_bindgen_564814e9ac709cad_base
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 

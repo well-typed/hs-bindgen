@@ -28,8 +28,8 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
@@ -46,7 +46,7 @@ newtype I = I
   { un_I :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType I) "un_I")
          ) => GHC.Records.HasField "un_I" (Ptr.Ptr I) (Ptr.Ptr ty) where
@@ -138,7 +138,7 @@ newtype E = E
   { un_E :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance F.Storable E where
 
@@ -218,7 +218,7 @@ newtype TI = TI
   { un_TI :: I
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TI) "un_TI")
          ) => GHC.Records.HasField "un_TI" (Ptr.Ptr TI) (Ptr.Ptr ty) where
@@ -289,7 +289,7 @@ newtype TE = TE
   { un_TE :: E
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TE) "un_TE")
          ) => GHC.Records.HasField "un_TE" (Ptr.Ptr TE) (Ptr.Ptr ty) where
@@ -313,7 +313,7 @@ newtype TTI = TTI
   { un_TTI :: TI
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTI) "un_TTI")
          ) => GHC.Records.HasField "un_TTI" (Ptr.Ptr TTI) (Ptr.Ptr ty) where
@@ -384,7 +384,7 @@ newtype TTE = TTE
   { un_TTE :: TE
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTE) "un_TTE")
          ) => GHC.Records.HasField "un_TTE" (Ptr.Ptr TTE) (Ptr.Ptr ty) where
