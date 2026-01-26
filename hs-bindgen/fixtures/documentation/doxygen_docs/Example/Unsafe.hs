@@ -1,4 +1,5 @@
 {-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
@@ -9,6 +10,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
@@ -77,7 +79,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  return versioned_function(arg1);"
   , "}"
   , "signed int hs_bindgen_97c1191917e6eece ("
-  , "  char *arg1,"
+  , "  char arg1[64],"
   , "  size_t arg2"
   , ")"
   , "{"
@@ -565,7 +567,7 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece ::
-     Ptr.Ptr FC.CChar
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 64) FC.CChar
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CInt
 hs_bindgen_97c1191917e6eece =
@@ -588,7 +590,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer ::
-     Ptr.Ptr FC.CChar
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 64) FC.CChar
      {- ^
 
         [__@buffer@ /(input)/__]: Buffer with minimum size

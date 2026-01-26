@@ -21,7 +21,10 @@ hstypes:
       - un_A
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: B
   representation:
     newtype:
@@ -30,10 +33,15 @@ hstypes:
       - un_B
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: E
   representation:
     newtype:
       constructor: E
       fields:
       - un_E
+  instances:
+  - HasFFIType

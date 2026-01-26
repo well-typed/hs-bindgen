@@ -332,28 +332,9 @@ classifyArgPassingMethod ty
     C.isCanonicalTypeComplex ty
   = PassByAddress ty
 
-  -- Array types
-  | Just aTy <- C.isCanonicalTypeArray ty
-  = PassByValue $ firstElemPtr ty (C.getArrayElementType aTy)
-
   -- Other types
   | otherwise
   = PassByValue ty
-  where
-    -- NOTE: if an array type is const-qualified, then its array element type is
-    -- also const-qualified, and vice versa.
-    firstElemPtr :: C.Type Final -> C.Type Final -> C.Type Final
-    firstElemPtr aTy eTy
-      -- The array element type has a const qualifier.
-      | C.isErasedTypeConstQualified eTy
-      = C.TypePointers 1 eTy
-      -- The array type has a const qualifier, but the array element type does
-      -- not.
-      | C.isErasedTypeConstQualified aTy
-      = C.TypePointers 1 $ C.TypeQual C.QualConst eTy
-      -- No const qualifiers on either the array type or the array element type.
-      | otherwise
-      = C.TypePointers 1 eTy
 
 -- | Recover type used in the foreign import
 toPrimitiveType :: PassBy -> C.Type Final

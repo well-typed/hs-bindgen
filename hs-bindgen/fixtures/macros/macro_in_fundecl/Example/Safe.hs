@@ -9,7 +9,7 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -359,7 +359,7 @@ foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" hs_bindgen_b56f5f3515f3c
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
 hs_bindgen_b56f5f3515f3cc33 ::
      FC.CInt
-  -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+  -> IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 2) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 hs_bindgen_b56f5f3515f3cc33 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b56f5f3515f3cc33_base
 
@@ -372,7 +372,7 @@ hs_bindgen_b56f5f3515f3cc33 =
 baz1 ::
      FC.CInt
      -- ^ __C declaration:__ @i@
-  -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+  -> IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 2) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 baz1 = hs_bindgen_b56f5f3515f3cc33
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
@@ -383,7 +383,7 @@ foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" hs_bindgen_0b9b2e4d1699b
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
 hs_bindgen_0b9b2e4d1699b6f3 ::
      I
-  -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+  -> IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 2) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 hs_bindgen_0b9b2e4d1699b6f3 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0b9b2e4d1699b6f3_base
 
@@ -396,7 +396,7 @@ hs_bindgen_0b9b2e4d1699b6f3 =
 baz2 ::
      I
      -- ^ __C declaration:__ @i@
-  -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+  -> IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 2) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 baz2 = hs_bindgen_0b9b2e4d1699b6f3
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
@@ -407,7 +407,7 @@ foreign import ccall safe "hs_bindgen_459eabcbd019687c" hs_bindgen_459eabcbd0196
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
 hs_bindgen_459eabcbd019687c ::
      FC.CInt
-  -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
+  -> IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 2) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) I)))
 hs_bindgen_459eabcbd019687c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_459eabcbd019687c_base
 
@@ -420,7 +420,7 @@ hs_bindgen_459eabcbd019687c =
 baz3 ::
      FC.CInt
      -- ^ __C declaration:__ @i@
-  -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
+  -> IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 2) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) I)))
 baz3 = hs_bindgen_459eabcbd019687c
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_no_args_no_void@

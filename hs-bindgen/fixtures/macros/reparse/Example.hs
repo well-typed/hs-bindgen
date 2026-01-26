@@ -28,13 +28,13 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
+import qualified HsBindgen.Runtime.Array.UnknownSize.Mutable
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
@@ -213,9 +213,10 @@ pattern ENUM_A = Some_enum 0
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Arr_typedef1 = Arr_typedef1
-  { un_Arr_typedef1 :: HsBindgen.Runtime.IncompleteArray.IncompleteArray A
+  { un_Arr_typedef1 :: HsBindgen.Runtime.Array.UnknownSize.Mutable.Array A
   }
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef1) "un_Arr_typedef1")
          ) => GHC.Records.HasField "un_Arr_typedef1" (Ptr.Ptr Arr_typedef1) (Ptr.Ptr ty) where
@@ -226,7 +227,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef1) "un_Ar
 instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef1 "un_Arr_typedef1" where
 
   type CFieldType Arr_typedef1 "un_Arr_typedef1" =
-    HsBindgen.Runtime.IncompleteArray.IncompleteArray A
+    HsBindgen.Runtime.Array.UnknownSize.Mutable.Array A
 
   offset# = \_ -> \_ -> 0
 
@@ -237,9 +238,10 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef1 "un_Arr_typedef1" wh
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Arr_typedef2 = Arr_typedef2
-  { un_Arr_typedef2 :: HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)
+  { un_Arr_typedef2 :: HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr A)
   }
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef2) "un_Arr_typedef2")
          ) => GHC.Records.HasField "un_Arr_typedef2" (Ptr.Ptr Arr_typedef2) (Ptr.Ptr ty) where
@@ -250,7 +252,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef2) "un_Ar
 instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef2 "un_Arr_typedef2" where
 
   type CFieldType Arr_typedef2 "un_Arr_typedef2" =
-    HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)
+    HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr A)
 
   offset# = \_ -> \_ -> 0
 
@@ -261,10 +263,10 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef2 "un_Arr_typedef2" wh
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Arr_typedef3 = Arr_typedef3
-  { un_Arr_typedef3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) A
+  { un_Arr_typedef3 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) A
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef3) "un_Arr_typedef3")
          ) => GHC.Records.HasField "un_Arr_typedef3" (Ptr.Ptr Arr_typedef3) (Ptr.Ptr ty) where
@@ -275,7 +277,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef3) "un_Ar
 instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef3 "un_Arr_typedef3" where
 
   type CFieldType Arr_typedef3 "un_Arr_typedef3" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 5) A
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) A
 
   offset# = \_ -> \_ -> 0
 
@@ -286,10 +288,10 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef3 "un_Arr_typedef3" wh
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Arr_typedef4 = Arr_typedef4
-  { un_Arr_typedef4 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A)
+  { un_Arr_typedef4 :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) (Ptr.Ptr A)
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef4) "un_Arr_typedef4")
          ) => GHC.Records.HasField "un_Arr_typedef4" (Ptr.Ptr Arr_typedef4) (Ptr.Ptr ty) where
@@ -300,7 +302,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef4) "un_Ar
 instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef4 "un_Arr_typedef4" where
 
   type CFieldType Arr_typedef4 "un_Arr_typedef4" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A)
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) (Ptr.Ptr A)
 
   offset# = \_ -> \_ -> 0
 

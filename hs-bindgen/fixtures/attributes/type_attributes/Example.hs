@@ -25,9 +25,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.ByteArray
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -43,7 +43,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @attributes\/type_attributes.h@
 -}
 data S = S
-  { s_f :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+  { s_f :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CShort
     {- ^ __C declaration:__ @f@
 
          __defined at:__ @attributes\/type_attributes.h 8:18@
@@ -74,7 +74,7 @@ instance F.Storable S where
 instance HsBindgen.Runtime.HasCField.HasCField S "s_f" where
 
   type CFieldType S "s_f" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -116,7 +116,7 @@ instance HsBindgen.Runtime.HasCField.HasCField More_aligned_int "un_More_aligned
     __exported by:__ @attributes\/type_attributes.h@
 -}
 data S2 = S2
-  { s2_f :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+  { s2_f :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CShort
     {- ^ __C declaration:__ @f@
 
          __defined at:__ @attributes\/type_attributes.h 11:19@
@@ -147,7 +147,7 @@ instance F.Storable S2 where
 instance HsBindgen.Runtime.HasCField.HasCField S2 "s2_f" where
 
   type CFieldType S2 "s2_f" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CShort
 
   offset# = \_ -> \_ -> 0
 

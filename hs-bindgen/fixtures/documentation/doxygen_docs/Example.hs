@@ -30,9 +30,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
@@ -342,7 +342,7 @@ data Config_t = Config_t
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , config_t_name :: (HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar
+  , config_t_name :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 64) FC.CChar
     {- ^
 
        Human-readable name
@@ -438,7 +438,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_
 instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_name" where
 
   type CFieldType Config_t "config_t_name" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 64) FC.CChar
 
   offset# = \_ -> \_ -> 4
 
@@ -803,7 +803,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_bytes ::
      Data_union_t
-  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) HsBindgen.Runtime.Prelude.Word8
 get_data_union_t_as_bytes =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -813,7 +813,7 @@ get_data_union_t_as_bytes =
 
 -}
 set_data_union_t_as_bytes ::
-     (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) HsBindgen.Runtime.Prelude.Word8
   -> Data_union_t
 set_data_union_t_as_bytes =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -874,7 +874,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
 
   type CFieldType Data_union_t "data_union_t_as_bytes" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) HsBindgen.Runtime.Prelude.Word8
 
   offset# = \_ -> \_ -> 0
 
@@ -1235,10 +1235,10 @@ __defined at:__ @documentation\/doxygen_docs.h 323:14@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t = Filename_t
-  { un_Filename_t :: (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
+  { un_Filename_t :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 256) FC.CChar
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Filename_t) "un_Filename_t")
          ) => GHC.Records.HasField "un_Filename_t" (Ptr.Ptr Filename_t) (Ptr.Ptr ty) where
@@ -1249,7 +1249,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Filename_t) "un_File
 instance HsBindgen.Runtime.HasCField.HasCField Filename_t "un_Filename_t" where
 
   type CFieldType Filename_t "un_Filename_t" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 256) FC.CChar
 
   offset# = \_ -> \_ -> 0
 

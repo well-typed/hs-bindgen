@@ -64,7 +64,7 @@
 --   return versioned_function(arg1);
 -- }
 -- signed int hs_bindgen_0c0057f1700372a7 (
---   char *arg1,
+--   char arg1[64],
 --   size_t arg2
 -- )
 -- {
@@ -163,7 +163,7 @@
 --   return versioned_function(arg1);
 -- }
 -- signed int hs_bindgen_97c1191917e6eece (
---   char *arg1,
+--   char arg1[64],
 --   size_t arg2
 -- )
 -- {
@@ -654,7 +654,7 @@ data Config_t
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -},
-                config_t_name :: (ConstantArray 64 CChar)
+                config_t_name :: (Array 64 CChar)
                 {- ^
 
                    Human-readable name
@@ -731,8 +731,7 @@ instance TyEq ty (CFieldType Config_t "config_t_id") =>
          HasField "config_t_id" (Ptr Config_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"config_t_id")
 instance HasCField Config_t "config_t_name"
-    where type CFieldType Config_t "config_t_name" = ConstantArray 64
-                                                                   CChar
+    where type CFieldType Config_t "config_t_name" = Array 64 CChar
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Config_t "config_t_name") =>
          HasField "config_t_name" (Ptr Config_t) (Ptr ty)
@@ -1120,7 +1119,7 @@ __defined at:__ @documentation\/doxygen_docs.h 284:13@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_bytes :: Data_union_t ->
-                             ConstantArray 4 HsBindgen.Runtime.Prelude.Word8
+                             Array 4 HsBindgen.Runtime.Prelude.Word8
 {-|
 
   Byte array representation
@@ -1139,8 +1138,8 @@ get_data_union_t_as_bytes = getUnionPayload
   __See:__ 'get_data_union_t_as_bytes'
 
 -}
-set_data_union_t_as_bytes :: ConstantArray 4
-                                           HsBindgen.Runtime.Prelude.Word8 ->
+set_data_union_t_as_bytes :: Array 4
+                                   HsBindgen.Runtime.Prelude.Word8 ->
                              Data_union_t
 {-|
 
@@ -1198,8 +1197,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"data_union_t_as_float")
 instance HasCField Data_union_t "data_union_t_as_bytes"
     where type CFieldType Data_union_t
-                          "data_union_t_as_bytes" = ConstantArray 4
-                                                                  HsBindgen.Runtime.Prelude.Word8
+                          "data_union_t_as_bytes" = Array 4 HsBindgen.Runtime.Prelude.Word8
           offset# = \_ -> \_ -> 0
 instance TyEq ty
               (CFieldType Data_union_t "data_union_t_as_bytes") =>
@@ -1484,7 +1482,7 @@ __defined at:__ @documentation\/doxygen_docs.h 323:14@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t
-    = Filename_t {un_Filename_t :: (ConstantArray 256 CChar)}
+    = Filename_t {un_Filename_t :: (Array 256 CChar)}
       {- ^
 
          > filename_t
@@ -1497,14 +1495,13 @@ newtype Filename_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Filename_t "un_Filename_t") =>
          HasField "un_Filename_t" (Ptr Filename_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Filename_t")
 instance HasCField Filename_t "un_Filename_t"
-    where type CFieldType Filename_t
-                          "un_Filename_t" = ConstantArray 256 CChar
+    where type CFieldType Filename_t "un_Filename_t" = Array 256 CChar
           offset# = \_ -> \_ -> 0
 {-|
 
@@ -2047,7 +2044,7 @@ foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f170037
  -> Word64
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
-hs_bindgen_0c0057f1700372a7 :: Ptr CChar ->
+hs_bindgen_0c0057f1700372a7 :: Array 64 CChar ->
                                HsBindgen.Runtime.Prelude.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 = fromFFIType hs_bindgen_0c0057f1700372a7_base
@@ -2067,7 +2064,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: Ptr CChar ->
+process_buffer :: Array 64 CChar ->
                   HsBindgen.Runtime.Prelude.CSize -> IO CInt
 {-|
 
@@ -2872,7 +2869,7 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
  -> Word64
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
-hs_bindgen_97c1191917e6eece :: Ptr CChar ->
+hs_bindgen_97c1191917e6eece :: Array 64 CChar ->
                                HsBindgen.Runtime.Prelude.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece = fromFFIType hs_bindgen_97c1191917e6eece_base
@@ -2892,7 +2889,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: Ptr CChar ->
+process_buffer :: Array 64 CChar ->
                   HsBindgen.Runtime.Prelude.CSize -> IO CInt
 {-|
 
@@ -3695,8 +3692,7 @@ versioned_function = unsafePerformIO hs_bindgen_180cd7537e40ce99
 foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8d3ebd_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
-hs_bindgen_f4ccc6d90e8d3ebd :: IO (FunPtr (ConstantArray 64
-                                                         CChar ->
+hs_bindgen_f4ccc6d90e8d3ebd :: IO (FunPtr (Array 64 CChar ->
                                            HsBindgen.Runtime.Prelude.CSize -> IO CInt))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
 hs_bindgen_f4ccc6d90e8d3ebd = fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
@@ -3717,7 +3713,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: FunPtr (ConstantArray 64 CChar ->
+process_buffer :: FunPtr (Array 64 CChar ->
                           HsBindgen.Runtime.Prelude.CSize -> IO CInt)
 {-|
 

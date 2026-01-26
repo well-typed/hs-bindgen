@@ -9,10 +9,9 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
+import qualified HsBindgen.Runtime.Array.UnknownSize.Mutable
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -22,119 +21,119 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <arrays/array.h>"
   , "signed int hs_bindgen_a836491d63ff3a2c ("
   , "  signed int arg1,"
-  , "  signed int *arg2"
+  , "  signed int arg2[3]"
   , ")"
   , "{"
   , "  return fun_1(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_c69f41e5ccc441ab ("
-  , "  signed int *arg1"
+  , "  triplet arg1"
   , ")"
   , "{"
   , "  return fun_2(arg1);"
   , "}"
   , "signed int hs_bindgen_30065ddbffdd7502 ("
-  , "  signed int *arg1"
+  , "  signed int arg1[]"
   , ")"
   , "{"
   , "  return fun_3(arg1);"
   , "}"
   , "signed int hs_bindgen_6e8db8abcb5fe22a ("
-  , "  signed int *arg1"
+  , "  list arg1"
   , ")"
   , "{"
   , "  return fun_4(arg1);"
   , "}"
   , "signed int hs_bindgen_b2f48c31265a3f47 ("
-  , "  signed int (*arg1)[3]"
+  , "  signed int arg1[4][3]"
   , ")"
   , "{"
   , "  return fun_5(arg1);"
   , "}"
   , "signed int hs_bindgen_343fe8ca0dbb7eb1 ("
-  , "  signed int (*arg1)[3]"
+  , "  matrix arg1"
   , ")"
   , "{"
   , "  return fun_6(arg1);"
   , "}"
   , "signed int hs_bindgen_d98a58d39b578fd6 ("
-  , "  signed int (*arg1)[3]"
+  , "  signed int arg1[][3]"
   , ")"
   , "{"
   , "  return fun_7(arg1);"
   , "}"
   , "signed int hs_bindgen_4db12be6f46d98f5 ("
-  , "  signed int (*arg1)[3]"
+  , "  tripletlist arg1"
   , ")"
   , "{"
   , "  return fun_8(arg1);"
   , "}"
   , "signed int hs_bindgen_825f9aeca071df21 ("
-  , "  triplet *arg1"
+  , "  sudoku arg1"
   , ")"
   , "{"
   , "  return isSolved(arg1);"
   , "}"
   , "signed int hs_bindgen_a2bf6bc667c9e769 ("
   , "  signed int arg1,"
-  , "  signed int *arg2,"
-  , "  signed int const *arg3"
+  , "  signed int arg2[3],"
+  , "  signed int const arg3[3]"
   , ")"
   , "{"
   , "  return fun_1_const(arg1, arg2, arg3);"
   , "}"
   , "signed int hs_bindgen_ec5a6dd15a457a1d ("
-  , "  signed int *arg1,"
-  , "  signed int const *arg2"
+  , "  triplet arg1,"
+  , "  triplet const arg2"
   , ")"
   , "{"
   , "  return fun_2_const(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_84df1030280611db ("
-  , "  signed int *arg1,"
-  , "  signed int const *arg2"
+  , "  signed int arg1[],"
+  , "  signed int const arg2[]"
   , ")"
   , "{"
   , "  return fun_3_const(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_e9dc927aa39d14d3 ("
-  , "  signed int *arg1,"
-  , "  signed int const *arg2"
+  , "  list arg1,"
+  , "  list const arg2"
   , ")"
   , "{"
   , "  return fun_4_const(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_cd0bfb26f385dfaa ("
-  , "  signed int (*arg1)[3],"
-  , "  signed int const (*arg2)[3]"
+  , "  signed int arg1[4][3],"
+  , "  signed int const arg2[4][3]"
   , ")"
   , "{"
   , "  return fun_5_const(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_1054ce6b48ed0f13 ("
-  , "  signed int (*arg1)[3],"
-  , "  signed int const *arg2[3]"
+  , "  matrix arg1,"
+  , "  matrix const arg2"
   , ")"
   , "{"
   , "  return fun_6_const(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_496902d7c6466098 ("
-  , "  signed int (*arg1)[3],"
-  , "  signed int const (*arg2)[3]"
+  , "  signed int arg1[][3],"
+  , "  signed int const arg2[][3]"
   , ")"
   , "{"
   , "  return fun_7_const(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_eb65cb5074167c48 ("
-  , "  signed int (*arg1)[3],"
-  , "  signed int const *arg2[3]"
+  , "  tripletlist arg1,"
+  , "  tripletlist const arg2"
   , ")"
   , "{"
   , "  return fun_8_const(arg1, arg2);"
   , "}"
   , "signed int hs_bindgen_9bb064e9eddf07f7 ("
-  , "  triplet *arg1,"
-  , "  triplet const *arg2"
+  , "  sudoku arg1,"
+  , "  sudoku const arg2"
   , ")"
   , "{"
   , "  return isSolved_const(arg1, arg2);"
@@ -186,7 +185,7 @@ foreign import ccall safe "hs_bindgen_a836491d63ff3a2c" hs_bindgen_a836491d63ff3
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1@
 hs_bindgen_a836491d63ff3a2c ::
      FC.CInt
-  -> Ptr.Ptr FC.CInt
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
   -> IO FC.CInt
 hs_bindgen_a836491d63ff3a2c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a836491d63ff3a2c_base
@@ -202,7 +201,7 @@ __exported by:__ @arrays\/array.h@
 fun_1 ::
      FC.CInt
      -- ^ __C declaration:__ @x@
-  -> Ptr.Ptr FC.CInt
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
      -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 fun_1 = hs_bindgen_a836491d63ff3a2c
@@ -214,7 +213,7 @@ foreign import ccall safe "hs_bindgen_c69f41e5ccc441ab" hs_bindgen_c69f41e5ccc44
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_2@
 hs_bindgen_c69f41e5ccc441ab ::
-     Ptr.Ptr FC.CInt
+     Triplet
   -> IO FC.CInt
 hs_bindgen_c69f41e5ccc441ab =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c69f41e5ccc441ab_base
@@ -228,7 +227,7 @@ __defined at:__ @arrays\/array.h 121:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_2 ::
-     Ptr.Ptr FC.CInt
+     Triplet
      -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 fun_2 = hs_bindgen_c69f41e5ccc441ab
@@ -240,7 +239,7 @@ foreign import ccall safe "hs_bindgen_30065ddbffdd7502" hs_bindgen_30065ddbffdd7
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_3@
 hs_bindgen_30065ddbffdd7502 ::
-     Ptr.Ptr FC.CInt
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt
   -> IO FC.CInt
 hs_bindgen_30065ddbffdd7502 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_30065ddbffdd7502_base
@@ -254,7 +253,7 @@ __defined at:__ @arrays\/array.h 124:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_3 ::
-     Ptr.Ptr FC.CInt
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt
      -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 fun_3 = hs_bindgen_30065ddbffdd7502
@@ -266,7 +265,7 @@ foreign import ccall safe "hs_bindgen_6e8db8abcb5fe22a" hs_bindgen_6e8db8abcb5fe
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_4@
 hs_bindgen_6e8db8abcb5fe22a ::
-     Ptr.Ptr FC.CInt
+     List
   -> IO FC.CInt
 hs_bindgen_6e8db8abcb5fe22a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6e8db8abcb5fe22a_base
@@ -280,7 +279,7 @@ __defined at:__ @arrays\/array.h 127:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_4 ::
-     Ptr.Ptr FC.CInt
+     List
      -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 fun_4 = hs_bindgen_6e8db8abcb5fe22a
@@ -292,7 +291,7 @@ foreign import ccall safe "hs_bindgen_b2f48c31265a3f47" hs_bindgen_b2f48c31265a3
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_5@
 hs_bindgen_b2f48c31265a3f47 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_b2f48c31265a3f47 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b2f48c31265a3f47_base
@@ -306,7 +305,7 @@ __defined at:__ @arrays\/array.h 130:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 fun_5 = hs_bindgen_b2f48c31265a3f47
@@ -318,7 +317,7 @@ foreign import ccall safe "hs_bindgen_343fe8ca0dbb7eb1" hs_bindgen_343fe8ca0dbb7
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_6@
 hs_bindgen_343fe8ca0dbb7eb1 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Matrix
   -> IO FC.CInt
 hs_bindgen_343fe8ca0dbb7eb1 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_343fe8ca0dbb7eb1_base
@@ -332,7 +331,7 @@ __defined at:__ @arrays\/array.h 133:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_6 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Matrix
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 fun_6 = hs_bindgen_343fe8ca0dbb7eb1
@@ -344,7 +343,7 @@ foreign import ccall safe "hs_bindgen_d98a58d39b578fd6" hs_bindgen_d98a58d39b578
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_7@
 hs_bindgen_d98a58d39b578fd6 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_d98a58d39b578fd6 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d98a58d39b578fd6_base
@@ -358,7 +357,7 @@ __defined at:__ @arrays\/array.h 136:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 fun_7 = hs_bindgen_d98a58d39b578fd6
@@ -370,7 +369,7 @@ foreign import ccall safe "hs_bindgen_4db12be6f46d98f5" hs_bindgen_4db12be6f46d9
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_8@
 hs_bindgen_4db12be6f46d98f5 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Tripletlist
   -> IO FC.CInt
 hs_bindgen_4db12be6f46d98f5 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4db12be6f46d98f5_base
@@ -384,7 +383,7 @@ __defined at:__ @arrays\/array.h 139:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_8 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Tripletlist
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 fun_8 = hs_bindgen_4db12be6f46d98f5
@@ -396,7 +395,7 @@ foreign import ccall safe "hs_bindgen_825f9aeca071df21" hs_bindgen_825f9aeca071d
 
 -- __unique:__ @test_arraysarray_Example_Safe_isSolved@
 hs_bindgen_825f9aeca071df21 ::
-     Ptr.Ptr Triplet
+     Sudoku
   -> IO FC.CInt
 hs_bindgen_825f9aeca071df21 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_825f9aeca071df21_base
@@ -410,7 +409,7 @@ __defined at:__ @arrays\/array.h 142:5@
 __exported by:__ @arrays\/array.h@
 -}
 isSolved ::
-     Ptr.Ptr Triplet
+     Sudoku
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 isSolved = hs_bindgen_825f9aeca071df21
@@ -425,8 +424,8 @@ foreign import ccall safe "hs_bindgen_a2bf6bc667c9e769" hs_bindgen_a2bf6bc667c9e
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1_const@
 hs_bindgen_a2bf6bc667c9e769 ::
      FC.CInt
-  -> Ptr.Ptr FC.CInt
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
   -> IO FC.CInt
 hs_bindgen_a2bf6bc667c9e769 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a2bf6bc667c9e769_base
@@ -442,9 +441,9 @@ __exported by:__ @arrays\/array.h@
 fun_1_const ::
      FC.CInt
      -- ^ __C declaration:__ @x@
-  -> Ptr.Ptr FC.CInt
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
      -- ^ __C declaration:__ @xs@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
      -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_1_const = hs_bindgen_a2bf6bc667c9e769
@@ -457,8 +456,8 @@ foreign import ccall safe "hs_bindgen_ec5a6dd15a457a1d" hs_bindgen_ec5a6dd15a457
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_2_const@
 hs_bindgen_ec5a6dd15a457a1d ::
-     Ptr.Ptr FC.CInt
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+     Triplet
+  -> Triplet
   -> IO FC.CInt
 hs_bindgen_ec5a6dd15a457a1d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ec5a6dd15a457a1d_base
@@ -472,9 +471,9 @@ __defined at:__ @arrays\/array.h 152:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_2_const ::
-     Ptr.Ptr FC.CInt
+     Triplet
      -- ^ __C declaration:__ @xs@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+  -> Triplet
      -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_2_const = hs_bindgen_ec5a6dd15a457a1d
@@ -487,8 +486,8 @@ foreign import ccall safe "hs_bindgen_84df1030280611db" hs_bindgen_84df103028061
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_3_const@
 hs_bindgen_84df1030280611db ::
-     Ptr.Ptr FC.CInt
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt
+  -> HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt
   -> IO FC.CInt
 hs_bindgen_84df1030280611db =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_84df1030280611db_base
@@ -502,9 +501,9 @@ __defined at:__ @arrays\/array.h 155:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_3_const ::
-     Ptr.Ptr FC.CInt
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt
      -- ^ __C declaration:__ @xs@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+  -> HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt
      -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_3_const = hs_bindgen_84df1030280611db
@@ -517,8 +516,8 @@ foreign import ccall safe "hs_bindgen_e9dc927aa39d14d3" hs_bindgen_e9dc927aa39d1
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_4_const@
 hs_bindgen_e9dc927aa39d14d3 ::
-     Ptr.Ptr FC.CInt
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+     List
+  -> List
   -> IO FC.CInt
 hs_bindgen_e9dc927aa39d14d3 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e9dc927aa39d14d3_base
@@ -532,9 +531,9 @@ __defined at:__ @arrays\/array.h 158:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_4_const ::
-     Ptr.Ptr FC.CInt
+     List
      -- ^ __C declaration:__ @xs@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+  -> List
      -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_4_const = hs_bindgen_e9dc927aa39d14d3
@@ -547,8 +546,8 @@ foreign import ccall safe "hs_bindgen_cd0bfb26f385dfaa" hs_bindgen_cd0bfb26f385d
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_5_const@
 hs_bindgen_cd0bfb26f385dfaa ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_cd0bfb26f385dfaa =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cd0bfb26f385dfaa_base
@@ -562,9 +561,9 @@ __defined at:__ @arrays\/array.h 161:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5_const ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+  -> (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
      -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_5_const = hs_bindgen_cd0bfb26f385dfaa
@@ -577,8 +576,8 @@ foreign import ccall safe "hs_bindgen_1054ce6b48ed0f13" hs_bindgen_1054ce6b48ed0
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_6_const@
 hs_bindgen_1054ce6b48ed0f13 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Matrix
+  -> Matrix
   -> IO FC.CInt
 hs_bindgen_1054ce6b48ed0f13 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1054ce6b48ed0f13_base
@@ -592,9 +591,9 @@ __defined at:__ @arrays\/array.h 164:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_6_const ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Matrix
      -- ^ __C declaration:__ @xss@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+  -> Matrix
      -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_6_const = hs_bindgen_1054ce6b48ed0f13
@@ -607,8 +606,8 @@ foreign import ccall safe "hs_bindgen_496902d7c6466098" hs_bindgen_496902d7c6466
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_7_const@
 hs_bindgen_496902d7c6466098 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
+  -> HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_496902d7c6466098 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_496902d7c6466098_base
@@ -622,9 +621,9 @@ __defined at:__ @arrays\/array.h 167:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7_const ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+  -> HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
      -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_7_const = hs_bindgen_496902d7c6466098
@@ -637,8 +636,8 @@ foreign import ccall safe "hs_bindgen_eb65cb5074167c48" hs_bindgen_eb65cb5074167
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_8_const@
 hs_bindgen_eb65cb5074167c48 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Tripletlist
+  -> Tripletlist
   -> IO FC.CInt
 hs_bindgen_eb65cb5074167c48 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_eb65cb5074167c48_base
@@ -652,9 +651,9 @@ __defined at:__ @arrays\/array.h 170:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_8_const ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Tripletlist
      -- ^ __C declaration:__ @xss@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+  -> Tripletlist
      -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_8_const = hs_bindgen_eb65cb5074167c48
@@ -667,8 +666,8 @@ foreign import ccall safe "hs_bindgen_9bb064e9eddf07f7" hs_bindgen_9bb064e9eddf0
 
 -- __unique:__ @test_arraysarray_Example_Safe_isSolved_const@
 hs_bindgen_9bb064e9eddf07f7 ::
-     Ptr.Ptr Triplet
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+     Sudoku
+  -> Sudoku
   -> IO FC.CInt
 hs_bindgen_9bb064e9eddf07f7 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9bb064e9eddf07f7_base
@@ -682,9 +681,9 @@ __defined at:__ @arrays\/array.h 173:5@
 __exported by:__ @arrays\/array.h@
 -}
 isSolved_const ::
-     Ptr.Ptr Triplet
+     Sudoku
      -- ^ __C declaration:__ @xss@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+  -> Sudoku
      -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 isSolved_const = hs_bindgen_9bb064e9eddf07f7
@@ -694,7 +693,7 @@ foreign import ccall safe "hs_bindgen_0fa0a3e47fa9d95a" hs_bindgen_0fa0a3e47fa9d
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_9@
-hs_bindgen_0fa0a3e47fa9d95a :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_0fa0a3e47fa9d95a :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt))
 hs_bindgen_0fa0a3e47fa9d95a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0fa0a3e47fa9d95a_base
 
@@ -706,7 +705,7 @@ __defined at:__ @arrays\/array.h 185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_9 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+fun_9 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt))
 fun_9 = hs_bindgen_0fa0a3e47fa9d95a
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_10@
@@ -734,7 +733,7 @@ foreign import ccall safe "hs_bindgen_7f7cea54b33bf176" hs_bindgen_7f7cea54b33bf
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_11@
-hs_bindgen_7f7cea54b33bf176 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+hs_bindgen_7f7cea54b33bf176 :: IO (Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt))
 hs_bindgen_7f7cea54b33bf176 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7f7cea54b33bf176_base
 
@@ -746,7 +745,7 @@ __defined at:__ @arrays\/array.h 191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_11 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+fun_11 :: IO (Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt))
 fun_11 = hs_bindgen_7f7cea54b33bf176
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_12@
@@ -774,7 +773,7 @@ foreign import ccall safe "hs_bindgen_2fdd1bf9ee687f9b" hs_bindgen_2fdd1bf9ee687
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_13@
-hs_bindgen_2fdd1bf9ee687f9b :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_2fdd1bf9ee687f9b :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 hs_bindgen_2fdd1bf9ee687f9b =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2fdd1bf9ee687f9b_base
 
@@ -786,7 +785,7 @@ __defined at:__ @arrays\/array.h 197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_13 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+fun_13 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 4) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 fun_13 = hs_bindgen_2fdd1bf9ee687f9b
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_14@
@@ -814,7 +813,7 @@ foreign import ccall safe "hs_bindgen_d8e176eb5efefa2c" hs_bindgen_d8e176eb5efef
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_15@
-hs_bindgen_d8e176eb5efefa2c :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_d8e176eb5efefa2c :: IO (Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 hs_bindgen_d8e176eb5efefa2c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d8e176eb5efefa2c_base
 
@@ -826,7 +825,7 @@ __defined at:__ @arrays\/array.h 203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_15 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+fun_15 :: IO (Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 fun_15 = hs_bindgen_d8e176eb5efefa2c
 
 -- __unique:__ @test_arraysarray_Example_Safe_fun_16@

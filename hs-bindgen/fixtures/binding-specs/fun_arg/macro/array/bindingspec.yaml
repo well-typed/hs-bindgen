@@ -21,7 +21,10 @@ hstypes:
       - un_A
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: B
   representation:
     newtype:
@@ -30,7 +33,10 @@ hstypes:
       - un_B
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: MyArray
   representation:
     newtype:
@@ -39,4 +45,7 @@ hstypes:
       - un_MyArray
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable

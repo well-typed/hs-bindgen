@@ -1,4 +1,5 @@
 {-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
@@ -11,6 +12,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
+import qualified HsBindgen.Runtime.Array.UnknownSize.Mutable
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
@@ -365,25 +368,25 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  return bespoke_ret2(arg1);"
   , "}"
   , "void hs_bindgen_e20689fe39004225 ("
-  , "  A *arg1"
+  , "  A arg1[]"
   , ")"
   , "{"
   , "  arr_args1(arg1);"
   , "}"
   , "void hs_bindgen_084796e4bfd3f4cd ("
-  , "  A **arg1"
+  , "  A *arg1[]"
   , ")"
   , "{"
   , "  arr_args2(arg1);"
   , "}"
   , "void hs_bindgen_a3d1560aaa4352df ("
-  , "  A *arg1"
+  , "  A arg1[5]"
   , ")"
   , "{"
   , "  arr_args3(arg1);"
   , "}"
   , "void hs_bindgen_88659ccccc6c1f5f ("
-  , "  A **arg1"
+  , "  A *arg1[5]"
   , ")"
   , "{"
   , "  arr_args4(arg1);"
@@ -657,19 +660,19 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  return const_pointers_ret5(arg1);"
   , "}"
   , "void hs_bindgen_678576320923a4d1 ("
-  , "  A const *arg1"
+  , "  A const arg1[]"
   , ")"
   , "{"
   , "  const_array_elem1(arg1);"
   , "}"
   , "void hs_bindgen_b317941dde4eeff2 ("
-  , "  A const **arg1"
+  , "  A const *arg1[]"
   , ")"
   , "{"
   , "  const_array_elem2(arg1);"
   , "}"
   , "void hs_bindgen_707e602e6beb1bb6 ("
-  , "  A *const *arg1"
+  , "  A *const arg1[]"
   , ")"
   , "{"
   , "  const_array_elem3(arg1);"
@@ -2179,7 +2182,7 @@ foreign import ccall safe "hs_bindgen_e20689fe39004225" hs_bindgen_e20689fe39004
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
 hs_bindgen_e20689fe39004225 ::
-     Ptr.Ptr A
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array A
   -> IO ()
 hs_bindgen_e20689fe39004225 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e20689fe39004225_base
@@ -2193,7 +2196,7 @@ __defined at:__ @macros\/reparse.h 104:6@
 __exported by:__ @macros\/reparse.h@
 -}
 arr_args1 ::
-     Ptr.Ptr A
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array A
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args1 = hs_bindgen_e20689fe39004225
@@ -2205,7 +2208,7 @@ foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" hs_bindgen_084796e4bfd3f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
 hs_bindgen_084796e4bfd3f4cd ::
-     Ptr.Ptr (Ptr.Ptr A)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr A)
   -> IO ()
 hs_bindgen_084796e4bfd3f4cd =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_084796e4bfd3f4cd_base
@@ -2217,7 +2220,7 @@ hs_bindgen_084796e4bfd3f4cd =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args2 ::
-     Ptr.Ptr (Ptr.Ptr A)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr A)
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args2 = hs_bindgen_084796e4bfd3f4cd
@@ -2229,7 +2232,7 @@ foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" hs_bindgen_a3d1560aaa435
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
 hs_bindgen_a3d1560aaa4352df ::
-     Ptr.Ptr A
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) A
   -> IO ()
 hs_bindgen_a3d1560aaa4352df =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a3d1560aaa4352df_base
@@ -2241,7 +2244,7 @@ hs_bindgen_a3d1560aaa4352df =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args3 ::
-     Ptr.Ptr A
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) A
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args3 = hs_bindgen_a3d1560aaa4352df
@@ -2253,7 +2256,7 @@ foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" hs_bindgen_88659ccccc6c1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
 hs_bindgen_88659ccccc6c1f5f ::
-     Ptr.Ptr (Ptr.Ptr A)
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) (Ptr.Ptr A)
   -> IO ()
 hs_bindgen_88659ccccc6c1f5f =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_88659ccccc6c1f5f_base
@@ -2265,7 +2268,7 @@ hs_bindgen_88659ccccc6c1f5f =
     __exported by:__ @macros\/reparse.h@
 -}
 arr_args4 ::
-     Ptr.Ptr (Ptr.Ptr A)
+     (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 5) (Ptr.Ptr A)
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 arr_args4 = hs_bindgen_88659ccccc6c1f5f
@@ -3355,7 +3358,7 @@ foreign import ccall safe "hs_bindgen_678576320923a4d1" hs_bindgen_678576320923a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
 hs_bindgen_678576320923a4d1 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr A
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array A
   -> IO ()
 hs_bindgen_678576320923a4d1 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_678576320923a4d1_base
@@ -3367,7 +3370,7 @@ hs_bindgen_678576320923a4d1 =
     __exported by:__ @macros\/reparse.h@
 -}
 const_array_elem1 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr A
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array A
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 const_array_elem1 = hs_bindgen_678576320923a4d1
@@ -3379,7 +3382,7 @@ foreign import ccall safe "hs_bindgen_b317941dde4eeff2" hs_bindgen_b317941dde4ee
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
 hs_bindgen_b317941dde4eeff2 ::
-     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr A)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   -> IO ()
 hs_bindgen_b317941dde4eeff2 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b317941dde4eeff2_base
@@ -3391,7 +3394,7 @@ hs_bindgen_b317941dde4eeff2 =
     __exported by:__ @macros\/reparse.h@
 -}
 const_array_elem2 ::
-     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr A)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (HsBindgen.Runtime.ConstPtr.ConstPtr A)
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 const_array_elem2 = hs_bindgen_b317941dde4eeff2
@@ -3403,7 +3406,7 @@ foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" hs_bindgen_707e602e6beb1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
 hs_bindgen_707e602e6beb1bb6 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr A)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr A)
   -> IO ()
 hs_bindgen_707e602e6beb1bb6 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_707e602e6beb1bb6_base
@@ -3415,7 +3418,7 @@ hs_bindgen_707e602e6beb1bb6 =
     __exported by:__ @macros\/reparse.h@
 -}
 const_array_elem3 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr A)
+     HsBindgen.Runtime.Array.UnknownSize.Mutable.Array (Ptr.Ptr A)
      -- ^ __C declaration:__ @arg1@
   -> IO ()
 const_array_elem3 = hs_bindgen_707e602e6beb1bb6

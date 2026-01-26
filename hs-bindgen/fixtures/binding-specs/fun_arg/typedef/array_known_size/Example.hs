@@ -17,11 +17,12 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified M
 import HsBindgen.Runtime.TypeEquality (TyEq)
-import Prelude (Eq, Show)
+import Prelude (Eq, Ord, Show)
 
 {-| __C declaration:__ @A@
 
@@ -30,10 +31,10 @@ import Prelude (Eq, Show)
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 newtype A = A
-  { un_A :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { un_A :: (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "un_A")
          ) => GHC.Records.HasField "un_A" (Ptr.Ptr A) (Ptr.Ptr ty) where
@@ -44,7 +45,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "un_A")
 instance HsBindgen.Runtime.HasCField.HasCField A "un_A" where
 
   type CFieldType A "un_A" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -57,8 +58,8 @@ instance HsBindgen.Runtime.HasCField.HasCField A "un_A" where
 newtype B = B
   { un_B :: A
   }
-  deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "un_B")
          ) => GHC.Records.HasField "un_B" (Ptr.Ptr B) (Ptr.Ptr ty) where
@@ -81,6 +82,7 @@ instance HsBindgen.Runtime.HasCField.HasCField B "un_B" where
 newtype E = E
   { un_E :: M.C
   }
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "un_E")
          ) => GHC.Records.HasField "un_E" (Ptr.Ptr E) (Ptr.Ptr ty) where

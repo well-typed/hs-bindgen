@@ -41,17 +41,21 @@ import Text.Read qualified
 import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
+import HsBindgen.Runtime.Array.KnownSize qualified
+import HsBindgen.Runtime.Array.KnownSize.Const.Mutable qualified
+import HsBindgen.Runtime.Array.KnownSize.Mutable qualified
+import HsBindgen.Runtime.Array.UnknownSize qualified
+import HsBindgen.Runtime.Array.UnknownSize.Const.Mutable qualified
+import HsBindgen.Runtime.Array.UnknownSize.Mutable qualified
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
-import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
-import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.Runtime.TypeEquality qualified
@@ -297,21 +301,29 @@ resolveGlobal = \case
     Foreign_FunPtr                -> importQ ''Foreign.FunPtr
     Foreign_plusPtr               -> importQ 'Foreign.plusPtr
     Foreign_StablePtr             -> importQ ''Foreign.StablePtr
-    ConstantArray                 -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
-    IncompleteArray               -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
     IO_type                       -> importU ''IO
     CharValue_tycon               -> importQ ''CExpr.Runtime.CharValue
     CharValue_constructor         -> importQ 'CExpr.Runtime.CharValue
     CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
     CAPI_with                     -> importQ 'Foreign.with
     CAPI_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
-    ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
-    IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 
     -- Flexible array members
     FlexibleArrayMember_Offset_class  -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.Offset
     FlexibleArrayMember_Offset_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.offset
     WithFlexibleArrayMember           -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember
+
+    -- Array
+    ArrayUnknownSize                     -> importQ ''HsBindgen.Runtime.Array.UnknownSize.Array
+    ArrayUnknownSizeMutable              -> importQ ''HsBindgen.Runtime.Array.UnknownSize.Mutable.Array
+    ArrayUnknownSizeMutable_withPtr      -> importQ 'HsBindgen.Runtime.Array.UnknownSize.Mutable.withPtr
+    ArrayUnknownSizeConstMutable         -> importQ ''HsBindgen.Runtime.Array.UnknownSize.Const.Mutable.Array
+    ArrayUnknownSizeConstMutable_withPtr -> importQ 'HsBindgen.Runtime.Array.UnknownSize.Const.Mutable.withPtr
+    ArrayKnownSize                       -> importQ 'HsBindgen.Runtime.Array.KnownSize.Array
+    ArrayKnownSizeMutable                -> importQ ''HsBindgen.Runtime.Array.KnownSize.Mutable.Array
+    ArrayKnownSizeMutable_withPtr        -> importQ 'HsBindgen.Runtime.Array.KnownSize.Mutable.withPtr
+    ArrayKnownSizeConstMutable           -> importQ ''HsBindgen.Runtime.Array.KnownSize.Const.Mutable.Array
+    ArrayKnownSizeConstMutable_withPtr   -> importQ 'HsBindgen.Runtime.Array.KnownSize.Const.Mutable.withPtr
 
     -- HasCField
     HasCField_class       -> importQ ''HsBindgen.Runtime.HasCField.HasCField

@@ -1,15 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -19,14 +15,14 @@ import Prelude (IO)
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
   , "void hs_bindgen_cba7011c6d25362b ("
-  , "  triplet const *arg1,"
-  , "  triplet *arg2"
+  , "  matrix const arg1,"
+  , "  matrix arg2"
   , ")"
   , "{"
   , "  transpose(arg1, arg2);"
   , "}"
   , "void hs_bindgen_45d15697a99c626a ("
-  , "  signed int (**arg1)[3]"
+  , "  triplet_ptrs arg1"
   , ")"
   , "{"
   , "  pretty_print_triplets(arg1);"
@@ -41,8 +37,8 @@ foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d253
 
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
 hs_bindgen_cba7011c6d25362b ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
-  -> Ptr.Ptr Triplet
+     Matrix
+  -> Matrix
   -> IO ()
 hs_bindgen_cba7011c6d25362b =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cba7011c6d25362b_base
@@ -54,9 +50,9 @@ hs_bindgen_cba7011c6d25362b =
     __exported by:__ @manual\/arrays.h@
 -}
 transpose ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+     Matrix
      -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Triplet
+  -> Matrix
      -- ^ __C declaration:__ @output@
   -> IO ()
 transpose = hs_bindgen_cba7011c6d25362b
@@ -68,7 +64,7 @@ foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c6
 
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 hs_bindgen_45d15697a99c626a ::
-     Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+     Triplet_ptrs
   -> IO ()
 hs_bindgen_45d15697a99c626a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_45d15697a99c626a_base
@@ -82,7 +78,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 __exported by:__ @manual\/arrays.h@
 -}
 pretty_print_triplets ::
-     Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+     Triplet_ptrs
      -- ^ __C declaration:__ @x@
   -> IO ()
 pretty_print_triplets = hs_bindgen_45d15697a99c626a

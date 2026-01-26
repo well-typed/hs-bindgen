@@ -41,7 +41,10 @@ hstypes:
       - un_List
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: Matrix
   representation:
     newtype:
@@ -50,6 +53,8 @@ hstypes:
       - un_Matrix
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: Sudoku
@@ -60,6 +65,8 @@ hstypes:
       - un_Sudoku
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: Triplet
@@ -70,6 +77,8 @@ hstypes:
       - un_Triplet
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: Tripletlist
@@ -80,4 +89,7 @@ hstypes:
       - un_Tripletlist
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable

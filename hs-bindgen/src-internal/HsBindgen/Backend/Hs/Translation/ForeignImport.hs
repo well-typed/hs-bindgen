@@ -307,8 +307,8 @@ toFFIType sizeofs = go
     go = \case
       HsPrimType pt -> goPrim pt
       HsTypRef _ t -> t >>= go
-      HsConstArray{} -> no
-      HsIncompleteArray{} -> no
+      HsConstArray{} -> yes $ FFI.Basic FFI.Ptr
+      HsIncompleteArray{} -> yes $ FFI.Basic FFI.Ptr
       HsPtr{} -> yes $ FFI.Basic FFI.Ptr
       HsFunPtr{} -> yes $ FFI.Basic FFI.FunPtr
       HsStablePtr{} -> no

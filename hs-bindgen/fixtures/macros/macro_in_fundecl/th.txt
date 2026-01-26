@@ -696,7 +696,7 @@ foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" hs_bindgen_b56f5f3515f3c
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
 hs_bindgen_b56f5f3515f3cc33 :: CInt ->
-                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+                               IO (Ptr (Array 2 (Array 3 CInt)))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
 hs_bindgen_b56f5f3515f3cc33 = fromFFIType hs_bindgen_b56f5f3515f3cc33_base
 {-| __C declaration:__ @baz1@
@@ -705,7 +705,7 @@ hs_bindgen_b56f5f3515f3cc33 = fromFFIType hs_bindgen_b56f5f3515f3cc33_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz1 :: CInt -> IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+baz1 :: CInt -> IO (Ptr (Array 2 (Array 3 CInt)))
 {-| __C declaration:__ @baz1@
 
     __defined at:__ @macros\/macro_in_fundecl.h 27:7@
@@ -719,7 +719,7 @@ foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" hs_bindgen_0b9b2e4d1699b
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
 hs_bindgen_0b9b2e4d1699b6f3 :: I ->
-                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+                               IO (Ptr (Array 2 (Array 3 CInt)))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
 hs_bindgen_0b9b2e4d1699b6f3 = fromFFIType hs_bindgen_0b9b2e4d1699b6f3_base
 {-| __C declaration:__ @baz2@
@@ -728,7 +728,7 @@ hs_bindgen_0b9b2e4d1699b6f3 = fromFFIType hs_bindgen_0b9b2e4d1699b6f3_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz2 :: I -> IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+baz2 :: I -> IO (Ptr (Array 2 (Array 3 CInt)))
 {-| __C declaration:__ @baz2@
 
     __defined at:__ @macros\/macro_in_fundecl.h 35:7@
@@ -742,7 +742,7 @@ foreign import ccall safe "hs_bindgen_459eabcbd019687c" hs_bindgen_459eabcbd0196
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
 hs_bindgen_459eabcbd019687c :: CInt ->
-                               IO (Ptr (ConstantArray 2 (ConstantArray 3 I)))
+                               IO (Ptr (Array 2 (Array 3 I)))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
 hs_bindgen_459eabcbd019687c = fromFFIType hs_bindgen_459eabcbd019687c_base
 {-| __C declaration:__ @baz3@
@@ -751,7 +751,7 @@ hs_bindgen_459eabcbd019687c = fromFFIType hs_bindgen_459eabcbd019687c_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz3 :: CInt -> IO (Ptr (ConstantArray 2 (ConstantArray 3 I)))
+baz3 :: CInt -> IO (Ptr (Array 2 (Array 3 I)))
 {-| __C declaration:__ @baz3@
 
     __defined at:__ @macros\/macro_in_fundecl.h 43:5@
@@ -994,7 +994,7 @@ foreign import ccall unsafe "hs_bindgen_f378b374e8c8c095" hs_bindgen_f378b374e8c
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz1@
 hs_bindgen_f378b374e8c8c095 :: CInt ->
-                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+                               IO (Ptr (Array 2 (Array 3 CInt)))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz1@
 hs_bindgen_f378b374e8c8c095 = fromFFIType hs_bindgen_f378b374e8c8c095_base
 {-| __C declaration:__ @baz1@
@@ -1003,7 +1003,7 @@ hs_bindgen_f378b374e8c8c095 = fromFFIType hs_bindgen_f378b374e8c8c095_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz1 :: CInt -> IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+baz1 :: CInt -> IO (Ptr (Array 2 (Array 3 CInt)))
 {-| __C declaration:__ @baz1@
 
     __defined at:__ @macros\/macro_in_fundecl.h 27:7@
@@ -1017,7 +1017,7 @@ foreign import ccall unsafe "hs_bindgen_27cf571d08ac8c04" hs_bindgen_27cf571d08a
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz2@
 hs_bindgen_27cf571d08ac8c04 :: I ->
-                               IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+                               IO (Ptr (Array 2 (Array 3 CInt)))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz2@
 hs_bindgen_27cf571d08ac8c04 = fromFFIType hs_bindgen_27cf571d08ac8c04_base
 {-| __C declaration:__ @baz2@
@@ -1026,7 +1026,7 @@ hs_bindgen_27cf571d08ac8c04 = fromFFIType hs_bindgen_27cf571d08ac8c04_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz2 :: I -> IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))
+baz2 :: I -> IO (Ptr (Array 2 (Array 3 CInt)))
 {-| __C declaration:__ @baz2@
 
     __defined at:__ @macros\/macro_in_fundecl.h 35:7@
@@ -1040,7 +1040,7 @@ foreign import ccall unsafe "hs_bindgen_c4035ef23b908e27" hs_bindgen_c4035ef23b9
  -> IO (Ptr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz3@
 hs_bindgen_c4035ef23b908e27 :: CInt ->
-                               IO (Ptr (ConstantArray 2 (ConstantArray 3 I)))
+                               IO (Ptr (Array 2 (Array 3 I)))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Unsafe_baz3@
 hs_bindgen_c4035ef23b908e27 = fromFFIType hs_bindgen_c4035ef23b908e27_base
 {-| __C declaration:__ @baz3@
@@ -1049,7 +1049,7 @@ hs_bindgen_c4035ef23b908e27 = fromFFIType hs_bindgen_c4035ef23b908e27_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz3 :: CInt -> IO (Ptr (ConstantArray 2 (ConstantArray 3 I)))
+baz3 :: CInt -> IO (Ptr (Array 2 (Array 3 I)))
 {-| __C declaration:__ @baz3@
 
     __defined at:__ @macros\/macro_in_fundecl.h 43:5@
@@ -1290,7 +1290,7 @@ foreign import ccall unsafe "hs_bindgen_86b147342f608069" hs_bindgen_86b147342f6
     IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1@
 hs_bindgen_86b147342f608069 :: IO (FunPtr (CInt ->
-                                           IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))))
+                                           IO (Ptr (Array 2 (Array 3 CInt)))))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1@
 hs_bindgen_86b147342f608069 = fromFFIType hs_bindgen_86b147342f608069_base
 {-# NOINLINE baz1 #-}
@@ -1300,8 +1300,7 @@ hs_bindgen_86b147342f608069 = fromFFIType hs_bindgen_86b147342f608069_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz1 :: FunPtr (CInt ->
-                IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt))))
+baz1 :: FunPtr (CInt -> IO (Ptr (Array 2 (Array 3 CInt))))
 {-| __C declaration:__ @baz1@
 
     __defined at:__ @macros\/macro_in_fundecl.h 27:7@
@@ -1314,7 +1313,7 @@ foreign import ccall unsafe "hs_bindgen_a7194966e4f375df" hs_bindgen_a7194966e4f
     IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2@
 hs_bindgen_a7194966e4f375df :: IO (FunPtr (I ->
-                                           IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt)))))
+                                           IO (Ptr (Array 2 (Array 3 CInt)))))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2@
 hs_bindgen_a7194966e4f375df = fromFFIType hs_bindgen_a7194966e4f375df_base
 {-# NOINLINE baz2 #-}
@@ -1324,8 +1323,7 @@ hs_bindgen_a7194966e4f375df = fromFFIType hs_bindgen_a7194966e4f375df_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz2 :: FunPtr (I ->
-                IO (Ptr (ConstantArray 2 (ConstantArray 3 CInt))))
+baz2 :: FunPtr (I -> IO (Ptr (Array 2 (Array 3 CInt))))
 {-| __C declaration:__ @baz2@
 
     __defined at:__ @macros\/macro_in_fundecl.h 35:7@
@@ -1338,7 +1336,7 @@ foreign import ccall unsafe "hs_bindgen_cd69bb91c3e6d7ea" hs_bindgen_cd69bb91c3e
     IO (FunPtr Void)
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3@
 hs_bindgen_cd69bb91c3e6d7ea :: IO (FunPtr (CInt ->
-                                           IO (Ptr (ConstantArray 2 (ConstantArray 3 I)))))
+                                           IO (Ptr (Array 2 (Array 3 I)))))
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3@
 hs_bindgen_cd69bb91c3e6d7ea = fromFFIType hs_bindgen_cd69bb91c3e6d7ea_base
 {-# NOINLINE baz3 #-}
@@ -1348,8 +1346,7 @@ hs_bindgen_cd69bb91c3e6d7ea = fromFFIType hs_bindgen_cd69bb91c3e6d7ea_base
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz3 :: FunPtr (CInt ->
-                IO (Ptr (ConstantArray 2 (ConstantArray 3 I))))
+baz3 :: FunPtr (CInt -> IO (Ptr (Array 2 (Array 3 I))))
 {-| __C declaration:__ @baz3@
 
     __defined at:__ @macros\/macro_in_fundecl.h 43:5@

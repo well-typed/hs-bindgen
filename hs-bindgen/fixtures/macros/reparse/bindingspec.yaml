@@ -145,7 +145,10 @@ hstypes:
       - un_Arr_typedef1
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: Arr_typedef2
   representation:
     newtype:
@@ -154,7 +157,10 @@ hstypes:
       - un_Arr_typedef2
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: Arr_typedef3
   representation:
     newtype:
@@ -163,6 +169,8 @@ hstypes:
       - un_Arr_typedef3
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: Arr_typedef4
@@ -173,6 +181,8 @@ hstypes:
       - un_Arr_typedef4
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: BOOL

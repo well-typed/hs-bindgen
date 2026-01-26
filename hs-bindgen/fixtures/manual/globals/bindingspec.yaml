@@ -62,7 +62,10 @@ hstypes:
       - un_List
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
+  - Storable
 - hsname: Triplet
   representation:
     newtype:
@@ -71,6 +74,8 @@ hstypes:
       - un_Triplet
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable
 - hsname: Tuple

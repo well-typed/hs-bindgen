@@ -38,20 +38,24 @@ common lang
 library
   import:             lang
   exposed-modules:
+    HsBindgen.Runtime.Array.KnownSize
+    HsBindgen.Runtime.Array.KnownSize.Const.Mutable
+    HsBindgen.Runtime.Array.KnownSize.Mutable
+    HsBindgen.Runtime.Array.UnknownSize
+    HsBindgen.Runtime.Array.UnknownSize.Const.Mutable
+    HsBindgen.Runtime.Array.UnknownSize.Mutable
     HsBindgen.Runtime.Bitfield
     HsBindgen.Runtime.Block
     HsBindgen.Runtime.ByteArray
     HsBindgen.Runtime.CAPI
     HsBindgen.Runtime.CBoolSem
     HsBindgen.Runtime.CEnum
-    HsBindgen.Runtime.ConstantArray
     HsBindgen.Runtime.ConstPtr
     HsBindgen.Runtime.FFIType
     HsBindgen.Runtime.FlexibleArrayMember
     HsBindgen.Runtime.FunPtr
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.HasFFIType
-    HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude

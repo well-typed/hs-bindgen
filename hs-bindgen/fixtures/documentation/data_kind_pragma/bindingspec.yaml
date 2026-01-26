@@ -15,5 +15,7 @@ hstypes:
       - un_Triplet
   instances:
   - Eq
+  - HasFFIType
+  - Ord
   - Show
   - Storable

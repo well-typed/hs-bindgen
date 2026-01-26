@@ -77,8 +77,6 @@ data Global =
   | Foreign_FunPtr
   | Foreign_plusPtr
   | Foreign_StablePtr
-  | ConstantArray
-  | IncompleteArray
   | IO_type
   | CharValue_tycon
   | CharValue_constructor
@@ -87,13 +85,23 @@ data Global =
   | ByteArray_getUnionPayload
   | CAPI_with
   | CAPI_allocaAndPeek
-  | ConstantArray_withPtr
-  | IncompleteArray_withPtr
 
     -- Flexible array members
   | FlexibleArrayMember_Offset_class
   | FlexibleArrayMember_Offset_offset
   | WithFlexibleArrayMember
+
+    -- Array
+  | ArrayUnknownSize
+  | ArrayUnknownSizeMutable
+  | ArrayUnknownSizeMutable_withPtr
+  | ArrayUnknownSizeConstMutable
+  | ArrayUnknownSizeConstMutable_withPtr
+  | ArrayKnownSize
+  | ArrayKnownSizeMutable
+  | ArrayKnownSizeMutable_withPtr
+  | ArrayKnownSizeConstMutable
+  | ArrayKnownSizeConstMutable_withPtr
 
     -- HasCField
   | HasCField_class

@@ -16,9 +16,13 @@ hstypes:
       constructor: C
       fields:
       - un_C
+  instances:
+  - HasFFIType
 - hsname: D
   representation:
     newtype:
       constructor: D
       fields:
       - un_D
+  instances:
+  - HasFFIType

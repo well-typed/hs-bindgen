@@ -9,9 +9,9 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Array.KnownSize.Mutable
+import qualified HsBindgen.Runtime.Array.UnknownSize.Mutable
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -62,7 +62,7 @@ foreign import ccall unsafe "hs_bindgen_6843a8f5c61ff74e" hs_bindgen_6843a8f5c61
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualarrays_Example_get_arr1@
-hs_bindgen_6843a8f5c61ff74e :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+hs_bindgen_6843a8f5c61ff74e :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 1) FC.CInt))
 hs_bindgen_6843a8f5c61ff74e =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6843a8f5c61ff74e_base
 
@@ -75,7 +75,7 @@ __defined at:__ @manual\/arrays.h 13:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
-arr1 :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
+arr1 :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 1) FC.CInt)
 arr1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6843a8f5c61ff74e
 
@@ -84,7 +84,7 @@ foreign import ccall unsafe "hs_bindgen_60c5bfbe2e29672a" hs_bindgen_60c5bfbe2e2
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualarrays_Example_get_arr2@
-hs_bindgen_60c5bfbe2e29672a :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_60c5bfbe2e29672a :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt))
 hs_bindgen_60c5bfbe2e29672a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_60c5bfbe2e29672a_base
 
@@ -97,7 +97,7 @@ __defined at:__ @manual\/arrays.h 16:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
-arr2 :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr2 :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)
 arr2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_60c5bfbe2e29672a
 
@@ -106,7 +106,7 @@ foreign import ccall unsafe "hs_bindgen_a0497dc4c0aba158" hs_bindgen_a0497dc4c0a
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualarrays_Example_get_arr3@
-hs_bindgen_a0497dc4c0aba158 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+hs_bindgen_a0497dc4c0aba158 :: IO (Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt))
 hs_bindgen_a0497dc4c0aba158 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a0497dc4c0aba158_base
 
@@ -119,7 +119,7 @@ __defined at:__ @manual\/arrays.h 19:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
-arr3 :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+arr3 :: Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array FC.CInt)
 arr3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a0497dc4c0aba158
 
@@ -128,7 +128,7 @@ foreign import ccall unsafe "hs_bindgen_609c0f69bf6da356" hs_bindgen_609c0f69bf6
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualarrays_Example_get_sudoku@
-hs_bindgen_609c0f69bf6da356 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_609c0f69bf6da356 :: IO (Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 hs_bindgen_609c0f69bf6da356 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_609c0f69bf6da356_base
 
@@ -141,7 +141,7 @@ __defined at:__ @manual\/arrays.h 22:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
-sudoku :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+sudoku :: Ptr.Ptr ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt))
 sudoku =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_609c0f69bf6da356
 
@@ -150,7 +150,7 @@ foreign import ccall unsafe "hs_bindgen_52a30badbe2c9671" hs_bindgen_52a30badbe2
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualarrays_Example_get_triplets@
-hs_bindgen_52a30badbe2c9671 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_52a30badbe2c9671 :: IO (Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt)))
 hs_bindgen_52a30badbe2c9671 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_52a30badbe2c9671_base
 
@@ -163,7 +163,7 @@ __defined at:__ @manual\/arrays.h 26:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
-triplets :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+triplets :: Ptr.Ptr (HsBindgen.Runtime.Array.UnknownSize.Mutable.Array ((HsBindgen.Runtime.Array.KnownSize.Mutable.Array 3) FC.CInt))
 triplets =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_52a30badbe2c9671
 
