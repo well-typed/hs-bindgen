@@ -345,7 +345,7 @@ test :: Point2a -> Point2b -> IO Unit
 -}
 test = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_c97a0d4458699ad7 x_2 y_1)
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
-foreign import ccall safe "hs_bindgen_f90e97b8d269be4e" hs_bindgen_f90e97b8d269be4e_base ::
+foreign import ccall unsafe "hs_bindgen_f90e97b8d269be4e" hs_bindgen_f90e97b8d269be4e_base ::
     Ptr Void
  -> Ptr Void
  -> IO Unit
@@ -368,7 +368,7 @@ test :: Point2a -> Point2b -> IO Unit
 -}
 test = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_f90e97b8d269be4e x_2 y_1)
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
-foreign import ccall safe "hs_bindgen_8361517d92bfbc76" hs_bindgen_8361517d92bfbc76_base ::
+foreign import ccall unsafe "hs_bindgen_8361517d92bfbc76" hs_bindgen_8361517d92bfbc76_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
 hs_bindgen_8361517d92bfbc76 :: IO (FunPtr (Point2a ->
