@@ -212,7 +212,7 @@ resolveTop decl = Reader.ask >>= \env -> do
       else case BindingSpec.lookupCTypeSpec decl.info.id declPaths env.pSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPrescriptiveRequire decl.info.id)
+              insertTrace (ResolveBindingSpecsPreRequire decl.info.id)
             . deleteNoPType decl.info.id sourcePath
           let mHsTypeSpec = do
                 hsIdentifier <- cTypeSpec.hsIdent
@@ -220,7 +220,7 @@ resolveTop decl = Reader.ask >>= \env -> do
           return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPrescriptiveOmit decl.info.id)
+              insertTrace (ResolveBindingSpecsPreOmit decl.info.id)
             . deleteNoPType decl.info.id sourcePath
             . insertOmittedType decl.info.id decl.info.loc
           return Nothing
