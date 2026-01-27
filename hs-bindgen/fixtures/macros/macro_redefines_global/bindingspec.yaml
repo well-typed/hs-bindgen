@@ -13,7 +13,6 @@ hstypes:
       constructor: FILE
       fields:
       - un_FILE
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -21,7 +20,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

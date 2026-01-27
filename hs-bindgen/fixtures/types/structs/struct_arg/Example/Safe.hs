@@ -7,13 +7,14 @@ module Example.Safe where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
-import Prelude (IO)
+import Prelude (Double, IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/structs/struct_arg.h>"
@@ -52,14 +53,14 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 hs_bindgen_4ad25504590fdd2b ::
      Ptr.Ptr Thing
   -> IO FC.CInt
 hs_bindgen_4ad25504590fdd2b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4ad25504590fdd2b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4ad25504590fdd2b_base
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -77,7 +78,7 @@ thing_fun_1 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
   -> IO ()
 
@@ -87,7 +88,7 @@ hs_bindgen_04a435522bf64978 ::
   -> Ptr.Ptr Thing
   -> IO ()
 hs_bindgen_04a435522bf64978 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_04a435522bf64978_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_04a435522bf64978_base
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -106,9 +107,9 @@ thing_fun_2 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
-  -> FC.CDouble
+  -> Double
   -> Ptr.Ptr Void
   -> IO ()
 
@@ -120,7 +121,7 @@ hs_bindgen_5e3271324df7ced2 ::
   -> Ptr.Ptr Thing
   -> IO ()
 hs_bindgen_5e3271324df7ced2 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_5e3271324df7ced2_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5e3271324df7ced2_base
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -146,10 +147,10 @@ thing_fun_3a =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
-  -> FC.CDouble
-  -> IO FC.CChar
+  -> Double
+  -> IO GHC.Int.Int8
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 hs_bindgen_3525c7d1c72f2fae ::
@@ -158,7 +159,7 @@ hs_bindgen_3525c7d1c72f2fae ::
   -> FC.CDouble
   -> IO FC.CChar
 hs_bindgen_3525c7d1c72f2fae =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3525c7d1c72f2fae_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3525c7d1c72f2fae_base
 
 {-| __C declaration:__ @thing_fun_3b@
 

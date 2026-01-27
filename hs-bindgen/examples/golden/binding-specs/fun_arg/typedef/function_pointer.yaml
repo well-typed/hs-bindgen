@@ -16,15 +16,13 @@ hstypes:
       constructor: C
       fields:
       - un_C
-      ffitype: FunPtr
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: D
   representation:
     newtype:
       constructor: D
       fields:
       - un_D
-      ffitype: FunPtr
   instances:
-  - HasBaseForeignType
+  - HasFFIType

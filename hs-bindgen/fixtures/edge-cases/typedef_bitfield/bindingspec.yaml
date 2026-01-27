@@ -22,7 +22,6 @@ hstypes:
       constructor: MyInt
       fields:
       - un_MyInt
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -30,7 +29,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -46,7 +45,6 @@ hstypes:
       constructor: MyLong
       fields:
       - un_MyLong
-      ffitype: CLong
   instances:
   - Bitfield
   - Bits
@@ -54,7 +52,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -83,7 +81,6 @@ hstypes:
       constructor: MyUInt
       fields:
       - un_MyUInt
-      ffitype: CUInt
   instances:
   - Bitfield
   - Bits
@@ -91,7 +88,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

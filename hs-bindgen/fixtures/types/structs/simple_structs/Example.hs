@@ -19,8 +19,8 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
@@ -868,7 +868,7 @@ newtype S7a = S7a
   { un_S7a :: Ptr.Ptr S7a_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a) "un_S7a")
          ) => GHC.Records.HasField "un_S7a" (Ptr.Ptr S7a) (Ptr.Ptr ty) where
@@ -1016,7 +1016,7 @@ newtype S7b = S7b
   { un_S7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b) "un_S7b")
          ) => GHC.Records.HasField "un_S7b" (Ptr.Ptr S7b) (Ptr.Ptr ty) where

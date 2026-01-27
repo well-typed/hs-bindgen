@@ -114,7 +114,7 @@ getDeclsFieldVecFlam flam cfg hCfg spec info struct fieldsVec = do
           , typ     =
               Hs.HsWithFlexibleArrayMember
                 (Type.topLevel flam.typ)
-                (Hs.HsTypRef auxName)
+                (Hs.HsTypRef auxName Nothing)
           , origin  = Origin.Decl{
               info = info
             , kind = Origin.Opaque info.id.cName.name.kind
@@ -264,7 +264,7 @@ getFieldDecls structName field = [
     ]
   where
     parentType :: HsType
-    parentType = Hs.HsTypRef structName
+    parentType = Hs.HsTypRef structName Nothing
 
     fieldName :: Hs.Name Hs.NsVar
     fieldName = Hs.unsafeHsIdHsName field.info.name.hsName

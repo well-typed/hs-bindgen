@@ -8,7 +8,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c
 -- __unique:__ @test_declarationsdefinitions_Example_get_n@
 hs_bindgen_417f0d4479c97357 :: IO (Ptr.Ptr FC.CInt)
 hs_bindgen_417f0d4479c97357 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_417f0d4479c97357_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_417f0d4479c97357_base
 
 {-# NOINLINE n #-}
 {-| __C declaration:__ @n@

@@ -11,8 +11,7 @@ module HsBindgen.Runtime.Block (
 
 import Foreign (Ptr)
 
-import HsBindgen.Runtime.HasBaseForeignType (HasBaseForeignType,
-                                             ViaNewtype (..))
+import HsBindgen.Runtime.HasFFIType (HasFFIType, ViaNewtype (..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -33,4 +32,4 @@ import HsBindgen.Runtime.HasBaseForeignType (HasBaseForeignType,
 -- > newtype VarCounter = VarCounter (Block (CInt -> IO CInt))
 newtype Block t = Block (Ptr ())
 
-deriving via ViaNewtype (Ptr ()) instance HasBaseForeignType (Block t)
+deriving via ViaNewtype (Ptr ()) instance HasFFIType (Block t)

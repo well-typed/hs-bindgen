@@ -7,7 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -34,7 +34,7 @@ foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d718
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
 hs_bindgen_6e12e70d71890a10 :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
 hs_bindgen_6e12e70d71890a10 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6e12e70d71890a10_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6e12e70d71890a10_base
 
 {-# NOINLINE read_file_chunk #-}
 {-| __C declaration:__ @read_file_chunk@

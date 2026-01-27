@@ -9,7 +9,7 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -34,7 +34,7 @@ foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
 hs_bindgen_a19bc138e7f2759b :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 hs_bindgen_a19bc138e7f2759b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a19bc138e7f2759b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a19bc138e7f2759b_base
 
 {-# NOINLINE list_example #-}
 {-| __C declaration:__ @list_example@

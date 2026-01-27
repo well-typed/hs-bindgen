@@ -7,7 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import qualified M
 import Data.Void (Void)
@@ -104,7 +104,7 @@ hs_bindgen_99bb90e6d7637d2c ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> IO ()
 hs_bindgen_99bb90e6d7637d2c =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_99bb90e6d7637d2c_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_99bb90e6d7637d2c_base
 
 {-| __C declaration:__ @foo@
 
@@ -128,7 +128,7 @@ hs_bindgen_392e3092a2681c13 ::
      Ptr.FunPtr A
   -> IO ()
 hs_bindgen_392e3092a2681c13 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_392e3092a2681c13_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_392e3092a2681c13_base
 
 {-| __C declaration:__ @fooA@
 
@@ -152,7 +152,7 @@ hs_bindgen_6011faf8531be4fa ::
      Ptr.FunPtr B
   -> IO ()
 hs_bindgen_6011faf8531be4fa =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6011faf8531be4fa_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6011faf8531be4fa_base
 
 {-| __C declaration:__ @fooB@
 
@@ -176,7 +176,7 @@ hs_bindgen_40a50b8e6ac3b09d ::
      Ptr.FunPtr M.C
   -> IO ()
 hs_bindgen_40a50b8e6ac3b09d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_40a50b8e6ac3b09d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
 
 {-| __C declaration:__ @fooC@
 
@@ -200,7 +200,7 @@ hs_bindgen_32b4f35bf27a4bf8 ::
      Ptr.FunPtr M.D
   -> IO ()
 hs_bindgen_32b4f35bf27a4bf8 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_32b4f35bf27a4bf8_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
 
 {-| __C declaration:__ @fooD@
 
@@ -224,7 +224,7 @@ hs_bindgen_6e59183c0a861d01 ::
      Ptr.FunPtr E
   -> IO ()
 hs_bindgen_6e59183c0a861d01 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6e59183c0a861d01_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6e59183c0a861d01_base
 
 {-| __C declaration:__ @fooE@
 
@@ -248,7 +248,7 @@ hs_bindgen_b80066b7dbab19ae ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> IO ()
 hs_bindgen_b80066b7dbab19ae =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b80066b7dbab19ae_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b80066b7dbab19ae_base
 
 {-| __C declaration:__ @bar@
 
@@ -272,7 +272,7 @@ hs_bindgen_3e2a7974766f255b ::
      Ptr.FunPtr A
   -> IO ()
 hs_bindgen_3e2a7974766f255b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3e2a7974766f255b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3e2a7974766f255b_base
 
 {-| __C declaration:__ @barA@
 
@@ -296,7 +296,7 @@ hs_bindgen_2e70e27c91ce1929 ::
      Ptr.FunPtr B
   -> IO ()
 hs_bindgen_2e70e27c91ce1929 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2e70e27c91ce1929_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2e70e27c91ce1929_base
 
 {-| __C declaration:__ @barB@
 
@@ -320,7 +320,7 @@ hs_bindgen_4014a425c2b8c6e7 ::
      Ptr.FunPtr M.C
   -> IO ()
 hs_bindgen_4014a425c2b8c6e7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4014a425c2b8c6e7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4014a425c2b8c6e7_base
 
 {-| __C declaration:__ @barC@
 
@@ -344,7 +344,7 @@ hs_bindgen_c0263fea7e0285b6 ::
      Ptr.FunPtr M.D
   -> IO ()
 hs_bindgen_c0263fea7e0285b6 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c0263fea7e0285b6_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c0263fea7e0285b6_base
 
 {-| __C declaration:__ @barD@
 
@@ -368,7 +368,7 @@ hs_bindgen_431be79cc08aeb21 ::
      Ptr.FunPtr E
   -> IO ()
 hs_bindgen_431be79cc08aeb21 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_431be79cc08aeb21_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_431be79cc08aeb21_base
 
 {-| __C declaration:__ @barE@
 

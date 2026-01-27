@@ -327,7 +327,7 @@ foreign import ccall safe "hs_bindgen_920e5c20f770432b" hs_bindgen_920e5c20f7704
 hs_bindgen_920e5c20f770432b :: Ptr Opaque ->
                                Ptr Outside -> Ptr Outside -> IO Unit
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
-hs_bindgen_920e5c20f770432b = fromBaseForeignType hs_bindgen_920e5c20f770432b_base
+hs_bindgen_920e5c20f770432b = fromFFIType hs_bindgen_920e5c20f770432b_base
 {-| __C declaration:__ @normal@
 
     __defined at:__ @functions\/decls_in_signature.h 7:6@
@@ -349,7 +349,7 @@ foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" hs_bindgen_baea2c7a0c8b9
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
 hs_bindgen_baea2c7a0c8b9965 :: Ptr Named_struct -> IO Unit
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
-hs_bindgen_baea2c7a0c8b9965 = fromBaseForeignType hs_bindgen_baea2c7a0c8b9965_base
+hs_bindgen_baea2c7a0c8b9965 = fromFFIType hs_bindgen_baea2c7a0c8b9965_base
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -379,7 +379,7 @@ foreign import ccall safe "hs_bindgen_990d7be722ad5414" hs_bindgen_990d7be722ad5
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
 hs_bindgen_990d7be722ad5414 :: Ptr Named_union -> IO Unit
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
-hs_bindgen_990d7be722ad5414 = fromBaseForeignType hs_bindgen_990d7be722ad5414_base
+hs_bindgen_990d7be722ad5414 = fromFFIType hs_bindgen_990d7be722ad5414_base
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/decls_in_signature.h 20:6@
@@ -404,7 +404,7 @@ foreign import ccall unsafe "hs_bindgen_247ee31a29b7e5a8" hs_bindgen_247ee31a29b
 hs_bindgen_247ee31a29b7e5a8 :: Ptr Opaque ->
                                Ptr Outside -> Ptr Outside -> IO Unit
 -- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_normal@
-hs_bindgen_247ee31a29b7e5a8 = fromBaseForeignType hs_bindgen_247ee31a29b7e5a8_base
+hs_bindgen_247ee31a29b7e5a8 = fromFFIType hs_bindgen_247ee31a29b7e5a8_base
 {-| __C declaration:__ @normal@
 
     __defined at:__ @functions\/decls_in_signature.h 7:6@
@@ -426,7 +426,7 @@ foreign import ccall unsafe "hs_bindgen_dad6e1aa83dec458" hs_bindgen_dad6e1aa83d
 -- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f1@
 hs_bindgen_dad6e1aa83dec458 :: Ptr Named_struct -> IO Unit
 -- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f1@
-hs_bindgen_dad6e1aa83dec458 = fromBaseForeignType hs_bindgen_dad6e1aa83dec458_base
+hs_bindgen_dad6e1aa83dec458 = fromFFIType hs_bindgen_dad6e1aa83dec458_base
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -456,7 +456,7 @@ foreign import ccall unsafe "hs_bindgen_e6bb0f3956383df9" hs_bindgen_e6bb0f39563
 -- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f2@
 hs_bindgen_e6bb0f3956383df9 :: Ptr Named_union -> IO Unit
 -- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f2@
-hs_bindgen_e6bb0f3956383df9 = fromBaseForeignType hs_bindgen_e6bb0f3956383df9_base
+hs_bindgen_e6bb0f3956383df9 = fromFFIType hs_bindgen_e6bb0f3956383df9_base
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/decls_in_signature.h 20:6@
@@ -478,7 +478,7 @@ foreign import ccall unsafe "hs_bindgen_f3036965ea57b87f" hs_bindgen_f3036965ea5
 hs_bindgen_f3036965ea57b87f :: IO (FunPtr (Ptr Opaque ->
                                            Ptr Outside -> Outside -> IO Unit))
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_normal@
-hs_bindgen_f3036965ea57b87f = fromBaseForeignType hs_bindgen_f3036965ea57b87f_base
+hs_bindgen_f3036965ea57b87f = fromFFIType hs_bindgen_f3036965ea57b87f_base
 {-# NOINLINE normal #-}
 {-| __C declaration:__ @normal@
 
@@ -501,7 +501,7 @@ foreign import ccall unsafe "hs_bindgen_86a0bd6e9f7eb005" hs_bindgen_86a0bd6e9f7
 hs_bindgen_86a0bd6e9f7eb005 :: IO (FunPtr (Named_struct ->
                                            IO Unit))
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_f1@
-hs_bindgen_86a0bd6e9f7eb005 = fromBaseForeignType hs_bindgen_86a0bd6e9f7eb005_base
+hs_bindgen_86a0bd6e9f7eb005 = fromFFIType hs_bindgen_86a0bd6e9f7eb005_base
 {-# NOINLINE f1 #-}
 {-| Error cases
 
@@ -531,7 +531,7 @@ foreign import ccall unsafe "hs_bindgen_4bb469a35be04698" hs_bindgen_4bb469a35be
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_f2@
 hs_bindgen_4bb469a35be04698 :: IO (FunPtr (Named_union -> IO Unit))
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_f2@
-hs_bindgen_4bb469a35be04698 = fromBaseForeignType hs_bindgen_4bb469a35be04698_base
+hs_bindgen_4bb469a35be04698 = fromFFIType hs_bindgen_4bb469a35be04698_base
 {-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
 

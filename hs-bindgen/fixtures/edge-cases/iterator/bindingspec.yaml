@@ -19,24 +19,21 @@ hstypes:
       constructor: Counter
       fields:
       - un_Counter
-      ffitype: Ptr
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: Toggle
   representation:
     newtype:
       constructor: Toggle
       fields:
       - un_Toggle
-      ffitype: Ptr
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: VarCounter
   representation:
     newtype:
       constructor: VarCounter
       fields:
       - un_VarCounter
-      ffitype: Ptr
   instances:
-  - HasBaseForeignType
+  - HasFFIType

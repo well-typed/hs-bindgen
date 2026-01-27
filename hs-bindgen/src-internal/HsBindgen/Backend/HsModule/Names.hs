@@ -30,7 +30,6 @@ import Data.Word qualified
 import Foreign qualified
 import Foreign.C qualified
 import Foreign.C.String qualified
-import Foreign.Ptr qualified
 import GHC.Base qualified
 import GHC.Float qualified
 import GHC.Ptr qualified
@@ -50,8 +49,8 @@ import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.HasBaseForeignType qualified
 import HsBindgen.Runtime.HasCField qualified
+import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -340,12 +339,12 @@ resolveGlobal = \case
     Proxy_type        -> importQ ''Data.Proxy.Proxy
     Proxy_constructor -> importQ 'Data.Proxy.Proxy
 
-    -- HasBaseForeignType
-    HasBaseForeignType_class                         -> importQ ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
-    HasBaseForeignType_fromBaseForeignType           -> importQ 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
-    HasBaseForeignType_toBaseForeignType             -> importQ 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
-    HasBaseForeignType_castFunPtrFromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
-    HasBaseForeignType_castFunPtrToBaseForeignType   -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+    -- HasFFIType
+    HasFFIType_class                 -> importQ ''HsBindgen.Runtime.HasFFIType.HasFFIType
+    HasFFIType_fromFFIType           -> importQ 'HsBindgen.Runtime.HasFFIType.fromFFIType
+    HasFFIType_toFFIType             -> importQ 'HsBindgen.Runtime.HasFFIType.toFFIType
+    HasFFIType_castFunPtrFromFFIType -> importQ 'HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType
+    HasFFIType_castFunPtrToFFIType   -> importQ 'HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType
 
     -- Functor
     Functor_fmap -> importQ 'fmap
@@ -488,6 +487,7 @@ resolveGlobal = \case
       HsPrimVoid       -> importU ''Data.Void.Void
       HsPrimUnit       -> tupleResolvedName True 0
       HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
+      HsPrimCPtrdiff   -> importQ ''Foreign.C.CPtrdiff
       HsPrimChar       -> importU ''Char
       HsPrimInt        -> importU ''Int
       HsPrimDouble     -> importU ''Double
@@ -502,8 +502,6 @@ resolveGlobal = \case
       HsPrimWord16     -> importQ ''Data.Word.Word16
       HsPrimWord32     -> importQ ''Data.Word.Word32
       HsPrimWord64     -> importQ ''Data.Word.Word64
-      HsPrimIntPtr     -> importQ ''Foreign.Ptr.IntPtr
-      HsPrimWordPtr    -> importQ ''Foreign.Ptr.WordPtr
       HsPrimCChar      -> importQ ''Foreign.C.CChar
       HsPrimCSChar     -> importQ ''Foreign.C.CSChar
       HsPrimCUChar     -> importQ ''Foreign.C.CUChar
@@ -513,21 +511,9 @@ resolveGlobal = \case
       HsPrimCUInt      -> importQ ''Foreign.C.CUInt
       HsPrimCLong      -> importQ ''Foreign.C.CLong
       HsPrimCULong     -> importQ ''Foreign.C.CULong
-      HsPrimCPtrdiff   -> importQ ''Foreign.C.CPtrdiff
-      HsPrimCSize      -> importQ ''Foreign.C.CSize
-      HsPrimCWchar     -> importQ ''Foreign.C.CWchar
-      HsPrimCSigAtomic -> importQ ''Foreign.C.CSigAtomic
       HsPrimCLLong     -> importQ ''Foreign.C.CLLong
       HsPrimCULLong    -> importQ ''Foreign.C.CULLong
       HsPrimCBool      -> importQ ''Foreign.C.CBool
-      HsPrimCIntPtr    -> importQ ''Foreign.C.CIntPtr
-      HsPrimCUIntPtr   -> importQ ''Foreign.C.CUIntPtr
-      HsPrimCIntMax    -> importQ ''Foreign.C.CIntMax
-      HsPrimCUIntMax   -> importQ ''Foreign.C.CUIntMax
-      HsPrimCClock     -> importQ ''Foreign.C.CClock
-      HsPrimCTime      -> importQ ''Foreign.C.CTime
-      HsPrimCUSeconds  -> importQ ''Foreign.C.CUSeconds
-      HsPrimCSUSeconds -> importQ ''Foreign.C.CSUSeconds
       HsPrimCFloat     -> importQ ''Foreign.C.CFloat
       HsPrimCDouble    -> importQ ''Foreign.C.CDouble
 

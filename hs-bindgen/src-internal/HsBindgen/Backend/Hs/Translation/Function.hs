@@ -87,11 +87,12 @@ functionDecs ::
   -> HaddockConfig
   -> BaseModuleName
   -> TranslationState
+  -> C.Sizeofs
   -> C.DeclInfo Final
   -> C.Function Final
   -> PrescriptiveDeclSpec
   -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName transState info origCFun _spec =
+functionDecs safety opts haddockConfig moduleName transState sizeofs info origCFun _spec =
     concat [
         foreignImport
       , [restoreOrigSignature]
@@ -125,6 +126,7 @@ functionDecs safety opts haddockConfig moduleName transState info origCFun _spec
     foreignImport =
         HsFI.foreignImportDec
           transState
+          sizeofs
           (Hs.ForeignImport.FunName cWrapperName)
           foreignImportParams
           foreignImportResult

@@ -14,7 +14,7 @@ newtype PtrInt
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 {-| __C declaration:__ @PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h 5:9@
@@ -30,7 +30,7 @@ newtype PtrPtrChar
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 {-| __C declaration:__ @MTy@
 
     __defined at:__ @macros\/macro_types.h 8:9@
@@ -47,7 +47,7 @@ newtype MTy
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Enum,
                       Floating,
@@ -72,7 +72,7 @@ newtype Tty
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Enum,
                       Floating,
@@ -103,7 +103,7 @@ newtype UINT8_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bits,
                       Bounded,
@@ -129,7 +129,7 @@ newtype BOOLEAN_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bits,
                       Bounded,
@@ -155,7 +155,7 @@ newtype Boolean_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bits,
                       Bounded,

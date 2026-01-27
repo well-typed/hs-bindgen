@@ -5,8 +5,8 @@
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified GHC.Word
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
@@ -43,7 +43,7 @@ hs_bindgen_0e6b98e93cad73ef ::
      MyEnum
   -> IO ()
 hs_bindgen_0e6b98e93cad73ef =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0e6b98e93cad73ef_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0e6b98e93cad73ef_base
 
 {-| __C declaration:__ @foo@
 
@@ -59,7 +59,7 @@ foo = hs_bindgen_0e6b98e93cad73ef
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
@@ -67,7 +67,7 @@ hs_bindgen_1c6de1b89014dc52 ::
      A
   -> IO ()
 hs_bindgen_1c6de1b89014dc52 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1c6de1b89014dc52_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1c6de1b89014dc52_base
 
 {-| __C declaration:__ @fooA@
 
@@ -83,7 +83,7 @@ fooA = hs_bindgen_1c6de1b89014dc52
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
@@ -91,7 +91,7 @@ hs_bindgen_a8e579f3b5035c03 ::
      B
   -> IO ()
 hs_bindgen_a8e579f3b5035c03 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a8e579f3b5035c03_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a8e579f3b5035c03_base
 
 {-| __C declaration:__ @fooB@
 

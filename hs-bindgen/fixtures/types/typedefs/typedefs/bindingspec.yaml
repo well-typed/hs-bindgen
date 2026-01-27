@@ -43,10 +43,9 @@ hstypes:
       constructor: F1
       fields:
       - un_F1
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -56,10 +55,9 @@ hstypes:
       constructor: FunctionPointer_Function
       fields:
       - un_FunctionPointer_Function
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -70,17 +68,16 @@ hstypes:
       fields:
       - un_G1
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: G2
   representation:
     newtype:
       constructor: G2
       fields:
       - un_G2
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -91,7 +88,7 @@ hstypes:
       fields:
       - un_H1
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: H2
   representation:
     newtype:
@@ -99,17 +96,16 @@ hstypes:
       fields:
       - un_H2
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: H3
   representation:
     newtype:
       constructor: H3
       fields:
       - un_H3
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -120,17 +116,16 @@ hstypes:
       fields:
       - un_Int2int
   instances:
-  - HasBaseForeignType
+  - HasFFIType
 - hsname: Intptr
   representation:
     newtype:
       constructor: Intptr
       fields:
       - un_Intptr
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -140,7 +135,6 @@ hstypes:
       constructor: Myint
       fields:
       - un_Myint
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -148,7 +142,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -165,4 +159,4 @@ hstypes:
       fields:
       - un_NonFunctionPointer_Function
   instances:
-  - HasBaseForeignType
+  - HasFFIType

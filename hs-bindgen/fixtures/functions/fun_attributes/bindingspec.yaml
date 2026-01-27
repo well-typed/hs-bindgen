@@ -29,7 +29,6 @@ hstypes:
       constructor: Size_t
       fields:
       - un_Size_t
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -37,7 +36,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

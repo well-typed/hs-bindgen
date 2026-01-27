@@ -124,6 +124,7 @@ library internal
     HsBindgen.Clang.CompareVersions
     HsBindgen.Clang.CStandard
     HsBindgen.Clang.ExtraClangArgs
+    HsBindgen.Clang.Sizeof
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.FixCandidate
     HsBindgen.Config.FixCandidate.ReservedNames

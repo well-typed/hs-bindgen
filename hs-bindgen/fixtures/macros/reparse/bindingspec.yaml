@@ -121,14 +121,13 @@ hstypes:
       constructor: A
       fields:
       - un_A
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -182,14 +181,13 @@ hstypes:
       constructor: BOOL
       fields:
       - un_BOOL
-      ffitype: CBool
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -205,14 +203,13 @@ hstypes:
       constructor: Comments2
       fields:
       - un_Comments2
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -228,10 +225,9 @@ hstypes:
       constructor: Const_funptr1
       fields:
       - un_Const_funptr1
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -241,10 +237,9 @@ hstypes:
       constructor: Const_funptr2
       fields:
       - un_Const_funptr2
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -254,10 +249,9 @@ hstypes:
       constructor: Const_funptr3
       fields:
       - un_Const_funptr3
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -267,10 +261,9 @@ hstypes:
       constructor: Const_funptr4
       fields:
       - un_Const_funptr4
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -280,10 +273,9 @@ hstypes:
       constructor: Const_funptr5
       fields:
       - un_Const_funptr5
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -293,10 +285,9 @@ hstypes:
       constructor: Const_funptr6
       fields:
       - un_Const_funptr6
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -306,10 +297,9 @@ hstypes:
       constructor: Const_funptr7
       fields:
       - un_Const_funptr7
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -319,14 +309,13 @@ hstypes:
       constructor: Const_typedef1
       fields:
       - un_Const_typedef1
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -342,14 +331,13 @@ hstypes:
       constructor: Const_typedef2
       fields:
       - un_Const_typedef2
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -365,10 +353,9 @@ hstypes:
       constructor: Const_typedef3
       fields:
       - un_Const_typedef3
-      ffitype: ConstPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -378,10 +365,9 @@ hstypes:
       constructor: Const_typedef4
       fields:
       - un_Const_typedef4
-      ffitype: ConstPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -391,10 +377,9 @@ hstypes:
       constructor: Const_typedef5
       fields:
       - un_Const_typedef5
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -404,10 +389,9 @@ hstypes:
       constructor: Const_typedef6
       fields:
       - un_Const_typedef6
-      ffitype: ConstPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -417,10 +401,9 @@ hstypes:
       constructor: Const_typedef7
       fields:
       - un_Const_typedef7
-      ffitype: ConstPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -458,10 +441,9 @@ hstypes:
       constructor: Funptr_typedef1
       fields:
       - un_Funptr_typedef1
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -471,10 +453,9 @@ hstypes:
       constructor: Funptr_typedef2
       fields:
       - un_Funptr_typedef2
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -484,10 +465,9 @@ hstypes:
       constructor: Funptr_typedef3
       fields:
       - un_Funptr_typedef3
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -497,10 +477,9 @@ hstypes:
       constructor: Funptr_typedef4
       fields:
       - un_Funptr_typedef4
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -510,10 +489,9 @@ hstypes:
       constructor: Funptr_typedef5
       fields:
       - un_Funptr_typedef5
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -523,14 +501,13 @@ hstypes:
       constructor: INT
       fields:
       - un_INT
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -546,10 +523,9 @@ hstypes:
       constructor: INTCP
       fields:
       - un_INTCP
-      ffitype: ConstPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -559,10 +535,9 @@ hstypes:
       constructor: INTP
       fields:
       - un_INTP
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -572,10 +547,9 @@ hstypes:
       constructor: Some_enum
       fields:
       - un_Some_enum
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -604,14 +578,13 @@ hstypes:
       constructor: Typedef1
       fields:
       - un_Typedef1
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -627,10 +600,9 @@ hstypes:
       constructor: Typedef2
       fields:
       - un_Typedef2
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -640,10 +612,9 @@ hstypes:
       constructor: Typedef3
       fields:
       - un_Typedef3
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

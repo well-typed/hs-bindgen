@@ -76,7 +76,7 @@ foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
 hs_bindgen_a5d53f538e59b1fc :: Ptr T -> Ptr T -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
-hs_bindgen_a5d53f538e59b1fc = fromBaseForeignType hs_bindgen_a5d53f538e59b1fc_base
+hs_bindgen_a5d53f538e59b1fc = fromFFIType hs_bindgen_a5d53f538e59b1fc_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
@@ -99,7 +99,7 @@ foreign import ccall unsafe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb8247
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
 hs_bindgen_c4af6bb824712c6a :: Ptr T -> Ptr T -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
-hs_bindgen_c4af6bb824712c6a = fromBaseForeignType hs_bindgen_c4af6bb824712c6a_base
+hs_bindgen_c4af6bb824712c6a = fromFFIType hs_bindgen_c4af6bb824712c6a_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
@@ -120,7 +120,7 @@ foreign import ccall unsafe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda580
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
 hs_bindgen_071e2eda58051e4a :: IO (FunPtr (T -> IO T))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
-hs_bindgen_071e2eda58051e4a = fromBaseForeignType hs_bindgen_071e2eda58051e4a_base
+hs_bindgen_071e2eda58051e4a = fromFFIType hs_bindgen_071e2eda58051e4a_base
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 

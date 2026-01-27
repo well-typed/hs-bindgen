@@ -26,10 +26,9 @@ hstypes:
       constructor: Fun_ptr
       fields:
       - un_Fun_ptr
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

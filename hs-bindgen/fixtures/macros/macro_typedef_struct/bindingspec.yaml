@@ -31,14 +31,13 @@ hstypes:
       constructor: MY_TYPE
       fields:
       - un_MY_TYPE
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

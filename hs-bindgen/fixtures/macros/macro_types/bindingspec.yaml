@@ -31,14 +31,13 @@ hstypes:
       constructor: BOOLEAN_T
       fields:
       - un_BOOLEAN_T
-      ffitype: CUChar
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -54,14 +53,13 @@ hstypes:
       constructor: Boolean_T
       fields:
       - un_Boolean_T
-      ffitype: CUChar
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -77,13 +75,12 @@ hstypes:
       constructor: MTy
       fields:
       - un_MTy
-      ffitype: CFloat
   instances:
   - Enum
   - Eq
   - Floating
   - Fractional
-  - HasBaseForeignType
+  - HasFFIType
   - Num
   - Ord
   - Prim
@@ -99,10 +96,9 @@ hstypes:
       constructor: PtrInt
       fields:
       - un_PtrInt
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -112,10 +108,9 @@ hstypes:
       constructor: PtrPtrChar
       fields:
       - un_PtrPtrChar
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -125,13 +120,12 @@ hstypes:
       constructor: Tty
       fields:
       - un_Tty
-      ffitype: CFloat
   instances:
   - Enum
   - Eq
   - Floating
   - Fractional
-  - HasBaseForeignType
+  - HasFFIType
   - Num
   - Ord
   - Prim
@@ -147,14 +141,13 @@ hstypes:
       constructor: UINT8_T
       fields:
       - un_UINT8_T
-      ffitype: CUChar
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

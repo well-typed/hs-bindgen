@@ -13,14 +13,13 @@ hstypes:
       constructor: A
       fields:
       - un_A
-      ffitype: CSize
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

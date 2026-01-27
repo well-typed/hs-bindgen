@@ -92,13 +92,13 @@ instance HasCField T "un_T"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc_base ::
-    ConstPtr Void
- -> ConstPtr Void
+    Ptr Void
+ -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 hs_bindgen_67465eb5641985dc :: ConstPtr T -> ConstPtr T -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
-hs_bindgen_67465eb5641985dc = fromBaseForeignType hs_bindgen_67465eb5641985dc_base
+hs_bindgen_67465eb5641985dc = fromFFIType hs_bindgen_67465eb5641985dc_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
@@ -115,13 +115,13 @@ fun :: T -> IO T
 fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_67465eb5641985dc (ConstPtr x_1) res_2))
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e32969011_base ::
-    ConstPtr Void
- -> ConstPtr Void
+    Ptr Void
+ -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 hs_bindgen_4351e21e32969011 :: ConstPtr T -> ConstPtr T -> IO Unit
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
-hs_bindgen_4351e21e32969011 = fromBaseForeignType hs_bindgen_4351e21e32969011_base
+hs_bindgen_4351e21e32969011 = fromFFIType hs_bindgen_4351e21e32969011_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
@@ -142,7 +142,7 @@ foreign import ccall unsafe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac7
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
 hs_bindgen_564814e9ac709cad :: IO (FunPtr (T -> IO T))
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
-hs_bindgen_564814e9ac709cad = fromBaseForeignType hs_bindgen_564814e9ac709cad_base
+hs_bindgen_564814e9ac709cad = fromFFIType hs_bindgen_564814e9ac709cad_base
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 

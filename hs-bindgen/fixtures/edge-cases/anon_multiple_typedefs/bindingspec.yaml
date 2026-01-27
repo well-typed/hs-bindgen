@@ -72,10 +72,9 @@ hstypes:
       constructor: Point2b
       fields:
       - un_Point2b
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -85,10 +84,9 @@ hstypes:
       constructor: Point3a
       fields:
       - un_Point3a
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -110,10 +108,9 @@ hstypes:
       constructor: Point3b
       fields:
       - un_Point3b
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable

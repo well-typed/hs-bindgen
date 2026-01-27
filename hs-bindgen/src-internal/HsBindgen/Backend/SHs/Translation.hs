@@ -185,29 +185,29 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass = \case
-    Hs.Bitfield           -> TGlobal Bitfield_class
-    Hs.Bits               -> TGlobal Bits_class
-    Hs.Bounded            -> TGlobal Bounded_class
-    Hs.Enum               -> TGlobal Enum_class
-    Hs.Eq                 -> TGlobal Eq_class
-    Hs.FiniteBits         -> TGlobal FiniteBits_class
-    Hs.Floating           -> TGlobal Floating_class
-    Hs.Fractional         -> TGlobal Fractional_class
-    Hs.Integral           -> TGlobal Integral_class
-    Hs.Ix                 -> TGlobal Ix_class
-    Hs.Num                -> TGlobal Num_class
-    Hs.Ord                -> TGlobal Ord_class
-    Hs.Prim               -> TGlobal Prim_class
-    Hs.Read               -> TGlobal Read_class
-    Hs.ReadRaw            -> TGlobal ReadRaw_class
-    Hs.Real               -> TGlobal Real_class
-    Hs.RealFloat          -> TGlobal RealFloat_class
-    Hs.RealFrac           -> TGlobal RealFrac_class
-    Hs.Show               -> TGlobal Show_class
-    Hs.StaticSize         -> TGlobal StaticSize_class
-    Hs.Storable           -> TGlobal Storable_class
-    Hs.WriteRaw           -> TGlobal WriteRaw_class
-    Hs.HasBaseForeignType -> TGlobal HasBaseForeignType_class
+    Hs.Bitfield   -> TGlobal Bitfield_class
+    Hs.Bits       -> TGlobal Bits_class
+    Hs.Bounded    -> TGlobal Bounded_class
+    Hs.Enum       -> TGlobal Enum_class
+    Hs.Eq         -> TGlobal Eq_class
+    Hs.FiniteBits -> TGlobal FiniteBits_class
+    Hs.Floating   -> TGlobal Floating_class
+    Hs.Fractional -> TGlobal Fractional_class
+    Hs.Integral   -> TGlobal Integral_class
+    Hs.Ix         -> TGlobal Ix_class
+    Hs.Num        -> TGlobal Num_class
+    Hs.Ord        -> TGlobal Ord_class
+    Hs.Prim       -> TGlobal Prim_class
+    Hs.Read       -> TGlobal Read_class
+    Hs.ReadRaw    -> TGlobal ReadRaw_class
+    Hs.Real       -> TGlobal Real_class
+    Hs.RealFloat  -> TGlobal RealFloat_class
+    Hs.RealFrac   -> TGlobal RealFrac_class
+    Hs.Show       -> TGlobal Show_class
+    Hs.StaticSize -> TGlobal StaticSize_class
+    Hs.Storable   -> TGlobal Storable_class
+    Hs.WriteRaw   -> TGlobal WriteRaw_class
+    Hs.HasFFIType -> TGlobal HasFFIType_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
 translateForeignImportDecl importDecl = DForeignImport ForeignImport{
@@ -298,7 +298,7 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
     Hs.HsPrimType t                  -> TGlobal (PrimType t)
-    Hs.HsTypRef r                    -> TCon r
+    Hs.HsTypRef r _                  -> TCon r
     Hs.HsConstArray n t              -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
     Hs.HsIncompleteArray t           -> TGlobal IncompleteArray `TApp` (translateType t)
     Hs.HsPtr t                       -> TApp (TGlobal Foreign_Ptr) (translateType t)
@@ -307,7 +307,7 @@ translateType = \case
     Hs.HsConstPtr t                  -> TApp (TGlobal ConstPtr_type) (translateType t)
     Hs.HsIO t                        -> TApp (TGlobal IO_type) (translateType t)
     Hs.HsFun a b                     -> TFun (translateType a) (translateType b)
-    Hs.HsExtBinding r c hs           -> TExt r c hs
+    Hs.HsExtBinding r c hs _         -> TExt r c hs
     Hs.HsByteArray                   -> TGlobal ByteArray_type
     Hs.HsSizedByteArray n m          -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.HsBlock t                     -> TGlobal Block_type `TApp` translateType t

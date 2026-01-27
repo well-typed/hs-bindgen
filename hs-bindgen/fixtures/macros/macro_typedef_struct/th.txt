@@ -15,7 +15,7 @@ newtype MY_TYPE
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bits,
                       Bounded,

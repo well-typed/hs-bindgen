@@ -13,10 +13,9 @@ hstypes:
       constructor: Test
       fields:
       - un_Test
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

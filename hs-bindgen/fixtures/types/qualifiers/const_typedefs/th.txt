@@ -88,7 +88,7 @@ newtype I
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -168,7 +168,7 @@ newtype E
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Ord)
-    deriving newtype HasBaseForeignType
+    deriving newtype HasFFIType
 instance Storable E
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -225,7 +225,7 @@ newtype TI
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -300,7 +300,7 @@ newtype TE
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType TE "un_TE") =>
          HasField "un_TE" (Ptr TE) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_TE")
@@ -323,7 +323,7 @@ newtype TTI
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -398,7 +398,7 @@ newtype TTE
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasBaseForeignType)
+    deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType TTE "un_TTE") =>
          HasField "un_TTE" (Ptr TTE) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_TTE")
@@ -407,11 +407,11 @@ instance HasCField TTE "un_TTE"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
 foreign import ccall unsafe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109d7a_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
 hs_bindgen_bb40525ba9109d7a :: IO (ConstPtr I)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
-hs_bindgen_bb40525ba9109d7a = fromBaseForeignType hs_bindgen_bb40525ba9109d7a_base
+hs_bindgen_bb40525ba9109d7a = fromFFIType hs_bindgen_bb40525ba9109d7a_base
 {-# NOINLINE hs_bindgen_8bf2d89ca41997fb #-}
 {-| __C declaration:__ @i@
 
@@ -436,11 +436,11 @@ i :: I
 i = unsafePerformIO (peek (unConstPtr hs_bindgen_8bf2d89ca41997fb))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_s@
 foreign import ccall unsafe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254de325e_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_s@
 hs_bindgen_e02c667254de325e :: IO (ConstPtr S)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_s@
-hs_bindgen_e02c667254de325e = fromBaseForeignType hs_bindgen_e02c667254de325e_base
+hs_bindgen_e02c667254de325e = fromFFIType hs_bindgen_e02c667254de325e_base
 {-# NOINLINE hs_bindgen_0e876abf0fe9e3b2 #-}
 {-| __C declaration:__ @s@
 
@@ -465,11 +465,11 @@ s :: S
 s = unsafePerformIO (peek (unConstPtr hs_bindgen_0e876abf0fe9e3b2))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_u@
 foreign import ccall unsafe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677f346c_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_u@
 hs_bindgen_db442d4a677f346c :: IO (ConstPtr U)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_u@
-hs_bindgen_db442d4a677f346c = fromBaseForeignType hs_bindgen_db442d4a677f346c_base
+hs_bindgen_db442d4a677f346c = fromFFIType hs_bindgen_db442d4a677f346c_base
 {-# NOINLINE hs_bindgen_b7bdf87ddb6b9a5b #-}
 {-| __C declaration:__ @u@
 
@@ -494,11 +494,11 @@ u :: U
 u = unsafePerformIO (peek (unConstPtr hs_bindgen_b7bdf87ddb6b9a5b))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_e@
 foreign import ccall unsafe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c94db95_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_e@
 hs_bindgen_f8e0ac7d2c94db95 :: IO (ConstPtr E)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_e@
-hs_bindgen_f8e0ac7d2c94db95 = fromBaseForeignType hs_bindgen_f8e0ac7d2c94db95_base
+hs_bindgen_f8e0ac7d2c94db95 = fromFFIType hs_bindgen_f8e0ac7d2c94db95_base
 {-# NOINLINE hs_bindgen_fa2424d094d91a33 #-}
 {-| __C declaration:__ @e@
 
@@ -523,11 +523,11 @@ e :: E
 e = unsafePerformIO (peek (unConstPtr hs_bindgen_fa2424d094d91a33))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
 foreign import ccall unsafe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a66011da3a_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
 hs_bindgen_da8e11a66011da3a :: IO (ConstPtr TI)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
-hs_bindgen_da8e11a66011da3a = fromBaseForeignType hs_bindgen_da8e11a66011da3a_base
+hs_bindgen_da8e11a66011da3a = fromFFIType hs_bindgen_da8e11a66011da3a_base
 {-# NOINLINE hs_bindgen_d7dd4362406f73a6 #-}
 {-| __C declaration:__ @ti@
 
@@ -552,11 +552,11 @@ ti :: TI
 ti = unsafePerformIO (peek (unConstPtr hs_bindgen_d7dd4362406f73a6))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
 foreign import ccall unsafe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6b2036_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
 hs_bindgen_10a3457a0f6b2036 :: IO (ConstPtr TS)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
-hs_bindgen_10a3457a0f6b2036 = fromBaseForeignType hs_bindgen_10a3457a0f6b2036_base
+hs_bindgen_10a3457a0f6b2036 = fromFFIType hs_bindgen_10a3457a0f6b2036_base
 {-# NOINLINE hs_bindgen_cd3e2d14ae82b6fc #-}
 {-| __C declaration:__ @ts@
 
@@ -581,11 +581,11 @@ ts :: TS
 ts = unsafePerformIO (peek (unConstPtr hs_bindgen_cd3e2d14ae82b6fc))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
 foreign import ccall unsafe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7b0513_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
 hs_bindgen_ded2bbcd5f7b0513 :: IO (ConstPtr TU)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
-hs_bindgen_ded2bbcd5f7b0513 = fromBaseForeignType hs_bindgen_ded2bbcd5f7b0513_base
+hs_bindgen_ded2bbcd5f7b0513 = fromFFIType hs_bindgen_ded2bbcd5f7b0513_base
 {-# NOINLINE hs_bindgen_2d9684fc851b0766 #-}
 {-| __C declaration:__ @tu@
 
@@ -610,11 +610,11 @@ tu :: TU
 tu = unsafePerformIO (peek (unConstPtr hs_bindgen_2d9684fc851b0766))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
 foreign import ccall unsafe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82bacf9cc_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
 hs_bindgen_1b4b0fa82bacf9cc :: IO (ConstPtr TE)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
-hs_bindgen_1b4b0fa82bacf9cc = fromBaseForeignType hs_bindgen_1b4b0fa82bacf9cc_base
+hs_bindgen_1b4b0fa82bacf9cc = fromFFIType hs_bindgen_1b4b0fa82bacf9cc_base
 {-# NOINLINE hs_bindgen_200eaed7c3fb420d #-}
 {-| __C declaration:__ @te@
 
@@ -639,11 +639,11 @@ te :: TE
 te = unsafePerformIO (peek (unConstPtr hs_bindgen_200eaed7c3fb420d))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
 foreign import ccall unsafe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8dc188e_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
 hs_bindgen_b8067bbfe8dc188e :: IO (ConstPtr TTI)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
-hs_bindgen_b8067bbfe8dc188e = fromBaseForeignType hs_bindgen_b8067bbfe8dc188e_base
+hs_bindgen_b8067bbfe8dc188e = fromFFIType hs_bindgen_b8067bbfe8dc188e_base
 {-# NOINLINE hs_bindgen_1fbea465b2793d07 #-}
 {-| __C declaration:__ @tti@
 
@@ -668,11 +668,11 @@ tti :: TTI
 tti = unsafePerformIO (peek (unConstPtr hs_bindgen_1fbea465b2793d07))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
 foreign import ccall unsafe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed64a420_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
 hs_bindgen_6ce6ca09ed64a420 :: IO (ConstPtr TTS)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
-hs_bindgen_6ce6ca09ed64a420 = fromBaseForeignType hs_bindgen_6ce6ca09ed64a420_base
+hs_bindgen_6ce6ca09ed64a420 = fromFFIType hs_bindgen_6ce6ca09ed64a420_base
 {-# NOINLINE hs_bindgen_f23f17df17b3fe36 #-}
 {-| __C declaration:__ @tts@
 
@@ -697,11 +697,11 @@ tts :: TTS
 tts = unsafePerformIO (peek (unConstPtr hs_bindgen_f23f17df17b3fe36))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
 foreign import ccall unsafe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a642c0_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
 hs_bindgen_5d4569e6c5a642c0 :: IO (ConstPtr TTU)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
-hs_bindgen_5d4569e6c5a642c0 = fromBaseForeignType hs_bindgen_5d4569e6c5a642c0_base
+hs_bindgen_5d4569e6c5a642c0 = fromFFIType hs_bindgen_5d4569e6c5a642c0_base
 {-# NOINLINE hs_bindgen_45ab2258853f641d #-}
 {-| __C declaration:__ @ttu@
 
@@ -726,11 +726,11 @@ ttu :: TTU
 ttu = unsafePerformIO (peek (unConstPtr hs_bindgen_45ab2258853f641d))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
 foreign import ccall unsafe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796abc21_base ::
-    IO (ConstPtr Void)
+    IO (Ptr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
 hs_bindgen_cb44d6db796abc21 :: IO (ConstPtr TTE)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
-hs_bindgen_cb44d6db796abc21 = fromBaseForeignType hs_bindgen_cb44d6db796abc21_base
+hs_bindgen_cb44d6db796abc21 = fromFFIType hs_bindgen_cb44d6db796abc21_base
 {-# NOINLINE hs_bindgen_0956779e634e3dd5 #-}
 {-| __C declaration:__ @tte@
 

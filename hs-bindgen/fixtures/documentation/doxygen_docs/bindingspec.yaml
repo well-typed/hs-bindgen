@@ -78,10 +78,9 @@ hstypes:
       constructor: Color_enum
       fields:
       - un_Color_enum
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -125,10 +124,9 @@ hstypes:
       constructor: Event_callback_t
       fields:
       - un_Event_callback_t
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -164,10 +162,9 @@ hstypes:
       constructor: Processor_fn_t
       fields:
       - un_Processor_fn_t
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -177,14 +174,13 @@ hstypes:
       constructor: Size_type
       fields:
       - un_Size_type
-      ffitype: CSize
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -199,10 +195,9 @@ hstypes:
       constructor: Status_code_t
       fields:
       - un_Status_code_t
-      ffitype: CInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

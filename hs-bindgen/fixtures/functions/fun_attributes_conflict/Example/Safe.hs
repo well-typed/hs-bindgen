@@ -6,7 +6,8 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified GHC.Int
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -40,15 +41,15 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" hs_bindgen_5d7162df3a16d8d5_base ::
-     FC.CInt
-  -> FC.CInt
+     GHC.Int.Int32
+  -> GHC.Int.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 hs_bindgen_5d7162df3a16d8d5 ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_5d7162df3a16d8d5 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_5d7162df3a16d8d5_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5d7162df3a16d8d5_base
 
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
@@ -70,15 +71,15 @@ square_cp = hs_bindgen_5d7162df3a16d8d5
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2eea24_base ::
-     FC.CInt
-  -> FC.CInt
+     GHC.Int.Int32
+  -> GHC.Int.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 hs_bindgen_7f240b4e0c2eea24 ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_7f240b4e0c2eea24 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7f240b4e0c2eea24_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7f240b4e0c2eea24_base
 
 {-|
 
@@ -98,15 +99,15 @@ square_pc = hs_bindgen_7f240b4e0c2eea24
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10764_base ::
-     FC.CInt
-  -> FC.CInt
+     GHC.Int.Int32
+  -> GHC.Int.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 hs_bindgen_d32b50f04af10764 ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_d32b50f04af10764 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d32b50f04af10764_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d32b50f04af10764_base
 
 {-|
 
@@ -126,15 +127,15 @@ square_cc = hs_bindgen_d32b50f04af10764
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" hs_bindgen_fab6c9860ff1400b_base ::
-     FC.CInt
-  -> IO FC.CInt
+     GHC.Int.Int32
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 hs_bindgen_fab6c9860ff1400b ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_fab6c9860ff1400b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fab6c9860ff1400b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fab6c9860ff1400b_base
 
 {-|
 

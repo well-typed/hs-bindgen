@@ -6,9 +6,11 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -119,10 +121,10 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+     Ptr.Ptr Void
   -> Ptr.Ptr Void
   -> Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 hs_bindgen_7eada9f65d982412 ::
@@ -131,7 +133,7 @@ hs_bindgen_7eada9f65d982412 ::
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CInt
 hs_bindgen_7eada9f65d982412 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7eada9f65d982412_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7eada9f65d982412_base
 
 {-|
 
@@ -180,15 +182,15 @@ process_data = hs_bindgen_7eada9f65d982412
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da1a7_base ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CBool
+     Ptr.Ptr Void
+  -> IO GHC.Word.Word8
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 hs_bindgen_fb85499c501da1a7 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
   -> IO FC.CBool
 hs_bindgen_fb85499c501da1a7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fb85499c501da1a7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fb85499c501da1a7_base
 
 {-|
 
@@ -219,9 +221,9 @@ process_file = hs_bindgen_fb85499c501da1a7
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" hs_bindgen_a73fc7b108035c5c_base ::
-     FC.CInt
-  -> FC.CInt
-  -> IO FC.CInt
+     GHC.Int.Int32
+  -> GHC.Int.Int32
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 hs_bindgen_a73fc7b108035c5c ::
@@ -229,7 +231,7 @@ hs_bindgen_a73fc7b108035c5c ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_a73fc7b108035c5c =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a73fc7b108035c5c_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a73fc7b108035c5c_base
 
 {-|
 
@@ -274,15 +276,15 @@ calculate_value = hs_bindgen_a73fc7b108035c5c
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 foreign import ccall safe "hs_bindgen_9b7f6745401b4652" hs_bindgen_9b7f6745401b4652_base ::
-     FC.CInt
-  -> IO FC.CBool
+     GHC.Int.Int32
+  -> IO GHC.Word.Word8
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 hs_bindgen_9b7f6745401b4652 ::
      FC.CInt
   -> IO FC.CBool
 hs_bindgen_9b7f6745401b4652 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9b7f6745401b4652_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9b7f6745401b4652_base
 
 {-|
 
@@ -316,8 +318,8 @@ html_example = hs_bindgen_9b7f6745401b4652
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e599b_base ::
      Ptr.Ptr Void
-  -> FC.CSize
-  -> IO FC.CBool
+  -> GHC.Word.Word64
+  -> IO GHC.Word.Word8
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 hs_bindgen_825411dc114e599b ::
@@ -325,7 +327,7 @@ hs_bindgen_825411dc114e599b ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CBool
 hs_bindgen_825411dc114e599b =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_825411dc114e599b_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_825411dc114e599b_base
 
 {-|
 
@@ -401,7 +403,7 @@ hs_bindgen_17264dcff7e9b698 ::
      Ptr.Ptr Void
   -> IO (Ptr.Ptr Void)
 hs_bindgen_17264dcff7e9b698 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_17264dcff7e9b698_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_17264dcff7e9b698_base
 
 {-|
 
@@ -436,15 +438,15 @@ dangerous_function = hs_bindgen_17264dcff7e9b698
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70d8d_base ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+     Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 hs_bindgen_c8ca619ec2e70d8d ::
      HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
   -> IO FC.CInt
 hs_bindgen_c8ca619ec2e70d8d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c8ca619ec2e70d8d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c8ca619ec2e70d8d_base
 
 {-|
 
@@ -479,15 +481,15 @@ detailed_return_codes = hs_bindgen_c8ca619ec2e70d8d
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 foreign import ccall safe "hs_bindgen_25e1070e2ce10048" hs_bindgen_25e1070e2ce10048_base ::
-     FC.CInt
-  -> IO FC.CInt
+     GHC.Int.Int32
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 hs_bindgen_25e1070e2ce10048 ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_25e1070e2ce10048 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_25e1070e2ce10048_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_25e1070e2ce10048_base
 
 {-|
 
@@ -518,15 +520,15 @@ old_function = hs_bindgen_25e1070e2ce10048
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" hs_bindgen_a9eeeb09808e71cc_base ::
-     FC.CInt
-  -> IO FC.CInt
+     GHC.Int.Int32
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 hs_bindgen_a9eeeb09808e71cc ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_a9eeeb09808e71cc =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a9eeeb09808e71cc_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a9eeeb09808e71cc_base
 
 {-|
 
@@ -558,8 +560,8 @@ versioned_function = hs_bindgen_a9eeeb09808e71cc
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f1700372a7_base ::
      Ptr.Ptr Void
-  -> FC.CSize
-  -> IO FC.CInt
+  -> GHC.Word.Word64
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 ::
@@ -567,7 +569,7 @@ hs_bindgen_0c0057f1700372a7 ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CInt
 hs_bindgen_0c0057f1700372a7 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0c0057f1700372a7_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0c0057f1700372a7_base
 
 {-|
 
@@ -606,8 +608,8 @@ process_buffer = hs_bindgen_0c0057f1700372a7
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95524_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> FC.CSize
+  -> Ptr.Ptr Void
+  -> GHC.Word.Word64
   -> IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
@@ -617,7 +619,7 @@ hs_bindgen_294db77671f95524 ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO (Ptr.Ptr Void)
 hs_bindgen_294db77671f95524 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_294db77671f95524_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_294db77671f95524_base
 
 {-|
 
@@ -664,15 +666,15 @@ my_memcpy = hs_bindgen_294db77671f95524
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" hs_bindgen_f5bc63a9952c2618_base ::
-     FC.CInt
-  -> IO FC.CInt
+     GHC.Int.Int32
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 hs_bindgen_f5bc63a9952c2618 ::
      FC.CInt
   -> IO FC.CInt
 hs_bindgen_f5bc63a9952c2618 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f5bc63a9952c2618_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f5bc63a9952c2618_base
 
 {-|
 
@@ -702,9 +704,9 @@ double_value = hs_bindgen_f5bc63a9952c2618
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba20204d_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> FC.CSize
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> GHC.Word.Word64
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 hs_bindgen_c4e7e99dba20204d ::
@@ -713,7 +715,7 @@ hs_bindgen_c4e7e99dba20204d ::
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO Status_code_t
 hs_bindgen_c4e7e99dba20204d =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c4e7e99dba20204d_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c4e7e99dba20204d_base
 
 {-|
 
@@ -814,14 +816,14 @@ complex_function = hs_bindgen_c4e7e99dba20204d
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hs_bindgen_935f2aead358d9ef_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 hs_bindgen_935f2aead358d9ef ::
      Ptr.Ptr FC.CChar
   -> IO FC.CInt
 hs_bindgen_935f2aead358d9ef =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_935f2aead358d9ef_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_935f2aead358d9ef_base
 
 {-|
 
@@ -841,15 +843,15 @@ hash = hs_bindgen_935f2aead358d9ef
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" hs_bindgen_39fef54c23d4e1ee_base ::
-     FC.CInt
-  -> FC.CInt
+     GHC.Int.Int32
+  -> GHC.Int.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 hs_bindgen_39fef54c23d4e1ee ::
      FC.CInt
   -> FC.CInt
 hs_bindgen_39fef54c23d4e1ee =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_39fef54c23d4e1ee_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_39fef54c23d4e1ee_base
 
 {-|
 

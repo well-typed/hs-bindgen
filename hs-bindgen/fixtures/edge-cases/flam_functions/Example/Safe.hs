@@ -6,8 +6,9 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -37,7 +38,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
 foreign import ccall safe "hs_bindgen_231473be98482b20" hs_bindgen_231473be98482b20_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
@@ -45,7 +46,7 @@ hs_bindgen_231473be98482b20 ::
      FC.CInt
   -> IO (Ptr.Ptr Vector)
 hs_bindgen_231473be98482b20 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_231473be98482b20_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_231473be98482b20_base
 
 {-| __C declaration:__ @vector_alloc@
 
@@ -69,7 +70,7 @@ hs_bindgen_d3aecc79bd3c1993 ::
      Ptr.Ptr Vector
   -> IO ()
 hs_bindgen_d3aecc79bd3c1993 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d3aecc79bd3c1993_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d3aecc79bd3c1993_base
 
 {-| __C declaration:__ @vector_free@
 
@@ -93,7 +94,7 @@ hs_bindgen_bfc48cbf5e4cc2ca ::
      Ptr.Ptr Vector
   -> IO ()
 hs_bindgen_bfc48cbf5e4cc2ca =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_bfc48cbf5e4cc2ca_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_bfc48cbf5e4cc2ca_base
 
 {-| __C declaration:__ @vector_reverse@
 

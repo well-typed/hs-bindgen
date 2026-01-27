@@ -37,14 +37,13 @@ hstypes:
       constructor: MC
       fields:
       - un_MC
-      ffitype: CChar
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -115,7 +114,6 @@ hstypes:
       constructor: TC
       fields:
       - un_TC
-      ffitype: CChar
   instances:
   - Bitfield
   - Bits
@@ -123,7 +121,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

@@ -34,6 +34,7 @@ runBackend tracer config boot frontend = do
     backendHsDeclsAll <- cache $
       Hs.generateDeclarations config.translation config.haddock boot.baseModule
         <$> frontend.index
+        <*> boot.sizeofs
         <*> frontend.cDecls
 
     -- 2. Apply binding category choice.

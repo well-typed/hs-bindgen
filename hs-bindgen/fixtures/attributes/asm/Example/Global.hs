@@ -8,7 +8,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af13
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_variable@
 hs_bindgen_e637e98af1313f88 :: IO (Ptr.Ptr FC.CInt)
 hs_bindgen_e637e98af1313f88 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_e637e98af1313f88_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e637e98af1313f88_base
 
 {-# NOINLINE asm_labeled_variable #-}
 {-| __C declaration:__ @asm_labeled_variable@

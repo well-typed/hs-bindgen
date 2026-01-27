@@ -8,7 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Prelude (IO)
@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_4f7c4fceed28f171" hs_bindgen_4f7c4fceed2
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_function@
 hs_bindgen_4f7c4fceed28f171 :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 hs_bindgen_4f7c4fceed28f171 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4f7c4fceed28f171_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4f7c4fceed28f171_base
 
 {-# NOINLINE asm_labeled_function #-}
 {-| __C declaration:__ @asm_labeled_function@

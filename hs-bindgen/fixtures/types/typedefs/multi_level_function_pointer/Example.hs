@@ -20,12 +20,13 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.FunPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified Prelude as P
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -42,11 +43,11 @@ __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 newtype F1_Aux = F1_Aux
   { un_F1_Aux :: FC.CInt -> FC.CInt -> IO ()
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
-     (FC.CInt -> FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO ()))
+     (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @toF1_Aux@
 hs_bindgen_00d16e666202ed6c ::
@@ -54,11 +55,11 @@ hs_bindgen_00d16e666202ed6c ::
   -> IO (Ptr.FunPtr F1_Aux)
 hs_bindgen_00d16e666202ed6c =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_00d16e666202ed6c_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_00d16e666202ed6c_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425_base ::
-     Ptr.FunPtr (FC.CInt -> FC.CInt -> IO ())
-  -> FC.CInt -> FC.CInt -> IO ()
+     Ptr.FunPtr (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ())
+  -> GHC.Int.Int32 -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @fromF1_Aux@
 hs_bindgen_ddeb5206e8192425 ::
@@ -66,7 +67,7 @@ hs_bindgen_ddeb5206e8192425 ::
   -> F1_Aux
 hs_bindgen_ddeb5206e8192425 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_ddeb5206e8192425_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_ddeb5206e8192425_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F1_Aux where
 
@@ -99,7 +100,7 @@ newtype F1 = F1
   { un_F1 :: Ptr.FunPtr F1_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1) "un_F1")
          ) => GHC.Records.HasField "un_F1" (Ptr.Ptr F1) (Ptr.Ptr ty) where
@@ -124,11 +125,11 @@ __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 newtype F2_Aux = F2_Aux
   { un_F2_Aux :: FC.CInt -> FC.CInt -> IO ()
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8_base ::
-     (FC.CInt -> FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO ()))
+     (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @toF2_Aux@
 hs_bindgen_c39d7524b75b54e8 ::
@@ -136,11 +137,11 @@ hs_bindgen_c39d7524b75b54e8 ::
   -> IO (Ptr.FunPtr F2_Aux)
 hs_bindgen_c39d7524b75b54e8 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_c39d7524b75b54e8_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_c39d7524b75b54e8_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_e15bcd26f1ed1df7_base ::
-     Ptr.FunPtr (FC.CInt -> FC.CInt -> IO ())
-  -> FC.CInt -> FC.CInt -> IO ()
+     Ptr.FunPtr (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ())
+  -> GHC.Int.Int32 -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @fromF2_Aux@
 hs_bindgen_e15bcd26f1ed1df7 ::
@@ -148,7 +149,7 @@ hs_bindgen_e15bcd26f1ed1df7 ::
   -> F2_Aux
 hs_bindgen_e15bcd26f1ed1df7 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_e15bcd26f1ed1df7_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_e15bcd26f1ed1df7_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F2_Aux where
 
@@ -181,7 +182,7 @@ newtype F2 = F2
   { un_F2 :: Ptr.Ptr (Ptr.FunPtr F2_Aux)
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F2) "un_F2")
          ) => GHC.Records.HasField "un_F2" (Ptr.Ptr F2) (Ptr.Ptr ty) where
@@ -207,11 +208,11 @@ __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 newtype F3_Aux = F3_Aux
   { un_F3_Aux :: FC.CInt -> FC.CInt -> IO ()
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef_base ::
-     (FC.CInt -> FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO ()))
+     (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @toF3_Aux@
 hs_bindgen_4a960721e7d1dcef ::
@@ -219,11 +220,11 @@ hs_bindgen_4a960721e7d1dcef ::
   -> IO (Ptr.FunPtr F3_Aux)
 hs_bindgen_4a960721e7d1dcef =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_4a960721e7d1dcef_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_4a960721e7d1dcef_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_66460422a7197535_base ::
-     Ptr.FunPtr (FC.CInt -> FC.CInt -> IO ())
-  -> FC.CInt -> FC.CInt -> IO ()
+     Ptr.FunPtr (GHC.Int.Int32 -> GHC.Int.Int32 -> IO ())
+  -> GHC.Int.Int32 -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @fromF3_Aux@
 hs_bindgen_66460422a7197535 ::
@@ -231,7 +232,7 @@ hs_bindgen_66460422a7197535 ::
   -> F3_Aux
 hs_bindgen_66460422a7197535 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_66460422a7197535_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_66460422a7197535_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F3_Aux where
 
@@ -264,7 +265,7 @@ newtype F3 = F3
   { un_F3 :: Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F3_Aux))
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F3) "un_F3")
          ) => GHC.Records.HasField "un_F3" (Ptr.Ptr F3) (Ptr.Ptr ty) where
@@ -290,11 +291,11 @@ __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 newtype F4_Aux = F4_Aux
   { un_F4_Aux :: IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_83bcff023b3bc648_base ::
-     IO FC.CInt
-  -> IO (Ptr.FunPtr (IO FC.CInt))
+     IO GHC.Int.Int32
+  -> IO (Ptr.FunPtr (IO GHC.Int.Int32))
 
 -- __unique:__ @toF4_Aux@
 hs_bindgen_83bcff023b3bc648 ::
@@ -302,11 +303,11 @@ hs_bindgen_83bcff023b3bc648 ::
   -> IO (Ptr.FunPtr F4_Aux)
 hs_bindgen_83bcff023b3bc648 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_83bcff023b3bc648_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_83bcff023b3bc648_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_40f9a8d432b9eb97_base ::
-     Ptr.FunPtr (IO FC.CInt)
-  -> IO FC.CInt
+     Ptr.FunPtr (IO GHC.Int.Int32)
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @fromF4_Aux@
 hs_bindgen_40f9a8d432b9eb97 ::
@@ -314,7 +315,7 @@ hs_bindgen_40f9a8d432b9eb97 ::
   -> F4_Aux
 hs_bindgen_40f9a8d432b9eb97 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_40f9a8d432b9eb97_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_40f9a8d432b9eb97_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F4_Aux where
 
@@ -346,7 +347,7 @@ newtype F4 = F4
   { un_F4 :: Ptr.Ptr (Ptr.FunPtr F4_Aux)
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F4) "un_F4")
          ) => GHC.Records.HasField "un_F4" (Ptr.Ptr F4) (Ptr.Ptr ty) where
@@ -372,7 +373,7 @@ __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 newtype F5_Aux = F5_Aux
   { un_F5_Aux :: IO ()
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_6891cbd81d6f42b9_base ::
      IO ()
@@ -384,7 +385,7 @@ hs_bindgen_6891cbd81d6f42b9 ::
   -> IO (Ptr.FunPtr F5_Aux)
 hs_bindgen_6891cbd81d6f42b9 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_6891cbd81d6f42b9_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_6891cbd81d6f42b9_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_586f6635c057975f_base ::
      Ptr.FunPtr (IO ())
@@ -396,7 +397,7 @@ hs_bindgen_586f6635c057975f ::
   -> F5_Aux
 hs_bindgen_586f6635c057975f =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_586f6635c057975f_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_586f6635c057975f_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F5_Aux where
 
@@ -428,7 +429,7 @@ newtype F5 = F5
   { un_F5 :: Ptr.Ptr (Ptr.FunPtr F5_Aux)
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F5) "un_F5")
          ) => GHC.Records.HasField "un_F5" (Ptr.Ptr F5) (Ptr.Ptr ty) where
@@ -453,7 +454,7 @@ newtype MyInt = MyInt
   { un_MyInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "un_MyInt")
          ) => GHC.Records.HasField "un_MyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
@@ -478,11 +479,11 @@ __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 newtype F6_Aux = F6_Aux
   { un_F6_Aux :: MyInt -> IO ()
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45_base ::
-     (FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+     (GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @toF6_Aux@
 hs_bindgen_c1baf73f98614f45 ::
@@ -490,11 +491,11 @@ hs_bindgen_c1baf73f98614f45 ::
   -> IO (Ptr.FunPtr F6_Aux)
 hs_bindgen_c1baf73f98614f45 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_c1baf73f98614f45_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_c1baf73f98614f45_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_a887947b26e58f0c_base ::
-     Ptr.FunPtr (FC.CInt -> IO ())
-  -> FC.CInt -> IO ()
+     Ptr.FunPtr (GHC.Int.Int32 -> IO ())
+  -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @fromF6_Aux@
 hs_bindgen_a887947b26e58f0c ::
@@ -502,7 +503,7 @@ hs_bindgen_a887947b26e58f0c ::
   -> F6_Aux
 hs_bindgen_a887947b26e58f0c =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_a887947b26e58f0c_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_a887947b26e58f0c_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F6_Aux where
 
@@ -534,7 +535,7 @@ newtype F6 = F6
   { un_F6 :: Ptr.Ptr (Ptr.FunPtr F6_Aux)
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F6) "un_F6")
          ) => GHC.Records.HasField "un_F6" (Ptr.Ptr F6) (Ptr.Ptr ty) where

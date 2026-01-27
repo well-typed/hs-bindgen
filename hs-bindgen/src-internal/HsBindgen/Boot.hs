@@ -21,11 +21,13 @@ import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
                                         compareClangVersions)
 import HsBindgen.Clang.CStandard
 import HsBindgen.Clang.ExtraClangArgs
+import HsBindgen.Clang.Sizeof (getSizeofs)
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C (Sizeofs)
 import HsBindgen.Util.Tracer
 
 -- | Boot phase.
@@ -75,6 +77,10 @@ runBoot tracer config uncheckedHashIncludeArgs = do
       withTrace BootStatusPrescriptiveBindingSpec $
         fmap snd $ getBindingSpecs
 
+    sizeofs <- cache "sizeofs" $ do
+      clangArgs <- getClangArgs
+      liftIO $ getSizeofs (contramap BootSizeofs tracer) clangArgs
+
     pure BootArtefact {
           baseModule              = config.boot.baseModule
         , cStandard               = getCStandard
@@ -82,6 +88,7 @@ runBoot tracer config uncheckedHashIncludeArgs = do
         , hashIncludeArgs         = getHashIncludeArgs
         , externalBindingSpecs    = getExternalBindingSpecs
         , prescriptiveBindingSpec = getPrescriptiveBindingSpec
+        , sizeofs                 = sizeofs
         }
   where
     tracerBootStatus :: Tracer BootStatusMsg
@@ -167,6 +174,7 @@ data BootArtefact = BootArtefact {
     , hashIncludeArgs         :: Cached [HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
+    , sizeofs                 :: Cached Sizeofs
     }
 
 {-------------------------------------------------------------------------------
@@ -232,5 +240,6 @@ data BootMsg =
   | BootCompareClangVersions CompareVersionsMsg
   | BootStatus               BootStatusMsg
   | BootCache                (SafeTrace CacheMsg)
+  | BootSizeofs              ClangMsg
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

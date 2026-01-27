@@ -25,14 +25,13 @@ hstypes:
       constructor: C
       fields:
       - un_C
-      ffitype: CChar
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -48,13 +47,12 @@ hstypes:
       constructor: F
       fields:
       - un_F
-      ffitype: CFloat
   instances:
   - Enum
   - Eq
   - Floating
   - Fractional
-  - HasBaseForeignType
+  - HasFFIType
   - Num
   - Ord
   - Prim
@@ -70,14 +68,13 @@ hstypes:
       constructor: I
       fields:
       - un_I
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -93,14 +90,13 @@ hstypes:
       constructor: L
       fields:
       - un_L
-      ffitype: CLong
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -116,14 +112,13 @@ hstypes:
       constructor: S
       fields:
       - un_S
-      ffitype: CShort
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

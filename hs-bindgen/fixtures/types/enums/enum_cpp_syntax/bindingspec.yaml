@@ -16,10 +16,9 @@ hstypes:
       constructor: Foo_enum
       fields:
       - un_Foo_enum
-      ffitype: Word32
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

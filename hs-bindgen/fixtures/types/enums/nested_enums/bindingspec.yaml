@@ -22,10 +22,9 @@ hstypes:
       constructor: EnumA
       fields:
       - un_EnumA
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -56,10 +55,9 @@ hstypes:
       constructor: ExB_fieldB1
       fields:
       - un_ExB_fieldB1
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

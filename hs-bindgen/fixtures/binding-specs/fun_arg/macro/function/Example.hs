@@ -15,11 +15,12 @@ module Example where
 
 import qualified Data.Proxy
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
-import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified Prelude as P
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (IO)
@@ -33,11 +34,11 @@ import Prelude (IO)
 newtype MyFunction = MyFunction
   { un_MyFunction :: FC.CInt -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_4e8a459829b269e0_base ::
-     (FC.CInt -> IO FC.CInt)
-  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32))
 
 -- __unique:__ @toMyFunction@
 hs_bindgen_4e8a459829b269e0 ::
@@ -45,11 +46,11 @@ hs_bindgen_4e8a459829b269e0 ::
   -> IO (Ptr.FunPtr MyFunction)
 hs_bindgen_4e8a459829b269e0 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_4e8a459829b269e0_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_4e8a459829b269e0_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_bb71f7e730356103_base ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-  -> FC.CInt -> IO FC.CInt
+     Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> GHC.Int.Int32 -> IO GHC.Int.Int32
 
 -- __unique:__ @fromMyFunction@
 hs_bindgen_bb71f7e730356103 ::
@@ -57,7 +58,7 @@ hs_bindgen_bb71f7e730356103 ::
   -> MyFunction
 hs_bindgen_bb71f7e730356103 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_bb71f7e730356103_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
+    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_bb71f7e730356103_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr MyFunction where
 
@@ -89,7 +90,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunction "un_MyFunction" where
 newtype A = A
   { un_A :: MyFunction
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 {-| __C declaration:__ @B@
 
@@ -100,4 +101,4 @@ newtype A = A
 newtype B = B
   { un_B :: A
   }
-  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)

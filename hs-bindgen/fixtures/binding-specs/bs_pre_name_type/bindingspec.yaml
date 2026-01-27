@@ -13,7 +13,6 @@ hstypes:
       constructor: MySym
       fields:
       - un_MySym
-      ffitype: CChar
   instances:
   - Bitfield
   - Bits
@@ -21,7 +20,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

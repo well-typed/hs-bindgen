@@ -12,6 +12,9 @@ module HsBindgen.Language.C (
   , PrimSignChar(..)
     -- ** Pretty-printing
   , showsPrimType
+    -- * @sizeof@
+  , Sizeofs (..)
+  , NumBytes (..)
     -- * C names
     -- ** Tag kind
   , TagKind(..)
@@ -101,10 +104,10 @@ data PrimSign = Signed | Unsigned
 -- record this as a special case, so that we can generate 'CChar' instead of
 -- 'CUChar' or 'CSChar'.
 data PrimSignChar =
-    -- ^ User explicitly specified sign
+    -- | User explicitly specified sign
     PrimSignExplicit PrimSign
 
-    -- ^ Sign was left implicit
+    -- | Sign was left implicit
     --
     -- In most cases we know the compiler-determined sign, but currently not in
     -- all cases. That's probably fixable but it's not trivial; at present we
@@ -136,6 +139,56 @@ showsPrimFloatType PrimDouble = showString "double"
 showsPrimSign :: PrimSign -> ShowS
 showsPrimSign Signed = showString "signed"
 showsPrimSign Unsigned = showString "unsigned"
+
+{-------------------------------------------------------------------------------
+  @sizeof@
+-------------------------------------------------------------------------------}
+
+-- | @sizeof@ information for all arithmetic types
+--
+-- <https://en.cppreference.com/w/c/language/arithmetic_types.html>
+--
+-- In the backend we generate foreign import declarations at FFI types only.
+-- That is, types like 'Word8', 'Float', and 'Int32'. The FFI type corresponding
+-- to arithmetic C types like @int@ depends on the size of the C type, which in
+-- turn depends on the target system. For example, if @int@ is 32-bits on a
+-- given machine, then the corresponding FFI type would be @Int32@. For
+-- @unsigned int@ of the same size, it would be @Word32@. The 'Sizeofs' record
+-- stores the size of each of these arithmetic types. This record is created in
+-- the @Boot@ phase.
+--
+-- One might ask: could we not annotate types with their size in the @Parse@
+-- frontend pass instead? Unfortunately, that would not be sufficient. The
+-- @HandleMacros@ pass outputs expressions and types involving basic arithmetic
+-- types using @language-c@, but @language-c@ does not give us any size
+-- information. So, instead we pre-determine the sizes of arithmetic types in
+-- the @Boot@ phase, and pass along that information where it is needed: the
+-- backend.
+data Sizeofs = Sizeofs {
+      -- * Character types
+      schar      :: !NumBytes
+    , uchar      :: !NumBytes
+    , char       :: !NumBytes
+      -- * Integer types
+    , short      :: !NumBytes
+    , ushort     :: !NumBytes
+    , int        :: !NumBytes
+    , uint       :: !NumBytes
+    , long       :: !NumBytes
+    , ulong      :: !NumBytes
+    , longlong   :: !NumBytes
+    , ulonglong  :: !NumBytes
+      -- * Floating point types
+    , float      :: !NumBytes
+    , double     :: !NumBytes
+      -- NOTE: long double is not supported
+      -- * Others
+    , bool       :: !NumBytes
+    }
+    deriving stock (Show, Eq)
+
+data NumBytes = One | Two | Four | Eight
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   C names: tag kind

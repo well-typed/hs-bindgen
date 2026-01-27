@@ -42,7 +42,7 @@ newtype Uint32_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
-                      HasBaseForeignType,
+                      HasFFIType,
                       Prim,
                       Bitfield,
                       Bits,
@@ -109,13 +109,13 @@ instance TyEq ty (CFieldType Foo "foo_thirty_two") =>
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1_base ::
     Word64
- -> CUInt
- -> IO CInt
+ -> Word32
+ -> IO Int32
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 hs_bindgen_48dbbf4b09b5b3c1 :: Foreign.Word64 ->
                                Uint32_t -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
-hs_bindgen_48dbbf4b09b5b3c1 = fromBaseForeignType hs_bindgen_48dbbf4b09b5b3c1_base
+hs_bindgen_48dbbf4b09b5b3c1 = fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -133,13 +133,13 @@ bar = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
     Word64
- -> CUInt
- -> IO CInt
+ -> Word32
+ -> IO Int32
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 hs_bindgen_fe855d53295ba8ab :: Foreign.Word64 ->
                                Uint32_t -> IO CInt
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
-hs_bindgen_fe855d53295ba8ab = fromBaseForeignType hs_bindgen_fe855d53295ba8ab_base
+hs_bindgen_fe855d53295ba8ab = fromFFIType hs_bindgen_fe855d53295ba8ab_base
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -161,7 +161,7 @@ foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dad
 hs_bindgen_993162e0dadfa2c9 :: IO (FunPtr (Foreign.Word64 ->
                                            Uint32_t -> IO CInt))
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
-hs_bindgen_993162e0dadfa2c9 = fromBaseForeignType hs_bindgen_993162e0dadfa2c9_base
+hs_bindgen_993162e0dadfa2c9 = fromFFIType hs_bindgen_993162e0dadfa2c9_base
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 

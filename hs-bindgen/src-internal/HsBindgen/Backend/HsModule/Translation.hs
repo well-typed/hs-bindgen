@@ -17,7 +17,6 @@ import Data.Set qualified as Set
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.HsModule.Capi (capiImport)
 import HsBindgen.Backend.HsModule.Names

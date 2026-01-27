@@ -49,10 +49,9 @@ hstypes:
       constructor: EnumA
       fields:
       - un_EnumA
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -63,10 +62,9 @@ hstypes:
       constructor: EnumB
       fields:
       - un_EnumB
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -77,10 +75,9 @@ hstypes:
       constructor: EnumC
       fields:
       - un_EnumC
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -91,10 +88,9 @@ hstypes:
       constructor: EnumD_t
       fields:
       - un_EnumD_t
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -105,10 +101,9 @@ hstypes:
       constructor: First
       fields:
       - un_First
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -119,10 +114,9 @@ hstypes:
       constructor: Nonseq
       fields:
       - un_Nonseq
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -133,10 +127,9 @@ hstypes:
       constructor: Packed
       fields:
       - un_Packed
-      ffitype: CUChar
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -147,10 +140,9 @@ hstypes:
       constructor: Same
       fields:
       - un_Same
-      ffitype: CUInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show
@@ -161,10 +153,9 @@ hstypes:
       constructor: Second
       fields:
       - un_Second
-      ffitype: CInt
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Read
   - Show

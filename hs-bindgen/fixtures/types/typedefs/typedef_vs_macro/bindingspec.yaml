@@ -58,14 +58,13 @@ hstypes:
       constructor: M1
       fields:
       - un_M1
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -81,14 +80,13 @@ hstypes:
       constructor: M2
       fields:
       - un_M2
-      ffitype: CChar
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -104,10 +102,9 @@ hstypes:
       constructor: M3
       fields:
       - un_M3
-      ffitype: Ptr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -117,7 +114,6 @@ hstypes:
       constructor: T1
       fields:
       - un_T1
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -125,7 +121,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -141,7 +137,6 @@ hstypes:
       constructor: T2
       fields:
       - un_T2
-      ffitype: CChar
   instances:
   - Bitfield
   - Bits
@@ -149,7 +144,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num
@@ -165,14 +160,13 @@ hstypes:
       constructor: Uint64_t
       fields:
       - un_Uint64_t
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

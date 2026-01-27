@@ -22,14 +22,13 @@ hstypes:
       constructor: BOOL
       fields:
       - un_BOOL
-      ffitype: CBool
   instances:
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
-  - HasBaseForeignType
+  - HasFFIType
   - Integral
   - Ix
   - Num

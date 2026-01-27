@@ -5,7 +5,7 @@
 
 module Example.Unsafe where
 
-import qualified HsBindgen.Runtime.HasBaseForeignType
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -24,7 +24,7 @@ foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 hs_bindgen_32ebae80cc3543e1 :: IO ()
 hs_bindgen_32ebae80cc3543e1 =
-  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_32ebae80cc3543e1_base
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32ebae80cc3543e1_base
 
 {-| __C declaration:__ @h@
 

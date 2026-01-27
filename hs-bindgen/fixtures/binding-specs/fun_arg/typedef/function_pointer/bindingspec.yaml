@@ -19,10 +19,9 @@ hstypes:
       constructor: A
       fields:
       - un_A
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -32,10 +31,9 @@ hstypes:
       constructor: B
       fields:
       - un_B
-      ffitype: FunPtr
   instances:
   - Eq
-  - HasBaseForeignType
+  - HasFFIType
   - Ord
   - Show
   - Storable
@@ -45,6 +43,5 @@ hstypes:
       constructor: E
       fields:
       - un_E
-      ffitype: FunPtr
   instances:
-  - HasBaseForeignType
+  - HasFFIType
