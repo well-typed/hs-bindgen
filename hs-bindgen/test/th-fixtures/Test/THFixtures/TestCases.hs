@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 
 -- | Test case definitions for TH fixture compilation
@@ -19,6 +20,22 @@ import Clang.Version
 
 import Test.Common.HsBindgen.TestCase.All (allTestCaseSpecs)
 import Test.Common.HsBindgen.TestCase.Spec
+
+{-------------------------------------------------------------------------------
+  Platform-specific skips
+-------------------------------------------------------------------------------}
+
+-- | Tests that fail on Windows due to platform-specific issues
+--
+windowsSpecificFailures :: [String]
+windowsSpecificFailures = [
+#ifdef mingw32_HOST_OS
+      "types/structs/bitfields"               -- 33-bit bitfield invalid on Windows (long is 32-bit)
+    , "program-analysis/selection_bad_size_t" -- size_t typedef conflicts with Windows headers
+#else
+    -- On other platforms, no Windows-specific failures
+#endif
+    ]
 
 {-------------------------------------------------------------------------------
   Test case info
@@ -65,6 +82,9 @@ buildTestCaseInfo s = TestCaseInfo {
 --
 determineTHStatus :: TestCaseSpec -> THStatus
 determineTHStatus s
+  -- Platform-specific failures
+  | s.name `elem` windowsSpecificFailures
+      = THSkip "Platform-specific failure"
   -- Check clangVersion requirement first
   | Just versionPred <- s.clangVersion
   , case clangVersion of

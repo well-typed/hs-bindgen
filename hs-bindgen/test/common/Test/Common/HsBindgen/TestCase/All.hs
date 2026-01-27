@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 -- | All test case specifications
 --
 -- This module exports all test case specifications that are used by both
@@ -74,6 +76,8 @@ module Test.Common.HsBindgen.TestCase.All (
   , spec_programAnalysis_selection_omit_external_b
   , spec_programAnalysis_selection_omit_prescriptive
     -- ** Types
+  , spec_types_complex_hsb_complex_test
+  , spec_types_complex_non_float_test
   , spec_types_primitives_bool_c23
   , spec_types_structs_named_vs_anon
   ) where
@@ -157,8 +161,8 @@ testCaseSpecs_default = [
     , defaultSpec "macros/macro_typedef_struct"
     , defaultSpec "macros/macro_types"
     , defaultSpec "macros/macros"
-    , defaultSpec "types/complex/complex_non_float_test"
-    , defaultSpec "types/complex/hsb_complex_test"
+    , spec_types_complex_non_float_test
+    , spec_types_complex_hsb_complex_test
     , defaultSpec "types/complex/vector_test"
     , defaultSpec "types/enums/anon_enum_toplevel"
     , defaultSpec "types/enums/enum_cpp_syntax"
@@ -171,6 +175,10 @@ testCaseSpecs_default = [
     , defaultSpec "types/qualifiers/type_qualifiers"
     , defaultSpec "types/qualifiers/const_typedefs"
     , defaultSpec "types/structs/anonymous"
+      -- Note: On Windows, this test is skipped in TH fixture compilation because
+      -- the overflow64 struct contains 'long x : 33' which is invalid on Windows
+      -- (or at least the CI Windows machine) where 'long' is 32-bit (LLP64 model).
+      --
     , defaultSpec "types/structs/bitfields"
     , defaultSpec "types/structs/circular_dependency_struct"
     , defaultSpec "types/structs/recursive_struct"
@@ -803,6 +811,28 @@ testCaseSpecs_bespoke_types = [
     , spec_types_typedefs_typedefs
     , spec_types_typedefs_typenames
     ]
+
+-- | The complex tests use 'complex' as a variable name, which conflicts with
+-- the C99+ 'complex' keyword. On Windows, clang defaults to treating 'complex'
+-- as a keyword, so we need to force C89 mode where it's not reserved.
+--
+spec_types_complex_non_float_test :: TestCaseSpec
+spec_types_complex_non_float_test =
+#ifdef mingw32_HOST_OS
+    (defaultSpec "types/complex/complex_non_float_test")
+      { onBoot = \cfg -> cfg { clangArgs = cfg.clangArgs { argsBefore = ["-std=gnu89"] } } }
+#else
+    defaultSpec "types/complex/complex_non_float_test"
+#endif
+
+spec_types_complex_hsb_complex_test :: TestCaseSpec
+spec_types_complex_hsb_complex_test =
+#ifdef mingw32_HOST_OS
+    (defaultSpec "types/complex/hsb_complex_test")
+      { onBoot = \cfg -> cfg { clangArgs = cfg.clangArgs { argsBefore = ["-std=gnu89"] } } }
+#else
+    defaultSpec "types/complex/hsb_complex_test"
+#endif
 
 spec_types_implicit_fields_struct :: TestCaseSpec
 spec_types_implicit_fields_struct =
