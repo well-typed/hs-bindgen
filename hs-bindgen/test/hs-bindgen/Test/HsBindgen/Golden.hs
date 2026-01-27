@@ -1424,7 +1424,7 @@ test_programAnalysis_typedef_analysis =
     testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
       MatchSelect name SelectMangleNamesSquashed{} ->
         Just $ Expected (name, Nothing)
-      MatchMangle name (MangleNamesRenamed new) ->
+      MatchMangle name (MangleNamesAssignedName new) ->
         Just $ Expected (name, Just new)
       _otherwise ->
         Nothing
