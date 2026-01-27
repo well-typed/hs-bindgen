@@ -204,13 +204,13 @@ nameForDecl td fc specifiedNames decl =
                   NameInfo declId loc hsName False
                 , Report (toFs fs) []
                 )
-            Just (TypedefAnalysis.Rename (TypedefAnalysis.AddSuffix suffix)) ->
+            Just (TypedefAnalysis.AddSuffix suffix) ->
               fromDeclId fc ns declId & \(hsName, fs) ->
                 let newName = hsName <> suffix in (
                   NameInfo declId loc newName False
-                , Report (toFs fs) (toMs [MangleNamesRenamed newName])
+                , Report (toFs fs) (toMs [MangleNamesAssignedName newName])
                 )
-            Just (TypedefAnalysis.Rename (TypedefAnalysis.UseNameOf declId')) ->
+            Just (TypedefAnalysis.UseNameOf declId') ->
               case Map.lookup declId' specifiedNames of
                 Just hsName -> (NameInfo declId loc hsName False, mempty)
                 Nothing ->
@@ -218,7 +218,7 @@ nameForDecl td fc specifiedNames decl =
                       NameInfo declId loc hsName False
                     , Report
                         (toFs fs)
-                        (toMs [ MangleNamesRenamed hsName
+                        (toMs [ MangleNamesAssignedName hsName
                               | declId.name.text /= declId'.name.text
                               ])
                     )

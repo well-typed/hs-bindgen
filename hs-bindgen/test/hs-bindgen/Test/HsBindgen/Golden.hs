@@ -1497,7 +1497,7 @@ test_types_typedefs_typedef_analysis =
     testTraceMulti "types/typedefs/typedef_analysis" declsWithMsgs $ \case
       MatchMangle name MangleNamesSquashed{} ->
         Just $ Expected (name, Nothing)
-      MatchMangle name (MangleNamesRenamed new) ->
+      MatchMangle name (MangleNamesAssignedName new) ->
         Just $ Expected (name, Just new)
       _otherwise ->
         Nothing

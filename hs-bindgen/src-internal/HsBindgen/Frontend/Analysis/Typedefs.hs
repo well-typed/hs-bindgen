@@ -8,7 +8,6 @@ module HsBindgen.Frontend.Analysis.Typedefs (
     TypedefAnalysis(..)
   , Conclusion(..)
   , Squash(..)
-  , Rename(..)
   , fromDecls
   ) where
 
@@ -107,9 +106,10 @@ data Conclusion =
     -- <https://github.com/well-typed/hs-bindgen/issues/1356>.
     Squash Squash
 
-    -- | Rename the Haskell type corresponding to this C type
+    -- | Instruct the name mangler to add a suffix to the Haskell type
+    --   corresponding to this C type
     --
-    -- C distinguishes between the \"tagged\" namespace and thet \"ordinary\"
+    -- C distinguishes between the \"tagged\" namespace and the \"ordinary\"
     -- namespace, so that there is no name clash in
     --
     -- > typedef struct foo { .. } * foo;
@@ -118,15 +118,17 @@ data Conclusion =
     -- the same name to both of these types. We also cannot /squash/ the typedef
     -- in this case, because @struct foo@ and (the typedef) @foo@ are
     -- /different/ types. We must therefore instruct the name mangler to use
-    -- a different name for one of these two types, we add a suffix.
+    -- a different name for one of these two types; we add a suffix.
     --
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1432>
     -- These suffixes could result in name clashes.
-  | Rename Rename
-  deriving stock (Show)
+  | AddSuffix Hs.Identifier
 
-data Rename =
-    AddSuffix Hs.Identifier
+    -- | Instruct the name mangler to use the name of another C declaration
+    --
+    -- Useful in conjunction with 'Squash'. That is, the C typedef is squashed,
+    -- and the squash target is assigned the name of the typedef with
+    -- 'UseNameOf'.
   | UseNameOf DeclId
   deriving stock (Show)
 
@@ -173,23 +175,23 @@ typedefOfTagged typedefInfo payload useSites
             typedefLoc = typedefInfo.loc
           , targetId   = payload.id
           }
-      , conclude payload.id $ Rename (UseNameOf typedefInfo.id)
+      , conclude payload.id $ UseNameOf typedefInfo.id
       ]
 
-  | shouldRename
-  = conclude payload.id $ Rename (AddSuffix "_Aux")
+  | shouldAddSuffix
+  = conclude payload.id $ AddSuffix "_Aux"
 
   | otherwise
   = mempty
   where
-    shouldSquash, shouldRename :: Bool
+    shouldSquash, shouldAddSuffix :: Bool
     shouldSquash = and [
           payload.isDirect
         , or [ typedefInfo.id.name.text == payload.id.name.text
              , length useSites == 1
              ]
         ]
-    shouldRename = and [
+    shouldAddSuffix = and [
           not payload.isDirect
         , typedefInfo.id.name.text == payload.id.name.text
         ]

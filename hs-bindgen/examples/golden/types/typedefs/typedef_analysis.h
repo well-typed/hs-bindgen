@@ -78,7 +78,7 @@ struct use_sites {
   struct struct5 useStruct_struct5;
   struct5_t useTypedef_struct5_t;
 
-  // similarly for struct6, except here the Haskell type is renamed
+  // similarly for struct6, except here the Haskell type is assigned a new name
   struct struct6 useStruct_struct6;
   struct6 useTypedef_struct6;
 
