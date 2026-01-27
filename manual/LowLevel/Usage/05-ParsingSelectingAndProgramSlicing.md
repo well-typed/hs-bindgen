@@ -91,7 +91,7 @@ specification of the parse predicate using the data type `ParsePredicate`.
 Parse predicates do not support matching on declaration names because names are
 only determined later in the translation process; in particular, after name
 mangling and resolving and applying binding specifications. Use [_select
-predicates_](#select-predicates) to match on declaration names.
+predicates_](#select-predicates) to match against declaration names.
 
 > [!NOTE]
 > Path separators (forward slash on POSIX platforms and backslash on Windows)
@@ -108,8 +108,9 @@ translated.
 
 _Select predicates_ allow fine-grained control about which declarations to
 select for translation. For example, select predicates allow matching against
-declaration names. In particular, the command-line arguments to specify select
-predicates are (excerpt of `hs-bindgen-cli preprocess --help`):
+the qualified C names of declarations. In particular, the command-line arguments
+to specify select predicates are (excerpt of `hs-bindgen-cli preprocess
+--help`):
 
 ```text
 --select-all             Select all declarations
@@ -134,11 +135,14 @@ predicates are (excerpt of `hs-bindgen-cli preprocess --help`):
 > For anonymous declarations, the select predicate matches against the
 > _use-sites_ of the anonymous declarations. For example, to select an anonymous
 > inner `struct` together with the named outer `struct`, match against the name
-> of the outer `struct`.
+> of the outer `struct`. In particular, select predicates do not support the `@`
+> syntax for specifying anonymous declarations like binding specifications do.
 
 > [!NOTE]
-> Select predicates, just like binding specifications match on the names used in
-> the C code (and _not_ the assigned Haskell names).
+> Select predicates, just like binding specifications, match against the
+> (qualified) names used in the C code. In particular, select predicates do not
+> match against the Haskell names possibly assigned by prescriptive binding
+> specifications.
 
 ## Program slicing
 

@@ -75,8 +75,8 @@ Options determining which parsed declarations are included in the generated
 bindings:
 
 - `--select-by-header-path PATTERN` - Select declarations from headers matching pattern
-- `--select-by-decl-name PATTERN` - Select declarations with names matching pattern
-- `--select-except-by-decl-name PATTERN` - Exclude declarations with names matching pattern
+- `--select-by-decl-name PATTERN` - Select declarations with C names matching pattern
+- `--select-except-by-decl-name PATTERN` - Exclude declarations with C names matching pattern
 - `--select-except-deprecated` - Exclude deprecated declarations
 - `--enable-program-slicing` - Enable program slicing (includes transitive dependencies)
 
