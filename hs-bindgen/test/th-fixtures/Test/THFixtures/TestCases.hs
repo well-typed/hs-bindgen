@@ -15,6 +15,8 @@ module Test.THFixtures.TestCases (
 
 import Data.List (isPrefixOf)
 
+import Clang.Version
+
 import Test.Common.HsBindgen.TestCase.All (allTestCaseSpecs)
 import Test.Common.HsBindgen.TestCase.Spec
 
@@ -63,6 +65,12 @@ buildTestCaseInfo s = TestCaseInfo {
 --
 determineTHStatus :: TestCaseSpec -> THStatus
 determineTHStatus s
+  -- Check clangVersion requirement first
+  | Just versionPred <- s.clangVersion
+  , case clangVersion of
+      ClangVersion version  -> not (versionPred version)
+      ClangVersionUnknown _ -> True
+      = THSkip "Requires newer clang version"
   -- First check basic outcome
   | s.outcome /= Success
       = THSkip "Expected failure test"
