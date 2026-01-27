@@ -1,0 +1,20 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: program-analysis/selection_matches_c_names.h
+  cname: struct StructWithAssignedHaskellNameByPrescriptiveBindingSpecs
+  hsname: NewName
+hstypes:
+- hsname: NewName
+  representation:
+    record:
+      constructor: NewName
+      fields:
+      - newName_x
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable

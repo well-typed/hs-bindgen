@@ -1232,6 +1232,8 @@ testCases_bespoke_programAnalysis = [
     , test_programAnalysis_selection_fail_variant_2
     , test_programAnalysis_selection_fail_variant_3
     , test_programAnalysis_selection_foo
+    , test_programAnalysis_selection_matches_c_names_1
+    , test_programAnalysis_selection_matches_c_names_2
     , test_programAnalysis_selection_merge_traces
     , test_programAnalysis_selection_omit_external_a
     , test_programAnalysis_selection_omit_external_b
@@ -1435,6 +1437,36 @@ test_programAnalysis_selection_foo =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f"]
+
+test_programAnalysis_selection_matches_c_names_1 :: TestCase
+test_programAnalysis_selection_matches_c_names_1 =
+    testVariant "program-analysis/selection_matches_c_names" "1.positive_case"
+      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_matches_c_names.yaml"
+      & #onFrontend .~ ( #selectPredicate .~ predicate )
+  where
+    predicate :: Boolean SelectPredicate
+    predicate =
+            BOr
+              (BIf (SelectDecl $ DeclNameMatches "FunctionWithAssignedHaskellNameByNameMangler"))
+              (BIf (SelectDecl $ DeclNameMatches "struct StructWithAssignedHaskellNameByPrescriptiveBindingSpecs"))
+
+test_programAnalysis_selection_matches_c_names_2 :: TestCase
+test_programAnalysis_selection_matches_c_names_2 =
+    testVariant "program-analysis/selection_matches_c_names" "2.negative_case"
+      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_matches_c_names.yaml"
+      & #onFrontend .~ ( #selectPredicate .~ predicate )
+      & #tracePredicate .~ singleTracePredicate (\case
+            MatchNoDeclarations ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
+  where
+    predicate :: Boolean SelectPredicate
+    predicate =
+            BOr
+              (BIf (SelectDecl $ DeclNameMatches "functionWithAssignedHaskellNameByNameMangler"))
+              (BIf (SelectDecl $ DeclNameMatches "NewName"))
 
 test_programAnalysis_selection_merge_traces :: TestCase
 test_programAnalysis_selection_merge_traces =
