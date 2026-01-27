@@ -66,11 +66,11 @@ __defined at:__ @functions\/simple_func.h 1:8@
 
 __exported by:__ @functions\/simple_func.h@
 -}
-erf ::
+erf_safe ::
      FC.CDouble
      -- ^ __C declaration:__ @arg@
   -> FC.CDouble
-erf = hs_bindgen_1c811bfb80de8f77
+erf_safe = hs_bindgen_1c811bfb80de8f77
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
 foreign import ccall safe "hs_bindgen_180022d3518c53bd" hs_bindgen_180022d3518c53bd_base ::
@@ -94,7 +94,7 @@ hs_bindgen_180022d3518c53bd =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-bad_fma ::
+bad_fma_safe ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> FC.CDouble
@@ -102,7 +102,7 @@ bad_fma ::
   -> FC.CDouble
      -- ^ __C declaration:__ @z@
   -> IO FC.CDouble
-bad_fma = hs_bindgen_180022d3518c53bd
+bad_fma_safe = hs_bindgen_180022d3518c53bd
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
 foreign import ccall safe "hs_bindgen_d72558f6f977200c" hs_bindgen_d72558f6f977200c_base ::
@@ -119,8 +119,8 @@ hs_bindgen_d72558f6f977200c =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args :: IO ()
-no_args = hs_bindgen_d72558f6f977200c
+no_args_safe :: IO ()
+no_args_safe = hs_bindgen_d72558f6f977200c
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
 foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" hs_bindgen_d8523e2ccea5c7ba_base ::
@@ -137,8 +137,8 @@ hs_bindgen_d8523e2ccea5c7ba =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void :: IO ()
-no_args_no_void = hs_bindgen_d8523e2ccea5c7ba
+no_args_no_void_safe :: IO ()
+no_args_no_void_safe = hs_bindgen_d8523e2ccea5c7ba
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" hs_bindgen_48cbd3cd1c6e874f_base ::
@@ -160,10 +160,10 @@ hs_bindgen_48cbd3cd1c6e874f =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-fun ::
+fun_safe ::
      FC.CChar
      -- ^ __C declaration:__ @x@
   -> FC.CDouble
      -- ^ __C declaration:__ @y@
   -> IO FC.CInt
-fun = hs_bindgen_48cbd3cd1c6e874f
+fun_safe = hs_bindgen_48cbd3cd1c6e874f

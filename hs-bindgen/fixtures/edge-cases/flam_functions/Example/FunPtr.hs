@@ -51,15 +51,15 @@ hs_bindgen_d243fc6d495ec901 :: IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr Vector)))
 hs_bindgen_d243fc6d495ec901 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d243fc6d495ec901_base
 
-{-# NOINLINE vector_alloc #-}
+{-# NOINLINE vector_alloc_funptr #-}
 {-| __C declaration:__ @vector_alloc@
 
     __defined at:__ @edge-cases\/flam_functions.h 6:16@
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_alloc :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr Vector))
-vector_alloc =
+vector_alloc_funptr :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr Vector))
+vector_alloc_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d243fc6d495ec901
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
@@ -71,15 +71,15 @@ hs_bindgen_1d7c878fb2029890 :: IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> IO ()))
 hs_bindgen_1d7c878fb2029890 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1d7c878fb2029890_base
 
-{-# NOINLINE vector_free #-}
+{-# NOINLINE vector_free_funptr #-}
 {-| __C declaration:__ @vector_free@
 
     __defined at:__ @edge-cases\/flam_functions.h 8:6@
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_free :: Ptr.FunPtr ((Ptr.Ptr Vector) -> IO ())
-vector_free =
+vector_free_funptr :: Ptr.FunPtr ((Ptr.Ptr Vector) -> IO ())
+vector_free_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1d7c878fb2029890
 
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
@@ -91,13 +91,13 @@ hs_bindgen_630caac5f56516fe :: IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> IO ()))
 hs_bindgen_630caac5f56516fe =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_630caac5f56516fe_base
 
-{-# NOINLINE vector_reverse #-}
+{-# NOINLINE vector_reverse_funptr #-}
 {-| __C declaration:__ @vector_reverse@
 
     __defined at:__ @edge-cases\/flam_functions.h 10:6@
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_reverse :: Ptr.FunPtr ((Ptr.Ptr Vector) -> IO ())
-vector_reverse =
+vector_reverse_funptr :: Ptr.FunPtr ((Ptr.Ptr Vector) -> IO ())
+vector_reverse_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_630caac5f56516fe

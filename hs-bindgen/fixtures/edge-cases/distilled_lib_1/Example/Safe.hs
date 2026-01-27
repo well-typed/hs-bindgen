@@ -48,7 +48,7 @@ hs_bindgen_57cb99ed92c001ad =
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-some_fun ::
+some_fun_safe ::
      Ptr.Ptr A_type_t
      -- ^ __C declaration:__ @i@
   -> HsBindgen.Runtime.Prelude.Word32
@@ -56,4 +56,4 @@ some_fun ::
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
      -- ^ __C declaration:__ @k@
   -> IO HsBindgen.Runtime.Prelude.Int32
-some_fun = hs_bindgen_57cb99ed92c001ad
+some_fun_safe = hs_bindgen_57cb99ed92c001ad

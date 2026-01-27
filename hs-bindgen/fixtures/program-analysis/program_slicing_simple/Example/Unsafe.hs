@@ -45,10 +45,10 @@ hs_bindgen_fe855d53295ba8ab =
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar ::
+bar_unsafe ::
      Foreign.Word64
      -- ^ __C declaration:__ @x@
   -> Uint32_t
      -- ^ __C declaration:__ @y@
   -> IO FC.CInt
-bar = hs_bindgen_fe855d53295ba8ab
+bar_unsafe = hs_bindgen_fe855d53295ba8ab

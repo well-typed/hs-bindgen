@@ -46,8 +46,8 @@ testUnresolvedInclude testResources = testCase "unresolved include throws except
     let test =
           -- Tolerate all traces - we want to test exception propagation
           defaultFailingTest "test-unresolved"
-            & #inputDir       .~ tmpDir
-            & #tracePredicate .~ tolerateAll
+            & #spec % #inputDir .~ tmpDir
+            & #tracePredicate   .~ tolerateAll
 
         noReport :: a -> IO ()
         noReport = const $ pure ()
