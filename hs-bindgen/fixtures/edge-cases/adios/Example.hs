@@ -54,7 +54,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Adio'0301s "un_Adio'0301s" where
 
 {-| __C declaration:__ @数字@
 
-    __defined at:__ @edge-cases\/adios.h 12:13@
+    __defined at:__ @edge-cases\/adios.h 17:13@
 
     __exported by:__ @edge-cases\/adios.h@
 -}

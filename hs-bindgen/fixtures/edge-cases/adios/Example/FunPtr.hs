@@ -5,6 +5,7 @@
 
 module Example.FunPtr where
 
+import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.HasFFIType
@@ -14,6 +15,12 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
+  , "/* test_edgecasesadios_Example_get_adio\769s_fun */"
+  , "__attribute__ ((const))"
+  , "signed int (*hs_bindgen_4ac23afef85d3af0 (void)) (void)"
+  , "{"
+  , "  return &adio\769s_fun;"
+  , "}"
   , "/* test_edgecasesadios_Example_get_\978 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_0b1168f405aafe83 (void)) (void)"
@@ -34,6 +41,26 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- __unique:__ @test_edgecasesadios_Example_get_adiós_fun@
+foreign import ccall unsafe "hs_bindgen_4ac23afef85d3af0" hs_bindgen_4ac23afef85d3af0_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_edgecasesadios_Example_get_adiós_fun@
+hs_bindgen_4ac23afef85d3af0 :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_4ac23afef85d3af0 =
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4ac23afef85d3af0_base
+
+{-# NOINLINE adio'0301s_fun #-}
+{-| __C declaration:__ @adiós_fun@
+
+    __defined at:__ @edge-cases\/adios.h 12:5@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+adio'0301s_fun :: Ptr.FunPtr (IO FC.CInt)
+adio'0301s_fun =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4ac23afef85d3af0
+
 -- __unique:__ @test_edgecasesadios_Example_get_ϒ@
 foreign import ccall unsafe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405aafe83_base ::
      IO (Ptr.FunPtr Void)
@@ -46,7 +73,7 @@ hs_bindgen_0b1168f405aafe83 =
 {-# NOINLINE cϒ #-}
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h 18:6@
+    __defined at:__ @edge-cases\/adios.h 23:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -66,7 +93,7 @@ hs_bindgen_0a95358747546f1b =
 {-# NOINLINE 拜拜 #-}
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h 27:6@
+    __defined at:__ @edge-cases\/adios.h 32:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -86,7 +113,7 @@ hs_bindgen_a01e420336bfa879 =
 {-# NOINLINE say拜拜 #-}
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h 31:6@
+    __defined at:__ @edge-cases\/adios.h 36:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}

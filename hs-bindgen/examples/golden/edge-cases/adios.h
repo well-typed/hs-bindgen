@@ -6,6 +6,11 @@
 // NOTE: This is not in NFC (it contains a combining diacritical mark).
 typedef int adiós;
 
+// We explicitly also test for non-NFC characters in function names, and that we
+// can compile the generated Haskell code. See
+// https://github.com/well-typed/hs-bindgen/issues/569.
+int adiós_fun();
+
 // Type name which starts with a character which
 // * is not uppercase
 // * cannot be made uppercase
