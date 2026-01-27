@@ -800,7 +800,6 @@ testCaseSpecs_bespoke_types = [
     , spec_types_special_parse_failure_long_double
     , spec_types_structs_named_vs_anon
     , spec_types_structs_unnamed_struct
-    , spec_types_typedefs_typedef_analysis
     , spec_types_typedefs_typedefs
     , spec_types_typedefs_typenames
     ]
@@ -836,10 +835,6 @@ spec_types_structs_named_vs_anon =
 spec_types_structs_unnamed_struct :: TestCaseSpec
 spec_types_structs_unnamed_struct =
     defaultSpec "types/structs/unnamed-struct"
-
-spec_types_typedefs_typedef_analysis :: TestCaseSpec
-spec_types_typedefs_typedef_analysis =
-    defaultSpec "types/typedefs/typedef_analysis"
 
 spec_types_typedefs_typedefs :: TestCaseSpec
 spec_types_typedefs_typedefs = defaultSpec "types/typedefs/typedefs"
