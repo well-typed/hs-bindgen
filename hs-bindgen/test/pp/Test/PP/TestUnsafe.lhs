@@ -3,6 +3,5 @@
 , "--unique-id", "com.well-typed.hs-bindgen"
 , "--single-file"
 , "--unsafe", ""
-, "--log-as-info", "mangle-names-squashed"
 , "test_01.h"
 ]

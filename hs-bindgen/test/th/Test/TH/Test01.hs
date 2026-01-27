@@ -26,6 +26,5 @@ let cfg :: Config
       & #clang % #extraIncludeDirs .~ [Pkg "examples"]
     cfgTh :: ConfigTH
     cfgTh = def
-      & #customLogLevels .~ [MakeTrace Info "mangle-names-squashed"]
  in withHsBindgen cfg cfgTh $
       hashInclude "test_01.h"

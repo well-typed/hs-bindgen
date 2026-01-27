@@ -16,7 +16,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..), Unusable (..))
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
@@ -155,6 +155,7 @@ data SelectMsg =
     -- the user wants to select directly.
   | SelectConflict
   | SelectMangleNamesFailure MangleNamesFailure
+  | SelectMangleNamesSquashed Squashed
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
   | SelectMacroFailure HandleMacrosError
@@ -186,6 +187,10 @@ instance PrettyForTrace SelectMsg where
         couldNotSelect $ "conflicting declarations"
       SelectMangleNamesFailure x ->
         couldNotSelect $ prettyForTrace x
+      SelectMangleNamesSquashed x -> PP.hsep [
+          "Squashed typedef to"
+        , prettyForTrace x.targetNameC
+        ]
       SelectMacroFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectNoDeclarationsMatched ->
@@ -212,6 +217,7 @@ instance IsTrace Level SelectMsg where
     SelectParseFailure x            -> getDefaultLogLevel x
     SelectConflict{}                -> Warning
     SelectMangleNamesFailure{}      -> Warning
+    SelectMangleNamesSquashed{}     -> Notice
     SelectMacroFailure x            -> getDefaultLogLevel x
     SelectNoDeclarationsMatched     -> Warning
   getSource  = const HsBindgen
@@ -223,7 +229,8 @@ instance IsTrace Level SelectMsg where
     SelectParseNotAttempted{}       -> "select-parse"
     SelectParseFailure x            -> "select-" <> getTraceId x
     SelectConflict{}                -> "select"
-    SelectMangleNamesFailure{}      -> "select"
+    SelectMangleNamesFailure{}      -> "select-mangle-names-failure"
+    SelectMangleNamesSquashed{}     -> "select-mangle-names-squashed"
     SelectMacroFailure x            -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched     -> "select"
 
