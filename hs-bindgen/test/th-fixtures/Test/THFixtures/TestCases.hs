@@ -30,8 +30,17 @@ import Test.Common.HsBindgen.TestCase.Spec
 windowsSpecificFailures :: [String]
 windowsSpecificFailures = [
 #ifdef mingw32_HOST_OS
-      "types/structs/bitfields"               -- 33-bit bitfield invalid on Windows (long is 32-bit)
-    , "program-analysis/selection_bad_size_t" -- size_t typedef conflicts with Windows headers
+      -- Bitfield overflow: 33-bit bitfield invalid on Windows (long is 32-bit)
+      "types/structs/bitfields"
+      -- Unicode: non-NFC characters (combining diacritical marks) cannot be encoded
+      -- in Windows temporary file paths
+    , "edge-cases/adios"
+      -- C99 complex types: Windows clang parses 'complex' keyword differently
+    , "types/complex/complex_non_float_test"
+    , "types/complex/hsb_complex_test"
+      -- size_t redefinition: conflicts with Windows system headers
+    , "program-analysis/selection_bad_size_t"
+    , "program-analysis/selection_bad"  -- includes selection_bad_size_t.h
 #else
     -- On other platforms, no Windows-specific failures
 #endif
