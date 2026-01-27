@@ -5,12 +5,18 @@
 
 module Example.Safe where
 
+import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
+  , "signed int hs_bindgen_2f6d4be143076044 (void)"
+  , "{"
+  , "  return adio\769s_fun();"
+  , "}"
   , "void hs_bindgen_2010521804ef9a6e (void)"
   , "{"
   , "  \978();"
@@ -25,6 +31,24 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
+foreign import ccall safe "hs_bindgen_2f6d4be143076044" hs_bindgen_2f6d4be143076044_base ::
+     IO GHC.Int.Int32
+
+-- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
+hs_bindgen_2f6d4be143076044 :: IO FC.CInt
+hs_bindgen_2f6d4be143076044 =
+  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2f6d4be143076044_base
+
+{-| __C declaration:__ @adiós_fun@
+
+    __defined at:__ @edge-cases\/adios.h 12:5@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+adio'0301s_fun :: IO FC.CInt
+adio'0301s_fun = hs_bindgen_2f6d4be143076044
+
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
 foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9a6e_base ::
      IO ()
@@ -36,7 +60,7 @@ hs_bindgen_2010521804ef9a6e =
 
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h 18:6@
+    __defined at:__ @edge-cases\/adios.h 23:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -54,7 +78,7 @@ hs_bindgen_3bc3e53cc82c9580 =
 
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h 27:6@
+    __defined at:__ @edge-cases\/adios.h 32:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -72,7 +96,7 @@ hs_bindgen_ad8eb47027b2d49d =
 
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h 31:6@
+    __defined at:__ @edge-cases\/adios.h 36:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
