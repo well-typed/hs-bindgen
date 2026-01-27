@@ -81,14 +81,14 @@ data NewtypeNames = NewtypeNames {
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesRenamed Hs.Identifier
+    MangleNamesAssignedName Hs.Identifier
   | MangleNamesSquashed Squash
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case
-      MangleNamesRenamed newName -> PP.hsep [
-          "Renamed to"
+      MangleNamesAssignedName newName -> PP.hsep [
+          "Assigned name"
         , PP.text newName.text
         ]
       MangleNamesSquashed s -> PP.hsep [
@@ -98,10 +98,10 @@ instance PrettyForTrace MangleNamesMsg where
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
-      MangleNamesRenamed{}           -> Info
+      MangleNamesAssignedName{}           -> Info
       MangleNamesSquashed{}          -> Notice
 
   getSource  = const HsBindgen
   getTraceId = \case
-    MangleNamesRenamed{}  -> "mangle-names-renamed"
+    MangleNamesAssignedName{}  -> "mangle-names-assigned-name"
     MangleNamesSquashed{} -> "mangle-names-squashed"

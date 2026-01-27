@@ -17,7 +17,6 @@ module HsBindgen.Frontend.Naming (
     -- * Pairing C names and Haskell names
   , ScopedNamePair(..)
   , DeclIdPair(..)
-  , renameHsName
   , unsafeHsName
   , AssignedIdentifier (..)
   , assignedIdentifier
@@ -47,8 +46,8 @@ data DeclId = DeclId{
       -- | Name of the declaration
       --
       -- For named (non-anonymous) declarations, this is /always/ the name as it
-      -- appears in the C source; any renaming of declarations we do in
-      -- @hs-bindgen@ happens in the generated /Haskell/ code, not the C
+      -- appears in the C source; @hs-bindgen@ assigns names to declarations in
+      -- the generated /Haskell/ code, and, in particular, does not rename the C
       -- declarations.
       --
       -- For anonymous declarations, this is the name as it is assigned by the
@@ -108,12 +107,6 @@ data DeclIdPair = DeclIdPair {
     }
   deriving stock (Show, Eq, Ord)
 
-renameHsName :: (Hs.Identifier -> Hs.Identifier) -> DeclIdPair -> DeclIdPair
-renameHsName f dip = DeclIdPair {
-      cName = dip.cName
-    , hsName = renameAssignedIdentifier f dip.hsName
-    }
-
 instance HasField "unsafeHsName" DeclIdPair Hs.Identifier where
   getField = unsafeHsName
 
@@ -152,14 +145,6 @@ assignedIdentifier = AssignedIdentifier
 
 noAssignedIdentifier :: HasCallStack => Reason -> AssignedIdentifier
 noAssignedIdentifier = NoAssignedIdentifier callStack
-
-renameAssignedIdentifier ::
-     (Hs.Identifier -> Hs.Identifier)
-  -> AssignedIdentifier
-  -> AssignedIdentifier
-renameAssignedIdentifier f = \case
-    NoAssignedIdentifier cstack reason -> NoAssignedIdentifier cstack reason
-    AssignedIdentifier x -> AssignedIdentifier (f x)
 
 -- | A Haskell identifier is not available.
 data Reason =

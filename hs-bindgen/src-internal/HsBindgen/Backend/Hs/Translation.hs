@@ -1250,3 +1250,20 @@ anonEnumConstantDecs haddockConfig info anonEnumConstant =
           , comment = mkHaddocks haddockConfig info patSynName
           }
   in  [typeSigDecl]
+
+{-------------------------------------------------------------------------------
+  Internal helpers
+-------------------------------------------------------------------------------}
+
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1504:
+-- Incorporate all name mangling into the name mangler.
+renameHsName :: (Hs.Identifier -> Hs.Identifier) -> DeclIdPair -> DeclIdPair
+renameHsName f dip = DeclIdPair {
+      cName = dip.cName
+    , hsName = renameAssignedIdentifier dip.hsName
+    }
+  where
+    renameAssignedIdentifier :: AssignedIdentifier -> AssignedIdentifier
+    renameAssignedIdentifier = \case
+        NoAssignedIdentifier cstack reason -> NoAssignedIdentifier cstack reason
+        AssignedIdentifier x -> AssignedIdentifier (f x)

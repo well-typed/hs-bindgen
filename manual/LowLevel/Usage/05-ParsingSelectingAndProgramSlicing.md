@@ -137,10 +137,8 @@ predicates are (excerpt of `hs-bindgen-cli preprocess --help`):
 > of the outer `struct`.
 
 > [!NOTE]
-> We match select predicates before handling C `typedef`s. That is, when
-> matching select predicates, we have not yet renamed types, and select
-> predicates must use names before renaming. This is consistent with binding
-> specifications.
+> Select predicates, just like binding specifications match on the names used in
+> the C code (and _not_ the assigned Haskell names).
 
 ## Program slicing
 
