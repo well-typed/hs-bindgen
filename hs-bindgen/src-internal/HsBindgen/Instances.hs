@@ -166,49 +166,50 @@ instance Default SupportedInstances where
     SupportedInstances{
         struct = Map.fromList [
             mkDef Eq           Dependent   Stock     []
-          , mkDef HasCBitField Independent HsBindgen []
-          , mkDef HasCField    Independent HsBindgen []
-          , mkDef HasField     Independent HsBindgen []
-          , mkDef Flam_Offset  Independent HsBindgen []
-          , mkOpt Ord          Dependent             [Stock]
-          , mkDef Prim         Dependent   HsBindgen []
+          -- , mkDef HasCBitField Independent HsBindgen []
+          -- , mkDef HasCField    Independent HsBindgen []
+          -- , mkDef HasField     Independent HsBindgen []
+          -- , mkDef Flam_Offset  Independent HsBindgen []
+          -- , mkOpt Ord          Dependent             [Stock]
+          -- , mkDef Prim         Dependent   HsBindgen []
           , mkDef Show         Dependent   Stock     []
-          , mkDef Storable     Dependent   HsBindgen []
+          -- , mkDef Storable     Dependent   HsBindgen []
           ]
-      , union = Map.fromList [
-            mkDef HasCBitField Independent HsBindgen []
-          , mkDef HasCField    Independent HsBindgen []
-          , mkDef HasField     Independent HsBindgen []
-          , mkDef Prim         Independent HsBindgen []
-          , mkDef Storable     Independent HsBindgen []
-          ]
+      , union = Map.empty
+          -- Map.fromList [
+          --   mkDef HasCBitField Independent HsBindgen []
+          -- , mkDef HasCField    Independent HsBindgen []
+          -- , mkDef HasField     Independent HsBindgen []
+          -- , mkDef Prim         Independent HsBindgen []
+          -- , mkDef Storable     Independent HsBindgen []
+          -- ]
       , enum = Map.fromList [
-            mkOpt Bounded         Independent           [HsBindgen, Newtype]
-          , mkDef CEnum           Independent HsBindgen []
-          , mkOpt Enum            Independent           [HsBindgen, Newtype]
-          , mkDef Eq              Dependent   Stock     []
-          , mkDef HasCField       Independent HsBindgen []
-          , mkDef HasFFIType      Dependent   Newtype   []
-          , mkDef HasField        Independent HsBindgen []
+          --   mkOpt Bounded         Independent           [HsBindgen, Newtype]
+          -- , mkDef CEnum           Independent HsBindgen []
+          -- , mkOpt Enum            Independent           [HsBindgen, Newtype]
+            mkDef Eq              Dependent   Stock     []
+          -- , mkDef HasCField       Independent HsBindgen []
+          -- , mkDef HasFFIType      Dependent   Newtype   []
+          -- , mkDef HasField        Independent HsBindgen []
           , mkDef Ord             Dependent   Stock     []
-          , mkDef Prim            Independent HsBindgen []
-          , mkDef Read            Independent HsBindgen [Newtype, Stock]
-          , mkDef SequentialCEnum Independent HsBindgen []
-          , mkDef Show            Independent HsBindgen [Newtype, Stock]
-          , mkDef Storable        Independent HsBindgen []
+          -- , mkDef Prim            Independent HsBindgen []
+          -- , mkDef Read            Independent HsBindgen [Newtype, Stock]
+          -- , mkDef SequentialCEnum Independent HsBindgen []
+          -- , mkDef Show            Independent HsBindgen [Newtype, Stock]
+          -- , mkDef Storable        Independent HsBindgen []
           ]
       , typedef = Map.fromList [
-            mkDef Bitfield   Dependent   Newtype   []
-          , mkDef Bits       Dependent   Newtype   []
+          --   mkDef Bitfield   Dependent   Newtype   []
+            mkDef Bits       Dependent   Newtype   []
           , mkDef Bounded    Dependent   Newtype   []
           , mkDef Enum       Dependent   Newtype   []
           , mkDef Eq         Dependent   Stock     []
           , mkDef FiniteBits Dependent   Newtype   []
           , mkDef Floating   Dependent   Newtype   []
           , mkDef Fractional Dependent   Newtype   []
-          , mkDef HasCField  Independent HsBindgen []
-          , mkDef HasFFIType Dependent   Newtype   []
-          , mkDef HasField   Independent HsBindgen []
+          -- , mkDef HasCField  Independent HsBindgen []
+          -- , mkDef HasFFIType Dependent   Newtype   []
+          -- , mkDef HasField   Independent HsBindgen []
           , mkDef Integral   Dependent   Newtype   []
           , mkDef Ix         Dependent   Newtype   []
           , mkDef Num        Dependent   Newtype   []
@@ -219,7 +220,7 @@ instance Default SupportedInstances where
           , mkDef RealFloat  Dependent   Newtype   []
           , mkDef RealFrac   Dependent   Newtype   []
           , mkDef Show       Dependent   Stock     [Newtype]
-          , mkDef Storable   Dependent   Newtype   []
+          -- , mkDef Storable   Dependent   Newtype   []
           ]
       }
     where
@@ -235,6 +236,7 @@ instance Default SupportedInstances where
         , defStrategy = Just strat
         }
 
+{-
       mkOpt ::
            TypeClass
         -> Dependency
@@ -245,3 +247,4 @@ instance Default SupportedInstances where
         , strategies  = Set.fromList strats
         , defStrategy = Nothing
         }
+-}

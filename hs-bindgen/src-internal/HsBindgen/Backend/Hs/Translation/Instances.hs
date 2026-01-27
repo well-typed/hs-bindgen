@@ -1,6 +1,16 @@
--- | Type classes, instances, and constraints
+-- | Instance resolution
+--
+-- Instance resolution as currently implemented in the backend is /not/ feature
+-- complete.  It does not take into account prescriptive binding specifications.
+-- One therefore cannot generate/derive an instance that is not
+-- generated/derived by default or use a non-default strategy, and it cannot
+-- generate instances with constraints.  Instance resolution will be implemented
+-- in a completely different way in the frontend to support these features,
+-- where problems may emit warnings or even drop declarations.
 module HsBindgen.Backend.Hs.Translation.Instances (
-    InstanceMap
+    getCandidateInsts
+  , getDeriveStrat
+  , InstanceMap
   , getInstances
   ) where
 
@@ -14,6 +24,30 @@ import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell
+
+--------------------------------------------------------------------------------
+
+-- | Get candidate instances for instance resolution
+--
+-- This function returns all instances that /may/ be generated/derived for a
+-- type.
+getCandidateInsts ::
+     Map Inst.TypeClass Inst.SupportedStrategies
+  -> Set Inst.TypeClass
+getCandidateInsts supInsts = Set.fromList $ catMaybes [
+      clss <$ supStrats.defStrategy
+    | (clss, supStrats) <- Map.assocs supInsts
+    , supStrats.dependency == Inst.Dependent
+    ]
+
+getDeriveStrat :: Inst.SupportedStrategies -> Maybe (Strategy ty)
+getDeriveStrat supStrats = case supStrats.defStrategy of
+    Nothing             -> Nothing
+    Just Inst.HsBindgen -> Nothing
+    Just Inst.Newtype   -> Just DeriveNewtype
+    Just Inst.Stock     -> Just DeriveStock
+
+--------------------------------------------------------------------------------
 
 type InstanceMap = Map (Hs.Name NsTypeConstr) (Set Inst.TypeClass)
 

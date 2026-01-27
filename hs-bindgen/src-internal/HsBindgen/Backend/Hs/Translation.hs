@@ -23,7 +23,6 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
@@ -162,20 +161,20 @@ generateDecs ::
 generateDecs uniqueId haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
-        structDecs opts haddockConfig info struct spec
+        structDecs supInsts.struct haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
         unionDecs haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
-        enumDecs opts haddockConfig info enum spec
+        enumDecs supInsts.enum haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
         pure $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         -- Deal with typedefs around function pointers (#1380)
         case typedef.typ of
           C.TypePointers n (C.TypeFun args res) ->
-            typedefFunPtrDecs opts haddockConfig sizeofs info n (args, res) typedef.names spec
+            typedefFunPtrDecs supInsts.typedef haddockConfig sizeofs info n (args, res) typedef.names spec
           _otherwise ->
-            typedefDecs opts haddockConfig sizeofs info Origin.Typedef typedef spec
+            typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
       C.DeclOpaque -> withCategoryM CType $
         opaqueDecs haddockConfig info spec
       C.DeclFunction function -> do
@@ -190,7 +189,7 @@ generateDecs uniqueId haddockConfig moduleName sizeofs (C.Decl info kind spec) =
             ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
             ++ withCategory (CTerm CFunPtr)  funPtrDecls
       C.DeclMacro macro -> withCategoryM CType $
-        macroDecs opts haddockConfig info macro spec
+        macroDecs supInsts.typedef haddockConfig info macro spec
       C.DeclGlobal ty -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
@@ -202,8 +201,8 @@ generateDecs uniqueId haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
     withCategoryM c = fmap (withCategory c)
 
-    opts :: TranslationConfig
-    opts = def
+    supInsts :: Inst.SupportedInstances
+    supInsts = def
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -437,13 +436,13 @@ unionFieldDecls unionName field = [
 -------------------------------------------------------------------------------}
 
 enumDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Enum Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-enumDecs opts haddockConfig info enum spec = do
+enumDecs supInsts haddockConfig info enum spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
@@ -480,7 +479,7 @@ enumDecs opts haddockConfig info enum spec = do
         candidateInsts = Set.empty
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.fromList $ map snd opts.deriveEnum ++ [
+        knownInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
             Inst.HasFFIType
           , Inst.Read
           , Inst.Show
@@ -527,14 +526,16 @@ enumDecs opts haddockConfig info enum spec = do
             }
 
         optDecls :: [Hs.Decl]
-        optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance{
-                name     = nt.name
-              , clss     = clss
-              , strategy = strat
-              , comment  = Nothing
-              }
-          | (strat, clss) <- opts.deriveEnum
+        optDecls = catMaybes [
+            case Hs.getDeriveStrat supStrats of
+              Nothing    -> Nothing
+              Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                  name     = nt.name
+                , clss     = clss
+                , strategy = strat
+                , comment  = Nothing
+                }
+          | (clss, supStrats) <- Map.assocs supInsts
           ]
 
         valueDecls :: [Hs.Decl]
@@ -596,7 +597,7 @@ enumDecs opts haddockConfig info enum spec = do
 -------------------------------------------------------------------------------}
 
 typedefDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
@@ -604,7 +605,7 @@ typedefDecs ::
   -> C.Typedef Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
+typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
@@ -638,7 +639,7 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
         newtypeComment =  mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Set.fromList $ map snd opts.deriveTypedef ++ [
+        candidateInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
             Inst.Bitfield
           , Inst.HasFFIType
           , Inst.Storable
@@ -690,14 +691,16 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
               }
 
         optDecls :: [Hs.Decl]
-        optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance {
-                strategy = strat
-              , clss     = clss
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          | (strat, clss) <- opts.deriveTypedef
+        optDecls = catMaybes [
+            case Hs.getDeriveStrat supStrats of
+              Nothing    -> Nothing
+              Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                  name     = nt.name
+                , clss     = clss
+                , strategy = strat
+                , comment  = Nothing
+                }
+          | (clss, supStrats) <- Map.assocs supInsts
           , clss `Set.member` nt.instances
           ]
 
@@ -792,7 +795,7 @@ typedefFieldDecls hsNewType = [
 --
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunPtrDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
@@ -801,10 +804,10 @@ typedefFunPtrDecs ::
   -> MangleNames.NewtypeNames
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-typedefFunPtrDecs opts haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
+typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
     fmap concat $ sequence [
-        typedefDecs opts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
-      , typedefDecs opts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
+        typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
+      , typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
       ]
   where
     -- TODO: For historical reasons we currently implement this by making a
@@ -869,25 +872,25 @@ typedefFunPtrDecs opts haddockConfig sizeofs origInfo n (args, res) origNames or
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> CheckedMacro Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-macroDecs opts haddockConfig info checkedMacro spec =
+macroDecs supInsts haddockConfig info checkedMacro spec =
     case checkedMacro of
-      MacroType ty   -> macroDecsTypedef opts haddockConfig info ty spec
+      MacroType ty   -> macroDecsTypedef supInsts haddockConfig info ty spec
       MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
 macroDecsTypedef ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> CheckedMacroType Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-macroDecsTypedef opts haddockConfig info macroType spec = do
+macroDecsTypedef supInsts haddockConfig info macroType spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
@@ -921,7 +924,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Set.fromList $ map snd opts.deriveTypedef ++ [
+        candidateInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
             Inst.HasFFIType
           , Inst.Storable
           ]
@@ -945,14 +948,16 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
               }
 
         optDecls :: [Hs.Decl]
-        optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = strat
-              , clss     = clss
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          | (strat, clss) <- opts.deriveTypedef
+        optDecls = catMaybes [
+            case Hs.getDeriveStrat supStrats of
+              Nothing    -> Nothing
+              Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                  name     = nt.name
+                , clss     = clss
+                , strategy = strat
+                , comment  = Nothing
+                }
+          | (clss, supStrats) <- Map.assocs supInsts
           , clss `Set.member` nt.instances
           ]
 

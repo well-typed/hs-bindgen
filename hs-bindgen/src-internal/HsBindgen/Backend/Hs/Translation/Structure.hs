@@ -18,7 +18,6 @@ import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Prim qualified as HsPrim
 import HsBindgen.Backend.Hs.Translation.State (HsM)
@@ -36,16 +35,16 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Generate declarations for given C struct
 structDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Struct Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-structDecs cfg hCfg info struct spec =
+structDecs supInsts hCfg info struct spec =
     reifyStructFields $ case struct.flam of
-      Nothing   -> getDeclsFieldVec          cfg hCfg spec info struct
-      Just flam -> getDeclsFieldVecFlam flam cfg hCfg spec info struct
+      Nothing   -> getDeclsFieldVec          supInsts hCfg spec info struct
+      Just flam -> getDeclsFieldVecFlam flam supInsts hCfg spec info struct
   where
     reifyStructFields ::
       (forall n. SNatI n => Vec n (C.StructField Final) -> a) -> a
@@ -53,18 +52,19 @@ structDecs cfg hCfg info struct spec =
 
 getDeclsFieldVec :: forall n.
      SNatI n
-  => TranslationConfig
+  => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
   -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
-getDeclsFieldVec cfg hCfg spec info struct fieldsVec = do
-    insts <- getInstances cfg name struct.fields <$> State.gets (.instanceMap)
+getDeclsFieldVec supInsts hCfg spec info struct fieldsVec = do
+    insts <-
+      getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
     State.modify' $ #instanceMap %~ Map.insert name insts
     let (hsStruct, decls) =
-          getDecls cfg hCfg spec name info struct fieldsVec insts
+          getDecls supInsts hCfg spec name info struct fieldsVec insts
     pure $ Hs.DeclData hsStruct : decls
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -73,18 +73,19 @@ getDeclsFieldVec cfg hCfg spec info struct fieldsVec = do
 getDeclsFieldVecFlam :: forall n.
      SNatI n
   => C.StructField Final
-  -> TranslationConfig
+  -> Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
   -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
-getDeclsFieldVecFlam flam cfg hCfg spec info struct fieldsVec = do
-    insts <- getInstances cfg auxName struct.fields <$> State.gets (.instanceMap)
+getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
+    insts <-
+      getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
     State.modify' $ #instanceMap %~ Map.insert auxName insts
     let (hsStruct, decls) =
-          getDecls cfg hCfg spec auxName info struct fieldsVec insts
+          getDecls supInsts hCfg spec auxName info struct fieldsVec insts
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -125,24 +126,26 @@ getDeclsFieldVecFlam flam cfg hCfg spec info struct fieldsVec = do
           }
 
 getInstances ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> Hs.Name Hs.NsTypeConstr
   -> [C.StructField Final]
   -> Hs.InstanceMap
   -> Set Inst.TypeClass
-getInstances opts structName fields instanceMap =
+getInstances supInsts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.HsType]
     fieldTypes = Type.topLevel . (.typ) <$> fields
 
     candidateInsts :: Set Inst.TypeClass
-    candidateInsts = Set.union (Set.fromList [Inst.Storable, Inst.Prim]) $
-        Set.fromList (snd <$> opts.deriveStruct)
+    candidateInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
+        Inst.Prim
+      , Inst.Storable
+      ]
 
 getDecls :: forall n.
      SNatI n
-  => TranslationConfig
+  => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> Hs.Name Hs.NsTypeConstr
@@ -154,7 +157,7 @@ getDecls :: forall n.
   -> Vec n (C.StructField Final)
   -> Set Inst.TypeClass
   -> (Hs.Struct n, [Hs.Decl])
-getDecls cfg hCfg spec structName info struct fieldsVec insts =
+getDecls supInsts hCfg spec structName info struct fieldsVec insts =
     ( hsStruct
     , storableDecl ++ primDecl ++ optDecls ++ fieldDecls
     )
@@ -205,14 +208,16 @@ getDecls cfg hCfg spec structName info struct fieldsVec insts =
     primDecl = HsPrim.mkPrimInstance insts hsStruct struct
 
     optDecls :: [Hs.Decl]
-    optDecls = [
-        Hs.DeclDeriveInstance Hs.DeriveInstance{
-            strategy = strat
-          , clss     = clss
-          , name     = structName
-          , comment  = Nothing
-          }
-      | (strat, clss) <- cfg.deriveStruct
+    optDecls = catMaybes [
+        case Hs.getDeriveStrat supStrats of
+          Nothing    -> Nothing
+          Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+              name     = structName
+            , clss     = clss
+            , strategy = strat
+            , comment  = Nothing
+            }
+      | (clss, supStrats) <- Map.assocs supInsts
       , clss `Set.member` insts
       ]
 

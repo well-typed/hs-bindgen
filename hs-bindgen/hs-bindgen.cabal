@@ -89,7 +89,6 @@ library internal
     HsBindgen.Backend.Hs.Name
     HsBindgen.Backend.Hs.Origin
     HsBindgen.Backend.Hs.Translation
-    HsBindgen.Backend.Hs.Translation.Config
     HsBindgen.Backend.Hs.Translation.ForeignImport
     HsBindgen.Backend.Hs.Translation.Function
     HsBindgen.Backend.Hs.Translation.Instances
