@@ -65,7 +65,7 @@ getInstances instanceMap name = aux
     aux acc (hsType:hsTypes)
       | Set.null acc = acc
       | otherwise = case hsType of
-          HsPrimType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
+          HsPrimType primType -> aux (acc /\ getHsPrimTypeInsts primType) hsTypes
           HsTypRef name' _
             | Just name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
@@ -94,7 +94,7 @@ getInstances instanceMap name = aux
             in  aux acc' hsTypes
           HsBlock t ->
             aux (blockInsts /\ acc) (t:hsTypes)
-          HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
+          HsComplexType primType -> aux (acc /\ getHsPrimTypeInsts primType) hsTypes
           HsStrLit{} -> Set.empty
           -- TODO https://github.com/well-typed/hs-bindgen/issues/1572:
           -- Instances for 'WithFlam'.
@@ -111,104 +111,6 @@ getInstances instanceMap name = aux
 
     blockInsts :: Set Inst.TypeClass
     blockInsts = Set.singleton Inst.HasFFIType
-
-    hsPrimTypeInsts :: HsPrimType -> Set Inst.TypeClass
-    hsPrimTypeInsts = \case
-      HsPrimVoid -> Set.fromList [
-          Inst.Eq
-        , Inst.Ix
-        , Inst.Ord
-        , Inst.Read
-        , Inst.Show
-        ]
-      HsPrimUnit -> unitInsts
-      HsPrimCStringLen -> Set.fromList [Inst.Eq, Inst.Ord, Inst.Show]
-      HsPrimCPtrdiff -> integralInsts
-      HsPrimChar -> Set.fromList [Inst.Eq, Inst.Ord, Inst.Show, Inst.Read]
-      HsPrimInt -> integralInsts
-      HsPrimDouble -> floatingInsts
-      HsPrimFloat -> floatingInsts
-      HsPrimBool -> integralInsts
-      HsPrimInt8 -> integralInsts
-      HsPrimInt16 -> integralInsts
-      HsPrimInt32 -> integralInsts
-      HsPrimInt64 -> integralInsts
-      HsPrimWord -> integralInsts
-      HsPrimWord8 -> integralInsts
-      HsPrimWord16 -> integralInsts
-      HsPrimWord32 -> integralInsts
-      HsPrimWord64 -> integralInsts
-      HsPrimCChar -> integralInsts
-      HsPrimCSChar -> integralInsts
-      HsPrimCUChar -> integralInsts
-      HsPrimCShort -> integralInsts
-      HsPrimCUShort -> integralInsts
-      HsPrimCInt -> integralInsts
-      HsPrimCUInt -> integralInsts
-      HsPrimCLong -> integralInsts
-      HsPrimCULong -> integralInsts
-      HsPrimCLLong -> integralInsts
-      HsPrimCULLong -> integralInsts
-      HsPrimCBool -> integralInsts
-      HsPrimCFloat -> floatingInsts
-      HsPrimCDouble -> floatingInsts
-
-    unitInsts :: Set Inst.TypeClass
-    unitInsts = Set.fromList [
-        Inst.Eq
-      , Inst.Ord
-      , Inst.Read
-      , Inst.ReadRaw
-      , Inst.Show
-      , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
-      , Inst.HasFFIType
-      ]
-
-    integralInsts :: Set Inst.TypeClass
-    integralInsts = Set.fromList [
-        Inst.Bitfield
-      , Inst.Bits
-      , Inst.Bounded
-      , Inst.Enum
-      , Inst.Eq
-      , Inst.FiniteBits
-      , Inst.Integral
-      , Inst.Ix
-      , Inst.Num
-      , Inst.Ord
-      , Inst.Prim
-      , Inst.Read
-      , Inst.ReadRaw
-      , Inst.Real
-      , Inst.Show
-      , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
-      , Inst.HasFFIType
-      ]
-
-    floatingInsts :: Set Inst.TypeClass
-    floatingInsts = Set.fromList [
-        Inst.Enum
-      , Inst.Eq
-      , Inst.Floating
-      , Inst.Fractional
-      , Inst.Num
-      , Inst.Ord
-      , Inst.Prim
-      , Inst.Read
-      , Inst.ReadRaw
-      , Inst.Real
-      , Inst.RealFloat
-      , Inst.RealFrac
-      , Inst.Show
-      , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
-      , Inst.HasFFIType
-      ]
 
     ptrInsts :: Set Inst.TypeClass
     ptrInsts = Set.fromList [
@@ -242,4 +144,147 @@ getInstances instanceMap name = aux
     hsTypeSpecInsts hsTypeSpec = Set.fromAscList [
         cls
       | (cls, Require{}) <- Map.toAscList hsTypeSpec.instances
+      ]
+
+getHsPrimTypeInsts :: HsPrimType -> Set Inst.TypeClass
+getHsPrimTypeInsts = \case
+    HsPrimVoid       -> voidInsts
+    HsPrimUnit       -> unitInsts
+    HsPrimCStringLen -> cStringLenInsts
+    HsPrimCPtrdiff   -> integralInsts
+    HsPrimChar       -> charInsts
+    HsPrimInt        -> integralInsts
+    HsPrimDouble     -> floatingInsts
+    HsPrimFloat      -> floatingInsts
+    HsPrimBool       -> boolInsts
+    HsPrimInt8       -> integralInsts
+    HsPrimInt16      -> integralInsts
+    HsPrimInt32      -> integralInsts
+    HsPrimInt64      -> integralInsts
+    HsPrimWord       -> integralInsts
+    HsPrimWord8      -> integralInsts
+    HsPrimWord16     -> integralInsts
+    HsPrimWord32     -> integralInsts
+    HsPrimWord64     -> integralInsts
+    HsPrimCChar      -> integralInsts
+    HsPrimCSChar     -> integralInsts
+    HsPrimCUChar     -> integralInsts
+    HsPrimCShort     -> integralInsts
+    HsPrimCUShort    -> integralInsts
+    HsPrimCInt       -> integralInsts
+    HsPrimCUInt      -> integralInsts
+    HsPrimCLong      -> integralInsts
+    HsPrimCULong     -> integralInsts
+    HsPrimCLLong     -> integralInsts
+    HsPrimCULLong    -> integralInsts
+    HsPrimCBool      -> integralInsts
+    HsPrimCFloat     -> floatingInsts
+    HsPrimCDouble    -> floatingInsts
+  where
+    boolInsts :: Set Inst.TypeClass
+    boolInsts = Set.fromList [
+        Inst.Bits
+      , Inst.Bounded
+      , Inst.Enum
+      , Inst.Eq
+      , Inst.FiniteBits
+      , Inst.HasFFIType
+      , Inst.Ix
+      , Inst.Ord
+      , Inst.Read
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+
+    charInsts :: Set Inst.TypeClass
+    charInsts = Set.fromList [
+        Inst.Bounded
+      , Inst.Enum
+      , Inst.Eq
+      , Inst.HasFFIType
+      , Inst.Ix
+      , Inst.Ord
+      , Inst.Prim
+      , Inst.Read
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+
+    cStringLenInsts :: Set Inst.TypeClass
+    cStringLenInsts = Set.fromList [
+        Inst.Eq
+      , Inst.Ord
+      , Inst.Show
+      ]
+
+    floatingInsts :: Set Inst.TypeClass
+    floatingInsts = Set.fromList [
+        Inst.Enum
+      , Inst.Eq
+      , Inst.Floating
+      , Inst.Fractional
+      , Inst.HasFFIType
+      , Inst.Num
+      , Inst.Ord
+      , Inst.Prim
+      , Inst.Read
+      , Inst.ReadRaw
+      , Inst.Real
+      , Inst.RealFloat
+      , Inst.RealFrac
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+
+    integralInsts :: Set Inst.TypeClass
+    integralInsts = Set.fromList [
+        Inst.Bitfield
+      , Inst.Bits
+      , Inst.Bounded
+      , Inst.Enum
+      , Inst.Eq
+      , Inst.FiniteBits
+      , Inst.HasFFIType
+      , Inst.Integral
+      , Inst.Ix
+      , Inst.Num
+      , Inst.Ord
+      , Inst.Prim
+      , Inst.Read
+      , Inst.ReadRaw
+      , Inst.Real
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+
+    unitInsts :: Set Inst.TypeClass
+    unitInsts = Set.fromList [
+        Inst.Eq
+      , Inst.HasFFIType
+      , Inst.Ord
+      , Inst.Read
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+
+    voidInsts :: Set Inst.TypeClass
+    voidInsts = Set.fromList [
+        Inst.Eq
+      , Inst.Ix
+      , Inst.Ord
+      , Inst.Read
+      , Inst.Show
       ]

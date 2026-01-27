@@ -53,32 +53,36 @@ class Bitfield a where
     -- For example this may extend the sign for signed types.
     extend :: Word64 -> Int -> a
 
-instance Bitfield CUChar where extend = unsignedExtend
-instance Bitfield CUInt where extend = unsignedExtend
-instance Bitfield CULong where extend = unsignedExtend
+-- Instances for "Data.Int" signed integral types
+instance Bitfield Int   where extend = signedExtend
+instance Bitfield Int8  where extend = signedExtend
+instance Bitfield Int16 where extend = signedExtend
+instance Bitfield Int32 where extend = signedExtend
+instance Bitfield Int64 where extend = signedExtend
+
+-- Instances for "Data.Word" unsigned integral types
+instance Bitfield Word   where extend = unsignedExtend
+instance Bitfield Word8  where extend = unsignedExtend
+instance Bitfield Word16 where extend = unsignedExtend
+instance Bitfield Word32 where extend = unsignedExtend
 instance Bitfield Word64 where extend = unsignedExtend
 
-instance Bitfield CShort where extend = signedExtend
-instance Bitfield CChar where extend = signedExtend
-instance Bitfield CSChar where extend = signedExtend
-instance Bitfield CInt where extend = signedExtend
-instance Bitfield CLong where extend = signedExtend
-instance Bitfield CLLong where extend = signedExtend
+-- Instances for "Foreign.C.Types" signed integral types
+instance Bitfield CChar      where extend = signedExtend
+instance Bitfield CSChar     where extend = signedExtend
+instance Bitfield CShort     where extend = signedExtend
+instance Bitfield CInt       where extend = signedExtend
+instance Bitfield CLong      where extend = signedExtend
+instance Bitfield CLLong     where extend = signedExtend
+instance Bitfield CPtrdiff   where extend = signedExtend
 
-instance Bitfield CUShort    where extend = unsignedExtend
-instance Bitfield CULLong    where extend = unsignedExtend
-instance Bitfield Word8      where extend = unsignedExtend
-instance Bitfield Word16     where extend = unsignedExtend
-instance Bitfield Word32     where extend = unsignedExtend
-instance Bitfield CUIntMax   where extend = unsignedExtend
-instance Bitfield CUIntPtr   where extend = unsignedExtend
-
-instance Bitfield Int8       where extend = signedExtend
-instance Bitfield Int16      where extend = signedExtend
-instance Bitfield Int32      where extend = signedExtend
-instance Bitfield Int64      where extend = signedExtend
-instance Bitfield CIntMax    where extend = signedExtend
-instance Bitfield CIntPtr    where extend = signedExtend
+-- Instances for "Foreign.C.Types" unsigned integral types
+instance Bitfield CUChar    where extend = unsignedExtend
+instance Bitfield CUShort   where extend = unsignedExtend
+instance Bitfield CUInt     where extend = unsignedExtend
+instance Bitfield CULong    where extend = unsignedExtend
+instance Bitfield CULLong   where extend = unsignedExtend
+instance Bitfield CBool     where extend = unsignedExtend
 
 -- | Default 'narrow' implementation. Takes the lowest @n@ bits.
 defaultNarrow :: Integral a => a -> Int -> Word64
