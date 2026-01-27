@@ -52,15 +52,15 @@ hs_bindgen_f3036965ea57b87f :: IO (Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outs
 hs_bindgen_f3036965ea57b87f =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f3036965ea57b87f_base
 
-{-# NOINLINE normal #-}
+{-# NOINLINE normal_funptr #-}
 {-| __C declaration:__ @normal@
 
     __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
-normal :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ())
-normal =
+normal_funptr :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ())
+normal_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f3036965ea57b87f
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_f1@
@@ -72,7 +72,7 @@ hs_bindgen_86a0bd6e9f7eb005 :: IO (Ptr.FunPtr (Named_struct -> IO ()))
 hs_bindgen_86a0bd6e9f7eb005 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_86a0bd6e9f7eb005_base
 
-{-# NOINLINE f1 #-}
+{-# NOINLINE f1_funptr #-}
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -83,8 +83,8 @@ __defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
-f1 :: Ptr.FunPtr (Named_struct -> IO ())
-f1 =
+f1_funptr :: Ptr.FunPtr (Named_struct -> IO ())
+f1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_86a0bd6e9f7eb005
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_f2@
@@ -96,13 +96,13 @@ hs_bindgen_4bb469a35be04698 :: IO (Ptr.FunPtr (Named_union -> IO ()))
 hs_bindgen_4bb469a35be04698 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4bb469a35be04698_base
 
-{-# NOINLINE f2 #-}
+{-# NOINLINE f2_funptr #-}
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
-f2 :: Ptr.FunPtr (Named_union -> IO ())
-f2 =
+f2_funptr :: Ptr.FunPtr (Named_union -> IO ())
+f2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4bb469a35be04698

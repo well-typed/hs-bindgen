@@ -36,13 +36,13 @@ hs_bindgen_6e12e70d71890a10 :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelud
 hs_bindgen_6e12e70d71890a10 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6e12e70d71890a10_base
 
-{-# NOINLINE read_file_chunk #-}
+{-# NOINLINE read_file_chunk_funptr #-}
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk :: Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
-read_file_chunk =
+read_file_chunk_funptr :: Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
+read_file_chunk_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6e12e70d71890a10

@@ -51,11 +51,11 @@ hs_bindgen_d49a011eb7da5969 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
-foo ::
+foo_safe ::
      MyEnum
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo = hs_bindgen_d49a011eb7da5969
+foo_safe = hs_bindgen_d49a011eb7da5969
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690_base ::
@@ -75,11 +75,11 @@ hs_bindgen_32c6f6f9bb440690 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
-fooA ::
+fooA_safe ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA = hs_bindgen_32c6f6f9bb440690
+fooA_safe = hs_bindgen_32c6f6f9bb440690
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71_base ::
@@ -99,8 +99,8 @@ hs_bindgen_16e7856908d06f71 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
-fooB ::
+fooB_safe ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB = hs_bindgen_16e7856908d06f71
+fooB_safe = hs_bindgen_16e7856908d06f71

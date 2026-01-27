@@ -46,8 +46,8 @@ hs_bindgen_2f6d4be143076044 =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-adio'0301s_fun :: IO FC.CInt
-adio'0301s_fun = hs_bindgen_2f6d4be143076044
+adio'0301s_fun_safe :: IO FC.CInt
+adio'0301s_fun_safe = hs_bindgen_2f6d4be143076044
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
 foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9a6e_base ::
@@ -64,8 +64,8 @@ hs_bindgen_2010521804ef9a6e =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒ :: IO ()
-cϒ = hs_bindgen_2010521804ef9a6e
+cϒ_safe :: IO ()
+cϒ_safe = hs_bindgen_2010521804ef9a6e
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
 foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9580_base ::
@@ -82,8 +82,8 @@ hs_bindgen_3bc3e53cc82c9580 =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-拜拜 :: IO ()
-拜拜 = hs_bindgen_3bc3e53cc82c9580
+拜拜_safe :: IO ()
+拜拜_safe = hs_bindgen_3bc3e53cc82c9580
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
 foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d49d_base ::
@@ -100,5 +100,5 @@ hs_bindgen_ad8eb47027b2d49d =
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-say拜拜 :: IO ()
-say拜拜 = hs_bindgen_ad8eb47027b2d49d
+say拜拜_safe :: IO ()
+say拜拜_safe = hs_bindgen_ad8eb47027b2d49d

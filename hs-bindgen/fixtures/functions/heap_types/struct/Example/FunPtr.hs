@@ -34,13 +34,13 @@ hs_bindgen_071e2eda58051e4a :: IO (Ptr.FunPtr (T -> IO T))
 hs_bindgen_071e2eda58051e4a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_071e2eda58051e4a_base
 
-{-# NOINLINE fun #-}
+{-# NOINLINE fun_funptr #-}
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun :: Ptr.FunPtr (T -> IO T)
-fun =
+fun_funptr :: Ptr.FunPtr (T -> IO T)
+fun_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_071e2eda58051e4a

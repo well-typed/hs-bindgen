@@ -68,11 +68,11 @@ hs_bindgen_4ad25504590fdd2b =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_1 ::
+thing_fun_1_safe ::
      Thing
      -- ^ __C declaration:__ @x@
   -> IO FC.CInt
-thing_fun_1 =
+thing_fun_1_safe =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_4ad25504590fdd2b x1)
 
@@ -96,11 +96,11 @@ hs_bindgen_04a435522bf64978 =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_2 ::
+thing_fun_2_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO Thing
-thing_fun_2 =
+thing_fun_2_safe =
   \x0 ->
     HsBindgen.Runtime.CAPI.allocaAndPeek (\res1 ->
                                             hs_bindgen_04a435522bf64978 x0 res1)
@@ -129,7 +129,7 @@ hs_bindgen_5e3271324df7ced2 =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3a ::
+thing_fun_3a_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> Thing
@@ -137,7 +137,7 @@ thing_fun_3a ::
   -> FC.CDouble
      -- ^ __C declaration:__ @z@
   -> IO Thing
-thing_fun_3a =
+thing_fun_3a_safe =
   \x0 ->
     \y1 ->
       \z2 ->
@@ -167,7 +167,7 @@ hs_bindgen_3525c7d1c72f2fae =
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3b ::
+thing_fun_3b_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> Thing
@@ -175,7 +175,7 @@ thing_fun_3b ::
   -> FC.CDouble
      -- ^ __C declaration:__ @z@
   -> IO FC.CChar
-thing_fun_3b =
+thing_fun_3b_safe =
   \x0 ->
     \y1 ->
       \z2 ->

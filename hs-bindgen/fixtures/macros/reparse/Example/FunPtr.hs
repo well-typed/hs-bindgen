@@ -1001,7 +1001,7 @@ hs_bindgen_ba0c80bfdbc677bd :: IO (Ptr.FunPtr (A -> FC.CChar -> IO ()))
 hs_bindgen_ba0c80bfdbc677bd =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ba0c80bfdbc677bd_base
 
-{-# NOINLINE args_char1 #-}
+{-# NOINLINE args_char1_funptr #-}
 {-| Function declarations
 
 __C declaration:__ @args_char1@
@@ -1010,8 +1010,8 @@ __defined at:__ @macros\/reparse.h 17:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-args_char1 :: Ptr.FunPtr (A -> FC.CChar -> IO ())
-args_char1 =
+args_char1_funptr :: Ptr.FunPtr (A -> FC.CChar -> IO ())
+args_char1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ba0c80bfdbc677bd
 
 -- __unique:__ @test_macrosreparse_Example_get_args_char2@
@@ -1023,15 +1023,15 @@ hs_bindgen_b1e8a2d5e3935f61 :: IO (Ptr.FunPtr (A -> FC.CSChar -> IO ()))
 hs_bindgen_b1e8a2d5e3935f61 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b1e8a2d5e3935f61_base
 
-{-# NOINLINE args_char2 #-}
+{-# NOINLINE args_char2_funptr #-}
 {-| __C declaration:__ @args_char2@
 
     __defined at:__ @macros\/reparse.h 18:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_char2 :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
-args_char2 =
+args_char2_funptr :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
+args_char2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b1e8a2d5e3935f61
 
 -- __unique:__ @test_macrosreparse_Example_get_args_char3@
@@ -1043,15 +1043,15 @@ hs_bindgen_deb136b9b9d89650 :: IO (Ptr.FunPtr (A -> FC.CUChar -> IO ()))
 hs_bindgen_deb136b9b9d89650 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_deb136b9b9d89650_base
 
-{-# NOINLINE args_char3 #-}
+{-# NOINLINE args_char3_funptr #-}
 {-| __C declaration:__ @args_char3@
 
     __defined at:__ @macros\/reparse.h 19:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_char3 :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
-args_char3 =
+args_char3_funptr :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
+args_char3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_deb136b9b9d89650
 
 -- __unique:__ @test_macrosreparse_Example_get_args_short1@
@@ -1063,15 +1063,15 @@ hs_bindgen_7a71d1e1867636bf :: IO (Ptr.FunPtr (A -> FC.CShort -> IO ()))
 hs_bindgen_7a71d1e1867636bf =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7a71d1e1867636bf_base
 
-{-# NOINLINE args_short1 #-}
+{-# NOINLINE args_short1_funptr #-}
 {-| __C declaration:__ @args_short1@
 
     __defined at:__ @macros\/reparse.h 21:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_short1 :: Ptr.FunPtr (A -> FC.CShort -> IO ())
-args_short1 =
+args_short1_funptr :: Ptr.FunPtr (A -> FC.CShort -> IO ())
+args_short1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7a71d1e1867636bf
 
 -- __unique:__ @test_macrosreparse_Example_get_args_short2@
@@ -1083,15 +1083,15 @@ hs_bindgen_ad7132b76947c638 :: IO (Ptr.FunPtr (A -> FC.CShort -> IO ()))
 hs_bindgen_ad7132b76947c638 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ad7132b76947c638_base
 
-{-# NOINLINE args_short2 #-}
+{-# NOINLINE args_short2_funptr #-}
 {-| __C declaration:__ @args_short2@
 
     __defined at:__ @macros\/reparse.h 22:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_short2 :: Ptr.FunPtr (A -> FC.CShort -> IO ())
-args_short2 =
+args_short2_funptr :: Ptr.FunPtr (A -> FC.CShort -> IO ())
+args_short2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ad7132b76947c638
 
 -- __unique:__ @test_macrosreparse_Example_get_args_short3@
@@ -1103,15 +1103,15 @@ hs_bindgen_f4842ac12be0c136 :: IO (Ptr.FunPtr (A -> FC.CUShort -> IO ()))
 hs_bindgen_f4842ac12be0c136 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f4842ac12be0c136_base
 
-{-# NOINLINE args_short3 #-}
+{-# NOINLINE args_short3_funptr #-}
 {-| __C declaration:__ @args_short3@
 
     __defined at:__ @macros\/reparse.h 23:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_short3 :: Ptr.FunPtr (A -> FC.CUShort -> IO ())
-args_short3 =
+args_short3_funptr :: Ptr.FunPtr (A -> FC.CUShort -> IO ())
+args_short3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f4842ac12be0c136
 
 -- __unique:__ @test_macrosreparse_Example_get_args_int1@
@@ -1123,15 +1123,15 @@ hs_bindgen_3dc6ae7bb850c676 :: IO (Ptr.FunPtr (A -> FC.CInt -> IO ()))
 hs_bindgen_3dc6ae7bb850c676 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3dc6ae7bb850c676_base
 
-{-# NOINLINE args_int1 #-}
+{-# NOINLINE args_int1_funptr #-}
 {-| __C declaration:__ @args_int1@
 
     __defined at:__ @macros\/reparse.h 25:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_int1 :: Ptr.FunPtr (A -> FC.CInt -> IO ())
-args_int1 =
+args_int1_funptr :: Ptr.FunPtr (A -> FC.CInt -> IO ())
+args_int1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3dc6ae7bb850c676
 
 -- __unique:__ @test_macrosreparse_Example_get_args_int2@
@@ -1143,15 +1143,15 @@ hs_bindgen_a76cb45502a6ea40 :: IO (Ptr.FunPtr (A -> FC.CInt -> IO ()))
 hs_bindgen_a76cb45502a6ea40 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a76cb45502a6ea40_base
 
-{-# NOINLINE args_int2 #-}
+{-# NOINLINE args_int2_funptr #-}
 {-| __C declaration:__ @args_int2@
 
     __defined at:__ @macros\/reparse.h 26:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_int2 :: Ptr.FunPtr (A -> FC.CInt -> IO ())
-args_int2 =
+args_int2_funptr :: Ptr.FunPtr (A -> FC.CInt -> IO ())
+args_int2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a76cb45502a6ea40
 
 -- __unique:__ @test_macrosreparse_Example_get_args_int3@
@@ -1163,15 +1163,15 @@ hs_bindgen_99f48290fac28118 :: IO (Ptr.FunPtr (A -> FC.CUInt -> IO ()))
 hs_bindgen_99f48290fac28118 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_99f48290fac28118_base
 
-{-# NOINLINE args_int3 #-}
+{-# NOINLINE args_int3_funptr #-}
 {-| __C declaration:__ @args_int3@
 
     __defined at:__ @macros\/reparse.h 27:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_int3 :: Ptr.FunPtr (A -> FC.CUInt -> IO ())
-args_int3 =
+args_int3_funptr :: Ptr.FunPtr (A -> FC.CUInt -> IO ())
+args_int3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_99f48290fac28118
 
 -- __unique:__ @test_macrosreparse_Example_get_args_long1@
@@ -1183,15 +1183,15 @@ hs_bindgen_60a477b55893fa8e :: IO (Ptr.FunPtr (A -> FC.CLong -> IO ()))
 hs_bindgen_60a477b55893fa8e =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_60a477b55893fa8e_base
 
-{-# NOINLINE args_long1 #-}
+{-# NOINLINE args_long1_funptr #-}
 {-| __C declaration:__ @args_long1@
 
     __defined at:__ @macros\/reparse.h 29:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_long1 :: Ptr.FunPtr (A -> FC.CLong -> IO ())
-args_long1 =
+args_long1_funptr :: Ptr.FunPtr (A -> FC.CLong -> IO ())
+args_long1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_60a477b55893fa8e
 
 -- __unique:__ @test_macrosreparse_Example_get_args_long2@
@@ -1203,15 +1203,15 @@ hs_bindgen_9ba7a90039c212ea :: IO (Ptr.FunPtr (A -> FC.CLong -> IO ()))
 hs_bindgen_9ba7a90039c212ea =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9ba7a90039c212ea_base
 
-{-# NOINLINE args_long2 #-}
+{-# NOINLINE args_long2_funptr #-}
 {-| __C declaration:__ @args_long2@
 
     __defined at:__ @macros\/reparse.h 30:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_long2 :: Ptr.FunPtr (A -> FC.CLong -> IO ())
-args_long2 =
+args_long2_funptr :: Ptr.FunPtr (A -> FC.CLong -> IO ())
+args_long2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9ba7a90039c212ea
 
 -- __unique:__ @test_macrosreparse_Example_get_args_long3@
@@ -1223,15 +1223,15 @@ hs_bindgen_b44cf380afb4d650 :: IO (Ptr.FunPtr (A -> FC.CULong -> IO ()))
 hs_bindgen_b44cf380afb4d650 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b44cf380afb4d650_base
 
-{-# NOINLINE args_long3 #-}
+{-# NOINLINE args_long3_funptr #-}
 {-| __C declaration:__ @args_long3@
 
     __defined at:__ @macros\/reparse.h 31:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_long3 :: Ptr.FunPtr (A -> FC.CULong -> IO ())
-args_long3 =
+args_long3_funptr :: Ptr.FunPtr (A -> FC.CULong -> IO ())
+args_long3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b44cf380afb4d650
 
 -- __unique:__ @test_macrosreparse_Example_get_args_float@
@@ -1243,15 +1243,15 @@ hs_bindgen_b46cc7463fd36e1a :: IO (Ptr.FunPtr (A -> FC.CFloat -> IO ()))
 hs_bindgen_b46cc7463fd36e1a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b46cc7463fd36e1a_base
 
-{-# NOINLINE args_float #-}
+{-# NOINLINE args_float_funptr #-}
 {-| __C declaration:__ @args_float@
 
     __defined at:__ @macros\/reparse.h 33:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_float :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
-args_float =
+args_float_funptr :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
+args_float_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b46cc7463fd36e1a
 
 -- __unique:__ @test_macrosreparse_Example_get_args_double@
@@ -1263,15 +1263,15 @@ hs_bindgen_eb95876c1227b1d6 :: IO (Ptr.FunPtr (A -> FC.CDouble -> IO ()))
 hs_bindgen_eb95876c1227b1d6 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_eb95876c1227b1d6_base
 
-{-# NOINLINE args_double #-}
+{-# NOINLINE args_double_funptr #-}
 {-| __C declaration:__ @args_double@
 
     __defined at:__ @macros\/reparse.h 34:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_double :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
-args_double =
+args_double_funptr :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
+args_double_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_eb95876c1227b1d6
 
 -- __unique:__ @test_macrosreparse_Example_get_args_bool1@
@@ -1283,15 +1283,15 @@ hs_bindgen_340ecf91e1edd759 :: IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 hs_bindgen_340ecf91e1edd759 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_340ecf91e1edd759_base
 
-{-# NOINLINE args_bool1 #-}
+{-# NOINLINE args_bool1_funptr #-}
 {-| __C declaration:__ @args_bool1@
 
     __defined at:__ @macros\/reparse.h 35:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_bool1 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
-args_bool1 =
+args_bool1_funptr :: Ptr.FunPtr (A -> FC.CBool -> IO ())
+args_bool1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_340ecf91e1edd759
 
 -- __unique:__ @test_macrosreparse_Example_get_args_struct@
@@ -1303,15 +1303,15 @@ hs_bindgen_940fccf4ff28ad11 :: IO (Ptr.FunPtr (A -> Some_struct -> IO ()))
 hs_bindgen_940fccf4ff28ad11 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_940fccf4ff28ad11_base
 
-{-# NOINLINE args_struct #-}
+{-# NOINLINE args_struct_funptr #-}
 {-| __C declaration:__ @args_struct@
 
     __defined at:__ @macros\/reparse.h 37:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_struct :: Ptr.FunPtr (A -> Some_struct -> IO ())
-args_struct =
+args_struct_funptr :: Ptr.FunPtr (A -> Some_struct -> IO ())
+args_struct_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_940fccf4ff28ad11
 
 -- __unique:__ @test_macrosreparse_Example_get_args_union@
@@ -1323,15 +1323,15 @@ hs_bindgen_c0ae19f85578b58d :: IO (Ptr.FunPtr (A -> Some_union -> IO ()))
 hs_bindgen_c0ae19f85578b58d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c0ae19f85578b58d_base
 
-{-# NOINLINE args_union #-}
+{-# NOINLINE args_union_funptr #-}
 {-| __C declaration:__ @args_union@
 
     __defined at:__ @macros\/reparse.h 38:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_union :: Ptr.FunPtr (A -> Some_union -> IO ())
-args_union =
+args_union_funptr :: Ptr.FunPtr (A -> Some_union -> IO ())
+args_union_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c0ae19f85578b58d
 
 -- __unique:__ @test_macrosreparse_Example_get_args_enum@
@@ -1343,15 +1343,15 @@ hs_bindgen_6f4ca5d36cd98d5e :: IO (Ptr.FunPtr (A -> Some_enum -> IO ()))
 hs_bindgen_6f4ca5d36cd98d5e =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6f4ca5d36cd98d5e_base
 
-{-# NOINLINE args_enum #-}
+{-# NOINLINE args_enum_funptr #-}
 {-| __C declaration:__ @args_enum@
 
     __defined at:__ @macros\/reparse.h 39:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_enum :: Ptr.FunPtr (A -> Some_enum -> IO ())
-args_enum =
+args_enum_funptr :: Ptr.FunPtr (A -> Some_enum -> IO ())
+args_enum_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6f4ca5d36cd98d5e
 
 -- __unique:__ @test_macrosreparse_Example_get_args_pointer1@
@@ -1363,15 +1363,15 @@ hs_bindgen_8f02d93a83f3e2f3 :: IO (Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ()))
 hs_bindgen_8f02d93a83f3e2f3 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8f02d93a83f3e2f3_base
 
-{-# NOINLINE args_pointer1 #-}
+{-# NOINLINE args_pointer1_funptr #-}
 {-| __C declaration:__ @args_pointer1@
 
     __defined at:__ @macros\/reparse.h 41:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_pointer1 :: Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ())
-args_pointer1 =
+args_pointer1_funptr :: Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ())
+args_pointer1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8f02d93a83f3e2f3
 
 -- __unique:__ @test_macrosreparse_Example_get_args_pointer2@
@@ -1383,15 +1383,15 @@ hs_bindgen_3217d3d95482b1ac :: IO (Ptr.FunPtr (A -> (Ptr.Ptr (Ptr.Ptr FC.CInt)) 
 hs_bindgen_3217d3d95482b1ac =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3217d3d95482b1ac_base
 
-{-# NOINLINE args_pointer2 #-}
+{-# NOINLINE args_pointer2_funptr #-}
 {-| __C declaration:__ @args_pointer2@
 
     __defined at:__ @macros\/reparse.h 42:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_pointer2 :: Ptr.FunPtr (A -> (Ptr.Ptr (Ptr.Ptr FC.CInt)) -> IO ())
-args_pointer2 =
+args_pointer2_funptr :: Ptr.FunPtr (A -> (Ptr.Ptr (Ptr.Ptr FC.CInt)) -> IO ())
+args_pointer2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3217d3d95482b1ac
 
 -- __unique:__ @test_macrosreparse_Example_get_args_pointer3@
@@ -1403,15 +1403,15 @@ hs_bindgen_8e680c501eeba095 :: IO (Ptr.FunPtr (A -> (Ptr.Ptr Void) -> IO ()))
 hs_bindgen_8e680c501eeba095 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8e680c501eeba095_base
 
-{-# NOINLINE args_pointer3 #-}
+{-# NOINLINE args_pointer3_funptr #-}
 {-| __C declaration:__ @args_pointer3@
 
     __defined at:__ @macros\/reparse.h 43:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_pointer3 :: Ptr.FunPtr (A -> (Ptr.Ptr Void) -> IO ())
-args_pointer3 =
+args_pointer3_funptr :: Ptr.FunPtr (A -> (Ptr.Ptr Void) -> IO ())
+args_pointer3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8e680c501eeba095
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_A@
@@ -1423,15 +1423,15 @@ hs_bindgen_dfceb7c79cda3aab :: IO (Ptr.FunPtr (IO A))
 hs_bindgen_dfceb7c79cda3aab =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_dfceb7c79cda3aab_base
 
-{-# NOINLINE ret_A #-}
+{-# NOINLINE ret_A_funptr #-}
 {-| __C declaration:__ @ret_A@
 
     __defined at:__ @macros\/reparse.h 47:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_A :: Ptr.FunPtr (IO A)
-ret_A =
+ret_A_funptr :: Ptr.FunPtr (IO A)
+ret_A_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dfceb7c79cda3aab
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_char1@
@@ -1443,15 +1443,15 @@ hs_bindgen_d30074ed19081e69 :: IO (Ptr.FunPtr (A -> IO FC.CChar))
 hs_bindgen_d30074ed19081e69 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d30074ed19081e69_base
 
-{-# NOINLINE ret_char1 #-}
+{-# NOINLINE ret_char1_funptr #-}
 {-| __C declaration:__ @ret_char1@
 
     __defined at:__ @macros\/reparse.h 49:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_char1 :: Ptr.FunPtr (A -> IO FC.CChar)
-ret_char1 =
+ret_char1_funptr :: Ptr.FunPtr (A -> IO FC.CChar)
+ret_char1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d30074ed19081e69
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_char2@
@@ -1463,15 +1463,15 @@ hs_bindgen_c9a2d554e9d3e7e2 :: IO (Ptr.FunPtr (A -> IO FC.CSChar))
 hs_bindgen_c9a2d554e9d3e7e2 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c9a2d554e9d3e7e2_base
 
-{-# NOINLINE ret_char2 #-}
+{-# NOINLINE ret_char2_funptr #-}
 {-| __C declaration:__ @ret_char2@
 
     __defined at:__ @macros\/reparse.h 50:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_char2 :: Ptr.FunPtr (A -> IO FC.CSChar)
-ret_char2 =
+ret_char2_funptr :: Ptr.FunPtr (A -> IO FC.CSChar)
+ret_char2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c9a2d554e9d3e7e2
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_char3@
@@ -1483,15 +1483,15 @@ hs_bindgen_261f4f5dd5925788 :: IO (Ptr.FunPtr (A -> IO FC.CUChar))
 hs_bindgen_261f4f5dd5925788 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_261f4f5dd5925788_base
 
-{-# NOINLINE ret_char3 #-}
+{-# NOINLINE ret_char3_funptr #-}
 {-| __C declaration:__ @ret_char3@
 
     __defined at:__ @macros\/reparse.h 51:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_char3 :: Ptr.FunPtr (A -> IO FC.CUChar)
-ret_char3 =
+ret_char3_funptr :: Ptr.FunPtr (A -> IO FC.CUChar)
+ret_char3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_261f4f5dd5925788
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_short1@
@@ -1503,15 +1503,15 @@ hs_bindgen_8d5fba739ef413a8 :: IO (Ptr.FunPtr (A -> IO FC.CShort))
 hs_bindgen_8d5fba739ef413a8 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8d5fba739ef413a8_base
 
-{-# NOINLINE ret_short1 #-}
+{-# NOINLINE ret_short1_funptr #-}
 {-| __C declaration:__ @ret_short1@
 
     __defined at:__ @macros\/reparse.h 53:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_short1 :: Ptr.FunPtr (A -> IO FC.CShort)
-ret_short1 =
+ret_short1_funptr :: Ptr.FunPtr (A -> IO FC.CShort)
+ret_short1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8d5fba739ef413a8
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_short2@
@@ -1523,15 +1523,15 @@ hs_bindgen_5dbda022b4ddeeb7 :: IO (Ptr.FunPtr (A -> IO FC.CShort))
 hs_bindgen_5dbda022b4ddeeb7 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5dbda022b4ddeeb7_base
 
-{-# NOINLINE ret_short2 #-}
+{-# NOINLINE ret_short2_funptr #-}
 {-| __C declaration:__ @ret_short2@
 
     __defined at:__ @macros\/reparse.h 54:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_short2 :: Ptr.FunPtr (A -> IO FC.CShort)
-ret_short2 =
+ret_short2_funptr :: Ptr.FunPtr (A -> IO FC.CShort)
+ret_short2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5dbda022b4ddeeb7
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_short3@
@@ -1543,15 +1543,15 @@ hs_bindgen_8bfdaeda59194c69 :: IO (Ptr.FunPtr (A -> IO FC.CUShort))
 hs_bindgen_8bfdaeda59194c69 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8bfdaeda59194c69_base
 
-{-# NOINLINE ret_short3 #-}
+{-# NOINLINE ret_short3_funptr #-}
 {-| __C declaration:__ @ret_short3@
 
     __defined at:__ @macros\/reparse.h 55:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_short3 :: Ptr.FunPtr (A -> IO FC.CUShort)
-ret_short3 =
+ret_short3_funptr :: Ptr.FunPtr (A -> IO FC.CUShort)
+ret_short3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8bfdaeda59194c69
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_int1@
@@ -1563,15 +1563,15 @@ hs_bindgen_6b977384ffcfa7c6 :: IO (Ptr.FunPtr (A -> IO FC.CInt))
 hs_bindgen_6b977384ffcfa7c6 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6b977384ffcfa7c6_base
 
-{-# NOINLINE ret_int1 #-}
+{-# NOINLINE ret_int1_funptr #-}
 {-| __C declaration:__ @ret_int1@
 
     __defined at:__ @macros\/reparse.h 57:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_int1 :: Ptr.FunPtr (A -> IO FC.CInt)
-ret_int1 =
+ret_int1_funptr :: Ptr.FunPtr (A -> IO FC.CInt)
+ret_int1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6b977384ffcfa7c6
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_int2@
@@ -1583,15 +1583,15 @@ hs_bindgen_cc47d3f794021505 :: IO (Ptr.FunPtr (A -> IO FC.CInt))
 hs_bindgen_cc47d3f794021505 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cc47d3f794021505_base
 
-{-# NOINLINE ret_int2 #-}
+{-# NOINLINE ret_int2_funptr #-}
 {-| __C declaration:__ @ret_int2@
 
     __defined at:__ @macros\/reparse.h 58:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_int2 :: Ptr.FunPtr (A -> IO FC.CInt)
-ret_int2 =
+ret_int2_funptr :: Ptr.FunPtr (A -> IO FC.CInt)
+ret_int2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cc47d3f794021505
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_int3@
@@ -1603,15 +1603,15 @@ hs_bindgen_488fbaf79c234569 :: IO (Ptr.FunPtr (A -> IO FC.CUInt))
 hs_bindgen_488fbaf79c234569 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_488fbaf79c234569_base
 
-{-# NOINLINE ret_int3 #-}
+{-# NOINLINE ret_int3_funptr #-}
 {-| __C declaration:__ @ret_int3@
 
     __defined at:__ @macros\/reparse.h 59:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_int3 :: Ptr.FunPtr (A -> IO FC.CUInt)
-ret_int3 =
+ret_int3_funptr :: Ptr.FunPtr (A -> IO FC.CUInt)
+ret_int3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_488fbaf79c234569
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_long1@
@@ -1623,15 +1623,15 @@ hs_bindgen_8cf14a89b1268b17 :: IO (Ptr.FunPtr (A -> IO FC.CLong))
 hs_bindgen_8cf14a89b1268b17 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8cf14a89b1268b17_base
 
-{-# NOINLINE ret_long1 #-}
+{-# NOINLINE ret_long1_funptr #-}
 {-| __C declaration:__ @ret_long1@
 
     __defined at:__ @macros\/reparse.h 61:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_long1 :: Ptr.FunPtr (A -> IO FC.CLong)
-ret_long1 =
+ret_long1_funptr :: Ptr.FunPtr (A -> IO FC.CLong)
+ret_long1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8cf14a89b1268b17
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_long2@
@@ -1643,15 +1643,15 @@ hs_bindgen_617e98b076d9fd82 :: IO (Ptr.FunPtr (A -> IO FC.CLong))
 hs_bindgen_617e98b076d9fd82 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_617e98b076d9fd82_base
 
-{-# NOINLINE ret_long2 #-}
+{-# NOINLINE ret_long2_funptr #-}
 {-| __C declaration:__ @ret_long2@
 
     __defined at:__ @macros\/reparse.h 62:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_long2 :: Ptr.FunPtr (A -> IO FC.CLong)
-ret_long2 =
+ret_long2_funptr :: Ptr.FunPtr (A -> IO FC.CLong)
+ret_long2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_617e98b076d9fd82
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_long3@
@@ -1663,15 +1663,15 @@ hs_bindgen_e1892d8eb6a27221 :: IO (Ptr.FunPtr (A -> IO FC.CULong))
 hs_bindgen_e1892d8eb6a27221 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e1892d8eb6a27221_base
 
-{-# NOINLINE ret_long3 #-}
+{-# NOINLINE ret_long3_funptr #-}
 {-| __C declaration:__ @ret_long3@
 
     __defined at:__ @macros\/reparse.h 63:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_long3 :: Ptr.FunPtr (A -> IO FC.CULong)
-ret_long3 =
+ret_long3_funptr :: Ptr.FunPtr (A -> IO FC.CULong)
+ret_long3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e1892d8eb6a27221
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_float@
@@ -1683,15 +1683,15 @@ hs_bindgen_db7561d69f707657 :: IO (Ptr.FunPtr (A -> IO FC.CFloat))
 hs_bindgen_db7561d69f707657 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_db7561d69f707657_base
 
-{-# NOINLINE ret_float #-}
+{-# NOINLINE ret_float_funptr #-}
 {-| __C declaration:__ @ret_float@
 
     __defined at:__ @macros\/reparse.h 65:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_float :: Ptr.FunPtr (A -> IO FC.CFloat)
-ret_float =
+ret_float_funptr :: Ptr.FunPtr (A -> IO FC.CFloat)
+ret_float_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_db7561d69f707657
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_double@
@@ -1703,15 +1703,15 @@ hs_bindgen_e37ad3e87e7cf4de :: IO (Ptr.FunPtr (A -> IO FC.CDouble))
 hs_bindgen_e37ad3e87e7cf4de =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e37ad3e87e7cf4de_base
 
-{-# NOINLINE ret_double #-}
+{-# NOINLINE ret_double_funptr #-}
 {-| __C declaration:__ @ret_double@
 
     __defined at:__ @macros\/reparse.h 66:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_double :: Ptr.FunPtr (A -> IO FC.CDouble)
-ret_double =
+ret_double_funptr :: Ptr.FunPtr (A -> IO FC.CDouble)
+ret_double_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e37ad3e87e7cf4de
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_bool1@
@@ -1723,15 +1723,15 @@ hs_bindgen_07705133d0d853ee :: IO (Ptr.FunPtr (A -> IO FC.CBool))
 hs_bindgen_07705133d0d853ee =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_07705133d0d853ee_base
 
-{-# NOINLINE ret_bool1 #-}
+{-# NOINLINE ret_bool1_funptr #-}
 {-| __C declaration:__ @ret_bool1@
 
     __defined at:__ @macros\/reparse.h 67:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_bool1 :: Ptr.FunPtr (A -> IO FC.CBool)
-ret_bool1 =
+ret_bool1_funptr :: Ptr.FunPtr (A -> IO FC.CBool)
+ret_bool1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_07705133d0d853ee
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_struct@
@@ -1743,15 +1743,15 @@ hs_bindgen_72cf2ef70b845850 :: IO (Ptr.FunPtr (A -> IO Some_struct))
 hs_bindgen_72cf2ef70b845850 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_72cf2ef70b845850_base
 
-{-# NOINLINE ret_struct #-}
+{-# NOINLINE ret_struct_funptr #-}
 {-| __C declaration:__ @ret_struct@
 
     __defined at:__ @macros\/reparse.h 69:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_struct :: Ptr.FunPtr (A -> IO Some_struct)
-ret_struct =
+ret_struct_funptr :: Ptr.FunPtr (A -> IO Some_struct)
+ret_struct_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_72cf2ef70b845850
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_union@
@@ -1763,15 +1763,15 @@ hs_bindgen_fe31acee84b319c8 :: IO (Ptr.FunPtr (A -> IO Some_union))
 hs_bindgen_fe31acee84b319c8 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fe31acee84b319c8_base
 
-{-# NOINLINE ret_union #-}
+{-# NOINLINE ret_union_funptr #-}
 {-| __C declaration:__ @ret_union@
 
     __defined at:__ @macros\/reparse.h 70:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_union :: Ptr.FunPtr (A -> IO Some_union)
-ret_union =
+ret_union_funptr :: Ptr.FunPtr (A -> IO Some_union)
+ret_union_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fe31acee84b319c8
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_enum@
@@ -1783,15 +1783,15 @@ hs_bindgen_0ec7e00f11946277 :: IO (Ptr.FunPtr (A -> IO Some_enum))
 hs_bindgen_0ec7e00f11946277 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0ec7e00f11946277_base
 
-{-# NOINLINE ret_enum #-}
+{-# NOINLINE ret_enum_funptr #-}
 {-| __C declaration:__ @ret_enum@
 
     __defined at:__ @macros\/reparse.h 71:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_enum :: Ptr.FunPtr (A -> IO Some_enum)
-ret_enum =
+ret_enum_funptr :: Ptr.FunPtr (A -> IO Some_enum)
+ret_enum_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0ec7e00f11946277
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_pointer1@
@@ -1803,15 +1803,15 @@ hs_bindgen_b09c0f340896fe06 :: IO (Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt)))
 hs_bindgen_b09c0f340896fe06 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b09c0f340896fe06_base
 
-{-# NOINLINE ret_pointer1 #-}
+{-# NOINLINE ret_pointer1_funptr #-}
 {-| __C declaration:__ @ret_pointer1@
 
     __defined at:__ @macros\/reparse.h 73:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_pointer1 :: Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt))
-ret_pointer1 =
+ret_pointer1_funptr :: Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt))
+ret_pointer1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b09c0f340896fe06
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_pointer2@
@@ -1823,15 +1823,15 @@ hs_bindgen_300fabb661902701 :: IO (Ptr.FunPtr (A -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt
 hs_bindgen_300fabb661902701 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_300fabb661902701_base
 
-{-# NOINLINE ret_pointer2 #-}
+{-# NOINLINE ret_pointer2_funptr #-}
 {-| __C declaration:__ @ret_pointer2@
 
     __defined at:__ @macros\/reparse.h 74:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_pointer2 :: Ptr.FunPtr (A -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt)))
-ret_pointer2 =
+ret_pointer2_funptr :: Ptr.FunPtr (A -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt)))
+ret_pointer2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_300fabb661902701
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_pointer3@
@@ -1843,15 +1843,15 @@ hs_bindgen_12135a6384fcfda7 :: IO (Ptr.FunPtr (A -> IO (Ptr.Ptr Void)))
 hs_bindgen_12135a6384fcfda7 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_12135a6384fcfda7_base
 
-{-# NOINLINE ret_pointer3 #-}
+{-# NOINLINE ret_pointer3_funptr #-}
 {-| __C declaration:__ @ret_pointer3@
 
     __defined at:__ @macros\/reparse.h 75:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_pointer3 :: Ptr.FunPtr (A -> IO (Ptr.Ptr Void))
-ret_pointer3 =
+ret_pointer3_funptr :: Ptr.FunPtr (A -> IO (Ptr.Ptr Void))
+ret_pointer3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_12135a6384fcfda7
 
 -- __unique:__ @test_macrosreparse_Example_get_body1@
@@ -1863,15 +1863,15 @@ hs_bindgen_f6ce3e885e11b623 :: IO (Ptr.FunPtr (A -> IO FC.CInt))
 hs_bindgen_f6ce3e885e11b623 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f6ce3e885e11b623_base
 
-{-# NOINLINE body1 #-}
+{-# NOINLINE body1_funptr #-}
 {-| __C declaration:__ @body1@
 
     __defined at:__ @macros\/reparse.h 79:5@
 
     __exported by:__ @macros\/reparse.h@
 -}
-body1 :: Ptr.FunPtr (A -> IO FC.CInt)
-body1 =
+body1_funptr :: Ptr.FunPtr (A -> IO FC.CInt)
+body1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f6ce3e885e11b623
 
 -- __unique:__ @test_macrosreparse_Example_get_body2@
@@ -1883,15 +1883,15 @@ hs_bindgen_a7010032c19e6947 :: IO (Ptr.FunPtr (IO A))
 hs_bindgen_a7010032c19e6947 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a7010032c19e6947_base
 
-{-# NOINLINE body2 #-}
+{-# NOINLINE body2_funptr #-}
 {-| __C declaration:__ @body2@
 
     __defined at:__ @macros\/reparse.h 80:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
-body2 :: Ptr.FunPtr (IO A)
-body2 =
+body2_funptr :: Ptr.FunPtr (IO A)
+body2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a7010032c19e6947
 
 -- __unique:__ @test_macrosreparse_Example_get_args_complex_float@
@@ -1903,15 +1903,15 @@ hs_bindgen_b9a5de00354a54fe :: IO (Ptr.FunPtr (A -> (Data.Complex.Complex FC.CFl
 hs_bindgen_b9a5de00354a54fe =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b9a5de00354a54fe_base
 
-{-# NOINLINE args_complex_float #-}
+{-# NOINLINE args_complex_float_funptr #-}
 {-| __C declaration:__ @args_complex_float@
 
     __defined at:__ @macros\/reparse.h 84:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_complex_float :: Ptr.FunPtr (A -> (Data.Complex.Complex FC.CFloat) -> IO ())
-args_complex_float =
+args_complex_float_funptr :: Ptr.FunPtr (A -> (Data.Complex.Complex FC.CFloat) -> IO ())
+args_complex_float_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b9a5de00354a54fe
 
 -- __unique:__ @test_macrosreparse_Example_get_args_complex_double@
@@ -1923,15 +1923,15 @@ hs_bindgen_824a00413581d46c :: IO (Ptr.FunPtr (A -> (Data.Complex.Complex FC.CDo
 hs_bindgen_824a00413581d46c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_824a00413581d46c_base
 
-{-# NOINLINE args_complex_double #-}
+{-# NOINLINE args_complex_double_funptr #-}
 {-| __C declaration:__ @args_complex_double@
 
     __defined at:__ @macros\/reparse.h 85:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_complex_double :: Ptr.FunPtr (A -> (Data.Complex.Complex FC.CDouble) -> IO ())
-args_complex_double =
+args_complex_double_funptr :: Ptr.FunPtr (A -> (Data.Complex.Complex FC.CDouble) -> IO ())
+args_complex_double_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_824a00413581d46c
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_complex_float@
@@ -1943,15 +1943,15 @@ hs_bindgen_685d6c0a58e9b874 :: IO (Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.
 hs_bindgen_685d6c0a58e9b874 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_685d6c0a58e9b874_base
 
-{-# NOINLINE ret_complex_float #-}
+{-# NOINLINE ret_complex_float_funptr #-}
 {-| __C declaration:__ @ret_complex_float@
 
     __defined at:__ @macros\/reparse.h 86:17@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_complex_float :: Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CFloat))
-ret_complex_float =
+ret_complex_float_funptr :: Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CFloat))
+ret_complex_float_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_685d6c0a58e9b874
 
 -- __unique:__ @test_macrosreparse_Example_get_ret_complex_double@
@@ -1963,15 +1963,15 @@ hs_bindgen_0dea6be8e06122eb :: IO (Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.
 hs_bindgen_0dea6be8e06122eb =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0dea6be8e06122eb_base
 
-{-# NOINLINE ret_complex_double #-}
+{-# NOINLINE ret_complex_double_funptr #-}
 {-| __C declaration:__ @ret_complex_double@
 
     __defined at:__ @macros\/reparse.h 87:17@
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_complex_double :: Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CDouble))
-ret_complex_double =
+ret_complex_double_funptr :: Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CDouble))
+ret_complex_double_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0dea6be8e06122eb
 
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_args1@
@@ -1983,15 +1983,15 @@ hs_bindgen_cd799b883e59eadd :: IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 hs_bindgen_cd799b883e59eadd =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cd799b883e59eadd_base
 
-{-# NOINLINE bespoke_args1 #-}
+{-# NOINLINE bespoke_args1_funptr #-}
 {-| __C declaration:__ @bespoke_args1@
 
     __defined at:__ @macros\/reparse.h 94:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_args1 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
-bespoke_args1 =
+bespoke_args1_funptr :: Ptr.FunPtr (A -> FC.CBool -> IO ())
+bespoke_args1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd799b883e59eadd
 
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_args2@
@@ -2003,15 +2003,15 @@ hs_bindgen_eabc3e2c716b0250 :: IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CS
 hs_bindgen_eabc3e2c716b0250 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_eabc3e2c716b0250_base
 
-{-# NOINLINE bespoke_args2 #-}
+{-# NOINLINE bespoke_args2_funptr #-}
 {-| __C declaration:__ @bespoke_args2@
 
     __defined at:__ @macros\/reparse.h 95:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_args2 :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
-bespoke_args2 =
+bespoke_args2_funptr :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
+bespoke_args2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_eabc3e2c716b0250
 
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_ret1@
@@ -2023,15 +2023,15 @@ hs_bindgen_8a47565361a0290f :: IO (Ptr.FunPtr (A -> IO FC.CBool))
 hs_bindgen_8a47565361a0290f =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8a47565361a0290f_base
 
-{-# NOINLINE bespoke_ret1 #-}
+{-# NOINLINE bespoke_ret1_funptr #-}
 {-| __C declaration:__ @bespoke_ret1@
 
     __defined at:__ @macros\/reparse.h 97:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_ret1 :: Ptr.FunPtr (A -> IO FC.CBool)
-bespoke_ret1 =
+bespoke_ret1_funptr :: Ptr.FunPtr (A -> IO FC.CBool)
+bespoke_ret1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8a47565361a0290f
 
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_ret2@
@@ -2043,15 +2043,15 @@ hs_bindgen_384c8ceed3a4ca90 :: IO (Ptr.FunPtr (A -> IO HsBindgen.Runtime.Prelude
 hs_bindgen_384c8ceed3a4ca90 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_384c8ceed3a4ca90_base
 
-{-# NOINLINE bespoke_ret2 #-}
+{-# NOINLINE bespoke_ret2_funptr #-}
 {-| __C declaration:__ @bespoke_ret2@
 
     __defined at:__ @macros\/reparse.h 98:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_ret2 :: Ptr.FunPtr (A -> IO HsBindgen.Runtime.Prelude.CSize)
-bespoke_ret2 =
+bespoke_ret2_funptr :: Ptr.FunPtr (A -> IO HsBindgen.Runtime.Prelude.CSize)
+bespoke_ret2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_384c8ceed3a4ca90
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args1@
@@ -2063,7 +2063,7 @@ hs_bindgen_b38b526cf0817bf0 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArra
 hs_bindgen_b38b526cf0817bf0 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b38b526cf0817bf0_base
 
-{-# NOINLINE arr_args1 #-}
+{-# NOINLINE arr_args1_funptr #-}
 {-| Arrays
 
 __C declaration:__ @arr_args1@
@@ -2072,8 +2072,8 @@ __defined at:__ @macros\/reparse.h 104:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-arr_args1 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray A) -> IO ())
-arr_args1 =
+arr_args1_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray A) -> IO ())
+arr_args1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b38b526cf0817bf0
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args2@
@@ -2085,15 +2085,15 @@ hs_bindgen_2c0bca39b42ecbec :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArra
 hs_bindgen_2c0bca39b42ecbec =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2c0bca39b42ecbec_base
 
-{-# NOINLINE arr_args2 #-}
+{-# NOINLINE arr_args2_funptr #-}
 {-| __C declaration:__ @arr_args2@
 
     __defined at:__ @macros\/reparse.h 105:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args2 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)) -> IO ())
-arr_args2 =
+arr_args2_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)) -> IO ())
+arr_args2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2c0bca39b42ecbec
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args3@
@@ -2105,15 +2105,15 @@ hs_bindgen_82a8c15919ae3f33 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray
 hs_bindgen_82a8c15919ae3f33 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_82a8c15919ae3f33_base
 
-{-# NOINLINE arr_args3 #-}
+{-# NOINLINE arr_args3_funptr #-}
 {-| __C declaration:__ @arr_args3@
 
     __defined at:__ @macros\/reparse.h 106:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args3 :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) A) -> IO ())
-arr_args3 =
+arr_args3_funptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) A) -> IO ())
+arr_args3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_82a8c15919ae3f33
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args4@
@@ -2125,15 +2125,15 @@ hs_bindgen_db074918e0d38cb5 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray
 hs_bindgen_db074918e0d38cb5 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_db074918e0d38cb5_base
 
-{-# NOINLINE arr_args4 #-}
+{-# NOINLINE arr_args4_funptr #-}
 {-| __C declaration:__ @arr_args4@
 
     __defined at:__ @macros\/reparse.h 107:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args4 :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A)) -> IO ())
-arr_args4 =
+arr_args4_funptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A)) -> IO ())
+arr_args4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_db074918e0d38cb5
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_args1@
@@ -2145,7 +2145,7 @@ hs_bindgen_3fd6d1fbd060ffcf :: IO (Ptr.FunPtr (A -> (Ptr.FunPtr (IO ())) -> IO (
 hs_bindgen_3fd6d1fbd060ffcf =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3fd6d1fbd060ffcf_base
 
-{-# NOINLINE funptr_args1 #-}
+{-# NOINLINE funptr_args1_funptr #-}
 {-| Function pointers
 
 __C declaration:__ @funptr_args1@
@@ -2154,8 +2154,8 @@ __defined at:__ @macros\/reparse.h 126:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-funptr_args1 :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO ())) -> IO ())
-funptr_args1 =
+funptr_args1_funptr :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO ())) -> IO ())
+funptr_args1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3fd6d1fbd060ffcf
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_args2@
@@ -2167,15 +2167,15 @@ hs_bindgen_300abb7b10649797 :: IO (Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) ->
 hs_bindgen_300abb7b10649797 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_300abb7b10649797_base
 
-{-# NOINLINE funptr_args2 #-}
+{-# NOINLINE funptr_args2_funptr #-}
 {-| __C declaration:__ @funptr_args2@
 
     __defined at:__ @macros\/reparse.h 127:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args2 :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
-funptr_args2 =
+funptr_args2_funptr :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
+funptr_args2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_300abb7b10649797
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_args3@
@@ -2187,15 +2187,15 @@ hs_bindgen_78d109e353e05225 :: IO (Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> IO (
 hs_bindgen_78d109e353e05225 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_78d109e353e05225_base
 
-{-# NOINLINE funptr_args3 #-}
+{-# NOINLINE funptr_args3_funptr #-}
 {-| __C declaration:__ @funptr_args3@
 
     __defined at:__ @macros\/reparse.h 128:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args3 :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> IO ())) -> IO ())
-funptr_args3 =
+funptr_args3_funptr :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> IO ())) -> IO ())
+funptr_args3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_78d109e353e05225
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_args4@
@@ -2207,15 +2207,15 @@ hs_bindgen_ee1815fa9e1c1131 :: IO (Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.C
 hs_bindgen_ee1815fa9e1c1131 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ee1815fa9e1c1131_base
 
-{-# NOINLINE funptr_args4 #-}
+{-# NOINLINE funptr_args4_funptr #-}
 {-| __C declaration:__ @funptr_args4@
 
     __defined at:__ @macros\/reparse.h 129:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args4 :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)) -> IO ())
-funptr_args4 =
+funptr_args4_funptr :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)) -> IO ())
+funptr_args4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ee1815fa9e1c1131
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_args5@
@@ -2227,15 +2227,15 @@ hs_bindgen_146c4cb7cf7def11 :: IO (Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.C
 hs_bindgen_146c4cb7cf7def11 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_146c4cb7cf7def11_base
 
-{-# NOINLINE funptr_args5 #-}
+{-# NOINLINE funptr_args5_funptr #-}
 {-| __C declaration:__ @funptr_args5@
 
     __defined at:__ @macros\/reparse.h 130:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args5 :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))) -> IO ())
-funptr_args5 =
+funptr_args5_funptr :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))) -> IO ())
+funptr_args5_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_146c4cb7cf7def11
 
 -- __unique:__ @test_macrosreparse_Example_get_comments1@
@@ -2247,7 +2247,7 @@ hs_bindgen_7f647ffb81758d69 :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_7f647ffb81758d69 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7f647ffb81758d69_base
 
-{-# NOINLINE comments1 #-}
+{-# NOINLINE comments1_funptr #-}
 {-| Comments in awkward places
 
   (Prior to language-c we failed to parse there.)
@@ -2258,8 +2258,8 @@ __defined at:__ @macros\/reparse.h 144:25@
 
 __exported by:__ @macros\/reparse.h@
 -}
-comments1 :: Ptr.FunPtr (A -> IO ())
-comments1 =
+comments1_funptr :: Ptr.FunPtr (A -> IO ())
+comments1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7f647ffb81758d69
 
 -- __unique:__ @test_macrosreparse_Example_get_const_prim_before1@
@@ -2271,7 +2271,7 @@ hs_bindgen_ecf341da5dabe306 :: IO (Ptr.FunPtr (A -> FC.CChar -> IO ()))
 hs_bindgen_ecf341da5dabe306 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ecf341da5dabe306_base
 
-{-# NOINLINE const_prim_before1 #-}
+{-# NOINLINE const_prim_before1_funptr #-}
 {-| `const` qualifier
 
   NOTE: These were not parsed correctly prior to the switch to language-c.
@@ -2282,8 +2282,8 @@ __defined at:__ @macros\/reparse.h 179:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-const_prim_before1 :: Ptr.FunPtr (A -> FC.CChar -> IO ())
-const_prim_before1 =
+const_prim_before1_funptr :: Ptr.FunPtr (A -> FC.CChar -> IO ())
+const_prim_before1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ecf341da5dabe306
 
 -- __unique:__ @test_macrosreparse_Example_get_const_prim_before2@
@@ -2295,15 +2295,15 @@ hs_bindgen_a0276bc4dac995c4 :: IO (Ptr.FunPtr (A -> FC.CSChar -> IO ()))
 hs_bindgen_a0276bc4dac995c4 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a0276bc4dac995c4_base
 
-{-# NOINLINE const_prim_before2 #-}
+{-# NOINLINE const_prim_before2_funptr #-}
 {-| __C declaration:__ @const_prim_before2@
 
     __defined at:__ @macros\/reparse.h 180:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_before2 :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
-const_prim_before2 =
+const_prim_before2_funptr :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
+const_prim_before2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a0276bc4dac995c4
 
 -- __unique:__ @test_macrosreparse_Example_get_const_prim_before3@
@@ -2315,15 +2315,15 @@ hs_bindgen_1555fc380f4c34ba :: IO (Ptr.FunPtr (A -> FC.CUChar -> IO ()))
 hs_bindgen_1555fc380f4c34ba =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1555fc380f4c34ba_base
 
-{-# NOINLINE const_prim_before3 #-}
+{-# NOINLINE const_prim_before3_funptr #-}
 {-| __C declaration:__ @const_prim_before3@
 
     __defined at:__ @macros\/reparse.h 181:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_before3 :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
-const_prim_before3 =
+const_prim_before3_funptr :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
+const_prim_before3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1555fc380f4c34ba
 
 -- __unique:__ @test_macrosreparse_Example_get_const_prim_after1@
@@ -2335,15 +2335,15 @@ hs_bindgen_e88405f039754f3c :: IO (Ptr.FunPtr (A -> FC.CChar -> IO ()))
 hs_bindgen_e88405f039754f3c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e88405f039754f3c_base
 
-{-# NOINLINE const_prim_after1 #-}
+{-# NOINLINE const_prim_after1_funptr #-}
 {-| __C declaration:__ @const_prim_after1@
 
     __defined at:__ @macros\/reparse.h 182:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_after1 :: Ptr.FunPtr (A -> FC.CChar -> IO ())
-const_prim_after1 =
+const_prim_after1_funptr :: Ptr.FunPtr (A -> FC.CChar -> IO ())
+const_prim_after1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e88405f039754f3c
 
 -- __unique:__ @test_macrosreparse_Example_get_const_prim_after2@
@@ -2355,15 +2355,15 @@ hs_bindgen_d267bc5333a36861 :: IO (Ptr.FunPtr (A -> FC.CSChar -> IO ()))
 hs_bindgen_d267bc5333a36861 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d267bc5333a36861_base
 
-{-# NOINLINE const_prim_after2 #-}
+{-# NOINLINE const_prim_after2_funptr #-}
 {-| __C declaration:__ @const_prim_after2@
 
     __defined at:__ @macros\/reparse.h 183:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_after2 :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
-const_prim_after2 =
+const_prim_after2_funptr :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
+const_prim_after2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d267bc5333a36861
 
 -- __unique:__ @test_macrosreparse_Example_get_const_prim_after3@
@@ -2375,15 +2375,15 @@ hs_bindgen_0e08cac4148d54cd :: IO (Ptr.FunPtr (A -> FC.CUChar -> IO ()))
 hs_bindgen_0e08cac4148d54cd =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0e08cac4148d54cd_base
 
-{-# NOINLINE const_prim_after3 #-}
+{-# NOINLINE const_prim_after3_funptr #-}
 {-| __C declaration:__ @const_prim_after3@
 
     __defined at:__ @macros\/reparse.h 184:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_after3 :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
-const_prim_after3 =
+const_prim_after3_funptr :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
+const_prim_after3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0e08cac4148d54cd
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before1@
@@ -2395,15 +2395,15 @@ hs_bindgen_d7140c03594ba60a :: IO (Ptr.FunPtr (A -> FC.CFloat -> IO ()))
 hs_bindgen_d7140c03594ba60a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d7140c03594ba60a_base
 
-{-# NOINLINE const_withoutSign_before1 #-}
+{-# NOINLINE const_withoutSign_before1_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before1@
 
     __defined at:__ @macros\/reparse.h 188:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before1 :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
-const_withoutSign_before1 =
+const_withoutSign_before1_funptr :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
+const_withoutSign_before1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d7140c03594ba60a
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before2@
@@ -2415,15 +2415,15 @@ hs_bindgen_92134abe381cef04 :: IO (Ptr.FunPtr (A -> FC.CDouble -> IO ()))
 hs_bindgen_92134abe381cef04 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_92134abe381cef04_base
 
-{-# NOINLINE const_withoutSign_before2 #-}
+{-# NOINLINE const_withoutSign_before2_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before2@
 
     __defined at:__ @macros\/reparse.h 189:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before2 :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
-const_withoutSign_before2 =
+const_withoutSign_before2_funptr :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
+const_withoutSign_before2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_92134abe381cef04
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before3@
@@ -2435,15 +2435,15 @@ hs_bindgen_b80a2c12f1bdb050 :: IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 hs_bindgen_b80a2c12f1bdb050 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b80a2c12f1bdb050_base
 
-{-# NOINLINE const_withoutSign_before3 #-}
+{-# NOINLINE const_withoutSign_before3_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before3@
 
     __defined at:__ @macros\/reparse.h 190:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before3 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
-const_withoutSign_before3 =
+const_withoutSign_before3_funptr :: Ptr.FunPtr (A -> FC.CBool -> IO ())
+const_withoutSign_before3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b80a2c12f1bdb050
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before4@
@@ -2455,15 +2455,15 @@ hs_bindgen_aa0ffa330554de35 :: IO (Ptr.FunPtr (A -> Some_struct -> IO ()))
 hs_bindgen_aa0ffa330554de35 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_aa0ffa330554de35_base
 
-{-# NOINLINE const_withoutSign_before4 #-}
+{-# NOINLINE const_withoutSign_before4_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before4@
 
     __defined at:__ @macros\/reparse.h 191:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before4 :: Ptr.FunPtr (A -> Some_struct -> IO ())
-const_withoutSign_before4 =
+const_withoutSign_before4_funptr :: Ptr.FunPtr (A -> Some_struct -> IO ())
+const_withoutSign_before4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aa0ffa330554de35
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before5@
@@ -2475,15 +2475,15 @@ hs_bindgen_f59abb8a7dffe11f :: IO (Ptr.FunPtr (A -> Some_union -> IO ()))
 hs_bindgen_f59abb8a7dffe11f =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f59abb8a7dffe11f_base
 
-{-# NOINLINE const_withoutSign_before5 #-}
+{-# NOINLINE const_withoutSign_before5_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before5@
 
     __defined at:__ @macros\/reparse.h 192:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before5 :: Ptr.FunPtr (A -> Some_union -> IO ())
-const_withoutSign_before5 =
+const_withoutSign_before5_funptr :: Ptr.FunPtr (A -> Some_union -> IO ())
+const_withoutSign_before5_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f59abb8a7dffe11f
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before6@
@@ -2495,15 +2495,15 @@ hs_bindgen_0df28ff2ac7fa1e0 :: IO (Ptr.FunPtr (A -> Some_enum -> IO ()))
 hs_bindgen_0df28ff2ac7fa1e0 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0df28ff2ac7fa1e0_base
 
-{-# NOINLINE const_withoutSign_before6 #-}
+{-# NOINLINE const_withoutSign_before6_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before6@
 
     __defined at:__ @macros\/reparse.h 193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before6 :: Ptr.FunPtr (A -> Some_enum -> IO ())
-const_withoutSign_before6 =
+const_withoutSign_before6_funptr :: Ptr.FunPtr (A -> Some_enum -> IO ())
+const_withoutSign_before6_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0df28ff2ac7fa1e0
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before7@
@@ -2515,15 +2515,15 @@ hs_bindgen_fa8c89b169233a6a :: IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 hs_bindgen_fa8c89b169233a6a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fa8c89b169233a6a_base
 
-{-# NOINLINE const_withoutSign_before7 #-}
+{-# NOINLINE const_withoutSign_before7_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before7@
 
     __defined at:__ @macros\/reparse.h 194:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before7 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
-const_withoutSign_before7 =
+const_withoutSign_before7_funptr :: Ptr.FunPtr (A -> FC.CBool -> IO ())
+const_withoutSign_before7_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fa8c89b169233a6a
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before8@
@@ -2535,15 +2535,15 @@ hs_bindgen_e707228d3913a299 :: IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CS
 hs_bindgen_e707228d3913a299 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e707228d3913a299_base
 
-{-# NOINLINE const_withoutSign_before8 #-}
+{-# NOINLINE const_withoutSign_before8_funptr #-}
 {-| __C declaration:__ @const_withoutSign_before8@
 
     __defined at:__ @macros\/reparse.h 195:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before8 :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
-const_withoutSign_before8 =
+const_withoutSign_before8_funptr :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
+const_withoutSign_before8_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e707228d3913a299
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after1@
@@ -2555,15 +2555,15 @@ hs_bindgen_7e7703a610cd6783 :: IO (Ptr.FunPtr (A -> FC.CFloat -> IO ()))
 hs_bindgen_7e7703a610cd6783 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7e7703a610cd6783_base
 
-{-# NOINLINE const_withoutSign_after1 #-}
+{-# NOINLINE const_withoutSign_after1_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after1@
 
     __defined at:__ @macros\/reparse.h 197:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after1 :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
-const_withoutSign_after1 =
+const_withoutSign_after1_funptr :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
+const_withoutSign_after1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7e7703a610cd6783
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after2@
@@ -2575,15 +2575,15 @@ hs_bindgen_988863a241cb28f2 :: IO (Ptr.FunPtr (A -> FC.CDouble -> IO ()))
 hs_bindgen_988863a241cb28f2 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_988863a241cb28f2_base
 
-{-# NOINLINE const_withoutSign_after2 #-}
+{-# NOINLINE const_withoutSign_after2_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after2@
 
     __defined at:__ @macros\/reparse.h 198:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after2 :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
-const_withoutSign_after2 =
+const_withoutSign_after2_funptr :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
+const_withoutSign_after2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_988863a241cb28f2
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after3@
@@ -2595,15 +2595,15 @@ hs_bindgen_c8182ee9a3467005 :: IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 hs_bindgen_c8182ee9a3467005 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c8182ee9a3467005_base
 
-{-# NOINLINE const_withoutSign_after3 #-}
+{-# NOINLINE const_withoutSign_after3_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after3@
 
     __defined at:__ @macros\/reparse.h 199:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after3 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
-const_withoutSign_after3 =
+const_withoutSign_after3_funptr :: Ptr.FunPtr (A -> FC.CBool -> IO ())
+const_withoutSign_after3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c8182ee9a3467005
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after4@
@@ -2615,15 +2615,15 @@ hs_bindgen_de1e4bbac808bcbc :: IO (Ptr.FunPtr (A -> Some_struct -> IO ()))
 hs_bindgen_de1e4bbac808bcbc =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_de1e4bbac808bcbc_base
 
-{-# NOINLINE const_withoutSign_after4 #-}
+{-# NOINLINE const_withoutSign_after4_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after4@
 
     __defined at:__ @macros\/reparse.h 200:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after4 :: Ptr.FunPtr (A -> Some_struct -> IO ())
-const_withoutSign_after4 =
+const_withoutSign_after4_funptr :: Ptr.FunPtr (A -> Some_struct -> IO ())
+const_withoutSign_after4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_de1e4bbac808bcbc
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after5@
@@ -2635,15 +2635,15 @@ hs_bindgen_746fb03c27f16031 :: IO (Ptr.FunPtr (A -> Some_union -> IO ()))
 hs_bindgen_746fb03c27f16031 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_746fb03c27f16031_base
 
-{-# NOINLINE const_withoutSign_after5 #-}
+{-# NOINLINE const_withoutSign_after5_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after5@
 
     __defined at:__ @macros\/reparse.h 201:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after5 :: Ptr.FunPtr (A -> Some_union -> IO ())
-const_withoutSign_after5 =
+const_withoutSign_after5_funptr :: Ptr.FunPtr (A -> Some_union -> IO ())
+const_withoutSign_after5_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_746fb03c27f16031
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after6@
@@ -2655,15 +2655,15 @@ hs_bindgen_dc174ac598e92a95 :: IO (Ptr.FunPtr (A -> Some_enum -> IO ()))
 hs_bindgen_dc174ac598e92a95 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_dc174ac598e92a95_base
 
-{-# NOINLINE const_withoutSign_after6 #-}
+{-# NOINLINE const_withoutSign_after6_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after6@
 
     __defined at:__ @macros\/reparse.h 202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after6 :: Ptr.FunPtr (A -> Some_enum -> IO ())
-const_withoutSign_after6 =
+const_withoutSign_after6_funptr :: Ptr.FunPtr (A -> Some_enum -> IO ())
+const_withoutSign_after6_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dc174ac598e92a95
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after7@
@@ -2675,15 +2675,15 @@ hs_bindgen_2c8ddc46cb100dd9 :: IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 hs_bindgen_2c8ddc46cb100dd9 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2c8ddc46cb100dd9_base
 
-{-# NOINLINE const_withoutSign_after7 #-}
+{-# NOINLINE const_withoutSign_after7_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after7@
 
     __defined at:__ @macros\/reparse.h 203:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after7 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
-const_withoutSign_after7 =
+const_withoutSign_after7_funptr :: Ptr.FunPtr (A -> FC.CBool -> IO ())
+const_withoutSign_after7_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2c8ddc46cb100dd9
 
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after8@
@@ -2695,15 +2695,15 @@ hs_bindgen_fdf87fbad31246de :: IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CS
 hs_bindgen_fdf87fbad31246de =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fdf87fbad31246de_base
 
-{-# NOINLINE const_withoutSign_after8 #-}
+{-# NOINLINE const_withoutSign_after8_funptr #-}
 {-| __C declaration:__ @const_withoutSign_after8@
 
     __defined at:__ @macros\/reparse.h 204:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after8 :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
-const_withoutSign_after8 =
+const_withoutSign_after8_funptr :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
+const_withoutSign_after8_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fdf87fbad31246de
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_args1@
@@ -2715,15 +2715,15 @@ hs_bindgen_38808e8aa92d3bcb :: IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.
 hs_bindgen_38808e8aa92d3bcb =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_38808e8aa92d3bcb_base
 
-{-# NOINLINE const_pointers_args1 #-}
+{-# NOINLINE const_pointers_args1_funptr #-}
 {-| __C declaration:__ @const_pointers_args1@
 
     __defined at:__ @macros\/reparse.h 208:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args1 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
-const_pointers_args1 =
+const_pointers_args1_funptr :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
+const_pointers_args1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_38808e8aa92d3bcb
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_args2@
@@ -2735,15 +2735,15 @@ hs_bindgen_4d37887fd82ab559 :: IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.
 hs_bindgen_4d37887fd82ab559 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4d37887fd82ab559_base
 
-{-# NOINLINE const_pointers_args2 #-}
+{-# NOINLINE const_pointers_args2_funptr #-}
 {-| __C declaration:__ @const_pointers_args2@
 
     __defined at:__ @macros\/reparse.h 209:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args2 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
-const_pointers_args2 =
+const_pointers_args2_funptr :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
+const_pointers_args2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4d37887fd82ab559
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_args3@
@@ -2755,15 +2755,15 @@ hs_bindgen_fd675a45f1682dd5 :: IO (Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ()))
 hs_bindgen_fd675a45f1682dd5 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fd675a45f1682dd5_base
 
-{-# NOINLINE const_pointers_args3 #-}
+{-# NOINLINE const_pointers_args3_funptr #-}
 {-| __C declaration:__ @const_pointers_args3@
 
     __defined at:__ @macros\/reparse.h 210:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args3 :: Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ())
-const_pointers_args3 =
+const_pointers_args3_funptr :: Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ())
+const_pointers_args3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fd675a45f1682dd5
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_args4@
@@ -2775,15 +2775,15 @@ hs_bindgen_824cb2084c63b803 :: IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.
 hs_bindgen_824cb2084c63b803 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_824cb2084c63b803_base
 
-{-# NOINLINE const_pointers_args4 #-}
+{-# NOINLINE const_pointers_args4_funptr #-}
 {-| __C declaration:__ @const_pointers_args4@
 
     __defined at:__ @macros\/reparse.h 211:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args4 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
-const_pointers_args4 =
+const_pointers_args4_funptr :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
+const_pointers_args4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_824cb2084c63b803
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_args5@
@@ -2795,15 +2795,15 @@ hs_bindgen_25bdd13aed8f26c4 :: IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.
 hs_bindgen_25bdd13aed8f26c4 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_25bdd13aed8f26c4_base
 
-{-# NOINLINE const_pointers_args5 #-}
+{-# NOINLINE const_pointers_args5_funptr #-}
 {-| __C declaration:__ @const_pointers_args5@
 
     __defined at:__ @macros\/reparse.h 212:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args5 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
-const_pointers_args5 =
+const_pointers_args5_funptr :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ())
+const_pointers_args5_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_25bdd13aed8f26c4
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret1@
@@ -2815,15 +2815,15 @@ hs_bindgen_f494124b53592961 :: IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstP
 hs_bindgen_f494124b53592961 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f494124b53592961_base
 
-{-# NOINLINE const_pointers_ret1 #-}
+{-# NOINLINE const_pointers_ret1_funptr #-}
 {-| __C declaration:__ @const_pointers_ret1@
 
     __defined at:__ @macros\/reparse.h 214:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret1 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
-const_pointers_ret1 =
+const_pointers_ret1_funptr :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
+const_pointers_ret1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f494124b53592961
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret2@
@@ -2835,15 +2835,15 @@ hs_bindgen_32c4b858ef4f3bb8 :: IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstP
 hs_bindgen_32c4b858ef4f3bb8 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32c4b858ef4f3bb8_base
 
-{-# NOINLINE const_pointers_ret2 #-}
+{-# NOINLINE const_pointers_ret2_funptr #-}
 {-| __C declaration:__ @const_pointers_ret2@
 
     __defined at:__ @macros\/reparse.h 215:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret2 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
-const_pointers_ret2 =
+const_pointers_ret2_funptr :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
+const_pointers_ret2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_32c4b858ef4f3bb8
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret3@
@@ -2855,15 +2855,15 @@ hs_bindgen_110afe05c6d47b7c :: IO (Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt)))
 hs_bindgen_110afe05c6d47b7c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_110afe05c6d47b7c_base
 
-{-# NOINLINE const_pointers_ret3 #-}
+{-# NOINLINE const_pointers_ret3_funptr #-}
 {-| __C declaration:__ @const_pointers_ret3@
 
     __defined at:__ @macros\/reparse.h 216:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret3 :: Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt))
-const_pointers_ret3 =
+const_pointers_ret3_funptr :: Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt))
+const_pointers_ret3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_110afe05c6d47b7c
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret4@
@@ -2875,15 +2875,15 @@ hs_bindgen_042a426acfeaa051 :: IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstP
 hs_bindgen_042a426acfeaa051 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_042a426acfeaa051_base
 
-{-# NOINLINE const_pointers_ret4 #-}
+{-# NOINLINE const_pointers_ret4_funptr #-}
 {-| __C declaration:__ @const_pointers_ret4@
 
     __defined at:__ @macros\/reparse.h 217:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret4 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
-const_pointers_ret4 =
+const_pointers_ret4_funptr :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
+const_pointers_ret4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_042a426acfeaa051
 
 -- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret5@
@@ -2895,15 +2895,15 @@ hs_bindgen_bc3cdc03ae3274bd :: IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstP
 hs_bindgen_bc3cdc03ae3274bd =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_bc3cdc03ae3274bd_base
 
-{-# NOINLINE const_pointers_ret5 #-}
+{-# NOINLINE const_pointers_ret5_funptr #-}
 {-| __C declaration:__ @const_pointers_ret5@
 
     __defined at:__ @macros\/reparse.h 218:19@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret5 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
-const_pointers_ret5 =
+const_pointers_ret5_funptr :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
+const_pointers_ret5_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bc3cdc03ae3274bd
 
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem1@
@@ -2915,15 +2915,15 @@ hs_bindgen_ae95c15a81eacd52 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArra
 hs_bindgen_ae95c15a81eacd52 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ae95c15a81eacd52_base
 
-{-# NOINLINE const_array_elem1 #-}
+{-# NOINLINE const_array_elem1_funptr #-}
 {-| __C declaration:__ @const_array_elem1@
 
     __defined at:__ @macros\/reparse.h 246:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray A) -> IO ())
-const_array_elem1 =
+const_array_elem1_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray A) -> IO ())
+const_array_elem1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ae95c15a81eacd52
 
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem2@
@@ -2935,15 +2935,15 @@ hs_bindgen_9dbbae3758752935 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArra
 hs_bindgen_9dbbae3758752935 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9dbbae3758752935_base
 
-{-# NOINLINE const_array_elem2 #-}
+{-# NOINLINE const_array_elem2_funptr #-}
 {-| __C declaration:__ @const_array_elem2@
 
     __defined at:__ @macros\/reparse.h 247:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem2 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (HsBindgen.Runtime.ConstPtr.ConstPtr A)) -> IO ())
-const_array_elem2 =
+const_array_elem2_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (HsBindgen.Runtime.ConstPtr.ConstPtr A)) -> IO ())
+const_array_elem2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9dbbae3758752935
 
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem3@
@@ -2955,15 +2955,15 @@ hs_bindgen_9fdb904f0c0776ed :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArra
 hs_bindgen_9fdb904f0c0776ed =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9fdb904f0c0776ed_base
 
-{-# NOINLINE const_array_elem3 #-}
+{-# NOINLINE const_array_elem3_funptr #-}
 {-| __C declaration:__ @const_array_elem3@
 
     __defined at:__ @macros\/reparse.h 248:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)) -> IO ())
-const_array_elem3 =
+const_array_elem3_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)) -> IO ())
+const_array_elem3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9fdb904f0c0776ed
 
 -- __unique:__ @test_macrosreparse_Example_get_noParams1@
@@ -2975,7 +2975,7 @@ hs_bindgen_cd9806a214acd0fa :: IO (Ptr.FunPtr (IO A))
 hs_bindgen_cd9806a214acd0fa =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cd9806a214acd0fa_base
 
-{-# NOINLINE noParams1 #-}
+{-# NOINLINE noParams1_funptr #-}
 {-| Other examples we reparsed /incorrectly/ before language-c
 
 __C declaration:__ @noParams1@
@@ -2984,8 +2984,8 @@ __defined at:__ @macros\/reparse.h 256:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
-noParams1 :: Ptr.FunPtr (IO A)
-noParams1 =
+noParams1_funptr :: Ptr.FunPtr (IO A)
+noParams1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd9806a214acd0fa
 
 -- __unique:__ @test_macrosreparse_Example_get_noParams2@
@@ -2997,15 +2997,15 @@ hs_bindgen_7c7bf9b5a41ea4a9 :: IO (Ptr.FunPtr (IO A))
 hs_bindgen_7c7bf9b5a41ea4a9 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7c7bf9b5a41ea4a9_base
 
-{-# NOINLINE noParams2 #-}
+{-# NOINLINE noParams2_funptr #-}
 {-| __C declaration:__ @noParams2@
 
     __defined at:__ @macros\/reparse.h 257:3@
 
     __exported by:__ @macros\/reparse.h@
 -}
-noParams2 :: Ptr.FunPtr (IO A)
-noParams2 =
+noParams2_funptr :: Ptr.FunPtr (IO A)
+noParams2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7c7bf9b5a41ea4a9
 
 -- __unique:__ @test_macrosreparse_Example_get_noParams3@
@@ -3017,15 +3017,15 @@ hs_bindgen_7f154653725d104d :: IO (Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) ->
 hs_bindgen_7f154653725d104d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7f154653725d104d_base
 
-{-# NOINLINE noParams3 #-}
+{-# NOINLINE noParams3_funptr #-}
 {-| __C declaration:__ @noParams3@
 
     __defined at:__ @macros\/reparse.h 258:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-noParams3 :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
-noParams3 =
+noParams3_funptr :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
+noParams3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7f154653725d104d
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret1@
@@ -3037,15 +3037,15 @@ hs_bindgen_4460dd1d93c2df6f :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO ()))))
 hs_bindgen_4460dd1d93c2df6f =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4460dd1d93c2df6f_base
 
-{-# NOINLINE funptr_ret1 #-}
+{-# NOINLINE funptr_ret1_funptr #-}
 {-| __C declaration:__ @funptr_ret1@
 
     __defined at:__ @macros\/reparse.h 262:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret1 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO ())))
-funptr_ret1 =
+funptr_ret1_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO ())))
+funptr_ret1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4460dd1d93c2df6f
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret2@
@@ -3057,15 +3057,15 @@ hs_bindgen_2b8d04e0fe71178b :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO FC.CInt))
 hs_bindgen_2b8d04e0fe71178b =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2b8d04e0fe71178b_base
 
-{-# NOINLINE funptr_ret2 #-}
+{-# NOINLINE funptr_ret2_funptr #-}
 {-| __C declaration:__ @funptr_ret2@
 
     __defined at:__ @macros\/reparse.h 263:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret2 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO FC.CInt)))
-funptr_ret2 =
+funptr_ret2_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO FC.CInt)))
+funptr_ret2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2b8d04e0fe71178b
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret3@
@@ -3077,15 +3077,15 @@ hs_bindgen_27d05f98fe1e869b :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> I
 hs_bindgen_27d05f98fe1e869b =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_27d05f98fe1e869b_base
 
-{-# NOINLINE funptr_ret3 #-}
+{-# NOINLINE funptr_ret3_funptr #-}
 {-| __C declaration:__ @funptr_ret3@
 
     __defined at:__ @macros\/reparse.h 264:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret3 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> IO ())))
-funptr_ret3 =
+funptr_ret3_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> IO ())))
+funptr_ret3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_27d05f98fe1e869b
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret4@
@@ -3097,15 +3097,15 @@ hs_bindgen_f55fb889881240c6 :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> F
 hs_bindgen_f55fb889881240c6 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f55fb889881240c6_base
 
-{-# NOINLINE funptr_ret4 #-}
+{-# NOINLINE funptr_ret4_funptr #-}
 {-| __C declaration:__ @funptr_ret4@
 
     __defined at:__ @macros\/reparse.h 265:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret4 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)))
-funptr_ret4 =
+funptr_ret4_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)))
+funptr_ret4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f55fb889881240c6
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret5@
@@ -3117,15 +3117,15 @@ hs_bindgen_e59cbfc52cec7177 :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> F
 hs_bindgen_e59cbfc52cec7177 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e59cbfc52cec7177_base
 
-{-# NOINLINE funptr_ret5 #-}
+{-# NOINLINE funptr_ret5_funptr #-}
 {-| __C declaration:__ @funptr_ret5@
 
     __defined at:__ @macros\/reparse.h 269:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret5 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
-funptr_ret5 =
+funptr_ret5_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
+funptr_ret5_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e59cbfc52cec7177
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret6@
@@ -3137,15 +3137,15 @@ hs_bindgen_f94486b884c7cd44 :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> F
 hs_bindgen_f94486b884c7cd44 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f94486b884c7cd44_base
 
-{-# NOINLINE funptr_ret6 #-}
+{-# NOINLINE funptr_ret6_funptr #-}
 {-| __C declaration:__ @funptr_ret6@
 
     __defined at:__ @macros\/reparse.h 270:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret6 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
-funptr_ret6 =
+funptr_ret6_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
+funptr_ret6_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f94486b884c7cd44
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret7@
@@ -3157,15 +3157,15 @@ hs_bindgen_7810d75b42b3bed8 :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> F
 hs_bindgen_7810d75b42b3bed8 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7810d75b42b3bed8_base
 
-{-# NOINLINE funptr_ret7 #-}
+{-# NOINLINE funptr_ret7_funptr #-}
 {-| __C declaration:__ @funptr_ret7@
 
     __defined at:__ @macros\/reparse.h 271:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret7 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
-funptr_ret7 =
+funptr_ret7_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
+funptr_ret7_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7810d75b42b3bed8
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret8@
@@ -3177,15 +3177,15 @@ hs_bindgen_fc12014317abd6b4 :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> F
 hs_bindgen_fc12014317abd6b4 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fc12014317abd6b4_base
 
-{-# NOINLINE funptr_ret8 #-}
+{-# NOINLINE funptr_ret8_funptr #-}
 {-| __C declaration:__ @funptr_ret8@
 
     __defined at:__ @macros\/reparse.h 272:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret8 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
-funptr_ret8 =
+funptr_ret8_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
+funptr_ret8_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fc12014317abd6b4
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret9@
@@ -3197,15 +3197,15 @@ hs_bindgen_cf3bf1d8470acad4 :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> F
 hs_bindgen_cf3bf1d8470acad4 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cf3bf1d8470acad4_base
 
-{-# NOINLINE funptr_ret9 #-}
+{-# NOINLINE funptr_ret9_funptr #-}
 {-| __C declaration:__ @funptr_ret9@
 
     __defined at:__ @macros\/reparse.h 273:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret9 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
-funptr_ret9 =
+funptr_ret9_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
+funptr_ret9_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cf3bf1d8470acad4
 
 -- __unique:__ @test_macrosreparse_Example_get_funptr_ret10@
@@ -3217,13 +3217,13 @@ hs_bindgen_44a7eb47cf87f092 :: IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> F
 hs_bindgen_44a7eb47cf87f092 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_44a7eb47cf87f092_base
 
-{-# NOINLINE funptr_ret10 #-}
+{-# NOINLINE funptr_ret10_funptr #-}
 {-| __C declaration:__ @funptr_ret10@
 
     __defined at:__ @macros\/reparse.h 274:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret10 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
-funptr_ret10 =
+funptr_ret10_funptr :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
+funptr_ret10_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_44a7eb47cf87f092

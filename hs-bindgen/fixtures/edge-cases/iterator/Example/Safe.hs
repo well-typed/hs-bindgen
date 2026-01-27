@@ -93,11 +93,11 @@ hs_bindgen_9d01035006b66206 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeToggle ::
+makeToggle_safe ::
      FC.CBool
      -- ^ __C declaration:__ @start@
   -> IO Toggle
-makeToggle = hs_bindgen_9d01035006b66206
+makeToggle_safe = hs_bindgen_9d01035006b66206
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" hs_bindgen_ccd3ba727d0c0cf4_base ::
@@ -117,11 +117,11 @@ hs_bindgen_ccd3ba727d0c0cf4 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-toggleNext ::
+toggleNext_safe ::
      Toggle
      -- ^ __C declaration:__ @block@
   -> IO FC.CBool
-toggleNext = hs_bindgen_ccd3ba727d0c0cf4
+toggleNext_safe = hs_bindgen_ccd3ba727d0c0cf4
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseToggle@
 foreign import ccall safe "hs_bindgen_602b40e971b06c72" hs_bindgen_602b40e971b06c72_base ::
@@ -141,11 +141,11 @@ hs_bindgen_602b40e971b06c72 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseToggle ::
+releaseToggle_safe ::
      Toggle
      -- ^ __C declaration:__ @block@
   -> IO ()
-releaseToggle = hs_bindgen_602b40e971b06c72
+releaseToggle_safe = hs_bindgen_602b40e971b06c72
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
 foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" hs_bindgen_234fa6f1fb089e1d_base ::
@@ -167,13 +167,13 @@ hs_bindgen_234fa6f1fb089e1d =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeCounter ::
+makeCounter_safe ::
      FC.CInt
      -- ^ __C declaration:__ @start@
   -> FC.CInt
      -- ^ __C declaration:__ @increment@
   -> IO Counter
-makeCounter = hs_bindgen_234fa6f1fb089e1d
+makeCounter_safe = hs_bindgen_234fa6f1fb089e1d
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" hs_bindgen_f0fca62d78f225c3_base ::
@@ -193,11 +193,11 @@ hs_bindgen_f0fca62d78f225c3 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-counterNext ::
+counterNext_safe ::
      Counter
      -- ^ __C declaration:__ @block@
   -> IO FC.CInt
-counterNext = hs_bindgen_f0fca62d78f225c3
+counterNext_safe = hs_bindgen_f0fca62d78f225c3
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseCounter@
 foreign import ccall safe "hs_bindgen_e42dcbee8a114957" hs_bindgen_e42dcbee8a114957_base ::
@@ -217,11 +217,11 @@ hs_bindgen_e42dcbee8a114957 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseCounter ::
+releaseCounter_safe ::
      Counter
      -- ^ __C declaration:__ @block@
   -> IO ()
-releaseCounter = hs_bindgen_e42dcbee8a114957
+releaseCounter_safe = hs_bindgen_e42dcbee8a114957
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
 foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" hs_bindgen_2bee4eb5b4d895c1_base ::
@@ -241,11 +241,11 @@ hs_bindgen_2bee4eb5b4d895c1 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeVarCounter ::
+makeVarCounter_safe ::
      FC.CInt
      -- ^ __C declaration:__ @start@
   -> IO VarCounter
-makeVarCounter = hs_bindgen_2bee4eb5b4d895c1
+makeVarCounter_safe = hs_bindgen_2bee4eb5b4d895c1
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 foreign import ccall safe "hs_bindgen_276b9cb5320fec37" hs_bindgen_276b9cb5320fec37_base ::
@@ -267,13 +267,13 @@ hs_bindgen_276b9cb5320fec37 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-varCounterNext ::
+varCounterNext_safe ::
      VarCounter
      -- ^ __C declaration:__ @block@
   -> FC.CInt
      -- ^ __C declaration:__ @increment@
   -> IO FC.CInt
-varCounterNext = hs_bindgen_276b9cb5320fec37
+varCounterNext_safe = hs_bindgen_276b9cb5320fec37
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseVarCounter@
 foreign import ccall safe "hs_bindgen_8423b076f7c9df21" hs_bindgen_8423b076f7c9df21_base ::
@@ -293,8 +293,8 @@ hs_bindgen_8423b076f7c9df21 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseVarCounter ::
+releaseVarCounter_safe ::
      VarCounter
      -- ^ __C declaration:__ @block@
   -> IO ()
-releaseVarCounter = hs_bindgen_8423b076f7c9df21
+releaseVarCounter_safe = hs_bindgen_8423b076f7c9df21
