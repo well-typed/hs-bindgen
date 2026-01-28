@@ -198,7 +198,7 @@ showsType x (C.TypeBlock t)             = showsType (\_d -> showString "^" . x 0
 -- constant int" as follows:
 --
 -- > int const * const f();
-showsType x (C.TypeQual C.QualConst t) = showsType (\_d -> showString "const " . x 0) t
+showsType x (C.TypeQual C.QualConst t) = showsType (\d -> showString "const " . x  d) t
 showsType x (C.TypeComplex p) = C.showsPrimType p . showChar ' ' . showString "_Complex " . x 0
 
 -- | The precedence of various constructs in C declarations.
