@@ -37,13 +37,13 @@ hs_bindgen_993162e0dadfa2c9 :: IO (Ptr.FunPtr (Foreign.Word64 -> Uint32_t -> IO 
 hs_bindgen_993162e0dadfa2c9 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_993162e0dadfa2c9_base
 
-{-# NOINLINE bar #-}
+{-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: Ptr.FunPtr (Foreign.Word64 -> Uint32_t -> IO FC.CInt)
-bar =
+bar_funptr :: Ptr.FunPtr (Foreign.Word64 -> Uint32_t -> IO FC.CInt)
+bar_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_993162e0dadfa2c9

@@ -385,14 +385,14 @@ hs_bindgen_41e3579627406714 = fromFFIType hs_bindgen_41e3579627406714_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-foo :: PtrConst (IncompleteArray CInt) -> IO Unit
+foo_safe :: PtrConst (IncompleteArray CInt) -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @arrays\/const_qualifier.h 5:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-foo = hs_bindgen_41e3579627406714
+foo_safe = hs_bindgen_41e3579627406714
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_ef925a32def7d5e9" hs_bindgen_ef925a32def7d5e9_base ::
     Ptr Void
@@ -407,14 +407,14 @@ hs_bindgen_ef925a32def7d5e9 = fromFFIType hs_bindgen_ef925a32def7d5e9_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooA :: PtrConst S -> IO Unit
+fooA_safe :: PtrConst S -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @arrays\/const_qualifier.h 10:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooA = hs_bindgen_ef925a32def7d5e9
+fooA_safe = hs_bindgen_ef925a32def7d5e9
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_4237cee8985eb7fc" hs_bindgen_4237cee8985eb7fc_base ::
     Ptr Void
@@ -429,14 +429,14 @@ hs_bindgen_4237cee8985eb7fc = fromFFIType hs_bindgen_4237cee8985eb7fc_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooB :: PtrConst S -> IO Unit
+fooB_safe :: PtrConst S -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @arrays\/const_qualifier.h 11:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooB = hs_bindgen_4237cee8985eb7fc
+fooB_safe = hs_bindgen_4237cee8985eb7fc
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_dc3d2325cbc25f6e" hs_bindgen_dc3d2325cbc25f6e_base ::
     Ptr Void
@@ -451,14 +451,14 @@ hs_bindgen_dc3d2325cbc25f6e = fromFFIType hs_bindgen_dc3d2325cbc25f6e_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooC :: PtrConst T -> IO Unit
+fooC_safe :: PtrConst T -> IO Unit
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @arrays\/const_qualifier.h 12:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooC = hs_bindgen_dc3d2325cbc25f6e
+fooC_safe = hs_bindgen_dc3d2325cbc25f6e
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_0820d6c6e877663d" hs_bindgen_0820d6c6e877663d_base ::
     Ptr Void
@@ -474,14 +474,14 @@ hs_bindgen_0820d6c6e877663d = fromFFIType hs_bindgen_0820d6c6e877663d_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bar :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+bar_safe :: PtrConst (ConstantArray 3 CInt) -> IO Unit
 {-| __C declaration:__ @bar@
 
     __defined at:__ @arrays\/const_qualifier.h 16:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bar = hs_bindgen_0820d6c6e877663d
+bar_safe = hs_bindgen_0820d6c6e877663d
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barA@
 foreign import ccall safe "hs_bindgen_bb3ba1c8635c0008" hs_bindgen_bb3ba1c8635c0008_base ::
     Ptr Void
@@ -496,14 +496,14 @@ hs_bindgen_bb3ba1c8635c0008 = fromFFIType hs_bindgen_bb3ba1c8635c0008_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barA :: PtrConst U -> IO Unit
+barA_safe :: PtrConst U -> IO Unit
 {-| __C declaration:__ @barA@
 
     __defined at:__ @arrays\/const_qualifier.h 21:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barA = hs_bindgen_bb3ba1c8635c0008
+barA_safe = hs_bindgen_bb3ba1c8635c0008
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barB@
 foreign import ccall safe "hs_bindgen_63794b19284a8cd9" hs_bindgen_63794b19284a8cd9_base ::
     Ptr Void
@@ -518,14 +518,14 @@ hs_bindgen_63794b19284a8cd9 = fromFFIType hs_bindgen_63794b19284a8cd9_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barB :: PtrConst U -> IO Unit
+barB_safe :: PtrConst U -> IO Unit
 {-| __C declaration:__ @barB@
 
     __defined at:__ @arrays\/const_qualifier.h 22:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barB = hs_bindgen_63794b19284a8cd9
+barB_safe = hs_bindgen_63794b19284a8cd9
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_barC@
 foreign import ccall safe "hs_bindgen_e936f5907d7bdf9b" hs_bindgen_e936f5907d7bdf9b_base ::
     Ptr Void
@@ -540,14 +540,14 @@ hs_bindgen_e936f5907d7bdf9b = fromFFIType hs_bindgen_e936f5907d7bdf9b_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barC :: PtrConst V -> IO Unit
+barC_safe :: PtrConst V -> IO Unit
 {-| __C declaration:__ @barC@
 
     __defined at:__ @arrays\/const_qualifier.h 23:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barC = hs_bindgen_e936f5907d7bdf9b
+barC_safe = hs_bindgen_e936f5907d7bdf9b
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_baz@
 foreign import ccall safe "hs_bindgen_e4f32da8a7d205db" hs_bindgen_e4f32da8a7d205db_base ::
     Ptr Void
@@ -563,14 +563,14 @@ hs_bindgen_e4f32da8a7d205db = fromFFIType hs_bindgen_e4f32da8a7d205db_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-baz :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+baz_safe :: PtrConst (ConstantArray 3 CInt) -> IO Unit
 {-| __C declaration:__ @baz@
 
     __defined at:__ @arrays\/const_qualifier.h 27:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-baz = hs_bindgen_e4f32da8a7d205db
+baz_safe = hs_bindgen_e4f32da8a7d205db
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazA@
 foreign import ccall safe "hs_bindgen_abced453716ffe1c" hs_bindgen_abced453716ffe1c_base ::
     Ptr Void
@@ -585,14 +585,14 @@ hs_bindgen_abced453716ffe1c = fromFFIType hs_bindgen_abced453716ffe1c_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazA :: PtrConst W -> IO Unit
+bazA_safe :: PtrConst W -> IO Unit
 {-| __C declaration:__ @bazA@
 
     __defined at:__ @arrays\/const_qualifier.h 32:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazA = hs_bindgen_abced453716ffe1c
+bazA_safe = hs_bindgen_abced453716ffe1c
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazB@
 foreign import ccall safe "hs_bindgen_4602d92b6dafcfa7" hs_bindgen_4602d92b6dafcfa7_base ::
     Ptr Void
@@ -607,14 +607,14 @@ hs_bindgen_4602d92b6dafcfa7 = fromFFIType hs_bindgen_4602d92b6dafcfa7_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazB :: PtrConst W -> IO Unit
+bazB_safe :: PtrConst W -> IO Unit
 {-| __C declaration:__ @bazB@
 
     __defined at:__ @arrays\/const_qualifier.h 33:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazB = hs_bindgen_4602d92b6dafcfa7
+bazB_safe = hs_bindgen_4602d92b6dafcfa7
 -- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazC@
 foreign import ccall safe "hs_bindgen_b49b704068741c9c" hs_bindgen_b49b704068741c9c_base ::
     Ptr Void
@@ -629,14 +629,14 @@ hs_bindgen_b49b704068741c9c = fromFFIType hs_bindgen_b49b704068741c9c_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazC :: PtrConst X -> IO Unit
+bazC_safe :: PtrConst X -> IO Unit
 {-| __C declaration:__ @bazC@
 
     __defined at:__ @arrays\/const_qualifier.h 34:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazC = hs_bindgen_b49b704068741c9c
+bazC_safe = hs_bindgen_b49b704068741c9c
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_7eb8358d30ebb28b" hs_bindgen_7eb8358d30ebb28b_base ::
     Ptr Void
@@ -652,14 +652,14 @@ hs_bindgen_7eb8358d30ebb28b = fromFFIType hs_bindgen_7eb8358d30ebb28b_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-foo :: PtrConst (IncompleteArray CInt) -> IO Unit
+foo_unsafe :: PtrConst (IncompleteArray CInt) -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @arrays\/const_qualifier.h 5:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-foo = hs_bindgen_7eb8358d30ebb28b
+foo_unsafe = hs_bindgen_7eb8358d30ebb28b
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_2fc1970fe11a3461" hs_bindgen_2fc1970fe11a3461_base ::
     Ptr Void
@@ -674,14 +674,14 @@ hs_bindgen_2fc1970fe11a3461 = fromFFIType hs_bindgen_2fc1970fe11a3461_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooA :: PtrConst S -> IO Unit
+fooA_unsafe :: PtrConst S -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @arrays\/const_qualifier.h 10:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooA = hs_bindgen_2fc1970fe11a3461
+fooA_unsafe = hs_bindgen_2fc1970fe11a3461
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_58689a7e4b1d44f6" hs_bindgen_58689a7e4b1d44f6_base ::
     Ptr Void
@@ -696,14 +696,14 @@ hs_bindgen_58689a7e4b1d44f6 = fromFFIType hs_bindgen_58689a7e4b1d44f6_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooB :: PtrConst S -> IO Unit
+fooB_unsafe :: PtrConst S -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @arrays\/const_qualifier.h 11:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooB = hs_bindgen_58689a7e4b1d44f6
+fooB_unsafe = hs_bindgen_58689a7e4b1d44f6
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_f88b417ee6e28c0c" hs_bindgen_f88b417ee6e28c0c_base ::
     Ptr Void
@@ -718,14 +718,14 @@ hs_bindgen_f88b417ee6e28c0c = fromFFIType hs_bindgen_f88b417ee6e28c0c_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooC :: PtrConst T -> IO Unit
+fooC_unsafe :: PtrConst T -> IO Unit
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @arrays\/const_qualifier.h 12:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooC = hs_bindgen_f88b417ee6e28c0c
+fooC_unsafe = hs_bindgen_f88b417ee6e28c0c
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_78493aa01e9cc5da" hs_bindgen_78493aa01e9cc5da_base ::
     Ptr Void
@@ -741,14 +741,14 @@ hs_bindgen_78493aa01e9cc5da = fromFFIType hs_bindgen_78493aa01e9cc5da_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bar :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+bar_unsafe :: PtrConst (ConstantArray 3 CInt) -> IO Unit
 {-| __C declaration:__ @bar@
 
     __defined at:__ @arrays\/const_qualifier.h 16:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bar = hs_bindgen_78493aa01e9cc5da
+bar_unsafe = hs_bindgen_78493aa01e9cc5da
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barA@
 foreign import ccall unsafe "hs_bindgen_bee2c20f290d25d6" hs_bindgen_bee2c20f290d25d6_base ::
     Ptr Void
@@ -763,14 +763,14 @@ hs_bindgen_bee2c20f290d25d6 = fromFFIType hs_bindgen_bee2c20f290d25d6_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barA :: PtrConst U -> IO Unit
+barA_unsafe :: PtrConst U -> IO Unit
 {-| __C declaration:__ @barA@
 
     __defined at:__ @arrays\/const_qualifier.h 21:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barA = hs_bindgen_bee2c20f290d25d6
+barA_unsafe = hs_bindgen_bee2c20f290d25d6
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barB@
 foreign import ccall unsafe "hs_bindgen_71f805899a96d9f1" hs_bindgen_71f805899a96d9f1_base ::
     Ptr Void
@@ -785,14 +785,14 @@ hs_bindgen_71f805899a96d9f1 = fromFFIType hs_bindgen_71f805899a96d9f1_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barB :: PtrConst U -> IO Unit
+barB_unsafe :: PtrConst U -> IO Unit
 {-| __C declaration:__ @barB@
 
     __defined at:__ @arrays\/const_qualifier.h 22:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barB = hs_bindgen_71f805899a96d9f1
+barB_unsafe = hs_bindgen_71f805899a96d9f1
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barC@
 foreign import ccall unsafe "hs_bindgen_89af56a24c359834" hs_bindgen_89af56a24c359834_base ::
     Ptr Void
@@ -807,14 +807,14 @@ hs_bindgen_89af56a24c359834 = fromFFIType hs_bindgen_89af56a24c359834_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barC :: PtrConst V -> IO Unit
+barC_unsafe :: PtrConst V -> IO Unit
 {-| __C declaration:__ @barC@
 
     __defined at:__ @arrays\/const_qualifier.h 23:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barC = hs_bindgen_89af56a24c359834
+barC_unsafe = hs_bindgen_89af56a24c359834
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_baz@
 foreign import ccall unsafe "hs_bindgen_71d7d347923cf6e5" hs_bindgen_71d7d347923cf6e5_base ::
     Ptr Void
@@ -830,14 +830,14 @@ hs_bindgen_71d7d347923cf6e5 = fromFFIType hs_bindgen_71d7d347923cf6e5_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-baz :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+baz_unsafe :: PtrConst (ConstantArray 3 CInt) -> IO Unit
 {-| __C declaration:__ @baz@
 
     __defined at:__ @arrays\/const_qualifier.h 27:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-baz = hs_bindgen_71d7d347923cf6e5
+baz_unsafe = hs_bindgen_71d7d347923cf6e5
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazA@
 foreign import ccall unsafe "hs_bindgen_25cc50be574bcc6c" hs_bindgen_25cc50be574bcc6c_base ::
     Ptr Void
@@ -852,14 +852,14 @@ hs_bindgen_25cc50be574bcc6c = fromFFIType hs_bindgen_25cc50be574bcc6c_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazA :: PtrConst W -> IO Unit
+bazA_unsafe :: PtrConst W -> IO Unit
 {-| __C declaration:__ @bazA@
 
     __defined at:__ @arrays\/const_qualifier.h 32:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazA = hs_bindgen_25cc50be574bcc6c
+bazA_unsafe = hs_bindgen_25cc50be574bcc6c
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazB@
 foreign import ccall unsafe "hs_bindgen_3fd3913cc13f61be" hs_bindgen_3fd3913cc13f61be_base ::
     Ptr Void
@@ -874,14 +874,14 @@ hs_bindgen_3fd3913cc13f61be = fromFFIType hs_bindgen_3fd3913cc13f61be_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazB :: PtrConst W -> IO Unit
+bazB_unsafe :: PtrConst W -> IO Unit
 {-| __C declaration:__ @bazB@
 
     __defined at:__ @arrays\/const_qualifier.h 33:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazB = hs_bindgen_3fd3913cc13f61be
+bazB_unsafe = hs_bindgen_3fd3913cc13f61be
 -- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazC@
 foreign import ccall unsafe "hs_bindgen_a91ac27216749da9" hs_bindgen_a91ac27216749da9_base ::
     Ptr Void
@@ -896,14 +896,14 @@ hs_bindgen_a91ac27216749da9 = fromFFIType hs_bindgen_a91ac27216749da9_base
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazC :: PtrConst X -> IO Unit
+bazC_unsafe :: PtrConst X -> IO Unit
 {-| __C declaration:__ @bazC@
 
     __defined at:__ @arrays\/const_qualifier.h 34:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazC = hs_bindgen_a91ac27216749da9
+bazC_unsafe = hs_bindgen_a91ac27216749da9
 -- __unique:__ @test_arraysconst_qualifier_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_08ac8ef9de29103e" hs_bindgen_08ac8ef9de29103e_base ::
     IO (FunPtr Void)
@@ -912,21 +912,21 @@ hs_bindgen_08ac8ef9de29103e :: IO (FunPtr (IncompleteArray CInt ->
                                            IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_foo@
 hs_bindgen_08ac8ef9de29103e = fromFFIType hs_bindgen_08ac8ef9de29103e_base
-{-# NOINLINE foo #-}
+{-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @arrays\/const_qualifier.h 5:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-foo :: FunPtr (IncompleteArray CInt -> IO Unit)
+foo_funptr :: FunPtr (IncompleteArray CInt -> IO Unit)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @arrays\/const_qualifier.h 5:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-foo = unsafePerformIO hs_bindgen_08ac8ef9de29103e
+foo_funptr = unsafePerformIO hs_bindgen_08ac8ef9de29103e
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooA@
 foreign import ccall unsafe "hs_bindgen_54fbf41deabb186a" hs_bindgen_54fbf41deabb186a_base ::
     IO (FunPtr Void)
@@ -934,21 +934,21 @@ foreign import ccall unsafe "hs_bindgen_54fbf41deabb186a" hs_bindgen_54fbf41deab
 hs_bindgen_54fbf41deabb186a :: IO (FunPtr (S -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooA@
 hs_bindgen_54fbf41deabb186a = fromFFIType hs_bindgen_54fbf41deabb186a_base
-{-# NOINLINE fooA #-}
+{-# NOINLINE fooA_funptr #-}
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @arrays\/const_qualifier.h 10:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooA :: FunPtr (S -> IO Unit)
+fooA_funptr :: FunPtr (S -> IO Unit)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @arrays\/const_qualifier.h 10:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooA = unsafePerformIO hs_bindgen_54fbf41deabb186a
+fooA_funptr = unsafePerformIO hs_bindgen_54fbf41deabb186a
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooB@
 foreign import ccall unsafe "hs_bindgen_639b20c53a422f2a" hs_bindgen_639b20c53a422f2a_base ::
     IO (FunPtr Void)
@@ -956,21 +956,21 @@ foreign import ccall unsafe "hs_bindgen_639b20c53a422f2a" hs_bindgen_639b20c53a4
 hs_bindgen_639b20c53a422f2a :: IO (FunPtr (S -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooB@
 hs_bindgen_639b20c53a422f2a = fromFFIType hs_bindgen_639b20c53a422f2a_base
-{-# NOINLINE fooB #-}
+{-# NOINLINE fooB_funptr #-}
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @arrays\/const_qualifier.h 11:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooB :: FunPtr (S -> IO Unit)
+fooB_funptr :: FunPtr (S -> IO Unit)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @arrays\/const_qualifier.h 11:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooB = unsafePerformIO hs_bindgen_639b20c53a422f2a
+fooB_funptr = unsafePerformIO hs_bindgen_639b20c53a422f2a
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooC@
 foreign import ccall unsafe "hs_bindgen_fef335c60d51fed2" hs_bindgen_fef335c60d51fed2_base ::
     IO (FunPtr Void)
@@ -978,21 +978,21 @@ foreign import ccall unsafe "hs_bindgen_fef335c60d51fed2" hs_bindgen_fef335c60d5
 hs_bindgen_fef335c60d51fed2 :: IO (FunPtr (T -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooC@
 hs_bindgen_fef335c60d51fed2 = fromFFIType hs_bindgen_fef335c60d51fed2_base
-{-# NOINLINE fooC #-}
+{-# NOINLINE fooC_funptr #-}
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @arrays\/const_qualifier.h 12:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooC :: FunPtr (T -> IO Unit)
+fooC_funptr :: FunPtr (T -> IO Unit)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @arrays\/const_qualifier.h 12:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooC = unsafePerformIO hs_bindgen_fef335c60d51fed2
+fooC_funptr = unsafePerformIO hs_bindgen_fef335c60d51fed2
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_20a55b314c10f7b0" hs_bindgen_20a55b314c10f7b0_base ::
     IO (FunPtr Void)
@@ -1001,21 +1001,21 @@ hs_bindgen_20a55b314c10f7b0 :: IO (FunPtr (ConstantArray 3 CInt ->
                                            IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bar@
 hs_bindgen_20a55b314c10f7b0 = fromFFIType hs_bindgen_20a55b314c10f7b0_base
-{-# NOINLINE bar #-}
+{-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
     __defined at:__ @arrays\/const_qualifier.h 16:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bar :: FunPtr (ConstantArray 3 CInt -> IO Unit)
+bar_funptr :: FunPtr (ConstantArray 3 CInt -> IO Unit)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @arrays\/const_qualifier.h 16:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bar = unsafePerformIO hs_bindgen_20a55b314c10f7b0
+bar_funptr = unsafePerformIO hs_bindgen_20a55b314c10f7b0
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barA@
 foreign import ccall unsafe "hs_bindgen_d75c925bc91f45d8" hs_bindgen_d75c925bc91f45d8_base ::
     IO (FunPtr Void)
@@ -1023,21 +1023,21 @@ foreign import ccall unsafe "hs_bindgen_d75c925bc91f45d8" hs_bindgen_d75c925bc91
 hs_bindgen_d75c925bc91f45d8 :: IO (FunPtr (U -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barA@
 hs_bindgen_d75c925bc91f45d8 = fromFFIType hs_bindgen_d75c925bc91f45d8_base
-{-# NOINLINE barA #-}
+{-# NOINLINE barA_funptr #-}
 {-| __C declaration:__ @barA@
 
     __defined at:__ @arrays\/const_qualifier.h 21:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barA :: FunPtr (U -> IO Unit)
+barA_funptr :: FunPtr (U -> IO Unit)
 {-| __C declaration:__ @barA@
 
     __defined at:__ @arrays\/const_qualifier.h 21:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barA = unsafePerformIO hs_bindgen_d75c925bc91f45d8
+barA_funptr = unsafePerformIO hs_bindgen_d75c925bc91f45d8
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barB@
 foreign import ccall unsafe "hs_bindgen_aecd16e35ff42812" hs_bindgen_aecd16e35ff42812_base ::
     IO (FunPtr Void)
@@ -1045,21 +1045,21 @@ foreign import ccall unsafe "hs_bindgen_aecd16e35ff42812" hs_bindgen_aecd16e35ff
 hs_bindgen_aecd16e35ff42812 :: IO (FunPtr (U -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barB@
 hs_bindgen_aecd16e35ff42812 = fromFFIType hs_bindgen_aecd16e35ff42812_base
-{-# NOINLINE barB #-}
+{-# NOINLINE barB_funptr #-}
 {-| __C declaration:__ @barB@
 
     __defined at:__ @arrays\/const_qualifier.h 22:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barB :: FunPtr (U -> IO Unit)
+barB_funptr :: FunPtr (U -> IO Unit)
 {-| __C declaration:__ @barB@
 
     __defined at:__ @arrays\/const_qualifier.h 22:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barB = unsafePerformIO hs_bindgen_aecd16e35ff42812
+barB_funptr = unsafePerformIO hs_bindgen_aecd16e35ff42812
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barC@
 foreign import ccall unsafe "hs_bindgen_7b514bc063bee42a" hs_bindgen_7b514bc063bee42a_base ::
     IO (FunPtr Void)
@@ -1067,21 +1067,21 @@ foreign import ccall unsafe "hs_bindgen_7b514bc063bee42a" hs_bindgen_7b514bc063b
 hs_bindgen_7b514bc063bee42a :: IO (FunPtr (V -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barC@
 hs_bindgen_7b514bc063bee42a = fromFFIType hs_bindgen_7b514bc063bee42a_base
-{-# NOINLINE barC #-}
+{-# NOINLINE barC_funptr #-}
 {-| __C declaration:__ @barC@
 
     __defined at:__ @arrays\/const_qualifier.h 23:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barC :: FunPtr (V -> IO Unit)
+barC_funptr :: FunPtr (V -> IO Unit)
 {-| __C declaration:__ @barC@
 
     __defined at:__ @arrays\/const_qualifier.h 23:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barC = unsafePerformIO hs_bindgen_7b514bc063bee42a
+barC_funptr = unsafePerformIO hs_bindgen_7b514bc063bee42a
 -- __unique:__ @test_arraysconst_qualifier_Example_get_baz@
 foreign import ccall unsafe "hs_bindgen_4839eb9bacfd303d" hs_bindgen_4839eb9bacfd303d_base ::
     IO (FunPtr Void)
@@ -1091,21 +1091,21 @@ hs_bindgen_4839eb9bacfd303d :: IO (FunPtr (PtrConst (ConstantArray 3
                                            IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_baz@
 hs_bindgen_4839eb9bacfd303d = fromFFIType hs_bindgen_4839eb9bacfd303d_base
-{-# NOINLINE baz #-}
+{-# NOINLINE baz_funptr #-}
 {-| __C declaration:__ @baz@
 
     __defined at:__ @arrays\/const_qualifier.h 27:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-baz :: FunPtr (PtrConst (ConstantArray 3 CInt) -> IO Unit)
+baz_funptr :: FunPtr (PtrConst (ConstantArray 3 CInt) -> IO Unit)
 {-| __C declaration:__ @baz@
 
     __defined at:__ @arrays\/const_qualifier.h 27:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-baz = unsafePerformIO hs_bindgen_4839eb9bacfd303d
+baz_funptr = unsafePerformIO hs_bindgen_4839eb9bacfd303d
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazA@
 foreign import ccall unsafe "hs_bindgen_0ada0d6bbdb28946" hs_bindgen_0ada0d6bbdb28946_base ::
     IO (FunPtr Void)
@@ -1113,21 +1113,21 @@ foreign import ccall unsafe "hs_bindgen_0ada0d6bbdb28946" hs_bindgen_0ada0d6bbdb
 hs_bindgen_0ada0d6bbdb28946 :: IO (FunPtr (PtrConst W -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazA@
 hs_bindgen_0ada0d6bbdb28946 = fromFFIType hs_bindgen_0ada0d6bbdb28946_base
-{-# NOINLINE bazA #-}
+{-# NOINLINE bazA_funptr #-}
 {-| __C declaration:__ @bazA@
 
     __defined at:__ @arrays\/const_qualifier.h 32:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazA :: FunPtr (PtrConst W -> IO Unit)
+bazA_funptr :: FunPtr (PtrConst W -> IO Unit)
 {-| __C declaration:__ @bazA@
 
     __defined at:__ @arrays\/const_qualifier.h 32:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazA = unsafePerformIO hs_bindgen_0ada0d6bbdb28946
+bazA_funptr = unsafePerformIO hs_bindgen_0ada0d6bbdb28946
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazB@
 foreign import ccall unsafe "hs_bindgen_d035691c9268d21a" hs_bindgen_d035691c9268d21a_base ::
     IO (FunPtr Void)
@@ -1135,21 +1135,21 @@ foreign import ccall unsafe "hs_bindgen_d035691c9268d21a" hs_bindgen_d035691c926
 hs_bindgen_d035691c9268d21a :: IO (FunPtr (PtrConst W -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazB@
 hs_bindgen_d035691c9268d21a = fromFFIType hs_bindgen_d035691c9268d21a_base
-{-# NOINLINE bazB #-}
+{-# NOINLINE bazB_funptr #-}
 {-| __C declaration:__ @bazB@
 
     __defined at:__ @arrays\/const_qualifier.h 33:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazB :: FunPtr (PtrConst W -> IO Unit)
+bazB_funptr :: FunPtr (PtrConst W -> IO Unit)
 {-| __C declaration:__ @bazB@
 
     __defined at:__ @arrays\/const_qualifier.h 33:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazB = unsafePerformIO hs_bindgen_d035691c9268d21a
+bazB_funptr = unsafePerformIO hs_bindgen_d035691c9268d21a
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazC@
 foreign import ccall unsafe "hs_bindgen_fc2dfbe62c6dc8b1" hs_bindgen_fc2dfbe62c6dc8b1_base ::
     IO (FunPtr Void)
@@ -1157,18 +1157,18 @@ foreign import ccall unsafe "hs_bindgen_fc2dfbe62c6dc8b1" hs_bindgen_fc2dfbe62c6
 hs_bindgen_fc2dfbe62c6dc8b1 :: IO (FunPtr (PtrConst X -> IO Unit))
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bazC@
 hs_bindgen_fc2dfbe62c6dc8b1 = fromFFIType hs_bindgen_fc2dfbe62c6dc8b1_base
-{-# NOINLINE bazC #-}
+{-# NOINLINE bazC_funptr #-}
 {-| __C declaration:__ @bazC@
 
     __defined at:__ @arrays\/const_qualifier.h 34:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazC :: FunPtr (PtrConst X -> IO Unit)
+bazC_funptr :: FunPtr (PtrConst X -> IO Unit)
 {-| __C declaration:__ @bazC@
 
     __defined at:__ @arrays\/const_qualifier.h 34:6@
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bazC = unsafePerformIO hs_bindgen_fc2dfbe62c6dc8b1
+bazC_funptr = unsafePerformIO hs_bindgen_fc2dfbe62c6dc8b1

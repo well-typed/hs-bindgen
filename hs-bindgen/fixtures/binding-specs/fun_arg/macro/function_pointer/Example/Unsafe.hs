@@ -52,11 +52,11 @@ hs_bindgen_fbc2ec26cd297034 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
-foo ::
+foo_unsafe ::
      MyFunctionPointer
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo = hs_bindgen_fbc2ec26cd297034
+foo_unsafe = hs_bindgen_fbc2ec26cd297034
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8_base ::
@@ -76,11 +76,11 @@ hs_bindgen_cf67e2fc00fd28d8 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
-fooA ::
+fooA_unsafe ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA = hs_bindgen_cf67e2fc00fd28d8
+fooA_unsafe = hs_bindgen_cf67e2fc00fd28d8
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed_base ::
@@ -100,8 +100,8 @@ hs_bindgen_269a46f9680e33ed =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
-fooB ::
+fooB_unsafe ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB = hs_bindgen_269a46f9680e33ed
+fooB_unsafe = hs_bindgen_269a46f9680e33ed

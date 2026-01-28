@@ -46,10 +46,10 @@ hs_bindgen_32187cc02676ee72 =
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
-list_example ::
+list_example_safe ::
      Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
      -- ^ __C declaration:__ @items@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @count@
   -> IO FC.CBool
-list_example = hs_bindgen_32187cc02676ee72
+list_example_safe = hs_bindgen_32187cc02676ee72

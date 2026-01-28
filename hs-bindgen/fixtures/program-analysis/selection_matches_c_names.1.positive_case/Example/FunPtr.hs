@@ -32,13 +32,13 @@ hs_bindgen_1ccc97a484f823b2 :: IO (Ptr.FunPtr (IO FC.CInt))
 hs_bindgen_1ccc97a484f823b2 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1ccc97a484f823b2_base
 
-{-# NOINLINE functionWithAssignedHaskellNameByNameMangler #-}
+{-# NOINLINE functionWithAssignedHaskellNameByNameMangler_funptr #-}
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
 
     __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
 
     __exported by:__ @program-analysis\/selection_matches_c_names.h@
 -}
-functionWithAssignedHaskellNameByNameMangler :: Ptr.FunPtr (IO FC.CInt)
-functionWithAssignedHaskellNameByNameMangler =
+functionWithAssignedHaskellNameByNameMangler_funptr :: Ptr.FunPtr (IO FC.CInt)
+functionWithAssignedHaskellNameByNameMangler_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1ccc97a484f823b2

@@ -158,7 +158,7 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data ::
+process_data_safe ::
      HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
      {- ^
 
@@ -181,7 +181,7 @@ process_data ::
      __C declaration:__ @size@
      -}
   -> IO FC.CInt
-process_data = hs_bindgen_7eada9f65d982412
+process_data_safe = hs_bindgen_7eada9f65d982412
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da1a7_base ::
@@ -211,7 +211,7 @@ __defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_file ::
+process_file_safe ::
      HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
      {- ^
 
@@ -220,7 +220,7 @@ process_file ::
      __C declaration:__ @filename@
      -}
   -> IO FC.CBool
-process_file = hs_bindgen_fb85499c501da1a7
+process_file_safe = hs_bindgen_fb85499c501da1a7
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" hs_bindgen_a73fc7b108035c5c_base ::
@@ -259,7 +259,7 @@ __defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-calculate_value ::
+calculate_value_safe ::
      FC.CInt
      {- ^
 
@@ -275,7 +275,7 @@ calculate_value ::
      __C declaration:__ @multiplier@
      -}
   -> IO FC.CInt
-calculate_value = hs_bindgen_a73fc7b108035c5c
+calculate_value_safe = hs_bindgen_a73fc7b108035c5c
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 foreign import ccall safe "hs_bindgen_9b7f6745401b4652" hs_bindgen_9b7f6745401b4652_base ::
@@ -307,7 +307,7 @@ __defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-html_example ::
+html_example_safe ::
      FC.CInt
      {- ^
 
@@ -316,7 +316,7 @@ html_example ::
      __C declaration:__ @value@
      -}
   -> IO FC.CBool
-html_example = hs_bindgen_9b7f6745401b4652
+html_example_safe = hs_bindgen_9b7f6745401b4652
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e599b_base ::
@@ -378,7 +378,7 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-list_example ::
+list_example_safe ::
      Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
      {- ^
 
@@ -394,7 +394,7 @@ list_example ::
      __C declaration:__ @count@
      -}
   -> IO FC.CBool
-list_example = hs_bindgen_825411dc114e599b
+list_example_safe = hs_bindgen_825411dc114e599b
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_dangerous_function@
 foreign import ccall safe "hs_bindgen_17264dcff7e9b698" hs_bindgen_17264dcff7e9b698_base ::
@@ -428,7 +428,7 @@ __defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-dangerous_function ::
+dangerous_function_safe ::
      Ptr.Ptr Void
      {- ^
 
@@ -437,7 +437,7 @@ dangerous_function ::
      __C declaration:__ @ptr@
      -}
   -> IO (Ptr.Ptr Void)
-dangerous_function = hs_bindgen_17264dcff7e9b698
+dangerous_function_safe = hs_bindgen_17264dcff7e9b698
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70d8d_base ::
@@ -471,7 +471,7 @@ __defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-detailed_return_codes ::
+detailed_return_codes_safe ::
      HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
      {- ^
 
@@ -480,7 +480,8 @@ detailed_return_codes ::
      __C declaration:__ @input@
      -}
   -> IO FC.CInt
-detailed_return_codes = hs_bindgen_c8ca619ec2e70d8d
+detailed_return_codes_safe =
+  hs_bindgen_c8ca619ec2e70d8d
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 foreign import ccall safe "hs_bindgen_25e1070e2ce10048" hs_bindgen_25e1070e2ce10048_base ::
@@ -510,7 +511,7 @@ __defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-old_function ::
+old_function_safe ::
      FC.CInt
      {- ^
 
@@ -519,7 +520,7 @@ old_function ::
      __C declaration:__ @old_param@
      -}
   -> IO FC.CInt
-old_function = hs_bindgen_25e1070e2ce10048
+old_function_safe = hs_bindgen_25e1070e2ce10048
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" hs_bindgen_a9eeeb09808e71cc_base ::
@@ -549,7 +550,7 @@ __defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-versioned_function ::
+versioned_function_safe ::
      FC.CInt
      {- ^
 
@@ -558,7 +559,7 @@ versioned_function ::
      __C declaration:__ @data@
      -}
   -> IO FC.CInt
-versioned_function = hs_bindgen_a9eeeb09808e71cc
+versioned_function_safe = hs_bindgen_a9eeeb09808e71cc
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f1700372a7_base ::
@@ -590,7 +591,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer ::
+process_buffer_safe ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar)
      {- ^
 
@@ -606,7 +607,7 @@ process_buffer ::
      __C declaration:__ @size@
      -}
   -> IO FC.CInt
-process_buffer = hs_bindgen_0c0057f1700372a7
+process_buffer_safe = hs_bindgen_0c0057f1700372a7
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95524_base ::
@@ -642,7 +643,7 @@ __defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-my_memcpy ::
+my_memcpy_safe ::
      Ptr.Ptr Void
      {- ^
 
@@ -665,7 +666,7 @@ my_memcpy ::
      __C declaration:__ @n@
      -}
   -> IO (Ptr.Ptr Void)
-my_memcpy = hs_bindgen_294db77671f95524
+my_memcpy_safe = hs_bindgen_294db77671f95524
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" hs_bindgen_f5bc63a9952c2618_base ::
@@ -693,7 +694,7 @@ __defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-double_value ::
+double_value_safe ::
      FC.CInt
      {- ^
 
@@ -702,7 +703,7 @@ double_value ::
      __C declaration:__ @x@
      -}
   -> IO FC.CInt
-double_value = hs_bindgen_f5bc63a9952c2618
+double_value_safe = hs_bindgen_f5bc63a9952c2618
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba20204d_base ::
@@ -791,7 +792,7 @@ __defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-complex_function ::
+complex_function_safe ::
      Ptr.Ptr Config_t
      {- ^
 
@@ -814,7 +815,7 @@ complex_function ::
      __C declaration:__ @size@
      -}
   -> IO Status_code_t
-complex_function = hs_bindgen_c4e7e99dba20204d
+complex_function_safe = hs_bindgen_c4e7e99dba20204d
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hs_bindgen_935f2aead358d9ef_base ::
@@ -838,11 +839,11 @@ __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-hash ::
+hash_safe ::
      Ptr.Ptr FC.CChar
      -- ^ __C declaration:__ @s@
   -> IO FC.CInt
-hash = hs_bindgen_935f2aead358d9ef
+hash_safe = hs_bindgen_935f2aead358d9ef
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" hs_bindgen_39fef54c23d4e1ee_base ::
@@ -866,8 +867,8 @@ __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-square ::
+square_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
-square = hs_bindgen_39fef54c23d4e1ee
+square_safe = hs_bindgen_39fef54c23d4e1ee

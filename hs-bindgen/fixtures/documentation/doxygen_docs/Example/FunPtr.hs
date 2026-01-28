@@ -160,7 +160,7 @@ hs_bindgen_4a5cd66a4f26f8d5 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrCo
 hs_bindgen_4a5cd66a4f26f8d5 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
 
-{-# NOINLINE process_data #-}
+{-# NOINLINE process_data_funptr #-}
 {-|
 
   Function with detailed parameter documentation
@@ -181,8 +181,8 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) -> (Ptr.Ptr HsBindgen.Runtime.LibC.CSize) -> IO FC.CInt)
-process_data =
+process_data_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) -> (Ptr.Ptr HsBindgen.Runtime.LibC.CSize) -> IO FC.CInt)
+process_data_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4a5cd66a4f26f8d5
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_file@
@@ -194,7 +194,7 @@ hs_bindgen_c8a059c65f18fea9 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrCo
 hs_bindgen_c8a059c65f18fea9 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c8a059c65f18fea9_base
 
-{-# NOINLINE process_file #-}
+{-# NOINLINE process_file_funptr #-}
 {-|
 
   Function with inline commands and formatting
@@ -211,8 +211,8 @@ __defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_file :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CBool)
-process_file =
+process_file_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CBool)
+process_file_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c8a059c65f18fea9
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value@
@@ -224,7 +224,7 @@ hs_bindgen_5ab7e06724867ab3 :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
 hs_bindgen_5ab7e06724867ab3 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_5ab7e06724867ab3_base
 
-{-# NOINLINE calculate_value #-}
+{-# NOINLINE calculate_value_funptr #-}
 {-|
 
   Function with verbatim code blocks
@@ -248,8 +248,8 @@ __defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-calculate_value :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
-calculate_value =
+calculate_value_funptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
+calculate_value_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5ab7e06724867ab3
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_html_example@
@@ -261,7 +261,7 @@ hs_bindgen_3f74fb834b0cd46b :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CBool))
 hs_bindgen_3f74fb834b0cd46b =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3f74fb834b0cd46b_base
 
-{-# NOINLINE html_example #-}
+{-# NOINLINE html_example_funptr #-}
 {-|
 
   Function with HTML formatting
@@ -280,8 +280,8 @@ __defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-html_example :: Ptr.FunPtr (FC.CInt -> IO FC.CBool)
-html_example =
+html_example_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CBool)
+html_example_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3f74fb834b0cd46b
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
@@ -293,7 +293,7 @@ hs_bindgen_2175b3c627db39cf :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrCo
 hs_bindgen_2175b3c627db39cf =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2175b3c627db39cf_base
 
-{-# NOINLINE list_example #-}
+{-# NOINLINE list_example_funptr #-}
 {-|
 
   Function with lists and special formatting
@@ -340,8 +340,8 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool)
-list_example =
+list_example_funptr :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool)
+list_example_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2175b3c627db39cf
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function@
@@ -353,7 +353,7 @@ hs_bindgen_b7a4debd18827a19 :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Voi
 hs_bindgen_b7a4debd18827a19 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b7a4debd18827a19_base
 
-{-# NOINLINE dangerous_function #-}
+{-# NOINLINE dangerous_function_funptr #-}
 {-|
 
   Function with warnings and notes
@@ -374,8 +374,8 @@ __defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-dangerous_function :: Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void))
-dangerous_function =
+dangerous_function_funptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void))
+dangerous_function_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b7a4debd18827a19
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes@
@@ -387,7 +387,7 @@ hs_bindgen_9700b22f82eedafe :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrCo
 hs_bindgen_9700b22f82eedafe =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9700b22f82eedafe_base
 
-{-# NOINLINE detailed_return_codes #-}
+{-# NOINLINE detailed_return_codes_funptr #-}
 {-|
 
   Function with return value details
@@ -408,8 +408,8 @@ __defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-detailed_return_codes :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CInt)
-detailed_return_codes =
+detailed_return_codes_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CInt)
+detailed_return_codes_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9700b22f82eedafe
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_old_function@
@@ -421,7 +421,7 @@ hs_bindgen_49e0d34a627c6c19 :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_49e0d34a627c6c19 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_49e0d34a627c6c19_base
 
-{-# NOINLINE old_function #-}
+{-# NOINLINE old_function_funptr #-}
 {-|
 
   Function with deprecated annotation
@@ -438,8 +438,8 @@ __defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-old_function :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-old_function =
+old_function_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+old_function_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_49e0d34a627c6c19
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function@
@@ -451,7 +451,7 @@ hs_bindgen_180cd7537e40ce99 :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_180cd7537e40ce99 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_180cd7537e40ce99_base
 
-{-# NOINLINE versioned_function #-}
+{-# NOINLINE versioned_function_funptr #-}
 {-|
 
   Function with version information
@@ -468,8 +468,8 @@ __defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-versioned_function :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-versioned_function =
+versioned_function_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+versioned_function_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_180cd7537e40ce99
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
@@ -481,7 +481,7 @@ hs_bindgen_f4ccc6d90e8d3ebd :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray
 hs_bindgen_f4ccc6d90e8d3ebd =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 
-{-# NOINLINE process_buffer #-}
+{-# NOINLINE process_buffer_funptr #-}
 {-|
 
   Static array parameter
@@ -498,8 +498,8 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CInt)
-process_buffer =
+process_buffer_funptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CInt)
+process_buffer_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f4ccc6d90e8d3ebd
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
@@ -511,7 +511,7 @@ hs_bindgen_6a74d376c901b531 :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runt
 hs_bindgen_6a74d376c901b531 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6a74d376c901b531_base
 
-{-# NOINLINE my_memcpy #-}
+{-# NOINLINE my_memcpy_funptr #-}
 {-|
 
   Function with restrict pointers
@@ -530,8 +530,8 @@ __defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-my_memcpy :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr.Ptr Void))
-my_memcpy =
+my_memcpy_funptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr.Ptr Void))
+my_memcpy_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6a74d376c901b531
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_double_value@
@@ -543,7 +543,7 @@ hs_bindgen_156a92f3c5176105 :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_156a92f3c5176105 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_156a92f3c5176105_base
 
-{-# NOINLINE double_value #-}
+{-# NOINLINE double_value_funptr #-}
 {-|
 
   Inline function
@@ -558,8 +558,8 @@ __defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-double_value :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-double_value =
+double_value_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+double_value_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_156a92f3c5176105
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
@@ -571,7 +571,7 @@ hs_bindgen_dfa39b6be50cb2ca :: IO (Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.
 hs_bindgen_dfa39b6be50cb2ca =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
 
-{-# NOINLINE complex_function #-}
+{-# NOINLINE complex_function_funptr #-}
 {-|
 
   Function with complex documentation
@@ -643,8 +643,8 @@ __defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-complex_function :: Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t)
-complex_function =
+complex_function_funptr :: Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8) -> HsBindgen.Runtime.LibC.CSize -> IO Status_code_t)
+complex_function_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dfa39b6be50cb2ca
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_hash@
@@ -656,15 +656,15 @@ hs_bindgen_8ad88b79fd71f9d4 :: IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
 hs_bindgen_8ad88b79fd71f9d4 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8ad88b79fd71f9d4_base
 
-{-# NOINLINE hash #-}
+{-# NOINLINE hash_funptr #-}
 {-| __C declaration:__ @hash@
 
     __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-hash :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
-hash =
+hash_funptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
+hash_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8ad88b79fd71f9d4
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_square@
@@ -676,13 +676,13 @@ hs_bindgen_7ede0f7ec1b30650 :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_7ede0f7ec1b30650 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7ede0f7ec1b30650_base
 
-{-# NOINLINE square #-}
+{-# NOINLINE square_funptr #-}
 {-| __C declaration:__ @square@
 
     __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-square :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-square =
+square_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7ede0f7ec1b30650

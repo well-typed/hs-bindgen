@@ -31,13 +31,13 @@ hs_bindgen_d7b5ad93f4d7fa04 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_d7b5ad93f4d7fa04 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d7b5ad93f4d7fa04_base
 
-{-# NOINLINE h #-}
+{-# NOINLINE h_funptr #-}
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
-h :: Ptr.FunPtr (IO ())
-h =
+h_funptr :: Ptr.FunPtr (IO ())
+h_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d7b5ad93f4d7fa04

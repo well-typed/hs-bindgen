@@ -49,7 +49,7 @@ hs_bindgen_654858ed6a5db417 =
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk ::
+read_file_chunk_unsafe ::
      Ptr.Ptr HsBindgen.Runtime.LibC.CFile
      -- ^ __C declaration:__ @file_ptr@
   -> Ptr.Ptr Void
@@ -57,4 +57,4 @@ read_file_chunk ::
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @bytes_to_read@
   -> IO FileOperationStatus
-read_file_chunk = hs_bindgen_654858ed6a5db417
+read_file_chunk_unsafe = hs_bindgen_654858ed6a5db417

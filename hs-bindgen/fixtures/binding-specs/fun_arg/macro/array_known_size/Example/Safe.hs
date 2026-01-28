@@ -52,11 +52,11 @@ hs_bindgen_2a6ef3a515232132 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-foo ::
+foo_safe ::
      Ptr.Ptr MyArray
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo = hs_bindgen_2a6ef3a515232132
+foo_safe = hs_bindgen_2a6ef3a515232132
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc499_base ::
@@ -76,11 +76,11 @@ hs_bindgen_4449a68917cbc499 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooA ::
+fooA_safe ::
      Ptr.Ptr A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA = hs_bindgen_4449a68917cbc499
+fooA_safe = hs_bindgen_4449a68917cbc499
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b077bb_base ::
@@ -100,8 +100,8 @@ hs_bindgen_05766199d1b077bb =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooB ::
+fooB_safe ::
      Ptr.Ptr B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB = hs_bindgen_05766199d1b077bb
+fooB_safe = hs_bindgen_05766199d1b077bb

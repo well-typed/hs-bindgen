@@ -66,11 +66,11 @@ __defined at:__ @functions\/simple_func.h 1:8@
 
 __exported by:__ @functions\/simple_func.h@
 -}
-erf ::
+erf_unsafe ::
      FC.CDouble
      -- ^ __C declaration:__ @arg@
   -> FC.CDouble
-erf = hs_bindgen_da5d889180d72efd
+erf_unsafe = hs_bindgen_da5d889180d72efd
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
 foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" hs_bindgen_d02f37accebc0cb3_base ::
@@ -94,7 +94,7 @@ hs_bindgen_d02f37accebc0cb3 =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-bad_fma ::
+bad_fma_unsafe ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> FC.CDouble
@@ -102,7 +102,7 @@ bad_fma ::
   -> FC.CDouble
      -- ^ __C declaration:__ @z@
   -> IO FC.CDouble
-bad_fma = hs_bindgen_d02f37accebc0cb3
+bad_fma_unsafe = hs_bindgen_d02f37accebc0cb3
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" hs_bindgen_9ea56ae4fab9a418_base ::
@@ -119,8 +119,8 @@ hs_bindgen_9ea56ae4fab9a418 =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args :: IO ()
-no_args = hs_bindgen_9ea56ae4fab9a418
+no_args_unsafe :: IO ()
+no_args_unsafe = hs_bindgen_9ea56ae4fab9a418
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" hs_bindgen_a3d1783059ec7820_base ::
@@ -137,8 +137,8 @@ hs_bindgen_a3d1783059ec7820 =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void :: IO ()
-no_args_no_void = hs_bindgen_a3d1783059ec7820
+no_args_no_void_unsafe :: IO ()
+no_args_no_void_unsafe = hs_bindgen_a3d1783059ec7820
 
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" hs_bindgen_91392ef466aa34e7_base ::
@@ -160,10 +160,10 @@ hs_bindgen_91392ef466aa34e7 =
 
     __exported by:__ @functions\/simple_func.h@
 -}
-fun ::
+fun_unsafe ::
      FC.CChar
      -- ^ __C declaration:__ @x@
   -> FC.CDouble
      -- ^ __C declaration:__ @y@
   -> IO FC.CInt
-fun = hs_bindgen_91392ef466aa34e7
+fun_unsafe = hs_bindgen_91392ef466aa34e7

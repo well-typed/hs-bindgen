@@ -45,15 +45,15 @@ hs_bindgen_29b4fea741132943 :: IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) 
 hs_bindgen_29b4fea741132943 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_29b4fea741132943_base
 
-{-# NOINLINE multiply_complex_f #-}
+{-# NOINLINE multiply_complex_f_funptr #-}
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f :: Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat))
-multiply_complex_f =
+multiply_complex_f_funptr :: Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat))
+multiply_complex_f_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_29b4fea741132943
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
@@ -65,13 +65,13 @@ hs_bindgen_b53577d6ad8dd36c :: IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble)
 hs_bindgen_b53577d6ad8dd36c =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
 
-{-# NOINLINE add_complex #-}
+{-# NOINLINE add_complex_funptr #-}
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex :: Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble))
-add_complex =
+add_complex_funptr :: Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble))
+add_complex_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b53577d6ad8dd36c

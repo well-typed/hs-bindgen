@@ -63,11 +63,11 @@ __defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_cp ::
+square_cp_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
-square_cp = hs_bindgen_5d7162df3a16d8d5
+square_cp_safe = hs_bindgen_5d7162df3a16d8d5
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2eea24_base ::
@@ -91,11 +91,11 @@ __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_pc ::
+square_pc_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
-square_pc = hs_bindgen_7f240b4e0c2eea24
+square_pc_safe = hs_bindgen_7f240b4e0c2eea24
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10764_base ::
@@ -119,11 +119,11 @@ __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_cc ::
+square_cc_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
-square_cc = hs_bindgen_d32b50f04af10764
+square_cc_safe = hs_bindgen_d32b50f04af10764
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" hs_bindgen_fab6c9860ff1400b_base ::
@@ -147,8 +147,8 @@ __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_pp ::
+square_pp_safe ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO FC.CInt
-square_pp = hs_bindgen_fab6c9860ff1400b
+square_pp_safe = hs_bindgen_fab6c9860ff1400b
