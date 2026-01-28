@@ -1,10 +1,20 @@
 # Examples
 
-This directory contains runnable example projects using `hs-bindgen`. These
-examples include bindings and toy programs for the following C libraries:
+This directory contains runnable example projects using `hs-bindgen`.  These
+examples include bindings and toy programs for various C libraries.
+
+## Special examples
+
+* **[cross-compilation](cross-compilation/)** - Demonstrates how to generate
+  bindings for different target architectures (e.g., generating ARM bindings on
+  x86_64).  Includes a Nix development environment, QEMU testing, and detailed
+  beginner-friendly documentation.
+
+## Library binding examples
 
 * `bundled-c`
 * `c-minisat`
+* `c-qrcode`
 * `libpcap`
 
 ## Running examples
