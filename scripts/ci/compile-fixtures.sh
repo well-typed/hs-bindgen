@@ -13,6 +13,8 @@ If a single FIXTURE is provided as an argument, only compile this FIXTURE.
 Options:
   -j N    Number of parallel jobs (default: 4)
   -f      Force compilation of all fixtures, including known failures
+  -w      Use -optc -Werror for the compilation of all fixtures, including known
+          fixtures that do not compile cleanly with -optc -Werror
   -h      Show this help message
 
 Exit codes:
@@ -73,6 +75,21 @@ KNOWN_EMPTY=(
     types/typedefs/typenames
 )
 
+# Array variables can not be exported, so instead we export a function that sets
+# the array variable, and that function can be used in subshells
+set_known_werror_unclean() {
+  # Known fixtures that compile, but not cleanly, so they should be run without
+  # -Werror
+  KNOWN_WERROR_UNLCEAN=(
+      arrays/array
+      edge-cases/adios
+      attributes/visibility_attributes
+      declarations/tentative_definitions
+  )
+}
+export -f set_known_werror_unclean
+set_known_werror_unclean
+
 # The number of fixtures that are known to exist (including known failures)
 #
 # This number is used for sanity checks. Make sure to update this number when
@@ -82,15 +99,19 @@ KNOWN_FIXTURES_COUNT=146
 # Default options
 JOBS=4
 FORCE_ALL=false
+WERROR_ALL=false
 
 # Parse options
-while getopts "j:fh" opt; do
+while getopts "j:fwh" opt; do
     case "$opt" in
     j)
         JOBS="$OPTARG"
         ;;
     f)
         FORCE_ALL=true
+        ;;
+    w)
+        WERROR_ALL=true
         ;;
     h)
         usage
@@ -154,6 +175,17 @@ is_known_empty() {
     return 1
 }
 
+# Function to check if a file is in the known -Werror unclean fixtures list
+is_known_werror_unclean() {
+    local fixture_name="$1"
+    for unclean in "${KNOWN_WERROR_UNLCEAN[@]}"; do
+        if [[ "$fixture_name" == "$unclean" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 # Function to compile a single fixture
 # shellcheck disable=SC2329
 compile_fixture() {
@@ -177,6 +209,16 @@ compile_fixture() {
     # Use a temporary output file to avoid polluting the fixtures directory
     local output_dir
     output_dir=$(mktemp -d)
+
+    local opts
+    set_known_werror_unclean
+    if [[ "$WERROR_ALL" == "true" ]]; then
+      opts="-optc -Werror"
+    elif is_known_werror_unclean "$fixture_name"; then
+        opts=""
+    else
+        opts="-optc -Werror"
+    fi
 
     # Compile the fixture with GHC
     # -c: Compile only (no linking)
@@ -209,6 +251,7 @@ compile_fixture() {
         -optc -std=gnu2x \
         -optc -Wno-deprecated-declarations \
         -optc -Wno-attributes \
+        "$opts" \
         $files &>"$output_dir/compile.log"); then
         echo "✓ $fixture_name"
         rm -rf "$output_dir"
@@ -233,10 +276,8 @@ fi
 
 # Make these functions and variables available to child processes (subshells)
 export -f compile_fixture
-export -f is_known_failure
-export -f is_known_empty
-export KNOWN_FAILURES
-export KNOWN_EMPTY
+export -f is_known_werror_unclean
+export WERROR_ALL
 export KNOWN_FIXTURES_COUNT
 export HS_BINDGEN_DIR
 export EXAMPLES_DIR
