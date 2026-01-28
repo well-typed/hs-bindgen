@@ -64,6 +64,16 @@ data Context =
     -- of 'TypedefIndirect' we add a @_Aux@ suffix, because now the two types
     -- are meaningfully different (and @clang@ assigns no name at all).
   | TypedefIndirect (C.DeclInfo Parse)
+
+    -- | Anonymous declaration used as the type of a global variable
+    --
+    -- E.g.
+    --
+    -- > struct { int x; int y; } a;
+    --
+    -- In this case, we use the name of the global variable as the name of
+    -- the struct.
+  | TopLevelStruct (C.DeclInfo Parse)
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -168,7 +178,7 @@ analyseDecl decl =
       C.DeclOpaque             -> []
       C.DeclMacro            _ -> []
       C.DeclFunction         _ -> []
-      C.DeclGlobal           _ -> []
+      C.DeclGlobal           x -> analyseGlobal  decl.info x
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(AnonId, Context)]
 analyseStruct info struct = concat [
@@ -188,6 +198,9 @@ analyseUnion info union =
 
 analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(AnonId, Context)]
 analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ
+
+analyseGlobal :: C.DeclInfo Parse -> C.Type Parse -> [(AnonId, Context)]
+analyseGlobal info typ = analyseType (TopLevelStruct info) typ
 
 {-------------------------------------------------------------------------------
   Types

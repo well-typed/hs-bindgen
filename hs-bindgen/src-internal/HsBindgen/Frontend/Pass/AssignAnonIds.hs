@@ -188,7 +188,7 @@ instance UpdateUseSites C.Struct where
     where
       reconstruct ::
            [C.StructField AssignAnonIds]
-        -> (Maybe (C.StructField AssignAnonIds))
+        -> Maybe (C.StructField AssignAnonIds)
         -> C.Struct AssignAnonIds
       reconstruct structFields' structFlam' = C.Struct {
             fields    = structFields'
