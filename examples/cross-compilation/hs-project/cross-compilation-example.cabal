@@ -1,0 +1,115 @@
+cabal-version:   3.0
+name:            cross-compilation-example
+version:         0.1.0.0
+synopsis:        Example demonstrating hs-bindgen cross-compilation
+description:
+  This example demonstrates how to use hs-bindgen to generate Haskell
+  bindings for different target architectures (cross-compilation).
+
+  The generated bindings have different struct sizes and field offsets
+  depending on the target architecture's data model (LP64 vs ILP32).
+
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Well-Typed LLP
+maintainer:      hs-bindgen@well-typed.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common warnings
+  ghc-options: -Wall
+
+common exe-common
+  import:           warnings
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  default-language: Haskell2010
+  build-depends:
+    , base                >=4.16 && <5
+    , hs-bindgen-runtime
+
+-- Library with native bindings
+-- Use this when building for your native platform
+library cross-compilation-native-lib
+  import:           warnings
+  exposed-modules:
+    ArchTypes.Generated
+    ArchTypes.Generated.FunPtr
+    ArchTypes.Generated.Safe
+    ArchTypes.Generated.Unsafe
+
+  build-depends:
+    , base                >=4.16 && <5
+    , hs-bindgen-runtime
+    , primitive
+
+  hs-source-dirs:   src-native
+  default-language: Haskell2010
+
+-- Library with aarch64-linux-gnu bindings
+-- Use this when building for 64-bit ARM Linux
+library cross-compilation-aarch64-lib
+  import:           warnings
+  exposed-modules:
+    ArchTypes.Generated
+    ArchTypes.Generated.FunPtr
+    ArchTypes.Generated.Safe
+    ArchTypes.Generated.Unsafe
+
+  build-depends:
+    , base                >=4.16 && <5
+    , hs-bindgen-runtime
+    , primitive
+
+  hs-source-dirs:   src-aarch64
+  default-language: Haskell2010
+
+-- Library with arm-linux-gnueabihf bindings
+-- Use this when building for 32-bit ARM Linux
+library cross-compilation-arm32-lib
+  import:           warnings
+  exposed-modules:
+    ArchTypes.Generated
+    ArchTypes.Generated.FunPtr
+    ArchTypes.Generated.Safe
+    ArchTypes.Generated.Unsafe
+
+  build-depends:
+    , base                >=4.16 && <5
+    , hs-bindgen-runtime
+    , primitive
+
+  hs-source-dirs:   src-arm32
+  default-language: Haskell2010
+
+-- Backward compatibility alias - uses native bindings
+executable cross-compilation
+  import:           exe-common
+  build-depends:    cross-compilation-native-lib
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  default-language: Haskell2010
+
+-- Native executable that prints struct sizes
+executable cross-compilation-native
+  import:           exe-common
+  build-depends:    cross-compilation-native-lib
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  default-language: Haskell2010
+
+-- aarch64 executable (runs under QEMU or on ARM64 hardware)
+executable cross-compilation-aarch64
+  import:           exe-common
+  build-depends:    cross-compilation-aarch64-lib
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  default-language: Haskell2010
+
+-- arm32 executable (runs under QEMU or on ARM32 hardware)
+executable cross-compilation-arm32
+  import:           exe-common
+  build-depends:    cross-compilation-arm32-lib
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  default-language: Haskell2010
