@@ -115,13 +115,13 @@ getInstances instanceMap name = aux
     ptrInsts :: Set Inst.TypeClass
     ptrInsts = Set.fromList [
         Inst.Eq
+      , Inst.HasFFIType
       , Inst.Ord
       , Inst.ReadRaw
       , Inst.Show
       , Inst.StaticSize
       , Inst.Storable
       , Inst.WriteRaw
-      , Inst.HasFFIType
       ]
 
     cArrayInsts :: Set Inst.TypeClass
