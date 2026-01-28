@@ -31,7 +31,7 @@
 --   return baz(arg1);
 -- }
 -- signed int hs_bindgen_0c873d371c129e78 (
---   signed int const *arg1[3]
+--   signed int const (*arg1)[3]
 -- )
 -- {
 --   return baz_const(arg1);
@@ -43,7 +43,7 @@
 --   return quuz(arg1);
 -- }
 -- signed int hs_bindgen_e39fa59aeb1fef3d (
---   signed int const *arg1[3]
+--   signed int const (*arg1)[3]
 -- )
 -- {
 --   return quuz_const(arg1);
@@ -79,7 +79,7 @@
 --   return baz(arg1);
 -- }
 -- signed int hs_bindgen_13ce150055e8aa41 (
---   signed int const *arg1[3]
+--   signed int const (*arg1)[3]
 -- )
 -- {
 --   return baz_const(arg1);
@@ -91,7 +91,7 @@
 --   return quuz(arg1);
 -- }
 -- signed int hs_bindgen_70be94a6fb59f547 (
---   signed int const *arg1[3]
+--   signed int const (*arg1)[3]
 -- )
 -- {
 --   return quuz_const(arg1);
