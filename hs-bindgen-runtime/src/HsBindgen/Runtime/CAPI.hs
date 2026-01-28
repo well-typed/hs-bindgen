@@ -1,3 +1,7 @@
+-- We capitalize module names, but use camelCase/PascalCase in code:
+--
+-- - in types names:    CapiFoo, FooCapiBar
+-- - in variable names: capiFoo, fooCapiBar
 module HsBindgen.Runtime.CAPI (
     addCSource
   , allocaAndPeek

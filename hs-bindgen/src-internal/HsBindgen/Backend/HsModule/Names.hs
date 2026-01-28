@@ -48,7 +48,7 @@ import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
-import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.FLAM qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
@@ -309,9 +309,9 @@ resolveGlobal = \case
     IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 
     -- Flexible array members
-    FlexibleArrayMember_Offset_class  -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.Offset
-    FlexibleArrayMember_Offset_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.offset
-    WithFlexibleArrayMember           -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember
+    Flam_Offset_class  -> importQ ''HsBindgen.Runtime.FLAM.Offset
+    Flam_Offset_offset -> importQ 'HsBindgen.Runtime.FLAM.offset
+    WithFlam           -> importQ 'HsBindgen.Runtime.FLAM.WithFlam
 
     -- HasCField
     HasCField_class       -> importQ ''HsBindgen.Runtime.HasCField.HasCField

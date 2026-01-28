@@ -1,16 +1,21 @@
 {-# LANGUAGE MagicHash #-}
 
+-- We capitalize module names, but use camelCase/PascalCase in code:
+--
+-- - in types names:    FlamFoo, FooFlamBar
+-- - in variable names: flamFoo, fooFlamBar
+
 -- | Intended for qualified import.
 --
 -- @
--- import HsBindgen.Runtime.FlexibleArrayMember (WithFlexibleArrayMember)
--- import HsBindgen.Runtime.FlexibleArrayMember qualified as Flam
+-- import HsBindgen.Runtime.FLAM (WithFlam)
+-- import HsBindgen.Runtime.FLAM qualified as FLAM
 -- @
-module HsBindgen.Runtime.FlexibleArrayMember (
+module HsBindgen.Runtime.FLAM (
     -- * Definitions
     Offset (..),
     NumElems (..),
-    WithFlexibleArrayMember (..),
+    WithFlam (..),
     -- * Exceptions
     FlamLengthMismatch (..),
 ) where
@@ -35,7 +40,8 @@ class Offset elem aux | aux -> elem where
 class Offset elem aux => NumElems elem aux | aux -> elem where
   numElems :: aux -> Int
 
-data WithFlexibleArrayMember elem aux = WithFlexibleArrayMember
+-- | Data structure with flexible array member
+data WithFlam elem aux = WithFlam
     { -- Underlying data structure without
       aux  :: !aux
       -- We use the word "flam" for the flexible array member of the struct.
@@ -47,12 +53,12 @@ data WithFlexibleArrayMember elem aux = WithFlexibleArrayMember
 
 instance
        (Storable aux, Storable elem, NumElems elem aux)
-    => ReadRaw (WithFlexibleArrayMember elem aux) where
+    => ReadRaw (WithFlam elem aux) where
   readRaw = peek
 
 instance
        (Storable aux, Storable elem, NumElems elem aux )
-    => WriteRaw (WithFlexibleArrayMember elem aux) where
+    => WriteRaw (WithFlam elem aux) where
   writeRaw = poke
 
 {-------------------------------------------------------------------------------
@@ -62,7 +68,7 @@ instance
 -- | Peek structure with flexible array member.
 peek :: forall aux elem.
      (Storable aux , Storable elem, NumElems elem aux)
-  => Ptr (WithFlexibleArrayMember elem aux) -> IO (WithFlexibleArrayMember elem aux)
+  => Ptr (WithFlam elem aux) -> IO (WithFlam elem aux)
 peek ptrStruct = do
     aux <- Foreign.peek (ptrToAux ptrStruct)
     let Size{sizeNumElems, sizeNumBytes} = flamSize aux
@@ -70,13 +76,13 @@ peek ptrStruct = do
     Foreign.withForeignPtr (fst (VSM.unsafeToForeignPtr0 vector)) $ \ptrVectorElems -> do
         Foreign.copyBytes ptrVectorElems (ptrToFlam ptrStruct) sizeNumBytes
     vector' <- VS.unsafeFreeze vector
-    return (WithFlexibleArrayMember aux vector')
+    return (WithFlam aux vector')
 
 -- | Poke structure with flexible array member.
 poke :: forall aux elem.
      (Storable aux, Storable elem, NumElems elem aux)
-  => Ptr (WithFlexibleArrayMember elem aux) -> WithFlexibleArrayMember elem aux -> IO ()
-poke ptrStruct (WithFlexibleArrayMember aux vector)
+  => Ptr (WithFlam elem aux) -> WithFlam elem aux -> IO ()
+poke ptrStruct (WithFlam aux vector)
   | sizeNumElems /= VS.length vector =
       throwIO $ FlamLengthMismatch sizeNumElems (VS.length vector)
   | otherwise = do
@@ -102,12 +108,12 @@ instance Exception FlamLengthMismatch
   Internal helpers
 -------------------------------------------------------------------------------}
 
-ptrToAux :: Ptr (WithFlexibleArrayMember elem aux) -> Ptr aux
+ptrToAux :: Ptr (WithFlam elem aux) -> Ptr aux
 ptrToAux = Foreign.castPtr
 
 ptrToFlam :: forall elem aux.
      Offset elem aux
-  => Ptr (WithFlexibleArrayMember elem aux) -> Ptr elem
+  => Ptr (WithFlam elem aux) -> Ptr elem
 ptrToFlam ptrStruct = Foreign.plusPtr ptrStruct (offset (proxy# @aux))
 
 -- Internal.

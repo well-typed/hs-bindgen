@@ -25,9 +25,9 @@ import HsBindgen.Runtime.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.CEnum qualified as CEnum
 import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.ConstantArray qualified as CA
-import HsBindgen.Runtime.FlexibleArrayMember
-    (FlamLengthMismatch (FlamLengthMismatch), WithFlexibleArrayMember)
-import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
+import HsBindgen.Runtime.FLAM
+    (FlamLengthMismatch (FlamLengthMismatch), WithFlam)
+import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.Marshal
     (ReadRaw(readRaw), WriteRaw(writeRaw))
 import HsBindgen.Runtime.LibC qualified as LibC

@@ -98,7 +98,7 @@ getDeclsFieldVecFlam flam cfg hCfg spec info struct fieldsVec = do
         Hs.DefineInstance{
             comment      = Nothing
           , instanceDecl =
-              Hs.InstanceHasFLAM
+              Hs.InstanceHasFlam
                 hsStruct
                 (Type.topLevel flam.typ)
                 (flam.offset `div` 8)
@@ -112,7 +112,7 @@ getDeclsFieldVecFlam flam cfg hCfg spec info struct fieldsVec = do
         Hs.TypSyn{
             name
           , typ     =
-              Hs.HsWithFlexibleArrayMember
+              Hs.HsWithFlam
                 (Type.topLevel flam.typ)
                 (Hs.HsTypRef auxName Nothing)
           , origin  = Origin.Decl{

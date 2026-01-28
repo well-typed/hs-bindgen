@@ -102,7 +102,7 @@ instance TyEq ty (CFieldType Vector_Aux "vector_length") =>
     where getField = ptrToCField (Proxy @"vector_length")
 instance Offset CLong Vector_Aux
     where offset = \_ty_0 -> 8
-type Vector = WithFlexibleArrayMember CLong Vector_Aux
+type Vector = WithFlam CLong Vector_Aux
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
 foreign import ccall safe "hs_bindgen_231473be98482b20" hs_bindgen_231473be98482b20_base ::
     Int32

@@ -62,8 +62,8 @@ getInstances instanceMap name = aux
           HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
           HsStrLit{} -> Set.empty
           -- TODO https://github.com/well-typed/hs-bindgen/issues/1572:
-          -- Instances for 'WithFlexibleArrayMember'.
-          HsWithFlexibleArrayMember{} -> Set.empty
+          -- Instances for 'WithFlam'.
+          HsWithFlam{} -> Set.empty
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection

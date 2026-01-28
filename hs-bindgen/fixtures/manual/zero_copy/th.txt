@@ -694,7 +694,7 @@ instance TyEq ty (CFieldType Vector_Aux "vector_len") =>
     where getField = ptrToCField (Proxy @"vector_len")
 instance Offset CChar Vector_Aux
     where offset = \_ty_0 -> 4
-type Vector = WithFlexibleArrayMember CChar Vector_Aux
+type Vector = WithFlam CChar Vector_Aux
 {-| __C declaration:__ @triplet@
 
     __defined at:__ @manual\/zero_copy.h 82:13@

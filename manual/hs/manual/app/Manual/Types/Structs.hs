@@ -12,7 +12,7 @@ import Foreign.C qualified as FC
 import System.IO.Unsafe
 
 import HsBindgen.Runtime.ConstPtr
-import HsBindgen.Runtime.FlexibleArrayMember qualified as Flam
+import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.Marshal (ReadRaw (..))
 
@@ -34,7 +34,7 @@ mkTriple a b c = unsafePerformIO $
   Structs with flexible array members
 -------------------------------------------------------------------------------}
 
-instance Flam.NumElems FC.CChar Surname_Aux where
+instance FLAM.NumElems FC.CChar Surname_Aux where
   numElems x = fromIntegral (surname_len x)
 
 {-------------------------------------------------------------------------------
@@ -54,8 +54,8 @@ examples = do
     bracket (IA.withPtr arr $ \ptr -> surname_alloc (ConstPtr ptr)) surname_free $
       \ptr -> do
         surname <- readRaw ptr
-        putStrLn $ "The length of the surname is: " <> show (Flam.numElems surname.aux)
-        print $ VS.map castCCharToChar $ Flam.flam surname
+        putStrLn $ "The length of the surname is: " <> show (FLAM.numElems surname.aux)
+        print $ VS.map castCCharToChar $ FLAM.flam surname
 
     subsection "PrimArray of structs"
     -- Create a PrimArray of Triple structs

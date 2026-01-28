@@ -33,7 +33,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.FlexibleArrayMember
+import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
@@ -1313,7 +1313,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Flexible_array_Aux) 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"flexible_array_count")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CInt Flexible_array_Aux where
+instance HsBindgen.Runtime.FLAM.Offset FC.CInt Flexible_array_Aux where
 
   offset = \_ty0 -> 8
 
@@ -1332,4 +1332,4 @@ __defined at:__ @documentation\/doxygen_docs.h 360:8@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 type Flexible_array =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CInt) Flexible_array_Aux
+  (HsBindgen.Runtime.FLAM.WithFlam FC.CInt) Flexible_array_Aux

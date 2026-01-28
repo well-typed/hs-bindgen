@@ -73,5 +73,5 @@ data HsType =
   | HsBlock HsType
   | HsComplexType HsPrimType
   | HsStrLit String
-  | HsWithFlexibleArrayMember HsType HsType
+  | HsWithFlam HsType HsType
   deriving stock (Generic, Show, Eq)

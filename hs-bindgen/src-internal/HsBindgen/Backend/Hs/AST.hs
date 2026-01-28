@@ -270,7 +270,7 @@ data InstanceDecl where
     InstanceHasCField :: HasCFieldInstance -> InstanceDecl
     InstanceHasCBitfield :: HasCBitfieldInstance -> InstanceDecl
     InstanceHasField :: HasFieldInstance -> InstanceDecl
-    InstanceHasFLAM :: Struct n -> HsType -> Int -> InstanceDecl
+    InstanceHasFlam :: Struct n -> HsType -> Int -> InstanceDecl
     InstanceCEnum ::
          Struct (S Z)
       -> HsType

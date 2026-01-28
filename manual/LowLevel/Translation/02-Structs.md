@@ -223,17 +223,17 @@ data Surname = Surname
 ```
 
 We provide additional tools to handle the FLAM. First, the generated data type
-is instance of `HasFlexibleArrayMember`:
+is instance of `HasFlam`:
 
 ```haskell
-instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember CChar Surname where
+instance HsBindgen.Runtime.FLAM.HasFlam CChar Surname where
   flexibleArrayMemberOffset = \_ty0 -> 4
 ```
 
 Second, the user can define the length of the FLAM, if known:
 
 ```haskell
-class HasFlexibleArrayMember element struct => HasFlexibleArrayLength element struct | struct -> element where
+class HasFlam element struct => HasFlexibleArrayLength element struct | struct -> element where
   flexibleArrayMemberLength :: struct -> Int
 ```
 
@@ -244,21 +244,21 @@ instance HasFlexibleArrayLength CChar Surname where
   flexibleArrayMemberLength x = fromIntegral (surname_len x)
 ```
 
-Then, we can use the FLAM-specific `peek` and `poke` functions `peekWithFLAM`,
-and `pokeWithFLAM`. The type signatures specialized to `Surname` are:
+Then, we can use the FLAM-specific `peek` and `poke` functions `FLAM.peek`,
+and `FLAM.poke`. The type signatures specialized to `Surname` are:
 
 ```haskell
-peekWithFLAM :: (Storable Surname, Storable CChar, HasFlexibleArrayLength CChar Surname)
-  => Ptr Surname -> IO (WithFlexibleArrayMember CChar Surname)
+peek :: (Storable Surname, Storable CChar, HasFlexibleArrayLength CChar Surname)
+  => Ptr Surname -> IO (WithFlam CChar Surname)
 
-pokeWithFLAM :: (Storable Surname, Storable CChar, HasFlexibleArrayLength CChar Surname)
-  => Ptr Surname -> WithFlexibleArrayMember CChar Surname -> IO ()
+poke :: (Storable Surname, Storable CChar, HasFlexibleArrayLength CChar Surname)
+  => Ptr Surname -> WithFlam CChar Surname -> IO ()
 ```
 
-where `WithFlexibleArrayMember` combines the structure with the FLAM:
+where `WithFlam` combines the structure with the FLAM:
 
 ```haskell
-data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
+data WithFlam element struct = WithFlam
     { flamStruct :: struct
     , flamExtra  :: Vector element
     }
@@ -271,7 +271,7 @@ bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_free $
   \ptr -> do
     (surname :: Surname) <- peek ptr
     putStrLn $ "The length of the surname is: " <> show (surname_len surname)
-    (surnameWithFlam :: WithFlexibleArrayMember CChar Surname) <-
+    (surnameWithFlam :: WithFlam CChar Surname) <-
       FLAM.peekWithFLAM ptr
     let name :: Vector CChar
         name = FLAM.flamExtra surnameWithFlam

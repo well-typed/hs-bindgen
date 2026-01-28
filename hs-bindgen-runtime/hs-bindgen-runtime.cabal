@@ -47,7 +47,7 @@ library
     HsBindgen.Runtime.ConstantArray
     HsBindgen.Runtime.ConstPtr
     HsBindgen.Runtime.FFIType
-    HsBindgen.Runtime.FlexibleArrayMember
+    HsBindgen.Runtime.FLAM
     HsBindgen.Runtime.FunPtr
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.HasFFIType
