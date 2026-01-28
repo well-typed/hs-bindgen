@@ -20,7 +20,10 @@ import HsBindgen.Runtime.ByteArray
   Definition
 -------------------------------------------------------------------------------}
 
--- | Deriving-via support for 'ByteArray'
+-- | A 'SizedByteArray.SizedByteArray' is a 'Data.Array.Byte.ByteArray' with
+-- given size
+--
+-- 'SizedByteArray's provide deriving-via support for 'ByteArray'.
 --
 -- Intended usage:
 --

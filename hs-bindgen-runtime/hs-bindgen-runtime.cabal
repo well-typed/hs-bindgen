@@ -53,6 +53,7 @@ library
     HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.LibC
+    HsBindgen.Runtime.LibC.Auxiliary
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.Ptr
