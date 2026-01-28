@@ -50,6 +50,8 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
           fmap (nameForTypedefDirect anonId) <$> declName declInfo.id
         AnonUsageAnalysis.TypedefIndirect declInfo ->
           fmap (nameForTypedefIndirect anonId) <$> declName declInfo.id
+        AnonUsageAnalysis.TopLevelStruct declInfo ->
+          fmap (nameForTopLevelStruct anonId) <$> declName declInfo.id
 
     declName :: PrelimDeclId -> Memoize (Maybe DeclId)
     declName = \case
@@ -96,6 +98,25 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
           isAnon = True
         , name   = C.DeclName{
               text = typedef.name.text <> "_Aux"
+            , kind = anonId.kind
+            }
+        }
+
+    -- | Use the name of the global variable for the anonymous struct
+    --
+    -- For example, given:
+    --
+    -- > struct { int x; int y; } a;
+    --
+    -- the struct is named "a".
+    --
+    -- Similar to 'nameForTypedefDirect', we set @isAnon@ to @False@ because
+    -- the struct effectively takes on the identity of the global variable name.
+    nameForTopLevelStruct :: AnonId -> DeclId -> DeclId
+    nameForTopLevelStruct anonId globalVar = DeclId{
+          isAnon = False  -- The struct takes the global's name as its own
+        , name   = C.DeclName{
+              text = globalVar.name.text
             , kind = anonId.kind
             }
         }

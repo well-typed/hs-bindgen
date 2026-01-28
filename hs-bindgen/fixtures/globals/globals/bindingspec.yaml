@@ -27,7 +27,47 @@ ctypes:
 - headers: globals/globals.h
   cname: struct2_t
   hsname: Struct2_t
+- headers: globals/globals.h
+  cname: struct anonPoint
+  hsname: AnonPoint
+- headers: globals/globals.h
+  cname: struct anonPair
+  hsname: AnonPair
 hstypes:
+- hsname: AnonPair
+  representation:
+    record:
+      constructor: AnonPair
+      fields:
+      - anonPair_a
+      - anonPair_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonPoint
+  representation:
+    record:
+      constructor: AnonPoint
+      fields:
+      - anonPoint_x
+      - anonPoint_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Config
   representation:
     record:

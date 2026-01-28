@@ -434,3 +434,9 @@ struct2_t some_global_struct = {
         },
      }
   };
+
+// Basic anonymous struct global
+struct { int x; int y; } anonPoint;
+
+// Anonymous struct with initializer
+struct { int a; int b; } anonPair = { 1, 2 };
