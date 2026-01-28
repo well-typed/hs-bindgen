@@ -24,6 +24,7 @@ EOF
 }
 
 # Known failures - these will be skipped unless -f is used
+# NOTE: Mirrored in Test.HsBindgen.THFixtures.TestCases.determineTHStatus
 KNOWN_FAILURES=(
     binding-specs/fun_arg/typedef/array            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     binding-specs/fun_arg/typedef/array_known_size # Fixtures with external binding specs can not be compiled yet (see issue #1495)
@@ -52,6 +53,7 @@ KNOWN_FAILURES=(
 )
 
 # Known fixtures without code - these will be skipped
+# NOTE: Mirrored in Test.HsBindgen.THFixtures.TestCases.emptyOutputFixtures
 KNOWN_EMPTY=(
     binding-specs/macro_trans_dep_missing # TODO: issue #1513.
     declarations/declaration_unselected_b

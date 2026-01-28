@@ -1,5 +1,63 @@
 -- addDependentFile examples/golden/functions/simple_func.h
 -- #include <functions/simple_func.h>
+-- double hs_bindgen_52a0bfa9acc31e7d (
+--   double arg1
+-- )
+-- {
+--   return erf(arg1);
+-- }
+-- double hs_bindgen_12040ac3f8c8b567 (
+--   double arg1,
+--   double arg2,
+--   double arg3
+-- )
+-- {
+--   return bad_fma(arg1, arg2, arg3);
+-- }
+-- void hs_bindgen_9c7d512a104e010d (void)
+-- {
+--   no_args();
+-- }
+-- void hs_bindgen_d936554f1cbdfcb5 (void)
+-- {
+--   no_args_no_void();
+-- }
+-- signed int hs_bindgen_b75765ef8a404d20 (
+--   char arg1,
+--   double arg2
+-- )
+-- {
+--   return fun(arg1, arg2);
+-- }
+-- double hs_bindgen_35aab8a56d995747 (
+--   double arg1
+-- )
+-- {
+--   return erf(arg1);
+-- }
+-- double hs_bindgen_2d1552ed9b864813 (
+--   double arg1,
+--   double arg2,
+--   double arg3
+-- )
+-- {
+--   return bad_fma(arg1, arg2, arg3);
+-- }
+-- void hs_bindgen_7f356344ab41e518 (void)
+-- {
+--   no_args();
+-- }
+-- void hs_bindgen_88bf8ba61a5b77f9 (void)
+-- {
+--   no_args_no_void();
+-- }
+-- signed int hs_bindgen_35ba10e2f92f66ca (
+--   char arg1,
+--   double arg2
+-- )
+-- {
+--   return fun(arg1, arg2);
+-- }
 -- /* test_functionssimple_func_1_rename_Example_get_erf */
 -- __attribute__ ((const))
 -- double (*hs_bindgen_7d72952bb141f2c8 (void)) (
@@ -39,6 +97,246 @@
 -- {
 --   return &fun;
 -- }
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_erf@
+foreign import ccall safe "hs_bindgen_52a0bfa9acc31e7d" hs_bindgen_52a0bfa9acc31e7d_base ::
+    Double
+ -> Double
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_erf@
+hs_bindgen_52a0bfa9acc31e7d :: CDouble -> CDouble
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_erf@
+hs_bindgen_52a0bfa9acc31e7d = fromFFIType hs_bindgen_52a0bfa9acc31e7d_base
+{-|
+
+  Marked @__attribute((const))__@
+
+__C declaration:__ @erf@
+
+__defined at:__ @functions\/simple_func.h 1:8@
+
+__exported by:__ @functions\/simple_func.h@
+-}
+erf_safe :: CDouble -> CDouble
+{-|
+
+  Marked @__attribute((const))__@
+
+__C declaration:__ @erf@
+
+__defined at:__ @functions\/simple_func.h 1:8@
+
+__exported by:__ @functions\/simple_func.h@
+-}
+erf_safe = hs_bindgen_52a0bfa9acc31e7d
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_bad_fma@
+foreign import ccall safe "hs_bindgen_12040ac3f8c8b567" hs_bindgen_12040ac3f8c8b567_base ::
+    Double
+ -> Double
+ -> Double
+ -> IO Double
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_bad_fma@
+hs_bindgen_12040ac3f8c8b567 :: CDouble ->
+                               CDouble -> CDouble -> IO CDouble
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_bad_fma@
+hs_bindgen_12040ac3f8c8b567 = fromFFIType hs_bindgen_12040ac3f8c8b567_base
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @functions\/simple_func.h 3:22@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+bad_fma_safe :: CDouble -> CDouble -> CDouble -> IO CDouble
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @functions\/simple_func.h 3:22@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+bad_fma_safe = hs_bindgen_12040ac3f8c8b567
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_no_args@
+foreign import ccall safe "hs_bindgen_9c7d512a104e010d" hs_bindgen_9c7d512a104e010d_base ::
+    IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_no_args@
+hs_bindgen_9c7d512a104e010d :: IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_no_args@
+hs_bindgen_9c7d512a104e010d = fromFFIType hs_bindgen_9c7d512a104e010d_base
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @functions\/simple_func.h 7:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_safe :: IO Unit
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @functions\/simple_func.h 7:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_safe = hs_bindgen_9c7d512a104e010d
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_no_args_no_void@
+foreign import ccall safe "hs_bindgen_d936554f1cbdfcb5" hs_bindgen_d936554f1cbdfcb5_base ::
+    IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_no_args_no_void@
+hs_bindgen_d936554f1cbdfcb5 :: IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_no_args_no_void@
+hs_bindgen_d936554f1cbdfcb5 = fromFFIType hs_bindgen_d936554f1cbdfcb5_base
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @functions\/simple_func.h 9:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_no_void_safe :: IO Unit
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @functions\/simple_func.h 9:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_no_void_safe = hs_bindgen_d936554f1cbdfcb5
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_fun@
+foreign import ccall safe "hs_bindgen_b75765ef8a404d20" hs_bindgen_b75765ef8a404d20_base ::
+    Int8
+ -> Double
+ -> IO Int32
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_fun@
+hs_bindgen_b75765ef8a404d20 :: CChar -> CDouble -> IO CInt
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Safe_fun@
+hs_bindgen_b75765ef8a404d20 = fromFFIType hs_bindgen_b75765ef8a404d20_base
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/simple_func.h 11:5@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+fun_safe :: CChar -> CDouble -> IO CInt
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/simple_func.h 11:5@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+fun_safe = hs_bindgen_b75765ef8a404d20
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_erf@
+foreign import ccall unsafe "hs_bindgen_35aab8a56d995747" hs_bindgen_35aab8a56d995747_base ::
+    Double
+ -> Double
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_erf@
+hs_bindgen_35aab8a56d995747 :: CDouble -> CDouble
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_erf@
+hs_bindgen_35aab8a56d995747 = fromFFIType hs_bindgen_35aab8a56d995747_base
+{-|
+
+  Marked @__attribute((const))__@
+
+__C declaration:__ @erf@
+
+__defined at:__ @functions\/simple_func.h 1:8@
+
+__exported by:__ @functions\/simple_func.h@
+-}
+erf_unsafe :: CDouble -> CDouble
+{-|
+
+  Marked @__attribute((const))__@
+
+__C declaration:__ @erf@
+
+__defined at:__ @functions\/simple_func.h 1:8@
+
+__exported by:__ @functions\/simple_func.h@
+-}
+erf_unsafe = hs_bindgen_35aab8a56d995747
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_bad_fma@
+foreign import ccall unsafe "hs_bindgen_2d1552ed9b864813" hs_bindgen_2d1552ed9b864813_base ::
+    Double
+ -> Double
+ -> Double
+ -> IO Double
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_bad_fma@
+hs_bindgen_2d1552ed9b864813 :: CDouble ->
+                               CDouble -> CDouble -> IO CDouble
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_bad_fma@
+hs_bindgen_2d1552ed9b864813 = fromFFIType hs_bindgen_2d1552ed9b864813_base
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @functions\/simple_func.h 3:22@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+bad_fma_unsafe :: CDouble -> CDouble -> CDouble -> IO CDouble
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @functions\/simple_func.h 3:22@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+bad_fma_unsafe = hs_bindgen_2d1552ed9b864813
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_no_args@
+foreign import ccall unsafe "hs_bindgen_7f356344ab41e518" hs_bindgen_7f356344ab41e518_base ::
+    IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_no_args@
+hs_bindgen_7f356344ab41e518 :: IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_no_args@
+hs_bindgen_7f356344ab41e518 = fromFFIType hs_bindgen_7f356344ab41e518_base
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @functions\/simple_func.h 7:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_unsafe :: IO Unit
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @functions\/simple_func.h 7:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_unsafe = hs_bindgen_7f356344ab41e518
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_no_args_no_void@
+foreign import ccall unsafe "hs_bindgen_88bf8ba61a5b77f9" hs_bindgen_88bf8ba61a5b77f9_base ::
+    IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_no_args_no_void@
+hs_bindgen_88bf8ba61a5b77f9 :: IO Unit
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_no_args_no_void@
+hs_bindgen_88bf8ba61a5b77f9 = fromFFIType hs_bindgen_88bf8ba61a5b77f9_base
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @functions\/simple_func.h 9:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_no_void_unsafe :: IO Unit
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @functions\/simple_func.h 9:6@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+no_args_no_void_unsafe = hs_bindgen_88bf8ba61a5b77f9
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_fun@
+foreign import ccall unsafe "hs_bindgen_35ba10e2f92f66ca" hs_bindgen_35ba10e2f92f66ca_base ::
+    Int8
+ -> Double
+ -> IO Int32
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_fun@
+hs_bindgen_35ba10e2f92f66ca :: CChar -> CDouble -> IO CInt
+-- __unique:__ @test_functionssimple_func_1_rename_Example_Unsafe_fun@
+hs_bindgen_35ba10e2f92f66ca = fromFFIType hs_bindgen_35ba10e2f92f66ca_base
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/simple_func.h 11:5@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+fun_unsafe :: CChar -> CDouble -> IO CInt
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/simple_func.h 11:5@
+
+    __exported by:__ @functions\/simple_func.h@
+-}
+fun_unsafe = hs_bindgen_35ba10e2f92f66ca
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_erf@
 foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb141f2c8_base ::
     IO (FunPtr Void)
@@ -46,21 +344,21 @@ foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb14
 hs_bindgen_7d72952bb141f2c8 :: IO (FunPtr (CDouble -> IO CDouble))
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_erf@
 hs_bindgen_7d72952bb141f2c8 = fromFFIType hs_bindgen_7d72952bb141f2c8_base
-{-# NOINLINE erf_random_user_specified_suffix #-}
+{-# NOINLINE erf_funptr #-}
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h 1:8@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-erf_random_user_specified_suffix :: FunPtr (CDouble -> IO CDouble)
+erf_funptr :: FunPtr (CDouble -> IO CDouble)
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h 1:8@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-erf_random_user_specified_suffix = unsafePerformIO hs_bindgen_7d72952bb141f2c8
+erf_funptr = unsafePerformIO hs_bindgen_7d72952bb141f2c8
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_bad_fma@
 foreign import ccall unsafe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d948e996_base ::
     IO (FunPtr Void)
@@ -69,22 +367,22 @@ hs_bindgen_d8b56ce4d948e996 :: IO (FunPtr (CDouble ->
                                            CDouble -> CDouble -> IO CDouble))
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_bad_fma@
 hs_bindgen_d8b56ce4d948e996 = fromFFIType hs_bindgen_d8b56ce4d948e996_base
-{-# NOINLINE bad_fma_random_user_specified_suffix #-}
+{-# NOINLINE bad_fma_funptr #-}
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h 3:22@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-bad_fma_random_user_specified_suffix :: FunPtr (CDouble ->
-                                                CDouble -> CDouble -> IO CDouble)
+bad_fma_funptr :: FunPtr (CDouble ->
+                          CDouble -> CDouble -> IO CDouble)
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h 3:22@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-bad_fma_random_user_specified_suffix = unsafePerformIO hs_bindgen_d8b56ce4d948e996
+bad_fma_funptr = unsafePerformIO hs_bindgen_d8b56ce4d948e996
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
 foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb304fc_base ::
     IO (FunPtr Void)
@@ -92,21 +390,21 @@ foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb
 hs_bindgen_b07b517c1cb304fc :: IO (FunPtr (IO Unit))
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
 hs_bindgen_b07b517c1cb304fc = fromFFIType hs_bindgen_b07b517c1cb304fc_base
-{-# NOINLINE no_args_random_user_specified_suffix #-}
+{-# NOINLINE no_args_funptr #-}
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_random_user_specified_suffix :: FunPtr (IO Unit)
+no_args_funptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_random_user_specified_suffix = unsafePerformIO hs_bindgen_b07b517c1cb304fc
+no_args_funptr = unsafePerformIO hs_bindgen_b07b517c1cb304fc
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
 foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff8560009309_base ::
     IO (FunPtr Void)
@@ -114,21 +412,21 @@ foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff85600
 hs_bindgen_cc43ff8560009309 :: IO (FunPtr (IO Unit))
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
 hs_bindgen_cc43ff8560009309 = fromFFIType hs_bindgen_cc43ff8560009309_base
-{-# NOINLINE no_args_no_void_random_user_specified_suffix #-}
+{-# NOINLINE no_args_no_void_funptr #-}
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void_random_user_specified_suffix :: FunPtr (IO Unit)
+no_args_no_void_funptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void_random_user_specified_suffix = unsafePerformIO hs_bindgen_cc43ff8560009309
+no_args_no_void_funptr = unsafePerformIO hs_bindgen_cc43ff8560009309
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f0ba6c_base ::
     IO (FunPtr Void)
@@ -137,19 +435,18 @@ hs_bindgen_14a306e8e8f0ba6c :: IO (FunPtr (CChar ->
                                            CDouble -> IO CInt))
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_fun@
 hs_bindgen_14a306e8e8f0ba6c = fromFFIType hs_bindgen_14a306e8e8f0ba6c_base
-{-# NOINLINE fun_random_user_specified_suffix #-}
+{-# NOINLINE fun_funptr #-}
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/simple_func.h 11:5@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-fun_random_user_specified_suffix :: FunPtr (CChar ->
-                                            CDouble -> IO CInt)
+fun_funptr :: FunPtr (CChar -> CDouble -> IO CInt)
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/simple_func.h 11:5@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-fun_random_user_specified_suffix = unsafePerformIO hs_bindgen_14a306e8e8f0ba6c
+fun_funptr = unsafePerformIO hs_bindgen_14a306e8e8f0ba6c
