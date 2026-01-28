@@ -1,5 +1,5 @@
 -- | C standard library types that are not in @base@
-module HsBindgen.Runtime.LibC (
+module HsBindgen.Runtime.LibC.Auxiliary (
     -- * Floating Types
     CFenvT
   , CFexceptT
