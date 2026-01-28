@@ -7,11 +7,11 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
 import Prelude (Double, IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <functions/simple_func.h>"
   , "double hs_bindgen_da5d889180d72efd ("
   , "  double arg1"

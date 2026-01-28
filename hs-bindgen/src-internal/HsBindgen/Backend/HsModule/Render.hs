@@ -34,7 +34,7 @@ import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Backend.HsModule.Capi (renderCapiWrapper)
+import HsBindgen.Backend.HsModule.CAPI (renderCapiWrapper)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST

@@ -6,11 +6,11 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
 import Prelude (Double, IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
   , "double hs_bindgen_06a412f170b5ff91 ("
   , "  double arg1"

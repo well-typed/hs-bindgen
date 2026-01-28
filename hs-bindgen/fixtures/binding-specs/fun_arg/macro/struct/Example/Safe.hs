@@ -7,13 +7,13 @@ module Example.Safe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/struct.h>"
   , "void hs_bindgen_f2a9c7d0ba1aaa3b ("
   , "  struct MyStruct *arg1"

@@ -1,4 +1,8 @@
-module HsBindgen.Backend.HsModule.Capi (
+-- We capitalize module names, but use camelCase/PascalCase in code:
+--
+-- - in types names:    CapiFoo, FooCapiBar
+-- - in variable names: capiFoo, fooCapiBar
+module HsBindgen.Backend.HsModule.CAPI (
     capiImport
   , renderCapiWrapper
   )
@@ -13,15 +17,9 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | The CAPI `addCSource` import.
 --
--- We import the @hs-bindgen-runtime@ prelude when adding C sources. Foreign
--- imports of these C sources require the _data_ constructors of all involved
--- data types to be in scope. We can only ensure the data constructors to be in
--- scope by tying the CAPI import statement to an import of all C wrapper data
--- types we are using (such as 'Foreign.C.CDouble').
---
--- See also "HsBindgen.Runtime.Prelude".
+-- See also "HsBindgen.Runtime.CAPI".
 capiImport :: HsImportModule
-capiImport = HsImportModule hsbPrelude Nothing
+capiImport = HsImportModule hsbCapiModule Nothing
 
 -- | Render the CAPI `addCSource` code fragment.
 --
@@ -30,8 +28,9 @@ renderCapiWrapper :: String -> CtxDoc
 renderCapiWrapper src = PP.vcat [
      PP.hcat [
          "$("
-       , fromString (Hs.moduleNameToString hsbPrelude)
-       , ".addCSource (HsBindgen.Runtime.Prelude.unlines"
+       , withCapiModule "addCSource"
+       , " ("
+       , withCapiModule "unlines"
        ]
   , PP.hcat [
         PP.nest 2 (PP.vlist "[" "]" linesDocs)
@@ -39,8 +38,16 @@ renderCapiWrapper src = PP.vcat [
       ]
   ]
   where
+    linesDocs :: [CtxDoc]
     linesDocs = map (fromString . show) (lines src)
 
+    withCapiModule :: String -> CtxDoc
+    withCapiModule x = PP.hcat [
+        PP.string (Hs.moduleNameToString hsbCapiModule)
+      , "."
+      , PP.string x
+      ]
+
 -- Qualified import string for @hs-bindgen-runtime@ prelude.
-hsbPrelude :: Hs.ModuleName
-hsbPrelude = "HsBindgen.Runtime.Prelude"
+hsbCapiModule :: Hs.ModuleName
+hsbCapiModule = "HsBindgen.Runtime.CAPI"

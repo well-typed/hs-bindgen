@@ -19,7 +19,7 @@ import Data.Void (Void)
 import Example
 import Prelude (Double, Float, IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <macros/reparse.h>"
   , "void hs_bindgen_c1716e300ba327c7 ("
   , "  A arg1,"

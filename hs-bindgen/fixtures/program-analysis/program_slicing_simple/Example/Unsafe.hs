@@ -9,12 +9,12 @@ import qualified Foreign
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Word
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <program-analysis/program_slicing_simple.h>"
   , "signed int hs_bindgen_fe855d53295ba8ab ("
   , "  uint64_t arg1,"

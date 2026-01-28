@@ -5,11 +5,11 @@
 
 module Example.Safe where
 
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <attributes/visibility_attributes.h>"
   , "void hs_bindgen_e64a83c5f7f51679 (void)"
   , "{"
