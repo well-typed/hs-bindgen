@@ -199,8 +199,7 @@ obtains the bitfield member of type `a` at the destination of the provided
 ## Flexible array members
 
 Members of unknown size can only appear at the end of structure declarations.
-These are called [_flexible array members_
-(FLAMs)](https://en.wikipedia.org/wiki/Flexible_array_member). For example,
+These are called [_flexible array members_ (FLAMs)](https://en.wikipedia.org/wiki/Flexible_array_member). For example,
 
 ```c
 struct surname {
@@ -212,70 +211,77 @@ struct surname {
 Note: The `sizeof` C operator, when applied to a structure with a FLAM, gives
 the size of the structure as if the FLAM were empty.
 
-In a similar spirit, and since we do not know the length of the FLAM, the
-generated Haskell data type only contains the fixed-size members of the
-structure:
+In a similar spirit, and since we do not know the length of the FLAM,
+`hs-bindgen` generates an auxiliary =newtype= that only contains the fixed-size
+members of the structure
 
 ```haskell
-data Surname = Surname
+data Surname_Aux = Surname
   { surname_len :: CInt
   }
 ```
 
-We provide additional tools to handle the FLAM. First, the generated data type
-is instance of `HasFlam`:
+We provide additional tools to handle the FLAM. First, `hs-bindgen` provides a
+type synonym
 
 ```haskell
-instance HsBindgen.Runtime.FLAM.HasFlam CChar Surname where
-  flexibleArrayMemberOffset = \_ty0 -> 4
+type Surname = WithFlam FC.CChar Surname_Aux
 ```
 
-Second, the user can define the length of the FLAM, if known:
+`WithFlam` is exported the module `HsBindgen.Runtime.FLAM`, which is part of the
+`hs-bindgen-runtime` package. `WithFlam` a tiny wrapper around the auxiliary
+data type
 
 ```haskell
-class HasFlam element struct => HasFlexibleArrayLength element struct | struct -> element where
-  flexibleArrayMemberLength :: struct -> Int
-```
-
-Let us define such an instance:
-
-```haskell
-instance HasFlexibleArrayLength CChar Surname where
-  flexibleArrayMemberLength x = fromIntegral (surname_len x)
-```
-
-Then, we can use the FLAM-specific `peek` and `poke` functions `FLAM.peek`,
-and `FLAM.poke`. The type signatures specialized to `Surname` are:
-
-```haskell
-peek :: (Storable Surname, Storable CChar, HasFlexibleArrayLength CChar Surname)
-  => Ptr Surname -> IO (WithFlam CChar Surname)
-
-poke :: (Storable Surname, Storable CChar, HasFlexibleArrayLength CChar Surname)
-  => Ptr Surname -> WithFlam CChar Surname -> IO ()
-```
-
-where `WithFlam` combines the structure with the FLAM:
-
-```haskell
-data WithFlam element struct = WithFlam
-    { flamStruct :: struct
-    , flamExtra  :: Vector element
+data WithFlam elem aux = WithFlam
+    { -- Underlying data structure without
+      aux  :: !aux
+      -- We use the word "flam" for the flexible array member of the struct.
+      -- We use the word "vector" to refer to its Haskell representation (as a
+      -- vector).
+    , flam :: {-# UNPACK #-} !(VS.Vector elem)
     }
 ```
 
-For example,
+`hs-bindgen` does not know the length of the FLAM, which can be defined by the
+user, if known
 
 ```haskell
-bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_free $
-  \ptr -> do
-    (surname :: Surname) <- peek ptr
-    putStrLn $ "The length of the surname is: " <> show (surname_len surname)
-    (surnameWithFlam :: WithFlam CChar Surname) <-
-      FLAM.peekWithFLAM ptr
-    let name :: Vector CChar
-        name = FLAM.flamExtra surnameWithFlam
-    print $ Vector.map castCCharToChar name
+class Offset elem aux => NumElems elem aux | aux -> elem where
+  numElems :: aux -> Int
+```
+
+Let us define such an instance
+
+```haskell
+instance NumElems FC.CChar Surname_Aux where
+  numElems :: Surname_Aux -> Int
+  numElems x = fromIntegral (surname_len x)
+```
+
+Then, we can use the FLAM-specific `peek` and `poke` functions `FLAM.peek`,
+and `FLAM.poke`. The type signatures specialized to `Surname` are
+
+```haskell
+peek :: (Storable Surname_Aux, Storable CChar, NumElems CChar Surname_Aux)
+  => Ptr Surname -> IO Surname
+
+poke :: (Storable Surname_Aux, Storable CChar, NumElems CChar Surname_Aux)
+  => Ptr Surname -> Surname -> IO ()
+```
+
+The Haskell code of the manual shows an example of how to use the generated
+binding of a structure with FLAM,
+
+```haskell
+    -- We need to allocate an array, we do that using the "IncompleteArray"
+    -- module, also available in the `hs-bindgen` runtime.
+    let arr = IA.fromList $ fmap FC.castCharToCChar "Rich"
+    bracket (IA.withPtr arr $ \ptr -> surname_alloc (ConstPtr ptr)) surname_free $
+      \ptr -> do
+        surname <- readRaw ptr
+        putStrLn $ "The length of the surname is: " <> show (FLAM.numElems surname.aux)
+        print $ VS.map castCCharToChar $ FLAM.flam surname
 ```
 
 ## Opaque structs

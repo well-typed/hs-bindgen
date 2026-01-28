@@ -42,7 +42,7 @@ class Offset elem aux => NumElems elem aux | aux -> elem where
 
 -- | Data structure with flexible array member
 data WithFlam elem aux = WithFlam
-    { -- Underlying data structure without
+    { -- Underlying data structure without FLAM
       aux  :: !aux
       -- We use the word "flam" for the flexible array member of the struct.
       -- We use the word "vector" to refer to its Haskell representation (as a
