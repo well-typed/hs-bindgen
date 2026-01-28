@@ -386,10 +386,10 @@ instance Pretty SDecl where
           callconv, impent :: CtxDoc
           (callconv, impent) =
             case foreignImport.callConv of
-              CallConvUserlandCAPI _ -> ("ccall",
+              CallConvUserlandCapi _ -> ("ccall",
                   PP.string $ Text.unpack foreignImport.origName.text
                 )
-              CallConvGhcCAPI header -> ("capi", PP.hcat [
+              CallConvGhcCapi header -> ("capi", PP.hcat [
                   PP.string header
                 , PP.string $ Text.unpack foreignImport.origName.text
                 ])

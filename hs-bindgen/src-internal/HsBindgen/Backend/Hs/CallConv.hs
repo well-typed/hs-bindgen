@@ -18,7 +18,7 @@ import Witherable (ordNub)
   Definition
 -------------------------------------------------------------------------------}
 
--- | The 'CallConvUserlandCAPI' requires a wrapper on the C side with a
+-- | The 'CallConvUserlandCapi' requires a wrapper on the C side with a
 -- corresponding import.
 data CWrapper = CWrapper {
       definition     :: String
@@ -45,7 +45,7 @@ data CallConv =
     -- this case (the C header is only used by the wrapper on the C side).
     --
     -- We directly attach the C-side wrappers.
-    CallConvUserlandCAPI CWrapper
+    CallConvUserlandCapi CWrapper
 
     -- | The standard GHC @capi@ calling convention
     --
@@ -58,7 +58,7 @@ data CallConv =
     -- convention. We used it for symbol imports, but now also create wrappers
     -- for those to work around bugs on Windows. We decided to leave the
     -- constructor in, in case we need it in the future.
-  | CallConvGhcCAPI FilePath
+  | CallConvGhcCapi FilePath
 
     -- | The standard GHC \"ccall\" calling convention
   | CallConvGhcCCall ImportStyle

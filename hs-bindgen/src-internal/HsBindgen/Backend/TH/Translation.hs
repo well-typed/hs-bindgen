@@ -111,8 +111,8 @@ mkGlobal = \case
       CharValue_tycon         -> ''CExpr.Runtime.CharValue
       CharValue_constructor   -> 'CExpr.Runtime.CharValue
       CharValue_fromAddr      -> 'CExpr.Runtime.charValueFromAddr
-      CAPI_with               -> 'Foreign.with
-      CAPI_allocaAndPeek      -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
+      Capi_with               -> 'Foreign.with
+      Capi_allocaAndPeek      -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
       ConstantArray_withPtr   -> 'HsBindgen.Runtime.ConstantArray.withPtr
       IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
 
@@ -384,8 +384,8 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CharValue_fromAddr    -> TH.varE name
     ByteArray_setUnionPayload -> TH.varE name
     ByteArray_getUnionPayload -> TH.varE name
-    CAPI_with             -> TH.varE name
-    CAPI_allocaAndPeek    -> TH.varE name
+    Capi_with             -> TH.varE name
+    Capi_allocaAndPeek    -> TH.varE name
     ConstantArray_withPtr -> TH.varE name
     IncompleteArray_withPtr   -> TH.varE name
 
@@ -776,10 +776,10 @@ mkDecl = \case
             impent   :: String
             (callconv, impent) =
               case foreignImport.callConv of
-                CallConvUserlandCAPI _ -> (TH.CCall,
+                CallConvUserlandCapi _ -> (TH.CCall,
                     Text.unpack foreignImport.origName.text
                   )
-                CallConvGhcCAPI header -> (TH.CApi, concat [
+                CallConvGhcCapi header -> (TH.CApi, concat [
                     header
                   , Text.unpack foreignImport.origName.text
                   ])

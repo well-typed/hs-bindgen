@@ -303,8 +303,8 @@ resolveGlobal = \case
     CharValue_tycon               -> importQ ''CExpr.Runtime.CharValue
     CharValue_constructor         -> importQ 'CExpr.Runtime.CharValue
     CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
-    CAPI_with                     -> importQ 'Foreign.with
-    CAPI_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
+    Capi_with                     -> importQ 'Foreign.with
+    Capi_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
     ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
     IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 
