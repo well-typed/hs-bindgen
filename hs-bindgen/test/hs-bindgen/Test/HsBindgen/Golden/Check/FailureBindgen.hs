@@ -16,7 +16,7 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test = testCase test.name $ do
+check testResources test = testCase test.spec.name $ do
     eRes <- runTestHsBindgen noReport testResources test FinalDecls
     case eRes of
       Left  _ -> pure ()
