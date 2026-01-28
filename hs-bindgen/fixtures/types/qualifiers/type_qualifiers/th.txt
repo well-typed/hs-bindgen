@@ -93,7 +93,7 @@ foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676e
  -> IO Word8
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 hs_bindgen_32187cc02676ee72 :: Ptr (ConstPtr CChar) ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                               HsBindgen.Runtime.LibC.CSize -> IO CBool
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 hs_bindgen_32187cc02676ee72 = fromFFIType hs_bindgen_32187cc02676ee72_base
 {-| __C declaration:__ @list_example@
@@ -103,7 +103,7 @@ hs_bindgen_32187cc02676ee72 = fromFFIType hs_bindgen_32187cc02676ee72_base
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 list_example :: Ptr (ConstPtr CChar) ->
-                HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                HsBindgen.Runtime.LibC.CSize -> IO CBool
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
@@ -118,7 +118,7 @@ foreign import ccall unsafe "hs_bindgen_360934a08f19eaab" hs_bindgen_360934a08f1
  -> IO Word8
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 hs_bindgen_360934a08f19eaab :: Ptr (ConstPtr CChar) ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                               HsBindgen.Runtime.LibC.CSize -> IO CBool
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 hs_bindgen_360934a08f19eaab = fromFFIType hs_bindgen_360934a08f19eaab_base
 {-| __C declaration:__ @list_example@
@@ -128,7 +128,7 @@ hs_bindgen_360934a08f19eaab = fromFFIType hs_bindgen_360934a08f19eaab_base
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 list_example :: Ptr (ConstPtr CChar) ->
-                HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                HsBindgen.Runtime.LibC.CSize -> IO CBool
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
@@ -141,7 +141,7 @@ foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f
     IO (FunPtr Void)
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
 hs_bindgen_a19bc138e7f2759b :: IO (FunPtr (Ptr (ConstPtr CChar) ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO CBool))
+                                           HsBindgen.Runtime.LibC.CSize -> IO CBool))
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
 hs_bindgen_a19bc138e7f2759b = fromFFIType hs_bindgen_a19bc138e7f2759b_base
 {-# NOINLINE list_example #-}
@@ -152,7 +152,7 @@ hs_bindgen_a19bc138e7f2759b = fromFFIType hs_bindgen_a19bc138e7f2759b_base
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 list_example :: FunPtr (Ptr (ConstPtr CChar) ->
-                        HsBindgen.Runtime.Prelude.CSize -> IO CBool)
+                        HsBindgen.Runtime.LibC.CSize -> IO CBool)
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@

@@ -19,7 +19,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -281,21 +281,21 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Inline_struct) "inli
     __exported by:__ @globals\/globals.h@
 -}
 data Version_t = Version_t
-  { version_t_major :: HsBindgen.Runtime.Prelude.Word8
+  { version_t_major :: HsBindgen.Runtime.LibC.Word8
     {- ^ __C declaration:__ @major@
 
          __defined at:__ @globals\/globals.h 408:12@
 
          __exported by:__ @globals\/globals.h@
     -}
-  , version_t_minor :: HsBindgen.Runtime.Prelude.Word16
+  , version_t_minor :: HsBindgen.Runtime.LibC.Word16
     {- ^ __C declaration:__ @minor@
 
          __defined at:__ @globals\/globals.h 409:12@
 
          __exported by:__ @globals\/globals.h@
     -}
-  , version_t_patch :: HsBindgen.Runtime.Prelude.Word8
+  , version_t_patch :: HsBindgen.Runtime.LibC.Word8
     {- ^ __C declaration:__ @patch@
 
          __defined at:__ @globals\/globals.h 410:12@
@@ -330,7 +330,7 @@ instance F.Storable Version_t where
 instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_major" where
 
   type CFieldType Version_t "version_t_major" =
-    HsBindgen.Runtime.Prelude.Word8
+    HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
 
@@ -343,7 +343,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Version_t) "version_
 instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_minor" where
 
   type CFieldType Version_t "version_t_minor" =
-    HsBindgen.Runtime.Prelude.Word16
+    HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 2
 
@@ -356,7 +356,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Version_t) "version_
 instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_patch" where
 
   type CFieldType Version_t "version_t_patch" =
-    HsBindgen.Runtime.Prelude.Word8
+    HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 4
 
@@ -373,7 +373,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Version_t) "version_
     __exported by:__ @globals\/globals.h@
 -}
 data Struct1_t = Struct1_t
-  { struct1_t_x :: HsBindgen.Runtime.Prelude.Word16
+  { struct1_t_x :: HsBindgen.Runtime.LibC.Word16
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/globals.h 415:13@
@@ -422,7 +422,7 @@ instance F.Storable Struct1_t where
 instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_x" where
 
   type CFieldType Struct1_t "struct1_t_x" =
-    HsBindgen.Runtime.Prelude.Word16
+    HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 0
 
