@@ -18,7 +18,7 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test = testCase test.name $
+check testResources test = testCase test.spec.name $
     handle expectExitFailure $ do
       eRes <- runTestHsBindgen noReport testResources test FinalDecls
       assertFailure $ mconcat [

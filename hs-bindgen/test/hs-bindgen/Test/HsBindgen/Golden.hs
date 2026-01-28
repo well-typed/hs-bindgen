@@ -2,28 +2,26 @@
 module Test.HsBindgen.Golden (tests) where
 
 import System.Directory (createDirectoryIfMissing)
-import System.FilePath ((<.>), (</>))
+import System.FilePath ((</>))
 import Test.Tasty
 
 import Clang.LowLevel.Core
 import Clang.Version
 
 import HsBindgen.Backend.Category
-import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Config.ClangArgs
-import HsBindgen.Config.Internal
+import HsBindgen.Config.Internal (BackendConfig (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure (MangleNamesCollision))
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Predicate
-import HsBindgen.Imports
+import HsBindgen.Imports ()
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 
+import Test.Common.HsBindgen.TestCase.All qualified as Specs
 import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
@@ -33,6 +31,9 @@ import Test.HsBindgen.Golden.Check.PP qualified as PP
 import Test.HsBindgen.Golden.Check.TH qualified as TH
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
+import Optics.Operators ((.~))
+import HsBindgen.Config (FieldNamingStrategy(..))
+import Optics.Optic ((&), (%))
 
 {-------------------------------------------------------------------------------
   Tests
@@ -77,16 +78,16 @@ testTreeFor testResources = goTree
 
     goCase :: TestCase -> TestTree
     goCase test
-      | Just versionPred <- test.clangVersion
+      | Just versionPred <- test.spec.clangVersion
       , case clangVersion of
           ClangVersion version  -> not (versionPred version)
           ClangVersionUnknown _ -> True
-      = testGroup test.name []
+      = testGroup test.spec.name []
 
       | otherwise
-      = case test.outcome of
+      = case test.spec.outcome of
           Success ->
-            withTestOutputDir test.outputDir $ testGroup test.name [
+            withTestOutputDir test.outputDir $ testGroup test.spec.name [
                 TH.check          testResources test
               , PP.check          testResources test
               , BindingSpec.check testResources test
@@ -108,84 +109,15 @@ testTreeFor testResources = goTree
 -------------------------------------------------------------------------------}
 
 testCases_default :: [TestCase]
-testCases_default = [
-      defaultTest "declarations/declarations_required_for_scoping"
-    , defaultTest "declarations/forward_declaration"
-    , defaultTest "declarations/opaque_declaration"
-    , defaultTest "declarations/redeclaration_identical"
-    , defaultTest "documentation/data_kind_pragma"
-    , defaultTest "edge-cases/adios"
-    , defaultTest "edge-cases/anon_multiple_fields"
-    , defaultTest "edge-cases/anon_multiple_typedefs"
-    , defaultTest "edge-cases/distilled_lib_1"
-    , defaultTest "edge-cases/enum_as_array_size"
-    , defaultTest "edge-cases/flam"
-    , defaultTest "edge-cases/flam_functions"
-    , defaultTest "edge-cases/names"
-    , defaultTest "edge-cases/spec_examples"
-    , defaultTest "edge-cases/typedef_bitfield"
-    , defaultTest "edge-cases/typedef_void"
-    , defaultTest "edge-cases/uses_utf8"
-    , defaultTest "functions/callbacks"
-    , defaultTest "functions/circular_dependency_fun"
-    , defaultTest "functions/heap_types/struct_const_member"
-    , defaultTest "functions/heap_types/struct_const_typedef"
-    , defaultTest "functions/heap_types/struct_const"
-    , defaultTest "functions/heap_types/struct"
-    , defaultTest "functions/heap_types/union_const_member"
-    , defaultTest "functions/heap_types/union_const_typedef"
-    , defaultTest "functions/heap_types/union_const"
-    , defaultTest "functions/heap_types/union"
-    , defaultTest "functions/simple_func"
-    , defaultTest "macros/issue_890"
-    , defaultTest "macros/macro_functions"
-    , defaultTest "macros/macro_strings"
-    , defaultTest "macros/macro_type_void"
-    , defaultTest "macros/macro_typedef_scope"
-    , defaultTest "macros/macro_typedef_struct"
-    , defaultTest "macros/macro_types"
-    , defaultTest "macros/macros"
-    , defaultTest "types/complex/complex_non_float_test"
-    , defaultTest "types/complex/hsb_complex_test"
-    , defaultTest "types/complex/vector_test"
-    , defaultTest "types/enums/anon_enum_toplevel"
-    , defaultTest "types/enums/enum_cpp_syntax"
-    , defaultTest "types/enums/enums"
-    , defaultTest "types/enums/nested_enums"
-    , defaultTest "types/nested/nested_types"
-    , defaultTest "types/primitives/bool"
-    , defaultTest "types/primitives/fixedwidth"
-    , defaultTest "types/primitives/primitive_insts"
-    , defaultTest "types/primitives/primitive_types"
-    , defaultTest "types/qualifiers/type_qualifiers"
-    , defaultTest "types/qualifiers/const_typedefs"
-    , defaultTest "types/stdlib/stdlib_insts"
-    , defaultTest "types/structs/anonymous"
-    , defaultTest "types/structs/bitfields"
-    , defaultTest "types/structs/circular_dependency_struct"
-    , defaultTest "types/structs/recursive_struct"
-    , defaultTest "types/structs/simple_structs"
-    , defaultTest "types/structs/struct_arg"
-    , defaultTest "types/typedefs/multi_level_function_pointer"
-    , defaultTest "types/typedefs/typedef_vs_macro"
-    , defaultTest "types/unions/nested_unions"
-    , defaultTest "types/unions/unions"
-    ]
+testCases_default = map fromSpec Specs.testCaseSpecs_default
 
 {-------------------------------------------------------------------------------
   Test cases that appear in the manual
 -------------------------------------------------------------------------------}
 
 testCases_manual :: [TestCase]
-testCases_manual = [
-      defaultTest "manual/arrays"
-    , defaultTest "manual/function_pointers"
-    , defaultTest "manual/enable_record_dot"
-      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
-      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
-    , defaultTest "manual/zero_copy"
-    , test_manual_globals
-    ]
+testCases_manual = map fromSpec (take 4 Specs.testCaseSpecs_manual)
+                ++ [ test_manual_globals ]
 
 test_manual_globals :: TestCase
 test_manual_globals =
@@ -226,9 +158,8 @@ testCases_bespoke_arrays = [
 
 test_arrays_array :: TestCase
 test_arrays_array =
-    defaultTest "arrays/array"
-      & #clangVersion   .~ Just (>= (19, 0, 0))
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_arrays_array)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchDelayed name ParsePotentialDuplicateSymbol{} ->
               Just $ Expected name
             MatchDiagnosticOption "-Wno-extern-initializer" ->
@@ -240,6 +171,7 @@ test_arrays_array =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -260,7 +192,7 @@ test_arrays_const_qualifier :: TestCase
 test_arrays_const_qualifier = defaultTest "arrays/const_qualifier"
 
 test_arrays_multi_dim :: TestCase
-test_arrays_multi_dim = defaultTest "arrays/multi_dim"
+test_arrays_multi_dim = fromSpec Specs.spec_arrays_multi_dim
 
 test_arrays_failing_array_res_1 :: TestCase
 test_arrays_failing_array_res_1 =
@@ -371,10 +303,7 @@ testCases_bespoke_attributes = [
     ]
 
 test_attributes_asm :: TestCase
-test_attributes_asm =
-    defaultTest "attributes/asm"
-      & #clangVersion .~ Just (>= (18, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=gnu2x"] )
+test_attributes_asm = fromSpec Specs.spec_attributes_asm
 
 test_attributes_attributes :: TestCase
 test_attributes_attributes =
@@ -391,13 +320,8 @@ test_attributes_type_attributes =
 
 test_attributes_visibility_attributes :: TestCase
 test_attributes_visibility_attributes =
-    defaultTest "attributes/visibility_attributes"
-      & #onFrontend .~ ( #selectPredicate .~
-            BAnd
-              (BIf (SelectHeader FromMainHeaders))
-              (BNot (BIf (SelectDecl DeclDeprecated)))
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_attributes_visibility_attributes)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchDelayed name ParsePotentialDuplicateSymbol{} ->
               Just $ Expected name
             MatchDelayed name ParseNonPublicVisibility{} ->
@@ -409,6 +333,7 @@ test_attributes_visibility_attributes =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -439,29 +364,29 @@ test_attributes_visibility_attributes =
 
 testCases_bespoke_bindingSpecs :: [TestCase]
 testCases_bespoke_bindingSpecs = [
-      test_bindingSpecs_omit_type
+      fromSpec Specs.spec_bindingSpecs_omit_type
       -- * Bugs / regression tests
     , test_bindingSpecs_macro_trans_dep_missing
       -- * Naming types
-    , test_bindingSpecs_name_squash_both
-    , test_bindingSpecs_name_squash_struct
-    , test_bindingSpecs_name_squash_typedef
-    , test_bindingSpecs_name_type
+    , fromSpec Specs.spec_bindingSpecs_name_squash_both
+    , fromSpec Specs.spec_bindingSpecs_name_squash_struct
+    , fromSpec Specs.spec_bindingSpecs_name_squash_typedef
+    , fromSpec Specs.spec_bindingSpecs_name_type
       -- * Representation: emptydata
-    , test_bindingSpecs_rep_emptydata_enum
-    , test_bindingSpecs_rep_emptydata_macro_type
-    , test_bindingSpecs_rep_emptydata_opaque
-    , test_bindingSpecs_rep_emptydata_struct
-    , test_bindingSpecs_rep_emptydata_typedef
-    , test_bindingSpecs_rep_emptydata_union
+    , fromSpec Specs.spec_bindingSpecs_rep_emptydata_enum
+    , fromSpec Specs.spec_bindingSpecs_rep_emptydata_macro_type
+    , fromSpec Specs.spec_bindingSpecs_rep_emptydata_opaque
+    , fromSpec Specs.spec_bindingSpecs_rep_emptydata_struct
+    , fromSpec Specs.spec_bindingSpecs_rep_emptydata_typedef
+    , fromSpec Specs.spec_bindingSpecs_rep_emptydata_union
       -- * Function arguments with typedefs
-    , test_bindingSpecs_fun_arg_typedef_array
-    , test_bindingSpecs_fun_arg_typedef_array_known_size
-    , test_bindingSpecs_fun_arg_typedef_enum
-    , test_bindingSpecs_fun_arg_typedef_function
-    , test_bindingSpecs_fun_arg_typedef_function_pointer
-    , test_bindingSpecs_fun_arg_typedef_struct
-    , test_bindingSpecs_fun_arg_typedef_union
+    , fromSpec Specs.spec_bindingSpecs_fun_arg_typedef_array
+    , fromSpec Specs.spec_bindingSpecs_fun_arg_typedef_array_known_size
+    , fromSpec Specs.spec_bindingSpecs_fun_arg_typedef_enum
+    , fromSpec Specs.spec_bindingSpecs_fun_arg_typedef_function
+    , fromSpec Specs.spec_bindingSpecs_fun_arg_typedef_function_pointer
+    , fromSpec Specs.spec_bindingSpecs_fun_arg_typedef_struct
+    , fromSpec Specs.spec_bindingSpecs_fun_arg_typedef_union
       -- * Function arguments with macros
     , test_bindingSpecs_fun_arg_macro_array
     , test_bindingSpecs_fun_arg_macro_array_known_size
@@ -472,29 +397,14 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_union
     ]
 
-test_bindingSpecs_omit_type :: TestCase
-test_bindingSpecs_omit_type =
-    defaultTest "binding-specs/omit_type"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/omit_type_p.yaml"
-
-{-------------------------------------------------------------------------------
-  Bespoke tests: binding specs: bugs / regression tests
--------------------------------------------------------------------------------}
-
 -- | External binding specifications for macro types cause incorrect
 -- TransitiveDependenciesMissing warnings
 --
 -- TODO: fix the 'TransitiveDependenciesMissing' warning. See issue #1513.
 test_bindingSpecs_macro_trans_dep_missing :: TestCase
 test_bindingSpecs_macro_trans_dep_missing =
-    defaultTest "binding-specs/macro_trans_dep_missing"
-      & #specExternal .~
-          [ "examples/golden/binding-specs/macro_trans_dep_missing.yaml"
-          ]
-      & #onFrontend .~
-          #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
-      & #tracePredicate .~ multiTracePredicate ["foo" :: C.DeclName] (\case
+    (fromSpec Specs.spec_bindingSpecs_macro_trans_dep_missing)
+      { tracePredicate = multiTracePredicate ["foo" :: C.DeclName] (\case
             -- no macros should fail to parse
             MatchHandleMacros _ ->
               Just Unexpected
@@ -506,278 +416,9 @@ test_bindingSpecs_macro_trans_dep_missing =
             _otherwise ->
               Nothing
           )
+      }
 
-{-------------------------------------------------------------------------------
-  Bespoke tests: binding specs: naming types
--------------------------------------------------------------------------------}
-
--- | Naming a squashed type, specifying the name for both the struct and typedef
-test_bindingSpecs_name_squash_both :: TestCase
-test_bindingSpecs_name_squash_both =
-    defaultTest "binding-specs/name/squash_both"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/squash_both_p.yaml"
-
--- | Naming a squashed type, specifying the name for the struct
-test_bindingSpecs_name_squash_struct :: TestCase
-test_bindingSpecs_name_squash_struct =
-    defaultTest "binding-specs/name/squash_struct"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/squash_struct_p.yaml"
-
--- | Naming a squashed type, specifying the name for the typedef
-test_bindingSpecs_name_squash_typedef :: TestCase
-test_bindingSpecs_name_squash_typedef =
-    defaultTest "binding-specs/name/squash_typedef"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/squash_typedef_p.yaml"
-
--- | Naming a type
-test_bindingSpecs_name_type :: TestCase
-test_bindingSpecs_name_type =
-    defaultTest "binding-specs/name/type"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/name/type_p.yaml"
-
-{-------------------------------------------------------------------------------
-  Bespoke tests: binding specs: representation: emptydata
--------------------------------------------------------------------------------}
-
--- | Making an enum type opaque
-test_bindingSpecs_rep_emptydata_enum :: TestCase
-test_bindingSpecs_rep_emptydata_enum =
-    defaultTest "binding-specs/rep/emptydata/enum"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/enum_p.yaml"
-
--- | Making a macro type opaque
-test_bindingSpecs_rep_emptydata_macro_type :: TestCase
-test_bindingSpecs_rep_emptydata_macro_type =
-    defaultTest "binding-specs/rep/emptydata/macro_type"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/macro_type_p.yaml"
-
--- | Opaque types work with representation emptydata
-test_bindingSpecs_rep_emptydata_opaque :: TestCase
-test_bindingSpecs_rep_emptydata_opaque =
-    defaultTest "binding-specs/rep/emptydata/opaque"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/opaque_p.yaml"
-
--- | Making a struct type opaque
---
--- This test also checks that dependencies in other headers are not selected if
--- they are only used by a type that is made opaque.
---
--- This test also has tests for nested types.
-test_bindingSpecs_rep_emptydata_struct :: TestCase
-test_bindingSpecs_rep_emptydata_struct =
-    defaultTest "binding-specs/rep/emptydata/struct"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/struct_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
-
--- | Making a typedef type opaque
---
--- This test also checks that dependencies in other headers are not selected if
--- they are only used by a type that is made opaque.
-test_bindingSpecs_rep_emptydata_typedef :: TestCase
-test_bindingSpecs_rep_emptydata_typedef =
-    defaultTest "binding-specs/rep/emptydata/typedef"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/typedef_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
-
--- | Making a union type opaque
---
--- This test also checks that dependencies in other headers are not selected if
--- they are only used by a type that is made opaque.
---
--- This test also tests nested types.
-test_bindingSpecs_rep_emptydata_union :: TestCase
-test_bindingSpecs_rep_emptydata_union =
-    defaultTest "binding-specs/rep/emptydata/union"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/union_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
-
-{-------------------------------------------------------------------------------
-  Bespoke tests: binding specs: function arguments with typedefs
--------------------------------------------------------------------------------}
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef with an underlying array type (of
--- unknown size).
---
--- Arrays are passed by 'Ptr' to the first element of the array.
-test_bindingSpecs_fun_arg_typedef_array :: TestCase
-test_bindingSpecs_fun_arg_typedef_array =
-    test_bindingSpecs_fun_arg_typedef "binding-specs/fun_arg/typedef/array"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef with an underlying array type of
--- known size.
---
--- Arrays of known size are passed by 'Ptr' to the first element of the array.
-test_bindingSpecs_fun_arg_typedef_array_known_size :: TestCase
-test_bindingSpecs_fun_arg_typedef_array_known_size =
-    test_bindingSpecs_fun_arg_typedef "binding-specs/fun_arg/typedef/array_known_size"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef with an underlying enum type.
---
--- Enums can be passed by value rather than by 'Ptr'.
-test_bindingSpecs_fun_arg_typedef_enum :: TestCase
-test_bindingSpecs_fun_arg_typedef_enum =
-    test_bindingSpecs_fun_arg_typedef "binding-specs/fun_arg/typedef/enum"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef with an underlying function type.
---
--- Functions should be passed by 'FunPtr' rather than by 'Ptr'. Previously we
--- had a bug where we doing the latter, see issue #1363.
-test_bindingSpecs_fun_arg_typedef_function :: TestCase
-test_bindingSpecs_fun_arg_typedef_function =
-    test_bindingSpecs_fun_arg_typedef "binding-specs/fun_arg/typedef/function"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef with an underlying function pointer
--- type.
---
--- Functions should be passed by 'FunPtr' rather than by 'Ptr'.
-test_bindingSpecs_fun_arg_typedef_function_pointer :: TestCase
-test_bindingSpecs_fun_arg_typedef_function_pointer =
-    test_bindingSpecs_fun_arg_typedef "binding-specs/fun_arg/typedef/function_pointer"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef with an underlying struct type.
---
--- Structs should be passed by 'Ptr' rather than by value.
-test_bindingSpecs_fun_arg_typedef_struct :: TestCase
-test_bindingSpecs_fun_arg_typedef_struct =
-    test_bindingSpecs_fun_arg_typedef "binding-specs/fun_arg/typedef/struct"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef with an underlying union type.
---
--- Union should be passed by 'Ptr' rather than by value.
-test_bindingSpecs_fun_arg_typedef_union :: TestCase
-test_bindingSpecs_fun_arg_typedef_union =
-    test_bindingSpecs_fun_arg_typedef "binding-specs/fun_arg/typedef/union"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a typedef.
-test_bindingSpecs_fun_arg_typedef :: FilePath -> TestCase
-test_bindingSpecs_fun_arg_typedef path =
-  defaultTest path
-      & #specExternal .~
-          [ "examples" </> "golden" </> path <.> "yaml"
-          ]
-      & #onFrontend .~
-          #selectPredicate .~ test_bindingSpecs_fun_arg_typedef_selectPredicate
-
--- | Select predicate for 'test_bindingSpecs_fun_arg_typedef' tests
-test_bindingSpecs_fun_arg_typedef_selectPredicate :: Boolean SelectPredicate
-test_bindingSpecs_fun_arg_typedef_selectPredicate =
-    BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
-        (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
-
-{-------------------------------------------------------------------------------
-  Bespoke tests: binding specs: function arguments with macros
--------------------------------------------------------------------------------}
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type with an underlying array type (of
--- unknown size).
---
--- Arrays are passed by 'Ptr' to the first element of the array.
-test_bindingSpecs_fun_arg_macro_array :: TestCase
-test_bindingSpecs_fun_arg_macro_array =
-    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/array"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type with an underlying array type of
--- known size.
---
--- Arrays of known size are passed by 'Ptr' to the first element of the array.
-test_bindingSpecs_fun_arg_macro_array_known_size :: TestCase
-test_bindingSpecs_fun_arg_macro_array_known_size =
-    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/array_known_size"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type with an underlying enum type.
---
--- Enums can be passed by value rather than by 'Ptr'.
-test_bindingSpecs_fun_arg_macro_enum :: TestCase
-test_bindingSpecs_fun_arg_macro_enum =
-    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/enum"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type with an underlying function type.
---
--- Functions should be passed by 'FunPtr' rather than by 'Ptr'. Previously we
--- had a bug where we doing the latter, see issue #1363.
-test_bindingSpecs_fun_arg_macro_function :: TestCase
-test_bindingSpecs_fun_arg_macro_function =
-    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/function"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type with an underlying function
--- pointer type.
---
--- Functions should be passed by 'FunPtr' rather than by 'Ptr'.
-test_bindingSpecs_fun_arg_macro_function_pointer :: TestCase
-test_bindingSpecs_fun_arg_macro_function_pointer =
-    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/function_pointer"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type with an underlying struct type.
---
--- Structs should be passed by 'Ptr' rather than by value.
-test_bindingSpecs_fun_arg_macro_struct :: TestCase
-test_bindingSpecs_fun_arg_macro_struct =
-    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/struct"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type with an underlying union type.
---
--- Union should be passed by 'Ptr' rather than by value.
-test_bindingSpecs_fun_arg_macro_union :: TestCase
-test_bindingSpecs_fun_arg_macro_union =
-    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/union"
-
--- | Test that @hs-bindgen@ can detect whether an external binding reference in
--- a function argument references a macro type.
-test_bindingSpecs_fun_arg_macro :: FilePath -> TestCase
-test_bindingSpecs_fun_arg_macro path =
-  defaultTest path
-      & #specExternal .~
-          [ "examples" </> "golden" </> path <.> "yaml"
-          ]
-      & #onFrontend .~
-          #selectPredicate .~ test_bindingSpecs_fun_arg_macro_selectPredicate
-      & #tracePredicate .~ test_bindingSpecs_fun_arg_macro_tracePredicate
-
--- | Select predicate for 'test_bindingSpecs_fun_arg_macro' tests
-test_bindingSpecs_fun_arg_macro_selectPredicate :: Boolean SelectPredicate
-test_bindingSpecs_fun_arg_macro_selectPredicate =
-    BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
-        (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
-
--- | Trace predicate for 'test_bindingSpecs_fun_arg_macro' tests
-test_bindingSpecs_fun_arg_macro_tracePredicate :: TracePredicate TraceMsg
-test_bindingSpecs_fun_arg_macro_tracePredicate =
-    noHandleMacrosTraces
-
+-- | Trace predicate for fun_arg_macro tests
 noHandleMacrosTraces :: TracePredicate TraceMsg
 noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
     -- no macros should fail to parse
@@ -786,6 +427,41 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
     _otherwise ->
       Nothing
   )
+
+test_bindingSpecs_fun_arg_macro_array :: TestCase
+test_bindingSpecs_fun_arg_macro_array =
+    (fromSpec Specs.spec_bindingSpecs_fun_arg_macro_array)
+      { tracePredicate = noHandleMacrosTraces }
+
+test_bindingSpecs_fun_arg_macro_array_known_size :: TestCase
+test_bindingSpecs_fun_arg_macro_array_known_size =
+    (fromSpec Specs.spec_bindingSpecs_fun_arg_macro_array_known_size)
+      { tracePredicate = noHandleMacrosTraces }
+
+test_bindingSpecs_fun_arg_macro_enum :: TestCase
+test_bindingSpecs_fun_arg_macro_enum =
+    (fromSpec Specs.spec_bindingSpecs_fun_arg_macro_enum)
+      { tracePredicate = noHandleMacrosTraces }
+
+test_bindingSpecs_fun_arg_macro_function :: TestCase
+test_bindingSpecs_fun_arg_macro_function =
+    (fromSpec Specs.spec_bindingSpecs_fun_arg_macro_function)
+      { tracePredicate = noHandleMacrosTraces }
+
+test_bindingSpecs_fun_arg_macro_function_pointer :: TestCase
+test_bindingSpecs_fun_arg_macro_function_pointer =
+    (fromSpec Specs.spec_bindingSpecs_fun_arg_macro_function_pointer)
+      { tracePredicate = noHandleMacrosTraces }
+
+test_bindingSpecs_fun_arg_macro_struct :: TestCase
+test_bindingSpecs_fun_arg_macro_struct =
+    (fromSpec Specs.spec_bindingSpecs_fun_arg_macro_struct)
+      { tracePredicate = noHandleMacrosTraces }
+
+test_bindingSpecs_fun_arg_macro_union :: TestCase
+test_bindingSpecs_fun_arg_macro_union =
+    (fromSpec Specs.spec_bindingSpecs_fun_arg_macro_union)
+      { tracePredicate = noHandleMacrosTraces }
 
 {-------------------------------------------------------------------------------
   Bespoke tests: declarations
@@ -874,12 +550,8 @@ test_declarations_redeclaration_different =
 
 test_declarations_select_scoping :: TestCase
 test_declarations_select_scoping =
-    defaultTest "declarations/select_scoping"
-      & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate  .~ BIf (ParseHeader FromMainHeaders)
-          & #selectPredicate .~ BTrue
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_declarations_select_scoping)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
               Just $ Expected name
             MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableParseNotAttempted{}]) ->
@@ -887,6 +559,7 @@ test_declarations_select_scoping =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -918,13 +591,8 @@ test_declarations_tentative_definitions =
 
 testCases_bespoke_documentation :: [TestCase]
 testCases_bespoke_documentation = [
-      test_documentation_doxygen_docs
+      fromSpec Specs.spec_documentation_doxygen_docs
     ]
-
-test_documentation_doxygen_docs :: TestCase
-test_documentation_doxygen_docs =
-    defaultTest "documentation/doxygen_docs"
-      & #clangVersion .~ Just (>= (19, 0, 0))
 
 {-------------------------------------------------------------------------------
   Bespoke tests: edge cases
@@ -947,9 +615,8 @@ testCases_bespoke_edgeCases = [
 -- declarations, but no collision between those and the typedef.
 test_edgeCases_clang_generated_collision :: TestCase
 test_edgeCases_clang_generated_collision =
-    defaultTest "edge-cases/clang_generated_collision"
-      & #clangVersion   .~ Just (>= (16, 0, 0))
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_edgeCases_clang_generated_collision)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected name
             MatchSelect _ (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
@@ -957,20 +624,15 @@ test_edgeCases_clang_generated_collision =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo"]
 
 test_edgeCases_duplicate :: TestCase
 test_edgeCases_duplicate =
-    defaultTest "edge-cases/duplicate"
-      & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate  .~ BTrue
-          & #selectPredicate .~ BOr
-              (BIf $ SelectDecl (DeclNameMatches "function"))
-              (BIf $ SelectDecl (DeclNameMatches "duplicate"))
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_edgeCases_duplicate)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected (name, "conflict")
             MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
@@ -978,6 +640,7 @@ test_edgeCases_duplicate =
             _otherwise ->
                Nothing
           )
+      }
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
@@ -994,39 +657,32 @@ test_edgeCases_headers =
         Nothing
 
 test_edgeCases_iterator :: TestCase
-test_edgeCases_iterator =
-    defaultTest "edge-cases/iterator"
-      & #clangVersion .~ Just (>= (15, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
+test_edgeCases_iterator = fromSpec Specs.spec_edgeCases_iterator
 
 test_edgeCases_ordinary_anon :: TestCase
-test_edgeCases_ordinary_anon =
-    defaultTest "edge-cases/ordinary_anon_parent"
-      & #onFrontend .~ ( #selectPredicate .~ BTrue )
+test_edgeCases_ordinary_anon = fromSpec Specs.spec_edgeCases_ordinary_anon
 
 test_edgeCases_select_no_match :: TestCase
 test_edgeCases_select_no_match =
-    defaultTest "edge-cases/select_no_match"
-      & #onFrontend .~ ( #selectPredicate .~
-            BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
-          )
-      & #tracePredicate .~ singleTracePredicate (\case
+    (fromSpec Specs.spec_edgeCases_select_no_match)
+      { tracePredicate = singleTracePredicate (\case
             MatchNoDeclarations ->
               Just $ Expected ()
             _otherwise ->
               Nothing
           )
+      }
 
 test_edgeCases_thread_local :: TestCase
 test_edgeCases_thread_local =
-    defaultTest "edge-cases/thread_local"
-      & #clangVersion   .~ Just (>= (16, 0, 0))
-      & #tracePredicate .~ singleTracePredicate (\case
+    (fromSpec Specs.spec_edgeCases_thread_local)
+      { tracePredicate = singleTracePredicate (\case
             MatchDelayed _name ParseUnsupportedTLS ->
               Just $ Expected ()
             _otherwise ->
               Nothing
           )
+      }
 
 test_edgeCases_unsupported_builtin :: TestCase
 test_edgeCases_unsupported_builtin =
@@ -1067,9 +723,8 @@ test_functions_decls_in_signature =
 
 test_functions_fun_attributes :: TestCase
 test_functions_fun_attributes =
-    defaultTest "functions/fun_attributes"
-      & #clangVersion   .~ Just (>= (15, 0, 0))
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_functions_fun_attributes)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchDelayed name (ParseUnsupportedType UnsupportedVariadicFunction) ->
               Just $ Expected name
             MatchDelayed name ParseNonPublicVisibility ->
@@ -1083,6 +738,7 @@ test_functions_fun_attributes =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1107,7 +763,7 @@ test_functions_fun_attributes_conflict =
 test_functions_simple_func_rename :: TestCase
 test_functions_simple_func_rename =
     testVariant "functions/simple_func" "1.rename"
-      & #onBackend .~ ( #categoryChoice .~ ByCategory {
+      & #spec % #onBackend .~ ( #categoryChoice .~ ByCategory {
             cType = IncludeTypeCategory
           , cSafe = ExcludeCategory
           , cUnsafe = ExcludeCategory
@@ -1228,9 +884,9 @@ test_macros_macro_redefines_global =
 
 test_macros_reparse :: TestCase
 test_macros_reparse =
-    defaultTest "macros/reparse"
-      & #clangVersion   .~ Just (>= (15, 0, 0)) -- parse 'bool'
-      & #tracePredicate .~ tolerateAll
+    (fromSpec Specs.spec_macros_reparse)
+      { tracePredicate = tolerateAll
+      }
 
 {-------------------------------------------------------------------------------
   Bespoke tests: program analysis
@@ -1259,16 +915,8 @@ testCases_bespoke_programAnalysis = [
 
 test_programAnalysis_delay_traces :: TestCase
 test_programAnalysis_delay_traces =
-    defaultTest "program-analysis/delay_traces"
-      & #onFrontend .~ ( #selectPredicate .~
-            -- NOTE: Matching for name kind is not good practice, but we want to
-            -- check if nested, but deselected declarations are correctly
-            -- assigned name kinds.
-            BOr
-              (BIf $ SelectDecl (DeclNameMatches "_function"))
-              (BIf $ SelectDecl (DeclNameMatches "struct"))
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_delay_traces)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchDelayed name (ParseUnsupportedType UnsupportedLongDouble) ->
               Just $ Expected name
             MatchDelayed name (ParseUnsupportedType UnsupportedVariadicFunction) ->
@@ -1276,6 +924,7 @@ test_programAnalysis_delay_traces =
             _otherwise ->
                Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1287,15 +936,8 @@ test_programAnalysis_delay_traces =
 
 test_programAnalysis_program_slicing_selection :: TestCase
 test_programAnalysis_program_slicing_selection =
-    defaultTest "program-analysis/program_slicing_selection"
-      & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate .~ BTrue
-          & #selectPredicate .~ BOr
-              (BIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
-              (BIf . SelectDecl $ DeclNameMatches "read_file_chunk")
-          & #programSlicing .~ EnableProgramSlicing
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_program_slicing_selection)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected (name, "root")
             MatchSelect name (SelectStatusInfo (Selected TransitiveDependency)) ->
@@ -1303,6 +945,7 @@ test_programAnalysis_program_slicing_selection =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
@@ -1315,15 +958,8 @@ test_programAnalysis_program_slicing_selection =
 -- only provide external binding specifications for uint64_t.
 test_programAnalysis_program_slicing_simple :: TestCase
 test_programAnalysis_program_slicing_simple =
-    defaultTest "program-analysis/program_slicing_simple"
-      & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate  .~ BTrue
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing  .~ EnableProgramSlicing
-          )
-      & #specStdlib .~ BindingSpec.DisableStdlibBindingSpec
-      & #specExternal .~ [ "examples/golden/program-analysis/program_slicing_simple.yaml" ]
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_program_slicing_simple)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected (name, "root")
             MatchSelect name (SelectStatusInfo (Selected TransitiveDependency)) ->
@@ -1331,6 +967,7 @@ test_programAnalysis_program_slicing_simple =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
@@ -1375,12 +1012,9 @@ test_programAnalysis_selection_fail =
 
 test_programAnalysis_selection_fail_variant_1 :: TestCase
 test_programAnalysis_selection_fail_variant_1 =
-    testVariant "program-analysis/selection_fail" "1.deselect_failed"
-      & #onFrontend .~ ( #selectPredicate .~  BAnd
-            (       BIf $ SelectHeader   FromMainHeaders)
-            (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_selection_fail_variant_1)
+      { outputDir = "fixtures" </> "program-analysis/selection_fail.1.deselect_failed"
+      , tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
               Just $ Expected name
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
@@ -1388,6 +1022,7 @@ test_programAnalysis_selection_fail_variant_1 =
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1399,14 +1034,9 @@ test_programAnalysis_selection_fail_variant_1 =
 
 test_programAnalysis_selection_fail_variant_2 :: TestCase
 test_programAnalysis_selection_fail_variant_2 =
-    testVariant "program-analysis/selection_fail" "2.program_slicing"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BAnd
-              (       BIf $ SelectHeader   FromMainHeaders)
-              (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
-          & #programSlicing .~ EnableProgramSlicing
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_selection_fail_variant_2)
+      { outputDir = "fixtures" </> "program-analysis/selection_fail.2.program_slicing"
+      , tracePredicate = multiTracePredicate declsWithMsgs (\case
            MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
              Just $ Expected name
            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
@@ -1414,6 +1044,7 @@ test_programAnalysis_selection_fail_variant_2 =
            _otherwise ->
              Nothing
          )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1425,19 +1056,15 @@ test_programAnalysis_selection_fail_variant_2 =
 
 test_programAnalysis_selection_fail_variant_3 :: TestCase
 test_programAnalysis_selection_fail_variant_3 =
-    testVariant "program-analysis/selection_fail" "3.select_ok"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BAnd
-              (       BIf $ SelectDecl $ DeclNameMatches "struct OkBefore")
-              (BNot $ BIf $ SelectDecl $ DeclNameMatches "struct Fail")
-          & #programSlicing .~ EnableProgramSlicing
-          )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_selection_fail_variant_3)
+      { outputDir = "fixtures" </> "program-analysis/selection_fail.3.select_ok"
+      , tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected name
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct OkBefore"]
@@ -1455,66 +1082,42 @@ test_programAnalysis_selection_foo =
 
 test_programAnalysis_selection_matches_c_names_1 :: TestCase
 test_programAnalysis_selection_matches_c_names_1 =
-    testVariant "program-analysis/selection_matches_c_names" "1.positive_case"
-      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_matches_c_names.yaml"
-      & #onFrontend .~ ( #selectPredicate .~ predicate )
-  where
-    predicate :: Boolean SelectPredicate
-    predicate =
-            BOr
-              (BIf (SelectDecl $ DeclNameMatches "FunctionWithAssignedHaskellNameByNameMangler"))
-              (BIf (SelectDecl $ DeclNameMatches "struct StructWithAssignedHaskellNameByPrescriptiveBindingSpecs"))
+    fromSpec Specs.spec_programAnalysis_selection_matches_c_names_1
 
 test_programAnalysis_selection_matches_c_names_2 :: TestCase
 test_programAnalysis_selection_matches_c_names_2 =
-    testVariant "program-analysis/selection_matches_c_names" "2.negative_case"
-      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_matches_c_names.yaml"
-      & #onFrontend .~ ( #selectPredicate .~ predicate )
-      & #tracePredicate .~ singleTracePredicate (\case
+    (fromSpec Specs.spec_programAnalysis_selection_matches_c_names_2)
+      { tracePredicate = singleTracePredicate (\case
             MatchNoDeclarations ->
               Just $ Expected ()
             _otherwise ->
               Nothing
           )
-  where
-    predicate :: Boolean SelectPredicate
-    predicate =
-            BOr
-              (BIf (SelectDecl $ DeclNameMatches "functionWithAssignedHaskellNameByNameMangler"))
-              (BIf (SelectDecl $ DeclNameMatches "NewName"))
+      }
 
 test_programAnalysis_selection_merge_traces :: TestCase
 test_programAnalysis_selection_merge_traces =
-    defaultTest "program-analysis/selection_merge_traces"
-      & #onFrontend .~ ( #selectPredicate .~ predicate )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_selection_merge_traces)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [_, _]) -> Just $ Expected name
             _otherwise ->
               Nothing
           )
+      }
   where
-    predicate :: Boolean SelectPredicate
-    predicate =
-            BAnd
-              (BIf (SelectHeader FromMainHeaders)) $
-            BAnd
-              (BNot (BIf (SelectDecl $ DeclNameMatches "struct X")))
-              (BNot (BIf (SelectDecl $ DeclNameMatches "struct Y")))
-
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["dependsOnXAndY"]
 
 test_programAnalysis_selection_omit_external_a :: TestCase
 test_programAnalysis_selection_omit_external_a =
-    defaultTest "program-analysis/selection_omit_external_a"
-      & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
-      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_selection_omit_external_a)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchResolveBindingSpecs (ResolveBindingSpecsOmittedType declId) ->
               Just $ Expected declId.name
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct Omitted"]
@@ -1524,20 +1127,18 @@ test_programAnalysis_selection_omit_external_a =
 -- /external/ binding specification.
 test_programAnalysis_selection_omit_external_b :: TestCase
 test_programAnalysis_selection_omit_external_b =
-    defaultTest "program-analysis/selection_omit_external_b"
-      & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
-      & #onFrontend   .~ ( #programSlicing .~  EnableProgramSlicing )
+    fromSpec Specs.spec_programAnalysis_selection_omit_external_b
 
 test_programAnalysis_selection_omit_prescriptive :: TestCase
 test_programAnalysis_selection_omit_prescriptive =
-    defaultTest "program-analysis/selection_omit_prescriptive"
-      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_omit_prescriptive.yaml"
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+    (fromSpec Specs.spec_programAnalysis_selection_omit_prescriptive)
+      { tracePredicate = multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
               Just $ Expected name
             _otherwise ->
               Nothing
           )
+      }
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1547,13 +1148,11 @@ test_programAnalysis_selection_omit_prescriptive =
 
 test_programAnalysis_selection_squash :: TestCase
 test_programAnalysis_selection_squash =
-    defaultTest "program-analysis/selection_squash_typedef"
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
-              Just $ Expected name
-            _otherwise ->
-              Nothing
-          )
+    testTraceMulti "program-analysis/selection_squash_typedef" declsWithMsgs $ \case
+      MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["typedef_to_struct_a"]
@@ -1633,9 +1232,7 @@ test_types_long_double =
         Nothing
 
 test_types_primitives_bool_c23 :: TestCase
-test_types_primitives_bool_c23 =
-    defaultTest "types/primitives/bool_c23"
-      & #clangVersion .~ Just (>= (15, 0, 0))
+test_types_primitives_bool_c23 = fromSpec Specs.spec_types_primitives_bool_c23
 
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =
@@ -1649,15 +1246,14 @@ test_types_special_parse_failure_long_double =
     declsWithMsgs = ["fun1", "struct struct1"]
 
 test_types_structs_named_vs_anon :: TestCase
-test_types_structs_named_vs_anon =
-    defaultTest "types/structs/named_vs_anon"
-      & #clangVersion .~ Just (>= (19, 1, 0))
+test_types_structs_named_vs_anon = fromSpec Specs.spec_types_structs_named_vs_anon
 
 test_types_structs_enable_record_dot :: TestCase
 test_types_structs_enable_record_dot =
-    testVariant "types/structs/simple_structs" "enable_record_dot"
-      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
-      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+    testVariantFieldNamingStrategy
+      "types/structs/simple_structs"
+      "enable_record_dot"
+      EnableRecordDot
 
 test_types_structs_unnamed_struct :: TestCase
 test_types_structs_unnamed_struct =
