@@ -16,7 +16,7 @@
 * [Parsing, selecing and program slicing](LowLevel/Usage/05-ParsingSelectingAndProgramSlicing.md)
 * [Binding specifications](LowLevel/Usage/06-BindingSpecifications.md)
 * [Test generation](LowLevel/Usage/07-TestGeneration.md)
-* [CrossCompilation](LowLevel/Usage/08-CrossCompilation.md)
+* [Cross-compilation](LowLevel/Usage/08-CrossCompilation.md)
 
 ### Translation
 

@@ -1,0 +1,123 @@
+name: Cross-Compilation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  cross-compile-test:
+    name: Cross-compile to ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: aarch64
+            target-triple: aarch64-linux-gnu
+
+          - target: arm32
+            target-triple: arm-linux-gnueabihf
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-24.11
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: hs-bindgen
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      continue-on-error: true
+
+    - name: Cache Nix store
+      uses: actions/cache@v4
+      with:
+        path: /nix/store
+        key: nix-cross-${{ matrix.target }}-${{ hashFiles('examples/cross-compilation/flake.lock') }}
+        restore-keys: |
+          nix-cross-${{ matrix.target }}-
+
+    - name: Run cross-compilation workflow
+      working-directory: examples/cross-compilation
+      run: |
+        nix develop --command ./generate-and-run.sh ${{ matrix.target }}
+
+    - name: Verify executable architecture
+      working-directory: examples/cross-compilation
+      run: |
+        EXE_PATH=$(find hs-project/dist-newstyle-${{ matrix.target }} \
+          -name "cross-compilation-${{ matrix.target }}" -type f | head -1)
+
+        if [ -z "$EXE_PATH" ]; then
+          echo "Error: Executable not found"
+          exit 1
+        fi
+
+        echo "Executable: $EXE_PATH"
+        file "$EXE_PATH"
+
+        if [ "${{ matrix.target }}" = "aarch64" ]; then
+          file "$EXE_PATH" | grep -q "ARM aarch64"
+        else
+          file "$EXE_PATH" | grep -q "ARM"
+        fi
+
+    - name: Verify generated struct sizes
+      working-directory: examples/cross-compilation
+      run: |
+        HS_SIZE=$(sed -n '/instance F.Storable ArchInfo/,/poke/p' \
+          hs-project/src-${{ matrix.target }}/ArchTypes/Generated.hs | \
+          sed -n 's/.*sizeOf = \\_ -> (\([0-9]*\) :: Int).*/\1/p')
+
+        if [ "${{ matrix.target }}" = "arm32" ]; then
+          EXPECTED=16
+        else
+          EXPECTED=24
+        fi
+
+        echo "ArchInfo size: $HS_SIZE (expected: $EXPECTED)"
+
+        if [ "$HS_SIZE" != "$EXPECTED" ]; then
+          echo "Error: Size mismatch"
+          exit 1
+        fi
+
+    - name: Show build artifacts
+      if: always()
+      working-directory: examples/cross-compilation
+      run: |
+        echo "C libraries:"
+        ls -lh c-src/lib-*/ 2>/dev/null || echo "  (none)"
+        echo ""
+        echo "Generated bindings:"
+        ls -d hs-project/src-*/ 2>/dev/null || echo "  (none)"
+        echo ""
+        echo "Build directories:"
+        ls -d hs-project/dist-newstyle*/ 2>/dev/null || echo "  (none)"
