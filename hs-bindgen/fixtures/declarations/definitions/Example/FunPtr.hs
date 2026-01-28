@@ -34,13 +34,13 @@ hs_bindgen_8bb82cd68ce8efe4 :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
 hs_bindgen_8bb82cd68ce8efe4 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8bb82cd68ce8efe4_base
 
-{-# NOINLINE foo #-}
+{-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo :: Ptr.FunPtr (FC.CDouble -> IO FC.CInt)
-foo =
+foo_funptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CInt)
+foo_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8bb82cd68ce8efe4

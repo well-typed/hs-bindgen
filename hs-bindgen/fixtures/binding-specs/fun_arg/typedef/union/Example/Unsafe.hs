@@ -72,11 +72,11 @@ hs_bindgen_51195acecf6b880e =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
-foo ::
+foo_unsafe ::
      MyUnion
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo =
+foo_unsafe =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_51195acecf6b880e x1)
 
@@ -98,11 +98,11 @@ hs_bindgen_eb4a794c10ca94f9 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
-fooA ::
+fooA_unsafe ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA =
+fooA_unsafe =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_eb4a794c10ca94f9 x1)
 
@@ -124,11 +124,11 @@ hs_bindgen_a11eb4471a953b64 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
-fooB ::
+fooB_unsafe ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB =
+fooB_unsafe =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_a11eb4471a953b64 x1)
 
@@ -150,11 +150,11 @@ hs_bindgen_1dea92b3f3346311 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
-fooC ::
+fooC_unsafe ::
      M.C
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooC =
+fooC_unsafe =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_1dea92b3f3346311 x1)
 
@@ -176,11 +176,11 @@ hs_bindgen_dba6d56e1a316e2d =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
-fooD ::
+fooD_unsafe ::
      M.D
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooD =
+fooD_unsafe =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_dba6d56e1a316e2d x1)
 
@@ -202,10 +202,10 @@ hs_bindgen_23b6f403a534aeae =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
-fooE ::
+fooE_unsafe ::
      E
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooE =
+fooE_unsafe =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_23b6f403a534aeae x1)

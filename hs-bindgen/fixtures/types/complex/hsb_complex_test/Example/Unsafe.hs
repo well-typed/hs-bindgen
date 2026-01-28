@@ -57,13 +57,13 @@ hs_bindgen_e5e3172c2163672b =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f ::
+multiply_complex_f_unsafe ::
      Data.Complex.Complex FC.CFloat
      -- ^ __C declaration:__ @a@
   -> Data.Complex.Complex FC.CFloat
      -- ^ __C declaration:__ @b@
   -> IO (Data.Complex.Complex FC.CFloat)
-multiply_complex_f =
+multiply_complex_f_unsafe =
   \a0 ->
     \b1 ->
       F.with a0 (\a2 ->
@@ -93,13 +93,13 @@ hs_bindgen_28f2705e917973ab =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex ::
+add_complex_unsafe ::
      Data.Complex.Complex FC.CDouble
      -- ^ __C declaration:__ @a@
   -> Data.Complex.Complex FC.CDouble
      -- ^ __C declaration:__ @b@
   -> IO (Data.Complex.Complex FC.CDouble)
-add_complex =
+add_complex_unsafe =
   \a0 ->
     \b1 ->
       F.with a0 (\a2 ->

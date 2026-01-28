@@ -48,7 +48,7 @@ hs_bindgen_b2a91b3b7edf2ad3 =
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk ::
+read_file_chunk_safe ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
      -- ^ __C declaration:__ @file_ptr@
   -> Ptr.Ptr Void
@@ -56,4 +56,4 @@ read_file_chunk ::
   -> HsBindgen.Runtime.Prelude.CSize
      -- ^ __C declaration:__ @bytes_to_read@
   -> IO FileOperationStatus
-read_file_chunk = hs_bindgen_b2a91b3b7edf2ad3
+read_file_chunk_safe = hs_bindgen_b2a91b3b7edf2ad3

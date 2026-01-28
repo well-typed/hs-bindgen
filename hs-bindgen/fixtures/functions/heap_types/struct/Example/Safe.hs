@@ -45,11 +45,11 @@ hs_bindgen_a5d53f538e59b1fc =
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun ::
+fun_safe ::
      T
      -- ^ __C declaration:__ @x@
   -> IO T
-fun =
+fun_safe =
   \x0 ->
     F.with x0 (\x1 ->
                  HsBindgen.Runtime.CAPI.allocaAndPeek (\res2 ->
