@@ -29,7 +29,7 @@
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 newtype A
-    = A {un_A :: HsBindgen.Runtime.Prelude.CSize}
+    = A {un_A :: HsBindgen.Runtime.LibC.CSize}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @declarations\/declarations_required_for_scoping.h 5:9@

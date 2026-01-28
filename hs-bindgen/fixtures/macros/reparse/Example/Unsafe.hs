@@ -14,7 +14,7 @@ import qualified GHC.Word
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
 import Prelude (Double, Float, IO)
@@ -2105,7 +2105,7 @@ foreign import ccall unsafe "hs_bindgen_74b2cd1defdd5609" hs_bindgen_74b2cd1defd
 -- __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_args2@
 hs_bindgen_74b2cd1defdd5609 ::
      A
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 hs_bindgen_74b2cd1defdd5609 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_74b2cd1defdd5609_base
@@ -2119,7 +2119,7 @@ hs_bindgen_74b2cd1defdd5609 =
 bespoke_args2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 bespoke_args2 = hs_bindgen_74b2cd1defdd5609
@@ -2156,7 +2156,7 @@ foreign import ccall unsafe "hs_bindgen_a6a3e5a828532360" hs_bindgen_a6a3e5a8285
 -- __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_ret2@
 hs_bindgen_a6a3e5a828532360 ::
      A
-  -> IO HsBindgen.Runtime.Prelude.CSize
+  -> IO HsBindgen.Runtime.LibC.CSize
 hs_bindgen_a6a3e5a828532360 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a6a3e5a828532360_base
 
@@ -2169,7 +2169,7 @@ hs_bindgen_a6a3e5a828532360 =
 bespoke_ret2 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> IO HsBindgen.Runtime.Prelude.CSize
+  -> IO HsBindgen.Runtime.LibC.CSize
 bespoke_ret2 = hs_bindgen_a6a3e5a828532360
 
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args1@
@@ -2830,7 +2830,7 @@ foreign import ccall unsafe "hs_bindgen_530245b77093b08c" hs_bindgen_530245b7709
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before8@
 hs_bindgen_530245b77093b08c ::
      A
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 hs_bindgen_530245b77093b08c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_530245b77093b08c_base
@@ -2844,7 +2844,7 @@ hs_bindgen_530245b77093b08c =
 const_withoutSign_before8 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_before8 =
@@ -3068,7 +3068,7 @@ foreign import ccall unsafe "hs_bindgen_3a020035eb2fe7f8" hs_bindgen_3a020035eb2
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after8@
 hs_bindgen_3a020035eb2fe7f8 ::
      A
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO ()
 hs_bindgen_3a020035eb2fe7f8 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3a020035eb2fe7f8_base
@@ -3082,7 +3082,7 @@ hs_bindgen_3a020035eb2fe7f8 =
 const_withoutSign_after8 ::
      A
      -- ^ __C declaration:__ @arg1@
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_after8 =

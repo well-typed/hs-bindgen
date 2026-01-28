@@ -11,7 +11,7 @@ import qualified GHC.Word
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -35,7 +35,7 @@ foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676e
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 hs_bindgen_32187cc02676ee72 ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO FC.CBool
 hs_bindgen_32187cc02676ee72 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32187cc02676ee72_base
@@ -49,7 +49,7 @@ hs_bindgen_32187cc02676ee72 =
 list_example ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
      -- ^ __C declaration:__ @items@
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @count@
   -> IO FC.CBool
 list_example = hs_bindgen_32187cc02676ee72

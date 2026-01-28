@@ -26,7 +26,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -167,7 +167,7 @@ data FileOperationRecord = FileOperationRecord
 
          __exported by:__ @program-analysis\/program_slicing_selection.h@
     -}
-  , fileOperationRecord_bytes_processed :: HsBindgen.Runtime.Prelude.CSize
+  , fileOperationRecord_bytes_processed :: HsBindgen.Runtime.LibC.CSize
     {- ^ __C declaration:__ @bytes_processed@
 
          __defined at:__ @program-analysis\/program_slicing_selection.h 18:10@
@@ -215,7 +215,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationRecord)
 instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
 
   type CFieldType FileOperationRecord "fileOperationRecord_bytes_processed" =
-    HsBindgen.Runtime.Prelude.CSize
+    HsBindgen.Runtime.LibC.CSize
 
   offset# = \_ -> \_ -> 8
 

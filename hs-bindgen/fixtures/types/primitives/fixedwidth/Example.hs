@@ -16,7 +16,7 @@ import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -27,14 +27,14 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
     __exported by:__ @types\/primitives\/fixedwidth.h@
 -}
 data Foo = Foo
-  { foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64
+  { foo_sixty_four :: HsBindgen.Runtime.LibC.Word64
     {- ^ __C declaration:__ @sixty_four@
 
          __defined at:__ @types\/primitives\/fixedwidth.h 4:11@
 
          __exported by:__ @types\/primitives\/fixedwidth.h@
     -}
-  , foo_thirty_two :: HsBindgen.Runtime.Prelude.Word32
+  , foo_thirty_two :: HsBindgen.Runtime.LibC.Word32
     {- ^ __C declaration:__ @thirty_two@
 
          __defined at:__ @types\/primitives\/fixedwidth.h 5:11@
@@ -67,7 +67,7 @@ instance F.Storable Foo where
 instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
 
   type CFieldType Foo "foo_sixty_four" =
-    HsBindgen.Runtime.Prelude.Word64
+    HsBindgen.Runtime.LibC.Word64
 
   offset# = \_ -> \_ -> 0
 
@@ -80,7 +80,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_sixty_four
 instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_thirty_two" where
 
   type CFieldType Foo "foo_thirty_two" =
-    HsBindgen.Runtime.Prelude.Word32
+    HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 8
 

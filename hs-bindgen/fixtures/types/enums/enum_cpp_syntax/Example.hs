@@ -15,7 +15,7 @@ import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
@@ -26,7 +26,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
 newtype Foo_enum = Foo_enum
-  { un_Foo_enum :: HsBindgen.Runtime.Prelude.Word32
+  { un_Foo_enum :: HsBindgen.Runtime.LibC.Word32
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -49,12 +49,11 @@ instance F.Storable Foo_enum where
           Foo_enum un_Foo_enum2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Foo_enum2
 
-deriving via HsBindgen.Runtime.Prelude.Word32 instance Data.Primitive.Types.Prim Foo_enum
+deriving via HsBindgen.Runtime.LibC.Word32 instance Data.Primitive.Types.Prim Foo_enum
 
 instance HsBindgen.Runtime.CEnum.CEnum Foo_enum where
 
-  type CEnumZ Foo_enum =
-    HsBindgen.Runtime.Prelude.Word32
+  type CEnumZ Foo_enum = HsBindgen.Runtime.LibC.Word32
 
   toCEnum = Foo_enum
 

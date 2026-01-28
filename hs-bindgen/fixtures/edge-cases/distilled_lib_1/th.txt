@@ -311,21 +311,21 @@ data A_typedef_struct_t
 
                                __exported by:__ @edge-cases\/distilled_lib_1.h@
                           -},
-                          a_typedef_struct_t_field_1 :: HsBindgen.Runtime.Prelude.Word8
+                          a_typedef_struct_t_field_1 :: HsBindgen.Runtime.LibC.Word8
                           {- ^ __C declaration:__ @field_1@
 
                                __defined at:__ @edge-cases\/distilled_lib_1.h 38:31@
 
                                __exported by:__ @edge-cases\/distilled_lib_1.h@
                           -},
-                          a_typedef_struct_t_field_2 :: HsBindgen.Runtime.Prelude.Word16
+                          a_typedef_struct_t_field_2 :: HsBindgen.Runtime.LibC.Word16
                           {- ^ __C declaration:__ @field_2@
 
                                __defined at:__ @edge-cases\/distilled_lib_1.h 39:31@
 
                                __exported by:__ @edge-cases\/distilled_lib_1.h@
                           -},
-                          a_typedef_struct_t_field_3 :: HsBindgen.Runtime.Prelude.Word32
+                          a_typedef_struct_t_field_3 :: HsBindgen.Runtime.LibC.Word32
                           {- ^ __C declaration:__ @field_3@
 
                                __defined at:__ @edge-cases\/distilled_lib_1.h 40:31@
@@ -354,7 +354,7 @@ data A_typedef_struct_t
                                __exported by:__ @edge-cases\/distilled_lib_1.h@
                           -},
                           a_typedef_struct_t_field_7 :: (ConstantArray 7
-                                                                       HsBindgen.Runtime.Prelude.Word32)
+                                                                       HsBindgen.Runtime.LibC.Word32)
                           {- ^ __C declaration:__ @field_7@
 
                                __defined at:__ @edge-cases\/distilled_lib_1.h 44:31@
@@ -420,7 +420,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_0")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_1"
     where type CFieldType A_typedef_struct_t
-                          "a_typedef_struct_t_field_1" = HsBindgen.Runtime.Prelude.Word8
+                          "a_typedef_struct_t_field_1" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 1
 instance TyEq ty
               (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_1") =>
@@ -430,7 +430,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_1")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_2"
     where type CFieldType A_typedef_struct_t
-                          "a_typedef_struct_t_field_2" = HsBindgen.Runtime.Prelude.Word16
+                          "a_typedef_struct_t_field_2" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 2
 instance TyEq ty
               (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_2") =>
@@ -440,7 +440,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_2")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_3"
     where type CFieldType A_typedef_struct_t
-                          "a_typedef_struct_t_field_3" = HsBindgen.Runtime.Prelude.Word32
+                          "a_typedef_struct_t_field_3" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 4
 instance TyEq ty
               (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_3") =>
@@ -481,7 +481,7 @@ instance TyEq ty
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_7"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_7" = ConstantArray 7
-                                                                       HsBindgen.Runtime.Prelude.Word32
+                                                                       HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 32
 instance TyEq ty
               (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_7") =>
@@ -689,8 +689,8 @@ __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t_Aux
     = Callback_t_Aux {un_Callback_t_Aux :: (Ptr Void ->
-                                            HsBindgen.Runtime.Prelude.Word32 ->
-                                            IO HsBindgen.Runtime.Prelude.Word32)}
+                                            HsBindgen.Runtime.LibC.Word32 ->
+                                            IO HsBindgen.Runtime.LibC.Word32)}
       {- ^ Auxiliary type used by 'Callback_t'
 
       __C declaration:__ @callback_t@
@@ -728,8 +728,8 @@ instance TyEq ty (CFieldType Callback_t_Aux "un_Callback_t_Aux") =>
 instance HasCField Callback_t_Aux "un_Callback_t_Aux"
     where type CFieldType Callback_t_Aux
                           "un_Callback_t_Aux" = Ptr Void ->
-                                                HsBindgen.Runtime.Prelude.Word32 ->
-                                                IO HsBindgen.Runtime.Prelude.Word32
+                                                HsBindgen.Runtime.LibC.Word32 ->
+                                                IO HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @callback_t@
 
@@ -762,9 +762,8 @@ foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c00
  -> IO Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->
-                               HsBindgen.Runtime.Prelude.Word32 ->
-                               Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                               IO HsBindgen.Runtime.Prelude.Int32
+                               HsBindgen.Runtime.LibC.Word32 ->
+                               Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 hs_bindgen_57cb99ed92c001ad = fromFFIType hs_bindgen_57cb99ed92c001ad_base
 {-| __C declaration:__ @some_fun@
@@ -774,9 +773,8 @@ hs_bindgen_57cb99ed92c001ad = fromFFIType hs_bindgen_57cb99ed92c001ad_base
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun :: Ptr A_type_t ->
-            HsBindgen.Runtime.Prelude.Word32 ->
-            Ptr HsBindgen.Runtime.Prelude.Word8 ->
-            IO HsBindgen.Runtime.Prelude.Int32
+            HsBindgen.Runtime.LibC.Word32 ->
+            Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
@@ -792,9 +790,8 @@ foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a93
  -> IO Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 hs_bindgen_2a91c367a9380a63 :: Ptr A_type_t ->
-                               HsBindgen.Runtime.Prelude.Word32 ->
-                               Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                               IO HsBindgen.Runtime.Prelude.Int32
+                               HsBindgen.Runtime.LibC.Word32 ->
+                               Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 hs_bindgen_2a91c367a9380a63 = fromFFIType hs_bindgen_2a91c367a9380a63_base
 {-| __C declaration:__ @some_fun@
@@ -804,9 +801,8 @@ hs_bindgen_2a91c367a9380a63 = fromFFIType hs_bindgen_2a91c367a9380a63_base
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun :: Ptr A_type_t ->
-            HsBindgen.Runtime.Prelude.Word32 ->
-            Ptr HsBindgen.Runtime.Prelude.Word8 ->
-            IO HsBindgen.Runtime.Prelude.Int32
+            HsBindgen.Runtime.LibC.Word32 ->
+            Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
@@ -819,9 +815,9 @@ foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc186
     IO (FunPtr Void)
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
 hs_bindgen_1ade3cfc18679577 :: IO (FunPtr (Ptr A_type_t ->
-                                           HsBindgen.Runtime.Prelude.Word32 ->
-                                           IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-                                           IO HsBindgen.Runtime.Prelude.Int32))
+                                           HsBindgen.Runtime.LibC.Word32 ->
+                                           IncompleteArray HsBindgen.Runtime.LibC.Word8 ->
+                                           IO HsBindgen.Runtime.LibC.Int32))
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
 hs_bindgen_1ade3cfc18679577 = fromFFIType hs_bindgen_1ade3cfc18679577_base
 {-# NOINLINE some_fun #-}
@@ -832,9 +828,9 @@ hs_bindgen_1ade3cfc18679577 = fromFFIType hs_bindgen_1ade3cfc18679577_base
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun :: FunPtr (Ptr A_type_t ->
-                    HsBindgen.Runtime.Prelude.Word32 ->
-                    IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-                    IO HsBindgen.Runtime.Prelude.Int32)
+                    HsBindgen.Runtime.LibC.Word32 ->
+                    IncompleteArray HsBindgen.Runtime.LibC.Word8 ->
+                    IO HsBindgen.Runtime.LibC.Int32)
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@

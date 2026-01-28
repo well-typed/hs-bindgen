@@ -265,21 +265,21 @@ instance TyEq ty (CFieldType Inline_struct "inline_struct_y") =>
     __exported by:__ @globals\/globals.h@
 -}
 data Version_t
-    = Version_t {version_t_major :: HsBindgen.Runtime.Prelude.Word8
+    = Version_t {version_t_major :: HsBindgen.Runtime.LibC.Word8
                  {- ^ __C declaration:__ @major@
 
                       __defined at:__ @globals\/globals.h 408:12@
 
                       __exported by:__ @globals\/globals.h@
                  -},
-                 version_t_minor :: HsBindgen.Runtime.Prelude.Word16
+                 version_t_minor :: HsBindgen.Runtime.LibC.Word16
                  {- ^ __C declaration:__ @minor@
 
                       __defined at:__ @globals\/globals.h 409:12@
 
                       __exported by:__ @globals\/globals.h@
                  -},
-                 version_t_patch :: HsBindgen.Runtime.Prelude.Word8
+                 version_t_patch :: HsBindgen.Runtime.LibC.Word8
                  {- ^ __C declaration:__ @patch@
 
                       __defined at:__ @globals\/globals.h 410:12@
@@ -303,21 +303,21 @@ instance Storable Version_t
                                              version_t_patch_5 -> pokeCField (Proxy @"version_t_major") ptr_1 version_t_major_3 >> (pokeCField (Proxy @"version_t_minor") ptr_1 version_t_minor_4 >> pokeCField (Proxy @"version_t_patch") ptr_1 version_t_patch_5)
 instance HasCField Version_t "version_t_major"
     where type CFieldType Version_t
-                          "version_t_major" = HsBindgen.Runtime.Prelude.Word8
+                          "version_t_major" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Version_t "version_t_major") =>
          HasField "version_t_major" (Ptr Version_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"version_t_major")
 instance HasCField Version_t "version_t_minor"
     where type CFieldType Version_t
-                          "version_t_minor" = HsBindgen.Runtime.Prelude.Word16
+                          "version_t_minor" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 2
 instance TyEq ty (CFieldType Version_t "version_t_minor") =>
          HasField "version_t_minor" (Ptr Version_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"version_t_minor")
 instance HasCField Version_t "version_t_patch"
     where type CFieldType Version_t
-                          "version_t_patch" = HsBindgen.Runtime.Prelude.Word8
+                          "version_t_patch" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Version_t "version_t_patch") =>
          HasField "version_t_patch" (Ptr Version_t) (Ptr ty)
@@ -329,7 +329,7 @@ instance TyEq ty (CFieldType Version_t "version_t_patch") =>
     __exported by:__ @globals\/globals.h@
 -}
 data Struct1_t
-    = Struct1_t {struct1_t_x :: HsBindgen.Runtime.Prelude.Word16
+    = Struct1_t {struct1_t_x :: HsBindgen.Runtime.LibC.Word16
                  {- ^ __C declaration:__ @x@
 
                       __defined at:__ @globals\/globals.h 415:13@
@@ -367,7 +367,7 @@ instance Storable Struct1_t
                                              struct1_t_version_5 -> pokeCField (Proxy @"struct1_t_x") ptr_1 struct1_t_x_3 >> (pokeCField (Proxy @"struct1_t_y") ptr_1 struct1_t_y_4 >> pokeCField (Proxy @"struct1_t_version") ptr_1 struct1_t_version_5)
 instance HasCField Struct1_t "struct1_t_x"
     where type CFieldType Struct1_t
-                          "struct1_t_x" = HsBindgen.Runtime.Prelude.Word16
+                          "struct1_t_x" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Struct1_t "struct1_t_x") =>
          HasField "struct1_t_x" (Ptr Struct1_t) (Ptr ty)
@@ -750,7 +750,7 @@ foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bf
     IO (Ptr Void)
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
 hs_bindgen_798af9a98bfc3030 :: IO (Ptr (ConstantArray 4
-                                                      HsBindgen.Runtime.Prelude.Word8))
+                                                      HsBindgen.Runtime.LibC.Word8))
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
 hs_bindgen_798af9a98bfc3030 = fromFFIType hs_bindgen_798af9a98bfc3030_base
 {-# NOINLINE nesInitList #-}
@@ -760,8 +760,7 @@ hs_bindgen_798af9a98bfc3030 = fromFFIType hs_bindgen_798af9a98bfc3030_base
 
     __exported by:__ @globals\/globals.h@
 -}
-nesInitList :: Ptr (ConstantArray 4
-                                  HsBindgen.Runtime.Prelude.Word8)
+nesInitList :: Ptr (ConstantArray 4 HsBindgen.Runtime.LibC.Word8)
 {-| __C declaration:__ @nesInitList@
 
     __defined at:__ @globals\/globals.h 47:9@
@@ -796,7 +795,7 @@ foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f
     IO (Ptr Void)
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
 hs_bindgen_b243f9b292f8b883 :: IO (Ptr (ConstantArray 4096
-                                                      HsBindgen.Runtime.Prelude.Word8))
+                                                      HsBindgen.Runtime.LibC.Word8))
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
 hs_bindgen_b243f9b292f8b883 = fromFFIType hs_bindgen_b243f9b292f8b883_base
 {-# NOINLINE streamBinary #-}
@@ -813,7 +812,7 @@ __defined at:__ @globals\/globals.h 60:9@
 __exported by:__ @globals\/globals.h@
 -}
 streamBinary :: Ptr (ConstantArray 4096
-                                   HsBindgen.Runtime.Prelude.Word8)
+                                   HsBindgen.Runtime.LibC.Word8)
 {-| Additional examples of global variables, abstracted from real examples
 
   The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
@@ -831,7 +830,7 @@ streamBinary = unsafePerformIO hs_bindgen_b243f9b292f8b883
 foreign import ccall unsafe "hs_bindgen_60adad2a6178e6cc" hs_bindgen_60adad2a6178e6cc_base ::
     IO (Ptr Void)
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary_len@
-hs_bindgen_60adad2a6178e6cc :: IO (Ptr HsBindgen.Runtime.Prelude.Word32)
+hs_bindgen_60adad2a6178e6cc :: IO (Ptr HsBindgen.Runtime.LibC.Word32)
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary_len@
 hs_bindgen_60adad2a6178e6cc = fromFFIType hs_bindgen_60adad2a6178e6cc_base
 {-# NOINLINE streamBinary_len #-}
@@ -841,7 +840,7 @@ hs_bindgen_60adad2a6178e6cc = fromFFIType hs_bindgen_60adad2a6178e6cc_base
 
     __exported by:__ @globals\/globals.h@
 -}
-streamBinary_len :: Ptr HsBindgen.Runtime.Prelude.Word32
+streamBinary_len :: Ptr HsBindgen.Runtime.LibC.Word32
 {-| __C declaration:__ @streamBinary_len@
 
     __defined at:__ @globals\/globals.h 404:10@

@@ -34,7 +34,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- @hs-bindgen-runtime@
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
 bindingSpec = BindingSpec.BindingSpec{
-      moduleName = "HsBindgen.Runtime.Prelude"
+      moduleName = "HsBindgen.Runtime.LibC"
     , cTypes     = bindingSpecCTypes
     , hsTypes    = bindingSpecHsTypes
     }
