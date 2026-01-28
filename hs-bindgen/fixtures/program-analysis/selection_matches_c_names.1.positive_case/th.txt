@@ -1,0 +1,126 @@
+-- addDependentFile examples/golden/program-analysis/selection_matches_c_names.h
+-- #include <program-analysis/selection_matches_c_names.h>
+-- signed int hs_bindgen_c9b1dc5577fd8ced (void)
+-- {
+--   return FunctionWithAssignedHaskellNameByNameMangler();
+-- }
+-- signed int hs_bindgen_9a13a53e6a2f2416 (void)
+-- {
+--   return FunctionWithAssignedHaskellNameByNameMangler();
+-- }
+-- /* test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_1ccc97a484f823b2 (void)) (void)
+-- {
+--   return &FunctionWithAssignedHaskellNameByNameMangler;
+-- }
+{-| __C declaration:__ @struct StructWithAssignedHaskellNameByPrescriptiveBindingSpecs@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 7:8@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
+data NewName
+    = NewName {newName_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @program-analysis\/selection_matches_c_names.h 8:7@
+
+                    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+               -}}
+      {- ^ __C declaration:__ @struct StructWithAssignedHaskellNameByPrescriptiveBindingSpecs@
+
+           __defined at:__ @program-analysis\/selection_matches_c_names.h 7:8@
+
+           __exported by:__ @program-analysis\/selection_matches_c_names.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable NewName
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure NewName <*> peekCField (Proxy @"newName_x") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   NewName newName_x_3 -> pokeCField (Proxy @"newName_x") ptr_1 newName_x_3
+instance Prim NewName
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> NewName (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, NewName v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    NewName newName_x_11 -> writeByteArray# arr_7 i_8 newName_x_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> NewName (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17, NewName v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      NewName newName_x_23 -> writeOffAddr# addr_19 i_20 newName_x_23 s_22
+instance HasCField NewName "newName_x"
+    where type CFieldType NewName "newName_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType NewName "newName_x") =>
+         HasField "newName_x" (Ptr NewName) (Ptr ty)
+    where getField = ptrToCField (Proxy @"newName_x")
+-- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
+foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8ced_base ::
+    IO Int32
+-- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
+hs_bindgen_c9b1dc5577fd8ced :: IO CInt
+-- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
+hs_bindgen_c9b1dc5577fd8ced = fromFFIType hs_bindgen_c9b1dc5577fd8ced_base
+{-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
+functionWithAssignedHaskellNameByNameMangler :: IO CInt
+{-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
+functionWithAssignedHaskellNameByNameMangler = hs_bindgen_c9b1dc5577fd8ced
+-- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
+foreign import ccall unsafe "hs_bindgen_9a13a53e6a2f2416" hs_bindgen_9a13a53e6a2f2416_base ::
+    IO Int32
+-- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
+hs_bindgen_9a13a53e6a2f2416 :: IO CInt
+-- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
+hs_bindgen_9a13a53e6a2f2416 = fromFFIType hs_bindgen_9a13a53e6a2f2416_base
+{-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
+functionWithAssignedHaskellNameByNameMangler :: IO CInt
+{-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
+functionWithAssignedHaskellNameByNameMangler = hs_bindgen_9a13a53e6a2f2416
+-- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
+foreign import ccall unsafe "hs_bindgen_1ccc97a484f823b2" hs_bindgen_1ccc97a484f823b2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
+hs_bindgen_1ccc97a484f823b2 :: IO (FunPtr (IO CInt))
+-- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
+hs_bindgen_1ccc97a484f823b2 = fromFFIType hs_bindgen_1ccc97a484f823b2_base
+{-# NOINLINE functionWithAssignedHaskellNameByNameMangler #-}
+{-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
+functionWithAssignedHaskellNameByNameMangler :: FunPtr (IO CInt)
+{-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
+
+    __defined at:__ @program-analysis\/selection_matches_c_names.h 5:5@
+
+    __exported by:__ @program-analysis\/selection_matches_c_names.h@
+-}
+functionWithAssignedHaskellNameByNameMangler = unsafePerformIO hs_bindgen_1ccc97a484f823b2

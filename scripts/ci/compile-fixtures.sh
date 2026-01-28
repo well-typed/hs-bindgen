@@ -62,6 +62,7 @@ KNOWN_EMPTY=(
     macros/macro_type_void
     program-analysis/delay_traces
     program-analysis/selection_foo
+    program-analysis/selection_matches_c_names.2.negative_case
     program-analysis/selection_merge_traces
     program-analysis/selection_omit_prescriptive
     program-analysis/selection_squash_typedef
@@ -76,7 +77,7 @@ KNOWN_EMPTY=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=144
+KNOWN_FIXTURES_COUNT=146
 
 # Default options
 JOBS=4

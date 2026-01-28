@@ -232,3 +232,10 @@ TODO
 ## Prescriptive binding specifications
 
 TODO
+
+> [!NOTE]
+> In a binding specification, a `cname` specifies the (qualified) C name for a
+> type, after anonymous declarations are named. A prescriptive binding
+> specification can specify Haskell names (`hsname`). However, these Haskell
+> names do not affect selection, which also matches against the (qualified) C
+> names.
