@@ -31,6 +31,13 @@ runs:
     run: |
       echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
       echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
+      # https://stackoverflow.com/questions/63342521/clang-on-macos-having-problems-with-its-includes
+      export SDKROOT=$(xcrun --show-sdk-path --sdk macosx)
+      echo $SDKROOT
+      echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
+      # Standalone LLVM does not automatically use SDKROOT to find system
+      # headers (e.g. uchar.h). Pass -isysroot so libclang can locate them.
+      echo "BINDGEN_EXTRA_CLANG_ARGS=-isysroot $SDKROOT" >> "$GITHUB_ENV"
 
   - name: Remove tarballs from temporary directory (Linux)
     shell: bash

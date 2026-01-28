@@ -1,5 +1,9 @@
 -- | Golden tests
-module Test.HsBindgen.Golden (tests) where
+module Test.HsBindgen.Golden (
+    tests
+  , allTestCases
+  , module Test.HsBindgen.Golden.TestCase
+  ) where
 
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((<.>), (</>))
@@ -57,6 +61,24 @@ tests testResources = testTreeFor testResources $
           , TestCases "types"           testCases_bespoke_types
           ]
       ]
+
+-- | All test cases, for use by TH fixture compilation
+allTestCases :: [TestCase]
+allTestCases = concat [
+      testCases_default
+    , testCases_manual
+    , testCases_bespoke_arrays
+    , testCases_bespoke_attributes
+    , testCases_bespoke_bindingSpecs
+    , testCases_bespoke_declarations
+    , testCases_bespoke_documentation
+    , testCases_bespoke_edgeCases
+    , testCases_bespoke_functions
+    , testCases_bespoke_globals
+    , testCases_bespoke_macros
+    , testCases_bespoke_programAnalysis
+    , testCases_bespoke_types
+    ]
 
 {-------------------------------------------------------------------------------
   Construct tasty test tree
@@ -1261,6 +1283,7 @@ test_macros_reparse :: TestCase
 test_macros_reparse =
     defaultTest "macros/reparse"
       & #clangVersion   .~ Just (>= (15, 0, 0)) -- parse 'bool'
+      & #onBoot         .~ ( #clangArgs % #argsBefore .~ ["-std=c2x"] )
       & #tracePredicate .~ tolerateAll
 
 {-------------------------------------------------------------------------------
@@ -1733,6 +1756,7 @@ test_types_primitives_bool_c23 :: TestCase
 test_types_primitives_bool_c23 =
     defaultTest "types/primitives/bool_c23"
       & #clangVersion .~ Just (>= (15, 0, 0))
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c2x"] )
 
 test_types_primitives_least_fast :: TestCase
 test_types_primitives_least_fast =

@@ -152,14 +152,14 @@ hs_bindgen_f2a9c7d0ba1aaa3b = fromFFIType hs_bindgen_f2a9c7d0ba1aaa3b_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo :: MyStruct -> IO Unit
+foo_safe :: MyStruct -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 5:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo = \x_0 -> with x_0 (\x_1 -> hs_bindgen_f2a9c7d0ba1aaa3b x_1)
+foo_safe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_f2a9c7d0ba1aaa3b x_1)
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_d7efef1db7e6b005" hs_bindgen_d7efef1db7e6b005_base ::
     Ptr Void
@@ -174,14 +174,14 @@ hs_bindgen_d7efef1db7e6b005 = fromFFIType hs_bindgen_d7efef1db7e6b005_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA :: A -> IO Unit
+fooA_safe :: A -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA = \x_0 -> with x_0 (\x_1 -> hs_bindgen_d7efef1db7e6b005 x_1)
+fooA_safe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_d7efef1db7e6b005 x_1)
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_e49c2e985e471c99" hs_bindgen_e49c2e985e471c99_base ::
     Ptr Void
@@ -196,14 +196,14 @@ hs_bindgen_e49c2e985e471c99 = fromFFIType hs_bindgen_e49c2e985e471c99_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB :: B -> IO Unit
+fooB_safe :: B -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 11:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB = \x_0 -> with x_0 (\x_1 -> hs_bindgen_e49c2e985e471c99 x_1)
+fooB_safe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_e49c2e985e471c99 x_1)
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_9dbeca9fa307eee9" hs_bindgen_9dbeca9fa307eee9_base ::
     Ptr Void
@@ -218,14 +218,14 @@ hs_bindgen_9dbeca9fa307eee9 = fromFFIType hs_bindgen_9dbeca9fa307eee9_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo :: MyStruct -> IO Unit
+foo_unsafe :: MyStruct -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 5:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo = \x_0 -> with x_0 (\x_1 -> hs_bindgen_9dbeca9fa307eee9 x_1)
+foo_unsafe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_9dbeca9fa307eee9 x_1)
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_fb94ee6f22de1d89" hs_bindgen_fb94ee6f22de1d89_base ::
     Ptr Void
@@ -240,14 +240,14 @@ hs_bindgen_fb94ee6f22de1d89 = fromFFIType hs_bindgen_fb94ee6f22de1d89_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA :: A -> IO Unit
+fooA_unsafe :: A -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA = \x_0 -> with x_0 (\x_1 -> hs_bindgen_fb94ee6f22de1d89 x_1)
+fooA_unsafe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_fb94ee6f22de1d89 x_1)
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_f8f83a7090687b7e" hs_bindgen_f8f83a7090687b7e_base ::
     Ptr Void
@@ -262,14 +262,14 @@ hs_bindgen_f8f83a7090687b7e = fromFFIType hs_bindgen_f8f83a7090687b7e_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB :: B -> IO Unit
+fooB_unsafe :: B -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 11:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB = \x_0 -> with x_0 (\x_1 -> hs_bindgen_f8f83a7090687b7e x_1)
+fooB_unsafe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_f8f83a7090687b7e x_1)
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_ccfc23165c7fd4a9" hs_bindgen_ccfc23165c7fd4a9_base ::
     IO (FunPtr Void)
@@ -277,21 +277,21 @@ foreign import ccall unsafe "hs_bindgen_ccfc23165c7fd4a9" hs_bindgen_ccfc23165c7
 hs_bindgen_ccfc23165c7fd4a9 :: IO (FunPtr (MyStruct -> IO Unit))
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_foo@
 hs_bindgen_ccfc23165c7fd4a9 = fromFFIType hs_bindgen_ccfc23165c7fd4a9_base
-{-# NOINLINE foo #-}
+{-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 5:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo :: FunPtr (MyStruct -> IO Unit)
+foo_funptr :: FunPtr (MyStruct -> IO Unit)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 5:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo = unsafePerformIO hs_bindgen_ccfc23165c7fd4a9
+foo_funptr = unsafePerformIO hs_bindgen_ccfc23165c7fd4a9
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooA@
 foreign import ccall unsafe "hs_bindgen_ab74a4a30349b6b2" hs_bindgen_ab74a4a30349b6b2_base ::
     IO (FunPtr Void)
@@ -299,21 +299,21 @@ foreign import ccall unsafe "hs_bindgen_ab74a4a30349b6b2" hs_bindgen_ab74a4a3034
 hs_bindgen_ab74a4a30349b6b2 :: IO (FunPtr (A -> IO Unit))
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooA@
 hs_bindgen_ab74a4a30349b6b2 = fromFFIType hs_bindgen_ab74a4a30349b6b2_base
-{-# NOINLINE fooA #-}
+{-# NOINLINE fooA_funptr #-}
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA :: FunPtr (A -> IO Unit)
+fooA_funptr :: FunPtr (A -> IO Unit)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA = unsafePerformIO hs_bindgen_ab74a4a30349b6b2
+fooA_funptr = unsafePerformIO hs_bindgen_ab74a4a30349b6b2
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooB@
 foreign import ccall unsafe "hs_bindgen_19855bed49223360" hs_bindgen_19855bed49223360_base ::
     IO (FunPtr Void)
@@ -321,18 +321,18 @@ foreign import ccall unsafe "hs_bindgen_19855bed49223360" hs_bindgen_19855bed492
 hs_bindgen_19855bed49223360 :: IO (FunPtr (B -> IO Unit))
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooB@
 hs_bindgen_19855bed49223360 = fromFFIType hs_bindgen_19855bed49223360_base
-{-# NOINLINE fooB #-}
+{-# NOINLINE fooB_funptr #-}
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 11:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB :: FunPtr (B -> IO Unit)
+fooB_funptr :: FunPtr (B -> IO Unit)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 11:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB = unsafePerformIO hs_bindgen_19855bed49223360
+fooB_funptr = unsafePerformIO hs_bindgen_19855bed49223360

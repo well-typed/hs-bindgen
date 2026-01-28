@@ -35,14 +35,14 @@ hs_bindgen_06a412f170b5ff91 = fromFFIType hs_bindgen_06a412f170b5ff91_base
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos :: CDouble -> IO CDouble
+_acos_safe :: CDouble -> IO CDouble
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos = hs_bindgen_06a412f170b5ff91
+_acos_safe = hs_bindgen_06a412f170b5ff91
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
 foreign import ccall unsafe "hs_bindgen_dca60678b5047ee4" hs_bindgen_dca60678b5047ee4_base ::
     Double
@@ -57,14 +57,14 @@ hs_bindgen_dca60678b5047ee4 = fromFFIType hs_bindgen_dca60678b5047ee4_base
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos :: CDouble -> IO CDouble
+_acos_unsafe :: CDouble -> IO CDouble
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos = hs_bindgen_dca60678b5047ee4
+_acos_unsafe = hs_bindgen_dca60678b5047ee4
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
 foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844_base ::
     IO (FunPtr Void)
@@ -72,18 +72,18 @@ foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb0
 hs_bindgen_147bbeebcb063844 :: IO (FunPtr (CDouble -> IO CDouble))
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
 hs_bindgen_147bbeebcb063844 = fromFFIType hs_bindgen_147bbeebcb063844_base
-{-# NOINLINE _acos #-}
+{-# NOINLINE _acos_funptr #-}
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos :: FunPtr (CDouble -> IO CDouble)
+_acos_funptr :: FunPtr (CDouble -> IO CDouble)
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos = unsafePerformIO hs_bindgen_147bbeebcb063844
+_acos_funptr = unsafePerformIO hs_bindgen_147bbeebcb063844

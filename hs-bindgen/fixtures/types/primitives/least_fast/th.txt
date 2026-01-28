@@ -832,14 +832,14 @@ hs_bindgen_ad6572fbf5eadb77 = fromFFIType hs_bindgen_ad6572fbf5eadb77_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least8_t_fun :: IO Int_least8_t
+int_least8_t_fun_safe :: IO Int_least8_t
 {-| __C declaration:__ @int_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 7:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least8_t_fun = hs_bindgen_ad6572fbf5eadb77
+int_least8_t_fun_safe = hs_bindgen_ad6572fbf5eadb77
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least16_t_fun@
 foreign import ccall safe "hs_bindgen_1b76f016106283f9" hs_bindgen_1b76f016106283f9_base ::
     IO Int16
@@ -853,14 +853,14 @@ hs_bindgen_1b76f016106283f9 = fromFFIType hs_bindgen_1b76f016106283f9_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least16_t_fun :: IO Int_least16_t
+int_least16_t_fun_safe :: IO Int_least16_t
 {-| __C declaration:__ @int_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 8:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least16_t_fun = hs_bindgen_1b76f016106283f9
+int_least16_t_fun_safe = hs_bindgen_1b76f016106283f9
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least32_t_fun@
 foreign import ccall safe "hs_bindgen_6ed0daff627b4e5c" hs_bindgen_6ed0daff627b4e5c_base ::
     IO Int32
@@ -874,14 +874,14 @@ hs_bindgen_6ed0daff627b4e5c = fromFFIType hs_bindgen_6ed0daff627b4e5c_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least32_t_fun :: IO Int_least32_t
+int_least32_t_fun_safe :: IO Int_least32_t
 {-| __C declaration:__ @int_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 9:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least32_t_fun = hs_bindgen_6ed0daff627b4e5c
+int_least32_t_fun_safe = hs_bindgen_6ed0daff627b4e5c
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least64_t_fun@
 foreign import ccall safe "hs_bindgen_3973a552158e924e" hs_bindgen_3973a552158e924e_base ::
     IO Int64
@@ -895,14 +895,14 @@ hs_bindgen_3973a552158e924e = fromFFIType hs_bindgen_3973a552158e924e_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least64_t_fun :: IO Int_least64_t
+int_least64_t_fun_safe :: IO Int_least64_t
 {-| __C declaration:__ @int_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 10:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least64_t_fun = hs_bindgen_3973a552158e924e
+int_least64_t_fun_safe = hs_bindgen_3973a552158e924e
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least8_t_fun@
 foreign import ccall safe "hs_bindgen_8444813dd4e79f7f" hs_bindgen_8444813dd4e79f7f_base ::
     IO Word8
@@ -916,14 +916,14 @@ hs_bindgen_8444813dd4e79f7f = fromFFIType hs_bindgen_8444813dd4e79f7f_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least8_t_fun :: IO Uint_least8_t
+uint_least8_t_fun_safe :: IO Uint_least8_t
 {-| __C declaration:__ @uint_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 12:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least8_t_fun = hs_bindgen_8444813dd4e79f7f
+uint_least8_t_fun_safe = hs_bindgen_8444813dd4e79f7f
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least16_t_fun@
 foreign import ccall safe "hs_bindgen_1b71c9bb2bf1881f" hs_bindgen_1b71c9bb2bf1881f_base ::
     IO Word16
@@ -937,14 +937,14 @@ hs_bindgen_1b71c9bb2bf1881f = fromFFIType hs_bindgen_1b71c9bb2bf1881f_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least16_t_fun :: IO Uint_least16_t
+uint_least16_t_fun_safe :: IO Uint_least16_t
 {-| __C declaration:__ @uint_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 13:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least16_t_fun = hs_bindgen_1b71c9bb2bf1881f
+uint_least16_t_fun_safe = hs_bindgen_1b71c9bb2bf1881f
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least32_t_fun@
 foreign import ccall safe "hs_bindgen_24abaf3275c0126f" hs_bindgen_24abaf3275c0126f_base ::
     IO Word32
@@ -958,14 +958,14 @@ hs_bindgen_24abaf3275c0126f = fromFFIType hs_bindgen_24abaf3275c0126f_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least32_t_fun :: IO Uint_least32_t
+uint_least32_t_fun_safe :: IO Uint_least32_t
 {-| __C declaration:__ @uint_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 14:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least32_t_fun = hs_bindgen_24abaf3275c0126f
+uint_least32_t_fun_safe = hs_bindgen_24abaf3275c0126f
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least64_t_fun@
 foreign import ccall safe "hs_bindgen_45be86cc87258955" hs_bindgen_45be86cc87258955_base ::
     IO Word64
@@ -979,14 +979,14 @@ hs_bindgen_45be86cc87258955 = fromFFIType hs_bindgen_45be86cc87258955_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least64_t_fun :: IO Uint_least64_t
+uint_least64_t_fun_safe :: IO Uint_least64_t
 {-| __C declaration:__ @uint_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 15:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least64_t_fun = hs_bindgen_45be86cc87258955
+uint_least64_t_fun_safe = hs_bindgen_45be86cc87258955
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast8_t_fun@
 foreign import ccall safe "hs_bindgen_223fd78a0ee18a9d" hs_bindgen_223fd78a0ee18a9d_base ::
     IO Int8
@@ -1000,14 +1000,14 @@ hs_bindgen_223fd78a0ee18a9d = fromFFIType hs_bindgen_223fd78a0ee18a9d_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast8_t_fun :: IO Int_fast8_t
+int_fast8_t_fun_safe :: IO Int_fast8_t
 {-| __C declaration:__ @int_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 17:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast8_t_fun = hs_bindgen_223fd78a0ee18a9d
+int_fast8_t_fun_safe = hs_bindgen_223fd78a0ee18a9d
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast16_t_fun@
 foreign import ccall safe "hs_bindgen_097db32b72dabc72" hs_bindgen_097db32b72dabc72_base ::
     IO Int32
@@ -1021,14 +1021,14 @@ hs_bindgen_097db32b72dabc72 = fromFFIType hs_bindgen_097db32b72dabc72_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast16_t_fun :: IO Int_fast16_t
+int_fast16_t_fun_safe :: IO Int_fast16_t
 {-| __C declaration:__ @int_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 18:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast16_t_fun = hs_bindgen_097db32b72dabc72
+int_fast16_t_fun_safe = hs_bindgen_097db32b72dabc72
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast32_t_fun@
 foreign import ccall safe "hs_bindgen_a406174bb602d355" hs_bindgen_a406174bb602d355_base ::
     IO Int32
@@ -1042,14 +1042,14 @@ hs_bindgen_a406174bb602d355 = fromFFIType hs_bindgen_a406174bb602d355_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast32_t_fun :: IO Int_fast32_t
+int_fast32_t_fun_safe :: IO Int_fast32_t
 {-| __C declaration:__ @int_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 19:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast32_t_fun = hs_bindgen_a406174bb602d355
+int_fast32_t_fun_safe = hs_bindgen_a406174bb602d355
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast64_t_fun@
 foreign import ccall safe "hs_bindgen_eeb2cb113fbc86ce" hs_bindgen_eeb2cb113fbc86ce_base ::
     IO Int64
@@ -1063,14 +1063,14 @@ hs_bindgen_eeb2cb113fbc86ce = fromFFIType hs_bindgen_eeb2cb113fbc86ce_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast64_t_fun :: IO Int_fast64_t
+int_fast64_t_fun_safe :: IO Int_fast64_t
 {-| __C declaration:__ @int_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 20:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast64_t_fun = hs_bindgen_eeb2cb113fbc86ce
+int_fast64_t_fun_safe = hs_bindgen_eeb2cb113fbc86ce
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast8_t_fun@
 foreign import ccall safe "hs_bindgen_32aa304dae0c8a3d" hs_bindgen_32aa304dae0c8a3d_base ::
     IO Word8
@@ -1084,14 +1084,14 @@ hs_bindgen_32aa304dae0c8a3d = fromFFIType hs_bindgen_32aa304dae0c8a3d_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast8_t_fun :: IO Uint_fast8_t
+uint_fast8_t_fun_safe :: IO Uint_fast8_t
 {-| __C declaration:__ @uint_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 22:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast8_t_fun = hs_bindgen_32aa304dae0c8a3d
+uint_fast8_t_fun_safe = hs_bindgen_32aa304dae0c8a3d
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast16_t_fun@
 foreign import ccall safe "hs_bindgen_81ec605d32f0724d" hs_bindgen_81ec605d32f0724d_base ::
     IO Word32
@@ -1105,14 +1105,14 @@ hs_bindgen_81ec605d32f0724d = fromFFIType hs_bindgen_81ec605d32f0724d_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast16_t_fun :: IO Uint_fast16_t
+uint_fast16_t_fun_safe :: IO Uint_fast16_t
 {-| __C declaration:__ @uint_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 23:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast16_t_fun = hs_bindgen_81ec605d32f0724d
+uint_fast16_t_fun_safe = hs_bindgen_81ec605d32f0724d
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast32_t_fun@
 foreign import ccall safe "hs_bindgen_f20ac50dff139544" hs_bindgen_f20ac50dff139544_base ::
     IO Word32
@@ -1126,14 +1126,14 @@ hs_bindgen_f20ac50dff139544 = fromFFIType hs_bindgen_f20ac50dff139544_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast32_t_fun :: IO Uint_fast32_t
+uint_fast32_t_fun_safe :: IO Uint_fast32_t
 {-| __C declaration:__ @uint_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 24:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast32_t_fun = hs_bindgen_f20ac50dff139544
+uint_fast32_t_fun_safe = hs_bindgen_f20ac50dff139544
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast64_t_fun@
 foreign import ccall safe "hs_bindgen_9d5a9bc3a5b3b294" hs_bindgen_9d5a9bc3a5b3b294_base ::
     IO Word64
@@ -1147,14 +1147,14 @@ hs_bindgen_9d5a9bc3a5b3b294 = fromFFIType hs_bindgen_9d5a9bc3a5b3b294_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast64_t_fun :: IO Uint_fast64_t
+uint_fast64_t_fun_safe :: IO Uint_fast64_t
 {-| __C declaration:__ @uint_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 25:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast64_t_fun = hs_bindgen_9d5a9bc3a5b3b294
+uint_fast64_t_fun_safe = hs_bindgen_9d5a9bc3a5b3b294
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least8_t_fun@
 foreign import ccall unsafe "hs_bindgen_57bd94cbb0575f53" hs_bindgen_57bd94cbb0575f53_base ::
     IO Int8
@@ -1168,14 +1168,14 @@ hs_bindgen_57bd94cbb0575f53 = fromFFIType hs_bindgen_57bd94cbb0575f53_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least8_t_fun :: IO Int_least8_t
+int_least8_t_fun_unsafe :: IO Int_least8_t
 {-| __C declaration:__ @int_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 7:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least8_t_fun = hs_bindgen_57bd94cbb0575f53
+int_least8_t_fun_unsafe = hs_bindgen_57bd94cbb0575f53
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least16_t_fun@
 foreign import ccall unsafe "hs_bindgen_f02c70143a88af90" hs_bindgen_f02c70143a88af90_base ::
     IO Int16
@@ -1189,14 +1189,14 @@ hs_bindgen_f02c70143a88af90 = fromFFIType hs_bindgen_f02c70143a88af90_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least16_t_fun :: IO Int_least16_t
+int_least16_t_fun_unsafe :: IO Int_least16_t
 {-| __C declaration:__ @int_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 8:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least16_t_fun = hs_bindgen_f02c70143a88af90
+int_least16_t_fun_unsafe = hs_bindgen_f02c70143a88af90
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least32_t_fun@
 foreign import ccall unsafe "hs_bindgen_f5bbad7b8ac35f06" hs_bindgen_f5bbad7b8ac35f06_base ::
     IO Int32
@@ -1210,14 +1210,14 @@ hs_bindgen_f5bbad7b8ac35f06 = fromFFIType hs_bindgen_f5bbad7b8ac35f06_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least32_t_fun :: IO Int_least32_t
+int_least32_t_fun_unsafe :: IO Int_least32_t
 {-| __C declaration:__ @int_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 9:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least32_t_fun = hs_bindgen_f5bbad7b8ac35f06
+int_least32_t_fun_unsafe = hs_bindgen_f5bbad7b8ac35f06
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least64_t_fun@
 foreign import ccall unsafe "hs_bindgen_b2036b95960e2751" hs_bindgen_b2036b95960e2751_base ::
     IO Int64
@@ -1231,14 +1231,14 @@ hs_bindgen_b2036b95960e2751 = fromFFIType hs_bindgen_b2036b95960e2751_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least64_t_fun :: IO Int_least64_t
+int_least64_t_fun_unsafe :: IO Int_least64_t
 {-| __C declaration:__ @int_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 10:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least64_t_fun = hs_bindgen_b2036b95960e2751
+int_least64_t_fun_unsafe = hs_bindgen_b2036b95960e2751
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least8_t_fun@
 foreign import ccall unsafe "hs_bindgen_d893fc1d41730120" hs_bindgen_d893fc1d41730120_base ::
     IO Word8
@@ -1252,14 +1252,14 @@ hs_bindgen_d893fc1d41730120 = fromFFIType hs_bindgen_d893fc1d41730120_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least8_t_fun :: IO Uint_least8_t
+uint_least8_t_fun_unsafe :: IO Uint_least8_t
 {-| __C declaration:__ @uint_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 12:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least8_t_fun = hs_bindgen_d893fc1d41730120
+uint_least8_t_fun_unsafe = hs_bindgen_d893fc1d41730120
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least16_t_fun@
 foreign import ccall unsafe "hs_bindgen_eaf2d3e09a41513e" hs_bindgen_eaf2d3e09a41513e_base ::
     IO Word16
@@ -1273,14 +1273,14 @@ hs_bindgen_eaf2d3e09a41513e = fromFFIType hs_bindgen_eaf2d3e09a41513e_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least16_t_fun :: IO Uint_least16_t
+uint_least16_t_fun_unsafe :: IO Uint_least16_t
 {-| __C declaration:__ @uint_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 13:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least16_t_fun = hs_bindgen_eaf2d3e09a41513e
+uint_least16_t_fun_unsafe = hs_bindgen_eaf2d3e09a41513e
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least32_t_fun@
 foreign import ccall unsafe "hs_bindgen_dfdb9c77b9f2e16d" hs_bindgen_dfdb9c77b9f2e16d_base ::
     IO Word32
@@ -1294,14 +1294,14 @@ hs_bindgen_dfdb9c77b9f2e16d = fromFFIType hs_bindgen_dfdb9c77b9f2e16d_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least32_t_fun :: IO Uint_least32_t
+uint_least32_t_fun_unsafe :: IO Uint_least32_t
 {-| __C declaration:__ @uint_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 14:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least32_t_fun = hs_bindgen_dfdb9c77b9f2e16d
+uint_least32_t_fun_unsafe = hs_bindgen_dfdb9c77b9f2e16d
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least64_t_fun@
 foreign import ccall unsafe "hs_bindgen_35c7ddf6def5281e" hs_bindgen_35c7ddf6def5281e_base ::
     IO Word64
@@ -1315,14 +1315,14 @@ hs_bindgen_35c7ddf6def5281e = fromFFIType hs_bindgen_35c7ddf6def5281e_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least64_t_fun :: IO Uint_least64_t
+uint_least64_t_fun_unsafe :: IO Uint_least64_t
 {-| __C declaration:__ @uint_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 15:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least64_t_fun = hs_bindgen_35c7ddf6def5281e
+uint_least64_t_fun_unsafe = hs_bindgen_35c7ddf6def5281e
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast8_t_fun@
 foreign import ccall unsafe "hs_bindgen_5144ac530f23abd8" hs_bindgen_5144ac530f23abd8_base ::
     IO Int8
@@ -1336,14 +1336,14 @@ hs_bindgen_5144ac530f23abd8 = fromFFIType hs_bindgen_5144ac530f23abd8_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast8_t_fun :: IO Int_fast8_t
+int_fast8_t_fun_unsafe :: IO Int_fast8_t
 {-| __C declaration:__ @int_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 17:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast8_t_fun = hs_bindgen_5144ac530f23abd8
+int_fast8_t_fun_unsafe = hs_bindgen_5144ac530f23abd8
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast16_t_fun@
 foreign import ccall unsafe "hs_bindgen_a102db8605e0b669" hs_bindgen_a102db8605e0b669_base ::
     IO Int32
@@ -1357,14 +1357,14 @@ hs_bindgen_a102db8605e0b669 = fromFFIType hs_bindgen_a102db8605e0b669_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast16_t_fun :: IO Int_fast16_t
+int_fast16_t_fun_unsafe :: IO Int_fast16_t
 {-| __C declaration:__ @int_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 18:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast16_t_fun = hs_bindgen_a102db8605e0b669
+int_fast16_t_fun_unsafe = hs_bindgen_a102db8605e0b669
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast32_t_fun@
 foreign import ccall unsafe "hs_bindgen_97faff4568d5bc6a" hs_bindgen_97faff4568d5bc6a_base ::
     IO Int32
@@ -1378,14 +1378,14 @@ hs_bindgen_97faff4568d5bc6a = fromFFIType hs_bindgen_97faff4568d5bc6a_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast32_t_fun :: IO Int_fast32_t
+int_fast32_t_fun_unsafe :: IO Int_fast32_t
 {-| __C declaration:__ @int_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 19:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast32_t_fun = hs_bindgen_97faff4568d5bc6a
+int_fast32_t_fun_unsafe = hs_bindgen_97faff4568d5bc6a
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast64_t_fun@
 foreign import ccall unsafe "hs_bindgen_ce1a64e61a9f9432" hs_bindgen_ce1a64e61a9f9432_base ::
     IO Int64
@@ -1399,14 +1399,14 @@ hs_bindgen_ce1a64e61a9f9432 = fromFFIType hs_bindgen_ce1a64e61a9f9432_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast64_t_fun :: IO Int_fast64_t
+int_fast64_t_fun_unsafe :: IO Int_fast64_t
 {-| __C declaration:__ @int_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 20:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast64_t_fun = hs_bindgen_ce1a64e61a9f9432
+int_fast64_t_fun_unsafe = hs_bindgen_ce1a64e61a9f9432
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast8_t_fun@
 foreign import ccall unsafe "hs_bindgen_653d74ee9fd982e2" hs_bindgen_653d74ee9fd982e2_base ::
     IO Word8
@@ -1420,14 +1420,14 @@ hs_bindgen_653d74ee9fd982e2 = fromFFIType hs_bindgen_653d74ee9fd982e2_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast8_t_fun :: IO Uint_fast8_t
+uint_fast8_t_fun_unsafe :: IO Uint_fast8_t
 {-| __C declaration:__ @uint_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 22:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast8_t_fun = hs_bindgen_653d74ee9fd982e2
+uint_fast8_t_fun_unsafe = hs_bindgen_653d74ee9fd982e2
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast16_t_fun@
 foreign import ccall unsafe "hs_bindgen_31bf7eba8a098bae" hs_bindgen_31bf7eba8a098bae_base ::
     IO Word32
@@ -1441,14 +1441,14 @@ hs_bindgen_31bf7eba8a098bae = fromFFIType hs_bindgen_31bf7eba8a098bae_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast16_t_fun :: IO Uint_fast16_t
+uint_fast16_t_fun_unsafe :: IO Uint_fast16_t
 {-| __C declaration:__ @uint_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 23:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast16_t_fun = hs_bindgen_31bf7eba8a098bae
+uint_fast16_t_fun_unsafe = hs_bindgen_31bf7eba8a098bae
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast32_t_fun@
 foreign import ccall unsafe "hs_bindgen_fb324d72364e5685" hs_bindgen_fb324d72364e5685_base ::
     IO Word32
@@ -1462,14 +1462,14 @@ hs_bindgen_fb324d72364e5685 = fromFFIType hs_bindgen_fb324d72364e5685_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast32_t_fun :: IO Uint_fast32_t
+uint_fast32_t_fun_unsafe :: IO Uint_fast32_t
 {-| __C declaration:__ @uint_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 24:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast32_t_fun = hs_bindgen_fb324d72364e5685
+uint_fast32_t_fun_unsafe = hs_bindgen_fb324d72364e5685
 -- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast64_t_fun@
 foreign import ccall unsafe "hs_bindgen_a2995f3603c68c65" hs_bindgen_a2995f3603c68c65_base ::
     IO Word64
@@ -1483,14 +1483,14 @@ hs_bindgen_a2995f3603c68c65 = fromFFIType hs_bindgen_a2995f3603c68c65_base
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast64_t_fun :: IO Uint_fast64_t
+uint_fast64_t_fun_unsafe :: IO Uint_fast64_t
 {-| __C declaration:__ @uint_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 25:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast64_t_fun = hs_bindgen_a2995f3603c68c65
+uint_fast64_t_fun_unsafe = hs_bindgen_a2995f3603c68c65
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least8_t_fun@
 foreign import ccall unsafe "hs_bindgen_0391876bad2745ce" hs_bindgen_0391876bad2745ce_base ::
     IO (FunPtr Void)
@@ -1498,21 +1498,21 @@ foreign import ccall unsafe "hs_bindgen_0391876bad2745ce" hs_bindgen_0391876bad2
 hs_bindgen_0391876bad2745ce :: IO (FunPtr (IO Int_least8_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least8_t_fun@
 hs_bindgen_0391876bad2745ce = fromFFIType hs_bindgen_0391876bad2745ce_base
-{-# NOINLINE int_least8_t_fun #-}
+{-# NOINLINE int_least8_t_fun_funptr #-}
 {-| __C declaration:__ @int_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 7:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least8_t_fun :: FunPtr (IO Int_least8_t)
+int_least8_t_fun_funptr :: FunPtr (IO Int_least8_t)
 {-| __C declaration:__ @int_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 7:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least8_t_fun = unsafePerformIO hs_bindgen_0391876bad2745ce
+int_least8_t_fun_funptr = unsafePerformIO hs_bindgen_0391876bad2745ce
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least16_t_fun@
 foreign import ccall unsafe "hs_bindgen_0af5d61729271291" hs_bindgen_0af5d61729271291_base ::
     IO (FunPtr Void)
@@ -1520,21 +1520,21 @@ foreign import ccall unsafe "hs_bindgen_0af5d61729271291" hs_bindgen_0af5d617292
 hs_bindgen_0af5d61729271291 :: IO (FunPtr (IO Int_least16_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least16_t_fun@
 hs_bindgen_0af5d61729271291 = fromFFIType hs_bindgen_0af5d61729271291_base
-{-# NOINLINE int_least16_t_fun #-}
+{-# NOINLINE int_least16_t_fun_funptr #-}
 {-| __C declaration:__ @int_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 8:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least16_t_fun :: FunPtr (IO Int_least16_t)
+int_least16_t_fun_funptr :: FunPtr (IO Int_least16_t)
 {-| __C declaration:__ @int_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 8:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least16_t_fun = unsafePerformIO hs_bindgen_0af5d61729271291
+int_least16_t_fun_funptr = unsafePerformIO hs_bindgen_0af5d61729271291
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least32_t_fun@
 foreign import ccall unsafe "hs_bindgen_335ec637d8d81f56" hs_bindgen_335ec637d8d81f56_base ::
     IO (FunPtr Void)
@@ -1542,21 +1542,21 @@ foreign import ccall unsafe "hs_bindgen_335ec637d8d81f56" hs_bindgen_335ec637d8d
 hs_bindgen_335ec637d8d81f56 :: IO (FunPtr (IO Int_least32_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least32_t_fun@
 hs_bindgen_335ec637d8d81f56 = fromFFIType hs_bindgen_335ec637d8d81f56_base
-{-# NOINLINE int_least32_t_fun #-}
+{-# NOINLINE int_least32_t_fun_funptr #-}
 {-| __C declaration:__ @int_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 9:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least32_t_fun :: FunPtr (IO Int_least32_t)
+int_least32_t_fun_funptr :: FunPtr (IO Int_least32_t)
 {-| __C declaration:__ @int_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 9:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least32_t_fun = unsafePerformIO hs_bindgen_335ec637d8d81f56
+int_least32_t_fun_funptr = unsafePerformIO hs_bindgen_335ec637d8d81f56
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least64_t_fun@
 foreign import ccall unsafe "hs_bindgen_eedbb79d8eb0ca67" hs_bindgen_eedbb79d8eb0ca67_base ::
     IO (FunPtr Void)
@@ -1564,21 +1564,21 @@ foreign import ccall unsafe "hs_bindgen_eedbb79d8eb0ca67" hs_bindgen_eedbb79d8eb
 hs_bindgen_eedbb79d8eb0ca67 :: IO (FunPtr (IO Int_least64_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least64_t_fun@
 hs_bindgen_eedbb79d8eb0ca67 = fromFFIType hs_bindgen_eedbb79d8eb0ca67_base
-{-# NOINLINE int_least64_t_fun #-}
+{-# NOINLINE int_least64_t_fun_funptr #-}
 {-| __C declaration:__ @int_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 10:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least64_t_fun :: FunPtr (IO Int_least64_t)
+int_least64_t_fun_funptr :: FunPtr (IO Int_least64_t)
 {-| __C declaration:__ @int_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 10:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_least64_t_fun = unsafePerformIO hs_bindgen_eedbb79d8eb0ca67
+int_least64_t_fun_funptr = unsafePerformIO hs_bindgen_eedbb79d8eb0ca67
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least8_t_fun@
 foreign import ccall unsafe "hs_bindgen_cae759b263e9dcdd" hs_bindgen_cae759b263e9dcdd_base ::
     IO (FunPtr Void)
@@ -1586,21 +1586,21 @@ foreign import ccall unsafe "hs_bindgen_cae759b263e9dcdd" hs_bindgen_cae759b263e
 hs_bindgen_cae759b263e9dcdd :: IO (FunPtr (IO Uint_least8_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least8_t_fun@
 hs_bindgen_cae759b263e9dcdd = fromFFIType hs_bindgen_cae759b263e9dcdd_base
-{-# NOINLINE uint_least8_t_fun #-}
+{-# NOINLINE uint_least8_t_fun_funptr #-}
 {-| __C declaration:__ @uint_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 12:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least8_t_fun :: FunPtr (IO Uint_least8_t)
+uint_least8_t_fun_funptr :: FunPtr (IO Uint_least8_t)
 {-| __C declaration:__ @uint_least8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 12:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least8_t_fun = unsafePerformIO hs_bindgen_cae759b263e9dcdd
+uint_least8_t_fun_funptr = unsafePerformIO hs_bindgen_cae759b263e9dcdd
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least16_t_fun@
 foreign import ccall unsafe "hs_bindgen_66a8cb9486f831fe" hs_bindgen_66a8cb9486f831fe_base ::
     IO (FunPtr Void)
@@ -1608,21 +1608,21 @@ foreign import ccall unsafe "hs_bindgen_66a8cb9486f831fe" hs_bindgen_66a8cb9486f
 hs_bindgen_66a8cb9486f831fe :: IO (FunPtr (IO Uint_least16_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least16_t_fun@
 hs_bindgen_66a8cb9486f831fe = fromFFIType hs_bindgen_66a8cb9486f831fe_base
-{-# NOINLINE uint_least16_t_fun #-}
+{-# NOINLINE uint_least16_t_fun_funptr #-}
 {-| __C declaration:__ @uint_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 13:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least16_t_fun :: FunPtr (IO Uint_least16_t)
+uint_least16_t_fun_funptr :: FunPtr (IO Uint_least16_t)
 {-| __C declaration:__ @uint_least16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 13:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least16_t_fun = unsafePerformIO hs_bindgen_66a8cb9486f831fe
+uint_least16_t_fun_funptr = unsafePerformIO hs_bindgen_66a8cb9486f831fe
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least32_t_fun@
 foreign import ccall unsafe "hs_bindgen_bfc0feef86d3e7d0" hs_bindgen_bfc0feef86d3e7d0_base ::
     IO (FunPtr Void)
@@ -1630,21 +1630,21 @@ foreign import ccall unsafe "hs_bindgen_bfc0feef86d3e7d0" hs_bindgen_bfc0feef86d
 hs_bindgen_bfc0feef86d3e7d0 :: IO (FunPtr (IO Uint_least32_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least32_t_fun@
 hs_bindgen_bfc0feef86d3e7d0 = fromFFIType hs_bindgen_bfc0feef86d3e7d0_base
-{-# NOINLINE uint_least32_t_fun #-}
+{-# NOINLINE uint_least32_t_fun_funptr #-}
 {-| __C declaration:__ @uint_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 14:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least32_t_fun :: FunPtr (IO Uint_least32_t)
+uint_least32_t_fun_funptr :: FunPtr (IO Uint_least32_t)
 {-| __C declaration:__ @uint_least32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 14:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least32_t_fun = unsafePerformIO hs_bindgen_bfc0feef86d3e7d0
+uint_least32_t_fun_funptr = unsafePerformIO hs_bindgen_bfc0feef86d3e7d0
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least64_t_fun@
 foreign import ccall unsafe "hs_bindgen_1886bff0b6836087" hs_bindgen_1886bff0b6836087_base ::
     IO (FunPtr Void)
@@ -1652,21 +1652,21 @@ foreign import ccall unsafe "hs_bindgen_1886bff0b6836087" hs_bindgen_1886bff0b68
 hs_bindgen_1886bff0b6836087 :: IO (FunPtr (IO Uint_least64_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least64_t_fun@
 hs_bindgen_1886bff0b6836087 = fromFFIType hs_bindgen_1886bff0b6836087_base
-{-# NOINLINE uint_least64_t_fun #-}
+{-# NOINLINE uint_least64_t_fun_funptr #-}
 {-| __C declaration:__ @uint_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 15:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least64_t_fun :: FunPtr (IO Uint_least64_t)
+uint_least64_t_fun_funptr :: FunPtr (IO Uint_least64_t)
 {-| __C declaration:__ @uint_least64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 15:16@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_least64_t_fun = unsafePerformIO hs_bindgen_1886bff0b6836087
+uint_least64_t_fun_funptr = unsafePerformIO hs_bindgen_1886bff0b6836087
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast8_t_fun@
 foreign import ccall unsafe "hs_bindgen_08f27d79a8ef226d" hs_bindgen_08f27d79a8ef226d_base ::
     IO (FunPtr Void)
@@ -1674,21 +1674,21 @@ foreign import ccall unsafe "hs_bindgen_08f27d79a8ef226d" hs_bindgen_08f27d79a8e
 hs_bindgen_08f27d79a8ef226d :: IO (FunPtr (IO Int_fast8_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast8_t_fun@
 hs_bindgen_08f27d79a8ef226d = fromFFIType hs_bindgen_08f27d79a8ef226d_base
-{-# NOINLINE int_fast8_t_fun #-}
+{-# NOINLINE int_fast8_t_fun_funptr #-}
 {-| __C declaration:__ @int_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 17:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast8_t_fun :: FunPtr (IO Int_fast8_t)
+int_fast8_t_fun_funptr :: FunPtr (IO Int_fast8_t)
 {-| __C declaration:__ @int_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 17:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast8_t_fun = unsafePerformIO hs_bindgen_08f27d79a8ef226d
+int_fast8_t_fun_funptr = unsafePerformIO hs_bindgen_08f27d79a8ef226d
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast16_t_fun@
 foreign import ccall unsafe "hs_bindgen_1bff6fbb3c56abd5" hs_bindgen_1bff6fbb3c56abd5_base ::
     IO (FunPtr Void)
@@ -1696,21 +1696,21 @@ foreign import ccall unsafe "hs_bindgen_1bff6fbb3c56abd5" hs_bindgen_1bff6fbb3c5
 hs_bindgen_1bff6fbb3c56abd5 :: IO (FunPtr (IO Int_fast16_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast16_t_fun@
 hs_bindgen_1bff6fbb3c56abd5 = fromFFIType hs_bindgen_1bff6fbb3c56abd5_base
-{-# NOINLINE int_fast16_t_fun #-}
+{-# NOINLINE int_fast16_t_fun_funptr #-}
 {-| __C declaration:__ @int_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 18:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast16_t_fun :: FunPtr (IO Int_fast16_t)
+int_fast16_t_fun_funptr :: FunPtr (IO Int_fast16_t)
 {-| __C declaration:__ @int_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 18:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast16_t_fun = unsafePerformIO hs_bindgen_1bff6fbb3c56abd5
+int_fast16_t_fun_funptr = unsafePerformIO hs_bindgen_1bff6fbb3c56abd5
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast32_t_fun@
 foreign import ccall unsafe "hs_bindgen_8a1d629866650da2" hs_bindgen_8a1d629866650da2_base ::
     IO (FunPtr Void)
@@ -1718,21 +1718,21 @@ foreign import ccall unsafe "hs_bindgen_8a1d629866650da2" hs_bindgen_8a1d6298666
 hs_bindgen_8a1d629866650da2 :: IO (FunPtr (IO Int_fast32_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast32_t_fun@
 hs_bindgen_8a1d629866650da2 = fromFFIType hs_bindgen_8a1d629866650da2_base
-{-# NOINLINE int_fast32_t_fun #-}
+{-# NOINLINE int_fast32_t_fun_funptr #-}
 {-| __C declaration:__ @int_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 19:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast32_t_fun :: FunPtr (IO Int_fast32_t)
+int_fast32_t_fun_funptr :: FunPtr (IO Int_fast32_t)
 {-| __C declaration:__ @int_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 19:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast32_t_fun = unsafePerformIO hs_bindgen_8a1d629866650da2
+int_fast32_t_fun_funptr = unsafePerformIO hs_bindgen_8a1d629866650da2
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast64_t_fun@
 foreign import ccall unsafe "hs_bindgen_c112b0dedac2cffa" hs_bindgen_c112b0dedac2cffa_base ::
     IO (FunPtr Void)
@@ -1740,21 +1740,21 @@ foreign import ccall unsafe "hs_bindgen_c112b0dedac2cffa" hs_bindgen_c112b0dedac
 hs_bindgen_c112b0dedac2cffa :: IO (FunPtr (IO Int_fast64_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast64_t_fun@
 hs_bindgen_c112b0dedac2cffa = fromFFIType hs_bindgen_c112b0dedac2cffa_base
-{-# NOINLINE int_fast64_t_fun #-}
+{-# NOINLINE int_fast64_t_fun_funptr #-}
 {-| __C declaration:__ @int_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 20:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast64_t_fun :: FunPtr (IO Int_fast64_t)
+int_fast64_t_fun_funptr :: FunPtr (IO Int_fast64_t)
 {-| __C declaration:__ @int_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 20:14@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-int_fast64_t_fun = unsafePerformIO hs_bindgen_c112b0dedac2cffa
+int_fast64_t_fun_funptr = unsafePerformIO hs_bindgen_c112b0dedac2cffa
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast8_t_fun@
 foreign import ccall unsafe "hs_bindgen_c20e96bd69bdb439" hs_bindgen_c20e96bd69bdb439_base ::
     IO (FunPtr Void)
@@ -1762,21 +1762,21 @@ foreign import ccall unsafe "hs_bindgen_c20e96bd69bdb439" hs_bindgen_c20e96bd69b
 hs_bindgen_c20e96bd69bdb439 :: IO (FunPtr (IO Uint_fast8_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast8_t_fun@
 hs_bindgen_c20e96bd69bdb439 = fromFFIType hs_bindgen_c20e96bd69bdb439_base
-{-# NOINLINE uint_fast8_t_fun #-}
+{-# NOINLINE uint_fast8_t_fun_funptr #-}
 {-| __C declaration:__ @uint_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 22:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast8_t_fun :: FunPtr (IO Uint_fast8_t)
+uint_fast8_t_fun_funptr :: FunPtr (IO Uint_fast8_t)
 {-| __C declaration:__ @uint_fast8_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 22:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast8_t_fun = unsafePerformIO hs_bindgen_c20e96bd69bdb439
+uint_fast8_t_fun_funptr = unsafePerformIO hs_bindgen_c20e96bd69bdb439
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast16_t_fun@
 foreign import ccall unsafe "hs_bindgen_c4f607ba753f0616" hs_bindgen_c4f607ba753f0616_base ::
     IO (FunPtr Void)
@@ -1784,21 +1784,21 @@ foreign import ccall unsafe "hs_bindgen_c4f607ba753f0616" hs_bindgen_c4f607ba753
 hs_bindgen_c4f607ba753f0616 :: IO (FunPtr (IO Uint_fast16_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast16_t_fun@
 hs_bindgen_c4f607ba753f0616 = fromFFIType hs_bindgen_c4f607ba753f0616_base
-{-# NOINLINE uint_fast16_t_fun #-}
+{-# NOINLINE uint_fast16_t_fun_funptr #-}
 {-| __C declaration:__ @uint_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 23:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast16_t_fun :: FunPtr (IO Uint_fast16_t)
+uint_fast16_t_fun_funptr :: FunPtr (IO Uint_fast16_t)
 {-| __C declaration:__ @uint_fast16_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 23:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast16_t_fun = unsafePerformIO hs_bindgen_c4f607ba753f0616
+uint_fast16_t_fun_funptr = unsafePerformIO hs_bindgen_c4f607ba753f0616
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast32_t_fun@
 foreign import ccall unsafe "hs_bindgen_c22f26851616c098" hs_bindgen_c22f26851616c098_base ::
     IO (FunPtr Void)
@@ -1806,21 +1806,21 @@ foreign import ccall unsafe "hs_bindgen_c22f26851616c098" hs_bindgen_c22f2685161
 hs_bindgen_c22f26851616c098 :: IO (FunPtr (IO Uint_fast32_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast32_t_fun@
 hs_bindgen_c22f26851616c098 = fromFFIType hs_bindgen_c22f26851616c098_base
-{-# NOINLINE uint_fast32_t_fun #-}
+{-# NOINLINE uint_fast32_t_fun_funptr #-}
 {-| __C declaration:__ @uint_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 24:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast32_t_fun :: FunPtr (IO Uint_fast32_t)
+uint_fast32_t_fun_funptr :: FunPtr (IO Uint_fast32_t)
 {-| __C declaration:__ @uint_fast32_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 24:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast32_t_fun = unsafePerformIO hs_bindgen_c22f26851616c098
+uint_fast32_t_fun_funptr = unsafePerformIO hs_bindgen_c22f26851616c098
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast64_t_fun@
 foreign import ccall unsafe "hs_bindgen_3ee59d750d0d2d2a" hs_bindgen_3ee59d750d0d2d2a_base ::
     IO (FunPtr Void)
@@ -1828,18 +1828,18 @@ foreign import ccall unsafe "hs_bindgen_3ee59d750d0d2d2a" hs_bindgen_3ee59d750d0
 hs_bindgen_3ee59d750d0d2d2a :: IO (FunPtr (IO Uint_fast64_t))
 -- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast64_t_fun@
 hs_bindgen_3ee59d750d0d2d2a = fromFFIType hs_bindgen_3ee59d750d0d2d2a_base
-{-# NOINLINE uint_fast64_t_fun #-}
+{-# NOINLINE uint_fast64_t_fun_funptr #-}
 {-| __C declaration:__ @uint_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 25:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast64_t_fun :: FunPtr (IO Uint_fast64_t)
+uint_fast64_t_fun_funptr :: FunPtr (IO Uint_fast64_t)
 {-| __C declaration:__ @uint_fast64_t_fun@
 
     __defined at:__ @types\/primitives\/least_fast.h 25:15@
 
     __exported by:__ @types\/primitives\/least_fast.h@
 -}
-uint_fast64_t_fun = unsafePerformIO hs_bindgen_3ee59d750d0d2d2a
+uint_fast64_t_fun_funptr = unsafePerformIO hs_bindgen_3ee59d750d0d2d2a

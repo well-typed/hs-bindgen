@@ -72,14 +72,14 @@ hs_bindgen_67465eb5641985dc = fromFFIType hs_bindgen_67465eb5641985dc_base
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
-fun :: T -> IO T
+fun_safe :: T -> IO T
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const_member.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
-fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_67465eb5641985dc x_1 res_2))
+fun_safe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_67465eb5641985dc x_1 res_2))
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e32969011_base ::
     Ptr Void
@@ -95,14 +95,14 @@ hs_bindgen_4351e21e32969011 = fromFFIType hs_bindgen_4351e21e32969011_base
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
-fun :: T -> IO T
+fun_unsafe :: T -> IO T
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const_member.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
-fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_4351e21e32969011 x_1 res_2))
+fun_unsafe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_4351e21e32969011 x_1 res_2))
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac709cad_base ::
     IO (FunPtr Void)
@@ -110,18 +110,18 @@ foreign import ccall unsafe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac7
 hs_bindgen_564814e9ac709cad :: IO (FunPtr (T -> IO T))
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
 hs_bindgen_564814e9ac709cad = fromFFIType hs_bindgen_564814e9ac709cad_base
-{-# NOINLINE fun #-}
+{-# NOINLINE fun_funptr #-}
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const_member.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
-fun :: FunPtr (T -> IO T)
+fun_funptr :: FunPtr (T -> IO T)
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const_member.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
-fun = unsafePerformIO hs_bindgen_564814e9ac709cad
+fun_funptr = unsafePerformIO hs_bindgen_564814e9ac709cad

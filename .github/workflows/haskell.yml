@@ -215,6 +215,13 @@ jobs:
 
     - name: 🧪 Test
       run: cabal test all --test-show-details=direct
+      env:
+        # On non-Linux, skip TH fixture tests: they use the musl x86_64
+        # target for libclang but GHC compiles against native system headers,
+        # causing type mismatches (e.g., clock_t size differs).
+        TASTY_PATTERN: ${{ runner.os != 'Linux' && '!/th-fixtures/' || '' }}
+        # Prevent MSYS/Git Bash from converting /th-fixtures/ to a Windows path
+        MSYS_NO_PATHCONV: 1
 
     - name: 🧪 Build manual (macOS)
       if: runner.os == 'macOS'

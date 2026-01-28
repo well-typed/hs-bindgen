@@ -172,14 +172,14 @@ hs_bindgen_9cdc88a6d09442d6 = fromFFIType hs_bindgen_9cdc88a6d09442d6_base
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo :: CDouble -> IO CInt
+foo_safe :: CDouble -> IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo = hs_bindgen_9cdc88a6d09442d6
+foo_safe = hs_bindgen_9cdc88a6d09442d6
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f381094_base ::
     Double
@@ -194,14 +194,14 @@ hs_bindgen_07fd5b433f381094 = fromFFIType hs_bindgen_07fd5b433f381094_base
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo :: CDouble -> IO CInt
+foo_unsafe :: CDouble -> IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo = hs_bindgen_07fd5b433f381094
+foo_unsafe = hs_bindgen_07fd5b433f381094
 -- __unique:__ @test_declarationsdefinitions_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce8efe4_base ::
     IO (FunPtr Void)
@@ -209,21 +209,21 @@ foreign import ccall unsafe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce
 hs_bindgen_8bb82cd68ce8efe4 :: IO (FunPtr (CDouble -> IO CInt))
 -- __unique:__ @test_declarationsdefinitions_Example_get_foo@
 hs_bindgen_8bb82cd68ce8efe4 = fromFFIType hs_bindgen_8bb82cd68ce8efe4_base
-{-# NOINLINE foo #-}
+{-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo :: FunPtr (CDouble -> IO CInt)
+foo_funptr :: FunPtr (CDouble -> IO CInt)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo = unsafePerformIO hs_bindgen_8bb82cd68ce8efe4
+foo_funptr = unsafePerformIO hs_bindgen_8bb82cd68ce8efe4
 -- __unique:__ @test_declarationsdefinitions_Example_get_n@
 foreign import ccall unsafe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c97357_base ::
     IO (Ptr Void)

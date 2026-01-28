@@ -41,12 +41,15 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "th" fixture $ \report ->
       if ghcAtLeast904 then do
+        let testTh =
+              test
+                & #onBackend .~ const (getTestThBackendConfig test.name test.pathStyle)
         pkgroot <- getTestPackageRoot testResources
         let artefacts = (,) <$> Dependencies <*> FinalDecls
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
         -- artefact manually.
         (deps, decls) <-
-          runTestHsBindgenSuccess report testResources test artefacts
+          runTestHsBindgenSuccess report testResources testTh artefacts
 
         let thDecls :: Qu [TH.Dec]
             thDecls = uncurry (getThDecls deps) $ Foldable.fold decls

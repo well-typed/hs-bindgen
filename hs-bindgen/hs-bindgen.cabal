@@ -394,6 +394,10 @@ test-suite test-hs-bindgen
   type:               exitcode-stdio-1.0
   main-is:            test-hs-bindgen.hs
   hs-source-dirs:     test/hs-bindgen
+
+  -- Suppress warning about hs-bindgen being unused in test code
+  -- (it's only used when compiling generated TH modules)
+  ghc-options:        -Wno-unused-packages
   other-modules:
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Check.BindingSpec
@@ -406,11 +410,16 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Integration.OverwritePolicy
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
+    Test.HsBindgen.THFixtures
+    Test.HsBindgen.THFixtures.Compile
+    Test.HsBindgen.THFixtures.Generate
+    Test.HsBindgen.THFixtures.TestCases
     Test.HsBindgen.Unit.ClangArgs
     Test.HsBindgen.Unit.Tracer
 
   -- Internal dependencies
   build-depends:
+    , hs-bindgen
     , hs-bindgen:internal
     , libclang-bindings
     , test-common
