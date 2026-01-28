@@ -414,3 +414,151 @@ instance ( ((~) ty) Struct1_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")
+
+{-| __C declaration:__ @struct anonPoint@
+
+    __defined at:__ @globals\/globals.h 438:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+data AnonPoint = AnonPoint
+  { anonPoint_x :: RIP.CInt
+    {- ^ __C declaration:__ @x@
+
+         __defined at:__ @globals\/globals.h 438:14@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  , anonPoint_y :: RIP.CInt
+    {- ^ __C declaration:__ @y@
+
+         __defined at:__ @globals\/globals.h 438:21@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize AnonPoint where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw AnonPoint where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonPoint
+      <*> HasCField.readRaw (RIP.Proxy @"anonPoint_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonPoint_y") ptr0
+
+instance Marshal.WriteRaw AnonPoint where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonPoint anonPoint_x2 anonPoint_y3 ->
+               HasCField.writeRaw (RIP.Proxy @"anonPoint_x") ptr0 anonPoint_x2
+            >> HasCField.writeRaw (RIP.Proxy @"anonPoint_y") ptr0 anonPoint_y3
+
+deriving via Marshal.EquivStorable AnonPoint instance RIP.Storable AnonPoint
+
+instance HasCField.HasCField AnonPoint "anonPoint_x" where
+
+  type CFieldType AnonPoint "anonPoint_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPoint_x" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPoint_x")
+
+instance HasCField.HasCField AnonPoint "anonPoint_y" where
+
+  type CFieldType AnonPoint "anonPoint_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPoint_y" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPoint_y")
+
+{-| __C declaration:__ @struct anonPair@
+
+    __defined at:__ @globals\/globals.h 441:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+data AnonPair = AnonPair
+  { anonPair_a :: RIP.CInt
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @globals\/globals.h 441:14@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  , anonPair_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @globals\/globals.h 441:21@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize AnonPair where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw AnonPair where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonPair
+      <*> HasCField.readRaw (RIP.Proxy @"anonPair_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonPair_b") ptr0
+
+instance Marshal.WriteRaw AnonPair where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonPair anonPair_a2 anonPair_b3 ->
+               HasCField.writeRaw (RIP.Proxy @"anonPair_a") ptr0 anonPair_a2
+            >> HasCField.writeRaw (RIP.Proxy @"anonPair_b") ptr0 anonPair_b3
+
+deriving via Marshal.EquivStorable AnonPair instance RIP.Storable AnonPair
+
+instance HasCField.HasCField AnonPair "anonPair_a" where
+
+  type CFieldType AnonPair "anonPair_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPair_a" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPair_a")
+
+instance HasCField.HasCField AnonPair "anonPair_b" where
+
+  type CFieldType AnonPair "anonPair_b" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPair_b" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPair_b")

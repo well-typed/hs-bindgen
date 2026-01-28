@@ -707,11 +707,11 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         pure $ (fails ++) $
-          if not (null anonDecls) then [
+          if not (null anonDecls) && not isDefn then [
               parseFail info.id info.loc $
                 ParseUnexpectedAnonInExtern
             ]
-          else (map parseSucceed otherDecls ++) $
+          else (map parseSucceed (anonDecls ++ otherDecls) ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
                   | visibilityCanCauseErrors visibility linkage isDefn

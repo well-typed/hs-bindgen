@@ -127,6 +127,18 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return &some_global_struct;"
   , "}"
+  , "/* test_globalsglobals_Example_get_anonPoint */"
+  , "__attribute__ ((const))"
+  , "struct anonPoint *hs_bindgen_6a74c096c69eaf13 (void)"
+  , "{"
+  , "  return &anonPoint;"
+  , "}"
+  , "/* test_globalsglobals_Example_get_anonPair */"
+  , "__attribute__ ((const))"
+  , "struct anonPair *hs_bindgen_2ee54a93dbbed801 (void)"
+  , "{"
+  , "  return &anonPair;"
+  , "}"
   ]))
 
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
@@ -524,3 +536,43 @@ hs_bindgen_fe50ca9a4fea641c =
 some_global_struct :: RIP.Ptr Struct2_t
 some_global_struct =
   RIP.unsafePerformIO hs_bindgen_fe50ca9a4fea641c
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPoint@
+foreign import ccall unsafe "hs_bindgen_6a74c096c69eaf13" hs_bindgen_6a74c096c69eaf13_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPoint@
+hs_bindgen_6a74c096c69eaf13 :: IO (RIP.Ptr AnonPoint)
+hs_bindgen_6a74c096c69eaf13 =
+  RIP.fromFFIType hs_bindgen_6a74c096c69eaf13_base
+
+{-# NOINLINE anonPoint #-}
+{-| __C declaration:__ @anonPoint@
+
+    __defined at:__ @globals\/globals.h 438:26@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonPoint :: RIP.Ptr AnonPoint
+anonPoint =
+  RIP.unsafePerformIO hs_bindgen_6a74c096c69eaf13
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPair@
+foreign import ccall unsafe "hs_bindgen_2ee54a93dbbed801" hs_bindgen_2ee54a93dbbed801_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPair@
+hs_bindgen_2ee54a93dbbed801 :: IO (RIP.Ptr AnonPair)
+hs_bindgen_2ee54a93dbbed801 =
+  RIP.fromFFIType hs_bindgen_2ee54a93dbbed801_base
+
+{-# NOINLINE anonPair #-}
+{-| __C declaration:__ @anonPair@
+
+    __defined at:__ @globals\/globals.h 441:26@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonPair :: RIP.Ptr AnonPair
+anonPair =
+  RIP.unsafePerformIO hs_bindgen_2ee54a93dbbed801
