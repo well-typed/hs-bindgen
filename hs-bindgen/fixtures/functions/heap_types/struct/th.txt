@@ -72,14 +72,14 @@ hs_bindgen_a5d53f538e59b1fc = fromFFIType hs_bindgen_a5d53f538e59b1fc_base
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun :: T -> IO T
+fun_safe :: T -> IO T
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_a5d53f538e59b1fc x_1 res_2))
+fun_safe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_a5d53f538e59b1fc x_1 res_2))
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb824712c6a_base ::
     Ptr Void
@@ -95,14 +95,14 @@ hs_bindgen_c4af6bb824712c6a = fromFFIType hs_bindgen_c4af6bb824712c6a_base
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun :: T -> IO T
+fun_unsafe :: T -> IO T
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_c4af6bb824712c6a x_1 res_2))
+fun_unsafe = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_c4af6bb824712c6a x_1 res_2))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda58051e4a_base ::
     IO (FunPtr Void)
@@ -110,18 +110,18 @@ foreign import ccall unsafe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda580
 hs_bindgen_071e2eda58051e4a :: IO (FunPtr (T -> IO T))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
 hs_bindgen_071e2eda58051e4a = fromFFIType hs_bindgen_071e2eda58051e4a_base
-{-# NOINLINE fun #-}
+{-# NOINLINE fun_funptr #-}
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun :: FunPtr (T -> IO T)
+fun_funptr :: FunPtr (T -> IO T)
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
-fun = unsafePerformIO hs_bindgen_071e2eda58051e4a
+fun_funptr = unsafePerformIO hs_bindgen_071e2eda58051e4a
