@@ -101,15 +101,15 @@ hs_bindgen_ccdad25a057f8efd :: IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
 hs_bindgen_ccdad25a057f8efd =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ccdad25a057f8efd_base
 
-{-# NOINLINE makeToggle #-}
+{-# NOINLINE makeToggle_funptr #-}
 {-| __C declaration:__ @makeToggle@
 
     __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeToggle :: Ptr.FunPtr (FC.CBool -> IO Toggle)
-makeToggle =
+makeToggle_funptr :: Ptr.FunPtr (FC.CBool -> IO Toggle)
+makeToggle_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ccdad25a057f8efd
 
 -- __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
@@ -121,15 +121,15 @@ hs_bindgen_fd8e19ba2d78baa9 :: IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
 hs_bindgen_fd8e19ba2d78baa9 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fd8e19ba2d78baa9_base
 
-{-# NOINLINE toggleNext #-}
+{-# NOINLINE toggleNext_funptr #-}
 {-| __C declaration:__ @toggleNext@
 
     __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-toggleNext :: Ptr.FunPtr (Toggle -> IO FC.CBool)
-toggleNext =
+toggleNext_funptr :: Ptr.FunPtr (Toggle -> IO FC.CBool)
+toggleNext_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fd8e19ba2d78baa9
 
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
@@ -141,15 +141,15 @@ hs_bindgen_780e490698de9df1 :: IO (Ptr.FunPtr (Toggle -> IO ()))
 hs_bindgen_780e490698de9df1 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_780e490698de9df1_base
 
-{-# NOINLINE releaseToggle #-}
+{-# NOINLINE releaseToggle_funptr #-}
 {-| __C declaration:__ @releaseToggle@
 
     __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseToggle :: Ptr.FunPtr (Toggle -> IO ())
-releaseToggle =
+releaseToggle_funptr :: Ptr.FunPtr (Toggle -> IO ())
+releaseToggle_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_780e490698de9df1
 
 -- __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
@@ -161,15 +161,15 @@ hs_bindgen_517dd14dbdb5e3ba :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
 hs_bindgen_517dd14dbdb5e3ba =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_517dd14dbdb5e3ba_base
 
-{-# NOINLINE makeCounter #-}
+{-# NOINLINE makeCounter_funptr #-}
 {-| __C declaration:__ @makeCounter@
 
     __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeCounter :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
-makeCounter =
+makeCounter_funptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
+makeCounter_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_517dd14dbdb5e3ba
 
 -- __unique:__ @test_edgecasesiterator_Example_get_counterNext@
@@ -181,15 +181,15 @@ hs_bindgen_28d81dd8ce6aca30 :: IO (Ptr.FunPtr (Counter -> IO FC.CInt))
 hs_bindgen_28d81dd8ce6aca30 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_28d81dd8ce6aca30_base
 
-{-# NOINLINE counterNext #-}
+{-# NOINLINE counterNext_funptr #-}
 {-| __C declaration:__ @counterNext@
 
     __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-counterNext :: Ptr.FunPtr (Counter -> IO FC.CInt)
-counterNext =
+counterNext_funptr :: Ptr.FunPtr (Counter -> IO FC.CInt)
+counterNext_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_28d81dd8ce6aca30
 
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
@@ -201,15 +201,15 @@ hs_bindgen_849de94baad0430a :: IO (Ptr.FunPtr (Counter -> IO ()))
 hs_bindgen_849de94baad0430a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_849de94baad0430a_base
 
-{-# NOINLINE releaseCounter #-}
+{-# NOINLINE releaseCounter_funptr #-}
 {-| __C declaration:__ @releaseCounter@
 
     __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseCounter :: Ptr.FunPtr (Counter -> IO ())
-releaseCounter =
+releaseCounter_funptr :: Ptr.FunPtr (Counter -> IO ())
+releaseCounter_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_849de94baad0430a
 
 -- __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
@@ -221,15 +221,15 @@ hs_bindgen_8eea20d99febeef3 :: IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
 hs_bindgen_8eea20d99febeef3 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8eea20d99febeef3_base
 
-{-# NOINLINE makeVarCounter #-}
+{-# NOINLINE makeVarCounter_funptr #-}
 {-| __C declaration:__ @makeVarCounter@
 
     __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeVarCounter :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
-makeVarCounter =
+makeVarCounter_funptr :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
+makeVarCounter_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8eea20d99febeef3
 
 -- __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
@@ -241,15 +241,15 @@ hs_bindgen_3ae982266c863a3d :: IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CI
 hs_bindgen_3ae982266c863a3d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3ae982266c863a3d_base
 
-{-# NOINLINE varCounterNext #-}
+{-# NOINLINE varCounterNext_funptr #-}
 {-| __C declaration:__ @varCounterNext@
 
     __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-varCounterNext :: Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
-varCounterNext =
+varCounterNext_funptr :: Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
+varCounterNext_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3ae982266c863a3d
 
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
@@ -261,13 +261,13 @@ hs_bindgen_802a723805cb041f :: IO (Ptr.FunPtr (VarCounter -> IO ()))
 hs_bindgen_802a723805cb041f =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_802a723805cb041f_base
 
-{-# NOINLINE releaseVarCounter #-}
+{-# NOINLINE releaseVarCounter_funptr #-}
 {-| __C declaration:__ @releaseVarCounter@
 
     __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseVarCounter :: Ptr.FunPtr (VarCounter -> IO ())
-releaseVarCounter =
+releaseVarCounter_funptr :: Ptr.FunPtr (VarCounter -> IO ())
+releaseVarCounter_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_802a723805cb041f

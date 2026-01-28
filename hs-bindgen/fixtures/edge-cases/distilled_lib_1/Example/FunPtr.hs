@@ -38,13 +38,13 @@ hs_bindgen_1ade3cfc18679577 :: IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.R
 hs_bindgen_1ade3cfc18679577 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1ade3cfc18679577_base
 
-{-# NOINLINE some_fun #-}
+{-# NOINLINE some_fun_funptr #-}
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-some_fun :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.LibC.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8) -> IO HsBindgen.Runtime.LibC.Int32)
-some_fun =
+some_fun_funptr :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.LibC.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8) -> IO HsBindgen.Runtime.LibC.Int32)
+some_fun_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1ade3cfc18679577

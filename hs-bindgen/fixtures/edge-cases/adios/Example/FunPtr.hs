@@ -50,15 +50,15 @@ hs_bindgen_4ac23afef85d3af0 :: IO (Ptr.FunPtr (IO FC.CInt))
 hs_bindgen_4ac23afef85d3af0 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4ac23afef85d3af0_base
 
-{-# NOINLINE adio'0301s_fun #-}
+{-# NOINLINE adio'0301s_fun_funptr #-}
 {-| __C declaration:__ @adiós_fun@
 
     __defined at:__ @edge-cases\/adios.h 12:5@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-adio'0301s_fun :: Ptr.FunPtr (IO FC.CInt)
-adio'0301s_fun =
+adio'0301s_fun_funptr :: Ptr.FunPtr (IO FC.CInt)
+adio'0301s_fun_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4ac23afef85d3af0
 
 -- __unique:__ @test_edgecasesadios_Example_get_ϒ@
@@ -70,15 +70,15 @@ hs_bindgen_0b1168f405aafe83 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_0b1168f405aafe83 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0b1168f405aafe83_base
 
-{-# NOINLINE cϒ #-}
+{-# NOINLINE cϒ_funptr #-}
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h 23:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒ :: Ptr.FunPtr (IO ())
-cϒ =
+cϒ_funptr :: Ptr.FunPtr (IO ())
+cϒ_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0b1168f405aafe83
 
 -- __unique:__ @test_edgecasesadios_Example_get_拜拜@
@@ -90,15 +90,15 @@ hs_bindgen_0a95358747546f1b :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_0a95358747546f1b =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0a95358747546f1b_base
 
-{-# NOINLINE 拜拜 #-}
+{-# NOINLINE 拜拜_funptr #-}
 {-| __C declaration:__ @拜拜@
 
     __defined at:__ @edge-cases\/adios.h 32:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-拜拜 :: Ptr.FunPtr (IO ())
-拜拜 =
+拜拜_funptr :: Ptr.FunPtr (IO ())
+拜拜_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0a95358747546f1b
 
 -- __unique:__ @test_edgecasesadios_Example_get_Say拜拜@
@@ -110,13 +110,13 @@ hs_bindgen_a01e420336bfa879 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_a01e420336bfa879 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a01e420336bfa879_base
 
-{-# NOINLINE say拜拜 #-}
+{-# NOINLINE say拜拜_funptr #-}
 {-| __C declaration:__ @Say拜拜@
 
     __defined at:__ @edge-cases\/adios.h 36:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-say拜拜 :: Ptr.FunPtr (IO ())
-say拜拜 =
+say拜拜_funptr :: Ptr.FunPtr (IO ())
+say拜拜_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a01e420336bfa879

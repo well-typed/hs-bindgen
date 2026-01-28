@@ -95,15 +95,15 @@ hs_bindgen_f0adbe322df05825 :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_f0adbe322df05825 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f0adbe322df05825_base
 
-{-# NOINLINE square #-}
+{-# NOINLINE square_funptr #-}
 {-| __C declaration:__ @square@
 
     __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-square :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-square =
+square_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f0adbe322df05825
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_plus@
@@ -115,15 +115,15 @@ hs_bindgen_ab2a2131b5f9f197 :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
 hs_bindgen_ab2a2131b5f9f197 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ab2a2131b5f9f197_base
 
-{-# NOINLINE plus #-}
+{-# NOINLINE plus_funptr #-}
 {-| __C declaration:__ @plus@
 
     __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-plus :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
-plus =
+plus_funptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
+plus_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ab2a2131b5f9f197
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1@
@@ -135,15 +135,15 @@ hs_bindgen_b3bb0146641acd39 :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CIn
 hs_bindgen_b3bb0146641acd39 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b3bb0146641acd39_base
 
-{-# NOINLINE apply1 #-}
+{-# NOINLINE apply1_funptr #-}
 {-| __C declaration:__ @apply1@
 
     __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-apply1 :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
-apply1 =
+apply1_funptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+apply1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b3bb0146641acd39
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply2@
@@ -155,15 +155,15 @@ hs_bindgen_78245c4946e6da00 :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -
 hs_bindgen_78245c4946e6da00 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_78245c4946e6da00_base
 
-{-# NOINLINE apply2 #-}
+{-# NOINLINE apply2_funptr #-}
 {-| __C declaration:__ @apply2@
 
     __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-apply2 :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.CInt -> FC.CInt -> IO FC.CInt)
-apply2 =
+apply2_funptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.CInt -> FC.CInt -> IO FC.CInt)
+apply2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_78245c4946e6da00
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_pointer_arg@
@@ -175,7 +175,7 @@ hs_bindgen_00276448b1e8af8a :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -
 hs_bindgen_00276448b1e8af8a =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_00276448b1e8af8a_base
 
-{-# NOINLINE apply1_pointer_arg #-}
+{-# NOINLINE apply1_pointer_arg_funptr #-}
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
 __C declaration:__ @apply1_pointer_arg@
@@ -184,8 +184,8 @@ __defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_pointer_arg :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
-apply1_pointer_arg =
+apply1_pointer_arg_funptr :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
+apply1_pointer_arg_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00276448b1e8af8a
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_arg@
@@ -197,7 +197,7 @@ hs_bindgen_00f9010b80cdee19 :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -
 hs_bindgen_00f9010b80cdee19 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_00f9010b80cdee19_base
 
-{-# NOINLINE apply1_nopointer_arg #-}
+{-# NOINLINE apply1_nopointer_arg_funptr #-}
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
 __C declaration:__ @apply1_nopointer_arg@
@@ -206,8 +206,8 @@ __defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_arg :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
-apply1_nopointer_arg =
+apply1_nopointer_arg_funptr :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
+apply1_nopointer_arg_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00f9010b80cdee19
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_res@
@@ -219,7 +219,7 @@ hs_bindgen_16929b4528263721 :: IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2i
 hs_bindgen_16929b4528263721 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_16929b4528263721_base
 
-{-# NOINLINE apply1_nopointer_res #-}
+{-# NOINLINE apply1_nopointer_res_funptr #-}
 {-| A function returning a pointer to a function like apply1_nopointer().
 
 __C declaration:__ @apply1_nopointer_res@
@@ -228,6 +228,6 @@ __defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_res :: Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
-apply1_nopointer_res =
+apply1_nopointer_res_funptr :: Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
+apply1_nopointer_res_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_16929b4528263721

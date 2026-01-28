@@ -86,11 +86,11 @@ hs_bindgen_3389520bc7419af4 =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-foo ::
+foo_unsafe ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-foo = hs_bindgen_3389520bc7419af4
+foo_unsafe = hs_bindgen_3389520bc7419af4
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
 foreign import ccall unsafe "hs_bindgen_73e2db5ad5d807f7" hs_bindgen_73e2db5ad5d807f7_base ::
@@ -110,11 +110,11 @@ hs_bindgen_73e2db5ad5d807f7 =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-foo_const ::
+foo_const_unsafe ::
      HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-foo_const = hs_bindgen_73e2db5ad5d807f7
+foo_const_unsafe = hs_bindgen_73e2db5ad5d807f7
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_a28b81f0afc23eed" hs_bindgen_a28b81f0afc23eed_base ::
@@ -134,11 +134,11 @@ hs_bindgen_a28b81f0afc23eed =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-bar ::
+bar_unsafe ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-bar = hs_bindgen_a28b81f0afc23eed
+bar_unsafe = hs_bindgen_a28b81f0afc23eed
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
 foreign import ccall unsafe "hs_bindgen_58337c492b64ae2c" hs_bindgen_58337c492b64ae2c_base ::
@@ -158,11 +158,11 @@ hs_bindgen_58337c492b64ae2c =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-bar_const ::
+bar_const_unsafe ::
      HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-bar_const = hs_bindgen_58337c492b64ae2c
+bar_const_unsafe = hs_bindgen_58337c492b64ae2c
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz@
 foreign import ccall unsafe "hs_bindgen_48876e6767cb5923" hs_bindgen_48876e6767cb5923_base ::
@@ -182,11 +182,11 @@ hs_bindgen_48876e6767cb5923 =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-baz ::
+baz_unsafe ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-baz = hs_bindgen_48876e6767cb5923
+baz_unsafe = hs_bindgen_48876e6767cb5923
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
 foreign import ccall unsafe "hs_bindgen_13ce150055e8aa41" hs_bindgen_13ce150055e8aa41_base ::
@@ -206,11 +206,11 @@ hs_bindgen_13ce150055e8aa41 =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-baz_const ::
+baz_const_unsafe ::
      HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-baz_const = hs_bindgen_13ce150055e8aa41
+baz_const_unsafe = hs_bindgen_13ce150055e8aa41
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz@
 foreign import ccall unsafe "hs_bindgen_da5c432144bd5546" hs_bindgen_da5c432144bd5546_base ::
@@ -230,11 +230,11 @@ hs_bindgen_da5c432144bd5546 =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-quuz ::
+quuz_unsafe ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-quuz = hs_bindgen_da5c432144bd5546
+quuz_unsafe = hs_bindgen_da5c432144bd5546
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
 foreign import ccall unsafe "hs_bindgen_70be94a6fb59f547" hs_bindgen_70be94a6fb59f547_base ::
@@ -254,8 +254,8 @@ hs_bindgen_70be94a6fb59f547 =
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-quuz_const ::
+quuz_const_unsafe ::
      HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
-quuz_const = hs_bindgen_70be94a6fb59f547
+quuz_const_unsafe = hs_bindgen_70be94a6fb59f547

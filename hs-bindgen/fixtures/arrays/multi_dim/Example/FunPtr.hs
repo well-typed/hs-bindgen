@@ -94,15 +94,15 @@ hs_bindgen_02d97ecc46bbc8e0 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray
 hs_bindgen_02d97ecc46bbc8e0 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_02d97ecc46bbc8e0_base
 
-{-# NOINLINE foo #-}
+{-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @arrays\/multi_dim.h 4:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-foo :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)) -> IO FC.CInt)
-foo =
+foo_funptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)) -> IO FC.CInt)
+foo_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_02d97ecc46bbc8e0
 
 -- __unique:__ @test_arraysmulti_dim_Example_get_foo_const@
@@ -114,15 +114,15 @@ hs_bindgen_8baaa4bee7bf2bf7 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray
 hs_bindgen_8baaa4bee7bf2bf7 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8baaa4bee7bf2bf7_base
 
-{-# NOINLINE foo_const #-}
+{-# NOINLINE foo_const_funptr #-}
 {-| __C declaration:__ @foo_const@
 
     __defined at:__ @arrays\/multi_dim.h 5:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-foo_const :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)) -> IO FC.CInt)
-foo_const =
+foo_const_funptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)) -> IO FC.CInt)
+foo_const_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8baaa4bee7bf2bf7
 
 -- __unique:__ @test_arraysmulti_dim_Example_get_bar@
@@ -134,15 +134,15 @@ hs_bindgen_27d306f03bbe4aeb :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArra
 hs_bindgen_27d306f03bbe4aeb =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_27d306f03bbe4aeb_base
 
-{-# NOINLINE bar #-}
+{-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
     __defined at:__ @arrays\/multi_dim.h 8:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-bar :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)) -> IO FC.CInt)
-bar =
+bar_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)) -> IO FC.CInt)
+bar_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_27d306f03bbe4aeb
 
 -- __unique:__ @test_arraysmulti_dim_Example_get_bar_const@
@@ -154,15 +154,15 @@ hs_bindgen_dedcf308a5d44f1d :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArra
 hs_bindgen_dedcf308a5d44f1d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_dedcf308a5d44f1d_base
 
-{-# NOINLINE bar_const #-}
+{-# NOINLINE bar_const_funptr #-}
 {-| __C declaration:__ @bar_const@
 
     __defined at:__ @arrays\/multi_dim.h 9:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-bar_const :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)) -> IO FC.CInt)
-bar_const =
+bar_const_funptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)) -> IO FC.CInt)
+bar_const_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dedcf308a5d44f1d
 
 -- __unique:__ @test_arraysmulti_dim_Example_get_baz@
@@ -174,15 +174,15 @@ hs_bindgen_f8c450c8715a6834 :: IO (Ptr.FunPtr (Matrix -> IO FC.CInt))
 hs_bindgen_f8c450c8715a6834 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f8c450c8715a6834_base
 
-{-# NOINLINE baz #-}
+{-# NOINLINE baz_funptr #-}
 {-| __C declaration:__ @baz@
 
     __defined at:__ @arrays\/multi_dim.h 13:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-baz :: Ptr.FunPtr (Matrix -> IO FC.CInt)
-baz =
+baz_funptr :: Ptr.FunPtr (Matrix -> IO FC.CInt)
+baz_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f8c450c8715a6834
 
 -- __unique:__ @test_arraysmulti_dim_Example_get_baz_const@
@@ -194,15 +194,15 @@ hs_bindgen_520d9475875f88b2 :: IO (Ptr.FunPtr (Matrix -> IO FC.CInt))
 hs_bindgen_520d9475875f88b2 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_520d9475875f88b2_base
 
-{-# NOINLINE baz_const #-}
+{-# NOINLINE baz_const_funptr #-}
 {-| __C declaration:__ @baz_const@
 
     __defined at:__ @arrays\/multi_dim.h 14:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-baz_const :: Ptr.FunPtr (Matrix -> IO FC.CInt)
-baz_const =
+baz_const_funptr :: Ptr.FunPtr (Matrix -> IO FC.CInt)
+baz_const_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_520d9475875f88b2
 
 -- __unique:__ @test_arraysmulti_dim_Example_get_quuz@
@@ -214,15 +214,15 @@ hs_bindgen_cb1714c714867d37 :: IO (Ptr.FunPtr (Triplets -> IO FC.CInt))
 hs_bindgen_cb1714c714867d37 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cb1714c714867d37_base
 
-{-# NOINLINE quuz #-}
+{-# NOINLINE quuz_funptr #-}
 {-| __C declaration:__ @quuz@
 
     __defined at:__ @arrays\/multi_dim.h 18:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-quuz :: Ptr.FunPtr (Triplets -> IO FC.CInt)
-quuz =
+quuz_funptr :: Ptr.FunPtr (Triplets -> IO FC.CInt)
+quuz_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cb1714c714867d37
 
 -- __unique:__ @test_arraysmulti_dim_Example_get_quuz_const@
@@ -234,13 +234,13 @@ hs_bindgen_b4e5ee141d4c7703 :: IO (Ptr.FunPtr (Triplets -> IO FC.CInt))
 hs_bindgen_b4e5ee141d4c7703 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b4e5ee141d4c7703_base
 
-{-# NOINLINE quuz_const #-}
+{-# NOINLINE quuz_const_funptr #-}
 {-| __C declaration:__ @quuz_const@
 
     __defined at:__ @arrays\/multi_dim.h 19:5@
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-quuz_const :: Ptr.FunPtr (Triplets -> IO FC.CInt)
-quuz_const =
+quuz_const_funptr :: Ptr.FunPtr (Triplets -> IO FC.CInt)
+quuz_const_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b4e5ee141d4c7703
