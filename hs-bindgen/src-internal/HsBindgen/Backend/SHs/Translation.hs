@@ -47,7 +47,7 @@ getCWrappers decls = mapMaybe getCWrapper decls
     getCWrapper = \case
       Hs.DeclForeignImport importDecl ->
         case importDecl.callConv of
-          CallConvUserlandCAPI w -> Just w
+          CallConvUserlandCapi w -> Just w
           _otherCallConv         -> Nothing
       _otherDecl -> Nothing
 

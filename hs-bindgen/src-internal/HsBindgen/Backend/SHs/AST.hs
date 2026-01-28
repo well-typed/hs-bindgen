@@ -85,8 +85,8 @@ data Global =
   | CharValue_fromAddr
   | ByteArray_setUnionPayload
   | ByteArray_getUnionPayload
-  | CAPI_with
-  | CAPI_allocaAndPeek
+  | Capi_with
+  | Capi_allocaAndPeek
   | ConstantArray_withPtr
   | IncompleteArray_withPtr
 

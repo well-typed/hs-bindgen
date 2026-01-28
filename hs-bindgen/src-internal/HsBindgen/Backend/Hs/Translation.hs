@@ -1165,7 +1165,7 @@ addressStubDecs opts haddockConfig moduleName sizeofs info ty runnerNameSpec _sp
           []
           (Hs.ForeignImport.FunRes stubImportType)
           (uniqueCDeclName stubSymbol)
-          (CallConvUserlandCAPI cWrapper)
+          (CallConvUserlandCapi cWrapper)
           (Origin.Global ty)
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are

@@ -128,7 +128,7 @@ functionDecs safety opts haddockConfig moduleName sizeofs info origCFun _spec =
           foreignImportParams
           foreignImportResult
           (uniqueCDeclName cWrapperName)
-          (CallConvUserlandCAPI cWrapper)
+          (CallConvUserlandCapi cWrapper)
           (Origin.Function origCFun)
           safety
       where
@@ -543,7 +543,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs = case x.typ of
-            PassByAddress ty' ->  SHs.eAppMany (SHs.EGlobal SHs.CAPI_with) $
+            PassByAddress ty' ->  SHs.eAppMany (SHs.EGlobal SHs.Capi_with) $
               let wrapConstPtr = C.isErasedTypeConstQualified ty' in
               [ SHs.EBound y
               , SHs.ELam x.ptrNameHint $
@@ -572,7 +572,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
       | isPassByAddress primResult
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
-          (SHs.EGlobal SHs.CAPI_allocaAndPeek)
+          (SHs.EGlobal SHs.Capi_allocaAndPeek)
           (SHs.ELam "res" $ kont zs')
       | otherwise
       = kont zs
