@@ -19,7 +19,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.FlexibleArrayMember
+import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCField
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -120,7 +120,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal_Aux) "pascal_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"pascal_len")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Pascal_Aux where
+instance HsBindgen.Runtime.FLAM.Offset FC.CChar Pascal_Aux where
 
   offset = \_ty0 -> 4
 
@@ -131,7 +131,7 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Pascal_Aux where
     __exported by:__ @edge-cases\/flam.h@
 -}
 type Pascal =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CChar) Pascal_Aux
+  (HsBindgen.Runtime.FLAM.WithFlam FC.CChar) Pascal_Aux
 
 {-| __C declaration:__ @struct \@foo_bar@
 
@@ -352,7 +352,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_Aux) "foo_len")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_len")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset Foo_bar Foo_Aux where
+instance HsBindgen.Runtime.FLAM.Offset Foo_bar Foo_Aux where
 
   offset = \_ty0 -> 4
 
@@ -363,7 +363,7 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset Foo_bar Foo_Aux where
     __exported by:__ @edge-cases\/flam.h@
 -}
 type Foo =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember Foo_bar) Foo_Aux
+  (HsBindgen.Runtime.FLAM.WithFlam Foo_bar) Foo_Aux
 
 {-| __C declaration:__ @struct diff@
 
@@ -489,7 +489,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff_Aux) "diff_seco
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"diff_second")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Diff_Aux where
+instance HsBindgen.Runtime.FLAM.Offset FC.CChar Diff_Aux where
 
   offset = \_ty0 -> 9
 
@@ -500,7 +500,7 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Diff_Aux where
     __exported by:__ @edge-cases\/flam.h@
 -}
 type Diff =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CChar) Diff_Aux
+  (HsBindgen.Runtime.FLAM.WithFlam FC.CChar) Diff_Aux
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
@@ -599,7 +599,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets_Aux) "tripl
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"triplets_len")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets_Aux where
+instance HsBindgen.Runtime.FLAM.Offset ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets_Aux where
 
   offset = \_ty0 -> 4
 
@@ -612,4 +612,4 @@ __defined at:__ @edge-cases\/flam.h 26:8@
 __exported by:__ @edge-cases\/flam.h@
 -}
 type Triplets =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) Triplets_Aux
+  (HsBindgen.Runtime.FLAM.WithFlam ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) Triplets_Aux

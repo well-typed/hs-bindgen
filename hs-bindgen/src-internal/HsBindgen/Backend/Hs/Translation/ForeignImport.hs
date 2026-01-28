@@ -282,7 +282,7 @@ toFFIType sizeofs = go
       HsBlock{} -> yes $ FFI.Basic FFI.Ptr
       HsComplexType{} -> no
       HsStrLit{} -> no
-      HsWithFlexibleArrayMember{} -> no
+      HsWithFlam{} -> no
 
     goPrim :: HsPrimType -> Maybe FFI.FFIType
     goPrim pt = case pt of

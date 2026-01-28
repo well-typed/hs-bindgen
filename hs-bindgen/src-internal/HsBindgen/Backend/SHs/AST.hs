@@ -91,9 +91,9 @@ data Global =
   | IncompleteArray_withPtr
 
     -- Flexible array members
-  | FlexibleArrayMember_Offset_class
-  | FlexibleArrayMember_Offset_offset
-  | WithFlexibleArrayMember
+  | Flam_Offset_class
+  | Flam_Offset_offset
+  | WithFlam
 
     -- HasCField
   | HasCField_class

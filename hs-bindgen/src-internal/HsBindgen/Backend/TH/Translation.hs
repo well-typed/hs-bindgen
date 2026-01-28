@@ -50,7 +50,7 @@ import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
-import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.FLAM qualified
 import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
@@ -117,9 +117,9 @@ mkGlobal = \case
       IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
 
       -- Flexible array members
-      FlexibleArrayMember_Offset_class  -> ''HsBindgen.Runtime.FlexibleArrayMember.Offset
-      FlexibleArrayMember_Offset_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.offset
-      WithFlexibleArrayMember           -> ''HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember
+      Flam_Offset_class  -> ''HsBindgen.Runtime.FLAM.Offset
+      Flam_Offset_offset ->  'HsBindgen.Runtime.FLAM.offset
+      WithFlam           -> ''HsBindgen.Runtime.FLAM.WithFlam
 
       -- HasCField
       HasCField_class       -> ''HsBindgen.Runtime.HasCField.HasCField
@@ -376,18 +376,18 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ConstantArray         -> panicPure "type in expression"
     IncompleteArray       -> panicPure "type in expression"
     IO_type               -> panicPure "type in expression"
-    FlexibleArrayMember_Offset_class -> panicPure "class in expression"
-    FlexibleArrayMember_Offset_offset -> TH.varE name
-    WithFlexibleArrayMember -> TH.varE name
-    CharValue_tycon      -> panicPure "type in expression"
+    Flam_Offset_class     -> panicPure "class in expression"
+    Flam_Offset_offset    -> TH.varE name
+    WithFlam              -> TH.varE name
+    CharValue_tycon       -> panicPure "type in expression"
     CharValue_constructor -> TH.conE name
-    CharValue_fromAddr   -> TH.varE name
+    CharValue_fromAddr    -> TH.varE name
     ByteArray_setUnionPayload -> TH.varE name
     ByteArray_getUnionPayload -> TH.varE name
     CAPI_with             -> TH.varE name
     CAPI_allocaAndPeek    -> TH.varE name
     ConstantArray_withPtr -> TH.varE name
-    IncompleteArray_withPtr -> TH.varE name
+    IncompleteArray_withPtr   -> TH.varE name
 
     -- HasCField
     HasCField_class -> panicPure "class in expression"

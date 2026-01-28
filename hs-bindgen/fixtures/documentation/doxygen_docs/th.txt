@@ -1549,8 +1549,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"flexible_array_count")
 instance Offset CInt Flexible_array_Aux
     where offset = \_ty_0 -> 8
-type Flexible_array = WithFlexibleArrayMember CInt
-                                              Flexible_array_Aux
+type Flexible_array = WithFlam CInt Flexible_array_Aux
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
     Ptr Void

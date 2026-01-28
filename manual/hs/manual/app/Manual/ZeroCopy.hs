@@ -9,7 +9,7 @@ import Foreign.C.Types
 
 import HsBindgen.Runtime.ConstantArray as CA
 import HsBindgen.Runtime.ConstPtr
-import HsBindgen.Runtime.FlexibleArrayMember qualified as Flam
+import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.Ptr
 
@@ -151,5 +151,5 @@ transpose inputPtr outputPtr =
       (ConstPtr inputPtr.un_Matrix.toFirstElemPtr)
       outputPtr.un_Matrix.toFirstElemPtr
 
-instance Flam.NumElems CChar Gen.Vector_Aux where
+instance FLAM.NumElems CChar Gen.Vector_Aux where
   numElems x = fromIntegral (Gen.vector_len x)

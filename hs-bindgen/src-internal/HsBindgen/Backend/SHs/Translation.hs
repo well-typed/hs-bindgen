@@ -90,14 +90,14 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasCBitfieldInstance i defInst.comment
       Hs.InstanceHasField i ->
         DInst $ translateHasFieldInstance i defInst.comment
-      Hs.InstanceHasFLAM struct fty i ->
+      Hs.InstanceHasFlam struct fty i ->
         DInst Instance{
-            clss    = FlexibleArrayMember_Offset_class
+            clss    = Flam_Offset_class
           , args    = [ translateType fty, TCon struct.name ]
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( FlexibleArrayMember_Offset_offset
+          , decs    = [ ( Flam_Offset_offset
                         , ELam "_ty" $ EIntegral (toInteger i) Nothing)
                       ]
           }
@@ -313,9 +313,9 @@ translateType = \case
     Hs.HsBlock t                     -> TGlobal Block_type `TApp` translateType t
     Hs.HsComplexType t               -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
     Hs.HsStrLit s                    -> TStrLit s
-    Hs.HsWithFlexibleArrayMember x y -> TApp
+    Hs.HsWithFlam x y -> TApp
                                           (TApp
-                                            (TGlobal WithFlexibleArrayMember)
+                                            (TGlobal WithFlam)
                                             (translateType x))
                                           (translateType y)
 

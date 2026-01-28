@@ -27,7 +27,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.FlexibleArrayMember
+import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -1019,7 +1019,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_len")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Vector_Aux where
+instance HsBindgen.Runtime.FLAM.Offset FC.CChar Vector_Aux where
 
   offset = \_ty0 -> 4
 
@@ -1030,7 +1030,7 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Vector_Aux where
     __exported by:__ @manual\/zero_copy.h@
 -}
 type Vector =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CChar) Vector_Aux
+  (HsBindgen.Runtime.FLAM.WithFlam FC.CChar) Vector_Aux
 
 {-| __C declaration:__ @triplet@
 

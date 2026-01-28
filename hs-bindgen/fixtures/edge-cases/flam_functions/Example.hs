@@ -18,7 +18,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.FlexibleArrayMember
+import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
@@ -118,7 +118,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_length")
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CLong Vector_Aux where
+instance HsBindgen.Runtime.FLAM.Offset FC.CLong Vector_Aux where
 
   offset = \_ty0 -> 8
 
@@ -129,4 +129,4 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CLong Vector_Aux where
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
 type Vector =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CLong) Vector_Aux
+  (HsBindgen.Runtime.FLAM.WithFlam FC.CLong) Vector_Aux
