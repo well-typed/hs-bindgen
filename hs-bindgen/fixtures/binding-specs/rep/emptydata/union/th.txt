@@ -1,0 +1,9 @@
+-- addDependentFile examples/golden/binding-specs/rep/emptydata/pt.h
+-- addDependentFile examples/golden/binding-specs/rep/emptydata/union.h
+{-| __C declaration:__ @union dual@
+
+    __defined at:__ @binding-specs\/rep\/emptydata\/union.h 5:7@
+
+    __exported by:__ @binding-specs\/rep\/emptydata\/union.h@
+-}
+data Dual

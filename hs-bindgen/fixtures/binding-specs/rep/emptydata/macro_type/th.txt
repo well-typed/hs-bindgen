@@ -1,0 +1,8 @@
+-- addDependentFile examples/golden/binding-specs/rep/emptydata/macro_type.h
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/rep\/emptydata\/macro_type.h 1:9@
+
+    __exported by:__ @binding-specs\/rep\/emptydata\/macro_type.h@
+-}
+data Foo

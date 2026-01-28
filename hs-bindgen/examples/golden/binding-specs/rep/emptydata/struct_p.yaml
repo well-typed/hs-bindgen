@@ -1,0 +1,26 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/rep/emptydata/struct.h
+  cname: struct rect
+  hsname: Rect
+- headers: binding-specs/rep/emptydata/struct.h
+  cname: struct foo
+  hsname: Foo
+- headers: binding-specs/rep/emptydata/struct.h
+  cname: struct oaa
+  hsname: Oaa
+- headers: binding-specs/rep/emptydata/struct.h
+  cname: struct oan
+  hsname: Oan
+hstypes:
+- hsname: Rect
+  representation: emptydata
+- hsname: Foo
+  representation: emptydata
+- hsname: Oaa
+  representation: emptydata
+- hsname: Oan
+  representation: emptydata

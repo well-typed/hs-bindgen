@@ -17,6 +17,7 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
   , getStrictTransitiveDeps
     -- * Deletion
   , deleteDeps
+  , deleteRevDeps
     -- * Debugging
   , dumpMermaid
   ) where
@@ -135,12 +136,27 @@ getStrictTransitiveDeps graph xs =
   Deletion
 -------------------------------------------------------------------------------}
 
--- | Delete dependencies
+-- | Delete edges from the specified vertices, representing dependencies
+--
+-- This function is used when a type is opaqued, in which case the type no
+-- longer has dependencies.
 deleteDeps ::
      [DeclId]
   -> UseDeclGraph
   -> UseDeclGraph
 deleteDeps depIds useDeclGraph = UseDeclGraph{
+      graph = DynGraph.deleteEdgesFrom depIds useDeclGraph.graph
+    }
+
+-- | Delete edges to the specified vertices, representing reverse dependencies
+--
+-- This function is used when a type is replace with an external reference, in
+-- which case all uses of the type no longer directly depend on the type.
+deleteRevDeps ::
+     [DeclId]
+  -> UseDeclGraph
+  -> UseDeclGraph
+deleteRevDeps depIds useDeclGraph = UseDeclGraph{
       graph = DynGraph.deleteEdgesTo depIds useDeclGraph.graph
     }
 

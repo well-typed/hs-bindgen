@@ -1,0 +1,10 @@
+# Naming a squashed type, specifying the name for the typedef
+
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/name/squash_typedef.h
+  cname: bar
+  hsname: Piyo

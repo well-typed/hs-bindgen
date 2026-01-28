@@ -1,0 +1,32 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/name/type.h
+  cname: sym
+  hsname: MySym
+hstypes:
+- hsname: MySym
+  representation:
+    newtype:
+      constructor: MySym
+      fields:
+      - un_MySym
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasFFIType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable

@@ -1,0 +1,11 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/rep/emptydata/typedef.h
+  cname: origin
+  hsname: Origin
+hstypes:
+- hsname: Origin
+  representation: emptydata

@@ -1,0 +1,9 @@
+-- addDependentFile examples/golden/binding-specs/rep/emptydata/pt.h
+-- addDependentFile examples/golden/binding-specs/rep/emptydata/typedef.h
+{-| __C declaration:__ @origin@
+
+    __defined at:__ @binding-specs\/rep\/emptydata\/typedef.h 3:19@
+
+    __exported by:__ @binding-specs\/rep\/emptydata\/typedef.h@
+-}
+data Origin

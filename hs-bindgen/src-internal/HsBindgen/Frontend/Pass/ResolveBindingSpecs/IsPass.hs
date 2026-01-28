@@ -101,8 +101,10 @@ data ResolveBindingSpecsMsg =
   | ResolveBindingSpecsTypeNotUsed          DeclId
   | ResolveBindingSpecsExtDecl              DeclId
   | ResolveBindingSpecsExtType              DeclId DeclId
-  | ResolveBindingSpecsPrescriptiveRequire  DeclId
-  | ResolveBindingSpecsPrescriptiveOmit     DeclId
+  | ResolveBindingSpecsPreRequire           DeclId
+  | ResolveBindingSpecsPreOmit              DeclId
+  | ResolveBindingSpecsPreEmptyData         DeclId
+  | ResolveBindingSpecsPreEmptyDataInvalid  DeclId
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
@@ -135,11 +137,17 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
           <+> prettyForTrace ctx
           <+> "type replaced with external binding:"
           <+> prettyForTrace cDeclId
-      ResolveBindingSpecsPrescriptiveRequire cDeclId ->
+      ResolveBindingSpecsPreRequire cDeclId ->
         "Prescriptive binding specification found:"
           <+> prettyForTrace cDeclId
-      ResolveBindingSpecsPrescriptiveOmit cDeclId ->
+      ResolveBindingSpecsPreOmit cDeclId ->
         "Declaration omitted by prescriptive binding specification:"
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsPreEmptyData cDeclId ->
+        "Declaration opaqued by prescriptive binding specification:"
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsPreEmptyDataInvalid cDeclId ->
+        "Declaration opaqued by prescriptive binding specification invalid for kind:"
           <+> prettyForTrace cDeclId
 
 instance IsTrace Level ResolveBindingSpecsMsg where
@@ -152,8 +160,10 @@ instance IsTrace Level ResolveBindingSpecsMsg where
     ResolveBindingSpecsTypeNotUsed{}          -> Error
     ResolveBindingSpecsExtDecl{}              -> Info
     ResolveBindingSpecsExtType{}              -> Info
-    ResolveBindingSpecsPrescriptiveRequire{}  -> Info
-    ResolveBindingSpecsPrescriptiveOmit{}     -> Info
+    ResolveBindingSpecsPreRequire{}           -> Info
+    ResolveBindingSpecsPreOmit{}              -> Info
+    ResolveBindingSpecsPreEmptyData{}         -> Info
+    ResolveBindingSpecsPreEmptyDataInvalid{}  -> Warning
   getSource          = const HsBindgen
   getTraceId         = const "resolve-binding-specs"
 

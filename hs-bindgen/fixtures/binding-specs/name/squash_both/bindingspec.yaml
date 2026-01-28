@@ -1,0 +1,24 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/name/squash_both.h
+  cname: struct foo
+  hsname: Hoge
+- headers: binding-specs/name/squash_both.h
+  cname: bar
+  hsname: Hoge
+hstypes:
+- hsname: Hoge
+  representation:
+    record:
+      constructor: Hoge
+      fields:
+      - hoge_x
+      - hoge_y
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable

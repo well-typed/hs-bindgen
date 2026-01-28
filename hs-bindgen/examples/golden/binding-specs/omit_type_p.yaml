@@ -1,0 +1,8 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- omit:
+    headers: binding-specs/omit_type.h
+    cname: struct pt
