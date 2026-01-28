@@ -6,13 +6,13 @@
 module Example.Safe where
 
 import qualified GHC.Word
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
 import qualified M
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <binding-specs/fun_arg/typedef/enum.h>"
   , "void hs_bindgen_99bb90e6d7637d2c ("
   , "  enum MyEnum arg1"

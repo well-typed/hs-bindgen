@@ -7,11 +7,11 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
   , "void hs_bindgen_a1252a3becef09a6 ("
   , "  signed int arg1"

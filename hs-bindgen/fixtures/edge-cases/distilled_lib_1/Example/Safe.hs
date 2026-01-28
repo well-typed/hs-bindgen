@@ -8,13 +8,14 @@ module Example.Safe where
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
+import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
   , "int32_t hs_bindgen_57cb99ed92c001ad ("
   , "  a_type_t *arg1,"

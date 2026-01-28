@@ -1,8 +1,11 @@
 module HsBindgen.Runtime.CAPI (
-    addCSource,
-    allocaAndPeek,
+    addCSource
+  , allocaAndPeek
+    -- * Auxiliary
+  , Data.List.unlines
 ) where
 
+import Data.List qualified
 import Foreign (Ptr, Storable, alloca, peek)
 import Language.Haskell.TH (DecsQ)
 import Language.Haskell.TH.Syntax (ForeignSrcLang (LangC), addForeignSource)

@@ -12,18 +12,11 @@ module HsBindgen.Runtime.Prelude (
     -- * Constant pointers
   , module HsBindgen.Runtime.ConstPtr
 
-    -- * Userland CAPI
-  , module HsBindgen.Runtime.CAPI
-
     -- * Auxiliary
-  , Data.List.unlines
   , HsBindgenRuntimePreludeIsInScope
   ) where
 
-import Data.List qualified
-
 import HsBindgen.Runtime.Block
-import HsBindgen.Runtime.CAPI
 import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.LibC
 import HsBindgen.Runtime.SizedByteArray

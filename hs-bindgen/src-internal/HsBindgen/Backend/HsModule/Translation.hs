@@ -18,7 +18,7 @@ import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.HsModule.Capi (capiImport)
+import HsBindgen.Backend.HsModule.CAPI (capiImport)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.Prelims
