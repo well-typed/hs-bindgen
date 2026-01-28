@@ -1,8 +1,8 @@
 -- | Types used by the C standard library external binding specification
 --
 -- The binding specification for the types in this module is defined in
--- @HsBindgen.BindingSpec.Stdlib@ in the @hs-bindgen:internal@ library, in the
--- same order.
+-- @HsBindgen.BindingSpec.Private.Stdlib@ in the @hs-bindgen:internal@ library,
+-- in the same order.
 --
 -- References in chronological order:
 -- - https://github.com/well-typed/hs-bindgen/issues/293
@@ -25,10 +25,6 @@ module HsBindgen.Runtime.LibC (
   , Foreign.C.CFloat(..)
   , Foreign.C.CDouble(..)
   , Foreign.C.CString
-
-    -- * Boolean types
-    -- $BooleanTypes
-  , Foreign.C.CBool(..)
 
     -- * Integral types
     -- $IntegralTypes
@@ -54,6 +50,7 @@ module HsBindgen.Runtime.LibC (
   , LibC.CDivT(..)
   , LibC.CLdivT(..)
   , LibC.CLldivT(..)
+  , LibC.CImaxdivT(..)
 
     -- * Standard definitions
     -- $StandardDefinitions

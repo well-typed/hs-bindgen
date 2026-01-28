@@ -8,6 +8,7 @@ module HsBindgen.Runtime.LibC.Auxiliary (
   , CDivT(..)
   , CLdivT(..)
   , CLldivT(..)
+  , CImaxdivT(..)
 
     -- * Wide Character Types
   , CWintT(..)
