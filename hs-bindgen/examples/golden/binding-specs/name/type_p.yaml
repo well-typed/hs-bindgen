@@ -1,8 +1,10 @@
+# Naming a type
+
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- omit:
-    headers: binding-specs/bs_pre_omit_type.h
-    cname: struct pt
+- headers: binding-specs/name/type.h
+  cname: sym
+  hsname: MySym

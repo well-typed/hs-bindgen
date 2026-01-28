@@ -3,6 +3,6 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: binding-specs/bs_pre_name_type.h
-  cname: sym
-  hsname: MySym
+- omit:
+    headers: binding-specs/omit_type.h
+    cname: struct pt

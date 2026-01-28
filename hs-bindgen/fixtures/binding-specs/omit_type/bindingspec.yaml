@@ -3,16 +3,19 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: binding-specs/bs_pre_name_type.h
+- headers: binding-specs/omit_type.h
   cname: sym
-  hsname: MySym
+  hsname: Sym
+- omit:
+    headers: binding-specs/omit_type.h
+    cname: struct pt
 hstypes:
-- hsname: MySym
+- hsname: Sym
   representation:
     newtype:
-      constructor: MySym
+      constructor: Sym
       fields:
-      - un_MySym
+      - un_Sym
   instances:
   - Bitfield
   - Bits

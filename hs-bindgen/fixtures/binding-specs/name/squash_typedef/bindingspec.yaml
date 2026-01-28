@@ -3,20 +3,20 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: binding-specs/bs_pre_name_squash_both.h
+- headers: binding-specs/name/squash_typedef.h
   cname: struct foo
-  hsname: Hoge
-- headers: binding-specs/bs_pre_name_squash_both.h
+  hsname: Piyo
+- headers: binding-specs/name/squash_typedef.h
   cname: bar
-  hsname: Hoge
+  hsname: Piyo
 hstypes:
-- hsname: Hoge
+- hsname: Piyo
   representation:
     record:
-      constructor: Hoge
+      constructor: Piyo
       fields:
-      - hoge_x
-      - hoge_y
+      - piyo_x
+      - piyo_y
   instances:
   - Eq
   - Prim

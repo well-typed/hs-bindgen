@@ -3,10 +3,10 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: binding-specs/bs_pre_name_squash_struct.h
+- headers: binding-specs/name/squash_struct.h
   cname: struct foo
   hsname: Hoge
-- headers: binding-specs/bs_pre_name_squash_struct.h
+- headers: binding-specs/name/squash_struct.h
   cname: bar
   hsname: Hoge
 hstypes:

@@ -424,18 +424,21 @@ test_attributes_visibility_attributes =
 
 testCases_bespoke_bindingSpecs :: [TestCase]
 testCases_bespoke_bindingSpecs = [
-      test_bindingSpecs_bs_pre_omit_type
-    , test_bindingSpecs_bs_pre_name_squash_both
-    , test_bindingSpecs_bs_pre_name_squash_struct
-    , test_bindingSpecs_bs_pre_name_squash_typedef
-    , test_bindingSpecs_bs_pre_name_type
+      test_bindingSpecs_omit_type
+      -- * Bugs / regression tests
+    , test_bindingSpecs_macro_trans_dep_missing
+      -- * Naming types
+    , test_bindingSpecs_name_squash_both
+    , test_bindingSpecs_name_squash_struct
+    , test_bindingSpecs_name_squash_typedef
+    , test_bindingSpecs_name_type
+      -- * Representation: emptydata
     , test_bindingSpecs_rep_emptydata_enum
     , test_bindingSpecs_rep_emptydata_macro_type
     , test_bindingSpecs_rep_emptydata_opaque
     , test_bindingSpecs_rep_emptydata_struct
     , test_bindingSpecs_rep_emptydata_typedef
     , test_bindingSpecs_rep_emptydata_union
-    , test_bindingSpecs_macro_trans_dep_missing
       -- * Function arguments with typedefs
     , test_bindingSpecs_fun_arg_typedef_array
     , test_bindingSpecs_fun_arg_typedef_array_known_size
@@ -454,83 +457,15 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_union
     ]
 
-test_bindingSpecs_bs_pre_omit_type :: TestCase
-test_bindingSpecs_bs_pre_omit_type =
-    defaultTest "binding-specs/bs_pre_omit_type"
+test_bindingSpecs_omit_type :: TestCase
+test_bindingSpecs_omit_type =
+    defaultTest "binding-specs/omit_type"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_omit_type_p.yaml"
+          Just "examples/golden/binding-specs/omit_type_p.yaml"
 
-test_bindingSpecs_bs_pre_name_squash_both :: TestCase
-test_bindingSpecs_bs_pre_name_squash_both =
-    defaultTest "binding-specs/bs_pre_name_squash_both"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_name_squash_both_p.yaml"
-
-test_bindingSpecs_bs_pre_name_squash_struct :: TestCase
-test_bindingSpecs_bs_pre_name_squash_struct =
-    defaultTest "binding-specs/bs_pre_name_squash_struct"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_name_squash_struct_p.yaml"
-
-test_bindingSpecs_bs_pre_name_squash_typedef :: TestCase
-test_bindingSpecs_bs_pre_name_squash_typedef =
-    defaultTest "binding-specs/bs_pre_name_squash_typedef"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_name_squash_typedef_p.yaml"
-
-test_bindingSpecs_bs_pre_name_type :: TestCase
-test_bindingSpecs_bs_pre_name_type =
-    defaultTest "binding-specs/bs_pre_name_type"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_name_type_p.yaml"
-
-test_bindingSpecs_rep_emptydata_enum :: TestCase
-test_bindingSpecs_rep_emptydata_enum =
-    defaultTest "binding-specs/rep/emptydata/enum"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/enum_p.yaml"
-
-test_bindingSpecs_rep_emptydata_macro_type :: TestCase
-test_bindingSpecs_rep_emptydata_macro_type =
-    defaultTest "binding-specs/rep/emptydata/macro_type"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/macro_type_p.yaml"
-
-test_bindingSpecs_rep_emptydata_opaque :: TestCase
-test_bindingSpecs_rep_emptydata_opaque =
-    defaultTest "binding-specs/rep/emptydata/opaque"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/opaque_p.yaml"
-
-test_bindingSpecs_rep_emptydata_struct :: TestCase
-test_bindingSpecs_rep_emptydata_struct =
-    defaultTest "binding-specs/rep/emptydata/struct"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/struct_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
-
-test_bindingSpecs_rep_emptydata_typedef :: TestCase
-test_bindingSpecs_rep_emptydata_typedef =
-    defaultTest "binding-specs/rep/emptydata/typedef"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/typedef_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
-
-test_bindingSpecs_rep_emptydata_union :: TestCase
-test_bindingSpecs_rep_emptydata_union =
-    defaultTest "binding-specs/rep/emptydata/union"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/rep/emptydata/union_p.yaml"
-      & #onFrontend .~ (\cfg -> cfg
-          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
-          & #programSlicing .~ EnableProgramSlicing
-          )
+{-------------------------------------------------------------------------------
+  Bespoke tests: binding specs: bugs / regression tests
+-------------------------------------------------------------------------------}
 
 -- | External binding specifications for macro types cause incorrect
 -- TransitiveDependenciesMissing warnings
@@ -558,7 +493,110 @@ test_bindingSpecs_macro_trans_dep_missing =
           )
 
 {-------------------------------------------------------------------------------
-  Bespoke tests: binding specs, function arguments with typedefs
+  Bespoke tests: binding specs: naming types
+-------------------------------------------------------------------------------}
+
+-- | Naming a squashed type, specifying the name for both the struct and typedef
+test_bindingSpecs_name_squash_both :: TestCase
+test_bindingSpecs_name_squash_both =
+    defaultTest "binding-specs/name/squash_both"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/name/squash_both_p.yaml"
+
+-- | Naming a squashed type, specifying the name for the struct
+test_bindingSpecs_name_squash_struct :: TestCase
+test_bindingSpecs_name_squash_struct =
+    defaultTest "binding-specs/name/squash_struct"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/name/squash_struct_p.yaml"
+
+-- | Naming a squashed type, specifying the name for the typedef
+test_bindingSpecs_name_squash_typedef :: TestCase
+test_bindingSpecs_name_squash_typedef =
+    defaultTest "binding-specs/name/squash_typedef"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/name/squash_typedef_p.yaml"
+
+-- | Naming a type
+test_bindingSpecs_name_type :: TestCase
+test_bindingSpecs_name_type =
+    defaultTest "binding-specs/name/type"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/name/type_p.yaml"
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: binding specs: representation: emptydata
+-------------------------------------------------------------------------------}
+
+-- | Making an enum type opaque
+test_bindingSpecs_rep_emptydata_enum :: TestCase
+test_bindingSpecs_rep_emptydata_enum =
+    defaultTest "binding-specs/rep/emptydata/enum"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/rep/emptydata/enum_p.yaml"
+
+-- | Making a macro type opaque
+test_bindingSpecs_rep_emptydata_macro_type :: TestCase
+test_bindingSpecs_rep_emptydata_macro_type =
+    defaultTest "binding-specs/rep/emptydata/macro_type"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/rep/emptydata/macro_type_p.yaml"
+
+-- | Opaque types work with representation emptydata
+test_bindingSpecs_rep_emptydata_opaque :: TestCase
+test_bindingSpecs_rep_emptydata_opaque =
+    defaultTest "binding-specs/rep/emptydata/opaque"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/rep/emptydata/opaque_p.yaml"
+
+-- | Making a struct type opaque
+--
+-- This test also checks that dependencies in other headers are not selected if
+-- they are only used by a type that is made opaque.
+--
+-- This test also has tests for nested types.
+test_bindingSpecs_rep_emptydata_struct :: TestCase
+test_bindingSpecs_rep_emptydata_struct =
+    defaultTest "binding-specs/rep/emptydata/struct"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/rep/emptydata/struct_p.yaml"
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #programSlicing .~ EnableProgramSlicing
+          )
+
+-- | Making a typedef type opaque
+--
+-- This test also checks that dependencies in other headers are not selected if
+-- they are only used by a type that is made opaque.
+test_bindingSpecs_rep_emptydata_typedef :: TestCase
+test_bindingSpecs_rep_emptydata_typedef =
+    defaultTest "binding-specs/rep/emptydata/typedef"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/rep/emptydata/typedef_p.yaml"
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #programSlicing .~ EnableProgramSlicing
+          )
+
+-- | Making a union type opaque
+--
+-- This test also checks that dependencies in other headers are not selected if
+-- they are only used by a type that is made opaque.
+--
+-- This test also tests nested types.
+test_bindingSpecs_rep_emptydata_union :: TestCase
+test_bindingSpecs_rep_emptydata_union =
+    defaultTest "binding-specs/rep/emptydata/union"
+      & #specPrescriptive .~
+          Just "examples/golden/binding-specs/rep/emptydata/union_p.yaml"
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #programSlicing .~ EnableProgramSlicing
+          )
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: binding specs: function arguments with typedefs
 -------------------------------------------------------------------------------}
 
 -- | Test that @hs-bindgen@ can detect whether an external binding reference in
@@ -639,7 +677,7 @@ test_bindingSpecs_fun_arg_typedef_selectPredicate =
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
 
 {-------------------------------------------------------------------------------
-  Bespoke tests: binding specs, function arguments with macros
+  Bespoke tests: binding specs: function arguments with macros
 -------------------------------------------------------------------------------}
 
 -- | Test that @hs-bindgen@ can detect whether an external binding reference in
