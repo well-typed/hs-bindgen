@@ -273,7 +273,7 @@ toFFIType sizeofs = go
       HsPtr{} -> yes $ FFI.Basic FFI.Ptr
       HsFunPtr{} -> yes $ FFI.Basic FFI.FunPtr
       HsStablePtr{} -> no
-      HsConstPtr{} -> yes $ FFI.Basic FFI.Ptr
+      HsPtrConst{} -> yes $ FFI.Basic FFI.Ptr
       HsIO t' -> FFI.IO <$> go t'
       HsFun s t' -> FFI.FunArrow <$> go s <*> go t'
       HsExtBinding _ _ _ t' -> go t'

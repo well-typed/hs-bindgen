@@ -304,7 +304,7 @@ translateType = \case
     Hs.HsPtr t                       -> TApp (TGlobal Foreign_Ptr) (translateType t)
     Hs.HsFunPtr t                    -> TApp (TGlobal Foreign_FunPtr) (translateType t)
     Hs.HsStablePtr t                 -> TApp (TGlobal Foreign_StablePtr) (translateType t)
-    Hs.HsConstPtr t                  -> TApp (TGlobal ConstPtr_type) (translateType t)
+    Hs.HsPtrConst t                  -> TApp (TGlobal PtrConst_type) (translateType t)
     Hs.HsIO t                        -> TApp (TGlobal IO_type) (translateType t)
     Hs.HsFun a b                     -> TFun (translateType a) (translateType b)
     Hs.HsExtBinding r c hs _         -> TExt r c hs

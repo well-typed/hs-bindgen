@@ -5,7 +5,7 @@ module Manual.Globals (examples) where
 import Foreign as F
 
 import HsBindgen.Runtime.IncompleteArray qualified as IA
-import HsBindgen.Runtime.ConstPtr
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Manual.Tools
 
@@ -35,7 +35,7 @@ examples = do
 
     subsubsection "Constant examples"
     print Globals.constArray1
-    print =<< IA.peekArray 5 Globals.constArray2.unConstPtr
+    print =<< IA.peekArray 5 (PtrConst.unsafeToPtr Globals.constArray2)
     print Globals.constTuple
     print =<< F.peek Globals.nonConstTuple
     print =<< F.peek Globals.int

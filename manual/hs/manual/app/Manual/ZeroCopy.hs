@@ -8,7 +8,7 @@ import Foreign
 import Foreign.C.Types
 
 import HsBindgen.Runtime.ConstantArray as CA
-import HsBindgen.Runtime.ConstPtr
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.FlexibleArrayMember qualified as Flam
 import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.Ptr
@@ -148,7 +148,7 @@ withDrawing shape colour k =
 transpose :: Ptr Gen.Matrix -> Ptr Gen.Matrix -> IO ()
 transpose inputPtr outputPtr =
     Gen.transpose
-      (ConstPtr inputPtr.un_Matrix.toFirstElemPtr)
+      (PtrConst.unsafeFromPtr inputPtr.un_Matrix.toFirstElemPtr)
       outputPtr.un_Matrix.toFirstElemPtr
 
 instance Flam.NumElems CChar Gen.Vector_Aux where

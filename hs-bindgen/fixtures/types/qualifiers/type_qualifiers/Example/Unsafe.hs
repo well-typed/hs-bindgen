@@ -8,9 +8,9 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_360934a08f19eaab" hs_bindgen_360934a08f1
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 hs_bindgen_360934a08f19eaab ::
-     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CBool
 hs_bindgen_360934a08f19eaab =
@@ -46,7 +46,7 @@ hs_bindgen_360934a08f19eaab =
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 list_example ::
-     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
      -- ^ __C declaration:__ @items@
   -> HsBindgen.Runtime.Prelude.CSize
      -- ^ __C declaration:__ @count@

@@ -9,9 +9,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -128,7 +128,7 @@ foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 hs_bindgen_7eada9f65d982412 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
+     HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CInt
@@ -156,7 +156,7 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
+     HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8
      {- ^
 
         [__@input_data@ /(input)/__]: Input data buffer
@@ -187,7 +187,7 @@ foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 hs_bindgen_fb85499c501da1a7 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
   -> IO FC.CBool
 hs_bindgen_fb85499c501da1a7 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fb85499c501da1a7_base
@@ -209,7 +209,7 @@ __defined at:__ @documentation\/doxygen_docs.h 116:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
      {- ^
 
         [__@filename@ /(input)/__]: The @char*@ filename to process
@@ -323,7 +323,7 @@ foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e5
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 hs_bindgen_825411dc114e599b ::
-     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FC.CBool
 hs_bindgen_825411dc114e599b =
@@ -376,7 +376,7 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example ::
-     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
      {- ^
 
         [__@items@ /(input)/__]: Array of items
@@ -443,7 +443,7 @@ foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 hs_bindgen_c8ca619ec2e70d8d ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
   -> IO FC.CInt
 hs_bindgen_c8ca619ec2e70d8d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c8ca619ec2e70d8d_base
@@ -469,7 +469,7 @@ __defined at:__ @documentation\/doxygen_docs.h 197:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
      {- ^
 
         [__@input@ /(input)/__]: Input string
@@ -615,7 +615,7 @@ foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 hs_bindgen_294db77671f95524 ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> HsBindgen.Runtime.PtrConst.PtrConst Void
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO (Ptr.Ptr Void)
 hs_bindgen_294db77671f95524 =
@@ -647,7 +647,7 @@ my_memcpy ::
 
      __C declaration:__ @dest@
      -}
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> HsBindgen.Runtime.PtrConst.PtrConst Void
      {- ^
 
         [__@src@ /(input)/__]: Source buffer (restrict)
@@ -711,7 +711,7 @@ foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba202
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 hs_bindgen_c4e7e99dba20204d ::
      Ptr.Ptr Config_t
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
+  -> HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO Status_code_t
 hs_bindgen_c4e7e99dba20204d =
@@ -796,7 +796,7 @@ complex_function ::
 
      __C declaration:__ @config@
      -}
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
+  -> HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8
      {- ^
 
         [__@data@ /(input)/__]: Input data buffer
