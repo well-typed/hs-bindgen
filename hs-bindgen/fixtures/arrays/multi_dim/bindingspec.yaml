@@ -1,0 +1,31 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: arrays/multi_dim.h
+  cname: matrix
+  hsname: Matrix
+- headers: arrays/multi_dim.h
+  cname: triplets
+  hsname: Triplets
+hstypes:
+- hsname: Matrix
+  representation:
+    newtype:
+      constructor: Matrix
+      fields:
+      - un_Matrix
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Triplets
+  representation:
+    newtype:
+      constructor: Triplets
+      fields:
+      - un_Triplets
+  instances:
+  - Eq
+  - Show

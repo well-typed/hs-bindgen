@@ -1,0 +1,762 @@
+-- addDependentFile examples/golden/arrays/multi_dim.h
+-- #include <arrays/multi_dim.h>
+-- signed int hs_bindgen_57b00b79dd5b838e (
+--   signed int (*arg1)[4]
+-- )
+-- {
+--   return foo(arg1);
+-- }
+-- signed int hs_bindgen_b75122693c32e26c (
+--   signed int const (*arg1)[4]
+-- )
+-- {
+--   return foo_const(arg1);
+-- }
+-- signed int hs_bindgen_595b7d50222e502a (
+--   signed int (*arg1)[2]
+-- )
+-- {
+--   return bar(arg1);
+-- }
+-- signed int hs_bindgen_1e0c14a0ed027681 (
+--   signed int const (*arg1)[2]
+-- )
+-- {
+--   return bar_const(arg1);
+-- }
+-- signed int hs_bindgen_39849d83dadd53d9 (
+--   signed int (*arg1)[3]
+-- )
+-- {
+--   return baz(arg1);
+-- }
+-- signed int hs_bindgen_0c873d371c129e78 (
+--   signed int const *arg1[3]
+-- )
+-- {
+--   return baz_const(arg1);
+-- }
+-- signed int hs_bindgen_a364da5adecafb37 (
+--   signed int (*arg1)[3]
+-- )
+-- {
+--   return quuz(arg1);
+-- }
+-- signed int hs_bindgen_e39fa59aeb1fef3d (
+--   signed int const *arg1[3]
+-- )
+-- {
+--   return quuz_const(arg1);
+-- }
+-- signed int hs_bindgen_3389520bc7419af4 (
+--   signed int (*arg1)[4]
+-- )
+-- {
+--   return foo(arg1);
+-- }
+-- signed int hs_bindgen_73e2db5ad5d807f7 (
+--   signed int const (*arg1)[4]
+-- )
+-- {
+--   return foo_const(arg1);
+-- }
+-- signed int hs_bindgen_a28b81f0afc23eed (
+--   signed int (*arg1)[2]
+-- )
+-- {
+--   return bar(arg1);
+-- }
+-- signed int hs_bindgen_58337c492b64ae2c (
+--   signed int const (*arg1)[2]
+-- )
+-- {
+--   return bar_const(arg1);
+-- }
+-- signed int hs_bindgen_48876e6767cb5923 (
+--   signed int (*arg1)[3]
+-- )
+-- {
+--   return baz(arg1);
+-- }
+-- signed int hs_bindgen_13ce150055e8aa41 (
+--   signed int const *arg1[3]
+-- )
+-- {
+--   return baz_const(arg1);
+-- }
+-- signed int hs_bindgen_da5c432144bd5546 (
+--   signed int (*arg1)[3]
+-- )
+-- {
+--   return quuz(arg1);
+-- }
+-- signed int hs_bindgen_70be94a6fb59f547 (
+--   signed int const *arg1[3]
+-- )
+-- {
+--   return quuz_const(arg1);
+-- }
+-- /* test_arraysmulti_dim_Example_get_foo */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_02d97ecc46bbc8e0 (void)) (
+--   signed int arg1[3][4]
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_arraysmulti_dim_Example_get_foo_const */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_8baaa4bee7bf2bf7 (void)) (
+--   signed int const arg1[3][4]
+-- )
+-- {
+--   return &foo_const;
+-- }
+-- /* test_arraysmulti_dim_Example_get_bar */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_27d306f03bbe4aeb (void)) (
+--   signed int arg1[][2]
+-- )
+-- {
+--   return &bar;
+-- }
+-- /* test_arraysmulti_dim_Example_get_bar_const */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_dedcf308a5d44f1d (void)) (
+--   signed int const arg1[][2]
+-- )
+-- {
+--   return &bar_const;
+-- }
+-- /* test_arraysmulti_dim_Example_get_baz */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_f8c450c8715a6834 (void)) (
+--   matrix arg1
+-- )
+-- {
+--   return &baz;
+-- }
+-- /* test_arraysmulti_dim_Example_get_baz_const */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_520d9475875f88b2 (void)) (
+--   matrix const arg1
+-- )
+-- {
+--   return &baz_const;
+-- }
+-- /* test_arraysmulti_dim_Example_get_quuz */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_cb1714c714867d37 (void)) (
+--   triplets arg1
+-- )
+-- {
+--   return &quuz;
+-- }
+-- /* test_arraysmulti_dim_Example_get_quuz_const */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_b4e5ee141d4c7703 (void)) (
+--   triplets const arg1
+-- )
+-- {
+--   return &quuz_const;
+-- }
+{-| __C declaration:__ @matrix@
+
+    __defined at:__ @arrays\/multi_dim.h 12:13@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+newtype Matrix
+    = Matrix {un_Matrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
+      {- ^ __C declaration:__ @matrix@
+
+           __defined at:__ @arrays\/multi_dim.h 12:13@
+
+           __exported by:__ @arrays\/multi_dim.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType Matrix "un_Matrix") =>
+         HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Matrix")
+instance HasCField Matrix "un_Matrix"
+    where type CFieldType Matrix "un_Matrix" = ConstantArray 4
+                                                             (ConstantArray 3 CInt)
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @triplets@
+
+    __defined at:__ @arrays\/multi_dim.h 17:13@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+newtype Triplets
+    = Triplets {un_Triplets :: (IncompleteArray (ConstantArray 3
+                                                               CInt))}
+      {- ^ __C declaration:__ @triplets@
+
+           __defined at:__ @arrays\/multi_dim.h 17:13@
+
+           __exported by:__ @arrays\/multi_dim.h@
+      -}
+    deriving stock (Eq, Show)
+instance TyEq ty (CFieldType Triplets "un_Triplets") =>
+         HasField "un_Triplets" (Ptr Triplets) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Triplets")
+instance HasCField Triplets "un_Triplets"
+    where type CFieldType Triplets
+                          "un_Triplets" = IncompleteArray (ConstantArray 3 CInt)
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_57b00b79dd5b838e" hs_bindgen_57b00b79dd5b838e_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_foo@
+hs_bindgen_57b00b79dd5b838e :: Ptr (ConstantArray 4 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_foo@
+hs_bindgen_57b00b79dd5b838e = fromFFIType hs_bindgen_57b00b79dd5b838e_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/multi_dim.h 4:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo :: Ptr (ConstantArray 4 CInt) -> IO CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/multi_dim.h 4:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo = hs_bindgen_57b00b79dd5b838e
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
+foreign import ccall safe "hs_bindgen_b75122693c32e26c" hs_bindgen_b75122693c32e26c_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
+hs_bindgen_b75122693c32e26c :: ConstPtr (ConstantArray 4 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
+hs_bindgen_b75122693c32e26c = fromFFIType hs_bindgen_b75122693c32e26c_base
+{-| __C declaration:__ @foo_const@
+
+    __defined at:__ @arrays\/multi_dim.h 5:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo_const :: ConstPtr (ConstantArray 4 CInt) -> IO CInt
+{-| __C declaration:__ @foo_const@
+
+    __defined at:__ @arrays\/multi_dim.h 5:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo_const = hs_bindgen_b75122693c32e26c
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_595b7d50222e502a" hs_bindgen_595b7d50222e502a_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_bar@
+hs_bindgen_595b7d50222e502a :: Ptr (ConstantArray 2 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_bar@
+hs_bindgen_595b7d50222e502a = fromFFIType hs_bindgen_595b7d50222e502a_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/multi_dim.h 8:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar :: Ptr (ConstantArray 2 CInt) -> IO CInt
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/multi_dim.h 8:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar = hs_bindgen_595b7d50222e502a
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
+foreign import ccall safe "hs_bindgen_1e0c14a0ed027681" hs_bindgen_1e0c14a0ed027681_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
+hs_bindgen_1e0c14a0ed027681 :: ConstPtr (ConstantArray 2 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
+hs_bindgen_1e0c14a0ed027681 = fromFFIType hs_bindgen_1e0c14a0ed027681_base
+{-| __C declaration:__ @bar_const@
+
+    __defined at:__ @arrays\/multi_dim.h 9:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar_const :: ConstPtr (ConstantArray 2 CInt) -> IO CInt
+{-| __C declaration:__ @bar_const@
+
+    __defined at:__ @arrays\/multi_dim.h 9:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar_const = hs_bindgen_1e0c14a0ed027681
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_baz@
+foreign import ccall safe "hs_bindgen_39849d83dadd53d9" hs_bindgen_39849d83dadd53d9_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_baz@
+hs_bindgen_39849d83dadd53d9 :: Ptr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_baz@
+hs_bindgen_39849d83dadd53d9 = fromFFIType hs_bindgen_39849d83dadd53d9_base
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/multi_dim.h 13:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/multi_dim.h 13:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz = hs_bindgen_39849d83dadd53d9
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
+foreign import ccall safe "hs_bindgen_0c873d371c129e78" hs_bindgen_0c873d371c129e78_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
+hs_bindgen_0c873d371c129e78 :: ConstPtr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
+hs_bindgen_0c873d371c129e78 = fromFFIType hs_bindgen_0c873d371c129e78_base
+{-| __C declaration:__ @baz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 14:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @baz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 14:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz_const = hs_bindgen_0c873d371c129e78
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz@
+foreign import ccall safe "hs_bindgen_a364da5adecafb37" hs_bindgen_a364da5adecafb37_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz@
+hs_bindgen_a364da5adecafb37 :: Ptr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz@
+hs_bindgen_a364da5adecafb37 = fromFFIType hs_bindgen_a364da5adecafb37_base
+{-| __C declaration:__ @quuz@
+
+    __defined at:__ @arrays\/multi_dim.h 18:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @quuz@
+
+    __defined at:__ @arrays\/multi_dim.h 18:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz = hs_bindgen_a364da5adecafb37
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
+foreign import ccall safe "hs_bindgen_e39fa59aeb1fef3d" hs_bindgen_e39fa59aeb1fef3d_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
+hs_bindgen_e39fa59aeb1fef3d :: ConstPtr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
+hs_bindgen_e39fa59aeb1fef3d = fromFFIType hs_bindgen_e39fa59aeb1fef3d_base
+{-| __C declaration:__ @quuz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 19:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @quuz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 19:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz_const = hs_bindgen_e39fa59aeb1fef3d
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_3389520bc7419af4" hs_bindgen_3389520bc7419af4_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo@
+hs_bindgen_3389520bc7419af4 :: Ptr (ConstantArray 4 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo@
+hs_bindgen_3389520bc7419af4 = fromFFIType hs_bindgen_3389520bc7419af4_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/multi_dim.h 4:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo :: Ptr (ConstantArray 4 CInt) -> IO CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/multi_dim.h 4:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo = hs_bindgen_3389520bc7419af4
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
+foreign import ccall unsafe "hs_bindgen_73e2db5ad5d807f7" hs_bindgen_73e2db5ad5d807f7_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
+hs_bindgen_73e2db5ad5d807f7 :: ConstPtr (ConstantArray 4 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
+hs_bindgen_73e2db5ad5d807f7 = fromFFIType hs_bindgen_73e2db5ad5d807f7_base
+{-| __C declaration:__ @foo_const@
+
+    __defined at:__ @arrays\/multi_dim.h 5:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo_const :: ConstPtr (ConstantArray 4 CInt) -> IO CInt
+{-| __C declaration:__ @foo_const@
+
+    __defined at:__ @arrays\/multi_dim.h 5:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo_const = hs_bindgen_73e2db5ad5d807f7
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_a28b81f0afc23eed" hs_bindgen_a28b81f0afc23eed_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar@
+hs_bindgen_a28b81f0afc23eed :: Ptr (ConstantArray 2 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar@
+hs_bindgen_a28b81f0afc23eed = fromFFIType hs_bindgen_a28b81f0afc23eed_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/multi_dim.h 8:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar :: Ptr (ConstantArray 2 CInt) -> IO CInt
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/multi_dim.h 8:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar = hs_bindgen_a28b81f0afc23eed
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
+foreign import ccall unsafe "hs_bindgen_58337c492b64ae2c" hs_bindgen_58337c492b64ae2c_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
+hs_bindgen_58337c492b64ae2c :: ConstPtr (ConstantArray 2 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
+hs_bindgen_58337c492b64ae2c = fromFFIType hs_bindgen_58337c492b64ae2c_base
+{-| __C declaration:__ @bar_const@
+
+    __defined at:__ @arrays\/multi_dim.h 9:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar_const :: ConstPtr (ConstantArray 2 CInt) -> IO CInt
+{-| __C declaration:__ @bar_const@
+
+    __defined at:__ @arrays\/multi_dim.h 9:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar_const = hs_bindgen_58337c492b64ae2c
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz@
+foreign import ccall unsafe "hs_bindgen_48876e6767cb5923" hs_bindgen_48876e6767cb5923_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz@
+hs_bindgen_48876e6767cb5923 :: Ptr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz@
+hs_bindgen_48876e6767cb5923 = fromFFIType hs_bindgen_48876e6767cb5923_base
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/multi_dim.h 13:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/multi_dim.h 13:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz = hs_bindgen_48876e6767cb5923
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
+foreign import ccall unsafe "hs_bindgen_13ce150055e8aa41" hs_bindgen_13ce150055e8aa41_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
+hs_bindgen_13ce150055e8aa41 :: ConstPtr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
+hs_bindgen_13ce150055e8aa41 = fromFFIType hs_bindgen_13ce150055e8aa41_base
+{-| __C declaration:__ @baz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 14:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @baz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 14:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz_const = hs_bindgen_13ce150055e8aa41
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz@
+foreign import ccall unsafe "hs_bindgen_da5c432144bd5546" hs_bindgen_da5c432144bd5546_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz@
+hs_bindgen_da5c432144bd5546 :: Ptr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz@
+hs_bindgen_da5c432144bd5546 = fromFFIType hs_bindgen_da5c432144bd5546_base
+{-| __C declaration:__ @quuz@
+
+    __defined at:__ @arrays\/multi_dim.h 18:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @quuz@
+
+    __defined at:__ @arrays\/multi_dim.h 18:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz = hs_bindgen_da5c432144bd5546
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
+foreign import ccall unsafe "hs_bindgen_70be94a6fb59f547" hs_bindgen_70be94a6fb59f547_base ::
+    Ptr Void
+ -> IO Int32
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
+hs_bindgen_70be94a6fb59f547 :: ConstPtr (ConstantArray 3 CInt) ->
+                               IO CInt
+-- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
+hs_bindgen_70be94a6fb59f547 = fromFFIType hs_bindgen_70be94a6fb59f547_base
+{-| __C declaration:__ @quuz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 19:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+{-| __C declaration:__ @quuz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 19:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz_const = hs_bindgen_70be94a6fb59f547
+-- __unique:__ @test_arraysmulti_dim_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_02d97ecc46bbc8e0" hs_bindgen_02d97ecc46bbc8e0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_foo@
+hs_bindgen_02d97ecc46bbc8e0 :: IO (FunPtr (ConstantArray 3
+                                                         (ConstantArray 4 CInt) ->
+                                           IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_foo@
+hs_bindgen_02d97ecc46bbc8e0 = fromFFIType hs_bindgen_02d97ecc46bbc8e0_base
+{-# NOINLINE foo #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/multi_dim.h 4:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo :: FunPtr (ConstantArray 3 (ConstantArray 4 CInt) -> IO CInt)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/multi_dim.h 4:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo = unsafePerformIO hs_bindgen_02d97ecc46bbc8e0
+-- __unique:__ @test_arraysmulti_dim_Example_get_foo_const@
+foreign import ccall unsafe "hs_bindgen_8baaa4bee7bf2bf7" hs_bindgen_8baaa4bee7bf2bf7_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_foo_const@
+hs_bindgen_8baaa4bee7bf2bf7 :: IO (FunPtr (ConstantArray 3
+                                                         (ConstantArray 4 CInt) ->
+                                           IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_foo_const@
+hs_bindgen_8baaa4bee7bf2bf7 = fromFFIType hs_bindgen_8baaa4bee7bf2bf7_base
+{-# NOINLINE foo_const #-}
+{-| __C declaration:__ @foo_const@
+
+    __defined at:__ @arrays\/multi_dim.h 5:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo_const :: FunPtr (ConstantArray 3 (ConstantArray 4 CInt) ->
+                     IO CInt)
+{-| __C declaration:__ @foo_const@
+
+    __defined at:__ @arrays\/multi_dim.h 5:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+foo_const = unsafePerformIO hs_bindgen_8baaa4bee7bf2bf7
+-- __unique:__ @test_arraysmulti_dim_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_27d306f03bbe4aeb" hs_bindgen_27d306f03bbe4aeb_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_bar@
+hs_bindgen_27d306f03bbe4aeb :: IO (FunPtr (IncompleteArray (ConstantArray 2
+                                                                          CInt) ->
+                                           IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_bar@
+hs_bindgen_27d306f03bbe4aeb = fromFFIType hs_bindgen_27d306f03bbe4aeb_base
+{-# NOINLINE bar #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/multi_dim.h 8:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar :: FunPtr (IncompleteArray (ConstantArray 2 CInt) -> IO CInt)
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/multi_dim.h 8:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar = unsafePerformIO hs_bindgen_27d306f03bbe4aeb
+-- __unique:__ @test_arraysmulti_dim_Example_get_bar_const@
+foreign import ccall unsafe "hs_bindgen_dedcf308a5d44f1d" hs_bindgen_dedcf308a5d44f1d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_bar_const@
+hs_bindgen_dedcf308a5d44f1d :: IO (FunPtr (IncompleteArray (ConstantArray 2
+                                                                          CInt) ->
+                                           IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_bar_const@
+hs_bindgen_dedcf308a5d44f1d = fromFFIType hs_bindgen_dedcf308a5d44f1d_base
+{-# NOINLINE bar_const #-}
+{-| __C declaration:__ @bar_const@
+
+    __defined at:__ @arrays\/multi_dim.h 9:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar_const :: FunPtr (IncompleteArray (ConstantArray 2 CInt) ->
+                     IO CInt)
+{-| __C declaration:__ @bar_const@
+
+    __defined at:__ @arrays\/multi_dim.h 9:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+bar_const = unsafePerformIO hs_bindgen_dedcf308a5d44f1d
+-- __unique:__ @test_arraysmulti_dim_Example_get_baz@
+foreign import ccall unsafe "hs_bindgen_f8c450c8715a6834" hs_bindgen_f8c450c8715a6834_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_baz@
+hs_bindgen_f8c450c8715a6834 :: IO (FunPtr (Matrix -> IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_baz@
+hs_bindgen_f8c450c8715a6834 = fromFFIType hs_bindgen_f8c450c8715a6834_base
+{-# NOINLINE baz #-}
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/multi_dim.h 13:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz :: FunPtr (Matrix -> IO CInt)
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/multi_dim.h 13:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz = unsafePerformIO hs_bindgen_f8c450c8715a6834
+-- __unique:__ @test_arraysmulti_dim_Example_get_baz_const@
+foreign import ccall unsafe "hs_bindgen_520d9475875f88b2" hs_bindgen_520d9475875f88b2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_baz_const@
+hs_bindgen_520d9475875f88b2 :: IO (FunPtr (Matrix -> IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_baz_const@
+hs_bindgen_520d9475875f88b2 = fromFFIType hs_bindgen_520d9475875f88b2_base
+{-# NOINLINE baz_const #-}
+{-| __C declaration:__ @baz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 14:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz_const :: FunPtr (Matrix -> IO CInt)
+{-| __C declaration:__ @baz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 14:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+baz_const = unsafePerformIO hs_bindgen_520d9475875f88b2
+-- __unique:__ @test_arraysmulti_dim_Example_get_quuz@
+foreign import ccall unsafe "hs_bindgen_cb1714c714867d37" hs_bindgen_cb1714c714867d37_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_quuz@
+hs_bindgen_cb1714c714867d37 :: IO (FunPtr (Triplets -> IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_quuz@
+hs_bindgen_cb1714c714867d37 = fromFFIType hs_bindgen_cb1714c714867d37_base
+{-# NOINLINE quuz #-}
+{-| __C declaration:__ @quuz@
+
+    __defined at:__ @arrays\/multi_dim.h 18:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz :: FunPtr (Triplets -> IO CInt)
+{-| __C declaration:__ @quuz@
+
+    __defined at:__ @arrays\/multi_dim.h 18:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz = unsafePerformIO hs_bindgen_cb1714c714867d37
+-- __unique:__ @test_arraysmulti_dim_Example_get_quuz_const@
+foreign import ccall unsafe "hs_bindgen_b4e5ee141d4c7703" hs_bindgen_b4e5ee141d4c7703_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysmulti_dim_Example_get_quuz_const@
+hs_bindgen_b4e5ee141d4c7703 :: IO (FunPtr (Triplets -> IO CInt))
+-- __unique:__ @test_arraysmulti_dim_Example_get_quuz_const@
+hs_bindgen_b4e5ee141d4c7703 = fromFFIType hs_bindgen_b4e5ee141d4c7703_base
+{-# NOINLINE quuz_const #-}
+{-| __C declaration:__ @quuz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 19:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz_const :: FunPtr (Triplets -> IO CInt)
+{-| __C declaration:__ @quuz_const@
+
+    __defined at:__ @arrays\/multi_dim.h 19:5@
+
+    __exported by:__ @arrays\/multi_dim.h@
+-}
+quuz_const = unsafePerformIO hs_bindgen_b4e5ee141d4c7703

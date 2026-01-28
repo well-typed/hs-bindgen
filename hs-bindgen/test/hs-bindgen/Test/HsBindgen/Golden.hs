@@ -207,6 +207,7 @@ test_manual_globals =
 testCases_bespoke_arrays :: [TestCase]
 testCases_bespoke_arrays = [
       test_arrays_array
+    , test_arrays_multi_dim
     , test_arrays_failing_array_res_1
     , test_arrays_failing_array_res_2
     , test_arrays_failing_array_res_3
@@ -246,6 +247,9 @@ test_arrays_array =
         , "arr5"
         , "arr8"
         ]
+
+test_arrays_multi_dim :: TestCase
+test_arrays_multi_dim = defaultTest "arrays/multi_dim"
 
 test_arrays_failing_array_res_1 :: TestCase
 test_arrays_failing_array_res_1 =
