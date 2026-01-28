@@ -22,7 +22,6 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
-import HsBindgen.Backend.Hs.Translation.State (TranslationState)
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
@@ -86,13 +85,12 @@ functionDecs ::
   -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
-  -> TranslationState
   -> C.Sizeofs
   -> C.DeclInfo Final
   -> C.Function Final
   -> PrescriptiveDeclSpec
   -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName transState sizeofs info origCFun _spec =
+functionDecs safety opts haddockConfig moduleName sizeofs info origCFun _spec =
     concat [
         foreignImport
       , [restoreOrigSignature]
@@ -125,7 +123,6 @@ functionDecs safety opts haddockConfig moduleName transState sizeofs info origCF
     foreignImport :: [Hs.Decl]
     foreignImport =
         HsFI.foreignImportDec
-          transState
           sizeofs
           (Hs.ForeignImport.FunName cWrapperName)
           foreignImportParams

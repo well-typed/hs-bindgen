@@ -9,8 +9,6 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
   ) where
 
 import Data.Function
-import Data.Maybe (isJust)
-import Data.Set qualified as Set
 import DeBruijn (Idx (IZ))
 import Optics.Core
 import Text.Printf (printf)
@@ -23,8 +21,6 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
-import HsBindgen.Backend.Hs.Translation.State (TranslationState (..))
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
 import HsBindgen.Errors (panicPure)
@@ -50,8 +46,7 @@ data FunRes = FunRes {
 -- > foreign import ccall "foo" foo :: CInt -> IO CInt
 --
 foreignImportDec ::
-     TranslationState
-  -> C.Sizeofs
+     C.Sizeofs
   -> FunName
   -> [FunParam]
   -> FunRes
@@ -60,17 +55,11 @@ foreignImportDec ::
   -> Origin.ForeignImport
   -> Safety
   -> [Hs.Decl]
-foreignImportDec transState sizeofs name params res origName callConv origin safety
-  | willForeignImportTypecheck transState sizeofs funType
-  = [ Hs.DeclForeignImport foreignImportDecl
+foreignImportDec sizeofs name params res origName callConv origin safety =
+    [ Hs.DeclForeignImport foreignImportDecl
     , Hs.DeclFunction funDecl
     ]
-  | otherwise
-  = panicPure "foreignImportDec: generated binding would not compile"
   where
-    funType :: HsType
-    funType = foldr Hs.HsFun res.hsType (fmap (.hsParam.typ) params)
-
     foreignImportDecl :: Hs.ForeignImportDecl
     foreignImportDecl =  Hs.ForeignImportDecl{
           name       = fiName
@@ -126,19 +115,15 @@ foreignImportDec transState sizeofs name params res origName callConv origin saf
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 --
 foreignImportWrapperDec ::
-     TranslationState
-  -> C.Sizeofs
+     C.Sizeofs
   -> FunName
   -> Hs.HsType
   -> Origin.ForeignImport
   -> [Hs.Decl]
-foreignImportWrapperDec transState sizeofs name hsType origin
-  | willForeignImportTypecheck transState sizeofs hsType
-  = [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
+foreignImportWrapperDec sizeofs name hsType origin =
+    [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
     , Hs.DeclFunction funDecl
     ]
-  | otherwise
-  = panicPure "foreignImportWrapperDec: generated binding would not compile"
   where
     foreignImportWrapperDecl :: Hs.ForeignImportWrapper
     foreignImportWrapperDecl =  Hs.ForeignImportWrapper {
@@ -198,19 +183,15 @@ foreignImportWrapperDec transState sizeofs name hsType origin
 -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
 --
 foreignImportDynamicDec ::
-     TranslationState
-  -> C.Sizeofs
+     C.Sizeofs
   -> FunName
   -> Hs.HsType
   -> Origin.ForeignImport
   -> [Hs.Decl]
-foreignImportDynamicDec transState sizeofs name hsType origin
-  | willForeignImportTypecheck transState sizeofs hsType
-  = [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
+foreignImportDynamicDec sizeofs name hsType origin =
+    [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
     , Hs.DeclFunction funDecl
     ]
-  | otherwise
-  = panicPure "foreignImportDynamicDec: generated binding would not compile"
   where
     foreignImportDynamicDecl :: Hs.ForeignImportDynamic
     foreignImportDynamicDecl =  Hs.ForeignImportDynamic {
@@ -252,28 +233,6 @@ foreignImportDynamicDec transState sizeofs name hsType origin
         EBound IZ
         ))
     fComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
-
-{-------------------------------------------------------------------------------
-  Sanity check
--------------------------------------------------------------------------------}
-
-willForeignImportTypecheck ::
-     TranslationState
-  -> C.Sizeofs
-  -> HsType
-  -> Bool
-willForeignImportTypecheck transState sizeofs typ =
-       hasInstance_HasFFIType
-    && isJust (toFFI sizeofs typ)
-  where
-    hasInstance_HasFFIType :: Bool
-    hasInstance_HasFFIType =
-      Hs.HasFFIType `elem`
-        Hs.getInstances
-          transState.instanceMap
-          Nothing
-          (Set.singleton Hs.HasFFIType)
-          [typ]
 
 {-------------------------------------------------------------------------------
   FFI types

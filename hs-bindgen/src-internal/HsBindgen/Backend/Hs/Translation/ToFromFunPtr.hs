@@ -17,7 +17,6 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
-import HsBindgen.Backend.Hs.Translation.State (TranslationState)
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.HsModule.Render ()
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -42,13 +41,11 @@ import HsBindgen.Language.C qualified as C
 --
 -- These instances are placed in the main module to avoid orphan instances.
 forFunction ::
-     TranslationState
-  -> C.Sizeofs
+     C.Sizeofs
   -> ([C.Type Final], C.Type Final)
   -> [Hs.Decl]
-forFunction transState sizeofs (args, res) =
+forFunction sizeofs (args, res) =
     instancesFor
-      transState
       sizeofs
       nameTo
       nameFrom
@@ -68,14 +65,12 @@ forFunction transState sizeofs (args, res) =
 
 -- | Generate instances for newtype around functions
 forNewtype ::
-     TranslationState
-  -> C.Sizeofs
+     C.Sizeofs
   -> Hs.Newtype
   -> ([C.Type Final], C.Type Final)
   -> [Hs.Decl]
-forNewtype transState sizeofs newtyp (args, res) =
+forNewtype sizeofs newtyp (args, res) =
     instancesFor
-      transState
       sizeofs
       nameTo
       nameFrom
@@ -97,17 +92,15 @@ forNewtype transState sizeofs newtyp (args, res) =
 -------------------------------------------------------------------------------}
 
 instancesFor ::
-     TranslationState
-  -> C.Sizeofs
+     C.Sizeofs
   -> UniqueSymbol -- ^ Name of the @toFunPtr@ fun
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
   -> C.Type Final -- ^ Type of the C function
   -> HsType       -- ^ Corresponding Haskell type
   -> [Hs.Decl]
-instancesFor transState sizeofs nameTo nameFrom funC funHs = concat [
+instancesFor sizeofs nameTo nameFrom funC funHs = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec
-        transState
         sizeofs
         (Hs.ForeignImport.FunName nameTo)
         funHs
@@ -115,7 +108,6 @@ instancesFor transState sizeofs nameTo nameFrom funC funHs = concat [
 
       -- import for @FromFunPtr@ instance
     , HsFI.foreignImportDynamicDec
-        transState
         sizeofs
         (Hs.ForeignImport.FunName nameFrom)
         funHs
