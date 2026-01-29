@@ -37,7 +37,7 @@ import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
@@ -69,7 +69,7 @@ __defined at:__ @documentation\/doxygen_docs.h 54:16@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Size_type = Size_type
-  { un_Size_type :: HsBindgen.Runtime.Prelude.CSize
+  { un_Size_type :: HsBindgen.Runtime.LibC.CSize
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -83,7 +83,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "un_Size_
 instance HsBindgen.Runtime.HasCField.HasCField Size_type "un_Size_type" where
 
   type CFieldType Size_type "un_Size_type" =
-    HsBindgen.Runtime.Prelude.CSize
+    HsBindgen.Runtime.LibC.CSize
 
   offset# = \_ -> \_ -> 0
 
@@ -331,7 +331,7 @@ __defined at:__ @documentation\/doxygen_docs.h 232:9@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Config_t = Config_t
-  { config_t_id :: HsBindgen.Runtime.Prelude.Word32
+  { config_t_id :: HsBindgen.Runtime.LibC.Word32
     {- ^
 
        Unique identifier
@@ -353,7 +353,7 @@ data Config_t = Config_t
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , config_t_flags :: HsBindgen.Runtime.Prelude.Word32
+  , config_t_flags :: HsBindgen.Runtime.LibC.Word32
     {- ^
 
        Configuration flags
@@ -425,7 +425,7 @@ instance F.Storable Config_t where
 instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_id" where
 
   type CFieldType Config_t "config_t_id" =
-    HsBindgen.Runtime.Prelude.Word32
+    HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
 
@@ -451,7 +451,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_
 instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_flags" where
 
   type CFieldType Config_t "config_t_flags" =
-    HsBindgen.Runtime.Prelude.Word32
+    HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 68
 
@@ -638,7 +638,7 @@ __defined at:__ @documentation\/doxygen_docs.h 290:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Data_union_t_as_parts = Data_union_t_as_parts
-  { data_union_t_as_parts_low :: HsBindgen.Runtime.Prelude.Word16
+  { data_union_t_as_parts_low :: HsBindgen.Runtime.LibC.Word16
     {- ^
 
        Low 16 bits
@@ -649,7 +649,7 @@ data Data_union_t_as_parts = Data_union_t_as_parts
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
-  , data_union_t_as_parts_high :: HsBindgen.Runtime.Prelude.Word16
+  , data_union_t_as_parts_high :: HsBindgen.Runtime.LibC.Word16
     {- ^
 
        High 16 bits
@@ -686,7 +686,7 @@ instance F.Storable Data_union_t_as_parts where
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" where
 
   type CFieldType Data_union_t_as_parts "data_union_t_as_parts_low" =
-    HsBindgen.Runtime.Prelude.Word16
+    HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 0
 
@@ -699,7 +699,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_part
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_high" where
 
   type CFieldType Data_union_t_as_parts "data_union_t_as_parts_high" =
-    HsBindgen.Runtime.Prelude.Word16
+    HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 2
 
@@ -745,7 +745,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_int ::
      Data_union_t
-  -> HsBindgen.Runtime.Prelude.Int32
+  -> HsBindgen.Runtime.LibC.Int32
 get_data_union_t_as_int =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -755,7 +755,7 @@ get_data_union_t_as_int =
 
 -}
 set_data_union_t_as_int ::
-     HsBindgen.Runtime.Prelude.Int32
+     HsBindgen.Runtime.LibC.Int32
   -> Data_union_t
 set_data_union_t_as_int =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -803,7 +803,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_bytes ::
      Data_union_t
-  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8
 get_data_union_t_as_bytes =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -813,7 +813,7 @@ get_data_union_t_as_bytes =
 
 -}
 set_data_union_t_as_bytes ::
-     (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+     (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8
   -> Data_union_t
 set_data_union_t_as_bytes =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -848,7 +848,7 @@ set_data_union_t_as_parts =
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_int" where
 
   type CFieldType Data_union_t "data_union_t_as_int" =
-    HsBindgen.Runtime.Prelude.Int32
+    HsBindgen.Runtime.LibC.Int32
 
   offset# = \_ -> \_ -> 0
 
@@ -874,7 +874,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
 
   type CFieldType Data_union_t "data_union_t_as_bytes" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+    (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
 
@@ -1268,7 +1268,7 @@ __defined at:__ @documentation\/doxygen_docs.h 360:8@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Flexible_array_Aux = Flexible_array
-  { flexible_array_count :: HsBindgen.Runtime.Prelude.CSize
+  { flexible_array_count :: HsBindgen.Runtime.LibC.CSize
     {- ^
 
        Number of elements
@@ -1303,7 +1303,7 @@ instance F.Storable Flexible_array_Aux where
 instance HsBindgen.Runtime.HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
 
   type CFieldType Flexible_array_Aux "flexible_array_count" =
-    HsBindgen.Runtime.Prelude.CSize
+    HsBindgen.Runtime.LibC.CSize
 
   offset# = \_ -> \_ -> 0
 

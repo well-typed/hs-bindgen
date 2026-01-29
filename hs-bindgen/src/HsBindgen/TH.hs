@@ -36,7 +36,7 @@ module HsBindgen.TH (
   , Predicate.SelectPredicate(..)
   , Select.ProgramSlicing(..)
 
-     -- ** Binding categories
+    -- ** Binding categories
   , Category.ByCategory(..)
   , Category.Choice(..)
   , Category.RenameTerm(..)
@@ -52,11 +52,18 @@ module HsBindgen.TH (
   , Tracer.Level(..)
   , TraceMsg.CustomLogLevelSetting(..)
 
-   -- * Re-exports
+    -- * Re-exports
   , Default.Default(..)
+
+    -- * Deriving
+    --
+    -- Ensure constructors are in scope when using @deriving via@.
+  , module HsBindgen.Runtime.Internal.Deriving
   ) where
 
 import Data.Default qualified as Default
+
+import HsBindgen.Runtime.Internal.Deriving
 
 import HsBindgen.Backend.Category qualified as Category
 import HsBindgen.Backend.Hs.Haddock.Config qualified as Haddock

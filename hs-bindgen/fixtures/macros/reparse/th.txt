@@ -5318,7 +5318,7 @@ foreign import ccall safe "hs_bindgen_4b34178a505131e2" hs_bindgen_4b34178a50513
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args2@
 hs_bindgen_4b34178a505131e2 :: A ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                               HsBindgen.Runtime.LibC.CSize -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args2@
 hs_bindgen_4b34178a505131e2 = fromFFIType hs_bindgen_4b34178a505131e2_base
 {-| __C declaration:__ @bespoke_args2@
@@ -5327,7 +5327,7 @@ hs_bindgen_4b34178a505131e2 = fromFFIType hs_bindgen_4b34178a505131e2_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_args2 :: A -> HsBindgen.Runtime.Prelude.CSize -> IO Unit
+bespoke_args2 :: A -> HsBindgen.Runtime.LibC.CSize -> IO Unit
 {-| __C declaration:__ @bespoke_args2@
 
     __defined at:__ @macros\/reparse.h 95:6@
@@ -5362,8 +5362,7 @@ foreign import ccall safe "hs_bindgen_7c9a1792426b84a1" hs_bindgen_7c9a1792426b8
     Int32
  -> IO Word64
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret2@
-hs_bindgen_7c9a1792426b84a1 :: A ->
-                               IO HsBindgen.Runtime.Prelude.CSize
+hs_bindgen_7c9a1792426b84a1 :: A -> IO HsBindgen.Runtime.LibC.CSize
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret2@
 hs_bindgen_7c9a1792426b84a1 = fromFFIType hs_bindgen_7c9a1792426b84a1_base
 {-| __C declaration:__ @bespoke_ret2@
@@ -5372,7 +5371,7 @@ hs_bindgen_7c9a1792426b84a1 = fromFFIType hs_bindgen_7c9a1792426b84a1_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_ret2 :: A -> IO HsBindgen.Runtime.Prelude.CSize
+bespoke_ret2 :: A -> IO HsBindgen.Runtime.LibC.CSize
 {-| __C declaration:__ @bespoke_ret2@
 
     __defined at:__ @macros\/reparse.h 98:8@
@@ -5940,7 +5939,7 @@ foreign import ccall safe "hs_bindgen_23fa742b614176dd" hs_bindgen_23fa742b61417
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before8@
 hs_bindgen_23fa742b614176dd :: A ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                               HsBindgen.Runtime.LibC.CSize -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before8@
 hs_bindgen_23fa742b614176dd = fromFFIType hs_bindgen_23fa742b614176dd_base
 {-| __C declaration:__ @const_withoutSign_before8@
@@ -5950,7 +5949,7 @@ hs_bindgen_23fa742b614176dd = fromFFIType hs_bindgen_23fa742b614176dd_base
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before8 :: A ->
-                             HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                             HsBindgen.Runtime.LibC.CSize -> IO Unit
 {-| __C declaration:__ @const_withoutSign_before8@
 
     __defined at:__ @macros\/reparse.h 195:6@
@@ -6126,7 +6125,7 @@ foreign import ccall safe "hs_bindgen_ae74c8dcdc2ec9eb" hs_bindgen_ae74c8dcdc2ec
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after8@
 hs_bindgen_ae74c8dcdc2ec9eb :: A ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                               HsBindgen.Runtime.LibC.CSize -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after8@
 hs_bindgen_ae74c8dcdc2ec9eb = fromFFIType hs_bindgen_ae74c8dcdc2ec9eb_base
 {-| __C declaration:__ @const_withoutSign_after8@
@@ -6136,7 +6135,7 @@ hs_bindgen_ae74c8dcdc2ec9eb = fromFFIType hs_bindgen_ae74c8dcdc2ec9eb_base
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after8 :: A ->
-                            HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                            HsBindgen.Runtime.LibC.CSize -> IO Unit
 {-| __C declaration:__ @const_withoutSign_after8@
 
     __defined at:__ @macros\/reparse.h 204:6@
@@ -7874,7 +7873,7 @@ foreign import ccall unsafe "hs_bindgen_74b2cd1defdd5609" hs_bindgen_74b2cd1defd
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_args2@
 hs_bindgen_74b2cd1defdd5609 :: A ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                               HsBindgen.Runtime.LibC.CSize -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_args2@
 hs_bindgen_74b2cd1defdd5609 = fromFFIType hs_bindgen_74b2cd1defdd5609_base
 {-| __C declaration:__ @bespoke_args2@
@@ -7883,7 +7882,7 @@ hs_bindgen_74b2cd1defdd5609 = fromFFIType hs_bindgen_74b2cd1defdd5609_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_args2 :: A -> HsBindgen.Runtime.Prelude.CSize -> IO Unit
+bespoke_args2 :: A -> HsBindgen.Runtime.LibC.CSize -> IO Unit
 {-| __C declaration:__ @bespoke_args2@
 
     __defined at:__ @macros\/reparse.h 95:6@
@@ -7918,8 +7917,7 @@ foreign import ccall unsafe "hs_bindgen_a6a3e5a828532360" hs_bindgen_a6a3e5a8285
     Int32
  -> IO Word64
 -- __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_ret2@
-hs_bindgen_a6a3e5a828532360 :: A ->
-                               IO HsBindgen.Runtime.Prelude.CSize
+hs_bindgen_a6a3e5a828532360 :: A -> IO HsBindgen.Runtime.LibC.CSize
 -- __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_ret2@
 hs_bindgen_a6a3e5a828532360 = fromFFIType hs_bindgen_a6a3e5a828532360_base
 {-| __C declaration:__ @bespoke_ret2@
@@ -7928,7 +7926,7 @@ hs_bindgen_a6a3e5a828532360 = fromFFIType hs_bindgen_a6a3e5a828532360_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_ret2 :: A -> IO HsBindgen.Runtime.Prelude.CSize
+bespoke_ret2 :: A -> IO HsBindgen.Runtime.LibC.CSize
 {-| __C declaration:__ @bespoke_ret2@
 
     __defined at:__ @macros\/reparse.h 98:8@
@@ -8496,7 +8494,7 @@ foreign import ccall unsafe "hs_bindgen_530245b77093b08c" hs_bindgen_530245b7709
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before8@
 hs_bindgen_530245b77093b08c :: A ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                               HsBindgen.Runtime.LibC.CSize -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before8@
 hs_bindgen_530245b77093b08c = fromFFIType hs_bindgen_530245b77093b08c_base
 {-| __C declaration:__ @const_withoutSign_before8@
@@ -8506,7 +8504,7 @@ hs_bindgen_530245b77093b08c = fromFFIType hs_bindgen_530245b77093b08c_base
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before8 :: A ->
-                             HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                             HsBindgen.Runtime.LibC.CSize -> IO Unit
 {-| __C declaration:__ @const_withoutSign_before8@
 
     __defined at:__ @macros\/reparse.h 195:6@
@@ -8682,7 +8680,7 @@ foreign import ccall unsafe "hs_bindgen_3a020035eb2fe7f8" hs_bindgen_3a020035eb2
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after8@
 hs_bindgen_3a020035eb2fe7f8 :: A ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                               HsBindgen.Runtime.LibC.CSize -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after8@
 hs_bindgen_3a020035eb2fe7f8 = fromFFIType hs_bindgen_3a020035eb2fe7f8_base
 {-| __C declaration:__ @const_withoutSign_after8@
@@ -8692,7 +8690,7 @@ hs_bindgen_3a020035eb2fe7f8 = fromFFIType hs_bindgen_3a020035eb2fe7f8_base
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after8 :: A ->
-                            HsBindgen.Runtime.Prelude.CSize -> IO Unit
+                            HsBindgen.Runtime.LibC.CSize -> IO Unit
 {-| __C declaration:__ @const_withoutSign_after8@
 
     __defined at:__ @macros\/reparse.h 204:6@
@@ -10413,7 +10411,7 @@ foreign import ccall unsafe "hs_bindgen_eabc3e2c716b0250" hs_bindgen_eabc3e2c716
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_args2@
 hs_bindgen_eabc3e2c716b0250 :: IO (FunPtr (A ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO Unit))
+                                           HsBindgen.Runtime.LibC.CSize -> IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_args2@
 hs_bindgen_eabc3e2c716b0250 = fromFFIType hs_bindgen_eabc3e2c716b0250_base
 {-# NOINLINE bespoke_args2 #-}
@@ -10424,7 +10422,7 @@ hs_bindgen_eabc3e2c716b0250 = fromFFIType hs_bindgen_eabc3e2c716b0250_base
     __exported by:__ @macros\/reparse.h@
 -}
 bespoke_args2 :: FunPtr (A ->
-                         HsBindgen.Runtime.Prelude.CSize -> IO Unit)
+                         HsBindgen.Runtime.LibC.CSize -> IO Unit)
 {-| __C declaration:__ @bespoke_args2@
 
     __defined at:__ @macros\/reparse.h 95:6@
@@ -10459,7 +10457,7 @@ foreign import ccall unsafe "hs_bindgen_384c8ceed3a4ca90" hs_bindgen_384c8ceed3a
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_ret2@
 hs_bindgen_384c8ceed3a4ca90 :: IO (FunPtr (A ->
-                                           IO HsBindgen.Runtime.Prelude.CSize))
+                                           IO HsBindgen.Runtime.LibC.CSize))
 -- __unique:__ @test_macrosreparse_Example_get_bespoke_ret2@
 hs_bindgen_384c8ceed3a4ca90 = fromFFIType hs_bindgen_384c8ceed3a4ca90_base
 {-# NOINLINE bespoke_ret2 #-}
@@ -10469,7 +10467,7 @@ hs_bindgen_384c8ceed3a4ca90 = fromFFIType hs_bindgen_384c8ceed3a4ca90_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_ret2 :: FunPtr (A -> IO HsBindgen.Runtime.Prelude.CSize)
+bespoke_ret2 :: FunPtr (A -> IO HsBindgen.Runtime.LibC.CSize)
 {-| __C declaration:__ @bespoke_ret2@
 
     __defined at:__ @macros\/reparse.h 98:8@
@@ -11028,7 +11026,7 @@ foreign import ccall unsafe "hs_bindgen_e707228d3913a299" hs_bindgen_e707228d391
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before8@
 hs_bindgen_e707228d3913a299 :: IO (FunPtr (A ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO Unit))
+                                           HsBindgen.Runtime.LibC.CSize -> IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before8@
 hs_bindgen_e707228d3913a299 = fromFFIType hs_bindgen_e707228d3913a299_base
 {-# NOINLINE const_withoutSign_before8 #-}
@@ -11039,7 +11037,7 @@ hs_bindgen_e707228d3913a299 = fromFFIType hs_bindgen_e707228d3913a299_base
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_before8 :: FunPtr (A ->
-                                     HsBindgen.Runtime.Prelude.CSize -> IO Unit)
+                                     HsBindgen.Runtime.LibC.CSize -> IO Unit)
 {-| __C declaration:__ @const_withoutSign_before8@
 
     __defined at:__ @macros\/reparse.h 195:6@
@@ -11210,7 +11208,7 @@ foreign import ccall unsafe "hs_bindgen_fdf87fbad31246de" hs_bindgen_fdf87fbad31
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after8@
 hs_bindgen_fdf87fbad31246de :: IO (FunPtr (A ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO Unit))
+                                           HsBindgen.Runtime.LibC.CSize -> IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after8@
 hs_bindgen_fdf87fbad31246de = fromFFIType hs_bindgen_fdf87fbad31246de_base
 {-# NOINLINE const_withoutSign_after8 #-}
@@ -11221,7 +11219,7 @@ hs_bindgen_fdf87fbad31246de = fromFFIType hs_bindgen_fdf87fbad31246de_base
     __exported by:__ @macros\/reparse.h@
 -}
 const_withoutSign_after8 :: FunPtr (A ->
-                                    HsBindgen.Runtime.Prelude.CSize -> IO Unit)
+                                    HsBindgen.Runtime.LibC.CSize -> IO Unit)
 {-| __C declaration:__ @const_withoutSign_after8@
 
     __defined at:__ @macros\/reparse.h 204:6@

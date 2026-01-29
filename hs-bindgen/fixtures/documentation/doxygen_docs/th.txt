@@ -371,7 +371,7 @@ __defined at:__ @documentation\/doxygen_docs.h 54:16@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Size_type
-    = Size_type {un_Size_type :: HsBindgen.Runtime.Prelude.CSize}
+    = Size_type {un_Size_type :: HsBindgen.Runtime.LibC.CSize}
       {- ^ This is the comment __title__
 
          > size_type
@@ -400,7 +400,7 @@ instance TyEq ty (CFieldType Size_type "un_Size_type") =>
     where getField = ptrToCField (Proxy @"un_Size_type")
 instance HasCField Size_type "un_Size_type"
     where type CFieldType Size_type
-                          "un_Size_type" = HsBindgen.Runtime.Prelude.CSize
+                          "un_Size_type" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
 {-| This is the comment @title@
 
@@ -643,7 +643,7 @@ __defined at:__ @documentation\/doxygen_docs.h 232:9@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Config_t
-    = Config_t {config_t_id :: HsBindgen.Runtime.Prelude.Word32
+    = Config_t {config_t_id :: HsBindgen.Runtime.LibC.Word32
                 {- ^
 
                    Unique identifier
@@ -665,7 +665,7 @@ data Config_t
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -},
-                config_t_flags :: HsBindgen.Runtime.Prelude.Word32
+                config_t_flags :: HsBindgen.Runtime.LibC.Word32
                 {- ^
 
                    Configuration flags
@@ -725,7 +725,7 @@ instance Storable Config_t
                                             config_t_user_data_7 -> pokeCField (Proxy @"config_t_id") ptr_1 config_t_id_3 >> (pokeCField (Proxy @"config_t_name") ptr_1 config_t_name_4 >> (pokeCField (Proxy @"config_t_flags") ptr_1 config_t_flags_5 >> (pokeCField (Proxy @"config_t_callback") ptr_1 config_t_callback_6 >> pokeCField (Proxy @"config_t_user_data") ptr_1 config_t_user_data_7)))
 instance HasCField Config_t "config_t_id"
     where type CFieldType Config_t
-                          "config_t_id" = HsBindgen.Runtime.Prelude.Word32
+                          "config_t_id" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Config_t "config_t_id") =>
          HasField "config_t_id" (Ptr Config_t) (Ptr ty)
@@ -739,7 +739,7 @@ instance TyEq ty (CFieldType Config_t "config_t_name") =>
     where getField = ptrToCField (Proxy @"config_t_name")
 instance HasCField Config_t "config_t_flags"
     where type CFieldType Config_t
-                          "config_t_flags" = HsBindgen.Runtime.Prelude.Word32
+                          "config_t_flags" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 68
 instance TyEq ty (CFieldType Config_t "config_t_flags") =>
          HasField "config_t_flags" (Ptr Config_t) (Ptr ty)
@@ -933,7 +933,7 @@ __defined at:__ @documentation\/doxygen_docs.h 290:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Data_union_t_as_parts
-    = Data_union_t_as_parts {data_union_t_as_parts_low :: HsBindgen.Runtime.Prelude.Word16
+    = Data_union_t_as_parts {data_union_t_as_parts_low :: HsBindgen.Runtime.LibC.Word16
                              {- ^
 
                                 Low 16 bits
@@ -944,7 +944,7 @@ data Data_union_t_as_parts
 
                              __exported by:__ @documentation\/doxygen_docs.h@
                              -},
-                             data_union_t_as_parts_high :: HsBindgen.Runtime.Prelude.Word16
+                             data_union_t_as_parts_high :: HsBindgen.Runtime.LibC.Word16
                              {- ^
 
                                 High 16 bits
@@ -978,7 +978,7 @@ instance Storable Data_union_t_as_parts
 instance HasCField Data_union_t_as_parts
                    "data_union_t_as_parts_low"
     where type CFieldType Data_union_t_as_parts
-                          "data_union_t_as_parts_low" = HsBindgen.Runtime.Prelude.Word16
+                          "data_union_t_as_parts_low" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 0
 instance TyEq ty
               (CFieldType Data_union_t_as_parts "data_union_t_as_parts_low") =>
@@ -989,7 +989,7 @@ instance TyEq ty
 instance HasCField Data_union_t_as_parts
                    "data_union_t_as_parts_high"
     where type CFieldType Data_union_t_as_parts
-                          "data_union_t_as_parts_high" = HsBindgen.Runtime.Prelude.Word16
+                          "data_union_t_as_parts_high" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 2
 instance TyEq ty
               (CFieldType Data_union_t_as_parts "data_union_t_as_parts_high") =>
@@ -1042,7 +1042,7 @@ __defined at:__ @documentation\/doxygen_docs.h 282:13@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_int :: Data_union_t ->
-                           HsBindgen.Runtime.Prelude.Int32
+                           HsBindgen.Runtime.LibC.Int32
 {-|
 
   Integer representation
@@ -1061,7 +1061,7 @@ get_data_union_t_as_int = getUnionPayload
   __See:__ 'get_data_union_t_as_int'
 
 -}
-set_data_union_t_as_int :: HsBindgen.Runtime.Prelude.Int32 ->
+set_data_union_t_as_int :: HsBindgen.Runtime.LibC.Int32 ->
                            Data_union_t
 {-|
 
@@ -1120,7 +1120,7 @@ __defined at:__ @documentation\/doxygen_docs.h 284:13@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 get_data_union_t_as_bytes :: Data_union_t ->
-                             ConstantArray 4 HsBindgen.Runtime.Prelude.Word8
+                             ConstantArray 4 HsBindgen.Runtime.LibC.Word8
 {-|
 
   Byte array representation
@@ -1140,7 +1140,7 @@ get_data_union_t_as_bytes = getUnionPayload
 
 -}
 set_data_union_t_as_bytes :: ConstantArray 4
-                                           HsBindgen.Runtime.Prelude.Word8 ->
+                                           HsBindgen.Runtime.LibC.Word8 ->
                              Data_union_t
 {-|
 
@@ -1184,7 +1184,7 @@ set_data_union_t_as_parts :: Data_union_t_as_parts -> Data_union_t
 set_data_union_t_as_parts = setUnionPayload
 instance HasCField Data_union_t "data_union_t_as_int"
     where type CFieldType Data_union_t
-                          "data_union_t_as_int" = HsBindgen.Runtime.Prelude.Int32
+                          "data_union_t_as_int" = HsBindgen.Runtime.LibC.Int32
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Data_union_t "data_union_t_as_int") =>
          HasField "data_union_t_as_int" (Ptr Data_union_t) (Ptr ty)
@@ -1199,7 +1199,7 @@ instance TyEq ty
 instance HasCField Data_union_t "data_union_t_as_bytes"
     where type CFieldType Data_union_t
                           "data_union_t_as_bytes" = ConstantArray 4
-                                                                  HsBindgen.Runtime.Prelude.Word8
+                                                                  HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 0
 instance TyEq ty
               (CFieldType Data_union_t "data_union_t_as_bytes") =>
@@ -1521,7 +1521,7 @@ __defined at:__ @documentation\/doxygen_docs.h 360:8@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 data Flexible_array_Aux
-    = Flexible_array {flexible_array_count :: HsBindgen.Runtime.Prelude.CSize
+    = Flexible_array {flexible_array_count :: HsBindgen.Runtime.LibC.CSize
                       {- ^
 
                          Number of elements
@@ -1541,7 +1541,7 @@ instance Storable Flexible_array_Aux
                                    Flexible_array flexible_array_count_3 -> pokeCField (Proxy @"flexible_array_count") ptr_1 flexible_array_count_3
 instance HasCField Flexible_array_Aux "flexible_array_count"
     where type CFieldType Flexible_array_Aux
-                          "flexible_array_count" = HsBindgen.Runtime.Prelude.CSize
+                          "flexible_array_count" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
 instance TyEq ty
               (CFieldType Flexible_array_Aux "flexible_array_count") =>
@@ -1557,9 +1557,9 @@ foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982
  -> Ptr Void
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
-hs_bindgen_7eada9f65d982412 :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                               Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                               Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt
+hs_bindgen_7eada9f65d982412 :: ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                               Ptr HsBindgen.Runtime.LibC.Word8 ->
+                               Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 hs_bindgen_7eada9f65d982412 = fromFFIType hs_bindgen_7eada9f65d982412_base
 {-|
@@ -1582,9 +1582,9 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt
+process_data :: ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                Ptr HsBindgen.Runtime.LibC.Word8 ->
+                Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
 {-|
 
   Function with detailed parameter documentation
@@ -1758,7 +1758,7 @@ foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e5
  -> IO Word8
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 hs_bindgen_825411dc114e599b :: Ptr (ConstPtr CChar) ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                               HsBindgen.Runtime.LibC.CSize -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 hs_bindgen_825411dc114e599b = fromFFIType hs_bindgen_825411dc114e599b_base
 {-|
@@ -1808,7 +1808,7 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example :: Ptr (ConstPtr CChar) ->
-                HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                HsBindgen.Runtime.LibC.CSize -> IO CBool
 {-|
 
   Function with lists and special formatting
@@ -2047,7 +2047,7 @@ foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f170037
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 :: Ptr CChar ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO CInt
+                               HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 = fromFFIType hs_bindgen_0c0057f1700372a7_base
 {-|
@@ -2067,7 +2067,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer :: Ptr CChar ->
-                  HsBindgen.Runtime.Prelude.CSize -> IO CInt
+                  HsBindgen.Runtime.LibC.CSize -> IO CInt
 {-|
 
   Static array parameter
@@ -2093,7 +2093,7 @@ foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95
  -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 hs_bindgen_294db77671f95524 :: Ptr Void ->
-                               ConstPtr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void)
+                               ConstPtr Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 hs_bindgen_294db77671f95524 = fromFFIType hs_bindgen_294db77671f95524_base
 {-|
@@ -2115,7 +2115,7 @@ __defined at:__ @documentation\/doxygen_docs.h 342:7@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy :: Ptr Void ->
-             ConstPtr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void)
+             ConstPtr Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
 {-|
 
   Function with restrict pointers
@@ -2181,8 +2181,8 @@ foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba202
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 hs_bindgen_c4e7e99dba20204d :: Ptr Config_t ->
-                               ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t
+                               ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                               HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 hs_bindgen_c4e7e99dba20204d = fromFFIType hs_bindgen_c4e7e99dba20204d_base
 {-|
@@ -2257,8 +2257,8 @@ __defined at:__ @documentation\/doxygen_docs.h 423:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function :: Ptr Config_t ->
-                    ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                    HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t
+                    ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                    HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
 {-|
 
   Function with complex documentation
@@ -2382,9 +2382,9 @@ foreign import ccall unsafe "hs_bindgen_e6085a910ba41ecb" hs_bindgen_e6085a910ba
  -> Ptr Void
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
-hs_bindgen_e6085a910ba41ecb :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                               Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                               Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt
+hs_bindgen_e6085a910ba41ecb :: ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                               Ptr HsBindgen.Runtime.LibC.Word8 ->
+                               Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
 hs_bindgen_e6085a910ba41ecb = fromFFIType hs_bindgen_e6085a910ba41ecb_base
 {-|
@@ -2407,9 +2407,9 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt
+process_data :: ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                Ptr HsBindgen.Runtime.LibC.Word8 ->
+                Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt
 {-|
 
   Function with detailed parameter documentation
@@ -2583,7 +2583,7 @@ foreign import ccall unsafe "hs_bindgen_47cba1a95d265f84" hs_bindgen_47cba1a95d2
  -> IO Word8
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
 hs_bindgen_47cba1a95d265f84 :: Ptr (ConstPtr CChar) ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                               HsBindgen.Runtime.LibC.CSize -> IO CBool
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
 hs_bindgen_47cba1a95d265f84 = fromFFIType hs_bindgen_47cba1a95d265f84_base
 {-|
@@ -2633,7 +2633,7 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example :: Ptr (ConstPtr CChar) ->
-                HsBindgen.Runtime.Prelude.CSize -> IO CBool
+                HsBindgen.Runtime.LibC.CSize -> IO CBool
 {-|
 
   Function with lists and special formatting
@@ -2872,7 +2872,7 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece :: Ptr CChar ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO CInt
+                               HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece = fromFFIType hs_bindgen_97c1191917e6eece_base
 {-|
@@ -2892,7 +2892,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer :: Ptr CChar ->
-                  HsBindgen.Runtime.Prelude.CSize -> IO CInt
+                  HsBindgen.Runtime.LibC.CSize -> IO CInt
 {-|
 
   Static array parameter
@@ -2918,7 +2918,7 @@ foreign import ccall unsafe "hs_bindgen_58253bb560dc3eb3" hs_bindgen_58253bb560d
  -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_my_memcpy@
 hs_bindgen_58253bb560dc3eb3 :: Ptr Void ->
-                               ConstPtr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void)
+                               ConstPtr Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_my_memcpy@
 hs_bindgen_58253bb560dc3eb3 = fromFFIType hs_bindgen_58253bb560dc3eb3_base
 {-|
@@ -2940,7 +2940,7 @@ __defined at:__ @documentation\/doxygen_docs.h 342:7@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy :: Ptr Void ->
-             ConstPtr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void)
+             ConstPtr Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)
 {-|
 
   Function with restrict pointers
@@ -3006,8 +3006,8 @@ foreign import ccall unsafe "hs_bindgen_fd6fce7c8d8b2f79" hs_bindgen_fd6fce7c8d8
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
 hs_bindgen_fd6fce7c8d8b2f79 :: Ptr Config_t ->
-                               ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t
+                               ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                               HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
 hs_bindgen_fd6fce7c8d8b2f79 = fromFFIType hs_bindgen_fd6fce7c8d8b2f79_base
 {-|
@@ -3082,8 +3082,8 @@ __defined at:__ @documentation\/doxygen_docs.h 423:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function :: Ptr Config_t ->
-                    ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                    HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t
+                    ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                    HsBindgen.Runtime.LibC.CSize -> IO Status_code_t
 {-|
 
   Function with complex documentation
@@ -3204,9 +3204,9 @@ square = hs_bindgen_6875e30a7fe8d30a
 foreign import ccall unsafe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f26f8d5_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
-hs_bindgen_4a5cd66a4f26f8d5 :: IO (FunPtr (ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                                           Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                           Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt))
+hs_bindgen_4a5cd66a4f26f8d5 :: IO (FunPtr (ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                                           Ptr HsBindgen.Runtime.LibC.Word8 ->
+                                           Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
 hs_bindgen_4a5cd66a4f26f8d5 = fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
 {-# NOINLINE process_data #-}
@@ -3230,9 +3230,9 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data :: FunPtr (ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                        Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                        Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt)
+process_data :: FunPtr (ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                        Ptr HsBindgen.Runtime.LibC.Word8 ->
+                        Ptr HsBindgen.Runtime.LibC.CSize -> IO CInt)
 {-|
 
   Function with detailed parameter documentation
@@ -3405,7 +3405,7 @@ foreign import ccall unsafe "hs_bindgen_2175b3c627db39cf" hs_bindgen_2175b3c627d
     IO (FunPtr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
 hs_bindgen_2175b3c627db39cf :: IO (FunPtr (Ptr (ConstPtr CChar) ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO CBool))
+                                           HsBindgen.Runtime.LibC.CSize -> IO CBool))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
 hs_bindgen_2175b3c627db39cf = fromFFIType hs_bindgen_2175b3c627db39cf_base
 {-# NOINLINE list_example #-}
@@ -3456,7 +3456,7 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example :: FunPtr (Ptr (ConstPtr CChar) ->
-                        HsBindgen.Runtime.Prelude.CSize -> IO CBool)
+                        HsBindgen.Runtime.LibC.CSize -> IO CBool)
 {-|
 
   Function with lists and special formatting
@@ -3696,7 +3696,7 @@ foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
 hs_bindgen_f4ccc6d90e8d3ebd :: IO (FunPtr (ConstantArray 64
                                                          CChar ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO CInt))
+                                           HsBindgen.Runtime.LibC.CSize -> IO CInt))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
 hs_bindgen_f4ccc6d90e8d3ebd = fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 {-# NOINLINE process_buffer #-}
@@ -3717,7 +3717,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer :: FunPtr (ConstantArray 64 CChar ->
-                          HsBindgen.Runtime.Prelude.CSize -> IO CInt)
+                          HsBindgen.Runtime.LibC.CSize -> IO CInt)
 {-|
 
   Static array parameter
@@ -3741,7 +3741,7 @@ foreign import ccall unsafe "hs_bindgen_6a74d376c901b531" hs_bindgen_6a74d376c90
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
 hs_bindgen_6a74d376c901b531 :: IO (FunPtr (Ptr Void ->
                                            ConstPtr Void ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void)))
+                                           HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void)))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
 hs_bindgen_6a74d376c901b531 = fromFFIType hs_bindgen_6a74d376c901b531_base
 {-# NOINLINE my_memcpy #-}
@@ -3764,7 +3764,7 @@ __defined at:__ @documentation\/doxygen_docs.h 342:7@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy :: FunPtr (Ptr Void ->
-                     ConstPtr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void))
+                     ConstPtr Void -> HsBindgen.Runtime.LibC.CSize -> IO (Ptr Void))
 {-|
 
   Function with restrict pointers
@@ -3827,8 +3827,8 @@ foreign import ccall unsafe "hs_bindgen_dfa39b6be50cb2ca" hs_bindgen_dfa39b6be50
     IO (FunPtr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
 hs_bindgen_dfa39b6be50cb2ca :: IO (FunPtr (Ptr Config_t ->
-                                           ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                                           HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t))
+                                           ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                                           HsBindgen.Runtime.LibC.CSize -> IO Status_code_t))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
 hs_bindgen_dfa39b6be50cb2ca = fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
 {-# NOINLINE complex_function #-}
@@ -3904,8 +3904,8 @@ __defined at:__ @documentation\/doxygen_docs.h 423:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function :: FunPtr (Ptr Config_t ->
-                            ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                            HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t)
+                            ConstPtr HsBindgen.Runtime.LibC.Word8 ->
+                            HsBindgen.Runtime.LibC.CSize -> IO Status_code_t)
 {-|
 
   Function with complex documentation

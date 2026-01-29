@@ -52,6 +52,7 @@ library
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray
+    HsBindgen.Runtime.Internal.Deriving
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.LibC.Auxiliary
     HsBindgen.Runtime.Marshal

@@ -10,7 +10,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -37,9 +37,9 @@ foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a93
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 hs_bindgen_2a91c367a9380a63 ::
      Ptr.Ptr A_type_t
-  -> HsBindgen.Runtime.Prelude.Word32
-  -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
-  -> IO HsBindgen.Runtime.Prelude.Int32
+  -> HsBindgen.Runtime.LibC.Word32
+  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
+  -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_2a91c367a9380a63 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2a91c367a9380a63_base
 
@@ -52,9 +52,9 @@ hs_bindgen_2a91c367a9380a63 =
 some_fun ::
      Ptr.Ptr A_type_t
      -- ^ __C declaration:__ @i@
-  -> HsBindgen.Runtime.Prelude.Word32
+  -> HsBindgen.Runtime.LibC.Word32
      -- ^ __C declaration:__ @j@
-  -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
      -- ^ __C declaration:__ @k@
-  -> IO HsBindgen.Runtime.Prelude.Int32
+  -> IO HsBindgen.Runtime.LibC.Int32
 some_fun = hs_bindgen_2a91c367a9380a63

@@ -18,8 +18,6 @@ module Test.TH.Simple where
 import GHC.Exts
 import Optics ((%), (&), (.~))
 
-import HsBindgen.Runtime.Prelude qualified
-
 import HsBindgen.TH
 
 let cfg :: Config

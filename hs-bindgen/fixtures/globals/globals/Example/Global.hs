@@ -12,7 +12,7 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -430,7 +430,7 @@ foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bf
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_nesInitList@
-hs_bindgen_798af9a98bfc3030 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_798af9a98bfc3030 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8))
 hs_bindgen_798af9a98bfc3030 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_798af9a98bfc3030_base
 
@@ -441,7 +441,7 @@ hs_bindgen_798af9a98bfc3030 =
 
     __exported by:__ @globals\/globals.h@
 -}
-nesInitList :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8)
+nesInitList :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8)
 nesInitList =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_798af9a98bfc3030
 
@@ -470,7 +470,7 @@ foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary@
-hs_bindgen_b243f9b292f8b883 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_b243f9b292f8b883 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.LibC.Word8))
 hs_bindgen_b243f9b292f8b883 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b243f9b292f8b883_base
 
@@ -487,7 +487,7 @@ __defined at:__ @globals\/globals.h 60:9@
 
 __exported by:__ @globals\/globals.h@
 -}
-streamBinary :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8)
+streamBinary :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.LibC.Word8)
 streamBinary =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b243f9b292f8b883
 
@@ -496,7 +496,7 @@ foreign import ccall unsafe "hs_bindgen_60adad2a6178e6cc" hs_bindgen_60adad2a617
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_globalsglobals_Example_get_streamBinary_len@
-hs_bindgen_60adad2a6178e6cc :: IO (Ptr.Ptr HsBindgen.Runtime.Prelude.Word32)
+hs_bindgen_60adad2a6178e6cc :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.Word32)
 hs_bindgen_60adad2a6178e6cc =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_60adad2a6178e6cc_base
 
@@ -507,7 +507,7 @@ hs_bindgen_60adad2a6178e6cc =
 
     __exported by:__ @globals\/globals.h@
 -}
-streamBinary_len :: Ptr.Ptr HsBindgen.Runtime.Prelude.Word32
+streamBinary_len :: Ptr.Ptr HsBindgen.Runtime.LibC.Word32
 streamBinary_len =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_60adad2a6178e6cc
 

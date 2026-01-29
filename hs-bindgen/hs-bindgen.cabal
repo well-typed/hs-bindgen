@@ -264,7 +264,9 @@ library
   reexported-modules:
 
   -- Internal dependencies
-  build-depends:      hs-bindgen:internal
+  build-depends:
+    , hs-bindgen-runtime
+    , hs-bindgen:internal
 
   -- Inherited dependencies
   build-depends:      data-default

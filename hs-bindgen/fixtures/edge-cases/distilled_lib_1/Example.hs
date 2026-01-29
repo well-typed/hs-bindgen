@@ -34,7 +34,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
@@ -358,21 +358,21 @@ data A_typedef_struct_t = A_typedef_struct_t
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_1 :: HsBindgen.Runtime.Prelude.Word8
+  , a_typedef_struct_t_field_1 :: HsBindgen.Runtime.LibC.Word8
     {- ^ __C declaration:__ @field_1@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 38:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_2 :: HsBindgen.Runtime.Prelude.Word16
+  , a_typedef_struct_t_field_2 :: HsBindgen.Runtime.LibC.Word16
     {- ^ __C declaration:__ @field_2@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 39:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_3 :: HsBindgen.Runtime.Prelude.Word32
+  , a_typedef_struct_t_field_3 :: HsBindgen.Runtime.LibC.Word32
     {- ^ __C declaration:__ @field_3@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 40:31@
@@ -400,7 +400,7 @@ data A_typedef_struct_t = A_typedef_struct_t
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
-  , a_typedef_struct_t_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.Prelude.Word32
+  , a_typedef_struct_t_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.LibC.Word32
     {- ^ __C declaration:__ @field_7@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 44:31@
@@ -496,7 +496,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_1" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_1" =
-    HsBindgen.Runtime.Prelude.Word8
+    HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 1
 
@@ -509,7 +509,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_2" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_2" =
-    HsBindgen.Runtime.Prelude.Word16
+    HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 2
 
@@ -522,7 +522,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_3" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_3" =
-    HsBindgen.Runtime.Prelude.Word32
+    HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 4
 
@@ -574,7 +574,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_7" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_7" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.Prelude.Word32
+    (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 32
 
@@ -780,7 +780,7 @@ __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
 __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t_Aux = Callback_t_Aux
-  { un_Callback_t_Aux :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
+  { un_Callback_t_Aux :: (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -825,7 +825,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t_Aux) "un_
 instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "un_Callback_t_Aux" where
 
   type CFieldType Callback_t_Aux "un_Callback_t_Aux" =
-    (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
+    (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
 

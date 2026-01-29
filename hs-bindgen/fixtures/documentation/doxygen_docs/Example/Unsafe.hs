@@ -12,7 +12,7 @@ import qualified GHC.Word
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -129,9 +129,9 @@ foreign import ccall unsafe "hs_bindgen_e6085a910ba41ecb" hs_bindgen_e6085a910ba
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
 hs_bindgen_e6085a910ba41ecb ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
-  -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
-  -> Ptr.Ptr HsBindgen.Runtime.Prelude.CSize
+     HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.LibC.Word8
+  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
+  -> Ptr.Ptr HsBindgen.Runtime.LibC.CSize
   -> IO FC.CInt
 hs_bindgen_e6085a910ba41ecb =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e6085a910ba41ecb_base
@@ -157,21 +157,21 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
+     HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.LibC.Word8
      {- ^
 
         [__@input_data@ /(input)/__]: Input data buffer
 
      __C declaration:__ @input_data@
      -}
-  -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
      {- ^
 
         [__@output_data@ /(output)/__]: Output data buffer
 
      __C declaration:__ @output_data@
      -}
-  -> Ptr.Ptr HsBindgen.Runtime.Prelude.CSize
+  -> Ptr.Ptr HsBindgen.Runtime.LibC.CSize
      {- ^
 
         [__@size@ /(input,output)/__]: Size of data, updated on return
@@ -325,7 +325,7 @@ foreign import ccall unsafe "hs_bindgen_47cba1a95d265f84" hs_bindgen_47cba1a95d2
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
 hs_bindgen_47cba1a95d265f84 ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO FC.CBool
 hs_bindgen_47cba1a95d265f84 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_47cba1a95d265f84_base
@@ -384,7 +384,7 @@ list_example ::
 
      __C declaration:__ @items@
      -}
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      {- ^
 
         [__@count@ /(input)/__]: Number of items
@@ -567,7 +567,7 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece ::
      Ptr.Ptr FC.CChar
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO FC.CInt
 hs_bindgen_97c1191917e6eece =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_97c1191917e6eece_base
@@ -596,7 +596,7 @@ process_buffer ::
 
      __C declaration:__ @buffer@
      -}
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      {- ^
 
         [__@size@ /(input)/__]: Actual buffer size
@@ -617,7 +617,7 @@ foreign import ccall unsafe "hs_bindgen_58253bb560dc3eb3" hs_bindgen_58253bb560d
 hs_bindgen_58253bb560dc3eb3 ::
      Ptr.Ptr Void
   -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO (Ptr.Ptr Void)
 hs_bindgen_58253bb560dc3eb3 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_58253bb560dc3eb3_base
@@ -655,7 +655,7 @@ my_memcpy ::
 
      __C declaration:__ @src@
      -}
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      {- ^
 
         [__@n@ /(input)/__]: Number of bytes
@@ -712,8 +712,8 @@ foreign import ccall unsafe "hs_bindgen_fd6fce7c8d8b2f79" hs_bindgen_fd6fce7c8d8
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
 hs_bindgen_fd6fce7c8d8b2f79 ::
      Ptr.Ptr Config_t
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.LibC.Word8
+  -> HsBindgen.Runtime.LibC.CSize
   -> IO Status_code_t
 hs_bindgen_fd6fce7c8d8b2f79 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fd6fce7c8d8b2f79_base
@@ -797,14 +797,14 @@ complex_function ::
 
      __C declaration:__ @config@
      -}
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.LibC.Word8
      {- ^
 
         [__@data@ /(input)/__]: Input data buffer
 
      __C declaration:__ @data@
      -}
-  -> HsBindgen.Runtime.Prelude.CSize
+  -> HsBindgen.Runtime.LibC.CSize
      {- ^
 
         [__@size@ /(input)/__]: Size of input data

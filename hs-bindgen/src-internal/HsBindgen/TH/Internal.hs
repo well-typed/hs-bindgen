@@ -66,7 +66,6 @@ toFilePath _    (Dir x) = x
 -- >   hashInclude "bar.h"
 withHsBindgen :: Config -> ConfigTH -> BindgenM -> TH.Q [TH.Dec]
 withHsBindgen config configTH hashIncludes = do
-    checkHsBindgenRuntimePreludeIsInScope
     packageRoot <- getPackageRoot
 
     bindgenConfig <- toBindgenConfigTH config packageRoot configTH.categoryChoice
@@ -177,28 +176,6 @@ data BindgenState = BindgenState {
       hashIncludeArgs :: [UncheckedHashIncludeArg]
     }
   deriving stock (Generic)
-
--- See discussion of the PR https://github.com/well-typed/hs-bindgen/pull/957,
--- in particular https://gitlab.haskell.org/ghc/ghc/-/issues/25774, and
--- https://gitlab.haskell.org/ghc/ghc/-/issues/8510.
-checkHsBindgenRuntimePreludeIsInScope :: TH.Q ()
-checkHsBindgenRuntimePreludeIsInScope = do
-  maybeTypeName <- TH.lookupTypeName (qualifier ++ "." ++ uniqueTypeName)
-  when (isNothing maybeTypeName) $ failQ errMsg
-  where
-    qualifier :: String
-    qualifier = "HsBindgen.Runtime.Prelude"
-
-    uniqueTypeName :: String
-    uniqueTypeName = "HsBindgenRuntimePreludeIsInScope"
-
-    errMsg :: String
-    errMsg = unlines [
-        "'HsBindgen.Runtime.Prelude' is out of scope."
-      , "    Please add the following import to your module:"
-      , ""
-      , "      import qualified HsBindgen.Runtime.Prelude"
-      ]
 
 -- NOTE: We could also check which enabled extension may interfere with the
 -- generated code (e.g. Strict/Data).
