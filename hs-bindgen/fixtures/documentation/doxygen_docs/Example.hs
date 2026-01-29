@@ -194,6 +194,19 @@ instance Read Color_enum where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Color_enum) "unwrapColor_enum")
+         ) => GHC.Records.HasField "unwrapColor_enum" (Ptr.Ptr Color_enum) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapColor_enum")
+
+instance HsBindgen.Runtime.HasCField.HasCField Color_enum "unwrapColor_enum" where
+
+  type CFieldType Color_enum "unwrapColor_enum" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| Red color
 
 __C declaration:__ @COLOR_RED@
@@ -561,6 +574,19 @@ instance Read Status_code_t where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Status_code_t) "unwrapStatus_code_t")
+         ) => GHC.Records.HasField "unwrapStatus_code_t" (Ptr.Ptr Status_code_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStatus_code_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField Status_code_t "unwrapStatus_code_t" where
+
+  type CFieldType Status_code_t "unwrapStatus_code_t" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-|
 

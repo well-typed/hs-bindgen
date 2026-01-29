@@ -199,6 +199,18 @@ instance Read E where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "unwrapE")
+         ) => GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapE")
+
+instance HsBindgen.Runtime.HasCField.HasCField E "unwrapE" where
+
+  type CFieldType E "unwrapE" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @foo@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 13:9@
@@ -289,7 +301,7 @@ newtype TE = TE
   { unwrapTE :: E
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TE) "unwrapTE")
          ) => GHC.Records.HasField "unwrapTE" (Ptr.Ptr TE) (Ptr.Ptr ty) where
@@ -384,7 +396,7 @@ newtype TTE = TTE
   { unwrapTTE :: TE
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTE) "unwrapTTE")
          ) => GHC.Records.HasField "unwrapTTE" (Ptr.Ptr TTE) (Ptr.Ptr ty) where

@@ -79,10 +79,15 @@ hstypes:
       fields:
       - unwrapColor_enum
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: Config_t
@@ -204,9 +209,13 @@ hstypes:
       fields:
       - unwrapStatus_code_t
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
   - Show
   - Storable

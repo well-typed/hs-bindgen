@@ -17,9 +17,14 @@ hstypes:
       fields:
       - unwrapFoo_enum
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable

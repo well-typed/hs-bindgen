@@ -101,6 +101,12 @@ instance Read MyEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType MyEnum "unwrapMyEnum") =>
+         HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyEnum")
+instance HasCField MyEnum "unwrapMyEnum"
+    where type CFieldType MyEnum "unwrapMyEnum" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @x@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 4:14@
@@ -130,7 +136,7 @@ newtype A
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (Storable, HasFFIType, Prim)
 instance TyEq ty (CFieldType A "unwrapA") =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
@@ -152,7 +158,7 @@ newtype B
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (Storable, HasFFIType, Prim)
 instance TyEq ty (CFieldType B "unwrapB") =>
          HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")

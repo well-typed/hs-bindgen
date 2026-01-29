@@ -102,6 +102,18 @@ instance Read MyEnum where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyEnum) "unwrapMyEnum")
+         ) => GHC.Records.HasField "unwrapMyEnum" (Ptr.Ptr MyEnum) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyEnum")
+
+instance HsBindgen.Runtime.HasCField.HasCField MyEnum "unwrapMyEnum" where
+
+  type CFieldType MyEnum "unwrapMyEnum" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 4:14@
@@ -121,7 +133,7 @@ newtype A = A
   { unwrapA :: MyEnum
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
          ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
@@ -145,7 +157,7 @@ newtype B = B
   { unwrapB :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "unwrapB")
          ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where

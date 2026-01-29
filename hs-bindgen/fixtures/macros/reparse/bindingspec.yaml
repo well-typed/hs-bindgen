@@ -612,10 +612,15 @@ hstypes:
       fields:
       - unwrapSome_enum
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: Some_struct

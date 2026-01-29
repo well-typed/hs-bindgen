@@ -50,10 +50,15 @@ hstypes:
       fields:
       - unwrapEnumA
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: EnumB
@@ -63,10 +68,15 @@ hstypes:
       fields:
       - unwrapEnumB
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: EnumC
@@ -76,10 +86,15 @@ hstypes:
       fields:
       - unwrapEnumC
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: EnumD_t
@@ -89,10 +104,15 @@ hstypes:
       fields:
       - unwrapEnumD_t
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: First
@@ -102,10 +122,15 @@ hstypes:
       fields:
       - unwrapFirst
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: Nonseq
@@ -115,9 +140,13 @@ hstypes:
       fields:
       - unwrapNonseq
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
   - Show
   - Storable
@@ -128,10 +157,15 @@ hstypes:
       fields:
       - unwrapPacked
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: Same
@@ -141,10 +175,15 @@ hstypes:
       fields:
       - unwrapSame
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: Second
@@ -154,9 +193,14 @@ hstypes:
       fields:
       - unwrapSecond
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable

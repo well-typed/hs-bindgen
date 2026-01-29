@@ -480,6 +480,12 @@ instance Read Color_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Color_enum "unwrapColor_enum") =>
+         HasField "unwrapColor_enum" (Ptr Color_enum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapColor_enum")
+instance HasCField Color_enum "unwrapColor_enum"
+    where type CFieldType Color_enum "unwrapColor_enum" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| Red color
 
 __C declaration:__ @COLOR_RED@
@@ -811,6 +817,13 @@ instance Read Status_code_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty
+              (CFieldType Status_code_t "unwrapStatus_code_t") =>
+         HasField "unwrapStatus_code_t" (Ptr Status_code_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStatus_code_t")
+instance HasCField Status_code_t "unwrapStatus_code_t"
+    where type CFieldType Status_code_t "unwrapStatus_code_t" = CInt
+          offset# = \_ -> \_ -> 0
 {-|
 
   Operation successful

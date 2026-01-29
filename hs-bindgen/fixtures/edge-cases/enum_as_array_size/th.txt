@@ -49,6 +49,12 @@ instance Read Test
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Test "unwrapTest") =>
+         HasField "unwrapTest" (Ptr Test) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTest")
+instance HasCField Test "unwrapTest"
+    where type CFieldType Test "unwrapTest" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @test_a@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h 4:3@

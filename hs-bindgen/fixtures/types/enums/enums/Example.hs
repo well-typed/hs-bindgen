@@ -1,10 +1,16 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -12,11 +18,16 @@ module Example where
 
 import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified Text.Read
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum first@
@@ -92,6 +103,18 @@ instance Read First where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType First) "unwrapFirst")
+         ) => GHC.Records.HasField "unwrapFirst" (Ptr.Ptr First) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFirst")
+
+instance HsBindgen.Runtime.HasCField.HasCField First "unwrapFirst" where
+
+  type CFieldType First "unwrapFirst" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @FIRST1@
 
@@ -185,6 +208,18 @@ instance Read Second where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Second) "unwrapSecond")
+         ) => GHC.Records.HasField "unwrapSecond" (Ptr.Ptr Second) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSecond")
+
+instance HsBindgen.Runtime.HasCField.HasCField Second "unwrapSecond" where
+
+  type CFieldType Second "unwrapSecond" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @SECOND_A@
 
@@ -285,6 +320,18 @@ instance Read Same where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Same) "unwrapSame")
+         ) => GHC.Records.HasField "unwrapSame" (Ptr.Ptr Same) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSame")
+
+instance HsBindgen.Runtime.HasCField.HasCField Same "unwrapSame" where
+
+  type CFieldType Same "unwrapSame" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @SAME_A@
 
     __defined at:__ @types\/enums\/enums.h 16:5@
@@ -367,6 +414,18 @@ instance Read Nonseq where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Nonseq) "unwrapNonseq")
+         ) => GHC.Records.HasField "unwrapNonseq" (Ptr.Ptr Nonseq) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapNonseq")
+
+instance HsBindgen.Runtime.HasCField.HasCField Nonseq "unwrapNonseq" where
+
+  type CFieldType Nonseq "unwrapNonseq" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @NONSEQ_A@
 
@@ -470,6 +529,18 @@ instance Read Packed where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Packed) "unwrapPacked")
+         ) => GHC.Records.HasField "unwrapPacked" (Ptr.Ptr Packed) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPacked")
+
+instance HsBindgen.Runtime.HasCField.HasCField Packed "unwrapPacked" where
+
+  type CFieldType Packed "unwrapPacked" = FC.CUChar
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @PACKED_A@
 
     __defined at:__ @types\/enums\/enums.h 27:5@
@@ -571,6 +642,18 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumA) "unwrapEnumA")
+         ) => GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumA")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumA "unwrapEnumA" where
+
+  type CFieldType EnumA "unwrapEnumA" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @A_FOO@
 
     __defined at:__ @types\/enums\/enums.h 30:16@
@@ -662,6 +745,18 @@ instance Read EnumB where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumB) "unwrapEnumB")
+         ) => GHC.Records.HasField "unwrapEnumB" (Ptr.Ptr EnumB) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumB")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumB "unwrapEnumB" where
+
+  type CFieldType EnumB "unwrapEnumB" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @B_FOO@
 
@@ -755,6 +850,18 @@ instance Read EnumC where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumC) "unwrapEnumC")
+         ) => GHC.Records.HasField "unwrapEnumC" (Ptr.Ptr EnumC) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumC")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumC "unwrapEnumC" where
+
+  type CFieldType EnumC "unwrapEnumC" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @C_FOO@
 
     __defined at:__ @types\/enums\/enums.h 34:14@
@@ -846,6 +953,18 @@ instance Read EnumD_t where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumD_t) "unwrapEnumD_t")
+         ) => GHC.Records.HasField "unwrapEnumD_t" (Ptr.Ptr EnumD_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumD_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumD_t "unwrapEnumD_t" where
+
+  type CFieldType EnumD_t "unwrapEnumD_t" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @D_FOO@
 

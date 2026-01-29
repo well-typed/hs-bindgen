@@ -14,9 +14,14 @@ hstypes:
       fields:
       - unwrapTest
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable

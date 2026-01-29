@@ -442,10 +442,25 @@ enumDecs ::
   -> C.Enum Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-enumDecs supInsts haddockConfig info enum spec = do
-    nt <- newtypeDec
-    pure $ aux nt
+enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
   where
+    valueMap :: Map Integer (NonEmpty (C.FieldInfo Final, Hs.Name Hs.NsConstr))
+    valueMap = Map.fromListWith (flip (<>)) [ -- preserve source order
+        let name = Hs.unsafeHsIdHsName constant.info.name.hsName
+        in  (constant.value, NonEmpty.singleton (constant.info, name))
+      | constant <- enum.constants
+      ]
+
+    valueNames :: Map Integer (NonEmpty String)
+    valueNames = NonEmpty.map (Text.unpack . Hs.getName . snd) <$> valueMap
+
+    mSeqBounds :: Maybe (Hs.Name Hs.NsConstr, Hs.Name Hs.NsConstr)
+    mSeqBounds = do
+      (minV, minNames) <- fmap (NonEmpty.map snd) <$> Map.lookupMin valueMap
+      (maxV, maxNames) <- fmap (NonEmpty.map snd) <$> Map.lookupMax valueMap
+      guard $ maxV - minV + 1 == fromIntegral (Map.size valueMap)
+      return (NonEmpty.head minNames, NonEmpty.head maxNames)
+
     newtypeDec :: HsM Hs.Newtype
     newtypeDec =
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
@@ -476,21 +491,30 @@ enumDecs supInsts haddockConfig info enum spec = do
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Set.empty
+        candidateInsts = Hs.getCandidateInsts supInsts
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
-            Inst.HasFFIType
-          , Inst.Read
-          , Inst.Show
-          , Inst.Storable
+        knownInsts = Set.fromList $ catMaybes [
+            Just Inst.CEnum
+          , Just Inst.HasCField
+          , Just Inst.HasField
+          , Just Inst.Prim
+          , Just Inst.Read
+          , Inst.SequentialCEnum <$ mSeqBounds
+          , Just Inst.Show
+          , Just Inst.Storable
           ]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl : primDecl : Hs.hasFFITypeDecs nt ++
-        optDecls ++ cEnumInstanceDecls ++ valueDecls
+        Hs.DeclNewtype nt
+        : storableDecl
+        : primDecl
+        : optDecls
+        ++ cEnumInstanceDecls
+        ++ typedefFieldDecls nt
+        ++ valueDecls
       where
         hsStruct :: Hs.Struct (S Z)
         hsStruct = Hs.Struct {
@@ -538,9 +562,38 @@ enumDecs supInsts haddockConfig info enum spec = do
           | (clss, supStrats) <- Map.assocs supInsts
           ]
 
+        cEnumInstanceDecls :: [Hs.Decl]
+        cEnumInstanceDecls =
+          let cEnumDecl = Hs.DeclDefineInstance Hs.DefineInstance{
+                  comment      = Nothing
+                , instanceDecl =
+                    Hs.InstanceCEnum
+                      hsStruct
+                      nt.field.typ
+                      valueNames
+                      (isJust mSeqBounds)
+                }
+              cEnumShowDecl = Hs.DeclDefineInstance Hs.DefineInstance{
+                  comment      = Nothing
+                , instanceDecl = Hs.InstanceCEnumShow hsStruct
+                }
+              cEnumReadDecl = Hs.DeclDefineInstance Hs.DefineInstance{
+                  comment      = Nothing
+                , instanceDecl = Hs.InstanceCEnumRead hsStruct
+                }
+              sequentialCEnumDecl = case mSeqBounds of
+                Just (nameMin, nameMax) -> List.singleton $
+                  Hs.DeclDefineInstance Hs.DefineInstance{
+                      comment      = Nothing
+                    , instanceDecl =
+                        Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
+                    }
+                Nothing -> []
+          in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl, cEnumReadDecl]
+
         valueDecls :: [Hs.Decl]
-        valueDecls =
-            [ Hs.DeclPatSyn Hs.PatSyn{
+        valueDecls = [
+              Hs.DeclPatSyn Hs.PatSyn{
                   name    = Hs.unsafeHsIdHsName constant.info.name.hsName
                 , typ     = HsTypRef nt.name (Just nt.field.typ)
                 , constr  = Just nt.constr
@@ -550,47 +603,6 @@ enumDecs supInsts haddockConfig info enum spec = do
                 }
             | constant <- enum.constants
             ]
-
-        cEnumInstanceDecls :: [Hs.Decl]
-        cEnumInstanceDecls =
-          let vNames = Map.fromListWith (flip (<>)) [ -- preserve source order
-                  ( pat.value
-                  , NonEmpty.singleton pat.name
-                  )
-                | Hs.DeclPatSyn pat <- valueDecls
-                ]
-              mSeqBounds = do
-                (minV, minNames) <- Map.lookupMin vNames
-                (maxV, maxNames) <- Map.lookupMax vNames
-                guard $ maxV - minV + 1 == fromIntegral (Map.size vNames)
-                return (NonEmpty.head minNames, NonEmpty.head maxNames)
-              fTyp = nt.field.typ
-              vStrs = fmap (Text.unpack . Hs.getName) <$> vNames
-              cEnumDecl = Hs.DeclDefineInstance
-                Hs.DefineInstance {
-                  comment      = Nothing
-                , instanceDecl = Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
-                }
-              cEnumShowDecl = Hs.DeclDefineInstance
-                Hs.DefineInstance {
-                  comment      = Nothing
-                , instanceDecl = Hs.InstanceCEnumShow hsStruct
-                }
-              cEnumReadDecl = Hs.DeclDefineInstance
-                Hs.DefineInstance {
-                  comment      = Nothing
-                , instanceDecl = Hs.InstanceCEnumRead hsStruct
-                }
-              sequentialCEnumDecl = case mSeqBounds of
-                Just (nameMin, nameMax) -> List.singleton
-                                        . Hs.DeclDefineInstance
-                                        $ Hs.DefineInstance {
-                                            comment      = Nothing
-                                          , instanceDecl =
-                                              Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
-                                          }
-                Nothing -> []
-          in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl, cEnumReadDecl]
 
 {-------------------------------------------------------------------------------
   Typedef
@@ -721,7 +733,7 @@ typedefFieldDecls hsNewType = [
     , Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
-          , instanceDecl = Hs.InstanceHasCField $ elimHasCFieldDecl
+          , instanceDecl = Hs.InstanceHasCField elimHasCFieldDecl
           }
     ]
   where

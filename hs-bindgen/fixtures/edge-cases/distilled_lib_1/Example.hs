@@ -251,6 +251,19 @@ instance Read Another_typedef_enum_e where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_enum_e) "unwrapAnother_typedef_enum_e")
+         ) => GHC.Records.HasField "unwrapAnother_typedef_enum_e" (Ptr.Ptr Another_typedef_enum_e) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapAnother_typedef_enum_e")
+
+instance HsBindgen.Runtime.HasCField.HasCField Another_typedef_enum_e "unwrapAnother_typedef_enum_e" where
+
+  type CFieldType Another_typedef_enum_e "unwrapAnother_typedef_enum_e" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @FOO@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 10:16@
@@ -734,6 +747,19 @@ instance Read A_typedef_enum_e where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_enum_e) "unwrapA_typedef_enum_e")
+         ) => GHC.Records.HasField "unwrapA_typedef_enum_e" (Ptr.Ptr A_typedef_enum_e) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA_typedef_enum_e")
+
+instance HsBindgen.Runtime.HasCField.HasCField A_typedef_enum_e "unwrapA_typedef_enum_e" where
+
+  type CFieldType A_typedef_enum_e "unwrapA_typedef_enum_e" =
+    FC.CUChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @ENUM_CASE_0@
 

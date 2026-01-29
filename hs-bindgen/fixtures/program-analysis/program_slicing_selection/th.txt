@@ -77,6 +77,16 @@ instance Read FileOperationStatus
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty
+              (CFieldType FileOperationStatus "unwrapFileOperationStatus") =>
+         HasField "unwrapFileOperationStatus"
+                  (Ptr FileOperationStatus)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFileOperationStatus")
+instance HasCField FileOperationStatus "unwrapFileOperationStatus"
+    where type CFieldType FileOperationStatus
+                          "unwrapFileOperationStatus" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SUCCESS@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@

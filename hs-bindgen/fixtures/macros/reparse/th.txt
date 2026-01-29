@@ -2597,6 +2597,12 @@ instance Read Some_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Some_enum "unwrapSome_enum") =>
+         HasField "unwrapSome_enum" (Ptr Some_enum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSome_enum")
+instance HasCField Some_enum "unwrapSome_enum"
+    where type CFieldType Some_enum "unwrapSome_enum" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @ENUM_A@
 
     __defined at:__ @macros\/reparse.h 9:18@

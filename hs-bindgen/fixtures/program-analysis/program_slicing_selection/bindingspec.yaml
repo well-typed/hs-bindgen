@@ -28,9 +28,13 @@ hstypes:
       fields:
       - unwrapFileOperationStatus
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
   - Show
   - Storable

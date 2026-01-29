@@ -212,10 +212,15 @@ hstypes:
       fields:
       - unwrapProcessor_mode
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: ProgressUpdate

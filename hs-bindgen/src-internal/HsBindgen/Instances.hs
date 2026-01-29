@@ -184,19 +184,19 @@ instance Default SupportedInstances where
           -- , mkDef Storable     Independent HsBindgen []
           -- ]
       , enum = Map.fromList [
-          --   mkOpt Bounded         Independent           [HsBindgen, Newtype]
-          -- , mkDef CEnum           Independent HsBindgen []
-          -- , mkOpt Enum            Independent           [HsBindgen, Newtype]
-            mkDef Eq              Dependent   Stock     []
-          -- , mkDef HasCField       Independent HsBindgen []
-          -- , mkDef HasFFIType      Dependent   Newtype   []
-          -- , mkDef HasField        Independent HsBindgen []
+            mkOpt Bounded         Independent           [HsBindgen, Newtype]
+          , mkDef CEnum           Independent HsBindgen []
+          , mkOpt Enum            Independent           [HsBindgen, Newtype]
+          , mkDef Eq              Dependent   Stock     []
+          , mkDef HasCField       Independent HsBindgen []
+          , mkDef HasFFIType      Dependent   Newtype   []
+          , mkDef HasField        Independent HsBindgen []
           , mkDef Ord             Dependent   Stock     []
-          -- , mkDef Prim            Independent HsBindgen []
-          -- , mkDef Read            Independent HsBindgen [Newtype, Stock]
-          -- , mkDef SequentialCEnum Independent HsBindgen []
-          -- , mkDef Show            Independent HsBindgen [Newtype, Stock]
-          -- , mkDef Storable        Independent HsBindgen []
+          , mkDef Prim            Independent HsBindgen []
+          , mkDef Read            Independent HsBindgen [Newtype, Stock]
+          , mkDef SequentialCEnum Independent HsBindgen []
+          , mkDef Show            Independent HsBindgen [Newtype, Stock]
+          , mkDef Storable        Independent HsBindgen []
           ]
       , typedef = Map.fromList [
             mkDef Bitfield   Dependent   Newtype   []
@@ -236,7 +236,6 @@ instance Default SupportedInstances where
         , defStrategy = Just strat
         }
 
-{-
       mkOpt ::
            TypeClass
         -> Dependency
@@ -247,4 +246,3 @@ instance Default SupportedInstances where
         , strategies  = Set.fromList strats
         , defStrategy = Nothing
         }
--}

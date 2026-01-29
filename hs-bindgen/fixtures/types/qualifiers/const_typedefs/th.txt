@@ -195,6 +195,12 @@ instance Read E
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType E "unwrapE") =>
+         HasField "unwrapE" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE")
+instance HasCField E "unwrapE"
+    where type CFieldType E "unwrapE" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @foo@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 13:9@
@@ -300,7 +306,7 @@ newtype TE
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (Storable, HasFFIType, Prim)
 instance TyEq ty (CFieldType TE "unwrapTE") =>
          HasField "unwrapTE" (Ptr TE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTE")
@@ -398,7 +404,7 @@ newtype TTE
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (Storable, HasFFIType, Prim)
 instance TyEq ty (CFieldType TTE "unwrapTTE") =>
          HasField "unwrapTTE" (Ptr TTE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTE")

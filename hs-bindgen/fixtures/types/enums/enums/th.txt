@@ -42,6 +42,12 @@ instance Read First
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType First "unwrapFirst") =>
+         HasField "unwrapFirst" (Ptr First) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFirst")
+instance HasCField First "unwrapFirst"
+    where type CFieldType First "unwrapFirst" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FIRST1@
 
     __defined at:__ @types\/enums\/enums.h 5:5@
@@ -114,6 +120,12 @@ instance Read Second
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Second "unwrapSecond") =>
+         HasField "unwrapSecond" (Ptr Second) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSecond")
+instance HasCField Second "unwrapSecond"
+    where type CFieldType Second "unwrapSecond" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SECOND_A@
 
     __defined at:__ @types\/enums\/enums.h 10:5@
@@ -198,6 +210,12 @@ instance Read Same
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Same "unwrapSame") =>
+         HasField "unwrapSame" (Ptr Same) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSame")
+instance HasCField Same "unwrapSame"
+    where type CFieldType Same "unwrapSame" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SAME_A@
 
     __defined at:__ @types\/enums\/enums.h 16:5@
@@ -265,6 +283,12 @@ instance Read Nonseq
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Nonseq "unwrapNonseq") =>
+         HasField "unwrapNonseq" (Ptr Nonseq) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapNonseq")
+instance HasCField Nonseq "unwrapNonseq"
+    where type CFieldType Nonseq "unwrapNonseq" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @NONSEQ_A@
 
     __defined at:__ @types\/enums\/enums.h 21:5@
@@ -351,6 +375,12 @@ instance Read Packed
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Packed "unwrapPacked") =>
+         HasField "unwrapPacked" (Ptr Packed) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPacked")
+instance HasCField Packed "unwrapPacked"
+    where type CFieldType Packed "unwrapPacked" = CUChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @PACKED_A@
 
     __defined at:__ @types\/enums\/enums.h 27:5@
@@ -436,6 +466,12 @@ instance Read EnumA
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumA "unwrapEnumA") =>
+         HasField "unwrapEnumA" (Ptr EnumA) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumA")
+instance HasCField EnumA "unwrapEnumA"
+    where type CFieldType EnumA "unwrapEnumA" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @A_FOO@
 
     __defined at:__ @types\/enums\/enums.h 30:16@
@@ -507,6 +543,12 @@ instance Read EnumB
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumB "unwrapEnumB") =>
+         HasField "unwrapEnumB" (Ptr EnumB) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumB")
+instance HasCField EnumB "unwrapEnumB"
+    where type CFieldType EnumB "unwrapEnumB" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @B_FOO@
 
     __defined at:__ @types\/enums\/enums.h 32:22@
@@ -578,6 +620,12 @@ instance Read EnumC
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumC "unwrapEnumC") =>
+         HasField "unwrapEnumC" (Ptr EnumC) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumC")
+instance HasCField EnumC "unwrapEnumC"
+    where type CFieldType EnumC "unwrapEnumC" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @C_FOO@
 
     __defined at:__ @types\/enums\/enums.h 34:14@
@@ -649,6 +697,12 @@ instance Read EnumD_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumD_t "unwrapEnumD_t") =>
+         HasField "unwrapEnumD_t" (Ptr EnumD_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumD_t")
+instance HasCField EnumD_t "unwrapEnumD_t"
+    where type CFieldType EnumD_t "unwrapEnumD_t" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @D_FOO@
 
     __defined at:__ @types\/enums\/enums.h 37:14@

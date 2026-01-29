@@ -104,6 +104,18 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumA) "unwrapEnumA")
+         ) => GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumA")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumA "unwrapEnumA" where
+
+  type CFieldType EnumA "unwrapEnumA" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @VALA_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 3:17@
@@ -156,6 +168,54 @@ instance F.Storable ExA where
         case s1 of
           ExA exA_fieldA12 ->
             HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+
+instance Data.Primitive.Types.Prim ExA where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        ExA (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExA v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExA exA_fieldA14 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 exA_fieldA14 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        ExA (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExA v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExA exA_fieldA14 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 exA_fieldA14 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
 
@@ -243,6 +303,19 @@ instance Read ExB_fieldB1 where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB_fieldB1) "unwrapExB_fieldB1")
+         ) => GHC.Records.HasField "unwrapExB_fieldB1" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapExB_fieldB1")
+
+instance HsBindgen.Runtime.HasCField.HasCField ExB_fieldB1 "unwrapExB_fieldB1" where
+
+  type CFieldType ExB_fieldB1 "unwrapExB_fieldB1" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @VALB_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 10:17@
@@ -295,6 +368,54 @@ instance F.Storable ExB where
         case s1 of
           ExB exB_fieldB12 ->
             HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+
+instance Data.Primitive.Types.Prim ExB where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        ExB (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExB v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExB exB_fieldB14 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 exB_fieldB14 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        ExB (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExB v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExB exB_fieldB14 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 exB_fieldB14 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
 

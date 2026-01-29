@@ -210,6 +210,19 @@ instance Read Some_enum where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_enum) "unwrapSome_enum")
+         ) => GHC.Records.HasField "unwrapSome_enum" (Ptr.Ptr Some_enum) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSome_enum")
+
+instance HsBindgen.Runtime.HasCField.HasCField Some_enum "unwrapSome_enum" where
+
+  type CFieldType Some_enum "unwrapSome_enum" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @ENUM_A@
 
     __defined at:__ @macros\/reparse.h 9:18@

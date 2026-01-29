@@ -1001,6 +1001,19 @@ instance Read Processor_mode where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_mode) "unwrapProcessor_mode")
+         ) => GHC.Records.HasField "unwrapProcessor_mode" (Ptr.Ptr Processor_mode) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProcessor_mode")
+
+instance HsBindgen.Runtime.HasCField.HasCField Processor_mode "unwrapProcessor_mode" where
+
+  type CFieldType Processor_mode "unwrapProcessor_mode" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @MODE_SIMPLE@
 
     __defined at:__ @functions\/callbacks.h 76:10@

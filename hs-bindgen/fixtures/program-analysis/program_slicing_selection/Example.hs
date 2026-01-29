@@ -99,6 +99,19 @@ instance Read FileOperationStatus where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationStatus) "unwrapFileOperationStatus")
+         ) => GHC.Records.HasField "unwrapFileOperationStatus" (Ptr.Ptr FileOperationStatus) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFileOperationStatus")
+
+instance HsBindgen.Runtime.HasCField.HasCField FileOperationStatus "unwrapFileOperationStatus" where
+
+  type CFieldType FileOperationStatus "unwrapFileOperationStatus" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @SUCCESS@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@

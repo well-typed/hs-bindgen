@@ -1,10 +1,16 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -12,11 +18,16 @@ module Example where
 
 import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified Text.Read
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum test@
@@ -92,6 +103,18 @@ instance Read Test where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Test) "unwrapTest")
+         ) => GHC.Records.HasField "unwrapTest" (Ptr.Ptr Test) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTest")
+
+instance HsBindgen.Runtime.HasCField.HasCField Test "unwrapTest" where
+
+  type CFieldType Test "unwrapTest" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @test_a@
 

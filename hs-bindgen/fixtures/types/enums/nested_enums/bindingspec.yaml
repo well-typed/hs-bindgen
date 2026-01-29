@@ -23,10 +23,15 @@ hstypes:
       fields:
       - unwrapEnumA
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: ExA
@@ -37,6 +42,7 @@ hstypes:
       - exA_fieldA1
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: ExB
@@ -47,6 +53,7 @@ hstypes:
       - exB_fieldB1
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: ExB_fieldB1
@@ -56,9 +63,14 @@ hstypes:
       fields:
       - unwrapExB_fieldB1
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable

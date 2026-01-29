@@ -28,6 +28,7 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - Prim
   - Read
   - Show
   - Storable
@@ -43,6 +44,7 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - Prim
   - Read
   - Show
   - Storable
@@ -63,9 +65,14 @@ hstypes:
       fields:
       - unwrapMyEnum
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable

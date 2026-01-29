@@ -69,10 +69,15 @@ hstypes:
       fields:
       - unwrapA_typedef_enum_e
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: A_typedef_struct_t
@@ -102,10 +107,15 @@ hstypes:
       fields:
       - unwrapAnother_typedef_enum_e
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - SequentialCEnum
   - Show
   - Storable
 - hsname: Another_typedef_struct_t
