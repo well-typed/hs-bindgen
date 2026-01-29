@@ -639,10 +639,8 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
         newtypeComment =  mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
-            Inst.HasFFIType
-          , Inst.Storable
-          ]
+        candidateInsts =
+          Hs.getCandidateInsts supInsts <> Set.singleton Inst.HasFFIType
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.empty
@@ -652,22 +650,11 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
     aux nt =
         Hs.DeclNewtype nt
         : newtypeWrapper
-        ++ storableDecl
         ++ primDecl
         ++ optDecls
         ++ typedefFieldDecls nt
         ++ Hs.hasFFITypeDecs nt
       where
-        storableDecl :: [Hs.Decl]
-        storableDecl
-          | Inst.Storable `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Inst.Storable
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
         primDecl :: [Hs.Decl]
         primDecl
           | Inst.Prim `Set.notMember` nt.instances = []
@@ -912,29 +899,16 @@ macroDecsTypedef supInsts haddockConfig info macroType spec = do
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
-            Inst.HasFFIType
-          , Inst.Storable
-          ]
+        candidateInsts =
+          Hs.getCandidateInsts supInsts <> Set.singleton Inst.HasFFIType
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.empty
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
-    aux nt =
-        Hs.DeclNewtype nt : storableDecl ++ Hs.hasFFITypeDecs nt ++ optDecls
+    aux nt = Hs.DeclNewtype nt : Hs.hasFFITypeDecs nt ++ optDecls
       where
-        storableDecl :: [Hs.Decl]
-        storableDecl
-          | Inst.Storable `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Inst.Storable
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
         optDecls :: [Hs.Decl]
         optDecls = catMaybes [
             case Hs.getDeriveStrat supStrats of

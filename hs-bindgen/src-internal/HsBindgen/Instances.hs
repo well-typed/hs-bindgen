@@ -220,7 +220,7 @@ instance Default SupportedInstances where
           , mkDef RealFloat  Dependent   Newtype   []
           , mkDef RealFrac   Dependent   Newtype   []
           , mkDef Show       Dependent   Stock     [Newtype]
-          -- , mkDef Storable   Dependent   Newtype   []
+          , mkDef Storable   Dependent   Newtype   []
           ]
       }
     where
