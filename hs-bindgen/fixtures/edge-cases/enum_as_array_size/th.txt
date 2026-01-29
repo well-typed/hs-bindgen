@@ -44,9 +44,9 @@ instance SequentialCEnum Test
     where minDeclaredValue = Test_a
           maxDeclaredValue = Test_count
 instance Show Test
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Test
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @test_a@

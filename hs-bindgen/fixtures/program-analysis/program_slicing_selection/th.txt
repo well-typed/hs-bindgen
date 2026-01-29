@@ -72,9 +72,9 @@ instance CEnum FileOperationStatus
           showsUndeclared = showsWrappedUndeclared "FileOperationStatus"
           readPrecUndeclared = readPrecWrappedUndeclared "FileOperationStatus"
 instance Show FileOperationStatus
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read FileOperationStatus
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @SUCCESS@

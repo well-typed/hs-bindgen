@@ -273,9 +273,9 @@ mkGlobal = \case
       SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
       SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
       CEnum_declaredValuesFromList     -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-      CEnum_showsCEnum                 -> 'HsBindgen.Runtime.CEnum.showsCEnum
+      CEnum_showsCEnum                 -> 'HsBindgen.Runtime.CEnum.shows
       CEnum_showsWrappedUndeclared     -> 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
-      CEnum_readPrecCEnum              -> 'HsBindgen.Runtime.CEnum.readPrecCEnum
+      CEnum_readPrecCEnum              -> 'HsBindgen.Runtime.CEnum.readPrec
       CEnum_readPrecWrappedUndeclared  -> 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
       CEnum_seqIsDeclared              -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
       CEnum_seqMkDeclared              -> 'HsBindgen.Runtime.CEnum.seqMkDeclared

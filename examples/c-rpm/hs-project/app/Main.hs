@@ -6,7 +6,7 @@ import Foreign.Marshal.Array (peekArray)
 import Foreign.Ptr (nullPtr)
 import Foreign.Storable (peek)
 
-import HsBindgen.Runtime.PtrConst (unsafeFromPtr)
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import RPM.Argv (ARGV_const_t (..), ARGV_t (..))
 import RPM.Argv.Safe qualified as RPM
@@ -27,10 +27,10 @@ main = do
   with argv1 $ \argvPtr -> do
     _ <- withCString pathString $ \strPtr ->
       withCString ":" $ \sepPtr ->
-        RPM.argvSplit argvPtr (unsafeFromPtr strPtr) (unsafeFromPtr sepPtr)
+        RPM.argvSplit argvPtr (PtrConst.unsafeFromPtr strPtr) (PtrConst.unsafeFromPtr sepPtr)
 
     argv1' <- peek argvPtr
-    count1 <- RPM.argvCount (ARGV_const_t (unsafeFromPtr (un_ARGV_t argv1')))
+    count1 <- RPM.argvCount (ARGV_const_t (PtrConst.unsafeFromPtr (un_ARGV_t argv1')))
     putStrLn $ "Split into " ++ show count1 ++ " parts:"
 
     arrayPtr1 <- peek (un_ARGV_t argv1')
@@ -56,13 +56,13 @@ main = do
     -- Split by comma
     _ <- withCString csvString $ \strPtr ->
       withCString "," $ \sepPtr ->
-        RPM.argvSplit argvPtr (unsafeFromPtr strPtr) (unsafeFromPtr sepPtr)
+        RPM.argvSplit argvPtr (PtrConst.unsafeFromPtr strPtr) (PtrConst.unsafeFromPtr sepPtr)
 
     argv2' <- peek argvPtr
 
     -- Join with pipe
     withCString " | " $ \joinSep -> do
-      resultPtr <- RPM.argvJoin (ARGV_const_t (unsafeFromPtr (un_ARGV_t argv2'))) (unsafeFromPtr joinSep)
+      resultPtr <- RPM.argvJoin (ARGV_const_t (PtrConst.unsafeFromPtr (un_ARGV_t argv2'))) (PtrConst.unsafeFromPtr joinSep)
       when (resultPtr /= nullPtr) $ do
         result <- peekCString resultPtr
         putStrLn $ "Output: \"" ++ result ++ "\""

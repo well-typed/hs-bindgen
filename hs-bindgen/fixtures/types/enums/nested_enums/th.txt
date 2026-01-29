@@ -37,9 +37,9 @@ instance SequentialCEnum EnumA
     where minDeclaredValue = VALA_1
           maxDeclaredValue = VALA_2
 instance Show EnumA
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read EnumA
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @VALA_1@
@@ -141,9 +141,9 @@ instance SequentialCEnum ExB_fieldB1
     where minDeclaredValue = VALB_1
           maxDeclaredValue = VALB_2
 instance Show ExB_fieldB1
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read ExB_fieldB1
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @VALB_1@

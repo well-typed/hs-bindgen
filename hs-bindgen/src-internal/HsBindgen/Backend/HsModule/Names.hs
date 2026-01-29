@@ -462,9 +462,9 @@ resolveGlobal = \case
     SequentialCEnum_minDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.minDeclaredValue
     SequentialCEnum_maxDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.maxDeclaredValue
     CEnum_declaredValuesFromList     -> importQ 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-    CEnum_showsCEnum                 -> importQ 'HsBindgen.Runtime.CEnum.showsCEnum
+    CEnum_showsCEnum                 -> importQ 'HsBindgen.Runtime.CEnum.shows
     CEnum_showsWrappedUndeclared     -> importQ 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
-    CEnum_readPrecCEnum              -> importQ 'HsBindgen.Runtime.CEnum.readPrecCEnum
+    CEnum_readPrecCEnum              -> importQ 'HsBindgen.Runtime.CEnum.readPrec
     CEnum_readPrecWrappedUndeclared  -> importQ 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
     CEnum_seqIsDeclared              -> importQ 'HsBindgen.Runtime.CEnum.seqIsDeclared
     CEnum_seqMkDeclared              -> importQ 'HsBindgen.Runtime.CEnum.seqMkDeclared

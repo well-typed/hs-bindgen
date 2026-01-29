@@ -5,6 +5,12 @@
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE ViewPatterns #-}
 
+-- | Read-only pointers
+--
+-- This module is intended to be imported qualified.
+--
+-- > import HsBindgen.Runtime.Prelude
+-- > import HsBindgne.Runtime.PtrConst qualified as PtrConst
 module HsBindgen.Runtime.PtrConst (
     PtrConst
   , peek
