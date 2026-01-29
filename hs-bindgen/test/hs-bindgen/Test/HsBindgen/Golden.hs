@@ -207,6 +207,7 @@ test_manual_globals =
 testCases_bespoke_arrays :: [TestCase]
 testCases_bespoke_arrays = [
       test_arrays_array
+    , test_arrays_const_qualifier
     , test_arrays_multi_dim
     , test_arrays_failing_array_res_1
     , test_arrays_failing_array_res_2
@@ -247,6 +248,11 @@ test_arrays_array =
         , "arr5"
         , "arr8"
         ]
+
+-- | @const@ qualifiers applied to arrays (through typedefs) should be
+-- represented in the bindings.
+test_arrays_const_qualifier :: TestCase
+test_arrays_const_qualifier = defaultTest "arrays/const_qualifier"
 
 test_arrays_multi_dim :: TestCase
 test_arrays_multi_dim = defaultTest "arrays/multi_dim"

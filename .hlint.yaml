@@ -90,6 +90,7 @@
 - ignore: {name: "Use panicIO",   within: "HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicPure", within: "HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicPure", within: "Test.HsBindgen.Runtime.**" }
+- ignore: {name: "Use panicPure", within: "test-th" }
 
 # Define some custom infix operators
 # - fixity: infixr 3 ~^#^~
