@@ -234,7 +234,7 @@ foreign import ccall safe "hs_bindgen_b75122693c32e26c" hs_bindgen_b75122693c32e
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
-hs_bindgen_b75122693c32e26c :: ConstPtr (ConstantArray 4 CInt) ->
+hs_bindgen_b75122693c32e26c :: PtrConst (ConstantArray 4 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
 hs_bindgen_b75122693c32e26c = fromFFIType hs_bindgen_b75122693c32e26c_base
@@ -244,7 +244,7 @@ hs_bindgen_b75122693c32e26c = fromFFIType hs_bindgen_b75122693c32e26c_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-foo_const :: ConstPtr (ConstantArray 4 CInt) -> IO CInt
+foo_const :: PtrConst (ConstantArray 4 CInt) -> IO CInt
 {-| __C declaration:__ @foo_const@
 
     __defined at:__ @arrays\/multi_dim.h 5:5@
@@ -280,7 +280,7 @@ foreign import ccall safe "hs_bindgen_1e0c14a0ed027681" hs_bindgen_1e0c14a0ed027
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
-hs_bindgen_1e0c14a0ed027681 :: ConstPtr (ConstantArray 2 CInt) ->
+hs_bindgen_1e0c14a0ed027681 :: PtrConst (ConstantArray 2 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
 hs_bindgen_1e0c14a0ed027681 = fromFFIType hs_bindgen_1e0c14a0ed027681_base
@@ -290,7 +290,7 @@ hs_bindgen_1e0c14a0ed027681 = fromFFIType hs_bindgen_1e0c14a0ed027681_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-bar_const :: ConstPtr (ConstantArray 2 CInt) -> IO CInt
+bar_const :: PtrConst (ConstantArray 2 CInt) -> IO CInt
 {-| __C declaration:__ @bar_const@
 
     __defined at:__ @arrays\/multi_dim.h 9:5@
@@ -326,7 +326,7 @@ foreign import ccall safe "hs_bindgen_0c873d371c129e78" hs_bindgen_0c873d371c129
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
-hs_bindgen_0c873d371c129e78 :: ConstPtr (ConstantArray 3 CInt) ->
+hs_bindgen_0c873d371c129e78 :: PtrConst (ConstantArray 3 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
 hs_bindgen_0c873d371c129e78 = fromFFIType hs_bindgen_0c873d371c129e78_base
@@ -336,7 +336,7 @@ hs_bindgen_0c873d371c129e78 = fromFFIType hs_bindgen_0c873d371c129e78_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-baz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+baz_const :: PtrConst (ConstantArray 3 CInt) -> IO CInt
 {-| __C declaration:__ @baz_const@
 
     __defined at:__ @arrays\/multi_dim.h 14:5@
@@ -372,7 +372,7 @@ foreign import ccall safe "hs_bindgen_e39fa59aeb1fef3d" hs_bindgen_e39fa59aeb1fe
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
-hs_bindgen_e39fa59aeb1fef3d :: ConstPtr (ConstantArray 3 CInt) ->
+hs_bindgen_e39fa59aeb1fef3d :: PtrConst (ConstantArray 3 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
 hs_bindgen_e39fa59aeb1fef3d = fromFFIType hs_bindgen_e39fa59aeb1fef3d_base
@@ -382,7 +382,7 @@ hs_bindgen_e39fa59aeb1fef3d = fromFFIType hs_bindgen_e39fa59aeb1fef3d_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-quuz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+quuz_const :: PtrConst (ConstantArray 3 CInt) -> IO CInt
 {-| __C declaration:__ @quuz_const@
 
     __defined at:__ @arrays\/multi_dim.h 19:5@
@@ -418,7 +418,7 @@ foreign import ccall unsafe "hs_bindgen_73e2db5ad5d807f7" hs_bindgen_73e2db5ad5d
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
-hs_bindgen_73e2db5ad5d807f7 :: ConstPtr (ConstantArray 4 CInt) ->
+hs_bindgen_73e2db5ad5d807f7 :: PtrConst (ConstantArray 4 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
 hs_bindgen_73e2db5ad5d807f7 = fromFFIType hs_bindgen_73e2db5ad5d807f7_base
@@ -428,7 +428,7 @@ hs_bindgen_73e2db5ad5d807f7 = fromFFIType hs_bindgen_73e2db5ad5d807f7_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-foo_const :: ConstPtr (ConstantArray 4 CInt) -> IO CInt
+foo_const :: PtrConst (ConstantArray 4 CInt) -> IO CInt
 {-| __C declaration:__ @foo_const@
 
     __defined at:__ @arrays\/multi_dim.h 5:5@
@@ -464,7 +464,7 @@ foreign import ccall unsafe "hs_bindgen_58337c492b64ae2c" hs_bindgen_58337c492b6
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
-hs_bindgen_58337c492b64ae2c :: ConstPtr (ConstantArray 2 CInt) ->
+hs_bindgen_58337c492b64ae2c :: PtrConst (ConstantArray 2 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
 hs_bindgen_58337c492b64ae2c = fromFFIType hs_bindgen_58337c492b64ae2c_base
@@ -474,7 +474,7 @@ hs_bindgen_58337c492b64ae2c = fromFFIType hs_bindgen_58337c492b64ae2c_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-bar_const :: ConstPtr (ConstantArray 2 CInt) -> IO CInt
+bar_const :: PtrConst (ConstantArray 2 CInt) -> IO CInt
 {-| __C declaration:__ @bar_const@
 
     __defined at:__ @arrays\/multi_dim.h 9:5@
@@ -510,7 +510,7 @@ foreign import ccall unsafe "hs_bindgen_13ce150055e8aa41" hs_bindgen_13ce150055e
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
-hs_bindgen_13ce150055e8aa41 :: ConstPtr (ConstantArray 3 CInt) ->
+hs_bindgen_13ce150055e8aa41 :: PtrConst (ConstantArray 3 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
 hs_bindgen_13ce150055e8aa41 = fromFFIType hs_bindgen_13ce150055e8aa41_base
@@ -520,7 +520,7 @@ hs_bindgen_13ce150055e8aa41 = fromFFIType hs_bindgen_13ce150055e8aa41_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-baz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+baz_const :: PtrConst (ConstantArray 3 CInt) -> IO CInt
 {-| __C declaration:__ @baz_const@
 
     __defined at:__ @arrays\/multi_dim.h 14:5@
@@ -556,7 +556,7 @@ foreign import ccall unsafe "hs_bindgen_70be94a6fb59f547" hs_bindgen_70be94a6fb5
     Ptr Void
  -> IO Int32
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
-hs_bindgen_70be94a6fb59f547 :: ConstPtr (ConstantArray 3 CInt) ->
+hs_bindgen_70be94a6fb59f547 :: PtrConst (ConstantArray 3 CInt) ->
                                IO CInt
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
 hs_bindgen_70be94a6fb59f547 = fromFFIType hs_bindgen_70be94a6fb59f547_base
@@ -566,7 +566,7 @@ hs_bindgen_70be94a6fb59f547 = fromFFIType hs_bindgen_70be94a6fb59f547_base
 
     __exported by:__ @arrays\/multi_dim.h@
 -}
-quuz_const :: ConstPtr (ConstantArray 3 CInt) -> IO CInt
+quuz_const :: PtrConst (ConstantArray 3 CInt) -> IO CInt
 {-| __C declaration:__ @quuz_const@
 
     __defined at:__ @arrays\/multi_dim.h 19:5@

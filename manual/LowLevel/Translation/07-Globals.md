@@ -129,17 +129,17 @@ typedef const int ConstInt;
 static ConstInt anotherGlobalConstant = 123;
 ```
 
-`hs-bindgen` uses `ConstPtr` instead of `Ptr` for these non-constant global
+`hs-bindgen` uses `PtrConst` instead of `Ptr` for these non-constant global
 variables. Moreover, if a constant points to a value with a `Storable` instance,
 we generate additional utility functions that return the value of the constants
 directly:
 
 ```haskell
 foreign import {-# details elided #-}
-  hs_bindgen_c83c3e4e014bf39c :: IO (ConstPtr CInt)
+  hs_bindgen_c83c3e4e014bf39c :: IO (PtrConst CInt)
 
 {-# NOINLINE hs_bindgen_4b7fabc21bc52057 #-}
-hs_bindgen_4b7fabc21bc52057 :: ConstPtr CInt
+hs_bindgen_4b7fabc21bc52057 :: PtrConst CInt
 hs_bindgen_4b7fabc21bc52057= unsafePerformIO hs_bindgen_c83c3e4e014bf39c
 
 {-# NOINLINE globalConstant #-}
@@ -149,10 +149,10 @@ globalConstant = {-# details elided #-}
 newtype ConstInt = ConstInt { un_ConstInt :: CInt }
 
 foreign import {-# details elided #-}
-  hs_bindgen_2d6b9a52b97910a9 :: IO (ConstPtr ConstInt)
+  hs_bindgen_2d6b9a52b97910a9 :: IO (PtrConst ConstInt)
 
 {-# NOINLINE hs_bindgen_fad79735fe298c1f #-}
-hs_bindgen_fad79735fe298c1f :: ConstPtr ConstInt
+hs_bindgen_fad79735fe298c1f :: PtrConst ConstInt
 hs_bindgen_fad79735fe298c1f = unsafePerformIO hs_bindgen_2d6b9a52b97910a9
 
 {-# NOINLINE anotherGlobalConstant #-}
@@ -161,10 +161,10 @@ anotherGlobalConstant = {-# details elided #-}
 ```
 
 Global constants can not be mutated in C unless unsafe casts are used, hence it
-is safe to bind the pointed-to-value. The mangled name of the `ConstPtr`
+is safe to bind the pointed-to-value. The mangled name of the `PtrConst`
 encourages usage of the values directly binding the pointed-to-value and
-indicates the `ConstPtr` being internal. However, nothing prevents a user from
-`poke`-ing to a `ConstPtr` in Haskell land, but it being a `ConstPtr` should be
+indicates the `PtrConst` being internal. However, nothing prevents a user from
+`poke`-ing to a `PtrConst` in Haskell land, but it being a `PtrConst` should be
 a hint to the user not to do this.
 
 We've also add `NOINLINE` pragmas so that `globalConstant` and
@@ -220,17 +220,17 @@ data Tuple = Tuple
 instance Storable Tuple where {-# details elided #-}
 
 foreign import ccall unsafe "hs_bindgen_a804e6470cde45c2" hs_bindgen_a804e6470cde45c2 ::
-     IO (ConstPtr ((ConstantArray 4) CInt))
-hs_bindgen_6acdd0466d14ab3f :: ConstPtr ((ConstantArray 4) CInt)
+     IO (PtrConst ((ConstantArray 4) CInt))
+hs_bindgen_6acdd0466d14ab3f :: PtrConst ((ConstantArray 4) CInt)
 constArray1 :: (ConstantArray 4) CInt
 
 foreign import ccall unsafe "hs_bindgen_3cd4fc49a6bb5840" hs_bindgen_3cd4fc49a6bb5840 ::
-     IO (ConstPtr (IncompleteArray CInt))
-constArray2 :: ConstPtr (IncompleteArray CInt)
+     IO (PtrConst (IncompleteArray CInt))
+constArray2 :: PtrConst (IncompleteArray CInt)
 
 foreign import ccall unsafe "hs_bindgen_8c3024ef7f2b0594" hs_bindgen_8c3024ef7f2b0594 ::
-     IO (ConstPtr Tuple)
-hs_bindgen_c9a3292a299edcd8 :: ConstPtr Tuple
+     IO (PtrConst Tuple)
+hs_bindgen_c9a3292a299edcd8 :: PtrConst Tuple
 constTuple :: Tuple
 
 foreign import ccall unsafe "hs_bindgen_e1200a75ed20a2d2" hs_bindgen_e1200a75ed20a2d2 ::
@@ -242,8 +242,8 @@ foreign import ccall unsafe "hs_bindgen_1d4f0442a6f47a9a" hs_bindgen_1d4f0442a6f
 int :: Ptr CInt
 
 foreign import ccall unsafe "hs_bindgen_188ef9ca039f4abc" hs_bindgen_188ef9ca039f4abc ::
-     IO (ConstPtr CInt)
-hs_bindgen_12ed4d294c0aeb5f :: ConstPtr CInt
+     IO (PtrConst CInt)
+hs_bindgen_12ed4d294c0aeb5f :: PtrConst CInt
 constInt :: CInt
 
 foreign import ccall unsafe "hs_bindgen_1fb9e392279def5a" hs_bindgen_1fb9e392279def5a ::
@@ -251,25 +251,25 @@ foreign import ccall unsafe "hs_bindgen_1fb9e392279def5a" hs_bindgen_1fb9e392279
 ptrToInt :: Ptr (Ptr CInt)
 
 foreign import ccall unsafe "hs_bindgen_4003d50d5f510514" hs_bindgen_4003d50d5f510514 ::
-     IO (Ptr (ConstPtr CInt))
-ptrToConstInt :: Ptr (ConstPtr CInt)
+     IO (Ptr (PtrConst CInt))
+ptrToConstInt :: Ptr (PtrConst CInt)
 
 foreign import ccall unsafe "hs_bindgen_c3df48685426f621" hs_bindgen_c3df48685426f621 ::
-     IO (ConstPtr (Ptr CInt))
-hs_bindgen_ce37f0f07507c808 :: ConstPtr (Ptr CInt)
+     IO (PtrConst (Ptr CInt))
+hs_bindgen_ce37f0f07507c808 :: PtrConst (Ptr CInt)
 constPtrToInt :: Ptr CInt
 
 foreign import ccall unsafe "hs_bindgen_7a4dc03eb19059c3" hs_bindgen_7a4dc03eb19059c3 ::
-     IO (ConstPtr (ConstPtr CInt))
-hs_bindgen_4800a04940b1c189 :: ConstPtr (ConstPtr CInt)
-constPtrToConstInt :: ConstPtr CInt
+     IO (PtrConst (PtrConst CInt))
+hs_bindgen_4800a04940b1c189 :: PtrConst (PtrConst CInt)
+constPtrToConstInt :: PtrConst CInt
 ```
 
 And we can use these bindings like so:
 
 ```haskell
 do print Globals.constArray1
-   print =<< IA.peekArray 5 Globals.constArray2.unConstPtr
+   print =<< IA.peekArray 5 (PtrConst.unsafeToPtr Globals.constArray2)
    print Globals.constTuple
    print =<< F.peek Globals.nonConstTuple
    print =<< F.peek Globals.int
@@ -305,7 +305,7 @@ The approach to generating foreign imports for global variables is as follows:
   and returns the pointer.
 
 * If the type of the global variable is `const`-qualified, then it is actually a
-  global *constant*. We use `ConstPtr` rather than `Ptr`. Then, if there is a
+  global *constant*. We use `PtrConst` rather than `Ptr`. Then, if there is a
   `Storable` instance in scope for the variable type, we generate a *pure*
   Haskell function that returns the value of the global constant, using a
   combination of `unsafePerformIO` and `peek` on the variable pointer. This is
@@ -355,7 +355,7 @@ Constant:
 -- If the type of the global had been const-qualified instead, like @const int
 -- a2@, we instead generate the following
 {-# NOINLINE a2 #-}
-hs_bindgen_3c1f548cbbd9c65b :: ConstPtr CInt
+hs_bindgen_3c1f548cbbd9c65b :: PtrConst CInt
 a2 :: CInt
 ```
 

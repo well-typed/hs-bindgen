@@ -9,8 +9,8 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -377,7 +377,7 @@ foreign import ccall unsafe "hs_bindgen_f95f43d50ed8f2b4" hs_bindgen_f95f43d50ed
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_dgettext@
-hs_bindgen_f95f43d50ed8f2b4 :: IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
+hs_bindgen_f95f43d50ed8f2b4 :: IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
 hs_bindgen_f95f43d50ed8f2b4 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f95f43d50ed8f2b4_base
 
@@ -388,7 +388,7 @@ hs_bindgen_f95f43d50ed8f2b4 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_dgettext :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FC.CChar))
+my_dgettext :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FC.CChar))
 my_dgettext =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f95f43d50ed8f2b4
 
@@ -397,7 +397,7 @@ foreign import ccall unsafe "hs_bindgen_986260288574592d" hs_bindgen_98626028857
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fdopen@
-hs_bindgen_986260288574592d :: IO (Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FILE)))
+hs_bindgen_986260288574592d :: IO (Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FILE)))
 hs_bindgen_986260288574592d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_986260288574592d_base
 
@@ -408,7 +408,7 @@ hs_bindgen_986260288574592d =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fdopen :: Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FILE))
+fdopen :: Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FILE))
 fdopen =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_986260288574592d
 
@@ -437,7 +437,7 @@ foreign import ccall unsafe "hs_bindgen_481e3a75205c85f2" hs_bindgen_481e3a75205
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memcpy@
-hs_bindgen_481e3a75205c85f2 :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_481e3a75205c85f2 :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> Size_t -> IO (Ptr.Ptr Void)))
 hs_bindgen_481e3a75205c85f2 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_481e3a75205c85f2_base
 
@@ -448,7 +448,7 @@ hs_bindgen_481e3a75205c85f2 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_memcpy :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> Size_t -> IO (Ptr.Ptr Void))
+my_memcpy :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> Size_t -> IO (Ptr.Ptr Void))
 my_memcpy =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_481e3a75205c85f2
 

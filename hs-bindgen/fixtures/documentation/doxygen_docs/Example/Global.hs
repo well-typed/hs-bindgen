@@ -9,8 +9,8 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -63,7 +63,7 @@ foreign import ccall unsafe "hs_bindgen_a294be08386c9257" hs_bindgen_a294be08386
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_version_string@
-hs_bindgen_a294be08386c9257 :: IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar))
+hs_bindgen_a294be08386c9257 :: IO (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar))
 hs_bindgen_a294be08386c9257 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a294be08386c9257_base
 
@@ -80,6 +80,6 @@ __defined at:__ @documentation\/doxygen_docs.h 67:20@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-version_string :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
+version_string :: Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
 version_string =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a294be08386c9257

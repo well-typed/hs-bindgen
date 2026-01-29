@@ -10,9 +10,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -99,7 +99,7 @@ foreign import ccall unsafe "hs_bindgen_73e2db5ad5d807f7" hs_bindgen_73e2db5ad5d
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
 hs_bindgen_73e2db5ad5d807f7 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_73e2db5ad5d807f7 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_73e2db5ad5d807f7_base
@@ -111,7 +111,7 @@ hs_bindgen_73e2db5ad5d807f7 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 foo_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 foo_const = hs_bindgen_73e2db5ad5d807f7
@@ -147,7 +147,7 @@ foreign import ccall unsafe "hs_bindgen_58337c492b64ae2c" hs_bindgen_58337c492b6
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
 hs_bindgen_58337c492b64ae2c ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_58337c492b64ae2c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_58337c492b64ae2c_base
@@ -159,7 +159,7 @@ hs_bindgen_58337c492b64ae2c =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 bar_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 bar_const = hs_bindgen_58337c492b64ae2c
@@ -195,7 +195,7 @@ foreign import ccall unsafe "hs_bindgen_13ce150055e8aa41" hs_bindgen_13ce150055e
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
 hs_bindgen_13ce150055e8aa41 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_13ce150055e8aa41 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_13ce150055e8aa41_base
@@ -207,7 +207,7 @@ hs_bindgen_13ce150055e8aa41 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 baz_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 baz_const = hs_bindgen_13ce150055e8aa41
@@ -243,7 +243,7 @@ foreign import ccall unsafe "hs_bindgen_70be94a6fb59f547" hs_bindgen_70be94a6fb5
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
 hs_bindgen_70be94a6fb59f547 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_70be94a6fb59f547 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_70be94a6fb59f547_base
@@ -255,7 +255,7 @@ hs_bindgen_70be94a6fb59f547 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 quuz_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 quuz_const = hs_bindgen_70be94a6fb59f547

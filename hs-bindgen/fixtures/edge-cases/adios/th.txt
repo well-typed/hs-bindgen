@@ -416,7 +416,7 @@ cϒϒ = unsafePerformIO hs_bindgen_aa137b95cfa81f42
 foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4ff58_base ::
     IO (Ptr Void)
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
-hs_bindgen_7e61df7271c4ff58 :: IO (ConstPtr CInt)
+hs_bindgen_7e61df7271c4ff58 :: IO (PtrConst CInt)
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
 hs_bindgen_7e61df7271c4ff58 = fromFFIType hs_bindgen_7e61df7271c4ff58_base
 {-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
@@ -428,7 +428,7 @@ hs_bindgen_7e61df7271c4ff58 = fromFFIType hs_bindgen_7e61df7271c4ff58_base
 
     __unique:__ @test_edgecasesadios_Example_cϒϒϒ@
 -}
-hs_bindgen_7af49c80665b9a25 :: ConstPtr CInt
+hs_bindgen_7af49c80665b9a25 :: PtrConst CInt
 {-| __C declaration:__ @ϒϒϒ@
 
     __defined at:__ @edge-cases\/adios.h 29:18@
@@ -440,4 +440,4 @@ hs_bindgen_7af49c80665b9a25 :: ConstPtr CInt
 hs_bindgen_7af49c80665b9a25 = unsafePerformIO hs_bindgen_7e61df7271c4ff58
 {-# NOINLINE cϒϒϒ #-}
 cϒϒϒ :: CInt
-cϒϒϒ = unsafePerformIO (peek (unConstPtr hs_bindgen_7af49c80665b9a25))
+cϒϒϒ = unsafePerformIO (peek hs_bindgen_7af49c80665b9a25)

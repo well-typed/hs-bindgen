@@ -9,9 +9,9 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
-hs_bindgen_a19bc138e7f2759b :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool))
+hs_bindgen_a19bc138e7f2759b :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool))
 hs_bindgen_a19bc138e7f2759b =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a19bc138e7f2759b_base
 
@@ -44,6 +44,6 @@ hs_bindgen_a19bc138e7f2759b =
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
-list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool)
+list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool)
 list_example =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a19bc138e7f2759b

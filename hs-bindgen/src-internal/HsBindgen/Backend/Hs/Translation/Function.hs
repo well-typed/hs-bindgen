@@ -454,7 +454,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     -- >  \x0 -> \x1 -> \x2 -> \x3 ->
     -- >    with x0 $ \y4 -> with x2 $ \y5 ->
     -- >      allocaAndPeek $ \z6 ->
-    -- >        foo y4 x1 (ConstPtr y5) x3 z6
+    -- >        foo y4 x1 (unsafeFromPtr y5) x3 z6
     --
     bodyExpr :: SHs.ClosedExpr
     bodyExpr =
@@ -544,10 +544,10 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs = case x.typ of
             PassByAddress ty' ->  SHs.eAppMany (SHs.EGlobal SHs.Capi_with) $
-              let wrapConstPtr = C.isErasedTypeConstQualified ty' in
+              let wrapPtrConst = C.isErasedTypeConstQualified ty' in
               [ SHs.EBound y
               , SHs.ELam x.ptrNameHint $
-                  go xs (IS <$> ys) (Var IZ wrapConstPtr : fmap succVar zs)
+                  go xs (IS <$> ys) (Var IZ wrapPtrConst : fmap succVar zs)
               ]
 
             PassByValue{} -> go xs ys (Var y False : zs)
@@ -581,7 +581,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     --
     -- For example (@foo@ is the name of the foreign import):
     --
-    -- > ... foo y4 x1 (ConstPtr y5) x3 z6
+    -- > ... foo y4 x1 (unsafeFromPtr y5) x3 z6
     --
     callForeignImport ::
          -- | Context of in-scope variables to be passed to the foreign import
@@ -615,30 +615,30 @@ type Var :: Ctx -> Type
 data Var ctx = Var {
     -- | The name (i.e., DeBruijn index) of the variable
     name :: Idx ctx
-    -- | Whether to wrap the variable in a 'ConstPtr' constructor
+    -- | Whether to wrap the variable in a 'PtrConst'
     --
-    -- 'with' and 'allocaAndPeek' always use 'Ptr' rather than 'ConstPtr', hence
-    -- the need to add the 'ConstPtr' constructor manually.
-  , wrapConstPtr :: Bool
+    -- 'with' and 'allocaAndPeek' always use 'Ptr' rather than 'PtrConst', hence
+    -- the need to convert 'Ptr' to 'PtrConst' manually.
+  , wrapPtrConst :: Bool
   }
 
 -- | Shift the variable
 succVar :: Var ctx -> Var (S ctx)
 succVar var = Var {
       name = IS var.name
-    , wrapConstPtr = var.wrapConstPtr
+    , wrapPtrConst = var.wrapPtrConst
     }
 
 -- | Turn the variable into an expression
 --
 -- For example:
 --
--- > ConstPtr y5
+-- > unsafeFromPtr y5
 --
 exprVar :: Var ctx -> SHs.SExpr ctx
 exprVar var
-  | var.wrapConstPtr
-  = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor) (SHs.EBound var.name)
+  | var.wrapPtrConst
+  = SHs.EApp (SHs.EGlobal SHs.PtrConst_unsafeFromPtr) (SHs.EBound var.name)
   | otherwise
   = SHs.EBound var.name
 

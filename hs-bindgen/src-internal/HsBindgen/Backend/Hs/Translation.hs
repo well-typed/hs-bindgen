@@ -1079,9 +1079,8 @@ constGetter ty info pureStubName = singleton getterDecl
     getterName = Hs.unsafeHsIdHsName info.id.unsafeHsName
     getterType = SHs.translateType ty
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
-                `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
-                `SHs.EApp` (SHs.EGlobal SHs.ConstPtr_unConstPtr
-                `SHs.EApp` SHs.EFree pureStubName))
+                `SHs.EApp` (SHs.EGlobal SHs.PtrConst_peek
+                `SHs.EApp` SHs.EFree pureStubName)
 
 data RunnerNameSpec =
       -- | The runner is public (i.e, "exported"), and we give it the human

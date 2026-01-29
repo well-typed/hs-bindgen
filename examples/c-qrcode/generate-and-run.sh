@@ -32,7 +32,7 @@ cabal run hs-bindgen-cli -- \
     "$SCRIPT_DIR/QR-Code-generator/c/qrcodegen.h"
 
 echo "# "
-echo "# Creating cabal.project.local"
+echo "# Updating cabal.project.local"
 echo "# "
 
 LINE=$(

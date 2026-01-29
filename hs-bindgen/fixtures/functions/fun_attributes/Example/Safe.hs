@@ -9,8 +9,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -358,7 +358,7 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" hs_bindgen_11a623401451c
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_dgettext@
 hs_bindgen_11a623401451cca5 ::
      Ptr.Ptr FC.CChar
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+  -> HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
   -> IO (Ptr.Ptr FC.CChar)
 hs_bindgen_11a623401451cca5 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_11a623401451cca5_base
@@ -372,7 +372,7 @@ hs_bindgen_11a623401451cca5 =
 my_dgettext ::
      Ptr.Ptr FC.CChar
      -- ^ __C declaration:__ @my_domain@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+  -> HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
      -- ^ __C declaration:__ @my_format@
   -> IO (Ptr.Ptr FC.CChar)
 my_dgettext = hs_bindgen_11a623401451cca5
@@ -386,7 +386,7 @@ foreign import ccall safe "hs_bindgen_30143e337a327ef0" hs_bindgen_30143e337a327
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fdopen@
 hs_bindgen_30143e337a327ef0 ::
      FC.CInt
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+  -> HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
   -> IO (Ptr.Ptr FILE)
 hs_bindgen_30143e337a327ef0 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_30143e337a327ef0_base
@@ -399,7 +399,7 @@ hs_bindgen_30143e337a327ef0 =
 -}
 fdopen ::
      FC.CInt
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
+  -> HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
   -> IO (Ptr.Ptr FILE)
 fdopen = hs_bindgen_30143e337a327ef0
 
@@ -431,7 +431,7 @@ foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" hs_bindgen_af1f131d9e98a
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memcpy@
 hs_bindgen_af1f131d9e98a2ff ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> HsBindgen.Runtime.PtrConst.PtrConst Void
   -> Size_t
   -> IO (Ptr.Ptr Void)
 hs_bindgen_af1f131d9e98a2ff =
@@ -446,7 +446,7 @@ hs_bindgen_af1f131d9e98a2ff =
 my_memcpy ::
      Ptr.Ptr Void
      -- ^ __C declaration:__ @dest@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> HsBindgen.Runtime.PtrConst.PtrConst Void
      -- ^ __C declaration:__ @src@
   -> Size_t
      -- ^ __C declaration:__ @len@

@@ -47,12 +47,12 @@ import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
-import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FLAM qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
+import HsBindgen.Runtime.PtrConst qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.Runtime.TypeEquality qualified
 
@@ -189,10 +189,6 @@ moduleOf ident m0 = case parts of
     ["GHC", "Num"]                   -> iPrelude
     ["GHC", "Maybe"]                 -> iPrelude
     ["GHC", "Ix"]                    -> HsImportModule "Data.Ix"   (Just "Ix")
-    -- Always imports @HsBindgen.Runtime.ConstPtr@, even if it re-exports from
-    -- @Foreign.C.ConstPtr@
-    ["GHC", "Foreign", "C", "ConstPtr"] -> HsImportModule "HsBindgen.Runtime.ConstPtr" Nothing
-    ["Foreign", "C", "ConstPtr"]        -> HsImportModule "HsBindgen.Runtime.ConstPtr" Nothing
     ("GHC" : "Foreign" : "C" : _)    -> HsImportModule "Foreign.C" (Just "FC")
     ("Foreign" : "C" : _)            -> HsImportModule "Foreign.C" (Just "FC")
     -- We'd prefer to use `Foreign.Ptr` because it is a stable and
@@ -305,8 +301,6 @@ resolveGlobal = \case
     CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
     Capi_with                     -> importQ 'Foreign.with
     Capi_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
-    ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
-    IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 
     -- Flexible array members
     Flam_Offset_class  -> importQ ''HsBindgen.Runtime.FLAM.Offset
@@ -352,10 +346,11 @@ resolveGlobal = \case
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO
 
-    -- ConstPtr
-    ConstPtr_type        -> importQ ''HsBindgen.Runtime.ConstPtr.ConstPtr
-    ConstPtr_constructor -> importQ 'HsBindgen.Runtime.ConstPtr.ConstPtr
-    ConstPtr_unConstPtr  -> importQ 'HsBindgen.Runtime.ConstPtr.unConstPtr
+    -- PtrConst
+    PtrConst_type          -> importQ ''HsBindgen.Runtime.PtrConst.PtrConst
+    PtrConst_unsafeFromPtr -> importQ 'HsBindgen.Runtime.PtrConst.unsafeFromPtr
+    PtrConst_unsafeToPtr   -> importQ 'HsBindgen.Runtime.PtrConst.unsafeToPtr
+    PtrConst_peek          -> importQ 'HsBindgen.Runtime.PtrConst.peek
 
     -- Prim
     Prim_class           -> importQ ''Primitive.Prim

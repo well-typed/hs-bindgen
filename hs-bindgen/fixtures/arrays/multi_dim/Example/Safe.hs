@@ -10,9 +10,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -99,7 +99,7 @@ foreign import ccall safe "hs_bindgen_b75122693c32e26c" hs_bindgen_b75122693c32e
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo_const@
 hs_bindgen_b75122693c32e26c ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_b75122693c32e26c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b75122693c32e26c_base
@@ -111,7 +111,7 @@ hs_bindgen_b75122693c32e26c =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 foo_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 foo_const = hs_bindgen_b75122693c32e26c
@@ -147,7 +147,7 @@ foreign import ccall safe "hs_bindgen_1e0c14a0ed027681" hs_bindgen_1e0c14a0ed027
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_bar_const@
 hs_bindgen_1e0c14a0ed027681 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_1e0c14a0ed027681 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1e0c14a0ed027681_base
@@ -159,7 +159,7 @@ hs_bindgen_1e0c14a0ed027681 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 bar_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 bar_const = hs_bindgen_1e0c14a0ed027681
@@ -195,7 +195,7 @@ foreign import ccall safe "hs_bindgen_0c873d371c129e78" hs_bindgen_0c873d371c129
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_baz_const@
 hs_bindgen_0c873d371c129e78 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_0c873d371c129e78 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0c873d371c129e78_base
@@ -207,7 +207,7 @@ hs_bindgen_0c873d371c129e78 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 baz_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 baz_const = hs_bindgen_0c873d371c129e78
@@ -243,7 +243,7 @@ foreign import ccall safe "hs_bindgen_e39fa59aeb1fef3d" hs_bindgen_e39fa59aeb1fe
 
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_quuz_const@
 hs_bindgen_e39fa59aeb1fef3d ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   -> IO FC.CInt
 hs_bindgen_e39fa59aeb1fef3d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e39fa59aeb1fef3d_base
@@ -255,7 +255,7 @@ hs_bindgen_e39fa59aeb1fef3d =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 quuz_const ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 quuz_const = hs_bindgen_e39fa59aeb1fef3d

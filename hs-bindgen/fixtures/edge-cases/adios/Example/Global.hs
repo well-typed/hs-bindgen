@@ -5,13 +5,12 @@
 
 module Example.Global where
 
-import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -56,7 +55,7 @@ foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c
      IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
-hs_bindgen_7e61df7271c4ff58 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
+hs_bindgen_7e61df7271c4ff58 :: IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)
 hs_bindgen_7e61df7271c4ff58 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7e61df7271c4ff58_base
 
@@ -69,11 +68,11 @@ hs_bindgen_7e61df7271c4ff58 =
 
     __unique:__ @test_edgecasesadios_Example_cϒϒϒ@
 -}
-hs_bindgen_7af49c80665b9a25 :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+hs_bindgen_7af49c80665b9a25 :: HsBindgen.Runtime.PtrConst.PtrConst FC.CInt
 hs_bindgen_7af49c80665b9a25 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7e61df7271c4ff58
 
 {-# NOINLINE cϒϒϒ #-}
 cϒϒϒ :: FC.CInt
 cϒϒϒ =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_7af49c80665b9a25))
+  GHC.IO.Unsafe.unsafePerformIO (HsBindgen.Runtime.PtrConst.peek hs_bindgen_7af49c80665b9a25)

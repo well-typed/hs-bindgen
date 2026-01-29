@@ -105,7 +105,7 @@ foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f77
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
-hs_bindgen_8a303cd5b4f7787b :: ConstPtr T -> ConstPtr T -> IO Unit
+hs_bindgen_8a303cd5b4f7787b :: PtrConst T -> PtrConst T -> IO Unit
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 hs_bindgen_8a303cd5b4f7787b = fromFFIType hs_bindgen_8a303cd5b4f7787b_base
 {-| __C declaration:__ @fun@
@@ -121,14 +121,14 @@ fun :: T -> IO T
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
-fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_8a303cd5b4f7787b (ConstPtr x_1) res_2))
+fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_8a303cd5b4f7787b (unsafeFromPtr x_1) res_2))
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_4e22c71ca196dc5e" hs_bindgen_4e22c71ca196dc5e_base ::
     Ptr Void
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
-hs_bindgen_4e22c71ca196dc5e :: ConstPtr T -> ConstPtr T -> IO Unit
+hs_bindgen_4e22c71ca196dc5e :: PtrConst T -> PtrConst T -> IO Unit
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
 hs_bindgen_4e22c71ca196dc5e = fromFFIType hs_bindgen_4e22c71ca196dc5e_base
 {-| __C declaration:__ @fun@
@@ -144,7 +144,7 @@ fun :: T -> IO T
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
-fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_4e22c71ca196dc5e (ConstPtr x_1) res_2))
+fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_4e22c71ca196dc5e (unsafeFromPtr x_1) res_2))
 -- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_7e6af500caa71b85" hs_bindgen_7e6af500caa71b85_base ::
     IO (FunPtr Void)
