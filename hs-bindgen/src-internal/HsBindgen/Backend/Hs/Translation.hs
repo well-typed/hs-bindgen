@@ -649,20 +649,9 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
     aux nt =
         Hs.DeclNewtype nt
         : newtypeWrapper
-        ++ primDecl
         ++ optDecls
         ++ typedefFieldDecls nt
       where
-        primDecl :: [Hs.Decl]
-        primDecl
-          | Inst.Prim `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Inst.Prim
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
         optDecls :: [Hs.Decl]
         optDecls = catMaybes [
             case Hs.getDeriveStrat supStrats of
