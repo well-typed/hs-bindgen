@@ -8,10 +8,9 @@ import Foreign.C qualified as FC
 
 import HsBindgen.Runtime.FunPtr
 
-import Manual.Tools
-
 import Callbacks
 import Callbacks.Safe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Instances for nested callback scaling function

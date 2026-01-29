@@ -2,10 +2,9 @@ module Manual.Types.Unions (examples) where
 
 import Foreign as F
 
-import Manual.Tools
-
 import Example
 import Example.Unsafe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Examples

@@ -9,10 +9,9 @@ import Text.Read (readEither)
 
 import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
 
-import Manual.Tools
-
 import Example
 import Example.Unsafe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Enum instances
