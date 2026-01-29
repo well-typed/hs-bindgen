@@ -32,6 +32,7 @@ hstypes:
       fields:
       - unwrapBOOLEAN_T
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -54,6 +55,7 @@ hstypes:
       fields:
       - unwrapBoolean_T
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -142,6 +144,7 @@ hstypes:
       fields:
       - unwrapUINT8_T
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

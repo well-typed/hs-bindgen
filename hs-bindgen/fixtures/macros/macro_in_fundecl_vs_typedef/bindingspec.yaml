@@ -38,6 +38,7 @@ hstypes:
       fields:
       - unwrapMC
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

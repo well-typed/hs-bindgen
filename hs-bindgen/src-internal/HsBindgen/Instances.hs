@@ -199,8 +199,8 @@ instance Default SupportedInstances where
           -- , mkDef Storable        Independent HsBindgen []
           ]
       , typedef = Map.fromList [
-          --   mkDef Bitfield   Dependent   Newtype   []
-            mkDef Bits       Dependent   Newtype   []
+            mkDef Bitfield   Dependent   Newtype   []
+          , mkDef Bits       Dependent   Newtype   []
           , mkDef Bounded    Dependent   Newtype   []
           , mkDef Enum       Dependent   Newtype   []
           , mkDef Eq         Dependent   Stock     []

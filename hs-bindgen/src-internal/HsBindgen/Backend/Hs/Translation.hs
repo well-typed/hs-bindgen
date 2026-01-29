@@ -640,8 +640,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
 
         candidateInsts :: Set Inst.TypeClass
         candidateInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
-            Inst.Bitfield
-          , Inst.HasFFIType
+            Inst.HasFFIType
           , Inst.Storable
           ]
 
@@ -654,7 +653,6 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
         Hs.DeclNewtype nt
         : newtypeWrapper
         ++ storableDecl
-        ++ bitfieldDecl
         ++ primDecl
         ++ optDecls
         ++ typedefFieldDecls nt
@@ -666,16 +664,6 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
           | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveNewtype
               , clss     = Inst.Storable
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
-        bitfieldDecl :: [Hs.Decl]
-        bitfieldDecl
-          | Inst.Bitfield `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Inst.Bitfield
               , name     = nt.name
               , comment  = Nothing
               }

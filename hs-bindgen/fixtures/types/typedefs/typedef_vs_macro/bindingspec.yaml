@@ -59,6 +59,7 @@ hstypes:
       fields:
       - unwrapM1
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -81,6 +82,7 @@ hstypes:
       fields:
       - unwrapM2
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -161,6 +163,7 @@ hstypes:
       fields:
       - unwrapUint64_t
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

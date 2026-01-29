@@ -17,6 +17,7 @@ newtype MY_TYPE
     deriving newtype (Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,

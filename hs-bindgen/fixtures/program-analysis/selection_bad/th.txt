@@ -18,6 +18,7 @@ newtype A
     deriving newtype (Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,

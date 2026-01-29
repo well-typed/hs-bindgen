@@ -26,6 +26,7 @@ hstypes:
       fields:
       - unwrapC
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -69,6 +70,7 @@ hstypes:
       fields:
       - unwrapI
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -91,6 +93,7 @@ hstypes:
       fields:
       - unwrapL
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -113,6 +116,7 @@ hstypes:
       fields:
       - unwrapS
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

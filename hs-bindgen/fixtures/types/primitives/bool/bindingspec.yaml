@@ -23,6 +23,7 @@ hstypes:
       fields:
       - unwrapBOOL
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

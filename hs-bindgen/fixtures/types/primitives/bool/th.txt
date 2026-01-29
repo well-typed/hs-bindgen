@@ -158,6 +158,7 @@ newtype BOOL
     deriving newtype (Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,

@@ -122,6 +122,7 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -182,6 +183,7 @@ hstypes:
       fields:
       - unwrapBOOL
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -204,6 +206,7 @@ hstypes:
       fields:
       - unwrapComments2
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -310,6 +313,7 @@ hstypes:
       fields:
       - unwrapConst_typedef1
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -332,6 +336,7 @@ hstypes:
       fields:
       - unwrapConst_typedef2
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -502,6 +507,7 @@ hstypes:
       fields:
       - unwrapINT
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -579,6 +585,7 @@ hstypes:
       fields:
       - unwrapTypedef1
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

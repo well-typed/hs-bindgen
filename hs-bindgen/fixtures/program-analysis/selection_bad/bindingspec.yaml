@@ -14,6 +14,7 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

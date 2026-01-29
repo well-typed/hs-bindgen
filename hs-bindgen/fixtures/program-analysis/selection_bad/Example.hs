@@ -11,6 +11,7 @@ import qualified Data.Ix as Ix
 import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.HasFFIType
 import Data.Bits (FiniteBits)
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
@@ -25,4 +26,4 @@ newtype A = A
   { unwrapA :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
