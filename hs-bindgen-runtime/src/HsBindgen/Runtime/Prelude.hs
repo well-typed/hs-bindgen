@@ -31,6 +31,9 @@ module HsBindgen.Runtime.Prelude (
   , withToFunPtr
   , module HsBindgen.Runtime.TH.Instances
 
+  -- * Pointers
+  , plusPtrElem
+
   -- * Arrays
   -- ** Unknown size
   , IncompleteArray
@@ -54,5 +57,6 @@ import HsBindgen.Runtime.FunPtr
 import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Ptr
 import HsBindgen.Runtime.PtrConst
 import HsBindgen.Runtime.TH.Instances

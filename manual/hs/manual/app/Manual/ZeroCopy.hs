@@ -10,7 +10,6 @@ import Foreign.C.Types
 import HsBindgen.Runtime.ConstantArray as CA
 import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.Prelude
-import HsBindgen.Runtime.Ptr
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Manual.Tools
