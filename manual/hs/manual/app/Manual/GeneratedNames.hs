@@ -2,9 +2,8 @@
 
 module Manual.GeneratedNames (examples) where
 
-import Manual.Tools
-
 import Example.Unsafe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Examples
