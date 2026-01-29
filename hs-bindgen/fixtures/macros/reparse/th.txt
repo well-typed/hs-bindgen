@@ -2500,6 +2500,12 @@ newtype A
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType A "unwrapA") =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct some_struct@
 
     __defined at:__ @macros\/reparse.h 7:8@
@@ -4141,6 +4147,12 @@ newtype BOOL
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType BOOL "unwrapBOOL") =>
+         HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBOOL")
+instance HasCField BOOL "unwrapBOOL"
+    where type CFieldType BOOL "unwrapBOOL" = CBool
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @INT@
 
     __defined at:__ @macros\/reparse.h 281:9@
@@ -4168,6 +4180,12 @@ newtype INT
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType INT "unwrapINT") =>
+         HasField "unwrapINT" (Ptr INT) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapINT")
+instance HasCField INT "unwrapINT"
+    where type CFieldType INT "unwrapINT" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @INTP@
 
     __defined at:__ @macros\/reparse.h 282:9@
@@ -4184,6 +4202,12 @@ newtype INTP
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
+instance TyEq ty (CFieldType INTP "unwrapINTP") =>
+         HasField "unwrapINTP" (Ptr INTP) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapINTP")
+instance HasCField INTP "unwrapINTP"
+    where type CFieldType INTP "unwrapINTP" = Ptr CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @INTCP@
 
     __defined at:__ @macros\/reparse.h 283:9@
@@ -4200,6 +4224,12 @@ newtype INTCP
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
+instance TyEq ty (CFieldType INTCP "unwrapINTCP") =>
+         HasField "unwrapINTCP" (Ptr INTCP) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapINTCP")
+instance HasCField INTCP "unwrapINTCP"
+    where type CFieldType INTCP "unwrapINTCP" = PtrConst CInt
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char1@
 foreign import ccall safe "hs_bindgen_f15610128336b06a" hs_bindgen_f15610128336b06a_base ::
     Int32

@@ -38,4 +38,6 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
+  - HasCField
   - HasFFIType
+  - HasField

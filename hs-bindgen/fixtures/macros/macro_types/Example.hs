@@ -40,6 +40,19 @@ newtype PtrInt = PtrInt
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType PtrInt) "unwrapPtrInt")
+         ) => GHC.Records.HasField "unwrapPtrInt" (Ptr.Ptr PtrInt) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPtrInt")
+
+instance HsBindgen.Runtime.HasCField.HasCField PtrInt "unwrapPtrInt" where
+
+  type CFieldType PtrInt "unwrapPtrInt" =
+    Ptr.Ptr FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h 5:9@
@@ -52,6 +65,19 @@ newtype PtrPtrChar = PtrPtrChar
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType PtrPtrChar) "unwrapPtrPtrChar")
+         ) => GHC.Records.HasField "unwrapPtrPtrChar" (Ptr.Ptr PtrPtrChar) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPtrPtrChar")
+
+instance HsBindgen.Runtime.HasCField.HasCField PtrPtrChar "unwrapPtrPtrChar" where
+
+  type CFieldType PtrPtrChar "unwrapPtrPtrChar" =
+    Ptr.Ptr (Ptr.Ptr FC.CChar)
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @MTy@
 
     __defined at:__ @macros\/macro_types.h 8:9@
@@ -63,6 +89,18 @@ newtype MTy = MTy
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MTy) "unwrapMTy")
+         ) => GHC.Records.HasField "unwrapMTy" (Ptr.Ptr MTy) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMTy")
+
+instance HsBindgen.Runtime.HasCField.HasCField MTy "unwrapMTy" where
+
+  type CFieldType MTy "unwrapMTy" = FC.CFloat
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @tty@
 
@@ -100,6 +138,18 @@ newtype UINT8_T = UINT8_T
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType UINT8_T) "unwrapUINT8_T")
+         ) => GHC.Records.HasField "unwrapUINT8_T" (Ptr.Ptr UINT8_T) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapUINT8_T")
+
+instance HsBindgen.Runtime.HasCField.HasCField UINT8_T "unwrapUINT8_T" where
+
+  type CFieldType UINT8_T "unwrapUINT8_T" = FC.CUChar
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @BOOLEAN_T@
 
     __defined at:__ @macros\/macro_types.h 12:9@
@@ -111,6 +161,18 @@ newtype BOOLEAN_T = BOOLEAN_T
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType BOOLEAN_T) "unwrapBOOLEAN_T")
+         ) => GHC.Records.HasField "unwrapBOOLEAN_T" (Ptr.Ptr BOOLEAN_T) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapBOOLEAN_T")
+
+instance HsBindgen.Runtime.HasCField.HasCField BOOLEAN_T "unwrapBOOLEAN_T" where
+
+  type CFieldType BOOLEAN_T "unwrapBOOLEAN_T" = UINT8_T
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @boolean_T@
 

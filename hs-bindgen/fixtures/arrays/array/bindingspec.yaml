@@ -41,6 +41,8 @@ hstypes:
       - unwrapList
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Matrix
   representation:
@@ -50,6 +52,8 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Sudoku
@@ -60,6 +64,8 @@ hstypes:
       - unwrapSudoku
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Triplet
@@ -70,6 +76,8 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Tripletlist
@@ -80,4 +88,6 @@ hstypes:
       - unwrapTripletlist
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show

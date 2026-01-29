@@ -50,7 +50,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -126,7 +128,9 @@ hstypes:
       - unwrapCallback_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -143,7 +147,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num

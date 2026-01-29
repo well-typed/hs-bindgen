@@ -32,7 +32,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -62,6 +64,8 @@ hstypes:
       - unwrapList
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Triplet
   representation:
@@ -71,6 +75,8 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Tuple

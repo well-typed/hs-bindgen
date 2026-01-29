@@ -126,7 +126,9 @@ hstypes:
       - unwrapS7a
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -150,7 +152,9 @@ hstypes:
       - unwrapS7b
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable

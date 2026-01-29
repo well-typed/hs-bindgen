@@ -92,6 +92,8 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: MyInt
@@ -107,7 +109,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -169,6 +173,8 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Vector

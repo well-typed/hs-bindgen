@@ -21,6 +21,8 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: B
@@ -31,6 +33,8 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: E
@@ -39,3 +43,6 @@ hstypes:
       constructor: E
       fields:
       - unwrapE
+  instances:
+  - HasCField
+  - HasField

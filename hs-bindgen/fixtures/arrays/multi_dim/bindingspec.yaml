@@ -18,6 +18,8 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Triplets
@@ -28,4 +30,6 @@ hstypes:
       - unwrapTriplets
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show

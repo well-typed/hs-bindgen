@@ -66,7 +66,9 @@ hstypes:
       - unwrapDataValidator
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -78,7 +80,9 @@ hstypes:
       - unwrapFileOpenedNotification
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -95,7 +99,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -118,7 +124,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -160,7 +168,9 @@ hstypes:
       - unwrapMeasurementReceived
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -172,7 +182,9 @@ hstypes:
       - unwrapMeasurementReceived2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -214,7 +226,9 @@ hstypes:
       - unwrapProgressUpdate
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -226,7 +240,9 @@ hstypes:
       - unwrapSampleBufferFull
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable

@@ -40,6 +40,18 @@ newtype T1 = T1
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "unwrapT1")
+         ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT1")
+
+instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
+
+  type CFieldType T1 "unwrapT1" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @T2@
 
     __defined at:__ @macros\/macro_typedef_scope.h 5:12@
@@ -75,6 +87,18 @@ newtype T3 = T3
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T3) "unwrapT3")
+         ) => GHC.Records.HasField "unwrapT3" (Ptr.Ptr T3) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT3")
+
+instance HsBindgen.Runtime.HasCField.HasCField T3 "unwrapT3" where
+
+  type CFieldType T3 "unwrapT3" = T2
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @T4@
 

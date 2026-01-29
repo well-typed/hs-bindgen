@@ -26,6 +26,12 @@ newtype T1
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType T1 "unwrapT1") =>
+         HasField "unwrapT1" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT1")
+instance HasCField T1 "unwrapT1"
+    where type CFieldType T1 "unwrapT1" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T2@
 
     __defined at:__ @macros\/macro_typedef_scope.h 5:12@
@@ -86,6 +92,12 @@ newtype T3
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType T3 "unwrapT3") =>
+         HasField "unwrapT3" (Ptr T3) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT3")
+instance HasCField T3 "unwrapT3"
+    where type CFieldType T3 "unwrapT3" = T2
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T4@
 
     __defined at:__ @macros\/macro_typedef_scope.h 7:12@

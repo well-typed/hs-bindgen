@@ -257,6 +257,12 @@ newtype MC
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType MC "unwrapMC") =>
+         HasField "unwrapMC" (Ptr MC) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMC")
+instance HasCField MC "unwrapMC"
+    where type CFieldType MC "unwrapMC" = CChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@

@@ -65,7 +65,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -88,7 +90,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -106,7 +110,9 @@ hstypes:
       - unwrapM3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -123,7 +129,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -146,7 +154,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -169,7 +179,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num

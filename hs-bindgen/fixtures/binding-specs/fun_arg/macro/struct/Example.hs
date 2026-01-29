@@ -130,6 +130,18 @@ newtype A = A
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+
+instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+
+  type CFieldType A "unwrapA" = MyStruct
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 8:9@
@@ -141,3 +153,15 @@ newtype B = B
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "unwrapB")
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+
+instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+
+  type CFieldType B "unwrapB" = A
+
+  offset# = \_ -> \_ -> 0

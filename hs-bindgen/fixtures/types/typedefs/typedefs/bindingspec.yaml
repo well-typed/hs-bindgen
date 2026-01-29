@@ -45,7 +45,9 @@ hstypes:
       - unwrapF1
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -57,7 +59,9 @@ hstypes:
       - unwrapFunctionPointer_Function
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -68,7 +72,9 @@ hstypes:
       fields:
       - unwrapG1
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: G2
   representation:
     newtype:
@@ -77,7 +83,9 @@ hstypes:
       - unwrapG2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -88,7 +96,9 @@ hstypes:
       fields:
       - unwrapH1
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: H2
   representation:
     newtype:
@@ -96,7 +106,9 @@ hstypes:
       fields:
       - unwrapH2
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: H3
   representation:
     newtype:
@@ -105,7 +117,9 @@ hstypes:
       - unwrapH3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -116,7 +130,9 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: Intptr
   representation:
     newtype:
@@ -125,7 +141,9 @@ hstypes:
       - unwrapIntptr
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -142,7 +160,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -159,4 +179,6 @@ hstypes:
       fields:
       - unwrapNonFunctionPointer_Function
   instances:
+  - HasCField
   - HasFFIType
+  - HasField

@@ -167,6 +167,12 @@ newtype BOOL
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType BOOL "unwrapBOOL") =>
+         HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBOOL")
+instance HasCField BOOL "unwrapBOOL"
+    where type CFieldType BOOL "unwrapBOOL" = CBool
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct bools3@
 
     __defined at:__ @types\/primitives\/bool.h 15:8@

@@ -66,7 +66,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -94,7 +96,9 @@ hstypes:
       - unwrapTE
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Read
   - Show
@@ -112,7 +116,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -130,6 +136,8 @@ hstypes:
       - unwrapTS
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -141,7 +149,9 @@ hstypes:
       - unwrapTTE
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Read
   - Show
@@ -159,7 +169,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -177,6 +189,8 @@ hstypes:
       - unwrapTTS
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -187,6 +201,8 @@ hstypes:
       fields:
       - unwrapTTU
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: TU
   representation:
@@ -195,6 +211,8 @@ hstypes:
       fields:
       - unwrapTU
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: U
   representation:

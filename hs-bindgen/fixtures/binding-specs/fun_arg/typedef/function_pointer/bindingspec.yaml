@@ -21,7 +21,9 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -33,7 +35,9 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -44,4 +48,6 @@ hstypes:
       fields:
       - unwrapE
   instances:
+  - HasCField
   - HasFFIType
+  - HasField

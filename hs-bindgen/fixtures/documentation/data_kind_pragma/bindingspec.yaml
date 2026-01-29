@@ -15,5 +15,7 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable

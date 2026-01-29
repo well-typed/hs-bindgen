@@ -56,6 +56,18 @@ newtype A = A
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+
+instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+
+  type CFieldType A "unwrapA" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct some_struct@
 
     __defined at:__ @macros\/reparse.h 7:8@
@@ -1871,6 +1883,18 @@ newtype BOOL = BOOL
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType BOOL) "unwrapBOOL")
+         ) => GHC.Records.HasField "unwrapBOOL" (Ptr.Ptr BOOL) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapBOOL")
+
+instance HsBindgen.Runtime.HasCField.HasCField BOOL "unwrapBOOL" where
+
+  type CFieldType BOOL "unwrapBOOL" = FC.CBool
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @INT@
 
     __defined at:__ @macros\/reparse.h 281:9@
@@ -1882,6 +1906,18 @@ newtype INT = INT
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INT) "unwrapINT")
+         ) => GHC.Records.HasField "unwrapINT" (Ptr.Ptr INT) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapINT")
+
+instance HsBindgen.Runtime.HasCField.HasCField INT "unwrapINT" where
+
+  type CFieldType INT "unwrapINT" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @INTP@
 
@@ -1895,6 +1931,18 @@ newtype INTP = INTP
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INTP) "unwrapINTP")
+         ) => GHC.Records.HasField "unwrapINTP" (Ptr.Ptr INTP) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapINTP")
+
+instance HsBindgen.Runtime.HasCField.HasCField INTP "unwrapINTP" where
+
+  type CFieldType INTP "unwrapINTP" = Ptr.Ptr FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @INTCP@
 
     __defined at:__ @macros\/reparse.h 283:9@
@@ -1906,3 +1954,16 @@ newtype INTCP = INTCP
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INTCP) "unwrapINTCP")
+         ) => GHC.Records.HasField "unwrapINTCP" (Ptr.Ptr INTCP) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapINTCP")
+
+instance HsBindgen.Runtime.HasCField.HasCField INTCP "unwrapINTCP" where
+
+  type CFieldType INTCP "unwrapINTCP" =
+    HsBindgen.Runtime.PtrConst.PtrConst FC.CInt
+
+  offset# = \_ -> \_ -> 0

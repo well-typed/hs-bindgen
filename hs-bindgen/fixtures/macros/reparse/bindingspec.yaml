@@ -128,7 +128,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -146,6 +148,8 @@ hstypes:
       - unwrapArr_typedef1
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Arr_typedef2
   representation:
@@ -155,6 +159,8 @@ hstypes:
       - unwrapArr_typedef2
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Arr_typedef3
   representation:
@@ -164,6 +170,8 @@ hstypes:
       - unwrapArr_typedef3
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Arr_typedef4
@@ -174,6 +182,8 @@ hstypes:
       - unwrapArr_typedef4
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: BOOL
@@ -189,7 +199,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -212,7 +224,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -230,7 +244,9 @@ hstypes:
       - unwrapConst_funptr1
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -242,7 +258,9 @@ hstypes:
       - unwrapConst_funptr2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -254,7 +272,9 @@ hstypes:
       - unwrapConst_funptr3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -266,7 +286,9 @@ hstypes:
       - unwrapConst_funptr4
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -278,7 +300,9 @@ hstypes:
       - unwrapConst_funptr5
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -290,7 +314,9 @@ hstypes:
       - unwrapConst_funptr6
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -302,7 +328,9 @@ hstypes:
       - unwrapConst_funptr7
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -319,7 +347,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -342,7 +372,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -360,7 +392,9 @@ hstypes:
       - unwrapConst_typedef3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -372,7 +406,9 @@ hstypes:
       - unwrapConst_typedef4
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -384,7 +420,9 @@ hstypes:
       - unwrapConst_typedef5
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -396,7 +434,9 @@ hstypes:
       - unwrapConst_typedef6
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -408,7 +448,9 @@ hstypes:
       - unwrapConst_typedef7
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -448,7 +490,9 @@ hstypes:
       - unwrapFunptr_typedef1
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -460,7 +504,9 @@ hstypes:
       - unwrapFunptr_typedef2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -472,7 +518,9 @@ hstypes:
       - unwrapFunptr_typedef3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -484,7 +532,9 @@ hstypes:
       - unwrapFunptr_typedef4
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -496,7 +546,9 @@ hstypes:
       - unwrapFunptr_typedef5
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -513,7 +565,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -531,7 +585,9 @@ hstypes:
       - unwrapINTCP
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -543,7 +599,9 @@ hstypes:
       - unwrapINTP
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -591,7 +649,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -609,7 +669,9 @@ hstypes:
       - unwrapTypedef2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -621,7 +683,9 @@ hstypes:
       - unwrapTypedef3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable

@@ -20,7 +20,9 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: B
   representation:
     newtype:
@@ -28,10 +30,15 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: E
   representation:
     newtype:
       constructor: E
       fields:
       - unwrapE
+  instances:
+  - HasCField
+  - HasField

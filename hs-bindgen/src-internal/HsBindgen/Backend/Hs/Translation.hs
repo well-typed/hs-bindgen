@@ -642,7 +642,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
         candidateInsts = Hs.getCandidateInsts supInsts
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.empty
+        knownInsts = Set.fromList [Inst.HasCField, Inst.HasField]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
@@ -889,11 +889,11 @@ macroDecsTypedef supInsts haddockConfig info macroType spec = do
         candidateInsts = Hs.getCandidateInsts supInsts
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.empty
+        knownInsts = Set.fromList [Inst.HasCField, Inst.HasField]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
-    aux nt = Hs.DeclNewtype nt : optDecls
+    aux nt = Hs.DeclNewtype nt : optDecls ++ typedefFieldDecls nt
       where
         optDecls :: [Hs.Decl]
         optDecls = catMaybes [

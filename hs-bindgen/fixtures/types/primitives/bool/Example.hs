@@ -289,6 +289,18 @@ newtype BOOL = BOOL
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType BOOL) "unwrapBOOL")
+         ) => GHC.Records.HasField "unwrapBOOL" (Ptr.Ptr BOOL) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapBOOL")
+
+instance HsBindgen.Runtime.HasCField.HasCField BOOL "unwrapBOOL" where
+
+  type CFieldType BOOL "unwrapBOOL" = FC.CBool
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct bools3@
 
     __defined at:__ @types\/primitives\/bool.h 15:8@

@@ -1,7 +1,14 @@
 {-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -10,15 +17,19 @@ module Example where
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.Primitive.Types
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified Prelude as P
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 {-| __C declaration:__ @I@
@@ -33,6 +44,18 @@ newtype I = I
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType I) "unwrapI")
+         ) => GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapI")
+
+instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
+
+  type CFieldType I "unwrapI" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
@@ -44,6 +67,18 @@ newtype C = C
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType C) "unwrapC")
+         ) => GHC.Records.HasField "unwrapC" (Ptr.Ptr C) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapC")
+
+instance HsBindgen.Runtime.HasCField.HasCField C "unwrapC" where
+
+  type CFieldType C "unwrapC" = FC.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @F@
 
@@ -57,6 +92,18 @@ newtype F = F
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F) "unwrapF")
+         ) => GHC.Records.HasField "unwrapF" (Ptr.Ptr F) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF")
+
+instance HsBindgen.Runtime.HasCField.HasCField F "unwrapF" where
+
+  type CFieldType F "unwrapF" = FC.CFloat
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
@@ -69,6 +116,18 @@ newtype L = L
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType L) "unwrapL")
+         ) => GHC.Records.HasField "unwrapL" (Ptr.Ptr L) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapL")
+
+instance HsBindgen.Runtime.HasCField.HasCField L "unwrapL" where
+
+  type CFieldType L "unwrapL" = FC.CLong
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
@@ -80,6 +139,18 @@ newtype S = S
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "unwrapS")
+         ) => GHC.Records.HasField "unwrapS" (Ptr.Ptr S) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS")
+
+instance HsBindgen.Runtime.HasCField.HasCField S "unwrapS" where
+
+  type CFieldType S "unwrapS" = FC.CShort
+
+  offset# = \_ -> \_ -> 0
 
 foreign import ccall safe "wrapper" hs_bindgen_074b9de694d8f359_base ::
      (GHC.Int.Int16 -> IO GHC.Int.Int32)

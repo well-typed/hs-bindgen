@@ -41,6 +41,18 @@ newtype MY_TYPE = MY_TYPE
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MY_TYPE) "unwrapMY_TYPE")
+         ) => GHC.Records.HasField "unwrapMY_TYPE" (Ptr.Ptr MY_TYPE) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMY_TYPE")
+
+instance HsBindgen.Runtime.HasCField.HasCField MY_TYPE "unwrapMY_TYPE" where
+
+  type CFieldType MY_TYPE "unwrapMY_TYPE" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @macros\/macro_typedef_struct.h 3:9@

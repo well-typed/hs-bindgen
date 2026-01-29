@@ -29,6 +29,8 @@ hstypes:
       - unwrapT
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

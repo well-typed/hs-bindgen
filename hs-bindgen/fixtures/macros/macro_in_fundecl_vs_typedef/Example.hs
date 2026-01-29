@@ -40,6 +40,18 @@ newtype MC = MC
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MC) "unwrapMC")
+         ) => GHC.Records.HasField "unwrapMC" (Ptr.Ptr MC) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMC")
+
+instance HsBindgen.Runtime.HasCField.HasCField MC "unwrapMC" where
+
+  type CFieldType MC "unwrapMC" = FC.CChar
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @TC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@

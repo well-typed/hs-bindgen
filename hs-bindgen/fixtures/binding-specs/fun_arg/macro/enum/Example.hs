@@ -1,10 +1,16 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -12,11 +18,16 @@ module Example where
 
 import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified Text.Read
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum MyEnum@
@@ -112,6 +123,18 @@ newtype A = A
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+
+instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+
+  type CFieldType A "unwrapA" = MyEnum
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 8:9@
@@ -123,3 +146,15 @@ newtype B = B
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "unwrapB")
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+
+instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+
+  type CFieldType B "unwrapB" = A
+
+  offset# = \_ -> \_ -> 0

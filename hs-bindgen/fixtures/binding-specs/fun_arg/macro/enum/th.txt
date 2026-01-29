@@ -131,6 +131,12 @@ newtype A
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable, HasFFIType)
+instance TyEq ty (CFieldType A "unwrapA") =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = MyEnum
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 8:9@
@@ -147,6 +153,12 @@ newtype B
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable, HasFFIType)
+instance TyEq ty (CFieldType B "unwrapB") =>
+         HasField "unwrapB" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapB")
+instance HasCField B "unwrapB"
+    where type CFieldType B "unwrapB" = A
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969_base ::
     Word32

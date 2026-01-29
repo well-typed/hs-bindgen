@@ -92,6 +92,12 @@ newtype M1
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType M1 "unwrapM1") =>
+         HasField "unwrapM1" (Ptr M1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapM1")
+instance HasCField M1 "unwrapM1"
+    where type CFieldType M1 "unwrapM1" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @M2@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
@@ -119,6 +125,12 @@ newtype M2
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType M2 "unwrapM2") =>
+         HasField "unwrapM2" (Ptr M2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapM2")
+instance HasCField M2 "unwrapM2"
+    where type CFieldType M2 "unwrapM2" = CChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @M3@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
@@ -135,6 +147,12 @@ newtype M3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
+instance TyEq ty (CFieldType M3 "unwrapM3") =>
+         HasField "unwrapM3" (Ptr M3) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapM3")
+instance HasCField M3 "unwrapM3"
+    where type CFieldType M3 "unwrapM3" = Ptr CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct ExampleStruct@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 8:8@
@@ -278,6 +296,12 @@ newtype Uint64_t
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Uint64_t "unwrapUint64_t") =>
+         HasField "unwrapUint64_t" (Ptr Uint64_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapUint64_t")
+instance HasCField Uint64_t "unwrapUint64_t"
+    where type CFieldType Uint64_t "unwrapUint64_t" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 17:8@

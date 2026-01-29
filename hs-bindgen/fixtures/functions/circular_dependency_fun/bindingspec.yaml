@@ -28,7 +28,9 @@ hstypes:
       - unwrapFun_ptr
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable

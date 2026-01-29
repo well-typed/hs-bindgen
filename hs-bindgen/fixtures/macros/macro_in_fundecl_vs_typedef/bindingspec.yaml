@@ -44,7 +44,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
@@ -95,6 +97,8 @@ hstypes:
       - unwrapStruct3_t
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -122,7 +126,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num

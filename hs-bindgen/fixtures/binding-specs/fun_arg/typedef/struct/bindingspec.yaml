@@ -24,6 +24,8 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -35,6 +37,8 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -44,6 +48,9 @@ hstypes:
       constructor: E
       fields:
       - unwrapE
+  instances:
+  - HasCField
+  - HasField
 - hsname: MyStruct
   representation:
     record:

@@ -51,6 +51,8 @@ hstypes:
       - unwrapPoint1b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -74,7 +76,9 @@ hstypes:
       - unwrapPoint2b
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -86,7 +90,9 @@ hstypes:
       - unwrapPoint3a
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -110,7 +116,9 @@ hstypes:
       - unwrapPoint3b
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable

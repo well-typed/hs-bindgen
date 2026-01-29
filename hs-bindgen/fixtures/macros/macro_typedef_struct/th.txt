@@ -26,6 +26,12 @@ newtype MY_TYPE
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType MY_TYPE "unwrapMY_TYPE") =>
+         HasField "unwrapMY_TYPE" (Ptr MY_TYPE) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMY_TYPE")
+instance HasCField MY_TYPE "unwrapMY_TYPE"
+    where type CFieldType MY_TYPE "unwrapMY_TYPE" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @macros\/macro_typedef_struct.h 3:9@

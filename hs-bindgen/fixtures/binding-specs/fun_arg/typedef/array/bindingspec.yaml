@@ -21,6 +21,8 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: B
   representation:
@@ -30,6 +32,8 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: E
   representation:
@@ -37,3 +41,6 @@ hstypes:
       constructor: E
       fields:
       - unwrapE
+  instances:
+  - HasCField
+  - HasField

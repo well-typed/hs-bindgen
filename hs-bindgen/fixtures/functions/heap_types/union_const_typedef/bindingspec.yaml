@@ -17,6 +17,8 @@ hstypes:
       fields:
       - unwrapT
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: U
   representation:

@@ -20,6 +20,8 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: B
   representation:
@@ -28,6 +30,8 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: MyUnion
   representation:

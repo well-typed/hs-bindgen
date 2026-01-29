@@ -109,6 +109,8 @@ hstypes:
       - unwrapStruct10_t_t
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -176,7 +178,9 @@ hstypes:
       - unwrapStruct5_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -188,7 +192,9 @@ hstypes:
       - unwrapStruct6
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -220,6 +226,8 @@ hstypes:
       - unwrapStruct7a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -231,6 +239,8 @@ hstypes:
       - unwrapStruct7b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -252,6 +262,8 @@ hstypes:
       - unwrapStruct8b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -273,6 +285,8 @@ hstypes:
       - unwrapStruct9_t
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

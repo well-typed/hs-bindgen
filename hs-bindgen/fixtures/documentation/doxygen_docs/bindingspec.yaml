@@ -126,7 +126,9 @@ hstypes:
       - unwrapEvent_callback_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -138,6 +140,8 @@ hstypes:
       - unwrapFilename_t
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Flexible_array
@@ -164,7 +168,9 @@ hstypes:
       - unwrapProcessor_fn_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
   - Show
   - Storable
@@ -180,7 +186,9 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
