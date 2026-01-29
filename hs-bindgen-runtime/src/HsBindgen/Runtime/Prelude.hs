@@ -7,13 +7,31 @@ module HsBindgen.Runtime.Prelude (
   , AsCEnum(..)
   , AsSequentialCEnum(..)
 
+  -- * Fields
+  , HasCField(..)
+  , offset
+  , ptrToCField
+  , pokeCField
+  , peekCField
+    -- ** Bit-fields
+  , HasCBitfield(..)
+  , bitOffset
+  , bitWidth
+  , ptrToCBitfield
+  , peekCBitfield
+  , pokeCBitfield
+    -- ** Bit-field pointer
+  , BitfieldPtr (..)
+  , pokeBits
+  , peekBits
+
   -- * Function pointers and instances
   , ToFunPtr (..)
   , FromFunPtr (..)
   , withToFunPtr
   , module HsBindgen.Runtime.TH.Instances
 
-  -- * C arrays
+  -- * Arrays
   -- ** Unknown size
   , IncompleteArray
 
@@ -33,6 +51,7 @@ module HsBindgen.Runtime.Prelude (
 import HsBindgen.Runtime.CEnum
 import HsBindgen.Runtime.ConstantArray
 import HsBindgen.Runtime.FunPtr
+import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.PtrConst

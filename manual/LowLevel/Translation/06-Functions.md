@@ -330,7 +330,7 @@ To pass a Haskell function as a callback to C, use `toFunPtr` or the
 `withToFunPtr` bracket combinator:
 
 ```haskell
-import HsBindgen.Runtime.FunPtr (withToFunPtr)
+import HsBindgen.Runtime.Prelude
 
 myCallback :: ProgressUpdate_Aux
 myCallback = ProgressUpdate_Aux $ \progress ->
