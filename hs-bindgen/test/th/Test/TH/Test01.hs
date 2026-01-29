@@ -17,8 +17,6 @@ module Test.TH.Test01 where
 
 import Optics ((%), (&), (.~))
 
-import HsBindgen.Runtime.Prelude qualified
-
 import HsBindgen.TH
 
 let cfg :: Config
