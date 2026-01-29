@@ -13,15 +13,15 @@ import Test.QuickCheck (NonNegative (..), Positive (..), Property, Small (..),
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.QuickCheck (testProperty)
 
-import HsBindgen.Runtime.Bitfield (Bitfield (..), hiMask, loMask,
-                                   peekBitOffWidth, pokeBitOffWidth)
+import HsBindgen.Runtime.Internal.Bitfield (Bitfield (..), hiMask, loMask,
+                                            peekBitOffWidth, pokeBitOffWidth)
 
 {-------------------------------------------------------------------------------
   Tests
 -------------------------------------------------------------------------------}
 
 tests :: TestTree
-tests = testGroup "HsBindgen.Runtime.Bitfield" [
+tests = testGroup "HsBindgen.Runtime.Internal.Bitfield" [
       testProperty "extend . narrow" extend_narrow_prop
     , testProperty "bit peek . poke" bit_peek_poke_prop
     ]
