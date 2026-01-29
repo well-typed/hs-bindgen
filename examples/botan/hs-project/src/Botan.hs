@@ -43,8 +43,9 @@ import Foreign.C.Types (CInt, CSize)
 import Foreign.Marshal (alloca, allocaBytes)
 import Foreign.Storable (Storable (peek, poke))
 
-import HsBindgen.Runtime.IncompleteArray qualified as HBR
-import HsBindgen.Runtime.PtrConst qualified as HBR
+import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.Prelude
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Generated.Botan (Botan_rng_t, Botan_srp6_server_session_t)
 import Generated.Botan.Safe (botan_rng_destroy, botan_rng_get, botan_rng_init,
@@ -89,19 +90,19 @@ newtype Username = Username String
 newtype Password = Password String
   deriving newtype (Show, Eq, Ord)
 
-newtype Salt = Salt (HBR.IncompleteArray Word8)
+newtype Salt = Salt (IncompleteArray Word8)
   deriving newtype (Show, Eq)
 
-newtype Verifier = Verifier (HBR.IncompleteArray Word8)
+newtype Verifier = Verifier (IncompleteArray Word8)
   deriving newtype (Show, Eq)
 
-newtype A = A (HBR.IncompleteArray Word8)
+newtype A = A (IncompleteArray Word8)
   deriving newtype (Show, Eq)
 
-newtype B = B (HBR.IncompleteArray Word8)
+newtype B = B (IncompleteArray Word8)
   deriving newtype (Show, Eq)
 
-newtype K = K (HBR.IncompleteArray Word8)
+newtype K = K (IncompleteArray Word8)
   deriving newtype (Show, Eq)
 
 srp6ServerSessionStep1 ::
@@ -112,8 +113,8 @@ srp6ServerSessionStep1 ::
   -> RNG
   -> IO B
 srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG rngObj) =
-    HBR.withPtr verifier $ \verifierPtr ->
-    let verifierLen = fromIntegral $ VS.length $ HBR.toVector verifier in
+    IA.withPtr verifier $ \verifierPtr ->
+    let verifierLen = fromIntegral $ VS.length $ IA.toVector verifier in
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
     srp6GroupSize groupId >>= \maxLen ->
@@ -123,15 +124,15 @@ srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG
       throwErrnoIfNegative "botan_srp6_server_session_step1" $
         botan_srp6_server_session_step1
           s
-          (HBR.unsafeFromPtr verifierPtr)
+          (PtrConst.unsafeFromPtr verifierPtr)
           verifierLen
-          (HBR.unsafeFromPtr groupIdPtr)
-          (HBR.unsafeFromPtr hashIdPtr)
+          (PtrConst.unsafeFromPtr groupIdPtr)
+          (PtrConst.unsafeFromPtr hashIdPtr)
           rngObj
           bPtr
           bLenPtr
       bLen <- peek bLenPtr
-      B <$> HBR.peekArray (fromIntegral bLen) (HBR.toIncompleteArrayPtr bPtr)
+      B <$> IA.peekArray (fromIntegral bLen) (IA.toPtr bPtr)
 
 srp6ServerSessionStep2 ::
      ServerSession
@@ -139,8 +140,8 @@ srp6ServerSessionStep2 ::
   -> A
   -> IO K
 srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
-    HBR.withPtr a $ \aPtr ->
-    let aLen = fromIntegral $ VS.length $ HBR.toVector a in
+    IA.withPtr a $ \aPtr ->
+    let aLen = fromIntegral $ VS.length $ IA.toVector a in
     srp6GroupSize groupId >>= \maxLen ->
     allocaBytes (fromIntegral maxLen) $ \kPtr ->
     alloca $ \kLenPtr -> do
@@ -148,12 +149,12 @@ srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
       throwErrnoIfNegative "botan_srp6_server_session_step2" $
         botan_srp6_server_session_step2
           s
-          (HBR.unsafeFromPtr aPtr)
+          (PtrConst.unsafeFromPtr aPtr)
           aLen
           kPtr
           kLenPtr
       kLen <- peek kLenPtr
-      K <$> HBR.peekArray (fromIntegral kLen) (HBR.toIncompleteArrayPtr kPtr)
+      K <$> IA.peekArray (fromIntegral kLen) (IA.toPtr kPtr)
 
 srp6GenerateVerifier ::
      Username
@@ -165,8 +166,8 @@ srp6GenerateVerifier ::
 srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
     withCString user $ \userPtr ->
     withCString pw $ \pwPtr ->
-    HBR.withPtr salt $ \saltPtr ->
-    let saltLen = fromIntegral $ VS.length $ HBR.toVector salt in
+    IA.withPtr salt $ \saltPtr ->
+    let saltLen = fromIntegral $ VS.length $ IA.toVector salt in
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
     srp6GroupSize groupId >>= \maxLen ->
@@ -175,16 +176,16 @@ srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
       poke verifierLenPtr maxLen
       throwErrnoIfNegative "botan_srp6_generate_verifier" $
         botan_srp6_generate_verifier
-          (HBR.unsafeFromPtr userPtr)
-          (HBR.unsafeFromPtr pwPtr)
-          (HBR.unsafeFromPtr saltPtr)
+          (PtrConst.unsafeFromPtr userPtr)
+          (PtrConst.unsafeFromPtr pwPtr)
+          (PtrConst.unsafeFromPtr saltPtr)
           saltLen
-          (HBR.unsafeFromPtr groupIdPtr)
-          (HBR.unsafeFromPtr hashIdPtr)
+          (PtrConst.unsafeFromPtr groupIdPtr)
+          (PtrConst.unsafeFromPtr hashIdPtr)
           verifierPtr
           verifierLenPtr
       verifierLen <- peek verifierLenPtr
-      Verifier <$> HBR.peekArray (fromIntegral verifierLen) (HBR.toIncompleteArrayPtr verifierPtr)
+      Verifier <$> IA.peekArray (fromIntegral verifierLen) (IA.toPtr verifierPtr)
 
 srp6ClientAgree ::
      Username
@@ -200,10 +201,10 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
     withCString pw $ \pwPtr ->
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
-    HBR.withPtr salt $ \saltPtr ->
-    let saltLen = fromIntegral $ VS.length $ HBR.toVector salt in
-    HBR.withPtr b $ \bPtr ->
-    let bLen = fromIntegral $ VS.length $ HBR.toVector b in
+    IA.withPtr salt $ \saltPtr ->
+    let saltLen = fromIntegral $ VS.length $ IA.toVector salt in
+    IA.withPtr b $ \bPtr ->
+    let bLen = fromIntegral $ VS.length $ IA.toVector b in
     srp6GroupSize groupId >>= \maxLen ->
     allocaBytes (fromIntegral maxLen) $ \aPtr ->
     alloca $ \aLenPtr ->
@@ -213,13 +214,13 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
       poke kLenPtr maxLen
       throwErrnoIfNegative "botan_srp6_client_agree" $
         botan_srp6_client_agree
-          (HBR.unsafeFromPtr userPtr)
-          (HBR.unsafeFromPtr pwPtr)
-          (HBR.unsafeFromPtr groupIdPtr)
-          (HBR.unsafeFromPtr hashIdPtr)
-          (HBR.unsafeFromPtr saltPtr)
+          (PtrConst.unsafeFromPtr userPtr)
+          (PtrConst.unsafeFromPtr pwPtr)
+          (PtrConst.unsafeFromPtr groupIdPtr)
+          (PtrConst.unsafeFromPtr hashIdPtr)
+          (PtrConst.unsafeFromPtr saltPtr)
           saltLen
-          (HBR.unsafeFromPtr bPtr)
+          (PtrConst.unsafeFromPtr bPtr)
           bLen
           rngObj
           aPtr
@@ -227,9 +228,9 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
           kPtr
           kLenPtr
       aLen <- peek aLenPtr
-      a <- A <$> HBR.peekArray (fromIntegral aLen) (HBR.toIncompleteArrayPtr aPtr)
+      a <- A <$> IA.peekArray (fromIntegral aLen) (IA.toPtr aPtr)
       kLen <- peek kLenPtr
-      k <- K <$> HBR.peekArray (fromIntegral kLen) (HBR.toIncompleteArrayPtr kPtr)
+      k <- K <$> IA.peekArray (fromIntegral kLen) (IA.toPtr kPtr)
       pure (a, k)
 
 srp6GroupSize :: GroupId -> IO CSize
@@ -237,7 +238,7 @@ srp6GroupSize groupId =
     withCString (groupIdString groupId) $ \groupIdPtr ->
     alloca $ \resPtr -> do
       throwErrnoIfNegative "botan_srp6_group_size" $
-        botan_srp6_group_size (HBR.unsafeFromPtr groupIdPtr) resPtr
+        botan_srp6_group_size (PtrConst.unsafeFromPtr groupIdPtr) resPtr
       peek resPtr
 
 {-------------------------------------------------------------------------------
@@ -266,7 +267,7 @@ rngInit :: RNGType -> IO RNG
 rngInit rngType =
     withCString (rngTypeString rngType) $ \rngTypePtr ->
     alloca $ \ptr -> do
-      throwErrnoIfNegative "botan_rng_init" $ botan_rng_init ptr (HBR.unsafeFromPtr rngTypePtr)
+      throwErrnoIfNegative "botan_rng_init" $ botan_rng_init ptr (PtrConst.unsafeFromPtr rngTypePtr)
       RNG <$> peek ptr
 
 rngDestroy :: RNG -> IO ()
@@ -274,11 +275,11 @@ rngDestroy (RNG rng) =
     throwErrnoIfNegative "botan_rng_destroy" $
       botan_rng_destroy rng
 
-rngGet :: RNG -> CSize -> IO (HBR.IncompleteArray Word8)
+rngGet :: RNG -> CSize -> IO (IncompleteArray Word8)
 rngGet (RNG rng) outLen = do
     allocaBytes (fromIntegral outLen) $ \outPtr -> do
       throwErrnoIfNegative "botan_rng_get" $ botan_rng_get rng outPtr outLen
-      HBR.peekArray (fromIntegral outLen) (HBR.toIncompleteArrayPtr outPtr)
+      IA.peekArray (fromIntegral outLen) (IA.toPtr outPtr)
 
 {-------------------------------------------------------------------------------
   Discrete logarithm group

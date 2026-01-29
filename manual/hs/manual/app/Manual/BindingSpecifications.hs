@@ -2,11 +2,10 @@ module Manual.BindingSpecifications (examples) where
 
 import Foreign as F
 
-import Manual.Tools
-
 import Game.Player.Safe
 import Game.State
 import Game.World.Safe
+import Manual.Tools
 import Vector.Length.Safe
 import Vector.Rotate.Safe
 import Vector.Safe

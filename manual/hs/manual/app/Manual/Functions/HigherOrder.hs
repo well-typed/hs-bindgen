@@ -6,12 +6,11 @@ import Control.Monad (when, (>=>))
 import Foreign as F
 import Foreign.C qualified as FC
 
-import HsBindgen.Runtime.FunPtr
-
-import Manual.Tools
+import HsBindgen.Runtime.Prelude
 
 import Callbacks
 import Callbacks.Safe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Instances for nested callback scaling function

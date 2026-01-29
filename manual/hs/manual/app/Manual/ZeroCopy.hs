@@ -8,10 +8,12 @@ import Foreign
 import Foreign.C.Types
 
 import HsBindgen.Runtime.ConstantArray as CA
-import HsBindgen.Runtime.PtrConst qualified as PtrConst
-import HsBindgen.Runtime.HasCField
-import HsBindgen.Runtime.Ptr
 import HsBindgen.Runtime.FLAM qualified as FLAM
+import HsBindgen.Runtime.HasCField
+import HsBindgen.Runtime.Prelude
+import HsBindgen.Runtime.Ptr
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
+
 import Manual.Tools
 import ZeroCopy qualified as Gen
 import ZeroCopy.Unsafe qualified as Gen

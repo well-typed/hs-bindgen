@@ -7,12 +7,11 @@ import Foreign.C qualified as FC
 import System.IO.Unsafe
 import Text.Read (readEither)
 
-import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
-
-import Manual.Tools
+import HsBindgen.Runtime.Prelude
 
 import Example
 import Example.Unsafe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Enum instances

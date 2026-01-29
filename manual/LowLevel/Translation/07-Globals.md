@@ -383,6 +383,10 @@ Stub:
 Import:
 
 ```haskell
+import HsBindgen.Runtime.Prelude
+import HsBindgen.Runtime.ConstantArray   qualified as CA
+import HsBindgen.Runtime.IncompleteArray qualified as IA
+
 foreign import ccall unsafe "ae8fae8" ae8fae8 :: IO (Ptr (Ptr CInt))
 
 {-# NOINLINE b #-}
@@ -394,10 +398,10 @@ b = unsafePerformIO ae8fae8
 -- to use array utilities provided by @hs-bindgen-runtime@.
 
 b_constant_array :: IO (Ptr (ConstantArray 3 CInt))
-b_constant_array = toConstantArrayPtr (Proxy @3) <$> peek b
+b_constant_array = CA.toPtr (Proxy @3) <$> peek b
 
 b_incomplete_array :: IO (Ptr (IncompleteArray CInt))
-b_incomplete_array = toIncompleteArrayPtr <$> peek b
+b_incomplete_array = IA.toPtr <$> peek b
 ```
 
 Memory layout:

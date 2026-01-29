@@ -173,7 +173,7 @@ test01 = testGroup "test_01"
         Test01.Thing 12 @?= res'
 
     , testCase "fixed-size-array" $ do
-        let v = CA.repeat 4 :: CA.ConstantArray 3 CInt
+        let v = CA.repeat 4 :: ConstantArray 3 CInt
         res <- CA.withPtr v (\ptr -> Test01.sum3 5 (PtrConst.unsafeFromPtr ptr))
         21 @?= res
         [4,4,4] @?= CA.toList v -- modification in sum3 aren't visible in original array.

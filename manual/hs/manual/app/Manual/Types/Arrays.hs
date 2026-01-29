@@ -6,8 +6,9 @@ import Foreign as F
 import GHC.TypeNats
 
 import HsBindgen.Runtime.ConstantArray qualified as CA
-import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.Prelude
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Arrays qualified
 import Arrays.Global qualified as Arrays
@@ -18,7 +19,7 @@ import Manual.Tools
   Array utilities
 -------------------------------------------------------------------------------}
 
-reverseConstantArray :: (Storable a, Show a, KnownNat n) => Ptr (CA.ConstantArray n a) -> IO ()
+reverseConstantArray :: (Storable a, Show a, KnownNat n) => Ptr (ConstantArray n a) -> IO ()
 reverseConstantArray ptr = do
     -- Print the input contents
     xs <- F.peek ptr
@@ -30,7 +31,7 @@ reverseConstantArray ptr = do
     zs <- F.peek ptr
     print zs
 
-reverseConstantArrayElems :: (Storable a, Show a, KnownNat n) => Ptr (CA.ConstantArray n a) -> IO ()
+reverseConstantArrayElems :: (Storable a, Show a, KnownNat n) => Ptr (ConstantArray n a) -> IO ()
 reverseConstantArrayElems ptr = do
     let (p, ptr') = CA.toFirstElemPtr ptr
     -- Print the input contents
@@ -43,7 +44,7 @@ reverseConstantArrayElems ptr = do
     zs <- F.peekArray (CA.intVal p) ptr'
     print zs
 
-reverseIncompleteArray :: (Storable a, Show a) => Int -> Ptr (IA.IncompleteArray a) -> IO ()
+reverseIncompleteArray :: (Storable a, Show a) => Int -> Ptr (IncompleteArray a) -> IO ()
 reverseIncompleteArray n ptr = do
     -- Print the input contents
     xs <- IA.peekArray n ptr
@@ -55,7 +56,7 @@ reverseIncompleteArray n ptr = do
     zs <- IA.peekArray n ptr
     print zs
 
-reverseIncompleteArrayElems :: (Storable a, Show a) => Int -> Ptr (IA.IncompleteArray a) -> IO ()
+reverseIncompleteArrayElems :: (Storable a, Show a) => Int -> Ptr (IncompleteArray a) -> IO ()
 reverseIncompleteArrayElems n ptr = do
     let ptr' = IA.toFirstElemPtr ptr
     -- Print the input contents

@@ -1,11 +1,18 @@
 {-# LANGUAGE ViewPatterns #-}
+
+-- | C arrays of known, constant size
+--
+-- This module is intended to be imported qualified.
+--
+-- > import HsBindgen.Runtime.Prelude
+-- > import HsBindgne.Runtime.ConstantArray qualified as CA
 module HsBindgen.Runtime.ConstantArray (
     ConstantArray
   , toVector
   , fromVector
     -- * Pointers
     -- $pointers
-  , toConstantArrayPtr
+  , toPtr
   , toFirstElemPtr
   , withPtr
     -- * Construction
@@ -98,7 +105,7 @@ fromVector _ xs
 --
 -- Functions like 'peek' require a @'Ptr' ('ConstantArray' n a)@ argument. If
 -- the user only has access to a @'Ptr' a@ but they know that is pointing to the
--- first element in an array, then they can use 'toConstantArrayPtr' to convert the
+-- first element in an array, then they can use 'toPtr' to convert the
 -- pointer before using 'peekArray' on it. Conversely, if the user has access to
 -- a @'Ptr' ('ConstantArray' n a)@ but they want to convert it to a @'Ptr' a@,
 -- then they can use @'toFirstElemPtr'@.
@@ -108,13 +115,13 @@ fromVector _ xs
 --
 -- Relevant functions in this module also support pointers of newtypes around
 -- 'ConstantArray', hence the addition of 'Coercible' constraints in many
--- places. For example, we can use 'toConstantArrayPtr' at a 'ConstantArray' type
--- or we can use 'toConstantArrayPtr' at a newtype around a 'ConstantArray'.
+-- places. For example, we can use 'toPtr' at a 'ConstantArray' type
+-- or we can use 'toPtr' at a newtype around a 'ConstantArray'.
 --
 -- > newtype A n = A (ConstantArray n CInt)
--- > toConstantArrayPtr @(ConstantArray 3 CInt) ::
+-- > toPtr @(ConstantArray 3 CInt) ::
 -- >   Proxy 3 -> Ptr CInt -> Ptr (ConstantArray 3 CInt)
--- > toConstantArrayPtr @(A 3) ::
+-- > toPtr @(A 3) ::
 -- >   Proxy 3 -> Ptr CInt -> Ptr (A 3)
 
 -- | 'toFirstElemPtr' for overloaded record dot syntax
@@ -126,12 +133,12 @@ instance HasField "toFirstElemPtr" (Ptr (ConstantArray n a)) (Ptr a) where
 --
 -- NOTE: this function does not check that the pointer /is/ actually a pointer
 -- to the first element of an array.
-toConstantArrayPtr ::
+toPtr ::
      forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
   => Proxy n
   -> Ptr a
   -> Ptr arrayLike
-toConstantArrayPtr _ = castPtr
+toPtr _ = castPtr
   where
     -- The 'Coercible' constraint is unused but that is intentional, so we
     -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.

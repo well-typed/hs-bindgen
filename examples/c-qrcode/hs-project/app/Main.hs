@@ -10,7 +10,7 @@ import Foreign qualified as F
 import Foreign.C qualified as F
 
 import HsBindgen.Runtime.IncompleteArray qualified as IA
-import HsBindgen.Runtime.PtrConst
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import QRCodeGenerator.Generated qualified as QR
 import QRCodeGenerator.Generated.Safe qualified as QR
@@ -18,11 +18,11 @@ import QRCodeGenerator.Generated.Safe qualified as QR
 fromPtr
   :: forall a .
     F.Storable a
-  => Int -> F.Ptr a -> IO (IA.IncompleteArray a)
+  => Int -> F.Ptr a -> IO (IncompleteArray a)
 fromPtr len p = IA.peekArray len p'
   where
-     p' :: F.Ptr (IA.IncompleteArray a)
-     p' = IA.toIncompleteArrayPtr p
+     p' :: F.Ptr (IncompleteArray a)
+     p' = IA.toPtr p
 
 -- static void printQr(const uint8_t qrcode[]) {
 --  int size = qrcodegen_getSize(qrcode);
@@ -35,7 +35,7 @@ fromPtr len p = IA.peekArray len p'
 --  }
 --  fputs("\n", stdout);
 -- }
-printQr :: IA.IncompleteArray Word8 -> IO ()
+printQr :: IncompleteArray Word8 -> IO ()
 printQr qrCode = do
   size <- IA.withPtr qrCode $ \ptr -> QR.qrcodegen_getSize (unsafeFromPtr ptr)
   let border = 4
