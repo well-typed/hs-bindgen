@@ -29,6 +29,7 @@ common lang
     DerivingStrategies
     DerivingVia
     FunctionalDependencies
+    PatternSynonyms
     RecordWildCards
     RoleAnnotations
     ScopedTypeVariables

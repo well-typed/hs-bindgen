@@ -5,7 +5,6 @@ module Main where
 import Control.Monad (forM_)
 import Foreign.C (newCString, withCString)
 
-import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import RogueUtil.Generated qualified as RU

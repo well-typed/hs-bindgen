@@ -1,37 +1,37 @@
 -- | User-facing convenience module, re-exporting definitions required to _use_
 --   the generated bindings.
 module HsBindgen.Runtime.Prelude (
-  -- * C enumerations
+    -- * C enumerations
     CEnum(..)
   , SequentialCEnum(..)
   , AsCEnum(..)
   , AsSequentialCEnum(..)
 
-  -- * Fields and bit-fields
+    -- * Fields and bit-fields
   , HasCField(..)
   , HasCBitfield(..)
   , BitfieldPtr (..)
 
-  -- * Function pointers and instances
+    -- * Function pointers and instances
   , ToFunPtr (..)
   , FromFunPtr (..)
   , withFunPtr
 
-  -- * Pointers
+    -- * Pointers
   , plusPtrElem
 
-  -- * Arrays
+    -- * Arrays
   , ConstantArray   -- opaque
   , IncompleteArray -- opaque
 
-  -- * Marshaling and serialization
+    -- * Marshaling and serialization
   , StaticSize(..)
   , ReadRaw(..)
   , WriteRaw(..)
   , EquivStorable(..)
 
     -- * Read-only pointers
-  , PtrConst -- opaque
+  , PtrConst -- type synonym or opaque, depending on version of @base@
   ) where
 
 import HsBindgen.Runtime.BitfieldPtr
@@ -44,4 +44,3 @@ import HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.Ptr
 import HsBindgen.Runtime.PtrConst
-import HsBindgen.Runtime.TH.Instances
