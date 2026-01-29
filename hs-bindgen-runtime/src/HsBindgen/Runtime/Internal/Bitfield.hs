@@ -1,4 +1,4 @@
-module HsBindgen.Runtime.Bitfield (
+module HsBindgen.Runtime.Internal.Bitfield (
     Bitfield(..)
   , defaultNarrow
   , signedExtend

@@ -43,7 +43,6 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
@@ -56,6 +55,7 @@ import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
+import HsBindgen.Runtime.Internal.Bitfield qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -200,7 +200,7 @@ mkGlobal = \case
       Prim_add#            -> '(GHC.Base.+#)
       Prim_mul#            -> '(GHC.Base.*#)
 
-      Bitfield_class    -> ''HsBindgen.Runtime.Bitfield.Bitfield
+      Bitfield_class    -> ''HsBindgen.Runtime.Internal.Bitfield.Bitfield
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
       Enum_class        -> ''Enum

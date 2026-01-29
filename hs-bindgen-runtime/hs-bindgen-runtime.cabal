@@ -39,7 +39,6 @@ common lang
 library
   import:             lang
   exposed-modules:
-    HsBindgen.Runtime.Bitfield
     HsBindgen.Runtime.BitfieldPtr
     HsBindgen.Runtime.Block
     HsBindgen.Runtime.ByteArray
@@ -54,6 +53,7 @@ library
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray
+    HsBindgen.Runtime.Internal.Bitfield
     HsBindgen.Runtime.Internal.Deriving
     HsBindgen.Runtime.Internal.Prelude
     HsBindgen.Runtime.LibC

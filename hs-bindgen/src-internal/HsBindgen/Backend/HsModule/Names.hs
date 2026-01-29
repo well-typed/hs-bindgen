@@ -41,7 +41,6 @@ import Text.Read qualified
 import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
-import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
@@ -53,6 +52,7 @@ import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
+import HsBindgen.Runtime.Internal.Bitfield qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -164,14 +164,18 @@ nameType nm
 moduleOf :: String -> String -> HsImportModule
 moduleOf "Void"       _ = HsImportModule "Data.Void" Nothing
 moduleOf "CStringLen" _ =
-  -- We want the same qualifier whether we get CStringLen from Foreign.C or
-  -- GHC.Foreign, so special-case it here.
-  HsImportModule "Foreign.C" (Just "FC")
+    -- We want the same qualifier whether we get CStringLen from Foreign.C or
+    -- GHC.Foreign, so special-case it here.
+    HsImportModule "Foreign.C" (Just "FC")
 moduleOf "NonEmpty" _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf ":|"       _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf "Nothing"  _ = HsImportModule "Data.Maybe" Nothing
 moduleOf "Just"     _ = HsImportModule "Data.Maybe" Nothing
-moduleOf ident m0 = case parts of
+moduleOf ident m0
+  | take 3 partsAll == ["HsBindgen","Runtime", "Internal"] =
+    -- Do not replace "Internal" when treating @hs-bindgen-runtime@ modules.
+      HsImportModule (Hs.moduleNameFromString m0) Nothing
+  | otherwise = case partsNoInternal of
     ["C","Operator","Classes"]       -> HsImportModule "C.Expr.HostPlatform" (Just "C")
     ["GHC", "Bits"]                  -> HsImportModule "Data.Bits" (Just "Bits")
     -- See https://gitlab.haskell.org/ghc/ghc/-/issues/23212
@@ -203,11 +207,15 @@ moduleOf ident m0 = case parts of
     -- imports of GHC.Data.Proxy. For uniformity we'd prefer to use Data.Proxy
     -- regardless of the GHC version that is used to generate the bindings. That
     -- is why we replace the import name here:
-    ["GHC", "Data", "Proxy"]         -> HsImportModule "Data.Proxy" Nothing
-    _ -> HsImportModule (Hs.moduleNameFromString $ L.intercalate "." parts) Nothing
+    ["GHC", "Data", "Proxy"] ->
+      HsImportModule "Data.Proxy" Nothing
+    _ ->
+      HsImportModule hsModuleNoInternal Nothing
   where
-    -- we drop "Internal" (to reduce ghc-internal migration noise)
-    parts = filter ("Internal" /=) (split '.' m0)
+    partsAll = split '.' m0
+    -- We drop "Internal" (to reduce ghc-internal migration noise)
+    partsNoInternal = filter ("Internal" /=) partsAll
+    hsModuleNoInternal = Hs.moduleNameFromString $ L.intercalate "." partsNoInternal
 
     ghcReadInPrelude :: Set String
     ghcReadInPrelude = Set.fromList ["Read"]
@@ -388,7 +396,7 @@ resolveGlobal = \case
     Prim_add#            -> importU '(GHC.Base.+#)
     Prim_mul#            -> importU '(GHC.Base.*#)
 
-    Bitfield_class    -> importQ ''HsBindgen.Runtime.Bitfield.Bitfield
+    Bitfield_class    -> importQ ''HsBindgen.Runtime.Internal.Bitfield.Bitfield
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded
     Enum_class        -> importU ''Enum

@@ -37,10 +37,10 @@ import Foreign.Ptr (Ptr)
 import Foreign.Storable
 import GHC.Records (HasField (..))
 
-import HsBindgen.Runtime.Bitfield (Bitfield)
 import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.HasFFIType (HasFFIType)
+import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 
