@@ -15,7 +15,6 @@
 
 module Test.TH.Simple where
 
-import GHC.Exts
 import Optics ((%), (&), (.~))
 
 import HsBindgen.TH

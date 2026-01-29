@@ -241,11 +241,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Another_typedef_enum_e where
 
 instance Show Another_typedef_enum_e where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read Another_typedef_enum_e where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 
@@ -725,11 +725,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum A_typedef_enum_e where
 
 instance Show A_typedef_enum_e where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read A_typedef_enum_e where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 

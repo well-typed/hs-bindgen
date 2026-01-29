@@ -84,11 +84,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo_enum where
 
 instance Show Foo_enum where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read Foo_enum where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 

@@ -89,11 +89,11 @@ instance HsBindgen.Runtime.CEnum.CEnum FileOperationStatus where
 
 instance Show FileOperationStatus where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read FileOperationStatus where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 

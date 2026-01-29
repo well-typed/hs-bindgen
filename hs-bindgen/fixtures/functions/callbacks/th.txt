@@ -1252,9 +1252,9 @@ instance SequentialCEnum Processor_mode
     where minDeclaredValue = MODE_SIMPLE
           maxDeclaredValue = MODE_PROGRESS
 instance Show Processor_mode
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Processor_mode
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @MODE_SIMPLE@

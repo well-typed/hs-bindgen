@@ -94,11 +94,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
 instance Show EnumA where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read EnumA where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 
@@ -233,11 +233,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum ExB_fieldB1 where
 
 instance Show ExB_fieldB1 where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read ExB_fieldB1 where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 

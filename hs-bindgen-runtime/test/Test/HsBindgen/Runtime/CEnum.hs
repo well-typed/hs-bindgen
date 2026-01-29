@@ -78,10 +78,10 @@ instance CEnum NoValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "NoValue"
 
 instance Show NoValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read NoValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 deriving via AsCEnum NoValue instance Bounded NoValue
 
@@ -157,10 +157,10 @@ instance CEnum GenSingleValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "GenSingleValue"
 
 instance Show GenSingleValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read GenSingleValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 deriving via AsCEnum GenSingleValue instance Bounded GenSingleValue
 
@@ -281,10 +281,10 @@ instance CEnum GenPosValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "GenPosValue"
 
 instance Show GenPosValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read GenPosValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 deriving via AsCEnum GenPosValue instance Bounded GenPosValue
 
@@ -445,10 +445,10 @@ instance CEnum GenNegValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "GenNegValue"
 
 instance Show GenNegValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read GenNegValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 deriving via AsCEnum GenNegValue instance Bounded GenNegValue
 
@@ -600,10 +600,10 @@ instance CEnum SeqSingleValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "SeqSingleValue"
 
 instance Show SeqSingleValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read SeqSingleValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 instance SequentialCEnum SeqSingleValue where
   minDeclaredValue = SeqSingleValue 1
@@ -724,10 +724,10 @@ instance CEnum SeqPosValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "SeqPosValue"
 
 instance Show SeqPosValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read SeqPosValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 instance SequentialCEnum SeqPosValue where
   minDeclaredValue = SeqPosValue 1
@@ -883,10 +883,10 @@ instance CEnum SeqNegValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "SeqNegValue"
 
 instance Show SeqNegValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read SeqNegValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 instance SequentialCEnum SeqNegValue where
   minDeclaredValue = SeqNegValue (-5)
@@ -1038,10 +1038,10 @@ instance CEnum NastyValue where
   readPrecUndeclared = CEnum.readPrecWrappedUndeclared "NastyValue"
 
 instance Show NastyValue where
-  showsPrec = CEnum.showsCEnum
+  showsPrec = CEnum.shows
 
 instance Read NastyValue where
-  readPrec = CEnum.readPrecCEnum
+  readPrec = CEnum.readPrec
 
 instance SequentialCEnum NastyValue where
   minDeclaredValue = NastyValue (-2)

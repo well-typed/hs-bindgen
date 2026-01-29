@@ -40,9 +40,9 @@ instance SequentialCEnum Foo_enum
     where minDeclaredValue = A
           maxDeclaredValue = C
 instance Show Foo_enum
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Foo_enum
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @A@

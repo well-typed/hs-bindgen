@@ -475,9 +475,9 @@ instance SequentialCEnum Color_enum
     where minDeclaredValue = COLOR_RED
           maxDeclaredValue = COLOR_BLUE
 instance Show Color_enum
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Color_enum
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| Red color
@@ -805,9 +805,9 @@ instance CEnum Status_code_t
           showsUndeclared = showsWrappedUndeclared "Status_code_t"
           readPrecUndeclared = readPrecWrappedUndeclared "Status_code_t"
 instance Show Status_code_t
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Status_code_t
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-|

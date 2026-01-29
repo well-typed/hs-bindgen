@@ -991,11 +991,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Processor_mode where
 
 instance Show Processor_mode where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read Processor_mode where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 

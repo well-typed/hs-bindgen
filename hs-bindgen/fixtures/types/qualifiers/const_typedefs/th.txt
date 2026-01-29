@@ -190,9 +190,9 @@ instance SequentialCEnum E
     where minDeclaredValue = Foo
           maxDeclaredValue = Foo
 instance Show E
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read E
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @foo@

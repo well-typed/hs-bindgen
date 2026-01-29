@@ -156,9 +156,9 @@ instance SequentialCEnum Another_typedef_enum_e
     where minDeclaredValue = FOO
           maxDeclaredValue = BAR
 instance Show Another_typedef_enum_e
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Another_typedef_enum_e
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @FOO@
@@ -618,9 +618,9 @@ instance SequentialCEnum A_typedef_enum_e
     where minDeclaredValue = ENUM_CASE_0
           maxDeclaredValue = ENUM_CASE_3
 instance Show A_typedef_enum_e
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read A_typedef_enum_e
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @ENUM_CASE_0@
