@@ -12,6 +12,7 @@ module Test.TH.Test02 where
 
 import Optics ((%), (&), (.~))
 
+import HsBindgen.Runtime.LibC qualified
 import HsBindgen.Runtime.Prelude qualified
 
 import HsBindgen.TH
