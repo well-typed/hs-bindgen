@@ -208,7 +208,7 @@ instance Default SupportedInstances where
           , mkDef Floating   Dependent   Newtype   []
           , mkDef Fractional Dependent   Newtype   []
           -- , mkDef HasCField  Independent HsBindgen []
-          -- , mkDef HasFFIType Dependent   Newtype   []
+          , mkDef HasFFIType Dependent   Newtype   []
           -- , mkDef HasField   Independent HsBindgen []
           , mkDef Integral   Dependent   Newtype   []
           , mkDef Ix         Dependent   Newtype   []
