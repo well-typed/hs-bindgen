@@ -45,6 +45,8 @@ generateModule pkgRoot spec = unlines $
     , ""
     , "import HsBindgen.Runtime.Prelude qualified"
     , ""
+    , "import HsBindgen.Runtime.LibC qualified"
+    , ""
     , "import HsBindgen.TH"
     , ""
     , "import Foreign.C.Types"
