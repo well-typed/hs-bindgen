@@ -192,10 +192,10 @@ data FileOperationRecord
 instance Storable FileOperationRecord
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure FileOperationRecord <*> peekCField (Proxy @"fileOperationRecord_status") ptr_0) <*> peekCField (Proxy @"fileOperationRecord_bytes_processed") ptr_0
+          peek = \ptr_0 -> (pure FileOperationRecord <*> peek (Proxy @"fileOperationRecord_status") ptr_0) <*> peek (Proxy @"fileOperationRecord_bytes_processed") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    FileOperationRecord fileOperationRecord_status_3
-                                                       fileOperationRecord_bytes_processed_4 -> pokeCField (Proxy @"fileOperationRecord_status") ptr_1 fileOperationRecord_status_3 >> pokeCField (Proxy @"fileOperationRecord_bytes_processed") ptr_1 fileOperationRecord_bytes_processed_4
+                                                       fileOperationRecord_bytes_processed_4 -> poke (Proxy @"fileOperationRecord_status") ptr_1 fileOperationRecord_status_3 >> poke (Proxy @"fileOperationRecord_bytes_processed") ptr_1 fileOperationRecord_bytes_processed_4
 instance HasCField FileOperationRecord "fileOperationRecord_status"
     where type CFieldType FileOperationRecord
                           "fileOperationRecord_status" = FileOperationStatus
@@ -205,7 +205,7 @@ instance TyEq ty
          HasField "fileOperationRecord_status"
                   (Ptr FileOperationRecord)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"fileOperationRecord_status")
+    where getField = fromPtr (Proxy @"fileOperationRecord_status")
 instance HasCField FileOperationRecord
                    "fileOperationRecord_bytes_processed"
     where type CFieldType FileOperationRecord
@@ -217,7 +217,7 @@ instance TyEq ty
          HasField "fileOperationRecord_bytes_processed"
                   (Ptr FileOperationRecord)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"fileOperationRecord_bytes_processed")
+    where getField = fromPtr (Proxy @"fileOperationRecord_bytes_processed")
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
     Ptr Void

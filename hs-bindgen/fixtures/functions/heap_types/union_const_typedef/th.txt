@@ -77,7 +77,7 @@ instance HasCField U "u_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType U "u_x") =>
          HasField "u_x" (Ptr U) (Ptr ty)
-    where getField = ptrToCField (Proxy @"u_x")
+    where getField = fromPtr (Proxy @"u_x")
 {-| __C declaration:__ @T@
 
     __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
@@ -95,7 +95,7 @@ newtype T
     deriving newtype Storable
 instance TyEq ty (CFieldType T "un_T") =>
          HasField "un_T" (Ptr T) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_T")
+    where getField = fromPtr (Proxy @"un_T")
 instance HasCField T "un_T"
     where type CFieldType T "un_T" = U
           offset# = \_ -> \_ -> 0

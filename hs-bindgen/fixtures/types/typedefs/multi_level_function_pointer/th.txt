@@ -40,7 +40,7 @@ instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
 instance TyEq ty (CFieldType F1_Aux "un_F1_Aux") =>
          HasField "un_F1_Aux" (Ptr F1_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F1_Aux")
+    where getField = fromPtr (Proxy @"un_F1_Aux")
 instance HasCField F1_Aux "un_F1_Aux"
     where type CFieldType F1_Aux "un_F1_Aux" = CInt -> CInt -> IO Unit
           offset# = \_ -> \_ -> 0
@@ -62,7 +62,7 @@ newtype F1
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType F1 "un_F1") =>
          HasField "un_F1" (Ptr F1) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F1")
+    where getField = fromPtr (Proxy @"un_F1")
 instance HasCField F1 "un_F1"
     where type CFieldType F1 "un_F1" = FunPtr F1_Aux
           offset# = \_ -> \_ -> 0
@@ -107,7 +107,7 @@ instance FromFunPtr F2_Aux
     where fromFunPtr = hs_bindgen_e15bcd26f1ed1df7
 instance TyEq ty (CFieldType F2_Aux "un_F2_Aux") =>
          HasField "un_F2_Aux" (Ptr F2_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F2_Aux")
+    where getField = fromPtr (Proxy @"un_F2_Aux")
 instance HasCField F2_Aux "un_F2_Aux"
     where type CFieldType F2_Aux "un_F2_Aux" = CInt -> CInt -> IO Unit
           offset# = \_ -> \_ -> 0
@@ -129,7 +129,7 @@ newtype F2
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType F2 "un_F2") =>
          HasField "un_F2" (Ptr F2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F2")
+    where getField = fromPtr (Proxy @"un_F2")
 instance HasCField F2 "un_F2"
     where type CFieldType F2 "un_F2" = Ptr (FunPtr F2_Aux)
           offset# = \_ -> \_ -> 0
@@ -174,7 +174,7 @@ instance FromFunPtr F3_Aux
     where fromFunPtr = hs_bindgen_66460422a7197535
 instance TyEq ty (CFieldType F3_Aux "un_F3_Aux") =>
          HasField "un_F3_Aux" (Ptr F3_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F3_Aux")
+    where getField = fromPtr (Proxy @"un_F3_Aux")
 instance HasCField F3_Aux "un_F3_Aux"
     where type CFieldType F3_Aux "un_F3_Aux" = CInt -> CInt -> IO Unit
           offset# = \_ -> \_ -> 0
@@ -196,7 +196,7 @@ newtype F3
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType F3 "un_F3") =>
          HasField "un_F3" (Ptr F3) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F3")
+    where getField = fromPtr (Proxy @"un_F3")
 instance HasCField F3 "un_F3"
     where type CFieldType F3 "un_F3" = Ptr (Ptr (FunPtr F3_Aux))
           offset# = \_ -> \_ -> 0
@@ -239,7 +239,7 @@ instance FromFunPtr F4_Aux
     where fromFunPtr = hs_bindgen_40f9a8d432b9eb97
 instance TyEq ty (CFieldType F4_Aux "un_F4_Aux") =>
          HasField "un_F4_Aux" (Ptr F4_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F4_Aux")
+    where getField = fromPtr (Proxy @"un_F4_Aux")
 instance HasCField F4_Aux "un_F4_Aux"
     where type CFieldType F4_Aux "un_F4_Aux" = IO CInt
           offset# = \_ -> \_ -> 0
@@ -261,7 +261,7 @@ newtype F4
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType F4 "un_F4") =>
          HasField "un_F4" (Ptr F4) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F4")
+    where getField = fromPtr (Proxy @"un_F4")
 instance HasCField F4 "un_F4"
     where type CFieldType F4 "un_F4" = Ptr (FunPtr F4_Aux)
           offset# = \_ -> \_ -> 0
@@ -304,7 +304,7 @@ instance FromFunPtr F5_Aux
     where fromFunPtr = hs_bindgen_586f6635c057975f
 instance TyEq ty (CFieldType F5_Aux "un_F5_Aux") =>
          HasField "un_F5_Aux" (Ptr F5_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F5_Aux")
+    where getField = fromPtr (Proxy @"un_F5_Aux")
 instance HasCField F5_Aux "un_F5_Aux"
     where type CFieldType F5_Aux "un_F5_Aux" = IO Unit
           offset# = \_ -> \_ -> 0
@@ -326,7 +326,7 @@ newtype F5
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType F5 "un_F5") =>
          HasField "un_F5" (Ptr F5) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F5")
+    where getField = fromPtr (Proxy @"un_F5")
 instance HasCField F5 "un_F5"
     where type CFieldType F5 "un_F5" = Ptr (FunPtr F5_Aux)
           offset# = \_ -> \_ -> 0
@@ -359,7 +359,7 @@ newtype MyInt
                       Real)
 instance TyEq ty (CFieldType MyInt "un_MyInt") =>
          HasField "un_MyInt" (Ptr MyInt) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MyInt")
+    where getField = fromPtr (Proxy @"un_MyInt")
 instance HasCField MyInt "un_MyInt"
     where type CFieldType MyInt "un_MyInt" = CInt
           offset# = \_ -> \_ -> 0
@@ -403,7 +403,7 @@ instance FromFunPtr F6_Aux
     where fromFunPtr = hs_bindgen_a887947b26e58f0c
 instance TyEq ty (CFieldType F6_Aux "un_F6_Aux") =>
          HasField "un_F6_Aux" (Ptr F6_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F6_Aux")
+    where getField = fromPtr (Proxy @"un_F6_Aux")
 instance HasCField F6_Aux "un_F6_Aux"
     where type CFieldType F6_Aux "un_F6_Aux" = MyInt -> IO Unit
           offset# = \_ -> \_ -> 0
@@ -425,7 +425,7 @@ newtype F6
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType F6 "un_F6") =>
          HasField "un_F6" (Ptr F6) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F6")
+    where getField = fromPtr (Proxy @"un_F6")
 instance HasCField F6 "un_F6"
     where type CFieldType F6 "un_F6" = Ptr (FunPtr F6_Aux)
           offset# = \_ -> \_ -> 0

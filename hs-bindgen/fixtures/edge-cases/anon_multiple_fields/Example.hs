@@ -56,16 +56,16 @@ instance F.Storable Some_struct_field1 where
   peek =
     \ptr0 ->
           pure Some_struct_field1
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"some_struct_field1_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"some_struct_field1_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field1_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field1_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Some_struct_field1 some_struct_field1_x2 some_struct_field1_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"some_struct_field1_x") ptr0 some_struct_field1_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"some_struct_field1_y") ptr0 some_struct_field1_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field1_x") ptr0 some_struct_field1_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field1_y") ptr0 some_struct_field1_y3
 
 instance Data.Primitive.Types.Prim Some_struct_field1 where
 
@@ -134,7 +134,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct_field1) 
          ) => GHC.Records.HasField "some_struct_field1_x" (Ptr.Ptr Some_struct_field1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"some_struct_field1_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field1_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Some_struct_field1 "some_struct_field1_y" where
 
@@ -147,7 +147,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct_field1) 
          ) => GHC.Records.HasField "some_struct_field1_y" (Ptr.Ptr Some_struct_field1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"some_struct_field1_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field1_y")
 
 {-| __C declaration:__ @struct some_struct@
 
@@ -189,18 +189,18 @@ instance F.Storable Some_struct where
   peek =
     \ptr0 ->
           pure Some_struct
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"some_struct_field1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"some_struct_field2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"some_struct_field3") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field1") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field2") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field3") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Some_struct some_struct_field12 some_struct_field23 some_struct_field34 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"some_struct_field1") ptr0 some_struct_field12
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"some_struct_field2") ptr0 some_struct_field23
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"some_struct_field3") ptr0 some_struct_field34
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field1") ptr0 some_struct_field12
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field2") ptr0 some_struct_field23
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field3") ptr0 some_struct_field34
 
 instance Data.Primitive.Types.Prim Some_struct where
 
@@ -277,7 +277,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct) "some_s
          ) => GHC.Records.HasField "some_struct_field1" (Ptr.Ptr Some_struct) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"some_struct_field1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field1")
 
 instance HsBindgen.Runtime.HasCField.HasCField Some_struct "some_struct_field2" where
 
@@ -290,7 +290,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct) "some_s
          ) => GHC.Records.HasField "some_struct_field2" (Ptr.Ptr Some_struct) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"some_struct_field2")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field2")
 
 instance HsBindgen.Runtime.HasCField.HasCField Some_struct "some_struct_field3" where
 
@@ -303,4 +303,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct) "some_s
          ) => GHC.Records.HasField "some_struct_field3" (Ptr.Ptr Some_struct) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"some_struct_field3")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field3")

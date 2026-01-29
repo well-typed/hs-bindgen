@@ -173,11 +173,11 @@ data Complex_object_t
 instance Storable Complex_object_t
     where sizeOf = \_ -> 32 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Complex_object_t <*> peekCField (Proxy @"complex_object_t_velocity") ptr_0) <*> peekCField (Proxy @"complex_object_t_position") ptr_0) <*> peekCField (Proxy @"complex_object_t_id") ptr_0
+          peek = \ptr_0 -> ((pure Complex_object_t <*> peek (Proxy @"complex_object_t_velocity") ptr_0) <*> peek (Proxy @"complex_object_t_position") ptr_0) <*> peek (Proxy @"complex_object_t_id") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Complex_object_t complex_object_t_velocity_3
                                                     complex_object_t_position_4
-                                                    complex_object_t_id_5 -> pokeCField (Proxy @"complex_object_t_velocity") ptr_1 complex_object_t_velocity_3 >> (pokeCField (Proxy @"complex_object_t_position") ptr_1 complex_object_t_position_4 >> pokeCField (Proxy @"complex_object_t_id") ptr_1 complex_object_t_id_5)
+                                                    complex_object_t_id_5 -> poke (Proxy @"complex_object_t_velocity") ptr_1 complex_object_t_velocity_3 >> (poke (Proxy @"complex_object_t_position") ptr_1 complex_object_t_position_4 >> poke (Proxy @"complex_object_t_id") ptr_1 complex_object_t_id_5)
 instance Prim Complex_object_t
     where sizeOf# = \_ -> 32# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -220,7 +220,7 @@ instance TyEq ty
          HasField "complex_object_t_velocity"
                   (Ptr Complex_object_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"complex_object_t_velocity")
+    where getField = fromPtr (Proxy @"complex_object_t_velocity")
 instance HasCField Complex_object_t "complex_object_t_position"
     where type CFieldType Complex_object_t
                           "complex_object_t_position" = Complex CDouble
@@ -230,14 +230,14 @@ instance TyEq ty
          HasField "complex_object_t_position"
                   (Ptr Complex_object_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"complex_object_t_position")
+    where getField = fromPtr (Proxy @"complex_object_t_position")
 instance HasCField Complex_object_t "complex_object_t_id"
     where type CFieldType Complex_object_t "complex_object_t_id" = CInt
           offset# = \_ -> \_ -> 24
 instance TyEq ty
               (CFieldType Complex_object_t "complex_object_t_id") =>
          HasField "complex_object_t_id" (Ptr Complex_object_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"complex_object_t_id")
+    where getField = fromPtr (Proxy @"complex_object_t_id")
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
 foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fba0e_base ::
     Ptr Void

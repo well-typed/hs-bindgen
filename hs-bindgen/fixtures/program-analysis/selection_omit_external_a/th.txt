@@ -24,9 +24,9 @@ data UnrelatedDeclaration
 instance Storable UnrelatedDeclaration
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure UnrelatedDeclaration <*> peekCField (Proxy @"unrelatedDeclaration_m") ptr_0
+          peek = \ptr_0 -> pure UnrelatedDeclaration <*> peek (Proxy @"unrelatedDeclaration_m") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   UnrelatedDeclaration unrelatedDeclaration_m_3 -> pokeCField (Proxy @"unrelatedDeclaration_m") ptr_1 unrelatedDeclaration_m_3
+                                   UnrelatedDeclaration unrelatedDeclaration_m_3 -> poke (Proxy @"unrelatedDeclaration_m") ptr_1 unrelatedDeclaration_m_3
 instance Prim UnrelatedDeclaration
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -51,4 +51,4 @@ instance TyEq ty
          HasField "unrelatedDeclaration_m"
                   (Ptr UnrelatedDeclaration)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"unrelatedDeclaration_m")
+    where getField = fromPtr (Proxy @"unrelatedDeclaration_m")

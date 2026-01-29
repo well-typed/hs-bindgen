@@ -80,10 +80,10 @@ data Point
 instance Storable Point
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Point <*> peekCField (Proxy @"point_x") ptr_0) <*> peekCField (Proxy @"point_y") ptr_0
+          peek = \ptr_0 -> (pure Point <*> peek (Proxy @"point_x") ptr_0) <*> peek (Proxy @"point_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Point point_x_3
-                                         point_y_4 -> pokeCField (Proxy @"point_x") ptr_1 point_x_3 >> pokeCField (Proxy @"point_y") ptr_1 point_y_4
+                                         point_y_4 -> poke (Proxy @"point_x") ptr_1 point_x_3 >> poke (Proxy @"point_y") ptr_1 point_y_4
 instance Prim Point
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -112,13 +112,13 @@ instance HasCField Point "point_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Point "point_x") =>
          HasField "point_x" (Ptr Point) (Ptr ty)
-    where getField = ptrToCField (Proxy @"point_x")
+    where getField = fromPtr (Proxy @"point_x")
 instance HasCField Point "point_y"
     where type CFieldType Point "point_y" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Point "point_y") =>
          HasField "point_y" (Ptr Point) (Ptr ty)
-    where getField = ptrToCField (Proxy @"point_y")
+    where getField = fromPtr (Proxy @"point_y")
 {-| __C declaration:__ @struct rectangle@
 
     __defined at:__ @manual\/zero_copy.h 17:8@
@@ -150,10 +150,10 @@ data Rectangle
 instance Storable Rectangle
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Rectangle <*> peekCField (Proxy @"rectangle_topleft") ptr_0) <*> peekCField (Proxy @"rectangle_bottomright") ptr_0
+          peek = \ptr_0 -> (pure Rectangle <*> peek (Proxy @"rectangle_topleft") ptr_0) <*> peek (Proxy @"rectangle_bottomright") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Rectangle rectangle_topleft_3
-                                             rectangle_bottomright_4 -> pokeCField (Proxy @"rectangle_topleft") ptr_1 rectangle_topleft_3 >> pokeCField (Proxy @"rectangle_bottomright") ptr_1 rectangle_bottomright_4
+                                             rectangle_bottomright_4 -> poke (Proxy @"rectangle_topleft") ptr_1 rectangle_topleft_3 >> poke (Proxy @"rectangle_bottomright") ptr_1 rectangle_bottomright_4
 instance Prim Rectangle
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -182,13 +182,13 @@ instance HasCField Rectangle "rectangle_topleft"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Rectangle "rectangle_topleft") =>
          HasField "rectangle_topleft" (Ptr Rectangle) (Ptr ty)
-    where getField = ptrToCField (Proxy @"rectangle_topleft")
+    where getField = fromPtr (Proxy @"rectangle_topleft")
 instance HasCField Rectangle "rectangle_bottomright"
     where type CFieldType Rectangle "rectangle_bottomright" = Point
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Rectangle "rectangle_bottomright") =>
          HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr ty)
-    where getField = ptrToCField (Proxy @"rectangle_bottomright")
+    where getField = fromPtr (Proxy @"rectangle_bottomright")
 {-| __C declaration:__ @struct circle@
 
     __defined at:__ @manual\/zero_copy.h 22:8@
@@ -220,10 +220,10 @@ data Circle
 instance Storable Circle
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Circle <*> peekCField (Proxy @"circle_midpoint") ptr_0) <*> peekCField (Proxy @"circle_radius") ptr_0
+          peek = \ptr_0 -> (pure Circle <*> peek (Proxy @"circle_midpoint") ptr_0) <*> peek (Proxy @"circle_radius") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Circle circle_midpoint_3
-                                          circle_radius_4 -> pokeCField (Proxy @"circle_midpoint") ptr_1 circle_midpoint_3 >> pokeCField (Proxy @"circle_radius") ptr_1 circle_radius_4
+                                          circle_radius_4 -> poke (Proxy @"circle_midpoint") ptr_1 circle_midpoint_3 >> poke (Proxy @"circle_radius") ptr_1 circle_radius_4
 instance Prim Circle
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -252,13 +252,13 @@ instance HasCField Circle "circle_midpoint"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Circle "circle_midpoint") =>
          HasField "circle_midpoint" (Ptr Circle) (Ptr ty)
-    where getField = ptrToCField (Proxy @"circle_midpoint")
+    where getField = fromPtr (Proxy @"circle_midpoint")
 instance HasCField Circle "circle_radius"
     where type CFieldType Circle "circle_radius" = CInt
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Circle "circle_radius") =>
          HasField "circle_radius" (Ptr Circle) (Ptr ty)
-    where getField = ptrToCField (Proxy @"circle_radius")
+    where getField = fromPtr (Proxy @"circle_radius")
 {-| __C declaration:__ @union shape@
 
     __defined at:__ @manual\/zero_copy.h 30:7@
@@ -348,13 +348,13 @@ instance HasCField Shape "shape_rectangle"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Shape "shape_rectangle") =>
          HasField "shape_rectangle" (Ptr Shape) (Ptr ty)
-    where getField = ptrToCField (Proxy @"shape_rectangle")
+    where getField = fromPtr (Proxy @"shape_rectangle")
 instance HasCField Shape "shape_circle"
     where type CFieldType Shape "shape_circle" = Circle
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Shape "shape_circle") =>
          HasField "shape_circle" (Ptr Shape) (Ptr ty)
-    where getField = ptrToCField (Proxy @"shape_circle")
+    where getField = fromPtr (Proxy @"shape_circle")
 {-| __C declaration:__ @struct colour@
 
     __defined at:__ @manual\/zero_copy.h 39:8@
@@ -407,13 +407,13 @@ data Colour
 instance Storable Colour
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((((pure Colour <*> peekCBitfield (Proxy @"colour_opacity") ptr_0) <*> peekCBitfield (Proxy @"colour_brightness") ptr_0) <*> peekCBitfield (Proxy @"colour_red") ptr_0) <*> peekCBitfield (Proxy @"colour_green") ptr_0) <*> peekCBitfield (Proxy @"colour_blue") ptr_0
+          peek = \ptr_0 -> ((((pure Colour <*> peek (Proxy @"colour_opacity") ptr_0) <*> peek (Proxy @"colour_brightness") ptr_0) <*> peek (Proxy @"colour_red") ptr_0) <*> peek (Proxy @"colour_green") ptr_0) <*> peek (Proxy @"colour_blue") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Colour colour_opacity_3
                                           colour_brightness_4
                                           colour_red_5
                                           colour_green_6
-                                          colour_blue_7 -> pokeCBitfield (Proxy @"colour_opacity") ptr_1 colour_opacity_3 >> (pokeCBitfield (Proxy @"colour_brightness") ptr_1 colour_brightness_4 >> (pokeCBitfield (Proxy @"colour_red") ptr_1 colour_red_5 >> (pokeCBitfield (Proxy @"colour_green") ptr_1 colour_green_6 >> pokeCBitfield (Proxy @"colour_blue") ptr_1 colour_blue_7)))
+                                          colour_blue_7 -> poke (Proxy @"colour_opacity") ptr_1 colour_opacity_3 >> (poke (Proxy @"colour_brightness") ptr_1 colour_brightness_4 >> (poke (Proxy @"colour_red") ptr_1 colour_red_5 >> (poke (Proxy @"colour_green") ptr_1 colour_green_6 >> poke (Proxy @"colour_blue") ptr_1 colour_blue_7)))
 instance Prim Colour
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -465,49 +465,39 @@ instance Prim Colour
                                                                                                                        s_55 -> writeOffAddr# addr_43 ((+#) ((*#) (5# :: Int#) i_44) (4# :: Int#)) colour_blue_51 s_55
 instance HasCBitfield Colour "colour_opacity"
     where type CBitfieldType Colour "colour_opacity" = CUInt
-          bitOffset# = \_ -> \_ -> 0
-          bitWidth# = \_ -> \_ -> 2
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 2
 instance TyEq ty (CBitfieldType Colour "colour_opacity") =>
-         HasField "colour_opacity"
-                  (Ptr Colour)
-                  (BitfieldPtr Colour "colour_opacity")
-    where getField = ptrToCBitfield (Proxy @"colour_opacity")
+         HasField "colour_opacity" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_opacity")
 instance HasCBitfield Colour "colour_brightness"
     where type CBitfieldType Colour "colour_brightness" = CUInt
-          bitOffset# = \_ -> \_ -> 2
-          bitWidth# = \_ -> \_ -> 3
+          bitfieldOffset# = \_ -> \_ -> 2
+          bitfieldWidth# = \_ -> \_ -> 3
 instance TyEq ty (CBitfieldType Colour "colour_brightness") =>
-         HasField "colour_brightness"
-                  (Ptr Colour)
-                  (BitfieldPtr Colour "colour_brightness")
-    where getField = ptrToCBitfield (Proxy @"colour_brightness")
+         HasField "colour_brightness" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_brightness")
 instance HasCBitfield Colour "colour_red"
     where type CBitfieldType Colour "colour_red" = CUInt
-          bitOffset# = \_ -> \_ -> 5
-          bitWidth# = \_ -> \_ -> 8
+          bitfieldOffset# = \_ -> \_ -> 5
+          bitfieldWidth# = \_ -> \_ -> 8
 instance TyEq ty (CBitfieldType Colour "colour_red") =>
-         HasField "colour_red"
-                  (Ptr Colour)
-                  (BitfieldPtr Colour "colour_red")
-    where getField = ptrToCBitfield (Proxy @"colour_red")
+         HasField "colour_red" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_red")
 instance HasCBitfield Colour "colour_green"
     where type CBitfieldType Colour "colour_green" = CUInt
-          bitOffset# = \_ -> \_ -> 13
-          bitWidth# = \_ -> \_ -> 8
+          bitfieldOffset# = \_ -> \_ -> 13
+          bitfieldWidth# = \_ -> \_ -> 8
 instance TyEq ty (CBitfieldType Colour "colour_green") =>
-         HasField "colour_green"
-                  (Ptr Colour)
-                  (BitfieldPtr Colour "colour_green")
-    where getField = ptrToCBitfield (Proxy @"colour_green")
+         HasField "colour_green" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_green")
 instance HasCBitfield Colour "colour_blue"
     where type CBitfieldType Colour "colour_blue" = CUInt
-          bitOffset# = \_ -> \_ -> 21
-          bitWidth# = \_ -> \_ -> 8
+          bitfieldOffset# = \_ -> \_ -> 21
+          bitfieldWidth# = \_ -> \_ -> 8
 instance TyEq ty (CBitfieldType Colour "colour_blue") =>
-         HasField "colour_blue"
-                  (Ptr Colour)
-                  (BitfieldPtr Colour "colour_blue")
-    where getField = ptrToCBitfield (Proxy @"colour_blue")
+         HasField "colour_blue" (Ptr Colour) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"colour_blue")
 {-| __C declaration:__ @myInt@
 
     __defined at:__ @manual\/zero_copy.h 50:13@
@@ -537,7 +527,7 @@ newtype MyInt
                       Real)
 instance TyEq ty (CFieldType MyInt "un_MyInt") =>
          HasField "un_MyInt" (Ptr MyInt) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MyInt")
+    where getField = fromPtr (Proxy @"un_MyInt")
 instance HasCField MyInt "un_MyInt"
     where type CFieldType MyInt "un_MyInt" = CInt
           offset# = \_ -> \_ -> 0
@@ -572,22 +562,22 @@ data Drawing
 instance Storable Drawing
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Drawing <*> peekCField (Proxy @"drawing_shape") ptr_0) <*> peekCField (Proxy @"drawing_colour") ptr_0
+          peek = \ptr_0 -> (pure Drawing <*> peek (Proxy @"drawing_shape") ptr_0) <*> peek (Proxy @"drawing_colour") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Drawing drawing_shape_3
-                                           drawing_colour_4 -> pokeCField (Proxy @"drawing_shape") ptr_1 drawing_shape_3 >> pokeCField (Proxy @"drawing_colour") ptr_1 drawing_colour_4
+                                           drawing_colour_4 -> poke (Proxy @"drawing_shape") ptr_1 drawing_shape_3 >> poke (Proxy @"drawing_colour") ptr_1 drawing_colour_4
 instance HasCField Drawing "drawing_shape"
     where type CFieldType Drawing "drawing_shape" = Ptr Shape
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Drawing "drawing_shape") =>
          HasField "drawing_shape" (Ptr Drawing) (Ptr ty)
-    where getField = ptrToCField (Proxy @"drawing_shape")
+    where getField = fromPtr (Proxy @"drawing_shape")
 instance HasCField Drawing "drawing_colour"
     where type CFieldType Drawing "drawing_colour" = Ptr Colour
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Drawing "drawing_colour") =>
          HasField "drawing_colour" (Ptr Drawing) (Ptr ty)
-    where getField = ptrToCField (Proxy @"drawing_colour")
+    where getField = fromPtr (Proxy @"drawing_colour")
 {-| __C declaration:__ @struct tic_tac_toe@
 
     __defined at:__ @manual\/zero_copy.h 63:16@
@@ -626,32 +616,32 @@ data Tic_tac_toe
 instance Storable Tic_tac_toe
     where sizeOf = \_ -> 36 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((pure Tic_tac_toe <*> peekCField (Proxy @"tic_tac_toe_row1") ptr_0) <*> peekCField (Proxy @"tic_tac_toe_row2") ptr_0) <*> peekCField (Proxy @"tic_tac_toe_row3") ptr_0
+          peek = \ptr_0 -> ((pure Tic_tac_toe <*> peek (Proxy @"tic_tac_toe_row1") ptr_0) <*> peek (Proxy @"tic_tac_toe_row2") ptr_0) <*> peek (Proxy @"tic_tac_toe_row3") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Tic_tac_toe tic_tac_toe_row1_3
                                                tic_tac_toe_row2_4
-                                               tic_tac_toe_row3_5 -> pokeCField (Proxy @"tic_tac_toe_row1") ptr_1 tic_tac_toe_row1_3 >> (pokeCField (Proxy @"tic_tac_toe_row2") ptr_1 tic_tac_toe_row2_4 >> pokeCField (Proxy @"tic_tac_toe_row3") ptr_1 tic_tac_toe_row3_5)
+                                               tic_tac_toe_row3_5 -> poke (Proxy @"tic_tac_toe_row1") ptr_1 tic_tac_toe_row1_3 >> (poke (Proxy @"tic_tac_toe_row2") ptr_1 tic_tac_toe_row2_4 >> poke (Proxy @"tic_tac_toe_row3") ptr_1 tic_tac_toe_row3_5)
 instance HasCField Tic_tac_toe "tic_tac_toe_row1"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row1" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row1") =>
          HasField "tic_tac_toe_row1" (Ptr Tic_tac_toe) (Ptr ty)
-    where getField = ptrToCField (Proxy @"tic_tac_toe_row1")
+    where getField = fromPtr (Proxy @"tic_tac_toe_row1")
 instance HasCField Tic_tac_toe "tic_tac_toe_row2"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row2" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 12
 instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row2") =>
          HasField "tic_tac_toe_row2" (Ptr Tic_tac_toe) (Ptr ty)
-    where getField = ptrToCField (Proxy @"tic_tac_toe_row2")
+    where getField = fromPtr (Proxy @"tic_tac_toe_row2")
 instance HasCField Tic_tac_toe "tic_tac_toe_row3"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row3" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 24
 instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row3") =>
          HasField "tic_tac_toe_row3" (Ptr Tic_tac_toe) (Ptr ty)
-    where getField = ptrToCField (Proxy @"tic_tac_toe_row3")
+    where getField = fromPtr (Proxy @"tic_tac_toe_row3")
 {-| __C declaration:__ @struct vector@
 
     __defined at:__ @manual\/zero_copy.h 72:8@
@@ -670,9 +660,9 @@ data Vector_Aux
 instance Storable Vector_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Vector <*> peekCField (Proxy @"vector_len") ptr_0
+          peek = \ptr_0 -> pure Vector <*> peek (Proxy @"vector_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Vector vector_len_3 -> pokeCField (Proxy @"vector_len") ptr_1 vector_len_3
+                                   Vector vector_len_3 -> poke (Proxy @"vector_len") ptr_1 vector_len_3
 instance Prim Vector_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -691,7 +681,7 @@ instance HasCField Vector_Aux "vector_len"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Vector_Aux "vector_len") =>
          HasField "vector_len" (Ptr Vector_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"vector_len")
+    where getField = fromPtr (Proxy @"vector_len")
 instance Offset CChar Vector_Aux
     where offset = \_ty_0 -> 4
 type Vector = WithFlam CChar Vector_Aux
@@ -713,7 +703,7 @@ newtype Triplet
     deriving newtype Storable
 instance TyEq ty (CFieldType Triplet "un_Triplet") =>
          HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Triplet")
+    where getField = fromPtr (Proxy @"un_Triplet")
 instance HasCField Triplet "un_Triplet"
     where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
@@ -735,7 +725,7 @@ newtype Matrix
     deriving newtype Storable
 instance TyEq ty (CFieldType Matrix "un_Matrix") =>
          HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Matrix")
+    where getField = fromPtr (Proxy @"un_Matrix")
 instance HasCField Matrix "un_Matrix"
     where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
           offset# = \_ -> \_ -> 0

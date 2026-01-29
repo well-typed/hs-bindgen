@@ -37,7 +37,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Toggle) "un_Toggle")
          ) => GHC.Records.HasField "un_Toggle" (Ptr.Ptr Toggle) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Toggle")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Toggle")
 
 instance HsBindgen.Runtime.HasCField.HasCField Toggle "un_Toggle" where
 
@@ -61,7 +61,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Counter) "un_Counter
          ) => GHC.Records.HasField "un_Counter" (Ptr.Ptr Counter) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Counter")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Counter")
 
 instance HsBindgen.Runtime.HasCField.HasCField Counter "un_Counter" where
 
@@ -85,7 +85,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType VarCounter) "un_VarC
          ) => GHC.Records.HasField "un_VarCounter" (Ptr.Ptr VarCounter) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_VarCounter")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_VarCounter")
 
 instance HsBindgen.Runtime.HasCField.HasCField VarCounter "un_VarCounter" where
 

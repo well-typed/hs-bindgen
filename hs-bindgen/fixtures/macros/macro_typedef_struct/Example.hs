@@ -73,16 +73,16 @@ instance F.Storable Bar where
   peek =
     \ptr0 ->
           pure Bar
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bar_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bar_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bar_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bar_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bar bar_x2 bar_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bar_x") ptr0 bar_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bar_y") ptr0 bar_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bar_x") ptr0 bar_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bar_y") ptr0 bar_y3
 
 instance Data.Primitive.Types.Prim Bar where
 
@@ -150,7 +150,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_x")
          ) => GHC.Records.HasField "bar_x" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_y" where
 
@@ -162,4 +162,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_y")
          ) => GHC.Records.HasField "bar_y" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_y")

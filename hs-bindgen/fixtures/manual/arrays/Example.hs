@@ -39,7 +39,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet
          ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
 
 instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
@@ -64,7 +64,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
          ) => GHC.Records.HasField "un_Matrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Matrix")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Matrix")
 
 instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
 
@@ -90,7 +90,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet_ptrs) "un_Tr
          ) => GHC.Records.HasField "un_Triplet_ptrs" (Ptr.Ptr Triplet_ptrs) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Triplet_ptrs")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet_ptrs")
 
 instance HsBindgen.Runtime.HasCField.HasCField Triplet_ptrs "un_Triplet_ptrs" where
 

@@ -30,17 +30,17 @@ data Linked_list_A_t
 instance Storable Linked_list_A_t
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Linked_list_A_t <*> peekCField (Proxy @"linked_list_A_t_x") ptr_0) <*> peekCField (Proxy @"linked_list_A_t_next") ptr_0
+          peek = \ptr_0 -> (pure Linked_list_A_t <*> peek (Proxy @"linked_list_A_t_x") ptr_0) <*> peek (Proxy @"linked_list_A_t_next") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Linked_list_A_t linked_list_A_t_x_3
-                                                   linked_list_A_t_next_4 -> pokeCField (Proxy @"linked_list_A_t_x") ptr_1 linked_list_A_t_x_3 >> pokeCField (Proxy @"linked_list_A_t_next") ptr_1 linked_list_A_t_next_4
+                                                   linked_list_A_t_next_4 -> poke (Proxy @"linked_list_A_t_x") ptr_1 linked_list_A_t_x_3 >> poke (Proxy @"linked_list_A_t_next") ptr_1 linked_list_A_t_next_4
 instance HasCField Linked_list_A_t "linked_list_A_t_x"
     where type CFieldType Linked_list_A_t "linked_list_A_t_x" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty
               (CFieldType Linked_list_A_t "linked_list_A_t_x") =>
          HasField "linked_list_A_t_x" (Ptr Linked_list_A_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"linked_list_A_t_x")
+    where getField = fromPtr (Proxy @"linked_list_A_t_x")
 instance HasCField Linked_list_A_t "linked_list_A_t_next"
     where type CFieldType Linked_list_A_t
                           "linked_list_A_t_next" = Ptr Linked_list_A_t
@@ -48,7 +48,7 @@ instance HasCField Linked_list_A_t "linked_list_A_t_next"
 instance TyEq ty
               (CFieldType Linked_list_A_t "linked_list_A_t_next") =>
          HasField "linked_list_A_t_next" (Ptr Linked_list_A_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"linked_list_A_t_next")
+    where getField = fromPtr (Proxy @"linked_list_A_t_next")
 {-| __C declaration:__ @struct linked_list_B_t@
 
     __defined at:__ @types\/structs\/recursive_struct.h 9:8@
@@ -80,17 +80,17 @@ data Linked_list_B_t
 instance Storable Linked_list_B_t
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Linked_list_B_t <*> peekCField (Proxy @"linked_list_B_t_x") ptr_0) <*> peekCField (Proxy @"linked_list_B_t_next") ptr_0
+          peek = \ptr_0 -> (pure Linked_list_B_t <*> peek (Proxy @"linked_list_B_t_x") ptr_0) <*> peek (Proxy @"linked_list_B_t_next") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Linked_list_B_t linked_list_B_t_x_3
-                                                   linked_list_B_t_next_4 -> pokeCField (Proxy @"linked_list_B_t_x") ptr_1 linked_list_B_t_x_3 >> pokeCField (Proxy @"linked_list_B_t_next") ptr_1 linked_list_B_t_next_4
+                                                   linked_list_B_t_next_4 -> poke (Proxy @"linked_list_B_t_x") ptr_1 linked_list_B_t_x_3 >> poke (Proxy @"linked_list_B_t_next") ptr_1 linked_list_B_t_next_4
 instance HasCField Linked_list_B_t "linked_list_B_t_x"
     where type CFieldType Linked_list_B_t "linked_list_B_t_x" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty
               (CFieldType Linked_list_B_t "linked_list_B_t_x") =>
          HasField "linked_list_B_t_x" (Ptr Linked_list_B_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"linked_list_B_t_x")
+    where getField = fromPtr (Proxy @"linked_list_B_t_x")
 instance HasCField Linked_list_B_t "linked_list_B_t_next"
     where type CFieldType Linked_list_B_t
                           "linked_list_B_t_next" = Ptr Linked_list_B_t
@@ -98,4 +98,4 @@ instance HasCField Linked_list_B_t "linked_list_B_t_next"
 instance TyEq ty
               (CFieldType Linked_list_B_t "linked_list_B_t_next") =>
          HasField "linked_list_B_t_next" (Ptr Linked_list_B_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"linked_list_B_t_next")
+    where getField = fromPtr (Proxy @"linked_list_B_t_next")

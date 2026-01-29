@@ -72,7 +72,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunction) "un_MyFu
          ) => GHC.Records.HasField "un_MyFunction" (Ptr.Ptr MyFunction) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyFunction")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyFunction")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyFunction "un_MyFunction" where
 

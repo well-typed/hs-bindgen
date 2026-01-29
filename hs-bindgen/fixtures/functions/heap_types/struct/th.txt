@@ -46,9 +46,9 @@ data T
 instance Storable T
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure T <*> peekCField (Proxy @"t_x") ptr_0
+          peek = \ptr_0 -> pure T <*> peek (Proxy @"t_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   T t_x_3 -> pokeCField (Proxy @"t_x") ptr_1 t_x_3
+                                   T t_x_3 -> poke (Proxy @"t_x") ptr_1 t_x_3
 instance Prim T
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -67,7 +67,7 @@ instance HasCField T "t_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType T "t_x") =>
          HasField "t_x" (Ptr T) (Ptr ty)
-    where getField = ptrToCField (Proxy @"t_x")
+    where getField = fromPtr (Proxy @"t_x")
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b1fc_base ::
     Ptr Void

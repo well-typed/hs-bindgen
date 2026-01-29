@@ -55,7 +55,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T2) "un_T2")
          ) => GHC.Records.HasField "un_T2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T2")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_T2")
 
 instance HsBindgen.Runtime.HasCField.HasCField T2 "un_T2" where
 
@@ -91,7 +91,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T4) "un_T4")
          ) => GHC.Records.HasField "un_T4" (Ptr.Ptr T4) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T4")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_T4")
 
 instance HsBindgen.Runtime.HasCField.HasCField T4 "un_T4" where
 

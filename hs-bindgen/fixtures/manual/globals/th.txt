@@ -163,10 +163,10 @@ data GlobalConfig
 instance Storable GlobalConfig
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure GlobalConfig <*> peekCField (Proxy @"globalConfig_numThreads") ptr_0) <*> peekCField (Proxy @"globalConfig_numWorkers") ptr_0
+          peek = \ptr_0 -> (pure GlobalConfig <*> peek (Proxy @"globalConfig_numThreads") ptr_0) <*> peek (Proxy @"globalConfig_numWorkers") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    GlobalConfig globalConfig_numThreads_3
-                                                globalConfig_numWorkers_4 -> pokeCField (Proxy @"globalConfig_numThreads") ptr_1 globalConfig_numThreads_3 >> pokeCField (Proxy @"globalConfig_numWorkers") ptr_1 globalConfig_numWorkers_4
+                                                globalConfig_numWorkers_4 -> poke (Proxy @"globalConfig_numThreads") ptr_1 globalConfig_numThreads_3 >> poke (Proxy @"globalConfig_numWorkers") ptr_1 globalConfig_numWorkers_4
 instance Prim GlobalConfig
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -196,14 +196,14 @@ instance HasCField GlobalConfig "globalConfig_numThreads"
 instance TyEq ty
               (CFieldType GlobalConfig "globalConfig_numThreads") =>
          HasField "globalConfig_numThreads" (Ptr GlobalConfig) (Ptr ty)
-    where getField = ptrToCField (Proxy @"globalConfig_numThreads")
+    where getField = fromPtr (Proxy @"globalConfig_numThreads")
 instance HasCField GlobalConfig "globalConfig_numWorkers"
     where type CFieldType GlobalConfig "globalConfig_numWorkers" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty
               (CFieldType GlobalConfig "globalConfig_numWorkers") =>
          HasField "globalConfig_numWorkers" (Ptr GlobalConfig) (Ptr ty)
-    where getField = ptrToCField (Proxy @"globalConfig_numWorkers")
+    where getField = fromPtr (Proxy @"globalConfig_numWorkers")
 {-| __C declaration:__ @ConstInt@
 
     __defined at:__ @manual\/globals.h 40:19@
@@ -233,7 +233,7 @@ newtype ConstInt
                       Real)
 instance TyEq ty (CFieldType ConstInt "un_ConstInt") =>
          HasField "un_ConstInt" (Ptr ConstInt) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_ConstInt")
+    where getField = fromPtr (Proxy @"un_ConstInt")
 instance HasCField ConstInt "un_ConstInt"
     where type CFieldType ConstInt "un_ConstInt" = CInt
           offset# = \_ -> \_ -> 0
@@ -268,10 +268,10 @@ data Tuple
 instance Storable Tuple
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Tuple <*> peekCField (Proxy @"tuple_x") ptr_0) <*> peekCField (Proxy @"tuple_y") ptr_0
+          peek = \ptr_0 -> (pure Tuple <*> peek (Proxy @"tuple_x") ptr_0) <*> peek (Proxy @"tuple_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Tuple tuple_x_3
-                                         tuple_y_4 -> pokeCField (Proxy @"tuple_x") ptr_1 tuple_x_3 >> pokeCField (Proxy @"tuple_y") ptr_1 tuple_y_4
+                                         tuple_y_4 -> poke (Proxy @"tuple_x") ptr_1 tuple_x_3 >> poke (Proxy @"tuple_y") ptr_1 tuple_y_4
 instance Prim Tuple
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -300,13 +300,13 @@ instance HasCField Tuple "tuple_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Tuple "tuple_x") =>
          HasField "tuple_x" (Ptr Tuple) (Ptr ty)
-    where getField = ptrToCField (Proxy @"tuple_x")
+    where getField = fromPtr (Proxy @"tuple_x")
 instance HasCField Tuple "tuple_y"
     where type CFieldType Tuple "tuple_y" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Tuple "tuple_y") =>
          HasField "tuple_y" (Ptr Tuple) (Ptr ty)
-    where getField = ptrToCField (Proxy @"tuple_y")
+    where getField = fromPtr (Proxy @"tuple_y")
 {-| __C declaration:__ @triplet@
 
     __defined at:__ @manual\/globals.h 81:13@
@@ -325,7 +325,7 @@ newtype Triplet
     deriving newtype Storable
 instance TyEq ty (CFieldType Triplet "un_Triplet") =>
          HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Triplet")
+    where getField = fromPtr (Proxy @"un_Triplet")
 instance HasCField Triplet "un_Triplet"
     where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
@@ -346,7 +346,7 @@ newtype List
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType List "un_List") =>
          HasField "un_List" (Ptr List) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_List")
+    where getField = fromPtr (Proxy @"un_List")
 instance HasCField List "un_List"
     where type CFieldType List "un_List" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0

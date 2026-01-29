@@ -23,15 +23,15 @@ data S
 instance Storable S
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure S <*> peekCField (Proxy @"s_f") ptr_0
+          peek = \ptr_0 -> pure S <*> peek (Proxy @"s_f") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S s_f_3 -> pokeCField (Proxy @"s_f") ptr_1 s_f_3
+                                   S s_f_3 -> poke (Proxy @"s_f") ptr_1 s_f_3
 instance HasCField S "s_f"
     where type CFieldType S "s_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S "s_f") =>
          HasField "s_f" (Ptr S) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s_f")
+    where getField = fromPtr (Proxy @"s_f")
 {-| __C declaration:__ @more_aligned_int@
 
     __defined at:__ @attributes\/type_attributes.h 9:13@
@@ -62,7 +62,7 @@ newtype More_aligned_int
 instance TyEq ty
               (CFieldType More_aligned_int "un_More_aligned_int") =>
          HasField "un_More_aligned_int" (Ptr More_aligned_int) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_More_aligned_int")
+    where getField = fromPtr (Proxy @"un_More_aligned_int")
 instance HasCField More_aligned_int "un_More_aligned_int"
     where type CFieldType More_aligned_int "un_More_aligned_int" = CInt
           offset# = \_ -> \_ -> 0
@@ -90,15 +90,15 @@ data S2
 instance Storable S2
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 16 :: Int
-          peek = \ptr_0 -> pure S2 <*> peekCField (Proxy @"s2_f") ptr_0
+          peek = \ptr_0 -> pure S2 <*> peek (Proxy @"s2_f") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2 s2_f_3 -> pokeCField (Proxy @"s2_f") ptr_1 s2_f_3
+                                   S2 s2_f_3 -> poke (Proxy @"s2_f") ptr_1 s2_f_3
 instance HasCField S2 "s2_f"
     where type CFieldType S2 "s2_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S2 "s2_f") =>
          HasField "s2_f" (Ptr S2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s2_f")
+    where getField = fromPtr (Proxy @"s2_f")
 {-| __C declaration:__ @struct my_unpacked_struct@
 
     __defined at:__ @attributes\/type_attributes.h 13:8@
@@ -130,10 +130,10 @@ data My_unpacked_struct
 instance Storable My_unpacked_struct
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure My_unpacked_struct <*> peekCField (Proxy @"my_unpacked_struct_c") ptr_0) <*> peekCField (Proxy @"my_unpacked_struct_i") ptr_0
+          peek = \ptr_0 -> (pure My_unpacked_struct <*> peek (Proxy @"my_unpacked_struct_c") ptr_0) <*> peek (Proxy @"my_unpacked_struct_i") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    My_unpacked_struct my_unpacked_struct_c_3
-                                                      my_unpacked_struct_i_4 -> pokeCField (Proxy @"my_unpacked_struct_c") ptr_1 my_unpacked_struct_c_3 >> pokeCField (Proxy @"my_unpacked_struct_i") ptr_1 my_unpacked_struct_i_4
+                                                      my_unpacked_struct_i_4 -> poke (Proxy @"my_unpacked_struct_c") ptr_1 my_unpacked_struct_c_3 >> poke (Proxy @"my_unpacked_struct_i") ptr_1 my_unpacked_struct_i_4
 instance Prim My_unpacked_struct
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -164,7 +164,7 @@ instance HasCField My_unpacked_struct "my_unpacked_struct_c"
 instance TyEq ty
               (CFieldType My_unpacked_struct "my_unpacked_struct_c") =>
          HasField "my_unpacked_struct_c" (Ptr My_unpacked_struct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"my_unpacked_struct_c")
+    where getField = fromPtr (Proxy @"my_unpacked_struct_c")
 instance HasCField My_unpacked_struct "my_unpacked_struct_i"
     where type CFieldType My_unpacked_struct
                           "my_unpacked_struct_i" = CInt
@@ -172,7 +172,7 @@ instance HasCField My_unpacked_struct "my_unpacked_struct_i"
 instance TyEq ty
               (CFieldType My_unpacked_struct "my_unpacked_struct_i") =>
          HasField "my_unpacked_struct_i" (Ptr My_unpacked_struct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"my_unpacked_struct_i")
+    where getField = fromPtr (Proxy @"my_unpacked_struct_i")
 {-| __C declaration:__ @struct my_packed_struct@
 
     __defined at:__ @attributes\/type_attributes.h 19:37@
@@ -211,11 +211,11 @@ data My_packed_struct
 instance Storable My_packed_struct
     where sizeOf = \_ -> 13 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> ((pure My_packed_struct <*> peekCField (Proxy @"my_packed_struct_c") ptr_0) <*> peekCField (Proxy @"my_packed_struct_i") ptr_0) <*> peekCField (Proxy @"my_packed_struct_s") ptr_0
+          peek = \ptr_0 -> ((pure My_packed_struct <*> peek (Proxy @"my_packed_struct_c") ptr_0) <*> peek (Proxy @"my_packed_struct_i") ptr_0) <*> peek (Proxy @"my_packed_struct_s") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    My_packed_struct my_packed_struct_c_3
                                                     my_packed_struct_i_4
-                                                    my_packed_struct_s_5 -> pokeCField (Proxy @"my_packed_struct_c") ptr_1 my_packed_struct_c_3 >> (pokeCField (Proxy @"my_packed_struct_i") ptr_1 my_packed_struct_i_4 >> pokeCField (Proxy @"my_packed_struct_s") ptr_1 my_packed_struct_s_5)
+                                                    my_packed_struct_s_5 -> poke (Proxy @"my_packed_struct_c") ptr_1 my_packed_struct_c_3 >> (poke (Proxy @"my_packed_struct_i") ptr_1 my_packed_struct_i_4 >> poke (Proxy @"my_packed_struct_s") ptr_1 my_packed_struct_s_5)
 instance Prim My_packed_struct
     where sizeOf# = \_ -> 13# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -255,14 +255,14 @@ instance HasCField My_packed_struct "my_packed_struct_c"
 instance TyEq ty
               (CFieldType My_packed_struct "my_packed_struct_c") =>
          HasField "my_packed_struct_c" (Ptr My_packed_struct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"my_packed_struct_c")
+    where getField = fromPtr (Proxy @"my_packed_struct_c")
 instance HasCField My_packed_struct "my_packed_struct_i"
     where type CFieldType My_packed_struct "my_packed_struct_i" = CInt
           offset# = \_ -> \_ -> 1
 instance TyEq ty
               (CFieldType My_packed_struct "my_packed_struct_i") =>
          HasField "my_packed_struct_i" (Ptr My_packed_struct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"my_packed_struct_i")
+    where getField = fromPtr (Proxy @"my_packed_struct_i")
 instance HasCField My_packed_struct "my_packed_struct_s"
     where type CFieldType My_packed_struct
                           "my_packed_struct_s" = My_unpacked_struct
@@ -270,7 +270,7 @@ instance HasCField My_packed_struct "my_packed_struct_s"
 instance TyEq ty
               (CFieldType My_packed_struct "my_packed_struct_s") =>
          HasField "my_packed_struct_s" (Ptr My_packed_struct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"my_packed_struct_s")
+    where getField = fromPtr (Proxy @"my_packed_struct_s")
 {-| __C declaration:__ @union wait_status_ptr_t@
 
     __defined at:__ @attributes\/type_attributes.h 26:9@
@@ -363,7 +363,7 @@ instance HasCField Wait_status_ptr_t "wait_status_ptr_t___ip"
 instance TyEq ty
               (CFieldType Wait_status_ptr_t "wait_status_ptr_t___ip") =>
          HasField "wait_status_ptr_t___ip" (Ptr Wait_status_ptr_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"wait_status_ptr_t___ip")
+    where getField = fromPtr (Proxy @"wait_status_ptr_t___ip")
 instance HasCField Wait_status_ptr_t "wait_status_ptr_t___up"
     where type CFieldType Wait_status_ptr_t
                           "wait_status_ptr_t___up" = Ptr Wait
@@ -371,7 +371,7 @@ instance HasCField Wait_status_ptr_t "wait_status_ptr_t___up"
 instance TyEq ty
               (CFieldType Wait_status_ptr_t "wait_status_ptr_t___up") =>
          HasField "wait_status_ptr_t___up" (Ptr Wait_status_ptr_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"wait_status_ptr_t___up")
+    where getField = fromPtr (Proxy @"wait_status_ptr_t___up")
 {-| __C declaration:__ @union wait@
 
     __defined at:__ @attributes\/type_attributes.h 29:9@
@@ -408,7 +408,7 @@ newtype T1
                       Real)
 instance TyEq ty (CFieldType T1 "un_T1") =>
          HasField "un_T1" (Ptr T1) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_T1")
+    where getField = fromPtr (Proxy @"un_T1")
 instance HasCField T1 "un_T1"
     where type CFieldType T1 "un_T1" = CInt
           offset# = \_ -> \_ -> 0
@@ -441,7 +441,7 @@ newtype Short_a
                       Real)
 instance TyEq ty (CFieldType Short_a "un_Short_a") =>
          HasField "un_Short_a" (Ptr Short_a) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Short_a")
+    where getField = fromPtr (Proxy @"un_Short_a")
 instance HasCField Short_a "un_Short_a"
     where type CFieldType Short_a "un_Short_a" = CShort
           offset# = \_ -> \_ -> 0

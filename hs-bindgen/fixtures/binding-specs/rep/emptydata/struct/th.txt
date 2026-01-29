@@ -52,10 +52,10 @@ data Named
 instance Storable Named
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Named <*> peekCField (Proxy @"named_e") ptr_0) <*> peekCField (Proxy @"named_f") ptr_0
+          peek = \ptr_0 -> (pure Named <*> peek (Proxy @"named_e") ptr_0) <*> peek (Proxy @"named_f") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Named named_e_3
-                                         named_f_4 -> pokeCField (Proxy @"named_e") ptr_1 named_e_3 >> pokeCField (Proxy @"named_f") ptr_1 named_f_4
+                                         named_f_4 -> poke (Proxy @"named_e") ptr_1 named_e_3 >> poke (Proxy @"named_f") ptr_1 named_f_4
 instance Prim Named
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -84,13 +84,13 @@ instance HasCField Named "named_e"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Named "named_e") =>
          HasField "named_e" (Ptr Named) (Ptr ty)
-    where getField = ptrToCField (Proxy @"named_e")
+    where getField = fromPtr (Proxy @"named_e")
 instance HasCField Named "named_f"
     where type CFieldType Named "named_f" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Named "named_f") =>
          HasField "named_f" (Ptr Named) (Ptr ty)
-    where getField = ptrToCField (Proxy @"named_f")
+    where getField = fromPtr (Proxy @"named_f")
 {-| __C declaration:__ @struct oan@
 
     __defined at:__ @binding-specs\/rep\/emptydata\/struct.h 24:8@

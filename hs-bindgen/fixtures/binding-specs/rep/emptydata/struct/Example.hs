@@ -81,16 +81,16 @@ instance F.Storable Named where
   peek =
     \ptr0 ->
           pure Named
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"named_e") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"named_f") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"named_e") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"named_f") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Named named_e2 named_f3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"named_e") ptr0 named_e2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"named_f") ptr0 named_f3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"named_e") ptr0 named_e2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"named_f") ptr0 named_f3
 
 instance Data.Primitive.Types.Prim Named where
 
@@ -158,7 +158,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named) "named_e")
          ) => GHC.Records.HasField "named_e" (Ptr.Ptr Named) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"named_e")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_e")
 
 instance HsBindgen.Runtime.HasCField.HasCField Named "named_f" where
 
@@ -170,7 +170,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named) "named_f")
          ) => GHC.Records.HasField "named_f" (Ptr.Ptr Named) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"named_f")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_f")
 
 {-| __C declaration:__ @struct oan@
 

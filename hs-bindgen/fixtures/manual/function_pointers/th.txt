@@ -233,7 +233,7 @@ instance FromFunPtr Int2int
     where fromFunPtr = hs_bindgen_65378a8a3cf640ad
 instance TyEq ty (CFieldType Int2int "un_Int2int") =>
          HasField "un_Int2int" (Ptr Int2int) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Int2int")
+    where getField = fromPtr (Proxy @"un_Int2int")
 instance HasCField Int2int "un_Int2int"
     where type CFieldType Int2int "un_Int2int" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
@@ -266,9 +266,9 @@ data Apply1Struct
 instance Storable Apply1Struct
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Apply1Struct <*> peekCField (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_0
+          peek = \ptr_0 -> pure Apply1Struct <*> peek (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Apply1Struct apply1Struct_apply1_nopointer_struct_field_3 -> pokeCField (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_1 apply1Struct_apply1_nopointer_struct_field_3
+                                   Apply1Struct apply1Struct_apply1_nopointer_struct_field_3 -> poke (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_1 apply1Struct_apply1_nopointer_struct_field_3
 instance HasCField Apply1Struct
                    "apply1Struct_apply1_nopointer_struct_field"
     where type CFieldType Apply1Struct
@@ -281,7 +281,7 @@ instance TyEq ty
          HasField "apply1Struct_apply1_nopointer_struct_field"
                   (Ptr Apply1Struct)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"apply1Struct_apply1_nopointer_struct_field")
+    where getField = fromPtr (Proxy @"apply1Struct_apply1_nopointer_struct_field")
 {-| A union field pointing to a function like apply1_nopointer().
 
 __C declaration:__ @union Apply1Union@
@@ -351,7 +351,7 @@ instance TyEq ty
          HasField "apply1Union_apply1_nopointer_union_field"
                   (Ptr Apply1Union)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"apply1Union_apply1_nopointer_union_field")
+    where getField = fromPtr (Proxy @"apply1Union_apply1_nopointer_union_field")
 foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea_base ::
     FunPtr Void -> Int32 -> IO Int32
  -> IO (FunPtr (FunPtr Void -> Int32 -> IO Int32))

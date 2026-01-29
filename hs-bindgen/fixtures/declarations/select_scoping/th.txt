@@ -30,7 +30,7 @@ newtype ParsedAndSelected1
 instance TyEq ty
               (CFieldType ParsedAndSelected1 "un_ParsedAndSelected1") =>
          HasField "un_ParsedAndSelected1" (Ptr ParsedAndSelected1) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_ParsedAndSelected1")
+    where getField = fromPtr (Proxy @"un_ParsedAndSelected1")
 instance HasCField ParsedAndSelected1 "un_ParsedAndSelected1"
     where type CFieldType ParsedAndSelected1
                           "un_ParsedAndSelected1" = CInt

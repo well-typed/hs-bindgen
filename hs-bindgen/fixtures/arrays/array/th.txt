@@ -669,7 +669,7 @@ newtype Triplet
     deriving newtype Storable
 instance TyEq ty (CFieldType Triplet "un_Triplet") =>
          HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Triplet")
+    where getField = fromPtr (Proxy @"un_Triplet")
 instance HasCField Triplet "un_Triplet"
     where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
@@ -690,7 +690,7 @@ newtype List
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType List "un_List") =>
          HasField "un_List" (Ptr List) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_List")
+    where getField = fromPtr (Proxy @"un_List")
 instance HasCField List "un_List"
     where type CFieldType List "un_List" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
@@ -712,7 +712,7 @@ newtype Matrix
     deriving newtype Storable
 instance TyEq ty (CFieldType Matrix "un_Matrix") =>
          HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Matrix")
+    where getField = fromPtr (Proxy @"un_Matrix")
 instance HasCField Matrix "un_Matrix"
     where type CFieldType Matrix "un_Matrix" = ConstantArray 4
                                                              (ConstantArray 3 CInt)
@@ -735,7 +735,7 @@ newtype Tripletlist
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Tripletlist "un_Tripletlist") =>
          HasField "un_Tripletlist" (Ptr Tripletlist) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Tripletlist")
+    where getField = fromPtr (Proxy @"un_Tripletlist")
 instance HasCField Tripletlist "un_Tripletlist"
     where type CFieldType Tripletlist
                           "un_Tripletlist" = IncompleteArray (ConstantArray 3 CInt)
@@ -771,24 +771,24 @@ data Example
 instance Storable Example
     where sizeOf = \_ -> 48 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Example <*> peekCField (Proxy @"example_triple") ptr_0) <*> peekCField (Proxy @"example_sudoku") ptr_0
+          peek = \ptr_0 -> (pure Example <*> peek (Proxy @"example_triple") ptr_0) <*> peek (Proxy @"example_sudoku") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Example example_triple_3
-                                           example_sudoku_4 -> pokeCField (Proxy @"example_triple") ptr_1 example_triple_3 >> pokeCField (Proxy @"example_sudoku") ptr_1 example_sudoku_4
+                                           example_sudoku_4 -> poke (Proxy @"example_triple") ptr_1 example_triple_3 >> poke (Proxy @"example_sudoku") ptr_1 example_sudoku_4
 instance HasCField Example "example_triple"
     where type CFieldType Example "example_triple" = ConstantArray 3
                                                                    CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Example "example_triple") =>
          HasField "example_triple" (Ptr Example) (Ptr ty)
-    where getField = ptrToCField (Proxy @"example_triple")
+    where getField = fromPtr (Proxy @"example_triple")
 instance HasCField Example "example_sudoku"
     where type CFieldType Example "example_sudoku" = ConstantArray 3
                                                                    (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 12
 instance TyEq ty (CFieldType Example "example_sudoku") =>
          HasField "example_sudoku" (Ptr Example) (Ptr ty)
-    where getField = ptrToCField (Proxy @"example_sudoku")
+    where getField = fromPtr (Proxy @"example_sudoku")
 {-| Typedef-in-typedef
 
 __C declaration:__ @sudoku@
@@ -811,7 +811,7 @@ newtype Sudoku
     deriving newtype Storable
 instance TyEq ty (CFieldType Sudoku "un_Sudoku") =>
          HasField "un_Sudoku" (Ptr Sudoku) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Sudoku")
+    where getField = fromPtr (Proxy @"un_Sudoku")
 instance HasCField Sudoku "un_Sudoku"
     where type CFieldType Sudoku "un_Sudoku" = ConstantArray 3 Triplet
           offset# = \_ -> \_ -> 0

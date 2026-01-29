@@ -79,7 +79,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tty) "un_Tty")
          ) => GHC.Records.HasField "un_Tty" (Ptr.Ptr Tty) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Tty")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Tty")
 
 instance HsBindgen.Runtime.HasCField.HasCField Tty "un_Tty" where
 
@@ -127,7 +127,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Boolean_T) "un_Boole
          ) => GHC.Records.HasField "un_Boolean_T" (Ptr.Ptr Boolean_T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Boolean_T")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Boolean_T")
 
 instance HsBindgen.Runtime.HasCField.HasCField Boolean_T "un_Boolean_T" where
 

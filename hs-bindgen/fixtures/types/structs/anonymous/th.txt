@@ -30,10 +30,10 @@ data S1_c
 instance Storable S1_c
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S1_c <*> peekCField (Proxy @"s1_c_a") ptr_0) <*> peekCField (Proxy @"s1_c_b") ptr_0
+          peek = \ptr_0 -> (pure S1_c <*> peek (Proxy @"s1_c_a") ptr_0) <*> peek (Proxy @"s1_c_b") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S1_c s1_c_a_3
-                                        s1_c_b_4 -> pokeCField (Proxy @"s1_c_a") ptr_1 s1_c_a_3 >> pokeCField (Proxy @"s1_c_b") ptr_1 s1_c_b_4
+                                        s1_c_b_4 -> poke (Proxy @"s1_c_a") ptr_1 s1_c_a_3 >> poke (Proxy @"s1_c_b") ptr_1 s1_c_b_4
 instance Prim S1_c
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -62,13 +62,13 @@ instance HasCField S1_c "s1_c_a"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S1_c "s1_c_a") =>
          HasField "s1_c_a" (Ptr S1_c) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s1_c_a")
+    where getField = fromPtr (Proxy @"s1_c_a")
 instance HasCField S1_c "s1_c_b"
     where type CFieldType S1_c "s1_c_b" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType S1_c "s1_c_b") =>
          HasField "s1_c_b" (Ptr S1_c) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s1_c_b")
+    where getField = fromPtr (Proxy @"s1_c_b")
 {-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/structs\/anonymous.h 2:8@
@@ -100,10 +100,10 @@ data S1
 instance Storable S1
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S1 <*> peekCField (Proxy @"s1_c") ptr_0) <*> peekCField (Proxy @"s1_d") ptr_0
+          peek = \ptr_0 -> (pure S1 <*> peek (Proxy @"s1_c") ptr_0) <*> peek (Proxy @"s1_d") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S1 s1_c_3
-                                      s1_d_4 -> pokeCField (Proxy @"s1_c") ptr_1 s1_c_3 >> pokeCField (Proxy @"s1_d") ptr_1 s1_d_4
+                                      s1_d_4 -> poke (Proxy @"s1_c") ptr_1 s1_c_3 >> poke (Proxy @"s1_d") ptr_1 s1_d_4
 instance Prim S1
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -132,13 +132,13 @@ instance HasCField S1 "s1_c"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S1 "s1_c") =>
          HasField "s1_c" (Ptr S1) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s1_c")
+    where getField = fromPtr (Proxy @"s1_c")
 instance HasCField S1 "s1_d"
     where type CFieldType S1 "s1_d" = CInt
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType S1 "s1_d") =>
          HasField "s1_d" (Ptr S1) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s1_d")
+    where getField = fromPtr (Proxy @"s1_d")
 {-| __C declaration:__ @struct \@S2_inner_deep@
 
     __defined at:__ @types\/structs\/anonymous.h 15:5@
@@ -163,9 +163,9 @@ data S2_inner_deep
 instance Storable S2_inner_deep
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure S2_inner_deep <*> peekCField (Proxy @"s2_inner_deep_b") ptr_0
+          peek = \ptr_0 -> pure S2_inner_deep <*> peek (Proxy @"s2_inner_deep_b") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2_inner_deep s2_inner_deep_b_3 -> pokeCField (Proxy @"s2_inner_deep_b") ptr_1 s2_inner_deep_b_3
+                                   S2_inner_deep s2_inner_deep_b_3 -> poke (Proxy @"s2_inner_deep_b") ptr_1 s2_inner_deep_b_3
 instance Prim S2_inner_deep
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -185,7 +185,7 @@ instance HasCField S2_inner_deep "s2_inner_deep_b"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S2_inner_deep "s2_inner_deep_b") =>
          HasField "s2_inner_deep_b" (Ptr S2_inner_deep) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s2_inner_deep_b")
+    where getField = fromPtr (Proxy @"s2_inner_deep_b")
 {-| __C declaration:__ @struct \@S2_inner@
 
     __defined at:__ @types\/structs\/anonymous.h 13:3@
@@ -217,10 +217,10 @@ data S2_inner
 instance Storable S2_inner
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S2_inner <*> peekCField (Proxy @"s2_inner_a") ptr_0) <*> peekCField (Proxy @"s2_inner_deep") ptr_0
+          peek = \ptr_0 -> (pure S2_inner <*> peek (Proxy @"s2_inner_a") ptr_0) <*> peek (Proxy @"s2_inner_deep") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2_inner s2_inner_a_3
-                                            s2_inner_deep_4 -> pokeCField (Proxy @"s2_inner_a") ptr_1 s2_inner_a_3 >> pokeCField (Proxy @"s2_inner_deep") ptr_1 s2_inner_deep_4
+                                            s2_inner_deep_4 -> poke (Proxy @"s2_inner_a") ptr_1 s2_inner_a_3 >> poke (Proxy @"s2_inner_deep") ptr_1 s2_inner_deep_4
 instance Prim S2_inner
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -249,13 +249,13 @@ instance HasCField S2_inner "s2_inner_a"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S2_inner "s2_inner_a") =>
          HasField "s2_inner_a" (Ptr S2_inner) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s2_inner_a")
+    where getField = fromPtr (Proxy @"s2_inner_a")
 instance HasCField S2_inner "s2_inner_deep"
     where type CFieldType S2_inner "s2_inner_deep" = S2_inner_deep
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType S2_inner "s2_inner_deep") =>
          HasField "s2_inner_deep" (Ptr S2_inner) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s2_inner_deep")
+    where getField = fromPtr (Proxy @"s2_inner_deep")
 {-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/structs\/anonymous.h 12:8@
@@ -287,10 +287,10 @@ data S2
 instance Storable S2
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S2 <*> peekCField (Proxy @"s2_inner") ptr_0) <*> peekCField (Proxy @"s2_d") ptr_0
+          peek = \ptr_0 -> (pure S2 <*> peek (Proxy @"s2_inner") ptr_0) <*> peek (Proxy @"s2_d") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2 s2_inner_3
-                                      s2_d_4 -> pokeCField (Proxy @"s2_inner") ptr_1 s2_inner_3 >> pokeCField (Proxy @"s2_d") ptr_1 s2_d_4
+                                      s2_d_4 -> poke (Proxy @"s2_inner") ptr_1 s2_inner_3 >> poke (Proxy @"s2_d") ptr_1 s2_d_4
 instance Prim S2
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -319,13 +319,13 @@ instance HasCField S2 "s2_inner"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S2 "s2_inner") =>
          HasField "s2_inner" (Ptr S2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s2_inner")
+    where getField = fromPtr (Proxy @"s2_inner")
 instance HasCField S2 "s2_d"
     where type CFieldType S2 "s2_d" = CInt
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType S2 "s2_d") =>
          HasField "s2_d" (Ptr S2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s2_d")
+    where getField = fromPtr (Proxy @"s2_d")
 {-| __C declaration:__ @struct S3@
 
     __defined at:__ @types\/structs\/anonymous.h 24:8@
@@ -357,22 +357,22 @@ data S3
 instance Storable S3
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure S3 <*> peekCField (Proxy @"s3_c") ptr_0) <*> peekCField (Proxy @"s3_d") ptr_0
+          peek = \ptr_0 -> (pure S3 <*> peek (Proxy @"s3_c") ptr_0) <*> peek (Proxy @"s3_d") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S3 s3_c_3
-                                      s3_d_4 -> pokeCField (Proxy @"s3_c") ptr_1 s3_c_3 >> pokeCField (Proxy @"s3_d") ptr_1 s3_d_4
+                                      s3_d_4 -> poke (Proxy @"s3_c") ptr_1 s3_c_3 >> poke (Proxy @"s3_d") ptr_1 s3_d_4
 instance HasCField S3 "s3_c"
     where type CFieldType S3 "s3_c" = Ptr (Ptr S3_c)
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S3 "s3_c") =>
          HasField "s3_c" (Ptr S3) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s3_c")
+    where getField = fromPtr (Proxy @"s3_c")
 instance HasCField S3 "s3_d"
     where type CFieldType S3 "s3_d" = CInt
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType S3 "s3_d") =>
          HasField "s3_d" (Ptr S3) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s3_d")
+    where getField = fromPtr (Proxy @"s3_d")
 {-| __C declaration:__ @struct \@S3_c@
 
     __defined at:__ @types\/structs\/anonymous.h 25:3@
@@ -404,10 +404,10 @@ data S3_c
 instance Storable S3_c
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S3_c <*> peekCField (Proxy @"s3_c_a") ptr_0) <*> peekCField (Proxy @"s3_c_b") ptr_0
+          peek = \ptr_0 -> (pure S3_c <*> peek (Proxy @"s3_c_a") ptr_0) <*> peek (Proxy @"s3_c_b") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S3_c s3_c_a_3
-                                        s3_c_b_4 -> pokeCField (Proxy @"s3_c_a") ptr_1 s3_c_a_3 >> pokeCField (Proxy @"s3_c_b") ptr_1 s3_c_b_4
+                                        s3_c_b_4 -> poke (Proxy @"s3_c_a") ptr_1 s3_c_a_3 >> poke (Proxy @"s3_c_b") ptr_1 s3_c_b_4
 instance Prim S3_c
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -436,10 +436,10 @@ instance HasCField S3_c "s3_c_a"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S3_c "s3_c_a") =>
          HasField "s3_c_a" (Ptr S3_c) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s3_c_a")
+    where getField = fromPtr (Proxy @"s3_c_a")
 instance HasCField S3_c "s3_c_b"
     where type CFieldType S3_c "s3_c_b" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType S3_c "s3_c_b") =>
          HasField "s3_c_b" (Ptr S3_c) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s3_c_b")
+    where getField = fromPtr (Proxy @"s3_c_b")

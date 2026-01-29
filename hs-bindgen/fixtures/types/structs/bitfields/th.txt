@@ -58,14 +58,14 @@ data Flags
 instance Storable Flags
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (((((pure Flags <*> peekCField (Proxy @"flags_fieldX") ptr_0) <*> peekCBitfield (Proxy @"flags_flagA") ptr_0) <*> peekCBitfield (Proxy @"flags_flagB") ptr_0) <*> peekCBitfield (Proxy @"flags_flagC") ptr_0) <*> peekCField (Proxy @"flags_fieldY") ptr_0) <*> peekCBitfield (Proxy @"flags_bits") ptr_0
+          peek = \ptr_0 -> (((((pure Flags <*> peek (Proxy @"flags_fieldX") ptr_0) <*> peek (Proxy @"flags_flagA") ptr_0) <*> peek (Proxy @"flags_flagB") ptr_0) <*> peek (Proxy @"flags_flagC") ptr_0) <*> peek (Proxy @"flags_fieldY") ptr_0) <*> peek (Proxy @"flags_bits") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Flags flags_fieldX_3
                                          flags_flagA_4
                                          flags_flagB_5
                                          flags_flagC_6
                                          flags_fieldY_7
-                                         flags_bits_8 -> pokeCField (Proxy @"flags_fieldX") ptr_1 flags_fieldX_3 >> (pokeCBitfield (Proxy @"flags_flagA") ptr_1 flags_flagA_4 >> (pokeCBitfield (Proxy @"flags_flagB") ptr_1 flags_flagB_5 >> (pokeCBitfield (Proxy @"flags_flagC") ptr_1 flags_flagC_6 >> (pokeCField (Proxy @"flags_fieldY") ptr_1 flags_fieldY_7 >> pokeCBitfield (Proxy @"flags_bits") ptr_1 flags_bits_8))))
+                                         flags_bits_8 -> poke (Proxy @"flags_fieldX") ptr_1 flags_fieldX_3 >> (poke (Proxy @"flags_flagA") ptr_1 flags_flagA_4 >> (poke (Proxy @"flags_flagB") ptr_1 flags_flagB_5 >> (poke (Proxy @"flags_flagC") ptr_1 flags_flagC_6 >> (poke (Proxy @"flags_fieldY") ptr_1 flags_fieldY_7 >> poke (Proxy @"flags_bits") ptr_1 flags_bits_8))))
 instance Prim Flags
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -128,47 +128,41 @@ instance HasCField Flags "flags_fieldX"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Flags "flags_fieldX") =>
          HasField "flags_fieldX" (Ptr Flags) (Ptr ty)
-    where getField = ptrToCField (Proxy @"flags_fieldX")
+    where getField = fromPtr (Proxy @"flags_fieldX")
 instance HasCBitfield Flags "flags_flagA"
     where type CBitfieldType Flags "flags_flagA" = CInt
-          bitOffset# = \_ -> \_ -> 8
-          bitWidth# = \_ -> \_ -> 1
+          bitfieldOffset# = \_ -> \_ -> 8
+          bitfieldWidth# = \_ -> \_ -> 1
 instance TyEq ty (CBitfieldType Flags "flags_flagA") =>
-         HasField "flags_flagA"
-                  (Ptr Flags)
-                  (BitfieldPtr Flags "flags_flagA")
-    where getField = ptrToCBitfield (Proxy @"flags_flagA")
+         HasField "flags_flagA" (Ptr Flags) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"flags_flagA")
 instance HasCBitfield Flags "flags_flagB"
     where type CBitfieldType Flags "flags_flagB" = CInt
-          bitOffset# = \_ -> \_ -> 9
-          bitWidth# = \_ -> \_ -> 1
+          bitfieldOffset# = \_ -> \_ -> 9
+          bitfieldWidth# = \_ -> \_ -> 1
 instance TyEq ty (CBitfieldType Flags "flags_flagB") =>
-         HasField "flags_flagB"
-                  (Ptr Flags)
-                  (BitfieldPtr Flags "flags_flagB")
-    where getField = ptrToCBitfield (Proxy @"flags_flagB")
+         HasField "flags_flagB" (Ptr Flags) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"flags_flagB")
 instance HasCBitfield Flags "flags_flagC"
     where type CBitfieldType Flags "flags_flagC" = CInt
-          bitOffset# = \_ -> \_ -> 10
-          bitWidth# = \_ -> \_ -> 1
+          bitfieldOffset# = \_ -> \_ -> 10
+          bitfieldWidth# = \_ -> \_ -> 1
 instance TyEq ty (CBitfieldType Flags "flags_flagC") =>
-         HasField "flags_flagC"
-                  (Ptr Flags)
-                  (BitfieldPtr Flags "flags_flagC")
-    where getField = ptrToCBitfield (Proxy @"flags_flagC")
+         HasField "flags_flagC" (Ptr Flags) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"flags_flagC")
 instance HasCField Flags "flags_fieldY"
     where type CFieldType Flags "flags_fieldY" = CChar
           offset# = \_ -> \_ -> 2
 instance TyEq ty (CFieldType Flags "flags_fieldY") =>
          HasField "flags_fieldY" (Ptr Flags) (Ptr ty)
-    where getField = ptrToCField (Proxy @"flags_fieldY")
+    where getField = fromPtr (Proxy @"flags_fieldY")
 instance HasCBitfield Flags "flags_bits"
     where type CBitfieldType Flags "flags_bits" = CInt
-          bitOffset# = \_ -> \_ -> 24
-          bitWidth# = \_ -> \_ -> 2
+          bitfieldOffset# = \_ -> \_ -> 24
+          bitfieldWidth# = \_ -> \_ -> 2
 instance TyEq ty (CBitfieldType Flags "flags_bits") =>
-         HasField "flags_bits" (Ptr Flags) (BitfieldPtr Flags "flags_bits")
-    where getField = ptrToCBitfield (Proxy @"flags_bits")
+         HasField "flags_bits" (Ptr Flags) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"flags_bits")
 {-| __C declaration:__ @struct overflow32@
 
     __defined at:__ @types\/structs\/bitfields.h 12:8@
@@ -207,11 +201,11 @@ data Overflow32
 instance Storable Overflow32
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((pure Overflow32 <*> peekCBitfield (Proxy @"overflow32_x") ptr_0) <*> peekCBitfield (Proxy @"overflow32_y") ptr_0) <*> peekCBitfield (Proxy @"overflow32_z") ptr_0
+          peek = \ptr_0 -> ((pure Overflow32 <*> peek (Proxy @"overflow32_x") ptr_0) <*> peek (Proxy @"overflow32_y") ptr_0) <*> peek (Proxy @"overflow32_z") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Overflow32 overflow32_x_3
                                               overflow32_y_4
-                                              overflow32_z_5 -> pokeCBitfield (Proxy @"overflow32_x") ptr_1 overflow32_x_3 >> (pokeCBitfield (Proxy @"overflow32_y") ptr_1 overflow32_y_4 >> pokeCBitfield (Proxy @"overflow32_z") ptr_1 overflow32_z_5)
+                                              overflow32_z_5 -> poke (Proxy @"overflow32_x") ptr_1 overflow32_x_3 >> (poke (Proxy @"overflow32_y") ptr_1 overflow32_y_4 >> poke (Proxy @"overflow32_z") ptr_1 overflow32_z_5)
 instance Prim Overflow32
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -247,31 +241,25 @@ instance Prim Overflow32
                                                                                                             s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) overflow32_z_37 s_39
 instance HasCBitfield Overflow32 "overflow32_x"
     where type CBitfieldType Overflow32 "overflow32_x" = CInt
-          bitOffset# = \_ -> \_ -> 0
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32 "overflow32_x") =>
-         HasField "overflow32_x"
-                  (Ptr Overflow32)
-                  (BitfieldPtr Overflow32 "overflow32_x")
-    where getField = ptrToCBitfield (Proxy @"overflow32_x")
+         HasField "overflow32_x" (Ptr Overflow32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32_x")
 instance HasCBitfield Overflow32 "overflow32_y"
     where type CBitfieldType Overflow32 "overflow32_y" = CInt
-          bitOffset# = \_ -> \_ -> 32
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 32
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32 "overflow32_y") =>
-         HasField "overflow32_y"
-                  (Ptr Overflow32)
-                  (BitfieldPtr Overflow32 "overflow32_y")
-    where getField = ptrToCBitfield (Proxy @"overflow32_y")
+         HasField "overflow32_y" (Ptr Overflow32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32_y")
 instance HasCBitfield Overflow32 "overflow32_z"
     where type CBitfieldType Overflow32 "overflow32_z" = CInt
-          bitOffset# = \_ -> \_ -> 64
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 64
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32 "overflow32_z") =>
-         HasField "overflow32_z"
-                  (Ptr Overflow32)
-                  (BitfieldPtr Overflow32 "overflow32_z")
-    where getField = ptrToCBitfield (Proxy @"overflow32_z")
+         HasField "overflow32_z" (Ptr Overflow32) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32_z")
 {-| __C declaration:__ @struct overflow32b@
 
     __defined at:__ @types\/structs\/bitfields.h 18:8@
@@ -310,11 +298,11 @@ data Overflow32b
 instance Storable Overflow32b
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Overflow32b <*> peekCBitfield (Proxy @"overflow32b_x") ptr_0) <*> peekCBitfield (Proxy @"overflow32b_y") ptr_0) <*> peekCBitfield (Proxy @"overflow32b_z") ptr_0
+          peek = \ptr_0 -> ((pure Overflow32b <*> peek (Proxy @"overflow32b_x") ptr_0) <*> peek (Proxy @"overflow32b_y") ptr_0) <*> peek (Proxy @"overflow32b_z") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Overflow32b overflow32b_x_3
                                                overflow32b_y_4
-                                               overflow32b_z_5 -> pokeCBitfield (Proxy @"overflow32b_x") ptr_1 overflow32b_x_3 >> (pokeCBitfield (Proxy @"overflow32b_y") ptr_1 overflow32b_y_4 >> pokeCBitfield (Proxy @"overflow32b_z") ptr_1 overflow32b_z_5)
+                                               overflow32b_z_5 -> poke (Proxy @"overflow32b_x") ptr_1 overflow32b_x_3 >> (poke (Proxy @"overflow32b_y") ptr_1 overflow32b_y_4 >> poke (Proxy @"overflow32b_z") ptr_1 overflow32b_z_5)
 instance Prim Overflow32b
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -350,31 +338,25 @@ instance Prim Overflow32b
                                                                                                               s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) overflow32b_z_37 s_39
 instance HasCBitfield Overflow32b "overflow32b_x"
     where type CBitfieldType Overflow32b "overflow32b_x" = CLong
-          bitOffset# = \_ -> \_ -> 0
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32b "overflow32b_x") =>
-         HasField "overflow32b_x"
-                  (Ptr Overflow32b)
-                  (BitfieldPtr Overflow32b "overflow32b_x")
-    where getField = ptrToCBitfield (Proxy @"overflow32b_x")
+         HasField "overflow32b_x" (Ptr Overflow32b) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32b_x")
 instance HasCBitfield Overflow32b "overflow32b_y"
     where type CBitfieldType Overflow32b "overflow32b_y" = CLong
-          bitOffset# = \_ -> \_ -> 17
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 17
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32b "overflow32b_y") =>
-         HasField "overflow32b_y"
-                  (Ptr Overflow32b)
-                  (BitfieldPtr Overflow32b "overflow32b_y")
-    where getField = ptrToCBitfield (Proxy @"overflow32b_y")
+         HasField "overflow32b_y" (Ptr Overflow32b) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32b_y")
 instance HasCBitfield Overflow32b "overflow32b_z"
     where type CBitfieldType Overflow32b "overflow32b_z" = CLong
-          bitOffset# = \_ -> \_ -> 34
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 34
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32b "overflow32b_z") =>
-         HasField "overflow32b_z"
-                  (Ptr Overflow32b)
-                  (BitfieldPtr Overflow32b "overflow32b_z")
-    where getField = ptrToCBitfield (Proxy @"overflow32b_z")
+         HasField "overflow32b_z" (Ptr Overflow32b) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32b_z")
 {-| __C declaration:__ @struct overflow32c@
 
     __defined at:__ @types\/structs\/bitfields.h 24:8@
@@ -413,11 +395,11 @@ data Overflow32c
 instance Storable Overflow32c
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Overflow32c <*> peekCBitfield (Proxy @"overflow32c_x") ptr_0) <*> peekCBitfield (Proxy @"overflow32c_y") ptr_0) <*> peekCBitfield (Proxy @"overflow32c_z") ptr_0
+          peek = \ptr_0 -> ((pure Overflow32c <*> peek (Proxy @"overflow32c_x") ptr_0) <*> peek (Proxy @"overflow32c_y") ptr_0) <*> peek (Proxy @"overflow32c_z") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Overflow32c overflow32c_x_3
                                                overflow32c_y_4
-                                               overflow32c_z_5 -> pokeCBitfield (Proxy @"overflow32c_x") ptr_1 overflow32c_x_3 >> (pokeCBitfield (Proxy @"overflow32c_y") ptr_1 overflow32c_y_4 >> pokeCBitfield (Proxy @"overflow32c_z") ptr_1 overflow32c_z_5)
+                                               overflow32c_z_5 -> poke (Proxy @"overflow32c_x") ptr_1 overflow32c_x_3 >> (poke (Proxy @"overflow32c_y") ptr_1 overflow32c_y_4 >> poke (Proxy @"overflow32c_z") ptr_1 overflow32c_z_5)
 instance Prim Overflow32c
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -453,31 +435,25 @@ instance Prim Overflow32c
                                                                                                               s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) overflow32c_z_37 s_39
 instance HasCBitfield Overflow32c "overflow32c_x"
     where type CBitfieldType Overflow32c "overflow32c_x" = CLong
-          bitOffset# = \_ -> \_ -> 0
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32c "overflow32c_x") =>
-         HasField "overflow32c_x"
-                  (Ptr Overflow32c)
-                  (BitfieldPtr Overflow32c "overflow32c_x")
-    where getField = ptrToCBitfield (Proxy @"overflow32c_x")
+         HasField "overflow32c_x" (Ptr Overflow32c) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32c_x")
 instance HasCBitfield Overflow32c "overflow32c_y"
     where type CBitfieldType Overflow32c "overflow32c_y" = CInt
-          bitOffset# = \_ -> \_ -> 32
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 32
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32c "overflow32c_y") =>
-         HasField "overflow32c_y"
-                  (Ptr Overflow32c)
-                  (BitfieldPtr Overflow32c "overflow32c_y")
-    where getField = ptrToCBitfield (Proxy @"overflow32c_y")
+         HasField "overflow32c_y" (Ptr Overflow32c) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32c_y")
 instance HasCBitfield Overflow32c "overflow32c_z"
     where type CBitfieldType Overflow32c "overflow32c_z" = CLong
-          bitOffset# = \_ -> \_ -> 64
-          bitWidth# = \_ -> \_ -> 17
+          bitfieldOffset# = \_ -> \_ -> 64
+          bitfieldWidth# = \_ -> \_ -> 17
 instance TyEq ty (CBitfieldType Overflow32c "overflow32c_z") =>
-         HasField "overflow32c_z"
-                  (Ptr Overflow32c)
-                  (BitfieldPtr Overflow32c "overflow32c_z")
-    where getField = ptrToCBitfield (Proxy @"overflow32c_z")
+         HasField "overflow32c_z" (Ptr Overflow32c) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow32c_z")
 {-| __C declaration:__ @struct overflow64@
 
     __defined at:__ @types\/structs\/bitfields.h 30:8@
@@ -509,10 +485,10 @@ data Overflow64
 instance Storable Overflow64
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Overflow64 <*> peekCBitfield (Proxy @"overflow64_x") ptr_0) <*> peekCBitfield (Proxy @"overflow64_y") ptr_0
+          peek = \ptr_0 -> (pure Overflow64 <*> peek (Proxy @"overflow64_x") ptr_0) <*> peek (Proxy @"overflow64_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Overflow64 overflow64_x_3
-                                              overflow64_y_4 -> pokeCBitfield (Proxy @"overflow64_x") ptr_1 overflow64_x_3 >> pokeCBitfield (Proxy @"overflow64_y") ptr_1 overflow64_y_4
+                                              overflow64_y_4 -> poke (Proxy @"overflow64_x") ptr_1 overflow64_x_3 >> poke (Proxy @"overflow64_y") ptr_1 overflow64_y_4
 instance Prim Overflow64
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -538,22 +514,18 @@ instance Prim Overflow64
                                                                                                     s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) overflow64_y_30 s_31
 instance HasCBitfield Overflow64 "overflow64_x"
     where type CBitfieldType Overflow64 "overflow64_x" = CLong
-          bitOffset# = \_ -> \_ -> 0
-          bitWidth# = \_ -> \_ -> 33
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 33
 instance TyEq ty (CBitfieldType Overflow64 "overflow64_x") =>
-         HasField "overflow64_x"
-                  (Ptr Overflow64)
-                  (BitfieldPtr Overflow64 "overflow64_x")
-    where getField = ptrToCBitfield (Proxy @"overflow64_x")
+         HasField "overflow64_x" (Ptr Overflow64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow64_x")
 instance HasCBitfield Overflow64 "overflow64_y"
     where type CBitfieldType Overflow64 "overflow64_y" = CLong
-          bitOffset# = \_ -> \_ -> 64
-          bitWidth# = \_ -> \_ -> 33
+          bitfieldOffset# = \_ -> \_ -> 64
+          bitfieldWidth# = \_ -> \_ -> 33
 instance TyEq ty (CBitfieldType Overflow64 "overflow64_y") =>
-         HasField "overflow64_y"
-                  (Ptr Overflow64)
-                  (BitfieldPtr Overflow64 "overflow64_y")
-    where getField = ptrToCBitfield (Proxy @"overflow64_y")
+         HasField "overflow64_y" (Ptr Overflow64) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"overflow64_y")
 {-| __C declaration:__ @struct alignA@
 
     __defined at:__ @types\/structs\/bitfields.h 36:8@
@@ -585,10 +557,10 @@ data AlignA
 instance Storable AlignA
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure AlignA <*> peekCBitfield (Proxy @"alignA_x") ptr_0) <*> peekCBitfield (Proxy @"alignA_y") ptr_0
+          peek = \ptr_0 -> (pure AlignA <*> peek (Proxy @"alignA_x") ptr_0) <*> peek (Proxy @"alignA_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    AlignA alignA_x_3
-                                          alignA_y_4 -> pokeCBitfield (Proxy @"alignA_x") ptr_1 alignA_x_3 >> pokeCBitfield (Proxy @"alignA_y") ptr_1 alignA_y_4
+                                          alignA_y_4 -> poke (Proxy @"alignA_x") ptr_1 alignA_x_3 >> poke (Proxy @"alignA_y") ptr_1 alignA_y_4
 instance Prim AlignA
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -614,18 +586,18 @@ instance Prim AlignA
                                                                                             s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) alignA_y_30 s_31
 instance HasCBitfield AlignA "alignA_x"
     where type CBitfieldType AlignA "alignA_x" = CUChar
-          bitOffset# = \_ -> \_ -> 0
-          bitWidth# = \_ -> \_ -> 1
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 1
 instance TyEq ty (CBitfieldType AlignA "alignA_x") =>
-         HasField "alignA_x" (Ptr AlignA) (BitfieldPtr AlignA "alignA_x")
-    where getField = ptrToCBitfield (Proxy @"alignA_x")
+         HasField "alignA_x" (Ptr AlignA) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"alignA_x")
 instance HasCBitfield AlignA "alignA_y"
     where type CBitfieldType AlignA "alignA_y" = CInt
-          bitOffset# = \_ -> \_ -> 1
-          bitWidth# = \_ -> \_ -> 10
+          bitfieldOffset# = \_ -> \_ -> 1
+          bitfieldWidth# = \_ -> \_ -> 10
 instance TyEq ty (CBitfieldType AlignA "alignA_y") =>
-         HasField "alignA_y" (Ptr AlignA) (BitfieldPtr AlignA "alignA_y")
-    where getField = ptrToCBitfield (Proxy @"alignA_y")
+         HasField "alignA_y" (Ptr AlignA) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"alignA_y")
 {-| __C declaration:__ @struct alignB@
 
     __defined at:__ @types\/structs\/bitfields.h 41:8@
@@ -657,10 +629,10 @@ data AlignB
 instance Storable AlignB
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure AlignB <*> peekCBitfield (Proxy @"alignB_x") ptr_0) <*> peekCBitfield (Proxy @"alignB_y") ptr_0
+          peek = \ptr_0 -> (pure AlignB <*> peek (Proxy @"alignB_x") ptr_0) <*> peek (Proxy @"alignB_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    AlignB alignB_x_3
-                                          alignB_y_4 -> pokeCBitfield (Proxy @"alignB_x") ptr_1 alignB_x_3 >> pokeCBitfield (Proxy @"alignB_y") ptr_1 alignB_y_4
+                                          alignB_y_4 -> poke (Proxy @"alignB_x") ptr_1 alignB_x_3 >> poke (Proxy @"alignB_y") ptr_1 alignB_y_4
 instance Prim AlignB
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -686,15 +658,15 @@ instance Prim AlignB
                                                                                             s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) alignB_y_30 s_31
 instance HasCBitfield AlignB "alignB_x"
     where type CBitfieldType AlignB "alignB_x" = CUChar
-          bitOffset# = \_ -> \_ -> 0
-          bitWidth# = \_ -> \_ -> 7
+          bitfieldOffset# = \_ -> \_ -> 0
+          bitfieldWidth# = \_ -> \_ -> 7
 instance TyEq ty (CBitfieldType AlignB "alignB_x") =>
-         HasField "alignB_x" (Ptr AlignB) (BitfieldPtr AlignB "alignB_x")
-    where getField = ptrToCBitfield (Proxy @"alignB_x")
+         HasField "alignB_x" (Ptr AlignB) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"alignB_x")
 instance HasCBitfield AlignB "alignB_y"
     where type CBitfieldType AlignB "alignB_y" = CInt
-          bitOffset# = \_ -> \_ -> 32
-          bitWidth# = \_ -> \_ -> 31
+          bitfieldOffset# = \_ -> \_ -> 32
+          bitfieldWidth# = \_ -> \_ -> 31
 instance TyEq ty (CBitfieldType AlignB "alignB_y") =>
-         HasField "alignB_y" (Ptr AlignB) (BitfieldPtr AlignB "alignB_y")
-    where getField = ptrToCBitfield (Proxy @"alignB_y")
+         HasField "alignB_y" (Ptr AlignB) (BitfieldPtr ty)
+    where getField = toPtr (Proxy @"alignB_y")

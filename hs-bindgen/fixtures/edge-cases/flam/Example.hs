@@ -51,14 +51,14 @@ instance F.Storable Pascal_Aux where
   peek =
     \ptr0 ->
           pure Pascal
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"pascal_len") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"pascal_len") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Pascal pascal_len2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"pascal_len") ptr0 pascal_len2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"pascal_len") ptr0 pascal_len2
 
 instance Data.Primitive.Types.Prim Pascal_Aux where
 
@@ -118,7 +118,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal_Aux) "pascal_
          ) => GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"pascal_len")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"pascal_len")
 
 instance HsBindgen.Runtime.FLAM.Offset FC.CChar Pascal_Aux where
 
@@ -166,16 +166,16 @@ instance F.Storable Foo_bar where
   peek =
     \ptr0 ->
           pure Foo_bar
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_bar_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_bar_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_bar_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_bar_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo_bar foo_bar_x2 foo_bar_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_bar_x") ptr0 foo_bar_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_bar_y") ptr0 foo_bar_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_bar_x") ptr0 foo_bar_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_bar_y") ptr0 foo_bar_y3
 
 instance Data.Primitive.Types.Prim Foo_bar where
 
@@ -243,7 +243,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_x"
          ) => GHC.Records.HasField "foo_bar_x" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_bar_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_bar_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_y" where
 
@@ -255,7 +255,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_y"
          ) => GHC.Records.HasField "foo_bar_y" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_bar_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_bar_y")
 
 {-| __C declaration:__ @struct foo@
 
@@ -283,14 +283,14 @@ instance F.Storable Foo_Aux where
   peek =
     \ptr0 ->
           pure Foo
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_len") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_len") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_len2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_len") ptr0 foo_len2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_len") ptr0 foo_len2
 
 instance Data.Primitive.Types.Prim Foo_Aux where
 
@@ -350,7 +350,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_Aux) "foo_len")
          ) => GHC.Records.HasField "foo_len" (Ptr.Ptr Foo_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_len")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_len")
 
 instance HsBindgen.Runtime.FLAM.Offset Foo_bar Foo_Aux where
 
@@ -398,16 +398,16 @@ instance F.Storable Diff_Aux where
   peek =
     \ptr0 ->
           pure Diff
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"diff_first") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"diff_second") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"diff_first") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"diff_second") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Diff diff_first2 diff_second3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"diff_first") ptr0 diff_first2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"diff_second") ptr0 diff_second3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"diff_first") ptr0 diff_first2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"diff_second") ptr0 diff_second3
 
 instance Data.Primitive.Types.Prim Diff_Aux where
 
@@ -475,7 +475,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff_Aux) "diff_firs
          ) => GHC.Records.HasField "diff_first" (Ptr.Ptr Diff_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"diff_first")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"diff_first")
 
 instance HsBindgen.Runtime.HasCField.HasCField Diff_Aux "diff_second" where
 
@@ -487,7 +487,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff_Aux) "diff_seco
          ) => GHC.Records.HasField "diff_second" (Ptr.Ptr Diff_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"diff_second")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"diff_second")
 
 instance HsBindgen.Runtime.FLAM.Offset FC.CChar Diff_Aux where
 
@@ -530,14 +530,14 @@ instance F.Storable Triplets_Aux where
   peek =
     \ptr0 ->
           pure Triplets
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"triplets_len") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"triplets_len") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Triplets triplets_len2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"triplets_len") ptr0 triplets_len2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"triplets_len") ptr0 triplets_len2
 
 instance Data.Primitive.Types.Prim Triplets_Aux where
 
@@ -597,7 +597,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets_Aux) "tripl
          ) => GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"triplets_len")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"triplets_len")
 
 instance HsBindgen.Runtime.FLAM.Offset ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets_Aux where
 

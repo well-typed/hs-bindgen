@@ -97,7 +97,7 @@ newtype Adio'0301s
                       Real)
 instance TyEq ty (CFieldType Adio'0301s "un_Adio'0301s") =>
          HasField "un_Adio'0301s" (Ptr Adio'0301s) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Adio'0301s")
+    where getField = fromPtr (Proxy @"un_Adio'0301s")
 instance HasCField Adio'0301s "un_Adio'0301s"
     where type CFieldType Adio'0301s "un_Adio'0301s" = CInt
           offset# = \_ -> \_ -> 0
@@ -130,7 +130,7 @@ newtype C数字
                       Real)
 instance TyEq ty (CFieldType C数字 "un_C\25968\23383") =>
          HasField "un_C\25968\23383" (Ptr C数字) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_C\25968\23383")
+    where getField = fromPtr (Proxy @"un_C\25968\23383")
 instance HasCField C数字 "un_C\25968\23383"
     where type CFieldType C数字 "un_C\25968\23383" = CInt
           offset# = \_ -> \_ -> 0

@@ -24,9 +24,9 @@ data Omitted
 instance Storable Omitted
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Omitted <*> peekCField (Proxy @"omitted_n") ptr_0
+          peek = \ptr_0 -> pure Omitted <*> peek (Proxy @"omitted_n") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Omitted omitted_n_3 -> pokeCField (Proxy @"omitted_n") ptr_1 omitted_n_3
+                                   Omitted omitted_n_3 -> poke (Proxy @"omitted_n") ptr_1 omitted_n_3
 instance Prim Omitted
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -45,7 +45,7 @@ instance HasCField Omitted "omitted_n"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Omitted "omitted_n") =>
          HasField "omitted_n" (Ptr Omitted) (Ptr ty)
-    where getField = ptrToCField (Proxy @"omitted_n")
+    where getField = fromPtr (Proxy @"omitted_n")
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h 4:8@
@@ -70,9 +70,9 @@ data DirectlyDependsOnOmitted
 instance Storable DirectlyDependsOnOmitted
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure DirectlyDependsOnOmitted <*> peekCField (Proxy @"directlyDependsOnOmitted_o") ptr_0
+          peek = \ptr_0 -> pure DirectlyDependsOnOmitted <*> peek (Proxy @"directlyDependsOnOmitted_o") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   DirectlyDependsOnOmitted directlyDependsOnOmitted_o_3 -> pokeCField (Proxy @"directlyDependsOnOmitted_o") ptr_1 directlyDependsOnOmitted_o_3
+                                   DirectlyDependsOnOmitted directlyDependsOnOmitted_o_3 -> poke (Proxy @"directlyDependsOnOmitted_o") ptr_1 directlyDependsOnOmitted_o_3
 instance Prim DirectlyDependsOnOmitted
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -99,7 +99,7 @@ instance TyEq ty
          HasField "directlyDependsOnOmitted_o"
                   (Ptr DirectlyDependsOnOmitted)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"directlyDependsOnOmitted_o")
+    where getField = fromPtr (Proxy @"directlyDependsOnOmitted_o")
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h 8:8@
@@ -124,9 +124,9 @@ data IndirectlyDependsOnOmitted
 instance Storable IndirectlyDependsOnOmitted
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure IndirectlyDependsOnOmitted <*> peekCField (Proxy @"indirectlyDependsOnOmitted_d") ptr_0
+          peek = \ptr_0 -> pure IndirectlyDependsOnOmitted <*> peek (Proxy @"indirectlyDependsOnOmitted_d") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_3 -> pokeCField (Proxy @"indirectlyDependsOnOmitted_d") ptr_1 indirectlyDependsOnOmitted_d_3
+                                   IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_3 -> poke (Proxy @"indirectlyDependsOnOmitted_d") ptr_1 indirectlyDependsOnOmitted_d_3
 instance Prim IndirectlyDependsOnOmitted
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -153,4 +153,4 @@ instance TyEq ty
          HasField "indirectlyDependsOnOmitted_d"
                   (Ptr IndirectlyDependsOnOmitted)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"indirectlyDependsOnOmitted_d")
+    where getField = fromPtr (Proxy @"indirectlyDependsOnOmitted_d")

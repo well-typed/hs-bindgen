@@ -77,7 +77,7 @@ instance HasCField T "t_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType T "t_x") =>
          HasField "t_x" (Ptr T) (Ptr ty)
-    where getField = ptrToCField (Proxy @"t_x")
+    where getField = fromPtr (Proxy @"t_x")
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b_base ::
     Ptr Void

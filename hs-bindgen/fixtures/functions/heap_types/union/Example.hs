@@ -75,4 +75,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "t_x")
          ) => GHC.Records.HasField "t_x" (Ptr.Ptr T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"t_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"t_x")

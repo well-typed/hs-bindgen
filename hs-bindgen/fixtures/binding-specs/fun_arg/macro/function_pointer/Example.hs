@@ -75,7 +75,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunctionPointer_Au
          ) => GHC.Records.HasField "un_MyFunctionPointer_Aux" (Ptr.Ptr MyFunctionPointer_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyFunctionPointer_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyFunctionPointer_Aux")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer_Aux "un_MyFunctionPointer_Aux" where
 
@@ -100,7 +100,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunctionPointer) "
          ) => GHC.Records.HasField "un_MyFunctionPointer" (Ptr.Ptr MyFunctionPointer) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyFunctionPointer")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyFunctionPointer")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer "un_MyFunctionPointer" where
 

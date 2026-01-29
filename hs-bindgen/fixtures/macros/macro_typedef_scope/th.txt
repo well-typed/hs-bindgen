@@ -53,7 +53,7 @@ newtype T2
                       Real)
 instance TyEq ty (CFieldType T2 "un_T2") =>
          HasField "un_T2" (Ptr T2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_T2")
+    where getField = fromPtr (Proxy @"un_T2")
 instance HasCField T2 "un_T2"
     where type CFieldType T2 "un_T2" = T1
           offset# = \_ -> \_ -> 0
@@ -111,7 +111,7 @@ newtype T4
                       Real)
 instance TyEq ty (CFieldType T4 "un_T4") =>
          HasField "un_T4" (Ptr T4) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_T4")
+    where getField = fromPtr (Proxy @"un_T4")
 instance HasCField T4 "un_T4"
     where type CFieldType T4 "un_T4" = T3
           offset# = \_ -> \_ -> 0

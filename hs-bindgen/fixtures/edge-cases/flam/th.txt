@@ -17,9 +17,9 @@ data Pascal_Aux
 instance Storable Pascal_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Pascal <*> peekCField (Proxy @"pascal_len") ptr_0
+          peek = \ptr_0 -> pure Pascal <*> peek (Proxy @"pascal_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Pascal pascal_len_3 -> pokeCField (Proxy @"pascal_len") ptr_1 pascal_len_3
+                                   Pascal pascal_len_3 -> poke (Proxy @"pascal_len") ptr_1 pascal_len_3
 instance Prim Pascal_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -38,7 +38,7 @@ instance HasCField Pascal_Aux "pascal_len"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Pascal_Aux "pascal_len") =>
          HasField "pascal_len" (Ptr Pascal_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"pascal_len")
+    where getField = fromPtr (Proxy @"pascal_len")
 instance Offset CChar Pascal_Aux
     where offset = \_ty_0 -> 4
 type Pascal = WithFlam CChar Pascal_Aux
@@ -73,10 +73,10 @@ data Foo_bar
 instance Storable Foo_bar
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Foo_bar <*> peekCField (Proxy @"foo_bar_x") ptr_0) <*> peekCField (Proxy @"foo_bar_y") ptr_0
+          peek = \ptr_0 -> (pure Foo_bar <*> peek (Proxy @"foo_bar_x") ptr_0) <*> peek (Proxy @"foo_bar_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo_bar foo_bar_x_3
-                                           foo_bar_y_4 -> pokeCField (Proxy @"foo_bar_x") ptr_1 foo_bar_x_3 >> pokeCField (Proxy @"foo_bar_y") ptr_1 foo_bar_y_4
+                                           foo_bar_y_4 -> poke (Proxy @"foo_bar_x") ptr_1 foo_bar_x_3 >> poke (Proxy @"foo_bar_y") ptr_1 foo_bar_y_4
 instance Prim Foo_bar
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -105,13 +105,13 @@ instance HasCField Foo_bar "foo_bar_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Foo_bar "foo_bar_x") =>
          HasField "foo_bar_x" (Ptr Foo_bar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"foo_bar_x")
+    where getField = fromPtr (Proxy @"foo_bar_x")
 instance HasCField Foo_bar "foo_bar_y"
     where type CFieldType Foo_bar "foo_bar_y" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Foo_bar "foo_bar_y") =>
          HasField "foo_bar_y" (Ptr Foo_bar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"foo_bar_y")
+    where getField = fromPtr (Proxy @"foo_bar_y")
 {-| __C declaration:__ @struct foo@
 
     __defined at:__ @edge-cases\/flam.h 8:8@
@@ -130,9 +130,9 @@ data Foo_Aux
 instance Storable Foo_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Foo <*> peekCField (Proxy @"foo_len") ptr_0
+          peek = \ptr_0 -> pure Foo <*> peek (Proxy @"foo_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_len_3 -> pokeCField (Proxy @"foo_len") ptr_1 foo_len_3
+                                   Foo foo_len_3 -> poke (Proxy @"foo_len") ptr_1 foo_len_3
 instance Prim Foo_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -151,7 +151,7 @@ instance HasCField Foo_Aux "foo_len"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Foo_Aux "foo_len") =>
          HasField "foo_len" (Ptr Foo_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"foo_len")
+    where getField = fromPtr (Proxy @"foo_len")
 instance Offset Foo_bar Foo_Aux
     where offset = \_ty_0 -> 4
 type Foo = WithFlam Foo_bar Foo_Aux
@@ -180,10 +180,10 @@ data Diff_Aux
 instance Storable Diff_Aux
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Diff <*> peekCField (Proxy @"diff_first") ptr_0) <*> peekCField (Proxy @"diff_second") ptr_0
+          peek = \ptr_0 -> (pure Diff <*> peek (Proxy @"diff_first") ptr_0) <*> peek (Proxy @"diff_second") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Diff diff_first_3
-                                        diff_second_4 -> pokeCField (Proxy @"diff_first") ptr_1 diff_first_3 >> pokeCField (Proxy @"diff_second") ptr_1 diff_second_4
+                                        diff_second_4 -> poke (Proxy @"diff_first") ptr_1 diff_first_3 >> poke (Proxy @"diff_second") ptr_1 diff_second_4
 instance Prim Diff_Aux
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -212,13 +212,13 @@ instance HasCField Diff_Aux "diff_first"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Diff_Aux "diff_first") =>
          HasField "diff_first" (Ptr Diff_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"diff_first")
+    where getField = fromPtr (Proxy @"diff_first")
 instance HasCField Diff_Aux "diff_second"
     where type CFieldType Diff_Aux "diff_second" = CChar
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Diff_Aux "diff_second") =>
          HasField "diff_second" (Ptr Diff_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"diff_second")
+    where getField = fromPtr (Proxy @"diff_second")
 instance Offset CChar Diff_Aux
     where offset = \_ty_0 -> 9
 type Diff = WithFlam CChar Diff_Aux
@@ -242,9 +242,9 @@ data Triplets_Aux
 instance Storable Triplets_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Triplets <*> peekCField (Proxy @"triplets_len") ptr_0
+          peek = \ptr_0 -> pure Triplets <*> peek (Proxy @"triplets_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Triplets triplets_len_3 -> pokeCField (Proxy @"triplets_len") ptr_1 triplets_len_3
+                                   Triplets triplets_len_3 -> poke (Proxy @"triplets_len") ptr_1 triplets_len_3
 instance Prim Triplets_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -263,7 +263,7 @@ instance HasCField Triplets_Aux "triplets_len"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Triplets_Aux "triplets_len") =>
          HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"triplets_len")
+    where getField = fromPtr (Proxy @"triplets_len")
 instance Offset (ConstantArray 3 CInt) Triplets_Aux
     where offset = \_ty_0 -> 4
 type Triplets = WithFlam (ConstantArray 3 CInt) Triplets_Aux

@@ -38,9 +38,9 @@ data NewName
 instance Storable NewName
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure NewName <*> peekCField (Proxy @"newName_x") ptr_0
+          peek = \ptr_0 -> pure NewName <*> peek (Proxy @"newName_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   NewName newName_x_3 -> pokeCField (Proxy @"newName_x") ptr_1 newName_x_3
+                                   NewName newName_x_3 -> poke (Proxy @"newName_x") ptr_1 newName_x_3
 instance Prim NewName
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -59,7 +59,7 @@ instance HasCField NewName "newName_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType NewName "newName_x") =>
          HasField "newName_x" (Ptr NewName) (Ptr ty)
-    where getField = ptrToCField (Proxy @"newName_x")
+    where getField = fromPtr (Proxy @"newName_x")
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8ced_base ::
     IO Int32

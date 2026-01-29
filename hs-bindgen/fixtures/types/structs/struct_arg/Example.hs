@@ -48,14 +48,14 @@ instance F.Storable Thing where
   peek =
     \ptr0 ->
           pure Thing
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"thing_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"thing_x") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Thing thing_x2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"thing_x") ptr0 thing_x2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"thing_x") ptr0 thing_x2
 
 instance Data.Primitive.Types.Prim Thing where
 
@@ -115,4 +115,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Thing) "thing_x")
          ) => GHC.Records.HasField "thing_x" (Ptr.Ptr Thing) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"thing_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"thing_x")

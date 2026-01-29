@@ -78,7 +78,7 @@ newtype MyArray
     deriving newtype Storable
 instance TyEq ty (CFieldType MyArray "un_MyArray") =>
          HasField "un_MyArray" (Ptr MyArray) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MyArray")
+    where getField = fromPtr (Proxy @"un_MyArray")
 instance HasCField MyArray "un_MyArray"
     where type CFieldType MyArray "un_MyArray" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0

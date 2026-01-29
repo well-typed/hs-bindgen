@@ -94,15 +94,15 @@ data ExA
 instance Storable ExA
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure ExA <*> peekCField (Proxy @"exA_fieldA1") ptr_0
+          peek = \ptr_0 -> pure ExA <*> peek (Proxy @"exA_fieldA1") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExA exA_fieldA1_3 -> pokeCField (Proxy @"exA_fieldA1") ptr_1 exA_fieldA1_3
+                                   ExA exA_fieldA1_3 -> poke (Proxy @"exA_fieldA1") ptr_1 exA_fieldA1_3
 instance HasCField ExA "exA_fieldA1"
     where type CFieldType ExA "exA_fieldA1" = EnumA
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType ExA "exA_fieldA1") =>
          HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
-    where getField = ptrToCField (Proxy @"exA_fieldA1")
+    where getField = fromPtr (Proxy @"exA_fieldA1")
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
     __defined at:__ @types\/enums\/nested_enums.h 9:9@
@@ -198,12 +198,12 @@ data ExB
 instance Storable ExB
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure ExB <*> peekCField (Proxy @"exB_fieldB1") ptr_0
+          peek = \ptr_0 -> pure ExB <*> peek (Proxy @"exB_fieldB1") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExB exB_fieldB1_3 -> pokeCField (Proxy @"exB_fieldB1") ptr_1 exB_fieldB1_3
+                                   ExB exB_fieldB1_3 -> poke (Proxy @"exB_fieldB1") ptr_1 exB_fieldB1_3
 instance HasCField ExB "exB_fieldB1"
     where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType ExB "exB_fieldB1") =>
          HasField "exB_fieldB1" (Ptr ExB) (Ptr ty)
-    where getField = ptrToCField (Proxy @"exB_fieldB1")
+    where getField = fromPtr (Proxy @"exB_fieldB1")

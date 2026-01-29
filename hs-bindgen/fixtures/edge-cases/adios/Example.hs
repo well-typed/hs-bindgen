@@ -44,7 +44,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Adio'0301s) "un_Adio
          ) => GHC.Records.HasField "un_Adio'0301s" (Ptr.Ptr Adio'0301s) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Adio'0301s")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Adio'0301s")
 
 instance HsBindgen.Runtime.HasCField.HasCField Adio'0301s "un_Adio'0301s" where
 
@@ -68,7 +68,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType C数字) "un_C\25968
          ) => GHC.Records.HasField "un_C\25968\23383" (Ptr.Ptr C数字) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_C\25968\23383")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_C\25968\23383")
 
 instance HsBindgen.Runtime.HasCField.HasCField C数字 "un_C\25968\23383" where
 

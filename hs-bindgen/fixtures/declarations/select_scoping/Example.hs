@@ -44,7 +44,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ParsedAndSelected1) 
          ) => GHC.Records.HasField "un_ParsedAndSelected1" (Ptr.Ptr ParsedAndSelected1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ParsedAndSelected1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_ParsedAndSelected1")
 
 instance HsBindgen.Runtime.HasCField.HasCField ParsedAndSelected1 "un_ParsedAndSelected1" where
 

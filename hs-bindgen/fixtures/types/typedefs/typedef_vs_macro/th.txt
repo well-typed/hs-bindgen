@@ -28,7 +28,7 @@ newtype T1
                       Real)
 instance TyEq ty (CFieldType T1 "un_T1") =>
          HasField "un_T1" (Ptr T1) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_T1")
+    where getField = fromPtr (Proxy @"un_T1")
 instance HasCField T1 "un_T1"
     where type CFieldType T1 "un_T1" = CInt
           offset# = \_ -> \_ -> 0
@@ -61,7 +61,7 @@ newtype T2
                       Real)
 instance TyEq ty (CFieldType T2 "un_T2") =>
          HasField "un_T2" (Ptr T2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_T2")
+    where getField = fromPtr (Proxy @"un_T2")
 instance HasCField T2 "un_T2"
     where type CFieldType T2 "un_T2" = CChar
           offset# = \_ -> \_ -> 0
@@ -178,12 +178,12 @@ data ExampleStruct
 instance Storable ExampleStruct
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (((pure ExampleStruct <*> peekCField (Proxy @"exampleStruct_t1") ptr_0) <*> peekCField (Proxy @"exampleStruct_t2") ptr_0) <*> peekCField (Proxy @"exampleStruct_m1") ptr_0) <*> peekCField (Proxy @"exampleStruct_m2") ptr_0
+          peek = \ptr_0 -> (((pure ExampleStruct <*> peek (Proxy @"exampleStruct_t1") ptr_0) <*> peek (Proxy @"exampleStruct_t2") ptr_0) <*> peek (Proxy @"exampleStruct_m1") ptr_0) <*> peek (Proxy @"exampleStruct_m2") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    ExampleStruct exampleStruct_t1_3
                                                  exampleStruct_t2_4
                                                  exampleStruct_m1_5
-                                                 exampleStruct_m2_6 -> pokeCField (Proxy @"exampleStruct_t1") ptr_1 exampleStruct_t1_3 >> (pokeCField (Proxy @"exampleStruct_t2") ptr_1 exampleStruct_t2_4 >> (pokeCField (Proxy @"exampleStruct_m1") ptr_1 exampleStruct_m1_5 >> pokeCField (Proxy @"exampleStruct_m2") ptr_1 exampleStruct_m2_6))
+                                                 exampleStruct_m2_6 -> poke (Proxy @"exampleStruct_t1") ptr_1 exampleStruct_t1_3 >> (poke (Proxy @"exampleStruct_t2") ptr_1 exampleStruct_t2_4 >> (poke (Proxy @"exampleStruct_m1") ptr_1 exampleStruct_m1_5 >> poke (Proxy @"exampleStruct_m2") ptr_1 exampleStruct_m2_6))
 instance Prim ExampleStruct
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -230,25 +230,25 @@ instance HasCField ExampleStruct "exampleStruct_t1"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType ExampleStruct "exampleStruct_t1") =>
          HasField "exampleStruct_t1" (Ptr ExampleStruct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"exampleStruct_t1")
+    where getField = fromPtr (Proxy @"exampleStruct_t1")
 instance HasCField ExampleStruct "exampleStruct_t2"
     where type CFieldType ExampleStruct "exampleStruct_t2" = T2
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType ExampleStruct "exampleStruct_t2") =>
          HasField "exampleStruct_t2" (Ptr ExampleStruct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"exampleStruct_t2")
+    where getField = fromPtr (Proxy @"exampleStruct_t2")
 instance HasCField ExampleStruct "exampleStruct_m1"
     where type CFieldType ExampleStruct "exampleStruct_m1" = M1
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType ExampleStruct "exampleStruct_m1") =>
          HasField "exampleStruct_m1" (Ptr ExampleStruct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"exampleStruct_m1")
+    where getField = fromPtr (Proxy @"exampleStruct_m1")
 instance HasCField ExampleStruct "exampleStruct_m2"
     where type CFieldType ExampleStruct "exampleStruct_m2" = M2
           offset# = \_ -> \_ -> 12
 instance TyEq ty (CFieldType ExampleStruct "exampleStruct_m2") =>
          HasField "exampleStruct_m2" (Ptr ExampleStruct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"exampleStruct_m2")
+    where getField = fromPtr (Proxy @"exampleStruct_m2")
 {-| __C declaration:__ @uint64_t@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@
@@ -299,12 +299,12 @@ data Foo
 instance Storable Foo
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Foo <*> peekCField (Proxy @"foo_a") ptr_0
+          peek = \ptr_0 -> pure Foo <*> peek (Proxy @"foo_a") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_a_3 -> pokeCField (Proxy @"foo_a") ptr_1 foo_a_3
+                                   Foo foo_a_3 -> poke (Proxy @"foo_a") ptr_1 foo_a_3
 instance HasCField Foo "foo_a"
     where type CFieldType Foo "foo_a" = Ptr Uint64_t
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Foo "foo_a") =>
          HasField "foo_a" (Ptr Foo) (Ptr ty)
-    where getField = ptrToCField (Proxy @"foo_a")
+    where getField = fromPtr (Proxy @"foo_a")

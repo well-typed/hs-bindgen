@@ -61,16 +61,16 @@ instance F.Storable Bools1 where
   peek =
     \ptr0 ->
           pure Bools1
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bools1_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bools1_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools1_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools1_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools1 bools1_x2 bools1_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bools1_x") ptr0 bools1_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bools1_y") ptr0 bools1_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools1_x") ptr0 bools1_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools1_y") ptr0 bools1_y3
 
 instance Data.Primitive.Types.Prim Bools1 where
 
@@ -138,7 +138,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools1) "bools1_x")
          ) => GHC.Records.HasField "bools1_x" (Ptr.Ptr Bools1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bools1_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools1_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Bools1 "bools1_y" where
 
@@ -150,7 +150,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools1) "bools1_y")
          ) => GHC.Records.HasField "bools1_y" (Ptr.Ptr Bools1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bools1_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools1_y")
 
 {-| __C declaration:__ @struct bools2@
 
@@ -185,16 +185,16 @@ instance F.Storable Bools2 where
   peek =
     \ptr0 ->
           pure Bools2
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bools2_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bools2_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools2_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools2_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools2 bools2_x2 bools2_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bools2_x") ptr0 bools2_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bools2_y") ptr0 bools2_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools2_x") ptr0 bools2_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools2_y") ptr0 bools2_y3
 
 instance Data.Primitive.Types.Prim Bools2 where
 
@@ -262,7 +262,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools2) "bools2_x")
          ) => GHC.Records.HasField "bools2_x" (Ptr.Ptr Bools2) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bools2_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools2_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Bools2 "bools2_y" where
 
@@ -274,7 +274,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools2) "bools2_y")
          ) => GHC.Records.HasField "bools2_y" (Ptr.Ptr Bools2) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bools2_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools2_y")
 
 {-| __C declaration:__ @BOOL@
 
@@ -321,16 +321,16 @@ instance F.Storable Bools3 where
   peek =
     \ptr0 ->
           pure Bools3
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bools3_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bools3_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools3_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools3_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools3 bools3_x2 bools3_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bools3_x") ptr0 bools3_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bools3_y") ptr0 bools3_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools3_x") ptr0 bools3_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools3_y") ptr0 bools3_y3
 
 instance Data.Primitive.Types.Prim Bools3 where
 
@@ -398,7 +398,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools3) "bools3_x")
          ) => GHC.Records.HasField "bools3_x" (Ptr.Ptr Bools3) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bools3_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools3_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Bools3 "bools3_y" where
 
@@ -410,4 +410,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools3) "bools3_y")
          ) => GHC.Records.HasField "bools3_y" (Ptr.Ptr Bools3) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bools3_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools3_y")

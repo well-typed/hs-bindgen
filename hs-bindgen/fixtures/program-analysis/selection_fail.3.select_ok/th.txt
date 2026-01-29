@@ -23,9 +23,9 @@ data OkBefore
 instance Storable OkBefore
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure OkBefore <*> peekCField (Proxy @"okBefore_x") ptr_0
+          peek = \ptr_0 -> pure OkBefore <*> peek (Proxy @"okBefore_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   OkBefore okBefore_x_3 -> pokeCField (Proxy @"okBefore_x") ptr_1 okBefore_x_3
+                                   OkBefore okBefore_x_3 -> poke (Proxy @"okBefore_x") ptr_1 okBefore_x_3
 instance Prim OkBefore
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -44,4 +44,4 @@ instance HasCField OkBefore "okBefore_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType OkBefore "okBefore_x") =>
          HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
-    where getField = ptrToCField (Proxy @"okBefore_x")
+    where getField = fromPtr (Proxy @"okBefore_x")

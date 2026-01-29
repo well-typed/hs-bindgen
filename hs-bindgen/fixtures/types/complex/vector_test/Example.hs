@@ -56,16 +56,16 @@ instance F.Storable Vector where
   peek =
     \ptr0 ->
           pure Vector
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"vector_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"vector_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"vector_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"vector_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Vector vector_x2 vector_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"vector_x") ptr0 vector_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"vector_y") ptr0 vector_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"vector_x") ptr0 vector_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"vector_y") ptr0 vector_y3
 
 instance Data.Primitive.Types.Prim Vector where
 
@@ -133,7 +133,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector) "vector_x")
          ) => GHC.Records.HasField "vector_x" (Ptr.Ptr Vector) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Vector "vector_y" where
 
@@ -145,4 +145,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector) "vector_y")
          ) => GHC.Records.HasField "vector_y" (Ptr.Ptr Vector) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_y")

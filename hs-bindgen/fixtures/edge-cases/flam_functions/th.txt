@@ -78,9 +78,9 @@ data Vector_Aux
 instance Storable Vector_Aux
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Vector <*> peekCField (Proxy @"vector_length") ptr_0
+          peek = \ptr_0 -> pure Vector <*> peek (Proxy @"vector_length") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Vector vector_length_3 -> pokeCField (Proxy @"vector_length") ptr_1 vector_length_3
+                                   Vector vector_length_3 -> poke (Proxy @"vector_length") ptr_1 vector_length_3
 instance Prim Vector_Aux
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -99,7 +99,7 @@ instance HasCField Vector_Aux "vector_length"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Vector_Aux "vector_length") =>
          HasField "vector_length" (Ptr Vector_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"vector_length")
+    where getField = fromPtr (Proxy @"vector_length")
 instance Offset CLong Vector_Aux
     where offset = \_ty_0 -> 8
 type Vector = WithFlam CLong Vector_Aux

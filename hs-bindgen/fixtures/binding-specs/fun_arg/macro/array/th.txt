@@ -77,7 +77,7 @@ newtype MyArray
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType MyArray "un_MyArray") =>
          HasField "un_MyArray" (Ptr MyArray) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MyArray")
+    where getField = fromPtr (Proxy @"un_MyArray")
 instance HasCField MyArray "un_MyArray"
     where type CFieldType MyArray "un_MyArray" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0

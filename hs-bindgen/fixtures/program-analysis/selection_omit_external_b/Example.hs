@@ -48,14 +48,14 @@ instance F.Storable Omitted where
   peek =
     \ptr0 ->
           pure Omitted
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"omitted_n") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"omitted_n") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Omitted omitted_n2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"omitted_n") ptr0 omitted_n2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"omitted_n") ptr0 omitted_n2
 
 instance Data.Primitive.Types.Prim Omitted where
 
@@ -115,7 +115,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Omitted) "omitted_n"
          ) => GHC.Records.HasField "omitted_n" (Ptr.Ptr Omitted) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"omitted_n")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"omitted_n")
 
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
@@ -143,14 +143,14 @@ instance F.Storable DirectlyDependsOnOmitted where
   peek =
     \ptr0 ->
           pure DirectlyDependsOnOmitted
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           DirectlyDependsOnOmitted directlyDependsOnOmitted_o2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
 
 instance Data.Primitive.Types.Prim DirectlyDependsOnOmitted where
 
@@ -211,7 +211,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DirectlyDependsOnOmi
          ) => GHC.Records.HasField "directlyDependsOnOmitted_o" (Ptr.Ptr DirectlyDependsOnOmitted) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"directlyDependsOnOmitted_o")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"directlyDependsOnOmitted_o")
 
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
@@ -239,14 +239,14 @@ instance F.Storable IndirectlyDependsOnOmitted where
   peek =
     \ptr0 ->
           pure IndirectlyDependsOnOmitted
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
 
 instance Data.Primitive.Types.Prim IndirectlyDependsOnOmitted where
 
@@ -309,4 +309,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType IndirectlyDependsOnO
          ) => GHC.Records.HasField "indirectlyDependsOnOmitted_d" (Ptr.Ptr IndirectlyDependsOnOmitted) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d")

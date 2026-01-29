@@ -28,7 +28,7 @@ newtype FILE
                       Real)
 instance TyEq ty (CFieldType FILE "un_FILE") =>
          HasField "un_FILE" (Ptr FILE) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_FILE")
+    where getField = fromPtr (Proxy @"un_FILE")
 instance HasCField FILE "un_FILE"
     where type CFieldType FILE "un_FILE" = CInt
           offset# = \_ -> \_ -> 0

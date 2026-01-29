@@ -67,10 +67,10 @@ data Another_typedef_struct_t
 instance Storable Another_typedef_struct_t
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Another_typedef_struct_t <*> peekCField (Proxy @"another_typedef_struct_t_foo") ptr_0) <*> peekCField (Proxy @"another_typedef_struct_t_bar") ptr_0
+          peek = \ptr_0 -> (pure Another_typedef_struct_t <*> peek (Proxy @"another_typedef_struct_t_foo") ptr_0) <*> peek (Proxy @"another_typedef_struct_t_bar") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Another_typedef_struct_t another_typedef_struct_t_foo_3
-                                                            another_typedef_struct_t_bar_4 -> pokeCField (Proxy @"another_typedef_struct_t_foo") ptr_1 another_typedef_struct_t_foo_3 >> pokeCField (Proxy @"another_typedef_struct_t_bar") ptr_1 another_typedef_struct_t_bar_4
+                                                            another_typedef_struct_t_bar_4 -> poke (Proxy @"another_typedef_struct_t_foo") ptr_1 another_typedef_struct_t_foo_3 >> poke (Proxy @"another_typedef_struct_t_bar") ptr_1 another_typedef_struct_t_bar_4
 instance Prim Another_typedef_struct_t
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -105,7 +105,7 @@ instance TyEq ty
          HasField "another_typedef_struct_t_foo"
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"another_typedef_struct_t_foo")
+    where getField = fromPtr (Proxy @"another_typedef_struct_t_foo")
 instance HasCField Another_typedef_struct_t
                    "another_typedef_struct_t_bar"
     where type CFieldType Another_typedef_struct_t
@@ -117,7 +117,7 @@ instance TyEq ty
          HasField "another_typedef_struct_t_bar"
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"another_typedef_struct_t_bar")
+    where getField = fromPtr (Proxy @"another_typedef_struct_t_bar")
 {-| __C declaration:__ @enum another_typedef_enum_e@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 10:9@
@@ -260,7 +260,7 @@ newtype A_type_t
                       Real)
 instance TyEq ty (CFieldType A_type_t "un_A_type_t") =>
          HasField "un_A_type_t" (Ptr A_type_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_A_type_t")
+    where getField = fromPtr (Proxy @"un_A_type_t")
 instance HasCField A_type_t "un_A_type_t"
     where type CFieldType A_type_t "un_A_type_t" = CInt
           offset# = \_ -> \_ -> 0
@@ -293,7 +293,7 @@ newtype Var_t
                       Real)
 instance TyEq ty (CFieldType Var_t "un_Var_t") =>
          HasField "un_Var_t" (Ptr Var_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Var_t")
+    where getField = fromPtr (Proxy @"un_Var_t")
 instance HasCField Var_t "un_Var_t"
     where type CFieldType Var_t "un_Var_t" = CInt
           offset# = \_ -> \_ -> 0
@@ -395,7 +395,7 @@ data A_typedef_struct_t
 instance Storable A_typedef_struct_t
     where sizeOf = \_ -> 140 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> ((((((((((pure A_typedef_struct_t <*> peekCField (Proxy @"a_typedef_struct_t_field_0") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_1") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_2") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_3") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_4") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_5") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_6") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_7") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_8") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_9") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_10") ptr_0
+          peek = \ptr_0 -> ((((((((((pure A_typedef_struct_t <*> peek (Proxy @"a_typedef_struct_t_field_0") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_1") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_2") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_3") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_4") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_5") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_6") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_7") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_8") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_9") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_10") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    A_typedef_struct_t a_typedef_struct_t_field_0_3
                                                       a_typedef_struct_t_field_1_4
@@ -407,7 +407,7 @@ instance Storable A_typedef_struct_t
                                                       a_typedef_struct_t_field_7_10
                                                       a_typedef_struct_t_field_8_11
                                                       a_typedef_struct_t_field_9_12
-                                                      a_typedef_struct_t_field_10_13 -> pokeCField (Proxy @"a_typedef_struct_t_field_0") ptr_1 a_typedef_struct_t_field_0_3 >> (pokeCField (Proxy @"a_typedef_struct_t_field_1") ptr_1 a_typedef_struct_t_field_1_4 >> (pokeCField (Proxy @"a_typedef_struct_t_field_2") ptr_1 a_typedef_struct_t_field_2_5 >> (pokeCField (Proxy @"a_typedef_struct_t_field_3") ptr_1 a_typedef_struct_t_field_3_6 >> (pokeCField (Proxy @"a_typedef_struct_t_field_4") ptr_1 a_typedef_struct_t_field_4_7 >> (pokeCField (Proxy @"a_typedef_struct_t_field_5") ptr_1 a_typedef_struct_t_field_5_8 >> (pokeCField (Proxy @"a_typedef_struct_t_field_6") ptr_1 a_typedef_struct_t_field_6_9 >> (pokeCField (Proxy @"a_typedef_struct_t_field_7") ptr_1 a_typedef_struct_t_field_7_10 >> (pokeCField (Proxy @"a_typedef_struct_t_field_8") ptr_1 a_typedef_struct_t_field_8_11 >> (pokeCField (Proxy @"a_typedef_struct_t_field_9") ptr_1 a_typedef_struct_t_field_9_12 >> pokeCField (Proxy @"a_typedef_struct_t_field_10") ptr_1 a_typedef_struct_t_field_10_13)))))))))
+                                                      a_typedef_struct_t_field_10_13 -> poke (Proxy @"a_typedef_struct_t_field_0") ptr_1 a_typedef_struct_t_field_0_3 >> (poke (Proxy @"a_typedef_struct_t_field_1") ptr_1 a_typedef_struct_t_field_1_4 >> (poke (Proxy @"a_typedef_struct_t_field_2") ptr_1 a_typedef_struct_t_field_2_5 >> (poke (Proxy @"a_typedef_struct_t_field_3") ptr_1 a_typedef_struct_t_field_3_6 >> (poke (Proxy @"a_typedef_struct_t_field_4") ptr_1 a_typedef_struct_t_field_4_7 >> (poke (Proxy @"a_typedef_struct_t_field_5") ptr_1 a_typedef_struct_t_field_5_8 >> (poke (Proxy @"a_typedef_struct_t_field_6") ptr_1 a_typedef_struct_t_field_6_9 >> (poke (Proxy @"a_typedef_struct_t_field_7") ptr_1 a_typedef_struct_t_field_7_10 >> (poke (Proxy @"a_typedef_struct_t_field_8") ptr_1 a_typedef_struct_t_field_8_11 >> (poke (Proxy @"a_typedef_struct_t_field_9") ptr_1 a_typedef_struct_t_field_9_12 >> poke (Proxy @"a_typedef_struct_t_field_10") ptr_1 a_typedef_struct_t_field_10_13)))))))))
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_0"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_0" = CBool
@@ -417,7 +417,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_0"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_0")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_0")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_1"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_1" = HsBindgen.Runtime.LibC.Word8
@@ -427,7 +427,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_1"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_1")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_1")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_2"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_2" = HsBindgen.Runtime.LibC.Word16
@@ -437,7 +437,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_2"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_2")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_2")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_3"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_3" = HsBindgen.Runtime.LibC.Word32
@@ -447,7 +447,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_3"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_3")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_3")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_4"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_4" = Another_typedef_struct_t
@@ -457,7 +457,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_4"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_4")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_4")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_5"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_5" = Ptr Another_typedef_struct_t
@@ -467,7 +467,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_5"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_5")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_5")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_6"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_6" = Ptr Void
@@ -477,7 +477,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_6"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_6")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_6")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_7"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_7" = ConstantArray 7
@@ -488,7 +488,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_7"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_7")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_7")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_8"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_8" = Another_typedef_enum_e
@@ -498,7 +498,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_8"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_8")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_8")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_9"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_9" = ConstantArray 4
@@ -509,7 +509,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_9"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_9")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_9")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_10"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_10" = ConstantArray 5
@@ -521,7 +521,7 @@ instance TyEq ty
          HasField "a_typedef_struct_t_field_10"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_10")
+    where getField = fromPtr (Proxy @"a_typedef_struct_t_field_10")
 {-| __C declaration:__ @A_DEFINE_0@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 53:9@
@@ -724,7 +724,7 @@ instance FromFunPtr Callback_t_Aux
     where fromFunPtr = hs_bindgen_d6debb4b8d5bb869
 instance TyEq ty (CFieldType Callback_t_Aux "un_Callback_t_Aux") =>
          HasField "un_Callback_t_Aux" (Ptr Callback_t_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Callback_t_Aux")
+    where getField = fromPtr (Proxy @"un_Callback_t_Aux")
 instance HasCField Callback_t_Aux "un_Callback_t_Aux"
     where type CFieldType Callback_t_Aux
                           "un_Callback_t_Aux" = Ptr Void ->
@@ -749,7 +749,7 @@ newtype Callback_t
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Callback_t "un_Callback_t") =>
          HasField "un_Callback_t" (Ptr Callback_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Callback_t")
+    where getField = fromPtr (Proxy @"un_Callback_t")
 instance HasCField Callback_t "un_Callback_t"
     where type CFieldType Callback_t
                           "un_Callback_t" = FunPtr Callback_t_Aux

@@ -37,22 +37,22 @@ data Bar
 instance Storable Bar
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Bar <*> peekCField (Proxy @"bar_ptrA") ptr_0) <*> peekCField (Proxy @"bar_ptrB") ptr_0
+          peek = \ptr_0 -> (pure Bar <*> peek (Proxy @"bar_ptrA") ptr_0) <*> peek (Proxy @"bar_ptrB") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bar bar_ptrA_3
-                                       bar_ptrB_4 -> pokeCField (Proxy @"bar_ptrA") ptr_1 bar_ptrA_3 >> pokeCField (Proxy @"bar_ptrB") ptr_1 bar_ptrB_4
+                                       bar_ptrB_4 -> poke (Proxy @"bar_ptrA") ptr_1 bar_ptrA_3 >> poke (Proxy @"bar_ptrB") ptr_1 bar_ptrB_4
 instance HasCField Bar "bar_ptrA"
     where type CFieldType Bar "bar_ptrA" = Ptr Foo
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Bar "bar_ptrA") =>
          HasField "bar_ptrA" (Ptr Bar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"bar_ptrA")
+    where getField = fromPtr (Proxy @"bar_ptrA")
 instance HasCField Bar "bar_ptrB"
     where type CFieldType Bar "bar_ptrB" = Ptr Bar
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Bar "bar_ptrB") =>
          HasField "bar_ptrB" (Ptr Bar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"bar_ptrB")
+    where getField = fromPtr (Proxy @"bar_ptrB")
 {-| __C declaration:__ @struct baz@
 
     __defined at:__ @declarations\/opaque_declaration.h 9:8@

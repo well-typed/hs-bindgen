@@ -162,7 +162,7 @@ instance FromFunPtr MyFunction
     where fromFunPtr = hs_bindgen_bb71f7e730356103
 instance TyEq ty (CFieldType MyFunction "un_MyFunction") =>
          HasField "un_MyFunction" (Ptr MyFunction) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MyFunction")
+    where getField = fromPtr (Proxy @"un_MyFunction")
 instance HasCField MyFunction "un_MyFunction"
     where type CFieldType MyFunction "un_MyFunction" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0

@@ -78,7 +78,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyUnion) "myUnion_x"
          ) => GHC.Records.HasField "myUnion_x" (Ptr.Ptr MyUnion) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"myUnion_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"myUnion_x")
 
 {-| __C declaration:__ @A@
 
