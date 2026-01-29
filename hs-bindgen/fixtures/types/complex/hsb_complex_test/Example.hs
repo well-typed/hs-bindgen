@@ -64,9 +64,9 @@ instance F.Storable Complex_object_t where
   peek =
     \ptr0 ->
           pure Complex_object_t
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"complex_object_t_position") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"complex_object_t_id") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"complex_object_t_position") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"complex_object_t_id") ptr0
 
   poke =
     \ptr0 ->
@@ -76,9 +76,9 @@ instance F.Storable Complex_object_t where
             complex_object_t_velocity2
             complex_object_t_position3
             complex_object_t_id4 ->
-                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0 complex_object_t_velocity2
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"complex_object_t_position") ptr0 complex_object_t_position3
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"complex_object_t_id") ptr0 complex_object_t_id4
+                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0 complex_object_t_velocity2
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"complex_object_t_position") ptr0 complex_object_t_position3
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"complex_object_t_id") ptr0 complex_object_t_id4
 
 instance Data.Primitive.Types.Prim Complex_object_t where
 
@@ -161,7 +161,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Complex_object_t) "c
          ) => GHC.Records.HasField "complex_object_t_velocity" (Ptr.Ptr Complex_object_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"complex_object_t_velocity")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"complex_object_t_velocity")
 
 instance HsBindgen.Runtime.HasCField.HasCField Complex_object_t "complex_object_t_position" where
 
@@ -174,7 +174,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Complex_object_t) "c
          ) => GHC.Records.HasField "complex_object_t_position" (Ptr.Ptr Complex_object_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"complex_object_t_position")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"complex_object_t_position")
 
 instance HsBindgen.Runtime.HasCField.HasCField Complex_object_t "complex_object_t_id" where
 
@@ -187,4 +187,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Complex_object_t) "c
          ) => GHC.Records.HasField "complex_object_t_id" (Ptr.Ptr Complex_object_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"complex_object_t_id")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"complex_object_t_id")

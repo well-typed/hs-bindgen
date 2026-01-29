@@ -13,7 +13,7 @@ module HsBindgen.Runtime.FunPtr.Class (
   , FromFunPtr(..)
 
     -- * Utilities
-  , withToFunPtr
+  , withFunPtr
 
   ) where
 
@@ -40,5 +40,5 @@ class FromFunPtr a where
 -- | This function makes sure that 'freeHaskellFunPtr' is called after
 -- 'toFunPtr' has allocated memory for a 'FunPtr'.
 --
-withToFunPtr :: ToFunPtr a => a -> (Ptr.FunPtr a -> IO b) -> IO b
-withToFunPtr x = bracket (toFunPtr x) F.freeHaskellFunPtr
+withFunPtr :: ToFunPtr a => a -> (Ptr.FunPtr a -> IO b) -> IO b
+withFunPtr x = bracket (toFunPtr x) F.freeHaskellFunPtr

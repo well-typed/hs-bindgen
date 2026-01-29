@@ -212,7 +212,7 @@ data Primitive
 instance Storable Primitive
     where sizeOf = \_ -> 152 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (((((((((((((((((((((((((((pure Primitive <*> peekCField (Proxy @"primitive_c") ptr_0) <*> peekCField (Proxy @"primitive_sc") ptr_0) <*> peekCField (Proxy @"primitive_uc") ptr_0) <*> peekCField (Proxy @"primitive_s") ptr_0) <*> peekCField (Proxy @"primitive_si") ptr_0) <*> peekCField (Proxy @"primitive_ss") ptr_0) <*> peekCField (Proxy @"primitive_ssi") ptr_0) <*> peekCField (Proxy @"primitive_us") ptr_0) <*> peekCField (Proxy @"primitive_usi") ptr_0) <*> peekCField (Proxy @"primitive_i") ptr_0) <*> peekCField (Proxy @"primitive_s2") ptr_0) <*> peekCField (Proxy @"primitive_si2") ptr_0) <*> peekCField (Proxy @"primitive_u") ptr_0) <*> peekCField (Proxy @"primitive_ui") ptr_0) <*> peekCField (Proxy @"primitive_l") ptr_0) <*> peekCField (Proxy @"primitive_li") ptr_0) <*> peekCField (Proxy @"primitive_sl") ptr_0) <*> peekCField (Proxy @"primitive_sli") ptr_0) <*> peekCField (Proxy @"primitive_ul") ptr_0) <*> peekCField (Proxy @"primitive_uli") ptr_0) <*> peekCField (Proxy @"primitive_ll") ptr_0) <*> peekCField (Proxy @"primitive_lli") ptr_0) <*> peekCField (Proxy @"primitive_sll") ptr_0) <*> peekCField (Proxy @"primitive_slli") ptr_0) <*> peekCField (Proxy @"primitive_ull") ptr_0) <*> peekCField (Proxy @"primitive_ulli") ptr_0) <*> peekCField (Proxy @"primitive_f") ptr_0) <*> peekCField (Proxy @"primitive_d") ptr_0
+          peek = \ptr_0 -> (((((((((((((((((((((((((((pure Primitive <*> peek (Proxy @"primitive_c") ptr_0) <*> peek (Proxy @"primitive_sc") ptr_0) <*> peek (Proxy @"primitive_uc") ptr_0) <*> peek (Proxy @"primitive_s") ptr_0) <*> peek (Proxy @"primitive_si") ptr_0) <*> peek (Proxy @"primitive_ss") ptr_0) <*> peek (Proxy @"primitive_ssi") ptr_0) <*> peek (Proxy @"primitive_us") ptr_0) <*> peek (Proxy @"primitive_usi") ptr_0) <*> peek (Proxy @"primitive_i") ptr_0) <*> peek (Proxy @"primitive_s2") ptr_0) <*> peek (Proxy @"primitive_si2") ptr_0) <*> peek (Proxy @"primitive_u") ptr_0) <*> peek (Proxy @"primitive_ui") ptr_0) <*> peek (Proxy @"primitive_l") ptr_0) <*> peek (Proxy @"primitive_li") ptr_0) <*> peek (Proxy @"primitive_sl") ptr_0) <*> peek (Proxy @"primitive_sli") ptr_0) <*> peek (Proxy @"primitive_ul") ptr_0) <*> peek (Proxy @"primitive_uli") ptr_0) <*> peek (Proxy @"primitive_ll") ptr_0) <*> peek (Proxy @"primitive_lli") ptr_0) <*> peek (Proxy @"primitive_sll") ptr_0) <*> peek (Proxy @"primitive_slli") ptr_0) <*> peek (Proxy @"primitive_ull") ptr_0) <*> peek (Proxy @"primitive_ulli") ptr_0) <*> peek (Proxy @"primitive_f") ptr_0) <*> peek (Proxy @"primitive_d") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Primitive primitive_c_3
                                              primitive_sc_4
@@ -241,7 +241,7 @@ instance Storable Primitive
                                              primitive_ull_27
                                              primitive_ulli_28
                                              primitive_f_29
-                                             primitive_d_30 -> pokeCField (Proxy @"primitive_c") ptr_1 primitive_c_3 >> (pokeCField (Proxy @"primitive_sc") ptr_1 primitive_sc_4 >> (pokeCField (Proxy @"primitive_uc") ptr_1 primitive_uc_5 >> (pokeCField (Proxy @"primitive_s") ptr_1 primitive_s_6 >> (pokeCField (Proxy @"primitive_si") ptr_1 primitive_si_7 >> (pokeCField (Proxy @"primitive_ss") ptr_1 primitive_ss_8 >> (pokeCField (Proxy @"primitive_ssi") ptr_1 primitive_ssi_9 >> (pokeCField (Proxy @"primitive_us") ptr_1 primitive_us_10 >> (pokeCField (Proxy @"primitive_usi") ptr_1 primitive_usi_11 >> (pokeCField (Proxy @"primitive_i") ptr_1 primitive_i_12 >> (pokeCField (Proxy @"primitive_s2") ptr_1 primitive_s2_13 >> (pokeCField (Proxy @"primitive_si2") ptr_1 primitive_si2_14 >> (pokeCField (Proxy @"primitive_u") ptr_1 primitive_u_15 >> (pokeCField (Proxy @"primitive_ui") ptr_1 primitive_ui_16 >> (pokeCField (Proxy @"primitive_l") ptr_1 primitive_l_17 >> (pokeCField (Proxy @"primitive_li") ptr_1 primitive_li_18 >> (pokeCField (Proxy @"primitive_sl") ptr_1 primitive_sl_19 >> (pokeCField (Proxy @"primitive_sli") ptr_1 primitive_sli_20 >> (pokeCField (Proxy @"primitive_ul") ptr_1 primitive_ul_21 >> (pokeCField (Proxy @"primitive_uli") ptr_1 primitive_uli_22 >> (pokeCField (Proxy @"primitive_ll") ptr_1 primitive_ll_23 >> (pokeCField (Proxy @"primitive_lli") ptr_1 primitive_lli_24 >> (pokeCField (Proxy @"primitive_sll") ptr_1 primitive_sll_25 >> (pokeCField (Proxy @"primitive_slli") ptr_1 primitive_slli_26 >> (pokeCField (Proxy @"primitive_ull") ptr_1 primitive_ull_27 >> (pokeCField (Proxy @"primitive_ulli") ptr_1 primitive_ulli_28 >> (pokeCField (Proxy @"primitive_f") ptr_1 primitive_f_29 >> pokeCField (Proxy @"primitive_d") ptr_1 primitive_d_30))))))))))))))))))))))))))
+                                             primitive_d_30 -> poke (Proxy @"primitive_c") ptr_1 primitive_c_3 >> (poke (Proxy @"primitive_sc") ptr_1 primitive_sc_4 >> (poke (Proxy @"primitive_uc") ptr_1 primitive_uc_5 >> (poke (Proxy @"primitive_s") ptr_1 primitive_s_6 >> (poke (Proxy @"primitive_si") ptr_1 primitive_si_7 >> (poke (Proxy @"primitive_ss") ptr_1 primitive_ss_8 >> (poke (Proxy @"primitive_ssi") ptr_1 primitive_ssi_9 >> (poke (Proxy @"primitive_us") ptr_1 primitive_us_10 >> (poke (Proxy @"primitive_usi") ptr_1 primitive_usi_11 >> (poke (Proxy @"primitive_i") ptr_1 primitive_i_12 >> (poke (Proxy @"primitive_s2") ptr_1 primitive_s2_13 >> (poke (Proxy @"primitive_si2") ptr_1 primitive_si2_14 >> (poke (Proxy @"primitive_u") ptr_1 primitive_u_15 >> (poke (Proxy @"primitive_ui") ptr_1 primitive_ui_16 >> (poke (Proxy @"primitive_l") ptr_1 primitive_l_17 >> (poke (Proxy @"primitive_li") ptr_1 primitive_li_18 >> (poke (Proxy @"primitive_sl") ptr_1 primitive_sl_19 >> (poke (Proxy @"primitive_sli") ptr_1 primitive_sli_20 >> (poke (Proxy @"primitive_ul") ptr_1 primitive_ul_21 >> (poke (Proxy @"primitive_uli") ptr_1 primitive_uli_22 >> (poke (Proxy @"primitive_ll") ptr_1 primitive_ll_23 >> (poke (Proxy @"primitive_lli") ptr_1 primitive_lli_24 >> (poke (Proxy @"primitive_sll") ptr_1 primitive_sll_25 >> (poke (Proxy @"primitive_slli") ptr_1 primitive_slli_26 >> (poke (Proxy @"primitive_ull") ptr_1 primitive_ull_27 >> (poke (Proxy @"primitive_ulli") ptr_1 primitive_ulli_28 >> (poke (Proxy @"primitive_f") ptr_1 primitive_f_29 >> poke (Proxy @"primitive_d") ptr_1 primitive_d_30))))))))))))))))))))))))))
 instance Prim Primitive
     where sizeOf# = \_ -> 152# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -480,166 +480,166 @@ instance HasCField Primitive "primitive_c"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Primitive "primitive_c") =>
          HasField "primitive_c" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_c")
+    where getField = fromPtr (Proxy @"primitive_c")
 instance HasCField Primitive "primitive_sc"
     where type CFieldType Primitive "primitive_sc" = CSChar
           offset# = \_ -> \_ -> 1
 instance TyEq ty (CFieldType Primitive "primitive_sc") =>
          HasField "primitive_sc" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_sc")
+    where getField = fromPtr (Proxy @"primitive_sc")
 instance HasCField Primitive "primitive_uc"
     where type CFieldType Primitive "primitive_uc" = CUChar
           offset# = \_ -> \_ -> 2
 instance TyEq ty (CFieldType Primitive "primitive_uc") =>
          HasField "primitive_uc" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_uc")
+    where getField = fromPtr (Proxy @"primitive_uc")
 instance HasCField Primitive "primitive_s"
     where type CFieldType Primitive "primitive_s" = CShort
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Primitive "primitive_s") =>
          HasField "primitive_s" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_s")
+    where getField = fromPtr (Proxy @"primitive_s")
 instance HasCField Primitive "primitive_si"
     where type CFieldType Primitive "primitive_si" = CShort
           offset# = \_ -> \_ -> 6
 instance TyEq ty (CFieldType Primitive "primitive_si") =>
          HasField "primitive_si" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_si")
+    where getField = fromPtr (Proxy @"primitive_si")
 instance HasCField Primitive "primitive_ss"
     where type CFieldType Primitive "primitive_ss" = CShort
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Primitive "primitive_ss") =>
          HasField "primitive_ss" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_ss")
+    where getField = fromPtr (Proxy @"primitive_ss")
 instance HasCField Primitive "primitive_ssi"
     where type CFieldType Primitive "primitive_ssi" = CShort
           offset# = \_ -> \_ -> 10
 instance TyEq ty (CFieldType Primitive "primitive_ssi") =>
          HasField "primitive_ssi" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_ssi")
+    where getField = fromPtr (Proxy @"primitive_ssi")
 instance HasCField Primitive "primitive_us"
     where type CFieldType Primitive "primitive_us" = CUShort
           offset# = \_ -> \_ -> 12
 instance TyEq ty (CFieldType Primitive "primitive_us") =>
          HasField "primitive_us" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_us")
+    where getField = fromPtr (Proxy @"primitive_us")
 instance HasCField Primitive "primitive_usi"
     where type CFieldType Primitive "primitive_usi" = CUShort
           offset# = \_ -> \_ -> 14
 instance TyEq ty (CFieldType Primitive "primitive_usi") =>
          HasField "primitive_usi" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_usi")
+    where getField = fromPtr (Proxy @"primitive_usi")
 instance HasCField Primitive "primitive_i"
     where type CFieldType Primitive "primitive_i" = CInt
           offset# = \_ -> \_ -> 16
 instance TyEq ty (CFieldType Primitive "primitive_i") =>
          HasField "primitive_i" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_i")
+    where getField = fromPtr (Proxy @"primitive_i")
 instance HasCField Primitive "primitive_s2"
     where type CFieldType Primitive "primitive_s2" = CInt
           offset# = \_ -> \_ -> 20
 instance TyEq ty (CFieldType Primitive "primitive_s2") =>
          HasField "primitive_s2" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_s2")
+    where getField = fromPtr (Proxy @"primitive_s2")
 instance HasCField Primitive "primitive_si2"
     where type CFieldType Primitive "primitive_si2" = CInt
           offset# = \_ -> \_ -> 24
 instance TyEq ty (CFieldType Primitive "primitive_si2") =>
          HasField "primitive_si2" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_si2")
+    where getField = fromPtr (Proxy @"primitive_si2")
 instance HasCField Primitive "primitive_u"
     where type CFieldType Primitive "primitive_u" = CUInt
           offset# = \_ -> \_ -> 28
 instance TyEq ty (CFieldType Primitive "primitive_u") =>
          HasField "primitive_u" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_u")
+    where getField = fromPtr (Proxy @"primitive_u")
 instance HasCField Primitive "primitive_ui"
     where type CFieldType Primitive "primitive_ui" = CUInt
           offset# = \_ -> \_ -> 32
 instance TyEq ty (CFieldType Primitive "primitive_ui") =>
          HasField "primitive_ui" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_ui")
+    where getField = fromPtr (Proxy @"primitive_ui")
 instance HasCField Primitive "primitive_l"
     where type CFieldType Primitive "primitive_l" = CLong
           offset# = \_ -> \_ -> 40
 instance TyEq ty (CFieldType Primitive "primitive_l") =>
          HasField "primitive_l" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_l")
+    where getField = fromPtr (Proxy @"primitive_l")
 instance HasCField Primitive "primitive_li"
     where type CFieldType Primitive "primitive_li" = CLong
           offset# = \_ -> \_ -> 48
 instance TyEq ty (CFieldType Primitive "primitive_li") =>
          HasField "primitive_li" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_li")
+    where getField = fromPtr (Proxy @"primitive_li")
 instance HasCField Primitive "primitive_sl"
     where type CFieldType Primitive "primitive_sl" = CLong
           offset# = \_ -> \_ -> 56
 instance TyEq ty (CFieldType Primitive "primitive_sl") =>
          HasField "primitive_sl" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_sl")
+    where getField = fromPtr (Proxy @"primitive_sl")
 instance HasCField Primitive "primitive_sli"
     where type CFieldType Primitive "primitive_sli" = CLong
           offset# = \_ -> \_ -> 64
 instance TyEq ty (CFieldType Primitive "primitive_sli") =>
          HasField "primitive_sli" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_sli")
+    where getField = fromPtr (Proxy @"primitive_sli")
 instance HasCField Primitive "primitive_ul"
     where type CFieldType Primitive "primitive_ul" = CULong
           offset# = \_ -> \_ -> 72
 instance TyEq ty (CFieldType Primitive "primitive_ul") =>
          HasField "primitive_ul" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_ul")
+    where getField = fromPtr (Proxy @"primitive_ul")
 instance HasCField Primitive "primitive_uli"
     where type CFieldType Primitive "primitive_uli" = CULong
           offset# = \_ -> \_ -> 80
 instance TyEq ty (CFieldType Primitive "primitive_uli") =>
          HasField "primitive_uli" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_uli")
+    where getField = fromPtr (Proxy @"primitive_uli")
 instance HasCField Primitive "primitive_ll"
     where type CFieldType Primitive "primitive_ll" = CLLong
           offset# = \_ -> \_ -> 88
 instance TyEq ty (CFieldType Primitive "primitive_ll") =>
          HasField "primitive_ll" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_ll")
+    where getField = fromPtr (Proxy @"primitive_ll")
 instance HasCField Primitive "primitive_lli"
     where type CFieldType Primitive "primitive_lli" = CLLong
           offset# = \_ -> \_ -> 96
 instance TyEq ty (CFieldType Primitive "primitive_lli") =>
          HasField "primitive_lli" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_lli")
+    where getField = fromPtr (Proxy @"primitive_lli")
 instance HasCField Primitive "primitive_sll"
     where type CFieldType Primitive "primitive_sll" = CLLong
           offset# = \_ -> \_ -> 104
 instance TyEq ty (CFieldType Primitive "primitive_sll") =>
          HasField "primitive_sll" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_sll")
+    where getField = fromPtr (Proxy @"primitive_sll")
 instance HasCField Primitive "primitive_slli"
     where type CFieldType Primitive "primitive_slli" = CLLong
           offset# = \_ -> \_ -> 112
 instance TyEq ty (CFieldType Primitive "primitive_slli") =>
          HasField "primitive_slli" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_slli")
+    where getField = fromPtr (Proxy @"primitive_slli")
 instance HasCField Primitive "primitive_ull"
     where type CFieldType Primitive "primitive_ull" = CULLong
           offset# = \_ -> \_ -> 120
 instance TyEq ty (CFieldType Primitive "primitive_ull") =>
          HasField "primitive_ull" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_ull")
+    where getField = fromPtr (Proxy @"primitive_ull")
 instance HasCField Primitive "primitive_ulli"
     where type CFieldType Primitive "primitive_ulli" = CULLong
           offset# = \_ -> \_ -> 128
 instance TyEq ty (CFieldType Primitive "primitive_ulli") =>
          HasField "primitive_ulli" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_ulli")
+    where getField = fromPtr (Proxy @"primitive_ulli")
 instance HasCField Primitive "primitive_f"
     where type CFieldType Primitive "primitive_f" = CFloat
           offset# = \_ -> \_ -> 136
 instance TyEq ty (CFieldType Primitive "primitive_f") =>
          HasField "primitive_f" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_f")
+    where getField = fromPtr (Proxy @"primitive_f")
 instance HasCField Primitive "primitive_d"
     where type CFieldType Primitive "primitive_d" = CDouble
           offset# = \_ -> \_ -> 144
 instance TyEq ty (CFieldType Primitive "primitive_d") =>
          HasField "primitive_d" (Ptr Primitive) (Ptr ty)
-    where getField = ptrToCField (Proxy @"primitive_d")
+    where getField = fromPtr (Proxy @"primitive_d")

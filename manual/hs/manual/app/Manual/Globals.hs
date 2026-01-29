@@ -7,10 +7,9 @@ import Foreign as F
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
-import Manual.Tools
-
 import Globals qualified
 import Globals.Global qualified as Globals
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Examples

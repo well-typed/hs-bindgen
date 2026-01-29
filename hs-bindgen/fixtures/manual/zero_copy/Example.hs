@@ -25,9 +25,11 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
+import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
+import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -69,16 +71,16 @@ instance F.Storable Point where
   peek =
     \ptr0 ->
           pure Point
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point point_x2 point_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point_x") ptr0 point_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point_y") ptr0 point_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point_x") ptr0 point_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point_y") ptr0 point_y3
 
 instance Data.Primitive.Types.Prim Point where
 
@@ -146,7 +148,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "point_x")
          ) => GHC.Records.HasField "point_x" (Ptr.Ptr Point) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point "point_y" where
 
@@ -158,7 +160,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "point_y")
          ) => GHC.Records.HasField "point_y" (Ptr.Ptr Point) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point_y")
 
 {-| __C declaration:__ @struct rectangle@
 
@@ -193,16 +195,16 @@ instance F.Storable Rectangle where
   peek =
     \ptr0 ->
           pure Rectangle
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"rectangle_topleft") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"rectangle_bottomright") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"rectangle_topleft") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"rectangle_bottomright") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Rectangle rectangle_topleft2 rectangle_bottomright3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"rectangle_topleft") ptr0 rectangle_topleft2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"rectangle_bottomright") ptr0 rectangle_bottomright3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"rectangle_topleft") ptr0 rectangle_topleft2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"rectangle_bottomright") ptr0 rectangle_bottomright3
 
 instance Data.Primitive.Types.Prim Rectangle where
 
@@ -270,7 +272,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rectangle) "rectangl
          ) => GHC.Records.HasField "rectangle_topleft" (Ptr.Ptr Rectangle) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"rectangle_topleft")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"rectangle_topleft")
 
 instance HsBindgen.Runtime.HasCField.HasCField Rectangle "rectangle_bottomright" where
 
@@ -283,7 +285,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rectangle) "rectangl
          ) => GHC.Records.HasField "rectangle_bottomright" (Ptr.Ptr Rectangle) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"rectangle_bottomright")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"rectangle_bottomright")
 
 {-| __C declaration:__ @struct circle@
 
@@ -318,16 +320,16 @@ instance F.Storable Circle where
   peek =
     \ptr0 ->
           pure Circle
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"circle_midpoint") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"circle_radius") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"circle_midpoint") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"circle_radius") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Circle circle_midpoint2 circle_radius3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"circle_midpoint") ptr0 circle_midpoint2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"circle_radius") ptr0 circle_radius3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"circle_midpoint") ptr0 circle_midpoint2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"circle_radius") ptr0 circle_radius3
 
 instance Data.Primitive.Types.Prim Circle where
 
@@ -395,7 +397,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Circle) "circle_midp
          ) => GHC.Records.HasField "circle_midpoint" (Ptr.Ptr Circle) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"circle_midpoint")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"circle_midpoint")
 
 instance HsBindgen.Runtime.HasCField.HasCField Circle "circle_radius" where
 
@@ -407,7 +409,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Circle) "circle_radi
          ) => GHC.Records.HasField "circle_radius" (Ptr.Ptr Circle) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"circle_radius")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"circle_radius")
 
 {-| __C declaration:__ @union shape@
 
@@ -487,7 +489,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Shape) "shape_rectan
          ) => GHC.Records.HasField "shape_rectangle" (Ptr.Ptr Shape) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"shape_rectangle")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"shape_rectangle")
 
 instance HsBindgen.Runtime.HasCField.HasCField Shape "shape_circle" where
 
@@ -499,7 +501,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Shape) "shape_circle
          ) => GHC.Records.HasField "shape_circle" (Ptr.Ptr Shape) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"shape_circle")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"shape_circle")
 
 {-| __C declaration:__ @struct colour@
 
@@ -555,11 +557,11 @@ instance F.Storable Colour where
   peek =
     \ptr0 ->
           pure Colour
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"colour_opacity") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"colour_brightness") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"colour_red") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"colour_green") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"colour_blue") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_opacity") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_brightness") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_red") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_green") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_blue") ptr0
 
   poke =
     \ptr0 ->
@@ -571,11 +573,11 @@ instance F.Storable Colour where
             colour_red4
             colour_green5
             colour_blue6 ->
-                 HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"colour_opacity") ptr0 colour_opacity2
-              >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"colour_brightness") ptr0 colour_brightness3
-              >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"colour_red") ptr0 colour_red4
-              >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"colour_green") ptr0 colour_green5
-              >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"colour_blue") ptr0 colour_blue6
+                 HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_opacity") ptr0 colour_opacity2
+              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_brightness") ptr0 colour_brightness3
+              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_red") ptr0 colour_red4
+              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_green") ptr0 colour_green5
+              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_blue") ptr0 colour_blue6
 
 instance Data.Primitive.Types.Prim Colour where
 
@@ -667,76 +669,76 @@ instance Data.Primitive.Types.Prim Colour where
                                 s12 ->
                                   Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (5#) i1) (4#)) colour_blue8 s12
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield Colour "colour_opacity" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_opacity" where
 
   type CBitfieldType Colour "colour_opacity" = FC.CUInt
 
-  bitOffset# = \_ -> \_ -> 0
+  bitfieldOffset# = \_ -> \_ -> 0
 
-  bitWidth# = \_ -> \_ -> 2
+  bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Colour) "colour_opacity")
-         ) => GHC.Records.HasField "colour_opacity" (Ptr.Ptr Colour) ((HsBindgen.Runtime.HasCField.BitfieldPtr Colour) "colour_opacity") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_opacity")
+         ) => GHC.Records.HasField "colour_opacity" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"colour_opacity")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_opacity")
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield Colour "colour_brightness" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_brightness" where
 
   type CBitfieldType Colour "colour_brightness" =
     FC.CUInt
 
-  bitOffset# = \_ -> \_ -> 2
+  bitfieldOffset# = \_ -> \_ -> 2
 
-  bitWidth# = \_ -> \_ -> 3
+  bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Colour) "colour_brightness")
-         ) => GHC.Records.HasField "colour_brightness" (Ptr.Ptr Colour) ((HsBindgen.Runtime.HasCField.BitfieldPtr Colour) "colour_brightness") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_brightness")
+         ) => GHC.Records.HasField "colour_brightness" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"colour_brightness")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_brightness")
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield Colour "colour_red" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_red" where
 
   type CBitfieldType Colour "colour_red" = FC.CUInt
 
-  bitOffset# = \_ -> \_ -> 5
+  bitfieldOffset# = \_ -> \_ -> 5
 
-  bitWidth# = \_ -> \_ -> 8
+  bitfieldWidth# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Colour) "colour_red")
-         ) => GHC.Records.HasField "colour_red" (Ptr.Ptr Colour) ((HsBindgen.Runtime.HasCField.BitfieldPtr Colour) "colour_red") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_red")
+         ) => GHC.Records.HasField "colour_red" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"colour_red")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_red")
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield Colour "colour_green" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_green" where
 
   type CBitfieldType Colour "colour_green" = FC.CUInt
 
-  bitOffset# = \_ -> \_ -> 13
+  bitfieldOffset# = \_ -> \_ -> 13
 
-  bitWidth# = \_ -> \_ -> 8
+  bitfieldWidth# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Colour) "colour_green")
-         ) => GHC.Records.HasField "colour_green" (Ptr.Ptr Colour) ((HsBindgen.Runtime.HasCField.BitfieldPtr Colour) "colour_green") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_green")
+         ) => GHC.Records.HasField "colour_green" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"colour_green")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_green")
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield Colour "colour_blue" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_blue" where
 
   type CBitfieldType Colour "colour_blue" = FC.CUInt
 
-  bitOffset# = \_ -> \_ -> 21
+  bitfieldOffset# = \_ -> \_ -> 21
 
-  bitWidth# = \_ -> \_ -> 8
+  bitfieldWidth# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Colour) "colour_blue")
-         ) => GHC.Records.HasField "colour_blue" (Ptr.Ptr Colour) ((HsBindgen.Runtime.HasCField.BitfieldPtr Colour) "colour_blue") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_blue")
+         ) => GHC.Records.HasField "colour_blue" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"colour_blue")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_blue")
 
 {-| __C declaration:__ @myInt@
 
@@ -754,7 +756,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "un_MyInt")
          ) => GHC.Records.HasField "un_MyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyInt")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyInt")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
 
@@ -795,16 +797,16 @@ instance F.Storable Drawing where
   peek =
     \ptr0 ->
           pure Drawing
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"drawing_shape") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"drawing_colour") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"drawing_shape") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"drawing_colour") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Drawing drawing_shape2 drawing_colour3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"drawing_shape") ptr0 drawing_shape2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"drawing_colour") ptr0 drawing_colour3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"drawing_shape") ptr0 drawing_shape2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"drawing_colour") ptr0 drawing_colour3
 
 instance HsBindgen.Runtime.HasCField.HasCField Drawing "drawing_shape" where
 
@@ -817,7 +819,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Drawing) "drawing_sh
          ) => GHC.Records.HasField "drawing_shape" (Ptr.Ptr Drawing) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"drawing_shape")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"drawing_shape")
 
 instance HsBindgen.Runtime.HasCField.HasCField Drawing "drawing_colour" where
 
@@ -830,7 +832,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Drawing) "drawing_co
          ) => GHC.Records.HasField "drawing_colour" (Ptr.Ptr Drawing) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"drawing_colour")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"drawing_colour")
 
 {-| __C declaration:__ @struct tic_tac_toe@
 
@@ -872,18 +874,18 @@ instance F.Storable Tic_tac_toe where
   peek =
     \ptr0 ->
           pure Tic_tac_toe
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Tic_tac_toe tic_tac_toe_row12 tic_tac_toe_row23 tic_tac_toe_row34 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0 tic_tac_toe_row12
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0 tic_tac_toe_row23
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0 tic_tac_toe_row34
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0 tic_tac_toe_row12
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0 tic_tac_toe_row23
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0 tic_tac_toe_row34
 
 instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row1" where
 
@@ -896,7 +898,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
          ) => GHC.Records.HasField "tic_tac_toe_row1" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tic_tac_toe_row1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tic_tac_toe_row1")
 
 instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row2" where
 
@@ -909,7 +911,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
          ) => GHC.Records.HasField "tic_tac_toe_row2" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tic_tac_toe_row2")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tic_tac_toe_row2")
 
 instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row3" where
 
@@ -922,7 +924,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
          ) => GHC.Records.HasField "tic_tac_toe_row3" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tic_tac_toe_row3")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tic_tac_toe_row3")
 
 {-| __C declaration:__ @struct vector@
 
@@ -950,14 +952,14 @@ instance F.Storable Vector_Aux where
   peek =
     \ptr0 ->
           pure Vector
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"vector_len") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"vector_len") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Vector vector_len2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"vector_len") ptr0 vector_len2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"vector_len") ptr0 vector_len2
 
 instance Data.Primitive.Types.Prim Vector_Aux where
 
@@ -1017,7 +1019,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_
          ) => GHC.Records.HasField "vector_len" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_len")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_len")
 
 instance HsBindgen.Runtime.FLAM.Offset FC.CChar Vector_Aux where
 
@@ -1048,7 +1050,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet
          ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
 
 instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
@@ -1073,7 +1075,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
          ) => GHC.Records.HasField "un_Matrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Matrix")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Matrix")
 
 instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
 

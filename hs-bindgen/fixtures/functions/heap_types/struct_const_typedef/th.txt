@@ -46,9 +46,9 @@ data S
 instance Storable S
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure S <*> peekCField (Proxy @"s_x") ptr_0
+          peek = \ptr_0 -> pure S <*> peek (Proxy @"s_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S s_x_3 -> pokeCField (Proxy @"s_x") ptr_1 s_x_3
+                                   S s_x_3 -> poke (Proxy @"s_x") ptr_1 s_x_3
 instance Prim S
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -67,7 +67,7 @@ instance HasCField S "s_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType S "s_x") =>
          HasField "s_x" (Ptr S) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s_x")
+    where getField = fromPtr (Proxy @"s_x")
 {-| __C declaration:__ @T@
 
     __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
@@ -86,7 +86,7 @@ newtype T
     deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType T "un_T") =>
          HasField "un_T" (Ptr T) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_T")
+    where getField = fromPtr (Proxy @"un_T")
 instance HasCField T "un_T"
     where type CFieldType T "un_T" = S
           offset# = \_ -> \_ -> 0

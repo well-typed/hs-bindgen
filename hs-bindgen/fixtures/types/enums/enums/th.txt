@@ -37,9 +37,9 @@ instance SequentialCEnum First
     where minDeclaredValue = FIRST1
           maxDeclaredValue = FIRST2
 instance Show First
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read First
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @FIRST1@
@@ -109,9 +109,9 @@ instance SequentialCEnum Second
     where minDeclaredValue = SECOND_A
           maxDeclaredValue = SECOND_C
 instance Show Second
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Second
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @SECOND_A@
@@ -193,9 +193,9 @@ instance SequentialCEnum Same
     where minDeclaredValue = SAME_A
           maxDeclaredValue = SAME_A
 instance Show Same
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Same
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @SAME_A@
@@ -260,9 +260,9 @@ instance CEnum Nonseq
           showsUndeclared = showsWrappedUndeclared "Nonseq"
           readPrecUndeclared = readPrecWrappedUndeclared "Nonseq"
 instance Show Nonseq
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Nonseq
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @NONSEQ_A@
@@ -346,9 +346,9 @@ instance SequentialCEnum Packed
     where minDeclaredValue = PACKED_A
           maxDeclaredValue = PACKED_C
 instance Show Packed
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read Packed
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @PACKED_A@
@@ -431,9 +431,9 @@ instance SequentialCEnum EnumA
     where minDeclaredValue = A_FOO
           maxDeclaredValue = A_BAR
 instance Show EnumA
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read EnumA
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @A_FOO@
@@ -502,9 +502,9 @@ instance SequentialCEnum EnumB
     where minDeclaredValue = B_FOO
           maxDeclaredValue = B_BAR
 instance Show EnumB
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read EnumB
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @B_FOO@
@@ -573,9 +573,9 @@ instance SequentialCEnum EnumC
     where minDeclaredValue = C_FOO
           maxDeclaredValue = C_BAR
 instance Show EnumC
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read EnumC
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @C_FOO@
@@ -644,9 +644,9 @@ instance SequentialCEnum EnumD_t
     where minDeclaredValue = D_FOO
           maxDeclaredValue = D_BAR
 instance Show EnumD_t
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read EnumD_t
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @D_FOO@

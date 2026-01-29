@@ -115,7 +115,7 @@ instance HasCField MyUnion "myUnion_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType MyUnion "myUnion_x") =>
          HasField "myUnion_x" (Ptr MyUnion) (Ptr ty)
-    where getField = ptrToCField (Proxy @"myUnion_x")
+    where getField = fromPtr (Proxy @"myUnion_x")
 {-| __C declaration:__ @A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 7:9@

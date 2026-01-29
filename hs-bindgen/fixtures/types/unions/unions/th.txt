@@ -30,10 +30,10 @@ data Dim2
 instance Storable Dim2
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Dim2 <*> peekCField (Proxy @"dim2_x") ptr_0) <*> peekCField (Proxy @"dim2_y") ptr_0
+          peek = \ptr_0 -> (pure Dim2 <*> peek (Proxy @"dim2_x") ptr_0) <*> peek (Proxy @"dim2_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Dim2 dim2_x_3
-                                        dim2_y_4 -> pokeCField (Proxy @"dim2_x") ptr_1 dim2_x_3 >> pokeCField (Proxy @"dim2_y") ptr_1 dim2_y_4
+                                        dim2_y_4 -> poke (Proxy @"dim2_x") ptr_1 dim2_x_3 >> poke (Proxy @"dim2_y") ptr_1 dim2_y_4
 instance Prim Dim2
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -62,13 +62,13 @@ instance HasCField Dim2 "dim2_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Dim2 "dim2_x") =>
          HasField "dim2_x" (Ptr Dim2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dim2_x")
+    where getField = fromPtr (Proxy @"dim2_x")
 instance HasCField Dim2 "dim2_y"
     where type CFieldType Dim2 "dim2_y" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Dim2 "dim2_y") =>
          HasField "dim2_y" (Ptr Dim2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dim2_y")
+    where getField = fromPtr (Proxy @"dim2_y")
 {-| __C declaration:__ @struct Dim3@
 
     __defined at:__ @types\/unions\/unions.h 6:8@
@@ -107,11 +107,11 @@ data Dim3
 instance Storable Dim3
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((pure Dim3 <*> peekCField (Proxy @"dim3_x") ptr_0) <*> peekCField (Proxy @"dim3_y") ptr_0) <*> peekCField (Proxy @"dim3_z") ptr_0
+          peek = \ptr_0 -> ((pure Dim3 <*> peek (Proxy @"dim3_x") ptr_0) <*> peek (Proxy @"dim3_y") ptr_0) <*> peek (Proxy @"dim3_z") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Dim3 dim3_x_3
                                         dim3_y_4
-                                        dim3_z_5 -> pokeCField (Proxy @"dim3_x") ptr_1 dim3_x_3 >> (pokeCField (Proxy @"dim3_y") ptr_1 dim3_y_4 >> pokeCField (Proxy @"dim3_z") ptr_1 dim3_z_5)
+                                        dim3_z_5 -> poke (Proxy @"dim3_x") ptr_1 dim3_x_3 >> (poke (Proxy @"dim3_y") ptr_1 dim3_y_4 >> poke (Proxy @"dim3_z") ptr_1 dim3_z_5)
 instance Prim Dim3
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -150,19 +150,19 @@ instance HasCField Dim3 "dim3_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Dim3 "dim3_x") =>
          HasField "dim3_x" (Ptr Dim3) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dim3_x")
+    where getField = fromPtr (Proxy @"dim3_x")
 instance HasCField Dim3 "dim3_y"
     where type CFieldType Dim3 "dim3_y" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Dim3 "dim3_y") =>
          HasField "dim3_y" (Ptr Dim3) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dim3_y")
+    where getField = fromPtr (Proxy @"dim3_y")
 instance HasCField Dim3 "dim3_z"
     where type CFieldType Dim3 "dim3_z" = CInt
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Dim3 "dim3_z") =>
          HasField "dim3_z" (Ptr Dim3) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dim3_z")
+    where getField = fromPtr (Proxy @"dim3_z")
 {-| __C declaration:__ @union DimPayload@
 
     __defined at:__ @types\/unions\/unions.h 12:7@
@@ -252,13 +252,13 @@ instance HasCField DimPayload "dimPayload_dim2"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType DimPayload "dimPayload_dim2") =>
          HasField "dimPayload_dim2" (Ptr DimPayload) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dimPayload_dim2")
+    where getField = fromPtr (Proxy @"dimPayload_dim2")
 instance HasCField DimPayload "dimPayload_dim3"
     where type CFieldType DimPayload "dimPayload_dim3" = Dim2
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType DimPayload "dimPayload_dim3") =>
          HasField "dimPayload_dim3" (Ptr DimPayload) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dimPayload_dim3")
+    where getField = fromPtr (Proxy @"dimPayload_dim3")
 {-| __C declaration:__ @struct Dim@
 
     __defined at:__ @types\/unions\/unions.h 17:8@
@@ -289,22 +289,22 @@ data Dim
 instance Storable Dim
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Dim <*> peekCField (Proxy @"dim_tag") ptr_0) <*> peekCField (Proxy @"dim_payload") ptr_0
+          peek = \ptr_0 -> (pure Dim <*> peek (Proxy @"dim_tag") ptr_0) <*> peek (Proxy @"dim_payload") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Dim dim_tag_3
-                                       dim_payload_4 -> pokeCField (Proxy @"dim_tag") ptr_1 dim_tag_3 >> pokeCField (Proxy @"dim_payload") ptr_1 dim_payload_4
+                                       dim_payload_4 -> poke (Proxy @"dim_tag") ptr_1 dim_tag_3 >> poke (Proxy @"dim_payload") ptr_1 dim_payload_4
 instance HasCField Dim "dim_tag"
     where type CFieldType Dim "dim_tag" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Dim "dim_tag") =>
          HasField "dim_tag" (Ptr Dim) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dim_tag")
+    where getField = fromPtr (Proxy @"dim_tag")
 instance HasCField Dim "dim_payload"
     where type CFieldType Dim "dim_payload" = DimPayload
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Dim "dim_payload") =>
          HasField "dim_payload" (Ptr Dim) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dim_payload")
+    where getField = fromPtr (Proxy @"dim_payload")
 {-| __C declaration:__ @union DimPayloadB@
 
     __defined at:__ @types\/unions\/unions.h 23:15@
@@ -394,13 +394,13 @@ instance HasCField DimPayloadB "dimPayloadB_dim2"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType DimPayloadB "dimPayloadB_dim2") =>
          HasField "dimPayloadB_dim2" (Ptr DimPayloadB) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dimPayloadB_dim2")
+    where getField = fromPtr (Proxy @"dimPayloadB_dim2")
 instance HasCField DimPayloadB "dimPayloadB_dim3"
     where type CFieldType DimPayloadB "dimPayloadB_dim3" = Dim2
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType DimPayloadB "dimPayloadB_dim3") =>
          HasField "dimPayloadB_dim3" (Ptr DimPayloadB) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dimPayloadB_dim3")
+    where getField = fromPtr (Proxy @"dimPayloadB_dim3")
 {-| __C declaration:__ @struct DimB@
 
     __defined at:__ @types\/unions\/unions.h 28:8@
@@ -431,22 +431,22 @@ data DimB
 instance Storable DimB
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure DimB <*> peekCField (Proxy @"dimB_tag") ptr_0) <*> peekCField (Proxy @"dimB_payload") ptr_0
+          peek = \ptr_0 -> (pure DimB <*> peek (Proxy @"dimB_tag") ptr_0) <*> peek (Proxy @"dimB_payload") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    DimB dimB_tag_3
-                                        dimB_payload_4 -> pokeCField (Proxy @"dimB_tag") ptr_1 dimB_tag_3 >> pokeCField (Proxy @"dimB_payload") ptr_1 dimB_payload_4
+                                        dimB_payload_4 -> poke (Proxy @"dimB_tag") ptr_1 dimB_tag_3 >> poke (Proxy @"dimB_payload") ptr_1 dimB_payload_4
 instance HasCField DimB "dimB_tag"
     where type CFieldType DimB "dimB_tag" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType DimB "dimB_tag") =>
          HasField "dimB_tag" (Ptr DimB) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dimB_tag")
+    where getField = fromPtr (Proxy @"dimB_tag")
 instance HasCField DimB "dimB_payload"
     where type CFieldType DimB "dimB_payload" = DimPayloadB
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType DimB "dimB_payload") =>
          HasField "dimB_payload" (Ptr DimB) (Ptr ty)
-    where getField = ptrToCField (Proxy @"dimB_payload")
+    where getField = fromPtr (Proxy @"dimB_payload")
 {-| __C declaration:__ @struct \@AnonA_xy@
 
     __defined at:__ @types\/unions\/unions.h 35:5@
@@ -478,10 +478,10 @@ data AnonA_xy
 instance Storable AnonA_xy
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure AnonA_xy <*> peekCField (Proxy @"anonA_xy_x") ptr_0) <*> peekCField (Proxy @"anonA_xy_y") ptr_0
+          peek = \ptr_0 -> (pure AnonA_xy <*> peek (Proxy @"anonA_xy_x") ptr_0) <*> peek (Proxy @"anonA_xy_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    AnonA_xy anonA_xy_x_3
-                                            anonA_xy_y_4 -> pokeCField (Proxy @"anonA_xy_x") ptr_1 anonA_xy_x_3 >> pokeCField (Proxy @"anonA_xy_y") ptr_1 anonA_xy_y_4
+                                            anonA_xy_y_4 -> poke (Proxy @"anonA_xy_x") ptr_1 anonA_xy_x_3 >> poke (Proxy @"anonA_xy_y") ptr_1 anonA_xy_y_4
 instance Prim AnonA_xy
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -510,13 +510,13 @@ instance HasCField AnonA_xy "anonA_xy_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType AnonA_xy "anonA_xy_x") =>
          HasField "anonA_xy_x" (Ptr AnonA_xy) (Ptr ty)
-    where getField = ptrToCField (Proxy @"anonA_xy_x")
+    where getField = fromPtr (Proxy @"anonA_xy_x")
 instance HasCField AnonA_xy "anonA_xy_y"
     where type CFieldType AnonA_xy "anonA_xy_y" = CDouble
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType AnonA_xy "anonA_xy_y") =>
          HasField "anonA_xy_y" (Ptr AnonA_xy) (Ptr ty)
-    where getField = ptrToCField (Proxy @"anonA_xy_y")
+    where getField = fromPtr (Proxy @"anonA_xy_y")
 {-| __C declaration:__ @struct \@AnonA_polar@
 
     __defined at:__ @types\/unions\/unions.h 36:5@
@@ -548,10 +548,10 @@ data AnonA_polar
 instance Storable AnonA_polar
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure AnonA_polar <*> peekCField (Proxy @"anonA_polar_r") ptr_0) <*> peekCField (Proxy @"anonA_polar_p") ptr_0
+          peek = \ptr_0 -> (pure AnonA_polar <*> peek (Proxy @"anonA_polar_r") ptr_0) <*> peek (Proxy @"anonA_polar_p") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    AnonA_polar anonA_polar_r_3
-                                               anonA_polar_p_4 -> pokeCField (Proxy @"anonA_polar_r") ptr_1 anonA_polar_r_3 >> pokeCField (Proxy @"anonA_polar_p") ptr_1 anonA_polar_p_4
+                                               anonA_polar_p_4 -> poke (Proxy @"anonA_polar_r") ptr_1 anonA_polar_r_3 >> poke (Proxy @"anonA_polar_p") ptr_1 anonA_polar_p_4
 instance Prim AnonA_polar
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -580,13 +580,13 @@ instance HasCField AnonA_polar "anonA_polar_r"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType AnonA_polar "anonA_polar_r") =>
          HasField "anonA_polar_r" (Ptr AnonA_polar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"anonA_polar_r")
+    where getField = fromPtr (Proxy @"anonA_polar_r")
 instance HasCField AnonA_polar "anonA_polar_p"
     where type CFieldType AnonA_polar "anonA_polar_p" = CDouble
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType AnonA_polar "anonA_polar_p") =>
          HasField "anonA_polar_p" (Ptr AnonA_polar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"anonA_polar_p")
+    where getField = fromPtr (Proxy @"anonA_polar_p")
 {-| __C declaration:__ @union AnonA@
 
     __defined at:__ @types\/unions\/unions.h 34:7@
@@ -676,10 +676,10 @@ instance HasCField AnonA "anonA_xy"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType AnonA "anonA_xy") =>
          HasField "anonA_xy" (Ptr AnonA) (Ptr ty)
-    where getField = ptrToCField (Proxy @"anonA_xy")
+    where getField = fromPtr (Proxy @"anonA_xy")
 instance HasCField AnonA "anonA_polar"
     where type CFieldType AnonA "anonA_polar" = AnonA_polar
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType AnonA "anonA_polar") =>
          HasField "anonA_polar" (Ptr AnonA) (Ptr ty)
-    where getField = ptrToCField (Proxy @"anonA_polar")
+    where getField = fromPtr (Proxy @"anonA_polar")

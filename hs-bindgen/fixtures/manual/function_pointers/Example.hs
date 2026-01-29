@@ -81,7 +81,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "un_Int2int
          ) => GHC.Records.HasField "un_Int2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Int2int")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Int2int")
 
 instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
 
@@ -118,14 +118,14 @@ instance F.Storable Apply1Struct where
   peek =
     \ptr0 ->
           pure Apply1Struct
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Apply1Struct apply1Struct_apply1_nopointer_struct_field2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0 apply1Struct_apply1_nopointer_struct_field2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0 apply1Struct_apply1_nopointer_struct_field2
 
 instance HsBindgen.Runtime.HasCField.HasCField Apply1Struct "apply1Struct_apply1_nopointer_struct_field" where
 
@@ -138,7 +138,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Struct) "apply
          ) => GHC.Records.HasField "apply1Struct_apply1_nopointer_struct_field" (Ptr.Ptr Apply1Struct) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field")
 
 {-| A union field pointing to a function like apply1_nopointer().
 
@@ -194,7 +194,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Union) "apply1
          ) => GHC.Records.HasField "apply1Union_apply1_nopointer_union_field" (Ptr.Ptr Apply1Union) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"apply1Union_apply1_nopointer_union_field")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"apply1Union_apply1_nopointer_union_field")
 
 foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea_base ::
      ((Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO GHC.Int.Int32)

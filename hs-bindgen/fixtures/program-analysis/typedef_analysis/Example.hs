@@ -227,7 +227,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct5_t) "un_Struc
          ) => GHC.Records.HasField "un_Struct5_t" (Ptr.Ptr Struct5_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Struct5_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct5_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct5_t "un_Struct5_t" where
 
@@ -308,7 +308,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct6) "un_Struct6
          ) => GHC.Records.HasField "un_Struct6" (Ptr.Ptr Struct6) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Struct6")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct6")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct6 "un_Struct6" where
 
@@ -389,7 +389,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7a) "un_Struct
          ) => GHC.Records.HasField "un_Struct7a" (Ptr.Ptr Struct7a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Struct7a")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct7a")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct7a "un_Struct7a" where
 
@@ -413,7 +413,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7b) "un_Struct
          ) => GHC.Records.HasField "un_Struct7b" (Ptr.Ptr Struct7b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Struct7b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct7b")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct7b "un_Struct7b" where
 
@@ -493,7 +493,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct8b) "un_Struct
          ) => GHC.Records.HasField "un_Struct8b" (Ptr.Ptr Struct8b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Struct8b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct8b")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct8b "un_Struct8b" where
 
@@ -573,7 +573,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct9_t) "un_Struc
          ) => GHC.Records.HasField "un_Struct9_t" (Ptr.Ptr Struct9_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Struct9_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct9_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct9_t "un_Struct9_t" where
 
@@ -653,7 +653,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct10_t_t) "un_St
          ) => GHC.Records.HasField "un_Struct10_t_t" (Ptr.Ptr Struct10_t_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Struct10_t_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct10_t_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct10_t_t "un_Struct10_t_t" where
 
@@ -695,16 +695,16 @@ instance F.Storable Struct11_t where
   peek =
     \ptr0 ->
           pure Struct11_t
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"struct11_t_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"struct11_t_self") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"struct11_t_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"struct11_t_self") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct11_t struct11_t_x2 struct11_t_self3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct11_t_x") ptr0 struct11_t_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct11_t_self") ptr0 struct11_t_self3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"struct11_t_x") ptr0 struct11_t_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"struct11_t_self") ptr0 struct11_t_self3
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct11_t "struct11_t_x" where
 
@@ -716,7 +716,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct11_t) "struct1
          ) => GHC.Records.HasField "struct11_t_x" (Ptr.Ptr Struct11_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct11_t_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct11_t_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct11_t "struct11_t_self" where
 
@@ -729,7 +729,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct11_t) "struct1
          ) => GHC.Records.HasField "struct11_t_self" (Ptr.Ptr Struct11_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct11_t_self")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct11_t_self")
 
 {-| __C declaration:__ @struct struct12@
 
@@ -764,16 +764,16 @@ instance F.Storable Struct12_t where
   peek =
     \ptr0 ->
           pure Struct12_t
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"struct12_t_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"struct12_t_self") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"struct12_t_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"struct12_t_self") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct12_t struct12_t_x2 struct12_t_self3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct12_t_x") ptr0 struct12_t_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct12_t_self") ptr0 struct12_t_self3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"struct12_t_x") ptr0 struct12_t_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"struct12_t_self") ptr0 struct12_t_self3
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct12_t "struct12_t_x" where
 
@@ -785,7 +785,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct12_t) "struct1
          ) => GHC.Records.HasField "struct12_t_x" (Ptr.Ptr Struct12_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct12_t_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct12_t_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct12_t "struct12_t_self" where
 
@@ -798,7 +798,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct12_t) "struct1
          ) => GHC.Records.HasField "struct12_t_self" (Ptr.Ptr Struct12_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct12_t_self")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct12_t_self")
 
 {-| __C declaration:__ @struct use_sites@
 
@@ -945,24 +945,24 @@ instance F.Storable Use_sites where
   peek =
     \ptr0 ->
           pure Use_sites
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct1_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct2_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct3_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct4_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useStruct_struct5") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct5_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useStruct_struct6") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct6") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct7a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct7b") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct8") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct8b") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct9") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct9_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct11_t") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct12_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct1_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct2_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct3_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct4_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useStruct_struct5") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct5_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useStruct_struct6") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct6") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct7a") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct7b") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct8") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct8b") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct9") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct9_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct11_t") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"use_sites_useTypedef_struct12_t") ptr0
 
   poke =
     \ptr0 ->
@@ -987,24 +987,24 @@ instance F.Storable Use_sites where
             use_sites_useTypedef_struct10_t_t17
             use_sites_useTypedef_struct11_t18
             use_sites_useTypedef_struct12_t19 ->
-                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct1_t") ptr0 use_sites_useTypedef_struct1_t2
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct2_t") ptr0 use_sites_useTypedef_struct2_t3
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct3_t") ptr0 use_sites_useTypedef_struct3_t4
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct4_t") ptr0 use_sites_useTypedef_struct4_t5
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useStruct_struct5") ptr0 use_sites_useStruct_struct56
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct5_t") ptr0 use_sites_useTypedef_struct5_t7
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useStruct_struct6") ptr0 use_sites_useStruct_struct68
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct6") ptr0 use_sites_useTypedef_struct69
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct7a") ptr0 use_sites_useTypedef_struct7a10
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct7b") ptr0 use_sites_useTypedef_struct7b11
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct8") ptr0 use_sites_useTypedef_struct812
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct8b") ptr0 use_sites_useTypedef_struct8b13
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct9") ptr0 use_sites_useTypedef_struct914
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct9_t") ptr0 use_sites_useTypedef_struct9_t15
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t") ptr0 use_sites_useTypedef_struct10_t16
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0 use_sites_useTypedef_struct10_t_t17
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct11_t") ptr0 use_sites_useTypedef_struct11_t18
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct12_t") ptr0 use_sites_useTypedef_struct12_t19
+                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct1_t") ptr0 use_sites_useTypedef_struct1_t2
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct2_t") ptr0 use_sites_useTypedef_struct2_t3
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct3_t") ptr0 use_sites_useTypedef_struct3_t4
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct4_t") ptr0 use_sites_useTypedef_struct4_t5
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useStruct_struct5") ptr0 use_sites_useStruct_struct56
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct5_t") ptr0 use_sites_useTypedef_struct5_t7
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useStruct_struct6") ptr0 use_sites_useStruct_struct68
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct6") ptr0 use_sites_useTypedef_struct69
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct7a") ptr0 use_sites_useTypedef_struct7a10
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct7b") ptr0 use_sites_useTypedef_struct7b11
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct8") ptr0 use_sites_useTypedef_struct812
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct8b") ptr0 use_sites_useTypedef_struct8b13
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct9") ptr0 use_sites_useTypedef_struct914
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct9_t") ptr0 use_sites_useTypedef_struct9_t15
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t") ptr0 use_sites_useTypedef_struct10_t16
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t_t") ptr0 use_sites_useTypedef_struct10_t_t17
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct11_t") ptr0 use_sites_useTypedef_struct11_t18
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"use_sites_useTypedef_struct12_t") ptr0 use_sites_useTypedef_struct12_t19
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct1_t" where
 
@@ -1017,7 +1017,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct1_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct1_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct1_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct2_t" where
 
@@ -1030,7 +1030,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct2_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct2_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct2_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct3_t" where
 
@@ -1043,7 +1043,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct3_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct3_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct3_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct4_t" where
 
@@ -1056,7 +1056,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct4_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct4_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct4_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useStruct_struct5" where
 
@@ -1069,7 +1069,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useStruct_struct5" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useStruct_struct5")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useStruct_struct5")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct5_t" where
 
@@ -1082,7 +1082,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct5_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct5_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct5_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useStruct_struct6" where
 
@@ -1095,7 +1095,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useStruct_struct6" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useStruct_struct6")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useStruct_struct6")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct6" where
 
@@ -1108,7 +1108,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct6" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct6")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct6")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct7a" where
 
@@ -1121,7 +1121,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct7a" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct7a")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct7a")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct7b" where
 
@@ -1134,7 +1134,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct7b" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct7b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct7b")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct8" where
 
@@ -1147,7 +1147,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct8" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct8")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct8")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct8b" where
 
@@ -1160,7 +1160,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct8b" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct8b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct8b")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct9" where
 
@@ -1173,7 +1173,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct9" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct9")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct9")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct9_t" where
 
@@ -1186,7 +1186,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct9_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct9_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct9_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t" where
 
@@ -1199,7 +1199,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct10_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct10_t_t" where
 
@@ -1212,7 +1212,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct10_t_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct10_t_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct11_t" where
 
@@ -1225,7 +1225,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct11_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct11_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct11_t")
 
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useTypedef_struct12_t" where
 
@@ -1238,4 +1238,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
          ) => GHC.Records.HasField "use_sites_useTypedef_struct12_t" (Ptr.Ptr Use_sites) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"use_sites_useTypedef_struct12_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"use_sites_useTypedef_struct12_t")

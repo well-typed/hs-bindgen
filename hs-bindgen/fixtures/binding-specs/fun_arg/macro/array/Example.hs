@@ -35,7 +35,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyArray) "un_MyArray
          ) => GHC.Records.HasField "un_MyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyArray")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyArray")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyArray "un_MyArray" where
 

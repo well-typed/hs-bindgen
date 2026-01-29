@@ -21,15 +21,12 @@ import Test.Tasty (TestTree, defaultMain, testGroup)
 import Test.Tasty.HUnit (Assertion, HasCallStack, assertFailure, testCase,
                          (@?=), assertEqual)
 
-import HsBindgen.Runtime.CAPI (allocaAndPeek)
-import HsBindgen.Runtime.CEnum qualified as CEnum
+import HsBindgen.Runtime.Prelude
+
+-- The following modules are intended for qualified import.
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.ConstantArray qualified as CA
-import HsBindgen.Runtime.FLAM
-    (FlamLengthMismatch (FlamLengthMismatch), WithFlam)
 import HsBindgen.Runtime.FLAM qualified as FLAM
-import HsBindgen.Runtime.Marshal
-    (ReadRaw(readRaw), WriteRaw(writeRaw))
 import HsBindgen.Runtime.LibC qualified as LibC
 
 import Test.Common.Util.Tasty
@@ -68,14 +65,14 @@ instance FLAM.NumElems CLong Test01.StructFLAM_Aux where
     numElems x = fromIntegral (Test01.structFLAM_length x)
 
 -- Bounded and Enum orphan instances
-deriving via CEnum.AsCEnum Test01.EnumBasic  instance Bounded Test01.EnumBasic
-deriving via CEnum.AsCEnum Test01.EnumBasic  instance Enum    Test01.EnumBasic
-deriving via CEnum.AsCEnum Test01.EnumNeg    instance Bounded Test01.EnumNeg
-deriving via CEnum.AsCEnum Test01.EnumNeg    instance Enum    Test01.EnumNeg
-deriving via CEnum.AsCEnum Test01.EnumNonSeq instance Bounded Test01.EnumNonSeq
-deriving via CEnum.AsCEnum Test01.EnumNonSeq instance Enum    Test01.EnumNonSeq
-deriving via CEnum.AsCEnum Test01.EnumSame   instance Bounded Test01.EnumSame
-deriving via CEnum.AsCEnum Test01.EnumSame   instance Enum    Test01.EnumSame
+deriving via AsCEnum Test01.EnumBasic  instance Bounded Test01.EnumBasic
+deriving via AsCEnum Test01.EnumBasic  instance Enum    Test01.EnumBasic
+deriving via AsCEnum Test01.EnumNeg    instance Bounded Test01.EnumNeg
+deriving via AsCEnum Test01.EnumNeg    instance Enum    Test01.EnumNeg
+deriving via AsCEnum Test01.EnumNonSeq instance Bounded Test01.EnumNonSeq
+deriving via AsCEnum Test01.EnumNonSeq instance Enum    Test01.EnumNonSeq
+deriving via AsCEnum Test01.EnumSame   instance Bounded Test01.EnumSame
+deriving via AsCEnum Test01.EnumSame   instance Enum    Test01.EnumSame
 
 -- Unit tests
 test01 :: TestTree
@@ -121,7 +118,7 @@ test01 = testGroup "test_01"
 
             -- Poke, error.
             let vLengthMismatch = VS.fromList [0]
-            assertException "Expected FlamLengthMismatch" (Proxy :: Proxy FlamLengthMismatch) $
+            assertException "Expected FlamLengthMismatch" (Proxy :: Proxy FLAM.FlamLengthMismatch) $
               writeRaw ptr (struct { FLAM.flam = vLengthMismatch })
             struct'' <- readRaw ptr
             struct''.flam @?= v'
@@ -176,7 +173,7 @@ test01 = testGroup "test_01"
         Test01.Thing 12 @?= res'
 
     , testCase "fixed-size-array" $ do
-        let v = CA.repeat 4 :: CA.ConstantArray 3 CInt
+        let v = CA.repeat 4 :: ConstantArray 3 CInt
         res <- CA.withPtr v (\ptr -> Test01.sum3 5 (PtrConst.unsafeFromPtr ptr))
         21 @?= res
         [4,4,4] @?= CA.toList v -- modification in sum3 aren't visible in original array.

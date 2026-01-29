@@ -41,7 +41,7 @@ instance FromFunPtr Fun_ptr_Aux
     where fromFunPtr = hs_bindgen_f8391e85af67fcb6
 instance TyEq ty (CFieldType Fun_ptr_Aux "un_Fun_ptr_Aux") =>
          HasField "un_Fun_ptr_Aux" (Ptr Fun_ptr_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Fun_ptr_Aux")
+    where getField = fromPtr (Proxy @"un_Fun_ptr_Aux")
 instance HasCField Fun_ptr_Aux "un_Fun_ptr_Aux"
     where type CFieldType Fun_ptr_Aux
                           "un_Fun_ptr_Aux" = Ptr Forward_declaration -> IO Unit
@@ -64,7 +64,7 @@ newtype Fun_ptr
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
          HasField "un_Fun_ptr" (Ptr Fun_ptr) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Fun_ptr")
+    where getField = fromPtr (Proxy @"un_Fun_ptr")
 instance HasCField Fun_ptr "un_Fun_ptr"
     where type CFieldType Fun_ptr "un_Fun_ptr" = FunPtr Fun_ptr_Aux
           offset# = \_ -> \_ -> 0
@@ -92,9 +92,9 @@ data Forward_declaration
 instance Storable Forward_declaration
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Forward_declaration <*> peekCField (Proxy @"forward_declaration_f") ptr_0
+          peek = \ptr_0 -> pure Forward_declaration <*> peek (Proxy @"forward_declaration_f") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Forward_declaration forward_declaration_f_3 -> pokeCField (Proxy @"forward_declaration_f") ptr_1 forward_declaration_f_3
+                                   Forward_declaration forward_declaration_f_3 -> poke (Proxy @"forward_declaration_f") ptr_1 forward_declaration_f_3
 instance HasCField Forward_declaration "forward_declaration_f"
     where type CFieldType Forward_declaration
                           "forward_declaration_f" = Fun_ptr
@@ -102,7 +102,7 @@ instance HasCField Forward_declaration "forward_declaration_f"
 instance TyEq ty
               (CFieldType Forward_declaration "forward_declaration_f") =>
          HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
-    where getField = ptrToCField (Proxy @"forward_declaration_f")
+    where getField = fromPtr (Proxy @"forward_declaration_f")
 foreign import ccall safe "wrapper" hs_bindgen_fbe9c5dca66824d3_base ::
     Ptr Void -> IO Unit
  -> IO (FunPtr (Ptr Void -> IO Unit))

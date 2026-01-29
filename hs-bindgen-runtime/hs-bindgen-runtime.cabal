@@ -29,6 +29,7 @@ common lang
     DerivingStrategies
     DerivingVia
     FunctionalDependencies
+    PatternSynonyms
     RecordWildCards
     RoleAnnotations
     ScopedTypeVariables
@@ -39,6 +40,7 @@ library
   import:             lang
   exposed-modules:
     HsBindgen.Runtime.Bitfield
+    HsBindgen.Runtime.BitfieldPtr
     HsBindgen.Runtime.Block
     HsBindgen.Runtime.ByteArray
     HsBindgen.Runtime.CAPI
@@ -48,6 +50,7 @@ library
     HsBindgen.Runtime.FFIType
     HsBindgen.Runtime.FLAM
     HsBindgen.Runtime.FunPtr
+    HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray

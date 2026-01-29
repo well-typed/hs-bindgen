@@ -39,7 +39,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet
          ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
 
 instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
@@ -63,7 +63,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "un_List")
          ) => GHC.Records.HasField "un_List" (Ptr.Ptr List) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_List")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_List")
 
 instance HsBindgen.Runtime.HasCField.HasCField List "un_List" where
 
@@ -88,7 +88,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
          ) => GHC.Records.HasField "un_Matrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Matrix")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Matrix")
 
 instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
 
@@ -112,7 +112,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tripletlist) "un_Tri
          ) => GHC.Records.HasField "un_Tripletlist" (Ptr.Ptr Tripletlist) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Tripletlist")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Tripletlist")
 
 instance HsBindgen.Runtime.HasCField.HasCField Tripletlist "un_Tripletlist" where
 
@@ -154,16 +154,16 @@ instance F.Storable Example where
   peek =
     \ptr0 ->
           pure Example
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"example_triple") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"example_sudoku") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_triple") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_sudoku") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Example example_triple2 example_sudoku3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"example_triple") ptr0 example_triple2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"example_sudoku") ptr0 example_sudoku3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_triple") ptr0 example_triple2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_sudoku") ptr0 example_sudoku3
 
 instance HsBindgen.Runtime.HasCField.HasCField Example "example_triple" where
 
@@ -176,7 +176,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example) "example_tr
          ) => GHC.Records.HasField "example_triple" (Ptr.Ptr Example) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"example_triple")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_triple")
 
 instance HsBindgen.Runtime.HasCField.HasCField Example "example_sudoku" where
 
@@ -189,7 +189,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example) "example_su
          ) => GHC.Records.HasField "example_sudoku" (Ptr.Ptr Example) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"example_sudoku")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_sudoku")
 
 {-| Typedef-in-typedef
 
@@ -209,7 +209,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Sudoku) "un_Sudoku")
          ) => GHC.Records.HasField "un_Sudoku" (Ptr.Ptr Sudoku) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Sudoku")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Sudoku")
 
 instance HsBindgen.Runtime.HasCField.HasCField Sudoku "un_Sudoku" where
 

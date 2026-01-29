@@ -44,6 +44,7 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 import C.Expr.Syntax qualified as CExpr.DSL
 
 import HsBindgen.Runtime.Bitfield qualified
+import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
@@ -51,6 +52,7 @@ import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
 import HsBindgen.Runtime.FunPtr qualified
+import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
@@ -120,22 +122,24 @@ mkGlobal = \case
       WithFlam           -> ''HsBindgen.Runtime.FLAM.WithFlam
 
       -- HasCField
-      HasCField_class       -> ''HsBindgen.Runtime.HasCField.HasCField
-      HasCField_CFieldType  -> ''HsBindgen.Runtime.HasCField.CFieldType
-      HasCField_offset#     -> 'HsBindgen.Runtime.HasCField.offset#
-      HasCField_ptrToCField -> 'HsBindgen.Runtime.HasCField.ptrToCField
-      HasCField_pokeCField  -> 'HsBindgen.Runtime.HasCField.pokeCField
-      HasCField_peekCField  -> 'HsBindgen.Runtime.HasCField.peekCField
+      HasCField_class      -> ''HsBindgen.Runtime.HasCField.HasCField
+      HasCField_CFieldType -> ''HsBindgen.Runtime.HasCField.CFieldType
+      HasCField_offset#    -> 'HsBindgen.Runtime.HasCField.offset#
+      HasCField_fromPtr    -> 'HsBindgen.Runtime.HasCField.fromPtr
+      HasCField_peek       -> 'HsBindgen.Runtime.HasCField.peek
+      HasCField_poke       -> 'HsBindgen.Runtime.HasCField.poke
+
+      -- BitfieldPtr
+      HasCBitfield_BitfieldPtr -> ''HsBindgen.Runtime.BitfieldPtr.BitfieldPtr
 
       -- HasCBitfield
-      HasCBitfield_class          -> ''HsBindgen.Runtime.HasCField.HasCBitfield
-      HasCBitfield_CBitfieldType  -> ''HsBindgen.Runtime.HasCField.CBitfieldType
-      HasCBitfield_bitOffset#     -> 'HsBindgen.Runtime.HasCField.bitOffset#
-      HasCBitfield_bitWidth#      -> 'HsBindgen.Runtime.HasCField.bitWidth#
-      HasCBitfield_ptrToCBitfield -> 'HsBindgen.Runtime.HasCField.ptrToCBitfield
-      HasCBitfield_pokeCBitfield  -> 'HsBindgen.Runtime.HasCField.pokeCBitfield
-      HasCBitfield_peekCBitfield  -> 'HsBindgen.Runtime.HasCField.peekCBitfield
-      HasCBitfield_BitfieldPtr    -> ''HsBindgen.Runtime.HasCField.BitfieldPtr
+      HasCBitfield_class           -> ''HsBindgen.Runtime.HasCBitfield.HasCBitfield
+      HasCBitfield_CBitfieldType   -> ''HsBindgen.Runtime.HasCBitfield.CBitfieldType
+      HasCBitfield_bitfieldOffset# -> 'HsBindgen.Runtime.HasCBitfield.bitfieldOffset#
+      HasCBitfield_bitfieldWidth#  -> 'HsBindgen.Runtime.HasCBitfield.bitfieldWidth#
+      HasCBitfield_toPtr           -> 'HsBindgen.Runtime.HasCBitfield.toPtr
+      HasCBitfield_peek            -> 'HsBindgen.Runtime.HasCBitfield.peek
+      HasCBitfield_poke            -> 'HsBindgen.Runtime.HasCBitfield.poke
 
       -- HasField
       HasField_class    -> ''GHC.Records.HasField
@@ -273,9 +277,9 @@ mkGlobal = \case
       SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
       SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
       CEnum_declaredValuesFromList     -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-      CEnum_showsCEnum                 -> 'HsBindgen.Runtime.CEnum.showsCEnum
+      CEnum_showsCEnum                 -> 'HsBindgen.Runtime.CEnum.shows
       CEnum_showsWrappedUndeclared     -> 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
-      CEnum_readPrecCEnum              -> 'HsBindgen.Runtime.CEnum.readPrecCEnum
+      CEnum_readPrecCEnum              -> 'HsBindgen.Runtime.CEnum.readPrec
       CEnum_readPrecWrappedUndeclared  -> 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
       CEnum_seqIsDeclared              -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
       CEnum_seqMkDeclared              -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
@@ -387,22 +391,24 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Capi_allocaAndPeek    -> TH.varE name
 
     -- HasCField
-    HasCField_class -> panicPure "class in expression"
+    HasCField_class      -> panicPure "class in expression"
     HasCField_CFieldType -> panicPure "type in expression"
-    HasCField_offset# -> TH.varE name
-    HasCField_ptrToCField -> TH.varE name
-    HasCField_pokeCField -> TH.varE name
-    HasCField_peekCField -> TH.varE name
+    HasCField_offset#    -> TH.varE name
+    HasCField_fromPtr    -> TH.varE name
+    HasCField_peek       -> TH.varE name
+    HasCField_poke       -> TH.varE name
+
+    -- BitfieldPtr
+    HasCBitfield_BitfieldPtr -> TH.varE name
 
     -- HasCBitfield
-    HasCBitfield_class -> panicPure "class in expression"
-    HasCBitfield_CBitfieldType -> panicPure "type in expression"
-    HasCBitfield_bitOffset# -> TH.varE name
-    HasCBitfield_bitWidth# -> TH.varE name
-    HasCBitfield_ptrToCBitfield -> TH.varE name
-    HasCBitfield_pokeCBitfield -> TH.varE name
-    HasCBitfield_peekCBitfield -> TH.varE name
-    HasCBitfield_BitfieldPtr -> TH.varE name
+    HasCBitfield_class           -> panicPure "class in expression"
+    HasCBitfield_CBitfieldType   -> panicPure "type in expression"
+    HasCBitfield_bitfieldOffset# -> TH.varE name
+    HasCBitfield_bitfieldWidth#  -> TH.varE name
+    HasCBitfield_toPtr           -> TH.varE name
+    HasCBitfield_peek            -> TH.varE name
+    HasCBitfield_poke            -> TH.varE name
 
     -- HasField
     HasField_class -> panicPure "class in expression"

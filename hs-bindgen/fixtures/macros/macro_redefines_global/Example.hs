@@ -44,7 +44,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FILE) "un_FILE")
          ) => GHC.Records.HasField "un_FILE" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_FILE")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_FILE")
 
 instance HsBindgen.Runtime.HasCField.HasCField FILE "un_FILE" where
 

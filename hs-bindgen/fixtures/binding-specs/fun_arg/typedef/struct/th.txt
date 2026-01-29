@@ -144,9 +144,9 @@ data MyStruct
 instance Storable MyStruct
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure MyStruct <*> peekCField (Proxy @"myStruct_x") ptr_0
+          peek = \ptr_0 -> pure MyStruct <*> peek (Proxy @"myStruct_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MyStruct myStruct_x_3 -> pokeCField (Proxy @"myStruct_x") ptr_1 myStruct_x_3
+                                   MyStruct myStruct_x_3 -> poke (Proxy @"myStruct_x") ptr_1 myStruct_x_3
 instance Prim MyStruct
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -165,7 +165,7 @@ instance HasCField MyStruct "myStruct_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType MyStruct "myStruct_x") =>
          HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"myStruct_x")
+    where getField = fromPtr (Proxy @"myStruct_x")
 {-| __C declaration:__ @A@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 7:25@
@@ -184,7 +184,7 @@ newtype A
     deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType A "un_A") =>
          HasField "un_A" (Ptr A) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_A")
+    where getField = fromPtr (Proxy @"un_A")
 instance HasCField A "un_A"
     where type CFieldType A "un_A" = MyStruct
           offset# = \_ -> \_ -> 0
@@ -206,7 +206,7 @@ newtype B
     deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType B "un_B") =>
          HasField "un_B" (Ptr B) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_B")
+    where getField = fromPtr (Proxy @"un_B")
 instance HasCField B "un_B"
     where type CFieldType B "un_B" = A
           offset# = \_ -> \_ -> 0
@@ -226,7 +226,7 @@ newtype E
       -}
 instance TyEq ty (CFieldType E "un_E") =>
          HasField "un_E" (Ptr E) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_E")
+    where getField = fromPtr (Proxy @"un_E")
 instance HasCField E "un_E"
     where type CFieldType E "un_E" = M.C
           offset# = \_ -> \_ -> 0

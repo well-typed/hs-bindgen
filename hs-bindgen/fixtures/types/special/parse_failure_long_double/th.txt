@@ -44,9 +44,9 @@ data Struct2
 instance Storable Struct2
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct2 <*> peekCField (Proxy @"struct2_x") ptr_0
+          peek = \ptr_0 -> pure Struct2 <*> peek (Proxy @"struct2_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct2 struct2_x_3 -> pokeCField (Proxy @"struct2_x") ptr_1 struct2_x_3
+                                   Struct2 struct2_x_3 -> poke (Proxy @"struct2_x") ptr_1 struct2_x_3
 instance Prim Struct2
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -65,7 +65,7 @@ instance HasCField Struct2 "struct2_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Struct2 "struct2_x") =>
          HasField "struct2_x" (Ptr Struct2) (Ptr ty)
-    where getField = ptrToCField (Proxy @"struct2_x")
+    where getField = fromPtr (Proxy @"struct2_x")
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef09a6_base ::
     Int32

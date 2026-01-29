@@ -90,8 +90,8 @@ fieldExtensions field = typeExtensions field.typ
 globalExtensions :: Global -> Set TH.Extension
 globalExtensions = \case
     HasCField_offset# -> Set.singleton TH.MagicHash
-    HasCBitfield_bitOffset# -> Set.singleton TH.MagicHash
-    HasCBitfield_bitWidth# -> Set.singleton TH.MagicHash
+    HasCBitfield_bitfieldOffset# -> Set.singleton TH.MagicHash
+    HasCBitfield_bitfieldWidth# -> Set.singleton TH.MagicHash
     NomEq_class -> Set.singleton TH.TypeOperators
     HasField_class -> Set.singleton TH.UndecidableInstances
     HasFFIType_class -> Set.singleton TH.UndecidableInstances

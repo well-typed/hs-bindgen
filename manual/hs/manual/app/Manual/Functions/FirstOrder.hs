@@ -7,7 +7,7 @@ import Foreign as F
 import Foreign.C (withCString)
 import System.IO.Unsafe
 
-import HsBindgen.Runtime.FunPtr
+import HsBindgen.Runtime.Prelude
 
 import Example.Unsafe
 import FunctionPointers qualified as Fun

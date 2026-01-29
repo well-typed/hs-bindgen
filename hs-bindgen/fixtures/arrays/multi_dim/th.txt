@@ -178,7 +178,7 @@ newtype Matrix
     deriving newtype Storable
 instance TyEq ty (CFieldType Matrix "un_Matrix") =>
          HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Matrix")
+    where getField = fromPtr (Proxy @"un_Matrix")
 instance HasCField Matrix "un_Matrix"
     where type CFieldType Matrix "un_Matrix" = ConstantArray 4
                                                              (ConstantArray 3 CInt)
@@ -201,7 +201,7 @@ newtype Triplets
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Triplets "un_Triplets") =>
          HasField "un_Triplets" (Ptr Triplets) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Triplets")
+    where getField = fromPtr (Proxy @"un_Triplets")
 instance HasCField Triplets "un_Triplets"
     where type CFieldType Triplets
                           "un_Triplets" = IncompleteArray (ConstantArray 3 CInt)

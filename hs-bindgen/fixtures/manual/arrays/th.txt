@@ -97,7 +97,7 @@ newtype Triplet
     deriving newtype Storable
 instance TyEq ty (CFieldType Triplet "un_Triplet") =>
          HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Triplet")
+    where getField = fromPtr (Proxy @"un_Triplet")
 instance HasCField Triplet "un_Triplet"
     where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
@@ -119,7 +119,7 @@ newtype Matrix
     deriving newtype Storable
 instance TyEq ty (CFieldType Matrix "un_Matrix") =>
          HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Matrix")
+    where getField = fromPtr (Proxy @"un_Matrix")
 instance HasCField Matrix "un_Matrix"
     where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
           offset# = \_ -> \_ -> 0
@@ -145,7 +145,7 @@ newtype Triplet_ptrs
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Triplet_ptrs "un_Triplet_ptrs") =>
          HasField "un_Triplet_ptrs" (Ptr Triplet_ptrs) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Triplet_ptrs")
+    where getField = fromPtr (Proxy @"un_Triplet_ptrs")
 instance HasCField Triplet_ptrs "un_Triplet_ptrs"
     where type CFieldType Triplet_ptrs
                           "un_Triplet_ptrs" = IncompleteArray (Ptr (ConstantArray 3 CInt))

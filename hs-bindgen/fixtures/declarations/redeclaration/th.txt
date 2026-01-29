@@ -35,7 +35,7 @@ newtype Int_t
                       Real)
 instance TyEq ty (CFieldType Int_t "un_Int_t") =>
          HasField "un_Int_t" (Ptr Int_t) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Int_t")
+    where getField = fromPtr (Proxy @"un_Int_t")
 instance HasCField Int_t "un_Int_t"
     where type CFieldType Int_t "un_Int_t" = CInt
           offset# = \_ -> \_ -> 0
@@ -63,9 +63,9 @@ data X
 instance Storable X
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure X <*> peekCField (Proxy @"x_n") ptr_0
+          peek = \ptr_0 -> pure X <*> peek (Proxy @"x_n") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   X x_n_3 -> pokeCField (Proxy @"x_n") ptr_1 x_n_3
+                                   X x_n_3 -> poke (Proxy @"x_n") ptr_1 x_n_3
 instance Prim X
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -84,7 +84,7 @@ instance HasCField X "x_n"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType X "x_n") =>
          HasField "x_n" (Ptr X) (Ptr ty)
-    where getField = ptrToCField (Proxy @"x_n")
+    where getField = fromPtr (Proxy @"x_n")
 {-| __C declaration:__ @union Y@
 
     __defined at:__ @declarations\/redeclaration.h 30:7@
@@ -174,13 +174,13 @@ instance HasCField Y "y_m"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Y "y_m") =>
          HasField "y_m" (Ptr Y) (Ptr ty)
-    where getField = ptrToCField (Proxy @"y_m")
+    where getField = fromPtr (Proxy @"y_m")
 instance HasCField Y "y_o"
     where type CFieldType Y "y_o" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
-    where getField = ptrToCField (Proxy @"y_o")
+    where getField = fromPtr (Proxy @"y_o")
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9_base ::
     IO (Ptr Void)

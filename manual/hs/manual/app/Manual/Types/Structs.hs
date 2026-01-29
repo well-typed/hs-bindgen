@@ -10,10 +10,11 @@ import Foreign as F
 import Foreign.C (castCCharToChar)
 import Foreign.C qualified as FC
 import System.IO.Unsafe
+
 import HsBindgen.Runtime.FLAM qualified as FLAM
-import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.IncompleteArray qualified as IA
-import HsBindgen.Runtime.Marshal (ReadRaw (..))
+import HsBindgen.Runtime.Prelude
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Manual.Tools
 import Structs

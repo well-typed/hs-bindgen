@@ -50,9 +50,9 @@ data X
 instance Storable X
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure X <*> peekCField (Proxy @"x_n") ptr_0
+          peek = \ptr_0 -> pure X <*> peek (Proxy @"x_n") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   X x_n_3 -> pokeCField (Proxy @"x_n") ptr_1 x_n_3
+                                   X x_n_3 -> poke (Proxy @"x_n") ptr_1 x_n_3
 instance Prim X
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -71,7 +71,7 @@ instance HasCField X "x_n"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType X "x_n") =>
          HasField "x_n" (Ptr X) (Ptr ty)
-    where getField = ptrToCField (Proxy @"x_n")
+    where getField = fromPtr (Proxy @"x_n")
 {-| __C declaration:__ @union Y@
 
     __defined at:__ @declarations\/definitions.h 26:7@
@@ -161,13 +161,13 @@ instance HasCField Y "y_m"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Y "y_m") =>
          HasField "y_m" (Ptr Y) (Ptr ty)
-    where getField = ptrToCField (Proxy @"y_m")
+    where getField = fromPtr (Proxy @"y_m")
 instance HasCField Y "y_o"
     where type CFieldType Y "y_o" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
-    where getField = ptrToCField (Proxy @"y_o")
+    where getField = fromPtr (Proxy @"y_o")
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d09442d6_base ::
     Double

@@ -38,7 +38,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet
          ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
 
 instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 

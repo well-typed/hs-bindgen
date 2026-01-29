@@ -94,11 +94,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum EnumA where
 
 instance Show EnumA where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read EnumA where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 
@@ -148,14 +148,14 @@ instance F.Storable ExA where
   peek =
     \ptr0 ->
           pure ExA
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exA_fieldA1") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exA_fieldA1") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
 
 instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
 
@@ -167,7 +167,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
          ) => GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exA_fieldA1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exA_fieldA1")
 
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
@@ -233,11 +233,11 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum ExB_fieldB1 where
 
 instance Show ExB_fieldB1 where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read ExB_fieldB1 where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 
@@ -287,14 +287,14 @@ instance F.Storable ExB where
   peek =
     \ptr0 ->
           pure ExB
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exB_fieldB1") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exB_fieldB1") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
 
 instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
 
@@ -306,4 +306,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB) "exB_fieldB1")
          ) => GHC.Records.HasField "exB_fieldB1" (Ptr.Ptr ExB) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exB_fieldB1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exB_fieldB1")

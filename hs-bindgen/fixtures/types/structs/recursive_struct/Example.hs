@@ -53,16 +53,16 @@ instance F.Storable Linked_list_A_t where
   peek =
     \ptr0 ->
           pure Linked_list_A_t
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Linked_list_A_t linked_list_A_t_x2 linked_list_A_t_next3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0 linked_list_A_t_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0 linked_list_A_t_next3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0 linked_list_A_t_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0 linked_list_A_t_next3
 
 instance HsBindgen.Runtime.HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
 
@@ -75,7 +75,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_A_t) "li
          ) => GHC.Records.HasField "linked_list_A_t_x" (Ptr.Ptr Linked_list_A_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"linked_list_A_t_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_A_t_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Linked_list_A_t "linked_list_A_t_next" where
 
@@ -88,7 +88,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_A_t) "li
          ) => GHC.Records.HasField "linked_list_A_t_next" (Ptr.Ptr Linked_list_A_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"linked_list_A_t_next")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_A_t_next")
 
 {-| __C declaration:__ @struct linked_list_B_t@
 
@@ -123,16 +123,16 @@ instance F.Storable Linked_list_B_t where
   peek =
     \ptr0 ->
           pure Linked_list_B_t
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Linked_list_B_t linked_list_B_t_x2 linked_list_B_t_next3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0 linked_list_B_t_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0 linked_list_B_t_next3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0 linked_list_B_t_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0 linked_list_B_t_next3
 
 instance HsBindgen.Runtime.HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
 
@@ -145,7 +145,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_B_t) "li
          ) => GHC.Records.HasField "linked_list_B_t_x" (Ptr.Ptr Linked_list_B_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"linked_list_B_t_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_B_t_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Linked_list_B_t "linked_list_B_t_next" where
 
@@ -158,4 +158,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_B_t) "li
          ) => GHC.Records.HasField "linked_list_B_t_next" (Ptr.Ptr Linked_list_B_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"linked_list_B_t_next")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_B_t_next")

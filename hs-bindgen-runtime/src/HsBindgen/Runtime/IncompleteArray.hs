@@ -1,11 +1,18 @@
 {-# LANGUAGE ViewPatterns #-}
+
+-- | C arrays of unknown size
+--
+-- This module is intended to be imported qualified.
+--
+-- > import HsBindgen.Runtime.Prelude
+-- > import HsBindgen.Runtime.IncompleteArray qualified as IA
 module HsBindgen.Runtime.IncompleteArray (
-    IncompleteArray
+    IncompleteArray -- opaque
   , toVector
   , fromVector
     -- * Pointers
     -- $pointers
-  , toIncompleteArrayPtr
+  , toPtr
   , toFirstElemPtr
   , peekArray
   , pokeArray
@@ -79,25 +86,22 @@ fromVector = coerce
 --
 -- Functions like 'peekArray' require a @'Ptr' ('IncompleteArray' a)@ argument.
 -- If the user only has access to a @'Ptr' a@ but they know that is pointing to
--- the first element in an array, then they can use 'toIncompleteArrayPtr' to
--- convert the pointer before using 'peekArray' on it. Conversely, if the user
--- has access to a @'Ptr' ('IncompleteArray' a)@ but they want to convert it to
--- a @'Ptr' a@, then they can use @'toFirstElemPtr'@.
+-- the first element in an array, then they can use 'toPtr' to convert the
+-- pointer before using 'peekArray' on it. Conversely, if the user has access to
+-- a @'Ptr' ('IncompleteArray' a)@ but they want to convert it to a @'Ptr' a@,
+-- then they can use @'toFirstElemPtr'@.
 --
 -- NOTE: with overloaded record dot syntax, syntax like @.toFirstElemPtr@ is
 -- also supported.
 --
 -- Relevant functions in this module also support pointers of newtypes around
 -- 'IncompleteArray', hence the addition of 'Coercible' constraints in many
--- places. For example, we can use 'toIncompleteArrayPtr' at an 'IncompleteArray'
--- type or we can use 'toIncompleteArrayPtr' at a newtype around an
--- 'IncompleteArray'.
+-- places. For example, we can use 'toPtr' at an 'IncompleteArray' type or we
+-- can use 'toPtr' at a newtype around an 'IncompleteArray'.
 --
 -- > newtype A = A (IncompleteArray CInt)
--- > toIncompleteArrayPtr @(IncompleteArray CInt) ::
--- >   Ptr CInt -> Ptr (IncompleteArray CInt)
--- > toIncompleteArrayPtr @A ::
--- >   Ptr CInt -> Ptr A
+-- > toPtr @(IncompleteArray CInt) :: Ptr CInt -> Ptr (IncompleteArray CInt)
+-- > toPtr @A                      :: Ptr CInt -> Ptr A
 
 -- | 'toFirstElemPtr' for overloaded record dot syntax
 instance HasField "toFirstElemPtr" (Ptr (IncompleteArray a)) (Ptr a) where
@@ -108,11 +112,11 @@ instance HasField "toFirstElemPtr" (Ptr (IncompleteArray a)) (Ptr a) where
 --
 -- NOTE: this function does not check that the pointer /is/ actually a pointer
 -- to the first element of an array.
-toIncompleteArrayPtr ::
+toPtr ::
      forall arrayLike a. Coercible arrayLike (IncompleteArray a)
   => Ptr a
   -> Ptr arrayLike
-toIncompleteArrayPtr = castPtr
+toPtr = castPtr
   where
     -- The 'Coercible' constraint is unused but that is intentional, so we
     -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.

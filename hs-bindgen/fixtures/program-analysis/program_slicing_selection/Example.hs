@@ -89,11 +89,11 @@ instance HsBindgen.Runtime.CEnum.CEnum FileOperationStatus where
 
 instance Show FileOperationStatus where
 
-  showsPrec = HsBindgen.Runtime.CEnum.showsCEnum
+  showsPrec = HsBindgen.Runtime.CEnum.shows
 
 instance Read FileOperationStatus where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrecCEnum
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
 
   readList = Text.Read.readListDefault
 
@@ -186,8 +186,8 @@ instance F.Storable FileOperationRecord where
   peek =
     \ptr0 ->
           pure FileOperationRecord
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
 
   poke =
     \ptr0 ->
@@ -196,8 +196,8 @@ instance F.Storable FileOperationRecord where
           FileOperationRecord
             fileOperationRecord_status2
             fileOperationRecord_bytes_processed3 ->
-                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
-              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
+              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
 
 instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
 
@@ -210,7 +210,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationRecord)
          ) => GHC.Records.HasField "fileOperationRecord_status" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"fileOperationRecord_status")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fileOperationRecord_status")
 
 instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
 
@@ -223,4 +223,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationRecord)
          ) => GHC.Records.HasField "fileOperationRecord_bytes_processed" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed")

@@ -30,10 +30,10 @@ data Foo
 instance Storable Foo
     where sizeOf = \_ -> 5 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Foo <*> peekCField (Proxy @"foo_c") ptr_0) <*> peekCField (Proxy @"foo_i") ptr_0
+          peek = \ptr_0 -> (pure Foo <*> peek (Proxy @"foo_c") ptr_0) <*> peek (Proxy @"foo_i") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_c_3
-                                       foo_i_4 -> pokeCField (Proxy @"foo_c") ptr_1 foo_c_3 >> pokeCField (Proxy @"foo_i") ptr_1 foo_i_4
+                                       foo_i_4 -> poke (Proxy @"foo_c") ptr_1 foo_c_3 >> poke (Proxy @"foo_i") ptr_1 foo_i_4
 instance Prim Foo
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -62,13 +62,13 @@ instance HasCField Foo "foo_c"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Foo "foo_c") =>
          HasField "foo_c" (Ptr Foo) (Ptr ty)
-    where getField = ptrToCField (Proxy @"foo_c")
+    where getField = fromPtr (Proxy @"foo_c")
 instance HasCField Foo "foo_i"
     where type CFieldType Foo "foo_i" = CInt
           offset# = \_ -> \_ -> 1
 instance TyEq ty (CFieldType Foo "foo_i") =>
          HasField "foo_i" (Ptr Foo) (Ptr ty)
-    where getField = ptrToCField (Proxy @"foo_i")
+    where getField = fromPtr (Proxy @"foo_i")
 {-| __C declaration:__ @struct bar@
 
     __defined at:__ @attributes\/attributes.h 16:15@
@@ -100,10 +100,10 @@ data Bar
 instance Storable Bar
     where sizeOf = \_ -> 5 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Bar <*> peekCField (Proxy @"bar_c") ptr_0) <*> peekCField (Proxy @"bar_i") ptr_0
+          peek = \ptr_0 -> (pure Bar <*> peek (Proxy @"bar_c") ptr_0) <*> peek (Proxy @"bar_i") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bar bar_c_3
-                                       bar_i_4 -> pokeCField (Proxy @"bar_c") ptr_1 bar_c_3 >> pokeCField (Proxy @"bar_i") ptr_1 bar_i_4
+                                       bar_i_4 -> poke (Proxy @"bar_c") ptr_1 bar_c_3 >> poke (Proxy @"bar_i") ptr_1 bar_i_4
 instance Prim Bar
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -132,13 +132,13 @@ instance HasCField Bar "bar_c"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Bar "bar_c") =>
          HasField "bar_c" (Ptr Bar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"bar_c")
+    where getField = fromPtr (Proxy @"bar_c")
 instance HasCField Bar "bar_i"
     where type CFieldType Bar "bar_i" = CInt
           offset# = \_ -> \_ -> 1
 instance TyEq ty (CFieldType Bar "bar_i") =>
          HasField "bar_i" (Ptr Bar) (Ptr ty)
-    where getField = ptrToCField (Proxy @"bar_i")
+    where getField = fromPtr (Proxy @"bar_i")
 {-| __C declaration:__ @struct baz@
 
     __defined at:__ @attributes\/attributes.h 22:9@
@@ -170,10 +170,10 @@ data Baz
 instance Storable Baz
     where sizeOf = \_ -> 5 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Baz <*> peekCField (Proxy @"baz_c") ptr_0) <*> peekCField (Proxy @"baz_i") ptr_0
+          peek = \ptr_0 -> (pure Baz <*> peek (Proxy @"baz_c") ptr_0) <*> peek (Proxy @"baz_i") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Baz baz_c_3
-                                       baz_i_4 -> pokeCField (Proxy @"baz_c") ptr_1 baz_c_3 >> pokeCField (Proxy @"baz_i") ptr_1 baz_i_4
+                                       baz_i_4 -> poke (Proxy @"baz_c") ptr_1 baz_c_3 >> poke (Proxy @"baz_i") ptr_1 baz_i_4
 instance Prim Baz
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -202,13 +202,13 @@ instance HasCField Baz "baz_c"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Baz "baz_c") =>
          HasField "baz_c" (Ptr Baz) (Ptr ty)
-    where getField = ptrToCField (Proxy @"baz_c")
+    where getField = fromPtr (Proxy @"baz_c")
 instance HasCField Baz "baz_i"
     where type CFieldType Baz "baz_i" = CInt
           offset# = \_ -> \_ -> 1
 instance TyEq ty (CFieldType Baz "baz_i") =>
          HasField "baz_i" (Ptr Baz) (Ptr ty)
-    where getField = ptrToCField (Proxy @"baz_i")
+    where getField = fromPtr (Proxy @"baz_i")
 {-| __C declaration:__ @struct qux@
 
     __defined at:__ @attributes\/attributes.h 28:9@
@@ -240,10 +240,10 @@ data Qux
 instance Storable Qux
     where sizeOf = \_ -> 5 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Qux <*> peekCField (Proxy @"qux_c") ptr_0) <*> peekCField (Proxy @"qux_i") ptr_0
+          peek = \ptr_0 -> (pure Qux <*> peek (Proxy @"qux_c") ptr_0) <*> peek (Proxy @"qux_i") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Qux qux_c_3
-                                       qux_i_4 -> pokeCField (Proxy @"qux_c") ptr_1 qux_c_3 >> pokeCField (Proxy @"qux_i") ptr_1 qux_i_4
+                                       qux_i_4 -> poke (Proxy @"qux_c") ptr_1 qux_c_3 >> poke (Proxy @"qux_i") ptr_1 qux_i_4
 instance Prim Qux
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -272,13 +272,13 @@ instance HasCField Qux "qux_c"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Qux "qux_c") =>
          HasField "qux_c" (Ptr Qux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"qux_c")
+    where getField = fromPtr (Proxy @"qux_c")
 instance HasCField Qux "qux_i"
     where type CFieldType Qux "qux_i" = CInt
           offset# = \_ -> \_ -> 1
 instance TyEq ty (CFieldType Qux "qux_i") =>
          HasField "qux_i" (Ptr Qux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"qux_i")
+    where getField = fromPtr (Proxy @"qux_i")
 {-| __C declaration:__ @struct __sFILE@
 
     __defined at:__ @attributes\/attributes.h 34:16@
@@ -317,27 +317,27 @@ data FILE
 instance Storable FILE
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure FILE <*> peekCField (Proxy @"fILE__r") ptr_0) <*> peekCField (Proxy @"fILE__w") ptr_0) <*> peekCField (Proxy @"fILE__close") ptr_0
+          peek = \ptr_0 -> ((pure FILE <*> peek (Proxy @"fILE__r") ptr_0) <*> peek (Proxy @"fILE__w") ptr_0) <*> peek (Proxy @"fILE__close") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    FILE fILE__r_3
                                         fILE__w_4
-                                        fILE__close_5 -> pokeCField (Proxy @"fILE__r") ptr_1 fILE__r_3 >> (pokeCField (Proxy @"fILE__w") ptr_1 fILE__w_4 >> pokeCField (Proxy @"fILE__close") ptr_1 fILE__close_5)
+                                        fILE__close_5 -> poke (Proxy @"fILE__r") ptr_1 fILE__r_3 >> (poke (Proxy @"fILE__w") ptr_1 fILE__w_4 >> poke (Proxy @"fILE__close") ptr_1 fILE__close_5)
 instance HasCField FILE "fILE__r"
     where type CFieldType FILE "fILE__r" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType FILE "fILE__r") =>
          HasField "fILE__r" (Ptr FILE) (Ptr ty)
-    where getField = ptrToCField (Proxy @"fILE__r")
+    where getField = fromPtr (Proxy @"fILE__r")
 instance HasCField FILE "fILE__w"
     where type CFieldType FILE "fILE__w" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType FILE "fILE__w") =>
          HasField "fILE__w" (Ptr FILE) (Ptr ty)
-    where getField = ptrToCField (Proxy @"fILE__w")
+    where getField = fromPtr (Proxy @"fILE__w")
 instance HasCField FILE "fILE__close"
     where type CFieldType FILE "fILE__close" = FunPtr (Ptr Void ->
                                                        IO CInt)
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType FILE "fILE__close") =>
          HasField "fILE__close" (Ptr FILE) (Ptr ty)
-    where getField = ptrToCField (Proxy @"fILE__close")
+    where getField = fromPtr (Proxy @"fILE__close")

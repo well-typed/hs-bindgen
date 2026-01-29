@@ -74,7 +74,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Aux) "un_Fun
          ) => GHC.Records.HasField "un_Fun_ptr_Aux" (Ptr.Ptr Fun_ptr_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Fun_ptr_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Fun_ptr_Aux")
 
 instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Aux "un_Fun_ptr_Aux" where
 
@@ -99,7 +99,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "un_Fun_ptr
          ) => GHC.Records.HasField "un_Fun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Fun_ptr")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Fun_ptr")
 
 instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr "un_Fun_ptr" where
 
@@ -134,14 +134,14 @@ instance F.Storable Forward_declaration where
   peek =
     \ptr0 ->
           pure Forward_declaration
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"forward_declaration_f") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"forward_declaration_f") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Forward_declaration forward_declaration_f2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"forward_declaration_f") ptr0 forward_declaration_f2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"forward_declaration_f") ptr0 forward_declaration_f2
 
 instance HsBindgen.Runtime.HasCField.HasCField Forward_declaration "forward_declaration_f" where
 
@@ -154,7 +154,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Forward_declaration)
          ) => GHC.Records.HasField "forward_declaration_f" (Ptr.Ptr Forward_declaration) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"forward_declaration_f")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"forward_declaration_f")
 
 foreign import ccall safe "wrapper" hs_bindgen_fbe9c5dca66824d3_base ::
      ((Ptr.Ptr Void) -> IO ())

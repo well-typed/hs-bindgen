@@ -79,7 +79,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyUnion) "myUnion_x"
          ) => GHC.Records.HasField "myUnion_x" (Ptr.Ptr MyUnion) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"myUnion_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"myUnion_x")
 
 {-| __C declaration:__ @A@
 
@@ -96,7 +96,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "un_A")
          ) => GHC.Records.HasField "un_A" (Ptr.Ptr A) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_A")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_A")
 
 instance HsBindgen.Runtime.HasCField.HasCField A "un_A" where
 
@@ -119,7 +119,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "un_B")
          ) => GHC.Records.HasField "un_B" (Ptr.Ptr B) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_B")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_B")
 
 instance HsBindgen.Runtime.HasCField.HasCField B "un_B" where
 
@@ -141,7 +141,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "un_E")
          ) => GHC.Records.HasField "un_E" (Ptr.Ptr E) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_E")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_E")
 
 instance HsBindgen.Runtime.HasCField.HasCField E "un_E" where
 

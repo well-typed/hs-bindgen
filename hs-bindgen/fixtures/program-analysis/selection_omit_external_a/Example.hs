@@ -48,14 +48,14 @@ instance F.Storable UnrelatedDeclaration where
   peek =
     \ptr0 ->
           pure UnrelatedDeclaration
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           UnrelatedDeclaration unrelatedDeclaration_m2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0 unrelatedDeclaration_m2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0 unrelatedDeclaration_m2
 
 instance Data.Primitive.Types.Prim UnrelatedDeclaration where
 
@@ -116,4 +116,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType UnrelatedDeclaration
          ) => GHC.Records.HasField "unrelatedDeclaration_m" (Ptr.Ptr UnrelatedDeclaration) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"unrelatedDeclaration_m")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unrelatedDeclaration_m")

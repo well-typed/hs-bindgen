@@ -1,12 +1,12 @@
 module HsBindgen.Runtime.Bitfield (
-    Bitfield (..),
-    defaultNarrow,
-    signedExtend,
-    unsignedExtend,
-    loMask,
-    hiMask,
-    peekBitOffWidth,
-    pokeBitOffWidth,
+    Bitfield(..)
+  , defaultNarrow
+  , signedExtend
+  , unsignedExtend
+  , loMask
+  , hiMask
+  , peekBitOffWidth
+  , pokeBitOffWidth
 ) where
 
 -- $setup
@@ -17,8 +17,9 @@ module HsBindgen.Runtime.Bitfield (
 import Data.Bits
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
-import Foreign (Ptr, peekByteOff, pokeByteOff)
 import Foreign.C.Types
+import Foreign.Ptr
+import Foreign.Storable
 
 -- | Class for types which can be a bitfield in C struct.
 --

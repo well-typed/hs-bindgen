@@ -4,29 +4,35 @@
 -- | C enumerations
 --
 -- This module is intended to be imported qualified.
+--
+-- > import HsBindgen.Runtime.Prelude
+-- > import HsBindgen.Runtime.CEnum qualified as CEnum
 module HsBindgen.Runtime.CEnum (
     -- * Type classes
     CEnum(..)
   , SequentialCEnum(..)
+    -- * Deriving via support
+  , AsCEnum(..)
+  , AsSequentialCEnum(..)
     -- * API
   , getNames
     -- * Instance support
   , DeclaredValues
   , declaredValuesFromList
-  , showCEnum
-  , showsCEnum
+  , show
+  , shows
   , showsWrappedUndeclared
-  , readEitherCEnum
-  , readPrecCEnum
+  , readEither
+  , readPrec
   , readPrecWrappedUndeclared
   , seqIsDeclared
   , seqMkDeclared
-    -- * Deriving via support
-  , AsCEnum(..)
-  , AsSequentialCEnum(..)
     -- ** Exceptions
   , CEnumException(..)
   ) where
+
+import Prelude hiding (show, shows)
+import Prelude qualified
 
 import Control.Exception (Exception (displayException), throw)
 import Data.Bifunctor (Bifunctor (first))
@@ -198,8 +204,8 @@ declaredValuesList = Map.keys . declaredValueToIntegral
 -- > showCEnum StatusOK == "StatusOK"
 --
 -- > showCEnum (StatusCode 418) == "StatusCode 418"
-showCEnum :: forall a. CEnum a => a -> String
-showCEnum x = showsCEnum 0 x ""
+show :: forall a. CEnum a => a -> String
+show x = shows 0 x ""
 
 -- | Generalization of 'showCEnum' (akin to 'showsPrec').
 --
@@ -208,8 +214,8 @@ showCEnum x = showsCEnum 0 x ""
 --
 -- When the value is declared, a corresponding name is returned.  Otherwise,
 -- 'showsUndeclared' is called.
-showsCEnum :: forall a. CEnum a => Int -> a -> ShowS
-showsCEnum prec x =
+shows :: forall a. CEnum a => Int -> a -> ShowS
+shows prec x =
     case Map.lookup i (getIntegralToDeclaredValues (Proxy :: Proxy a)) of
       Just (name :| _names) -> showString name
       Nothing -> showsUndeclared (Proxy :: Proxy a) prec i
@@ -226,15 +232,15 @@ showsCEnum prec x =
 -- > (readEitherCEnum "StatusOK" :: StatusCode) == Right StatusOK
 --
 -- > (readEitherCEnum "StatusCode 123" :: StatusCode) == Right (StatusCode 123)
-readEitherCEnum :: forall a. CEnum a => String -> Either String a
-readEitherCEnum s =
+readEither :: forall a. CEnum a => String -> Either String a
+readEither s =
   case [ x | (x,"") <- ReadPrec.readPrec_to_S read' minPrec s ] of
     [x] -> Right x
     []  -> Left "readEitherCEnum: no parse"
     _xs -> Left "readEitherCEnum: ambiguous parse"
  where
   read' =
-    do x <- readPrecCEnum
+    do x <- readPrec
        ReadPrec.lift ReadP.skipSpaces
        return x
 
@@ -272,8 +278,8 @@ readPrecWrappedUndeclared constructorName = Read.parens $ ReadPrec.prec appPrec 
 --
 -- This function may be used in the definition of a 'Read' instance for a
 -- @newtype@ representation of a C enumeration.
-readPrecCEnum :: forall a. CEnum a => ReadPrec a
-readPrecCEnum = readPrecDeclaredValue (Proxy :: Proxy a) +++ readPrecUndeclared
+readPrec :: forall a. CEnum a => ReadPrec a
+readPrec = readPrecDeclaredValue (Proxy :: Proxy a) +++ readPrecUndeclared
 
 -- | Determine if the specified value is declared
 --
@@ -396,13 +402,13 @@ data CEnumException
 
 instance Exception CEnumException where
   displayException = \case
-    CEnumNotDeclared i -> "C enumeration value not declared: " ++ show i
+    CEnumNotDeclared i -> "C enumeration value not declared: " ++ Prelude.show i
     CEnumNoSuccessor i ->
-      "C enumeration value has no declared successor: " ++ show i
+      "C enumeration value has no declared successor: " ++ Prelude.show i
     CEnumNoPredecessor i ->
-      "C enumeration value has no declared predecessor: " ++ show i
+      "C enumeration value has no declared predecessor: " ++ Prelude.show i
     CEnumEmpty -> "C enumeration has no declared values"
-    CEnumFromEqThen i -> "enumeration from and then values equal: " ++ show i
+    CEnumFromEqThen i -> "enumeration from and then values equal: " ++ Prelude.show i
 
 {-------------------------------------------------------------------------------
   Bounded instance implementation
@@ -628,7 +634,7 @@ getIntegralToDeclaredValues = integralToDeclaredValues . declaredValues
 nonEmptyChunksOf :: Int -> [a] -> [NonEmpty a]
 nonEmptyChunksOf n xs
     | n > 0     = aux xs
-    | otherwise = error $ "nonEmptyChunksOf: n must be positive, got " ++ show n
+    | otherwise = error $ "nonEmptyChunksOf: n must be positive, got " ++ Prelude.show n
   where
     aux :: [a] -> [NonEmpty a]
     aux xs' = case first NonEmpty.nonEmpty (List.splitAt n xs') of

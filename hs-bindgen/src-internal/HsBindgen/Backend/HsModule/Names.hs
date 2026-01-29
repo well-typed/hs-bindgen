@@ -42,12 +42,14 @@ import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import HsBindgen.Runtime.Bitfield qualified
+import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
+import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
@@ -308,22 +310,24 @@ resolveGlobal = \case
     WithFlam           -> importQ 'HsBindgen.Runtime.FLAM.WithFlam
 
     -- HasCField
-    HasCField_class       -> importQ ''HsBindgen.Runtime.HasCField.HasCField
-    HasCField_CFieldType  -> importQ ''HsBindgen.Runtime.HasCField.CFieldType
-    HasCField_offset#     -> importQ 'HsBindgen.Runtime.HasCField.offset#
-    HasCField_ptrToCField -> importQ 'HsBindgen.Runtime.HasCField.ptrToCField
-    HasCField_pokeCField  -> importQ 'HsBindgen.Runtime.HasCField.pokeCField
-    HasCField_peekCField  -> importQ 'HsBindgen.Runtime.HasCField.peekCField
+    HasCField_class      -> importQ ''HsBindgen.Runtime.HasCField.HasCField
+    HasCField_CFieldType -> importQ ''HsBindgen.Runtime.HasCField.CFieldType
+    HasCField_offset#    -> importQ 'HsBindgen.Runtime.HasCField.offset#
+    HasCField_fromPtr    -> importQ 'HsBindgen.Runtime.HasCField.fromPtr
+    HasCField_peek       -> importQ 'HsBindgen.Runtime.HasCField.peek
+    HasCField_poke       -> importQ 'HsBindgen.Runtime.HasCField.poke
+
+    -- BitfieldPtr
+    HasCBitfield_BitfieldPtr     -> importQ ''HsBindgen.Runtime.BitfieldPtr.BitfieldPtr
 
     -- HasCBitfield
-    HasCBitfield_class          -> importQ ''HsBindgen.Runtime.HasCField.HasCBitfield
-    HasCBitfield_CBitfieldType  -> importQ ''HsBindgen.Runtime.HasCField.CBitfieldType
-    HasCBitfield_bitOffset#     -> importQ 'HsBindgen.Runtime.HasCField.bitOffset#
-    HasCBitfield_bitWidth#      -> importQ 'HsBindgen.Runtime.HasCField.bitWidth#
-    HasCBitfield_ptrToCBitfield -> importQ 'HsBindgen.Runtime.HasCField.ptrToCBitfield
-    HasCBitfield_pokeCBitfield  -> importQ 'HsBindgen.Runtime.HasCField.pokeCBitfield
-    HasCBitfield_peekCBitfield  -> importQ 'HsBindgen.Runtime.HasCField.peekCBitfield
-    HasCBitfield_BitfieldPtr    -> importQ ''HsBindgen.Runtime.HasCField.BitfieldPtr
+    HasCBitfield_class           -> importQ ''HsBindgen.Runtime.HasCBitfield.HasCBitfield
+    HasCBitfield_CBitfieldType   -> importQ ''HsBindgen.Runtime.HasCBitfield.CBitfieldType
+    HasCBitfield_bitfieldOffset# -> importQ 'HsBindgen.Runtime.HasCBitfield.bitfieldOffset#
+    HasCBitfield_bitfieldWidth#  -> importQ 'HsBindgen.Runtime.HasCBitfield.bitfieldWidth#
+    HasCBitfield_toPtr           -> importQ 'HsBindgen.Runtime.HasCBitfield.toPtr
+    HasCBitfield_peek            -> importQ 'HsBindgen.Runtime.HasCBitfield.peek
+    HasCBitfield_poke            -> importQ 'HsBindgen.Runtime.HasCBitfield.poke
 
     -- HasField
     HasField_class    -> importQ ''GHC.Records.HasField
@@ -462,9 +466,9 @@ resolveGlobal = \case
     SequentialCEnum_minDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.minDeclaredValue
     SequentialCEnum_maxDeclaredValue -> importQ 'HsBindgen.Runtime.CEnum.maxDeclaredValue
     CEnum_declaredValuesFromList     -> importQ 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-    CEnum_showsCEnum                 -> importQ 'HsBindgen.Runtime.CEnum.showsCEnum
+    CEnum_showsCEnum                 -> importQ 'HsBindgen.Runtime.CEnum.shows
     CEnum_showsWrappedUndeclared     -> importQ 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
-    CEnum_readPrecCEnum              -> importQ 'HsBindgen.Runtime.CEnum.readPrecCEnum
+    CEnum_readPrecCEnum              -> importQ 'HsBindgen.Runtime.CEnum.readPrec
     CEnum_readPrecWrappedUndeclared  -> importQ 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
     CEnum_seqIsDeclared              -> importQ 'HsBindgen.Runtime.CEnum.seqIsDeclared
     CEnum_seqMkDeclared              -> importQ 'HsBindgen.Runtime.CEnum.seqMkDeclared

@@ -28,7 +28,7 @@ newtype MySym
                       Real)
 instance TyEq ty (CFieldType MySym "un_MySym") =>
          HasField "un_MySym" (Ptr MySym) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MySym")
+    where getField = fromPtr (Proxy @"un_MySym")
 instance HasCField MySym "un_MySym"
     where type CFieldType MySym "un_MySym" = CChar
           offset# = \_ -> \_ -> 0

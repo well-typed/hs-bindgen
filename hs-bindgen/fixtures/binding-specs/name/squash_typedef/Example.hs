@@ -56,16 +56,16 @@ instance F.Storable Piyo where
   peek =
     \ptr0 ->
           pure Piyo
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"piyo_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"piyo_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"piyo_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"piyo_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Piyo piyo_x2 piyo_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"piyo_x") ptr0 piyo_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"piyo_y") ptr0 piyo_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"piyo_x") ptr0 piyo_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"piyo_y") ptr0 piyo_y3
 
 instance Data.Primitive.Types.Prim Piyo where
 
@@ -133,7 +133,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Piyo) "piyo_x")
          ) => GHC.Records.HasField "piyo_x" (Ptr.Ptr Piyo) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"piyo_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"piyo_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Piyo "piyo_y" where
 
@@ -145,4 +145,4 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Piyo) "piyo_y")
          ) => GHC.Records.HasField "piyo_y" (Ptr.Ptr Piyo) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"piyo_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"piyo_y")

@@ -166,7 +166,7 @@ instance FromFunPtr A_Aux
     where fromFunPtr = hs_bindgen_cdb12400c6863f15
 instance TyEq ty (CFieldType A_Aux "un_A_Aux") =>
          HasField "un_A_Aux" (Ptr A_Aux) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_A_Aux")
+    where getField = fromPtr (Proxy @"un_A_Aux")
 instance HasCField A_Aux "un_A_Aux"
     where type CFieldType A_Aux "un_A_Aux" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
@@ -188,7 +188,7 @@ newtype A
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType A "un_A") =>
          HasField "un_A" (Ptr A) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_A")
+    where getField = fromPtr (Proxy @"un_A")
 instance HasCField A "un_A"
     where type CFieldType A "un_A" = FunPtr A_Aux
           offset# = \_ -> \_ -> 0
@@ -210,7 +210,7 @@ newtype B
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType B "un_B") =>
          HasField "un_B" (Ptr B) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_B")
+    where getField = fromPtr (Proxy @"un_B")
 instance HasCField B "un_B"
     where type CFieldType B "un_B" = A
           offset# = \_ -> \_ -> 0
@@ -231,7 +231,7 @@ newtype E
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType E "un_E") =>
          HasField "un_E" (Ptr E) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_E")
+    where getField = fromPtr (Proxy @"un_E")
 instance HasCField E "un_E"
     where type CFieldType E "un_E" = M.C
           offset# = \_ -> \_ -> 0

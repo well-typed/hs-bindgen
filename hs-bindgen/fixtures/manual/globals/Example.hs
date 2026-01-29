@@ -64,16 +64,16 @@ instance F.Storable GlobalConfig where
   peek =
     \ptr0 ->
           pure GlobalConfig
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           GlobalConfig globalConfig_numThreads2 globalConfig_numWorkers3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0 globalConfig_numThreads2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0 globalConfig_numWorkers3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0 globalConfig_numThreads2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0 globalConfig_numWorkers3
 
 instance Data.Primitive.Types.Prim GlobalConfig where
 
@@ -142,7 +142,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globa
          ) => GHC.Records.HasField "globalConfig_numThreads" (Ptr.Ptr GlobalConfig) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"globalConfig_numThreads")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"globalConfig_numThreads")
 
 instance HsBindgen.Runtime.HasCField.HasCField GlobalConfig "globalConfig_numWorkers" where
 
@@ -155,7 +155,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globa
          ) => GHC.Records.HasField "globalConfig_numWorkers" (Ptr.Ptr GlobalConfig) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"globalConfig_numWorkers")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"globalConfig_numWorkers")
 
 {-| __C declaration:__ @ConstInt@
 
@@ -173,7 +173,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ConstInt) "un_ConstI
          ) => GHC.Records.HasField "un_ConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ConstInt")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_ConstInt")
 
 instance HsBindgen.Runtime.HasCField.HasCField ConstInt "un_ConstInt" where
 
@@ -214,16 +214,16 @@ instance F.Storable Tuple where
   peek =
     \ptr0 ->
           pure Tuple
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"tuple_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"tuple_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tuple_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tuple_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Tuple tuple_x2 tuple_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"tuple_x") ptr0 tuple_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"tuple_y") ptr0 tuple_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tuple_x") ptr0 tuple_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tuple_y") ptr0 tuple_y3
 
 instance Data.Primitive.Types.Prim Tuple where
 
@@ -291,7 +291,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_x")
          ) => GHC.Records.HasField "tuple_x" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tuple_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tuple_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Tuple "tuple_y" where
 
@@ -303,7 +303,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_y")
          ) => GHC.Records.HasField "tuple_y" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tuple_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tuple_y")
 
 {-| __C declaration:__ @triplet@
 
@@ -321,7 +321,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet
          ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
 
 instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
@@ -345,7 +345,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "un_List")
          ) => GHC.Records.HasField "un_List" (Ptr.Ptr List) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_List")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_List")
 
 instance HsBindgen.Runtime.HasCField.HasCField List "un_List" where
 

@@ -37,9 +37,9 @@ instance SequentialCEnum MyEnum
     where minDeclaredValue = Say你好
           maxDeclaredValue = Say拜拜
 instance Show MyEnum
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read MyEnum
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @Say你好@

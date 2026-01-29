@@ -54,10 +54,10 @@ data Vector
 instance Storable Vector
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Vector <*> peekCField (Proxy @"vector_x") ptr_0) <*> peekCField (Proxy @"vector_y") ptr_0
+          peek = \ptr_0 -> (pure Vector <*> peek (Proxy @"vector_x") ptr_0) <*> peek (Proxy @"vector_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Vector vector_x_3
-                                          vector_y_4 -> pokeCField (Proxy @"vector_x") ptr_1 vector_x_3 >> pokeCField (Proxy @"vector_y") ptr_1 vector_y_4
+                                          vector_y_4 -> poke (Proxy @"vector_x") ptr_1 vector_x_3 >> poke (Proxy @"vector_y") ptr_1 vector_y_4
 instance Prim Vector
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -86,13 +86,13 @@ instance HasCField Vector "vector_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Vector "vector_x") =>
          HasField "vector_x" (Ptr Vector) (Ptr ty)
-    where getField = ptrToCField (Proxy @"vector_x")
+    where getField = fromPtr (Proxy @"vector_x")
 instance HasCField Vector "vector_y"
     where type CFieldType Vector "vector_y" = CDouble
           offset# = \_ -> \_ -> 8
 instance TyEq ty (CFieldType Vector "vector_y") =>
          HasField "vector_y" (Ptr Vector) (Ptr ty)
-    where getField = ptrToCField (Proxy @"vector_y")
+    where getField = fromPtr (Proxy @"vector_y")
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
     Double

@@ -76,7 +76,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U) "u_x")
          ) => GHC.Records.HasField "u_x" (Ptr.Ptr U) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"u_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"u_x")
 
 {-| __C declaration:__ @T@
 
@@ -93,7 +93,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "un_T")
          ) => GHC.Records.HasField "un_T" (Ptr.Ptr T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_T")
 
 instance HsBindgen.Runtime.HasCField.HasCField T "un_T" where
 

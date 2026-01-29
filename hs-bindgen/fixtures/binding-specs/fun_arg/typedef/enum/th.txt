@@ -156,9 +156,9 @@ instance SequentialCEnum MyEnum
     where minDeclaredValue = X
           maxDeclaredValue = X
 instance Show MyEnum
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read MyEnum
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @x@
@@ -193,7 +193,7 @@ newtype A
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType A "un_A") =>
          HasField "un_A" (Ptr A) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_A")
+    where getField = fromPtr (Proxy @"un_A")
 instance HasCField A "un_A"
     where type CFieldType A "un_A" = MyEnum
           offset# = \_ -> \_ -> 0
@@ -215,7 +215,7 @@ newtype B
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType B "un_B") =>
          HasField "un_B" (Ptr B) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_B")
+    where getField = fromPtr (Proxy @"un_B")
 instance HasCField B "un_B"
     where type CFieldType B "un_B" = A
           offset# = \_ -> \_ -> 0
@@ -236,7 +236,7 @@ newtype E
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType E "un_E") =>
          HasField "un_E" (Ptr E) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_E")
+    where getField = fromPtr (Proxy @"un_E")
 instance HasCField E "un_E"
     where type CFieldType E "un_E" = M.C
           offset# = \_ -> \_ -> 0

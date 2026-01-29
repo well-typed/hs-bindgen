@@ -84,9 +84,9 @@ data MyStruct
 instance Storable MyStruct
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure MyStruct <*> peekCField (Proxy @"myStruct_x") ptr_0
+          peek = \ptr_0 -> pure MyStruct <*> peek (Proxy @"myStruct_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MyStruct myStruct_x_3 -> pokeCField (Proxy @"myStruct_x") ptr_1 myStruct_x_3
+                                   MyStruct myStruct_x_3 -> poke (Proxy @"myStruct_x") ptr_1 myStruct_x_3
 instance Prim MyStruct
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -105,7 +105,7 @@ instance HasCField MyStruct "myStruct_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType MyStruct "myStruct_x") =>
          HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"myStruct_x")
+    where getField = fromPtr (Proxy @"myStruct_x")
 {-| __C declaration:__ @A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 7:9@

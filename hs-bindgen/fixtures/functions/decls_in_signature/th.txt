@@ -104,10 +104,10 @@ data Outside
 instance Storable Outside
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Outside <*> peekCField (Proxy @"outside_x") ptr_0) <*> peekCField (Proxy @"outside_y") ptr_0
+          peek = \ptr_0 -> (pure Outside <*> peek (Proxy @"outside_x") ptr_0) <*> peek (Proxy @"outside_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Outside outside_x_3
-                                           outside_y_4 -> pokeCField (Proxy @"outside_x") ptr_1 outside_x_3 >> pokeCField (Proxy @"outside_y") ptr_1 outside_y_4
+                                           outside_y_4 -> poke (Proxy @"outside_x") ptr_1 outside_x_3 >> poke (Proxy @"outside_y") ptr_1 outside_y_4
 instance Prim Outside
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -136,13 +136,13 @@ instance HasCField Outside "outside_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Outside "outside_x") =>
          HasField "outside_x" (Ptr Outside) (Ptr ty)
-    where getField = ptrToCField (Proxy @"outside_x")
+    where getField = fromPtr (Proxy @"outside_x")
 instance HasCField Outside "outside_y"
     where type CFieldType Outside "outside_y" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Outside "outside_y") =>
          HasField "outside_y" (Ptr Outside) (Ptr ty)
-    where getField = ptrToCField (Proxy @"outside_y")
+    where getField = fromPtr (Proxy @"outside_y")
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -182,10 +182,10 @@ data Named_struct
 instance Storable Named_struct
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Named_struct <*> peekCField (Proxy @"named_struct_x") ptr_0) <*> peekCField (Proxy @"named_struct_y") ptr_0
+          peek = \ptr_0 -> (pure Named_struct <*> peek (Proxy @"named_struct_x") ptr_0) <*> peek (Proxy @"named_struct_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Named_struct named_struct_x_3
-                                                named_struct_y_4 -> pokeCField (Proxy @"named_struct_x") ptr_1 named_struct_x_3 >> pokeCField (Proxy @"named_struct_y") ptr_1 named_struct_y_4
+                                                named_struct_y_4 -> poke (Proxy @"named_struct_x") ptr_1 named_struct_x_3 >> poke (Proxy @"named_struct_y") ptr_1 named_struct_y_4
 instance Prim Named_struct
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -214,13 +214,13 @@ instance HasCField Named_struct "named_struct_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Named_struct "named_struct_x") =>
          HasField "named_struct_x" (Ptr Named_struct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"named_struct_x")
+    where getField = fromPtr (Proxy @"named_struct_x")
 instance HasCField Named_struct "named_struct_y"
     where type CFieldType Named_struct "named_struct_y" = CInt
           offset# = \_ -> \_ -> 4
 instance TyEq ty (CFieldType Named_struct "named_struct_y") =>
          HasField "named_struct_y" (Ptr Named_struct) (Ptr ty)
-    where getField = ptrToCField (Proxy @"named_struct_y")
+    where getField = fromPtr (Proxy @"named_struct_y")
 {-| __C declaration:__ @union named_union@
 
     __defined at:__ @functions\/decls_in_signature.h 20:15@
@@ -310,13 +310,13 @@ instance HasCField Named_union "named_union_x"
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Named_union "named_union_x") =>
          HasField "named_union_x" (Ptr Named_union) (Ptr ty)
-    where getField = ptrToCField (Proxy @"named_union_x")
+    where getField = fromPtr (Proxy @"named_union_x")
 instance HasCField Named_union "named_union_y"
     where type CFieldType Named_union "named_union_y" = CChar
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Named_union "named_union_y") =>
          HasField "named_union_y" (Ptr Named_union) (Ptr ty)
-    where getField = ptrToCField (Proxy @"named_union_y")
+    where getField = fromPtr (Proxy @"named_union_y")
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
 foreign import ccall safe "hs_bindgen_920e5c20f770432b" hs_bindgen_920e5c20f770432b_base ::
     Ptr Void

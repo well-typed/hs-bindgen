@@ -22,6 +22,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
+import qualified HsBindgen.Runtime.BitfieldPtr
+import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import Data.Bits (FiniteBits)
@@ -45,7 +47,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "un_MyInt")
          ) => GHC.Records.HasField "un_MyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyInt")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyInt")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
 
@@ -69,7 +71,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyUInt) "un_MyUInt")
          ) => GHC.Records.HasField "un_MyUInt" (Ptr.Ptr MyUInt) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyUInt")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyUInt")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyUInt "un_MyUInt" where
 
@@ -93,7 +95,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyLong) "un_MyLong")
          ) => GHC.Records.HasField "un_MyLong" (Ptr.Ptr MyLong) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MyLong")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyLong")
 
 instance HsBindgen.Runtime.HasCField.HasCField MyLong "un_MyLong" where
 
@@ -141,18 +143,18 @@ instance F.Storable MyStruct where
   peek =
     \ptr0 ->
           pure MyStruct
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"myStruct_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"myStruct_y") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"myStruct_z") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_x") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_y") ptr0
+      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_z") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           MyStruct myStruct_x2 myStruct_y3 myStruct_z4 ->
-               HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"myStruct_x") ptr0 myStruct_x2
-            >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"myStruct_y") ptr0 myStruct_y3
-            >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"myStruct_z") ptr0 myStruct_z4
+               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_x") ptr0 myStruct_x2
+            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_y") ptr0 myStruct_y3
+            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_z") ptr0 myStruct_z4
 
 instance Data.Primitive.Types.Prim MyStruct where
 
@@ -218,44 +220,44 @@ instance Data.Primitive.Types.Prim MyStruct where
                       s8 ->
                         Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) myStruct_z6 s8
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield MyStruct "myStruct_x" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
   type CBitfieldType MyStruct "myStruct_x" = MyInt
 
-  bitOffset# = \_ -> \_ -> 0
+  bitfieldOffset# = \_ -> \_ -> 0
 
-  bitWidth# = \_ -> \_ -> 2
+  bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType MyStruct) "myStruct_x")
-         ) => GHC.Records.HasField "myStruct_x" (Ptr.Ptr MyStruct) ((HsBindgen.Runtime.HasCField.BitfieldPtr MyStruct) "myStruct_x") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType MyStruct) "myStruct_x")
+         ) => GHC.Records.HasField "myStruct_x" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"myStruct_x")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_x")
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield MyStruct "myStruct_y" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   type CBitfieldType MyStruct "myStruct_y" = MyUInt
 
-  bitOffset# = \_ -> \_ -> 2
+  bitfieldOffset# = \_ -> \_ -> 2
 
-  bitWidth# = \_ -> \_ -> 4
+  bitfieldWidth# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType MyStruct) "myStruct_y")
-         ) => GHC.Records.HasField "myStruct_y" (Ptr.Ptr MyStruct) ((HsBindgen.Runtime.HasCField.BitfieldPtr MyStruct) "myStruct_y") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType MyStruct) "myStruct_y")
+         ) => GHC.Records.HasField "myStruct_y" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"myStruct_y")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_y")
 
-instance HsBindgen.Runtime.HasCField.HasCBitfield MyStruct "myStruct_z" where
+instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 
   type CBitfieldType MyStruct "myStruct_z" = MyLong
 
-  bitOffset# = \_ -> \_ -> 6
+  bitfieldOffset# = \_ -> \_ -> 6
 
-  bitWidth# = \_ -> \_ -> 3
+  bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType MyStruct) "myStruct_z")
-         ) => GHC.Records.HasField "myStruct_z" (Ptr.Ptr MyStruct) ((HsBindgen.Runtime.HasCField.BitfieldPtr MyStruct) "myStruct_z") where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType MyStruct) "myStruct_z")
+         ) => GHC.Records.HasField "myStruct_z" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"myStruct_z")
+    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_z")

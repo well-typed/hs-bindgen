@@ -58,16 +58,16 @@ instance F.Storable Point1a where
   peek =
     \ptr0 ->
           pure Point1a
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point1a_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point1a_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point1a_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point1a_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point1a point1a_x2 point1a_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point1a_x") ptr0 point1a_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point1a_y") ptr0 point1a_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point1a_x") ptr0 point1a_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point1a_y") ptr0 point1a_y3
 
 instance Data.Primitive.Types.Prim Point1a where
 
@@ -135,7 +135,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1a) "point1a_x"
          ) => GHC.Records.HasField "point1a_x" (Ptr.Ptr Point1a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point1a_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point1a_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point1a "point1a_y" where
 
@@ -147,7 +147,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1a) "point1a_y"
          ) => GHC.Records.HasField "point1a_y" (Ptr.Ptr Point1a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point1a_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point1a_y")
 
 {-| __C declaration:__ @point1b@
 
@@ -165,7 +165,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1b) "un_Point1b
          ) => GHC.Records.HasField "un_Point1b" (Ptr.Ptr Point1b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Point1b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point1b")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point1b "un_Point1b" where
 
@@ -206,16 +206,16 @@ instance F.Storable Point2a where
   peek =
     \ptr0 ->
           pure Point2a
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point2a_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point2a_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point2a_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point2a_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point2a point2a_x2 point2a_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point2a_x") ptr0 point2a_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point2a_y") ptr0 point2a_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point2a_x") ptr0 point2a_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point2a_y") ptr0 point2a_y3
 
 instance Data.Primitive.Types.Prim Point2a where
 
@@ -283,7 +283,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2a) "point2a_x"
          ) => GHC.Records.HasField "point2a_x" (Ptr.Ptr Point2a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point2a_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point2a_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point2a "point2a_y" where
 
@@ -295,7 +295,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2a) "point2a_y"
          ) => GHC.Records.HasField "point2a_y" (Ptr.Ptr Point2a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point2a_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point2a_y")
 
 {-| __C declaration:__ @point2b@
 
@@ -313,7 +313,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2b) "un_Point2b
          ) => GHC.Records.HasField "un_Point2b" (Ptr.Ptr Point2b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Point2b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point2b")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point2b "un_Point2b" where
 
@@ -355,16 +355,16 @@ instance F.Storable Point3a_Aux where
   peek =
     \ptr0 ->
           pure Point3a_Aux
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point3a_Aux_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"point3a_Aux_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point3a_Aux_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point3a_Aux_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point3a_Aux point3a_Aux_x2 point3a_Aux_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point3a_Aux_x") ptr0 point3a_Aux_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point3a_Aux_y") ptr0 point3a_Aux_y3
+               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point3a_Aux_x") ptr0 point3a_Aux_x2
+            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point3a_Aux_y") ptr0 point3a_Aux_y3
 
 instance Data.Primitive.Types.Prim Point3a_Aux where
 
@@ -432,7 +432,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a_Aux) "point3
          ) => GHC.Records.HasField "point3a_Aux_x" (Ptr.Ptr Point3a_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point3a_Aux_x")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point3a_Aux_x")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point3a_Aux "point3a_Aux_y" where
 
@@ -444,7 +444,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a_Aux) "point3
          ) => GHC.Records.HasField "point3a_Aux_y" (Ptr.Ptr Point3a_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point3a_Aux_y")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point3a_Aux_y")
 
 {-| __C declaration:__ @point3a@
 
@@ -462,7 +462,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a) "un_Point3a
          ) => GHC.Records.HasField "un_Point3a" (Ptr.Ptr Point3a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Point3a")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point3a")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point3a "un_Point3a" where
 
@@ -487,7 +487,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3b) "un_Point3b
          ) => GHC.Records.HasField "un_Point3b" (Ptr.Ptr Point3b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Point3b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point3b")
 
 instance HsBindgen.Runtime.HasCField.HasCField Point3b "un_Point3b" where
 

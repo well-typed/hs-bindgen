@@ -106,7 +106,7 @@ instance TyEq ty
          HasField "un_MyFunctionPointer_Aux"
                   (Ptr MyFunctionPointer_Aux)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MyFunctionPointer_Aux")
+    where getField = fromPtr (Proxy @"un_MyFunctionPointer_Aux")
 instance HasCField MyFunctionPointer_Aux "un_MyFunctionPointer_Aux"
     where type CFieldType MyFunctionPointer_Aux
                           "un_MyFunctionPointer_Aux" = CInt -> IO CInt
@@ -130,7 +130,7 @@ newtype MyFunctionPointer
 instance TyEq ty
               (CFieldType MyFunctionPointer "un_MyFunctionPointer") =>
          HasField "un_MyFunctionPointer" (Ptr MyFunctionPointer) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_MyFunctionPointer")
+    where getField = fromPtr (Proxy @"un_MyFunctionPointer")
 instance HasCField MyFunctionPointer "un_MyFunctionPointer"
     where type CFieldType MyFunctionPointer
                           "un_MyFunctionPointer" = FunPtr MyFunctionPointer_Aux

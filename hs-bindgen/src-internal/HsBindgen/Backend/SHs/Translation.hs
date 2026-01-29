@@ -346,13 +346,13 @@ translateStorableInstance struct inst mbComment = Instance{
     poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) inst.poke
 
 translatePeekCField :: Hs.PeekCField ctx -> SExpr ctx
-translatePeekCField (Hs.PeekCField field ptr) = appMany HasCField_peekCField [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
-translatePeekCField (Hs.PeekCBitfield field ptr) = appMany HasCBitfield_peekCBitfield [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
+translatePeekCField (Hs.PeekCField field ptr) = appMany HasCField_peek [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
+translatePeekCField (Hs.PeekCBitfield field ptr) = appMany HasCBitfield_peek [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
 translatePeekCField (Hs.PeekByteOff ptr i) = appMany Storable_peekByteOff [EBound ptr, EInt i]
 
 translatePokeCField :: Hs.PokeCField ctx -> SExpr ctx
-translatePokeCField (Hs.PokeCField field ptr x) = appMany HasCField_pokeCField [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
-translatePokeCField (Hs.PokeCBitfield field ptr x) = appMany HasCBitfield_pokeCBitfield [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
+translatePokeCField (Hs.PokeCField field ptr x) = appMany HasCField_poke [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
+translatePokeCField (Hs.PokeCBitfield field ptr x) = appMany HasCBitfield_poke [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
 translatePokeCField (Hs.PokeByteOff ptr i x) = appMany Storable_pokeByteOff [EBound ptr, EInt i, EBound x]
 
 {-------------------------------------------------------------------------------
@@ -399,10 +399,10 @@ translateHasCBitfieldInstance inst mbComment = Instance{
                   , [parent, fieldLit], fieldType
                   )
                 ]
-    , decs    = [ ( HasCBitfield_bitOffset#
+    , decs    = [ ( HasCBitfield_bitfieldOffset#
                   , EUnusedLam $ EUnusedLam $ EIntegral o Nothing
                   )
-                , ( HasCBitfield_bitWidth#
+                , ( HasCBitfield_bitfieldWidth#
                   , EUnusedLam $ EUnusedLam $ EIntegral w Nothing
                   )
                 ]
@@ -440,13 +440,13 @@ translateHasFieldInstance inst mbComment = Instance{
       case inst.deriveVia of
         Hs.ViaHasCField -> (
             HasCField_CFieldType
-          , HasCField_ptrToCField
+          , HasCField_fromPtr
           , TGlobal Foreign_Ptr `TApp` tyTypeVar
           )
         Hs.ViaHasCBitfield -> (
             HasCBitfield_CBitfieldType
-          , HasCBitfield_ptrToCBitfield
-          , TGlobal HasCBitfield_BitfieldPtr `TApp` parent `TApp` fieldLit
+          , HasCBitfield_toPtr
+          , TGlobal HasCBitfield_BitfieldPtr `TApp` tyTypeVar
           )
 
     parent    = translateType inst.parentType

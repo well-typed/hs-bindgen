@@ -101,7 +101,7 @@ newtype I
                       Real)
 instance TyEq ty (CFieldType I "un_I") =>
          HasField "un_I" (Ptr I) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_I")
+    where getField = fromPtr (Proxy @"un_I")
 instance HasCField I "un_I"
     where type CFieldType I "un_I" = CInt
           offset# = \_ -> \_ -> 0
@@ -190,9 +190,9 @@ instance SequentialCEnum E
     where minDeclaredValue = Foo
           maxDeclaredValue = Foo
 instance Show E
-    where showsPrec = showsCEnum
+    where showsPrec = shows
 instance Read E
-    where readPrec = readPrecCEnum
+    where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @foo@
@@ -238,7 +238,7 @@ newtype TI
                       Real)
 instance TyEq ty (CFieldType TI "un_TI") =>
          HasField "un_TI" (Ptr TI) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TI")
+    where getField = fromPtr (Proxy @"un_TI")
 instance HasCField TI "un_TI"
     where type CFieldType TI "un_TI" = I
           offset# = \_ -> \_ -> 0
@@ -260,7 +260,7 @@ newtype TS
     deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType TS "un_TS") =>
          HasField "un_TS" (Ptr TS) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TS")
+    where getField = fromPtr (Proxy @"un_TS")
 instance HasCField TS "un_TS"
     where type CFieldType TS "un_TS" = S
           offset# = \_ -> \_ -> 0
@@ -281,7 +281,7 @@ newtype TU
     deriving newtype Storable
 instance TyEq ty (CFieldType TU "un_TU") =>
          HasField "un_TU" (Ptr TU) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TU")
+    where getField = fromPtr (Proxy @"un_TU")
 instance HasCField TU "un_TU"
     where type CFieldType TU "un_TU" = U
           offset# = \_ -> \_ -> 0
@@ -303,7 +303,7 @@ newtype TE
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType TE "un_TE") =>
          HasField "un_TE" (Ptr TE) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TE")
+    where getField = fromPtr (Proxy @"un_TE")
 instance HasCField TE "un_TE"
     where type CFieldType TE "un_TE" = E
           offset# = \_ -> \_ -> 0
@@ -336,7 +336,7 @@ newtype TTI
                       Real)
 instance TyEq ty (CFieldType TTI "un_TTI") =>
          HasField "un_TTI" (Ptr TTI) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TTI")
+    where getField = fromPtr (Proxy @"un_TTI")
 instance HasCField TTI "un_TTI"
     where type CFieldType TTI "un_TTI" = TI
           offset# = \_ -> \_ -> 0
@@ -358,7 +358,7 @@ newtype TTS
     deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType TTS "un_TTS") =>
          HasField "un_TTS" (Ptr TTS) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TTS")
+    where getField = fromPtr (Proxy @"un_TTS")
 instance HasCField TTS "un_TTS"
     where type CFieldType TTS "un_TTS" = TS
           offset# = \_ -> \_ -> 0
@@ -379,7 +379,7 @@ newtype TTU
     deriving newtype Storable
 instance TyEq ty (CFieldType TTU "un_TTU") =>
          HasField "un_TTU" (Ptr TTU) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TTU")
+    where getField = fromPtr (Proxy @"un_TTU")
 instance HasCField TTU "un_TTU"
     where type CFieldType TTU "un_TTU" = TU
           offset# = \_ -> \_ -> 0
@@ -401,7 +401,7 @@ newtype TTE
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty (CFieldType TTE "un_TTE") =>
          HasField "un_TTE" (Ptr TTE) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_TTE")
+    where getField = fromPtr (Proxy @"un_TTE")
 instance HasCField TTE "un_TTE"
     where type CFieldType TTE "un_TTE" = TE
           offset# = \_ -> \_ -> 0

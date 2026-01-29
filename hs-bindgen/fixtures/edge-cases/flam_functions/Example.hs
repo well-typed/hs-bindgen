@@ -49,14 +49,14 @@ instance F.Storable Vector_Aux where
   peek =
     \ptr0 ->
           pure Vector
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"vector_length") ptr0
+      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"vector_length") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Vector vector_length2 ->
-            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"vector_length") ptr0 vector_length2
+            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"vector_length") ptr0 vector_length2
 
 instance Data.Primitive.Types.Prim Vector_Aux where
 
@@ -116,7 +116,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_
          ) => GHC.Records.HasField "vector_length" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_length")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_length")
 
 instance HsBindgen.Runtime.FLAM.Offset FC.CLong Vector_Aux where
 

@@ -44,7 +44,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MySym) "un_MySym")
          ) => GHC.Records.HasField "un_MySym" (Ptr.Ptr MySym) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MySym")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MySym")
 
 instance HsBindgen.Runtime.HasCField.HasCField MySym "un_MySym" where
 
