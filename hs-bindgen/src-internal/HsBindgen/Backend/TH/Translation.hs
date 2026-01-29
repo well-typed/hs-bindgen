@@ -427,7 +427,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     -- PtrConst
     PtrConst_type          -> panicPure "type in expression"
-    PtrConst_unsafeFromPtr -> TH.conE name
+    PtrConst_unsafeFromPtr -> TH.varE name
     PtrConst_unsafeToPtr   -> TH.varE name
     PtrConst_peek          -> TH.varE name
 
