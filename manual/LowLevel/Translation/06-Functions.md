@@ -327,7 +327,7 @@ different C libraries.
 #### Wrapping Haskell functions
 
 To pass a Haskell function as a callback to C, use `toFunPtr` or the
-`withToFunPtr` bracket combinator:
+`withFunPtr` bracket combinator:
 
 ```haskell
 import HsBindgen.Runtime.Prelude
@@ -336,8 +336,8 @@ myCallback :: ProgressUpdate_Aux
 myCallback = ProgressUpdate_Aux $ \progress ->
   putStrLn $ "Progress: " ++ show progress ++ "%"
 
--- Preferred: automatic cleanup with withToFunPtr
-withToFunPtr myCallback $ \funPtr -> do
+-- Preferred: automatic cleanup with withFunPtr
+withFunPtr myCallback $ \funPtr -> do
   onProgressChanged (ProgressUpdate funPtr)
 
 -- Or manually manage the function pointer lifetime with bracket

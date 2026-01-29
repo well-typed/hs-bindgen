@@ -41,16 +41,16 @@ examples :: IO ()
 examples = do
     section "Callbacks (Passing Haskell functions to C callbacks)"
 
-    withToFunPtr (FileOpenedNotification_Aux $ putStrLn "")
+    withFunPtr (FileOpenedNotification_Aux $ putStrLn "")
                  (onFileOpened . FileOpenedNotification)
 
     putStrLn ""
-    withToFunPtr
+    withFunPtr
         (ProgressUpdate_Aux $ \progress -> putStrLn $ "Progress: " ++ show progress ++ "%")
         (onProgressChanged . ProgressUpdate)
 
     putStrLn ""
-    withToFunPtr
+    withFunPtr
       (DataValidator_Aux $ \value -> do
         putStrLn $ "Validating: " ++ show value
         return $ if value > 0 then 1 else 0)
@@ -61,7 +61,7 @@ examples = do
         ) . DataValidator
 
     putStrLn ""
-    withToFunPtr
+    withFunPtr
       (MeasurementReceived_Aux $ peek >=> print)
       (onNewMeasurement . MeasurementReceived)
 

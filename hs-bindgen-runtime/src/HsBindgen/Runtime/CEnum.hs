@@ -6,7 +6,7 @@
 -- This module is intended to be imported qualified.
 --
 -- > import HsBindgen.Runtime.Prelude
--- > import HsBindgne.Runtime.CEnum qualified as CEnum
+-- > import HsBindgen.Runtime.CEnum qualified as CEnum
 module HsBindgen.Runtime.CEnum (
     -- * Type classes
     CEnum(..)

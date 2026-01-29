@@ -5,9 +5,9 @@
 -- This module is intended to be imported qualified.
 --
 -- > import HsBindgen.Runtime.Prelude
--- > import HsBindgne.Runtime.ConstantArray qualified as CA
+-- > import HsBindgen.Runtime.ConstantArray qualified as CA
 module HsBindgen.Runtime.ConstantArray (
-    ConstantArray
+    ConstantArray -- opaque
   , toVector
   , fromVector
     -- * Pointers

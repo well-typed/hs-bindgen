@@ -97,19 +97,21 @@ data Global =
   | HasCField_class
   | HasCField_CFieldType
   | HasCField_offset#
-  | HasCField_ptrToCField
-  | HasCField_pokeCField
-  | HasCField_peekCField
+  | HasCField_fromPtr
+  | HasCField_peek
+  | HasCField_poke
+
+    -- BitfieldPtr
+  | HasCBitfield_BitfieldPtr
 
     -- HasCBitfield
   | HasCBitfield_class
   | HasCBitfield_CBitfieldType
-  | HasCBitfield_bitOffset#
-  | HasCBitfield_bitWidth#
-  | HasCBitfield_ptrToCBitfield
-  | HasCBitfield_pokeCBitfield
-  | HasCBitfield_peekCBitfield
-  | HasCBitfield_BitfieldPtr
+  | HasCBitfield_bitfieldOffset#
+  | HasCBitfield_bitfieldWidth#
+  | HasCBitfield_toPtr
+  | HasCBitfield_peek
+  | HasCBitfield_poke
 
     -- HasField
   | HasField_class

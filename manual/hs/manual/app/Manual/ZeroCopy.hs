@@ -7,6 +7,7 @@ module Manual.ZeroCopy (examples) where
 import Foreign
 import Foreign.C.Types
 
+import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
 import HsBindgen.Runtime.ConstantArray as CA
 import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.Prelude
@@ -135,8 +136,8 @@ scaleRectangle (fromIntegral -> c) ptr = do
 
 uptickBrightness :: Ptr Gen.Colour -> IO ()
 uptickBrightness ptr = do
-    brightness <- peekBits ptr.colour_brightness
-    pokeBits ptr.colour_brightness (brightness+1)
+    brightness <- BitfieldPtr.peek ptr.colour_brightness
+    BitfieldPtr.poke ptr.colour_brightness (brightness+1)
 
 withDrawing :: Gen.Shape -> Gen.Colour -> (Gen.Drawing -> IO a) -> IO a
 withDrawing shape colour k =

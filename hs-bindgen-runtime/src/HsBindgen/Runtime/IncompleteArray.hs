@@ -5,9 +5,9 @@
 -- This module is intended to be imported qualified.
 --
 -- > import HsBindgen.Runtime.Prelude
--- > import HsBindgne.Runtime.IncompleteArray qualified as IA
+-- > import HsBindgen.Runtime.IncompleteArray qualified as IA
 module HsBindgen.Runtime.IncompleteArray (
-    IncompleteArray
+    IncompleteArray -- opaque
   , toVector
   , fromVector
     -- * Pointers
