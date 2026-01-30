@@ -251,6 +251,7 @@ compile_fixture() {
         -optc -std=gnu2x \
         -optc -Wno-deprecated-declarations \
         -optc -Wno-attributes \
+        -optc -Wno-incompatible-pointer-types \
         "$opts" \
         $files &>"$output_dir/compile.log"); then
         echo "✓ $fixture_name"
