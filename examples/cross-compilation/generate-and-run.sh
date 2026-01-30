@@ -160,7 +160,7 @@ generate_bindings() {
         --create-output-dirs \
         --overwrite-files \
         --module ArchTypes.Generated \
-        "$C_SRC_DIR/arch_types.h" >/dev/null
+        "$C_SRC_DIR/arch_types.h"
 }
 
 for target in native aarch64 arm32; do
