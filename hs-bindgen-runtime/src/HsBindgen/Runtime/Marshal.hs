@@ -1,3 +1,12 @@
+-- | Marshaling and serialization
+--
+-- Generalizes 'Storable'. For details, see
+-- https://github.com/well-typed/hs-bindgen/issues/649.
+--
+-- This module is intended to be imported qualified.
+--
+-- > import HsBindgen.Runtime.Prelude
+-- > import HsBindgen.Runtime.Marshal qualified as Marshal
 module HsBindgen.Runtime.Marshal (
     -- * Type Classes
     StaticSize(..)
