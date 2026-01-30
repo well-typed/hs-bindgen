@@ -15,10 +15,10 @@ hstypes:
     newtype:
       constructor: C
       fields:
-      - un_C
+      - unwrapC
 - hsname: D
   representation:
     newtype:
       constructor: D
       fields:
-      - un_D
+      - unwrapD

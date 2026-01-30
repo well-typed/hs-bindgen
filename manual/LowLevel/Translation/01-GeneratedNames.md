@@ -63,7 +63,7 @@ data Triple = Triple {
 
 ### Accessors
 
-For newtypes we add a prefix `un_` to the getter; for example, given
+For newtypes we add a prefix `unwrap` to the getter; for example, given
 
 ```c
 typedef enum index {
@@ -77,7 +77,7 @@ we generate
 
 ```haskell
 newtype Index = Index {
-   un_Index :: CUInt
+   unwrapIndex :: CUInt
  }
 ```
 
@@ -172,7 +172,7 @@ we generate
 
 ```haskell
 newtype Config = Config {
-    un_Config :: Ptr Config_Deref
+    unwrapConfig :: Ptr Config_Deref
   }
 
 data Config_Deref = Config_Deref {
@@ -257,7 +257,7 @@ uppercase letter. In this case, we add a `"C"` prefix:
 
 ```haskell
 newtype C数字 = C数字 {
-    un_C数字 :: CInt
+    unwrapC数字 :: CInt
   }
 ```
 
@@ -303,7 +303,7 @@ we simply generate
 
 ```haskell
 newtype Data = Data {
-    un_Data :: CInt
+    unwrapData :: CInt
   }
 ```
 

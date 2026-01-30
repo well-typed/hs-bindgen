@@ -147,7 +147,7 @@ instance TyEq ty (CFieldType Bools2 "bools2_y") =>
     __exported by:__ @types\/primitives\/bool.h@
 -}
 newtype BOOL
-    = BOOL {un_BOOL :: CBool}
+    = BOOL {unwrapBOOL :: CBool}
       {- ^ __C declaration:__ @BOOL@
 
            __defined at:__ @types\/primitives\/bool.h 13:9@

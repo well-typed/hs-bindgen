@@ -21,7 +21,7 @@ hstypes:
     newtype:
       constructor: T1
       fields:
-      - un_T1
+      - unwrapT1
   instances:
   - Bits
   - Bounded
@@ -43,7 +43,7 @@ hstypes:
     newtype:
       constructor: T2
       fields:
-      - un_T2
+      - unwrapT2
   instances:
   - Bits
   - Bounded
@@ -65,7 +65,7 @@ hstypes:
     newtype:
       constructor: T3
       fields:
-      - un_T3
+      - unwrapT3
   instances:
   - Bits
   - Bounded
@@ -87,7 +87,7 @@ hstypes:
     newtype:
       constructor: T4
       fields:
-      - un_T4
+      - unwrapT4
   instances:
   - Bits
   - Bounded

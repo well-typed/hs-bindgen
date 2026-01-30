@@ -6,7 +6,7 @@
     __exported by:__ @documentation\/data_kind_pragma.h@
 -}
 newtype Triplet
-    = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
+    = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
            __defined at:__ @documentation\/data_kind_pragma.h 3:13@
@@ -15,9 +15,10 @@ newtype Triplet
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Triplet "un_Triplet") =>
-         HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Triplet")
-instance HasCField Triplet "un_Triplet"
-    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
+         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTriplet")
+instance HasCField Triplet "unwrapTriplet"
+    where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
+                                                                  CInt
           offset# = \_ -> \_ -> 0

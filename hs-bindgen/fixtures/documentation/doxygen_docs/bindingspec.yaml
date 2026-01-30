@@ -77,7 +77,7 @@ hstypes:
     newtype:
       constructor: Color_enum
       fields:
-      - un_Color_enum
+      - unwrapColor_enum
   instances:
   - Eq
   - HasFFIType
@@ -104,7 +104,7 @@ hstypes:
     newtype:
       constructor: Data_union_t
       fields:
-      - un_Data_union_t
+      - unwrapData_union_t
   instances:
   - Storable
 - hsname: Data_union_t_as_parts
@@ -123,7 +123,7 @@ hstypes:
     newtype:
       constructor: Event_callback_t
       fields:
-      - un_Event_callback_t
+      - unwrapEvent_callback_t
   instances:
   - Eq
   - HasFFIType
@@ -135,7 +135,7 @@ hstypes:
     newtype:
       constructor: Filename_t
       fields:
-      - un_Filename_t
+      - unwrapFilename_t
   instances:
   - Eq
   - Show
@@ -161,7 +161,7 @@ hstypes:
     newtype:
       constructor: Processor_fn_t
       fields:
-      - un_Processor_fn_t
+      - unwrapProcessor_fn_t
   instances:
   - Eq
   - HasFFIType
@@ -173,7 +173,7 @@ hstypes:
     newtype:
       constructor: Size_type
       fields:
-      - un_Size_type
+      - unwrapSize_type
   instances:
   - Bits
   - Bounded
@@ -194,7 +194,7 @@ hstypes:
     newtype:
       constructor: Status_code_t
       fields:
-      - un_Status_code_t
+      - unwrapStatus_code_t
   instances:
   - Eq
   - HasFFIType

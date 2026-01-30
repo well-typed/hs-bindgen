@@ -18,7 +18,7 @@ hstypes:
     newtype:
       constructor: A
       fields:
-      - un_A
+      - unwrapA
   instances:
   - Eq
   - HasFFIType
@@ -30,7 +30,7 @@ hstypes:
     newtype:
       constructor: B
       fields:
-      - un_B
+      - unwrapB
   instances:
   - Eq
   - HasFFIType
@@ -42,7 +42,7 @@ hstypes:
     newtype:
       constructor: MyFunctionPointer
       fields:
-      - un_MyFunctionPointer
+      - unwrapMyFunctionPointer
   instances:
   - Eq
   - HasFFIType

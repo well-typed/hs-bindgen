@@ -57,7 +57,7 @@ hstypes:
     newtype:
       constructor: M1
       fields:
-      - un_M1
+      - unwrapM1
   instances:
   - Bits
   - Bounded
@@ -79,7 +79,7 @@ hstypes:
     newtype:
       constructor: M2
       fields:
-      - un_M2
+      - unwrapM2
   instances:
   - Bits
   - Bounded
@@ -101,7 +101,7 @@ hstypes:
     newtype:
       constructor: M3
       fields:
-      - un_M3
+      - unwrapM3
   instances:
   - Eq
   - HasFFIType
@@ -113,7 +113,7 @@ hstypes:
     newtype:
       constructor: T1
       fields:
-      - un_T1
+      - unwrapT1
   instances:
   - Bitfield
   - Bits
@@ -136,7 +136,7 @@ hstypes:
     newtype:
       constructor: T2
       fields:
-      - un_T2
+      - unwrapT2
   instances:
   - Bitfield
   - Bits
@@ -159,7 +159,7 @@ hstypes:
     newtype:
       constructor: Uint64_t
       fields:
-      - un_Uint64_t
+      - unwrapUint64_t
   instances:
   - Bits
   - Bounded

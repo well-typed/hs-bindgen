@@ -30,20 +30,20 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
     __exported by:__ @arrays\/array.h@
 -}
 newtype Triplet = Triplet
-  { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet")
-         ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
+         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
 
-instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
+instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 
-  type CFieldType Triplet "un_Triplet" =
+  type CFieldType Triplet "unwrapTriplet" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -55,19 +55,19 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
     __exported by:__ @arrays\/array.h@
 -}
 newtype List = List
-  { un_List :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
+  { unwrapList :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "un_List")
-         ) => GHC.Records.HasField "un_List" (Ptr.Ptr List) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "unwrapList")
+         ) => GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_List")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapList")
 
-instance HsBindgen.Runtime.HasCField.HasCField List "un_List" where
+instance HsBindgen.Runtime.HasCField.HasCField List "unwrapList" where
 
-  type CFieldType List "un_List" =
+  type CFieldType List "unwrapList" =
     HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -79,20 +79,20 @@ instance HsBindgen.Runtime.HasCField.HasCField List "un_List" where
     __exported by:__ @arrays\/array.h@
 -}
 newtype Matrix = Matrix
-  { un_Matrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+  { unwrapMatrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
-         ) => GHC.Records.HasField "un_Matrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "unwrapMatrix")
+         ) => GHC.Records.HasField "unwrapMatrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Matrix")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMatrix")
 
-instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
+instance HsBindgen.Runtime.HasCField.HasCField Matrix "unwrapMatrix" where
 
-  type CFieldType Matrix "un_Matrix" =
+  type CFieldType Matrix "unwrapMatrix" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 
   offset# = \_ -> \_ -> 0
@@ -104,19 +104,19 @@ instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
     __exported by:__ @arrays\/array.h@
 -}
 newtype Tripletlist = Tripletlist
-  { un_Tripletlist :: HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+  { unwrapTripletlist :: HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   }
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tripletlist) "un_Tripletlist")
-         ) => GHC.Records.HasField "un_Tripletlist" (Ptr.Ptr Tripletlist) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tripletlist) "unwrapTripletlist")
+         ) => GHC.Records.HasField "unwrapTripletlist" (Ptr.Ptr Tripletlist) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Tripletlist")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTripletlist")
 
-instance HsBindgen.Runtime.HasCField.HasCField Tripletlist "un_Tripletlist" where
+instance HsBindgen.Runtime.HasCField.HasCField Tripletlist "unwrapTripletlist" where
 
-  type CFieldType Tripletlist "un_Tripletlist" =
+  type CFieldType Tripletlist "unwrapTripletlist" =
     HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 
   offset# = \_ -> \_ -> 0
@@ -200,20 +200,20 @@ __defined at:__ @arrays\/array.h 55:17@
 __exported by:__ @arrays\/array.h@
 -}
 newtype Sudoku = Sudoku
-  { un_Sudoku :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
+  { unwrapSudoku :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Sudoku) "un_Sudoku")
-         ) => GHC.Records.HasField "un_Sudoku" (Ptr.Ptr Sudoku) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Sudoku) "unwrapSudoku")
+         ) => GHC.Records.HasField "unwrapSudoku" (Ptr.Ptr Sudoku) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Sudoku")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSudoku")
 
-instance HsBindgen.Runtime.HasCField.HasCField Sudoku "un_Sudoku" where
+instance HsBindgen.Runtime.HasCField.HasCField Sudoku "unwrapSudoku" where
 
-  type CFieldType Sudoku "un_Sudoku" =
+  type CFieldType Sudoku "unwrapSudoku" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
 
   offset# = \_ -> \_ -> 0

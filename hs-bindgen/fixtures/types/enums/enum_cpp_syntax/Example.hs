@@ -26,7 +26,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
 newtype Foo_enum = Foo_enum
-  { un_Foo_enum :: HsBindgen.Runtime.LibC.Word32
+  { unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -46,8 +46,8 @@ instance F.Storable Foo_enum where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Foo_enum un_Foo_enum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Foo_enum2
+          Foo_enum unwrapFoo_enum2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapFoo_enum2
 
 deriving via HsBindgen.Runtime.LibC.Word32 instance Data.Primitive.Types.Prim Foo_enum
 
@@ -57,7 +57,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo_enum where
 
   toCEnum = Foo_enum
 
-  fromCEnum = un_Foo_enum
+  fromCEnum = unwrapFoo_enum
 
   declaredValues =
     \_ ->

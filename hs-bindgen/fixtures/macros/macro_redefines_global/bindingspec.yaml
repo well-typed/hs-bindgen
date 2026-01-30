@@ -12,7 +12,7 @@ hstypes:
     newtype:
       constructor: FILE
       fields:
-      - un_FILE
+      - unwrapFILE
   instances:
   - Bitfield
   - Bits

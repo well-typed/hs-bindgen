@@ -74,11 +74,11 @@ import GHC.TypeLits
 --
 -- And an accompanying Haskell newtype @T@:
 --
--- > newtype T = T { un_T :: Int }
+-- > newtype T = T { unwrapT :: Int }
 --
 -- Then we can define the instance:
 --
--- > HasCField T "un_T"
+-- > HasCField T "unwrapT"
 class HasCField (a :: Type) (field :: Symbol) where
   type CFieldType (a :: Type) (field :: Symbol) :: Type
 

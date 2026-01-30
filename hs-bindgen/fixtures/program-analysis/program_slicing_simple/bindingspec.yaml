@@ -26,7 +26,7 @@ hstypes:
     newtype:
       constructor: Uint32_t
       fields:
-      - un_Uint32_t
+      - unwrapUint32_t
   instances:
   - Bitfield
   - Bits

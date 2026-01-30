@@ -6,7 +6,7 @@
     __exported by:__ @binding-specs\/name\/type.h@
 -}
 newtype MySym
-    = MySym {un_MySym :: CChar}
+    = MySym {unwrapMySym :: CChar}
       {- ^ __C declaration:__ @sym@
 
            __defined at:__ @binding-specs\/name\/type.h 1:14@
@@ -26,9 +26,9 @@ newtype MySym
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MySym "un_MySym") =>
-         HasField "un_MySym" (Ptr MySym) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MySym")
-instance HasCField MySym "un_MySym"
-    where type CFieldType MySym "un_MySym" = CChar
+instance TyEq ty (CFieldType MySym "unwrapMySym") =>
+         HasField "unwrapMySym" (Ptr MySym) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMySym")
+instance HasCField MySym "unwrapMySym"
+    where type CFieldType MySym "unwrapMySym" = CChar
           offset# = \_ -> \_ -> 0

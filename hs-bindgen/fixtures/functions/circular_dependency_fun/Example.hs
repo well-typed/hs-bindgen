@@ -34,7 +34,7 @@ __defined at:__ @functions\/circular_dependency_fun.h 3:16@
 __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr_Aux = Fun_ptr_Aux
-  { un_Fun_ptr_Aux :: (Ptr.Ptr Forward_declaration) -> IO ()
+  { unwrapFun_ptr_Aux :: (Ptr.Ptr Forward_declaration) -> IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -70,15 +70,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Fun_ptr_Aux where
 
   fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Aux) "un_Fun_ptr_Aux")
-         ) => GHC.Records.HasField "un_Fun_ptr_Aux" (Ptr.Ptr Fun_ptr_Aux) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Aux) "unwrapFun_ptr_Aux")
+         ) => GHC.Records.HasField "unwrapFun_ptr_Aux" (Ptr.Ptr Fun_ptr_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Fun_ptr_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFun_ptr_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Aux "un_Fun_ptr_Aux" where
+instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux" where
 
-  type CFieldType Fun_ptr_Aux "un_Fun_ptr_Aux" =
+  type CFieldType Fun_ptr_Aux "unwrapFun_ptr_Aux" =
     (Ptr.Ptr Forward_declaration) -> IO ()
 
   offset# = \_ -> \_ -> 0
@@ -90,20 +90,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Aux "un_Fun_ptr_Aux" wher
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr = Fun_ptr
-  { un_Fun_ptr :: Ptr.FunPtr Fun_ptr_Aux
+  { unwrapFun_ptr :: Ptr.FunPtr Fun_ptr_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "un_Fun_ptr")
-         ) => GHC.Records.HasField "un_Fun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "unwrapFun_ptr")
+         ) => GHC.Records.HasField "unwrapFun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Fun_ptr")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFun_ptr")
 
-instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr "un_Fun_ptr" where
+instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr "unwrapFun_ptr" where
 
-  type CFieldType Fun_ptr "un_Fun_ptr" =
+  type CFieldType Fun_ptr "unwrapFun_ptr" =
     Ptr.FunPtr Fun_ptr_Aux
 
   offset# = \_ -> \_ -> 0

@@ -125,7 +125,7 @@ instance TyEq ty
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Another_typedef_enum_e
-    = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
+    = Another_typedef_enum_e {unwrapAnother_typedef_enum_e :: CUInt}
       {- ^ __C declaration:__ @enum another_typedef_enum_e@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h 10:9@
@@ -139,12 +139,12 @@ instance Storable Another_typedef_enum_e
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3
+                                   Another_typedef_enum_e unwrapAnother_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapAnother_typedef_enum_e_3
 deriving via CUInt instance Prim Another_typedef_enum_e
 instance CEnum Another_typedef_enum_e
     where type CEnumZ Another_typedef_enum_e = CUInt
           toCEnum = Another_typedef_enum_e
-          fromCEnum = un_Another_typedef_enum_e
+          fromCEnum = unwrapAnother_typedef_enum_e
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "FOO"),
                                                          (1, singleton "BAR")]
@@ -238,7 +238,7 @@ sOME_DEFINED_CONSTANT = 4 :: CInt
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype A_type_t
-    = A_type_t {un_A_type_t :: CInt}
+    = A_type_t {unwrapA_type_t :: CInt}
       {- ^ __C declaration:__ @a_type_t@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h 14:13@
@@ -258,11 +258,11 @@ newtype A_type_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType A_type_t "un_A_type_t") =>
-         HasField "un_A_type_t" (Ptr A_type_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_A_type_t")
-instance HasCField A_type_t "un_A_type_t"
-    where type CFieldType A_type_t "un_A_type_t" = CInt
+instance TyEq ty (CFieldType A_type_t "unwrapA_type_t") =>
+         HasField "unwrapA_type_t" (Ptr A_type_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA_type_t")
+instance HasCField A_type_t "unwrapA_type_t"
+    where type CFieldType A_type_t "unwrapA_type_t" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @var_t@
 
@@ -271,7 +271,7 @@ instance HasCField A_type_t "un_A_type_t"
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Var_t
-    = Var_t {un_Var_t :: CInt}
+    = Var_t {unwrapVar_t :: CInt}
       {- ^ __C declaration:__ @var_t@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h 15:13@
@@ -291,11 +291,11 @@ newtype Var_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Var_t "un_Var_t") =>
-         HasField "un_Var_t" (Ptr Var_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Var_t")
-instance HasCField Var_t "un_Var_t"
-    where type CFieldType Var_t "un_Var_t" = CInt
+instance TyEq ty (CFieldType Var_t "unwrapVar_t") =>
+         HasField "unwrapVar_t" (Ptr Var_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapVar_t")
+instance HasCField Var_t "unwrapVar_t"
+    where type CFieldType Var_t "unwrapVar_t" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct a_typedef_struct@
 
@@ -585,7 +585,7 @@ tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype A_typedef_enum_e
-    = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
+    = A_typedef_enum_e {unwrapA_typedef_enum_e :: CUChar}
       {- ^ __C declaration:__ @enum a_typedef_enum_e@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h 61:9@
@@ -599,12 +599,12 @@ instance Storable A_typedef_enum_e
           alignment = \_ -> 1 :: Int
           peek = \ptr_0 -> pure A_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   A_typedef_enum_e un_A_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_A_typedef_enum_e_3
+                                   A_typedef_enum_e unwrapA_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapA_typedef_enum_e_3
 deriving via CUChar instance Prim A_typedef_enum_e
 instance CEnum A_typedef_enum_e
     where type CEnumZ A_typedef_enum_e = CUChar
           toCEnum = A_typedef_enum_e
-          fromCEnum = un_A_typedef_enum_e
+          fromCEnum = unwrapA_typedef_enum_e
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "ENUM_CASE_0"),
                                                          (1, singleton "ENUM_CASE_1"),
@@ -688,9 +688,9 @@ __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
 __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t_Aux
-    = Callback_t_Aux {un_Callback_t_Aux :: (Ptr Void ->
-                                            HsBindgen.Runtime.LibC.Word32 ->
-                                            IO HsBindgen.Runtime.LibC.Word32)}
+    = Callback_t_Aux {unwrapCallback_t_Aux :: (Ptr Void ->
+                                               HsBindgen.Runtime.LibC.Word32 ->
+                                               IO HsBindgen.Runtime.LibC.Word32)}
       {- ^ Auxiliary type used by 'Callback_t'
 
       __C declaration:__ @callback_t@
@@ -722,14 +722,15 @@ instance ToFunPtr Callback_t_Aux
     where toFunPtr = hs_bindgen_b6b6922e35047658
 instance FromFunPtr Callback_t_Aux
     where fromFunPtr = hs_bindgen_d6debb4b8d5bb869
-instance TyEq ty (CFieldType Callback_t_Aux "un_Callback_t_Aux") =>
-         HasField "un_Callback_t_Aux" (Ptr Callback_t_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Callback_t_Aux")
-instance HasCField Callback_t_Aux "un_Callback_t_Aux"
+instance TyEq ty
+              (CFieldType Callback_t_Aux "unwrapCallback_t_Aux") =>
+         HasField "unwrapCallback_t_Aux" (Ptr Callback_t_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapCallback_t_Aux")
+instance HasCField Callback_t_Aux "unwrapCallback_t_Aux"
     where type CFieldType Callback_t_Aux
-                          "un_Callback_t_Aux" = Ptr Void ->
-                                                HsBindgen.Runtime.LibC.Word32 ->
-                                                IO HsBindgen.Runtime.LibC.Word32
+                          "unwrapCallback_t_Aux" = Ptr Void ->
+                                                   HsBindgen.Runtime.LibC.Word32 ->
+                                                   IO HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @callback_t@
 
@@ -738,7 +739,7 @@ instance HasCField Callback_t_Aux "un_Callback_t_Aux"
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t
-    = Callback_t {un_Callback_t :: (FunPtr Callback_t_Aux)}
+    = Callback_t {unwrapCallback_t :: (FunPtr Callback_t_Aux)}
       {- ^ __C declaration:__ @callback_t@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
@@ -747,12 +748,12 @@ newtype Callback_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Callback_t "un_Callback_t") =>
-         HasField "un_Callback_t" (Ptr Callback_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Callback_t")
-instance HasCField Callback_t "un_Callback_t"
+instance TyEq ty (CFieldType Callback_t "unwrapCallback_t") =>
+         HasField "unwrapCallback_t" (Ptr Callback_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapCallback_t")
+instance HasCField Callback_t "unwrapCallback_t"
     where type CFieldType Callback_t
-                          "un_Callback_t" = FunPtr Callback_t_Aux
+                          "unwrapCallback_t" = FunPtr Callback_t_Aux
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad_base ::

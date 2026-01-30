@@ -6,7 +6,7 @@
     __exported by:__ @macros\/macro_redefines_global.h@
 -}
 newtype FILE
-    = FILE {un_FILE :: CInt}
+    = FILE {unwrapFILE :: CInt}
       {- ^ __C declaration:__ @FILE@
 
            __defined at:__ @macros\/macro_redefines_global.h 7:13@
@@ -26,9 +26,9 @@ newtype FILE
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType FILE "un_FILE") =>
-         HasField "un_FILE" (Ptr FILE) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_FILE")
-instance HasCField FILE "un_FILE"
-    where type CFieldType FILE "un_FILE" = CInt
+instance TyEq ty (CFieldType FILE "unwrapFILE") =>
+         HasField "unwrapFILE" (Ptr FILE) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFILE")
+instance HasCField FILE "unwrapFILE"
+    where type CFieldType FILE "unwrapFILE" = CInt
           offset# = \_ -> \_ -> 0

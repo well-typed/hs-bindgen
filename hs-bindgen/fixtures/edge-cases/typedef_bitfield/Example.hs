@@ -38,20 +38,20 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyInt = MyInt
-  { un_MyInt :: FC.CInt
+  { unwrapMyInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "un_MyInt")
-         ) => GHC.Records.HasField "un_MyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "unwrapMyInt")
+         ) => GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyInt")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyInt")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
+instance HsBindgen.Runtime.HasCField.HasCField MyInt "unwrapMyInt" where
 
-  type CFieldType MyInt "un_MyInt" = FC.CInt
+  type CFieldType MyInt "unwrapMyInt" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -62,20 +62,20 @@ instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyUInt = MyUInt
-  { un_MyUInt :: FC.CUInt
+  { unwrapMyUInt :: FC.CUInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyUInt) "un_MyUInt")
-         ) => GHC.Records.HasField "un_MyUInt" (Ptr.Ptr MyUInt) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyUInt) "unwrapMyUInt")
+         ) => GHC.Records.HasField "unwrapMyUInt" (Ptr.Ptr MyUInt) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyUInt")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyUInt")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyUInt "un_MyUInt" where
+instance HsBindgen.Runtime.HasCField.HasCField MyUInt "unwrapMyUInt" where
 
-  type CFieldType MyUInt "un_MyUInt" = FC.CUInt
+  type CFieldType MyUInt "unwrapMyUInt" = FC.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -86,20 +86,20 @@ instance HsBindgen.Runtime.HasCField.HasCField MyUInt "un_MyUInt" where
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyLong = MyLong
-  { un_MyLong :: FC.CLong
+  { unwrapMyLong :: FC.CLong
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyLong) "un_MyLong")
-         ) => GHC.Records.HasField "un_MyLong" (Ptr.Ptr MyLong) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyLong) "unwrapMyLong")
+         ) => GHC.Records.HasField "unwrapMyLong" (Ptr.Ptr MyLong) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyLong")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyLong")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyLong "un_MyLong" where
+instance HsBindgen.Runtime.HasCField.HasCField MyLong "unwrapMyLong" where
 
-  type CFieldType MyLong "un_MyLong" = FC.CLong
+  type CFieldType MyLong "unwrapMyLong" = FC.CLong
 
   offset# = \_ -> \_ -> 0
 

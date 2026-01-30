@@ -21,7 +21,7 @@ then we generate
 
 ```haskell
 newtype Occupation = Occupation {
-    un_Occupation :: ByteArray
+    unwrapOccupation :: ByteArray
   }
 
 get_occupation_student  :: Occupation -> Student

@@ -20,7 +20,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 newtype A = A
-  { un_A :: HsBindgen.Runtime.LibC.CSize
+  { unwrapA :: HsBindgen.Runtime.LibC.CSize
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)

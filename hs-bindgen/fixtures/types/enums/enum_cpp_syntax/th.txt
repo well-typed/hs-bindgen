@@ -9,7 +9,7 @@
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
 newtype Foo_enum
-    = Foo_enum {un_Foo_enum :: HsBindgen.Runtime.LibC.Word32}
+    = Foo_enum {unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32}
       {- ^ __C declaration:__ @enum foo_enum@
 
            __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:9@
@@ -23,12 +23,12 @@ instance Storable Foo_enum
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Foo_enum <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo_enum un_Foo_enum_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_enum_3
+                                   Foo_enum unwrapFoo_enum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapFoo_enum_3
 deriving via HsBindgen.Runtime.LibC.Word32 instance Prim Foo_enum
 instance CEnum Foo_enum
     where type CEnumZ Foo_enum = HsBindgen.Runtime.LibC.Word32
           toCEnum = Foo_enum
-          fromCEnum = un_Foo_enum
+          fromCEnum = unwrapFoo_enum
           declaredValues = \_ -> declaredValuesFromList [(0, singleton "A"),
                                                          (1, singleton "B"),
                                                          (2, singleton "C")]

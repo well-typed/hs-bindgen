@@ -21,7 +21,7 @@ hstypes:
     newtype:
       constructor: A
       fields:
-      - un_A
+      - unwrapA
   instances:
   - Eq
   - HasFFIType
@@ -34,7 +34,7 @@ hstypes:
     newtype:
       constructor: B
       fields:
-      - un_B
+      - unwrapB
   instances:
   - Eq
   - HasFFIType
@@ -47,7 +47,7 @@ hstypes:
     newtype:
       constructor: E
       fields:
-      - un_E
+      - unwrapE
   instances:
   - HasFFIType
 - hsname: MyEnum
@@ -55,7 +55,7 @@ hstypes:
     newtype:
       constructor: MyEnum
       fields:
-      - un_MyEnum
+      - unwrapMyEnum
   instances:
   - Eq
   - HasFFIType

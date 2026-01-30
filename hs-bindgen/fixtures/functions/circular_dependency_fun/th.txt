@@ -8,8 +8,8 @@ __defined at:__ @functions\/circular_dependency_fun.h 3:16@
 __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr_Aux
-    = Fun_ptr_Aux {un_Fun_ptr_Aux :: (Ptr Forward_declaration ->
-                                      IO Unit)}
+    = Fun_ptr_Aux {unwrapFun_ptr_Aux :: (Ptr Forward_declaration ->
+                                         IO Unit)}
       {- ^ Auxiliary type used by 'Fun_ptr'
 
       __C declaration:__ @fun_ptr@
@@ -39,12 +39,12 @@ instance ToFunPtr Fun_ptr_Aux
     where toFunPtr = hs_bindgen_5964bbadb359ee4a
 instance FromFunPtr Fun_ptr_Aux
     where fromFunPtr = hs_bindgen_f8391e85af67fcb6
-instance TyEq ty (CFieldType Fun_ptr_Aux "un_Fun_ptr_Aux") =>
-         HasField "un_Fun_ptr_Aux" (Ptr Fun_ptr_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Fun_ptr_Aux")
-instance HasCField Fun_ptr_Aux "un_Fun_ptr_Aux"
+instance TyEq ty (CFieldType Fun_ptr_Aux "unwrapFun_ptr_Aux") =>
+         HasField "unwrapFun_ptr_Aux" (Ptr Fun_ptr_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFun_ptr_Aux")
+instance HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux"
     where type CFieldType Fun_ptr_Aux
-                          "un_Fun_ptr_Aux" = Ptr Forward_declaration -> IO Unit
+                          "unwrapFun_ptr_Aux" = Ptr Forward_declaration -> IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @fun_ptr@
 
@@ -53,7 +53,7 @@ instance HasCField Fun_ptr_Aux "un_Fun_ptr_Aux"
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr
-    = Fun_ptr {un_Fun_ptr :: (FunPtr Fun_ptr_Aux)}
+    = Fun_ptr {unwrapFun_ptr :: (FunPtr Fun_ptr_Aux)}
       {- ^ __C declaration:__ @fun_ptr@
 
            __defined at:__ @functions\/circular_dependency_fun.h 3:16@
@@ -62,11 +62,11 @@ newtype Fun_ptr
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
-         HasField "un_Fun_ptr" (Ptr Fun_ptr) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Fun_ptr")
-instance HasCField Fun_ptr "un_Fun_ptr"
-    where type CFieldType Fun_ptr "un_Fun_ptr" = FunPtr Fun_ptr_Aux
+instance TyEq ty (CFieldType Fun_ptr "unwrapFun_ptr") =>
+         HasField "unwrapFun_ptr" (Ptr Fun_ptr) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFun_ptr")
+instance HasCField Fun_ptr "unwrapFun_ptr"
+    where type CFieldType Fun_ptr "unwrapFun_ptr" = FunPtr Fun_ptr_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct forward_declaration@
 

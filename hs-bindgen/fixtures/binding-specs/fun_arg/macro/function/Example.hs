@@ -32,7 +32,7 @@ import Prelude (IO)
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 newtype MyFunction = MyFunction
-  { un_MyFunction :: FC.CInt -> IO FC.CInt
+  { unwrapMyFunction :: FC.CInt -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -68,15 +68,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr MyFunction where
 
   fromFunPtr = hs_bindgen_bb71f7e730356103
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunction) "un_MyFunction")
-         ) => GHC.Records.HasField "un_MyFunction" (Ptr.Ptr MyFunction) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunction) "unwrapMyFunction")
+         ) => GHC.Records.HasField "unwrapMyFunction" (Ptr.Ptr MyFunction) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyFunction")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunction")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyFunction "un_MyFunction" where
+instance HsBindgen.Runtime.HasCField.HasCField MyFunction "unwrapMyFunction" where
 
-  type CFieldType MyFunction "un_MyFunction" =
+  type CFieldType MyFunction "unwrapMyFunction" =
     FC.CInt -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -88,7 +88,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunction "un_MyFunction" where
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 newtype A = A
-  { un_A :: MyFunction
+  { unwrapA :: MyFunction
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -99,6 +99,6 @@ newtype A = A
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 newtype B = B
-  { un_B :: A
+  { unwrapB :: A
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)

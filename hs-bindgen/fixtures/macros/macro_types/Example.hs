@@ -34,7 +34,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Rea
     __exported by:__ @macros\/macro_types.h@
 -}
 newtype PtrInt = PtrInt
-  { un_PtrInt :: Ptr.Ptr FC.CInt
+  { unwrapPtrInt :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -46,7 +46,7 @@ newtype PtrInt = PtrInt
     __exported by:__ @macros\/macro_types.h@
 -}
 newtype PtrPtrChar = PtrPtrChar
-  { un_PtrPtrChar :: Ptr.Ptr (Ptr.Ptr FC.CChar)
+  { unwrapPtrPtrChar :: Ptr.Ptr (Ptr.Ptr FC.CChar)
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -58,7 +58,7 @@ newtype PtrPtrChar = PtrPtrChar
     __exported by:__ @macros\/macro_types.h@
 -}
 newtype MTy = MTy
-  { un_MTy :: FC.CFloat
+  { unwrapMTy :: FC.CFloat
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
@@ -70,20 +70,20 @@ newtype MTy = MTy
     __exported by:__ @macros\/macro_types.h@
 -}
 newtype Tty = Tty
-  { un_Tty :: MTy
+  { unwrapTty :: MTy
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tty) "un_Tty")
-         ) => GHC.Records.HasField "un_Tty" (Ptr.Ptr Tty) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tty) "unwrapTty")
+         ) => GHC.Records.HasField "unwrapTty" (Ptr.Ptr Tty) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Tty")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTty")
 
-instance HsBindgen.Runtime.HasCField.HasCField Tty "un_Tty" where
+instance HsBindgen.Runtime.HasCField.HasCField Tty "unwrapTty" where
 
-  type CFieldType Tty "un_Tty" = MTy
+  type CFieldType Tty "unwrapTty" = MTy
 
   offset# = \_ -> \_ -> 0
 
@@ -94,7 +94,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tty "un_Tty" where
     __exported by:__ @macros\/macro_types.h@
 -}
 newtype UINT8_T = UINT8_T
-  { un_UINT8_T :: FC.CUChar
+  { unwrapUINT8_T :: FC.CUChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -106,7 +106,7 @@ newtype UINT8_T = UINT8_T
     __exported by:__ @macros\/macro_types.h@
 -}
 newtype BOOLEAN_T = BOOLEAN_T
-  { un_BOOLEAN_T :: UINT8_T
+  { unwrapBOOLEAN_T :: UINT8_T
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -118,19 +118,20 @@ newtype BOOLEAN_T = BOOLEAN_T
     __exported by:__ @macros\/macro_types.h@
 -}
 newtype Boolean_T = Boolean_T
-  { un_Boolean_T :: BOOLEAN_T
+  { unwrapBoolean_T :: BOOLEAN_T
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Boolean_T) "un_Boolean_T")
-         ) => GHC.Records.HasField "un_Boolean_T" (Ptr.Ptr Boolean_T) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Boolean_T) "unwrapBoolean_T")
+         ) => GHC.Records.HasField "unwrapBoolean_T" (Ptr.Ptr Boolean_T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Boolean_T")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapBoolean_T")
 
-instance HsBindgen.Runtime.HasCField.HasCField Boolean_T "un_Boolean_T" where
+instance HsBindgen.Runtime.HasCField.HasCField Boolean_T "unwrapBoolean_T" where
 
-  type CFieldType Boolean_T "un_Boolean_T" = BOOLEAN_T
+  type CFieldType Boolean_T "unwrapBoolean_T" =
+    BOOLEAN_T
 
   offset# = \_ -> \_ -> 0

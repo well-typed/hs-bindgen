@@ -12,7 +12,7 @@ hstypes:
     newtype:
       constructor: Test
       fields:
-      - un_Test
+      - unwrapTest
   instances:
   - Eq
   - HasFFIType

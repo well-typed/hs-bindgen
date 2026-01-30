@@ -21,7 +21,7 @@ hstypes:
     newtype:
       constructor: A
       fields:
-      - un_A
+      - unwrapA
   instances:
   - Storable
 - hsname: B
@@ -29,7 +29,7 @@ hstypes:
     newtype:
       constructor: B
       fields:
-      - un_B
+      - unwrapB
   instances:
   - Storable
 - hsname: E
@@ -37,12 +37,12 @@ hstypes:
     newtype:
       constructor: E
       fields:
-      - un_E
+      - unwrapE
 - hsname: MyUnion
   representation:
     newtype:
       constructor: MyUnion
       fields:
-      - un_MyUnion
+      - unwrapMyUnion
   instances:
   - Storable

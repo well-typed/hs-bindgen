@@ -35,7 +35,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
 newtype MY_TYPE = MY_TYPE
-  { un_MY_TYPE :: FC.CInt
+  { unwrapMY_TYPE :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)

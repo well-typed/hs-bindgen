@@ -6,7 +6,7 @@
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
 newtype MY_TYPE
-    = MY_TYPE {un_MY_TYPE :: CInt}
+    = MY_TYPE {unwrapMY_TYPE :: CInt}
       {- ^ __C declaration:__ @MY_TYPE@
 
            __defined at:__ @macros\/macro_typedef_struct.h 1:9@

@@ -43,20 +43,20 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype I = I
-  { un_I :: FC.CInt
+  { unwrapI :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType I) "un_I")
-         ) => GHC.Records.HasField "un_I" (Ptr.Ptr I) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType I) "unwrapI")
+         ) => GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_I")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapI")
 
-instance HsBindgen.Runtime.HasCField.HasCField I "un_I" where
+instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
 
-  type CFieldType I "un_I" = FC.CInt
+  type CFieldType I "unwrapI" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -121,7 +121,7 @@ instance Data.Primitive.Types.Prim S where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype U = U
-  { un_U :: Data.Array.Byte.ByteArray
+  { unwrapU :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance F.Storable U
@@ -135,7 +135,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype E = E
-  { un_E :: FC.CUInt
+  { unwrapE :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -155,7 +155,7 @@ instance F.Storable E where
     \ptr0 ->
       \s1 ->
         case s1 of
-          E un_E2 -> F.pokeByteOff ptr0 (0 :: Int) un_E2
+          E unwrapE2 -> F.pokeByteOff ptr0 (0 :: Int) unwrapE2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim E
 
@@ -165,7 +165,7 @@ instance HsBindgen.Runtime.CEnum.CEnum E where
 
   toCEnum = E
 
-  fromCEnum = un_E
+  fromCEnum = unwrapE
 
   declaredValues =
     \_ ->
@@ -215,20 +215,20 @@ pattern Foo = E 0
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TI = TI
-  { un_TI :: I
+  { unwrapTI :: I
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TI) "un_TI")
-         ) => GHC.Records.HasField "un_TI" (Ptr.Ptr TI) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TI) "unwrapTI")
+         ) => GHC.Records.HasField "unwrapTI" (Ptr.Ptr TI) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TI")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTI")
 
-instance HsBindgen.Runtime.HasCField.HasCField TI "un_TI" where
+instance HsBindgen.Runtime.HasCField.HasCField TI "unwrapTI" where
 
-  type CFieldType TI "un_TI" = I
+  type CFieldType TI "unwrapTI" = I
 
   offset# = \_ -> \_ -> 0
 
@@ -239,20 +239,20 @@ instance HsBindgen.Runtime.HasCField.HasCField TI "un_TI" where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TS = TS
-  { un_TS :: S
+  { unwrapTS :: S
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TS) "un_TS")
-         ) => GHC.Records.HasField "un_TS" (Ptr.Ptr TS) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TS) "unwrapTS")
+         ) => GHC.Records.HasField "unwrapTS" (Ptr.Ptr TS) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TS")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTS")
 
-instance HsBindgen.Runtime.HasCField.HasCField TS "un_TS" where
+instance HsBindgen.Runtime.HasCField.HasCField TS "unwrapTS" where
 
-  type CFieldType TS "un_TS" = S
+  type CFieldType TS "unwrapTS" = S
 
   offset# = \_ -> \_ -> 0
 
@@ -263,19 +263,19 @@ instance HsBindgen.Runtime.HasCField.HasCField TS "un_TS" where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TU = TU
-  { un_TU :: U
+  { unwrapTU :: U
   }
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TU) "un_TU")
-         ) => GHC.Records.HasField "un_TU" (Ptr.Ptr TU) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TU) "unwrapTU")
+         ) => GHC.Records.HasField "unwrapTU" (Ptr.Ptr TU) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TU")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTU")
 
-instance HsBindgen.Runtime.HasCField.HasCField TU "un_TU" where
+instance HsBindgen.Runtime.HasCField.HasCField TU "unwrapTU" where
 
-  type CFieldType TU "un_TU" = U
+  type CFieldType TU "unwrapTU" = U
 
   offset# = \_ -> \_ -> 0
 
@@ -286,20 +286,20 @@ instance HsBindgen.Runtime.HasCField.HasCField TU "un_TU" where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TE = TE
-  { un_TE :: E
+  { unwrapTE :: E
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TE) "un_TE")
-         ) => GHC.Records.HasField "un_TE" (Ptr.Ptr TE) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TE) "unwrapTE")
+         ) => GHC.Records.HasField "unwrapTE" (Ptr.Ptr TE) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TE")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTE")
 
-instance HsBindgen.Runtime.HasCField.HasCField TE "un_TE" where
+instance HsBindgen.Runtime.HasCField.HasCField TE "unwrapTE" where
 
-  type CFieldType TE "un_TE" = E
+  type CFieldType TE "unwrapTE" = E
 
   offset# = \_ -> \_ -> 0
 
@@ -310,20 +310,20 @@ instance HsBindgen.Runtime.HasCField.HasCField TE "un_TE" where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTI = TTI
-  { un_TTI :: TI
+  { unwrapTTI :: TI
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTI) "un_TTI")
-         ) => GHC.Records.HasField "un_TTI" (Ptr.Ptr TTI) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTI) "unwrapTTI")
+         ) => GHC.Records.HasField "unwrapTTI" (Ptr.Ptr TTI) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TTI")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTI")
 
-instance HsBindgen.Runtime.HasCField.HasCField TTI "un_TTI" where
+instance HsBindgen.Runtime.HasCField.HasCField TTI "unwrapTTI" where
 
-  type CFieldType TTI "un_TTI" = TI
+  type CFieldType TTI "unwrapTTI" = TI
 
   offset# = \_ -> \_ -> 0
 
@@ -334,20 +334,20 @@ instance HsBindgen.Runtime.HasCField.HasCField TTI "un_TTI" where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTS = TTS
-  { un_TTS :: TS
+  { unwrapTTS :: TS
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTS) "un_TTS")
-         ) => GHC.Records.HasField "un_TTS" (Ptr.Ptr TTS) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTS) "unwrapTTS")
+         ) => GHC.Records.HasField "unwrapTTS" (Ptr.Ptr TTS) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TTS")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTS")
 
-instance HsBindgen.Runtime.HasCField.HasCField TTS "un_TTS" where
+instance HsBindgen.Runtime.HasCField.HasCField TTS "unwrapTTS" where
 
-  type CFieldType TTS "un_TTS" = TS
+  type CFieldType TTS "unwrapTTS" = TS
 
   offset# = \_ -> \_ -> 0
 
@@ -358,19 +358,19 @@ instance HsBindgen.Runtime.HasCField.HasCField TTS "un_TTS" where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTU = TTU
-  { un_TTU :: TU
+  { unwrapTTU :: TU
   }
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTU) "un_TTU")
-         ) => GHC.Records.HasField "un_TTU" (Ptr.Ptr TTU) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTU) "unwrapTTU")
+         ) => GHC.Records.HasField "unwrapTTU" (Ptr.Ptr TTU) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TTU")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTU")
 
-instance HsBindgen.Runtime.HasCField.HasCField TTU "un_TTU" where
+instance HsBindgen.Runtime.HasCField.HasCField TTU "unwrapTTU" where
 
-  type CFieldType TTU "un_TTU" = TU
+  type CFieldType TTU "unwrapTTU" = TU
 
   offset# = \_ -> \_ -> 0
 
@@ -381,19 +381,19 @@ instance HsBindgen.Runtime.HasCField.HasCField TTU "un_TTU" where
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTE = TTE
-  { un_TTE :: TE
+  { unwrapTTE :: TE
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTE) "un_TTE")
-         ) => GHC.Records.HasField "un_TTE" (Ptr.Ptr TTE) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTE) "unwrapTTE")
+         ) => GHC.Records.HasField "unwrapTTE" (Ptr.Ptr TTE) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TTE")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTE")
 
-instance HsBindgen.Runtime.HasCField.HasCField TTE "un_TTE" where
+instance HsBindgen.Runtime.HasCField.HasCField TTE "unwrapTTE" where
 
-  type CFieldType TTE "un_TTE" = TE
+  type CFieldType TTE "unwrapTTE" = TE
 
   offset# = \_ -> \_ -> 0

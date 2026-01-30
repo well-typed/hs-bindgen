@@ -15,7 +15,7 @@ hstypes:
     newtype:
       constructor: Matrix
       fields:
-      - un_Matrix
+      - unwrapMatrix
   instances:
   - Eq
   - Show
@@ -25,7 +25,7 @@ hstypes:
     newtype:
       constructor: Triplets
       fields:
-      - un_Triplets
+      - unwrapTriplets
   instances:
   - Eq
   - Show

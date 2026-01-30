@@ -79,7 +79,7 @@
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype I
-    = I {un_I :: CInt}
+    = I {unwrapI :: CInt}
       {- ^ __C declaration:__ @I@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 10:13@
@@ -99,11 +99,11 @@ newtype I
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType I "un_I") =>
-         HasField "un_I" (Ptr I) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_I")
-instance HasCField I "un_I"
-    where type CFieldType I "un_I" = CInt
+instance TyEq ty (CFieldType I "unwrapI") =>
+         HasField "unwrapI" (Ptr I) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapI")
+instance HasCField I "unwrapI"
+    where type CFieldType I "unwrapI" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S@
 
@@ -144,7 +144,7 @@ instance Prim S
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype U
-    = U {un_U :: ByteArray}
+    = U {unwrapU :: ByteArray}
       {- ^ __C declaration:__ @union U@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
@@ -160,7 +160,7 @@ deriving via (SizedByteArray 0 1) instance Prim U
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype E
-    = E {un_E :: CUInt}
+    = E {unwrapE :: CUInt}
       {- ^ __C declaration:__ @enum E@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 13:6@
@@ -174,12 +174,12 @@ instance Storable E
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure E <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   E un_E_3 -> pokeByteOff ptr_1 (0 :: Int) un_E_3
+                                   E unwrapE_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapE_3
 deriving via CUInt instance Prim E
 instance CEnum E
     where type CEnumZ E = CUInt
           toCEnum = E
-          fromCEnum = un_E
+          fromCEnum = unwrapE
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "Foo")]
           showsUndeclared = showsWrappedUndeclared "E"
@@ -216,7 +216,7 @@ pattern Foo = E 0
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TI
-    = TI {un_TI :: I}
+    = TI {unwrapTI :: I}
       {- ^ __C declaration:__ @TI@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 20:17@
@@ -236,11 +236,11 @@ newtype TI
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType TI "un_TI") =>
-         HasField "un_TI" (Ptr TI) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TI")
-instance HasCField TI "un_TI"
-    where type CFieldType TI "un_TI" = I
+instance TyEq ty (CFieldType TI "unwrapTI") =>
+         HasField "unwrapTI" (Ptr TI) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTI")
+instance HasCField TI "unwrapTI"
+    where type CFieldType TI "unwrapTI" = I
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TS@
 
@@ -249,7 +249,7 @@ instance HasCField TI "un_TI"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TS
-    = TS {un_TS :: S}
+    = TS {unwrapTS :: S}
       {- ^ __C declaration:__ @TS@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 21:24@
@@ -258,11 +258,11 @@ newtype TS
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType TS "un_TS") =>
-         HasField "un_TS" (Ptr TS) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TS")
-instance HasCField TS "un_TS"
-    where type CFieldType TS "un_TS" = S
+instance TyEq ty (CFieldType TS "unwrapTS") =>
+         HasField "unwrapTS" (Ptr TS) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTS")
+instance HasCField TS "unwrapTS"
+    where type CFieldType TS "unwrapTS" = S
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TU@
 
@@ -271,7 +271,7 @@ instance HasCField TS "un_TS"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TU
-    = TU {un_TU :: U}
+    = TU {unwrapTU :: U}
       {- ^ __C declaration:__ @TU@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 22:23@
@@ -279,11 +279,11 @@ newtype TU
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving newtype Storable
-instance TyEq ty (CFieldType TU "un_TU") =>
-         HasField "un_TU" (Ptr TU) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TU")
-instance HasCField TU "un_TU"
-    where type CFieldType TU "un_TU" = U
+instance TyEq ty (CFieldType TU "unwrapTU") =>
+         HasField "unwrapTU" (Ptr TU) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTU")
+instance HasCField TU "unwrapTU"
+    where type CFieldType TU "unwrapTU" = U
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TE@
 
@@ -292,7 +292,7 @@ instance HasCField TU "un_TU"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TE
-    = TE {un_TE :: E}
+    = TE {unwrapTE :: E}
       {- ^ __C declaration:__ @TE@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 23:22@
@@ -301,11 +301,11 @@ newtype TE
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType TE "un_TE") =>
-         HasField "un_TE" (Ptr TE) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TE")
-instance HasCField TE "un_TE"
-    where type CFieldType TE "un_TE" = E
+instance TyEq ty (CFieldType TE "unwrapTE") =>
+         HasField "unwrapTE" (Ptr TE) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTE")
+instance HasCField TE "unwrapTE"
+    where type CFieldType TE "unwrapTE" = E
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTI@
 
@@ -314,7 +314,7 @@ instance HasCField TE "un_TE"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTI
-    = TTI {un_TTI :: TI}
+    = TTI {unwrapTTI :: TI}
       {- ^ __C declaration:__ @TTI@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 30:12@
@@ -334,11 +334,11 @@ newtype TTI
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType TTI "un_TTI") =>
-         HasField "un_TTI" (Ptr TTI) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TTI")
-instance HasCField TTI "un_TTI"
-    where type CFieldType TTI "un_TTI" = TI
+instance TyEq ty (CFieldType TTI "unwrapTTI") =>
+         HasField "unwrapTTI" (Ptr TTI) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTTI")
+instance HasCField TTI "unwrapTTI"
+    where type CFieldType TTI "unwrapTTI" = TI
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTS@
 
@@ -347,7 +347,7 @@ instance HasCField TTI "un_TTI"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTS
-    = TTS {un_TTS :: TS}
+    = TTS {unwrapTTS :: TS}
       {- ^ __C declaration:__ @TTS@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 31:12@
@@ -356,11 +356,11 @@ newtype TTS
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType TTS "un_TTS") =>
-         HasField "un_TTS" (Ptr TTS) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TTS")
-instance HasCField TTS "un_TTS"
-    where type CFieldType TTS "un_TTS" = TS
+instance TyEq ty (CFieldType TTS "unwrapTTS") =>
+         HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTTS")
+instance HasCField TTS "unwrapTTS"
+    where type CFieldType TTS "unwrapTTS" = TS
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTU@
 
@@ -369,7 +369,7 @@ instance HasCField TTS "un_TTS"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTU
-    = TTU {un_TTU :: TU}
+    = TTU {unwrapTTU :: TU}
       {- ^ __C declaration:__ @TTU@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 32:12@
@@ -377,11 +377,11 @@ newtype TTU
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving newtype Storable
-instance TyEq ty (CFieldType TTU "un_TTU") =>
-         HasField "un_TTU" (Ptr TTU) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TTU")
-instance HasCField TTU "un_TTU"
-    where type CFieldType TTU "un_TTU" = TU
+instance TyEq ty (CFieldType TTU "unwrapTTU") =>
+         HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTTU")
+instance HasCField TTU "unwrapTTU"
+    where type CFieldType TTU "unwrapTTU" = TU
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTE@
 
@@ -390,7 +390,7 @@ instance HasCField TTU "un_TTU"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 newtype TTE
-    = TTE {un_TTE :: TE}
+    = TTE {unwrapTTE :: TE}
       {- ^ __C declaration:__ @TTE@
 
            __defined at:__ @types\/qualifiers\/const_typedefs.h 33:12@
@@ -399,11 +399,11 @@ newtype TTE
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType TTE "un_TTE") =>
-         HasField "un_TTE" (Ptr TTE) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TTE")
-instance HasCField TTE "un_TTE"
-    where type CFieldType TTE "un_TTE" = TE
+instance TyEq ty (CFieldType TTE "unwrapTTE") =>
+         HasField "unwrapTTE" (Ptr TTE) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTTE")
+instance HasCField TTE "unwrapTTE"
+    where type CFieldType TTE "unwrapTTE" = TE
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
 foreign import ccall unsafe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109d7a_base ::

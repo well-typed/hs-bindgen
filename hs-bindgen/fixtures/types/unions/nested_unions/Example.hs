@@ -34,7 +34,7 @@ import Prelude ((<*>), Int, pure)
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype UnionA = UnionA
-  { un_UnionA :: Data.Array.Byte.ByteArray
+  { unwrapUnionA :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable UnionA
@@ -172,7 +172,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype ExB_fieldB1 = ExB_fieldB1
-  { un_ExB_fieldB1 :: Data.Array.Byte.ByteArray
+  { unwrapExB_fieldB1 :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable ExB_fieldB1

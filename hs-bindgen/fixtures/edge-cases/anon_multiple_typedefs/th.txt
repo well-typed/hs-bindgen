@@ -100,7 +100,7 @@ instance TyEq ty (CFieldType Point1a "point1a_y") =>
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point1b
-    = Point1b {un_Point1b :: Point1a}
+    = Point1b {unwrapPoint1b :: Point1a}
       {- ^ __C declaration:__ @point1b@
 
            __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:43@
@@ -109,11 +109,11 @@ newtype Point1b
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType Point1b "un_Point1b") =>
-         HasField "un_Point1b" (Ptr Point1b) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Point1b")
-instance HasCField Point1b "un_Point1b"
-    where type CFieldType Point1b "un_Point1b" = Point1a
+instance TyEq ty (CFieldType Point1b "unwrapPoint1b") =>
+         HasField "unwrapPoint1b" (Ptr Point1b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPoint1b")
+instance HasCField Point1b "unwrapPoint1b"
+    where type CFieldType Point1b "unwrapPoint1b" = Point1a
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct point2a@
 
@@ -192,7 +192,7 @@ instance TyEq ty (CFieldType Point2a "point2a_y") =>
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point2b
-    = Point2b {un_Point2b :: (Ptr Point2a)}
+    = Point2b {unwrapPoint2b :: (Ptr Point2a)}
       {- ^ __C declaration:__ @point2b@
 
            __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:44@
@@ -201,11 +201,11 @@ newtype Point2b
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Point2b "un_Point2b") =>
-         HasField "un_Point2b" (Ptr Point2b) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Point2b")
-instance HasCField Point2b "un_Point2b"
-    where type CFieldType Point2b "un_Point2b" = Ptr Point2a
+instance TyEq ty (CFieldType Point2b "unwrapPoint2b") =>
+         HasField "unwrapPoint2b" (Ptr Point2b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPoint2b")
+instance HasCField Point2b "unwrapPoint2b"
+    where type CFieldType Point2b "unwrapPoint2b" = Ptr Point2a
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@point3a_Aux@
 
@@ -284,7 +284,7 @@ instance TyEq ty (CFieldType Point3a_Aux "point3a_Aux_y") =>
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point3a
-    = Point3a {un_Point3a :: (Ptr Point3a_Aux)}
+    = Point3a {unwrapPoint3a :: (Ptr Point3a_Aux)}
       {- ^ __C declaration:__ @point3a@
 
            __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:35@
@@ -293,11 +293,11 @@ newtype Point3a
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Point3a "un_Point3a") =>
-         HasField "un_Point3a" (Ptr Point3a) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Point3a")
-instance HasCField Point3a "un_Point3a"
-    where type CFieldType Point3a "un_Point3a" = Ptr Point3a_Aux
+instance TyEq ty (CFieldType Point3a "unwrapPoint3a") =>
+         HasField "unwrapPoint3a" (Ptr Point3a) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPoint3a")
+instance HasCField Point3a "unwrapPoint3a"
+    where type CFieldType Point3a "unwrapPoint3a" = Ptr Point3a_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @point3b@
 
@@ -306,7 +306,7 @@ instance HasCField Point3a "un_Point3a"
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point3b
-    = Point3b {un_Point3b :: (Ptr Point3a_Aux)}
+    = Point3b {unwrapPoint3b :: (Ptr Point3a_Aux)}
       {- ^ __C declaration:__ @point3b@
 
            __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:45@
@@ -315,11 +315,11 @@ newtype Point3b
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Point3b "un_Point3b") =>
-         HasField "un_Point3b" (Ptr Point3b) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Point3b")
-instance HasCField Point3b "un_Point3b"
-    where type CFieldType Point3b "un_Point3b" = Ptr Point3a_Aux
+instance TyEq ty (CFieldType Point3b "unwrapPoint3b") =>
+         HasField "unwrapPoint3b" (Ptr Point3b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPoint3b")
+instance HasCField Point3b "unwrapPoint3b"
+    where type CFieldType Point3b "unwrapPoint3b" = Ptr Point3a_Aux
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
 foreign import ccall safe "hs_bindgen_c97a0d4458699ad7" hs_bindgen_c97a0d4458699ad7_base ::

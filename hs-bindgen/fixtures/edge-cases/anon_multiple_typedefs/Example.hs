@@ -156,20 +156,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1a) "point1a_y"
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point1b = Point1b
-  { un_Point1b :: Point1a
+  { unwrapPoint1b :: Point1a
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1b) "un_Point1b")
-         ) => GHC.Records.HasField "un_Point1b" (Ptr.Ptr Point1b) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1b) "unwrapPoint1b")
+         ) => GHC.Records.HasField "unwrapPoint1b" (Ptr.Ptr Point1b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point1b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint1b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point1b "un_Point1b" where
+instance HsBindgen.Runtime.HasCField.HasCField Point1b "unwrapPoint1b" where
 
-  type CFieldType Point1b "un_Point1b" = Point1a
+  type CFieldType Point1b "unwrapPoint1b" = Point1a
 
   offset# = \_ -> \_ -> 0
 
@@ -304,20 +304,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2a) "point2a_y"
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point2b = Point2b
-  { un_Point2b :: Ptr.Ptr Point2a
+  { unwrapPoint2b :: Ptr.Ptr Point2a
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2b) "un_Point2b")
-         ) => GHC.Records.HasField "un_Point2b" (Ptr.Ptr Point2b) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2b) "unwrapPoint2b")
+         ) => GHC.Records.HasField "unwrapPoint2b" (Ptr.Ptr Point2b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point2b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint2b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point2b "un_Point2b" where
+instance HsBindgen.Runtime.HasCField.HasCField Point2b "unwrapPoint2b" where
 
-  type CFieldType Point2b "un_Point2b" =
+  type CFieldType Point2b "unwrapPoint2b" =
     Ptr.Ptr Point2a
 
   offset# = \_ -> \_ -> 0
@@ -453,20 +453,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a_Aux) "point3
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point3a = Point3a
-  { un_Point3a :: Ptr.Ptr Point3a_Aux
+  { unwrapPoint3a :: Ptr.Ptr Point3a_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a) "un_Point3a")
-         ) => GHC.Records.HasField "un_Point3a" (Ptr.Ptr Point3a) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a) "unwrapPoint3a")
+         ) => GHC.Records.HasField "unwrapPoint3a" (Ptr.Ptr Point3a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point3a")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint3a")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point3a "un_Point3a" where
+instance HsBindgen.Runtime.HasCField.HasCField Point3a "unwrapPoint3a" where
 
-  type CFieldType Point3a "un_Point3a" =
+  type CFieldType Point3a "unwrapPoint3a" =
     Ptr.Ptr Point3a_Aux
 
   offset# = \_ -> \_ -> 0
@@ -478,20 +478,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Point3a "un_Point3a" where
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point3b = Point3b
-  { un_Point3b :: Ptr.Ptr Point3a_Aux
+  { unwrapPoint3b :: Ptr.Ptr Point3a_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3b) "un_Point3b")
-         ) => GHC.Records.HasField "un_Point3b" (Ptr.Ptr Point3b) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3b) "unwrapPoint3b")
+         ) => GHC.Records.HasField "unwrapPoint3b" (Ptr.Ptr Point3b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Point3b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint3b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point3b "un_Point3b" where
+instance HsBindgen.Runtime.HasCField.HasCField Point3b "unwrapPoint3b" where
 
-  type CFieldType Point3b "un_Point3b" =
+  type CFieldType Point3b "unwrapPoint3b" =
     Ptr.Ptr Point3a_Aux
 
   offset# = \_ -> \_ -> 0

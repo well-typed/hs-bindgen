@@ -35,19 +35,19 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
     __exported by:__ @binding-specs\/name\/type.h@
 -}
 newtype MySym = MySym
-  { un_MySym :: FC.CChar
+  { unwrapMySym :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MySym) "un_MySym")
-         ) => GHC.Records.HasField "un_MySym" (Ptr.Ptr MySym) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MySym) "unwrapMySym")
+         ) => GHC.Records.HasField "unwrapMySym" (Ptr.Ptr MySym) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MySym")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMySym")
 
-instance HsBindgen.Runtime.HasCField.HasCField MySym "un_MySym" where
+instance HsBindgen.Runtime.HasCField.HasCField MySym "unwrapMySym" where
 
-  type CFieldType MySym "un_MySym" = FC.CChar
+  type CFieldType MySym "unwrapMySym" = FC.CChar
 
   offset# = \_ -> \_ -> 0

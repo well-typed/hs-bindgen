@@ -218,20 +218,20 @@ instance Data.Primitive.Types.Prim Struct5 where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct5_t = Struct5_t
-  { un_Struct5_t :: Ptr.Ptr Struct5
+  { unwrapStruct5_t :: Ptr.Ptr Struct5
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct5_t) "un_Struct5_t")
-         ) => GHC.Records.HasField "un_Struct5_t" (Ptr.Ptr Struct5_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct5_t) "unwrapStruct5_t")
+         ) => GHC.Records.HasField "unwrapStruct5_t" (Ptr.Ptr Struct5_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct5_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct5_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct5_t "un_Struct5_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct5_t "unwrapStruct5_t" where
 
-  type CFieldType Struct5_t "un_Struct5_t" =
+  type CFieldType Struct5_t "unwrapStruct5_t" =
     Ptr.Ptr Struct5
 
   offset# = \_ -> \_ -> 0
@@ -299,20 +299,20 @@ instance Data.Primitive.Types.Prim Struct6_Aux where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct6 = Struct6
-  { un_Struct6 :: Ptr.Ptr Struct6_Aux
+  { unwrapStruct6 :: Ptr.Ptr Struct6_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct6) "un_Struct6")
-         ) => GHC.Records.HasField "un_Struct6" (Ptr.Ptr Struct6) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct6) "unwrapStruct6")
+         ) => GHC.Records.HasField "unwrapStruct6" (Ptr.Ptr Struct6) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct6")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct6")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct6 "un_Struct6" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct6 "unwrapStruct6" where
 
-  type CFieldType Struct6 "un_Struct6" =
+  type CFieldType Struct6 "unwrapStruct6" =
     Ptr.Ptr Struct6_Aux
 
   offset# = \_ -> \_ -> 0
@@ -380,20 +380,20 @@ instance Data.Primitive.Types.Prim Struct7 where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct7a = Struct7a
-  { un_Struct7a :: Struct7
+  { unwrapStruct7a :: Struct7
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7a) "un_Struct7a")
-         ) => GHC.Records.HasField "un_Struct7a" (Ptr.Ptr Struct7a) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7a) "unwrapStruct7a")
+         ) => GHC.Records.HasField "unwrapStruct7a" (Ptr.Ptr Struct7a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct7a")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct7a")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct7a "un_Struct7a" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct7a "unwrapStruct7a" where
 
-  type CFieldType Struct7a "un_Struct7a" = Struct7
+  type CFieldType Struct7a "unwrapStruct7a" = Struct7
 
   offset# = \_ -> \_ -> 0
 
@@ -404,20 +404,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct7a "un_Struct7a" where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct7b = Struct7b
-  { un_Struct7b :: Struct7
+  { unwrapStruct7b :: Struct7
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7b) "un_Struct7b")
-         ) => GHC.Records.HasField "un_Struct7b" (Ptr.Ptr Struct7b) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7b) "unwrapStruct7b")
+         ) => GHC.Records.HasField "unwrapStruct7b" (Ptr.Ptr Struct7b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct7b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct7b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct7b "un_Struct7b" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct7b "unwrapStruct7b" where
 
-  type CFieldType Struct7b "un_Struct7b" = Struct7
+  type CFieldType Struct7b "unwrapStruct7b" = Struct7
 
   offset# = \_ -> \_ -> 0
 
@@ -484,20 +484,20 @@ instance Data.Primitive.Types.Prim Struct8 where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct8b = Struct8b
-  { un_Struct8b :: Struct8
+  { unwrapStruct8b :: Struct8
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct8b) "un_Struct8b")
-         ) => GHC.Records.HasField "un_Struct8b" (Ptr.Ptr Struct8b) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct8b) "unwrapStruct8b")
+         ) => GHC.Records.HasField "unwrapStruct8b" (Ptr.Ptr Struct8b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct8b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct8b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct8b "un_Struct8b" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct8b "unwrapStruct8b" where
 
-  type CFieldType Struct8b "un_Struct8b" = Struct8
+  type CFieldType Struct8b "unwrapStruct8b" = Struct8
 
   offset# = \_ -> \_ -> 0
 
@@ -564,20 +564,20 @@ instance Data.Primitive.Types.Prim Struct9 where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct9_t = Struct9_t
-  { un_Struct9_t :: Struct9
+  { unwrapStruct9_t :: Struct9
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct9_t) "un_Struct9_t")
-         ) => GHC.Records.HasField "un_Struct9_t" (Ptr.Ptr Struct9_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct9_t) "unwrapStruct9_t")
+         ) => GHC.Records.HasField "unwrapStruct9_t" (Ptr.Ptr Struct9_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct9_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct9_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct9_t "un_Struct9_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct9_t "unwrapStruct9_t" where
 
-  type CFieldType Struct9_t "un_Struct9_t" = Struct9
+  type CFieldType Struct9_t "unwrapStruct9_t" = Struct9
 
   offset# = \_ -> \_ -> 0
 
@@ -644,20 +644,20 @@ instance Data.Primitive.Types.Prim Struct10_t where
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct10_t_t = Struct10_t_t
-  { un_Struct10_t_t :: Struct10_t
+  { unwrapStruct10_t_t :: Struct10_t
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct10_t_t) "un_Struct10_t_t")
-         ) => GHC.Records.HasField "un_Struct10_t_t" (Ptr.Ptr Struct10_t_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct10_t_t) "unwrapStruct10_t_t")
+         ) => GHC.Records.HasField "unwrapStruct10_t_t" (Ptr.Ptr Struct10_t_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct10_t_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct10_t_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct10_t_t "un_Struct10_t_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct10_t_t "unwrapStruct10_t_t" where
 
-  type CFieldType Struct10_t_t "un_Struct10_t_t" =
+  type CFieldType Struct10_t_t "unwrapStruct10_t_t" =
     Struct10_t
 
   offset# = \_ -> \_ -> 0

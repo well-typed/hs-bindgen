@@ -353,7 +353,7 @@ unionDecs haddockConfig info union spec = do
 --
 -- We generate roughly this newtype:
 --
--- > newtype MyUnion = MyUnion { un_MyUnion :: ByteArray }
+-- > newtype MyUnion = MyUnion { unwrapMyUnion :: ByteArray }
 --
 -- Then, 'unionFieldDecls' will generate roughly the following class instances
 -- for the fields @option1@ and @option@ respectively:
@@ -725,14 +725,14 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
 --
 -- We generate roughly this newtype:
 --
--- > newtype MyInt = MyInt { un_MyInt :: CInt }
+-- > newtype MyInt = MyInt { unwrapMyInt :: CInt }
 --
 -- Then, 'typedefFieldDecls' will generate roughly the following class
 -- instances.
 --
--- > instance HasCField "un_MyInt" MyInt where
--- >   type CFieldType "un_MyInt" MyInt = CInt
--- > instance HasField "un_MyInt" (Ptr MyInt) (Ptr CInt)
+-- > instance HasCField "unwrapMyInt" MyInt where
+-- >   type CFieldType "unwrapMyInt" MyInt = CInt
+-- > instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
 --
 -- These instance help eliminating newtypes from 'Ptr' types. Naturally,
 -- newtypes can also be introduced in 'Ptr' types, but this should be done using
@@ -836,8 +836,8 @@ typedefFunPtrDecs opts haddockConfig sizeofs origInfo n (args, res) origNames or
     auxTypedef = C.Typedef{
           typ = C.TypeFun args res
         , ann = MangleNames.NewtypeNames{
-              constr = Hs.unsafeHsIdHsName $          auxDeclIdPair.unsafeHsName
-            , field  = Hs.unsafeHsIdHsName $ "un_" <> auxDeclIdPair.unsafeHsName
+              constr = Hs.unsafeHsIdHsName $             auxDeclIdPair.unsafeHsName
+            , field  = Hs.unsafeHsIdHsName $ "unwrap" <> auxDeclIdPair.unsafeHsName
             }
         }
 

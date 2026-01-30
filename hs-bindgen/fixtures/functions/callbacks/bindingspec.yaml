@@ -63,7 +63,7 @@ hstypes:
     newtype:
       constructor: DataValidator
       fields:
-      - un_DataValidator
+      - unwrapDataValidator
   instances:
   - Eq
   - HasFFIType
@@ -75,7 +75,7 @@ hstypes:
     newtype:
       constructor: FileOpenedNotification
       fields:
-      - un_FileOpenedNotification
+      - unwrapFileOpenedNotification
   instances:
   - Eq
   - HasFFIType
@@ -87,7 +87,7 @@ hstypes:
     newtype:
       constructor: Foo
       fields:
-      - un_Foo
+      - unwrapFoo
   instances:
   - Bitfield
   - Bits
@@ -110,7 +110,7 @@ hstypes:
     newtype:
       constructor: Foo2
       fields:
-      - un_Foo2
+      - unwrapFoo2
   instances:
   - Bitfield
   - Bits
@@ -157,7 +157,7 @@ hstypes:
     newtype:
       constructor: MeasurementReceived
       fields:
-      - un_MeasurementReceived
+      - unwrapMeasurementReceived
   instances:
   - Eq
   - HasFFIType
@@ -169,7 +169,7 @@ hstypes:
     newtype:
       constructor: MeasurementReceived2
       fields:
-      - un_MeasurementReceived2
+      - unwrapMeasurementReceived2
   instances:
   - Eq
   - HasFFIType
@@ -190,7 +190,7 @@ hstypes:
     newtype:
       constructor: ProcessorCallback
       fields:
-      - un_ProcessorCallback
+      - unwrapProcessorCallback
   instances:
   - Storable
 - hsname: Processor_mode
@@ -198,7 +198,7 @@ hstypes:
     newtype:
       constructor: Processor_mode
       fields:
-      - un_Processor_mode
+      - unwrapProcessor_mode
   instances:
   - Eq
   - HasFFIType
@@ -211,7 +211,7 @@ hstypes:
     newtype:
       constructor: ProgressUpdate
       fields:
-      - un_ProgressUpdate
+      - unwrapProgressUpdate
   instances:
   - Eq
   - HasFFIType
@@ -223,7 +223,7 @@ hstypes:
     newtype:
       constructor: SampleBufferFull
       fields:
-      - un_SampleBufferFull
+      - unwrapSampleBufferFull
   instances:
   - Eq
   - HasFFIType

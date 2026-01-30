@@ -37,7 +37,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
 newtype EnumA = EnumA
-  { un_EnumA :: FC.CUInt
+  { unwrapEnumA :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -57,8 +57,8 @@ instance F.Storable EnumA where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumA un_EnumA2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
+          EnumA unwrapEnumA2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumA2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumA
 
@@ -68,7 +68,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   toCEnum = EnumA
 
-  fromCEnum = un_EnumA
+  fromCEnum = unwrapEnumA
 
   declaredValues =
     \_ ->
@@ -176,7 +176,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
 newtype ExB_fieldB1 = ExB_fieldB1
-  { un_ExB_fieldB1 :: FC.CUInt
+  { unwrapExB_fieldB1 :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -196,8 +196,8 @@ instance F.Storable ExB_fieldB1 where
     \ptr0 ->
       \s1 ->
         case s1 of
-          ExB_fieldB1 un_ExB_fieldB12 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_ExB_fieldB12
+          ExB_fieldB1 unwrapExB_fieldB12 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapExB_fieldB12
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim ExB_fieldB1
 
@@ -207,7 +207,7 @@ instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 
   toCEnum = ExB_fieldB1
 
-  fromCEnum = un_ExB_fieldB1
+  fromCEnum = unwrapExB_fieldB1
 
   declaredValues =
     \_ ->

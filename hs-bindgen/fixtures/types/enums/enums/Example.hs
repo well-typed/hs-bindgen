@@ -26,7 +26,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype First = First
-  { un_First :: FC.CUInt
+  { unwrapFirst :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -46,8 +46,8 @@ instance F.Storable First where
     \ptr0 ->
       \s1 ->
         case s1 of
-          First un_First2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_First2
+          First unwrapFirst2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapFirst2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim First
 
@@ -57,7 +57,7 @@ instance HsBindgen.Runtime.CEnum.CEnum First where
 
   toCEnum = First
 
-  fromCEnum = un_First
+  fromCEnum = unwrapFirst
 
   declaredValues =
     \_ ->
@@ -118,7 +118,7 @@ pattern FIRST2 = First 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Second = Second
-  { un_Second :: FC.CInt
+  { unwrapSecond :: FC.CInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -138,8 +138,8 @@ instance F.Storable Second where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Second un_Second2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Second2
+          Second unwrapSecond2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapSecond2
 
 deriving via FC.CInt instance Data.Primitive.Types.Prim Second
 
@@ -149,7 +149,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Second where
 
   toCEnum = Second
 
-  fromCEnum = un_Second
+  fromCEnum = unwrapSecond
 
   declaredValues =
     \_ ->
@@ -220,7 +220,7 @@ pattern SECOND_C = Second 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Same = Same
-  { un_Same :: FC.CUInt
+  { unwrapSame :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -240,8 +240,8 @@ instance F.Storable Same where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Same un_Same2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Same2
+          Same unwrapSame2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapSame2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Same
 
@@ -251,7 +251,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   toCEnum = Same
 
-  fromCEnum = un_Same
+  fromCEnum = unwrapSame
 
   declaredValues =
     \_ ->
@@ -310,7 +310,7 @@ pattern SAME_B = Same 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Nonseq = Nonseq
-  { un_Nonseq :: FC.CUInt
+  { unwrapNonseq :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -330,8 +330,8 @@ instance F.Storable Nonseq where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Nonseq un_Nonseq2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Nonseq2
+          Nonseq unwrapNonseq2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapNonseq2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Nonseq
 
@@ -341,7 +341,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
   toCEnum = Nonseq
 
-  fromCEnum = un_Nonseq
+  fromCEnum = unwrapNonseq
 
   declaredValues =
     \_ ->
@@ -402,7 +402,7 @@ pattern NONSEQ_C = Nonseq 404
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Packed = Packed
-  { un_Packed :: FC.CUChar
+  { unwrapPacked :: FC.CUChar
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -422,8 +422,8 @@ instance F.Storable Packed where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Packed un_Packed2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Packed2
+          Packed unwrapPacked2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapPacked2
 
 deriving via FC.CUChar instance Data.Primitive.Types.Prim Packed
 
@@ -433,7 +433,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Packed where
 
   toCEnum = Packed
 
-  fromCEnum = un_Packed
+  fromCEnum = unwrapPacked
 
   declaredValues =
     \_ ->
@@ -504,7 +504,7 @@ pattern PACKED_C = Packed 2
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumA = EnumA
-  { un_EnumA :: FC.CUInt
+  { unwrapEnumA :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -524,8 +524,8 @@ instance F.Storable EnumA where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumA un_EnumA2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
+          EnumA unwrapEnumA2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumA2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumA
 
@@ -535,7 +535,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   toCEnum = EnumA
 
-  fromCEnum = un_EnumA
+  fromCEnum = unwrapEnumA
 
   declaredValues =
     \_ ->
@@ -596,7 +596,7 @@ pattern A_BAR = EnumA 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumB = EnumB
-  { un_EnumB :: FC.CUInt
+  { unwrapEnumB :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -616,8 +616,8 @@ instance F.Storable EnumB where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumB un_EnumB2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_EnumB2
+          EnumB unwrapEnumB2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumB2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumB
 
@@ -627,7 +627,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
   toCEnum = EnumB
 
-  fromCEnum = un_EnumB
+  fromCEnum = unwrapEnumB
 
   declaredValues =
     \_ ->
@@ -688,7 +688,7 @@ pattern B_BAR = EnumB 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumC = EnumC
-  { un_EnumC :: FC.CUInt
+  { unwrapEnumC :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -708,8 +708,8 @@ instance F.Storable EnumC where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumC un_EnumC2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_EnumC2
+          EnumC unwrapEnumC2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumC2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumC
 
@@ -719,7 +719,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   toCEnum = EnumC
 
-  fromCEnum = un_EnumC
+  fromCEnum = unwrapEnumC
 
   declaredValues =
     \_ ->
@@ -780,7 +780,7 @@ pattern C_BAR = EnumC 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumD_t = EnumD_t
-  { un_EnumD_t :: FC.CUInt
+  { unwrapEnumD_t :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -800,8 +800,8 @@ instance F.Storable EnumD_t where
     \ptr0 ->
       \s1 ->
         case s1 of
-          EnumD_t un_EnumD_t2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_EnumD_t2
+          EnumD_t unwrapEnumD_t2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumD_t2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumD_t
 
@@ -811,7 +811,7 @@ instance HsBindgen.Runtime.CEnum.CEnum EnumD_t where
 
   toCEnum = EnumD_t
 
-  fromCEnum = un_EnumD_t
+  fromCEnum = unwrapEnumD_t
 
   declaredValues =
     \_ ->

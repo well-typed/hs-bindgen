@@ -33,7 +33,7 @@ import Prelude (IO)
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 newtype A = A
-  { un_A :: FC.CInt -> IO FC.CInt
+  { unwrapA :: FC.CInt -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -69,15 +69,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr A where
 
   fromFunPtr = hs_bindgen_0cf9a6d50f563441
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "un_A")
-         ) => GHC.Records.HasField "un_A" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_A")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "un_A" where
+instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 
-  type CFieldType A "un_A" = FC.CInt -> IO FC.CInt
+  type CFieldType A "unwrapA" = FC.CInt -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -88,19 +88,19 @@ instance HsBindgen.Runtime.HasCField.HasCField A "un_A" where
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 newtype B = B
-  { un_B :: A
+  { unwrapB :: A
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "un_B")
-         ) => GHC.Records.HasField "un_B" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "unwrapB")
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_B")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
 
-instance HsBindgen.Runtime.HasCField.HasCField B "un_B" where
+instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
 
-  type CFieldType B "un_B" = A
+  type CFieldType B "unwrapB" = A
 
   offset# = \_ -> \_ -> 0
 
@@ -111,17 +111,17 @@ instance HsBindgen.Runtime.HasCField.HasCField B "un_B" where
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 newtype E = E
-  { un_E :: M.C
+  { unwrapE :: M.C
   }
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "un_E")
-         ) => GHC.Records.HasField "un_E" (Ptr.Ptr E) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "unwrapE")
+         ) => GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_E")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapE")
 
-instance HsBindgen.Runtime.HasCField.HasCField E "un_E" where
+instance HsBindgen.Runtime.HasCField.HasCField E "unwrapE" where
 
-  type CFieldType E "un_E" = M.C
+  type CFieldType E "unwrapE" = M.C
 
   offset# = \_ -> \_ -> 0

@@ -237,7 +237,7 @@
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype MC
-    = MC {un_MC :: CChar}
+    = MC {unwrapMC :: CChar}
       {- ^ __C declaration:__ @MC@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
@@ -263,7 +263,7 @@ newtype MC
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype TC
-    = TC {un_TC :: CChar}
+    = TC {unwrapTC :: CChar}
       {- ^ __C declaration:__ @TC@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@
@@ -283,11 +283,11 @@ newtype TC
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType TC "un_TC") =>
-         HasField "un_TC" (Ptr TC) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_TC")
-instance HasCField TC "un_TC"
-    where type CFieldType TC "un_TC" = CChar
+instance TyEq ty (CFieldType TC "unwrapTC") =>
+         HasField "unwrapTC" (Ptr TC) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTC")
+instance HasCField TC "unwrapTC"
+    where type CFieldType TC "unwrapTC" = CChar
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct1@
 
@@ -434,7 +434,7 @@ instance TyEq ty (CFieldType Struct3 "struct3_a") =>
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype Struct3_t
-    = Struct3_t {un_Struct3_t :: Struct3}
+    = Struct3_t {unwrapStruct3_t :: Struct3}
       {- ^ __C declaration:__ @struct3_t@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:35@
@@ -443,11 +443,11 @@ newtype Struct3_t
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType Struct3_t "un_Struct3_t") =>
-         HasField "un_Struct3_t" (Ptr Struct3_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct3_t")
-instance HasCField Struct3_t "un_Struct3_t"
-    where type CFieldType Struct3_t "un_Struct3_t" = Struct3
+instance TyEq ty (CFieldType Struct3_t "unwrapStruct3_t") =>
+         HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct3_t")
+instance HasCField Struct3_t "unwrapStruct3_t"
+    where type CFieldType Struct3_t "unwrapStruct3_t" = Struct3
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct4@
 

@@ -6,7 +6,7 @@
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype First
-    = First {un_First :: CUInt}
+    = First {unwrapFirst :: CUInt}
       {- ^ __C declaration:__ @enum first@
 
            __defined at:__ @types\/enums\/enums.h 4:6@
@@ -20,12 +20,12 @@ instance Storable First
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   First un_First_3 -> pokeByteOff ptr_1 (0 :: Int) un_First_3
+                                   First unwrapFirst_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapFirst_3
 deriving via CUInt instance Prim First
 instance CEnum First
     where type CEnumZ First = CUInt
           toCEnum = First
-          fromCEnum = un_First
+          fromCEnum = unwrapFirst
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "FIRST1"),
                                                          (1, singleton "FIRST2")]
@@ -77,7 +77,7 @@ pattern FIRST2 = First 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Second
-    = Second {un_Second :: CInt}
+    = Second {unwrapSecond :: CInt}
       {- ^ __C declaration:__ @enum second@
 
            __defined at:__ @types\/enums\/enums.h 9:6@
@@ -91,12 +91,12 @@ instance Storable Second
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Second un_Second_3 -> pokeByteOff ptr_1 (0 :: Int) un_Second_3
+                                   Second unwrapSecond_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapSecond_3
 deriving via CInt instance Prim Second
 instance CEnum Second
     where type CEnumZ Second = CInt
           toCEnum = Second
-          fromCEnum = un_Second
+          fromCEnum = unwrapSecond
           declaredValues = \_ -> declaredValuesFromList [(-1,
                                                           singleton "SECOND_A"),
                                                          (0, singleton "SECOND_B"),
@@ -163,7 +163,7 @@ pattern SECOND_C = Second 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Same
-    = Same {un_Same :: CUInt}
+    = Same {unwrapSame :: CUInt}
       {- ^ __C declaration:__ @enum same@
 
            __defined at:__ @types\/enums\/enums.h 15:6@
@@ -177,12 +177,12 @@ instance Storable Same
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Same un_Same_3 -> pokeByteOff ptr_1 (0 :: Int) un_Same_3
+                                   Same unwrapSame_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapSame_3
 deriving via CUInt instance Prim Same
 instance CEnum Same
     where type CEnumZ Same = CUInt
           toCEnum = Same
-          fromCEnum = un_Same
+          fromCEnum = unwrapSame
           declaredValues = \_ -> declaredValuesFromList [(1,
                                                           "SAME_A" :| ["SAME_B"])]
           showsUndeclared = showsWrappedUndeclared "Same"
@@ -233,7 +233,7 @@ pattern SAME_B = Same 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Nonseq
-    = Nonseq {un_Nonseq :: CUInt}
+    = Nonseq {unwrapNonseq :: CUInt}
       {- ^ __C declaration:__ @enum nonseq@
 
            __defined at:__ @types\/enums\/enums.h 20:6@
@@ -247,12 +247,12 @@ instance Storable Nonseq
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Nonseq <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Nonseq un_Nonseq_3 -> pokeByteOff ptr_1 (0 :: Int) un_Nonseq_3
+                                   Nonseq unwrapNonseq_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapNonseq_3
 deriving via CUInt instance Prim Nonseq
 instance CEnum Nonseq
     where type CEnumZ Nonseq = CUInt
           toCEnum = Nonseq
-          fromCEnum = un_Nonseq
+          fromCEnum = unwrapNonseq
           declaredValues = \_ -> declaredValuesFromList [(200,
                                                           singleton "NONSEQ_A"),
                                                          (301, singleton "NONSEQ_B"),
@@ -314,7 +314,7 @@ pattern NONSEQ_C = Nonseq 404
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype Packed
-    = Packed {un_Packed :: CUChar}
+    = Packed {unwrapPacked :: CUChar}
       {- ^ __C declaration:__ @enum packed@
 
            __defined at:__ @types\/enums\/enums.h 26:6@
@@ -328,12 +328,12 @@ instance Storable Packed
           alignment = \_ -> 1 :: Int
           peek = \ptr_0 -> pure Packed <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Packed un_Packed_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packed_3
+                                   Packed unwrapPacked_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapPacked_3
 deriving via CUChar instance Prim Packed
 instance CEnum Packed
     where type CEnumZ Packed = CUChar
           toCEnum = Packed
-          fromCEnum = un_Packed
+          fromCEnum = unwrapPacked
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "PACKED_A"),
                                                          (1, singleton "PACKED_B"),
@@ -400,7 +400,7 @@ pattern PACKED_C = Packed 2
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumA
-    = EnumA {un_EnumA :: CUInt}
+    = EnumA {unwrapEnumA :: CUInt}
       {- ^ __C declaration:__ @enum enumA@
 
            __defined at:__ @types\/enums\/enums.h 30:9@
@@ -414,12 +414,12 @@ instance Storable EnumA
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3
+                                   EnumA unwrapEnumA_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumA_3
 deriving via CUInt instance Prim EnumA
 instance CEnum EnumA
     where type CEnumZ EnumA = CUInt
           toCEnum = EnumA
-          fromCEnum = un_EnumA
+          fromCEnum = unwrapEnumA
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "A_FOO"),
                                                          (1, singleton "A_BAR")]
@@ -471,7 +471,7 @@ pattern A_BAR = EnumA 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumB
-    = EnumB {un_EnumB :: CUInt}
+    = EnumB {unwrapEnumB :: CUInt}
       {- ^ __C declaration:__ @enum enumB@
 
            __defined at:__ @types\/enums\/enums.h 32:14@
@@ -485,12 +485,12 @@ instance Storable EnumB
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumB un_EnumB_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumB_3
+                                   EnumB unwrapEnumB_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumB_3
 deriving via CUInt instance Prim EnumB
 instance CEnum EnumB
     where type CEnumZ EnumB = CUInt
           toCEnum = EnumB
-          fromCEnum = un_EnumB
+          fromCEnum = unwrapEnumB
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "B_FOO"),
                                                          (1, singleton "B_BAR")]
@@ -542,7 +542,7 @@ pattern B_BAR = EnumB 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumC
-    = EnumC {un_EnumC :: CUInt}
+    = EnumC {unwrapEnumC :: CUInt}
       {- ^ __C declaration:__ @enum enumC@
 
            __defined at:__ @types\/enums\/enums.h 34:6@
@@ -556,12 +556,12 @@ instance Storable EnumC
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumC un_EnumC_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumC_3
+                                   EnumC unwrapEnumC_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumC_3
 deriving via CUInt instance Prim EnumC
 instance CEnum EnumC
     where type CEnumZ EnumC = CUInt
           toCEnum = EnumC
-          fromCEnum = un_EnumC
+          fromCEnum = unwrapEnumC
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "C_FOO"),
                                                          (1, singleton "C_BAR")]
@@ -613,7 +613,7 @@ pattern C_BAR = EnumC 1
     __exported by:__ @types\/enums\/enums.h@
 -}
 newtype EnumD_t
-    = EnumD_t {un_EnumD_t :: CUInt}
+    = EnumD_t {unwrapEnumD_t :: CUInt}
       {- ^ __C declaration:__ @enum enumD@
 
            __defined at:__ @types\/enums\/enums.h 37:6@
@@ -627,12 +627,12 @@ instance Storable EnumD_t
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure EnumD_t <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumD_t un_EnumD_t_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_t_3
+                                   EnumD_t unwrapEnumD_t_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumD_t_3
 deriving via CUInt instance Prim EnumD_t
 instance CEnum EnumD_t
     where type CEnumZ EnumD_t = CUInt
           toCEnum = EnumD_t
-          fromCEnum = un_EnumD_t
+          fromCEnum = unwrapEnumD_t
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "D_FOO"),
                                                          (1, singleton "D_BAR")]

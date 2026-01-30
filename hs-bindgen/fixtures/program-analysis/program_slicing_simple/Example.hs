@@ -36,20 +36,20 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 newtype Uint32_t = Uint32_t
-  { un_Uint32_t :: FC.CUInt
+  { unwrapUint32_t :: FC.CUInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Uint32_t) "un_Uint32_t")
-         ) => GHC.Records.HasField "un_Uint32_t" (Ptr.Ptr Uint32_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Uint32_t) "unwrapUint32_t")
+         ) => GHC.Records.HasField "unwrapUint32_t" (Ptr.Ptr Uint32_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Uint32_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapUint32_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Uint32_t "un_Uint32_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Uint32_t "unwrapUint32_t" where
 
-  type CFieldType Uint32_t "un_Uint32_t" = FC.CUInt
+  type CFieldType Uint32_t "unwrapUint32_t" = FC.CUInt
 
   offset# = \_ -> \_ -> 0
 

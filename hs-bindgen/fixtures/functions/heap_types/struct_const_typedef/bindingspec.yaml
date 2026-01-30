@@ -26,7 +26,7 @@ hstypes:
     newtype:
       constructor: T
       fields:
-      - un_T
+      - unwrapT
   instances:
   - Eq
   - Prim

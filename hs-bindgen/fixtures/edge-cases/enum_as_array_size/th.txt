@@ -13,7 +13,7 @@
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
 newtype Test
-    = Test {un_Test :: CUInt}
+    = Test {unwrapTest :: CUInt}
       {- ^ __C declaration:__ @enum test@
 
            __defined at:__ @edge-cases\/enum_as_array_size.h 3:6@
@@ -27,12 +27,12 @@ instance Storable Test
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Test <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Test un_Test_3 -> pokeByteOff ptr_1 (0 :: Int) un_Test_3
+                                   Test unwrapTest_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapTest_3
 deriving via CUInt instance Prim Test
 instance CEnum Test
     where type CEnumZ Test = CUInt
           toCEnum = Test
-          fromCEnum = un_Test
+          fromCEnum = unwrapTest
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "Test_a"),
                                                          (1, singleton "Test_count")]

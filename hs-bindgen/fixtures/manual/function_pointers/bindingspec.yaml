@@ -28,7 +28,7 @@ hstypes:
     newtype:
       constructor: Apply1Union
       fields:
-      - un_Apply1Union
+      - unwrapApply1Union
   instances:
   - Storable
 - hsname: Int2int
@@ -36,6 +36,6 @@ hstypes:
     newtype:
       constructor: Int2int
       fields:
-      - un_Int2int
+      - unwrapInt2int
   instances:
   - HasFFIType

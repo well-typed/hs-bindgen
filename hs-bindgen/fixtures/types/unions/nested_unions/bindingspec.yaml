@@ -37,7 +37,7 @@ hstypes:
     newtype:
       constructor: ExB_fieldB1
       fields:
-      - un_ExB_fieldB1
+      - unwrapExB_fieldB1
   instances:
   - Storable
 - hsname: UnionA
@@ -45,6 +45,6 @@ hstypes:
     newtype:
       constructor: UnionA
       fields:
-      - un_UnionA
+      - unwrapUnionA
   instances:
   - Storable

@@ -129,7 +129,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
     __exported by:__ @declarations\/definitions.h@
 -}
 newtype Y = Y
-  { un_Y :: Data.Array.Byte.ByteArray
+  { unwrapY :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Y

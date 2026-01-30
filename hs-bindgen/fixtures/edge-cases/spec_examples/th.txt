@@ -41,7 +41,7 @@ __defined at:__ @edge-cases\/spec_examples.h 10:15@
 __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int16_T
-    = Int16_T {un_Int16_T :: CShort}
+    = Int16_T {unwrapInt16_T :: CShort}
       {- ^ Examples from the initial specification
 
       __C declaration:__ @int16_T@
@@ -63,11 +63,11 @@ newtype Int16_T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int16_T "un_Int16_T") =>
-         HasField "un_Int16_T" (Ptr Int16_T) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Int16_T")
-instance HasCField Int16_T "un_Int16_T"
-    where type CFieldType Int16_T "un_Int16_T" = CShort
+instance TyEq ty (CFieldType Int16_T "unwrapInt16_T") =>
+         HasField "unwrapInt16_T" (Ptr Int16_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInt16_T")
+instance HasCField Int16_T "unwrapInt16_T"
+    where type CFieldType Int16_T "unwrapInt16_T" = CShort
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @int32_T@
 
@@ -76,7 +76,7 @@ instance HasCField Int16_T "un_Int16_T"
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int32_T
-    = Int32_T {un_Int32_T :: CInt}
+    = Int32_T {unwrapInt32_T :: CInt}
       {- ^ __C declaration:__ @int32_T@
 
            __defined at:__ @edge-cases\/spec_examples.h 11:13@
@@ -96,11 +96,11 @@ newtype Int32_T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int32_T "un_Int32_T") =>
-         HasField "un_Int32_T" (Ptr Int32_T) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Int32_T")
-instance HasCField Int32_T "un_Int32_T"
-    where type CFieldType Int32_T "un_Int32_T" = CInt
+instance TyEq ty (CFieldType Int32_T "unwrapInt32_T") =>
+         HasField "unwrapInt32_T" (Ptr Int32_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInt32_T")
+instance HasCField Int32_T "unwrapInt32_T"
+    where type CFieldType Int32_T "unwrapInt32_T" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @int64_T@
 
@@ -109,7 +109,7 @@ instance HasCField Int32_T "un_Int32_T"
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int64_T
-    = Int64_T {un_Int64_T :: CLLong}
+    = Int64_T {unwrapInt64_T :: CLLong}
       {- ^ __C declaration:__ @int64_T@
 
            __defined at:__ @edge-cases\/spec_examples.h 12:19@
@@ -129,11 +129,11 @@ newtype Int64_T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int64_T "un_Int64_T") =>
-         HasField "un_Int64_T" (Ptr Int64_T) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Int64_T")
-instance HasCField Int64_T "un_Int64_T"
-    where type CFieldType Int64_T "un_Int64_T" = CLLong
+instance TyEq ty (CFieldType Int64_T "unwrapInt64_T") =>
+         HasField "unwrapInt64_T" (Ptr Int64_T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInt64_T")
+instance HasCField Int64_T "unwrapInt64_T"
+    where type CFieldType Int64_T "unwrapInt64_T" = CLLong
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct cint16_T@
 

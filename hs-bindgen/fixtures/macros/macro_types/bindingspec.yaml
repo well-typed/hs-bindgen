@@ -30,7 +30,7 @@ hstypes:
     newtype:
       constructor: BOOLEAN_T
       fields:
-      - un_BOOLEAN_T
+      - unwrapBOOLEAN_T
   instances:
   - Bits
   - Bounded
@@ -52,7 +52,7 @@ hstypes:
     newtype:
       constructor: Boolean_T
       fields:
-      - un_Boolean_T
+      - unwrapBoolean_T
   instances:
   - Bits
   - Bounded
@@ -74,7 +74,7 @@ hstypes:
     newtype:
       constructor: MTy
       fields:
-      - un_MTy
+      - unwrapMTy
   instances:
   - Enum
   - Eq
@@ -95,7 +95,7 @@ hstypes:
     newtype:
       constructor: PtrInt
       fields:
-      - un_PtrInt
+      - unwrapPtrInt
   instances:
   - Eq
   - HasFFIType
@@ -107,7 +107,7 @@ hstypes:
     newtype:
       constructor: PtrPtrChar
       fields:
-      - un_PtrPtrChar
+      - unwrapPtrPtrChar
   instances:
   - Eq
   - HasFFIType
@@ -119,7 +119,7 @@ hstypes:
     newtype:
       constructor: Tty
       fields:
-      - un_Tty
+      - unwrapTty
   instances:
   - Enum
   - Eq
@@ -140,7 +140,7 @@ hstypes:
     newtype:
       constructor: UINT8_T
       fields:
-      - un_UINT8_T
+      - unwrapUINT8_T
   instances:
   - Bits
   - Bounded

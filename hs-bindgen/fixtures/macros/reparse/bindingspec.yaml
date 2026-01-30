@@ -120,7 +120,7 @@ hstypes:
     newtype:
       constructor: A
       fields:
-      - un_A
+      - unwrapA
   instances:
   - Bits
   - Bounded
@@ -142,7 +142,7 @@ hstypes:
     newtype:
       constructor: Arr_typedef1
       fields:
-      - un_Arr_typedef1
+      - unwrapArr_typedef1
   instances:
   - Eq
   - Show
@@ -151,7 +151,7 @@ hstypes:
     newtype:
       constructor: Arr_typedef2
       fields:
-      - un_Arr_typedef2
+      - unwrapArr_typedef2
   instances:
   - Eq
   - Show
@@ -160,7 +160,7 @@ hstypes:
     newtype:
       constructor: Arr_typedef3
       fields:
-      - un_Arr_typedef3
+      - unwrapArr_typedef3
   instances:
   - Eq
   - Show
@@ -170,7 +170,7 @@ hstypes:
     newtype:
       constructor: Arr_typedef4
       fields:
-      - un_Arr_typedef4
+      - unwrapArr_typedef4
   instances:
   - Eq
   - Show
@@ -180,7 +180,7 @@ hstypes:
     newtype:
       constructor: BOOL
       fields:
-      - un_BOOL
+      - unwrapBOOL
   instances:
   - Bits
   - Bounded
@@ -202,7 +202,7 @@ hstypes:
     newtype:
       constructor: Comments2
       fields:
-      - un_Comments2
+      - unwrapComments2
   instances:
   - Bits
   - Bounded
@@ -224,7 +224,7 @@ hstypes:
     newtype:
       constructor: Const_funptr1
       fields:
-      - un_Const_funptr1
+      - unwrapConst_funptr1
   instances:
   - Eq
   - HasFFIType
@@ -236,7 +236,7 @@ hstypes:
     newtype:
       constructor: Const_funptr2
       fields:
-      - un_Const_funptr2
+      - unwrapConst_funptr2
   instances:
   - Eq
   - HasFFIType
@@ -248,7 +248,7 @@ hstypes:
     newtype:
       constructor: Const_funptr3
       fields:
-      - un_Const_funptr3
+      - unwrapConst_funptr3
   instances:
   - Eq
   - HasFFIType
@@ -260,7 +260,7 @@ hstypes:
     newtype:
       constructor: Const_funptr4
       fields:
-      - un_Const_funptr4
+      - unwrapConst_funptr4
   instances:
   - Eq
   - HasFFIType
@@ -272,7 +272,7 @@ hstypes:
     newtype:
       constructor: Const_funptr5
       fields:
-      - un_Const_funptr5
+      - unwrapConst_funptr5
   instances:
   - Eq
   - HasFFIType
@@ -284,7 +284,7 @@ hstypes:
     newtype:
       constructor: Const_funptr6
       fields:
-      - un_Const_funptr6
+      - unwrapConst_funptr6
   instances:
   - Eq
   - HasFFIType
@@ -296,7 +296,7 @@ hstypes:
     newtype:
       constructor: Const_funptr7
       fields:
-      - un_Const_funptr7
+      - unwrapConst_funptr7
   instances:
   - Eq
   - HasFFIType
@@ -308,7 +308,7 @@ hstypes:
     newtype:
       constructor: Const_typedef1
       fields:
-      - un_Const_typedef1
+      - unwrapConst_typedef1
   instances:
   - Bits
   - Bounded
@@ -330,7 +330,7 @@ hstypes:
     newtype:
       constructor: Const_typedef2
       fields:
-      - un_Const_typedef2
+      - unwrapConst_typedef2
   instances:
   - Bits
   - Bounded
@@ -352,7 +352,7 @@ hstypes:
     newtype:
       constructor: Const_typedef3
       fields:
-      - un_Const_typedef3
+      - unwrapConst_typedef3
   instances:
   - Eq
   - HasFFIType
@@ -364,7 +364,7 @@ hstypes:
     newtype:
       constructor: Const_typedef4
       fields:
-      - un_Const_typedef4
+      - unwrapConst_typedef4
   instances:
   - Eq
   - HasFFIType
@@ -376,7 +376,7 @@ hstypes:
     newtype:
       constructor: Const_typedef5
       fields:
-      - un_Const_typedef5
+      - unwrapConst_typedef5
   instances:
   - Eq
   - HasFFIType
@@ -388,7 +388,7 @@ hstypes:
     newtype:
       constructor: Const_typedef6
       fields:
-      - un_Const_typedef6
+      - unwrapConst_typedef6
   instances:
   - Eq
   - HasFFIType
@@ -400,7 +400,7 @@ hstypes:
     newtype:
       constructor: Const_typedef7
       fields:
-      - un_Const_typedef7
+      - unwrapConst_typedef7
   instances:
   - Eq
   - HasFFIType
@@ -440,7 +440,7 @@ hstypes:
     newtype:
       constructor: Funptr_typedef1
       fields:
-      - un_Funptr_typedef1
+      - unwrapFunptr_typedef1
   instances:
   - Eq
   - HasFFIType
@@ -452,7 +452,7 @@ hstypes:
     newtype:
       constructor: Funptr_typedef2
       fields:
-      - un_Funptr_typedef2
+      - unwrapFunptr_typedef2
   instances:
   - Eq
   - HasFFIType
@@ -464,7 +464,7 @@ hstypes:
     newtype:
       constructor: Funptr_typedef3
       fields:
-      - un_Funptr_typedef3
+      - unwrapFunptr_typedef3
   instances:
   - Eq
   - HasFFIType
@@ -476,7 +476,7 @@ hstypes:
     newtype:
       constructor: Funptr_typedef4
       fields:
-      - un_Funptr_typedef4
+      - unwrapFunptr_typedef4
   instances:
   - Eq
   - HasFFIType
@@ -488,7 +488,7 @@ hstypes:
     newtype:
       constructor: Funptr_typedef5
       fields:
-      - un_Funptr_typedef5
+      - unwrapFunptr_typedef5
   instances:
   - Eq
   - HasFFIType
@@ -500,7 +500,7 @@ hstypes:
     newtype:
       constructor: INT
       fields:
-      - un_INT
+      - unwrapINT
   instances:
   - Bits
   - Bounded
@@ -522,7 +522,7 @@ hstypes:
     newtype:
       constructor: INTCP
       fields:
-      - un_INTCP
+      - unwrapINTCP
   instances:
   - Eq
   - HasFFIType
@@ -534,7 +534,7 @@ hstypes:
     newtype:
       constructor: INTP
       fields:
-      - un_INTP
+      - unwrapINTP
   instances:
   - Eq
   - HasFFIType
@@ -546,7 +546,7 @@ hstypes:
     newtype:
       constructor: Some_enum
       fields:
-      - un_Some_enum
+      - unwrapSome_enum
   instances:
   - Eq
   - HasFFIType
@@ -569,7 +569,7 @@ hstypes:
     newtype:
       constructor: Some_union
       fields:
-      - un_Some_union
+      - unwrapSome_union
   instances:
   - Storable
 - hsname: Typedef1
@@ -577,7 +577,7 @@ hstypes:
     newtype:
       constructor: Typedef1
       fields:
-      - un_Typedef1
+      - unwrapTypedef1
   instances:
   - Bits
   - Bounded
@@ -599,7 +599,7 @@ hstypes:
     newtype:
       constructor: Typedef2
       fields:
-      - un_Typedef2
+      - unwrapTypedef2
   instances:
   - Eq
   - HasFFIType
@@ -611,7 +611,7 @@ hstypes:
     newtype:
       constructor: Typedef3
       fields:
-      - un_Typedef3
+      - unwrapTypedef3
   instances:
   - Eq
   - HasFFIType

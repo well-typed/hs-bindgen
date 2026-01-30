@@ -36,7 +36,7 @@ hstypes:
     newtype:
       constructor: MC
       fields:
-      - un_MC
+      - unwrapMC
   instances:
   - Bits
   - Bounded
@@ -91,7 +91,7 @@ hstypes:
     newtype:
       constructor: Struct3_t
       fields:
-      - un_Struct3_t
+      - unwrapStruct3_t
   instances:
   - Eq
   - Prim
@@ -113,7 +113,7 @@ hstypes:
     newtype:
       constructor: TC
       fields:
-      - un_TC
+      - unwrapTC
   instances:
   - Bitfield
   - Bits

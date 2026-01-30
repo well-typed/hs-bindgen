@@ -204,7 +204,7 @@
     __exported by:__ @manual\/function_pointers.h@
 -}
 newtype Int2int
-    = Int2int {un_Int2int :: (CInt -> IO CInt)}
+    = Int2int {unwrapInt2int :: (CInt -> IO CInt)}
       {- ^ __C declaration:__ @int2int@
 
            __defined at:__ @manual\/function_pointers.h 19:13@
@@ -231,11 +231,11 @@ instance ToFunPtr Int2int
     where toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 instance FromFunPtr Int2int
     where fromFunPtr = hs_bindgen_65378a8a3cf640ad
-instance TyEq ty (CFieldType Int2int "un_Int2int") =>
-         HasField "un_Int2int" (Ptr Int2int) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Int2int")
-instance HasCField Int2int "un_Int2int"
-    where type CFieldType Int2int "un_Int2int" = CInt -> IO CInt
+instance TyEq ty (CFieldType Int2int "unwrapInt2int") =>
+         HasField "unwrapInt2int" (Ptr Int2int) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInt2int")
+instance HasCField Int2int "unwrapInt2int"
+    where type CFieldType Int2int "unwrapInt2int" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
 {-| A struct field pointing to a function like apply1_nopointer().
 
@@ -291,7 +291,7 @@ __defined at:__ @manual\/function_pointers.h 43:7@
 __exported by:__ @manual\/function_pointers.h@
 -}
 newtype Apply1Union
-    = Apply1Union {un_Apply1Union :: ByteArray}
+    = Apply1Union {unwrapApply1Union :: ByteArray}
       {- ^ A union field pointing to a function like apply1_nopointer().
 
       __C declaration:__ @union Apply1Union@

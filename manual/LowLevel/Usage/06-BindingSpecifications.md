@@ -116,7 +116,7 @@ following definition for `len` in `vector_length.h`:
 
 ```haskell
 newtype Len = Len {
-    un_Len :: CDouble
+    unwrapLen :: CDouble
   }
 ```
 

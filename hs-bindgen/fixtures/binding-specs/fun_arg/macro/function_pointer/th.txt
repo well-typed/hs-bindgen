@@ -69,8 +69,8 @@ __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
 __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype MyFunctionPointer_Aux
-    = MyFunctionPointer_Aux {un_MyFunctionPointer_Aux :: (CInt ->
-                                                          IO CInt)}
+    = MyFunctionPointer_Aux {unwrapMyFunctionPointer_Aux :: (CInt ->
+                                                             IO CInt)}
       {- ^ Auxiliary type used by 'MyFunctionPointer'
 
       __C declaration:__ @MyFunctionPointer@
@@ -102,14 +102,15 @@ instance ToFunPtr MyFunctionPointer_Aux
 instance FromFunPtr MyFunctionPointer_Aux
     where fromFunPtr = hs_bindgen_5738272f94a589e2
 instance TyEq ty
-              (CFieldType MyFunctionPointer_Aux "un_MyFunctionPointer_Aux") =>
-         HasField "un_MyFunctionPointer_Aux"
+              (CFieldType MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux") =>
+         HasField "unwrapMyFunctionPointer_Aux"
                   (Ptr MyFunctionPointer_Aux)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyFunctionPointer_Aux")
-instance HasCField MyFunctionPointer_Aux "un_MyFunctionPointer_Aux"
+    where getField = fromPtr (Proxy @"unwrapMyFunctionPointer_Aux")
+instance HasCField MyFunctionPointer_Aux
+                   "unwrapMyFunctionPointer_Aux"
     where type CFieldType MyFunctionPointer_Aux
-                          "un_MyFunctionPointer_Aux" = CInt -> IO CInt
+                          "unwrapMyFunctionPointer_Aux" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MyFunctionPointer@
 
@@ -118,7 +119,7 @@ instance HasCField MyFunctionPointer_Aux "un_MyFunctionPointer_Aux"
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype MyFunctionPointer
-    = MyFunctionPointer {un_MyFunctionPointer :: (FunPtr MyFunctionPointer_Aux)}
+    = MyFunctionPointer {unwrapMyFunctionPointer :: (FunPtr MyFunctionPointer_Aux)}
       {- ^ __C declaration:__ @MyFunctionPointer@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
@@ -128,12 +129,12 @@ newtype MyFunctionPointer
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty
-              (CFieldType MyFunctionPointer "un_MyFunctionPointer") =>
-         HasField "un_MyFunctionPointer" (Ptr MyFunctionPointer) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyFunctionPointer")
-instance HasCField MyFunctionPointer "un_MyFunctionPointer"
+              (CFieldType MyFunctionPointer "unwrapMyFunctionPointer") =>
+         HasField "unwrapMyFunctionPointer" (Ptr MyFunctionPointer) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyFunctionPointer")
+instance HasCField MyFunctionPointer "unwrapMyFunctionPointer"
     where type CFieldType MyFunctionPointer
-                          "un_MyFunctionPointer" = FunPtr MyFunctionPointer_Aux
+                          "unwrapMyFunctionPointer" = FunPtr MyFunctionPointer_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @A@
 
@@ -142,7 +143,7 @@ instance HasCField MyFunctionPointer "un_MyFunctionPointer"
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype A
-    = A {un_A :: MyFunctionPointer}
+    = A {unwrapA :: MyFunctionPointer}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 7:9@
@@ -158,7 +159,7 @@ newtype A
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype B
-    = B {un_B :: A}
+    = B {unwrapB :: A}
       {- ^ __C declaration:__ @B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 8:9@

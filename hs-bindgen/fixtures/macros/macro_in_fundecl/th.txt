@@ -318,7 +318,7 @@
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype I
-    = I {un_I :: CInt}
+    = I {unwrapI :: CInt}
       {- ^ __C declaration:__ @I@
 
            __defined at:__ @macros\/macro_in_fundecl.h 5:9@
@@ -344,7 +344,7 @@ newtype I
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype C
-    = C {un_C :: CChar}
+    = C {unwrapC :: CChar}
       {- ^ __C declaration:__ @C@
 
            __defined at:__ @macros\/macro_in_fundecl.h 6:9@
@@ -370,7 +370,7 @@ newtype C
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype F
-    = F {un_F :: CFloat}
+    = F {unwrapF :: CFloat}
       {- ^ __C declaration:__ @F@
 
            __defined at:__ @macros\/macro_in_fundecl.h 7:9@
@@ -395,7 +395,7 @@ newtype F
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype L
-    = L {un_L :: CLong}
+    = L {unwrapL :: CLong}
       {- ^ __C declaration:__ @L@
 
            __defined at:__ @macros\/macro_in_fundecl.h 8:9@
@@ -421,7 +421,7 @@ newtype L
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype S
-    = S {un_S :: CShort}
+    = S {unwrapS :: CShort}
       {- ^ __C declaration:__ @S@
 
            __defined at:__ @macros\/macro_in_fundecl.h 9:9@

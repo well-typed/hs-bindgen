@@ -371,7 +371,7 @@ __defined at:__ @documentation\/doxygen_docs.h 54:16@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Size_type
-    = Size_type {un_Size_type :: HsBindgen.Runtime.LibC.CSize}
+    = Size_type {unwrapSize_type :: HsBindgen.Runtime.LibC.CSize}
       {- ^ This is the comment __title__
 
          > size_type
@@ -395,12 +395,12 @@ newtype Size_type
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Size_type "un_Size_type") =>
-         HasField "un_Size_type" (Ptr Size_type) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Size_type")
-instance HasCField Size_type "un_Size_type"
+instance TyEq ty (CFieldType Size_type "unwrapSize_type") =>
+         HasField "unwrapSize_type" (Ptr Size_type) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSize_type")
+instance HasCField Size_type "unwrapSize_type"
     where type CFieldType Size_type
-                          "un_Size_type" = HsBindgen.Runtime.LibC.CSize
+                          "unwrapSize_type" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
 {-| This is the comment @title@
 
@@ -437,7 +437,7 @@ __defined at:__ @documentation\/doxygen_docs.h 83:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Color_enum
-    = Color_enum {un_Color_enum :: CUInt}
+    = Color_enum {unwrapColor_enum :: CUInt}
       {- ^
 
          > color_enum
@@ -457,12 +457,12 @@ instance Storable Color_enum
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Color_enum <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Color_enum un_Color_enum_3 -> pokeByteOff ptr_1 (0 :: Int) un_Color_enum_3
+                                   Color_enum unwrapColor_enum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapColor_enum_3
 deriving via CUInt instance Prim Color_enum
 instance CEnum Color_enum
     where type CEnumZ Color_enum = CUInt
           toCEnum = Color_enum
-          fromCEnum = un_Color_enum
+          fromCEnum = unwrapColor_enum
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "COLOR_RED"),
                                                          (1, singleton "COLOR_GREEN"),
@@ -543,8 +543,8 @@ __defined at:__ @documentation\/doxygen_docs.h 225:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t_Aux
-    = Event_callback_t_Aux {un_Event_callback_t_Aux :: (CInt ->
-                                                        Ptr Void -> IO CInt)}
+    = Event_callback_t_Aux {unwrapEvent_callback_t_Aux :: (CInt ->
+                                                           Ptr Void -> IO CInt)}
       {- ^ Auxiliary type used by 'Event_callback_t'
 
       __C declaration:__ @event_callback_t@
@@ -577,14 +577,15 @@ instance ToFunPtr Event_callback_t_Aux
 instance FromFunPtr Event_callback_t_Aux
     where fromFunPtr = hs_bindgen_9e9d478c2d75628c
 instance TyEq ty
-              (CFieldType Event_callback_t_Aux "un_Event_callback_t_Aux") =>
-         HasField "un_Event_callback_t_Aux"
+              (CFieldType Event_callback_t_Aux "unwrapEvent_callback_t_Aux") =>
+         HasField "unwrapEvent_callback_t_Aux"
                   (Ptr Event_callback_t_Aux)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Event_callback_t_Aux")
-instance HasCField Event_callback_t_Aux "un_Event_callback_t_Aux"
+    where getField = fromPtr (Proxy @"unwrapEvent_callback_t_Aux")
+instance HasCField Event_callback_t_Aux
+                   "unwrapEvent_callback_t_Aux"
     where type CFieldType Event_callback_t_Aux
-                          "un_Event_callback_t_Aux" = CInt -> Ptr Void -> IO CInt
+                          "unwrapEvent_callback_t_Aux" = CInt -> Ptr Void -> IO CInt
           offset# = \_ -> \_ -> 0
 {-|
 
@@ -603,7 +604,7 @@ __defined at:__ @documentation\/doxygen_docs.h 225:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t
-    = Event_callback_t {un_Event_callback_t :: (FunPtr Event_callback_t_Aux)}
+    = Event_callback_t {unwrapEvent_callback_t :: (FunPtr Event_callback_t_Aux)}
       {- ^
 
          Callback function type
@@ -623,12 +624,12 @@ newtype Event_callback_t
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty
-              (CFieldType Event_callback_t "un_Event_callback_t") =>
-         HasField "un_Event_callback_t" (Ptr Event_callback_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Event_callback_t")
-instance HasCField Event_callback_t "un_Event_callback_t"
+              (CFieldType Event_callback_t "unwrapEvent_callback_t") =>
+         HasField "unwrapEvent_callback_t" (Ptr Event_callback_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEvent_callback_t")
+instance HasCField Event_callback_t "unwrapEvent_callback_t"
     where type CFieldType Event_callback_t
-                          "un_Event_callback_t" = FunPtr Event_callback_t_Aux
+                          "unwrapEvent_callback_t" = FunPtr Event_callback_t_Aux
           offset# = \_ -> \_ -> 0
 {-|
 
@@ -770,7 +771,7 @@ __defined at:__ @documentation\/doxygen_docs.h 258:9@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Status_code_t
-    = Status_code_t {un_Status_code_t :: CInt}
+    = Status_code_t {unwrapStatus_code_t :: CInt}
       {- ^
 
          Enumeration with documented values
@@ -790,12 +791,12 @@ instance Storable Status_code_t
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Status_code_t <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Status_code_t un_Status_code_t_3 -> pokeByteOff ptr_1 (0 :: Int) un_Status_code_t_3
+                                   Status_code_t unwrapStatus_code_t_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapStatus_code_t_3
 deriving via CInt instance Prim Status_code_t
 instance CEnum Status_code_t
     where type CEnumZ Status_code_t = CInt
           toCEnum = Status_code_t
-          fromCEnum = un_Status_code_t
+          fromCEnum = unwrapStatus_code_t
           declaredValues = \_ -> declaredValuesFromList [(-99,
                                                           singleton "STATUS_ERROR"),
                                                          (-3, singleton "STATUS_TIMEOUT"),
@@ -1012,7 +1013,7 @@ __defined at:__ @documentation\/doxygen_docs.h 281:9@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Data_union_t
-    = Data_union_t {un_Data_union_t :: ByteArray}
+    = Data_union_t {unwrapData_union_t :: ByteArray}
       {- ^
 
          > data_union_t
@@ -1375,8 +1376,8 @@ __defined at:__ @documentation\/doxygen_docs.h 317:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t_Aux
-    = Processor_fn_t_Aux {un_Processor_fn_t_Aux :: (CInt ->
-                                                    Ptr Void -> IO CInt)}
+    = Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux :: (CInt ->
+                                                       Ptr Void -> IO CInt)}
       {- ^ Auxiliary type used by 'Processor_fn_t'
 
       __C declaration:__ @processor_fn_t@
@@ -1409,12 +1410,14 @@ instance ToFunPtr Processor_fn_t_Aux
 instance FromFunPtr Processor_fn_t_Aux
     where fromFunPtr = hs_bindgen_0d4b3d0461629423
 instance TyEq ty
-              (CFieldType Processor_fn_t_Aux "un_Processor_fn_t_Aux") =>
-         HasField "un_Processor_fn_t_Aux" (Ptr Processor_fn_t_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Processor_fn_t_Aux")
-instance HasCField Processor_fn_t_Aux "un_Processor_fn_t_Aux"
+              (CFieldType Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux") =>
+         HasField "unwrapProcessor_fn_t_Aux"
+                  (Ptr Processor_fn_t_Aux)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapProcessor_fn_t_Aux")
+instance HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux"
     where type CFieldType Processor_fn_t_Aux
-                          "un_Processor_fn_t_Aux" = CInt -> Ptr Void -> IO CInt
+                          "unwrapProcessor_fn_t_Aux" = CInt -> Ptr Void -> IO CInt
           offset# = \_ -> \_ -> 0
 {-|
 
@@ -1435,7 +1438,7 @@ __defined at:__ @documentation\/doxygen_docs.h 317:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t
-    = Processor_fn_t {un_Processor_fn_t :: (FunPtr Processor_fn_t_Aux)}
+    = Processor_fn_t {unwrapProcessor_fn_t :: (FunPtr Processor_fn_t_Aux)}
       {- ^
 
          > processor_fn_t
@@ -1456,12 +1459,13 @@ newtype Processor_fn_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Processor_fn_t "un_Processor_fn_t") =>
-         HasField "un_Processor_fn_t" (Ptr Processor_fn_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Processor_fn_t")
-instance HasCField Processor_fn_t "un_Processor_fn_t"
+instance TyEq ty
+              (CFieldType Processor_fn_t "unwrapProcessor_fn_t") =>
+         HasField "unwrapProcessor_fn_t" (Ptr Processor_fn_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapProcessor_fn_t")
+instance HasCField Processor_fn_t "unwrapProcessor_fn_t"
     where type CFieldType Processor_fn_t
-                          "un_Processor_fn_t" = FunPtr Processor_fn_t_Aux
+                          "unwrapProcessor_fn_t" = FunPtr Processor_fn_t_Aux
           offset# = \_ -> \_ -> 0
 {-|
 
@@ -1476,7 +1480,7 @@ __defined at:__ @documentation\/doxygen_docs.h 323:14@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t
-    = Filename_t {un_Filename_t :: (ConstantArray 256 CChar)}
+    = Filename_t {unwrapFilename_t :: (ConstantArray 256 CChar)}
       {- ^
 
          > filename_t
@@ -1491,12 +1495,12 @@ newtype Filename_t
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Filename_t "un_Filename_t") =>
-         HasField "un_Filename_t" (Ptr Filename_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Filename_t")
-instance HasCField Filename_t "un_Filename_t"
+instance TyEq ty (CFieldType Filename_t "unwrapFilename_t") =>
+         HasField "unwrapFilename_t" (Ptr Filename_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFilename_t")
+instance HasCField Filename_t "unwrapFilename_t"
     where type CFieldType Filename_t
-                          "un_Filename_t" = ConstantArray 256 CChar
+                          "unwrapFilename_t" = ConstantArray 256 CChar
           offset# = \_ -> \_ -> 0
 {-|
 

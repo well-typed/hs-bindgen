@@ -26,6 +26,6 @@ hstypes:
     newtype:
       constructor: 'Y'
       fields:
-      - un_Y
+      - unwrapY
   instances:
   - Storable

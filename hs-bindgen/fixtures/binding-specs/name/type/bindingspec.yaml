@@ -12,7 +12,7 @@ hstypes:
     newtype:
       constructor: MySym
       fields:
-      - un_MySym
+      - unwrapMySym
   instances:
   - Bitfield
   - Bits

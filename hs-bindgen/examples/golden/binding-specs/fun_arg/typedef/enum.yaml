@@ -15,7 +15,7 @@ hstypes:
     newtype:
       constructor: C
       fields:
-      - un_C
+      - unwrapC
   instances:
   - HasFFIType
 - hsname: D
@@ -23,6 +23,6 @@ hstypes:
     newtype:
       constructor: D
       fields:
-      - un_D
+      - unwrapD
   instances:
   - HasFFIType

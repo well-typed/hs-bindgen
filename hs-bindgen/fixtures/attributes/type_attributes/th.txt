@@ -39,7 +39,7 @@ instance TyEq ty (CFieldType S "s_f") =>
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype More_aligned_int
-    = More_aligned_int {un_More_aligned_int :: CInt}
+    = More_aligned_int {unwrapMore_aligned_int :: CInt}
       {- ^ __C declaration:__ @more_aligned_int@
 
            __defined at:__ @attributes\/type_attributes.h 9:13@
@@ -60,11 +60,12 @@ newtype More_aligned_int
                       Num,
                       Real)
 instance TyEq ty
-              (CFieldType More_aligned_int "un_More_aligned_int") =>
-         HasField "un_More_aligned_int" (Ptr More_aligned_int) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_More_aligned_int")
-instance HasCField More_aligned_int "un_More_aligned_int"
-    where type CFieldType More_aligned_int "un_More_aligned_int" = CInt
+              (CFieldType More_aligned_int "unwrapMore_aligned_int") =>
+         HasField "unwrapMore_aligned_int" (Ptr More_aligned_int) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMore_aligned_int")
+instance HasCField More_aligned_int "unwrapMore_aligned_int"
+    where type CFieldType More_aligned_int
+                          "unwrapMore_aligned_int" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S2@
 
@@ -278,7 +279,7 @@ instance TyEq ty
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype Wait_status_ptr_t
-    = Wait_status_ptr_t {un_Wait_status_ptr_t :: ByteArray}
+    = Wait_status_ptr_t {unwrapWait_status_ptr_t :: ByteArray}
       {- ^ __C declaration:__ @union wait_status_ptr_t@
 
            __defined at:__ @attributes\/type_attributes.h 26:9@
@@ -386,7 +387,7 @@ data Wait
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype T1
-    = T1 {un_T1 :: CInt}
+    = T1 {unwrapT1 :: CInt}
       {- ^ __C declaration:__ @T1@
 
            __defined at:__ @attributes\/type_attributes.h 32:13@
@@ -406,11 +407,11 @@ newtype T1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T1 "un_T1") =>
-         HasField "un_T1" (Ptr T1) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_T1")
-instance HasCField T1 "un_T1"
-    where type CFieldType T1 "un_T1" = CInt
+instance TyEq ty (CFieldType T1 "unwrapT1") =>
+         HasField "unwrapT1" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT1")
+instance HasCField T1 "unwrapT1"
+    where type CFieldType T1 "unwrapT1" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @short_a@
 
@@ -419,7 +420,7 @@ instance HasCField T1 "un_T1"
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype Short_a
-    = Short_a {un_Short_a :: CShort}
+    = Short_a {unwrapShort_a :: CShort}
       {- ^ __C declaration:__ @short_a@
 
            __defined at:__ @attributes\/type_attributes.h 34:46@
@@ -439,9 +440,9 @@ newtype Short_a
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Short_a "un_Short_a") =>
-         HasField "un_Short_a" (Ptr Short_a) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Short_a")
-instance HasCField Short_a "un_Short_a"
-    where type CFieldType Short_a "un_Short_a" = CShort
+instance TyEq ty (CFieldType Short_a "unwrapShort_a") =>
+         HasField "unwrapShort_a" (Ptr Short_a) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapShort_a")
+instance HasCField Short_a "unwrapShort_a"
+    where type CFieldType Short_a "unwrapShort_a" = CShort
           offset# = \_ -> \_ -> 0

@@ -33,7 +33,7 @@ import HsBindgen.Runtime.TypeEquality (TyEq)
     __exported by:__ @functions\/heap_types\/union_const.h@
 -}
 newtype T = T
-  { un_T :: Data.Array.Byte.ByteArray
+  { unwrapT :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable T

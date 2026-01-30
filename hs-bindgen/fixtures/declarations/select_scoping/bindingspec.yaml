@@ -12,7 +12,7 @@ hstypes:
     newtype:
       constructor: ParsedAndSelected1
       fields:
-      - un_ParsedAndSelected1
+      - unwrapParsedAndSelected1
   instances:
   - Bitfield
   - Bits

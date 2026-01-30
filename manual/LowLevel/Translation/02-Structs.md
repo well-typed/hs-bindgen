@@ -44,7 +44,7 @@ typedef struct triple triple_t;
 ```
 
 ```haskell
-newtype Triple_t = Triple_t { un_Triple_t :: Triple }
+newtype Triple_t = Triple_t { unwrapTriple_t :: Triple }
   deriving stock   (Eq, Show)
   deriving newtype (Storable)
 ```

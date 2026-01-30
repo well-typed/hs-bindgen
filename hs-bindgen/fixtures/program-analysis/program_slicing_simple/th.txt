@@ -33,7 +33,7 @@
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 newtype Uint32_t
-    = Uint32_t {un_Uint32_t :: CUInt}
+    = Uint32_t {unwrapUint32_t :: CUInt}
       {- ^ __C declaration:__ @uint32_t@
 
            __defined at:__ @bits\/alltypes.h 131:25@
@@ -53,11 +53,11 @@ newtype Uint32_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Uint32_t "un_Uint32_t") =>
-         HasField "un_Uint32_t" (Ptr Uint32_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Uint32_t")
-instance HasCField Uint32_t "un_Uint32_t"
-    where type CFieldType Uint32_t "un_Uint32_t" = CUInt
+instance TyEq ty (CFieldType Uint32_t "unwrapUint32_t") =>
+         HasField "unwrapUint32_t" (Ptr Uint32_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapUint32_t")
+instance HasCField Uint32_t "unwrapUint32_t"
+    where type CFieldType Uint32_t "unwrapUint32_t" = CUInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct foo@
 

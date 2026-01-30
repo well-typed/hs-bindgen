@@ -67,7 +67,7 @@
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype MyUnion
-    = MyUnion {un_MyUnion :: ByteArray}
+    = MyUnion {unwrapMyUnion :: ByteArray}
       {- ^ __C declaration:__ @union MyUnion@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 4:7@
@@ -123,7 +123,7 @@ instance TyEq ty (CFieldType MyUnion "myUnion_x") =>
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype A
-    = A {un_A :: MyUnion}
+    = A {unwrapA :: MyUnion}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 7:9@
@@ -138,7 +138,7 @@ newtype A
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype B
-    = B {un_B :: A}
+    = B {unwrapB :: A}
       {- ^ __C declaration:__ @B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 8:9@

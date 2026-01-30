@@ -12,4 +12,4 @@ hstypes:
     newtype:
       constructor: B
       fields:
-      - un_B
+      - unwrapB

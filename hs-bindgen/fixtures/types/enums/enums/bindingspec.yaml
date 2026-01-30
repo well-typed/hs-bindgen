@@ -48,7 +48,7 @@ hstypes:
     newtype:
       constructor: EnumA
       fields:
-      - un_EnumA
+      - unwrapEnumA
   instances:
   - Eq
   - HasFFIType
@@ -61,7 +61,7 @@ hstypes:
     newtype:
       constructor: EnumB
       fields:
-      - un_EnumB
+      - unwrapEnumB
   instances:
   - Eq
   - HasFFIType
@@ -74,7 +74,7 @@ hstypes:
     newtype:
       constructor: EnumC
       fields:
-      - un_EnumC
+      - unwrapEnumC
   instances:
   - Eq
   - HasFFIType
@@ -87,7 +87,7 @@ hstypes:
     newtype:
       constructor: EnumD_t
       fields:
-      - un_EnumD_t
+      - unwrapEnumD_t
   instances:
   - Eq
   - HasFFIType
@@ -100,7 +100,7 @@ hstypes:
     newtype:
       constructor: First
       fields:
-      - un_First
+      - unwrapFirst
   instances:
   - Eq
   - HasFFIType
@@ -113,7 +113,7 @@ hstypes:
     newtype:
       constructor: Nonseq
       fields:
-      - un_Nonseq
+      - unwrapNonseq
   instances:
   - Eq
   - HasFFIType
@@ -126,7 +126,7 @@ hstypes:
     newtype:
       constructor: Packed
       fields:
-      - un_Packed
+      - unwrapPacked
   instances:
   - Eq
   - HasFFIType
@@ -139,7 +139,7 @@ hstypes:
     newtype:
       constructor: Same
       fields:
-      - un_Same
+      - unwrapSame
   instances:
   - Eq
   - HasFFIType
@@ -152,7 +152,7 @@ hstypes:
     newtype:
       constructor: Second
       fields:
-      - un_Second
+      - unwrapSecond
   instances:
   - Eq
   - HasFFIType

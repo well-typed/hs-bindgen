@@ -91,20 +91,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_f")
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype More_aligned_int = More_aligned_int
-  { un_More_aligned_int :: FC.CInt
+  { unwrapMore_aligned_int :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType More_aligned_int) "un_More_aligned_int")
-         ) => GHC.Records.HasField "un_More_aligned_int" (Ptr.Ptr More_aligned_int) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType More_aligned_int) "unwrapMore_aligned_int")
+         ) => GHC.Records.HasField "unwrapMore_aligned_int" (Ptr.Ptr More_aligned_int) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_More_aligned_int")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMore_aligned_int")
 
-instance HsBindgen.Runtime.HasCField.HasCField More_aligned_int "un_More_aligned_int" where
+instance HsBindgen.Runtime.HasCField.HasCField More_aligned_int "unwrapMore_aligned_int" where
 
-  type CFieldType More_aligned_int "un_More_aligned_int" =
+  type CFieldType More_aligned_int "unwrapMore_aligned_int" =
     FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -446,7 +446,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "m
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype Wait_status_ptr_t = Wait_status_ptr_t
-  { un_Wait_status_ptr_t :: Data.Array.Byte.ByteArray
+  { unwrapWait_status_ptr_t :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Wait_status_ptr_t
@@ -548,20 +548,20 @@ data Wait
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype T1 = T1
-  { un_T1 :: FC.CInt
+  { unwrapT1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "un_T1")
-         ) => GHC.Records.HasField "un_T1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "unwrapT1")
+         ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_T1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT1")
 
-instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
+instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
 
-  type CFieldType T1 "un_T1" = FC.CInt
+  type CFieldType T1 "unwrapT1" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -572,19 +572,19 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype Short_a = Short_a
-  { un_Short_a :: FC.CShort
+  { unwrapShort_a :: FC.CShort
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Short_a) "un_Short_a")
-         ) => GHC.Records.HasField "un_Short_a" (Ptr.Ptr Short_a) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Short_a) "unwrapShort_a")
+         ) => GHC.Records.HasField "unwrapShort_a" (Ptr.Ptr Short_a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Short_a")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapShort_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField Short_a "un_Short_a" where
+instance HsBindgen.Runtime.HasCField.HasCField Short_a "unwrapShort_a" where
 
-  type CFieldType Short_a "un_Short_a" = FC.CShort
+  type CFieldType Short_a "unwrapShort_a" = FC.CShort
 
   offset# = \_ -> \_ -> 0

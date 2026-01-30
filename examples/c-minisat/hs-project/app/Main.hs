@@ -39,7 +39,7 @@ exampleSolver = do
   addClause minisatSolver [nx2, nx3]
 
   sat <- Minisat.minisat_solve minisatSolver 0 F.nullPtr
-  let satResult = Minisat.un_Minisat_bool sat /= 0
+  let satResult = Minisat.unwrapMinisat_bool sat /= 0
   putStrLn ("Is (a v b) ∧ (c v d) satisfiable? " ++ show satResult)
 
 main :: IO ()

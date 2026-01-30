@@ -266,7 +266,7 @@ instance TyEq ty (CFieldType Circle "circle_radius") =>
     __exported by:__ @manual\/zero_copy.h@
 -}
 newtype Shape
-    = Shape {un_Shape :: ByteArray}
+    = Shape {unwrapShape :: ByteArray}
       {- ^ __C declaration:__ @union shape@
 
            __defined at:__ @manual\/zero_copy.h 30:7@
@@ -505,7 +505,7 @@ instance TyEq ty (CBitfieldType Colour "colour_blue") =>
     __exported by:__ @manual\/zero_copy.h@
 -}
 newtype MyInt
-    = MyInt {un_MyInt :: CInt}
+    = MyInt {unwrapMyInt :: CInt}
       {- ^ __C declaration:__ @myInt@
 
            __defined at:__ @manual\/zero_copy.h 50:13@
@@ -525,11 +525,11 @@ newtype MyInt
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyInt "un_MyInt") =>
-         HasField "un_MyInt" (Ptr MyInt) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyInt")
-instance HasCField MyInt "un_MyInt"
-    where type CFieldType MyInt "un_MyInt" = CInt
+instance TyEq ty (CFieldType MyInt "unwrapMyInt") =>
+         HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyInt")
+instance HasCField MyInt "unwrapMyInt"
+    where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct drawing@
 
@@ -692,7 +692,7 @@ type Vector = WithFlam CChar Vector_Aux
     __exported by:__ @manual\/zero_copy.h@
 -}
 newtype Triplet
-    = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
+    = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
            __defined at:__ @manual\/zero_copy.h 82:13@
@@ -701,11 +701,12 @@ newtype Triplet
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Triplet "un_Triplet") =>
-         HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Triplet")
-instance HasCField Triplet "un_Triplet"
-    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
+         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTriplet")
+instance HasCField Triplet "unwrapTriplet"
+    where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
+                                                                  CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @matrix@
 
@@ -714,7 +715,7 @@ instance HasCField Triplet "un_Triplet"
     __exported by:__ @manual\/zero_copy.h@
 -}
 newtype Matrix
-    = Matrix {un_Matrix :: (ConstantArray 3 Triplet)}
+    = Matrix {unwrapMatrix :: (ConstantArray 3 Triplet)}
       {- ^ __C declaration:__ @matrix@
 
            __defined at:__ @manual\/zero_copy.h 83:17@
@@ -723,11 +724,12 @@ newtype Matrix
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Matrix "un_Matrix") =>
-         HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Matrix")
-instance HasCField Matrix "un_Matrix"
-    where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
+instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
+         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMatrix")
+instance HasCField Matrix "unwrapMatrix"
+    where type CFieldType Matrix "unwrapMatrix" = ConstantArray 3
+                                                                Triplet
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344_base ::

@@ -21,7 +21,7 @@ hstypes:
     newtype:
       constructor: EnumA
       fields:
-      - un_EnumA
+      - unwrapEnumA
   instances:
   - Eq
   - HasFFIType
@@ -54,7 +54,7 @@ hstypes:
     newtype:
       constructor: ExB_fieldB1
       fields:
-      - un_ExB_fieldB1
+      - unwrapExB_fieldB1
   instances:
   - Eq
   - HasFFIType

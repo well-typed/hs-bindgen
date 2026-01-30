@@ -42,7 +42,7 @@ hstypes:
     newtype:
       constructor: F1
       fields:
-      - un_F1
+      - unwrapF1
   instances:
   - Eq
   - HasFFIType
@@ -54,7 +54,7 @@ hstypes:
     newtype:
       constructor: FunctionPointer_Function
       fields:
-      - un_FunctionPointer_Function
+      - unwrapFunctionPointer_Function
   instances:
   - Eq
   - HasFFIType
@@ -66,7 +66,7 @@ hstypes:
     newtype:
       constructor: G1
       fields:
-      - un_G1
+      - unwrapG1
   instances:
   - HasFFIType
 - hsname: G2
@@ -74,7 +74,7 @@ hstypes:
     newtype:
       constructor: G2
       fields:
-      - un_G2
+      - unwrapG2
   instances:
   - Eq
   - HasFFIType
@@ -86,7 +86,7 @@ hstypes:
     newtype:
       constructor: H1
       fields:
-      - un_H1
+      - unwrapH1
   instances:
   - HasFFIType
 - hsname: H2
@@ -94,7 +94,7 @@ hstypes:
     newtype:
       constructor: H2
       fields:
-      - un_H2
+      - unwrapH2
   instances:
   - HasFFIType
 - hsname: H3
@@ -102,7 +102,7 @@ hstypes:
     newtype:
       constructor: H3
       fields:
-      - un_H3
+      - unwrapH3
   instances:
   - Eq
   - HasFFIType
@@ -114,7 +114,7 @@ hstypes:
     newtype:
       constructor: Int2int
       fields:
-      - un_Int2int
+      - unwrapInt2int
   instances:
   - HasFFIType
 - hsname: Intptr
@@ -122,7 +122,7 @@ hstypes:
     newtype:
       constructor: Intptr
       fields:
-      - un_Intptr
+      - unwrapIntptr
   instances:
   - Eq
   - HasFFIType
@@ -134,7 +134,7 @@ hstypes:
     newtype:
       constructor: Myint
       fields:
-      - un_Myint
+      - unwrapMyint
   instances:
   - Bitfield
   - Bits
@@ -157,6 +157,6 @@ hstypes:
     newtype:
       constructor: NonFunctionPointer_Function
       fields:
-      - un_NonFunctionPointer_Function
+      - unwrapNonFunctionPointer_Function
   instances:
   - HasFFIType

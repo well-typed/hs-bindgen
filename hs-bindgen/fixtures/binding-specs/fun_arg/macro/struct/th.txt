@@ -113,7 +113,7 @@ instance TyEq ty (CFieldType MyStruct "myStruct_x") =>
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
 newtype A
-    = A {un_A :: MyStruct}
+    = A {unwrapA :: MyStruct}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 7:9@
@@ -129,7 +129,7 @@ newtype A
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
 newtype B
-    = B {un_B :: A}
+    = B {unwrapB :: A}
       {- ^ __C declaration:__ @B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 8:9@

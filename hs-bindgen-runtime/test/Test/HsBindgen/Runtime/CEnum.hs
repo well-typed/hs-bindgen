@@ -66,7 +66,7 @@ tests = testGroup "HsBindgen.Runtime.CEnum" [
 -------------------------------------------------------------------------------}
 
 newtype NoValue = NoValue {
-      _un_NoValue :: FC.CUInt
+      _unwrapNoValue :: FC.CUInt
     }
   deriving newtype Eq
 
@@ -145,7 +145,7 @@ testNoValue = testGroup "NoValue" [
 -------------------------------------------------------------------------------}
 
 newtype GenSingleValue = GenSingleValue {
-      _un_GenSingleValue :: FC.CUInt
+      _unwrapGenSingleValue :: FC.CUInt
     }
   deriving newtype Eq
 
@@ -258,7 +258,7 @@ testGenSingleValue = testGroup "GenSingleValue" [
 -------------------------------------------------------------------------------}
 
 newtype GenPosValue = GenPosValue {
-      _un_GenPosValue :: FC.CUInt
+      _unwrapGenPosValue :: FC.CUInt
     }
   deriving newtype Eq
 
@@ -423,7 +423,7 @@ testGenPosValue = testGroup "GenPosValue" [
 -------------------------------------------------------------------------------}
 
 newtype GenNegValue = GenNegValue {
-      _un_GenNegValue :: FC.CInt
+      _unwrapGenNegValue :: FC.CInt
     }
   deriving newtype Eq
 
@@ -588,7 +588,7 @@ testGenNegValue = testGroup "GenNegValue" [
 -------------------------------------------------------------------------------}
 
 newtype SeqSingleValue = SeqSingleValue {
-      _un_SeqSingleValue :: FC.CUInt
+      _unwrapSeqSingleValue :: FC.CUInt
     }
   deriving newtype Eq
 
@@ -701,7 +701,7 @@ testSeqSingleValue = testGroup "SeqSingleValue" [
 -------------------------------------------------------------------------------}
 
 newtype SeqPosValue = SeqPosValue {
-      _un_SeqPosValue :: FC.CUInt
+      _unwrapSeqPosValue :: FC.CUInt
     }
   deriving newtype Eq
 
@@ -859,7 +859,7 @@ testSeqPosValue = testGroup "SeqPosValue" [
 -------------------------------------------------------------------------------}
 
 newtype SeqNegValue = SeqNegValue {
-      _un_SeqNegValue :: FC.CInt
+      _unwrapSeqNegValue :: FC.CInt
     }
   deriving newtype Eq
 
@@ -1020,7 +1020,7 @@ testSeqNegValue = testGroup "SeqNegValue" [
 -------------------------------------------------------------------------------}
 
 newtype NastyValue = NastyValue {
-      _un_NastyValue :: FC.CInt
+      _unwrapNastyValue :: FC.CInt
     }
   deriving newtype Eq
 
