@@ -8,14 +8,14 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
   , "/* test_typesqualifierstype_qualifie_Example_get_list_example */"
   , "__attribute__ ((const))"
@@ -35,7 +35,7 @@ foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
 hs_bindgen_a19bc138e7f2759b :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool))
 hs_bindgen_a19bc138e7f2759b =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a19bc138e7f2759b_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a19bc138e7f2759b_base
 
 {-# NOINLINE list_example #-}
 {-| __C declaration:__ @list_example@

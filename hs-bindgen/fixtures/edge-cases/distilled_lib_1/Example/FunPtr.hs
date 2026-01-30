@@ -7,15 +7,15 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
   , "/* test_edgecasesdistilled_lib_1_Example_get_some_fun */"
   , "__attribute__ ((const))"
@@ -36,7 +36,7 @@ foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc186
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
 hs_bindgen_1ade3cfc18679577 :: IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.LibC.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8) -> IO HsBindgen.Runtime.LibC.Int32))
 hs_bindgen_1ade3cfc18679577 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1ade3cfc18679577_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1ade3cfc18679577_base
 
 {-# NOINLINE some_fun #-}
 {-| __C declaration:__ @some_fun@

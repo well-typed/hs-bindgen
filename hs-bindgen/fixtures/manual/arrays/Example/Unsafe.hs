@@ -8,15 +8,15 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/arrays.h>"
   , "void hs_bindgen_f9f2776d121db261 ("
   , "  triplet const *arg1,"
@@ -45,7 +45,7 @@ hs_bindgen_f9f2776d121db261 ::
   -> Ptr.Ptr Triplet
   -> IO ()
 hs_bindgen_f9f2776d121db261 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f9f2776d121db261_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f9f2776d121db261_base
 
 {-| __C declaration:__ @transpose@
 
@@ -71,7 +71,7 @@ hs_bindgen_e43b4d44aa0abd14 ::
      Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
   -> IO ()
 hs_bindgen_e43b4d44aa0abd14 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e43b4d44aa0abd14_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e43b4d44aa0abd14_base
 
 {-| A function that prints the given triplet_ptrs
 

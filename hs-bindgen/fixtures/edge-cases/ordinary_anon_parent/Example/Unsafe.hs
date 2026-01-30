@@ -6,11 +6,11 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (Double, IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
   , "double hs_bindgen_dca60678b5047ee4 ("
   , "  double arg1"
@@ -30,7 +30,7 @@ hs_bindgen_dca60678b5047ee4 ::
      FC.CDouble
   -> IO FC.CDouble
 hs_bindgen_dca60678b5047ee4 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_dca60678b5047ee4_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dca60678b5047ee4_base
 
 {-| __C declaration:__ @_acos@
 

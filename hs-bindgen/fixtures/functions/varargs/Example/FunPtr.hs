@@ -7,12 +7,12 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/varargs.h>"
   , "/* test_functionsvarargs_Example_get_h */"
   , "__attribute__ ((const))"
@@ -29,7 +29,7 @@ foreign import ccall unsafe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d
 -- __unique:__ @test_functionsvarargs_Example_get_h@
 hs_bindgen_d7b5ad93f4d7fa04 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_d7b5ad93f4d7fa04 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d7b5ad93f4d7fa04_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d7b5ad93f4d7fa04_base
 
 {-# NOINLINE h #-}
 {-| __C declaration:__ @h@

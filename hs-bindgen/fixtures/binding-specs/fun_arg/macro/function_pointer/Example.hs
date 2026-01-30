@@ -19,11 +19,11 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.FunPtr
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified Prelude as P
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Eq, IO, Ord, Show)
 
 {-| Auxiliary type used by 'MyFunctionPointer'
@@ -37,7 +37,7 @@ __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
   { unwrapMyFunctionPointer_Aux :: FC.CInt -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
      (GHC.Int.Int32 -> IO GHC.Int.Int32)
@@ -49,7 +49,7 @@ hs_bindgen_47dfd04698dd2e6f ::
   -> IO (Ptr.FunPtr MyFunctionPointer_Aux)
 hs_bindgen_47dfd04698dd2e6f =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_47dfd04698dd2e6f_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_47dfd04698dd2e6f_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
@@ -61,13 +61,13 @@ hs_bindgen_5738272f94a589e2 ::
   -> MyFunctionPointer_Aux
 hs_bindgen_5738272f94a589e2 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_5738272f94a589e2_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_5738272f94a589e2_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr MyFunctionPointer_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr MyFunctionPointer_Aux where
 
   toFunPtr = hs_bindgen_47dfd04698dd2e6f
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr MyFunctionPointer_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr MyFunctionPointer_Aux where
 
   fromFunPtr = hs_bindgen_5738272f94a589e2
 
@@ -94,7 +94,7 @@ newtype MyFunctionPointer = MyFunctionPointer
   { unwrapMyFunctionPointer :: Ptr.FunPtr MyFunctionPointer_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunctionPointer) "unwrapMyFunctionPointer")
          ) => GHC.Records.HasField "unwrapMyFunctionPointer" (Ptr.Ptr MyFunctionPointer) (Ptr.Ptr ty) where
@@ -119,7 +119,7 @@ newtype A = A
   { unwrapA :: MyFunctionPointer
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 {-| __C declaration:__ @B@
 
@@ -131,4 +131,4 @@ newtype B = B
   { unwrapB :: A
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)

@@ -24,14 +24,14 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.SizedByteArray
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.FunPtr
+import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified Prelude as P
 import Data.Void (Void)
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @int2int@
@@ -43,7 +43,7 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 newtype Int2int = Int2int
   { unwrapInt2int :: FC.CInt -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
      (GHC.Int.Int32 -> IO GHC.Int.Int32)
@@ -55,7 +55,7 @@ hs_bindgen_a6c7dd49f5b9d470 ::
   -> IO (Ptr.FunPtr Int2int)
 hs_bindgen_a6c7dd49f5b9d470 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_a6c7dd49f5b9d470_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_a6c7dd49f5b9d470_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
@@ -67,13 +67,13 @@ hs_bindgen_65378a8a3cf640ad ::
   -> Int2int
 hs_bindgen_65378a8a3cf640ad =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_65378a8a3cf640ad_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_65378a8a3cf640ad_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Int2int where
 
   toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Int2int where
 
   fromFunPtr = hs_bindgen_65378a8a3cf640ad
 
@@ -152,9 +152,9 @@ newtype Apply1Union = Apply1Union
   { unwrapApply1Union :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Apply1Union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Apply1Union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Apply1Union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Apply1Union
 
 {-|
 
@@ -170,7 +170,7 @@ get_apply1Union_apply1_nopointer_union_field ::
      Apply1Union
   -> Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
 get_apply1Union_apply1_nopointer_union_field =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -181,7 +181,7 @@ set_apply1Union_apply1_nopointer_union_field ::
      Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
   -> Apply1Union
 set_apply1Union_apply1_nopointer_union_field =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Apply1Union "apply1Union_apply1_nopointer_union_field" where
 
@@ -206,7 +206,7 @@ hs_bindgen_fe02c1e534fc52ea ::
   -> IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 hs_bindgen_fe02c1e534fc52ea =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_fe02c1e534fc52ea_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_fe02c1e534fc52ea_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139_base ::
      Ptr.FunPtr ((Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO GHC.Int.Int32)
@@ -218,12 +218,12 @@ hs_bindgen_fc27363846cb6139 ::
   -> (Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt
 hs_bindgen_fc27363846cb6139 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_fc27363846cb6139_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_fc27363846cb6139_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt) where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt) where
 
   toFunPtr = hs_bindgen_fe02c1e534fc52ea
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt) where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt) where
 
   fromFunPtr = hs_bindgen_fc27363846cb6139

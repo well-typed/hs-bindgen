@@ -8,13 +8,13 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/adios.h>"
   , "/* test_edgecasesadios_Example_get_\978\978 */"
   , "__attribute__ ((const))"
@@ -37,7 +37,7 @@ foreign import ccall unsafe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒ@
 hs_bindgen_aa137b95cfa81f42 :: IO (Ptr.Ptr FC.CInt)
 hs_bindgen_aa137b95cfa81f42 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_aa137b95cfa81f42_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_aa137b95cfa81f42_base
 
 {-# NOINLINE cϒϒ #-}
 {-| __C declaration:__ @ϒϒ@
@@ -57,7 +57,7 @@ foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
 hs_bindgen_7e61df7271c4ff58 :: IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)
 hs_bindgen_7e61df7271c4ff58 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7e61df7271c4ff58_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7e61df7271c4ff58_base
 
 {-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
 {-| __C declaration:__ @ϒϒϒ@

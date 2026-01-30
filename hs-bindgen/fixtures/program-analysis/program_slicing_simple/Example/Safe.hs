@@ -9,12 +9,12 @@ import qualified Foreign
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program_slicing_simple.h>"
   , "signed int hs_bindgen_48dbbf4b09b5b3c1 ("
   , "  uint64_t arg1,"
@@ -37,7 +37,7 @@ hs_bindgen_48dbbf4b09b5b3c1 ::
   -> Uint32_t
   -> IO FC.CInt
 hs_bindgen_48dbbf4b09b5b3c1 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
 
 {-| __C declaration:__ @bar@
 

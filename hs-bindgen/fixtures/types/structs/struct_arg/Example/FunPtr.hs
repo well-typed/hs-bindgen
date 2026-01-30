@@ -8,13 +8,13 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/structs/struct_arg.h>"
   , "/* test_typesstructsstruct_arg_Example_get_thing_fun_1 */"
   , "__attribute__ ((const))"
@@ -61,7 +61,7 @@ foreign import ccall unsafe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
 hs_bindgen_17a14e7ffaa1e2e5 :: IO (Ptr.FunPtr (Thing -> IO FC.CInt))
 hs_bindgen_17a14e7ffaa1e2e5 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
 
 {-# NOINLINE thing_fun_1 #-}
 {-| __C declaration:__ @thing_fun_1@
@@ -81,7 +81,7 @@ foreign import ccall unsafe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57e
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
 hs_bindgen_91748ffd57eae163 :: IO (Ptr.FunPtr (FC.CInt -> IO Thing))
 hs_bindgen_91748ffd57eae163 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_91748ffd57eae163_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_91748ffd57eae163_base
 
 {-# NOINLINE thing_fun_2 #-}
 {-| __C declaration:__ @thing_fun_2@
@@ -101,7 +101,7 @@ foreign import ccall unsafe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
 hs_bindgen_84d98a03314ff518 :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
 hs_bindgen_84d98a03314ff518 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_84d98a03314ff518_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_84d98a03314ff518_base
 
 {-# NOINLINE thing_fun_3a #-}
 {-| __C declaration:__ @thing_fun_3a@
@@ -121,7 +121,7 @@ foreign import ccall unsafe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b1
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
 hs_bindgen_855ae9088b15005e :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
 hs_bindgen_855ae9088b15005e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_855ae9088b15005e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_855ae9088b15005e_base
 
 {-# NOINLINE thing_fun_3b #-}
 {-| __C declaration:__ @thing_fun_3b@

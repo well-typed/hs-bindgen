@@ -22,10 +22,10 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.SizedByteArray
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 
 {-| __C declaration:__ @union U@
 
@@ -37,9 +37,9 @@ newtype U = U
   { unwrapU :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim U
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim U
 
 {-|
 
@@ -54,7 +54,8 @@ __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 get_u_x ::
      U
   -> FC.CInt
-get_u_x = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_u_x =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -64,7 +65,8 @@ get_u_x = HsBindgen.Runtime.ByteArray.getUnionPayload
 set_u_x ::
      FC.CInt
   -> U
-set_u_x = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_u_x =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField U "u_x" where
 

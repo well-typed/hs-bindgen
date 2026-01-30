@@ -39,33 +39,34 @@ common lang
 library
   import:             lang
   exposed-modules:
-    HsBindgen.Runtime.Bitfield
     HsBindgen.Runtime.BitfieldPtr
     HsBindgen.Runtime.Block
-    HsBindgen.Runtime.ByteArray
-    HsBindgen.Runtime.CAPI
-    HsBindgen.Runtime.CBoolSem
+    HsBindgen.Runtime.CBool
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
-    HsBindgen.Runtime.FFIType
     HsBindgen.Runtime.FLAM
-    HsBindgen.Runtime.FunPtr
     HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
-    HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray
+    HsBindgen.Runtime.Internal.Bitfield
+    HsBindgen.Runtime.Internal.ByteArray
+    HsBindgen.Runtime.Internal.CAPI
     HsBindgen.Runtime.Internal.Deriving
+    HsBindgen.Runtime.Internal.FFIType
+    HsBindgen.Runtime.Internal.FunPtr
+    HsBindgen.Runtime.Internal.HasFFIType
+    HsBindgen.Runtime.Internal.Prelude
+    HsBindgen.Runtime.Internal.Ptr
+    HsBindgen.Runtime.Internal.SizedByteArray
+    HsBindgen.Runtime.Internal.TypeEquality
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.LibC.Auxiliary
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude
-    HsBindgen.Runtime.Ptr
     HsBindgen.Runtime.PtrConst
-    HsBindgen.Runtime.SizedByteArray
-    HsBindgen.Runtime.TypeEquality
 
   other-modules:
-    HsBindgen.Runtime.FunPtr.Class
+    HsBindgen.Runtime.Internal.FunPtr.Class
     HsBindgen.Runtime.TH.Instances
     HsBindgen.Runtime.TH.Types
 
@@ -93,7 +94,7 @@ test-suite test-hs-bindgen-runtime
   main-is:        test-runtime.hs
   other-modules:
     Test.HsBindgen.Runtime.Bitfield
-    Test.HsBindgen.Runtime.CBoolSem
+    Test.HsBindgen.Runtime.CBool
     Test.HsBindgen.Runtime.CEnum
     Test.HsBindgen.Runtime.CEnumArbitrary
     Test.HsBindgen.Runtime.ConstantArray

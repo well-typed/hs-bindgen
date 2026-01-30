@@ -8,13 +8,13 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/flam_functions.h>"
   , "struct Vector *hs_bindgen_231473be98482b20 ("
   , "  signed int arg1"
@@ -46,7 +46,7 @@ hs_bindgen_231473be98482b20 ::
      FC.CInt
   -> IO (Ptr.Ptr Vector)
 hs_bindgen_231473be98482b20 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_231473be98482b20_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_231473be98482b20_base
 
 {-| __C declaration:__ @vector_alloc@
 
@@ -70,7 +70,7 @@ hs_bindgen_d3aecc79bd3c1993 ::
      Ptr.Ptr Vector
   -> IO ()
 hs_bindgen_d3aecc79bd3c1993 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d3aecc79bd3c1993_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d3aecc79bd3c1993_base
 
 {-| __C declaration:__ @vector_free@
 
@@ -94,7 +94,7 @@ hs_bindgen_bfc48cbf5e4cc2ca ::
      Ptr.Ptr Vector
   -> IO ()
 hs_bindgen_bfc48cbf5e4cc2ca =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_bfc48cbf5e4cc2ca_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_bfc48cbf5e4cc2ca_base
 
 {-| __C declaration:__ @vector_reverse@
 

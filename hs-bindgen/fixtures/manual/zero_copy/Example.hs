@@ -24,18 +24,18 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.BitfieldPtr
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.SizedByteArray
+import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import Data.Bits (FiniteBits)
 import GHC.Exts ((*#), (+#))
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @struct point@
@@ -421,9 +421,9 @@ newtype Shape = Shape
   { unwrapShape :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance F.Storable Shape
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance F.Storable Shape
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance Data.Primitive.Types.Prim Shape
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance Data.Primitive.Types.Prim Shape
 
 {-|
 
@@ -439,7 +439,7 @@ get_shape_rectangle ::
      Shape
   -> Rectangle
 get_shape_rectangle =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -450,7 +450,7 @@ set_shape_rectangle ::
      Rectangle
   -> Shape
 set_shape_rectangle =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -466,7 +466,7 @@ get_shape_circle ::
      Shape
   -> Circle
 get_shape_circle =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -477,7 +477,7 @@ set_shape_circle ::
      Circle
   -> Shape
 set_shape_circle =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Shape "shape_rectangle" where
 
@@ -750,7 +750,7 @@ newtype MyInt = MyInt
   { unwrapMyInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Internal.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "unwrapMyInt")
          ) => GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where

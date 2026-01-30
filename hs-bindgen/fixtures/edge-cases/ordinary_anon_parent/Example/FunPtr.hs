@@ -8,12 +8,12 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
   , "/* test_edgecasesordinary_anon_paren_Example_get__acos */"
   , "__attribute__ ((const))"
@@ -32,7 +32,7 @@ foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb0
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
 hs_bindgen_147bbeebcb063844 :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 hs_bindgen_147bbeebcb063844 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_147bbeebcb063844_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_147bbeebcb063844_base
 
 {-# NOINLINE _acos #-}
 {-| __C declaration:__ @_acos@

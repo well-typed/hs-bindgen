@@ -13,7 +13,7 @@ module HsBindgen.Runtime.BitfieldPtr (
 import Data.Kind
 import Foreign.Ptr
 
-import HsBindgen.Runtime.Bitfield as Bitfield
+import HsBindgen.Runtime.Internal.Bitfield as Bitfield
 
 -- | A pointer to a bit-field of a C object
 type BitfieldPtr :: Type -> Type

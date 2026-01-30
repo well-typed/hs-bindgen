@@ -9,14 +9,14 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/enum_as_array_size.h>"
   , "/* test_edgecasesenum_as_array_size_Example_get_test_array */"
   , "__attribute__ ((const))"
@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e3
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
 hs_bindgen_30b94bcf7e387817 :: IO (HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar))
 hs_bindgen_30b94bcf7e387817 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_30b94bcf7e387817_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_30b94bcf7e387817_base
 
 {-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 {-| __C declaration:__ @test_array@

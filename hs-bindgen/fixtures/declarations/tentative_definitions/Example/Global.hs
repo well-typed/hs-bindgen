@@ -8,12 +8,12 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <declarations/tentative_definitions.h>"
   , "/* test_declarationstentative_definit_Example_get_i1 */"
   , "__attribute__ ((const))"
@@ -42,7 +42,7 @@ foreign import ccall unsafe "hs_bindgen_3a9fc2bb34e15eb6" hs_bindgen_3a9fc2bb34e
 -- __unique:__ @test_declarationstentative_definit_Example_get_i1@
 hs_bindgen_3a9fc2bb34e15eb6 :: IO (Ptr.Ptr FC.CInt)
 hs_bindgen_3a9fc2bb34e15eb6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3a9fc2bb34e15eb6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3a9fc2bb34e15eb6_base
 
 {-# NOINLINE i1 #-}
 {-| __C declaration:__ @i1@
@@ -62,7 +62,7 @@ foreign import ccall unsafe "hs_bindgen_831c291120790ea6" hs_bindgen_831c2911207
 -- __unique:__ @test_declarationstentative_definit_Example_get_i2@
 hs_bindgen_831c291120790ea6 :: IO (Ptr.Ptr FC.CInt)
 hs_bindgen_831c291120790ea6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_831c291120790ea6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_831c291120790ea6_base
 
 {-# NOINLINE i2 #-}
 {-| __C declaration:__ @i2@
@@ -82,7 +82,7 @@ foreign import ccall unsafe "hs_bindgen_6c7d3ba4369a4d65" hs_bindgen_6c7d3ba4369
 -- __unique:__ @test_declarationstentative_definit_Example_get_i3@
 hs_bindgen_6c7d3ba4369a4d65 :: IO (Ptr.Ptr FC.CInt)
 hs_bindgen_6c7d3ba4369a4d65 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6c7d3ba4369a4d65_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6c7d3ba4369a4d65_base
 
 {-# NOINLINE i3 #-}
 {-| __C declaration:__ @i3@

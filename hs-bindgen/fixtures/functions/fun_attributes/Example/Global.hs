@@ -8,12 +8,12 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/fun_attributes.h>"
   , "/* test_functionsfun_attributes_Example_get_i */"
   , "__attribute__ ((const))"
@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982d
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
 hs_bindgen_cd32cb4982dd2d1a :: IO (Ptr.Ptr FC.CInt)
 hs_bindgen_cd32cb4982dd2d1a =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
 
 {-# NOINLINE i #-}
 {-| __C declaration:__ @i@

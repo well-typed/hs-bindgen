@@ -8,14 +8,14 @@ module Example.Safe where
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
   , "enum FileOperationStatus hs_bindgen_b2a91b3b7edf2ad3 ("
   , "  FILE *arg1,"
@@ -41,7 +41,7 @@ hs_bindgen_b2a91b3b7edf2ad3 ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO FileOperationStatus
 hs_bindgen_b2a91b3b7edf2ad3 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
 
 {-| __C declaration:__ @read_file_chunk@
 

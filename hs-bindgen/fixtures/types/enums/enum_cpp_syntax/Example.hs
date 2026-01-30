@@ -14,7 +14,7 @@ import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -29,7 +29,7 @@ newtype Foo_enum = Foo_enum
   { unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable Foo_enum where
 

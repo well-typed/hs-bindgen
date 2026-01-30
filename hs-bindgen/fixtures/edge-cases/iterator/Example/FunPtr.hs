@@ -8,13 +8,13 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/iterator.h>"
   , "/* test_edgecasesiterator_Example_get_makeToggle */"
   , "__attribute__ ((const))"
@@ -99,7 +99,7 @@ foreign import ccall unsafe "hs_bindgen_ccdad25a057f8efd" hs_bindgen_ccdad25a057
 -- __unique:__ @test_edgecasesiterator_Example_get_makeToggle@
 hs_bindgen_ccdad25a057f8efd :: IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
 hs_bindgen_ccdad25a057f8efd =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ccdad25a057f8efd_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ccdad25a057f8efd_base
 
 {-# NOINLINE makeToggle #-}
 {-| __C declaration:__ @makeToggle@
@@ -119,7 +119,7 @@ foreign import ccall unsafe "hs_bindgen_fd8e19ba2d78baa9" hs_bindgen_fd8e19ba2d7
 -- __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
 hs_bindgen_fd8e19ba2d78baa9 :: IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
 hs_bindgen_fd8e19ba2d78baa9 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fd8e19ba2d78baa9_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fd8e19ba2d78baa9_base
 
 {-# NOINLINE toggleNext #-}
 {-| __C declaration:__ @toggleNext@
@@ -139,7 +139,7 @@ foreign import ccall unsafe "hs_bindgen_780e490698de9df1" hs_bindgen_780e490698d
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
 hs_bindgen_780e490698de9df1 :: IO (Ptr.FunPtr (Toggle -> IO ()))
 hs_bindgen_780e490698de9df1 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_780e490698de9df1_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_780e490698de9df1_base
 
 {-# NOINLINE releaseToggle #-}
 {-| __C declaration:__ @releaseToggle@
@@ -159,7 +159,7 @@ foreign import ccall unsafe "hs_bindgen_517dd14dbdb5e3ba" hs_bindgen_517dd14dbdb
 -- __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
 hs_bindgen_517dd14dbdb5e3ba :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
 hs_bindgen_517dd14dbdb5e3ba =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_517dd14dbdb5e3ba_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_517dd14dbdb5e3ba_base
 
 {-# NOINLINE makeCounter #-}
 {-| __C declaration:__ @makeCounter@
@@ -179,7 +179,7 @@ foreign import ccall unsafe "hs_bindgen_28d81dd8ce6aca30" hs_bindgen_28d81dd8ce6
 -- __unique:__ @test_edgecasesiterator_Example_get_counterNext@
 hs_bindgen_28d81dd8ce6aca30 :: IO (Ptr.FunPtr (Counter -> IO FC.CInt))
 hs_bindgen_28d81dd8ce6aca30 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_28d81dd8ce6aca30_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_28d81dd8ce6aca30_base
 
 {-# NOINLINE counterNext #-}
 {-| __C declaration:__ @counterNext@
@@ -199,7 +199,7 @@ foreign import ccall unsafe "hs_bindgen_849de94baad0430a" hs_bindgen_849de94baad
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
 hs_bindgen_849de94baad0430a :: IO (Ptr.FunPtr (Counter -> IO ()))
 hs_bindgen_849de94baad0430a =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_849de94baad0430a_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_849de94baad0430a_base
 
 {-# NOINLINE releaseCounter #-}
 {-| __C declaration:__ @releaseCounter@
@@ -219,7 +219,7 @@ foreign import ccall unsafe "hs_bindgen_8eea20d99febeef3" hs_bindgen_8eea20d99fe
 -- __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
 hs_bindgen_8eea20d99febeef3 :: IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
 hs_bindgen_8eea20d99febeef3 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8eea20d99febeef3_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8eea20d99febeef3_base
 
 {-# NOINLINE makeVarCounter #-}
 {-| __C declaration:__ @makeVarCounter@
@@ -239,7 +239,7 @@ foreign import ccall unsafe "hs_bindgen_3ae982266c863a3d" hs_bindgen_3ae982266c8
 -- __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
 hs_bindgen_3ae982266c863a3d :: IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
 hs_bindgen_3ae982266c863a3d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3ae982266c863a3d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3ae982266c863a3d_base
 
 {-# NOINLINE varCounterNext #-}
 {-| __C declaration:__ @varCounterNext@
@@ -259,7 +259,7 @@ foreign import ccall unsafe "hs_bindgen_802a723805cb041f" hs_bindgen_802a723805c
 -- __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
 hs_bindgen_802a723805cb041f :: IO (Ptr.FunPtr (VarCounter -> IO ()))
 hs_bindgen_802a723805cb041f =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_802a723805cb041f_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_802a723805cb041f_base
 
 {-# NOINLINE releaseVarCounter #-}
 {-| __C declaration:__ @releaseVarCounter@

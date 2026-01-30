@@ -7,13 +7,13 @@ module Example.Safe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/union.h>"
   , "void hs_bindgen_5da9ad143faecbca ("
   , "  union MyUnion *arg1"
@@ -45,7 +45,7 @@ hs_bindgen_5da9ad143faecbca ::
      Ptr.Ptr MyUnion
   -> IO ()
 hs_bindgen_5da9ad143faecbca =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5da9ad143faecbca_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_5da9ad143faecbca_base
 
 {-| __C declaration:__ @foo@
 
@@ -71,7 +71,7 @@ hs_bindgen_f70ba8b74da026b3 ::
      Ptr.Ptr A
   -> IO ()
 hs_bindgen_f70ba8b74da026b3 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f70ba8b74da026b3_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f70ba8b74da026b3_base
 
 {-| __C declaration:__ @fooA@
 
@@ -97,7 +97,7 @@ hs_bindgen_89e946b10b5189a6 ::
      Ptr.Ptr B
   -> IO ()
 hs_bindgen_89e946b10b5189a6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_89e946b10b5189a6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_89e946b10b5189a6_base
 
 {-| __C declaration:__ @fooB@
 

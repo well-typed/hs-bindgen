@@ -20,9 +20,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import GHC.Exts ((*#), (+#))
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
 
 {-| __C declaration:__ @struct point1a@
@@ -307,7 +307,7 @@ newtype Point2b = Point2b
   { unwrapPoint2b :: Ptr.Ptr Point2a
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2b) "unwrapPoint2b")
          ) => GHC.Records.HasField "unwrapPoint2b" (Ptr.Ptr Point2b) (Ptr.Ptr ty) where
@@ -456,7 +456,7 @@ newtype Point3a = Point3a
   { unwrapPoint3a :: Ptr.Ptr Point3a_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a) "unwrapPoint3a")
          ) => GHC.Records.HasField "unwrapPoint3a" (Ptr.Ptr Point3a) (Ptr.Ptr ty) where
@@ -481,7 +481,7 @@ newtype Point3b = Point3b
   { unwrapPoint3b :: Ptr.Ptr Point3a_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3b) "unwrapPoint3b")
          ) => GHC.Records.HasField "unwrapPoint3b" (Ptr.Ptr Point3b) (Ptr.Ptr ty) where

@@ -7,11 +7,11 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
   , "void hs_bindgen_a1252a3becef09a6 ("
   , "  signed int arg1"
@@ -31,7 +31,7 @@ hs_bindgen_a1252a3becef09a6 ::
      FC.CInt
   -> IO ()
 hs_bindgen_a1252a3becef09a6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a1252a3becef09a6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a1252a3becef09a6_base
 
 {-| __C declaration:__ @fun2@
 

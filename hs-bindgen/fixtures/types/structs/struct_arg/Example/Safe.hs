@@ -9,13 +9,13 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (Double, IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/structs/struct_arg.h>"
   , "signed int hs_bindgen_4ad25504590fdd2b ("
   , "  struct thing *arg1"
@@ -59,7 +59,7 @@ hs_bindgen_4ad25504590fdd2b ::
      Ptr.Ptr Thing
   -> IO FC.CInt
 hs_bindgen_4ad25504590fdd2b =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4ad25504590fdd2b_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4ad25504590fdd2b_base
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -87,7 +87,7 @@ hs_bindgen_04a435522bf64978 ::
   -> Ptr.Ptr Thing
   -> IO ()
 hs_bindgen_04a435522bf64978 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_04a435522bf64978_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_04a435522bf64978_base
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -101,8 +101,8 @@ thing_fun_2 ::
   -> IO Thing
 thing_fun_2 =
   \x0 ->
-    HsBindgen.Runtime.CAPI.allocaAndPeek (\res1 ->
-                                            hs_bindgen_04a435522bf64978 x0 res1)
+    HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
+                                                     hs_bindgen_04a435522bf64978 x0 res1)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2_base ::
@@ -120,7 +120,7 @@ hs_bindgen_5e3271324df7ced2 ::
   -> Ptr.Ptr Thing
   -> IO ()
 hs_bindgen_5e3271324df7ced2 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5e3271324df7ced2_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_5e3271324df7ced2_base
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -141,8 +141,8 @@ thing_fun_3a =
     \y1 ->
       \z2 ->
         F.with y1 (\y3 ->
-                     HsBindgen.Runtime.CAPI.allocaAndPeek (\res4 ->
-                                                             hs_bindgen_5e3271324df7ced2 x0 y3 z2 res4))
+                     HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res4 ->
+                                                                      hs_bindgen_5e3271324df7ced2 x0 y3 z2 res4))
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae_base ::
@@ -158,7 +158,7 @@ hs_bindgen_3525c7d1c72f2fae ::
   -> FC.CDouble
   -> IO FC.CChar
 hs_bindgen_3525c7d1c72f2fae =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3525c7d1c72f2fae_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3525c7d1c72f2fae_base
 
 {-| __C declaration:__ @thing_fun_3b@
 

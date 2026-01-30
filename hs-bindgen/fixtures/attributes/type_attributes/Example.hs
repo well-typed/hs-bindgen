@@ -25,15 +25,15 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.Bitfield
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
-import qualified HsBindgen.Runtime.SizedByteArray
+import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import Data.Bits (FiniteBits)
 import GHC.Exts ((*#), (+#))
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @struct S@
@@ -94,7 +94,7 @@ newtype More_aligned_int = More_aligned_int
   { unwrapMore_aligned_int :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Internal.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType More_aligned_int) "unwrapMore_aligned_int")
          ) => GHC.Records.HasField "unwrapMore_aligned_int" (Ptr.Ptr More_aligned_int) (Ptr.Ptr ty) where
@@ -449,9 +449,9 @@ newtype Wait_status_ptr_t = Wait_status_ptr_t
   { unwrapWait_status_ptr_t :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Wait_status_ptr_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Wait_status_ptr_t
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Wait_status_ptr_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Wait_status_ptr_t
 
 {-|
 
@@ -467,7 +467,7 @@ get_wait_status_ptr_t___ip ::
      Wait_status_ptr_t
   -> Ptr.Ptr FC.CInt
 get_wait_status_ptr_t___ip =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -478,7 +478,7 @@ set_wait_status_ptr_t___ip ::
      Ptr.Ptr FC.CInt
   -> Wait_status_ptr_t
 set_wait_status_ptr_t___ip =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -494,7 +494,7 @@ get_wait_status_ptr_t___up ::
      Wait_status_ptr_t
   -> Ptr.Ptr Wait
 get_wait_status_ptr_t___up =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -505,7 +505,7 @@ set_wait_status_ptr_t___up ::
      Ptr.Ptr Wait
   -> Wait_status_ptr_t
 set_wait_status_ptr_t___up =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___ip" where
 
@@ -551,7 +551,7 @@ newtype T1 = T1
   { unwrapT1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Internal.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "unwrapT1")
          ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
@@ -575,7 +575,7 @@ newtype Short_a = Short_a
   { unwrapShort_a :: FC.CShort
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Internal.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Short_a) "unwrapShort_a")
          ) => GHC.Records.HasField "unwrapShort_a" (Ptr.Ptr Short_a) (Ptr.Ptr ty) where
