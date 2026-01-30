@@ -260,28 +260,28 @@ resolveGlobal = \case
     -- However, once #1061 is addressed this should no longer be a problem
     --
     ToFunPtr_class        -> let s = "ToFunPtr"
-                                 m = Just "HsBindgen.Runtime.FunPtr"
+                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
                               in ResolvedName{
                                     string   = s
                                   , typ      = nameType s
                                   , hsImport = fmap (QualifiedHsImport . moduleOf s) m
                                   }
     ToFunPtr_toFunPtr     -> let s = "toFunPtr"
-                                 m = Just "HsBindgen.Runtime.FunPtr"
+                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
                               in ResolvedName{
                                     string   = s
                                   , typ      = nameType s
                                   , hsImport = fmap (QualifiedHsImport . moduleOf s) m
                                   }
     FromFunPtr_class      -> let s = "FromFunPtr"
-                                 m = Just "HsBindgen.Runtime.FunPtr"
+                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
                               in ResolvedName{
                                     string   = s
                                   , typ      = nameType s
                                   , hsImport = fmap (QualifiedHsImport . moduleOf s) m
                                   }
     FromFunPtr_fromFunPtr -> let s = "fromFunPtr"
-                                 m = Just "HsBindgen.Runtime.FunPtr"
+                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
                               in ResolvedName{
                                     string   = s
                                   , typ      = nameType s

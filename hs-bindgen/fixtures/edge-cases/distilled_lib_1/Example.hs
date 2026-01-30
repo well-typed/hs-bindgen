@@ -30,9 +30,9 @@ import qualified GHC.Records
 import qualified GHC.Word
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
@@ -828,11 +828,11 @@ hs_bindgen_d6debb4b8d5bb869 =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Callback_t_Aux where
 
   toFunPtr = hs_bindgen_b6b6922e35047658
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Callback_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Callback_t_Aux where
 
   fromFunPtr = hs_bindgen_d6debb4b8d5bb869
 

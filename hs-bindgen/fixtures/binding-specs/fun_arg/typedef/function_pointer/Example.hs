@@ -19,8 +19,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified M
@@ -65,11 +65,11 @@ hs_bindgen_cdb12400c6863f15 =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_cdb12400c6863f15_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr A_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr A_Aux where
 
   toFunPtr = hs_bindgen_1cabb32c661d9a0e
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr A_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr A_Aux where
 
   fromFunPtr = hs_bindgen_cdb12400c6863f15
 

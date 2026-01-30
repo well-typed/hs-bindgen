@@ -34,11 +34,11 @@ import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.LibC
@@ -300,11 +300,11 @@ hs_bindgen_9e9d478c2d75628c =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_9e9d478c2d75628c_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Event_callback_t_Aux where
 
   toFunPtr = hs_bindgen_111918b0aee2a7fb
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Event_callback_t_Aux where
 
   fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
@@ -1171,11 +1171,11 @@ hs_bindgen_0d4b3d0461629423 =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_0d4b3d0461629423_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Processor_fn_t_Aux where
 
   toFunPtr = hs_bindgen_d4e16471c82d5df0
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Processor_fn_t_Aux where
 
   fromFunPtr = hs_bindgen_0d4b3d0461629423
 

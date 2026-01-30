@@ -5,14 +5,13 @@
 --
 -- This module provides a type class 'ToFunPtr' that allows for a uniform
 -- interface to convert Haskell functions to C function pointers.
-module HsBindgen.Runtime.FunPtr.Class (
+module HsBindgen.Runtime.Internal.FunPtr.Class (
     -- * Type class
     ToFunPtr(..)
   , FromFunPtr(..)
 
     -- * Utilities
   , withFunPtr
-
   ) where
 
 import Control.Exception (bracket)

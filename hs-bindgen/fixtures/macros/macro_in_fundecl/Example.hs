@@ -23,9 +23,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
@@ -255,11 +255,11 @@ hs_bindgen_c7a8adce35e64925 =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_c7a8adce35e64925_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr (FC.CShort -> IO I) where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr (FC.CShort -> IO I) where
 
   toFunPtr = hs_bindgen_074b9de694d8f359
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr (FC.CShort -> IO I) where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr (FC.CShort -> IO I) where
 
   fromFunPtr = hs_bindgen_c7a8adce35e64925
 
@@ -287,10 +287,10 @@ hs_bindgen_9c8a77fe3560cebd =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_9c8a77fe3560cebd_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr (S -> IO FC.CInt) where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr (S -> IO FC.CInt) where
 
   toFunPtr = hs_bindgen_ffdbafa239adf14e
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr (S -> IO FC.CInt) where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr (S -> IO FC.CInt) where
 
   fromFunPtr = hs_bindgen_9c8a77fe3560cebd

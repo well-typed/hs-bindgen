@@ -19,8 +19,8 @@ import qualified Data.Proxy
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
@@ -65,11 +65,11 @@ hs_bindgen_f8391e85af67fcb6 =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_f8391e85af67fcb6_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Fun_ptr_Aux where
 
   toFunPtr = hs_bindgen_5964bbadb359ee4a
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Fun_ptr_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Fun_ptr_Aux where
 
   fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
@@ -195,10 +195,10 @@ hs_bindgen_b3640137a9cf92cc =
   \funPtr0 ->
     HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_b3640137a9cf92cc_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
 
   toFunPtr = hs_bindgen_fbe9c5dca66824d3
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
 
   fromFunPtr = hs_bindgen_b3640137a9cf92cc

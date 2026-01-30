@@ -45,7 +45,6 @@ library
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
     HsBindgen.Runtime.FLAM
-    HsBindgen.Runtime.FunPtr
     HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.IncompleteArray
@@ -54,19 +53,20 @@ library
     HsBindgen.Runtime.Internal.CAPI
     HsBindgen.Runtime.Internal.Deriving
     HsBindgen.Runtime.Internal.FFIType
+    HsBindgen.Runtime.Internal.FunPtr
     HsBindgen.Runtime.Internal.HasFFIType
     HsBindgen.Runtime.Internal.Prelude
+    HsBindgen.Runtime.Internal.Ptr
     HsBindgen.Runtime.Internal.SizedByteArray
     HsBindgen.Runtime.Internal.TypeEquality
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.LibC.Auxiliary
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude
-    HsBindgen.Runtime.Ptr
     HsBindgen.Runtime.PtrConst
 
   other-modules:
-    HsBindgen.Runtime.FunPtr.Class
+    HsBindgen.Runtime.Internal.FunPtr.Class
     HsBindgen.Runtime.TH.Instances
     HsBindgen.Runtime.TH.Types
 
