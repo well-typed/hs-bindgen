@@ -6,8 +6,8 @@
 module Example.Unsafe where
 
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Example
 import Prelude (IO)
 
@@ -31,7 +31,7 @@ hs_bindgen_93ed1628a0edf6b0 ::
      A
   -> IO ()
 hs_bindgen_93ed1628a0edf6b0 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_93ed1628a0edf6b0_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_93ed1628a0edf6b0_base
 
 {-| __C declaration:__ @f@
 

@@ -8,8 +8,8 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
@@ -45,7 +45,7 @@ hs_bindgen_350cceac1101d344 ::
   -> Ptr.Ptr Vector
   -> IO FC.CInt
 hs_bindgen_350cceac1101d344 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_350cceac1101d344_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_350cceac1101d344_base
 
 {-| __C declaration:__ @reverse@
 
@@ -73,7 +73,7 @@ hs_bindgen_2ff371c815d92b04 ::
   -> Ptr.Ptr Matrix
   -> IO ()
 hs_bindgen_2ff371c815d92b04 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2ff371c815d92b04_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2ff371c815d92b04_base
 
 {-| __C declaration:__ @transpose@
 

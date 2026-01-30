@@ -6,8 +6,8 @@
 module Example.Unsafe where
 
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -44,7 +44,7 @@ hs_bindgen_969f916bf9590709 ::
      Ptr.Ptr MyArray
   -> IO ()
 hs_bindgen_969f916bf9590709 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_969f916bf9590709_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_969f916bf9590709_base
 
 {-| __C declaration:__ @foo@
 
@@ -68,7 +68,7 @@ hs_bindgen_fb89f30695d9a112 ::
      Ptr.Ptr A
   -> IO ()
 hs_bindgen_fb89f30695d9a112 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fb89f30695d9a112_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fb89f30695d9a112_base
 
 {-| __C declaration:__ @fooA@
 
@@ -92,7 +92,7 @@ hs_bindgen_6882cd6e82766148 ::
      Ptr.Ptr B
   -> IO ()
 hs_bindgen_6882cd6e82766148 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6882cd6e82766148_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6882cd6e82766148_base
 
 {-| __C declaration:__ @fooB@
 

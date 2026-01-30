@@ -25,9 +25,9 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
@@ -124,7 +124,7 @@ newtype ConstInt = ConstInt
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits

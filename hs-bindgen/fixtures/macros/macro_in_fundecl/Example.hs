@@ -25,8 +25,8 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Bits (FiniteBits)
@@ -48,7 +48,7 @@ newtype I = I
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -88,7 +88,7 @@ newtype C = C
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -128,7 +128,7 @@ newtype F = F
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , Enum
     , Floating
@@ -166,7 +166,7 @@ newtype L = L
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -206,7 +206,7 @@ newtype S = S
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -241,7 +241,7 @@ hs_bindgen_074b9de694d8f359 ::
   -> IO (Ptr.FunPtr (FC.CShort -> IO I))
 hs_bindgen_074b9de694d8f359 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_074b9de694d8f359_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_074b9de694d8f359_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_c7a8adce35e64925_base ::
      Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32)
@@ -253,7 +253,7 @@ hs_bindgen_c7a8adce35e64925 ::
   -> FC.CShort -> IO I
 hs_bindgen_c7a8adce35e64925 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_c7a8adce35e64925_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_c7a8adce35e64925_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (FC.CShort -> IO I) where
 
@@ -273,7 +273,7 @@ hs_bindgen_ffdbafa239adf14e ::
   -> IO (Ptr.FunPtr (S -> IO FC.CInt))
 hs_bindgen_ffdbafa239adf14e =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_ffdbafa239adf14e_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_ffdbafa239adf14e_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_9c8a77fe3560cebd_base ::
      Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32)
@@ -285,7 +285,7 @@ hs_bindgen_9c8a77fe3560cebd ::
   -> S -> IO FC.CInt
 hs_bindgen_9c8a77fe3560cebd =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_9c8a77fe3560cebd_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_9c8a77fe3560cebd_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (S -> IO FC.CInt) where
 

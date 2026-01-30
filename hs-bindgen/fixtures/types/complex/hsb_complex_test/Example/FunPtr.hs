@@ -9,8 +9,8 @@ import qualified Data.Complex
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -43,7 +43,7 @@ foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea7411
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
 hs_bindgen_29b4fea741132943 :: IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)))
 hs_bindgen_29b4fea741132943 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_29b4fea741132943_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_29b4fea741132943_base
 
 {-# NOINLINE multiply_complex_f #-}
 {-| __C declaration:__ @multiply_complex_f@
@@ -63,7 +63,7 @@ foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
 hs_bindgen_b53577d6ad8dd36c :: IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)))
 hs_bindgen_b53577d6ad8dd36c =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
 
 {-# NOINLINE add_complex #-}
 {-| __C declaration:__ @add_complex@

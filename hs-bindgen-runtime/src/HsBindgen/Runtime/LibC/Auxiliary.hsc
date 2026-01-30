@@ -39,8 +39,8 @@ import GHC.Records (HasField (..))
 
 import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
-import HsBindgen.Runtime.HasFFIType (HasFFIType)
 import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
+import HsBindgen.Runtime.Internal.HasFFIType (HasFFIType)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import HsBindgen.Runtime.Marshal
 

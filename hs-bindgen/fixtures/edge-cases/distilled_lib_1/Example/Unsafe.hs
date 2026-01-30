@@ -8,9 +8,9 @@ module Example.Unsafe where
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
@@ -42,7 +42,7 @@ hs_bindgen_2a91c367a9380a63 ::
   -> Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8)
   -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_2a91c367a9380a63 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2a91c367a9380a63_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2a91c367a9380a63_base
 
 {-| __C declaration:__ @some_fun@
 

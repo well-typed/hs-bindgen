@@ -22,8 +22,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
@@ -44,7 +44,7 @@ newtype Adio'0301s = Adio'0301s
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -85,7 +85,7 @@ newtype C数字 = C数字
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits

@@ -26,8 +26,8 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
@@ -48,7 +48,7 @@ newtype MyInt = MyInt
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -88,7 +88,7 @@ newtype MyUInt = MyUInt
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -128,7 +128,7 @@ newtype MyLong = MyLong
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits

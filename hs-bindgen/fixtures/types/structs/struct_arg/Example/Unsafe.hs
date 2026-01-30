@@ -9,8 +9,8 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (Double, IO)
@@ -59,7 +59,7 @@ hs_bindgen_0bdddf60550fc97b ::
      Ptr.Ptr Thing
   -> IO FC.CInt
 hs_bindgen_0bdddf60550fc97b =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0bdddf60550fc97b_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0bdddf60550fc97b_base
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -87,7 +87,7 @@ hs_bindgen_c293d866e22be6fc ::
   -> Ptr.Ptr Thing
   -> IO ()
 hs_bindgen_c293d866e22be6fc =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c293d866e22be6fc_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c293d866e22be6fc_base
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -120,7 +120,7 @@ hs_bindgen_cfd51a9e490a997c ::
   -> Ptr.Ptr Thing
   -> IO ()
 hs_bindgen_cfd51a9e490a997c =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cfd51a9e490a997c_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cfd51a9e490a997c_base
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -158,7 +158,7 @@ hs_bindgen_23fac8ee5044da6e ::
   -> FC.CDouble
   -> IO FC.CChar
 hs_bindgen_23fac8ee5044da6e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_23fac8ee5044da6e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_23fac8ee5044da6e_base
 
 {-| __C declaration:__ @thing_fun_3b@
 

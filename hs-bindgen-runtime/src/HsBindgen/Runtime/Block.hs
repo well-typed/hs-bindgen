@@ -11,7 +11,7 @@ module HsBindgen.Runtime.Block (
 
 import Foreign (Ptr)
 
-import HsBindgen.Runtime.HasFFIType (HasFFIType, ViaNewtype (..))
+import HsBindgen.Runtime.Internal.HasFFIType (HasFFIType, ViaNewtype (..))
 
 {-------------------------------------------------------------------------------
   Definition

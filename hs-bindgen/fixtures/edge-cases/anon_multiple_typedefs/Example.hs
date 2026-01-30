@@ -20,7 +20,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
@@ -217,7 +217,7 @@ newtype Point2b = Point2b
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2b) "unwrapPoint2b")
@@ -322,7 +322,7 @@ newtype Point3a = Point3a
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a) "unwrapPoint3a")
@@ -353,7 +353,7 @@ newtype Point3b = Point3b
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3b) "unwrapPoint3b")

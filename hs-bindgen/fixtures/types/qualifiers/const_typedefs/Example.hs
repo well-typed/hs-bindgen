@@ -28,8 +28,8 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
@@ -52,7 +52,7 @@ newtype I = I
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -137,7 +137,7 @@ newtype E = E
   { unwrapE :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize E where
 
@@ -241,7 +241,7 @@ newtype TI = TI
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -339,7 +339,7 @@ newtype TE = TE
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     )
 
@@ -370,7 +370,7 @@ newtype TTI = TTI
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -468,7 +468,7 @@ newtype TTE = TTE
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     )
 

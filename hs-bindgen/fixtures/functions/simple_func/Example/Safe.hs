@@ -7,8 +7,8 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (Double, IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
@@ -54,7 +54,7 @@ hs_bindgen_1c811bfb80de8f77 ::
      FC.CDouble
   -> FC.CDouble
 hs_bindgen_1c811bfb80de8f77 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1c811bfb80de8f77_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1c811bfb80de8f77_base
 
 {-|
 
@@ -86,7 +86,7 @@ hs_bindgen_180022d3518c53bd ::
   -> FC.CDouble
   -> IO FC.CDouble
 hs_bindgen_180022d3518c53bd =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_180022d3518c53bd_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_180022d3518c53bd_base
 
 {-| __C declaration:__ @bad_fma@
 
@@ -111,7 +111,7 @@ foreign import ccall safe "hs_bindgen_d72558f6f977200c" hs_bindgen_d72558f6f9772
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
 hs_bindgen_d72558f6f977200c :: IO ()
 hs_bindgen_d72558f6f977200c =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d72558f6f977200c_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d72558f6f977200c_base
 
 {-| __C declaration:__ @no_args@
 
@@ -129,7 +129,7 @@ foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" hs_bindgen_d8523e2ccea5c
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
 hs_bindgen_d8523e2ccea5c7ba :: IO ()
 hs_bindgen_d8523e2ccea5c7ba =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -152,7 +152,7 @@ hs_bindgen_48cbd3cd1c6e874f ::
   -> FC.CDouble
   -> IO FC.CInt
 hs_bindgen_48cbd3cd1c6e874f =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_48cbd3cd1c6e874f_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_48cbd3cd1c6e874f_base
 
 {-| __C declaration:__ @fun@
 

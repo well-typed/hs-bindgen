@@ -21,7 +21,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Void (Void)
@@ -39,7 +39,7 @@ __exported by:__ @functions\/circular_dependency_fun.h@
 newtype Fun_ptr_Aux = Fun_ptr_Aux
   { unwrapFun_ptr_Aux :: (Ptr.Ptr Forward_declaration) -> IO ()
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
      ((Ptr.Ptr Void) -> IO ())
@@ -51,7 +51,7 @@ hs_bindgen_5964bbadb359ee4a ::
   -> IO (Ptr.FunPtr Fun_ptr_Aux)
 hs_bindgen_5964bbadb359ee4a =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
      Ptr.FunPtr ((Ptr.Ptr Void) -> IO ())
@@ -63,7 +63,7 @@ hs_bindgen_f8391e85af67fcb6 ::
   -> Fun_ptr_Aux
 hs_bindgen_f8391e85af67fcb6 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_f8391e85af67fcb6_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_f8391e85af67fcb6_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Aux where
 
@@ -101,7 +101,7 @@ newtype Fun_ptr = Fun_ptr
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "unwrapFun_ptr")
@@ -181,7 +181,7 @@ hs_bindgen_fbe9c5dca66824d3 ::
   -> IO (Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ()))
 hs_bindgen_fbe9c5dca66824d3 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_fbe9c5dca66824d3_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_fbe9c5dca66824d3_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_b3640137a9cf92cc_base ::
      Ptr.FunPtr ((Ptr.Ptr Void) -> IO ())
@@ -193,7 +193,7 @@ hs_bindgen_b3640137a9cf92cc ::
   -> (Ptr.Ptr Forward_declaration) -> IO ()
 hs_bindgen_b3640137a9cf92cc =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_b3640137a9cf92cc_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_b3640137a9cf92cc_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
 

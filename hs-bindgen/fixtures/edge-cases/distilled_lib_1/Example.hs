@@ -32,8 +32,8 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
@@ -131,7 +131,7 @@ newtype Another_typedef_enum_e = Another_typedef_enum_e
   { unwrapAnother_typedef_enum_e :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Another_typedef_enum_e where
 
@@ -274,7 +274,7 @@ newtype A_type_t = A_type_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -314,7 +314,7 @@ newtype Var_t = Var_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
@@ -670,7 +670,7 @@ newtype A_typedef_enum_e = A_typedef_enum_e
   { unwrapA_typedef_enum_e :: FC.CUChar
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A_typedef_enum_e where
 
@@ -802,7 +802,7 @@ __exported by:__ @edge-cases\/distilled_lib_1.h@
 newtype Callback_t_Aux = Callback_t_Aux
   { unwrapCallback_t_Aux :: (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
      ((Ptr.Ptr Void) -> GHC.Word.Word32 -> IO GHC.Word.Word32)
@@ -814,7 +814,7 @@ hs_bindgen_b6b6922e35047658 ::
   -> IO (Ptr.FunPtr Callback_t_Aux)
 hs_bindgen_b6b6922e35047658 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_b6b6922e35047658_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_b6b6922e35047658_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
      Ptr.FunPtr ((Ptr.Ptr Void) -> GHC.Word.Word32 -> IO GHC.Word.Word32)
@@ -826,7 +826,7 @@ hs_bindgen_d6debb4b8d5bb869 ::
   -> Callback_t_Aux
 hs_bindgen_d6debb4b8d5bb869 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_d6debb4b8d5bb869_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Aux where
 
@@ -864,7 +864,7 @@ newtype Callback_t = Callback_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t) "unwrapCallback_t")

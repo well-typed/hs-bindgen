@@ -48,11 +48,11 @@ import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
 import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
-import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
 import HsBindgen.Runtime.Internal.ByteArray qualified
 import HsBindgen.Runtime.Internal.CAPI qualified
+import HsBindgen.Runtime.Internal.HasFFIType qualified
 import HsBindgen.Runtime.Internal.SizedByteArray qualified
 import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
@@ -365,11 +365,11 @@ resolveGlobal = \case
     Proxy_constructor -> importQ 'Data.Proxy.Proxy
 
     -- HasFFIType
-    HasFFIType_class                 -> importQ ''HsBindgen.Runtime.HasFFIType.HasFFIType
-    HasFFIType_fromFFIType           -> importQ 'HsBindgen.Runtime.HasFFIType.fromFFIType
-    HasFFIType_toFFIType             -> importQ 'HsBindgen.Runtime.HasFFIType.toFFIType
-    HasFFIType_castFunPtrFromFFIType -> importQ 'HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType
-    HasFFIType_castFunPtrToFFIType   -> importQ 'HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType
+    HasFFIType_class                 -> importQ ''HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    HasFFIType_fromFFIType           -> importQ 'HsBindgen.Runtime.Internal.HasFFIType.fromFFIType
+    HasFFIType_toFFIType             -> importQ 'HsBindgen.Runtime.Internal.HasFFIType.toFFIType
+    HasFFIType_castFunPtrFromFFIType -> importQ 'HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType
+    HasFFIType_castFunPtrToFFIType   -> importQ 'HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType
 
     -- Functor
     Functor_fmap -> importQ 'fmap

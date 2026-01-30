@@ -6,8 +6,8 @@
 module Example.Unsafe where
 
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
@@ -42,7 +42,7 @@ hs_bindgen_f9f2776d121db261 ::
   -> Ptr.Ptr Matrix
   -> IO ()
 hs_bindgen_f9f2776d121db261 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f9f2776d121db261_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f9f2776d121db261_base
 
 {-| __C declaration:__ @transpose@
 
@@ -68,7 +68,7 @@ hs_bindgen_e43b4d44aa0abd14 ::
      Ptr.Ptr Triplet_ptrs
   -> IO ()
 hs_bindgen_e43b4d44aa0abd14 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e43b4d44aa0abd14_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e43b4d44aa0abd14_base
 
 {-| A function that prints the given triplet_ptrs
 

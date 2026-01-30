@@ -10,9 +10,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
@@ -80,7 +80,7 @@ hs_bindgen_57b00b79dd5b838e ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_57b00b79dd5b838e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_57b00b79dd5b838e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_57b00b79dd5b838e_base
 
 {-| __C declaration:__ @foo@
 
@@ -104,7 +104,7 @@ hs_bindgen_b75122693c32e26c ::
      HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_b75122693c32e26c =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b75122693c32e26c_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b75122693c32e26c_base
 
 {-| __C declaration:__ @foo_const@
 
@@ -128,7 +128,7 @@ hs_bindgen_595b7d50222e502a ::
      Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_595b7d50222e502a =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_595b7d50222e502a_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_595b7d50222e502a_base
 
 {-| __C declaration:__ @bar@
 
@@ -152,7 +152,7 @@ hs_bindgen_1e0c14a0ed027681 ::
      HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_1e0c14a0ed027681 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1e0c14a0ed027681_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1e0c14a0ed027681_base
 
 {-| __C declaration:__ @bar_const@
 
@@ -176,7 +176,7 @@ hs_bindgen_39849d83dadd53d9 ::
      Ptr.Ptr Matrix
   -> IO FC.CInt
 hs_bindgen_39849d83dadd53d9 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_39849d83dadd53d9_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_39849d83dadd53d9_base
 
 {-| __C declaration:__ @baz@
 
@@ -200,7 +200,7 @@ hs_bindgen_0c873d371c129e78 ::
      HsBindgen.Runtime.PtrConst.PtrConst Matrix
   -> IO FC.CInt
 hs_bindgen_0c873d371c129e78 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0c873d371c129e78_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0c873d371c129e78_base
 
 {-| __C declaration:__ @baz_const@
 
@@ -224,7 +224,7 @@ hs_bindgen_a364da5adecafb37 ::
      Ptr.Ptr Triplets
   -> IO FC.CInt
 hs_bindgen_a364da5adecafb37 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a364da5adecafb37_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a364da5adecafb37_base
 
 {-| __C declaration:__ @quuz@
 
@@ -248,7 +248,7 @@ hs_bindgen_e39fa59aeb1fef3d ::
      HsBindgen.Runtime.PtrConst.PtrConst Triplets
   -> IO FC.CInt
 hs_bindgen_e39fa59aeb1fef3d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e39fa59aeb1fef3d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e39fa59aeb1fef3d_base
 
 {-| __C declaration:__ @quuz_const@
 

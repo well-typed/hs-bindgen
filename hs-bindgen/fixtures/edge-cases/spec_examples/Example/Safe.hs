@@ -9,8 +9,8 @@ module Example.Safe where
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -47,7 +47,7 @@ hs_bindgen_8a72aafc705daf44 ::
   -> Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T)
   -> IO ()
 hs_bindgen_8a72aafc705daf44 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8a72aafc705daf44_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8a72aafc705daf44_base
 
 {-| __C declaration:__ @resample@
 
