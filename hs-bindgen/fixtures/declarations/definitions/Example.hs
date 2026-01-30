@@ -21,9 +21,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.SizedByteArray
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
@@ -132,9 +132,9 @@ newtype Y = Y
   { unwrapY :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Y
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Y
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Y
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Y
 
 {-|
 
@@ -149,7 +149,8 @@ __exported by:__ @declarations\/definitions.h@
 get_y_m ::
      Y
   -> FC.CInt
-get_y_m = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_y_m =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -159,7 +160,8 @@ get_y_m = HsBindgen.Runtime.ByteArray.getUnionPayload
 set_y_m ::
      FC.CInt
   -> Y
-set_y_m = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_y_m =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -174,7 +176,8 @@ __exported by:__ @declarations\/definitions.h@
 get_y_o ::
      Y
   -> FC.CInt
-get_y_o = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_y_o =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -184,7 +187,8 @@ get_y_o = HsBindgen.Runtime.ByteArray.getUnionPayload
 set_y_o ::
      FC.CInt
   -> Y
-set_y_o = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_y_o =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Y "y_m" where
 

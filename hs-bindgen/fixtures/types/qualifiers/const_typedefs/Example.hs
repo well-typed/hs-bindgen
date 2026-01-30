@@ -30,7 +30,7 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.SizedByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
@@ -124,9 +124,9 @@ newtype U = U
   { unwrapU :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance F.Storable U
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance F.Storable U
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim U
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim U
 
 {-| __C declaration:__ @enum E@
 

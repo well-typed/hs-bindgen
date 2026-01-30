@@ -10,7 +10,7 @@
 -- 'peekByteArray' and 'pokeByteArray', and the calls to 'peek' and 'poke' in
 -- 'peekFromByteArray' and 'pokeToByteArray' will (likely) do copying of their
 -- own as well.
-module HsBindgen.Runtime.ByteArray (
+module HsBindgen.Runtime.Internal.ByteArray (
      -- * Support for defining 'Storable' instances for union types
      peekByteArray
    , pokeByteArray

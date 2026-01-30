@@ -18,4 +18,4 @@ module HsBindgen.Runtime.Internal.Deriving (
     SizedByteArray(..)
   ) where
 
-import HsBindgen.Runtime.SizedByteArray
+import HsBindgen.Runtime.Internal.SizedByteArray

@@ -21,9 +21,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.SizedByteArray
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 
 {-| __C declaration:__ @union U@
@@ -36,9 +36,9 @@ newtype T = T
   { unwrapT :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable T
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance F.Storable T
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim T
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim T
 
 {-|
 
@@ -53,7 +53,8 @@ __exported by:__ @functions\/heap_types\/union_const_member.h@
 get_t_x ::
      T
   -> FC.CInt
-get_t_x = HsBindgen.Runtime.ByteArray.getUnionPayload
+get_t_x =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -63,7 +64,8 @@ get_t_x = HsBindgen.Runtime.ByteArray.getUnionPayload
 set_t_x ::
      FC.CInt
   -> T
-set_t_x = HsBindgen.Runtime.ByteArray.setUnionPayload
+set_t_x =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField T "t_x" where
 
