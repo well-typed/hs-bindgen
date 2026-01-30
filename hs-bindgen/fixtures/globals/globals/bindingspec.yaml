@@ -33,7 +33,39 @@ ctypes:
 - headers: globals/globals.h
   cname: struct anonPair
   hsname: AnonPair
+- headers: globals/globals.h
+  cname: enum anonEnum
+  hsname: AnonEnum
+- headers: globals/globals.h
+  cname: enum anonEnumCoords
+  hsname: AnonEnumCoords
 hstypes:
+- hsname: AnonEnum
+  representation:
+    newtype:
+      constructor: AnonEnum
+      fields:
+      - unwrapAnonEnum
+  instances:
+  - Eq
+  - HasFFIType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: AnonEnumCoords
+  representation:
+    newtype:
+      constructor: AnonEnumCoords
+      fields:
+      - unwrapAnonEnumCoords
+  instances:
+  - Eq
+  - HasFFIType
+  - Ord
+  - Read
+  - Show
+  - Storable
 - hsname: AnonPair
   representation:
     record:

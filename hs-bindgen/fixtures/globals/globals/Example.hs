@@ -1,9 +1,13 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -12,17 +16,21 @@
 
 module Example where
 
+import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
+import qualified Text.Read
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @struct config@
 
@@ -752,3 +760,187 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonPair) "anonPair_
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonPair_b")
+
+{-| __C declaration:__ @enum anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnum = AnonEnum
+  { unwrapAnonEnum :: FC.CUInt
+  }
+  deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+
+instance F.Storable AnonEnum where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure AnonEnum
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonEnum unwrapAnonEnum2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapAnonEnum2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim AnonEnum
+
+instance HsBindgen.Runtime.CEnum.CEnum AnonEnum where
+
+  type CEnumZ AnonEnum = FC.CUInt
+
+  toCEnum = AnonEnum
+
+  fromCEnum = unwrapAnonEnum
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "VAL_A")
+                                                     , (1, Data.List.NonEmpty.singleton "VAL_B")
+                                                     ]
+
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "AnonEnum"
+
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "AnonEnum"
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum AnonEnum where
+
+  minDeclaredValue = VAL_A
+
+  maxDeclaredValue = VAL_B
+
+instance Show AnonEnum where
+
+  showsPrec = HsBindgen.Runtime.CEnum.shows
+
+instance Read AnonEnum where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
+
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A :: AnonEnum
+pattern VAL_A = AnonEnum 0
+
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B :: AnonEnum
+pattern VAL_B = AnonEnum 1
+
+{-| __C declaration:__ @enum anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnumCoords = AnonEnumCoords
+  { unwrapAnonEnumCoords :: FC.CUInt
+  }
+  deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+
+instance F.Storable AnonEnumCoords where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure AnonEnumCoords
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonEnumCoords unwrapAnonEnumCoords2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapAnonEnumCoords2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim AnonEnumCoords
+
+instance HsBindgen.Runtime.CEnum.CEnum AnonEnumCoords where
+
+  type CEnumZ AnonEnumCoords = FC.CUInt
+
+  toCEnum = AnonEnumCoords
+
+  fromCEnum = unwrapAnonEnumCoords
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (10, Data.List.NonEmpty.singleton "X")
+                                                     , (20, Data.List.NonEmpty.singleton "Y")
+                                                     , (30, Data.List.NonEmpty.singleton "Z")
+                                                     ]
+
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "AnonEnumCoords"
+
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "AnonEnumCoords"
+
+instance Show AnonEnumCoords where
+
+  showsPrec = HsBindgen.Runtime.CEnum.shows
+
+instance Read AnonEnumCoords where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
+
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X :: AnonEnumCoords
+pattern X = AnonEnumCoords 10
+
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y :: AnonEnumCoords
+pattern Y = AnonEnumCoords 20
+
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z :: AnonEnumCoords
+pattern Z = AnonEnumCoords 30

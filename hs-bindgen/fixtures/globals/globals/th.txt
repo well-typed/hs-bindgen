@@ -130,6 +130,18 @@
 -- {
 --   return &anonPair;
 -- }
+-- /* test_globalsglobals_Example_get_anonEnum */
+-- __attribute__ ((const))
+-- enum anonEnum *hs_bindgen_1c28cee33967e767 (void)
+-- {
+--   return &anonEnum;
+-- }
+-- /* test_globalsglobals_Example_get_anonEnumCoords */
+-- __attribute__ ((const))
+-- enum anonEnumCoords *hs_bindgen_0e0ec9b1d935fbb6 (void)
+-- {
+--   return &anonEnumCoords;
+-- }
 {-| __C declaration:__ @struct config@
 
     __defined at:__ @globals\/globals.h 12:8@
@@ -569,6 +581,157 @@ instance HasCField AnonPair "anonPair_b"
 instance TyEq ty (CFieldType AnonPair "anonPair_b") =>
          HasField "anonPair_b" (Ptr AnonPair) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPair_b")
+{-| __C declaration:__ @enum anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnum
+    = AnonEnum {unwrapAnonEnum :: CUInt}
+      {- ^ __C declaration:__ @enum anonEnum@
+
+           __defined at:__ @globals\/globals.h 444:1@
+
+           __exported by:__ @globals\/globals.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasFFIType
+instance Storable AnonEnum
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure AnonEnum <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   AnonEnum unwrapAnonEnum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapAnonEnum_3
+deriving via CUInt instance Prim AnonEnum
+instance CEnum AnonEnum
+    where type CEnumZ AnonEnum = CUInt
+          toCEnum = AnonEnum
+          fromCEnum = unwrapAnonEnum
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "VAL_A"),
+                                                         (1, singleton "VAL_B")]
+          showsUndeclared = showsWrappedUndeclared "AnonEnum"
+          readPrecUndeclared = readPrecWrappedUndeclared "AnonEnum"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum AnonEnum
+    where minDeclaredValue = VAL_A
+          maxDeclaredValue = VAL_B
+instance Show AnonEnum
+    where showsPrec = shows
+instance Read AnonEnum
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A :: AnonEnum
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A = AnonEnum 0
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B :: AnonEnum
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B = AnonEnum 1
+{-| __C declaration:__ @enum anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnumCoords
+    = AnonEnumCoords {unwrapAnonEnumCoords :: CUInt}
+      {- ^ __C declaration:__ @enum anonEnumCoords@
+
+           __defined at:__ @globals\/globals.h 447:1@
+
+           __exported by:__ @globals\/globals.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasFFIType
+instance Storable AnonEnumCoords
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure AnonEnumCoords <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   AnonEnumCoords unwrapAnonEnumCoords_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapAnonEnumCoords_3
+deriving via CUInt instance Prim AnonEnumCoords
+instance CEnum AnonEnumCoords
+    where type CEnumZ AnonEnumCoords = CUInt
+          toCEnum = AnonEnumCoords
+          fromCEnum = unwrapAnonEnumCoords
+          declaredValues = \_ -> declaredValuesFromList [(10, singleton "X"),
+                                                         (20, singleton "Y"),
+                                                         (30, singleton "Z")]
+          showsUndeclared = showsWrappedUndeclared "AnonEnumCoords"
+          readPrecUndeclared = readPrecWrappedUndeclared "AnonEnumCoords"
+instance Show AnonEnumCoords
+    where showsPrec = shows
+instance Read AnonEnumCoords
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X :: AnonEnumCoords
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X = AnonEnumCoords 10
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y :: AnonEnumCoords
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y = AnonEnumCoords 20
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z :: AnonEnumCoords
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z = AnonEnumCoords 30
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
 foreign import ccall unsafe "hs_bindgen_4f8e7b3d91414aa8" hs_bindgen_4f8e7b3d91414aa8_base ::
     IO (Ptr Void)
@@ -1066,3 +1229,47 @@ anonPair :: Ptr AnonPair
     __exported by:__ @globals\/globals.h@
 -}
 anonPair = unsafePerformIO hs_bindgen_2ee54a93dbbed801
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+foreign import ccall unsafe "hs_bindgen_1c28cee33967e767" hs_bindgen_1c28cee33967e767_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 :: IO (Ptr AnonEnum)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 = fromFFIType hs_bindgen_1c28cee33967e767_base
+{-# NOINLINE anonEnum #-}
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum :: Ptr AnonEnum
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum = unsafePerformIO hs_bindgen_1c28cee33967e767
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+foreign import ccall unsafe "hs_bindgen_0e0ec9b1d935fbb6" hs_bindgen_0e0ec9b1d935fbb6_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 :: IO (Ptr AnonEnumCoords)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 = fromFFIType hs_bindgen_0e0ec9b1d935fbb6_base
+{-# NOINLINE anonEnumCoords #-}
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords :: Ptr AnonEnumCoords
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords = unsafePerformIO hs_bindgen_0e0ec9b1d935fbb6
