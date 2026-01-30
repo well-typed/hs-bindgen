@@ -30,11 +30,15 @@ module HsBindgen.Runtime.Prelude (
   , WriteRaw(..)
   , EquivStorable(..)
 
+    -- Blocks
+  , Block(..)
+
     -- * Read-only pointers
   , PtrConst -- type synonym or opaque, depending on version of @base@
   ) where
 
 import HsBindgen.Runtime.BitfieldPtr
+import HsBindgen.Runtime.Block
 import HsBindgen.Runtime.CEnum
 import HsBindgen.Runtime.ConstantArray
 import HsBindgen.Runtime.HasCBitfield

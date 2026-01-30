@@ -5,6 +5,11 @@
 -- TODO: Ideally we would at least support @Block_copy@ and @Block_release@.
 -- This would be easy to do, but would mean that @hs-bindgen-runtime@ would
 -- then depend on the runtime (@libblocksruntime@).
+--
+-- This module is intended to be imported qualified.
+--
+-- > import HsBindgen.Runtime.Prelude
+-- > import HsBindgen.Runtime.Block qualified as Block
 module HsBindgen.Runtime.Block (
     Block(..)
   ) where
