@@ -7,6 +7,9 @@ ctypes:
   cname: struct globalConfig
   hsname: GlobalConfig
 - headers: manual/globals.h
+  cname: struct unusableAnon
+  hsname: UnusableAnon
+- headers: manual/globals.h
   cname: ConstInt
   hsname: ConstInt
 - headers: manual/globals.h
@@ -80,6 +83,18 @@ hstypes:
       fields:
       - tuple_x
       - tuple_y
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: UnusableAnon
+  representation:
+    record:
+      constructor: UnusableAnon
+      fields:
+      - unusableAnon_x
+      - unusableAnon_y
   instances:
   - Eq
   - Prim
