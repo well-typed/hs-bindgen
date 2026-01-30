@@ -46,7 +46,6 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
-import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
@@ -56,6 +55,7 @@ import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
+import HsBindgen.Runtime.Internal.CAPI qualified
 import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
@@ -104,7 +104,7 @@ mkGlobal = \case
       CharValue_constructor -> 'CExpr.Runtime.CharValue
       CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
       Capi_with             -> 'Foreign.with
-      Capi_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
+      Capi_allocaAndPeek    -> 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
 
       -- StaticSize
       StaticSize_class           -> ''HsBindgen.Runtime.Marshal.StaticSize

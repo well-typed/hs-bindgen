@@ -12,17 +12,17 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (Double, Float, IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <macros/reparse.h>"
   , "void hs_bindgen_f15610128336b06a ("
   , "  A arg1,"
@@ -1779,8 +1779,8 @@ ret_struct ::
   -> IO Some_struct
 ret_struct =
   \arg10 ->
-    HsBindgen.Runtime.CAPI.allocaAndPeek (\res1 ->
-                                            hs_bindgen_6c999121eed8178f arg10 res1)
+    HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
+                                                     hs_bindgen_6c999121eed8178f arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_union@
 foreign import ccall safe "hs_bindgen_481ee5d2d9bd34db" hs_bindgen_481ee5d2d9bd34db_base ::
@@ -1808,8 +1808,8 @@ ret_union ::
   -> IO Some_union
 ret_union =
   \arg10 ->
-    HsBindgen.Runtime.CAPI.allocaAndPeek (\res1 ->
-                                            hs_bindgen_481ee5d2d9bd34db arg10 res1)
+    HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
+                                                     hs_bindgen_481ee5d2d9bd34db arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_enum@
 foreign import ccall safe "hs_bindgen_8bb240ba453b700d" hs_bindgen_8bb240ba453b700d_base ::
@@ -2039,8 +2039,8 @@ ret_complex_float ::
   -> IO (Data.Complex.Complex FC.CFloat)
 ret_complex_float =
   \arg10 ->
-    HsBindgen.Runtime.CAPI.allocaAndPeek (\res1 ->
-                                            hs_bindgen_8958183ede73dea8 arg10 res1)
+    HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
+                                                     hs_bindgen_8958183ede73dea8 arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_double@
 foreign import ccall safe "hs_bindgen_a95fabfd391a99aa" hs_bindgen_a95fabfd391a99aa_base ::
@@ -2068,8 +2068,8 @@ ret_complex_double ::
   -> IO (Data.Complex.Complex FC.CDouble)
 ret_complex_double =
   \arg10 ->
-    HsBindgen.Runtime.CAPI.allocaAndPeek (\res1 ->
-                                            hs_bindgen_a95fabfd391a99aa arg10 res1)
+    HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
+                                                     hs_bindgen_a95fabfd391a99aa arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args1@
 foreign import ccall safe "hs_bindgen_ad9f8630dd04a203" hs_bindgen_ad9f8630dd04a203_base ::
