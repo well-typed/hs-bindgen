@@ -120,15 +120,27 @@
 -- }
 -- /* test_globalsglobals_Example_get_anonPoint */
 -- __attribute__ ((const))
--- struct anonPoint *hs_bindgen_6a74c096c69eaf13 (void)
+-- void *hs_bindgen_6a74c096c69eaf13 (void)
 -- {
 --   return &anonPoint;
 -- }
 -- /* test_globalsglobals_Example_get_anonPair */
 -- __attribute__ ((const))
--- struct anonPair *hs_bindgen_2ee54a93dbbed801 (void)
+-- void *hs_bindgen_2ee54a93dbbed801 (void)
 -- {
 --   return &anonPair;
+-- }
+-- /* test_globalsglobals_Example_get_anonEnum */
+-- __attribute__ ((const))
+-- unsigned int *hs_bindgen_1c28cee33967e767 (void)
+-- {
+--   return &anonEnum;
+-- }
+-- /* test_globalsglobals_Example_get_anonEnumCoords */
+-- __attribute__ ((const))
+-- unsigned int *hs_bindgen_0e0ec9b1d935fbb6 (void)
+-- {
+--   return &anonEnumCoords;
 -- }
 {-| __C declaration:__ @struct config@
 
@@ -396,7 +408,7 @@ instance HasCField Struct2_t "struct2_t_field1"
 instance (~) ty Struct1_t =>
          HasField "struct2_t_field1" (Ptr Struct2_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct2_t_field1")
-{-| __C declaration:__ @struct anonPoint@
+{-| __C declaration:__ @struct \@anonPoint@
 
     __defined at:__ @globals\/globals.h 438:1@
 
@@ -417,7 +429,7 @@ data AnonPoint
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __C declaration:__ @struct anonPoint@
+      {- ^ __C declaration:__ @struct \@anonPoint@
 
            __defined at:__ @globals\/globals.h 438:1@
 
@@ -446,7 +458,7 @@ instance HasCField AnonPoint "anonPoint_y"
 instance (~) ty CInt =>
          HasField "anonPoint_y" (Ptr AnonPoint) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPoint_y")
-{-| __C declaration:__ @struct anonPair@
+{-| __C declaration:__ @struct \@anonPair@
 
     __defined at:__ @globals\/globals.h 441:1@
 
@@ -467,7 +479,7 @@ data AnonPair
 
                      __exported by:__ @globals\/globals.h@
                 -}}
-      {- ^ __C declaration:__ @struct anonPair@
+      {- ^ __C declaration:__ @struct \@anonPair@
 
            __defined at:__ @globals\/globals.h 441:1@
 
@@ -496,6 +508,175 @@ instance HasCField AnonPair "anonPair_b"
 instance (~) ty CInt =>
          HasField "anonPair_b" (Ptr AnonPair) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPair_b")
+{-| __C declaration:__ @enum \@anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnum
+    = AnonEnum {unwrapAnonEnum :: CUInt}
+      {- ^ __C declaration:__ @enum \@anonEnum@
+
+           __defined at:__ @globals\/globals.h 444:1@
+
+           __exported by:__ @globals\/globals.h@
+      -}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize AnonEnum
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AnonEnum
+    where readRaw = \ptr_0 -> pure AnonEnum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw AnonEnum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AnonEnum unwrapAnonEnum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapAnonEnum_2
+deriving via (EquivStorable AnonEnum) instance Storable AnonEnum
+deriving via CUInt instance Prim AnonEnum
+instance CEnum AnonEnum
+    where type CEnumZ AnonEnum = CUInt
+          toCEnum = AnonEnum
+          fromCEnum = unwrapAnonEnum
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "VAL_A"),
+                                                         (1, singleton "VAL_B")]
+          showsUndeclared = showsWrappedUndeclared "AnonEnum"
+          readPrecUndeclared = readPrecWrappedUndeclared "AnonEnum"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum AnonEnum
+    where minDeclaredValue = VAL_A
+          maxDeclaredValue = VAL_B
+instance Show AnonEnum
+    where showsPrec = shows
+instance Read AnonEnum
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt =>
+         HasField "unwrapAnonEnum" (Ptr AnonEnum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapAnonEnum")
+instance HasCField AnonEnum "unwrapAnonEnum"
+    where type CFieldType AnonEnum "unwrapAnonEnum" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A :: AnonEnum
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A = AnonEnum 0
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B :: AnonEnum
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B = AnonEnum 1
+{-| __C declaration:__ @enum \@anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnumCoords
+    = AnonEnumCoords {unwrapAnonEnumCoords :: CUInt}
+      {- ^ __C declaration:__ @enum \@anonEnumCoords@
+
+           __defined at:__ @globals\/globals.h 447:1@
+
+           __exported by:__ @globals\/globals.h@
+      -}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize AnonEnumCoords
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AnonEnumCoords
+    where readRaw = \ptr_0 -> pure AnonEnumCoords <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw AnonEnumCoords
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AnonEnumCoords unwrapAnonEnumCoords_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapAnonEnumCoords_2
+deriving via (EquivStorable AnonEnumCoords) instance Storable AnonEnumCoords
+deriving via CUInt instance Prim AnonEnumCoords
+instance CEnum AnonEnumCoords
+    where type CEnumZ AnonEnumCoords = CUInt
+          toCEnum = AnonEnumCoords
+          fromCEnum = unwrapAnonEnumCoords
+          declaredValues = \_ -> declaredValuesFromList [(10, singleton "X"),
+                                                         (20, singleton "Y"),
+                                                         (30, singleton "Z")]
+          showsUndeclared = showsWrappedUndeclared "AnonEnumCoords"
+          readPrecUndeclared = readPrecWrappedUndeclared "AnonEnumCoords"
+instance Show AnonEnumCoords
+    where showsPrec = shows
+instance Read AnonEnumCoords
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty CUInt =>
+         HasField "unwrapAnonEnumCoords" (Ptr AnonEnumCoords) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapAnonEnumCoords")
+instance HasCField AnonEnumCoords "unwrapAnonEnumCoords"
+    where type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X :: AnonEnumCoords
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X = AnonEnumCoords 10
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y :: AnonEnumCoords
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y = AnonEnumCoords 20
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z :: AnonEnumCoords
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z = AnonEnumCoords 30
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
 foreign import ccall unsafe "hs_bindgen_4f8e7b3d91414aa8" hs_bindgen_4f8e7b3d91414aa8_base ::
     IO (Ptr Void)
@@ -993,3 +1174,47 @@ anonPair :: Ptr AnonPair
     __exported by:__ @globals\/globals.h@
 -}
 anonPair = unsafePerformIO hs_bindgen_2ee54a93dbbed801
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+foreign import ccall unsafe "hs_bindgen_1c28cee33967e767" hs_bindgen_1c28cee33967e767_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 :: IO (Ptr AnonEnum)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 = fromFFIType hs_bindgen_1c28cee33967e767_base
+{-# NOINLINE anonEnum #-}
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum :: Ptr AnonEnum
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum = unsafePerformIO hs_bindgen_1c28cee33967e767
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+foreign import ccall unsafe "hs_bindgen_0e0ec9b1d935fbb6" hs_bindgen_0e0ec9b1d935fbb6_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 :: IO (Ptr AnonEnumCoords)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 = fromFFIType hs_bindgen_0e0ec9b1d935fbb6_base
+{-# NOINLINE anonEnumCoords #-}
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords :: Ptr AnonEnumCoords
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords = unsafePerformIO hs_bindgen_0e0ec9b1d935fbb6

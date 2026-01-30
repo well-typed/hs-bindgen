@@ -503,7 +503,7 @@ instance MangleInDecl C.DeclKind where
       C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> mangleInDecl info x
       C.DeclFunction x         -> C.DeclFunction         <$> mangleInDecl info x
       C.DeclMacro    x         -> C.DeclMacro            <$> mangleInDecl info x
-      C.DeclGlobal   x         -> C.DeclGlobal           <$> mangle            x
+      C.DeclGlobal   ext x     -> C.DeclGlobal       ext <$> mangle            x
       C.DeclOpaque             -> return C.DeclOpaque
 
 instance MangleInDecl C.Struct where

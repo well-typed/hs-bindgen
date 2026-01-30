@@ -176,7 +176,7 @@ instance UpdateUseSites C.DeclKind where
       C.DeclEnum     x         -> C.DeclEnum     <$> updateUseSites x
       C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> updateUseSites x
       C.DeclFunction x         -> C.DeclFunction <$> updateUseSites x
-      C.DeclGlobal   x         -> C.DeclGlobal   <$> updateUseSites x
+      C.DeclGlobal   ext x     -> C.DeclGlobal ext <$> updateUseSites x
       C.DeclMacro    x         -> return $ C.DeclMacro x
       C.DeclOpaque             -> return $ C.DeclOpaque
 

@@ -204,7 +204,12 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
             ++ withCategory (CTerm CFunPtr)  funPtrDecls
       C.DeclMacro macro -> withCategoryM CType $
         macroDecs supInsts.typedef haddockConfig info macro spec
-      C.DeclGlobal ty -> do
+      C.DeclGlobal C.IsExtern ty
+        -- An extern global with an anonymous type can never have a matching
+        -- definition (the anonymous struct/enum in a .c file would be a
+        -- different type), so we skip binding generation entirely.
+        | isAnonType ty -> pure []
+      C.DeclGlobal _ext ty -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
           global uniqueId haddockConfig moduleName transState sizeofs info ty spec
@@ -217,6 +222,11 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
 
     supInsts :: Inst.SupportedInstances
     supInsts = def
+
+    isAnonType :: C.Type Final -> Bool
+    isAnonType (C.TypeRef ref)  = ref.cName.isAnon
+    isAnonType (C.TypeEnum ref) = ref.name.cName.isAnon
+    isAnonType _                = False
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -1216,6 +1226,21 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
     stubType :: C.Type Final
     stubType = C.TypePointers 1 ty
 
+    -- | The C stub return type.
+    --
+    -- For anonymous types (where the struct\/enum has no valid C tag name),
+    -- we use @void *@ (structs) or the underlying type pointer (enums),
+    -- since @struct anonName@ \/ @enum anonName@ would be invalid C.
+    cStubType :: C.Type Final
+    cStubType = case ty of
+        C.TypeRef ref
+          | ref.cName.isAnon
+          -> C.TypePointers 1 C.TypeVoid
+        C.TypeEnum ref
+          | ref.name.cName.isAnon
+          -> C.TypePointers 1 ref.underlying
+        _ -> stubType
+
     prettyStub :: String
     prettyStub = concat [
           "/* ", stubSymbol.source, " */\n"
@@ -1225,7 +1250,7 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
     stubDecl :: PC.FunDefn
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubSymbol.unique stubType C.HaskellPureFunction args' $
+          PC.FunDefn stubSymbol.unique cStubType C.HaskellPureFunction args' $
             PC.CSList $
             PC.CSStatement
               (PC.ExpressionStatement $ PC.Return $ PC.Address $ PC.NamedVar varName)

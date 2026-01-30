@@ -37,7 +37,7 @@ depsOfDecl (C.DeclMacro _ts) =
     []
 depsOfDecl (C.DeclFunction function) =
     concatMap depsOfType (function.res : map (.typ) function.args)
-depsOfDecl (C.DeclGlobal ty) =
+depsOfDecl (C.DeclGlobal _ext ty) =
     depsOfType ty
 
 -- | Dependencies of struct or union field

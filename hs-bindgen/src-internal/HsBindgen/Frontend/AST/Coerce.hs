@@ -157,7 +157,7 @@ instance (
       C.DeclEnum             x -> C.DeclEnum             $ coercePass x
       C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant $ coercePass x
       C.DeclFunction         x -> C.DeclFunction         $ coercePass x
-      C.DeclGlobal           x -> C.DeclGlobal           $ coercePass x
+      C.DeclGlobal       ext x -> C.DeclGlobal       ext  $ coercePass x
       C.DeclMacro            x -> C.DeclMacro            $ coercePassMacroBody (Proxy @'(p, p')) x
       C.DeclOpaque             -> C.DeclOpaque
 

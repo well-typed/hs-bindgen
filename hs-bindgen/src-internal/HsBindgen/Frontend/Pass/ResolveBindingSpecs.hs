@@ -350,7 +350,7 @@ instance Resolve C.DeclKind where
       C.DeclOpaque                         -> return C.DeclOpaque
       C.DeclMacro macro                    -> C.DeclMacro            <$> resolve ctx macro
       C.DeclFunction fun                   -> C.DeclFunction         <$> resolve ctx fun
-      C.DeclGlobal ty                      -> C.DeclGlobal           <$> resolve ctx ty
+      C.DeclGlobal ext ty                  -> C.DeclGlobal       ext <$> resolve ctx ty
 
 instance Resolve C.Struct where
   resolve ctx struct =
