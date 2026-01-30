@@ -7,6 +7,15 @@
 --
 -- > import HsBindgen.Runtime.Prelude
 -- > import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
+--
+-- TODO #1633: Verify.
+--
+-- Most users do not directly need to use @HasCBitfield@. Instead, we provide
+-- @HasField@ instances for pointers, and so we can use record dot syntax and
+-- 'HsBindgen.Runtime.BitfieldPtr.peek' and
+-- 'HsBindgen.Runtime.BitfieldPtr.poke'.
+--
+-- TODO #1633: Show example.
 module HsBindgen.Runtime.HasCBitfield (
     HasCBitfield(..)
   , offset
