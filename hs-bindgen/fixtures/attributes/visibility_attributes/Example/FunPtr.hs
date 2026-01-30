@@ -205,15 +205,15 @@ hs_bindgen_f786cd0ff4765546 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_f786cd0ff4765546 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f786cd0ff4765546_base
 
-{-# NOINLINE f0 #-}
+{-# NOINLINE f0_funptr #-}
 {-| __C declaration:__ @f0@
 
     __defined at:__ @attributes\/visibility_attributes.h 17:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f0 :: Ptr.FunPtr (IO ())
-f0 =
+f0_funptr :: Ptr.FunPtr (IO ())
+f0_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f786cd0ff4765546
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f1@
@@ -225,15 +225,15 @@ hs_bindgen_e52f358f2c001dee :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_e52f358f2c001dee =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e52f358f2c001dee_base
 
-{-# NOINLINE f1 #-}
+{-# NOINLINE f1_funptr #-}
 {-| __C declaration:__ @f1@
 
     __defined at:__ @attributes\/visibility_attributes.h 18:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f1 :: Ptr.FunPtr (IO ())
-f1 =
+f1_funptr :: Ptr.FunPtr (IO ())
+f1_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e52f358f2c001dee
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f2@
@@ -245,15 +245,15 @@ hs_bindgen_56d04acba6cd0980 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_56d04acba6cd0980 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_56d04acba6cd0980_base
 
-{-# NOINLINE f2 #-}
+{-# NOINLINE f2_funptr #-}
 {-| __C declaration:__ @f2@
 
     __defined at:__ @attributes\/visibility_attributes.h 19:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f2 :: Ptr.FunPtr (IO ())
-f2 =
+f2_funptr :: Ptr.FunPtr (IO ())
+f2_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_56d04acba6cd0980
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f3@
@@ -265,15 +265,15 @@ hs_bindgen_f31a184d805499cf :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_f31a184d805499cf =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f31a184d805499cf_base
 
-{-# NOINLINE f3 #-}
+{-# NOINLINE f3_funptr #-}
 {-| __C declaration:__ @f3@
 
     __defined at:__ @attributes\/visibility_attributes.h 20:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f3 :: Ptr.FunPtr (IO ())
-f3 =
+f3_funptr :: Ptr.FunPtr (IO ())
+f3_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f31a184d805499cf
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f4@
@@ -285,15 +285,15 @@ hs_bindgen_5f7194191ffe8481 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_5f7194191ffe8481 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5f7194191ffe8481_base
 
-{-# NOINLINE f4 #-}
+{-# NOINLINE f4_funptr #-}
 {-| __C declaration:__ @f4@
 
     __defined at:__ @attributes\/visibility_attributes.h 21:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f4 :: Ptr.FunPtr (IO ())
-f4 =
+f4_funptr :: Ptr.FunPtr (IO ())
+f4_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5f7194191ffe8481
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f5@
@@ -305,15 +305,15 @@ hs_bindgen_85bc4e11ab8b8648 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_85bc4e11ab8b8648 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_85bc4e11ab8b8648_base
 
-{-# NOINLINE f5 #-}
+{-# NOINLINE f5_funptr #-}
 {-| __C declaration:__ @f5@
 
     __defined at:__ @attributes\/visibility_attributes.h 24:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f5 :: Ptr.FunPtr (IO ())
-f5 =
+f5_funptr :: Ptr.FunPtr (IO ())
+f5_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_85bc4e11ab8b8648
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f6@
@@ -325,15 +325,15 @@ hs_bindgen_9996f6b2a5f115e0 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_9996f6b2a5f115e0 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9996f6b2a5f115e0_base
 
-{-# NOINLINE f6 #-}
+{-# NOINLINE f6_funptr #-}
 {-| __C declaration:__ @f6@
 
     __defined at:__ @attributes\/visibility_attributes.h 25:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f6 :: Ptr.FunPtr (IO ())
-f6 =
+f6_funptr :: Ptr.FunPtr (IO ())
+f6_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9996f6b2a5f115e0
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f7@
@@ -345,15 +345,15 @@ hs_bindgen_e492e14719d8bce9 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_e492e14719d8bce9 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e492e14719d8bce9_base
 
-{-# NOINLINE f7 #-}
+{-# NOINLINE f7_funptr #-}
 {-| __C declaration:__ @f7@
 
     __defined at:__ @attributes\/visibility_attributes.h 26:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f7 :: Ptr.FunPtr (IO ())
-f7 =
+f7_funptr :: Ptr.FunPtr (IO ())
+f7_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e492e14719d8bce9
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f8@
@@ -365,15 +365,15 @@ hs_bindgen_dc46d9b5b58c3cec :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_dc46d9b5b58c3cec =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_dc46d9b5b58c3cec_base
 
-{-# NOINLINE f8 #-}
+{-# NOINLINE f8_funptr #-}
 {-| __C declaration:__ @f8@
 
     __defined at:__ @attributes\/visibility_attributes.h 27:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f8 :: Ptr.FunPtr (IO ())
-f8 =
+f8_funptr :: Ptr.FunPtr (IO ())
+f8_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dc46d9b5b58c3cec
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f9@
@@ -385,15 +385,15 @@ hs_bindgen_d447735bb0d90bf0 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_d447735bb0d90bf0 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d447735bb0d90bf0_base
 
-{-# NOINLINE f9 #-}
+{-# NOINLINE f9_funptr #-}
 {-| __C declaration:__ @f9@
 
     __defined at:__ @attributes\/visibility_attributes.h 28:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f9 :: Ptr.FunPtr (IO ())
-f9 =
+f9_funptr :: Ptr.FunPtr (IO ())
+f9_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d447735bb0d90bf0
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f10@
@@ -405,15 +405,15 @@ hs_bindgen_038431a45380fdcb :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_038431a45380fdcb =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_038431a45380fdcb_base
 
-{-# NOINLINE f10 #-}
+{-# NOINLINE f10_funptr #-}
 {-| __C declaration:__ @f10@
 
     __defined at:__ @attributes\/visibility_attributes.h 31:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f10 :: Ptr.FunPtr (IO ())
-f10 =
+f10_funptr :: Ptr.FunPtr (IO ())
+f10_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_038431a45380fdcb
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f11@
@@ -425,15 +425,15 @@ hs_bindgen_7e591cbd13064a7e :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_7e591cbd13064a7e =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7e591cbd13064a7e_base
 
-{-# NOINLINE f11 #-}
+{-# NOINLINE f11_funptr #-}
 {-| __C declaration:__ @f11@
 
     __defined at:__ @attributes\/visibility_attributes.h 32:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f11 :: Ptr.FunPtr (IO ())
-f11 =
+f11_funptr :: Ptr.FunPtr (IO ())
+f11_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7e591cbd13064a7e
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f12@
@@ -445,15 +445,15 @@ hs_bindgen_b5295bfee1c2918d :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_b5295bfee1c2918d =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b5295bfee1c2918d_base
 
-{-# NOINLINE f12 #-}
+{-# NOINLINE f12_funptr #-}
 {-| __C declaration:__ @f12@
 
     __defined at:__ @attributes\/visibility_attributes.h 33:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f12 :: Ptr.FunPtr (IO ())
-f12 =
+f12_funptr :: Ptr.FunPtr (IO ())
+f12_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b5295bfee1c2918d
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f13@
@@ -465,15 +465,15 @@ hs_bindgen_64f5e3ad765f7112 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_64f5e3ad765f7112 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_64f5e3ad765f7112_base
 
-{-# NOINLINE f13 #-}
+{-# NOINLINE f13_funptr #-}
 {-| __C declaration:__ @f13@
 
     __defined at:__ @attributes\/visibility_attributes.h 34:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f13 :: Ptr.FunPtr (IO ())
-f13 =
+f13_funptr :: Ptr.FunPtr (IO ())
+f13_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_64f5e3ad765f7112
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f14@
@@ -485,15 +485,15 @@ hs_bindgen_6b5ac9f59213d283 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_6b5ac9f59213d283 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6b5ac9f59213d283_base
 
-{-# NOINLINE f14 #-}
+{-# NOINLINE f14_funptr #-}
 {-| __C declaration:__ @f14@
 
     __defined at:__ @attributes\/visibility_attributes.h 35:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f14 :: Ptr.FunPtr (IO ())
-f14 =
+f14_funptr :: Ptr.FunPtr (IO ())
+f14_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6b5ac9f59213d283
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f15@
@@ -505,15 +505,15 @@ hs_bindgen_41661225569065f2 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_41661225569065f2 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_41661225569065f2_base
 
-{-# NOINLINE f15 #-}
+{-# NOINLINE f15_funptr #-}
 {-| __C declaration:__ @f15@
 
     __defined at:__ @attributes\/visibility_attributes.h 38:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f15 :: Ptr.FunPtr (IO ())
-f15 =
+f15_funptr :: Ptr.FunPtr (IO ())
+f15_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_41661225569065f2
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f16@
@@ -525,15 +525,15 @@ hs_bindgen_cb3fb392b3793519 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_cb3fb392b3793519 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_cb3fb392b3793519_base
 
-{-# NOINLINE f16 #-}
+{-# NOINLINE f16_funptr #-}
 {-| __C declaration:__ @f16@
 
     __defined at:__ @attributes\/visibility_attributes.h 39:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f16 :: Ptr.FunPtr (IO ())
-f16 =
+f16_funptr :: Ptr.FunPtr (IO ())
+f16_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cb3fb392b3793519
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f17@
@@ -545,15 +545,15 @@ hs_bindgen_7ec364e12fc11702 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_7ec364e12fc11702 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7ec364e12fc11702_base
 
-{-# NOINLINE f17 #-}
+{-# NOINLINE f17_funptr #-}
 {-| __C declaration:__ @f17@
 
     __defined at:__ @attributes\/visibility_attributes.h 40:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f17 :: Ptr.FunPtr (IO ())
-f17 =
+f17_funptr :: Ptr.FunPtr (IO ())
+f17_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7ec364e12fc11702
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f18@
@@ -565,15 +565,15 @@ hs_bindgen_026a0814b5f6b1e9 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_026a0814b5f6b1e9 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_026a0814b5f6b1e9_base
 
-{-# NOINLINE f18 #-}
+{-# NOINLINE f18_funptr #-}
 {-| __C declaration:__ @f18@
 
     __defined at:__ @attributes\/visibility_attributes.h 41:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f18 :: Ptr.FunPtr (IO ())
-f18 =
+f18_funptr :: Ptr.FunPtr (IO ())
+f18_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_026a0814b5f6b1e9
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f19@
@@ -585,15 +585,15 @@ hs_bindgen_505d79f059ad6189 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_505d79f059ad6189 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_505d79f059ad6189_base
 
-{-# NOINLINE f19 #-}
+{-# NOINLINE f19_funptr #-}
 {-| __C declaration:__ @f19@
 
     __defined at:__ @attributes\/visibility_attributes.h 42:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f19 :: Ptr.FunPtr (IO ())
-f19 =
+f19_funptr :: Ptr.FunPtr (IO ())
+f19_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_505d79f059ad6189
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f20@
@@ -605,15 +605,15 @@ hs_bindgen_a939d9a54db20e26 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_a939d9a54db20e26 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a939d9a54db20e26_base
 
-{-# NOINLINE f20 #-}
+{-# NOINLINE f20_funptr #-}
 {-| __C declaration:__ @f20@
 
     __defined at:__ @attributes\/visibility_attributes.h 45:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f20 :: Ptr.FunPtr (IO ())
-f20 =
+f20_funptr :: Ptr.FunPtr (IO ())
+f20_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a939d9a54db20e26
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f21@
@@ -625,15 +625,15 @@ hs_bindgen_970806e1a858d637 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_970806e1a858d637 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_970806e1a858d637_base
 
-{-# NOINLINE f21 #-}
+{-# NOINLINE f21_funptr #-}
 {-| __C declaration:__ @f21@
 
     __defined at:__ @attributes\/visibility_attributes.h 46:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f21 :: Ptr.FunPtr (IO ())
-f21 =
+f21_funptr :: Ptr.FunPtr (IO ())
+f21_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_970806e1a858d637
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f22@
@@ -645,15 +645,15 @@ hs_bindgen_da0c0173778e44e3 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_da0c0173778e44e3 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_da0c0173778e44e3_base
 
-{-# NOINLINE f22 #-}
+{-# NOINLINE f22_funptr #-}
 {-| __C declaration:__ @f22@
 
     __defined at:__ @attributes\/visibility_attributes.h 47:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f22 :: Ptr.FunPtr (IO ())
-f22 =
+f22_funptr :: Ptr.FunPtr (IO ())
+f22_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_da0c0173778e44e3
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f23@
@@ -665,15 +665,15 @@ hs_bindgen_ebb72e65cbbf7f2c :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_ebb72e65cbbf7f2c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ebb72e65cbbf7f2c_base
 
-{-# NOINLINE f23 #-}
+{-# NOINLINE f23_funptr #-}
 {-| __C declaration:__ @f23@
 
     __defined at:__ @attributes\/visibility_attributes.h 48:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f23 :: Ptr.FunPtr (IO ())
-f23 =
+f23_funptr :: Ptr.FunPtr (IO ())
+f23_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ebb72e65cbbf7f2c
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f24@
@@ -685,15 +685,15 @@ hs_bindgen_8615cd6d2c1b5c26 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_8615cd6d2c1b5c26 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8615cd6d2c1b5c26_base
 
-{-# NOINLINE f24 #-}
+{-# NOINLINE f24_funptr #-}
 {-| __C declaration:__ @f24@
 
     __defined at:__ @attributes\/visibility_attributes.h 49:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f24 :: Ptr.FunPtr (IO ())
-f24 =
+f24_funptr :: Ptr.FunPtr (IO ())
+f24_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8615cd6d2c1b5c26
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f25@
@@ -705,15 +705,15 @@ hs_bindgen_3546f015679f9021 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_3546f015679f9021 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3546f015679f9021_base
 
-{-# NOINLINE f25 #-}
+{-# NOINLINE f25_funptr #-}
 {-| __C declaration:__ @f25@
 
     __defined at:__ @attributes\/visibility_attributes.h 52:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f25 :: Ptr.FunPtr (IO ())
-f25 =
+f25_funptr :: Ptr.FunPtr (IO ())
+f25_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3546f015679f9021
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f26@
@@ -725,15 +725,15 @@ hs_bindgen_98a7f744d6dfd7ed :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_98a7f744d6dfd7ed =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_98a7f744d6dfd7ed_base
 
-{-# NOINLINE f26 #-}
+{-# NOINLINE f26_funptr #-}
 {-| __C declaration:__ @f26@
 
     __defined at:__ @attributes\/visibility_attributes.h 53:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f26 :: Ptr.FunPtr (IO ())
-f26 =
+f26_funptr :: Ptr.FunPtr (IO ())
+f26_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_98a7f744d6dfd7ed
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f27@
@@ -745,15 +745,15 @@ hs_bindgen_b5c5959f7fb7f0ce :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_b5c5959f7fb7f0ce =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b5c5959f7fb7f0ce_base
 
-{-# NOINLINE f27 #-}
+{-# NOINLINE f27_funptr #-}
 {-| __C declaration:__ @f27@
 
     __defined at:__ @attributes\/visibility_attributes.h 54:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f27 :: Ptr.FunPtr (IO ())
-f27 =
+f27_funptr :: Ptr.FunPtr (IO ())
+f27_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b5c5959f7fb7f0ce
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f28@
@@ -765,15 +765,15 @@ hs_bindgen_19fb69eb83bce767 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_19fb69eb83bce767 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_19fb69eb83bce767_base
 
-{-# NOINLINE f28 #-}
+{-# NOINLINE f28_funptr #-}
 {-| __C declaration:__ @f28@
 
     __defined at:__ @attributes\/visibility_attributes.h 55:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f28 :: Ptr.FunPtr (IO ())
-f28 =
+f28_funptr :: Ptr.FunPtr (IO ())
+f28_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_19fb69eb83bce767
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f29@
@@ -785,13 +785,13 @@ hs_bindgen_b10ef2e4d50e78fe :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_b10ef2e4d50e78fe =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b10ef2e4d50e78fe_base
 
-{-# NOINLINE f29 #-}
+{-# NOINLINE f29_funptr #-}
 {-| __C declaration:__ @f29@
 
     __defined at:__ @attributes\/visibility_attributes.h 56:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f29 :: Ptr.FunPtr (IO ())
-f29 =
+f29_funptr :: Ptr.FunPtr (IO ())
+f29_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b10ef2e4d50e78fe

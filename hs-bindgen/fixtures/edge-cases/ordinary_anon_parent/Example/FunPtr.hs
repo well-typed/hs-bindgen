@@ -34,13 +34,13 @@ hs_bindgen_147bbeebcb063844 :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 hs_bindgen_147bbeebcb063844 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_147bbeebcb063844_base
 
-{-# NOINLINE _acos #-}
+{-# NOINLINE _acos_funptr #-}
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
-_acos =
+_acos_funptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
+_acos_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_147bbeebcb063844

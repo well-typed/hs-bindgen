@@ -34,13 +34,13 @@ hs_bindgen_0d4da37880af2263 :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_0d4da37880af2263 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0d4da37880af2263_base
 
-{-# NOINLINE f #-}
+{-# NOINLINE f_funptr #-}
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f :: Ptr.FunPtr (A -> IO ())
-f =
+f_funptr :: Ptr.FunPtr (A -> IO ())
+f_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0d4da37880af2263

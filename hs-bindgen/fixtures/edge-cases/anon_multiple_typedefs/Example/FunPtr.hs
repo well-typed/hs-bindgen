@@ -35,13 +35,13 @@ hs_bindgen_8361517d92bfbc76 :: IO (Ptr.FunPtr (Point2a -> Point2b -> IO ()))
 hs_bindgen_8361517d92bfbc76 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8361517d92bfbc76_base
 
-{-# NOINLINE test #-}
+{-# NOINLINE test_funptr #-}
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test :: Ptr.FunPtr (Point2a -> Point2b -> IO ())
-test =
+test_funptr :: Ptr.FunPtr (Point2a -> Point2b -> IO ())
+test_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8361517d92bfbc76

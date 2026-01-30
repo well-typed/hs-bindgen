@@ -344,6 +344,8 @@ library test-common
   import:          lang
   hs-source-dirs:  test/common
   exposed-modules:
+    Test.Common.HsBindgen.TestCase.All
+    Test.Common.HsBindgen.TestCase.Spec
     Test.Common.HsBindgen.Trace
     Test.Common.HsBindgen.Trace.Patterns
     Test.Common.HsBindgen.Trace.Predicate
@@ -494,3 +496,33 @@ test-suite test-pp
 
   if impl(ghc <9.4)
     build-depends: data-array-byte
+
+test-suite test-th-fixtures
+  type:             exitcode-stdio-1.0
+  main-is:          test-th-fixtures.hs
+  hs-source-dirs:   test/th-fixtures
+  default-language: GHC2021
+  ghc-options:      -Wall -threaded
+  other-modules:
+    Test.THFixtures.Compile
+    Test.THFixtures.Generate
+    Test.THFixtures.TestCases
+
+  -- Internal dependencies
+  build-depends:
+    , data-default
+    , hs-bindgen
+    , hs-bindgen:internal
+    , optics
+    , test-common
+
+  -- Inherited dependencies
+  build-depends:
+    , base               <5
+    , directory
+    , filepath
+    , libclang-bindings
+    , process
+    , tasty
+    , tasty-hunit
+    , temporary

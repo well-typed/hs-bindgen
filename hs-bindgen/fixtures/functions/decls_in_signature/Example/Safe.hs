@@ -59,7 +59,7 @@ hs_bindgen_920e5c20f770432b =
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
-normal ::
+normal_safe ::
      Ptr.Ptr Opaque
      -- ^ __C declaration:__ @ptr_to_opaque@
   -> Ptr.Ptr Outside
@@ -67,7 +67,7 @@ normal ::
   -> Outside
      -- ^ __C declaration:__ @by_value@
   -> IO ()
-normal =
+normal_safe =
   \ptr_to_opaque0 ->
     \ptr_to_defined1 ->
       \by_value2 ->
@@ -96,11 +96,11 @@ __defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
-f1 ::
+f1_safe ::
      Named_struct
      -- ^ __C declaration:__ @arg@
   -> IO ()
-f1 =
+f1_safe =
   \arg0 ->
     F.with arg0 (\arg1 ->
                    hs_bindgen_baea2c7a0c8b9965 arg1)
@@ -123,11 +123,11 @@ hs_bindgen_990d7be722ad5414 =
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
-f2 ::
+f2_safe ::
      Named_union
      -- ^ __C declaration:__ @arg@
   -> IO ()
-f2 =
+f2_safe =
   \arg0 ->
     F.with arg0 (\arg1 ->
                    hs_bindgen_990d7be722ad5414 arg1)

@@ -54,11 +54,11 @@ hs_bindgen_231473be98482b20 =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_alloc ::
+vector_alloc_safe ::
      FC.CInt
      -- ^ __C declaration:__ @n@
   -> IO (Ptr.Ptr Vector)
-vector_alloc = hs_bindgen_231473be98482b20
+vector_alloc_safe = hs_bindgen_231473be98482b20
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_free@
 foreign import ccall safe "hs_bindgen_d3aecc79bd3c1993" hs_bindgen_d3aecc79bd3c1993_base ::
@@ -78,11 +78,11 @@ hs_bindgen_d3aecc79bd3c1993 =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_free ::
+vector_free_safe ::
      Ptr.Ptr Vector
      -- ^ __C declaration:__ @v@
   -> IO ()
-vector_free = hs_bindgen_d3aecc79bd3c1993
+vector_free_safe = hs_bindgen_d3aecc79bd3c1993
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_reverse@
 foreign import ccall safe "hs_bindgen_bfc48cbf5e4cc2ca" hs_bindgen_bfc48cbf5e4cc2ca_base ::
@@ -102,8 +102,8 @@ hs_bindgen_bfc48cbf5e4cc2ca =
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-vector_reverse ::
+vector_reverse_safe ::
      Ptr.Ptr Vector
      -- ^ __C declaration:__ @v@
   -> IO ()
-vector_reverse = hs_bindgen_bfc48cbf5e4cc2ca
+vector_reverse_safe = hs_bindgen_bfc48cbf5e4cc2ca

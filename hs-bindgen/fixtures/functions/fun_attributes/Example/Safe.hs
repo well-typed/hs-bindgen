@@ -159,8 +159,8 @@ hs_bindgen_0560fe42a40f777f =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-__f1 :: IO ()
-__f1 = hs_bindgen_0560fe42a40f777f
+__f1_safe :: IO ()
+__f1_safe = hs_bindgen_0560fe42a40f777f
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f1@
 foreign import ccall safe "hs_bindgen_1a4676387075dc40" hs_bindgen_1a4676387075dc40_base ::
@@ -177,8 +177,8 @@ hs_bindgen_1a4676387075dc40 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f1 :: IO ()
-f1 = hs_bindgen_1a4676387075dc40
+f1_safe :: IO ()
+f1_safe = hs_bindgen_1a4676387075dc40
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memalign@
 foreign import ccall safe "hs_bindgen_63adcb061045c5ac" hs_bindgen_63adcb061045c5ac_base ::
@@ -200,11 +200,11 @@ hs_bindgen_63adcb061045c5ac =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_memalign ::
+my_memalign_safe ::
      Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
-my_memalign = hs_bindgen_63adcb061045c5ac
+my_memalign_safe = hs_bindgen_63adcb061045c5ac
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_calloc@
 foreign import ccall safe "hs_bindgen_733b29547ce864f6" hs_bindgen_733b29547ce864f6_base ::
@@ -226,11 +226,11 @@ hs_bindgen_733b29547ce864f6 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_calloc ::
+my_calloc_safe ::
      Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
-my_calloc = hs_bindgen_733b29547ce864f6
+my_calloc_safe = hs_bindgen_733b29547ce864f6
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_realloc@
 foreign import ccall safe "hs_bindgen_4c69efa2a8a2b7c0" hs_bindgen_4c69efa2a8a2b7c0_base ::
@@ -252,11 +252,11 @@ hs_bindgen_4c69efa2a8a2b7c0 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_realloc ::
+my_realloc_safe ::
      Ptr.Ptr Void
   -> Size_t
   -> IO (Ptr.Ptr Void)
-my_realloc = hs_bindgen_4c69efa2a8a2b7c0
+my_realloc_safe = hs_bindgen_4c69efa2a8a2b7c0
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc1@
 foreign import ccall safe "hs_bindgen_1eae846583dd415c" hs_bindgen_1eae846583dd415c_base ::
@@ -276,10 +276,10 @@ hs_bindgen_1eae846583dd415c =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_alloc1 ::
+my_alloc1_safe ::
      Size_t
   -> IO (Ptr.Ptr Void)
-my_alloc1 = hs_bindgen_1eae846583dd415c
+my_alloc1_safe = hs_bindgen_1eae846583dd415c
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc2@
 foreign import ccall safe "hs_bindgen_790482b4016de326" hs_bindgen_790482b4016de326_base ::
@@ -299,10 +299,10 @@ hs_bindgen_790482b4016de326 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_alloc2 ::
+my_alloc2_safe ::
      Size_t
   -> IO (Ptr.Ptr Void)
-my_alloc2 = hs_bindgen_790482b4016de326
+my_alloc2_safe = hs_bindgen_790482b4016de326
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_3f72dedf649beccd" hs_bindgen_3f72dedf649beccd_base ::
@@ -326,10 +326,10 @@ __defined at:__ @functions\/fun_attributes.h 39:5@
 
 __exported by:__ @functions\/fun_attributes.h@
 -}
-square ::
+square_safe ::
      FC.CInt
   -> FC.CInt
-square = hs_bindgen_3f72dedf649beccd
+square_safe = hs_bindgen_3f72dedf649beccd
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_old_fn_deprecated@
 foreign import ccall safe "hs_bindgen_a8f71f2272dae572" hs_bindgen_a8f71f2272dae572_base ::
@@ -346,8 +346,8 @@ hs_bindgen_a8f71f2272dae572 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-old_fn_deprecated :: IO FC.CInt
-old_fn_deprecated = hs_bindgen_a8f71f2272dae572
+old_fn_deprecated_safe :: IO FC.CInt
+old_fn_deprecated_safe = hs_bindgen_a8f71f2272dae572
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_dgettext@
 foreign import ccall safe "hs_bindgen_11a623401451cca5" hs_bindgen_11a623401451cca5_base ::
@@ -369,13 +369,13 @@ hs_bindgen_11a623401451cca5 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_dgettext ::
+my_dgettext_safe ::
      Ptr.Ptr FC.CChar
      -- ^ __C declaration:__ @my_domain@
   -> HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
      -- ^ __C declaration:__ @my_format@
   -> IO (Ptr.Ptr FC.CChar)
-my_dgettext = hs_bindgen_11a623401451cca5
+my_dgettext_safe = hs_bindgen_11a623401451cca5
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fdopen@
 foreign import ccall safe "hs_bindgen_30143e337a327ef0" hs_bindgen_30143e337a327ef0_base ::
@@ -397,11 +397,11 @@ hs_bindgen_30143e337a327ef0 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fdopen ::
+fdopen_safe ::
      FC.CInt
   -> HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
   -> IO (Ptr.Ptr FILE)
-fdopen = hs_bindgen_30143e337a327ef0
+fdopen_safe = hs_bindgen_30143e337a327ef0
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f2@
 foreign import ccall safe "hs_bindgen_7b2c420d0febf062" hs_bindgen_7b2c420d0febf062_base ::
@@ -418,8 +418,8 @@ hs_bindgen_7b2c420d0febf062 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f2 :: IO ()
-f2 = hs_bindgen_7b2c420d0febf062
+f2_safe :: IO ()
+f2_safe = hs_bindgen_7b2c420d0febf062
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_my_memcpy@
 foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" hs_bindgen_af1f131d9e98a2ff_base ::
@@ -443,7 +443,7 @@ hs_bindgen_af1f131d9e98a2ff =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_memcpy ::
+my_memcpy_safe ::
      Ptr.Ptr Void
      -- ^ __C declaration:__ @dest@
   -> HsBindgen.Runtime.PtrConst.PtrConst Void
@@ -451,7 +451,7 @@ my_memcpy ::
   -> Size_t
      -- ^ __C declaration:__ @len@
   -> IO (Ptr.Ptr Void)
-my_memcpy = hs_bindgen_af1f131d9e98a2ff
+my_memcpy_safe = hs_bindgen_af1f131d9e98a2ff
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fatal@
 foreign import ccall safe "hs_bindgen_0afa6ff8226517c8" hs_bindgen_0afa6ff8226517c8_base ::
@@ -468,8 +468,8 @@ hs_bindgen_0afa6ff8226517c8 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fatal :: IO ()
-fatal = hs_bindgen_0afa6ff8226517c8
+fatal_safe :: IO ()
+fatal_safe = hs_bindgen_0afa6ff8226517c8
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_hash@
 foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hs_bindgen_948fc14ee9d5d56f_base ::
@@ -493,10 +493,10 @@ __defined at:__ @functions\/fun_attributes.h 110:5@
 
 __exported by:__ @functions\/fun_attributes.h@
 -}
-hash ::
+hash_safe ::
      Ptr.Ptr FC.CChar
   -> IO FC.CInt
-hash = hs_bindgen_948fc14ee9d5d56f
+hash_safe = hs_bindgen_948fc14ee9d5d56f
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_mymalloc@
 foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" hs_bindgen_60517fb6ae2517ff_base ::
@@ -516,11 +516,11 @@ hs_bindgen_60517fb6ae2517ff =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-mymalloc ::
+mymalloc_safe ::
      Size_t
      -- ^ __C declaration:__ @len@
   -> IO (Ptr.Ptr Void)
-mymalloc = hs_bindgen_60517fb6ae2517ff
+mymalloc_safe = hs_bindgen_60517fb6ae2517ff
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_foobar@
 foreign import ccall safe "hs_bindgen_f1451b46f1bd3813" hs_bindgen_f1451b46f1bd3813_base ::
@@ -537,8 +537,8 @@ hs_bindgen_f1451b46f1bd3813 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foobar :: IO ()
-foobar = hs_bindgen_f1451b46f1bd3813
+foobar_safe :: IO ()
+foobar_safe = hs_bindgen_f1451b46f1bd3813
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_core2_func@
 foreign import ccall safe "hs_bindgen_07f5843dd5c65611" hs_bindgen_07f5843dd5c65611_base ::
@@ -555,8 +555,8 @@ hs_bindgen_07f5843dd5c65611 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-core2_func :: IO FC.CInt
-core2_func = hs_bindgen_07f5843dd5c65611
+core2_func_safe :: IO FC.CInt
+core2_func_safe = hs_bindgen_07f5843dd5c65611
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_sse3_func@
 foreign import ccall safe "hs_bindgen_2c7c9e9a45042696" hs_bindgen_2c7c9e9a45042696_base ::
@@ -573,8 +573,8 @@ hs_bindgen_2c7c9e9a45042696 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-sse3_func :: IO FC.CInt
-sse3_func = hs_bindgen_2c7c9e9a45042696
+sse3_func_safe :: IO FC.CInt
+sse3_func_safe = hs_bindgen_2c7c9e9a45042696
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f3@
 foreign import ccall safe "hs_bindgen_4ff2d7abd6099082" hs_bindgen_4ff2d7abd6099082_base ::
@@ -591,8 +591,8 @@ hs_bindgen_4ff2d7abd6099082 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f3 :: IO ()
-f3 = hs_bindgen_4ff2d7abd6099082
+f3_safe :: IO ()
+f3_safe = hs_bindgen_4ff2d7abd6099082
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fn@
 foreign import ccall safe "hs_bindgen_c3ae037518ec9b4e" hs_bindgen_c3ae037518ec9b4e_base ::
@@ -609,8 +609,8 @@ hs_bindgen_c3ae037518ec9b4e =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fn :: IO FC.CInt
-fn = hs_bindgen_c3ae037518ec9b4e
+fn_safe :: IO FC.CInt
+fn_safe = hs_bindgen_c3ae037518ec9b4e
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_y@
 foreign import ccall safe "hs_bindgen_da9708096863a242" hs_bindgen_da9708096863a242_base ::
@@ -627,8 +627,8 @@ hs_bindgen_da9708096863a242 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-y :: IO FC.CInt
-y = hs_bindgen_da9708096863a242
+y_safe :: IO FC.CInt
+y_safe = hs_bindgen_da9708096863a242
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_x1@
 foreign import ccall safe "hs_bindgen_037c35609f7728b3" hs_bindgen_037c35609f7728b3_base ::
@@ -645,8 +645,8 @@ hs_bindgen_037c35609f7728b3 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1 :: IO FC.CInt
-x1 = hs_bindgen_037c35609f7728b3
+x1_safe :: IO FC.CInt
+x1_safe = hs_bindgen_037c35609f7728b3
 
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_x2@
 foreign import ccall safe "hs_bindgen_2c3e8d78049741c3" hs_bindgen_2c3e8d78049741c3_base ::
@@ -663,5 +663,5 @@ hs_bindgen_2c3e8d78049741c3 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2 :: IO FC.CInt
-x2 = hs_bindgen_2c3e8d78049741c3
+x2_safe :: IO FC.CInt
+x2_safe = hs_bindgen_2c3e8d78049741c3

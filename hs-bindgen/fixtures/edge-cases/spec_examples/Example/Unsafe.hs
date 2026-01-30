@@ -53,7 +53,7 @@ hs_bindgen_2311fa9c0d0d6d06 =
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
-resample ::
+resample_unsafe ::
      Ptr.Ptr Int32_T
      -- ^ __C declaration:__ @res_m_num_valid_samples@
   -> Ptr.Ptr Cint16_T
@@ -65,4 +65,4 @@ resample ::
   -> Ptr.Ptr Cint16_T
      -- ^ __C declaration:__ @res_m_iq_resampled_int@
   -> IO ()
-resample = hs_bindgen_2311fa9c0d0d6d06
+resample_unsafe = hs_bindgen_2311fa9c0d0d6d06

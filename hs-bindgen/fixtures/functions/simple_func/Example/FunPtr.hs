@@ -65,15 +65,15 @@ hs_bindgen_97654202e0d79fbb :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 hs_bindgen_97654202e0d79fbb =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_97654202e0d79fbb_base
 
-{-# NOINLINE erf #-}
+{-# NOINLINE erf_funptr #-}
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h 1:8@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-erf :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
-erf =
+erf_funptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
+erf_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_97654202e0d79fbb
 
 -- __unique:__ @test_functionssimple_func_Example_get_bad_fma@
@@ -85,15 +85,15 @@ hs_bindgen_4c8418e152e9ddbc :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CD
 hs_bindgen_4c8418e152e9ddbc =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4c8418e152e9ddbc_base
 
-{-# NOINLINE bad_fma #-}
+{-# NOINLINE bad_fma_funptr #-}
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h 3:22@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-bad_fma :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
-bad_fma =
+bad_fma_funptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
+bad_fma_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4c8418e152e9ddbc
 
 -- __unique:__ @test_functionssimple_func_Example_get_no_args@
@@ -105,15 +105,15 @@ hs_bindgen_a271856b1fcc9477 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_a271856b1fcc9477 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a271856b1fcc9477_base
 
-{-# NOINLINE no_args #-}
+{-# NOINLINE no_args_funptr #-}
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args :: Ptr.FunPtr (IO ())
-no_args =
+no_args_funptr :: Ptr.FunPtr (IO ())
+no_args_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a271856b1fcc9477
 
 -- __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
@@ -125,15 +125,15 @@ hs_bindgen_73f2a4bbf4a49702 :: IO (Ptr.FunPtr (IO ()))
 hs_bindgen_73f2a4bbf4a49702 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_73f2a4bbf4a49702_base
 
-{-# NOINLINE no_args_no_void #-}
+{-# NOINLINE no_args_no_void_funptr #-}
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void :: Ptr.FunPtr (IO ())
-no_args_no_void =
+no_args_no_void_funptr :: Ptr.FunPtr (IO ())
+no_args_no_void_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_73f2a4bbf4a49702
 
 -- __unique:__ @test_functionssimple_func_Example_get_fun@
@@ -145,13 +145,13 @@ hs_bindgen_5416cbf886368c01 :: IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.C
 hs_bindgen_5416cbf886368c01 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5416cbf886368c01_base
 
-{-# NOINLINE fun #-}
+{-# NOINLINE fun_funptr #-}
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/simple_func.h 11:5@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-fun :: Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt)
-fun =
+fun_funptr :: Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt)
+fun_funptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5416cbf886368c01

@@ -44,10 +44,10 @@ hs_bindgen_1af353788955c7a2 =
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector ::
+new_vector_unsafe ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> FC.CDouble
      -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr Vector)
-new_vector = hs_bindgen_1af353788955c7a2
+new_vector_unsafe = hs_bindgen_1af353788955c7a2
