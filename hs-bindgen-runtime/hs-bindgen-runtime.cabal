@@ -56,6 +56,7 @@ library
     HsBindgen.Runtime.Internal.Bitfield
     HsBindgen.Runtime.Internal.Deriving
     HsBindgen.Runtime.Internal.Prelude
+    HsBindgen.Runtime.Internal.TypeEquality
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.LibC.Auxiliary
     HsBindgen.Runtime.Marshal
@@ -63,7 +64,6 @@ library
     HsBindgen.Runtime.Ptr
     HsBindgen.Runtime.PtrConst
     HsBindgen.Runtime.SizedByteArray
-    HsBindgen.Runtime.TypeEquality
 
   other-modules:
     HsBindgen.Runtime.FunPtr.Class

@@ -25,7 +25,7 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import Data.Bits (FiniteBits)
 import GHC.Exts ((*#), (+#))
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @struct bools1@

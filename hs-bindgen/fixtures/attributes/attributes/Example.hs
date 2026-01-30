@@ -21,7 +21,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import Data.Void (Void)
 import GHC.Exts ((*#), (+#))
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@

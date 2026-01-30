@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
 import Data.Bits (FiniteBits)
 import GHC.Exts ((*#), (+#))
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
 {-| Examples from the initial specification

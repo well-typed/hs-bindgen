@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified Prelude as P
 import Data.Void (Void)
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
 {-| Auxiliary type used by 'Fun_ptr'

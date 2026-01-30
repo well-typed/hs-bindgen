@@ -27,7 +27,7 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified Text.Read
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum enumA@
