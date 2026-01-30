@@ -6,12 +6,12 @@
 module Example.Safe where
 
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <declarations/declarations_required_for_scoping.h>"
   , "void hs_bindgen_0d1c75136a36e326 ("
   , "  A arg1"

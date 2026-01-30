@@ -7,14 +7,14 @@ module Example.Unsafe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/heap_types/union_const.h>"
   , "void hs_bindgen_4e22c71ca196dc5e ("
   , "  T const *arg1,"
@@ -52,5 +52,5 @@ fun ::
 fun =
   \x0 ->
     F.with x0 (\x1 ->
-                 HsBindgen.Runtime.CAPI.allocaAndPeek (\res2 ->
-                                                         hs_bindgen_4e22c71ca196dc5e (HsBindgen.Runtime.PtrConst.unsafeFromPtr x1) res2))
+                 HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res2 ->
+                                                                  hs_bindgen_4e22c71ca196dc5e (HsBindgen.Runtime.PtrConst.unsafeFromPtr x1) res2))

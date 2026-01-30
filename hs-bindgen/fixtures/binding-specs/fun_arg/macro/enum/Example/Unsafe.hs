@@ -6,12 +6,12 @@
 module Example.Unsafe where
 
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/enum.h>"
   , "void hs_bindgen_0e6b98e93cad73ef ("
   , "  enum MyEnum arg1"

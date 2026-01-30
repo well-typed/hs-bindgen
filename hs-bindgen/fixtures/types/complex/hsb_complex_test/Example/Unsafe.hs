@@ -9,12 +9,12 @@ import qualified Data.Complex
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/complex/hsb_complex_test.h>"
   , "void hs_bindgen_e5e3172c2163672b ("
   , "  float _Complex *arg1,"
@@ -67,8 +67,8 @@ multiply_complex_f =
     \b1 ->
       F.with a0 (\a2 ->
                    F.with b1 (\b3 ->
-                                HsBindgen.Runtime.CAPI.allocaAndPeek (\res4 ->
-                                                                        hs_bindgen_e5e3172c2163672b a2 b3 res4)))
+                                HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res4 ->
+                                                                                 hs_bindgen_e5e3172c2163672b a2 b3 res4)))
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917973ab_base ::
@@ -103,5 +103,5 @@ add_complex =
     \b1 ->
       F.with a0 (\a2 ->
                    F.with b1 (\b3 ->
-                                HsBindgen.Runtime.CAPI.allocaAndPeek (\res4 ->
-                                                                        hs_bindgen_28f2705e917973ab a2 b3 res4)))
+                                HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res4 ->
+                                                                                 hs_bindgen_28f2705e917973ab a2 b3 res4)))

@@ -17,7 +17,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | The CAPI `addCSource` import.
 --
--- See also "HsBindgen.Runtime.CAPI".
+-- See also "HsBindgen.Runtime.Internal.CAPI".
 capiImport :: HsImportModule
 capiImport = HsImportModule hsbCapiModule Nothing
 
@@ -50,4 +50,4 @@ renderCapiWrapper src = PP.vcat [
 
 -- Qualified import string for @hs-bindgen-runtime@ prelude.
 hsbCapiModule :: Hs.ModuleName
-hsbCapiModule = "HsBindgen.Runtime.CAPI"
+hsbCapiModule = "HsBindgen.Runtime.Internal.CAPI"
