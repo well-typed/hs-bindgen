@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Foreign.Storable (Storable(..))
+import Foreign.Storable (Storable (..))
 
 import ArchTypes.Generated
 

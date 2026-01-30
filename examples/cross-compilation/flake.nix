@@ -31,63 +31,111 @@
         ghcArm32 = pkgsArm32.buildPackages.ghc;
         cabalArm32 = pkgsArm32.buildPackages.cabal-install;
 
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          name = "hs-bindgen-cross-compilation";
+        # Common tools needed by all shells
+        commonBuildInputs = with pkgs; [
+          gnumake
+          clang
+          llvmPackages.libclang
+          llvmPackages.llvm
+          ghc
+          cabal-install
+        ];
 
-          buildInputs = with pkgs; [
-            # Native development tools
-            gnumake
-            clang
-            llvmPackages.libclang
-
-            # QEMU user-mode emulation
-            qemu
-
-            # Cross-compilers
-            pkgsAarch64.buildPackages.gcc
-            pkgsArm32.buildPackages.gcc
-
-            # Native Haskell toolchain
-            ghc
-            cabal-install
-
-            # Cross-compiled GHC toolchains
-            ghcAarch64
-            cabalAarch64
-            ghcArm32
-            cabalArm32
-          ];
-
-          # Clear host-specific clang args that conflict with cross-compilation
+        # Common env vars for all shells
+        commonShellVars = {
           BINDGEN_EXTRA_CLANG_ARGS = "";
           BINDGEN_BUILTIN_INCLUDE_DIR = "";
+          LD_LIBRARY_PATH = "${pkgs.lib.getLib pkgs.llvmPackages.libclang}/lib";
+        };
 
-          shellHook = ''
-            echo "hs-bindgen cross-compilation environment"
-            echo "  Targets: aarch64-linux-gnu, arm-linux-gnueabihf"
-            echo "  Run: ./generate-and-run.sh [all|native|aarch64|arm32]"
-            echo ""
+      in
+      {
+        devShells = {
+          # Full environment with all cross-targets (for local development)
+          default = pkgs.mkShell (commonShellVars // {
+            name = "hs-bindgen-cross-compilation";
 
-            # Cross-compiled GHC paths (read by generate-and-run.sh)
-            export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
-            export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
-            export GHC_ARM32_PATH="${ghcArm32}/bin/armv7l-unknown-linux-gnueabihf-ghc"
-            export CABAL_ARM32_PATH="${cabalArm32}/bin/cabal"
+            buildInputs = commonBuildInputs ++ [
+              pkgs.qemu
+              pkgsAarch64.buildPackages.gcc
+              pkgsArm32.buildPackages.gcc
+              ghcAarch64
+              cabalAarch64
+              ghcArm32
+              cabalArm32
+            ];
 
-            # Target sysroots (headers for cross-compilation)
-            export AARCH64_SYSROOT="${aarch64Sysroot}"
-            export ARM32_SYSROOT="${arm32Sysroot}"
+            shellHook = ''
+              echo "hs-bindgen cross-compilation environment"
+              echo "  Targets: aarch64-linux-gnu, arm-linux-gnueabihf"
+              echo "  Run: ./generate-and-run.sh [all|native|aarch64|arm32]"
+              echo ""
 
-            # Cross-compiler paths
-            export AARCH64_CC="${aarch64Gcc}"
-            export ARM32_CC="${arm32Gcc}"
+              # Cross-compiled GHC paths (read by generate-and-run.sh)
+              export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
+              export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
+              export GHC_ARM32_PATH="${ghcArm32}/bin/armv7l-unknown-linux-gnueabihf-ghc"
+              export CABAL_ARM32_PATH="${cabalArm32}/bin/cabal"
 
-            # QEMU library paths (sysroot for runtime library access)
-            export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
-            export QEMU_ARM_LD_PREFIX="${arm32Sysroot}/.."
-          '';
+              # Target sysroots (headers for cross-compilation)
+              export AARCH64_SYSROOT="${aarch64Sysroot}"
+              export ARM32_SYSROOT="${arm32Sysroot}"
+
+              # Cross-compiler paths
+              export AARCH64_CC="${aarch64Gcc}"
+              export ARM32_CC="${arm32Gcc}"
+
+              # QEMU library paths (sysroot for runtime library access)
+              export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
+              export QEMU_ARM_LD_PREFIX="${arm32Sysroot}/.."
+            '';
+          });
+
+          # Native-only (no cross-GHC, fast to evaluate)
+          cross-native = pkgs.mkShell (commonShellVars // {
+            name = "hs-bindgen-native";
+            buildInputs = commonBuildInputs;
+          });
+
+          # ARM32 cross-compilation only
+          cross-arm32 = pkgs.mkShell (commonShellVars // {
+            name = "hs-bindgen-cross-arm32";
+
+            buildInputs = commonBuildInputs ++ [
+              pkgs.qemu
+              pkgsArm32.buildPackages.gcc
+              ghcArm32
+              cabalArm32
+            ];
+
+            shellHook = ''
+              export GHC_ARM32_PATH="${ghcArm32}/bin/armv7l-unknown-linux-gnueabihf-ghc"
+              export CABAL_ARM32_PATH="${cabalArm32}/bin/cabal"
+              export ARM32_SYSROOT="${arm32Sysroot}"
+              export ARM32_CC="${arm32Gcc}"
+              export QEMU_ARM_LD_PREFIX="${arm32Sysroot}/.."
+            '';
+          });
+
+          # AArch64 cross-compilation only (not used in CI, available for local use)
+          cross-aarch64 = pkgs.mkShell (commonShellVars // {
+            name = "hs-bindgen-cross-aarch64";
+
+            buildInputs = commonBuildInputs ++ [
+              pkgs.qemu
+              pkgsAarch64.buildPackages.gcc
+              ghcAarch64
+              cabalAarch64
+            ];
+
+            shellHook = ''
+              export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
+              export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
+              export AARCH64_SYSROOT="${aarch64Sysroot}"
+              export AARCH64_CC="${aarch64Gcc}"
+              export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
+            '';
+          });
         };
 
         # Nix derivations for building the C library for each target

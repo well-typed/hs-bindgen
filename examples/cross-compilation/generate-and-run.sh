@@ -24,29 +24,6 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 C_SRC_DIR="$SCRIPT_DIR/c-src"
 HS_PROJECT_DIR="$SCRIPT_DIR/hs-project"
 
-# ============================================================================
-# Startup validation
-# ============================================================================
-
-# Check that we're inside nix develop (cross-GHC env vars are set)
-if [ -z "$GHC_AARCH64_PATH" ] && [ -z "$GHC_ARM32_PATH" ]; then
-    echo "# Error: Not inside nix develop environment."
-    echo "#"
-    echo "#   cd examples/cross-compilation"
-    echo "#   nix develop"
-    echo "#   ./generate-and-run.sh"
-    exit 1
-fi
-
-# Check that hs-bindgen-cli is available (either on PATH or buildable via cabal)
-if ! command -v hs-bindgen-cli &>/dev/null; then
-    # Try building it -- cabal run will build if needed
-    if ! cabal list-bin hs-bindgen-cli &>/dev/null 2>&1; then
-        echo "# Warning: hs-bindgen-cli not found on PATH."
-        echo "# Will attempt to build via 'cabal run hs-bindgen-cli'."
-    fi
-fi
-
 # Parse command line arguments
 TARGET="${1:-all}"
 
@@ -59,10 +36,22 @@ case "$TARGET" in
         ;;
 esac
 
-echo "# "
-echo "# hs-bindgen Cross-Compilation Example"
-echo "# Target: $TARGET"
-echo "# "
+echo "==> hs-bindgen Cross-Compilation: $TARGET"
+
+# ============================================================================
+# Startup validation
+# ============================================================================
+
+# Check that we're inside nix develop (cross-GHC env vars are set)
+if [ "$TARGET" != "native" ] && [ -z "$GHC_AARCH64_PATH" ] && [ -z "$GHC_ARM32_PATH" ]; then
+    echo "# Error: Not inside nix develop environment."
+    echo "#"
+    echo "#   cd examples/cross-compilation"
+    echo "#   nix develop"
+    echo "#   ./generate-and-run.sh"
+    exit 1
+fi
+
 
 # ============================================================================
 # Target configuration
@@ -77,6 +66,17 @@ configure_target() {
     local target=$1
 
     case "$target" in
+        native)
+            TARGET_TRIPLE=""
+            GHC_PATH=""
+            CABAL_PATH=""
+            QEMU_CMD=""
+            QEMU_LD_PREFIX=""
+            LIB_DIR="$C_SRC_DIR/lib-native"
+            EXE_NAME="cross-compilation"
+            BUILDDIR="dist-newstyle"
+            CC_CMD="gcc"
+            ;;
         aarch64)
             TARGET_TRIPLE="aarch64-linux-gnu"
             GHC_PATH="$GHC_AARCH64_PATH"
@@ -110,36 +110,24 @@ configure_target() {
 # Phase 1: Build C libraries
 # ============================================================================
 
-echo "# "
-echo "# Phase 1: Building C libraries"
-echo "# "
+echo "==> Phase 1: Building C libraries"
 
 cd "$C_SRC_DIR"
+make clean >/dev/null 2>&1 || true
 
-# Clean previous builds
-make clean 2>/dev/null || true
+for target in native aarch64 arm32; do
+    if [ "$TARGET" = "all" ] || [ "$TARGET" = "$target" ]; then
+        configure_target "$target"
 
-# Build native library
-if [ "$TARGET" = "all" ] || [ "$TARGET" = "native" ]; then
-    echo "# Building native C library"
-    make CC=gcc
-    mkdir -p "$C_SRC_DIR/lib-native"
-    cp libarch_types.* "$C_SRC_DIR/lib-native/"
-    make clean
-fi
-
-# Build cross-compiled libraries
-for arch in aarch64 arm32; do
-    if [ "$TARGET" = "all" ] || [ "$TARGET" = "$arch" ]; then
-        configure_target "$arch"
         if command -v "$CC_CMD" &>/dev/null; then
-            echo "# Building $arch C library with $CC_CMD"
-            make CC="$CC_CMD"
+            echo "  Building $target C library ($CC_CMD)"
+            cd "$C_SRC_DIR"
+            make CC="$CC_CMD" >/dev/null
             mkdir -p "$LIB_DIR"
             cp libarch_types.* "$LIB_DIR/"
-            make clean
+            make clean >/dev/null 2>&1
         else
-            echo "# Warning: $arch cross-compiler not found ($CC_CMD), skipping"
+            echo "  Warning: Compiler not found ($CC_CMD), skipping $target"
         fi
     fi
 done
@@ -148,9 +136,7 @@ done
 # Phase 2: Generate Haskell bindings
 # ============================================================================
 
-echo "# "
-echo "# Phase 2: Generating Haskell bindings"
-echo "# "
+echo "==> Phase 2: Generating Haskell bindings"
 
 cd "$PROJECT_ROOT"
 
@@ -158,8 +144,6 @@ generate_bindings() {
     local name=$1
     local target_triple=$2
     local output_dir=$3
-
-    echo "# Generating bindings for $name"
 
     local clang_opts=()
     if [ -n "$target_triple" ]; then
@@ -179,25 +163,24 @@ generate_bindings() {
         "$C_SRC_DIR/arch_types.h"
 }
 
-if [ "$TARGET" = "all" ] || [ "$TARGET" = "native" ]; then
-    generate_bindings "native" "" "$HS_PROJECT_DIR/src-native"
-fi
-
-if [ "$TARGET" = "all" ] || [ "$TARGET" = "aarch64" ]; then
-    generate_bindings "aarch64" "aarch64-linux-gnu" "$HS_PROJECT_DIR/src-aarch64"
-fi
-
-if [ "$TARGET" = "all" ] || [ "$TARGET" = "arm32" ]; then
-    generate_bindings "arm32" "arm-linux-gnueabihf" "$HS_PROJECT_DIR/src-arm32"
-fi
+for target in native aarch64 arm32; do
+    if [ "$TARGET" = "all" ] || [ "$TARGET" = "$target" ]; then
+        configure_target "$target"
+        src_dir="$HS_PROJECT_DIR/src-$target"
+        echo "  Generating bindings for $target"
+        generate_bindings "$target" "$TARGET_TRIPLE" "$src_dir"
+    fi
+done
 
 # ============================================================================
 # Phase 3: Build and run native Haskell executable
+#
+# Note: Native is handled separately from cross-targets because it doesn't
+# require the cross-compilation infrastructure (iserv, QEMU, cross-GHC).
 # ============================================================================
 
 cd "$HS_PROJECT_DIR"
 
-# Write cabal.project.local with library paths
 cat > cabal.project.local << EOF
 -- Auto-generated by generate-and-run.sh
 package cross-compilation-example
@@ -210,25 +193,14 @@ EOF
 
 if [ "$TARGET" = "all" ] || [ "$TARGET" = "native" ]; then
     if [ -d "$C_SRC_DIR/lib-native" ]; then
-        echo "# "
-        echo "# Phase 3: Building and running native executable"
-        echo "# "
-
+        echo "==> Phase 3: Building and running native executable"
         export LD_LIBRARY_PATH="$C_SRC_DIR/lib-native/:$LD_LIBRARY_PATH"
 
-        echo "# Building native executable"
-        if cabal build cross-compilation; then
-            echo "# Build succeeded"
-        else
-            echo "# Build failed"
-            exit 1
-        fi
+        echo "  Building native executable"
+        cabal build cross-compilation >/dev/null || { echo "  Build failed"; exit 1; }
 
-        echo "# "
-        echo "# Running native executable"
-        echo "# ===== Output ====="
+        echo "  Running native executable:"
         cabal run cross-compilation
-        echo "# =================="
     fi
 fi
 
@@ -296,21 +268,14 @@ build_iserv_for_target() {
     local iserv_dir="$HS_PROJECT_DIR/iserv-build-$target"
     local iserv_binary="$iserv_dir/iserv"
 
-    # Return cached binary if already built
     if [ -x "$iserv_binary" ]; then
         echo "$iserv_binary"
         return 0
     fi
 
-    echo "# Building iserv for $target from source..."
+    echo "  Building iserv for $target from source..."
     mkdir -p "$iserv_dir"
 
-    # Write the Haskell source.
-    # This is a self-contained iserv that inlines:
-    #   - GHCi.Utils.getGhcHandle (not exposed from the ghci package)
-    #   - IServ.serv from libiserv (not available in cross-GHC)
-    #
-    # Source derived from GHC 9.6.6: utils/iserv/ and libraries/libiserv/
     cat > "$iserv_dir/IServMain.hs" << 'HS_EOF'
 {-# LANGUAGE GADTs, ScopedTypeVariables, RankNTypes #-}
 module Main (main) where
@@ -331,11 +296,9 @@ import System.Environment
 import System.Exit
 import System.Posix (fdToHandle, Fd(..))
 
--- Inlined from GHCi.Utils (module not exposed from ghci package)
 getGhcHandle :: CInt -> IO Handle
 getGhcHandle fd = fdToHandle $ Fd fd
 
--- Inlined from IServ (libiserv package not available in cross-GHC)
 type MessageHook = Msg -> IO Msg
 
 serv :: Bool -> MessageHook -> Pipe -> (forall a. IO a -> IO a) -> IO ()
@@ -406,9 +369,6 @@ main = do
     uninterruptibleMask $ serv verbose return pipe
 HS_EOF
 
-    # Write the C main function.
-    # Sets keep_cafs=1: required for iserv to prevent GC of CAFs in
-    # interpreted code (TH splices reference previously-evaluated results).
     cat > "$iserv_dir/iservmain.c" << 'C_EOF'
 #include <Rts.h>
 #include <HsFFI.h>
@@ -423,17 +383,16 @@ int main(int argc, char *argv[])
 }
 C_EOF
 
-    # Compile iserv with the cross-GHC
     if "$ghc_path" -no-hs-main \
         -package ghci \
         -package deepseq \
         -package binary \
         "$iserv_dir/IServMain.hs" \
         "$iserv_dir/iservmain.c" \
-        -o "$iserv_binary" 2>&1; then
-        echo "# iserv built successfully: $iserv_binary"
+        -o "$iserv_binary" >/dev/null 2>&1; then
+        echo "  iserv built: $iserv_binary"
     else
-        echo "# Failed to build iserv" >&2
+        echo "  Failed to build iserv" >&2
         return 1
     fi
 
@@ -444,42 +403,28 @@ C_EOF
 # Phase 4: Cross-compile and run under QEMU
 # ============================================================================
 
-# Build Haskell executable for a cross-compiled target
 build_hs_cross() {
     local target=$1
     configure_target "$target"
 
     if [ ! -x "$GHC_PATH" ]; then
-        echo "# Error: Cross-compiled GHC not found at: $GHC_PATH"
+        echo "  Error: Cross-compiled GHC not found at: $GHC_PATH"
         return 1
     fi
 
     if [ ! -d "$LIB_DIR" ]; then
-        echo "# Error: C library not found at: $LIB_DIR"
+        echo "  Error: C library not found at: $LIB_DIR"
         return 1
     fi
 
-    echo "# Building Haskell executable for $target"
-    echo "#   GHC: $GHC_PATH"
-    echo "#   Cabal: $CABAL_PATH"
-    echo "#   Executable: $EXE_NAME"
-
+    echo "  Building Haskell executable for $target"
     cd "$HS_PROJECT_DIR"
 
-    # Derive tool paths from ghc path
     local ghc_pkg_path="${GHC_PATH%-ghc}-ghc-pkg"
     local ghc_dir
     ghc_dir="$(dirname "$GHC_PATH")"
     local hsc2hs_path
 
-    # Find hsc2hs -- try cross-GHC's version first, fall back to native.
-    #
-    # hsc2hs is a build-time tool (it generates source code on the host), so
-    # it does not need to be cross-compiled. The native hsc2hs works fine.
-    # However, Nix's cross-GHC hsc2hs sometimes fails version checks in cabal,
-    # so we fall back to the native one if the cross version doesn't work.
-    #
-    # See: https://downloads.haskell.org/ghc/latest/docs/users_guide/utils.html#writing-haskell-interfaces-to-c-code-hsc2hs
     if [ -f "$ghc_dir/hsc2hs" ]; then
         hsc2hs_path="$ghc_dir/hsc2hs"
     else
@@ -487,32 +432,25 @@ build_hs_cross() {
     fi
 
     if [ -z "$hsc2hs_path" ] || ! "$hsc2hs_path" --version &>/dev/null; then
-        echo "#   Note: Using native hsc2hs (cross-compiled version not working)"
         hsc2hs_path=$(command -v hsc2hs 2>/dev/null || true)
     fi
 
-    # Set up iserv for Template Haskell cross-compilation
     local qemu_cmd_path
     qemu_cmd_path="$(command -v "$QEMU_CMD")"
 
     if [ -z "$qemu_cmd_path" ]; then
-        echo "# Error: QEMU not found ($QEMU_CMD)"
+        echo "  Error: QEMU not found ($QEMU_CMD)"
         return 1
     fi
 
-    # Build or retrieve cached iserv binary
     local iserv_binary
     iserv_binary=$(build_iserv_for_target "$target" "$GHC_PATH" | tail -1)
 
     if [ ! -x "$iserv_binary" ]; then
-        echo "# Error: Failed to build iserv for $target"
+        echo "  Error: Failed to build iserv for $target"
         return 1
     fi
 
-    # Create iserv wrapper script.
-    # GHC's -pgmi replaces the iserv command entirely. GHC invokes the wrapper
-    # with iserv's own arguments (pipe file descriptors), NOT the iserv binary
-    # path. The wrapper must hardcode the iserv binary path.
     local iserv_wrapper
     iserv_wrapper="$(cd "$HS_PROJECT_DIR" && pwd)/iserv-wrapper-$target.sh"
 
@@ -523,26 +461,16 @@ WRAPPER_EOF
 
     chmod +x "$iserv_wrapper"
 
-    echo "#   iserv: $iserv_binary"
-    echo "#   iserv wrapper: $iserv_wrapper"
-
-    # Write cross-compilation cabal.project.local.
-    # The -fexternal-interpreter and -pgmi options MUST be applied to ALL
-    # packages via cabal.project.local, not just via --ghc-option. Dependencies
-    # like hs-bindgen-runtime use Template Haskell and need these options too.
     cat > "$HS_PROJECT_DIR/cabal.project.local" << CABAL_EOF
 -- Auto-generated by generate-and-run.sh for $target cross-compilation
 package cross-compilation-example
   extra-include-dirs: $C_SRC_DIR
   extra-lib-dirs: $LIB_DIR
 
--- Template Haskell cross-compilation: use external interpreter under QEMU
--- This must apply to ALL packages (e.g. hs-bindgen-runtime uses TH)
 package *
   ghc-options: -fexternal-interpreter -pgmi $iserv_wrapper
 CABAL_EOF
 
-    # Build with cross-compiled GHC
     if "$CABAL_PATH" build "$EXE_NAME" \
         --with-compiler="$GHC_PATH" \
         --with-ghc-pkg="$ghc_pkg_path" \
@@ -550,22 +478,20 @@ CABAL_EOF
         --builddir="$BUILDDIR" \
         --extra-lib-dirs="$LIB_DIR" \
         --extra-include-dirs="$C_SRC_DIR" \
-        --ghc-option="-optc-Wno-error" 2>&1 | tee /tmp/cabal-build-$target.log; then
-        echo "# Build succeeded"
+        --ghc-option="-optc-Wno-error" >/dev/null 2>&1; then
         return 0
     else
-        echo "# Build failed (log: /tmp/cabal-build-$target.log)"
+        echo "  Build failed (see /tmp/cabal-build-$target.log)"
         return 1
     fi
 }
 
-# Run cross-compiled Haskell executable under QEMU
 run_hs_qemu() {
     local target=$1
     configure_target "$target"
 
     if ! command -v "$QEMU_CMD" &>/dev/null; then
-        echo "# Warning: QEMU ($QEMU_CMD) not found, cannot run $target executable"
+        echo "  Warning: QEMU ($QEMU_CMD) not found, cannot run $target executable"
         return 1
     fi
 
@@ -574,70 +500,54 @@ run_hs_qemu() {
     exe_path=$(find "$BUILDDIR" -type f -name "$EXE_NAME" -executable 2>/dev/null | head -1)
 
     if [ -z "$exe_path" ]; then
-        echo "# Error: Executable not found in $BUILDDIR"
+        echo "  Error: Executable not found in $BUILDDIR"
         return 1
     fi
 
-    echo "# Running $target executable under QEMU"
-    echo "#   Executable: $exe_path"
-    echo "#   QEMU: $QEMU_CMD"
-    echo "#   Library: $LIB_DIR"
-    echo "# ===== Output ====="
-
+    echo "  Running $target executable under QEMU:"
     local exit_code
     if [ -n "$QEMU_LD_PREFIX" ]; then
         LD_LIBRARY_PATH="$LIB_DIR:${LD_LIBRARY_PATH:-}" \
             "$QEMU_CMD" -L "$QEMU_LD_PREFIX" -E "LD_LIBRARY_PATH=$LIB_DIR" "$exe_path"
         exit_code=$?
     else
-        echo "# Warning: QEMU_LD_PREFIX not set, system libraries may not be found"
+        echo "  Warning: QEMU_LD_PREFIX not set, system libraries may not be found"
         LD_LIBRARY_PATH="$LIB_DIR:${LD_LIBRARY_PATH:-}" \
             "$QEMU_CMD" "$exe_path"
         exit_code=$?
     fi
 
-    echo "# =================="
-
     if [ $exit_code -eq 0 ]; then
-        echo "# Execution succeeded"
+        echo "  Execution succeeded"
     else
-        echo "# Execution failed (exit code: $exit_code)"
+        echo "  Execution failed (exit code: $exit_code)"
     fi
 
     return $exit_code
 }
 
-# Run cross-compilation workflow for a target
 run_cross_target() {
     local target=$1
 
-    echo "# "
-    echo "# Phase 4: Cross-compiling and running $target under QEMU"
-    echo "# "
+    echo "==> Phase 4: Cross-compiling and running $target under QEMU"
 
     configure_target "$target"
 
     if [ ! -x "$GHC_PATH" ]; then
-        echo "# Cross-compiled GHC not available for $target"
-        echo "# To enable: run this script inside 'nix develop'"
+        echo "  Cross-compiled GHC not available for $target"
+        echo "  To enable: run this script inside 'nix develop'"
         return 1
     fi
-
-    echo "# Cross-compiled GHC available for $target"
 
     if ! build_hs_cross "$target"; then
-        echo "# Haskell build failed for $target"
         return 1
     fi
 
-    echo "# "
     if ! run_hs_qemu "$target"; then
-        echo "# QEMU execution failed for $target"
         return 1
     fi
 
-    echo "# "
-    echo "# Successfully ran $target Haskell executable under QEMU"
+    echo "  Successfully ran $target Haskell executable under QEMU"
     return 0
 }
 
@@ -651,8 +561,5 @@ for arch in aarch64 arm32; do
     fi
 done
 
-echo "# "
-echo "# Done!"
-echo "# "
-echo "# To compare struct sizes across architectures, run:"
-echo "#   ./compare-sizes.sh"
+echo "==> Done!"
+echo "  To compare struct sizes across architectures, run: ./compare-sizes.sh"

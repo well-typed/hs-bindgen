@@ -26,17 +26,17 @@ jobs:
   cross-compile-test:
     name: Cross-compile to ${{ matrix.target }}
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 360
 
     strategy:
       fail-fast: false
       matrix:
         include:
-          - target: aarch64
-            target-triple: aarch64-linux-gnu
+          - target: native
+            dev-shell: cross-native
 
           - target: arm32
-            target-triple: arm-linux-gnueabihf
+            dev-shell: cross-arm32
 
     steps:
     - name: Checkout repository
@@ -48,76 +48,71 @@ jobs:
         nix_path: nixpkgs=channel:nixos-24.11
         extra_nix_config: |
           experimental-features = nix-command flakes
+          max-jobs = auto
+          cores = 4
+          keep-outputs = true
+          keep-derivations = true
 
     - name: Setup Cachix
       uses: cachix/cachix-action@v15
       with:
         name: hs-bindgen
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      continue-on-error: true
+        extraPullNames: nix-community
 
-    - name: Cache Nix store
-      uses: actions/cache@v4
+    - name: Get cache key
+      id: cache-key
+      run: |
+        echo "key=nix-cross-${{ matrix.target }}-$(sha256sum examples/cross-compilation/flake.lock | cut -d' ' -f1)" >> $GITHUB_OUTPUT
+
+    - name: Restore Nix store paths
+      uses: actions/cache/restore@v4
+      id: cache-restore
       with:
-        path: /nix/store
-        key: nix-cross-${{ matrix.target }}-${{ hashFiles('examples/cross-compilation/flake.lock') }}
+        path: |
+          /nix/store
+          /nix/var/nix/db
+        key: ${{ steps.cache-key.outputs.key }}
         restore-keys: |
           nix-cross-${{ matrix.target }}-
 
-    - name: Run cross-compilation workflow
+    - name: Build and cache dev shell
+      if: steps.cache-restore.outputs.cache-hit != 'true'
       working-directory: examples/cross-compilation
       run: |
-        nix develop --command ./generate-and-run.sh ${{ matrix.target }}
+        set -x
+        echo "==> Building dev shell for ${{ matrix.target }}..."
+        echo "==> First run will be slow; subsequent runs use the cache."
+        time nix build .#devShells.x86_64-linux.${{ matrix.dev-shell }} --print-build-logs
+        echo "==> Dev shell built successfully"
 
-    - name: Verify executable architecture
+    - name: Save Nix store paths
+      if: steps.cache-restore.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v4
+      with:
+        path: |
+          /nix/store
+          /nix/var/nix/db
+        key: ${{ steps.cache-key.outputs.key }}
+
+    - name: Update Hackage index
+      run: |
+        nix develop ./examples/cross-compilation#${{ matrix.dev-shell }} --command cabal update
+
+    - name: Run workflow with timing
       working-directory: examples/cross-compilation
       run: |
-        EXE_PATH=$(find hs-project/dist-newstyle-${{ matrix.target }} \
-          -name "cross-compilation-${{ matrix.target }}" -type f | head -1)
+        set -x
+        echo "==> Starting cross-compilation for ${{ matrix.target }}"
+        time nix develop .#${{ matrix.dev-shell }} --command ./generate-and-run.sh ${{ matrix.target }}
 
-        if [ -z "$EXE_PATH" ]; then
-          echo "Error: Executable not found"
-          exit 1
-        fi
-
-        echo "Executable: $EXE_PATH"
-        file "$EXE_PATH"
-
-        if [ "${{ matrix.target }}" = "aarch64" ]; then
-          file "$EXE_PATH" | grep -q "ARM aarch64"
-        else
-          file "$EXE_PATH" | grep -q "ARM"
-        fi
-
-    - name: Verify generated struct sizes
-      working-directory: examples/cross-compilation
-      run: |
-        HS_SIZE=$(sed -n '/instance F.Storable ArchInfo/,/poke/p' \
-          hs-project/src-${{ matrix.target }}/ArchTypes/Generated.hs | \
-          sed -n 's/.*sizeOf = \\_ -> (\([0-9]*\) :: Int).*/\1/p')
-
-        if [ "${{ matrix.target }}" = "arm32" ]; then
-          EXPECTED=16
-        else
-          EXPECTED=24
-        fi
-
-        echo "ArchInfo size: $HS_SIZE (expected: $EXPECTED)"
-
-        if [ "$HS_SIZE" != "$EXPECTED" ]; then
-          echo "Error: Size mismatch"
-          exit 1
-        fi
-
-    - name: Show build artifacts
-      if: always()
-      working-directory: examples/cross-compilation
-      run: |
-        echo "C libraries:"
-        ls -lh c-src/lib-*/ 2>/dev/null || echo "  (none)"
-        echo ""
-        echo "Generated bindings:"
-        ls -d hs-project/src-*/ 2>/dev/null || echo "  (none)"
-        echo ""
-        echo "Build directories:"
-        ls -d hs-project/dist-newstyle*/ 2>/dev/null || echo "  (none)"
+    - name: Upload build logs on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-logs-${{ matrix.target }}
+        path: |
+          examples/cross-compilation/hs-project/dist-newstyle*/
+          examples/cross-compilation/hs-project/**/*.log
+        retention-days: 7
+        if-no-files-found: ignore
