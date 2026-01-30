@@ -145,6 +145,18 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return &anonPair;"
   , "}"
+  , "/* test_globalsglobals_Example_get_anonEnum */"
+  , "__attribute__ ((const))"
+  , "enum anonEnum *hs_bindgen_1c28cee33967e767 (void)"
+  , "{"
+  , "  return &anonEnum;"
+  , "}"
+  , "/* test_globalsglobals_Example_get_anonEnumCoords */"
+  , "__attribute__ ((const))"
+  , "enum anonEnumCoords *hs_bindgen_0e0ec9b1d935fbb6 (void)"
+  , "{"
+  , "  return &anonEnumCoords;"
+  , "}"
   ]))
 
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
@@ -550,7 +562,7 @@ foreign import ccall unsafe "hs_bindgen_6a74c096c69eaf13" hs_bindgen_6a74c096c69
 -- __unique:__ @test_globalsglobals_Example_get_anonPoint@
 hs_bindgen_6a74c096c69eaf13 :: IO (Ptr.Ptr AnonPoint)
 hs_bindgen_6a74c096c69eaf13 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6a74c096c69eaf13_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6a74c096c69eaf13_base
 
 {-# NOINLINE anonPoint #-}
 {-| __C declaration:__ @anonPoint@
@@ -570,7 +582,7 @@ foreign import ccall unsafe "hs_bindgen_2ee54a93dbbed801" hs_bindgen_2ee54a93dbb
 -- __unique:__ @test_globalsglobals_Example_get_anonPair@
 hs_bindgen_2ee54a93dbbed801 :: IO (Ptr.Ptr AnonPair)
 hs_bindgen_2ee54a93dbbed801 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2ee54a93dbbed801_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2ee54a93dbbed801_base
 
 {-# NOINLINE anonPair #-}
 {-| __C declaration:__ @anonPair@
@@ -582,3 +594,43 @@ hs_bindgen_2ee54a93dbbed801 =
 anonPair :: Ptr.Ptr AnonPair
 anonPair =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2ee54a93dbbed801
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+foreign import ccall unsafe "hs_bindgen_1c28cee33967e767" hs_bindgen_1c28cee33967e767_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 :: IO (Ptr.Ptr AnonEnum)
+hs_bindgen_1c28cee33967e767 =
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1c28cee33967e767_base
+
+{-# NOINLINE anonEnum #-}
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum :: Ptr.Ptr AnonEnum
+anonEnum =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1c28cee33967e767
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+foreign import ccall unsafe "hs_bindgen_0e0ec9b1d935fbb6" hs_bindgen_0e0ec9b1d935fbb6_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 :: IO (Ptr.Ptr AnonEnumCoords)
+hs_bindgen_0e0ec9b1d935fbb6 =
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0e0ec9b1d935fbb6_base
+
+{-# NOINLINE anonEnumCoords #-}
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords :: Ptr.Ptr AnonEnumCoords
+anonEnumCoords =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0e0ec9b1d935fbb6

@@ -130,6 +130,18 @@
 -- {
 --   return &anonPair;
 -- }
+-- /* test_globalsglobals_Example_get_anonEnum */
+-- __attribute__ ((const))
+-- enum anonEnum *hs_bindgen_1c28cee33967e767 (void)
+-- {
+--   return &anonEnum;
+-- }
+-- /* test_globalsglobals_Example_get_anonEnumCoords */
+-- __attribute__ ((const))
+-- enum anonEnumCoords *hs_bindgen_0e0ec9b1d935fbb6 (void)
+-- {
+--   return &anonEnumCoords;
+-- }
 {-| __C declaration:__ @struct config@
 
     __defined at:__ @globals\/globals.h 12:8@
@@ -426,36 +438,16 @@ data AnonPoint
            __exported by:__ @globals\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable AnonPoint
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure AnonPoint <*> peek (Proxy @"anonPoint_x") ptr_0) <*> peek (Proxy @"anonPoint_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   AnonPoint anonPoint_x_3
-                                             anonPoint_y_4 -> poke (Proxy @"anonPoint_x") ptr_1 anonPoint_x_3 >> poke (Proxy @"anonPoint_y") ptr_1 anonPoint_y_4
-instance Prim AnonPoint
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> AnonPoint (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       AnonPoint v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      AnonPoint anonPoint_x_13
-                                                                                anonPoint_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) anonPoint_x_13 s_12 of
-                                                                                                  s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) anonPoint_y_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> AnonPoint (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            AnonPoint v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      AnonPoint anonPoint_x_29
-                                                                                anonPoint_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) anonPoint_x_29 s_28 of
-                                                                                                  s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) anonPoint_y_30 s_31
+instance StaticSize AnonPoint
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AnonPoint
+    where readRaw = \ptr_0 -> (pure AnonPoint <*> readRaw (Proxy @"anonPoint_x") ptr_0) <*> readRaw (Proxy @"anonPoint_y") ptr_0
+instance WriteRaw AnonPoint
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AnonPoint anonPoint_x_2
+                                                 anonPoint_y_3 -> writeRaw (Proxy @"anonPoint_x") ptr_0 anonPoint_x_2 >> writeRaw (Proxy @"anonPoint_y") ptr_0 anonPoint_y_3
+deriving via (EquivStorable AnonPoint) instance Storable AnonPoint
 instance HasCField AnonPoint "anonPoint_x"
     where type CFieldType AnonPoint "anonPoint_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -496,36 +488,16 @@ data AnonPair
            __exported by:__ @globals\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable AnonPair
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure AnonPair <*> peek (Proxy @"anonPair_a") ptr_0) <*> peek (Proxy @"anonPair_b") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   AnonPair anonPair_a_3
-                                            anonPair_b_4 -> poke (Proxy @"anonPair_a") ptr_1 anonPair_a_3 >> poke (Proxy @"anonPair_b") ptr_1 anonPair_b_4
-instance Prim AnonPair
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> AnonPair (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       AnonPair v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      AnonPair anonPair_a_13
-                                                                               anonPair_b_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) anonPair_a_13 s_12 of
-                                                                                                s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) anonPair_b_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> AnonPair (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            AnonPair v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      AnonPair anonPair_a_29
-                                                                               anonPair_b_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) anonPair_a_29 s_28 of
-                                                                                                s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) anonPair_b_30 s_31
+instance StaticSize AnonPair
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AnonPair
+    where readRaw = \ptr_0 -> (pure AnonPair <*> readRaw (Proxy @"anonPair_a") ptr_0) <*> readRaw (Proxy @"anonPair_b") ptr_0
+instance WriteRaw AnonPair
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AnonPair anonPair_a_2
+                                                anonPair_b_3 -> writeRaw (Proxy @"anonPair_a") ptr_0 anonPair_a_2 >> writeRaw (Proxy @"anonPair_b") ptr_0 anonPair_b_3
+deriving via (EquivStorable AnonPair) instance Storable AnonPair
 instance HasCField AnonPair "anonPair_a"
     where type CFieldType AnonPair "anonPair_a" = CInt
           offset# = \_ -> \_ -> 0
@@ -538,6 +510,176 @@ instance HasCField AnonPair "anonPair_b"
 instance TyEq ty (CFieldType AnonPair "anonPair_b") =>
          HasField "anonPair_b" (Ptr AnonPair) (Ptr ty)
     where getField = fromPtr (Proxy @"anonPair_b")
+{-| __C declaration:__ @enum anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnum
+    = AnonEnum {unwrapAnonEnum :: CUInt}
+      {- ^ __C declaration:__ @enum anonEnum@
+
+           __defined at:__ @globals\/globals.h 444:1@
+
+           __exported by:__ @globals\/globals.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasFFIType
+instance StaticSize AnonEnum
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AnonEnum
+    where readRaw = \ptr_0 -> pure AnonEnum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw AnonEnum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AnonEnum unwrapAnonEnum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapAnonEnum_2
+deriving via (EquivStorable AnonEnum) instance Storable AnonEnum
+deriving via CUInt instance Prim AnonEnum
+instance CEnum AnonEnum
+    where type CEnumZ AnonEnum = CUInt
+          toCEnum = AnonEnum
+          fromCEnum = unwrapAnonEnum
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "VAL_A"),
+                                                         (1, singleton "VAL_B")]
+          showsUndeclared = showsWrappedUndeclared "AnonEnum"
+          readPrecUndeclared = readPrecWrappedUndeclared "AnonEnum"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum AnonEnum
+    where minDeclaredValue = VAL_A
+          maxDeclaredValue = VAL_B
+instance Show AnonEnum
+    where showsPrec = shows
+instance Read AnonEnum
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType AnonEnum "unwrapAnonEnum") =>
+         HasField "unwrapAnonEnum" (Ptr AnonEnum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapAnonEnum")
+instance HasCField AnonEnum "unwrapAnonEnum"
+    where type CFieldType AnonEnum "unwrapAnonEnum" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A :: AnonEnum
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A = AnonEnum 0
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B :: AnonEnum
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B = AnonEnum 1
+{-| __C declaration:__ @enum anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnumCoords
+    = AnonEnumCoords {unwrapAnonEnumCoords :: CUInt}
+      {- ^ __C declaration:__ @enum anonEnumCoords@
+
+           __defined at:__ @globals\/globals.h 447:1@
+
+           __exported by:__ @globals\/globals.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasFFIType
+instance StaticSize AnonEnumCoords
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AnonEnumCoords
+    where readRaw = \ptr_0 -> pure AnonEnumCoords <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw AnonEnumCoords
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AnonEnumCoords unwrapAnonEnumCoords_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapAnonEnumCoords_2
+deriving via (EquivStorable AnonEnumCoords) instance Storable AnonEnumCoords
+deriving via CUInt instance Prim AnonEnumCoords
+instance CEnum AnonEnumCoords
+    where type CEnumZ AnonEnumCoords = CUInt
+          toCEnum = AnonEnumCoords
+          fromCEnum = unwrapAnonEnumCoords
+          declaredValues = \_ -> declaredValuesFromList [(10, singleton "X"),
+                                                         (20, singleton "Y"),
+                                                         (30, singleton "Z")]
+          showsUndeclared = showsWrappedUndeclared "AnonEnumCoords"
+          readPrecUndeclared = readPrecWrappedUndeclared "AnonEnumCoords"
+instance Show AnonEnumCoords
+    where showsPrec = shows
+instance Read AnonEnumCoords
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance TyEq ty
+              (CFieldType AnonEnumCoords "unwrapAnonEnumCoords") =>
+         HasField "unwrapAnonEnumCoords" (Ptr AnonEnumCoords) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapAnonEnumCoords")
+instance HasCField AnonEnumCoords "unwrapAnonEnumCoords"
+    where type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X :: AnonEnumCoords
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X = AnonEnumCoords 10
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y :: AnonEnumCoords
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y = AnonEnumCoords 20
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z :: AnonEnumCoords
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z = AnonEnumCoords 30
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
 foreign import ccall unsafe "hs_bindgen_4f8e7b3d91414aa8" hs_bindgen_4f8e7b3d91414aa8_base ::
     IO (Ptr Void)
@@ -1035,3 +1177,47 @@ anonPair :: Ptr AnonPair
     __exported by:__ @globals\/globals.h@
 -}
 anonPair = unsafePerformIO hs_bindgen_2ee54a93dbbed801
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+foreign import ccall unsafe "hs_bindgen_1c28cee33967e767" hs_bindgen_1c28cee33967e767_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 :: IO (Ptr AnonEnum)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 = fromFFIType hs_bindgen_1c28cee33967e767_base
+{-# NOINLINE anonEnum #-}
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum :: Ptr AnonEnum
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum = unsafePerformIO hs_bindgen_1c28cee33967e767
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+foreign import ccall unsafe "hs_bindgen_0e0ec9b1d935fbb6" hs_bindgen_0e0ec9b1d935fbb6_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 :: IO (Ptr AnonEnumCoords)
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 = fromFFIType hs_bindgen_0e0ec9b1d935fbb6_base
+{-# NOINLINE anonEnumCoords #-}
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords :: Ptr AnonEnumCoords
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords = unsafePerformIO hs_bindgen_0e0ec9b1d935fbb6

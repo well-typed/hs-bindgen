@@ -33,7 +33,54 @@ ctypes:
 - headers: globals/globals.h
   cname: struct anonPair
   hsname: AnonPair
+- headers: globals/globals.h
+  cname: enum anonEnum
+  hsname: AnonEnum
+- headers: globals/globals.h
+  cname: enum anonEnumCoords
+  hsname: AnonEnumCoords
 hstypes:
+- hsname: AnonEnum
+  representation:
+    newtype:
+      constructor: AnonEnum
+      fields:
+      - unwrapAnonEnum
+  instances:
+  - CEnum
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonEnumCoords
+  representation:
+    newtype:
+      constructor: AnonEnumCoords
+      fields:
+      - unwrapAnonEnumCoords
+  instances:
+  - CEnum
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: AnonPair
   representation:
     record:
@@ -43,9 +90,13 @@ hstypes:
       - anonPair_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: AnonPoint
   representation:
     record:
@@ -55,9 +106,13 @@ hstypes:
       - anonPoint_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Config
   representation:
     record:
