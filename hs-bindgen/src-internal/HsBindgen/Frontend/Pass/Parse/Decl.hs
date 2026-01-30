@@ -724,34 +724,34 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         pure $ (fails ++) $
-          if not (null anonDecls) && not isDefn then [
-              parseFail info.id info.loc $
-                ParseUnexpectedAnonInExtern
-            ]
-          else (map parseSucceed (anonDecls ++ otherDecls) ++) $
-            let nonPublicVisibility = [
-                    ParseNonPublicVisibility
-                  | visibilityCanCauseErrors visibility linkage isDefn
-                  ]
-                potentialDuplicate = [
-                    ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
-                  | isDefn && linkage == ExternalLinkage
-                  ]
-                msgs = nonPublicVisibility ++ potentialDuplicate
-
-            in  case cls of
-              VarGlobal ->
-                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
-              VarConst ->
-                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
-              VarThreadLocal -> [
-                  parseFail info.id info.loc $
-                    ParseUnsupportedTLS
+          let nonPublicVisibility = [
+                  ParseNonPublicVisibility
+                | visibilityCanCauseErrors visibility linkage isDefn
                 ]
-              VarUnsupported storage -> [
-                  parseFail info.id info.loc $
-                    ParseUnknownStorageClass storage
+              potentialDuplicate = [
+                  ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
+                | isDefn && linkage == ExternalLinkage
                 ]
+              msgs = nonPublicVisibility ++ potentialDuplicate
+           in case cls of
+                VarGlobal IsExtern
+                  | not (null anonDecls) ->
+                    [ parseFail info.id info.loc ParseUnexpectedAnonInExtern ]
+                VarGlobal _ ->
+                  (map parseSucceed (anonDecls ++ otherDecls) ++) $
+                    singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
+                VarConst IsExtern
+                  | not (null anonDecls) ->
+                    [ parseFail info.id info.loc ParseUnexpectedAnonInExtern ]
+                VarConst _ ->
+                  (map parseSucceed (anonDecls ++ otherDecls) ++) $
+                    singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
+                VarThreadLocal ->
+                  map parseSucceed (anonDecls ++ otherDecls)
+                  ++ [ parseFail info.id info.loc ParseUnsupportedTLS ]
+                VarUnsupported storage ->
+                  map parseSucceed (anonDecls ++ otherDecls)
+                  ++ [ parseFail info.id info.loc $ ParseUnknownStorageClass storage ]
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult Parse]
@@ -764,6 +764,7 @@ varDecl info = \curr -> do
           -- Nested /new/ declarations
           Right CXCursor_StructDecl -> parseDecl curr
           Right CXCursor_UnionDecl  -> parseDecl curr
+          Right CXCursor_EnumDecl   -> parseDecl curr
 
           -- Initializers
           --
@@ -932,11 +933,18 @@ detectUnionImplicitFields nestedDecls outerFields =
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = decl.info.id `elem` fieldDeps
 
+-- | Whether a global variable has @extern@ storage class
+--
+-- This is only used locally during parsing to reject extern declarations with
+-- anonymous types; it is not propagated into the AST.
+data IsExtern = IsExtern | IsNotExtern
+  deriving stock (Show)
+
 data VarClassification =
     -- | The simplest case: a simple global variable
     --
     -- > extern int simpleGlobal;
-    VarGlobal
+    VarGlobal IsExtern
 
     -- | Global constants
     --
@@ -951,7 +959,7 @@ data VarClassification =
     --
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/829>
     -- We could in principle expose the /value/ of the constant, if we know it.
-  | VarConst
+  | VarConst IsExtern
 
     -- | Thread local variables
     --
@@ -975,11 +983,11 @@ classifyVarDecl = \curr -> do
         canonical <- clang_getCanonicalType typ
         isConst   <- clang_isConstQualifiedType canonical
         case (fromSimpleEnum storage, isConst) of
-          (Right CX_SC_Extern , False) -> return VarGlobal
-          (Right CX_SC_None   , False) -> return VarGlobal
-          (Right CX_SC_Extern , True ) -> return VarConst
-          (Right CX_SC_Static , True ) -> return VarConst
-          (Right CX_SC_None   , True)  -> return VarConst
+          (Right CX_SC_Extern , False) -> return $ VarGlobal IsExtern
+          (Right CX_SC_None   , False) -> return $ VarGlobal IsNotExtern
+          (Right CX_SC_Extern , True ) -> return $ VarConst  IsExtern
+          (Right CX_SC_Static , True ) -> return $ VarConst  IsNotExtern
+          (Right CX_SC_None   , True)  -> return $ VarConst  IsNotExtern
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal

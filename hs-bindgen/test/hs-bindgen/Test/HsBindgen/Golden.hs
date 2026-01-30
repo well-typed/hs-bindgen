@@ -201,10 +201,10 @@ test_manual_globals =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
-        -- unexpected anon in extern
-        "unusableAnon"
         -- potential duplicate symbols
-      , "nonExternGlobalInt"
+        "nonExternGlobalInt"
+        -- unexpected anonymous declaration in extern
+      , "unusableAnon"
       ]
 
 {-------------------------------------------------------------------------------
@@ -1286,6 +1286,8 @@ test_globals_globals =
         , "streamBinary"
         , "anonPoint"
         , "anonPair"
+        , "anonEnum"
+        , "anonEnumCoords"
         ]
 
 {-------------------------------------------------------------------------------

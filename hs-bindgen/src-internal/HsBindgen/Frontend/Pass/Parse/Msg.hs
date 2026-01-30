@@ -119,7 +119,7 @@ data DelayedParseMsg =
     -- will result in an error: "conflicting types for 'config'".
     --
     -- The /header/ however by itself will not result in a @clang@ warning, so
-    -- we detect the siutation and warn the user in @hs-bindgen@.
+    -- we detect the situation and warn the user in @hs-bindgen@.
     --
     -- (As of C23, the situation is different for /named/ structs: multiple uses
     -- of a struct with the same name are considered compatible as of

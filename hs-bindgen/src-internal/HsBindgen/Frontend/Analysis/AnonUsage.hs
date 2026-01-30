@@ -73,7 +73,7 @@ data Context =
     --
     -- In this case, we use the name of the global variable as the name of
     -- the struct.
-  | TopLevelStruct (C.DeclInfo Parse)
+  | GlobalVar (C.DeclInfo Parse)
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -197,7 +197,7 @@ analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(AnonId, Context)]
 analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ
 
 analyseGlobal :: C.DeclInfo Parse -> C.Type Parse -> [(AnonId, Context)]
-analyseGlobal info typ = analyseType (TopLevelStruct info) typ
+analyseGlobal info typ = analyseType (GlobalVar info) typ
 
 {-------------------------------------------------------------------------------
   Types
