@@ -41,7 +41,7 @@ library
   exposed-modules:
     HsBindgen.Runtime.BitfieldPtr
     HsBindgen.Runtime.Block
-    HsBindgen.Runtime.CBoolSem
+    HsBindgen.Runtime.CBool
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
     HsBindgen.Runtime.FLAM
@@ -94,7 +94,7 @@ test-suite test-hs-bindgen-runtime
   main-is:        test-runtime.hs
   other-modules:
     Test.HsBindgen.Runtime.Bitfield
-    Test.HsBindgen.Runtime.CBoolSem
+    Test.HsBindgen.Runtime.CBool
     Test.HsBindgen.Runtime.CEnum
     Test.HsBindgen.Runtime.CEnumArbitrary
     Test.HsBindgen.Runtime.ConstantArray
