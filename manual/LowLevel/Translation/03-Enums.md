@@ -19,7 +19,7 @@ we generate
 
 ```haskell
 newtype Index = Index {
-    un_Index :: CUInt
+    unwrapIndex :: CUInt
   }
 
 pattern A, B, C :: Index
@@ -78,7 +78,7 @@ we use `CInt` instead (corresponding to `signed int`):
 
 ```haskell
 newtype Result = Result {
-    un_Result :: CInt
+    unwrapResult :: CInt
   }
 ```
 
@@ -96,7 +96,7 @@ we use `CUChar` (corresponding to `unsigned char`):
 
 ```haskell
 newtype Vote = Vote {
-    un_Vote :: CUChar
+    unwrapVote :: CUChar
   }
 ```
 
@@ -133,7 +133,7 @@ instance CEnum Index where
   type CEnumZ Index = FC.CUInt
 
   toCEnum   = Index
-  fromCEnum = un_Index
+  fromCEnum = unwrapIndex
 
   declaredValues _ = declaredValuesFromList [
       (0, NonEmpty.singleton "A")

@@ -127,7 +127,7 @@
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
 newtype MyUnion
-    = MyUnion {un_MyUnion :: ByteArray}
+    = MyUnion {unwrapMyUnion :: ByteArray}
       {- ^ __C declaration:__ @union MyUnion@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 4:7@
@@ -183,7 +183,7 @@ instance TyEq ty (CFieldType MyUnion "myUnion_x") =>
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
 newtype A
-    = A {un_A :: MyUnion}
+    = A {unwrapA :: MyUnion}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 7:23@
@@ -191,11 +191,11 @@ newtype A
            __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
       -}
     deriving newtype Storable
-instance TyEq ty (CFieldType A "un_A") =>
-         HasField "un_A" (Ptr A) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_A")
-instance HasCField A "un_A"
-    where type CFieldType A "un_A" = MyUnion
+instance TyEq ty (CFieldType A "unwrapA") =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = MyUnion
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @B@
 
@@ -204,7 +204,7 @@ instance HasCField A "un_A"
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
 newtype B
-    = B {un_B :: A}
+    = B {unwrapB :: A}
       {- ^ __C declaration:__ @B@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 8:11@
@@ -212,11 +212,11 @@ newtype B
            __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
       -}
     deriving newtype Storable
-instance TyEq ty (CFieldType B "un_B") =>
-         HasField "un_B" (Ptr B) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_B")
-instance HasCField B "un_B"
-    where type CFieldType B "un_B" = A
+instance TyEq ty (CFieldType B "unwrapB") =>
+         HasField "unwrapB" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapB")
+instance HasCField B "unwrapB"
+    where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @E@
 
@@ -225,18 +225,18 @@ instance HasCField B "un_B"
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
 newtype E
-    = E {un_E :: M.C}
+    = E {unwrapE :: M.C}
       {- ^ __C declaration:__ @E@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 21:11@
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
       -}
-instance TyEq ty (CFieldType E "un_E") =>
-         HasField "un_E" (Ptr E) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_E")
-instance HasCField E "un_E"
-    where type CFieldType E "un_E" = M.C
+instance TyEq ty (CFieldType E "unwrapE") =>
+         HasField "unwrapE" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE")
+instance HasCField E "unwrapE"
+    where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::

@@ -25,7 +25,7 @@ hstypes:
     newtype:
       constructor: Fun_ptr
       fields:
-      - un_Fun_ptr
+      - unwrapFun_ptr
   instances:
   - Eq
   - HasFFIType

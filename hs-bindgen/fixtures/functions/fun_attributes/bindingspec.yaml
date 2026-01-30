@@ -28,7 +28,7 @@ hstypes:
     newtype:
       constructor: Size_t
       fields:
-      - un_Size_t
+      - unwrapSize_t
   instances:
   - Bitfield
   - Bits

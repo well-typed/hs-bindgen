@@ -29,7 +29,7 @@
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
 newtype U
-    = U {un_U :: ByteArray}
+    = U {unwrapU :: ByteArray}
       {- ^ __C declaration:__ @union U@
 
            __defined at:__ @functions\/heap_types\/union_const_typedef.h 3:7@
@@ -85,7 +85,7 @@ instance TyEq ty (CFieldType U "u_x") =>
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
 newtype T
-    = T {un_T :: U}
+    = T {unwrapT :: U}
       {- ^ __C declaration:__ @T@
 
            __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
@@ -93,11 +93,11 @@ newtype T
            __exported by:__ @functions\/heap_types\/union_const_typedef.h@
       -}
     deriving newtype Storable
-instance TyEq ty (CFieldType T "un_T") =>
-         HasField "un_T" (Ptr T) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_T")
-instance HasCField T "un_T"
-    where type CFieldType T "un_T" = U
+instance TyEq ty (CFieldType T "unwrapT") =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = U
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b_base ::

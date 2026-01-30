@@ -42,7 +42,7 @@ hstypes:
     newtype:
       constructor: A_type_t
       fields:
-      - un_A_type_t
+      - unwrapA_type_t
   instances:
   - Bitfield
   - Bits
@@ -65,7 +65,7 @@ hstypes:
     newtype:
       constructor: A_typedef_enum_e
       fields:
-      - un_A_typedef_enum_e
+      - unwrapA_typedef_enum_e
   instances:
   - Eq
   - HasFFIType
@@ -98,7 +98,7 @@ hstypes:
     newtype:
       constructor: Another_typedef_enum_e
       fields:
-      - un_Another_typedef_enum_e
+      - unwrapAnother_typedef_enum_e
   instances:
   - Eq
   - HasFFIType
@@ -123,7 +123,7 @@ hstypes:
     newtype:
       constructor: Callback_t
       fields:
-      - un_Callback_t
+      - unwrapCallback_t
   instances:
   - Eq
   - HasFFIType
@@ -135,7 +135,7 @@ hstypes:
     newtype:
       constructor: Var_t
       fields:
-      - un_Var_t
+      - unwrapVar_t
   instances:
   - Bitfield
   - Bits

@@ -658,7 +658,7 @@
     __exported by:__ @arrays\/array.h@
 -}
 newtype Triplet
-    = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
+    = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
            __defined at:__ @arrays\/array.h 41:13@
@@ -667,11 +667,12 @@ newtype Triplet
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Triplet "un_Triplet") =>
-         HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Triplet")
-instance HasCField Triplet "un_Triplet"
-    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
+         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTriplet")
+instance HasCField Triplet "unwrapTriplet"
+    where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
+                                                                  CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @list@
 
@@ -680,7 +681,7 @@ instance HasCField Triplet "un_Triplet"
     __exported by:__ @arrays\/array.h@
 -}
 newtype List
-    = List {un_List :: (IncompleteArray CInt)}
+    = List {unwrapList :: (IncompleteArray CInt)}
       {- ^ __C declaration:__ @list@
 
            __defined at:__ @arrays\/array.h 43:13@
@@ -688,11 +689,11 @@ newtype List
            __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType List "un_List") =>
-         HasField "un_List" (Ptr List) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_List")
-instance HasCField List "un_List"
-    where type CFieldType List "un_List" = IncompleteArray CInt
+instance TyEq ty (CFieldType List "unwrapList") =>
+         HasField "unwrapList" (Ptr List) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapList")
+instance HasCField List "unwrapList"
+    where type CFieldType List "unwrapList" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @matrix@
 
@@ -701,7 +702,7 @@ instance HasCField List "un_List"
     __exported by:__ @arrays\/array.h@
 -}
 newtype Matrix
-    = Matrix {un_Matrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
+    = Matrix {unwrapMatrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
       {- ^ __C declaration:__ @matrix@
 
            __defined at:__ @arrays\/array.h 45:13@
@@ -710,12 +711,12 @@ newtype Matrix
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Matrix "un_Matrix") =>
-         HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Matrix")
-instance HasCField Matrix "un_Matrix"
-    where type CFieldType Matrix "un_Matrix" = ConstantArray 4
-                                                             (ConstantArray 3 CInt)
+instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
+         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMatrix")
+instance HasCField Matrix "unwrapMatrix"
+    where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
+                                                                (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @tripletlist@
 
@@ -724,8 +725,8 @@ instance HasCField Matrix "un_Matrix"
     __exported by:__ @arrays\/array.h@
 -}
 newtype Tripletlist
-    = Tripletlist {un_Tripletlist :: (IncompleteArray (ConstantArray 3
-                                                                     CInt))}
+    = Tripletlist {unwrapTripletlist :: (IncompleteArray (ConstantArray 3
+                                                                        CInt))}
       {- ^ __C declaration:__ @tripletlist@
 
            __defined at:__ @arrays\/array.h 47:13@
@@ -733,12 +734,12 @@ newtype Tripletlist
            __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType Tripletlist "un_Tripletlist") =>
-         HasField "un_Tripletlist" (Ptr Tripletlist) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Tripletlist")
-instance HasCField Tripletlist "un_Tripletlist"
+instance TyEq ty (CFieldType Tripletlist "unwrapTripletlist") =>
+         HasField "unwrapTripletlist" (Ptr Tripletlist) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTripletlist")
+instance HasCField Tripletlist "unwrapTripletlist"
     where type CFieldType Tripletlist
-                          "un_Tripletlist" = IncompleteArray (ConstantArray 3 CInt)
+                          "unwrapTripletlist" = IncompleteArray (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct Example@
 
@@ -798,7 +799,7 @@ __defined at:__ @arrays\/array.h 55:17@
 __exported by:__ @arrays\/array.h@
 -}
 newtype Sudoku
-    = Sudoku {un_Sudoku :: (ConstantArray 3 Triplet)}
+    = Sudoku {unwrapSudoku :: (ConstantArray 3 Triplet)}
       {- ^ Typedef-in-typedef
 
       __C declaration:__ @sudoku@
@@ -809,11 +810,12 @@ newtype Sudoku
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Sudoku "un_Sudoku") =>
-         HasField "un_Sudoku" (Ptr Sudoku) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Sudoku")
-instance HasCField Sudoku "un_Sudoku"
-    where type CFieldType Sudoku "un_Sudoku" = ConstantArray 3 Triplet
+instance TyEq ty (CFieldType Sudoku "unwrapSudoku") =>
+         HasField "unwrapSudoku" (Ptr Sudoku) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSudoku")
+instance HasCField Sudoku "unwrapSudoku"
+    where type CFieldType Sudoku "unwrapSudoku" = ConstantArray 3
+                                                                Triplet
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_arraysarray_Example_Safe_fun_1@
 foreign import ccall safe "hs_bindgen_a836491d63ff3a2c" hs_bindgen_a836491d63ff3a2c_base ::

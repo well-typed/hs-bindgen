@@ -26,7 +26,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
 newtype Test = Test
-  { un_Test :: FC.CUInt
+  { unwrapTest :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -46,8 +46,8 @@ instance F.Storable Test where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Test un_Test2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Test2
+          Test unwrapTest2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapTest2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Test
 
@@ -57,7 +57,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Test where
 
   toCEnum = Test
 
-  fromCEnum = un_Test
+  fromCEnum = unwrapTest
 
   declaredValues =
     \_ ->

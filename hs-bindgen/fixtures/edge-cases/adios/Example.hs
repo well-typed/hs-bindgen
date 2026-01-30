@@ -35,20 +35,21 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
     __exported by:__ @edge-cases\/adios.h@
 -}
 newtype Adio'0301s = Adio'0301s
-  { un_Adio'0301s :: FC.CInt
+  { unwrapAdio'0301s :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Adio'0301s) "un_Adio'0301s")
-         ) => GHC.Records.HasField "un_Adio'0301s" (Ptr.Ptr Adio'0301s) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Adio'0301s) "unwrapAdio'0301s")
+         ) => GHC.Records.HasField "unwrapAdio'0301s" (Ptr.Ptr Adio'0301s) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Adio'0301s")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapAdio'0301s")
 
-instance HsBindgen.Runtime.HasCField.HasCField Adio'0301s "un_Adio'0301s" where
+instance HsBindgen.Runtime.HasCField.HasCField Adio'0301s "unwrapAdio'0301s" where
 
-  type CFieldType Adio'0301s "un_Adio'0301s" = FC.CInt
+  type CFieldType Adio'0301s "unwrapAdio'0301s" =
+    FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -59,19 +60,19 @@ instance HsBindgen.Runtime.HasCField.HasCField Adio'0301s "un_Adio'0301s" where
     __exported by:__ @edge-cases\/adios.h@
 -}
 newtype C数字 = C数字
-  { un_C数字 :: FC.CInt
+  { unwrapC数字 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType C数字) "un_C\25968\23383")
-         ) => GHC.Records.HasField "un_C\25968\23383" (Ptr.Ptr C数字) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType C数字) "unwrapC\25968\23383")
+         ) => GHC.Records.HasField "unwrapC\25968\23383" (Ptr.Ptr C数字) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_C\25968\23383")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapC\25968\23383")
 
-instance HsBindgen.Runtime.HasCField.HasCField C数字 "un_C\25968\23383" where
+instance HsBindgen.Runtime.HasCField.HasCField C数字 "unwrapC\25968\23383" where
 
-  type CFieldType C数字 "un_C\25968\23383" = FC.CInt
+  type CFieldType C数字 "unwrapC\25968\23383" = FC.CInt
 
   offset# = \_ -> \_ -> 0

@@ -476,7 +476,7 @@ instance Prim FILE
     __exported by:__ @functions\/fun_attributes.h@
 -}
 newtype Size_t
-    = Size_t {un_Size_t :: CInt}
+    = Size_t {unwrapSize_t :: CInt}
       {- ^ __C declaration:__ @size_t@
 
            __defined at:__ @functions\/fun_attributes.h 8:13@
@@ -496,11 +496,11 @@ newtype Size_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Size_t "un_Size_t") =>
-         HasField "un_Size_t" (Ptr Size_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Size_t")
-instance HasCField Size_t "un_Size_t"
-    where type CFieldType Size_t "un_Size_t" = CInt
+instance TyEq ty (CFieldType Size_t "unwrapSize_t") =>
+         HasField "unwrapSize_t" (Ptr Size_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSize_t")
+instance HasCField Size_t "unwrapSize_t"
+    where type CFieldType Size_t "unwrapSize_t" = CInt
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsfun_attributes_Example_Safe___f1@
 foreign import ccall safe "hs_bindgen_0560fe42a40f777f" hs_bindgen_0560fe42a40f777f_base ::

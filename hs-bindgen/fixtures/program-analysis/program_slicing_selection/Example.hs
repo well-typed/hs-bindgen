@@ -38,7 +38,7 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 newtype FileOperationStatus = FileOperationStatus
-  { un_FileOperationStatus :: FC.CInt
+  { unwrapFileOperationStatus :: FC.CInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -58,8 +58,8 @@ instance F.Storable FileOperationStatus where
     \ptr0 ->
       \s1 ->
         case s1 of
-          FileOperationStatus un_FileOperationStatus2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_FileOperationStatus2
+          FileOperationStatus unwrapFileOperationStatus2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
 
 deriving via FC.CInt instance Data.Primitive.Types.Prim FileOperationStatus
 
@@ -69,7 +69,7 @@ instance HsBindgen.Runtime.CEnum.CEnum FileOperationStatus where
 
   toCEnum = FileOperationStatus
 
-  fromCEnum = un_FileOperationStatus
+  fromCEnum = unwrapFileOperationStatus
 
   declaredValues =
     \_ ->

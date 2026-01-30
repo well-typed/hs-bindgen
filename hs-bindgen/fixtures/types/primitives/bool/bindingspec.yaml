@@ -21,7 +21,7 @@ hstypes:
     newtype:
       constructor: BOOL
       fields:
-      - un_BOOL
+      - unwrapBOOL
   instances:
   - Bits
   - Bounded

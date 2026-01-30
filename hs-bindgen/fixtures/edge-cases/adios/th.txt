@@ -75,7 +75,7 @@
     __exported by:__ @edge-cases\/adios.h@
 -}
 newtype Adio'0301s
-    = Adio'0301s {un_Adio'0301s :: CInt}
+    = Adio'0301s {unwrapAdio'0301s :: CInt}
       {- ^ __C declaration:__ @adiós@
 
            __defined at:__ @edge-cases\/adios.h 7:13@
@@ -95,11 +95,11 @@ newtype Adio'0301s
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Adio'0301s "un_Adio'0301s") =>
-         HasField "un_Adio'0301s" (Ptr Adio'0301s) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Adio'0301s")
-instance HasCField Adio'0301s "un_Adio'0301s"
-    where type CFieldType Adio'0301s "un_Adio'0301s" = CInt
+instance TyEq ty (CFieldType Adio'0301s "unwrapAdio'0301s") =>
+         HasField "unwrapAdio'0301s" (Ptr Adio'0301s) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapAdio'0301s")
+instance HasCField Adio'0301s "unwrapAdio'0301s"
+    where type CFieldType Adio'0301s "unwrapAdio'0301s" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @数字@
 
@@ -108,7 +108,7 @@ instance HasCField Adio'0301s "un_Adio'0301s"
     __exported by:__ @edge-cases\/adios.h@
 -}
 newtype C数字
-    = C数字 {un_C数字 :: CInt}
+    = C数字 {unwrapC数字 :: CInt}
       {- ^ __C declaration:__ @数字@
 
            __defined at:__ @edge-cases\/adios.h 17:13@
@@ -128,11 +128,11 @@ newtype C数字
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType C数字 "un_C\25968\23383") =>
-         HasField "un_C\25968\23383" (Ptr C数字) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_C\25968\23383")
-instance HasCField C数字 "un_C\25968\23383"
-    where type CFieldType C数字 "un_C\25968\23383" = CInt
+instance TyEq ty (CFieldType C数字 "unwrapC\25968\23383") =>
+         HasField "unwrapC\25968\23383" (Ptr C数字) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapC\25968\23383")
+instance HasCField C数字 "unwrapC\25968\23383"
+    where type CFieldType C数字 "unwrapC\25968\23383" = CInt
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 foreign import ccall safe "hs_bindgen_2f6d4be143076044" hs_bindgen_2f6d4be143076044_base ::

@@ -487,7 +487,7 @@ instance TyEq ty (CFieldType S7a_Aux "s7a_Aux_b") =>
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7a
-    = S7a {un_S7a :: (Ptr S7a_Aux)}
+    = S7a {unwrapS7a :: (Ptr S7a_Aux)}
       {- ^ __C declaration:__ @S7a@
 
            __defined at:__ @types\/structs\/simple_structs.h 34:36@
@@ -496,11 +496,11 @@ newtype S7a
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType S7a "un_S7a") =>
-         HasField "un_S7a" (Ptr S7a) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_S7a")
-instance HasCField S7a "un_S7a"
-    where type CFieldType S7a "un_S7a" = Ptr S7a_Aux
+instance TyEq ty (CFieldType S7a "unwrapS7a") =>
+         HasField "unwrapS7a" (Ptr S7a) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapS7a")
+instance HasCField S7a "unwrapS7a"
+    where type CFieldType S7a "unwrapS7a" = Ptr S7a_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct \@S7b_Aux@
 
@@ -579,7 +579,7 @@ instance TyEq ty (CFieldType S7b_Aux "s7b_Aux_b") =>
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7b
-    = S7b {un_S7b :: (Ptr (Ptr (Ptr S7b_Aux)))}
+    = S7b {unwrapS7b :: (Ptr (Ptr (Ptr S7b_Aux)))}
       {- ^ __C declaration:__ @S7b@
 
            __defined at:__ @types\/structs\/simple_structs.h 35:38@
@@ -588,9 +588,9 @@ newtype S7b
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType S7b "un_S7b") =>
-         HasField "un_S7b" (Ptr S7b) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_S7b")
-instance HasCField S7b "un_S7b"
-    where type CFieldType S7b "un_S7b" = Ptr (Ptr (Ptr S7b_Aux))
+instance TyEq ty (CFieldType S7b "unwrapS7b") =>
+         HasField "unwrapS7b" (Ptr S7b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapS7b")
+instance HasCField S7b "unwrapS7b"
+    where type CFieldType S7b "unwrapS7b" = Ptr (Ptr (Ptr S7b_Aux))
           offset# = \_ -> \_ -> 0

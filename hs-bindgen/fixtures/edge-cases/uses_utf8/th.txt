@@ -6,7 +6,7 @@
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
 newtype MyEnum
-    = MyEnum {un_MyEnum :: CUInt}
+    = MyEnum {unwrapMyEnum :: CUInt}
       {- ^ __C declaration:__ @enum MyEnum@
 
            __defined at:__ @edge-cases\/uses_utf8.h 4:6@
@@ -20,12 +20,12 @@ instance Storable MyEnum
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MyEnum un_MyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) un_MyEnum_3
+                                   MyEnum unwrapMyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapMyEnum_3
 deriving via CUInt instance Prim MyEnum
 instance CEnum MyEnum
     where type CEnumZ MyEnum = CUInt
           toCEnum = MyEnum
-          fromCEnum = un_MyEnum
+          fromCEnum = unwrapMyEnum
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "Say\20320\22909"),
                                                          (1, singleton "Say\25308\25308")]

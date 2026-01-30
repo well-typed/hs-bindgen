@@ -29,19 +29,19 @@ import Prelude (IO)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype Toggle = Toggle
-  { un_Toggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
+  { unwrapToggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Toggle) "un_Toggle")
-         ) => GHC.Records.HasField "un_Toggle" (Ptr.Ptr Toggle) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Toggle) "unwrapToggle")
+         ) => GHC.Records.HasField "unwrapToggle" (Ptr.Ptr Toggle) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Toggle")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapToggle")
 
-instance HsBindgen.Runtime.HasCField.HasCField Toggle "un_Toggle" where
+instance HsBindgen.Runtime.HasCField.HasCField Toggle "unwrapToggle" where
 
-  type CFieldType Toggle "un_Toggle" =
+  type CFieldType Toggle "unwrapToggle" =
     HsBindgen.Runtime.Block.Block (IO FC.CBool)
 
   offset# = \_ -> \_ -> 0
@@ -53,19 +53,19 @@ instance HsBindgen.Runtime.HasCField.HasCField Toggle "un_Toggle" where
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype Counter = Counter
-  { un_Counter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
+  { unwrapCounter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Counter) "un_Counter")
-         ) => GHC.Records.HasField "un_Counter" (Ptr.Ptr Counter) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Counter) "unwrapCounter")
+         ) => GHC.Records.HasField "unwrapCounter" (Ptr.Ptr Counter) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Counter")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapCounter")
 
-instance HsBindgen.Runtime.HasCField.HasCField Counter "un_Counter" where
+instance HsBindgen.Runtime.HasCField.HasCField Counter "unwrapCounter" where
 
-  type CFieldType Counter "un_Counter" =
+  type CFieldType Counter "unwrapCounter" =
     HsBindgen.Runtime.Block.Block (IO FC.CInt)
 
   offset# = \_ -> \_ -> 0
@@ -77,19 +77,19 @@ instance HsBindgen.Runtime.HasCField.HasCField Counter "un_Counter" where
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype VarCounter = VarCounter
-  { un_VarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
+  { unwrapVarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType VarCounter) "un_VarCounter")
-         ) => GHC.Records.HasField "un_VarCounter" (Ptr.Ptr VarCounter) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType VarCounter) "unwrapVarCounter")
+         ) => GHC.Records.HasField "unwrapVarCounter" (Ptr.Ptr VarCounter) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_VarCounter")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapVarCounter")
 
-instance HsBindgen.Runtime.HasCField.HasCField VarCounter "un_VarCounter" where
+instance HsBindgen.Runtime.HasCField.HasCField VarCounter "unwrapVarCounter" where
 
-  type CFieldType VarCounter "un_VarCounter" =
+  type CFieldType VarCounter "unwrapVarCounter" =
     HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
 
   offset# = \_ -> \_ -> 0

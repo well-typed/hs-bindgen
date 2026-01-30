@@ -283,7 +283,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools2) "bools2_y")
     __exported by:__ @types\/primitives\/bool.h@
 -}
 newtype BOOL = BOOL
-  { un_BOOL :: FC.CBool
+  { unwrapBOOL :: FC.CBool
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)

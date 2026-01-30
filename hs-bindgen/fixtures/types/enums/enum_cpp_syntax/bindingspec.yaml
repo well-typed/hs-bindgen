@@ -15,7 +15,7 @@ hstypes:
     newtype:
       constructor: Foo_enum
       fields:
-      - un_Foo_enum
+      - unwrapFoo_enum
   instances:
   - Eq
   - HasFFIType

@@ -125,19 +125,19 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_x")
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
 newtype T = T
-  { un_T :: S
+  { unwrapT :: S
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "un_T")
-         ) => GHC.Records.HasField "un_T" (Ptr.Ptr T) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "unwrapT")
+         ) => GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_T")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT")
 
-instance HsBindgen.Runtime.HasCField.HasCField T "un_T" where
+instance HsBindgen.Runtime.HasCField.HasCField T "unwrapT" where
 
-  type CFieldType T "un_T" = S
+  type CFieldType T "unwrapT" = S
 
   offset# = \_ -> \_ -> 0

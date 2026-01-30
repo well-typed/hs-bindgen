@@ -15,7 +15,7 @@ hstypes:
     newtype:
       constructor: Sym
       fields:
-      - un_Sym
+      - unwrapSym
   instances:
   - Bitfield
   - Bits

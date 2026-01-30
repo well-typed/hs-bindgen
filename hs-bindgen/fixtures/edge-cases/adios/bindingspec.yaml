@@ -15,7 +15,7 @@ hstypes:
     newtype:
       constructor: Adio'0301s
       fields:
-      - un_Adio'0301s
+      - unwrapAdio'0301s
   instances:
   - Bitfield
   - Bits
@@ -38,7 +38,7 @@ hstypes:
     newtype:
       constructor: C数字
       fields:
-      - un_C数字
+      - unwrapC数字
   instances:
   - Bitfield
   - Bits

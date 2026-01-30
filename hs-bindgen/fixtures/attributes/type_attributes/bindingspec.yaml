@@ -39,7 +39,7 @@ hstypes:
     newtype:
       constructor: More_aligned_int
       fields:
-      - un_More_aligned_int
+      - unwrapMore_aligned_int
   instances:
   - Bitfield
   - Bits
@@ -107,7 +107,7 @@ hstypes:
     newtype:
       constructor: Short_a
       fields:
-      - un_Short_a
+      - unwrapShort_a
   instances:
   - Bitfield
   - Bits
@@ -130,7 +130,7 @@ hstypes:
     newtype:
       constructor: T1
       fields:
-      - un_T1
+      - unwrapT1
   instances:
   - Bitfield
   - Bits
@@ -155,6 +155,6 @@ hstypes:
     newtype:
       constructor: Wait_status_ptr_t
       fields:
-      - un_Wait_status_ptr_t
+      - unwrapWait_status_ptr_t
   instances:
   - Storable

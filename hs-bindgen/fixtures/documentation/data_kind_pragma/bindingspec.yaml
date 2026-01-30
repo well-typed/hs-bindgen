@@ -12,7 +12,7 @@ hstypes:
     newtype:
       constructor: Triplet
       fields:
-      - un_Triplet
+      - unwrapTriplet
   instances:
   - Eq
   - Show

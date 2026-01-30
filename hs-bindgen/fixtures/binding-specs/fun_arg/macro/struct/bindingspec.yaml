@@ -18,7 +18,7 @@ hstypes:
     newtype:
       constructor: A
       fields:
-      - un_A
+      - unwrapA
   instances:
   - Eq
   - Prim
@@ -29,7 +29,7 @@ hstypes:
     newtype:
       constructor: B
       fields:
-      - un_B
+      - unwrapB
   instances:
   - Eq
   - Prim

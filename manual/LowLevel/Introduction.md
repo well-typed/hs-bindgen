@@ -74,7 +74,7 @@ foreign import ccall safe "hs_bindgen_c4886273ec5abcf5"
   index_triple :: Ptr Triple -> Index -> IO CInt
 
 newtype Index = Index {
-    un_Index :: CUInt
+    unwrapIndex :: CUInt
   }
   deriving stock (Eq, Ord)
 
@@ -127,7 +127,7 @@ becomes
 
 ```haskell
 newtype Sum = Sum {
-    un_Sum :: CInt
+    unwrapSum :: CInt
   }
   deriving stock   (Eq, Ord, Read, Show)
   deriving newtype (Storable, Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -227,7 +227,7 @@ This results in
 ```haskell
 -- ... similarly for MONTH and DAY
 newtype YEAR = YEAR {
-    un_YEAR :: CInt
+    unwrapYEAR :: CInt
   }
   deriving stock   (Eq, Ord, Read, Show)
   deriving newtype (Storable, Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)

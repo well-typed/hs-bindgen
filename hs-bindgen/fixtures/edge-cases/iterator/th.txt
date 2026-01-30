@@ -193,7 +193,7 @@
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype Toggle
-    = Toggle {un_Toggle :: (Block (IO CBool))}
+    = Toggle {unwrapToggle :: (Block (IO CBool))}
       {- ^ __C declaration:__ @Toggle@
 
            __defined at:__ @edge-cases\/iterator.h 3:16@
@@ -201,11 +201,11 @@ newtype Toggle
            __exported by:__ @edge-cases\/iterator.h@
       -}
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType Toggle "un_Toggle") =>
-         HasField "un_Toggle" (Ptr Toggle) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Toggle")
-instance HasCField Toggle "un_Toggle"
-    where type CFieldType Toggle "un_Toggle" = Block (IO CBool)
+instance TyEq ty (CFieldType Toggle "unwrapToggle") =>
+         HasField "unwrapToggle" (Ptr Toggle) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapToggle")
+instance HasCField Toggle "unwrapToggle"
+    where type CFieldType Toggle "unwrapToggle" = Block (IO CBool)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @Counter@
 
@@ -214,7 +214,7 @@ instance HasCField Toggle "un_Toggle"
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype Counter
-    = Counter {un_Counter :: (Block (IO CInt))}
+    = Counter {unwrapCounter :: (Block (IO CInt))}
       {- ^ __C declaration:__ @Counter@
 
            __defined at:__ @edge-cases\/iterator.h 10:14@
@@ -222,11 +222,11 @@ newtype Counter
            __exported by:__ @edge-cases\/iterator.h@
       -}
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType Counter "un_Counter") =>
-         HasField "un_Counter" (Ptr Counter) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Counter")
-instance HasCField Counter "un_Counter"
-    where type CFieldType Counter "un_Counter" = Block (IO CInt)
+instance TyEq ty (CFieldType Counter "unwrapCounter") =>
+         HasField "unwrapCounter" (Ptr Counter) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapCounter")
+instance HasCField Counter "unwrapCounter"
+    where type CFieldType Counter "unwrapCounter" = Block (IO CInt)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @VarCounter@
 
@@ -235,7 +235,7 @@ instance HasCField Counter "un_Counter"
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype VarCounter
-    = VarCounter {un_VarCounter :: (Block (CInt -> IO CInt))}
+    = VarCounter {unwrapVarCounter :: (Block (CInt -> IO CInt))}
       {- ^ __C declaration:__ @VarCounter@
 
            __defined at:__ @edge-cases\/iterator.h 17:14@
@@ -243,12 +243,12 @@ newtype VarCounter
            __exported by:__ @edge-cases\/iterator.h@
       -}
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType VarCounter "un_VarCounter") =>
-         HasField "un_VarCounter" (Ptr VarCounter) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_VarCounter")
-instance HasCField VarCounter "un_VarCounter"
-    where type CFieldType VarCounter "un_VarCounter" = Block (CInt ->
-                                                              IO CInt)
+instance TyEq ty (CFieldType VarCounter "unwrapVarCounter") =>
+         HasField "unwrapVarCounter" (Ptr VarCounter) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapVarCounter")
+instance HasCField VarCounter "unwrapVarCounter"
+    where type CFieldType VarCounter
+                          "unwrapVarCounter" = Block (CInt -> IO CInt)
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66206_base ::

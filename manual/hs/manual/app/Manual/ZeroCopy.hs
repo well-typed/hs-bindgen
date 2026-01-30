@@ -56,10 +56,10 @@ examples = do
           peek ptr >>= print
           poke ptr (Gen.MyInt 18)
           peek ptr >>= print
-          poke ptr.un_MyInt 19
+          poke ptr.unwrapMyInt 19
           peek ptr >>= print
           poke ptr (Gen.MyInt 20)
-          peek ptr.un_MyInt >>= print
+          peek ptr.unwrapMyInt >>= print
 
       subsection "Pointers"
       do
@@ -111,8 +111,8 @@ examples = do
             peek ptr2 >>= print
 
             pokeElemOff
-              (ptr2.un_Matrix.toFirstElemPtr `plusPtrElem` 2
-              ).un_Triplet.toFirstElemPtr
+              (ptr2.unwrapMatrix.toFirstElemPtr `plusPtrElem` 2
+              ).unwrapTriplet.toFirstElemPtr
               1
               0
             peek ptr2 >>= print
@@ -148,8 +148,8 @@ withDrawing shape colour k =
 transpose :: Ptr Gen.Matrix -> Ptr Gen.Matrix -> IO ()
 transpose inputPtr outputPtr =
     Gen.transpose
-      (PtrConst.unsafeFromPtr inputPtr.un_Matrix.toFirstElemPtr)
-      outputPtr.un_Matrix.toFirstElemPtr
+      (PtrConst.unsafeFromPtr inputPtr.unwrapMatrix.toFirstElemPtr)
+      outputPtr.unwrapMatrix.toFirstElemPtr
 
 instance FLAM.NumElems CChar Gen.Vector_Aux where
   numElems x = fromIntegral (Gen.vector_len x)

@@ -35,7 +35,7 @@ __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
 __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
-  { un_MyFunctionPointer_Aux :: FC.CInt -> IO FC.CInt
+  { unwrapMyFunctionPointer_Aux :: FC.CInt -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -71,15 +71,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr MyFunctionPointer_Aux where
 
   fromFunPtr = hs_bindgen_5738272f94a589e2
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunctionPointer_Aux) "un_MyFunctionPointer_Aux")
-         ) => GHC.Records.HasField "un_MyFunctionPointer_Aux" (Ptr.Ptr MyFunctionPointer_Aux) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunctionPointer_Aux) "unwrapMyFunctionPointer_Aux")
+         ) => GHC.Records.HasField "unwrapMyFunctionPointer_Aux" (Ptr.Ptr MyFunctionPointer_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyFunctionPointer_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunctionPointer_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer_Aux "un_MyFunctionPointer_Aux" where
+instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux" where
 
-  type CFieldType MyFunctionPointer_Aux "un_MyFunctionPointer_Aux" =
+  type CFieldType MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux" =
     FC.CInt -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -91,20 +91,20 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer_Aux "un_MyFunct
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype MyFunctionPointer = MyFunctionPointer
-  { un_MyFunctionPointer :: Ptr.FunPtr MyFunctionPointer_Aux
+  { unwrapMyFunctionPointer :: Ptr.FunPtr MyFunctionPointer_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunctionPointer) "un_MyFunctionPointer")
-         ) => GHC.Records.HasField "un_MyFunctionPointer" (Ptr.Ptr MyFunctionPointer) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyFunctionPointer) "unwrapMyFunctionPointer")
+         ) => GHC.Records.HasField "unwrapMyFunctionPointer" (Ptr.Ptr MyFunctionPointer) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyFunctionPointer")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunctionPointer")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer "un_MyFunctionPointer" where
+instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer "unwrapMyFunctionPointer" where
 
-  type CFieldType MyFunctionPointer "un_MyFunctionPointer" =
+  type CFieldType MyFunctionPointer "unwrapMyFunctionPointer" =
     Ptr.FunPtr MyFunctionPointer_Aux
 
   offset# = \_ -> \_ -> 0
@@ -116,7 +116,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer "un_MyFunctionP
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype A = A
-  { un_A :: MyFunctionPointer
+  { unwrapA :: MyFunctionPointer
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -128,7 +128,7 @@ newtype A = A
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype B = B
-  { un_B :: A
+  { unwrapB :: A
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)

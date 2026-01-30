@@ -7,7 +7,7 @@
     __exported by:__ @declarations\/select_scoping.h@
 -}
 newtype ParsedAndSelected1
-    = ParsedAndSelected1 {un_ParsedAndSelected1 :: CInt}
+    = ParsedAndSelected1 {unwrapParsedAndSelected1 :: CInt}
       {- ^ __C declaration:__ @ParsedAndSelected1@
 
            __defined at:__ @declarations\/select_scoping.h 6:13@
@@ -28,10 +28,12 @@ newtype ParsedAndSelected1
                       Num,
                       Real)
 instance TyEq ty
-              (CFieldType ParsedAndSelected1 "un_ParsedAndSelected1") =>
-         HasField "un_ParsedAndSelected1" (Ptr ParsedAndSelected1) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_ParsedAndSelected1")
-instance HasCField ParsedAndSelected1 "un_ParsedAndSelected1"
+              (CFieldType ParsedAndSelected1 "unwrapParsedAndSelected1") =>
+         HasField "unwrapParsedAndSelected1"
+                  (Ptr ParsedAndSelected1)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapParsedAndSelected1")
+instance HasCField ParsedAndSelected1 "unwrapParsedAndSelected1"
     where type CFieldType ParsedAndSelected1
-                          "un_ParsedAndSelected1" = CInt
+                          "unwrapParsedAndSelected1" = CInt
           offset# = \_ -> \_ -> 0

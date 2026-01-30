@@ -146,7 +146,7 @@ hs_bindgen_4b7fabc21bc52057= unsafePerformIO hs_bindgen_c83c3e4e014bf39c
 globalConstant :: CInt
 globalConstant = {-# details elided #-}
 
-newtype ConstInt = ConstInt { un_ConstInt :: CInt }
+newtype ConstInt = ConstInt { unwrapConstInt :: CInt }
 
 foreign import {-# details elided #-}
   hs_bindgen_2d6b9a52b97910a9 :: IO (PtrConst ConstInt)

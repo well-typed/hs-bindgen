@@ -161,7 +161,7 @@ extern int apply1_nopointer_arg (int2int, int);
 ```
 
 ```haskell
-newtype Int2int = Int2int { un_Int2int :: CInt -> IO CInt }
+newtype Int2int = Int2int { unwrapInt2int :: CInt -> IO CInt }
 foreign import {-# details elided #-} apply1_pointer_arg
   :: FunPtr Int2int -> CInt -> IO CInt
 foreign import {-# details elided #-} apply1_nopointer_arg
@@ -218,7 +218,7 @@ data Apply1Struct = Apply1Struct
 apply1_struct :: Apply1Struct
 
 newtype Apply1Union = Apply1Union
-  { un_Apply1Union :: ByteArray
+  { unwrapApply1Union :: ByteArray
   }
 get_apply1Union_apply1_nopointer_union_field ::
      Apply1Union
@@ -258,11 +258,11 @@ We generate:
 
 ```haskell
 newtype ProgressUpdate_Aux = ProgressUpdate_Aux
-  { un_ProgressUpdate_Aux :: CInt -> IO ()
+  { unwrapProgressUpdate_Aux :: CInt -> IO ()
   }
 
 newtype ProgressUpdate = ProgressUpdate
-  { un_ProgressUpdate :: FunPtr ProgressUpdate_Aux
+  { unwrapProgressUpdate :: FunPtr ProgressUpdate_Aux
   }
 ```
 
@@ -343,7 +343,7 @@ withFunPtr myCallback $ \funPtr -> do
 -- Or manually manage the function pointer lifetime with bracket
 bracket
   (toFunPtr myCallback)
-  (freeHaskellFunPtr . un_ProgressUpdate)
+  (freeHaskellFunPtr . unwrapProgressUpdate)
   (\funPtr -> onProgressChanged (ProgressUpdate funPtr))
 ```
 
@@ -357,8 +357,8 @@ do
   -- validatorFunPtr :: DataValidator
 
   -- Extract the FunPtr and convert to Haskell function
-  let validator = fromFunPtr (un_DataValidator validatorFunPtr)
-  result <- un_DataValidator_Aux validator 42
+  let validator = fromFunPtr (unwrapDataValidator validatorFunPtr)
+  result <- unwrapDataValidator_Aux validator 42
 ```
 
 ### Example: struct with function pointer fields

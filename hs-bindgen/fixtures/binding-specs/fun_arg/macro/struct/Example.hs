@@ -125,7 +125,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyStruct) "myStruct_
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
 newtype A = A
-  { un_A :: MyStruct
+  { unwrapA :: MyStruct
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
@@ -137,7 +137,7 @@ newtype A = A
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
 newtype B = B
-  { un_B :: A
+  { unwrapB :: A
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)

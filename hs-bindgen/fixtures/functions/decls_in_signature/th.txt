@@ -228,7 +228,7 @@ instance TyEq ty (CFieldType Named_struct "named_struct_y") =>
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 newtype Named_union
-    = Named_union {un_Named_union :: ByteArray}
+    = Named_union {unwrapNamed_union :: ByteArray}
       {- ^ __C declaration:__ @union named_union@
 
            __defined at:__ @functions\/decls_in_signature.h 20:15@

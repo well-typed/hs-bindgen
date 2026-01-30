@@ -48,7 +48,7 @@ hstypes:
     newtype:
       constructor: Point1b
       fields:
-      - un_Point1b
+      - unwrapPoint1b
   instances:
   - Eq
   - Prim
@@ -71,7 +71,7 @@ hstypes:
     newtype:
       constructor: Point2b
       fields:
-      - un_Point2b
+      - unwrapPoint2b
   instances:
   - Eq
   - HasFFIType
@@ -83,7 +83,7 @@ hstypes:
     newtype:
       constructor: Point3a
       fields:
-      - un_Point3a
+      - unwrapPoint3a
   instances:
   - Eq
   - HasFFIType
@@ -107,7 +107,7 @@ hstypes:
     newtype:
       constructor: Point3b
       fields:
-      - un_Point3b
+      - unwrapPoint3b
   instances:
   - Eq
   - HasFFIType

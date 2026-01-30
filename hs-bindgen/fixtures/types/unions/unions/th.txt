@@ -170,7 +170,7 @@ instance TyEq ty (CFieldType Dim3 "dim3_z") =>
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayload
-    = DimPayload {un_DimPayload :: ByteArray}
+    = DimPayload {unwrapDimPayload :: ByteArray}
       {- ^ __C declaration:__ @union DimPayload@
 
            __defined at:__ @types\/unions\/unions.h 12:7@
@@ -312,7 +312,7 @@ instance TyEq ty (CFieldType Dim "dim_payload") =>
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayloadB
-    = DimPayloadB {un_DimPayloadB :: ByteArray}
+    = DimPayloadB {unwrapDimPayloadB :: ByteArray}
       {- ^ __C declaration:__ @union DimPayloadB@
 
            __defined at:__ @types\/unions\/unions.h 23:15@
@@ -594,7 +594,7 @@ instance TyEq ty (CFieldType AnonA_polar "anonA_polar_p") =>
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype AnonA
-    = AnonA {un_AnonA :: ByteArray}
+    = AnonA {unwrapAnonA :: ByteArray}
       {- ^ __C declaration:__ @union AnonA@
 
            __defined at:__ @types\/unions\/unions.h 34:7@

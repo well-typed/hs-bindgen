@@ -164,20 +164,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globa
     __exported by:__ @manual\/globals.h@
 -}
 newtype ConstInt = ConstInt
-  { un_ConstInt :: FC.CInt
+  { unwrapConstInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ConstInt) "un_ConstInt")
-         ) => GHC.Records.HasField "un_ConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ConstInt) "unwrapConstInt")
+         ) => GHC.Records.HasField "unwrapConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_ConstInt")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConstInt")
 
-instance HsBindgen.Runtime.HasCField.HasCField ConstInt "un_ConstInt" where
+instance HsBindgen.Runtime.HasCField.HasCField ConstInt "unwrapConstInt" where
 
-  type CFieldType ConstInt "un_ConstInt" = FC.CInt
+  type CFieldType ConstInt "unwrapConstInt" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -312,20 +312,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_y")
     __exported by:__ @manual\/globals.h@
 -}
 newtype Triplet = Triplet
-  { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet")
-         ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
+         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
 
-instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
+instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 
-  type CFieldType Triplet "un_Triplet" =
+  type CFieldType Triplet "unwrapTriplet" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -337,19 +337,19 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
     __exported by:__ @manual\/globals.h@
 -}
 newtype List = List
-  { un_List :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
+  { unwrapList :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "un_List")
-         ) => GHC.Records.HasField "un_List" (Ptr.Ptr List) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "unwrapList")
+         ) => GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_List")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapList")
 
-instance HsBindgen.Runtime.HasCField.HasCField List "un_List" where
+instance HsBindgen.Runtime.HasCField.HasCField List "unwrapList" where
 
-  type CFieldType List "un_List" =
+  type CFieldType List "unwrapList" =
     HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
 
   offset# = \_ -> \_ -> 0

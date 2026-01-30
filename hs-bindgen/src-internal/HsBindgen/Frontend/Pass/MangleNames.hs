@@ -448,8 +448,8 @@ mkStructNames info = RecordNames{
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkNewtypeNames info = NewtypeNames{
-      constr = Hs.unsafeHsIdHsName $          info.id.unsafeHsName
-    , field  = Hs.unsafeHsIdHsName $ "un_" <> info.id.unsafeHsName
+      constr = Hs.unsafeHsIdHsName $             info.id.unsafeHsName
+    , field  = Hs.unsafeHsIdHsName $ "unwrap" <> info.id.unsafeHsName
     }
 
 -- | Union names

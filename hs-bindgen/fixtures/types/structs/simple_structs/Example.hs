@@ -865,20 +865,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a_Aux) "s7a_Aux_b"
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7a = S7a
-  { un_S7a :: Ptr.Ptr S7a_Aux
+  { unwrapS7a :: Ptr.Ptr S7a_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a) "un_S7a")
-         ) => GHC.Records.HasField "un_S7a" (Ptr.Ptr S7a) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a) "unwrapS7a")
+         ) => GHC.Records.HasField "unwrapS7a" (Ptr.Ptr S7a) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_S7a")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS7a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7a "un_S7a" where
+instance HsBindgen.Runtime.HasCField.HasCField S7a "unwrapS7a" where
 
-  type CFieldType S7a "un_S7a" = Ptr.Ptr S7a_Aux
+  type CFieldType S7a "unwrapS7a" = Ptr.Ptr S7a_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1013,20 +1013,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b_Aux) "s7b_Aux_b"
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7b = S7b
-  { un_S7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
+  { unwrapS7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b) "un_S7b")
-         ) => GHC.Records.HasField "un_S7b" (Ptr.Ptr S7b) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b) "unwrapS7b")
+         ) => GHC.Records.HasField "unwrapS7b" (Ptr.Ptr S7b) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_S7b")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS7b")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7b "un_S7b" where
+instance HsBindgen.Runtime.HasCField.HasCField S7b "unwrapS7b" where
 
-  type CFieldType S7b "un_S7b" =
+  type CFieldType S7b "unwrapS7b" =
     Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
 
   offset# = \_ -> \_ -> 0

@@ -39,20 +39,20 @@ import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Myint = Myint
-  { un_Myint :: FC.CInt
+  { unwrapMyint :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Myint) "un_Myint")
-         ) => GHC.Records.HasField "un_Myint" (Ptr.Ptr Myint) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Myint) "unwrapMyint")
+         ) => GHC.Records.HasField "unwrapMyint" (Ptr.Ptr Myint) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Myint")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyint")
 
-instance HsBindgen.Runtime.HasCField.HasCField Myint "un_Myint" where
+instance HsBindgen.Runtime.HasCField.HasCField Myint "unwrapMyint" where
 
-  type CFieldType Myint "un_Myint" = FC.CInt
+  type CFieldType Myint "unwrapMyint" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -63,20 +63,21 @@ instance HsBindgen.Runtime.HasCField.HasCField Myint "un_Myint" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Intptr = Intptr
-  { un_Intptr :: Ptr.Ptr FC.CInt
+  { unwrapIntptr :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Intptr) "un_Intptr")
-         ) => GHC.Records.HasField "un_Intptr" (Ptr.Ptr Intptr) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Intptr) "unwrapIntptr")
+         ) => GHC.Records.HasField "unwrapIntptr" (Ptr.Ptr Intptr) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Intptr")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapIntptr")
 
-instance HsBindgen.Runtime.HasCField.HasCField Intptr "un_Intptr" where
+instance HsBindgen.Runtime.HasCField.HasCField Intptr "unwrapIntptr" where
 
-  type CFieldType Intptr "un_Intptr" = Ptr.Ptr FC.CInt
+  type CFieldType Intptr "unwrapIntptr" =
+    Ptr.Ptr FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -87,7 +88,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Intptr "un_Intptr" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Int2int = Int2int
-  { un_Int2int :: FC.CInt -> IO FC.CInt
+  { unwrapInt2int :: FC.CInt -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -123,15 +124,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
 
   fromFunPtr = hs_bindgen_65378a8a3cf640ad
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "un_Int2int")
-         ) => GHC.Records.HasField "un_Int2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "unwrapInt2int")
+         ) => GHC.Records.HasField "unwrapInt2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Int2int")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt2int")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
+instance HsBindgen.Runtime.HasCField.HasCField Int2int "unwrapInt2int" where
 
-  type CFieldType Int2int "un_Int2int" =
+  type CFieldType Int2int "unwrapInt2int" =
     FC.CInt -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -145,7 +146,7 @@ __defined at:__ @types\/typedefs\/typedefs.h 8:16@
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype FunctionPointer_Function_Aux = FunctionPointer_Function_Aux
-  { un_FunctionPointer_Function_Aux :: IO ()
+  { unwrapFunctionPointer_Function_Aux :: IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -181,15 +182,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr FunctionPointer_Function_Aux where
 
   fromFunPtr = hs_bindgen_4c3da8240a31e036
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FunctionPointer_Function_Aux) "un_FunctionPointer_Function_Aux")
-         ) => GHC.Records.HasField "un_FunctionPointer_Function_Aux" (Ptr.Ptr FunctionPointer_Function_Aux) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FunctionPointer_Function_Aux) "unwrapFunctionPointer_Function_Aux")
+         ) => GHC.Records.HasField "unwrapFunctionPointer_Function_Aux" (Ptr.Ptr FunctionPointer_Function_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_FunctionPointer_Function_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunctionPointer_Function_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function_Aux "un_FunctionPointer_Function_Aux" where
+instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function_Aux "unwrapFunctionPointer_Function_Aux" where
 
-  type CFieldType FunctionPointer_Function_Aux "un_FunctionPointer_Function_Aux" =
+  type CFieldType FunctionPointer_Function_Aux "unwrapFunctionPointer_Function_Aux" =
     IO ()
 
   offset# = \_ -> \_ -> 0
@@ -201,20 +202,20 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function_Aux "un_
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype FunctionPointer_Function = FunctionPointer_Function
-  { un_FunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Aux
+  { unwrapFunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FunctionPointer_Function) "un_FunctionPointer_Function")
-         ) => GHC.Records.HasField "un_FunctionPointer_Function" (Ptr.Ptr FunctionPointer_Function) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FunctionPointer_Function) "unwrapFunctionPointer_Function")
+         ) => GHC.Records.HasField "unwrapFunctionPointer_Function" (Ptr.Ptr FunctionPointer_Function) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_FunctionPointer_Function")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunctionPointer_Function")
 
-instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function "un_FunctionPointer_Function" where
+instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function "unwrapFunctionPointer_Function" where
 
-  type CFieldType FunctionPointer_Function "un_FunctionPointer_Function" =
+  type CFieldType FunctionPointer_Function "unwrapFunctionPointer_Function" =
     Ptr.FunPtr FunctionPointer_Function_Aux
 
   offset# = \_ -> \_ -> 0
@@ -226,7 +227,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function "un_Func
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype NonFunctionPointer_Function = NonFunctionPointer_Function
-  { un_NonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
+  { unwrapNonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -262,15 +263,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr NonFunctionPointer_Function where
 
   fromFunPtr = hs_bindgen_36c7108d046bcbc3
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType NonFunctionPointer_Function) "un_NonFunctionPointer_Function")
-         ) => GHC.Records.HasField "un_NonFunctionPointer_Function" (Ptr.Ptr NonFunctionPointer_Function) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType NonFunctionPointer_Function) "unwrapNonFunctionPointer_Function")
+         ) => GHC.Records.HasField "unwrapNonFunctionPointer_Function" (Ptr.Ptr NonFunctionPointer_Function) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_NonFunctionPointer_Function")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapNonFunctionPointer_Function")
 
-instance HsBindgen.Runtime.HasCField.HasCField NonFunctionPointer_Function "un_NonFunctionPointer_Function" where
+instance HsBindgen.Runtime.HasCField.HasCField NonFunctionPointer_Function "unwrapNonFunctionPointer_Function" where
 
-  type CFieldType NonFunctionPointer_Function "un_NonFunctionPointer_Function" =
+  type CFieldType NonFunctionPointer_Function "unwrapNonFunctionPointer_Function" =
     FC.CInt -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -284,7 +285,7 @@ __defined at:__ @types\/typedefs\/typedefs.h 11:16@
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype F1_Aux = F1_Aux
-  { un_F1_Aux :: IO ()
+  { unwrapF1_Aux :: IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -320,15 +321,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr F1_Aux where
 
   fromFunPtr = hs_bindgen_ddeb5206e8192425
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1_Aux) "un_F1_Aux")
-         ) => GHC.Records.HasField "un_F1_Aux" (Ptr.Ptr F1_Aux) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1_Aux) "unwrapF1_Aux")
+         ) => GHC.Records.HasField "unwrapF1_Aux" (Ptr.Ptr F1_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_F1_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF1_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "un_F1_Aux" where
+instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 
-  type CFieldType F1_Aux "un_F1_Aux" = IO ()
+  type CFieldType F1_Aux "unwrapF1_Aux" = IO ()
 
   offset# = \_ -> \_ -> 0
 
@@ -339,20 +340,20 @@ instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "un_F1_Aux" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype F1 = F1
-  { un_F1 :: Ptr.FunPtr F1_Aux
+  { unwrapF1 :: Ptr.FunPtr F1_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1) "un_F1")
-         ) => GHC.Records.HasField "un_F1" (Ptr.Ptr F1) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1) "unwrapF1")
+         ) => GHC.Records.HasField "unwrapF1" (Ptr.Ptr F1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_F1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF1")
 
-instance HsBindgen.Runtime.HasCField.HasCField F1 "un_F1" where
+instance HsBindgen.Runtime.HasCField.HasCField F1 "unwrapF1" where
 
-  type CFieldType F1 "un_F1" = Ptr.FunPtr F1_Aux
+  type CFieldType F1 "unwrapF1" = Ptr.FunPtr F1_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -363,7 +364,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1 "un_F1" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype G1 = G1
-  { un_G1 :: IO ()
+  { unwrapG1 :: IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -399,15 +400,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr G1 where
 
   fromFunPtr = hs_bindgen_8405c8e75aa78be5
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType G1) "un_G1")
-         ) => GHC.Records.HasField "un_G1" (Ptr.Ptr G1) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType G1) "unwrapG1")
+         ) => GHC.Records.HasField "unwrapG1" (Ptr.Ptr G1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_G1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapG1")
 
-instance HsBindgen.Runtime.HasCField.HasCField G1 "un_G1" where
+instance HsBindgen.Runtime.HasCField.HasCField G1 "unwrapG1" where
 
-  type CFieldType G1 "un_G1" = IO ()
+  type CFieldType G1 "unwrapG1" = IO ()
 
   offset# = \_ -> \_ -> 0
 
@@ -418,20 +419,20 @@ instance HsBindgen.Runtime.HasCField.HasCField G1 "un_G1" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype G2 = G2
-  { un_G2 :: Ptr.FunPtr G1
+  { unwrapG2 :: Ptr.FunPtr G1
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType G2) "un_G2")
-         ) => GHC.Records.HasField "un_G2" (Ptr.Ptr G2) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType G2) "unwrapG2")
+         ) => GHC.Records.HasField "unwrapG2" (Ptr.Ptr G2) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_G2")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapG2")
 
-instance HsBindgen.Runtime.HasCField.HasCField G2 "un_G2" where
+instance HsBindgen.Runtime.HasCField.HasCField G2 "unwrapG2" where
 
-  type CFieldType G2 "un_G2" = Ptr.FunPtr G1
+  type CFieldType G2 "unwrapG2" = Ptr.FunPtr G1
 
   offset# = \_ -> \_ -> 0
 
@@ -442,7 +443,7 @@ instance HsBindgen.Runtime.HasCField.HasCField G2 "un_G2" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype H1 = H1
-  { un_H1 :: IO ()
+  { unwrapH1 :: IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -478,15 +479,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr H1 where
 
   fromFunPtr = hs_bindgen_1a33688324e1924f
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H1) "un_H1")
-         ) => GHC.Records.HasField "un_H1" (Ptr.Ptr H1) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H1) "unwrapH1")
+         ) => GHC.Records.HasField "unwrapH1" (Ptr.Ptr H1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_H1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapH1")
 
-instance HsBindgen.Runtime.HasCField.HasCField H1 "un_H1" where
+instance HsBindgen.Runtime.HasCField.HasCField H1 "unwrapH1" where
 
-  type CFieldType H1 "un_H1" = IO ()
+  type CFieldType H1 "unwrapH1" = IO ()
 
   offset# = \_ -> \_ -> 0
 
@@ -497,19 +498,19 @@ instance HsBindgen.Runtime.HasCField.HasCField H1 "un_H1" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype H2 = H2
-  { un_H2 :: H1
+  { unwrapH2 :: H1
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H2) "un_H2")
-         ) => GHC.Records.HasField "un_H2" (Ptr.Ptr H2) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H2) "unwrapH2")
+         ) => GHC.Records.HasField "unwrapH2" (Ptr.Ptr H2) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_H2")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapH2")
 
-instance HsBindgen.Runtime.HasCField.HasCField H2 "un_H2" where
+instance HsBindgen.Runtime.HasCField.HasCField H2 "unwrapH2" where
 
-  type CFieldType H2 "un_H2" = H1
+  type CFieldType H2 "unwrapH2" = H1
 
   offset# = \_ -> \_ -> 0
 
@@ -520,19 +521,19 @@ instance HsBindgen.Runtime.HasCField.HasCField H2 "un_H2" where
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype H3 = H3
-  { un_H3 :: Ptr.FunPtr H2
+  { unwrapH3 :: Ptr.FunPtr H2
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H3) "un_H3")
-         ) => GHC.Records.HasField "un_H3" (Ptr.Ptr H3) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H3) "unwrapH3")
+         ) => GHC.Records.HasField "unwrapH3" (Ptr.Ptr H3) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_H3")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapH3")
 
-instance HsBindgen.Runtime.HasCField.HasCField H3 "un_H3" where
+instance HsBindgen.Runtime.HasCField.HasCField H3 "unwrapH3" where
 
-  type CFieldType H3 "un_H3" = Ptr.FunPtr H2
+  type CFieldType H3 "unwrapH3" = Ptr.FunPtr H2
 
   offset# = \_ -> \_ -> 0

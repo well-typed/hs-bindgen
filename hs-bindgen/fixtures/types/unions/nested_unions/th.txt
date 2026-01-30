@@ -6,7 +6,7 @@
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype UnionA
-    = UnionA {un_UnionA :: ByteArray}
+    = UnionA {unwrapUnionA :: ByteArray}
       {- ^ __C declaration:__ @union unionA@
 
            __defined at:__ @types\/unions\/nested_unions.h 2:15@
@@ -134,7 +134,7 @@ instance TyEq ty (CFieldType ExA "exA_fieldA1") =>
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype ExB_fieldB1
-    = ExB_fieldB1 {un_ExB_fieldB1 :: ByteArray}
+    = ExB_fieldB1 {unwrapExB_fieldB1 :: ByteArray}
       {- ^ __C declaration:__ @union \@exB_fieldB1@
 
            __defined at:__ @types\/unions\/nested_unions.h 9:9@

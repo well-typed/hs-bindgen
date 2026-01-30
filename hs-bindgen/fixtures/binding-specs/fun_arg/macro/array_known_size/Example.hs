@@ -29,20 +29,20 @@ import Prelude (Eq, Show)
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 newtype MyArray = MyArray
-  { un_MyArray :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapMyArray :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyArray) "un_MyArray")
-         ) => GHC.Records.HasField "un_MyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyArray) "unwrapMyArray")
+         ) => GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_MyArray")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyArray")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyArray "un_MyArray" where
+instance HsBindgen.Runtime.HasCField.HasCField MyArray "unwrapMyArray" where
 
-  type CFieldType MyArray "un_MyArray" =
+  type CFieldType MyArray "unwrapMyArray" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -54,7 +54,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyArray "un_MyArray" where
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 newtype A = A
-  { un_A :: MyArray
+  { unwrapA :: MyArray
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
@@ -66,7 +66,7 @@ newtype A = A
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 newtype B = B
-  { un_B :: A
+  { unwrapB :: A
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)

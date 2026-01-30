@@ -24,7 +24,7 @@ hstypes:
     newtype:
       constructor: C
       fields:
-      - un_C
+      - unwrapC
   instances:
   - Bits
   - Bounded
@@ -46,7 +46,7 @@ hstypes:
     newtype:
       constructor: F
       fields:
-      - un_F
+      - unwrapF
   instances:
   - Enum
   - Eq
@@ -67,7 +67,7 @@ hstypes:
     newtype:
       constructor: I
       fields:
-      - un_I
+      - unwrapI
   instances:
   - Bits
   - Bounded
@@ -89,7 +89,7 @@ hstypes:
     newtype:
       constructor: L
       fields:
-      - un_L
+      - unwrapL
   instances:
   - Bits
   - Bounded
@@ -111,7 +111,7 @@ hstypes:
     newtype:
       constructor: S
       fields:
-      - un_S
+      - unwrapS
   instances:
   - Bits
   - Bounded

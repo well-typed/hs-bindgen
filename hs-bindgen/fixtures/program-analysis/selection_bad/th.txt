@@ -7,7 +7,7 @@
     __exported by:__ @program-analysis\/selection_bad.h@
 -}
 newtype A
-    = A {un_A :: CInt}
+    = A {unwrapA :: CInt}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @program-analysis\/selection_bad.h 3:9@

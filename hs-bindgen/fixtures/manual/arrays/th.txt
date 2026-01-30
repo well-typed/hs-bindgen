@@ -86,7 +86,7 @@
     __exported by:__ @manual\/arrays.h@
 -}
 newtype Triplet
-    = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
+    = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
            __defined at:__ @manual\/arrays.h 32:13@
@@ -95,11 +95,12 @@ newtype Triplet
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Triplet "un_Triplet") =>
-         HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Triplet")
-instance HasCField Triplet "un_Triplet"
-    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
+         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTriplet")
+instance HasCField Triplet "unwrapTriplet"
+    where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
+                                                                  CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @matrix@
 
@@ -108,7 +109,7 @@ instance HasCField Triplet "un_Triplet"
     __exported by:__ @manual\/arrays.h@
 -}
 newtype Matrix
-    = Matrix {un_Matrix :: (ConstantArray 3 Triplet)}
+    = Matrix {unwrapMatrix :: (ConstantArray 3 Triplet)}
       {- ^ __C declaration:__ @matrix@
 
            __defined at:__ @manual\/arrays.h 34:17@
@@ -117,11 +118,12 @@ newtype Matrix
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Matrix "un_Matrix") =>
-         HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Matrix")
-instance HasCField Matrix "un_Matrix"
-    where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
+instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
+         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMatrix")
+instance HasCField Matrix "unwrapMatrix"
+    where type CFieldType Matrix "unwrapMatrix" = ConstantArray 3
+                                                                Triplet
           offset# = \_ -> \_ -> 0
 {-| A typedef representing a an array of unknown size, where each element is a pointer to an array of known size 3, where each element is an int.
 
@@ -132,8 +134,8 @@ __defined at:__ @manual\/arrays.h 44:15@
 __exported by:__ @manual\/arrays.h@
 -}
 newtype Triplet_ptrs
-    = Triplet_ptrs {un_Triplet_ptrs :: (IncompleteArray (Ptr (ConstantArray 3
-                                                                            CInt)))}
+    = Triplet_ptrs {unwrapTriplet_ptrs :: (IncompleteArray (Ptr (ConstantArray 3
+                                                                               CInt)))}
       {- ^ A typedef representing a an array of unknown size, where each element is a pointer to an array of known size 3, where each element is an int.
 
       __C declaration:__ @triplet_ptrs@
@@ -143,12 +145,12 @@ newtype Triplet_ptrs
       __exported by:__ @manual\/arrays.h@
       -}
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType Triplet_ptrs "un_Triplet_ptrs") =>
-         HasField "un_Triplet_ptrs" (Ptr Triplet_ptrs) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Triplet_ptrs")
-instance HasCField Triplet_ptrs "un_Triplet_ptrs"
+instance TyEq ty (CFieldType Triplet_ptrs "unwrapTriplet_ptrs") =>
+         HasField "unwrapTriplet_ptrs" (Ptr Triplet_ptrs) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTriplet_ptrs")
+instance HasCField Triplet_ptrs "unwrapTriplet_ptrs"
     where type CFieldType Triplet_ptrs
-                          "un_Triplet_ptrs" = IncompleteArray (Ptr (ConstantArray 3 CInt))
+                          "unwrapTriplet_ptrs" = IncompleteArray (Ptr (ConstantArray 3 CInt))
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d25362b_base ::

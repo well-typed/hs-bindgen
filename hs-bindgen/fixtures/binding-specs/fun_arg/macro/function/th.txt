@@ -133,7 +133,7 @@
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 newtype MyFunction
-    = MyFunction {un_MyFunction :: (CInt -> IO CInt)}
+    = MyFunction {unwrapMyFunction :: (CInt -> IO CInt)}
       {- ^ __C declaration:__ @MyFunction@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 4:13@
@@ -160,11 +160,12 @@ instance ToFunPtr MyFunction
     where toFunPtr = hs_bindgen_4e8a459829b269e0
 instance FromFunPtr MyFunction
     where fromFunPtr = hs_bindgen_bb71f7e730356103
-instance TyEq ty (CFieldType MyFunction "un_MyFunction") =>
-         HasField "un_MyFunction" (Ptr MyFunction) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyFunction")
-instance HasCField MyFunction "un_MyFunction"
-    where type CFieldType MyFunction "un_MyFunction" = CInt -> IO CInt
+instance TyEq ty (CFieldType MyFunction "unwrapMyFunction") =>
+         HasField "unwrapMyFunction" (Ptr MyFunction) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyFunction")
+instance HasCField MyFunction "unwrapMyFunction"
+    where type CFieldType MyFunction "unwrapMyFunction" = CInt ->
+                                                          IO CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @A@
 
@@ -173,7 +174,7 @@ instance HasCField MyFunction "un_MyFunction"
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 newtype A
-    = A {un_A :: MyFunction}
+    = A {unwrapA :: MyFunction}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 7:9@
@@ -188,7 +189,7 @@ newtype A
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 newtype B
-    = B {un_B :: A}
+    = B {unwrapB :: A}
       {- ^ __C declaration:__ @B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 8:9@

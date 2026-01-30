@@ -36,20 +36,20 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype T1 = T1
-  { un_T1 :: FC.CInt
+  { unwrapT1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "un_T1")
-         ) => GHC.Records.HasField "un_T1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "unwrapT1")
+         ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_T1")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT1")
 
-instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
+instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
 
-  type CFieldType T1 "un_T1" = FC.CInt
+  type CFieldType T1 "unwrapT1" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -60,20 +60,20 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype T2 = T2
-  { un_T2 :: FC.CChar
+  { unwrapT2 :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T2) "un_T2")
-         ) => GHC.Records.HasField "un_T2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T2) "unwrapT2")
+         ) => GHC.Records.HasField "unwrapT2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_T2")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT2")
 
-instance HsBindgen.Runtime.HasCField.HasCField T2 "un_T2" where
+instance HsBindgen.Runtime.HasCField.HasCField T2 "unwrapT2" where
 
-  type CFieldType T2 "un_T2" = FC.CChar
+  type CFieldType T2 "unwrapT2" = FC.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -84,7 +84,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T2 "un_T2" where
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M1 = M1
-  { un_M1 :: FC.CInt
+  { unwrapM1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -96,7 +96,7 @@ newtype M1 = M1
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M2 = M2
-  { un_M2 :: FC.CChar
+  { unwrapM2 :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -108,7 +108,7 @@ newtype M2 = M2
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M3 = M3
-  { un_M3 :: Ptr.Ptr FC.CInt
+  { unwrapM3 :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -314,7 +314,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExampleStruct) "exam
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype Uint64_t = Uint64_t
-  { un_Uint64_t :: FC.CInt
+  { unwrapUint64_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)

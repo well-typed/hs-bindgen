@@ -38,7 +38,7 @@ hstypes:
     newtype:
       constructor: List
       fields:
-      - un_List
+      - unwrapList
   instances:
   - Eq
   - Show
@@ -47,7 +47,7 @@ hstypes:
     newtype:
       constructor: Matrix
       fields:
-      - un_Matrix
+      - unwrapMatrix
   instances:
   - Eq
   - Show
@@ -57,7 +57,7 @@ hstypes:
     newtype:
       constructor: Sudoku
       fields:
-      - un_Sudoku
+      - unwrapSudoku
   instances:
   - Eq
   - Show
@@ -67,7 +67,7 @@ hstypes:
     newtype:
       constructor: Triplet
       fields:
-      - un_Triplet
+      - unwrapTriplet
   instances:
   - Eq
   - Show
@@ -77,7 +77,7 @@ hstypes:
     newtype:
       constructor: Tripletlist
       fields:
-      - un_Tripletlist
+      - unwrapTripletlist
   instances:
   - Eq
   - Show

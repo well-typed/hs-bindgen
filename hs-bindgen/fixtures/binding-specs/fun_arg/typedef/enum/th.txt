@@ -127,7 +127,7 @@
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
 newtype MyEnum
-    = MyEnum {un_MyEnum :: CUInt}
+    = MyEnum {unwrapMyEnum :: CUInt}
       {- ^ __C declaration:__ @enum MyEnum@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 4:6@
@@ -141,12 +141,12 @@ instance Storable MyEnum
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MyEnum un_MyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) un_MyEnum_3
+                                   MyEnum unwrapMyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapMyEnum_3
 deriving via CUInt instance Prim MyEnum
 instance CEnum MyEnum
     where type CEnumZ MyEnum = CUInt
           toCEnum = MyEnum
-          fromCEnum = un_MyEnum
+          fromCEnum = unwrapMyEnum
           declaredValues = \_ -> declaredValuesFromList [(0, singleton "X")]
           showsUndeclared = showsWrappedUndeclared "MyEnum"
           readPrecUndeclared = readPrecWrappedUndeclared "MyEnum"
@@ -182,7 +182,7 @@ pattern X = MyEnum 0
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
 newtype A
-    = A {un_A :: MyEnum}
+    = A {unwrapA :: MyEnum}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 7:21@
@@ -191,11 +191,11 @@ newtype A
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType A "un_A") =>
-         HasField "un_A" (Ptr A) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_A")
-instance HasCField A "un_A"
-    where type CFieldType A "un_A" = MyEnum
+instance TyEq ty (CFieldType A "unwrapA") =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = MyEnum
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @B@
 
@@ -204,7 +204,7 @@ instance HasCField A "un_A"
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
 newtype B
-    = B {un_B :: A}
+    = B {unwrapB :: A}
       {- ^ __C declaration:__ @B@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 8:11@
@@ -213,11 +213,11 @@ newtype B
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType B "un_B") =>
-         HasField "un_B" (Ptr B) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_B")
-instance HasCField B "un_B"
-    where type CFieldType B "un_B" = A
+instance TyEq ty (CFieldType B "unwrapB") =>
+         HasField "unwrapB" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapB")
+instance HasCField B "unwrapB"
+    where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @E@
 
@@ -226,7 +226,7 @@ instance HasCField B "un_B"
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
 newtype E
-    = E {un_E :: M.C}
+    = E {unwrapE :: M.C}
       {- ^ __C declaration:__ @E@
 
            __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 21:11@
@@ -234,11 +234,11 @@ newtype E
            __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
       -}
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType E "un_E") =>
-         HasField "un_E" (Ptr E) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_E")
-instance HasCField E "un_E"
-    where type CFieldType E "un_E" = M.C
+instance TyEq ty (CFieldType E "unwrapE") =>
+         HasField "unwrapE" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE")
+instance HasCField E "unwrapE"
+    where type CFieldType E "unwrapE" = M.C
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::

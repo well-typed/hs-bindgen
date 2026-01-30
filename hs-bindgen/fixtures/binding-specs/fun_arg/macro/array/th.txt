@@ -67,7 +67,7 @@
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 newtype MyArray
-    = MyArray {un_MyArray :: (IncompleteArray CInt)}
+    = MyArray {unwrapMyArray :: (IncompleteArray CInt)}
       {- ^ __C declaration:__ @MyArray@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 4:13@
@@ -75,11 +75,12 @@ newtype MyArray
            __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
       -}
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType MyArray "un_MyArray") =>
-         HasField "un_MyArray" (Ptr MyArray) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyArray")
-instance HasCField MyArray "un_MyArray"
-    where type CFieldType MyArray "un_MyArray" = IncompleteArray CInt
+instance TyEq ty (CFieldType MyArray "unwrapMyArray") =>
+         HasField "unwrapMyArray" (Ptr MyArray) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyArray")
+instance HasCField MyArray "unwrapMyArray"
+    where type CFieldType MyArray
+                          "unwrapMyArray" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @A@
 
@@ -88,7 +89,7 @@ instance HasCField MyArray "un_MyArray"
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 newtype A
-    = A {un_A :: MyArray}
+    = A {unwrapA :: MyArray}
       {- ^ __C declaration:__ @A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 7:9@
@@ -103,7 +104,7 @@ newtype A
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 newtype B
-    = B {un_B :: A}
+    = B {unwrapB :: A}
       {- ^ __C declaration:__ @B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 8:9@

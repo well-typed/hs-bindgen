@@ -71,20 +71,20 @@ __defined at:__ @documentation\/doxygen_docs.h 54:16@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Size_type = Size_type
-  { un_Size_type :: HsBindgen.Runtime.LibC.CSize
+  { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "un_Size_type")
-         ) => GHC.Records.HasField "un_Size_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "unwrapSize_type")
+         ) => GHC.Records.HasField "unwrapSize_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Size_type")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSize_type")
 
-instance HsBindgen.Runtime.HasCField.HasCField Size_type "un_Size_type" where
+instance HsBindgen.Runtime.HasCField.HasCField Size_type "unwrapSize_type" where
 
-  type CFieldType Size_type "un_Size_type" =
+  type CFieldType Size_type "unwrapSize_type" =
     HsBindgen.Runtime.LibC.CSize
 
   offset# = \_ -> \_ -> 0
@@ -126,7 +126,7 @@ __defined at:__ @documentation\/doxygen_docs.h 83:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Color_enum = Color_enum
-  { un_Color_enum :: FC.CUInt
+  { unwrapColor_enum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -146,8 +146,8 @@ instance F.Storable Color_enum where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Color_enum un_Color_enum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Color_enum2
+          Color_enum unwrapColor_enum2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapColor_enum2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Color_enum
 
@@ -157,7 +157,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Color_enum where
 
   toCEnum = Color_enum
 
-  fromCEnum = un_Color_enum
+  fromCEnum = unwrapColor_enum
 
   declaredValues =
     \_ ->
@@ -236,7 +236,7 @@ __defined at:__ @documentation\/doxygen_docs.h 225:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t_Aux = Event_callback_t_Aux
-  { un_Event_callback_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+  { unwrapEvent_callback_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -272,15 +272,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Aux where
 
   fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t_Aux) "un_Event_callback_t_Aux")
-         ) => GHC.Records.HasField "un_Event_callback_t_Aux" (Ptr.Ptr Event_callback_t_Aux) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t_Aux) "unwrapEvent_callback_t_Aux")
+         ) => GHC.Records.HasField "unwrapEvent_callback_t_Aux" (Ptr.Ptr Event_callback_t_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Event_callback_t_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEvent_callback_t_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t_Aux "un_Event_callback_t_Aux" where
+instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t_Aux "unwrapEvent_callback_t_Aux" where
 
-  type CFieldType Event_callback_t_Aux "un_Event_callback_t_Aux" =
+  type CFieldType Event_callback_t_Aux "unwrapEvent_callback_t_Aux" =
     FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -302,20 +302,20 @@ __defined at:__ @documentation\/doxygen_docs.h 225:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t = Event_callback_t
-  { un_Event_callback_t :: Ptr.FunPtr Event_callback_t_Aux
+  { unwrapEvent_callback_t :: Ptr.FunPtr Event_callback_t_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "un_Event_callback_t")
-         ) => GHC.Records.HasField "un_Event_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "unwrapEvent_callback_t")
+         ) => GHC.Records.HasField "unwrapEvent_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Event_callback_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEvent_callback_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t "un_Event_callback_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t "unwrapEvent_callback_t" where
 
-  type CFieldType Event_callback_t "un_Event_callback_t" =
+  type CFieldType Event_callback_t "unwrapEvent_callback_t" =
     Ptr.FunPtr Event_callback_t_Aux
 
   offset# = \_ -> \_ -> 0
@@ -502,7 +502,7 @@ __defined at:__ @documentation\/doxygen_docs.h 258:9@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Status_code_t = Status_code_t
-  { un_Status_code_t :: FC.CInt
+  { unwrapStatus_code_t :: FC.CInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -522,8 +522,8 @@ instance F.Storable Status_code_t where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Status_code_t un_Status_code_t2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Status_code_t2
+          Status_code_t unwrapStatus_code_t2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapStatus_code_t2
 
 deriving via FC.CInt instance Data.Primitive.Types.Prim Status_code_t
 
@@ -533,7 +533,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Status_code_t where
 
   toCEnum = Status_code_t
 
-  fromCEnum = un_Status_code_t
+  fromCEnum = unwrapStatus_code_t
 
   declaredValues =
     \_ ->
@@ -726,7 +726,7 @@ __defined at:__ @documentation\/doxygen_docs.h 281:9@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Data_union_t = Data_union_t
-  { un_Data_union_t :: Data.Array.Byte.ByteArray
+  { unwrapData_union_t :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Data_union_t
@@ -1138,7 +1138,7 @@ __defined at:__ @documentation\/doxygen_docs.h 317:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t_Aux = Processor_fn_t_Aux
-  { un_Processor_fn_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+  { unwrapProcessor_fn_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -1174,15 +1174,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Aux where
 
   fromFunPtr = hs_bindgen_0d4b3d0461629423
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t_Aux) "un_Processor_fn_t_Aux")
-         ) => GHC.Records.HasField "un_Processor_fn_t_Aux" (Ptr.Ptr Processor_fn_t_Aux) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t_Aux) "unwrapProcessor_fn_t_Aux")
+         ) => GHC.Records.HasField "unwrapProcessor_fn_t_Aux" (Ptr.Ptr Processor_fn_t_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Processor_fn_t_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProcessor_fn_t_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t_Aux "un_Processor_fn_t_Aux" where
+instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" where
 
-  type CFieldType Processor_fn_t_Aux "un_Processor_fn_t_Aux" =
+  type CFieldType Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux" =
     FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -1206,20 +1206,20 @@ __defined at:__ @documentation\/doxygen_docs.h 317:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t = Processor_fn_t
-  { un_Processor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
+  { unwrapProcessor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "un_Processor_fn_t")
-         ) => GHC.Records.HasField "un_Processor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "unwrapProcessor_fn_t")
+         ) => GHC.Records.HasField "unwrapProcessor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Processor_fn_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProcessor_fn_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t "un_Processor_fn_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t "unwrapProcessor_fn_t" where
 
-  type CFieldType Processor_fn_t "un_Processor_fn_t" =
+  type CFieldType Processor_fn_t "unwrapProcessor_fn_t" =
     Ptr.FunPtr Processor_fn_t_Aux
 
   offset# = \_ -> \_ -> 0
@@ -1237,20 +1237,20 @@ __defined at:__ @documentation\/doxygen_docs.h 323:14@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t = Filename_t
-  { un_Filename_t :: (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
+  { unwrapFilename_t :: (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Filename_t) "un_Filename_t")
-         ) => GHC.Records.HasField "un_Filename_t" (Ptr.Ptr Filename_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Filename_t) "unwrapFilename_t")
+         ) => GHC.Records.HasField "unwrapFilename_t" (Ptr.Ptr Filename_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Filename_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFilename_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Filename_t "un_Filename_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Filename_t "unwrapFilename_t" where
 
-  type CFieldType Filename_t "un_Filename_t" =
+  type CFieldType Filename_t "unwrapFilename_t" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
 
   offset# = \_ -> \_ -> 0

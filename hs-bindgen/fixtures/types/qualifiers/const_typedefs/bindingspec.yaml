@@ -45,7 +45,7 @@ hstypes:
     newtype:
       constructor: E
       fields:
-      - un_E
+      - unwrapE
   instances:
   - Eq
   - HasFFIType
@@ -58,7 +58,7 @@ hstypes:
     newtype:
       constructor: I
       fields:
-      - un_I
+      - unwrapI
   instances:
   - Bitfield
   - Bits
@@ -91,7 +91,7 @@ hstypes:
     newtype:
       constructor: TE
       fields:
-      - un_TE
+      - unwrapTE
   instances:
   - Eq
   - HasFFIType
@@ -104,7 +104,7 @@ hstypes:
     newtype:
       constructor: TI
       fields:
-      - un_TI
+      - unwrapTI
   instances:
   - Bitfield
   - Bits
@@ -127,7 +127,7 @@ hstypes:
     newtype:
       constructor: TS
       fields:
-      - un_TS
+      - unwrapTS
   instances:
   - Eq
   - Prim
@@ -138,7 +138,7 @@ hstypes:
     newtype:
       constructor: TTE
       fields:
-      - un_TTE
+      - unwrapTTE
   instances:
   - Eq
   - HasFFIType
@@ -151,7 +151,7 @@ hstypes:
     newtype:
       constructor: TTI
       fields:
-      - un_TTI
+      - unwrapTTI
   instances:
   - Bitfield
   - Bits
@@ -174,7 +174,7 @@ hstypes:
     newtype:
       constructor: TTS
       fields:
-      - un_TTS
+      - unwrapTTS
   instances:
   - Eq
   - Prim
@@ -185,7 +185,7 @@ hstypes:
     newtype:
       constructor: TTU
       fields:
-      - un_TTU
+      - unwrapTTU
   instances:
   - Storable
 - hsname: TU
@@ -193,7 +193,7 @@ hstypes:
     newtype:
       constructor: TU
       fields:
-      - un_TU
+      - unwrapTU
   instances:
   - Storable
 - hsname: U
@@ -201,6 +201,6 @@ hstypes:
     newtype:
       constructor: U
       fields:
-      - un_U
+      - unwrapU
   instances:
   - Storable

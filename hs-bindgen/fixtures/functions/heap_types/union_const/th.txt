@@ -29,7 +29,7 @@
     __exported by:__ @functions\/heap_types\/union_const.h@
 -}
 newtype T
-    = T {un_T :: ByteArray}
+    = T {unwrapT :: ByteArray}
       {- ^ __C declaration:__ @union U@
 
            __defined at:__ @functions\/heap_types\/union_const.h 3:7@

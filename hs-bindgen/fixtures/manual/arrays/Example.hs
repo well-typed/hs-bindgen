@@ -30,20 +30,20 @@ import Prelude (Eq, Show)
     __exported by:__ @manual\/arrays.h@
 -}
 newtype Triplet = Triplet
-  { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet")
-         ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
+         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
 
-instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
+instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 
-  type CFieldType Triplet "un_Triplet" =
+  type CFieldType Triplet "unwrapTriplet" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -55,20 +55,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
     __exported by:__ @manual\/arrays.h@
 -}
 newtype Matrix = Matrix
-  { un_Matrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
+  { unwrapMatrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "un_Matrix")
-         ) => GHC.Records.HasField "un_Matrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "unwrapMatrix")
+         ) => GHC.Records.HasField "unwrapMatrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Matrix")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMatrix")
 
-instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
+instance HsBindgen.Runtime.HasCField.HasCField Matrix "unwrapMatrix" where
 
-  type CFieldType Matrix "un_Matrix" =
+  type CFieldType Matrix "unwrapMatrix" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
 
   offset# = \_ -> \_ -> 0
@@ -82,19 +82,19 @@ __defined at:__ @manual\/arrays.h 44:15@
 __exported by:__ @manual\/arrays.h@
 -}
 newtype Triplet_ptrs = Triplet_ptrs
-  { un_Triplet_ptrs :: HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+  { unwrapTriplet_ptrs :: HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
   }
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet_ptrs) "un_Triplet_ptrs")
-         ) => GHC.Records.HasField "un_Triplet_ptrs" (Ptr.Ptr Triplet_ptrs) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet_ptrs) "unwrapTriplet_ptrs")
+         ) => GHC.Records.HasField "unwrapTriplet_ptrs" (Ptr.Ptr Triplet_ptrs) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet_ptrs")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet_ptrs")
 
-instance HsBindgen.Runtime.HasCField.HasCField Triplet_ptrs "un_Triplet_ptrs" where
+instance HsBindgen.Runtime.HasCField.HasCField Triplet_ptrs "unwrapTriplet_ptrs" where
 
-  type CFieldType Triplet_ptrs "un_Triplet_ptrs" =
+  type CFieldType Triplet_ptrs "unwrapTriplet_ptrs" =
     HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
   offset# = \_ -> \_ -> 0

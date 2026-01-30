@@ -40,20 +40,20 @@ __defined at:__ @edge-cases\/spec_examples.h 10:15@
 __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int16_T = Int16_T
-  { un_Int16_T :: FC.CShort
+  { unwrapInt16_T :: FC.CShort
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int16_T) "un_Int16_T")
-         ) => GHC.Records.HasField "un_Int16_T" (Ptr.Ptr Int16_T) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int16_T) "unwrapInt16_T")
+         ) => GHC.Records.HasField "unwrapInt16_T" (Ptr.Ptr Int16_T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Int16_T")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt16_T")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int16_T "un_Int16_T" where
+instance HsBindgen.Runtime.HasCField.HasCField Int16_T "unwrapInt16_T" where
 
-  type CFieldType Int16_T "un_Int16_T" = FC.CShort
+  type CFieldType Int16_T "unwrapInt16_T" = FC.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -64,20 +64,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Int16_T "un_Int16_T" where
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int32_T = Int32_T
-  { un_Int32_T :: FC.CInt
+  { unwrapInt32_T :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int32_T) "un_Int32_T")
-         ) => GHC.Records.HasField "un_Int32_T" (Ptr.Ptr Int32_T) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int32_T) "unwrapInt32_T")
+         ) => GHC.Records.HasField "unwrapInt32_T" (Ptr.Ptr Int32_T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Int32_T")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt32_T")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int32_T "un_Int32_T" where
+instance HsBindgen.Runtime.HasCField.HasCField Int32_T "unwrapInt32_T" where
 
-  type CFieldType Int32_T "un_Int32_T" = FC.CInt
+  type CFieldType Int32_T "unwrapInt32_T" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -88,20 +88,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Int32_T "un_Int32_T" where
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int64_T = Int64_T
-  { un_Int64_T :: FC.CLLong
+  { unwrapInt64_T :: FC.CLLong
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int64_T) "un_Int64_T")
-         ) => GHC.Records.HasField "un_Int64_T" (Ptr.Ptr Int64_T) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int64_T) "unwrapInt64_T")
+         ) => GHC.Records.HasField "unwrapInt64_T" (Ptr.Ptr Int64_T) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Int64_T")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt64_T")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int64_T "un_Int64_T" where
+instance HsBindgen.Runtime.HasCField.HasCField Int64_T "unwrapInt64_T" where
 
-  type CFieldType Int64_T "un_Int64_T" = FC.CLLong
+  type CFieldType Int64_T "unwrapInt64_T" = FC.CLLong
 
   offset# = \_ -> \_ -> 0
 

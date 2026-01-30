@@ -30,7 +30,7 @@ hstypes:
     newtype:
       constructor: MY_TYPE
       fields:
-      - un_MY_TYPE
+      - unwrapMY_TYPE
   instances:
   - Bits
   - Bounded

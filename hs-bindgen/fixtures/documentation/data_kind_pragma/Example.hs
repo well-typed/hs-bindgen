@@ -29,20 +29,20 @@ import Prelude (Eq, Show)
     __exported by:__ @documentation\/data_kind_pragma.h@
 -}
 newtype Triplet = Triplet
-  { un_Triplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "un_Triplet")
-         ) => GHC.Records.HasField "un_Triplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
+         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Triplet")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
 
-instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
+instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 
-  type CFieldType Triplet "un_Triplet" =
+  type CFieldType Triplet "unwrapTriplet" =
     (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
 
   offset# = \_ -> \_ -> 0

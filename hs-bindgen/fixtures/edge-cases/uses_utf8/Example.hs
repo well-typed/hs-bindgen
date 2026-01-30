@@ -26,7 +26,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
 newtype MyEnum = MyEnum
-  { un_MyEnum :: FC.CUInt
+  { unwrapMyEnum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -46,8 +46,8 @@ instance F.Storable MyEnum where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MyEnum un_MyEnum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
+          MyEnum unwrapMyEnum2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapMyEnum2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim MyEnum
 
@@ -57,7 +57,7 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
   toCEnum = MyEnum
 
-  fromCEnum = un_MyEnum
+  fromCEnum = unwrapMyEnum
 
   declaredValues =
     \_ ->

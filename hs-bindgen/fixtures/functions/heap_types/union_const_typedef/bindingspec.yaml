@@ -15,7 +15,7 @@ hstypes:
     newtype:
       constructor: T
       fields:
-      - un_T
+      - unwrapT
   instances:
   - Storable
 - hsname: U
@@ -23,6 +23,6 @@ hstypes:
     newtype:
       constructor: U
       fields:
-      - un_U
+      - unwrapU
   instances:
   - Storable

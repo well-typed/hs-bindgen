@@ -75,7 +75,7 @@ instance TyEq ty (CFieldType S "s_x") =>
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
 newtype T
-    = T {un_T :: S}
+    = T {unwrapT :: S}
       {- ^ __C declaration:__ @T@
 
            __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
@@ -84,11 +84,11 @@ newtype T
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType T "un_T") =>
-         HasField "un_T" (Ptr T) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_T")
-instance HasCField T "un_T"
-    where type CFieldType T "un_T" = S
+instance TyEq ty (CFieldType T "unwrapT") =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = S
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc_base ::

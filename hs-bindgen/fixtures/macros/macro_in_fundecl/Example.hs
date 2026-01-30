@@ -27,7 +27,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord,
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype I = I
-  { un_I :: FC.CInt
+  { unwrapI :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -39,7 +39,7 @@ newtype I = I
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype C = C
-  { un_C :: FC.CChar
+  { unwrapC :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -51,7 +51,7 @@ newtype C = C
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype F = F
-  { un_F :: FC.CFloat
+  { unwrapF :: FC.CFloat
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
@@ -63,7 +63,7 @@ newtype F = F
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype L = L
-  { un_L :: FC.CLong
+  { unwrapL :: FC.CLong
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -75,7 +75,7 @@ newtype L = L
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype S = S
-  { un_S :: FC.CShort
+  { unwrapS :: FC.CShort
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)

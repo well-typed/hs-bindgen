@@ -21,7 +21,7 @@ hstypes:
     newtype:
       constructor: MyInt
       fields:
-      - un_MyInt
+      - unwrapMyInt
   instances:
   - Bitfield
   - Bits
@@ -44,7 +44,7 @@ hstypes:
     newtype:
       constructor: MyLong
       fields:
-      - un_MyLong
+      - unwrapMyLong
   instances:
   - Bitfield
   - Bits
@@ -80,7 +80,7 @@ hstypes:
     newtype:
       constructor: MyUInt
       fields:
-      - un_MyUInt
+      - unwrapMyUInt
   instances:
   - Bitfield
   - Bits

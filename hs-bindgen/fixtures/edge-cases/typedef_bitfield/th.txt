@@ -6,7 +6,7 @@
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyInt
-    = MyInt {un_MyInt :: CInt}
+    = MyInt {unwrapMyInt :: CInt}
       {- ^ __C declaration:__ @myInt@
 
            __defined at:__ @edge-cases\/typedef_bitfield.h 2:13@
@@ -26,11 +26,11 @@ newtype MyInt
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyInt "un_MyInt") =>
-         HasField "un_MyInt" (Ptr MyInt) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyInt")
-instance HasCField MyInt "un_MyInt"
-    where type CFieldType MyInt "un_MyInt" = CInt
+instance TyEq ty (CFieldType MyInt "unwrapMyInt") =>
+         HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyInt")
+instance HasCField MyInt "unwrapMyInt"
+    where type CFieldType MyInt "unwrapMyInt" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @myUInt@
 
@@ -39,7 +39,7 @@ instance HasCField MyInt "un_MyInt"
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyUInt
-    = MyUInt {un_MyUInt :: CUInt}
+    = MyUInt {unwrapMyUInt :: CUInt}
       {- ^ __C declaration:__ @myUInt@
 
            __defined at:__ @edge-cases\/typedef_bitfield.h 3:22@
@@ -59,11 +59,11 @@ newtype MyUInt
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyUInt "un_MyUInt") =>
-         HasField "un_MyUInt" (Ptr MyUInt) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyUInt")
-instance HasCField MyUInt "un_MyUInt"
-    where type CFieldType MyUInt "un_MyUInt" = CUInt
+instance TyEq ty (CFieldType MyUInt "unwrapMyUInt") =>
+         HasField "unwrapMyUInt" (Ptr MyUInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyUInt")
+instance HasCField MyUInt "unwrapMyUInt"
+    where type CFieldType MyUInt "unwrapMyUInt" = CUInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @myLong@
 
@@ -72,7 +72,7 @@ instance HasCField MyUInt "un_MyUInt"
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyLong
-    = MyLong {un_MyLong :: CLong}
+    = MyLong {unwrapMyLong :: CLong}
       {- ^ __C declaration:__ @myLong@
 
            __defined at:__ @edge-cases\/typedef_bitfield.h 4:14@
@@ -92,11 +92,11 @@ newtype MyLong
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyLong "un_MyLong") =>
-         HasField "un_MyLong" (Ptr MyLong) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MyLong")
-instance HasCField MyLong "un_MyLong"
-    where type CFieldType MyLong "un_MyLong" = CLong
+instance TyEq ty (CFieldType MyLong "unwrapMyLong") =>
+         HasField "unwrapMyLong" (Ptr MyLong) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyLong")
+instance HasCField MyLong "unwrapMyLong"
+    where type CFieldType MyLong "unwrapMyLong" = CLong
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct myStruct@
 

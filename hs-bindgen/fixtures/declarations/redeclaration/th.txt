@@ -13,7 +13,7 @@
     __exported by:__ @declarations\/redeclaration.h@
 -}
 newtype Int_t
-    = Int_t {un_Int_t :: CInt}
+    = Int_t {unwrapInt_t :: CInt}
       {- ^ __C declaration:__ @int_t@
 
            __defined at:__ @declarations\/redeclaration.h 20:13@
@@ -33,11 +33,11 @@ newtype Int_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int_t "un_Int_t") =>
-         HasField "un_Int_t" (Ptr Int_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Int_t")
-instance HasCField Int_t "un_Int_t"
-    where type CFieldType Int_t "un_Int_t" = CInt
+instance TyEq ty (CFieldType Int_t "unwrapInt_t") =>
+         HasField "unwrapInt_t" (Ptr Int_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInt_t")
+instance HasCField Int_t "unwrapInt_t"
+    where type CFieldType Int_t "unwrapInt_t" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct X@
 
@@ -92,7 +92,7 @@ instance TyEq ty (CFieldType X "x_n") =>
     __exported by:__ @declarations\/redeclaration.h@
 -}
 newtype Y
-    = Y {un_Y :: ByteArray}
+    = Y {unwrapY :: ByteArray}
       {- ^ __C declaration:__ @union Y@
 
            __defined at:__ @declarations\/redeclaration.h 30:7@

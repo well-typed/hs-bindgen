@@ -34,7 +34,7 @@ import HsBindgen.Runtime.TypeEquality (TyEq)
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype MyUnion = MyUnion
-  { un_MyUnion :: Data.Array.Byte.ByteArray
+  { unwrapMyUnion :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable MyUnion
@@ -87,7 +87,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyUnion) "myUnion_x"
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype A = A
-  { un_A :: MyUnion
+  { unwrapA :: MyUnion
   }
   deriving newtype (F.Storable)
 
@@ -98,6 +98,6 @@ newtype A = A
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype B = B
-  { un_B :: A
+  { unwrapB :: A
   }
   deriving newtype (F.Storable)

@@ -89,7 +89,7 @@ hstypes:
     newtype:
       constructor: Matrix
       fields:
-      - un_Matrix
+      - unwrapMatrix
   instances:
   - Eq
   - Show
@@ -99,7 +99,7 @@ hstypes:
     newtype:
       constructor: MyInt
       fields:
-      - un_MyInt
+      - unwrapMyInt
   instances:
   - Bitfield
   - Bits
@@ -146,7 +146,7 @@ hstypes:
     newtype:
       constructor: Shape
       fields:
-      - un_Shape
+      - unwrapShape
   instances:
   - Storable
 - hsname: Tic_tac_toe
@@ -166,7 +166,7 @@ hstypes:
     newtype:
       constructor: Triplet
       fields:
-      - un_Triplet
+      - unwrapTriplet
   instances:
   - Eq
   - Show

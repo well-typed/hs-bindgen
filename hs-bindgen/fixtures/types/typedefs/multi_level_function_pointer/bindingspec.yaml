@@ -30,7 +30,7 @@ hstypes:
     newtype:
       constructor: F1
       fields:
-      - un_F1
+      - unwrapF1
   instances:
   - Eq
   - HasFFIType
@@ -42,7 +42,7 @@ hstypes:
     newtype:
       constructor: F2
       fields:
-      - un_F2
+      - unwrapF2
   instances:
   - Eq
   - HasFFIType
@@ -54,7 +54,7 @@ hstypes:
     newtype:
       constructor: F3
       fields:
-      - un_F3
+      - unwrapF3
   instances:
   - Eq
   - HasFFIType
@@ -66,7 +66,7 @@ hstypes:
     newtype:
       constructor: F4
       fields:
-      - un_F4
+      - unwrapF4
   instances:
   - Eq
   - HasFFIType
@@ -78,7 +78,7 @@ hstypes:
     newtype:
       constructor: F5
       fields:
-      - un_F5
+      - unwrapF5
   instances:
   - Eq
   - HasFFIType
@@ -90,7 +90,7 @@ hstypes:
     newtype:
       constructor: F6
       fields:
-      - un_F6
+      - unwrapF6
   instances:
   - Eq
   - HasFFIType
@@ -102,7 +102,7 @@ hstypes:
     newtype:
       constructor: MyInt
       fields:
-      - un_MyInt
+      - unwrapMyInt
   instances:
   - Bitfield
   - Bits

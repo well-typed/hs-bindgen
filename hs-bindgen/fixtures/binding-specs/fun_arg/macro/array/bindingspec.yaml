@@ -18,7 +18,7 @@ hstypes:
     newtype:
       constructor: A
       fields:
-      - un_A
+      - unwrapA
   instances:
   - Eq
   - Show
@@ -27,7 +27,7 @@ hstypes:
     newtype:
       constructor: B
       fields:
-      - un_B
+      - unwrapB
   instances:
   - Eq
   - Show
@@ -36,7 +36,7 @@ hstypes:
     newtype:
       constructor: MyArray
       fields:
-      - un_MyArray
+      - unwrapMyArray
   instances:
   - Eq
   - Show

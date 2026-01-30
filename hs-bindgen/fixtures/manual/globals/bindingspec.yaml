@@ -24,7 +24,7 @@ hstypes:
     newtype:
       constructor: ConstInt
       fields:
-      - un_ConstInt
+      - unwrapConstInt
   instances:
   - Bitfield
   - Bits
@@ -59,7 +59,7 @@ hstypes:
     newtype:
       constructor: List
       fields:
-      - un_List
+      - unwrapList
   instances:
   - Eq
   - Show
@@ -68,7 +68,7 @@ hstypes:
     newtype:
       constructor: Triplet
       fields:
-      - un_Triplet
+      - unwrapTriplet
   instances:
   - Eq
   - Show

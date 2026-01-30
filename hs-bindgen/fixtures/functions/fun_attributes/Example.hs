@@ -94,19 +94,19 @@ instance Data.Primitive.Types.Prim FILE where
     __exported by:__ @functions\/fun_attributes.h@
 -}
 newtype Size_t = Size_t
-  { un_Size_t :: FC.CInt
+  { unwrapSize_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_t) "un_Size_t")
-         ) => GHC.Records.HasField "un_Size_t" (Ptr.Ptr Size_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_t) "unwrapSize_t")
+         ) => GHC.Records.HasField "unwrapSize_t" (Ptr.Ptr Size_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Size_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSize_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Size_t "un_Size_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Size_t "unwrapSize_t" where
 
-  type CFieldType Size_t "un_Size_t" = FC.CInt
+  type CFieldType Size_t "unwrapSize_t" = FC.CInt
 
   offset# = \_ -> \_ -> 0

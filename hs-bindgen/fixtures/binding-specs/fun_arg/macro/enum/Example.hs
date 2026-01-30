@@ -26,7 +26,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
 newtype MyEnum = MyEnum
-  { un_MyEnum :: FC.CUInt
+  { unwrapMyEnum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -46,8 +46,8 @@ instance F.Storable MyEnum where
     \ptr0 ->
       \s1 ->
         case s1 of
-          MyEnum un_MyEnum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
+          MyEnum unwrapMyEnum2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapMyEnum2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim MyEnum
 
@@ -57,7 +57,7 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
   toCEnum = MyEnum
 
-  fromCEnum = un_MyEnum
+  fromCEnum = unwrapMyEnum
 
   declaredValues =
     \_ ->
@@ -107,7 +107,7 @@ pattern X = MyEnum 0
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
 newtype A = A
-  { un_A :: MyEnum
+  { unwrapA :: MyEnum
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -119,7 +119,7 @@ newtype A = A
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
 newtype B = B
-  { un_B :: A
+  { unwrapB :: A
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)

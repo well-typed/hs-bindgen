@@ -106,7 +106,7 @@ hstypes:
     newtype:
       constructor: Struct10_t_t
       fields:
-      - un_Struct10_t_t
+      - unwrapStruct10_t_t
   instances:
   - Eq
   - Prim
@@ -173,7 +173,7 @@ hstypes:
     newtype:
       constructor: Struct5_t
       fields:
-      - un_Struct5_t
+      - unwrapStruct5_t
   instances:
   - Eq
   - HasFFIType
@@ -185,7 +185,7 @@ hstypes:
     newtype:
       constructor: Struct6
       fields:
-      - un_Struct6
+      - unwrapStruct6
   instances:
   - Eq
   - HasFFIType
@@ -217,7 +217,7 @@ hstypes:
     newtype:
       constructor: Struct7a
       fields:
-      - un_Struct7a
+      - unwrapStruct7a
   instances:
   - Eq
   - Prim
@@ -228,7 +228,7 @@ hstypes:
     newtype:
       constructor: Struct7b
       fields:
-      - un_Struct7b
+      - unwrapStruct7b
   instances:
   - Eq
   - Prim
@@ -249,7 +249,7 @@ hstypes:
     newtype:
       constructor: Struct8b
       fields:
-      - un_Struct8b
+      - unwrapStruct8b
   instances:
   - Eq
   - Prim
@@ -270,7 +270,7 @@ hstypes:
     newtype:
       constructor: Struct9_t
       fields:
-      - un_Struct9_t
+      - unwrapStruct9_t
   instances:
   - Eq
   - Prim

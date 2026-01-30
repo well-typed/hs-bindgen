@@ -71,7 +71,7 @@ hstypes:
     newtype:
       constructor: Int16_T
       fields:
-      - un_Int16_T
+      - unwrapInt16_T
   instances:
   - Bitfield
   - Bits
@@ -94,7 +94,7 @@ hstypes:
     newtype:
       constructor: Int32_T
       fields:
-      - un_Int32_T
+      - unwrapInt32_T
   instances:
   - Bitfield
   - Bits
@@ -117,7 +117,7 @@ hstypes:
     newtype:
       constructor: Int64_T
       fields:
-      - un_Int64_T
+      - unwrapInt64_T
   instances:
   - Bitfield
   - Bits

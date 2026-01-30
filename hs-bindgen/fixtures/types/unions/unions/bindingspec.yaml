@@ -39,7 +39,7 @@ hstypes:
     newtype:
       constructor: AnonA
       fields:
-      - un_AnonA
+      - unwrapAnonA
   instances:
   - Storable
 - hsname: AnonA_polar
@@ -114,7 +114,7 @@ hstypes:
     newtype:
       constructor: DimPayload
       fields:
-      - un_DimPayload
+      - unwrapDimPayload
   instances:
   - Storable
 - hsname: DimPayloadB
@@ -122,6 +122,6 @@ hstypes:
     newtype:
       constructor: DimPayloadB
       fields:
-      - un_DimPayloadB
+      - unwrapDimPayloadB
   instances:
   - Storable

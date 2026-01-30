@@ -120,7 +120,7 @@ instance Prim Struct5
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct5_t
-    = Struct5_t {un_Struct5_t :: (Ptr Struct5)}
+    = Struct5_t {unwrapStruct5_t :: (Ptr Struct5)}
       {- ^ __C declaration:__ @struct5_t@
 
            __defined at:__ @program-analysis\/typedef_analysis.h 22:25@
@@ -129,11 +129,11 @@ newtype Struct5_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Struct5_t "un_Struct5_t") =>
-         HasField "un_Struct5_t" (Ptr Struct5_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct5_t")
-instance HasCField Struct5_t "un_Struct5_t"
-    where type CFieldType Struct5_t "un_Struct5_t" = Ptr Struct5
+instance TyEq ty (CFieldType Struct5_t "unwrapStruct5_t") =>
+         HasField "unwrapStruct5_t" (Ptr Struct5_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct5_t")
+instance HasCField Struct5_t "unwrapStruct5_t"
+    where type CFieldType Struct5_t "unwrapStruct5_t" = Ptr Struct5
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct6@
 
@@ -175,7 +175,7 @@ instance Prim Struct6_Aux
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct6
-    = Struct6 {un_Struct6 :: (Ptr Struct6_Aux)}
+    = Struct6 {unwrapStruct6 :: (Ptr Struct6_Aux)}
       {- ^ __C declaration:__ @struct6@
 
            __defined at:__ @program-analysis\/typedef_analysis.h 25:28@
@@ -184,11 +184,11 @@ newtype Struct6
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Struct6 "un_Struct6") =>
-         HasField "un_Struct6" (Ptr Struct6) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct6")
-instance HasCField Struct6 "un_Struct6"
-    where type CFieldType Struct6 "un_Struct6" = Ptr Struct6_Aux
+instance TyEq ty (CFieldType Struct6 "unwrapStruct6") =>
+         HasField "unwrapStruct6" (Ptr Struct6) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct6")
+instance HasCField Struct6 "unwrapStruct6"
+    where type CFieldType Struct6 "unwrapStruct6" = Ptr Struct6_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct7@
 
@@ -229,7 +229,7 @@ instance Prim Struct7
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct7a
-    = Struct7a {un_Struct7a :: Struct7}
+    = Struct7a {unwrapStruct7a :: Struct7}
       {- ^ __C declaration:__ @struct7a@
 
            __defined at:__ @program-analysis\/typedef_analysis.h 29:24@
@@ -238,11 +238,11 @@ newtype Struct7a
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType Struct7a "un_Struct7a") =>
-         HasField "un_Struct7a" (Ptr Struct7a) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct7a")
-instance HasCField Struct7a "un_Struct7a"
-    where type CFieldType Struct7a "un_Struct7a" = Struct7
+instance TyEq ty (CFieldType Struct7a "unwrapStruct7a") =>
+         HasField "unwrapStruct7a" (Ptr Struct7a) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct7a")
+instance HasCField Struct7a "unwrapStruct7a"
+    where type CFieldType Struct7a "unwrapStruct7a" = Struct7
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct7b@
 
@@ -251,7 +251,7 @@ instance HasCField Struct7a "un_Struct7a"
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct7b
-    = Struct7b {un_Struct7b :: Struct7}
+    = Struct7b {unwrapStruct7b :: Struct7}
       {- ^ __C declaration:__ @struct7b@
 
            __defined at:__ @program-analysis\/typedef_analysis.h 30:24@
@@ -260,11 +260,11 @@ newtype Struct7b
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType Struct7b "un_Struct7b") =>
-         HasField "un_Struct7b" (Ptr Struct7b) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct7b")
-instance HasCField Struct7b "un_Struct7b"
-    where type CFieldType Struct7b "un_Struct7b" = Struct7
+instance TyEq ty (CFieldType Struct7b "unwrapStruct7b") =>
+         HasField "unwrapStruct7b" (Ptr Struct7b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct7b")
+instance HasCField Struct7b "unwrapStruct7b"
+    where type CFieldType Struct7b "unwrapStruct7b" = Struct7
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct8@
 
@@ -305,7 +305,7 @@ instance Prim Struct8
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct8b
-    = Struct8b {un_Struct8b :: Struct8}
+    = Struct8b {unwrapStruct8b :: Struct8}
       {- ^ __C declaration:__ @struct8b@
 
            __defined at:__ @program-analysis\/typedef_analysis.h 35:24@
@@ -314,11 +314,11 @@ newtype Struct8b
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType Struct8b "un_Struct8b") =>
-         HasField "un_Struct8b" (Ptr Struct8b) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct8b")
-instance HasCField Struct8b "un_Struct8b"
-    where type CFieldType Struct8b "un_Struct8b" = Struct8
+instance TyEq ty (CFieldType Struct8b "unwrapStruct8b") =>
+         HasField "unwrapStruct8b" (Ptr Struct8b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct8b")
+instance HasCField Struct8b "unwrapStruct8b"
+    where type CFieldType Struct8b "unwrapStruct8b" = Struct8
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct9@
 
@@ -359,7 +359,7 @@ instance Prim Struct9
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct9_t
-    = Struct9_t {un_Struct9_t :: Struct9}
+    = Struct9_t {unwrapStruct9_t :: Struct9}
       {- ^ __C declaration:__ @struct9_t@
 
            __defined at:__ @program-analysis\/typedef_analysis.h 40:17@
@@ -368,11 +368,11 @@ newtype Struct9_t
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType Struct9_t "un_Struct9_t") =>
-         HasField "un_Struct9_t" (Ptr Struct9_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct9_t")
-instance HasCField Struct9_t "un_Struct9_t"
-    where type CFieldType Struct9_t "un_Struct9_t" = Struct9
+instance TyEq ty (CFieldType Struct9_t "unwrapStruct9_t") =>
+         HasField "unwrapStruct9_t" (Ptr Struct9_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct9_t")
+instance HasCField Struct9_t "unwrapStruct9_t"
+    where type CFieldType Struct9_t "unwrapStruct9_t" = Struct9
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct10@
 
@@ -413,7 +413,7 @@ instance Prim Struct10_t
     __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 newtype Struct10_t_t
-    = Struct10_t_t {un_Struct10_t_t :: Struct10_t}
+    = Struct10_t_t {unwrapStruct10_t_t :: Struct10_t}
       {- ^ __C declaration:__ @struct10_t_t@
 
            __defined at:__ @program-analysis\/typedef_analysis.h 48:20@
@@ -422,11 +422,12 @@ newtype Struct10_t_t
       -}
     deriving stock (Eq, Show)
     deriving newtype (Storable, Prim)
-instance TyEq ty (CFieldType Struct10_t_t "un_Struct10_t_t") =>
-         HasField "un_Struct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Struct10_t_t")
-instance HasCField Struct10_t_t "un_Struct10_t_t"
-    where type CFieldType Struct10_t_t "un_Struct10_t_t" = Struct10_t
+instance TyEq ty (CFieldType Struct10_t_t "unwrapStruct10_t_t") =>
+         HasField "unwrapStruct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStruct10_t_t")
+instance HasCField Struct10_t_t "unwrapStruct10_t_t"
+    where type CFieldType Struct10_t_t
+                          "unwrapStruct10_t_t" = Struct10_t
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct11@
 

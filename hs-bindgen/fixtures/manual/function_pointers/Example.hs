@@ -41,7 +41,7 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
     __exported by:__ @manual\/function_pointers.h@
 -}
 newtype Int2int = Int2int
-  { un_Int2int :: FC.CInt -> IO FC.CInt
+  { unwrapInt2int :: FC.CInt -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -77,15 +77,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
 
   fromFunPtr = hs_bindgen_65378a8a3cf640ad
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "un_Int2int")
-         ) => GHC.Records.HasField "un_Int2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "unwrapInt2int")
+         ) => GHC.Records.HasField "unwrapInt2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Int2int")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt2int")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
+instance HsBindgen.Runtime.HasCField.HasCField Int2int "unwrapInt2int" where
 
-  type CFieldType Int2int "un_Int2int" =
+  type CFieldType Int2int "unwrapInt2int" =
     FC.CInt -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -149,7 +149,7 @@ __defined at:__ @manual\/function_pointers.h 43:7@
 __exported by:__ @manual\/function_pointers.h@
 -}
 newtype Apply1Union = Apply1Union
-  { un_Apply1Union :: Data.Array.Byte.ByteArray
+  { unwrapApply1Union :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Apply1Union

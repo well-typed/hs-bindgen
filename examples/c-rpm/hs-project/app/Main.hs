@@ -30,10 +30,10 @@ main = do
         RPM.argvSplit argvPtr (PtrConst.unsafeFromPtr strPtr) (PtrConst.unsafeFromPtr sepPtr)
 
     argv1' <- peek argvPtr
-    count1 <- RPM.argvCount (ARGV_const_t (PtrConst.unsafeFromPtr (un_ARGV_t argv1')))
+    count1 <- RPM.argvCount (ARGV_const_t (PtrConst.unsafeFromPtr (unwrapARGV_t argv1')))
     putStrLn $ "Split into " ++ show count1 ++ " parts:"
 
-    arrayPtr1 <- peek (un_ARGV_t argv1')
+    arrayPtr1 <- peek (unwrapARGV_t argv1')
     when (arrayPtr1 /= nullPtr) $ do
       cstrs <- peekArray (fromIntegral count1) arrayPtr1
       let strings = map castCCharToChar cstrs
@@ -62,7 +62,7 @@ main = do
 
     -- Join with pipe
     withCString " | " $ \joinSep -> do
-      resultPtr <- RPM.argvJoin (ARGV_const_t (PtrConst.unsafeFromPtr (un_ARGV_t argv2'))) (PtrConst.unsafeFromPtr joinSep)
+      resultPtr <- RPM.argvJoin (ARGV_const_t (PtrConst.unsafeFromPtr (unwrapARGV_t argv2'))) (PtrConst.unsafeFromPtr joinSep)
       when (resultPtr /= nullPtr) $ do
         result <- peekCString resultPtr
         putStrLn $ "Output: \"" ++ result ++ "\""

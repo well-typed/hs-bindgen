@@ -431,7 +431,7 @@ __defined at:__ @functions\/callbacks.h 10:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype FileOpenedNotification_Aux
-    = FileOpenedNotification_Aux {un_FileOpenedNotification_Aux :: (IO Unit)}
+    = FileOpenedNotification_Aux {unwrapFileOpenedNotification_Aux :: (IO Unit)}
       {- ^ Auxiliary type used by 'FileOpenedNotification'
 
       __C declaration:__ @FileOpenedNotification@
@@ -463,15 +463,15 @@ instance FromFunPtr FileOpenedNotification_Aux
     where fromFunPtr = hs_bindgen_f3ba5920f34c7f6a
 instance TyEq ty
               (CFieldType FileOpenedNotification_Aux
-                          "un_FileOpenedNotification_Aux") =>
-         HasField "un_FileOpenedNotification_Aux"
+                          "unwrapFileOpenedNotification_Aux") =>
+         HasField "unwrapFileOpenedNotification_Aux"
                   (Ptr FileOpenedNotification_Aux)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_FileOpenedNotification_Aux")
+    where getField = fromPtr (Proxy @"unwrapFileOpenedNotification_Aux")
 instance HasCField FileOpenedNotification_Aux
-                   "un_FileOpenedNotification_Aux"
+                   "unwrapFileOpenedNotification_Aux"
     where type CFieldType FileOpenedNotification_Aux
-                          "un_FileOpenedNotification_Aux" = IO Unit
+                          "unwrapFileOpenedNotification_Aux" = IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FileOpenedNotification@
 
@@ -480,7 +480,7 @@ instance HasCField FileOpenedNotification_Aux
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype FileOpenedNotification
-    = FileOpenedNotification {un_FileOpenedNotification :: (FunPtr FileOpenedNotification_Aux)}
+    = FileOpenedNotification {unwrapFileOpenedNotification :: (FunPtr FileOpenedNotification_Aux)}
       {- ^ __C declaration:__ @FileOpenedNotification@
 
            __defined at:__ @functions\/callbacks.h 10:16@
@@ -490,15 +490,16 @@ newtype FileOpenedNotification
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty
-              (CFieldType FileOpenedNotification "un_FileOpenedNotification") =>
-         HasField "un_FileOpenedNotification"
+              (CFieldType FileOpenedNotification
+                          "unwrapFileOpenedNotification") =>
+         HasField "unwrapFileOpenedNotification"
                   (Ptr FileOpenedNotification)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_FileOpenedNotification")
+    where getField = fromPtr (Proxy @"unwrapFileOpenedNotification")
 instance HasCField FileOpenedNotification
-                   "un_FileOpenedNotification"
+                   "unwrapFileOpenedNotification"
     where type CFieldType FileOpenedNotification
-                          "un_FileOpenedNotification" = FunPtr FileOpenedNotification_Aux
+                          "unwrapFileOpenedNotification" = FunPtr FileOpenedNotification_Aux
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'ProgressUpdate'
 
@@ -509,7 +510,8 @@ __defined at:__ @functions\/callbacks.h 11:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype ProgressUpdate_Aux
-    = ProgressUpdate_Aux {un_ProgressUpdate_Aux :: (CInt -> IO Unit)}
+    = ProgressUpdate_Aux {unwrapProgressUpdate_Aux :: (CInt ->
+                                                       IO Unit)}
       {- ^ Auxiliary type used by 'ProgressUpdate'
 
       __C declaration:__ @ProgressUpdate@
@@ -541,12 +543,14 @@ instance ToFunPtr ProgressUpdate_Aux
 instance FromFunPtr ProgressUpdate_Aux
     where fromFunPtr = hs_bindgen_ccf7f4b62a839a04
 instance TyEq ty
-              (CFieldType ProgressUpdate_Aux "un_ProgressUpdate_Aux") =>
-         HasField "un_ProgressUpdate_Aux" (Ptr ProgressUpdate_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_ProgressUpdate_Aux")
-instance HasCField ProgressUpdate_Aux "un_ProgressUpdate_Aux"
+              (CFieldType ProgressUpdate_Aux "unwrapProgressUpdate_Aux") =>
+         HasField "unwrapProgressUpdate_Aux"
+                  (Ptr ProgressUpdate_Aux)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapProgressUpdate_Aux")
+instance HasCField ProgressUpdate_Aux "unwrapProgressUpdate_Aux"
     where type CFieldType ProgressUpdate_Aux
-                          "un_ProgressUpdate_Aux" = CInt -> IO Unit
+                          "unwrapProgressUpdate_Aux" = CInt -> IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @ProgressUpdate@
 
@@ -555,7 +559,7 @@ instance HasCField ProgressUpdate_Aux "un_ProgressUpdate_Aux"
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype ProgressUpdate
-    = ProgressUpdate {un_ProgressUpdate :: (FunPtr ProgressUpdate_Aux)}
+    = ProgressUpdate {unwrapProgressUpdate :: (FunPtr ProgressUpdate_Aux)}
       {- ^ __C declaration:__ @ProgressUpdate@
 
            __defined at:__ @functions\/callbacks.h 11:16@
@@ -564,12 +568,13 @@ newtype ProgressUpdate
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType ProgressUpdate "un_ProgressUpdate") =>
-         HasField "un_ProgressUpdate" (Ptr ProgressUpdate) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_ProgressUpdate")
-instance HasCField ProgressUpdate "un_ProgressUpdate"
+instance TyEq ty
+              (CFieldType ProgressUpdate "unwrapProgressUpdate") =>
+         HasField "unwrapProgressUpdate" (Ptr ProgressUpdate) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapProgressUpdate")
+instance HasCField ProgressUpdate "unwrapProgressUpdate"
     where type CFieldType ProgressUpdate
-                          "un_ProgressUpdate" = FunPtr ProgressUpdate_Aux
+                          "unwrapProgressUpdate" = FunPtr ProgressUpdate_Aux
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'DataValidator'
 
@@ -580,7 +585,7 @@ __defined at:__ @functions\/callbacks.h 12:15@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype DataValidator_Aux
-    = DataValidator_Aux {un_DataValidator_Aux :: (CInt -> IO CInt)}
+    = DataValidator_Aux {unwrapDataValidator_Aux :: (CInt -> IO CInt)}
       {- ^ Auxiliary type used by 'DataValidator'
 
       __C declaration:__ @DataValidator@
@@ -612,12 +617,12 @@ instance ToFunPtr DataValidator_Aux
 instance FromFunPtr DataValidator_Aux
     where fromFunPtr = hs_bindgen_c1e79a4c11ca4033
 instance TyEq ty
-              (CFieldType DataValidator_Aux "un_DataValidator_Aux") =>
-         HasField "un_DataValidator_Aux" (Ptr DataValidator_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_DataValidator_Aux")
-instance HasCField DataValidator_Aux "un_DataValidator_Aux"
+              (CFieldType DataValidator_Aux "unwrapDataValidator_Aux") =>
+         HasField "unwrapDataValidator_Aux" (Ptr DataValidator_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapDataValidator_Aux")
+instance HasCField DataValidator_Aux "unwrapDataValidator_Aux"
     where type CFieldType DataValidator_Aux
-                          "un_DataValidator_Aux" = CInt -> IO CInt
+                          "unwrapDataValidator_Aux" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @DataValidator@
 
@@ -626,7 +631,7 @@ instance HasCField DataValidator_Aux "un_DataValidator_Aux"
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype DataValidator
-    = DataValidator {un_DataValidator :: (FunPtr DataValidator_Aux)}
+    = DataValidator {unwrapDataValidator :: (FunPtr DataValidator_Aux)}
       {- ^ __C declaration:__ @DataValidator@
 
            __defined at:__ @functions\/callbacks.h 12:15@
@@ -635,12 +640,13 @@ newtype DataValidator
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType DataValidator "un_DataValidator") =>
-         HasField "un_DataValidator" (Ptr DataValidator) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_DataValidator")
-instance HasCField DataValidator "un_DataValidator"
+instance TyEq ty
+              (CFieldType DataValidator "unwrapDataValidator") =>
+         HasField "unwrapDataValidator" (Ptr DataValidator) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapDataValidator")
+instance HasCField DataValidator "unwrapDataValidator"
     where type CFieldType DataValidator
-                          "un_DataValidator" = FunPtr DataValidator_Aux
+                          "unwrapDataValidator" = FunPtr DataValidator_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct Measurement@
 
@@ -722,8 +728,8 @@ __defined at:__ @functions\/callbacks.h 26:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived_Aux
-    = MeasurementReceived_Aux {un_MeasurementReceived_Aux :: (Ptr Measurement ->
-                                                              IO Unit)}
+    = MeasurementReceived_Aux {unwrapMeasurementReceived_Aux :: (Ptr Measurement ->
+                                                                 IO Unit)}
       {- ^ Auxiliary type used by 'MeasurementReceived'
 
       __C declaration:__ @MeasurementReceived@
@@ -756,15 +762,15 @@ instance FromFunPtr MeasurementReceived_Aux
     where fromFunPtr = hs_bindgen_383c36bb22947621
 instance TyEq ty
               (CFieldType MeasurementReceived_Aux
-                          "un_MeasurementReceived_Aux") =>
-         HasField "un_MeasurementReceived_Aux"
+                          "unwrapMeasurementReceived_Aux") =>
+         HasField "unwrapMeasurementReceived_Aux"
                   (Ptr MeasurementReceived_Aux)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MeasurementReceived_Aux")
+    where getField = fromPtr (Proxy @"unwrapMeasurementReceived_Aux")
 instance HasCField MeasurementReceived_Aux
-                   "un_MeasurementReceived_Aux"
+                   "unwrapMeasurementReceived_Aux"
     where type CFieldType MeasurementReceived_Aux
-                          "un_MeasurementReceived_Aux" = Ptr Measurement -> IO Unit
+                          "unwrapMeasurementReceived_Aux" = Ptr Measurement -> IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MeasurementReceived@
 
@@ -773,7 +779,7 @@ instance HasCField MeasurementReceived_Aux
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived
-    = MeasurementReceived {un_MeasurementReceived :: (FunPtr MeasurementReceived_Aux)}
+    = MeasurementReceived {unwrapMeasurementReceived :: (FunPtr MeasurementReceived_Aux)}
       {- ^ __C declaration:__ @MeasurementReceived@
 
            __defined at:__ @functions\/callbacks.h 26:16@
@@ -783,14 +789,14 @@ newtype MeasurementReceived
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty
-              (CFieldType MeasurementReceived "un_MeasurementReceived") =>
-         HasField "un_MeasurementReceived"
+              (CFieldType MeasurementReceived "unwrapMeasurementReceived") =>
+         HasField "unwrapMeasurementReceived"
                   (Ptr MeasurementReceived)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MeasurementReceived")
-instance HasCField MeasurementReceived "un_MeasurementReceived"
+    where getField = fromPtr (Proxy @"unwrapMeasurementReceived")
+instance HasCField MeasurementReceived "unwrapMeasurementReceived"
     where type CFieldType MeasurementReceived
-                          "un_MeasurementReceived" = FunPtr MeasurementReceived_Aux
+                          "unwrapMeasurementReceived" = FunPtr MeasurementReceived_Aux
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'MeasurementReceived2'
 
@@ -801,8 +807,8 @@ __defined at:__ @functions\/callbacks.h 29:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived2_Aux
-    = MeasurementReceived2_Aux {un_MeasurementReceived2_Aux :: (Measurement ->
-                                                                IO Unit)}
+    = MeasurementReceived2_Aux {unwrapMeasurementReceived2_Aux :: (Measurement ->
+                                                                   IO Unit)}
       {- ^ Auxiliary type used by 'MeasurementReceived2'
 
       __C declaration:__ @MeasurementReceived2@
@@ -813,15 +819,15 @@ newtype MeasurementReceived2_Aux
       -}
 instance TyEq ty
               (CFieldType MeasurementReceived2_Aux
-                          "un_MeasurementReceived2_Aux") =>
-         HasField "un_MeasurementReceived2_Aux"
+                          "unwrapMeasurementReceived2_Aux") =>
+         HasField "unwrapMeasurementReceived2_Aux"
                   (Ptr MeasurementReceived2_Aux)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MeasurementReceived2_Aux")
+    where getField = fromPtr (Proxy @"unwrapMeasurementReceived2_Aux")
 instance HasCField MeasurementReceived2_Aux
-                   "un_MeasurementReceived2_Aux"
+                   "unwrapMeasurementReceived2_Aux"
     where type CFieldType MeasurementReceived2_Aux
-                          "un_MeasurementReceived2_Aux" = Measurement -> IO Unit
+                          "unwrapMeasurementReceived2_Aux" = Measurement -> IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MeasurementReceived2@
 
@@ -830,7 +836,7 @@ instance HasCField MeasurementReceived2_Aux
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived2
-    = MeasurementReceived2 {un_MeasurementReceived2 :: (FunPtr MeasurementReceived2_Aux)}
+    = MeasurementReceived2 {unwrapMeasurementReceived2 :: (FunPtr MeasurementReceived2_Aux)}
       {- ^ __C declaration:__ @MeasurementReceived2@
 
            __defined at:__ @functions\/callbacks.h 29:16@
@@ -840,14 +846,15 @@ newtype MeasurementReceived2
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty
-              (CFieldType MeasurementReceived2 "un_MeasurementReceived2") =>
-         HasField "un_MeasurementReceived2"
+              (CFieldType MeasurementReceived2 "unwrapMeasurementReceived2") =>
+         HasField "unwrapMeasurementReceived2"
                   (Ptr MeasurementReceived2)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_MeasurementReceived2")
-instance HasCField MeasurementReceived2 "un_MeasurementReceived2"
+    where getField = fromPtr (Proxy @"unwrapMeasurementReceived2")
+instance HasCField MeasurementReceived2
+                   "unwrapMeasurementReceived2"
     where type CFieldType MeasurementReceived2
-                          "un_MeasurementReceived2" = FunPtr MeasurementReceived2_Aux
+                          "unwrapMeasurementReceived2" = FunPtr MeasurementReceived2_Aux
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'SampleBufferFull'
 
@@ -858,9 +865,9 @@ __defined at:__ @functions\/callbacks.h 32:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull_Aux
-    = SampleBufferFull_Aux {un_SampleBufferFull_Aux :: (ConstantArray 10
-                                                                      CInt ->
-                                                        IO Unit)}
+    = SampleBufferFull_Aux {unwrapSampleBufferFull_Aux :: (ConstantArray 10
+                                                                         CInt ->
+                                                           IO Unit)}
       {- ^ Auxiliary type used by 'SampleBufferFull'
 
       __C declaration:__ @SampleBufferFull@
@@ -870,14 +877,15 @@ newtype SampleBufferFull_Aux
       __exported by:__ @functions\/callbacks.h@
       -}
 instance TyEq ty
-              (CFieldType SampleBufferFull_Aux "un_SampleBufferFull_Aux") =>
-         HasField "un_SampleBufferFull_Aux"
+              (CFieldType SampleBufferFull_Aux "unwrapSampleBufferFull_Aux") =>
+         HasField "unwrapSampleBufferFull_Aux"
                   (Ptr SampleBufferFull_Aux)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_SampleBufferFull_Aux")
-instance HasCField SampleBufferFull_Aux "un_SampleBufferFull_Aux"
+    where getField = fromPtr (Proxy @"unwrapSampleBufferFull_Aux")
+instance HasCField SampleBufferFull_Aux
+                   "unwrapSampleBufferFull_Aux"
     where type CFieldType SampleBufferFull_Aux
-                          "un_SampleBufferFull_Aux" = ConstantArray 10 CInt -> IO Unit
+                          "unwrapSampleBufferFull_Aux" = ConstantArray 10 CInt -> IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SampleBufferFull@
 
@@ -886,7 +894,7 @@ instance HasCField SampleBufferFull_Aux "un_SampleBufferFull_Aux"
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull
-    = SampleBufferFull {un_SampleBufferFull :: (FunPtr SampleBufferFull_Aux)}
+    = SampleBufferFull {unwrapSampleBufferFull :: (FunPtr SampleBufferFull_Aux)}
       {- ^ __C declaration:__ @SampleBufferFull@
 
            __defined at:__ @functions\/callbacks.h 32:16@
@@ -896,12 +904,12 @@ newtype SampleBufferFull
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty
-              (CFieldType SampleBufferFull "un_SampleBufferFull") =>
-         HasField "un_SampleBufferFull" (Ptr SampleBufferFull) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_SampleBufferFull")
-instance HasCField SampleBufferFull "un_SampleBufferFull"
+              (CFieldType SampleBufferFull "unwrapSampleBufferFull") =>
+         HasField "unwrapSampleBufferFull" (Ptr SampleBufferFull) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSampleBufferFull")
+instance HasCField SampleBufferFull "unwrapSampleBufferFull"
     where type CFieldType SampleBufferFull
-                          "un_SampleBufferFull" = FunPtr SampleBufferFull_Aux
+                          "unwrapSampleBufferFull" = FunPtr SampleBufferFull_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct MeasurementHandler@
 
@@ -1058,7 +1066,7 @@ instance TyEq ty
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype ProcessorCallback
-    = ProcessorCallback {un_ProcessorCallback :: ByteArray}
+    = ProcessorCallback {unwrapProcessorCallback :: ByteArray}
       {- ^ __C declaration:__ @union ProcessorCallback@
 
            __defined at:__ @functions\/callbacks.h 69:7@
@@ -1220,7 +1228,7 @@ instance TyEq ty
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype Processor_mode
-    = Processor_mode {un_Processor_mode :: CUInt}
+    = Processor_mode {unwrapProcessor_mode :: CUInt}
       {- ^ __C declaration:__ @enum \@Processor_mode@
 
            __defined at:__ @functions\/callbacks.h 76:3@
@@ -1234,12 +1242,12 @@ instance Storable Processor_mode
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Processor_mode <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Processor_mode un_Processor_mode_3 -> pokeByteOff ptr_1 (0 :: Int) un_Processor_mode_3
+                                   Processor_mode unwrapProcessor_mode_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapProcessor_mode_3
 deriving via CUInt instance Prim Processor_mode
 instance CEnum Processor_mode
     where type CEnumZ Processor_mode = CUInt
           toCEnum = Processor_mode
-          fromCEnum = un_Processor_mode
+          fromCEnum = unwrapProcessor_mode
           declaredValues = \_ -> declaredValuesFromList [(0,
                                                           singleton "MODE_SIMPLE"),
                                                          (1, singleton "MODE_VALIDATED"),
@@ -1353,7 +1361,7 @@ instance TyEq ty (CFieldType Processor "processor_callback") =>
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype Foo
-    = Foo {un_Foo :: CInt}
+    = Foo {unwrapFoo :: CInt}
       {- ^ __C declaration:__ @foo@
 
            __defined at:__ @functions\/callbacks.h 94:13@
@@ -1373,11 +1381,11 @@ newtype Foo
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Foo "un_Foo") =>
-         HasField "un_Foo" (Ptr Foo) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Foo")
-instance HasCField Foo "un_Foo"
-    where type CFieldType Foo "un_Foo" = CInt
+instance TyEq ty (CFieldType Foo "unwrapFoo") =>
+         HasField "unwrapFoo" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFoo")
+instance HasCField Foo "unwrapFoo"
+    where type CFieldType Foo "unwrapFoo" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @foo2@
 
@@ -1386,7 +1394,7 @@ instance HasCField Foo "un_Foo"
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype Foo2
-    = Foo2 {un_Foo2 :: CInt}
+    = Foo2 {unwrapFoo2 :: CInt}
       {- ^ __C declaration:__ @foo2@
 
            __defined at:__ @functions\/callbacks.h 95:13@
@@ -1406,11 +1414,11 @@ newtype Foo2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Foo2 "un_Foo2") =>
-         HasField "un_Foo2" (Ptr Foo2) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Foo2")
-instance HasCField Foo2 "un_Foo2"
-    where type CFieldType Foo2 "un_Foo2" = CInt
+instance TyEq ty (CFieldType Foo2 "unwrapFoo2") =>
+         HasField "unwrapFoo2" (Ptr Foo2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFoo2")
+instance HasCField Foo2 "unwrapFoo2"
+    where type CFieldType Foo2 "unwrapFoo2" = CInt
           offset# = \_ -> \_ -> 0
 foreign import ccall safe "wrapper" hs_bindgen_d2a71f330b782e41_base ::
     Int32 -> IO Unit

@@ -312,7 +312,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim3) "dim3_z")
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayload = DimPayload
-  { un_DimPayload :: Data.Array.Byte.ByteArray
+  { unwrapDimPayload :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayload
@@ -471,7 +471,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim) "dim_payload")
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayloadB = DimPayloadB
-  { un_DimPayloadB :: Data.Array.Byte.ByteArray
+  { unwrapDimPayloadB :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
@@ -880,7 +880,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_polar) "anonA_
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype AnonA = AnonA
-  { un_AnonA :: Data.Array.Byte.ByteArray
+  { unwrapAnonA :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance F.Storable AnonA

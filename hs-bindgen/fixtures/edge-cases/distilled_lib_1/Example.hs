@@ -184,7 +184,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_stru
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Another_typedef_enum_e = Another_typedef_enum_e
-  { un_Another_typedef_enum_e :: FC.CUInt
+  { unwrapAnother_typedef_enum_e :: FC.CUInt
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -204,8 +204,8 @@ instance F.Storable Another_typedef_enum_e where
     \ptr0 ->
       \s1 ->
         case s1 of
-          Another_typedef_enum_e un_Another_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_Another_typedef_enum_e2
+          Another_typedef_enum_e unwrapAnother_typedef_enum_e2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapAnother_typedef_enum_e2
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Another_typedef_enum_e
 
@@ -215,7 +215,7 @@ instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
   toCEnum = Another_typedef_enum_e
 
-  fromCEnum = un_Another_typedef_enum_e
+  fromCEnum = unwrapAnother_typedef_enum_e
 
   declaredValues =
     \_ ->
@@ -303,20 +303,20 @@ sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype A_type_t = A_type_t
-  { un_A_type_t :: FC.CInt
+  { unwrapA_type_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_type_t) "un_A_type_t")
-         ) => GHC.Records.HasField "un_A_type_t" (Ptr.Ptr A_type_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_type_t) "unwrapA_type_t")
+         ) => GHC.Records.HasField "unwrapA_type_t" (Ptr.Ptr A_type_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_A_type_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA_type_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField A_type_t "un_A_type_t" where
+instance HsBindgen.Runtime.HasCField.HasCField A_type_t "unwrapA_type_t" where
 
-  type CFieldType A_type_t "un_A_type_t" = FC.CInt
+  type CFieldType A_type_t "unwrapA_type_t" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -327,20 +327,20 @@ instance HsBindgen.Runtime.HasCField.HasCField A_type_t "un_A_type_t" where
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Var_t = Var_t
-  { un_Var_t :: FC.CInt
+  { unwrapVar_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Var_t) "un_Var_t")
-         ) => GHC.Records.HasField "un_Var_t" (Ptr.Ptr Var_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Var_t) "unwrapVar_t")
+         ) => GHC.Records.HasField "unwrapVar_t" (Ptr.Ptr Var_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Var_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapVar_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Var_t "un_Var_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Var_t "unwrapVar_t" where
 
-  type CFieldType Var_t "un_Var_t" = FC.CInt
+  type CFieldType Var_t "unwrapVar_t" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -666,7 +666,7 @@ tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype A_typedef_enum_e = A_typedef_enum_e
-  { un_A_typedef_enum_e :: FC.CUChar
+  { unwrapA_typedef_enum_e :: FC.CUChar
   }
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
@@ -686,8 +686,8 @@ instance F.Storable A_typedef_enum_e where
     \ptr0 ->
       \s1 ->
         case s1 of
-          A_typedef_enum_e un_A_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) un_A_typedef_enum_e2
+          A_typedef_enum_e unwrapA_typedef_enum_e2 ->
+            F.pokeByteOff ptr0 (0 :: Int) unwrapA_typedef_enum_e2
 
 deriving via FC.CUChar instance Data.Primitive.Types.Prim A_typedef_enum_e
 
@@ -697,7 +697,7 @@ instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 
   toCEnum = A_typedef_enum_e
 
-  fromCEnum = un_A_typedef_enum_e
+  fromCEnum = unwrapA_typedef_enum_e
 
   declaredValues =
     \_ ->
@@ -780,7 +780,7 @@ __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
 __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t_Aux = Callback_t_Aux
-  { un_Callback_t_Aux :: (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
+  { unwrapCallback_t_Aux :: (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
   }
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
@@ -816,15 +816,15 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Callback_t_Aux where
 
   fromFunPtr = hs_bindgen_d6debb4b8d5bb869
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t_Aux) "un_Callback_t_Aux")
-         ) => GHC.Records.HasField "un_Callback_t_Aux" (Ptr.Ptr Callback_t_Aux) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t_Aux) "unwrapCallback_t_Aux")
+         ) => GHC.Records.HasField "unwrapCallback_t_Aux" (Ptr.Ptr Callback_t_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Callback_t_Aux")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapCallback_t_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "un_Callback_t_Aux" where
+instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "unwrapCallback_t_Aux" where
 
-  type CFieldType Callback_t_Aux "un_Callback_t_Aux" =
+  type CFieldType Callback_t_Aux "unwrapCallback_t_Aux" =
     (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 0
@@ -836,20 +836,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "un_Callback_t_Aux
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t = Callback_t
-  { un_Callback_t :: Ptr.FunPtr Callback_t_Aux
+  { unwrapCallback_t :: Ptr.FunPtr Callback_t_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t) "un_Callback_t")
-         ) => GHC.Records.HasField "un_Callback_t" (Ptr.Ptr Callback_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t) "unwrapCallback_t")
+         ) => GHC.Records.HasField "unwrapCallback_t" (Ptr.Ptr Callback_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Callback_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapCallback_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Callback_t "un_Callback_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Callback_t "unwrapCallback_t" where
 
-  type CFieldType Callback_t "un_Callback_t" =
+  type CFieldType Callback_t "unwrapCallback_t" =
     Ptr.FunPtr Callback_t_Aux
 
   offset# = \_ -> \_ -> 0

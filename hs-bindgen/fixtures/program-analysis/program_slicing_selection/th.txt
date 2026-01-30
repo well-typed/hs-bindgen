@@ -42,7 +42,7 @@
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 newtype FileOperationStatus
-    = FileOperationStatus {un_FileOperationStatus :: CInt}
+    = FileOperationStatus {unwrapFileOperationStatus :: CInt}
       {- ^ __C declaration:__ @enum FileOperationStatus@
 
            __defined at:__ @program-analysis\/program_slicing_selection.h 7:6@
@@ -56,12 +56,12 @@ instance Storable FileOperationStatus
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure FileOperationStatus <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   FileOperationStatus un_FileOperationStatus_3 -> pokeByteOff ptr_1 (0 :: Int) un_FileOperationStatus_3
+                                   FileOperationStatus unwrapFileOperationStatus_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapFileOperationStatus_3
 deriving via CInt instance Prim FileOperationStatus
 instance CEnum FileOperationStatus
     where type CEnumZ FileOperationStatus = CInt
           toCEnum = FileOperationStatus
-          fromCEnum = un_FileOperationStatus
+          fromCEnum = unwrapFileOperationStatus
           declaredValues = \_ -> declaredValuesFromList [(-1,
                                                           singleton "CUSTOM_ERROR_OTHER"),
                                                          (0, singleton "SUCCESS"),

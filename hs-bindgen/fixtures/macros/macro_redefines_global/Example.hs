@@ -35,19 +35,19 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
     __exported by:__ @macros\/macro_redefines_global.h@
 -}
 newtype FILE = FILE
-  { un_FILE :: FC.CInt
+  { unwrapFILE :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FILE) "un_FILE")
-         ) => GHC.Records.HasField "un_FILE" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FILE) "unwrapFILE")
+         ) => GHC.Records.HasField "unwrapFILE" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_FILE")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFILE")
 
-instance HsBindgen.Runtime.HasCField.HasCField FILE "un_FILE" where
+instance HsBindgen.Runtime.HasCField.HasCField FILE "unwrapFILE" where
 
-  type CFieldType FILE "un_FILE" = FC.CInt
+  type CFieldType FILE "unwrapFILE" = FC.CInt
 
   offset# = \_ -> \_ -> 0

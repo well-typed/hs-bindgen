@@ -6,7 +6,7 @@
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Myint
-    = Myint {un_Myint :: CInt}
+    = Myint {unwrapMyint :: CInt}
       {- ^ __C declaration:__ @myint@
 
            __defined at:__ @types\/typedefs\/typedefs.h 1:13@
@@ -26,11 +26,11 @@ newtype Myint
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Myint "un_Myint") =>
-         HasField "un_Myint" (Ptr Myint) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Myint")
-instance HasCField Myint "un_Myint"
-    where type CFieldType Myint "un_Myint" = CInt
+instance TyEq ty (CFieldType Myint "unwrapMyint") =>
+         HasField "unwrapMyint" (Ptr Myint) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyint")
+instance HasCField Myint "unwrapMyint"
+    where type CFieldType Myint "unwrapMyint" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @intptr@
 
@@ -39,7 +39,7 @@ instance HasCField Myint "un_Myint"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Intptr
-    = Intptr {un_Intptr :: (Ptr CInt)}
+    = Intptr {unwrapIntptr :: (Ptr CInt)}
       {- ^ __C declaration:__ @intptr@
 
            __defined at:__ @types\/typedefs\/typedefs.h 2:15@
@@ -48,11 +48,11 @@ newtype Intptr
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType Intptr "un_Intptr") =>
-         HasField "un_Intptr" (Ptr Intptr) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Intptr")
-instance HasCField Intptr "un_Intptr"
-    where type CFieldType Intptr "un_Intptr" = Ptr CInt
+instance TyEq ty (CFieldType Intptr "unwrapIntptr") =>
+         HasField "unwrapIntptr" (Ptr Intptr) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapIntptr")
+instance HasCField Intptr "unwrapIntptr"
+    where type CFieldType Intptr "unwrapIntptr" = Ptr CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @int2int@
 
@@ -61,7 +61,7 @@ instance HasCField Intptr "un_Intptr"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype Int2int
-    = Int2int {un_Int2int :: (CInt -> IO CInt)}
+    = Int2int {unwrapInt2int :: (CInt -> IO CInt)}
       {- ^ __C declaration:__ @int2int@
 
            __defined at:__ @types\/typedefs\/typedefs.h 5:13@
@@ -88,11 +88,11 @@ instance ToFunPtr Int2int
     where toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 instance FromFunPtr Int2int
     where fromFunPtr = hs_bindgen_65378a8a3cf640ad
-instance TyEq ty (CFieldType Int2int "un_Int2int") =>
-         HasField "un_Int2int" (Ptr Int2int) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Int2int")
-instance HasCField Int2int "un_Int2int"
-    where type CFieldType Int2int "un_Int2int" = CInt -> IO CInt
+instance TyEq ty (CFieldType Int2int "unwrapInt2int") =>
+         HasField "unwrapInt2int" (Ptr Int2int) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapInt2int")
+instance HasCField Int2int "unwrapInt2int"
+    where type CFieldType Int2int "unwrapInt2int" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'FunctionPointer_Function'
 
@@ -103,7 +103,7 @@ __defined at:__ @types\/typedefs\/typedefs.h 8:16@
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype FunctionPointer_Function_Aux
-    = FunctionPointer_Function_Aux {un_FunctionPointer_Function_Aux :: (IO Unit)}
+    = FunctionPointer_Function_Aux {unwrapFunctionPointer_Function_Aux :: (IO Unit)}
       {- ^ Auxiliary type used by 'FunctionPointer_Function'
 
       __C declaration:__ @FunctionPointer_Function@
@@ -135,15 +135,15 @@ instance FromFunPtr FunctionPointer_Function_Aux
     where fromFunPtr = hs_bindgen_4c3da8240a31e036
 instance TyEq ty
               (CFieldType FunctionPointer_Function_Aux
-                          "un_FunctionPointer_Function_Aux") =>
-         HasField "un_FunctionPointer_Function_Aux"
+                          "unwrapFunctionPointer_Function_Aux") =>
+         HasField "unwrapFunctionPointer_Function_Aux"
                   (Ptr FunctionPointer_Function_Aux)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_FunctionPointer_Function_Aux")
+    where getField = fromPtr (Proxy @"unwrapFunctionPointer_Function_Aux")
 instance HasCField FunctionPointer_Function_Aux
-                   "un_FunctionPointer_Function_Aux"
+                   "unwrapFunctionPointer_Function_Aux"
     where type CFieldType FunctionPointer_Function_Aux
-                          "un_FunctionPointer_Function_Aux" = IO Unit
+                          "unwrapFunctionPointer_Function_Aux" = IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FunctionPointer_Function@
 
@@ -152,7 +152,7 @@ instance HasCField FunctionPointer_Function_Aux
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype FunctionPointer_Function
-    = FunctionPointer_Function {un_FunctionPointer_Function :: (FunPtr FunctionPointer_Function_Aux)}
+    = FunctionPointer_Function {unwrapFunctionPointer_Function :: (FunPtr FunctionPointer_Function_Aux)}
       {- ^ __C declaration:__ @FunctionPointer_Function@
 
            __defined at:__ @types\/typedefs\/typedefs.h 8:16@
@@ -163,15 +163,15 @@ newtype FunctionPointer_Function
     deriving newtype (Storable, HasFFIType)
 instance TyEq ty
               (CFieldType FunctionPointer_Function
-                          "un_FunctionPointer_Function") =>
-         HasField "un_FunctionPointer_Function"
+                          "unwrapFunctionPointer_Function") =>
+         HasField "unwrapFunctionPointer_Function"
                   (Ptr FunctionPointer_Function)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_FunctionPointer_Function")
+    where getField = fromPtr (Proxy @"unwrapFunctionPointer_Function")
 instance HasCField FunctionPointer_Function
-                   "un_FunctionPointer_Function"
+                   "unwrapFunctionPointer_Function"
     where type CFieldType FunctionPointer_Function
-                          "un_FunctionPointer_Function" = FunPtr FunctionPointer_Function_Aux
+                          "unwrapFunctionPointer_Function" = FunPtr FunctionPointer_Function_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @NonFunctionPointer_Function@
 
@@ -180,8 +180,8 @@ instance HasCField FunctionPointer_Function
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype NonFunctionPointer_Function
-    = NonFunctionPointer_Function {un_NonFunctionPointer_Function :: (CInt ->
-                                                                      IO CInt)}
+    = NonFunctionPointer_Function {unwrapNonFunctionPointer_Function :: (CInt ->
+                                                                         IO CInt)}
       {- ^ __C declaration:__ @NonFunctionPointer_Function@
 
            __defined at:__ @types\/typedefs\/typedefs.h 9:14@
@@ -212,15 +212,15 @@ instance FromFunPtr NonFunctionPointer_Function
     where fromFunPtr = hs_bindgen_36c7108d046bcbc3
 instance TyEq ty
               (CFieldType NonFunctionPointer_Function
-                          "un_NonFunctionPointer_Function") =>
-         HasField "un_NonFunctionPointer_Function"
+                          "unwrapNonFunctionPointer_Function") =>
+         HasField "unwrapNonFunctionPointer_Function"
                   (Ptr NonFunctionPointer_Function)
                   (Ptr ty)
-    where getField = fromPtr (Proxy @"un_NonFunctionPointer_Function")
+    where getField = fromPtr (Proxy @"unwrapNonFunctionPointer_Function")
 instance HasCField NonFunctionPointer_Function
-                   "un_NonFunctionPointer_Function"
+                   "unwrapNonFunctionPointer_Function"
     where type CFieldType NonFunctionPointer_Function
-                          "un_NonFunctionPointer_Function" = CInt -> IO CInt
+                          "unwrapNonFunctionPointer_Function" = CInt -> IO CInt
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'F1'
 
@@ -231,7 +231,7 @@ __defined at:__ @types\/typedefs\/typedefs.h 11:16@
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype F1_Aux
-    = F1_Aux {un_F1_Aux :: (IO Unit)}
+    = F1_Aux {unwrapF1_Aux :: (IO Unit)}
       {- ^ Auxiliary type used by 'F1'
 
       __C declaration:__ @f1@
@@ -259,11 +259,11 @@ instance ToFunPtr F1_Aux
     where toFunPtr = hs_bindgen_00d16e666202ed6c
 instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
-instance TyEq ty (CFieldType F1_Aux "un_F1_Aux") =>
-         HasField "un_F1_Aux" (Ptr F1_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_F1_Aux")
-instance HasCField F1_Aux "un_F1_Aux"
-    where type CFieldType F1_Aux "un_F1_Aux" = IO Unit
+instance TyEq ty (CFieldType F1_Aux "unwrapF1_Aux") =>
+         HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapF1_Aux")
+instance HasCField F1_Aux "unwrapF1_Aux"
+    where type CFieldType F1_Aux "unwrapF1_Aux" = IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f1@
 
@@ -272,7 +272,7 @@ instance HasCField F1_Aux "un_F1_Aux"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype F1
-    = F1 {un_F1 :: (FunPtr F1_Aux)}
+    = F1 {unwrapF1 :: (FunPtr F1_Aux)}
       {- ^ __C declaration:__ @f1@
 
            __defined at:__ @types\/typedefs\/typedefs.h 11:16@
@@ -281,11 +281,11 @@ newtype F1
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType F1 "un_F1") =>
-         HasField "un_F1" (Ptr F1) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_F1")
-instance HasCField F1 "un_F1"
-    where type CFieldType F1 "un_F1" = FunPtr F1_Aux
+instance TyEq ty (CFieldType F1 "unwrapF1") =>
+         HasField "unwrapF1" (Ptr F1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapF1")
+instance HasCField F1 "unwrapF1"
+    where type CFieldType F1 "unwrapF1" = FunPtr F1_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @g1@
 
@@ -294,7 +294,7 @@ instance HasCField F1 "un_F1"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype G1
-    = G1 {un_G1 :: (IO Unit)}
+    = G1 {unwrapG1 :: (IO Unit)}
       {- ^ __C declaration:__ @g1@
 
            __defined at:__ @types\/typedefs\/typedefs.h 13:14@
@@ -320,11 +320,11 @@ instance ToFunPtr G1
     where toFunPtr = hs_bindgen_fa5806570b682579
 instance FromFunPtr G1
     where fromFunPtr = hs_bindgen_8405c8e75aa78be5
-instance TyEq ty (CFieldType G1 "un_G1") =>
-         HasField "un_G1" (Ptr G1) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_G1")
-instance HasCField G1 "un_G1"
-    where type CFieldType G1 "un_G1" = IO Unit
+instance TyEq ty (CFieldType G1 "unwrapG1") =>
+         HasField "unwrapG1" (Ptr G1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapG1")
+instance HasCField G1 "unwrapG1"
+    where type CFieldType G1 "unwrapG1" = IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @g2@
 
@@ -333,7 +333,7 @@ instance HasCField G1 "un_G1"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype G2
-    = G2 {un_G2 :: (FunPtr G1)}
+    = G2 {unwrapG2 :: (FunPtr G1)}
       {- ^ __C declaration:__ @g2@
 
            __defined at:__ @types\/typedefs\/typedefs.h 14:14@
@@ -342,11 +342,11 @@ newtype G2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType G2 "un_G2") =>
-         HasField "un_G2" (Ptr G2) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_G2")
-instance HasCField G2 "un_G2"
-    where type CFieldType G2 "un_G2" = FunPtr G1
+instance TyEq ty (CFieldType G2 "unwrapG2") =>
+         HasField "unwrapG2" (Ptr G2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapG2")
+instance HasCField G2 "unwrapG2"
+    where type CFieldType G2 "unwrapG2" = FunPtr G1
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @h1@
 
@@ -355,7 +355,7 @@ instance HasCField G2 "un_G2"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype H1
-    = H1 {un_H1 :: (IO Unit)}
+    = H1 {unwrapH1 :: (IO Unit)}
       {- ^ __C declaration:__ @h1@
 
            __defined at:__ @types\/typedefs\/typedefs.h 16:14@
@@ -381,11 +381,11 @@ instance ToFunPtr H1
     where toFunPtr = hs_bindgen_ffae0d1234ed018f
 instance FromFunPtr H1
     where fromFunPtr = hs_bindgen_1a33688324e1924f
-instance TyEq ty (CFieldType H1 "un_H1") =>
-         HasField "un_H1" (Ptr H1) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_H1")
-instance HasCField H1 "un_H1"
-    where type CFieldType H1 "un_H1" = IO Unit
+instance TyEq ty (CFieldType H1 "unwrapH1") =>
+         HasField "unwrapH1" (Ptr H1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapH1")
+instance HasCField H1 "unwrapH1"
+    where type CFieldType H1 "unwrapH1" = IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @h2@
 
@@ -394,7 +394,7 @@ instance HasCField H1 "un_H1"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype H2
-    = H2 {un_H2 :: H1}
+    = H2 {unwrapH2 :: H1}
       {- ^ __C declaration:__ @h2@
 
            __defined at:__ @types\/typedefs\/typedefs.h 17:12@
@@ -402,11 +402,11 @@ newtype H2
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType H2 "un_H2") =>
-         HasField "un_H2" (Ptr H2) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_H2")
-instance HasCField H2 "un_H2"
-    where type CFieldType H2 "un_H2" = H1
+instance TyEq ty (CFieldType H2 "unwrapH2") =>
+         HasField "unwrapH2" (Ptr H2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapH2")
+instance HasCField H2 "unwrapH2"
+    where type CFieldType H2 "unwrapH2" = H1
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @h3@
 
@@ -415,7 +415,7 @@ instance HasCField H2 "un_H2"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype H3
-    = H3 {un_H3 :: (FunPtr H2)}
+    = H3 {unwrapH3 :: (FunPtr H2)}
       {- ^ __C declaration:__ @h3@
 
            __defined at:__ @types\/typedefs\/typedefs.h 18:14@
@@ -424,9 +424,9 @@ newtype H3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasFFIType)
-instance TyEq ty (CFieldType H3 "un_H3") =>
-         HasField "un_H3" (Ptr H3) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_H3")
-instance HasCField H3 "un_H3"
-    where type CFieldType H3 "un_H3" = FunPtr H2
+instance TyEq ty (CFieldType H3 "unwrapH3") =>
+         HasField "unwrapH3" (Ptr H3) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapH3")
+instance HasCField H3 "unwrapH3"
+    where type CFieldType H3 "unwrapH3" = FunPtr H2
           offset# = \_ -> \_ -> 0

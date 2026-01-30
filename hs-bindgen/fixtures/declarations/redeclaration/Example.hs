@@ -40,20 +40,20 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
     __exported by:__ @declarations\/redeclaration.h@
 -}
 newtype Int_t = Int_t
-  { un_Int_t :: FC.CInt
+  { unwrapInt_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int_t) "un_Int_t")
-         ) => GHC.Records.HasField "un_Int_t" (Ptr.Ptr Int_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int_t) "unwrapInt_t")
+         ) => GHC.Records.HasField "unwrapInt_t" (Ptr.Ptr Int_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Int_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int_t "un_Int_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Int_t "unwrapInt_t" where
 
-  type CFieldType Int_t "un_Int_t" = FC.CInt
+  type CFieldType Int_t "unwrapInt_t" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -159,7 +159,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
     __exported by:__ @declarations\/redeclaration.h@
 -}
 newtype Y = Y
-  { un_Y :: Data.Array.Byte.ByteArray
+  { unwrapY :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Y

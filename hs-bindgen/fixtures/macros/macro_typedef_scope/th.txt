@@ -6,7 +6,7 @@
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
 newtype T1
-    = T1 {un_T1 :: CInt}
+    = T1 {unwrapT1 :: CInt}
       {- ^ __C declaration:__ @T1@
 
            __defined at:__ @macros\/macro_typedef_scope.h 4:9@
@@ -32,7 +32,7 @@ newtype T1
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
 newtype T2
-    = T2 {un_T2 :: T1}
+    = T2 {unwrapT2 :: T1}
       {- ^ __C declaration:__ @T2@
 
            __defined at:__ @macros\/macro_typedef_scope.h 5:12@
@@ -51,11 +51,11 @@ newtype T2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T2 "un_T2") =>
-         HasField "un_T2" (Ptr T2) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_T2")
-instance HasCField T2 "un_T2"
-    where type CFieldType T2 "un_T2" = T1
+instance TyEq ty (CFieldType T2 "unwrapT2") =>
+         HasField "unwrapT2" (Ptr T2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT2")
+instance HasCField T2 "unwrapT2"
+    where type CFieldType T2 "unwrapT2" = T1
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T3@
 
@@ -64,7 +64,7 @@ instance HasCField T2 "un_T2"
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
 newtype T3
-    = T3 {un_T3 :: T2}
+    = T3 {unwrapT3 :: T2}
       {- ^ __C declaration:__ @T3@
 
            __defined at:__ @macros\/macro_typedef_scope.h 6:9@
@@ -90,7 +90,7 @@ newtype T3
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
 newtype T4
-    = T4 {un_T4 :: T3}
+    = T4 {unwrapT4 :: T3}
       {- ^ __C declaration:__ @T4@
 
            __defined at:__ @macros\/macro_typedef_scope.h 7:12@
@@ -109,9 +109,9 @@ newtype T4
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T4 "un_T4") =>
-         HasField "un_T4" (Ptr T4) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_T4")
-instance HasCField T4 "un_T4"
-    where type CFieldType T4 "un_T4" = T3
+instance TyEq ty (CFieldType T4 "unwrapT4") =>
+         HasField "unwrapT4" (Ptr T4) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT4")
+instance HasCField T4 "unwrapT4"
+    where type CFieldType T4 "unwrapT4" = T3
           offset# = \_ -> \_ -> 0

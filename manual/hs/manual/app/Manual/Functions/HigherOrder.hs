@@ -101,9 +101,9 @@ examples = do
         m <- peek mPtr
         putStrLn $ "  Handler called: value=" ++ show (measurement_value m)
                 ++ ", priority=" ++ show priority
-        if un_FileOpenedNotification notify /= F.nullFunPtr
+        if unwrapFileOpenedNotification notify /= F.nullFunPtr
           then do
-            let (FileOpenedNotification_Aux notifyFn) = fromFunPtr (un_FileOpenedNotification notify)
+            let (FileOpenedNotification_Aux notifyFn) = fromFunPtr (unwrapFileOpenedNotification notify)
             notifyFn
           else putStrLn "  (Notification callback was NULL)"
 
@@ -149,7 +149,7 @@ examples = do
         preProcessFunPtr <- toFunPtr $ \mPtr validator -> do
           m <- peek mPtr
           putStrLn $ "  [preProcess] Processing measurement: " ++ show (measurement_value m)
-          putStrLn $ "  [preProcess] Validator present: " ++ show (un_DataValidator validator /= F.nullFunPtr)
+          putStrLn $ "  [preProcess] Validator present: " ++ show (unwrapDataValidator validator /= F.nullFunPtr)
 
         processFunPtr <- toFunPtr $ \mPtr -> do
           m <- peek mPtr
@@ -160,7 +160,7 @@ examples = do
         postProcessFunPtr <- toFunPtr $ \mPtr progressUpdate -> do
           m <- peek mPtr
           putStrLn $ "  [postProcess] Final value: " ++ show (measurement_value m)
-          putStrLn $ "  [postProcess] ProgressUpdate present: " ++ show (un_ProgressUpdate progressUpdate /= F.nullFunPtr)
+          putStrLn $ "  [postProcess] ProgressUpdate present: " ++ show (unwrapProgressUpdate progressUpdate /= F.nullFunPtr)
 
         poke pipelinePtr $ DataPipeline
           { dataPipeline_preProcess = preProcessFunPtr
@@ -198,7 +198,7 @@ examples = do
         validatedFunPtr <- toFunPtr $ \mPtr validator -> do
           m <- peek mPtr
           putStrLn $ "  [withValidator] Processing: " ++ show (measurement_value m)
-          putStrLn $ "  [withValidator] Validator present: " ++ show (un_DataValidator validator /= F.nullFunPtr)
+          putStrLn $ "  [withValidator] Validator present: " ++ show (unwrapDataValidator validator /= F.nullFunPtr)
 
         let callback = set_processorCallback_withValidator validatedFunPtr
         poke processorPtr $ Processor
@@ -221,7 +221,7 @@ examples = do
         m <- peek mPtr
         putStrLn $ "  [processor] Processing measurement: " ++ show (measurement_value m)
         putStrLn $ "  [processor] Transformer present: " ++ show (transformerFunPtr /= F.nullFunPtr)
-        putStrLn $ "  [processor] Validator present: " ++ show (un_DataValidator validatorFunPtr /= F.nullFunPtr)
+        putStrLn $ "  [processor] Validator present: " ++ show (unwrapDataValidator validatorFunPtr /= F.nullFunPtr)
 
         when (transformerFunPtr /= F.nullFunPtr) $ do
           let transformerFun = fromFunPtr transformerFunPtr

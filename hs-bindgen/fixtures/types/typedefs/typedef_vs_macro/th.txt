@@ -6,7 +6,7 @@
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype T1
-    = T1 {un_T1 :: CInt}
+    = T1 {unwrapT1 :: CInt}
       {- ^ __C declaration:__ @T1@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 1:13@
@@ -26,11 +26,11 @@ newtype T1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T1 "un_T1") =>
-         HasField "un_T1" (Ptr T1) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_T1")
-instance HasCField T1 "un_T1"
-    where type CFieldType T1 "un_T1" = CInt
+instance TyEq ty (CFieldType T1 "unwrapT1") =>
+         HasField "unwrapT1" (Ptr T1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT1")
+instance HasCField T1 "unwrapT1"
+    where type CFieldType T1 "unwrapT1" = CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T2@
 
@@ -39,7 +39,7 @@ instance HasCField T1 "un_T1"
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype T2
-    = T2 {un_T2 :: CChar}
+    = T2 {unwrapT2 :: CChar}
       {- ^ __C declaration:__ @T2@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 2:14@
@@ -59,11 +59,11 @@ newtype T2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T2 "un_T2") =>
-         HasField "un_T2" (Ptr T2) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_T2")
-instance HasCField T2 "un_T2"
-    where type CFieldType T2 "un_T2" = CChar
+instance TyEq ty (CFieldType T2 "unwrapT2") =>
+         HasField "unwrapT2" (Ptr T2) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT2")
+instance HasCField T2 "unwrapT2"
+    where type CFieldType T2 "unwrapT2" = CChar
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @M1@
 
@@ -72,7 +72,7 @@ instance HasCField T2 "un_T2"
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M1
-    = M1 {un_M1 :: CInt}
+    = M1 {unwrapM1 :: CInt}
       {- ^ __C declaration:__ @M1@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 4:9@
@@ -98,7 +98,7 @@ newtype M1
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M2
-    = M2 {un_M2 :: CChar}
+    = M2 {unwrapM2 :: CChar}
       {- ^ __C declaration:__ @M2@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
@@ -124,7 +124,7 @@ newtype M2
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype M3
-    = M3 {un_M3 :: (Ptr CInt)}
+    = M3 {unwrapM3 :: (Ptr CInt)}
       {- ^ __C declaration:__ @M3@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
@@ -256,7 +256,7 @@ instance TyEq ty (CFieldType ExampleStruct "exampleStruct_m2") =>
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
 newtype Uint64_t
-    = Uint64_t {un_Uint64_t :: CInt}
+    = Uint64_t {unwrapUint64_t :: CInt}
       {- ^ __C declaration:__ @uint64_t@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@

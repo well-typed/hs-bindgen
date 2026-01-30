@@ -18,7 +18,7 @@ hstypes:
     newtype:
       constructor: Int_t
       fields:
-      - un_Int_t
+      - unwrapInt_t
   instances:
   - Bitfield
   - Bits
@@ -52,6 +52,6 @@ hstypes:
     newtype:
       constructor: 'Y'
       fields:
-      - un_Y
+      - unwrapY
   instances:
   - Storable

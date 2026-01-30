@@ -298,7 +298,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named_struct) "named
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 newtype Named_union = Named_union
-  { un_Named_union :: Data.Array.Byte.ByteArray
+  { unwrapNamed_union :: Data.Array.Byte.ByteArray
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Named_union

@@ -167,7 +167,7 @@
     __exported by:__ @arrays\/multi_dim.h@
 -}
 newtype Matrix
-    = Matrix {un_Matrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
+    = Matrix {unwrapMatrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
       {- ^ __C declaration:__ @matrix@
 
            __defined at:__ @arrays\/multi_dim.h 12:13@
@@ -176,12 +176,12 @@ newtype Matrix
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
-instance TyEq ty (CFieldType Matrix "un_Matrix") =>
-         HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Matrix")
-instance HasCField Matrix "un_Matrix"
-    where type CFieldType Matrix "un_Matrix" = ConstantArray 4
-                                                             (ConstantArray 3 CInt)
+instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
+         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMatrix")
+instance HasCField Matrix "unwrapMatrix"
+    where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
+                                                                (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @triplets@
 
@@ -190,8 +190,8 @@ instance HasCField Matrix "un_Matrix"
     __exported by:__ @arrays\/multi_dim.h@
 -}
 newtype Triplets
-    = Triplets {un_Triplets :: (IncompleteArray (ConstantArray 3
-                                                               CInt))}
+    = Triplets {unwrapTriplets :: (IncompleteArray (ConstantArray 3
+                                                                  CInt))}
       {- ^ __C declaration:__ @triplets@
 
            __defined at:__ @arrays\/multi_dim.h 17:13@
@@ -199,12 +199,12 @@ newtype Triplets
            __exported by:__ @arrays\/multi_dim.h@
       -}
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType Triplets "un_Triplets") =>
-         HasField "un_Triplets" (Ptr Triplets) (Ptr ty)
-    where getField = fromPtr (Proxy @"un_Triplets")
-instance HasCField Triplets "un_Triplets"
+instance TyEq ty (CFieldType Triplets "unwrapTriplets") =>
+         HasField "unwrapTriplets" (Ptr Triplets) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTriplets")
+instance HasCField Triplets "unwrapTriplets"
     where type CFieldType Triplets
-                          "un_Triplets" = IncompleteArray (ConstantArray 3 CInt)
+                          "unwrapTriplets" = IncompleteArray (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_arraysmulti_dim_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_57b00b79dd5b838e" hs_bindgen_57b00b79dd5b838e_base ::

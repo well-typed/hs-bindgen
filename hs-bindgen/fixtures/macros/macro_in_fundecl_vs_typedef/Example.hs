@@ -35,7 +35,7 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype MC = MC
-  { un_MC :: FC.CChar
+  { unwrapMC :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
@@ -47,20 +47,20 @@ newtype MC = MC
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype TC = TC
-  { un_TC :: FC.CChar
+  { unwrapTC :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TC) "un_TC")
-         ) => GHC.Records.HasField "un_TC" (Ptr.Ptr TC) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TC) "unwrapTC")
+         ) => GHC.Records.HasField "unwrapTC" (Ptr.Ptr TC) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_TC")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTC")
 
-instance HsBindgen.Runtime.HasCField.HasCField TC "un_TC" where
+instance HsBindgen.Runtime.HasCField.HasCField TC "unwrapTC" where
 
-  type CFieldType TC "un_TC" = FC.CChar
+  type CFieldType TC "unwrapTC" = FC.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -356,20 +356,20 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3) "struct3_a"
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype Struct3_t = Struct3_t
-  { un_Struct3_t :: Struct3
+  { unwrapStruct3_t :: Struct3
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3_t) "un_Struct3_t")
-         ) => GHC.Records.HasField "un_Struct3_t" (Ptr.Ptr Struct3_t) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3_t) "unwrapStruct3_t")
+         ) => GHC.Records.HasField "unwrapStruct3_t" (Ptr.Ptr Struct3_t) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"un_Struct3_t")
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct3_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct3_t "un_Struct3_t" where
+instance HsBindgen.Runtime.HasCField.HasCField Struct3_t "unwrapStruct3_t" where
 
-  type CFieldType Struct3_t "un_Struct3_t" = Struct3
+  type CFieldType Struct3_t "unwrapStruct3_t" = Struct3
 
   offset# = \_ -> \_ -> 0
 

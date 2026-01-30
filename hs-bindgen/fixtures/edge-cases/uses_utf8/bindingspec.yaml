@@ -12,7 +12,7 @@ hstypes:
     newtype:
       constructor: MyEnum
       fields:
-      - un_MyEnum
+      - unwrapMyEnum
   instances:
   - Eq
   - HasFFIType
