@@ -7,8 +7,8 @@ module Example.Safe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
@@ -37,7 +37,7 @@ hs_bindgen_67465eb5641985dc ::
   -> HsBindgen.Runtime.PtrConst.PtrConst T
   -> IO ()
 hs_bindgen_67465eb5641985dc =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_67465eb5641985dc_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_67465eb5641985dc_base
 
 {-| __C declaration:__ @fun@
 

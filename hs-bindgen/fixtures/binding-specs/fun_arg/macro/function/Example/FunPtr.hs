@@ -8,8 +8,8 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -75,7 +75,7 @@ foreign import ccall unsafe "hs_bindgen_e113ab1229902001" hs_bindgen_e113ab12299
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_foo@
 hs_bindgen_e113ab1229902001 :: IO (Ptr.FunPtr ((Ptr.FunPtr MyFunction) -> IO ()))
 hs_bindgen_e113ab1229902001 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e113ab1229902001_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e113ab1229902001_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -95,7 +95,7 @@ foreign import ccall unsafe "hs_bindgen_5e83648377d8afc6" hs_bindgen_5e83648377d
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooA@
 hs_bindgen_5e83648377d8afc6 :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_5e83648377d8afc6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5e83648377d8afc6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_5e83648377d8afc6_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -115,7 +115,7 @@ foreign import ccall unsafe "hs_bindgen_d6d79c737e65f7e7" hs_bindgen_d6d79c737e6
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooB@
 hs_bindgen_d6d79c737e65f7e7 :: IO (Ptr.FunPtr (B -> IO ()))
 hs_bindgen_d6d79c737e65f7e7 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d6d79c737e65f7e7_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d6d79c737e65f7e7_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
@@ -135,7 +135,7 @@ foreign import ccall unsafe "hs_bindgen_15c0f27a0b5f01ca" hs_bindgen_15c0f27a0b5
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_bar@
 hs_bindgen_15c0f27a0b5f01ca :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ()))
 hs_bindgen_15c0f27a0b5f01ca =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_15c0f27a0b5f01ca_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_15c0f27a0b5f01ca_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -155,7 +155,7 @@ foreign import ccall unsafe "hs_bindgen_1e518c0403f5c339" hs_bindgen_1e518c0403f
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_barA@
 hs_bindgen_1e518c0403f5c339 :: IO (Ptr.FunPtr ((Ptr.FunPtr A) -> IO ()))
 hs_bindgen_1e518c0403f5c339 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1e518c0403f5c339_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1e518c0403f5c339_base
 
 {-# NOINLINE barA #-}
 {-| __C declaration:__ @barA@
@@ -175,7 +175,7 @@ foreign import ccall unsafe "hs_bindgen_6a1e56bd4a228268" hs_bindgen_6a1e56bd4a2
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_barB@
 hs_bindgen_6a1e56bd4a228268 :: IO (Ptr.FunPtr ((Ptr.FunPtr B) -> IO ()))
 hs_bindgen_6a1e56bd4a228268 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6a1e56bd4a228268_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6a1e56bd4a228268_base
 
 {-# NOINLINE barB #-}
 {-| __C declaration:__ @barB@

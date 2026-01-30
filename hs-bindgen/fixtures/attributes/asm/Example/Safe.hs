@@ -7,8 +7,8 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
@@ -34,7 +34,7 @@ hs_bindgen_369133049bfc1e73 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_369133049bfc1e73 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_369133049bfc1e73_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_369133049bfc1e73_base
 
 {-| __C declaration:__ @asm_labeled_function@
 

@@ -8,8 +8,8 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -66,7 +66,7 @@ hs_bindgen_40e15e86e5db36ce ::
      Ptr.FunPtr MyFunction
   -> IO ()
 hs_bindgen_40e15e86e5db36ce =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_40e15e86e5db36ce_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_40e15e86e5db36ce_base
 
 {-| __C declaration:__ @foo@
 
@@ -90,7 +90,7 @@ hs_bindgen_e13a57fd1d27f6e6 ::
      A
   -> IO ()
 hs_bindgen_e13a57fd1d27f6e6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e13a57fd1d27f6e6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e13a57fd1d27f6e6_base
 
 {-| __C declaration:__ @fooA@
 
@@ -114,7 +114,7 @@ hs_bindgen_fd490df5087893ae ::
      B
   -> IO ()
 hs_bindgen_fd490df5087893ae =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fd490df5087893ae_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fd490df5087893ae_base
 
 {-| __C declaration:__ @fooB@
 
@@ -138,7 +138,7 @@ hs_bindgen_a708e95f35bff290 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> IO ()
 hs_bindgen_a708e95f35bff290 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a708e95f35bff290_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a708e95f35bff290_base
 
 {-| __C declaration:__ @bar@
 
@@ -162,7 +162,7 @@ hs_bindgen_2991dd76f4337b78 ::
      Ptr.FunPtr A
   -> IO ()
 hs_bindgen_2991dd76f4337b78 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2991dd76f4337b78_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2991dd76f4337b78_base
 
 {-| __C declaration:__ @barA@
 
@@ -186,7 +186,7 @@ hs_bindgen_104de3f97206bd1d ::
      Ptr.FunPtr B
   -> IO ()
 hs_bindgen_104de3f97206bd1d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_104de3f97206bd1d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_104de3f97206bd1d_base
 
 {-| __C declaration:__ @barB@
 

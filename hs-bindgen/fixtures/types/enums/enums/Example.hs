@@ -15,7 +15,7 @@ import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
@@ -29,7 +29,7 @@ newtype First = First
   { unwrapFirst :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable First where
 
@@ -121,7 +121,7 @@ newtype Second = Second
   { unwrapSecond :: FC.CInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable Second where
 
@@ -223,7 +223,7 @@ newtype Same = Same
   { unwrapSame :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable Same where
 
@@ -313,7 +313,7 @@ newtype Nonseq = Nonseq
   { unwrapNonseq :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable Nonseq where
 
@@ -405,7 +405,7 @@ newtype Packed = Packed
   { unwrapPacked :: FC.CUChar
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable Packed where
 
@@ -507,7 +507,7 @@ newtype EnumA = EnumA
   { unwrapEnumA :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable EnumA where
 
@@ -599,7 +599,7 @@ newtype EnumB = EnumB
   { unwrapEnumB :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable EnumB where
 
@@ -691,7 +691,7 @@ newtype EnumC = EnumC
   { unwrapEnumC :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable EnumC where
 
@@ -783,7 +783,7 @@ newtype EnumD_t = EnumD_t
   { unwrapEnumD_t :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable EnumD_t where
 

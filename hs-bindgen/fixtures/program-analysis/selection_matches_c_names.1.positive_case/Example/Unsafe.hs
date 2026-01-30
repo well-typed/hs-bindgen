@@ -7,8 +7,8 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
@@ -26,7 +26,7 @@ foreign import ccall unsafe "hs_bindgen_9a13a53e6a2f2416" hs_bindgen_9a13a53e6a2
 -- __unique:__ @test_programanalysisselection_mat_Example_Unsafe_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_9a13a53e6a2f2416 :: IO FC.CInt
 hs_bindgen_9a13a53e6a2f2416 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9a13a53e6a2f2416_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9a13a53e6a2f2416_base
 
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
 

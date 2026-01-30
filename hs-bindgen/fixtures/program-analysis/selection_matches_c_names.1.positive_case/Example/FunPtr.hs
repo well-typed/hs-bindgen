@@ -8,8 +8,8 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_1ccc97a484f823b2" hs_bindgen_1ccc97a484f
 -- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
 hs_bindgen_1ccc97a484f823b2 :: IO (Ptr.FunPtr (IO FC.CInt))
 hs_bindgen_1ccc97a484f823b2 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1ccc97a484f823b2_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1ccc97a484f823b2_base
 
 {-# NOINLINE functionWithAssignedHaskellNameByNameMangler #-}
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@

@@ -7,8 +7,8 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -32,7 +32,7 @@ foreign import ccall unsafe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac7
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
 hs_bindgen_564814e9ac709cad :: IO (Ptr.FunPtr (T -> IO T))
 hs_bindgen_564814e9ac709cad =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_564814e9ac709cad_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_564814e9ac709cad_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@

@@ -9,8 +9,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -85,7 +85,7 @@ hs_bindgen_1b7a6a61a9c0da07 ::
      FC.CBool
   -> IO Toggle
 hs_bindgen_1b7a6a61a9c0da07 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1b7a6a61a9c0da07_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1b7a6a61a9c0da07_base
 
 {-| __C declaration:__ @makeToggle@
 
@@ -109,7 +109,7 @@ hs_bindgen_4d2d650f2c8798d6 ::
      Toggle
   -> IO FC.CBool
 hs_bindgen_4d2d650f2c8798d6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4d2d650f2c8798d6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4d2d650f2c8798d6_base
 
 {-| __C declaration:__ @toggleNext@
 
@@ -133,7 +133,7 @@ hs_bindgen_ddbe11e76502cbdc ::
      Toggle
   -> IO ()
 hs_bindgen_ddbe11e76502cbdc =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ddbe11e76502cbdc_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ddbe11e76502cbdc_base
 
 {-| __C declaration:__ @releaseToggle@
 
@@ -159,7 +159,7 @@ hs_bindgen_2b04d558934551d2 ::
   -> FC.CInt
   -> IO Counter
 hs_bindgen_2b04d558934551d2 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2b04d558934551d2_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2b04d558934551d2_base
 
 {-| __C declaration:__ @makeCounter@
 
@@ -185,7 +185,7 @@ hs_bindgen_5bba69c8bfbeedf0 ::
      Counter
   -> IO FC.CInt
 hs_bindgen_5bba69c8bfbeedf0 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_5bba69c8bfbeedf0_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_5bba69c8bfbeedf0_base
 
 {-| __C declaration:__ @counterNext@
 
@@ -209,7 +209,7 @@ hs_bindgen_429845bb55a5a7b5 ::
      Counter
   -> IO ()
 hs_bindgen_429845bb55a5a7b5 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_429845bb55a5a7b5_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_429845bb55a5a7b5_base
 
 {-| __C declaration:__ @releaseCounter@
 
@@ -233,7 +233,7 @@ hs_bindgen_4421633e88fc96c4 ::
      FC.CInt
   -> IO VarCounter
 hs_bindgen_4421633e88fc96c4 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4421633e88fc96c4_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4421633e88fc96c4_base
 
 {-| __C declaration:__ @makeVarCounter@
 
@@ -259,7 +259,7 @@ hs_bindgen_31edd817cb78027d ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_31edd817cb78027d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_31edd817cb78027d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_31edd817cb78027d_base
 
 {-| __C declaration:__ @varCounterNext@
 
@@ -285,7 +285,7 @@ hs_bindgen_32e5b257124f69a2 ::
      VarCounter
   -> IO ()
 hs_bindgen_32e5b257124f69a2 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32e5b257124f69a2_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_32e5b257124f69a2_base
 
 {-| __C declaration:__ @releaseVarCounter@
 

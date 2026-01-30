@@ -7,8 +7,8 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified M
 import Data.Void (Void)
 import Example
@@ -104,7 +104,7 @@ hs_bindgen_51195acecf6b880e ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> IO ()
 hs_bindgen_51195acecf6b880e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_51195acecf6b880e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_51195acecf6b880e_base
 
 {-| __C declaration:__ @foo@
 
@@ -128,7 +128,7 @@ hs_bindgen_eb4a794c10ca94f9 ::
      Ptr.FunPtr A
   -> IO ()
 hs_bindgen_eb4a794c10ca94f9 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_eb4a794c10ca94f9_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_eb4a794c10ca94f9_base
 
 {-| __C declaration:__ @fooA@
 
@@ -152,7 +152,7 @@ hs_bindgen_a11eb4471a953b64 ::
      Ptr.FunPtr B
   -> IO ()
 hs_bindgen_a11eb4471a953b64 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a11eb4471a953b64_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a11eb4471a953b64_base
 
 {-| __C declaration:__ @fooB@
 
@@ -176,7 +176,7 @@ hs_bindgen_1dea92b3f3346311 ::
      Ptr.FunPtr M.C
   -> IO ()
 hs_bindgen_1dea92b3f3346311 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1dea92b3f3346311_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1dea92b3f3346311_base
 
 {-| __C declaration:__ @fooC@
 
@@ -200,7 +200,7 @@ hs_bindgen_dba6d56e1a316e2d ::
      Ptr.FunPtr M.D
   -> IO ()
 hs_bindgen_dba6d56e1a316e2d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_dba6d56e1a316e2d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dba6d56e1a316e2d_base
 
 {-| __C declaration:__ @fooD@
 
@@ -224,7 +224,7 @@ hs_bindgen_23b6f403a534aeae ::
      Ptr.FunPtr E
   -> IO ()
 hs_bindgen_23b6f403a534aeae =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_23b6f403a534aeae_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_23b6f403a534aeae_base
 
 {-| __C declaration:__ @fooE@
 
@@ -248,7 +248,7 @@ hs_bindgen_44994e62548d5196 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> IO ()
 hs_bindgen_44994e62548d5196 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_44994e62548d5196_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_44994e62548d5196_base
 
 {-| __C declaration:__ @bar@
 
@@ -272,7 +272,7 @@ hs_bindgen_012af7936cfc5b63 ::
      Ptr.FunPtr A
   -> IO ()
 hs_bindgen_012af7936cfc5b63 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_012af7936cfc5b63_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_012af7936cfc5b63_base
 
 {-| __C declaration:__ @barA@
 
@@ -296,7 +296,7 @@ hs_bindgen_67ecffff9d788c07 ::
      Ptr.FunPtr B
   -> IO ()
 hs_bindgen_67ecffff9d788c07 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_67ecffff9d788c07_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_67ecffff9d788c07_base
 
 {-| __C declaration:__ @barB@
 
@@ -320,7 +320,7 @@ hs_bindgen_e8b5ec0471fff356 ::
      Ptr.FunPtr M.C
   -> IO ()
 hs_bindgen_e8b5ec0471fff356 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_e8b5ec0471fff356_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e8b5ec0471fff356_base
 
 {-| __C declaration:__ @barC@
 
@@ -344,7 +344,7 @@ hs_bindgen_98ea214fd1feaaca ::
      Ptr.FunPtr M.D
   -> IO ()
 hs_bindgen_98ea214fd1feaaca =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_98ea214fd1feaaca_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_98ea214fd1feaaca_base
 
 {-| __C declaration:__ @barD@
 
@@ -368,7 +368,7 @@ hs_bindgen_f145043f481aed3c ::
      Ptr.FunPtr E
   -> IO ()
 hs_bindgen_f145043f481aed3c =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f145043f481aed3c_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f145043f481aed3c_base
 
 {-| __C declaration:__ @barE@
 

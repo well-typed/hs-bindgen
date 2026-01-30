@@ -5,8 +5,8 @@
 
 module Example.Safe where
 
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
@@ -24,7 +24,7 @@ foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80
 -- __unique:__ @test_functionsvarargs_Example_Safe_h@
 hs_bindgen_77a4bac5bbe80f62 :: IO ()
 hs_bindgen_77a4bac5bbe80f62 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_77a4bac5bbe80f62_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_77a4bac5bbe80f62_base
 
 {-| __C declaration:__ @h@
 

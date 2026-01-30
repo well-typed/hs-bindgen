@@ -44,17 +44,17 @@ library
     HsBindgen.Runtime.CBoolSem
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
-    HsBindgen.Runtime.FFIType
     HsBindgen.Runtime.FLAM
     HsBindgen.Runtime.FunPtr
     HsBindgen.Runtime.HasCBitfield
     HsBindgen.Runtime.HasCField
-    HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.Internal.Bitfield
     HsBindgen.Runtime.Internal.ByteArray
     HsBindgen.Runtime.Internal.CAPI
     HsBindgen.Runtime.Internal.Deriving
+    HsBindgen.Runtime.Internal.FFIType
+    HsBindgen.Runtime.Internal.HasFFIType
     HsBindgen.Runtime.Internal.Prelude
     HsBindgen.Runtime.Internal.SizedByteArray
     HsBindgen.Runtime.Internal.TypeEquality

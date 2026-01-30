@@ -37,8 +37,8 @@ import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.LibC
 import qualified Prelude as P
@@ -74,7 +74,7 @@ newtype Size_type = Size_type
   { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "unwrapSize_type")
          ) => GHC.Records.HasField "unwrapSize_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
@@ -129,7 +129,7 @@ newtype Color_enum = Color_enum
   { unwrapColor_enum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable Color_enum where
 
@@ -238,7 +238,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t_Aux = Event_callback_t_Aux
   { unwrapEvent_callback_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
      (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -250,7 +250,7 @@ hs_bindgen_111918b0aee2a7fb ::
   -> IO (Ptr.FunPtr Event_callback_t_Aux)
 hs_bindgen_111918b0aee2a7fb =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_111918b0aee2a7fb_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_111918b0aee2a7fb_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -262,7 +262,7 @@ hs_bindgen_9e9d478c2d75628c ::
   -> Event_callback_t_Aux
 hs_bindgen_9e9d478c2d75628c =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_9e9d478c2d75628c_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_9e9d478c2d75628c_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Aux where
 
@@ -305,7 +305,7 @@ newtype Event_callback_t = Event_callback_t
   { unwrapEvent_callback_t :: Ptr.FunPtr Event_callback_t_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "unwrapEvent_callback_t")
          ) => GHC.Records.HasField "unwrapEvent_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
@@ -505,7 +505,7 @@ newtype Status_code_t = Status_code_t
   { unwrapStatus_code_t :: FC.CInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance F.Storable Status_code_t where
 
@@ -1140,7 +1140,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t_Aux = Processor_fn_t_Aux
   { unwrapProcessor_fn_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
      (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -1152,7 +1152,7 @@ hs_bindgen_d4e16471c82d5df0 ::
   -> IO (Ptr.FunPtr Processor_fn_t_Aux)
 hs_bindgen_d4e16471c82d5df0 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_d4e16471c82d5df0_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_d4e16471c82d5df0_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -1164,7 +1164,7 @@ hs_bindgen_0d4b3d0461629423 ::
   -> Processor_fn_t_Aux
 hs_bindgen_0d4b3d0461629423 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_0d4b3d0461629423_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_0d4b3d0461629423_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Aux where
 
@@ -1209,7 +1209,7 @@ newtype Processor_fn_t = Processor_fn_t
   { unwrapProcessor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "unwrapProcessor_fn_t")
          ) => GHC.Records.HasField "unwrapProcessor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where

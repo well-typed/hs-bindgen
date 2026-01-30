@@ -7,8 +7,8 @@ module Example.Safe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -51,7 +51,7 @@ hs_bindgen_920e5c20f770432b ::
   -> Ptr.Ptr Outside
   -> IO ()
 hs_bindgen_920e5c20f770432b =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_920e5c20f770432b_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_920e5c20f770432b_base
 
 {-| __C declaration:__ @normal@
 
@@ -84,7 +84,7 @@ hs_bindgen_baea2c7a0c8b9965 ::
      Ptr.Ptr Named_struct
   -> IO ()
 hs_bindgen_baea2c7a0c8b9965 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_baea2c7a0c8b9965_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_baea2c7a0c8b9965_base
 
 {-| Error cases
 
@@ -115,7 +115,7 @@ hs_bindgen_990d7be722ad5414 ::
      Ptr.Ptr Named_union
   -> IO ()
 hs_bindgen_990d7be722ad5414 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_990d7be722ad5414_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_990d7be722ad5414_base
 
 {-| __C declaration:__ @f2@
 

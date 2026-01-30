@@ -18,7 +18,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Block
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (IO)
 
@@ -31,7 +31,7 @@ import Prelude (IO)
 newtype Toggle = Toggle
   { unwrapToggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Toggle) "unwrapToggle")
          ) => GHC.Records.HasField "unwrapToggle" (Ptr.Ptr Toggle) (Ptr.Ptr ty) where
@@ -55,7 +55,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Toggle "unwrapToggle" where
 newtype Counter = Counter
   { unwrapCounter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Counter) "unwrapCounter")
          ) => GHC.Records.HasField "unwrapCounter" (Ptr.Ptr Counter) (Ptr.Ptr ty) where
@@ -79,7 +79,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Counter "unwrapCounter" where
 newtype VarCounter = VarCounter
   { unwrapVarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType VarCounter) "unwrapVarCounter")
          ) => GHC.Records.HasField "unwrapVarCounter" (Ptr.Ptr VarCounter) (Ptr.Ptr ty) where

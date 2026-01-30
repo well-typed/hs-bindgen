@@ -7,8 +7,8 @@ module Example.Unsafe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -36,7 +36,7 @@ hs_bindgen_f90e97b8d269be4e ::
   -> Point2b
   -> IO ()
 hs_bindgen_f90e97b8d269be4e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f90e97b8d269be4e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f90e97b8d269be4e_base
 
 {-| __C declaration:__ @test@
 
