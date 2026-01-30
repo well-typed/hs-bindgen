@@ -95,6 +95,10 @@ jobs:
           /nix/var/nix/db
         key: ${{ steps.cache-key.outputs.key }}
 
+    - name: Update Hackage index
+      run: |
+        nix develop examples/cross-compilation#${{ matrix.dev-shell }} --command cabal update
+
     - name: Run workflow with timing
       working-directory: examples/cross-compilation
       run: |
