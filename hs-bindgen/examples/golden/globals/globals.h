@@ -439,3 +439,9 @@ struct { int x; int y; } anonPoint;
 
 // Anonymous struct with initializer
 struct { int a; int b; } anonPair = { 1, 2 };
+
+// Basic anonymous enum global
+enum { VAL_A = 0, VAL_B = 1 } anonEnum;
+
+// Anonymous enum with explicit value
+enum { X = 10, Y = 20, Z = 30 } anonEnumCoords = { X };

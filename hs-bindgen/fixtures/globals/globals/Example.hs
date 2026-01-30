@@ -2,26 +2,34 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified Text.Read
+import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @struct config@
 
@@ -411,7 +419,7 @@ instance GHC.Records.HasField "struct2_t_field1" (Ptr.Ptr Struct2_t) (Ptr.Ptr St
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct2_t_field1")
 
-{-| __C declaration:__ @struct anonPoint@
+{-| __C declaration:__ @struct \@anonPoint@
 
     __defined at:__ @globals\/globals.h 438:1@
 
@@ -433,83 +441,33 @@ data AnonPoint = AnonPoint
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance F.Storable AnonPoint where
+instance HsBindgen.Runtime.Marshal.StaticSize AnonPoint where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw AnonPoint where
+
+  readRaw =
     \ptr0 ->
           pure AnonPoint
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"anonPoint_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"anonPoint_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonPoint_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonPoint_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw AnonPoint where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AnonPoint anonPoint_x2 anonPoint_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"anonPoint_x") ptr0 anonPoint_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"anonPoint_y") ptr0 anonPoint_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonPoint_x") ptr0 anonPoint_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonPoint_y") ptr0 anonPoint_y3
 
-instance Data.Primitive.Types.Prim AnonPoint where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        AnonPoint (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AnonPoint v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AnonPoint anonPoint_x4 anonPoint_y5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) anonPoint_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) anonPoint_y5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        AnonPoint (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AnonPoint v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AnonPoint anonPoint_x4 anonPoint_y5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) anonPoint_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) anonPoint_y5 s6
+deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonPoint instance F.Storable AnonPoint
 
 instance HsBindgen.Runtime.HasCField.HasCField AnonPoint "anonPoint_x" where
 
@@ -517,8 +475,7 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonPoint "anonPoint_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonPoint) "anonPoint_x")
-         ) => GHC.Records.HasField "anonPoint_x" (Ptr.Ptr AnonPoint) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "anonPoint_x" (Ptr.Ptr AnonPoint) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonPoint_x")
@@ -529,13 +486,12 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonPoint "anonPoint_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonPoint) "anonPoint_y")
-         ) => GHC.Records.HasField "anonPoint_y" (Ptr.Ptr AnonPoint) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "anonPoint_y" (Ptr.Ptr AnonPoint) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonPoint_y")
 
-{-| __C declaration:__ @struct anonPair@
+{-| __C declaration:__ @struct \@anonPair@
 
     __defined at:__ @globals\/globals.h 441:1@
 
@@ -557,83 +513,33 @@ data AnonPair = AnonPair
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance F.Storable AnonPair where
+instance HsBindgen.Runtime.Marshal.StaticSize AnonPair where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw AnonPair where
+
+  readRaw =
     \ptr0 ->
           pure AnonPair
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"anonPair_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"anonPair_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonPair_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonPair_b") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw AnonPair where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AnonPair anonPair_a2 anonPair_b3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"anonPair_a") ptr0 anonPair_a2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"anonPair_b") ptr0 anonPair_b3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonPair_a") ptr0 anonPair_a2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonPair_b") ptr0 anonPair_b3
 
-instance Data.Primitive.Types.Prim AnonPair where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        AnonPair (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AnonPair v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AnonPair anonPair_a4 anonPair_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) anonPair_a4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) anonPair_b5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        AnonPair (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AnonPair v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AnonPair anonPair_a4 anonPair_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) anonPair_a4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) anonPair_b5 s6
+deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonPair instance F.Storable AnonPair
 
 instance HsBindgen.Runtime.HasCField.HasCField AnonPair "anonPair_a" where
 
@@ -641,8 +547,7 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonPair "anonPair_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonPair) "anonPair_a")
-         ) => GHC.Records.HasField "anonPair_a" (Ptr.Ptr AnonPair) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "anonPair_a" (Ptr.Ptr AnonPair) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonPair_a")
@@ -653,8 +558,226 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonPair "anonPair_b" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonPair) "anonPair_b")
-         ) => GHC.Records.HasField "anonPair_b" (Ptr.Ptr AnonPair) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "anonPair_b" (Ptr.Ptr AnonPair) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonPair_b")
+
+{-| __C declaration:__ @enum \@anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnum = AnonEnum
+  { unwrapAnonEnum :: FC.CUInt
+  }
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+
+instance HsBindgen.Runtime.Marshal.StaticSize AnonEnum where
+
+  staticSizeOf = \_ -> (4 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance HsBindgen.Runtime.Marshal.ReadRaw AnonEnum where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonEnum
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
+
+instance HsBindgen.Runtime.Marshal.WriteRaw AnonEnum where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonEnum unwrapAnonEnum2 ->
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnum2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonEnum instance F.Storable AnonEnum
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim AnonEnum
+
+instance HsBindgen.Runtime.CEnum.CEnum AnonEnum where
+
+  type CEnumZ AnonEnum = FC.CUInt
+
+  toCEnum = AnonEnum
+
+  fromCEnum = unwrapAnonEnum
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "VAL_A")
+                                                     , (1, Data.List.NonEmpty.singleton "VAL_B")
+                                                     ]
+
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "AnonEnum"
+
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "AnonEnum"
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum AnonEnum where
+
+  minDeclaredValue = VAL_A
+
+  maxDeclaredValue = VAL_B
+
+instance Show AnonEnum where
+
+  showsPrec = HsBindgen.Runtime.CEnum.shows
+
+instance Read AnonEnum where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
+
+instance GHC.Records.HasField "unwrapAnonEnum" (Ptr.Ptr AnonEnum) (Ptr.Ptr FC.CUInt) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapAnonEnum")
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonEnum "unwrapAnonEnum" where
+
+  type CFieldType AnonEnum "unwrapAnonEnum" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A :: AnonEnum
+pattern VAL_A = AnonEnum 0
+
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B :: AnonEnum
+pattern VAL_B = AnonEnum 1
+
+{-| __C declaration:__ @enum \@anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnumCoords = AnonEnumCoords
+  { unwrapAnonEnumCoords :: FC.CUInt
+  }
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+
+instance HsBindgen.Runtime.Marshal.StaticSize AnonEnumCoords where
+
+  staticSizeOf = \_ -> (4 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance HsBindgen.Runtime.Marshal.ReadRaw AnonEnumCoords where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonEnumCoords
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
+
+instance HsBindgen.Runtime.Marshal.WriteRaw AnonEnumCoords where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonEnumCoords unwrapAnonEnumCoords2 ->
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnumCoords2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonEnumCoords instance F.Storable AnonEnumCoords
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim AnonEnumCoords
+
+instance HsBindgen.Runtime.CEnum.CEnum AnonEnumCoords where
+
+  type CEnumZ AnonEnumCoords = FC.CUInt
+
+  toCEnum = AnonEnumCoords
+
+  fromCEnum = unwrapAnonEnumCoords
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (10, Data.List.NonEmpty.singleton "X")
+                                                     , (20, Data.List.NonEmpty.singleton "Y")
+                                                     , (30, Data.List.NonEmpty.singleton "Z")
+                                                     ]
+
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "AnonEnumCoords"
+
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "AnonEnumCoords"
+
+instance Show AnonEnumCoords where
+
+  showsPrec = HsBindgen.Runtime.CEnum.shows
+
+instance Read AnonEnumCoords where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
+
+instance GHC.Records.HasField "unwrapAnonEnumCoords" (Ptr.Ptr AnonEnumCoords) (Ptr.Ptr FC.CUInt) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapAnonEnumCoords")
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonEnumCoords "unwrapAnonEnumCoords" where
+
+  type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X :: AnonEnumCoords
+pattern X = AnonEnumCoords 10
+
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y :: AnonEnumCoords
+pattern Y = AnonEnumCoords 20
+
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z :: AnonEnumCoords
+pattern Z = AnonEnumCoords 30

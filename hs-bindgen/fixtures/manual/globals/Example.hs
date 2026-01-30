@@ -106,6 +106,80 @@ instance GHC.Records.HasField "globalConfig_numWorkers" (Ptr.Ptr GlobalConfig) (
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"globalConfig_numWorkers")
 
+{-| __C declaration:__ @struct \@unusableAnon@
+
+    __defined at:__ @manual\/globals.h 30:8@
+
+    __exported by:__ @manual\/globals.h@
+-}
+data UnusableAnon = UnusableAnon
+  { unusableAnon_x :: FC.CInt
+    {- ^ __C declaration:__ @x@
+
+         __defined at:__ @manual\/globals.h 31:7@
+
+         __exported by:__ @manual\/globals.h@
+    -}
+  , unusableAnon_y :: FC.CInt
+    {- ^ __C declaration:__ @y@
+
+         __defined at:__ @manual\/globals.h 32:7@
+
+         __exported by:__ @manual\/globals.h@
+    -}
+  }
+  deriving stock (GHC.Generics.Generic, Eq, Show)
+
+instance HsBindgen.Runtime.Marshal.StaticSize UnusableAnon where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance HsBindgen.Runtime.Marshal.ReadRaw UnusableAnon where
+
+  readRaw =
+    \ptr0 ->
+          pure UnusableAnon
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"unusableAnon_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"unusableAnon_y") ptr0
+
+instance HsBindgen.Runtime.Marshal.WriteRaw UnusableAnon where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          UnusableAnon unusableAnon_x2 unusableAnon_y3 ->
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"unusableAnon_x") ptr0 unusableAnon_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"unusableAnon_y") ptr0 unusableAnon_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable UnusableAnon instance F.Storable UnusableAnon
+
+instance HsBindgen.Runtime.HasCField.HasCField UnusableAnon "unusableAnon_x" where
+
+  type CFieldType UnusableAnon "unusableAnon_x" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance GHC.Records.HasField "unusableAnon_x" (Ptr.Ptr UnusableAnon) (Ptr.Ptr FC.CInt) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unusableAnon_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField UnusableAnon "unusableAnon_y" where
+
+  type CFieldType UnusableAnon "unusableAnon_y" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance GHC.Records.HasField "unusableAnon_y" (Ptr.Ptr UnusableAnon) (Ptr.Ptr FC.CInt) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unusableAnon_y")
+
 {-| __C declaration:__ @ConstInt@
 
     __defined at:__ @manual\/globals.h 40:19@

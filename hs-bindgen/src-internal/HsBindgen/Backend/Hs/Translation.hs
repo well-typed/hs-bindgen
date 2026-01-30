@@ -1207,6 +1207,21 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
     stubType :: C.Type Final
     stubType = C.TypePointers 1 ty
 
+    -- | The C stub return type.
+    --
+    -- For anonymous types (where the struct\/enum has no valid C tag name),
+    -- we use @void *@ (structs) or the underlying type pointer (enums),
+    -- since @struct anonName@ \/ @enum anonName@ would be invalid C.
+    cStubType :: C.Type Final
+    cStubType = case ty of
+        C.TypeRef ref
+          | ref.cName.isAnon
+          -> C.TypePointers 1 C.TypeVoid
+        C.TypeEnum ref
+          | ref.name.cName.isAnon
+          -> C.TypePointers 1 ref.underlying
+        _ -> stubType
+
     prettyStub :: String
     prettyStub = concat [
           "/* ", stubSymbol.source, " */\n"
@@ -1216,7 +1231,7 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
     stubDecl :: PC.FunDefn
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubSymbol.unique stubType C.HaskellPureFunction args' $
+          PC.FunDefn stubSymbol.unique cStubType C.HaskellPureFunction args' $
             PC.CSList $
             PC.CSStatement
               (PC.ExpressionStatement $ PC.Return $ PC.Address $ PC.NamedVar varName)
