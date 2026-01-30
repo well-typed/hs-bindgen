@@ -48,13 +48,13 @@ import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
-import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
 import HsBindgen.Runtime.Internal.ByteArray qualified
 import HsBindgen.Runtime.Internal.CAPI qualified
+import HsBindgen.Runtime.Internal.FunPtr qualified
 import HsBindgen.Runtime.Internal.HasFFIType qualified
 import HsBindgen.Runtime.Internal.SizedByteArray qualified
 import HsBindgen.Runtime.Internal.TypeEquality qualified
@@ -91,10 +91,10 @@ mkGlobal = \case
       StaticSize_class        -> ''HsBindgen.Runtime.Marshal.StaticSize
       ReadRaw_class           -> ''HsBindgen.Runtime.Marshal.ReadRaw
       WriteRaw_class          -> ''HsBindgen.Runtime.Marshal.WriteRaw
-      ToFunPtr_class          -> ''HsBindgen.Runtime.FunPtr.ToFunPtr
-      ToFunPtr_toFunPtr       -> 'HsBindgen.Runtime.FunPtr.toFunPtr
-      FromFunPtr_class        -> ''HsBindgen.Runtime.FunPtr.FromFunPtr
-      FromFunPtr_fromFunPtr   -> 'HsBindgen.Runtime.FunPtr.fromFunPtr
+      ToFunPtr_class          -> ''HsBindgen.Runtime.Internal.FunPtr.ToFunPtr
+      ToFunPtr_toFunPtr       -> 'HsBindgen.Runtime.Internal.FunPtr.toFunPtr
+      FromFunPtr_class        -> ''HsBindgen.Runtime.Internal.FunPtr.FromFunPtr
+      FromFunPtr_fromFunPtr   -> 'HsBindgen.Runtime.Internal.FunPtr.fromFunPtr
       Storable_class          -> ''Foreign.Storable.Storable
       Storable_sizeOf         -> 'Foreign.Storable.sizeOf
       Storable_alignment      -> 'Foreign.Storable.alignment
