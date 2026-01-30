@@ -24,20 +24,6 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 C_SRC_DIR="$SCRIPT_DIR/c-src"
 HS_PROJECT_DIR="$SCRIPT_DIR/hs-project"
 
-# ============================================================================
-# Startup validation
-# ============================================================================
-
-# Check that we're inside nix develop (cross-GHC env vars are set)
-if [ -z "$GHC_AARCH64_PATH" ] && [ -z "$GHC_ARM32_PATH" ]; then
-    echo "# Error: Not inside nix develop environment."
-    echo "#"
-    echo "#   cd examples/cross-compilation"
-    echo "#   nix develop"
-    echo "#   ./generate-and-run.sh"
-    exit 1
-fi
-
 # Parse command line arguments
 TARGET="${1:-all}"
 
@@ -51,6 +37,21 @@ case "$TARGET" in
 esac
 
 echo "==> hs-bindgen Cross-Compilation: $TARGET"
+
+# ============================================================================
+# Startup validation
+# ============================================================================
+
+# Check that we're inside nix develop (cross-GHC env vars are set)
+if [ "$TARGET" != "native" ] && [ -z "$GHC_AARCH64_PATH" ] && [ -z "$GHC_ARM32_PATH" ]; then
+    echo "# Error: Not inside nix develop environment."
+    echo "#"
+    echo "#   cd examples/cross-compilation"
+    echo "#   nix develop"
+    echo "#   ./generate-and-run.sh"
+    exit 1
+fi
+
 
 # ============================================================================
 # Target configuration
