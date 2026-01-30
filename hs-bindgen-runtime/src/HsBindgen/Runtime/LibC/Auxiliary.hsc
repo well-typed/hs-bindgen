@@ -41,8 +41,8 @@ import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.HasFFIType (HasFFIType)
 import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.TypeEquality (TyEq)
 
 #include <inttypes.h>
 #include <locale.h>

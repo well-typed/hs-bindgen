@@ -2,7 +2,7 @@
 {-# LANGUAGE ExplicitNamespaces #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module HsBindgen.Runtime.TypeEquality (
+module HsBindgen.Runtime.Internal.TypeEquality (
     -- $type-equality
     TyEq
   ) where

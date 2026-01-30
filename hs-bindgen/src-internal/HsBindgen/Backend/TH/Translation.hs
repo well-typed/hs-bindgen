@@ -56,10 +56,10 @@ import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
+import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
 import HsBindgen.Runtime.SizedByteArray qualified
-import HsBindgen.Runtime.TypeEquality qualified
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -223,7 +223,7 @@ mkGlobal = \case
       Show_class       -> ''Show
       Show_showsPrec   -> 'showsPrec
 
-      NomEq_class -> ''HsBindgen.Runtime.TypeEquality.TyEq
+      NomEq_class -> ''HsBindgen.Runtime.Internal.TypeEquality.TyEq
 
       Not_class             -> ''CExpr.Runtime.Not
       Not_not               ->  'CExpr.Runtime.not

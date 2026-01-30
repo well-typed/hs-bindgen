@@ -25,7 +25,7 @@ import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified M
 import qualified Prelude as P
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Eq, IO, Ord, Show)
 
 {-| Auxiliary type used by 'A'

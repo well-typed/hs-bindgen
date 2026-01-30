@@ -53,10 +53,10 @@ import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
+import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
 import HsBindgen.Runtime.SizedByteArray qualified
-import HsBindgen.Runtime.TypeEquality qualified
 
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.SHs.AST
@@ -420,7 +420,7 @@ resolveGlobal = \case
 
     -- We use @TyEq@ rather than @(~)@ because the latter is magical syntax on
     -- GHC-9.2. The use of @TyEq@ is uniform across GHC versions.
-    NomEq_class -> importU ''HsBindgen.Runtime.TypeEquality.TyEq
+    NomEq_class -> importU ''HsBindgen.Runtime.Internal.TypeEquality.TyEq
 
     Not_class             -> importQ ''CExpr.Runtime.Not
     Not_not               -> importQ 'CExpr.Runtime.not
