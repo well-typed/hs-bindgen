@@ -41,7 +41,6 @@ library
   exposed-modules:
     HsBindgen.Runtime.BitfieldPtr
     HsBindgen.Runtime.Block
-    HsBindgen.Runtime.ByteArray
     HsBindgen.Runtime.CBoolSem
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
@@ -53,9 +52,11 @@ library
     HsBindgen.Runtime.HasFFIType
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.Internal.Bitfield
+    HsBindgen.Runtime.Internal.ByteArray
     HsBindgen.Runtime.Internal.CAPI
     HsBindgen.Runtime.Internal.Deriving
     HsBindgen.Runtime.Internal.Prelude
+    HsBindgen.Runtime.Internal.SizedByteArray
     HsBindgen.Runtime.Internal.TypeEquality
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.LibC.Auxiliary
@@ -63,7 +64,6 @@ library
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.Ptr
     HsBindgen.Runtime.PtrConst
-    HsBindgen.Runtime.SizedByteArray
 
   other-modules:
     HsBindgen.Runtime.FunPtr.Class

@@ -19,5 +19,5 @@ module HsBindgen.Runtime.Internal.Deriving (
   , SizedByteArray(..)
   ) where
 
+import HsBindgen.Runtime.Internal.SizedByteArray
 import HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.SizedByteArray

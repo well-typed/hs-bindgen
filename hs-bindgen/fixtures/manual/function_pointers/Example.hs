@@ -24,12 +24,12 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
-import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import Data.Void (Void)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
@@ -159,15 +159,15 @@ newtype Apply1Union = Apply1Union
   { unwrapApply1Union :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize Apply1Union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize Apply1Union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw Apply1Union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw Apply1Union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw Apply1Union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw Apply1Union
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Apply1Union instance F.Storable Apply1Union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Apply1Union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Apply1Union
 
 {-|
 
@@ -183,7 +183,7 @@ get_apply1Union_apply1_nopointer_union_field ::
      Apply1Union
   -> Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
 get_apply1Union_apply1_nopointer_union_field =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -194,7 +194,7 @@ set_apply1Union_apply1_nopointer_union_field ::
      Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
   -> Apply1Union
 set_apply1Union_apply1_nopointer_union_field =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Apply1Union "apply1Union_apply1_nopointer_union_field" where
 

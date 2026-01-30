@@ -35,9 +35,9 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.PtrConst
-import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
@@ -125,15 +125,15 @@ newtype Some_union = Some_union
   { unwrapSome_union :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.StaticSize Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.StaticSize Some_union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.ReadRaw Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.ReadRaw Some_union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.WriteRaw Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.WriteRaw Some_union
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_union instance F.Storable Some_union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
 
 {-| __C declaration:__ @enum some_enum@
 

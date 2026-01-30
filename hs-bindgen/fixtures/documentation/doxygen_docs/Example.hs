@@ -31,7 +31,6 @@ import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.BitfieldPtr
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
@@ -40,9 +39,10 @@ import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
-import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
@@ -802,15 +802,15 @@ newtype Data_union_t = Data_union_t
   { unwrapData_union_t :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Data_union_t
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Data_union_t
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Data_union_t instance F.Storable Data_union_t
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Data_union_t
 
 {-|
 
@@ -828,7 +828,7 @@ get_data_union_t_as_int ::
      Data_union_t
   -> HsBindgen.Runtime.LibC.Int32
 get_data_union_t_as_int =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -839,7 +839,7 @@ set_data_union_t_as_int ::
      HsBindgen.Runtime.LibC.Int32
   -> Data_union_t
 set_data_union_t_as_int =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -857,7 +857,7 @@ get_data_union_t_as_float ::
      Data_union_t
   -> FC.CFloat
 get_data_union_t_as_float =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -868,7 +868,7 @@ set_data_union_t_as_float ::
      FC.CFloat
   -> Data_union_t
 set_data_union_t_as_float =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -886,7 +886,7 @@ get_data_union_t_as_bytes ::
      Data_union_t
   -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8
 get_data_union_t_as_bytes =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -897,7 +897,7 @@ set_data_union_t_as_bytes ::
      (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8
   -> Data_union_t
 set_data_union_t_as_bytes =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-| As Parts Struct
 
@@ -913,7 +913,7 @@ get_data_union_t_as_parts ::
      Data_union_t
   -> Data_union_t_as_parts
 get_data_union_t_as_parts =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -924,7 +924,7 @@ set_data_union_t_as_parts ::
      Data_union_t_as_parts
   -> Data_union_t
 set_data_union_t_as_parts =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_int" where
 

@@ -25,15 +25,15 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.BitfieldPtr
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
-import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
@@ -271,15 +271,15 @@ newtype Shape = Shape
   { unwrapShape :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.StaticSize Shape
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.StaticSize Shape
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Shape
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Shape
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Shape
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Shape
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Shape instance F.Storable Shape
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance Data.Primitive.Types.Prim Shape
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance Data.Primitive.Types.Prim Shape
 
 {-|
 
@@ -295,7 +295,7 @@ get_shape_rectangle ::
      Shape
   -> Rectangle
 get_shape_rectangle =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -306,7 +306,7 @@ set_shape_rectangle ::
      Rectangle
   -> Shape
 set_shape_rectangle =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -322,7 +322,7 @@ get_shape_circle ::
      Shape
   -> Circle
 get_shape_circle =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -333,7 +333,7 @@ set_shape_circle ::
      Circle
   -> Shape
 set_shape_circle =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Shape "shape_rectangle" where
 

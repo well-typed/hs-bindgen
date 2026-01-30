@@ -43,7 +43,6 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
-import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
@@ -52,11 +51,12 @@ import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
+import HsBindgen.Runtime.Internal.ByteArray qualified
 import HsBindgen.Runtime.Internal.CAPI qualified
+import HsBindgen.Runtime.Internal.SizedByteArray qualified
 import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
-import HsBindgen.Runtime.SizedByteArray qualified
 
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.SHs.AST
@@ -503,11 +503,11 @@ resolveGlobal = \case
     AsSequentialCEnum_type           -> importQ ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 
     ByteArray_type      -> importQ ''ByteArray
-    SizedByteArray_type -> importQ ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
+    SizedByteArray_type -> importQ ''HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray
     Block_type          -> importQ ''HsBindgen.Runtime.Block.Block
 
-    ByteArray_getUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.getUnionPayload
-    ByteArray_setUnionPayload -> importQ 'HsBindgen.Runtime.ByteArray.setUnionPayload
+    ByteArray_getUnionPayload -> importQ 'HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+    ByteArray_setUnionPayload -> importQ 'HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
     PrimType hsPrimType -> case hsPrimType of
       HsPrimVoid       -> importU ''Data.Void.Void

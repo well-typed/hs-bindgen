@@ -21,10 +21,10 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
-import qualified HsBindgen.Runtime.SizedByteArray
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Int, pure)
 
@@ -38,15 +38,15 @@ newtype UnionA = UnionA
   { unwrapUnionA :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize UnionA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize UnionA
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw UnionA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw UnionA
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw UnionA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw UnionA
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable UnionA instance F.Storable UnionA
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim UnionA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim UnionA
 
 {-|
 
@@ -62,7 +62,7 @@ get_unionA_a ::
      UnionA
   -> FC.CInt
 get_unionA_a =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -73,7 +73,7 @@ set_unionA_a ::
      FC.CInt
   -> UnionA
 set_unionA_a =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -89,7 +89,7 @@ get_unionA_b ::
      UnionA
   -> FC.CChar
 get_unionA_b =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -100,7 +100,7 @@ set_unionA_b ::
      FC.CChar
   -> UnionA
 set_unionA_b =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField UnionA "unionA_a" where
 
@@ -188,15 +188,15 @@ newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw ExB_fieldB1
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw ExB_fieldB1
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw ExB_fieldB1
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw ExB_fieldB1
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB_fieldB1 instance F.Storable ExB_fieldB1
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim ExB_fieldB1
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim ExB_fieldB1
 
 {-|
 
@@ -212,7 +212,7 @@ get_exB_fieldB1_a ::
      ExB_fieldB1
   -> FC.CInt
 get_exB_fieldB1_a =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -223,7 +223,7 @@ set_exB_fieldB1_a ::
      FC.CInt
   -> ExB_fieldB1
 set_exB_fieldB1_a =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -239,7 +239,7 @@ get_exB_fieldB1_b ::
      ExB_fieldB1
   -> FC.CChar
 get_exB_fieldB1_b =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -250,7 +250,7 @@ set_exB_fieldB1_b ::
      FC.CChar
   -> ExB_fieldB1
 set_exB_fieldB1_b =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 

@@ -28,15 +28,15 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
-import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
@@ -800,15 +800,15 @@ newtype ProcessorCallback = ProcessorCallback
   { unwrapProcessorCallback :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize ProcessorCallback
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize ProcessorCallback
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw ProcessorCallback
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw ProcessorCallback
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw ProcessorCallback
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw ProcessorCallback
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable ProcessorCallback instance F.Storable ProcessorCallback
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim ProcessorCallback
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim ProcessorCallback
 
 {-|
 
@@ -824,7 +824,7 @@ get_processorCallback_simple ::
      ProcessorCallback
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
 get_processorCallback_simple =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -835,7 +835,7 @@ set_processorCallback_simple ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
   -> ProcessorCallback
 set_processorCallback_simple =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -851,7 +851,7 @@ get_processorCallback_withValidator ::
      ProcessorCallback
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
 get_processorCallback_withValidator =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -862,7 +862,7 @@ set_processorCallback_withValidator ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
   -> ProcessorCallback
 set_processorCallback_withValidator =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -878,7 +878,7 @@ get_processorCallback_withProgress ::
      ProcessorCallback
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
 get_processorCallback_withProgress =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -889,7 +889,7 @@ set_processorCallback_withProgress ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
   -> ProcessorCallback
 set_processorCallback_withProgress =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField ProcessorCallback "processorCallback_simple" where
 
