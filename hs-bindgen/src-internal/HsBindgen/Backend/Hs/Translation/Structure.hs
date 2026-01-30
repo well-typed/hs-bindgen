@@ -138,10 +138,7 @@ getInstances supInsts structName fields instanceMap =
     fieldTypes = Type.topLevel . (.typ) <$> fields
 
     candidateInsts :: Set Inst.TypeClass
-    candidateInsts = Hs.getCandidateInsts supInsts <> Set.fromList [
-        Inst.Prim
-      , Inst.Storable
-      ]
+    candidateInsts = Hs.getCandidateInsts supInsts
 
 getDecls :: forall n.
      SNatI n

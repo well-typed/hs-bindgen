@@ -170,10 +170,10 @@ instance Default SupportedInstances where
           -- , mkDef HasCField    Independent HsBindgen []
           -- , mkDef HasField     Independent HsBindgen []
           -- , mkDef Flam_Offset  Independent HsBindgen []
-          -- , mkOpt Ord          Dependent             [Stock]
-          -- , mkDef Prim         Dependent   HsBindgen []
+          , mkOpt Ord          Dependent             [Stock]
+          , mkDef Prim         Dependent   HsBindgen []
           , mkDef Show         Dependent   Stock     []
-          -- , mkDef Storable     Dependent   HsBindgen []
+          , mkDef Storable     Dependent   HsBindgen []
           ]
       , union = Map.empty
           -- Map.fromList [
