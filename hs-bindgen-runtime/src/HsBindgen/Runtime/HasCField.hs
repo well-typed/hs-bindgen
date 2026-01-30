@@ -8,6 +8,22 @@
 --
 -- > import HsBindgen.Runtime.Prelude
 -- > import HsBindgen.Runtime.HasCField qualified as HasCField
+--
+-- Most users do not directly need to use @HasCField@. Instead, we provide
+-- @HasField@ instances for pointers, and so we can use record dot syntax and
+-- _normal_ 'Foreign.Storable.peek' and 'Foreign.Storable.poke'.
+--
+-- For example,
+--
+-- @
+-- f = do
+--   ...
+--   (backend :: Ptr Wl_backend) <- wlr_backend_autocreate eventLoop Foreign.nullPtr
+--   let newOutputSignal :: Ptr Wl_signal
+--       newOutputSignal = backend.wlr_backend_events.wlr_backend_events_new_output
+--   outputSignal <- Foreign.Storable.peek newOutputSignal
+--   ...
+-- @
 module HsBindgen.Runtime.HasCField (
     -- * Fields
     HasCField(..)
