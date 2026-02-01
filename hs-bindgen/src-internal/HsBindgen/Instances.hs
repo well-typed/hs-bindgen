@@ -175,14 +175,13 @@ instance Default SupportedInstances where
           , mkDef Show         Dependent   Stock     []
           , mkDef Storable     Dependent   HsBindgen []
           ]
-      , union = Map.empty
-          -- Map.fromList [
+      , union = Map.fromList [
           --   mkDef HasCBitField Independent HsBindgen []
           -- , mkDef HasCField    Independent HsBindgen []
           -- , mkDef HasField     Independent HsBindgen []
-          -- , mkDef Prim         Independent HsBindgen []
-          -- , mkDef Storable     Independent HsBindgen []
-          -- ]
+            mkDef Prim         Independent HsBindgen []
+          , mkDef Storable     Independent HsBindgen []
+          ]
       , enum = Map.fromList [
             mkOpt Bounded         Independent           [HsBindgen, Newtype]
           , mkDef CEnum           Independent HsBindgen []

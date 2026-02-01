@@ -25,6 +25,7 @@ hstypes:
   instances:
   - HasCField
   - HasField
+  - Prim
   - Storable
 - hsname: ExB
   representation:
@@ -35,6 +36,7 @@ hstypes:
   instances:
   - HasCField
   - HasField
+  - Prim
   - Storable
 - hsname: ExB_fieldB1
   representation:
@@ -43,6 +45,7 @@ hstypes:
       fields:
       - unwrapExB_fieldB1
   instances:
+  - Prim
   - Storable
 - hsname: UnionA
   representation:
@@ -51,4 +54,5 @@ hstypes:
       fields:
       - unwrapUnionA
   instances:
+  - Prim
   - Storable

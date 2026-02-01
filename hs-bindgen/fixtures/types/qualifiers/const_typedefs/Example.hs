@@ -277,7 +277,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TS "unwrapTS" where
 newtype TU = TU
   { unwrapTU :: U
   }
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TU) "unwrapTU")
          ) => GHC.Records.HasField "unwrapTU" (Ptr.Ptr TU) (Ptr.Ptr ty) where
@@ -372,7 +372,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TTS "unwrapTTS" where
 newtype TTU = TTU
   { unwrapTTU :: TU
   }
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTU) "unwrapTTU")
          ) => GHC.Records.HasField "unwrapTTU" (Ptr.Ptr TTU) (Ptr.Ptr ty) where

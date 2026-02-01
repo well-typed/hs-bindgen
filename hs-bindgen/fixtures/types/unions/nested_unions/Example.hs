@@ -153,6 +153,54 @@ instance F.Storable ExA where
           ExA exA_fieldA12 ->
             HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
 
+instance Data.Primitive.Types.Prim ExA where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        ExA (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExA v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExA exA_fieldA14 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 exA_fieldA14 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        ExA (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExA v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExA exA_fieldA14 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 exA_fieldA14 s3
+
 instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
 
   type CFieldType ExA "exA_fieldA1" = UnionA
@@ -291,6 +339,54 @@ instance F.Storable ExB where
         case s1 of
           ExB exB_fieldB12 ->
             HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+
+instance Data.Primitive.Types.Prim ExB where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        ExB (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExB v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExB exB_fieldB14 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 exB_fieldB14 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        ExB (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, ExB v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExB exB_fieldB14 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 exB_fieldB14 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
 

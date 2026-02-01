@@ -17,4 +17,5 @@ hstypes:
       fields:
       - unwrapT
   instances:
+  - Prim
   - Storable

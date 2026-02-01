@@ -162,6 +162,7 @@ hstypes:
       fields:
       - unwrapShape
   instances:
+  - Prim
   - Storable
 - hsname: Tic_tac_toe
   representation:

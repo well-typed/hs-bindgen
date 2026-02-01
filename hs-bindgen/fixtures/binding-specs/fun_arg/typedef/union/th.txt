@@ -190,7 +190,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
       -}
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType A "unwrapA") =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
@@ -211,7 +211,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
       -}
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType B "unwrapB") =>
          HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")

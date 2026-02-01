@@ -204,6 +204,7 @@ hstypes:
   instances:
   - HasCField
   - HasField
+  - Prim
   - Storable
 - hsname: ProcessorCallback
   representation:
@@ -212,6 +213,7 @@ hstypes:
       fields:
       - unwrapProcessorCallback
   instances:
+  - Prim
   - Storable
 - hsname: Processor_mode
   representation:

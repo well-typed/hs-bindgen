@@ -92,7 +92,7 @@ newtype T
 
            __exported by:__ @functions\/heap_types\/union_const_typedef.h@
       -}
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType T "unwrapT") =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")

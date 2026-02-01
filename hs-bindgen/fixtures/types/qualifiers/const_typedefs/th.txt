@@ -284,7 +284,7 @@ newtype TU
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType TU "unwrapTU") =>
          HasField "unwrapTU" (Ptr TU) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTU")
@@ -382,7 +382,7 @@ newtype TTU
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType TTU "unwrapTTU") =>
          HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTU")

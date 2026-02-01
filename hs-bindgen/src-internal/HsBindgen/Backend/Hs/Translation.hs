@@ -278,7 +278,10 @@ unionDecs haddockConfig info union spec = do
         candidateInsts = Set.empty
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.singleton Inst.Storable
+        knownInsts = Set.fromList [
+            Inst.Prim
+          , Inst.Storable
+          ]
 
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]

@@ -87,7 +87,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U) "u_x")
 newtype T = T
   { unwrapT :: U
   }
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "unwrapT")
          ) => GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr ty) where

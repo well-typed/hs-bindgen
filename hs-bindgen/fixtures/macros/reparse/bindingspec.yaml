@@ -644,6 +644,7 @@ hstypes:
       fields:
       - unwrapSome_union
   instances:
+  - Prim
   - Storable
 - hsname: Typedef1
   representation:

@@ -293,6 +293,29 @@ instance Storable Dim
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Dim dim_tag_3
                                        dim_payload_4 -> poke (Proxy @"dim_tag") ptr_1 dim_tag_3 >> poke (Proxy @"dim_payload") ptr_1 dim_payload_4
+instance Prim Dim
+    where sizeOf# = \_ -> 12# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Dim (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Dim v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Dim dim_tag_13
+                                                                          dim_payload_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) dim_tag_13 s_12 of
+                                                                                            s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) dim_payload_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Dim (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Dim v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Dim dim_tag_29
+                                                                          dim_payload_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) dim_tag_29 s_28 of
+                                                                                            s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) dim_payload_30 s_31
 instance HasCField Dim "dim_tag"
     where type CFieldType Dim "dim_tag" = CInt
           offset# = \_ -> \_ -> 0
@@ -435,6 +458,29 @@ instance Storable DimB
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    DimB dimB_tag_3
                                         dimB_payload_4 -> poke (Proxy @"dimB_tag") ptr_1 dimB_tag_3 >> poke (Proxy @"dimB_payload") ptr_1 dimB_payload_4
+instance Prim DimB
+    where sizeOf# = \_ -> 12# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> DimB (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       DimB v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      DimB dimB_tag_13
+                                                                           dimB_payload_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) dimB_tag_13 s_12 of
+                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) dimB_payload_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> DimB (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            DimB v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      DimB dimB_tag_29
+                                                                           dimB_payload_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) dimB_tag_29 s_28 of
+                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) dimB_payload_30 s_31
 instance HasCField DimB "dimB_tag"
     where type CFieldType DimB "dimB_tag" = CInt
           offset# = \_ -> \_ -> 0

@@ -19,6 +19,7 @@ hstypes:
   instances:
   - HasCField
   - HasField
+  - Prim
   - Storable
 - hsname: U
   representation:
@@ -27,4 +28,5 @@ hstypes:
       fields:
       - unwrapU
   instances:
+  - Prim
   - Storable

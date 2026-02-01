@@ -30,4 +30,5 @@ hstypes:
       fields:
       - unwrapY
   instances:
+  - Prim
   - Storable

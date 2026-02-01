@@ -22,6 +22,7 @@ hstypes:
   instances:
   - HasCField
   - HasField
+  - Prim
   - Storable
 - hsname: B
   representation:
@@ -32,6 +33,7 @@ hstypes:
   instances:
   - HasCField
   - HasField
+  - Prim
   - Storable
 - hsname: MyUnion
   representation:
@@ -40,4 +42,5 @@ hstypes:
       fields:
       - unwrapMyUnion
   instances:
+  - Prim
   - Storable
