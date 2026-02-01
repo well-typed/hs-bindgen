@@ -165,6 +165,7 @@ hstypes:
       - flexible_array_count
   instances:
   - Eq
+  - Flam_Offset
   - HasCField
   - HasField
   - Show

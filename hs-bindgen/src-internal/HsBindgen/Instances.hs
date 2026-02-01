@@ -169,7 +169,7 @@ instance Default SupportedInstances where
           , mkDef HasCBitField Independent HsBindgen []
           , mkDef HasCField    Independent HsBindgen []
           , mkDef HasField     Independent HsBindgen []
-          -- , mkDef Flam_Offset  Independent HsBindgen []
+          , mkDef Flam_Offset  Independent HsBindgen []
           , mkOpt Ord          Dependent             [Stock]
           , mkDef Prim         Dependent   HsBindgen []
           , mkDef Show         Dependent   Stock     []

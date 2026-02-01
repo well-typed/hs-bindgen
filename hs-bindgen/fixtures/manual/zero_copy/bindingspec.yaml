@@ -199,6 +199,7 @@ hstypes:
       - vector_len
   instances:
   - Eq
+  - Flam_Offset
   - HasCField
   - HasField
   - Prim

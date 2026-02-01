@@ -42,6 +42,7 @@ hstypes:
       - diff_second
   instances:
   - Eq
+  - Flam_Offset
   - HasCField
   - HasField
   - Prim
@@ -57,6 +58,7 @@ hstypes:
       - foo_len
   instances:
   - Eq
+  - Flam_Offset
   - HasCField
   - HasField
   - Prim
@@ -86,6 +88,7 @@ hstypes:
       - pascal_len
   instances:
   - Eq
+  - Flam_Offset
   - HasCField
   - HasField
   - Prim
@@ -101,6 +104,7 @@ hstypes:
       - triplets_len
   instances:
   - Eq
+  - Flam_Offset
   - HasCField
   - HasField
   - Prim
