@@ -28,6 +28,8 @@ hstypes:
       - bar_ptrB
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Baz

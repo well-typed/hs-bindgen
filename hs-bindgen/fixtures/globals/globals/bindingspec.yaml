@@ -37,6 +37,8 @@ hstypes:
       - config_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -49,6 +51,8 @@ hstypes:
       - inline_struct_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -62,6 +66,8 @@ hstypes:
       - struct1_t_version
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Struct2_t
@@ -72,6 +78,8 @@ hstypes:
       - struct2_t_field1
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Version_t
@@ -84,5 +92,7 @@ hstypes:
       - version_t_patch
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable

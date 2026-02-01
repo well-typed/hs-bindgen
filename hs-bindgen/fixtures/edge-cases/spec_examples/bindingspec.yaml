@@ -40,6 +40,8 @@ hstypes:
       - a_c
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: B
@@ -63,6 +65,8 @@ hstypes:
       - cint16_T_im
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

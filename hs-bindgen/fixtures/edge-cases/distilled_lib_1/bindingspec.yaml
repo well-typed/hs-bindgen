@@ -98,6 +98,8 @@ hstypes:
       - a_typedef_struct_t_field_10
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Another_typedef_enum_e
@@ -127,6 +129,8 @@ hstypes:
       - another_typedef_struct_t_bar
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

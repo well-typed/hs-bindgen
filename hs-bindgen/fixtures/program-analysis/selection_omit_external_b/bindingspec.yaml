@@ -21,6 +21,8 @@ hstypes:
       - directlyDependsOnOmitted_o
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -32,6 +34,8 @@ hstypes:
       - indirectlyDependsOnOmitted_d
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -43,6 +47,8 @@ hstypes:
       - omitted_n
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

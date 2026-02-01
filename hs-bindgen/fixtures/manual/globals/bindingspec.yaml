@@ -53,6 +53,8 @@ hstypes:
       - globalConfig_numWorkers
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -88,6 +90,8 @@ hstypes:
       - tuple_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

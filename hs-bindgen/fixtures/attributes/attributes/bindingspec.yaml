@@ -37,6 +37,8 @@ hstypes:
       - bar_i
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -49,6 +51,8 @@ hstypes:
       - baz_i
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -62,6 +66,8 @@ hstypes:
       - fILE__close
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Foo
@@ -73,6 +79,8 @@ hstypes:
       - foo_i
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -85,6 +93,8 @@ hstypes:
       - qux_i
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

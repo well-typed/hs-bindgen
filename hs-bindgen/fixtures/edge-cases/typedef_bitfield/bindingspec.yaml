@@ -76,6 +76,8 @@ hstypes:
       - myStruct_z
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable

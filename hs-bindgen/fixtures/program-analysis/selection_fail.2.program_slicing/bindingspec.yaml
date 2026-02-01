@@ -18,6 +18,8 @@ hstypes:
       - okAfter_x
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -29,6 +31,8 @@ hstypes:
       - okBefore_x
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

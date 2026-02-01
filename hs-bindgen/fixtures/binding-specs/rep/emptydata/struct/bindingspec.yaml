@@ -30,6 +30,8 @@ hstypes:
       - named_f
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

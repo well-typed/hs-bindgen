@@ -64,6 +64,8 @@ hstypes:
       - struct1_a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -75,6 +77,8 @@ hstypes:
       - struct2_a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -86,6 +90,8 @@ hstypes:
       - struct3_a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -110,6 +116,8 @@ hstypes:
       - struct4_a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

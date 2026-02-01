@@ -20,6 +20,8 @@ hstypes:
       - some_struct_field3
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -32,6 +34,8 @@ hstypes:
       - some_struct_field1_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

@@ -25,6 +25,8 @@ hstypes:
       - linked_list_A_t_next
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Linked_list_B_t
@@ -36,5 +38,7 @@ hstypes:
       - linked_list_B_t_next
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable

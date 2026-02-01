@@ -62,9 +62,9 @@ getDeclsFieldVec :: forall n.
 getDeclsFieldVec supInsts hCfg spec info struct fieldsVec = do
     insts <-
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
-    State.modify' $ #instanceMap %~ Map.insert name insts
     let (hsStruct, decls) =
           getDecls supInsts hCfg spec name info struct fieldsVec insts
+    State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -83,9 +83,9 @@ getDeclsFieldVecFlam :: forall n.
 getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
     insts <-
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
-    State.modify' $ #instanceMap %~ Map.insert auxName insts
     let (hsStruct, decls) =
           getDecls supInsts hCfg spec auxName info struct fieldsVec insts
+    State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -173,7 +173,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
           name      = structName
         , constr    = struct.names.constr
         , fields    = Vec.map getHsField fieldsVec
-        , instances = insts
+        , instances = insts <> knownInsts
         , comment   = mkHaddocks hCfg info structName
         , origin    = Just Origin.Decl{
               info
@@ -220,6 +220,17 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
 
     fieldDecls :: [Hs.Decl]
     fieldDecls = concatMap (getFieldDecls structName) struct.fields
+
+    knownInsts :: Set Inst.TypeClass
+    knownInsts = Set.fromList $ catMaybes [
+        if any (isJust . (.width)) struct.fields
+          then Just Inst.HasCBitField
+          else Nothing
+      , if any (isNothing . (.width)) struct.fields
+          then Just Inst.HasCField
+          else Nothing
+      , if null struct.fields then Nothing else Just Inst.HasField
+      ]
 
 {-------------------------------------------------------------------------------
   Fields

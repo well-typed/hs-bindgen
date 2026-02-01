@@ -39,6 +39,8 @@ hstypes:
       - exampleStruct_m2
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -50,6 +52,8 @@ hstypes:
       - foo_a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: M1

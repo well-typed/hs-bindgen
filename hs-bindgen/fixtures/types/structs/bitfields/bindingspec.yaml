@@ -34,6 +34,8 @@ hstypes:
       - alignA_y
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -46,6 +48,8 @@ hstypes:
       - alignB_y
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -62,6 +66,9 @@ hstypes:
       - flags_bits
   instances:
   - Eq
+  - HasCBitField
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -75,6 +82,8 @@ hstypes:
       - overflow32_z
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -88,6 +97,8 @@ hstypes:
       - overflow32b_z
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -101,6 +112,8 @@ hstypes:
       - overflow32c_z
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -113,6 +126,8 @@ hstypes:
       - overflow64_y
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable

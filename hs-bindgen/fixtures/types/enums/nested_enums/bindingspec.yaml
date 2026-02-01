@@ -42,6 +42,8 @@ hstypes:
       - exA_fieldA1
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -53,6 +55,8 @@ hstypes:
       - exB_fieldB1
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

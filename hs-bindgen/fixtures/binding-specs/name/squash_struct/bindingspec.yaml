@@ -19,6 +19,8 @@ hstypes:
       - hoge_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

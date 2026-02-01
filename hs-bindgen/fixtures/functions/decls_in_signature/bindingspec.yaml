@@ -25,6 +25,8 @@ hstypes:
       - named_struct_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -47,6 +49,8 @@ hstypes:
       - outside_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

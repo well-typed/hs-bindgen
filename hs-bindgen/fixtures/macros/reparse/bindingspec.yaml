@@ -464,6 +464,8 @@ hstypes:
       - example_struct_field3
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Example_struct_with_const
@@ -480,6 +482,8 @@ hstypes:
       - example_struct_with_const_const_field7
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Funptr_typedef1

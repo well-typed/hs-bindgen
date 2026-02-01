@@ -56,6 +56,8 @@ hstypes:
       - dataPipeline_postProcess
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: DataValidator
@@ -145,6 +147,8 @@ hstypes:
       - measurement_timestamp
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -158,6 +162,8 @@ hstypes:
       - measurementHandler_onError
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: MeasurementReceived
@@ -196,6 +202,8 @@ hstypes:
       - processor_mode
       - processor_callback
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: ProcessorCallback
   representation:

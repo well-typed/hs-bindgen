@@ -42,6 +42,8 @@ hstypes:
       - primitive_d
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

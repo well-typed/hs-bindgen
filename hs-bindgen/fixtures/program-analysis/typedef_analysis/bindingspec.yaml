@@ -123,6 +123,8 @@ hstypes:
       - struct11_t_self
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Struct12_t
@@ -134,6 +136,8 @@ hstypes:
       - struct12_t_self
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Struct1_t
@@ -315,5 +319,7 @@ hstypes:
       - use_sites_useTypedef_struct12_t
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable

@@ -69,6 +69,8 @@ hstypes:
       - my_packed_struct_s
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -81,6 +83,8 @@ hstypes:
       - my_unpacked_struct_i
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -92,6 +96,8 @@ hstypes:
       - s_f
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: S2
@@ -102,6 +108,8 @@ hstypes:
       - s2_f
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Short_a

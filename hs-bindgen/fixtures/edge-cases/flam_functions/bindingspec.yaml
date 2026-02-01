@@ -20,6 +20,8 @@ hstypes:
       - vector_length
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

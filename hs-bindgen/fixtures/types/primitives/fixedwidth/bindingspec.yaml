@@ -16,5 +16,7 @@ hstypes:
       - foo_thirty_two
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable

@@ -31,6 +31,8 @@ hstypes:
       - example_sudoku
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: List

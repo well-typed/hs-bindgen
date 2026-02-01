@@ -69,6 +69,8 @@ hstypes:
       - bitfield_t_reserved
   instances:
   - Eq
+  - HasCBitField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -102,6 +104,8 @@ hstypes:
       - config_t_user_data
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Data_union_t
@@ -121,6 +125,8 @@ hstypes:
       - data_union_t_as_parts_high
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Event_callback_t
@@ -159,6 +165,8 @@ hstypes:
       - flexible_array_count
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Forward_declared_struct

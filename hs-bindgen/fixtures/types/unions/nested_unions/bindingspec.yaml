@@ -23,6 +23,8 @@ hstypes:
       fields:
       - exA_fieldA1
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: ExB
   representation:
@@ -31,6 +33,8 @@ hstypes:
       fields:
       - exB_fieldB1
   instances:
+  - HasCField
+  - HasField
   - Storable
 - hsname: ExB_fieldB1
   representation:

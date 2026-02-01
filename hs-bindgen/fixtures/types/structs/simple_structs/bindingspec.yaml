@@ -55,6 +55,8 @@ hstypes:
       - s1_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -68,6 +70,8 @@ hstypes:
       - s2_t_c
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -79,6 +83,8 @@ hstypes:
       - s3_t_a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -92,6 +98,8 @@ hstypes:
       - s4_c
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: S5
@@ -103,6 +111,8 @@ hstypes:
       - s5_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -115,6 +125,8 @@ hstypes:
       - s6_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -141,6 +153,8 @@ hstypes:
       - s7a_Aux_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -167,6 +181,8 @@ hstypes:
       - s7b_Aux_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

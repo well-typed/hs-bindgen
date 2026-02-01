@@ -18,6 +18,8 @@ hstypes:
       - a_toB
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: B
@@ -28,5 +30,7 @@ hstypes:
       - b_toA
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable

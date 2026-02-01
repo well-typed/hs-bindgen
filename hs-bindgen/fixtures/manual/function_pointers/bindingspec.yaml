@@ -21,6 +21,8 @@ hstypes:
       - apply1Struct_apply1_nopointer_struct_field
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Apply1Union

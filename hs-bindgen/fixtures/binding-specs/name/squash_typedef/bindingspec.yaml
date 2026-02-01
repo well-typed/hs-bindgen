@@ -19,6 +19,8 @@ hstypes:
       - piyo_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

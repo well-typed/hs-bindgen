@@ -34,6 +34,8 @@ hstypes:
       - s1_d
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -46,6 +48,8 @@ hstypes:
       - s1_c_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -58,6 +62,8 @@ hstypes:
       - s2_d
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -70,6 +76,8 @@ hstypes:
       - s2_inner_deep
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -81,6 +89,8 @@ hstypes:
       - s2_inner_deep_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -93,6 +103,8 @@ hstypes:
       - s3_d
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: S3_c
@@ -104,6 +116,8 @@ hstypes:
       - s3_c_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

@@ -50,6 +50,8 @@ hstypes:
       - bools1_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -62,6 +64,8 @@ hstypes:
       - bools2_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -74,6 +78,8 @@ hstypes:
       - bools3_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

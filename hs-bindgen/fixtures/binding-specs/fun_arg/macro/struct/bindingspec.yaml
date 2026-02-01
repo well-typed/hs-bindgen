@@ -47,6 +47,8 @@ hstypes:
       - myStruct_x
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

@@ -20,6 +20,8 @@ hstypes:
       - complex_object_t_id
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

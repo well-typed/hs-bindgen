@@ -166,9 +166,9 @@ instance Default SupportedInstances where
     SupportedInstances{
         struct = Map.fromList [
             mkDef Eq           Dependent   Stock     []
-          -- , mkDef HasCBitField Independent HsBindgen []
-          -- , mkDef HasCField    Independent HsBindgen []
-          -- , mkDef HasField     Independent HsBindgen []
+          , mkDef HasCBitField Independent HsBindgen []
+          , mkDef HasCField    Independent HsBindgen []
+          , mkDef HasField     Independent HsBindgen []
           -- , mkDef Flam_Offset  Independent HsBindgen []
           , mkOpt Ord          Dependent             [Stock]
           , mkDef Prim         Dependent   HsBindgen []

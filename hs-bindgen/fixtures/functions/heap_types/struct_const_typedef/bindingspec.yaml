@@ -18,6 +18,8 @@ hstypes:
       - s_x
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

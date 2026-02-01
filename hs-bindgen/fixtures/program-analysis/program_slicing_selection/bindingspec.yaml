@@ -19,6 +19,8 @@ hstypes:
       - fileOperationRecord_bytes_processed
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: FileOperationStatus

@@ -31,6 +31,8 @@ hstypes:
       - bar_foo2
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -43,6 +45,8 @@ hstypes:
       - ex3_ex3_c
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -55,6 +59,8 @@ hstypes:
       - ex3_ex3_struct_ex3_b
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -67,6 +73,8 @@ hstypes:
       - ex4_even_next
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Ex4_odd
@@ -78,6 +86,8 @@ hstypes:
       - ex4_odd_next
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Foo
@@ -89,6 +99,8 @@ hstypes:
       - foo_c
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

@@ -18,6 +18,8 @@ hstypes:
       - bar_a
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Foo

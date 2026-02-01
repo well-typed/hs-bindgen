@@ -42,6 +42,8 @@ hstypes:
       - diff_second
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -55,6 +57,8 @@ hstypes:
       - foo_len
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -67,6 +71,8 @@ hstypes:
       - foo_bar_y
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -80,6 +86,8 @@ hstypes:
       - pascal_len
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable
@@ -93,6 +101,8 @@ hstypes:
       - triplets_len
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Prim
   - Show
   - Storable

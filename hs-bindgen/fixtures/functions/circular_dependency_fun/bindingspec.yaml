@@ -18,6 +18,8 @@ hstypes:
       - forward_declaration_f
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
   - Storable
 - hsname: Fun_ptr
