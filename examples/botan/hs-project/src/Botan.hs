@@ -132,7 +132,7 @@ srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG
           bPtr
           bLenPtr
       bLen <- peek bLenPtr
-      B <$> IA.peekArray (fromIntegral bLen) (IA.toPtr bPtr)
+      B <$> IA.peekArray (fromIntegral bLen) bPtr
 
 srp6ServerSessionStep2 ::
      ServerSession
@@ -154,7 +154,7 @@ srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
           kPtr
           kLenPtr
       kLen <- peek kLenPtr
-      K <$> IA.peekArray (fromIntegral kLen) (IA.toPtr kPtr)
+      K <$> IA.peekArray (fromIntegral kLen) kPtr
 
 srp6GenerateVerifier ::
      Username
@@ -185,7 +185,7 @@ srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
           verifierPtr
           verifierLenPtr
       verifierLen <- peek verifierLenPtr
-      Verifier <$> IA.peekArray (fromIntegral verifierLen) (IA.toPtr verifierPtr)
+      Verifier <$> IA.peekArray (fromIntegral verifierLen) verifierPtr
 
 srp6ClientAgree ::
      Username
@@ -228,9 +228,9 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
           kPtr
           kLenPtr
       aLen <- peek aLenPtr
-      a <- A <$> IA.peekArray (fromIntegral aLen) (IA.toPtr aPtr)
+      a <- A <$> IA.peekArray (fromIntegral aLen) aPtr
       kLen <- peek kLenPtr
-      k <- K <$> IA.peekArray (fromIntegral kLen) (IA.toPtr kPtr)
+      k <- K <$> IA.peekArray (fromIntegral kLen) kPtr
       pure (a, k)
 
 srp6GroupSize :: GroupId -> IO CSize

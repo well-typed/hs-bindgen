@@ -193,12 +193,11 @@ pokeArrayOff off ptr (coerce -> IA vs) = do
 -- | /( O(n) /): Retrieve the underlying pointer
 withPtr ::
      (Coercible b (IncompleteArray a), Storable a)
-  => b -> (Ptr a -> IO r) -> IO r
+  => b -> (Ptr b -> IO r) -> IO r
 withPtr (coerce -> IA v) k = do
     -- we copy the data, as e.g. @int fun(int xs[])@ may mutate it.
     VS.MVector _ fptr <- VS.thaw v
-    withForeignPtr fptr k
-
+    withForeignPtr fptr $ \(ptr :: Ptr a) -> k (toPtr ptr)
 
 {-------------------------------------------------------------------------------
   Construction

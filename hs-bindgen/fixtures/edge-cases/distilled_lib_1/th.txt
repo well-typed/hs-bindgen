@@ -7,18 +7,18 @@
 -- int32_t hs_bindgen_57cb99ed92c001ad (
 --   a_type_t *arg1,
 --   uint32_t arg2,
---   uint8_t *arg3
+--   uint8_t (*arg3)[]
 -- )
 -- {
---   return some_fun(arg1, arg2, arg3);
+--   return some_fun(arg1, arg2, *arg3);
 -- }
 -- int32_t hs_bindgen_2a91c367a9380a63 (
 --   a_type_t *arg1,
 --   uint32_t arg2,
---   uint8_t *arg3
+--   uint8_t (*arg3)[]
 -- )
 -- {
---   return some_fun(arg1, arg2, arg3);
+--   return some_fun(arg1, arg2, *arg3);
 -- }
 -- /* test_edgecasesdistilled_lib_1_Example_get_some_fun */
 -- __attribute__ ((const))
@@ -764,7 +764,8 @@ foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c00
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->
                                HsBindgen.Runtime.LibC.Word32 ->
-                               Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
+                               Ptr (IncompleteArray HsBindgen.Runtime.LibC.Word8) ->
+                               IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 hs_bindgen_57cb99ed92c001ad = fromFFIType hs_bindgen_57cb99ed92c001ad_base
 {-| __C declaration:__ @some_fun@
@@ -775,7 +776,8 @@ hs_bindgen_57cb99ed92c001ad = fromFFIType hs_bindgen_57cb99ed92c001ad_base
 -}
 some_fun :: Ptr A_type_t ->
             HsBindgen.Runtime.LibC.Word32 ->
-            Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
+            Ptr (IncompleteArray HsBindgen.Runtime.LibC.Word8) ->
+            IO HsBindgen.Runtime.LibC.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
@@ -792,7 +794,8 @@ foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a93
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 hs_bindgen_2a91c367a9380a63 :: Ptr A_type_t ->
                                HsBindgen.Runtime.LibC.Word32 ->
-                               Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
+                               Ptr (IncompleteArray HsBindgen.Runtime.LibC.Word8) ->
+                               IO HsBindgen.Runtime.LibC.Int32
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 hs_bindgen_2a91c367a9380a63 = fromFFIType hs_bindgen_2a91c367a9380a63_base
 {-| __C declaration:__ @some_fun@
@@ -803,7 +806,8 @@ hs_bindgen_2a91c367a9380a63 = fromFFIType hs_bindgen_2a91c367a9380a63_base
 -}
 some_fun :: Ptr A_type_t ->
             HsBindgen.Runtime.LibC.Word32 ->
-            Ptr HsBindgen.Runtime.LibC.Word8 -> IO HsBindgen.Runtime.LibC.Int32
+            Ptr (IncompleteArray HsBindgen.Runtime.LibC.Word8) ->
+            IO HsBindgen.Runtime.LibC.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@

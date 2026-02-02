@@ -66,10 +66,10 @@ basicDemo = do
   F.withCAString "Hello, world!" $ \text ->
     F.allocaArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) $ \tempBuffer -> do
       F.allocaArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) $ \qrCode -> do
-        b <- QR.qrcodegen_encodeText (PtrConst.unsafeFromPtr text) tempBuffer qrCode QR.Qrcodegen_Ecc_LOW
+        b <- QR.qrcodegen_encodeText (PtrConst.unsafeFromPtr text) (IA.toPtr tempBuffer) (IA.toPtr qrCode) QR.Qrcodegen_Ecc_LOW
                                      QR.qrcodegen_VERSION_MIN QR.qrcodegen_VERSION_MAX
                                      QR.Qrcodegen_Mask_AUTO (F.fromBool True)
-        qrCodeIA <- fromPtr (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) qrCode
+        qrCodeIA <- IA.peekArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) (IA.toPtr qrCode)
         guard (F.toBool b)
         printQr qrCodeIA
 

@@ -10,6 +10,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
@@ -20,10 +21,10 @@ $(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   , "int32_t hs_bindgen_2a91c367a9380a63 ("
   , "  a_type_t *arg1,"
   , "  uint32_t arg2,"
-  , "  uint8_t *arg3"
+  , "  uint8_t (*arg3)[]"
   , ")"
   , "{"
-  , "  return some_fun(arg1, arg2, arg3);"
+  , "  return some_fun(arg1, arg2, *arg3);"
   , "}"
   ]))
 
@@ -38,7 +39,7 @@ foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a93
 hs_bindgen_2a91c367a9380a63 ::
      Ptr.Ptr A_type_t
   -> HsBindgen.Runtime.LibC.Word32
-  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
+  -> Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8)
   -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_2a91c367a9380a63 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2a91c367a9380a63_base
@@ -54,7 +55,7 @@ some_fun ::
      -- ^ __C declaration:__ @i@
   -> HsBindgen.Runtime.LibC.Word32
      -- ^ __C declaration:__ @j@
-  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
+  -> Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8)
      -- ^ __C declaration:__ @k@
   -> IO HsBindgen.Runtime.LibC.Int32
 some_fun = hs_bindgen_2a91c367a9380a63

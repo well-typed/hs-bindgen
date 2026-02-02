@@ -25,11 +25,11 @@ $(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   , "  return reverse(arg1, arg2);"
   , "}"
   , "void hs_bindgen_2ff371c815d92b04 ("
-  , "  triplet const *arg1,"
-  , "  triplet *arg2"
+  , "  matrix const *arg1,"
+  , "  matrix *arg2"
   , ")"
   , "{"
-  , "  transpose(arg1, arg2);"
+  , "  transpose(*arg1, *arg2);"
   , "}"
   ]))
 
@@ -69,8 +69,8 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 ::
-     HsBindgen.Runtime.PtrConst.PtrConst Triplet
-  -> Ptr.Ptr Triplet
+     HsBindgen.Runtime.PtrConst.PtrConst Matrix
+  -> Ptr.Ptr Matrix
   -> IO ()
 hs_bindgen_2ff371c815d92b04 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2ff371c815d92b04_base
@@ -82,9 +82,9 @@ hs_bindgen_2ff371c815d92b04 =
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose ::
-     HsBindgen.Runtime.PtrConst.PtrConst Triplet
+     HsBindgen.Runtime.PtrConst.PtrConst Matrix
      -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Triplet
+  -> Ptr.Ptr Matrix
      -- ^ __C declaration:__ @output@
   -> IO ()
 transpose = hs_bindgen_2ff371c815d92b04
