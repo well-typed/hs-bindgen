@@ -172,12 +172,15 @@ newtype E
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable E
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure E <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   E unwrapE_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapE_3
+instance StaticSize E
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E
+    where readRaw = \ptr_0 -> pure E <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E unwrapE_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapE_2
+deriving via (EquivStorable E) instance Storable E
 deriving via CUInt instance Prim E
 instance CEnum E
     where type CEnumZ E = CUInt
@@ -312,7 +315,12 @@ newtype TE
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasFFIType, Prim)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim)
 instance TyEq ty (CFieldType TE "unwrapTE") =>
          HasField "unwrapTE" (Ptr TE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTE")
@@ -413,7 +421,12 @@ newtype TTE
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable, HasFFIType, Prim)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim)
 instance TyEq ty (CFieldType TTE "unwrapTTE") =>
          HasField "unwrapTTE" (Ptr TTE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTE")

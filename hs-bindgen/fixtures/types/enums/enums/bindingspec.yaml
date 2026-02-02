@@ -58,9 +58,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: EnumB
   representation:
     newtype:
@@ -76,9 +79,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: EnumC
   representation:
     newtype:
@@ -94,9 +100,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: EnumD_t
   representation:
     newtype:
@@ -112,9 +121,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: First
   representation:
     newtype:
@@ -130,9 +142,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Nonseq
   representation:
     newtype:
@@ -148,8 +163,11 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Packed
   representation:
     newtype:
@@ -165,9 +183,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Same
   representation:
     newtype:
@@ -183,9 +204,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Second
   representation:
     newtype:
@@ -201,6 +225,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

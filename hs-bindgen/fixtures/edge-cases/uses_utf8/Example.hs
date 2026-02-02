@@ -26,6 +26,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -42,23 +43,29 @@ newtype MyEnum = MyEnum
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable MyEnum where
+instance HsBindgen.Runtime.Marshal.StaticSize MyEnum where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw MyEnum where
+
+  readRaw =
     \ptr0 ->
           pure MyEnum
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw MyEnum where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           MyEnum unwrapMyEnum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapMyEnum2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapMyEnum2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable MyEnum instance F.Storable MyEnum
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim MyEnum
 

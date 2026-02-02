@@ -455,12 +455,15 @@ newtype Color_enum
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Color_enum
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Color_enum <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Color_enum unwrapColor_enum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapColor_enum_3
+instance StaticSize Color_enum
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Color_enum
+    where readRaw = \ptr_0 -> pure Color_enum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Color_enum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Color_enum unwrapColor_enum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapColor_enum_2
+deriving via (EquivStorable Color_enum) instance Storable Color_enum
 deriving via CUInt instance Prim Color_enum
 instance CEnum Color_enum
     where type CEnumZ Color_enum = CUInt
@@ -799,12 +802,15 @@ newtype Status_code_t
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Status_code_t
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Status_code_t <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Status_code_t unwrapStatus_code_t_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapStatus_code_t_3
+instance StaticSize Status_code_t
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Status_code_t
+    where readRaw = \ptr_0 -> pure Status_code_t <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Status_code_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Status_code_t unwrapStatus_code_t_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapStatus_code_t_2
+deriving via (EquivStorable Status_code_t) instance Storable Status_code_t
 deriving via CInt instance Prim Status_code_t
 instance CEnum Status_code_t
     where type CEnumZ Status_code_t = CInt

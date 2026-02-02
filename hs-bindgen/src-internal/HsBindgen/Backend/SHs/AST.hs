@@ -58,20 +58,10 @@ data Global =
   | Maybe_nothing
   | Monad_return
   | Monad_seq
-  | StaticSize_class
-  | ReadRaw_class
-  | WriteRaw_class
   | ToFunPtr_class
   | ToFunPtr_toFunPtr
   | FromFunPtr_class
   | FromFunPtr_fromFunPtr
-  | Storable_class
-  | Storable_sizeOf
-  | Storable_alignment
-  | Storable_peekByteOff
-  | Storable_pokeByteOff
-  | Storable_peek
-  | Storable_poke
   | Foreign_Ptr
   | Ptr_constructor
   | Foreign_FunPtr
@@ -88,6 +78,33 @@ data Global =
   | Capi_with
   | Capi_allocaAndPeek
 
+    -- StaticSize
+  | StaticSize_class
+  | StaticSize_staticSizeOf
+  | StaticSize_staticAlignment
+
+    -- ReadRaw
+  | ReadRaw_class
+  | ReadRaw_readRaw
+  | ReadRaw_readRawByteOff
+
+    -- WriteRaw
+  | WriteRaw_class
+  | WriteRaw_writeRaw
+  | WriteRaw_writeRawByteOff
+
+    -- EquivStorable
+  | EquivStorable_type
+
+    -- Storable
+  | Storable_class
+  | Storable_sizeOf
+  | Storable_alignment
+  | Storable_peekByteOff
+  | Storable_pokeByteOff
+  | Storable_peek
+  | Storable_poke
+
     -- Flexible array members
   | Flam_Offset_class
   | Flam_Offset_offset
@@ -100,6 +117,8 @@ data Global =
   | HasCField_fromPtr
   | HasCField_peek
   | HasCField_poke
+  | HasCField_readRaw
+  | HasCField_writeRaw
 
     -- BitfieldPtr
   | HasCBitfield_BitfieldPtr

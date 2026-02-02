@@ -15,6 +15,8 @@ module HsBindgen.Runtime.HasCField (
   , fromPtr
   , peek
   , poke
+  , readRaw
+  , writeRaw
   ) where
 
 import Data.Kind
@@ -24,6 +26,9 @@ import Foreign.Storable hiding (peek, poke)
 import Foreign.Storable qualified
 import GHC.Exts (Proxy#, proxy#)
 import GHC.TypeLits
+
+import HsBindgen.Runtime.Marshal (ReadRaw, WriteRaw)
+import HsBindgen.Runtime.Marshal qualified
 
 -- | Evidence that a C object @a@ has a field with the name @field@.
 --
@@ -123,3 +128,22 @@ poke ::
   -> CFieldType a field
   -> IO ()
 poke field ptr val = Foreign.Storable.poke (fromPtr field ptr) val
+
+-- | Read a field using a pointer to a C object
+{-# INLINE readRaw #-}
+readRaw ::
+     (HasCField a field, ReadRaw (CFieldType a field))
+  => Proxy field
+  -> Ptr a
+  -> IO (CFieldType a field)
+readRaw field ptr = HsBindgen.Runtime.Marshal.readRaw (fromPtr field ptr)
+
+-- | Write a field using a pointer to a C object
+{-# INLINE writeRaw #-}
+writeRaw ::
+     (HasCField a field, WriteRaw (CFieldType a field))
+  => Proxy field
+  -> Ptr a
+  -> CFieldType a field
+  -> IO ()
+writeRaw field ptr = HsBindgen.Runtime.Marshal.writeRaw (fromPtr field ptr)

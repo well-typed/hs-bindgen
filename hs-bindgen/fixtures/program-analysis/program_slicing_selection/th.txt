@@ -51,12 +51,15 @@ newtype FileOperationStatus
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable FileOperationStatus
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure FileOperationStatus <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   FileOperationStatus unwrapFileOperationStatus_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapFileOperationStatus_3
+instance StaticSize FileOperationStatus
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw FileOperationStatus
+    where readRaw = \ptr_0 -> pure FileOperationStatus <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw FileOperationStatus
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       FileOperationStatus unwrapFileOperationStatus_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapFileOperationStatus_2
+deriving via (EquivStorable FileOperationStatus) instance Storable FileOperationStatus
 deriving via CInt instance Prim FileOperationStatus
 instance CEnum FileOperationStatus
     where type CEnumZ FileOperationStatus = CInt

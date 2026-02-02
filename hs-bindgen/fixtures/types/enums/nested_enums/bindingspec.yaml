@@ -31,9 +31,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ExA
   representation:
     record:
@@ -75,6 +78,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

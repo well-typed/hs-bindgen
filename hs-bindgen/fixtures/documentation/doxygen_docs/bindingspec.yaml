@@ -89,9 +89,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Config_t
   representation:
     record:
@@ -241,5 +244,8 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

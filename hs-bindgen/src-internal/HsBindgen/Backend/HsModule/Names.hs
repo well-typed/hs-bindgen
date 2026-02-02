@@ -235,17 +235,14 @@ resolveGlobal :: Global -> ResolvedName
 resolveGlobal = \case
     -- When adding a new global that resolves to a non-qualified identifier, be
     -- sure to reserve the name in "HsBindgen.Backend.Hs.AST.Name".
-    Tuple_type i                  -> tupleResolvedName True  i
-    Tuple_constructor i           -> tupleResolvedName False i
-    Applicative_pure              -> importU 'pure
-    Applicative_seq               -> importU '(<*>)
-    Maybe_just                    -> importQ 'Data.Maybe.Just
-    Maybe_nothing                 -> importQ 'Data.Maybe.Nothing
-    Monad_return                  -> importU 'return
-    Monad_seq                     -> importU '(>>)
-    StaticSize_class              -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
-    ReadRaw_class                 -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
-    WriteRaw_class                -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
+    Tuple_type i        -> tupleResolvedName True  i
+    Tuple_constructor i -> tupleResolvedName False i
+    Applicative_pure    -> importU 'pure
+    Applicative_seq     -> importU '(<*>)
+    Maybe_just          -> importQ 'Data.Maybe.Just
+    Maybe_nothing       -> importQ 'Data.Maybe.Nothing
+    Monad_return        -> importU 'return
+    Monad_seq           -> importU '(>>)
 
     -- TODO: If we use the TH resolution mechanism it is going to pick up
     -- HsBindgen.Runtime.FunPtr.Class which is not exposed and leads to
@@ -254,55 +251,75 @@ resolveGlobal = \case
     --
     -- However, once #1061 is addressed this should no longer be a problem
     --
-    ToFunPtr_class                -> let s = "ToFunPtr"
-                                         m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName{
-                                            string   = s
-                                          , typ      = nameType s
-                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                          }
-    ToFunPtr_toFunPtr             -> let s = "toFunPtr"
-                                         m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName{
-                                            string   = s
-                                          , typ      = nameType s
-                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                          }
-    FromFunPtr_class              -> let s = "FromFunPtr"
-                                         m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName{
-                                            string   = s
-                                          , typ      = nameType s
-                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                          }
-    FromFunPtr_fromFunPtr         -> let s = "fromFunPtr"
-                                         m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName{
-                                            string   = s
-                                          , typ      = nameType s
-                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                          }
+    ToFunPtr_class        -> let s = "ToFunPtr"
+                                 m = Just "HsBindgen.Runtime.FunPtr"
+                              in ResolvedName{
+                                    string   = s
+                                  , typ      = nameType s
+                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
+                                  }
+    ToFunPtr_toFunPtr     -> let s = "toFunPtr"
+                                 m = Just "HsBindgen.Runtime.FunPtr"
+                              in ResolvedName{
+                                    string   = s
+                                  , typ      = nameType s
+                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
+                                  }
+    FromFunPtr_class      -> let s = "FromFunPtr"
+                                 m = Just "HsBindgen.Runtime.FunPtr"
+                              in ResolvedName{
+                                    string   = s
+                                  , typ      = nameType s
+                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
+                                  }
+    FromFunPtr_fromFunPtr -> let s = "fromFunPtr"
+                                 m = Just "HsBindgen.Runtime.FunPtr"
+                              in ResolvedName{
+                                    string   = s
+                                  , typ      = nameType s
+                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
+                                  }
 
-    Storable_class                -> importQ ''Foreign.Storable
-    Storable_sizeOf               -> importQ 'Foreign.sizeOf
-    Storable_alignment            -> importQ 'Foreign.alignment
-    Storable_peekByteOff          -> importQ 'Foreign.peekByteOff
-    Storable_pokeByteOff          -> importQ 'Foreign.pokeByteOff
-    Storable_peek                 -> importQ 'Foreign.peek
-    Storable_poke                 -> importQ 'Foreign.poke
-    Foreign_Ptr                   -> importQ ''Foreign.Ptr
-    Ptr_constructor               -> importQ ''GHC.Ptr.Ptr
-    Foreign_FunPtr                -> importQ ''Foreign.FunPtr
-    Foreign_plusPtr               -> importQ 'Foreign.plusPtr
-    Foreign_StablePtr             -> importQ ''Foreign.StablePtr
-    ConstantArray                 -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
-    IncompleteArray               -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
-    IO_type                       -> importU ''IO
-    CharValue_tycon               -> importQ ''CExpr.Runtime.CharValue
-    CharValue_constructor         -> importQ 'CExpr.Runtime.CharValue
-    CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
-    Capi_with                     -> importQ 'Foreign.with
-    Capi_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
+    Foreign_Ptr           -> importQ ''Foreign.Ptr
+    Ptr_constructor       -> importQ ''GHC.Ptr.Ptr
+    Foreign_FunPtr        -> importQ ''Foreign.FunPtr
+    Foreign_plusPtr       -> importQ 'Foreign.plusPtr
+    Foreign_StablePtr     -> importQ ''Foreign.StablePtr
+    ConstantArray         -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
+    IncompleteArray       -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
+    IO_type               -> importU ''IO
+    CharValue_tycon       -> importQ ''CExpr.Runtime.CharValue
+    CharValue_constructor -> importQ 'CExpr.Runtime.CharValue
+    CharValue_fromAddr    -> importQ 'CExpr.Runtime.charValueFromAddr
+    Capi_with             -> importQ 'Foreign.with
+    Capi_allocaAndPeek    -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
+
+    -- StaticSize
+    StaticSize_class           -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
+    StaticSize_staticSizeOf    -> importQ 'HsBindgen.Runtime.Marshal.staticSizeOf
+    StaticSize_staticAlignment -> importQ 'HsBindgen.Runtime.Marshal.staticAlignment
+
+    -- ReadRaw
+    ReadRaw_class          -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
+    ReadRaw_readRaw        -> importQ 'HsBindgen.Runtime.Marshal.readRaw
+    ReadRaw_readRawByteOff -> importQ 'HsBindgen.Runtime.Marshal.readRawByteOff
+
+    -- WriteRaw
+    WriteRaw_class           -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
+    WriteRaw_writeRaw        -> importQ 'HsBindgen.Runtime.Marshal.writeRaw
+    WriteRaw_writeRawByteOff -> importQ 'HsBindgen.Runtime.Marshal.writeRawByteOff
+
+    -- EquivStorable
+    EquivStorable_type -> importQ ''HsBindgen.Runtime.Marshal.EquivStorable
+
+    -- Storable
+    Storable_class       -> importQ ''Foreign.Storable
+    Storable_sizeOf      -> importQ 'Foreign.sizeOf
+    Storable_alignment   -> importQ 'Foreign.alignment
+    Storable_peekByteOff -> importQ 'Foreign.peekByteOff
+    Storable_pokeByteOff -> importQ 'Foreign.pokeByteOff
+    Storable_peek        -> importQ 'Foreign.peek
+    Storable_poke        -> importQ 'Foreign.poke
 
     -- Flexible array members
     Flam_Offset_class  -> importQ ''HsBindgen.Runtime.FLAM.Offset
@@ -316,6 +333,8 @@ resolveGlobal = \case
     HasCField_fromPtr    -> importQ 'HsBindgen.Runtime.HasCField.fromPtr
     HasCField_peek       -> importQ 'HsBindgen.Runtime.HasCField.peek
     HasCField_poke       -> importQ 'HsBindgen.Runtime.HasCField.poke
+    HasCField_readRaw    -> importQ 'HsBindgen.Runtime.HasCField.readRaw
+    HasCField_writeRaw   -> importQ 'HsBindgen.Runtime.HasCField.writeRaw
 
     -- BitfieldPtr
     HasCBitfield_BitfieldPtr     -> importQ ''HsBindgen.Runtime.BitfieldPtr.BitfieldPtr

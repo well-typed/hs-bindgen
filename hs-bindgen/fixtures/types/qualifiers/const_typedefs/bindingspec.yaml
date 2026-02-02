@@ -55,9 +55,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: I
   representation:
     newtype:
@@ -110,8 +113,11 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TI
   representation:
     newtype:
@@ -167,8 +173,11 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTI
   representation:
     newtype:

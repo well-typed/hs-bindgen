@@ -38,5 +38,8 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -99,6 +99,7 @@ getInstances instanceMap name = aux
           -- TODO https://github.com/well-typed/hs-bindgen/issues/1572:
           -- Instances for 'WithFlam'.
           HsWithFlam{} -> Set.empty
+          HsEquivStorable{} -> Set.empty
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection

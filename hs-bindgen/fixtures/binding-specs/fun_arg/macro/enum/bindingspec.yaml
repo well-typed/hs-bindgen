@@ -27,8 +27,11 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     newtype:
@@ -43,8 +46,11 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyEnum
   representation:
     newtype:
@@ -60,6 +66,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

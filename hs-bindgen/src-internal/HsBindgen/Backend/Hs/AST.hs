@@ -45,6 +45,12 @@ module HsBindgen.Backend.Hs.AST (
     -- ** 'FromFunPtr'
   , FromFunPtrInstance(..)
   , ForeignImportDynamic(..)
+    -- ** @StaticSize@, @ReadRaw@, @WriteRaw@
+  , StaticSizeInstance(..)
+  , ReadRawInstance(..)
+  , WriteRawInstance(..)
+  , ReadRawCField(..)
+  , WriteRawCField(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekCField(..)
@@ -265,6 +271,9 @@ data DefineInstance = DefineInstance{
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
 data InstanceDecl where
+    InstanceStaticSize :: Struct n -> StaticSizeInstance -> InstanceDecl
+    InstanceReadRaw :: Struct n -> ReadRawInstance -> InstanceDecl
+    InstanceWriteRaw :: Struct n -> WriteRawInstance -> InstanceDecl
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
     InstancePrim :: Struct n -> PrimInstance -> InstanceDecl
     InstanceHasCField :: HasCFieldInstance -> InstanceDecl
@@ -408,6 +417,50 @@ data ForeignImportDynamic = ForeignImportDynamic {
     }
     deriving stock (Generic, Show)
 
+{-------------------------------------------------------------------------------
+  @StaticSize@, @ReadRaw@, @WriteRaw@
+-------------------------------------------------------------------------------}
+
+-- | 'HsBindgen.Runtime.Marshal.StaticSize' instance
+--
+-- Currently this models storable instances for structs /only/.
+data StaticSizeInstance = StaticSizeInstance{
+      staticSizeOf    :: Int
+    , staticAlignment :: Int
+    }
+  deriving stock (Generic, Show)
+
+-- | 'HsBindgen.Runtime.Marshal.ReadRaw' instance
+--
+-- Currently this models storable instances for structs /only/.
+data ReadRawInstance = ReadRawInstance{
+      readRaw :: Lambda (Ap StructCon ReadRawCField) EmptyCtx
+    }
+  deriving stock (Generic, Show)
+
+-- | 'HsBindgen.Runtime.Marshal.WriteRaw' instance
+--
+-- Currently this models storable instances for structs /only/.
+data WriteRawInstance = WriteRawInstance{
+      writeRaw :: Lambda (Lambda (ElimStruct (Seq WriteRawCField))) EmptyCtx
+    }
+  deriving stock (Generic, Show)
+
+-- | A call to 'readRawCField', 'readRawCBitfield', or 'readRawByteOff'
+type ReadRawCField :: Ctx -> Star
+data ReadRawCField ctx =
+    ReadRawCField HsType (Idx ctx)
+  | ReadRawCBitfield HsType (Idx ctx)
+  | ReadRawByteOff (Idx ctx) Int
+  deriving stock (Generic, Show)
+
+-- | A call to 'writeRawCField', 'writeRawCBitfield', or 'writeRawByteOff'
+type WriteRawCField :: Ctx -> Star
+data WriteRawCField ctx =
+    WriteRawCField HsType (Idx ctx) (Idx ctx)
+  | WriteRawCBitfield HsType (Idx ctx) (Idx ctx)
+  | WriteRawByteOff (Idx ctx) Int (Idx ctx)
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   'Storable'

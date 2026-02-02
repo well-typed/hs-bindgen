@@ -27,6 +27,7 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -43,23 +44,29 @@ newtype FileOperationStatus = FileOperationStatus
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable FileOperationStatus where
+instance HsBindgen.Runtime.Marshal.StaticSize FileOperationStatus where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw FileOperationStatus where
+
+  readRaw =
     \ptr0 ->
           pure FileOperationStatus
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationStatus where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           FileOperationStatus unwrapFileOperationStatus2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable FileOperationStatus instance F.Storable FileOperationStatus
 
 deriving via FC.CInt instance Data.Primitive.Types.Prim FileOperationStatus
 

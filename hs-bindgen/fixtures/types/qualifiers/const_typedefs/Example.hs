@@ -141,22 +141,29 @@ newtype E = E
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable E where
+instance HsBindgen.Runtime.Marshal.StaticSize E where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw E where
+
+  readRaw =
     \ptr0 ->
           pure E
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw E where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          E unwrapE2 -> F.pokeByteOff ptr0 (0 :: Int) unwrapE2
+          E unwrapE2 ->
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapE2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable E instance F.Storable E
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim E
 
@@ -302,7 +309,7 @@ newtype TE = TE
   { unwrapTE :: E
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TE) "unwrapTE")
          ) => GHC.Records.HasField "unwrapTE" (Ptr.Ptr TE) (Ptr.Ptr ty) where
@@ -397,7 +404,7 @@ newtype TTE = TTE
   { unwrapTTE :: TE
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTE) "unwrapTTE")
          ) => GHC.Records.HasField "unwrapTTE" (Ptr.Ptr TTE) (Ptr.Ptr ty) where

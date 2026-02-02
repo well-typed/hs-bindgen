@@ -132,23 +132,29 @@ newtype Color_enum = Color_enum
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Color_enum where
+instance HsBindgen.Runtime.Marshal.StaticSize Color_enum where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Color_enum where
+
+  readRaw =
     \ptr0 ->
           pure Color_enum
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Color_enum where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Color_enum unwrapColor_enum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapColor_enum2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapColor_enum2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Color_enum instance F.Storable Color_enum
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Color_enum
 
@@ -521,23 +527,29 @@ newtype Status_code_t = Status_code_t
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Status_code_t where
+instance HsBindgen.Runtime.Marshal.StaticSize Status_code_t where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Status_code_t where
+
+  readRaw =
     \ptr0 ->
           pure Status_code_t
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Status_code_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Status_code_t unwrapStatus_code_t2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapStatus_code_t2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapStatus_code_t2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Status_code_t instance F.Storable Status_code_t
 
 deriving via FC.CInt instance Data.Primitive.Types.Prim Status_code_t
 

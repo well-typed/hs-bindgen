@@ -151,23 +151,29 @@ newtype Some_enum = Some_enum
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Some_enum where
+instance HsBindgen.Runtime.Marshal.StaticSize Some_enum where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Some_enum where
+
+  readRaw =
     \ptr0 ->
           pure Some_enum
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Some_enum where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Some_enum unwrapSome_enum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapSome_enum2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapSome_enum2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_enum instance F.Storable Some_enum
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Some_enum
 

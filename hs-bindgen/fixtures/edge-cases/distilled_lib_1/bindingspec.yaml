@@ -80,9 +80,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: A_typedef_struct_t
   representation:
     record:
@@ -120,9 +123,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Another_typedef_struct_t
   representation:
     record:

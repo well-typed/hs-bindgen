@@ -81,6 +81,12 @@ translateDeclTypSyn d = DTypSyn $ TypeSynonym {
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl defInst =
     case defInst.instanceDecl of
+      Hs.InstanceStaticSize struct i ->
+        DInst $ translateStaticSizeInstance struct i defInst.comment
+      Hs.InstanceReadRaw struct i ->
+        DInst $ translateReadRawInstance struct i defInst.comment
+      Hs.InstanceWriteRaw struct i ->
+        DInst $ translateWriteRawInstance struct i defInst.comment
       Hs.InstanceStorable struct i ->
         DInst $ translateStorableInstance struct i defInst.comment
       Hs.InstancePrim struct i ->
@@ -306,27 +312,113 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
-    Hs.HsPrimType t                  -> TGlobal (PrimType t)
-    Hs.HsTypRef r _                  -> TCon r
-    Hs.HsConstArray n t              -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
-    Hs.HsIncompleteArray t           -> TGlobal IncompleteArray `TApp` (translateType t)
-    Hs.HsPtr t                       -> TApp (TGlobal Foreign_Ptr) (translateType t)
-    Hs.HsFunPtr t                    -> TApp (TGlobal Foreign_FunPtr) (translateType t)
-    Hs.HsStablePtr t                 -> TApp (TGlobal Foreign_StablePtr) (translateType t)
-    Hs.HsPtrConst t                  -> TApp (TGlobal PtrConst_type) (translateType t)
-    Hs.HsIO t                        -> TApp (TGlobal IO_type) (translateType t)
-    Hs.HsFun a b                     -> TFun (translateType a) (translateType b)
-    Hs.HsExtBinding r c hs _         -> TExt r c hs
-    Hs.HsByteArray                   -> TGlobal ByteArray_type
-    Hs.HsSizedByteArray n m          -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-    Hs.HsBlock t                     -> TGlobal Block_type `TApp` translateType t
-    Hs.HsComplexType t               -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
-    Hs.HsStrLit s                    -> TStrLit s
-    Hs.HsWithFlam x y -> TApp
-                                          (TApp
-                                            (TGlobal WithFlam)
-                                            (translateType x))
-                                          (translateType y)
+    Hs.HsPrimType t          -> TGlobal (PrimType t)
+    Hs.HsTypRef r _          -> TCon r
+    Hs.HsConstArray n t      -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
+    Hs.HsIncompleteArray t   -> TGlobal IncompleteArray `TApp` (translateType t)
+    Hs.HsPtr t               -> TApp (TGlobal Foreign_Ptr) (translateType t)
+    Hs.HsFunPtr t            -> TApp (TGlobal Foreign_FunPtr) (translateType t)
+    Hs.HsStablePtr t         -> TApp (TGlobal Foreign_StablePtr) (translateType t)
+    Hs.HsPtrConst t          -> TApp (TGlobal PtrConst_type) (translateType t)
+    Hs.HsIO t                -> TApp (TGlobal IO_type) (translateType t)
+    Hs.HsFun a b             -> TFun (translateType a) (translateType b)
+    Hs.HsExtBinding r c hs _ -> TExt r c hs
+    Hs.HsByteArray           -> TGlobal ByteArray_type
+    Hs.HsSizedByteArray n m  -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+    Hs.HsBlock t             -> TGlobal Block_type `TApp` translateType t
+    Hs.HsComplexType t       -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
+    Hs.HsStrLit s            -> TStrLit s
+    Hs.HsWithFlam x y        ->
+      TApp (TApp (TGlobal WithFlam) (translateType x)) (translateType y)
+    Hs.HsEquivStorable t     -> TApp (TGlobal EquivStorable_type) (translateType t)
+
+{-------------------------------------------------------------------------------
+  @StaticSize@, @ReadRaw@, @WriteRaw@
+-------------------------------------------------------------------------------}
+
+translateStaticSizeInstance ::
+     Hs.Struct n
+  -> Hs.StaticSizeInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateStaticSizeInstance struct inst mbComment = Instance{
+      clss    = StaticSize_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [
+          (StaticSize_staticSizeOf    , EUnusedLam $ EInt inst.staticSizeOf)
+        , (StaticSize_staticAlignment , EUnusedLam $ EInt inst.staticAlignment)
+        ]
+    }
+
+translateReadRawInstance ::
+     Hs.Struct n
+  -> Hs.ReadRawInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateReadRawInstance struct inst mbComment = Instance{
+      clss    = ReadRaw_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [(ReadRaw_readRaw, readRaw)]
+    }
+  where
+    readRaw = lambda (idiom structCon translateReadRawCField) inst.readRaw
+
+translateWriteRawInstance ::
+     Hs.Struct n
+  -> Hs.WriteRawInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateWriteRawInstance struct inst mbComment = Instance{
+      clss    = WriteRaw_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [(WriteRaw_writeRaw, writeRaw)]
+    }
+  where
+    writeRaw =
+      lambda
+        (lambda (translateElimStruct (doAll translateWriteRawCField)))
+        inst.writeRaw
+
+translateReadRawCField :: Hs.ReadRawCField ctx -> SExpr ctx
+translateReadRawCField = \case
+    Hs.ReadRawCField field ptr ->
+      appMany HasCField_readRaw [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        ]
+    Hs.ReadRawCBitfield field ptr ->
+      appMany HasCBitfield_peek [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        ]
+    Hs.ReadRawByteOff ptr i ->
+      appMany ReadRaw_readRawByteOff [EBound ptr, EInt i]
+
+translateWriteRawCField :: Hs.WriteRawCField ctx -> SExpr ctx
+translateWriteRawCField = \case
+    Hs.WriteRawCField field ptr x ->
+      appMany HasCField_writeRaw [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        , EBound x
+        ]
+    Hs.WriteRawCBitfield field ptr x ->
+      appMany HasCBitfield_poke [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        , EBound x
+        ]
+    Hs.WriteRawByteOff ptr i x ->
+      appMany WriteRaw_writeRawByteOff [EBound ptr, EInt i, EBound x]
 
 {-------------------------------------------------------------------------------
   'Storable'

@@ -26,6 +26,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -42,23 +43,29 @@ newtype EnumA = EnumA
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable EnumA where
+instance HsBindgen.Runtime.Marshal.StaticSize EnumA where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw EnumA where
+
+  readRaw =
     \ptr0 ->
           pure EnumA
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw EnumA where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           EnumA unwrapEnumA2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumA2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapEnumA2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable EnumA instance F.Storable EnumA
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumA
 
@@ -241,23 +248,29 @@ newtype ExB_fieldB1 = ExB_fieldB1
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable ExB_fieldB1 where
+instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1 where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExB_fieldB1 where
+
+  readRaw =
     \ptr0 ->
           pure ExB_fieldB1
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExB_fieldB1 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB_fieldB1 unwrapExB_fieldB12 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapExB_fieldB12
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapExB_fieldB12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB_fieldB1 instance F.Storable ExB_fieldB1
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim ExB_fieldB1
 

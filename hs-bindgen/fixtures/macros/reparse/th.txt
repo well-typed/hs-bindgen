@@ -2574,12 +2574,15 @@ newtype Some_enum
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Some_enum
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Some_enum <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Some_enum unwrapSome_enum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapSome_enum_3
+instance StaticSize Some_enum
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Some_enum
+    where readRaw = \ptr_0 -> pure Some_enum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Some_enum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Some_enum unwrapSome_enum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapSome_enum_2
+deriving via (EquivStorable Some_enum) instance Storable Some_enum
 deriving via CUInt instance Prim Some_enum
 instance CEnum Some_enum
     where type CEnumZ Some_enum = CUInt

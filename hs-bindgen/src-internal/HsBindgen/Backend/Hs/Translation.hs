@@ -508,17 +508,20 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
           , Just Inst.HasField
           , Just Inst.Prim
           , Just Inst.Read
+          , Just Inst.ReadRaw
           , Inst.SequentialCEnum <$ mSeqBounds
           , Just Inst.Show
+          , Just Inst.StaticSize
           , Just Inst.Storable
+          , Just Inst.WriteRaw
           ]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
         Hs.DeclNewtype nt
-        : storableDecl
-        : primDecl
+        : marshalDecls
+        ++ primDecl
         : optDecls
         ++ cEnumInstanceDecls
         ++ typedefFieldDecls nt
@@ -534,20 +537,40 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
             , comment   = Nothing
             }
 
-        storableDecl :: Hs.Decl
-        storableDecl = Hs.DeclDefineInstance
-          Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
-                sizeOf    = enum.sizeof
-              , alignment = enum.alignment
-              , peek      = Hs.Lambda "ptr" $
-                  Hs.Ap (Hs.StructCon hsStruct) [ Hs.PeekByteOff IZ 0 ]
-              , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                  Hs.ElimStruct IZ hsStruct (AS AZ) $
-                    Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
+        marshalDecls :: [Hs.Decl]
+        marshalDecls = [
+            Hs.DeclDefineInstance Hs.DefineInstance{
+                comment      = Nothing
+              , instanceDecl =
+                  Hs.InstanceStaticSize hsStruct Hs.StaticSizeInstance{
+                      staticSizeOf    = enum.sizeof
+                    , staticAlignment = enum.alignment
+                    }
               }
-          }
+          , Hs.DeclDefineInstance Hs.DefineInstance{
+                comment      = Nothing
+              , instanceDecl =
+                  Hs.InstanceReadRaw hsStruct Hs.ReadRawInstance{
+                      readRaw = Hs.Lambda "ptr" $
+                        Hs.Ap (Hs.StructCon hsStruct) [ Hs.ReadRawByteOff IZ 0 ]
+                    }
+              }
+          , Hs.DeclDefineInstance Hs.DefineInstance{
+                comment      = Nothing
+              , instanceDecl =
+                  Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
+                      writeRaw = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                        Hs.ElimStruct IZ hsStruct (AS AZ) $
+                          Hs.Seq [ Hs.WriteRawByteOff I2 0 IZ ]
+                    }
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef nt.name Nothing))
+              , clss     = Inst.Storable
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          ]
 
         primDecl :: Hs.Decl
         primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{

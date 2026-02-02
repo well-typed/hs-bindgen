@@ -195,9 +195,12 @@ instance Default SupportedInstances where
           , mkDef Ord             Dependent   Stock     []
           , mkDef Prim            Independent HsBindgen []
           , mkDef Read            Independent HsBindgen [Newtype, Stock]
+          , mkDef ReadRaw         Independent HsBindgen []
           , mkDef SequentialCEnum Independent HsBindgen []
           , mkDef Show            Independent HsBindgen [Newtype, Stock]
+          , mkDef StaticSize      Independent HsBindgen []
           , mkDef Storable        Independent HsBindgen []
+          , mkDef WriteRaw        Independent HsBindgen []
           ]
       , typedef = Map.fromList [
             mkDef Bitfield   Dependent   Newtype   []

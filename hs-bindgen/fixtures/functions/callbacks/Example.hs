@@ -939,23 +939,29 @@ newtype Processor_mode = Processor_mode
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Processor_mode where
+instance HsBindgen.Runtime.Marshal.StaticSize Processor_mode where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Processor_mode where
+
+  readRaw =
     \ptr0 ->
           pure Processor_mode
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Processor_mode where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Processor_mode unwrapProcessor_mode2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapProcessor_mode2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapProcessor_mode2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Processor_mode instance F.Storable Processor_mode
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Processor_mode
 

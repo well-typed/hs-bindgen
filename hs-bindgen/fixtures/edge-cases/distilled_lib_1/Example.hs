@@ -190,23 +190,29 @@ newtype Another_typedef_enum_e = Another_typedef_enum_e
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Another_typedef_enum_e where
+instance HsBindgen.Runtime.Marshal.StaticSize Another_typedef_enum_e where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Another_typedef_enum_e where
+
+  readRaw =
     \ptr0 ->
           pure Another_typedef_enum_e
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Another_typedef_enum_e where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Another_typedef_enum_e unwrapAnother_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapAnother_typedef_enum_e2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnother_typedef_enum_e2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Another_typedef_enum_e instance F.Storable Another_typedef_enum_e
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Another_typedef_enum_e
 
@@ -685,23 +691,29 @@ newtype A_typedef_enum_e = A_typedef_enum_e
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable A_typedef_enum_e where
+instance HsBindgen.Runtime.Marshal.StaticSize A_typedef_enum_e where
 
-  sizeOf = \_ -> (1 :: Int)
+  staticSizeOf = \_ -> (1 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw A_typedef_enum_e where
+
+  readRaw =
     \ptr0 ->
           pure A_typedef_enum_e
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw A_typedef_enum_e where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           A_typedef_enum_e unwrapA_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapA_typedef_enum_e2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapA_typedef_enum_e2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable A_typedef_enum_e instance F.Storable A_typedef_enum_e
 
 deriving via FC.CUChar instance Data.Primitive.Types.Prim A_typedef_enum_e
 

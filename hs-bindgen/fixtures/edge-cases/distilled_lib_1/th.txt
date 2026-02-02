@@ -134,12 +134,15 @@ newtype Another_typedef_enum_e
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Another_typedef_enum_e
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Another_typedef_enum_e unwrapAnother_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapAnother_typedef_enum_e_3
+instance StaticSize Another_typedef_enum_e
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Another_typedef_enum_e
+    where readRaw = \ptr_0 -> pure Another_typedef_enum_e <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Another_typedef_enum_e
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Another_typedef_enum_e unwrapAnother_typedef_enum_e_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapAnother_typedef_enum_e_2
+deriving via (EquivStorable Another_typedef_enum_e) instance Storable Another_typedef_enum_e
 deriving via CUInt instance Prim Another_typedef_enum_e
 instance CEnum Another_typedef_enum_e
     where type CEnumZ Another_typedef_enum_e = CUInt
@@ -612,12 +615,15 @@ newtype A_typedef_enum_e
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable A_typedef_enum_e
-    where sizeOf = \_ -> 1 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure A_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   A_typedef_enum_e unwrapA_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapA_typedef_enum_e_3
+instance StaticSize A_typedef_enum_e
+    where staticSizeOf = \_ -> 1 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw A_typedef_enum_e
+    where readRaw = \ptr_0 -> pure A_typedef_enum_e <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw A_typedef_enum_e
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       A_typedef_enum_e unwrapA_typedef_enum_e_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapA_typedef_enum_e_2
+deriving via (EquivStorable A_typedef_enum_e) instance Storable A_typedef_enum_e
 deriving via CUChar instance Prim A_typedef_enum_e
 instance CEnum A_typedef_enum_e
     where type CEnumZ A_typedef_enum_e = CUChar

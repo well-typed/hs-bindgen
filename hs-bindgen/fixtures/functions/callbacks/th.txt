@@ -1261,12 +1261,15 @@ newtype Processor_mode
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Processor_mode
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Processor_mode <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Processor_mode unwrapProcessor_mode_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapProcessor_mode_3
+instance StaticSize Processor_mode
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Processor_mode
+    where readRaw = \ptr_0 -> pure Processor_mode <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Processor_mode
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Processor_mode unwrapProcessor_mode_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapProcessor_mode_2
+deriving via (EquivStorable Processor_mode) instance Storable Processor_mode
 deriving via CUInt instance Prim Processor_mode
 instance CEnum Processor_mode
     where type CEnumZ Processor_mode = CUInt
