@@ -58,5 +58,7 @@ hstypes:
       fields:
       - unwrapY
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable

@@ -115,6 +115,8 @@ hstypes:
       fields:
       - unwrapData_union_t
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable
 - hsname: Data_union_t_as_parts

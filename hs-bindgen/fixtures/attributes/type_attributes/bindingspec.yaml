@@ -171,5 +171,7 @@ hstypes:
       fields:
       - unwrapWait_status_ptr_t
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable

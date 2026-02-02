@@ -176,10 +176,10 @@ instance Default SupportedInstances where
           , mkDef Storable     Dependent   HsBindgen []
           ]
       , union = Map.fromList [
-          --   mkDef HasCBitField Independent HsBindgen []
-          -- , mkDef HasCField    Independent HsBindgen []
-          -- , mkDef HasField     Independent HsBindgen []
-            mkDef Prim         Independent HsBindgen []
+            mkDef HasCBitField Independent HsBindgen []
+          , mkDef HasCField    Independent HsBindgen []
+          , mkDef HasField     Independent HsBindgen []
+          , mkDef Prim         Independent HsBindgen []
           , mkDef Storable     Independent HsBindgen []
           ]
       , enum = Map.fromList [

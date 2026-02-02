@@ -41,6 +41,8 @@ hstypes:
       fields:
       - unwrapAnonA
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable
 - hsname: AnonA_polar
@@ -131,6 +133,8 @@ hstypes:
       fields:
       - unwrapDimPayload
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable
 - hsname: DimPayloadB
@@ -140,5 +144,7 @@ hstypes:
       fields:
       - unwrapDimPayloadB
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable

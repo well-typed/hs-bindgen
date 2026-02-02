@@ -28,5 +28,7 @@ hstypes:
       fields:
       - unwrapU
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable

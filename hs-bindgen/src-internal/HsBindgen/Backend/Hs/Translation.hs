@@ -278,9 +278,14 @@ unionDecs haddockConfig info union spec = do
         candidateInsts = Set.empty
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.fromList [
-            Inst.Prim
-          , Inst.Storable
+        knownInsts = Set.fromList $ catMaybes [
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
+          -- Should correctly detect 'Inst.HasCBitField' and 'Inst.HasCField'
+          -- when bit-fields in unions are supported.
+            if null union.fields then Nothing else Just Inst.HasCField
+          , if null union.fields then Nothing else Just Inst.HasField
+          , Just Inst.Prim
+          , Just Inst.Storable
           ]
 
     -- everything in aux is state-dependent

@@ -37,6 +37,8 @@ hstypes:
       fields:
       - unwrapNamed_union
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable
 - hsname: Opaque

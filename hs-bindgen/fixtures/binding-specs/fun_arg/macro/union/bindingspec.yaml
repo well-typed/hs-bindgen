@@ -42,5 +42,7 @@ hstypes:
       fields:
       - unwrapMyUnion
   instances:
+  - HasCField
+  - HasField
   - Prim
   - Storable
