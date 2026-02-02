@@ -1,4 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeApplications #-}
 
 -- | Function pointer utilities and type class for converting Haskell functions
@@ -6,7 +5,6 @@
 --
 -- This module provides a type class 'ToFunPtr' that allows for a uniform
 -- interface to convert Haskell functions to C function pointers.
---
 module HsBindgen.Runtime.FunPtr.Class (
     -- * Type class
     ToFunPtr(..)
