@@ -20,9 +20,11 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - FromFunPtr
   - HasCField
   - HasFFIType
   - HasField
+  - ToFunPtr
 - hsname: B
   representation:
     newtype:

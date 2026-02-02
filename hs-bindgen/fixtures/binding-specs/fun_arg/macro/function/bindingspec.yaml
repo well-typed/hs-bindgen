@@ -40,6 +40,8 @@ hstypes:
       fields:
       - unwrapMyFunction
   instances:
+  - FromFunPtr
   - HasCField
   - HasFFIType
   - HasField
+  - ToFunPtr

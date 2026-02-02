@@ -662,7 +662,19 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
         candidateInsts = Hs.getCandidateInsts supInsts
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.fromList [Inst.HasCField, Inst.HasField]
+        knownInsts = Set.fromList $ catMaybes [
+            Inst.FromFunPtr <$ mFunPtr
+          , Just Inst.HasCField
+          , Just Inst.HasField
+          , Inst.ToFunPtr <$ mFunPtr
+          ]
+
+        -- See comment in 'newtypeWrapper` below
+        mFunPtr :: Maybe ()
+        mFunPtr = case typedef.typ of
+          C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
+            Just ()
+          _otherwise -> Nothing
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]

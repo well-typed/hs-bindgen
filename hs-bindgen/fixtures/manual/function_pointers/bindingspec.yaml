@@ -43,6 +43,8 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
+  - FromFunPtr
   - HasCField
   - HasFFIType
   - HasField
+  - ToFunPtr

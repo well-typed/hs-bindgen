@@ -195,6 +195,7 @@ translateTypeClass = \case
     Inst.FiniteBits      -> TGlobal FiniteBits_class
     Inst.Floating        -> TGlobal Floating_class
     Inst.Fractional      -> TGlobal Fractional_class
+    Inst.FromFunPtr      -> TGlobal FromFunPtr_class
     Inst.HasCBitField    -> TGlobal HasCBitfield_class
     Inst.HasCField       -> TGlobal HasCField_class
     Inst.HasFFIType      -> TGlobal HasFFIType_class
@@ -214,6 +215,7 @@ translateTypeClass = \case
     Inst.Show            -> TGlobal Show_class
     Inst.StaticSize      -> TGlobal StaticSize_class
     Inst.Storable        -> TGlobal Storable_class
+    Inst.ToFunPtr        -> TGlobal ToFunPtr_class
     Inst.WriteRaw        -> TGlobal WriteRaw_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl

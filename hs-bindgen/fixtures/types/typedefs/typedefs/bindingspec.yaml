@@ -72,9 +72,11 @@ hstypes:
       fields:
       - unwrapG1
   instances:
+  - FromFunPtr
   - HasCField
   - HasFFIType
   - HasField
+  - ToFunPtr
 - hsname: G2
   representation:
     newtype:
@@ -96,9 +98,11 @@ hstypes:
       fields:
       - unwrapH1
   instances:
+  - FromFunPtr
   - HasCField
   - HasFFIType
   - HasField
+  - ToFunPtr
 - hsname: H2
   representation:
     newtype:
@@ -130,9 +134,11 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
+  - FromFunPtr
   - HasCField
   - HasFFIType
   - HasField
+  - ToFunPtr
 - hsname: Intptr
   representation:
     newtype:
@@ -179,6 +185,8 @@ hstypes:
       fields:
       - unwrapNonFunctionPointer_Function
   instances:
+  - FromFunPtr
   - HasCField
   - HasFFIType
   - HasField
+  - ToFunPtr

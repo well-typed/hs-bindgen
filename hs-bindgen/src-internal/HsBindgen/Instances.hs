@@ -40,6 +40,7 @@ data TypeClass =
   | Flam_Offset
   | Floating
   | Fractional
+  | FromFunPtr
   | HasCBitField  -- Indicates instances for all bit fields
   | HasCField     -- Indicates instances for all non-bit fields
   | HasFFIType
@@ -58,6 +59,7 @@ data TypeClass =
   | Show
   | StaticSize
   | Storable
+  | ToFunPtr
   | WriteRaw
   deriving stock (Eq, Generic, Read, Show)
 
@@ -206,6 +208,7 @@ instance Default SupportedInstances where
           , mkDef FiniteBits Dependent   Newtype   []
           , mkDef Floating   Dependent   Newtype   []
           , mkDef Fractional Dependent   Newtype   []
+          , mkDef FromFunPtr Independent HsBindgen []
           , mkDef HasCField  Independent HsBindgen []
           , mkDef HasFFIType Dependent   Newtype   []
           , mkDef HasField   Independent HsBindgen []
@@ -220,6 +223,7 @@ instance Default SupportedInstances where
           , mkDef RealFrac   Dependent   Newtype   []
           , mkDef Show       Dependent   Stock     [Newtype]
           , mkDef Storable   Dependent   Newtype   []
+          , mkDef ToFunPtr   Independent HsBindgen []
           ]
       }
     where
