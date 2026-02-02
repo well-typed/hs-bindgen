@@ -83,7 +83,10 @@ newtype Adio'0301s
            __exported by:__ @edge-cases\/adios.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -116,7 +119,10 @@ newtype C数字
            __exported by:__ @edge-cases\/adios.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

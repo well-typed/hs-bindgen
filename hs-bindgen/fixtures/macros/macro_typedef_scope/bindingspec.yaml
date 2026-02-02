@@ -38,9 +38,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: T2
   representation:
     newtype:
@@ -63,9 +66,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: T3
   representation:
     newtype:
@@ -88,9 +94,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: T4
   representation:
     newtype:
@@ -113,6 +122,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

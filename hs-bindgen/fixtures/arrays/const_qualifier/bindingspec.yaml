@@ -54,8 +54,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: V
   representation:
     newtype:
@@ -66,8 +69,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: W
   representation:
     newtype:
@@ -78,8 +84,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: X
   representation:
     newtype:
@@ -90,5 +99,8 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

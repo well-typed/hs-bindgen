@@ -80,9 +80,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S
   representation:
     record:
@@ -131,9 +134,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TS
   representation:
     newtype:
@@ -185,9 +191,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTS
   representation:
     newtype:

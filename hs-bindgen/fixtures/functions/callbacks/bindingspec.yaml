@@ -72,8 +72,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: FileOpenedNotification
   representation:
     newtype:
@@ -86,8 +89,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo
   representation:
     newtype:
@@ -110,9 +116,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo2
   representation:
     newtype:
@@ -135,9 +144,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Measurement
   representation:
     record:
@@ -178,8 +190,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MeasurementReceived2
   representation:
     newtype:
@@ -192,8 +207,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Processor
   representation:
     record:
@@ -247,8 +265,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: SampleBufferFull
   representation:
     newtype:
@@ -261,5 +282,8 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

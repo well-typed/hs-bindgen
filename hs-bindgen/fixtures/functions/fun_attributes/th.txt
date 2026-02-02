@@ -484,7 +484,10 @@ newtype Size_t
            __exported by:__ @functions\/fun_attributes.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

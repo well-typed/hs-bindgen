@@ -144,8 +144,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Filename_t
   representation:
     newtype:
@@ -156,8 +159,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Flexible_array
   representation: typealias
 - hsname: Flexible_array_Aux
@@ -189,8 +195,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Size_type
   representation:
     newtype:
@@ -211,9 +220,12 @@ hstypes:
   - Num
   - Ord
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Status_code_t
   representation:
     newtype:

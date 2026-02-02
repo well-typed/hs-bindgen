@@ -37,8 +37,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F2
   representation:
     newtype:
@@ -51,8 +54,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F3
   representation:
     newtype:
@@ -65,8 +71,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F4
   representation:
     newtype:
@@ -79,8 +88,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F5
   representation:
     newtype:
@@ -93,8 +105,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F6
   representation:
     newtype:
@@ -107,8 +122,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyInt
   representation:
     newtype:
@@ -131,6 +149,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

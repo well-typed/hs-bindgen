@@ -14,7 +14,10 @@ newtype T1
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -47,7 +50,10 @@ newtype T2
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -80,7 +86,10 @@ newtype T3
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -113,7 +122,10 @@ newtype T4
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

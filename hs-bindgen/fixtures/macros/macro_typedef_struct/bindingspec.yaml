@@ -49,6 +49,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

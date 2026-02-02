@@ -219,7 +219,10 @@ newtype ConstInt
            __exported by:__ @manual\/globals.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -322,7 +325,7 @@ newtype Triplet
            __exported by:__ @manual\/globals.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")

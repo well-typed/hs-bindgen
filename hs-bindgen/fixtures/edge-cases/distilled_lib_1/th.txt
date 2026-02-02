@@ -258,7 +258,10 @@ newtype A_type_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -291,7 +294,10 @@ newtype Var_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -767,7 +773,11 @@ newtype Callback_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Callback_t "unwrapCallback_t") =>
          HasField "unwrapCallback_t" (Ptr Callback_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapCallback_t")

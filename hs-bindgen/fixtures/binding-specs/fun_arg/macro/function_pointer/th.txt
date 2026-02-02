@@ -127,7 +127,11 @@ newtype MyFunctionPointer
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType MyFunctionPointer "unwrapMyFunctionPointer") =>
          HasField "unwrapMyFunctionPointer" (Ptr MyFunctionPointer) (Ptr ty)
@@ -151,7 +155,11 @@ newtype A
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType A "unwrapA") =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
@@ -173,7 +181,11 @@ newtype B
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType B "unwrapB") =>
          HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")

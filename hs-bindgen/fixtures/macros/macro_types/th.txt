@@ -14,7 +14,11 @@ newtype PtrInt
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType PtrInt "unwrapPtrInt") =>
          HasField "unwrapPtrInt" (Ptr PtrInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrInt")
@@ -36,7 +40,11 @@ newtype PtrPtrChar
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType PtrPtrChar "unwrapPtrPtrChar") =>
          HasField "unwrapPtrPtrChar" (Ptr PtrPtrChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrPtrChar")
@@ -59,7 +67,10 @@ newtype MTy
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Enum,
@@ -90,7 +101,10 @@ newtype Tty
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Enum,
@@ -121,7 +135,10 @@ newtype UINT8_T
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -154,7 +171,10 @@ newtype BOOLEAN_T
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -187,7 +207,10 @@ newtype Boolean_T
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

@@ -60,7 +60,11 @@ newtype F1
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType F1 "unwrapF1") =>
          HasField "unwrapF1" (Ptr F1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF1")
@@ -128,7 +132,11 @@ newtype F2
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType F2 "unwrapF2") =>
          HasField "unwrapF2" (Ptr F2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF2")
@@ -196,7 +204,11 @@ newtype F3
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType F3 "unwrapF3") =>
          HasField "unwrapF3" (Ptr F3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF3")
@@ -261,7 +273,11 @@ newtype F4
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType F4 "unwrapF4") =>
          HasField "unwrapF4" (Ptr F4) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF4")
@@ -326,7 +342,11 @@ newtype F5
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType F5 "unwrapF5") =>
          HasField "unwrapF5" (Ptr F5) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF5")
@@ -348,7 +368,10 @@ newtype MyInt
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -425,7 +448,11 @@ newtype F6
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType F6 "unwrapF6") =>
          HasField "unwrapF6" (Ptr F6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF6")

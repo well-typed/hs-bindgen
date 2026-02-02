@@ -41,9 +41,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: GlobalConfig
   representation:
     record:
@@ -79,8 +82,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tuple
   representation:
     record:

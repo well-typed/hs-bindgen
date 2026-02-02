@@ -61,7 +61,11 @@ newtype Fun_ptr
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Fun_ptr "unwrapFun_ptr") =>
          HasField "unwrapFun_ptr" (Ptr Fun_ptr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFun_ptr")

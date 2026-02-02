@@ -128,7 +128,11 @@ newtype Struct5_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Struct5_t "unwrapStruct5_t") =>
          HasField "unwrapStruct5_t" (Ptr Struct5_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct5_t")
@@ -183,7 +187,11 @@ newtype Struct6
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Struct6 "unwrapStruct6") =>
          HasField "unwrapStruct6" (Ptr Struct6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct6")

@@ -49,8 +49,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: FunctionPointer_Function
   representation:
     newtype:
@@ -63,8 +66,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: G1
   representation:
     newtype:
@@ -89,8 +95,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: H1
   representation:
     newtype:
@@ -125,8 +134,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Int2int
   representation:
     newtype:
@@ -151,8 +163,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Myint
   representation:
     newtype:
@@ -175,9 +190,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: NonFunctionPointer_Function
   representation:
     newtype:

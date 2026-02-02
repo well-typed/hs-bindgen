@@ -41,9 +41,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F
   representation:
     newtype:
@@ -62,11 +65,14 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - RealFloat
   - RealFrac
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: I
   representation:
     newtype:
@@ -89,9 +95,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: L
   representation:
     newtype:
@@ -114,9 +123,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S
   representation:
     newtype:
@@ -139,6 +151,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

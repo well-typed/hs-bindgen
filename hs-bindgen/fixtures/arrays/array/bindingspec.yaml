@@ -56,8 +56,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Sudoku
   representation:
     newtype:
@@ -68,8 +71,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Triplet
   representation:
     newtype:
@@ -80,8 +86,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tripletlist
   representation:
     newtype:

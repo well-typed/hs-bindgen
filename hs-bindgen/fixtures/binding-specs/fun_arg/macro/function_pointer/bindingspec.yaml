@@ -25,8 +25,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     newtype:
@@ -39,8 +42,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyFunctionPointer
   representation:
     newtype:
@@ -53,5 +59,8 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

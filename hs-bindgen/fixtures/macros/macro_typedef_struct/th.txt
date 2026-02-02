@@ -14,7 +14,10 @@ newtype MY_TYPE
            __exported by:__ @macros\/macro_typedef_struct.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

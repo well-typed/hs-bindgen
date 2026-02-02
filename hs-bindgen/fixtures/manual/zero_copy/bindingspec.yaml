@@ -100,8 +100,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyInt
   representation:
     newtype:
@@ -124,9 +127,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point
   representation:
     record:
@@ -190,8 +196,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Vector
   representation: typealias
 - hsname: Vector_Aux

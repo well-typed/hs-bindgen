@@ -488,7 +488,11 @@ newtype FileOpenedNotification
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType FileOpenedNotification
                           "unwrapFileOpenedNotification") =>
@@ -567,7 +571,11 @@ newtype ProgressUpdate
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType ProgressUpdate "unwrapProgressUpdate") =>
          HasField "unwrapProgressUpdate" (Ptr ProgressUpdate) (Ptr ty)
@@ -639,7 +647,11 @@ newtype DataValidator
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType DataValidator "unwrapDataValidator") =>
          HasField "unwrapDataValidator" (Ptr DataValidator) (Ptr ty)
@@ -787,7 +799,11 @@ newtype MeasurementReceived
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType MeasurementReceived "unwrapMeasurementReceived") =>
          HasField "unwrapMeasurementReceived"
@@ -844,7 +860,11 @@ newtype MeasurementReceived2
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType MeasurementReceived2 "unwrapMeasurementReceived2") =>
          HasField "unwrapMeasurementReceived2"
@@ -902,7 +922,11 @@ newtype SampleBufferFull
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType SampleBufferFull "unwrapSampleBufferFull") =>
          HasField "unwrapSampleBufferFull" (Ptr SampleBufferFull) (Ptr ty)
@@ -1399,7 +1423,10 @@ newtype Foo
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -1432,7 +1459,10 @@ newtype Foo2
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

@@ -200,7 +200,11 @@ newtype Point2b
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Point2b "unwrapPoint2b") =>
          HasField "unwrapPoint2b" (Ptr Point2b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint2b")
@@ -292,7 +296,11 @@ newtype Point3a
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Point3a "unwrapPoint3a") =>
          HasField "unwrapPoint3a" (Ptr Point3a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint3a")
@@ -314,7 +322,11 @@ newtype Point3b
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Point3b "unwrapPoint3b") =>
          HasField "unwrapPoint3b" (Ptr Point3b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint3b")

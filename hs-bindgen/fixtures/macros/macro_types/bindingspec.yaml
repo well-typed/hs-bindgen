@@ -47,9 +47,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Boolean_T
   representation:
     newtype:
@@ -72,9 +75,12 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MTy
   representation:
     newtype:
@@ -93,11 +99,14 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - RealFloat
   - RealFrac
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: PtrInt
   representation:
     newtype:
@@ -110,8 +119,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: PtrPtrChar
   representation:
     newtype:
@@ -124,8 +136,11 @@ hstypes:
   - HasFFIType
   - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tty
   representation:
     newtype:
@@ -144,11 +159,14 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - RealFloat
   - RealFrac
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: UINT8_T
   representation:
     newtype:
@@ -171,6 +189,9 @@ hstypes:
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

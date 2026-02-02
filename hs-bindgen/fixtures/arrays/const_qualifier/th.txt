@@ -297,7 +297,7 @@ newtype U
            __exported by:__ @arrays\/const_qualifier.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType U "unwrapU") =>
          HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
@@ -319,7 +319,7 @@ newtype V
            __exported by:__ @arrays\/const_qualifier.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType V "unwrapV") =>
          HasField "unwrapV" (Ptr V) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapV")
@@ -341,7 +341,7 @@ newtype W
            __exported by:__ @arrays\/const_qualifier.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType W "unwrapW") =>
          HasField "unwrapW" (Ptr W) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapW")
@@ -363,7 +363,7 @@ newtype X
            __exported by:__ @arrays\/const_qualifier.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType X "unwrapX") =>
          HasField "unwrapX" (Ptr X) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapX")

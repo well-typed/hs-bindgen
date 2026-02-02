@@ -14,7 +14,7 @@ newtype Triplet
            __exported by:__ @documentation\/data_kind_pragma.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")

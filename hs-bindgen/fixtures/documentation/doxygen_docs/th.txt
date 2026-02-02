@@ -385,7 +385,10 @@ newtype Size_type
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Bits,
                       Bounded,
@@ -628,7 +631,11 @@ newtype Event_callback_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType Event_callback_t "unwrapEvent_callback_t") =>
          HasField "unwrapEvent_callback_t" (Ptr Event_callback_t) (Ptr ty)
@@ -1471,7 +1478,11 @@ newtype Processor_fn_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType Processor_fn_t "unwrapProcessor_fn_t") =>
          HasField "unwrapProcessor_fn_t" (Ptr Processor_fn_t) (Ptr ty)
@@ -1507,7 +1518,7 @@ newtype Filename_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Filename_t "unwrapFilename_t") =>
          HasField "unwrapFilename_t" (Ptr Filename_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFilename_t")

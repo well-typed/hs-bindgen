@@ -175,7 +175,7 @@ newtype Matrix
            __exported by:__ @arrays\/multi_dim.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")

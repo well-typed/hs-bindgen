@@ -495,7 +495,11 @@ newtype S7a
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType S7a "unwrapS7a") =>
          HasField "unwrapS7a" (Ptr S7a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapS7a")
@@ -587,7 +591,11 @@ newtype S7b
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType S7b "unwrapS7b") =>
          HasField "unwrapS7b" (Ptr S7b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapS7b")

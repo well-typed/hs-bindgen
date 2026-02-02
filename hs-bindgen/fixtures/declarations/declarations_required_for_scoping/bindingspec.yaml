@@ -27,6 +27,9 @@ hstypes:
   - Num
   - Ord
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

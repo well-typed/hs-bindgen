@@ -218,12 +218,15 @@ instance Default SupportedInstances where
           , mkDef Ord        Dependent   Stock     []
           , mkDef Prim       Dependent   Newtype   []
           , mkDef Read       Dependent   Stock     [Newtype]
+          , mkDef ReadRaw    Dependent   Newtype   []
           , mkDef Real       Dependent   Newtype   []
           , mkDef RealFloat  Dependent   Newtype   []
           , mkDef RealFrac   Dependent   Newtype   []
           , mkDef Show       Dependent   Stock     [Newtype]
+          , mkDef StaticSize Dependent   Newtype   []
           , mkDef Storable   Dependent   Newtype   []
           , mkDef ToFunPtr   Independent HsBindgen []
+          , mkDef WriteRaw   Dependent   Newtype   []
           ]
       }
     where

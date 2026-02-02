@@ -40,6 +40,7 @@ import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
@@ -74,7 +75,7 @@ newtype Size_type = Size_type
   { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "unwrapSize_type")
          ) => GHC.Records.HasField "unwrapSize_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
@@ -318,7 +319,7 @@ newtype Event_callback_t = Event_callback_t
   { unwrapEvent_callback_t :: Ptr.FunPtr Event_callback_t_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "unwrapEvent_callback_t")
          ) => GHC.Records.HasField "unwrapEvent_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
@@ -1235,7 +1236,7 @@ newtype Processor_fn_t = Processor_fn_t
   { unwrapProcessor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "unwrapProcessor_fn_t")
          ) => GHC.Records.HasField "unwrapProcessor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where
@@ -1266,7 +1267,7 @@ newtype Filename_t = Filename_t
   { unwrapFilename_t :: (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Filename_t) "unwrapFilename_t")
          ) => GHC.Records.HasField "unwrapFilename_t" (Ptr.Ptr Filename_t) (Ptr.Ptr ty) where

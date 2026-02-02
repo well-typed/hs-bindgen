@@ -14,7 +14,10 @@ newtype T1
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -47,7 +50,10 @@ newtype T2
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -80,7 +86,10 @@ newtype M1
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -113,7 +122,10 @@ newtype M2
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -146,7 +158,11 @@ newtype M3
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType M3 "unwrapM3") =>
          HasField "unwrapM3" (Ptr M3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapM3")
@@ -284,7 +300,10 @@ newtype Uint64_t
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
