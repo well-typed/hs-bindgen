@@ -3,10 +3,9 @@ module Manual.Macros (examples) where
 import Foreign as F
 import Foreign.C qualified as FC
 
-import Manual.Tools
-
 import Example
 import Example.Unsafe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Examples

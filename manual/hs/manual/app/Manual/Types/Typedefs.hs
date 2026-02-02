@@ -3,10 +3,9 @@ module Manual.Types.Typedefs (examples) where
 import Foreign as F
 import System.IO.Unsafe
 
-import Manual.Tools
-
 import Example
 import Example.Unsafe
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Using typedefs

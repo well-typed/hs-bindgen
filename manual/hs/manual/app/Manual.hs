@@ -27,26 +27,24 @@ into separate modules corresponding to the manual's structure:
 -}
 module Manual (main) where
 
+import Foreign
 import System.IO.Unsafe
 
-import Example.Unsafe
 import Example
-
-import qualified Manual.BindingSpecifications
-import qualified Manual.Functions.FirstOrder
-import qualified Manual.Functions.HigherOrder
-import qualified Manual.GeneratedNames
-import qualified Manual.Globals
-import qualified Manual.Macros
-import qualified Manual.Types.Arrays
-import qualified Manual.Types.Complex
-import qualified Manual.Types.Enums
-import qualified Manual.Types.Structs
-import qualified Manual.Types.Typedefs
-import qualified Manual.Types.Unions
-import qualified Manual.ZeroCopy
-
-import Foreign
+import Example.Unsafe
+import Manual.BindingSpecifications qualified
+import Manual.Functions.FirstOrder qualified
+import Manual.Functions.HigherOrder qualified
+import Manual.GeneratedNames qualified
+import Manual.Globals qualified
+import Manual.Macros qualified
+import Manual.Types.Arrays qualified
+import Manual.Types.Complex qualified
+import Manual.Types.Enums qualified
+import Manual.Types.Structs qualified
+import Manual.Types.Typedefs qualified
+import Manual.Types.Unions qualified
+import Manual.ZeroCopy qualified
 
 {-------------------------------------------------------------------------------
   Main
