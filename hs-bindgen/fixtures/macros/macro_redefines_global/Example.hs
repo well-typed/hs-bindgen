@@ -39,7 +39,23 @@ newtype FILE = FILE
   { unwrapFILE :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FILE) "unwrapFILE")
          ) => GHC.Records.HasField "unwrapFILE" (Ptr.Ptr FILE) (Ptr.Ptr ty) where

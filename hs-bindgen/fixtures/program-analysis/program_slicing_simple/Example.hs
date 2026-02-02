@@ -40,7 +40,23 @@ newtype Uint32_t = Uint32_t
   { unwrapUint32_t :: FC.CUInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Uint32_t) "unwrapUint32_t")
          ) => GHC.Records.HasField "unwrapUint32_t" (Ptr.Ptr Uint32_t) (Ptr.Ptr ty) where

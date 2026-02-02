@@ -33,7 +33,12 @@ newtype Triplet = Triplet
   { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
          ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where

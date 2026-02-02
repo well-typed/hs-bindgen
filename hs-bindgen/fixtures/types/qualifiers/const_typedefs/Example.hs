@@ -47,7 +47,23 @@ newtype I = I
   { unwrapI :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType I) "unwrapI")
          ) => GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr ty) where
@@ -250,7 +266,23 @@ newtype TI = TI
   { unwrapTI :: I
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TI) "unwrapTI")
          ) => GHC.Records.HasField "unwrapTI" (Ptr.Ptr TI) (Ptr.Ptr ty) where
@@ -274,7 +306,13 @@ newtype TS = TS
   { unwrapTS :: S
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TS) "unwrapTS")
          ) => GHC.Records.HasField "unwrapTS" (Ptr.Ptr TS) (Ptr.Ptr ty) where
@@ -297,7 +335,13 @@ instance HsBindgen.Runtime.HasCField.HasCField TS "unwrapTS" where
 newtype TU = TU
   { unwrapTU :: U
   }
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TU) "unwrapTU")
          ) => GHC.Records.HasField "unwrapTU" (Ptr.Ptr TU) (Ptr.Ptr ty) where
@@ -321,7 +365,14 @@ newtype TE = TE
   { unwrapTE :: E
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TE) "unwrapTE")
          ) => GHC.Records.HasField "unwrapTE" (Ptr.Ptr TE) (Ptr.Ptr ty) where
@@ -345,7 +396,23 @@ newtype TTI = TTI
   { unwrapTTI :: TI
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTI) "unwrapTTI")
          ) => GHC.Records.HasField "unwrapTTI" (Ptr.Ptr TTI) (Ptr.Ptr ty) where
@@ -369,7 +436,13 @@ newtype TTS = TTS
   { unwrapTTS :: TS
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTS) "unwrapTTS")
          ) => GHC.Records.HasField "unwrapTTS" (Ptr.Ptr TTS) (Ptr.Ptr ty) where
@@ -392,7 +465,13 @@ instance HsBindgen.Runtime.HasCField.HasCField TTS "unwrapTTS" where
 newtype TTU = TTU
   { unwrapTTU :: TU
   }
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTU) "unwrapTTU")
          ) => GHC.Records.HasField "unwrapTTU" (Ptr.Ptr TTU) (Ptr.Ptr ty) where
@@ -416,7 +495,14 @@ newtype TTE = TTE
   { unwrapTTE :: TE
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTE) "unwrapTTE")
          ) => GHC.Records.HasField "unwrapTTE" (Ptr.Ptr TTE) (Ptr.Ptr ty) where

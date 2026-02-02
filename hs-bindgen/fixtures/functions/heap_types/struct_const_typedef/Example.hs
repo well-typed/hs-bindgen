@@ -137,7 +137,13 @@ newtype T = T
   { unwrapT :: S
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "unwrapT")
          ) => GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr ty) where

@@ -242,7 +242,13 @@ newtype Struct5_t = Struct5_t
   { unwrapStruct5_t :: Ptr.Ptr Struct5
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct5_t) "unwrapStruct5_t")
          ) => GHC.Records.HasField "unwrapStruct5_t" (Ptr.Ptr Struct5_t) (Ptr.Ptr ty) where
@@ -329,7 +335,13 @@ newtype Struct6 = Struct6
   { unwrapStruct6 :: Ptr.Ptr Struct6_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct6) "unwrapStruct6")
          ) => GHC.Records.HasField "unwrapStruct6" (Ptr.Ptr Struct6) (Ptr.Ptr ty) where
@@ -416,7 +428,13 @@ newtype Struct7a = Struct7a
   { unwrapStruct7a :: Struct7
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7a) "unwrapStruct7a")
          ) => GHC.Records.HasField "unwrapStruct7a" (Ptr.Ptr Struct7a) (Ptr.Ptr ty) where
@@ -440,7 +458,13 @@ newtype Struct7b = Struct7b
   { unwrapStruct7b :: Struct7
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7b) "unwrapStruct7b")
          ) => GHC.Records.HasField "unwrapStruct7b" (Ptr.Ptr Struct7b) (Ptr.Ptr ty) where
@@ -526,7 +550,13 @@ newtype Struct8b = Struct8b
   { unwrapStruct8b :: Struct8
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct8b) "unwrapStruct8b")
          ) => GHC.Records.HasField "unwrapStruct8b" (Ptr.Ptr Struct8b) (Ptr.Ptr ty) where
@@ -612,7 +642,13 @@ newtype Struct9_t = Struct9_t
   { unwrapStruct9_t :: Struct9
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct9_t) "unwrapStruct9_t")
          ) => GHC.Records.HasField "unwrapStruct9_t" (Ptr.Ptr Struct9_t) (Ptr.Ptr ty) where
@@ -698,7 +734,13 @@ newtype Struct10_t_t = Struct10_t_t
   { unwrapStruct10_t_t :: Struct10_t
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct10_t_t) "unwrapStruct10_t_t")
          ) => GHC.Records.HasField "unwrapStruct10_t_t" (Ptr.Ptr Struct10_t_t) (Ptr.Ptr ty) where

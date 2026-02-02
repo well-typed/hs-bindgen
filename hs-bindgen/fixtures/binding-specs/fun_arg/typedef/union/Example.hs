@@ -97,7 +97,13 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyUnion) "myUnion_x"
 newtype A = A
   { unwrapA :: MyUnion
   }
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
          ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
@@ -120,7 +126,13 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "unwrapB")
          ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where

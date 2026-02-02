@@ -96,7 +96,13 @@ newtype Fun_ptr = Fun_ptr
   { unwrapFun_ptr :: Ptr.FunPtr Fun_ptr_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "unwrapFun_ptr")
          ) => GHC.Records.HasField "unwrapFun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where

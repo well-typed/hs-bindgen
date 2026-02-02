@@ -168,7 +168,13 @@ newtype Point1b = Point1b
   { unwrapPoint1b :: Point1a
   }
   deriving stock (Eq, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , Data.Primitive.Types.Prim
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1b) "unwrapPoint1b")
          ) => GHC.Records.HasField "unwrapPoint1b" (Ptr.Ptr Point1b) (Ptr.Ptr ty) where
@@ -322,7 +328,13 @@ newtype Point2b = Point2b
   { unwrapPoint2b :: Ptr.Ptr Point2a
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2b) "unwrapPoint2b")
          ) => GHC.Records.HasField "unwrapPoint2b" (Ptr.Ptr Point2b) (Ptr.Ptr ty) where
@@ -477,7 +489,13 @@ newtype Point3a = Point3a
   { unwrapPoint3a :: Ptr.Ptr Point3a_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a) "unwrapPoint3a")
          ) => GHC.Records.HasField "unwrapPoint3a" (Ptr.Ptr Point3a) (Ptr.Ptr ty) where
@@ -502,7 +520,13 @@ newtype Point3b = Point3b
   { unwrapPoint3b :: Ptr.Ptr Point3a_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3b) "unwrapPoint3b")
          ) => GHC.Records.HasField "unwrapPoint3b" (Ptr.Ptr Point3b) (Ptr.Ptr ty) where
