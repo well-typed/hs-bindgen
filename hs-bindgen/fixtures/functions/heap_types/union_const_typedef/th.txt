@@ -36,7 +36,10 @@ newtype U
 
            __exported by:__ @functions\/heap_types\/union_const_typedef.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable U
+deriving via (SizedByteArray 4 4) instance StaticSize U
+deriving via (SizedByteArray 4 4) instance ReadRaw U
+deriving via (SizedByteArray 4 4) instance WriteRaw U
+deriving via (EquivStorable U) instance Storable U
 deriving via (SizedByteArray 4 4) instance Prim U
 {-|
 
@@ -92,7 +95,7 @@ newtype T
 
            __exported by:__ @functions\/heap_types\/union_const_typedef.h@
       -}
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType T "unwrapT") =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")

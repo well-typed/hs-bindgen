@@ -135,7 +135,13 @@ newtype Some_union = Some_union
   { unwrapSome_union :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance F.Storable Some_union
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.StaticSize Some_union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.ReadRaw Some_union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.WriteRaw Some_union
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_union instance F.Storable Some_union
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
 

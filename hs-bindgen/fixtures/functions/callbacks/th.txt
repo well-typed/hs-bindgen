@@ -1098,7 +1098,12 @@ newtype ProcessorCallback
            __exported by:__ @functions\/callbacks.h@
       -}
 deriving via (SizedByteArray 8
-                             8) instance Storable ProcessorCallback
+                             8) instance StaticSize ProcessorCallback
+deriving via (SizedByteArray 8
+                             8) instance ReadRaw ProcessorCallback
+deriving via (SizedByteArray 8
+                             8) instance WriteRaw ProcessorCallback
+deriving via (EquivStorable ProcessorCallback) instance Storable ProcessorCallback
 deriving via (SizedByteArray 8 8) instance Prim ProcessorCallback
 {-|
 

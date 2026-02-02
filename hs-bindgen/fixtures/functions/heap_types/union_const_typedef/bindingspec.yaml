@@ -20,7 +20,10 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: U
   representation:
     newtype:
@@ -31,4 +34,7 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

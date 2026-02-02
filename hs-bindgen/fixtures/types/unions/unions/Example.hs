@@ -23,6 +23,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -315,7 +316,13 @@ newtype DimPayload = DimPayload
   { unwrapDimPayload :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayload
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayload
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayload
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayload
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayload instance F.Storable DimPayload
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayload
 
@@ -530,7 +537,13 @@ newtype DimPayloadB = DimPayloadB
   { unwrapDimPayloadB :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayloadB
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayloadB
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayloadB
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayloadB instance F.Storable DimPayloadB
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayloadB
 
@@ -995,7 +1008,13 @@ newtype AnonA = AnonA
   { unwrapAnonA :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance F.Storable AnonA
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.StaticSize AnonA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.ReadRaw AnonA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.WriteRaw AnonA
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonA instance F.Storable AnonA
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance Data.Primitive.Types.Prim AnonA
 

@@ -20,4 +20,7 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

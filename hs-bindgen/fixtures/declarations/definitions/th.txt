@@ -86,7 +86,10 @@ newtype Y
 
            __exported by:__ @declarations\/definitions.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable Y
+deriving via (SizedByteArray 4 4) instance StaticSize Y
+deriving via (SizedByteArray 4 4) instance ReadRaw Y
+deriving via (SizedByteArray 4 4) instance WriteRaw Y
+deriving via (EquivStorable Y) instance Storable Y
 deriving via (SizedByteArray 4 4) instance Prim Y
 {-|
 

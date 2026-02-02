@@ -23,6 +23,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Int, pure)
@@ -37,7 +38,13 @@ newtype UnionA = UnionA
   { unwrapUnionA :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable UnionA
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize UnionA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw UnionA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw UnionA
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable UnionA instance F.Storable UnionA
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim UnionA
 
@@ -223,7 +230,13 @@ newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable ExB_fieldB1
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw ExB_fieldB1
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw ExB_fieldB1
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB_fieldB1 instance F.Storable ExB_fieldB1
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim ExB_fieldB1
 

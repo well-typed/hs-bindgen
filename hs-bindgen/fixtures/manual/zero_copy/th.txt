@@ -273,7 +273,10 @@ newtype Shape
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-deriving via (SizedByteArray 16 4) instance Storable Shape
+deriving via (SizedByteArray 16 4) instance StaticSize Shape
+deriving via (SizedByteArray 16 4) instance ReadRaw Shape
+deriving via (SizedByteArray 16 4) instance WriteRaw Shape
+deriving via (EquivStorable Shape) instance Storable Shape
 deriving via (SizedByteArray 16 4) instance Prim Shape
 {-|
 

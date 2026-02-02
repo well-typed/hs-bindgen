@@ -729,7 +729,10 @@ hstypes:
       - unwrapSome_union
   instances:
   - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Typedef1
   representation:
     newtype:

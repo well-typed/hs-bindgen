@@ -290,7 +290,12 @@ newtype Wait_status_ptr_t
            __exported by:__ @attributes\/type_attributes.h@
       -}
 deriving via (SizedByteArray 8
-                             8) instance Storable Wait_status_ptr_t
+                             8) instance StaticSize Wait_status_ptr_t
+deriving via (SizedByteArray 8
+                             8) instance ReadRaw Wait_status_ptr_t
+deriving via (SizedByteArray 8
+                             8) instance WriteRaw Wait_status_ptr_t
+deriving via (EquivStorable Wait_status_ptr_t) instance Storable Wait_status_ptr_t
 deriving via (SizedByteArray 8 8) instance Prim Wait_status_ptr_t
 {-|
 

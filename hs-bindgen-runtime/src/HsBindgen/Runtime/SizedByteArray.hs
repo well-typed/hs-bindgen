@@ -15,6 +15,7 @@ import GHC.Exts qualified as Exts
 import GHC.TypeNats qualified as GHC
 
 import HsBindgen.Runtime.ByteArray
+import HsBindgen.Runtime.Marshal
 
 {-------------------------------------------------------------------------------
   Definition
@@ -69,6 +70,20 @@ import HsBindgen.Runtime.ByteArray
 -- <https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Type-Alignment.html>
 newtype SizedByteArray (size :: GHC.Nat) (alignment :: GHC.Nat) =
     SizedByteArray ByteArray
+
+{-------------------------------------------------------------------------------
+  StaticSize, ReadRaw, WriteRaw
+-------------------------------------------------------------------------------}
+
+instance (GHC.KnownNat n, GHC.KnownNat m) => StaticSize (SizedByteArray n m) where
+  staticSizeOf    _ = fromIntegral (GHC.natVal (Proxy @n))
+  staticAlignment _ = fromIntegral (GHC.natVal (Proxy @m))
+
+instance GHC.KnownNat n => ReadRaw (SizedByteArray n m) where
+  readRaw = coerce $ peekByteArray (fromIntegral (GHC.natVal (Proxy @n)))
+
+instance WriteRaw (SizedByteArray n m) where
+  writeRaw = coerce $ pokeByteArray
 
 {-------------------------------------------------------------------------------
   Storable

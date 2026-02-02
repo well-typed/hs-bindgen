@@ -803,7 +803,13 @@ newtype ProcessorCallback = ProcessorCallback
   { unwrapProcessorCallback :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable ProcessorCallback
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize ProcessorCallback
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw ProcessorCallback
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw ProcessorCallback
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ProcessorCallback instance F.Storable ProcessorCallback
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim ProcessorCallback
 

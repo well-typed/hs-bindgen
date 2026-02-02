@@ -74,7 +74,10 @@ newtype MyUnion
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable MyUnion
+deriving via (SizedByteArray 4 4) instance StaticSize MyUnion
+deriving via (SizedByteArray 4 4) instance ReadRaw MyUnion
+deriving via (SizedByteArray 4 4) instance WriteRaw MyUnion
+deriving via (EquivStorable MyUnion) instance Storable MyUnion
 deriving via (SizedByteArray 4 4) instance Prim MyUnion
 {-|
 
@@ -130,7 +133,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
       -}
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType A "unwrapA") =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
@@ -151,7 +154,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
       -}
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType B "unwrapB") =>
          HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")

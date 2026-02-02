@@ -422,7 +422,13 @@ newtype Shape = Shape
   { unwrapShape :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance F.Storable Shape
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.StaticSize Shape
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Shape
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Shape
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Shape instance F.Storable Shape
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance Data.Primitive.Types.Prim Shape
 

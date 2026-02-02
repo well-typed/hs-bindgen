@@ -24,6 +24,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -301,7 +302,13 @@ newtype Named_union = Named_union
   { unwrapNamed_union :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Named_union
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Named_union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Named_union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Named_union
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Named_union instance F.Storable Named_union
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Named_union
 

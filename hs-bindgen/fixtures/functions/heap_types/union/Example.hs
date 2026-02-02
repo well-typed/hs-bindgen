@@ -23,6 +23,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import HsBindgen.Runtime.TypeEquality (TyEq)
 
@@ -36,7 +37,13 @@ newtype T = T
   { unwrapT :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable T
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize T
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw T
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw T
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable T instance F.Storable T
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim T
 

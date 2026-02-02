@@ -235,7 +235,10 @@ newtype Named_union
 
            __exported by:__ @functions\/decls_in_signature.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable Named_union
+deriving via (SizedByteArray 4 4) instance StaticSize Named_union
+deriving via (SizedByteArray 4 4) instance ReadRaw Named_union
+deriving via (SizedByteArray 4 4) instance WriteRaw Named_union
+deriving via (EquivStorable Named_union) instance Storable Named_union
 deriving via (SizedByteArray 4 4) instance Prim Named_union
 {-|
 

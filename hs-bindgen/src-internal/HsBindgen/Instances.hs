@@ -182,7 +182,10 @@ instance Default SupportedInstances where
           , mkDef HasCField    Independent HsBindgen []
           , mkDef HasField     Independent HsBindgen []
           , mkDef Prim         Independent HsBindgen []
+          , mkDef ReadRaw      Independent HsBindgen []
+          , mkDef StaticSize   Independent HsBindgen []
           , mkDef Storable     Independent HsBindgen []
+          , mkDef WriteRaw     Independent HsBindgen []
           ]
       , enum = Map.fromList [
             mkOpt Bounded         Independent           [HsBindgen, Newtype]

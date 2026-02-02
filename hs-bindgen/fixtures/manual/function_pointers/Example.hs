@@ -28,6 +28,7 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import Data.Void (Void)
@@ -152,7 +153,13 @@ newtype Apply1Union = Apply1Union
   { unwrapApply1Union :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Apply1Union
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize Apply1Union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw Apply1Union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw Apply1Union
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Apply1Union instance F.Storable Apply1Union
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Apply1Union
 

@@ -36,7 +36,10 @@ newtype T
 
            __exported by:__ @functions\/heap_types\/union.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable T
+deriving via (SizedByteArray 4 4) instance StaticSize T
+deriving via (SizedByteArray 4 4) instance ReadRaw T
+deriving via (SizedByteArray 4 4) instance WriteRaw T
+deriving via (EquivStorable T) instance Storable T
 deriving via (SizedByteArray 4 4) instance Prim T
 {-|
 

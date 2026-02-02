@@ -768,7 +768,13 @@ newtype Data_union_t = Data_union_t
   { unwrapData_union_t :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable Data_union_t
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Data_union_t
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Data_union_t
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Data_union_t instance F.Storable Data_union_t
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Data_union_t
 

@@ -171,7 +171,10 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tic_tac_toe
   representation:
     record:

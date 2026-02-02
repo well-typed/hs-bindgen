@@ -285,22 +285,45 @@ unionDecs haddockConfig info union spec = do
             if null union.fields then Nothing else Just Inst.HasCField
           , if null union.fields then Nothing else Just Inst.HasField
           , Just Inst.Prim
+          , Just Inst.ReadRaw
+          , Just Inst.StaticSize
           , Just Inst.Storable
+          , Just Inst.WriteRaw
           ]
 
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
     aux transState nt =
-        Hs.DeclNewtype nt : storableDecl : primDecl : accessorDecls ++
+        Hs.DeclNewtype nt : marshalDecls ++ primDecl : accessorDecls ++
         concatMap (unionFieldDecls nt.name) union.fields
       where
-        storableDecl :: Hs.Decl
-        storableDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
-              strategy = Hs.DeriveVia sba
-            , clss     = Inst.Storable
-            , name     = nt.name
-            , comment  = Nothing
-            }
+        marshalDecls :: [Hs.Decl]
+        marshalDecls = [
+            Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia sba
+              , clss     = Inst.StaticSize
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia sba
+              , clss     = Inst.ReadRaw
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia sba
+              , clss     = Inst.WriteRaw
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef nt.name Nothing))
+              , clss     = Inst.Storable
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          ]
 
         primDecl :: Hs.Decl
         primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{

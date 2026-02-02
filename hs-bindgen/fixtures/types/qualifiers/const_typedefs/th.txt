@@ -154,7 +154,10 @@ newtype U
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-deriving via (SizedByteArray 0 1) instance Storable U
+deriving via (SizedByteArray 0 1) instance StaticSize U
+deriving via (SizedByteArray 0 1) instance ReadRaw U
+deriving via (SizedByteArray 0 1) instance WriteRaw U
+deriving via (EquivStorable U) instance Storable U
 deriving via (SizedByteArray 0 1) instance Prim U
 {-| __C declaration:__ @enum E@
 
@@ -293,7 +296,7 @@ newtype TU
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType TU "unwrapTU") =>
          HasField "unwrapTU" (Ptr TU) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTU")
@@ -399,7 +402,7 @@ newtype TTU
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType TTU "unwrapTTU") =>
          HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTU")

@@ -450,7 +450,13 @@ newtype Wait_status_ptr_t = Wait_status_ptr_t
   { unwrapWait_status_ptr_t :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Wait_status_ptr_t
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize Wait_status_ptr_t
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw Wait_status_ptr_t
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw Wait_status_ptr_t
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Wait_status_ptr_t instance F.Storable Wait_status_ptr_t
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Wait_status_ptr_t
 

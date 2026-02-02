@@ -177,7 +177,10 @@ newtype DimPayload
 
            __exported by:__ @types\/unions\/unions.h@
       -}
-deriving via (SizedByteArray 8 4) instance Storable DimPayload
+deriving via (SizedByteArray 8 4) instance StaticSize DimPayload
+deriving via (SizedByteArray 8 4) instance ReadRaw DimPayload
+deriving via (SizedByteArray 8 4) instance WriteRaw DimPayload
+deriving via (EquivStorable DimPayload) instance Storable DimPayload
 deriving via (SizedByteArray 8 4) instance Prim DimPayload
 {-|
 
@@ -342,7 +345,10 @@ newtype DimPayloadB
 
            __exported by:__ @types\/unions\/unions.h@
       -}
-deriving via (SizedByteArray 8 4) instance Storable DimPayloadB
+deriving via (SizedByteArray 8 4) instance StaticSize DimPayloadB
+deriving via (SizedByteArray 8 4) instance ReadRaw DimPayloadB
+deriving via (SizedByteArray 8 4) instance WriteRaw DimPayloadB
+deriving via (EquivStorable DimPayloadB) instance Storable DimPayloadB
 deriving via (SizedByteArray 8 4) instance Prim DimPayloadB
 {-|
 
@@ -647,7 +653,10 @@ newtype AnonA
 
            __exported by:__ @types\/unions\/unions.h@
       -}
-deriving via (SizedByteArray 16 8) instance Storable AnonA
+deriving via (SizedByteArray 16 8) instance StaticSize AnonA
+deriving via (SizedByteArray 16 8) instance ReadRaw AnonA
+deriving via (SizedByteArray 16 8) instance WriteRaw AnonA
+deriving via (EquivStorable AnonA) instance Storable AnonA
 deriving via (SizedByteArray 16 8) instance Prim AnonA
 {-|
 
