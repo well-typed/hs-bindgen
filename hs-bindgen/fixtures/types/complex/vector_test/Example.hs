@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -19,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -47,25 +50,31 @@ data Vector = Vector
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Vector where
+instance HsBindgen.Runtime.Marshal.StaticSize Vector where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Vector where
+
+  readRaw =
     \ptr0 ->
           pure Vector
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"vector_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"vector_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"vector_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"vector_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Vector where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Vector vector_x2 vector_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"vector_x") ptr0 vector_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"vector_y") ptr0 vector_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"vector_x") ptr0 vector_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"vector_y") ptr0 vector_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Vector instance F.Storable Vector
 
 instance Data.Primitive.Types.Prim Vector where
 

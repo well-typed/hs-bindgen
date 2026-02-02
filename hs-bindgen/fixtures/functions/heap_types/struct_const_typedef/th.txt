@@ -43,12 +43,15 @@ data S
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure S <*> peek (Proxy @"s_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S s_x_3 -> poke (Proxy @"s_x") ptr_1 s_x_3
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_x") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
+deriving via (EquivStorable S) instance Storable S
 instance Prim S
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -83,7 +86,7 @@ newtype T
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType T "unwrapT") =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")

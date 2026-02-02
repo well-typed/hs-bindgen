@@ -63,25 +63,31 @@ data Point = Point
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Point where
+instance HsBindgen.Runtime.Marshal.StaticSize Point where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Point where
+
+  readRaw =
     \ptr0 ->
           pure Point
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Point where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point point_x2 point_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point_x") ptr0 point_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point_y") ptr0 point_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point_x") ptr0 point_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point_y") ptr0 point_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Point instance F.Storable Point
 
 instance Data.Primitive.Types.Prim Point where
 
@@ -187,25 +193,31 @@ data Rectangle = Rectangle
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Rectangle where
+instance HsBindgen.Runtime.Marshal.StaticSize Rectangle where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Rectangle where
+
+  readRaw =
     \ptr0 ->
           pure Rectangle
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"rectangle_topleft") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"rectangle_bottomright") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"rectangle_topleft") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"rectangle_bottomright") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Rectangle where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Rectangle rectangle_topleft2 rectangle_bottomright3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"rectangle_topleft") ptr0 rectangle_topleft2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"rectangle_bottomright") ptr0 rectangle_bottomright3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"rectangle_topleft") ptr0 rectangle_topleft2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"rectangle_bottomright") ptr0 rectangle_bottomright3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Rectangle instance F.Storable Rectangle
 
 instance Data.Primitive.Types.Prim Rectangle where
 
@@ -312,25 +324,31 @@ data Circle = Circle
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Circle where
+instance HsBindgen.Runtime.Marshal.StaticSize Circle where
 
-  sizeOf = \_ -> (12 :: Int)
+  staticSizeOf = \_ -> (12 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Circle where
+
+  readRaw =
     \ptr0 ->
           pure Circle
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"circle_midpoint") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"circle_radius") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"circle_midpoint") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"circle_radius") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Circle where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Circle circle_midpoint2 circle_radius3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"circle_midpoint") ptr0 circle_midpoint2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"circle_radius") ptr0 circle_radius3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"circle_midpoint") ptr0 circle_midpoint2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"circle_radius") ptr0 circle_radius3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Circle instance F.Storable Circle
 
 instance Data.Primitive.Types.Prim Circle where
 
@@ -555,13 +573,15 @@ data Colour = Colour
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Colour where
+instance HsBindgen.Runtime.Marshal.StaticSize Colour where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Colour where
+
+  readRaw =
     \ptr0 ->
           pure Colour
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_opacity") ptr0
@@ -570,7 +590,9 @@ instance F.Storable Colour where
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_green") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"colour_blue") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Colour where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -585,6 +607,8 @@ instance F.Storable Colour where
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_red") ptr0 colour_red4
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_green") ptr0 colour_green5
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"colour_blue") ptr0 colour_blue6
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Colour instance F.Storable Colour
 
 instance Data.Primitive.Types.Prim Colour where
 
@@ -795,25 +819,31 @@ data Drawing = Drawing
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Drawing where
+instance HsBindgen.Runtime.Marshal.StaticSize Drawing where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Drawing where
+
+  readRaw =
     \ptr0 ->
           pure Drawing
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"drawing_shape") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"drawing_colour") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"drawing_shape") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"drawing_colour") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Drawing where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Drawing drawing_shape2 drawing_colour3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"drawing_shape") ptr0 drawing_shape2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"drawing_colour") ptr0 drawing_colour3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"drawing_shape") ptr0 drawing_shape2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"drawing_colour") ptr0 drawing_colour3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Drawing instance F.Storable Drawing
 
 instance HsBindgen.Runtime.HasCField.HasCField Drawing "drawing_shape" where
 
@@ -872,27 +902,33 @@ data Tic_tac_toe = Tic_tac_toe
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Tic_tac_toe where
+instance HsBindgen.Runtime.Marshal.StaticSize Tic_tac_toe where
 
-  sizeOf = \_ -> (36 :: Int)
+  staticSizeOf = \_ -> (36 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Tic_tac_toe where
+
+  readRaw =
     \ptr0 ->
           pure Tic_tac_toe
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Tic_tac_toe where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Tic_tac_toe tic_tac_toe_row12 tic_tac_toe_row23 tic_tac_toe_row34 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0 tic_tac_toe_row12
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0 tic_tac_toe_row23
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0 tic_tac_toe_row34
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"tic_tac_toe_row1") ptr0 tic_tac_toe_row12
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"tic_tac_toe_row2") ptr0 tic_tac_toe_row23
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"tic_tac_toe_row3") ptr0 tic_tac_toe_row34
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Tic_tac_toe instance F.Storable Tic_tac_toe
 
 instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row1" where
 
@@ -950,23 +986,29 @@ data Vector_Aux = Vector
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Vector_Aux where
+instance HsBindgen.Runtime.Marshal.StaticSize Vector_Aux where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Vector_Aux where
+
+  readRaw =
     \ptr0 ->
           pure Vector
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"vector_len") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"vector_len") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Vector_Aux where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Vector vector_len2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"vector_len") ptr0 vector_len2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"vector_len") ptr0 vector_len2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Vector_Aux instance F.Storable Vector_Aux
 
 instance Data.Primitive.Types.Prim Vector_Aux where
 

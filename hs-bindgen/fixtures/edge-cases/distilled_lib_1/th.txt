@@ -64,13 +64,16 @@ data Another_typedef_struct_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Another_typedef_struct_t
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Another_typedef_struct_t <*> peek (Proxy @"another_typedef_struct_t_foo") ptr_0) <*> peek (Proxy @"another_typedef_struct_t_bar") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Another_typedef_struct_t another_typedef_struct_t_foo_3
-                                                            another_typedef_struct_t_bar_4 -> poke (Proxy @"another_typedef_struct_t_foo") ptr_1 another_typedef_struct_t_foo_3 >> poke (Proxy @"another_typedef_struct_t_bar") ptr_1 another_typedef_struct_t_bar_4
+instance StaticSize Another_typedef_struct_t
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Another_typedef_struct_t
+    where readRaw = \ptr_0 -> (pure Another_typedef_struct_t <*> readRaw (Proxy @"another_typedef_struct_t_foo") ptr_0) <*> readRaw (Proxy @"another_typedef_struct_t_bar") ptr_0
+instance WriteRaw Another_typedef_struct_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Another_typedef_struct_t another_typedef_struct_t_foo_2
+                                                                another_typedef_struct_t_bar_3 -> writeRaw (Proxy @"another_typedef_struct_t_foo") ptr_0 another_typedef_struct_t_foo_2 >> writeRaw (Proxy @"another_typedef_struct_t_bar") ptr_0 another_typedef_struct_t_bar_3
+deriving via (EquivStorable Another_typedef_struct_t) instance Storable Another_typedef_struct_t
 instance Prim Another_typedef_struct_t
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -413,22 +416,25 @@ data A_typedef_struct_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Show)
-instance Storable A_typedef_struct_t
-    where sizeOf = \_ -> 140 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> ((((((((((pure A_typedef_struct_t <*> peek (Proxy @"a_typedef_struct_t_field_0") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_1") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_2") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_3") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_4") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_5") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_6") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_7") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_8") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_9") ptr_0) <*> peek (Proxy @"a_typedef_struct_t_field_10") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   A_typedef_struct_t a_typedef_struct_t_field_0_3
-                                                      a_typedef_struct_t_field_1_4
-                                                      a_typedef_struct_t_field_2_5
-                                                      a_typedef_struct_t_field_3_6
-                                                      a_typedef_struct_t_field_4_7
-                                                      a_typedef_struct_t_field_5_8
-                                                      a_typedef_struct_t_field_6_9
-                                                      a_typedef_struct_t_field_7_10
-                                                      a_typedef_struct_t_field_8_11
-                                                      a_typedef_struct_t_field_9_12
-                                                      a_typedef_struct_t_field_10_13 -> poke (Proxy @"a_typedef_struct_t_field_0") ptr_1 a_typedef_struct_t_field_0_3 >> (poke (Proxy @"a_typedef_struct_t_field_1") ptr_1 a_typedef_struct_t_field_1_4 >> (poke (Proxy @"a_typedef_struct_t_field_2") ptr_1 a_typedef_struct_t_field_2_5 >> (poke (Proxy @"a_typedef_struct_t_field_3") ptr_1 a_typedef_struct_t_field_3_6 >> (poke (Proxy @"a_typedef_struct_t_field_4") ptr_1 a_typedef_struct_t_field_4_7 >> (poke (Proxy @"a_typedef_struct_t_field_5") ptr_1 a_typedef_struct_t_field_5_8 >> (poke (Proxy @"a_typedef_struct_t_field_6") ptr_1 a_typedef_struct_t_field_6_9 >> (poke (Proxy @"a_typedef_struct_t_field_7") ptr_1 a_typedef_struct_t_field_7_10 >> (poke (Proxy @"a_typedef_struct_t_field_8") ptr_1 a_typedef_struct_t_field_8_11 >> (poke (Proxy @"a_typedef_struct_t_field_9") ptr_1 a_typedef_struct_t_field_9_12 >> poke (Proxy @"a_typedef_struct_t_field_10") ptr_1 a_typedef_struct_t_field_10_13)))))))))
+instance StaticSize A_typedef_struct_t
+    where staticSizeOf = \_ -> 140 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw A_typedef_struct_t
+    where readRaw = \ptr_0 -> ((((((((((pure A_typedef_struct_t <*> readRaw (Proxy @"a_typedef_struct_t_field_0") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_1") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_2") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_3") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_4") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_5") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_6") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_7") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_8") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_9") ptr_0) <*> readRaw (Proxy @"a_typedef_struct_t_field_10") ptr_0
+instance WriteRaw A_typedef_struct_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       A_typedef_struct_t a_typedef_struct_t_field_0_2
+                                                          a_typedef_struct_t_field_1_3
+                                                          a_typedef_struct_t_field_2_4
+                                                          a_typedef_struct_t_field_3_5
+                                                          a_typedef_struct_t_field_4_6
+                                                          a_typedef_struct_t_field_5_7
+                                                          a_typedef_struct_t_field_6_8
+                                                          a_typedef_struct_t_field_7_9
+                                                          a_typedef_struct_t_field_8_10
+                                                          a_typedef_struct_t_field_9_11
+                                                          a_typedef_struct_t_field_10_12 -> writeRaw (Proxy @"a_typedef_struct_t_field_0") ptr_0 a_typedef_struct_t_field_0_2 >> (writeRaw (Proxy @"a_typedef_struct_t_field_1") ptr_0 a_typedef_struct_t_field_1_3 >> (writeRaw (Proxy @"a_typedef_struct_t_field_2") ptr_0 a_typedef_struct_t_field_2_4 >> (writeRaw (Proxy @"a_typedef_struct_t_field_3") ptr_0 a_typedef_struct_t_field_3_5 >> (writeRaw (Proxy @"a_typedef_struct_t_field_4") ptr_0 a_typedef_struct_t_field_4_6 >> (writeRaw (Proxy @"a_typedef_struct_t_field_5") ptr_0 a_typedef_struct_t_field_5_7 >> (writeRaw (Proxy @"a_typedef_struct_t_field_6") ptr_0 a_typedef_struct_t_field_6_8 >> (writeRaw (Proxy @"a_typedef_struct_t_field_7") ptr_0 a_typedef_struct_t_field_7_9 >> (writeRaw (Proxy @"a_typedef_struct_t_field_8") ptr_0 a_typedef_struct_t_field_8_10 >> (writeRaw (Proxy @"a_typedef_struct_t_field_9") ptr_0 a_typedef_struct_t_field_9_11 >> writeRaw (Proxy @"a_typedef_struct_t_field_10") ptr_0 a_typedef_struct_t_field_10_12)))))))))
+deriving via (EquivStorable A_typedef_struct_t) instance Storable A_typedef_struct_t
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_0"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_0" = CBool

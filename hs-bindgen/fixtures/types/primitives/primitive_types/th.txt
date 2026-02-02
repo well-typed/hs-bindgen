@@ -209,39 +209,42 @@ data Primitive
            __exported by:__ @types\/primitives\/primitive_types.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Primitive
-    where sizeOf = \_ -> 152 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (((((((((((((((((((((((((((pure Primitive <*> peek (Proxy @"primitive_c") ptr_0) <*> peek (Proxy @"primitive_sc") ptr_0) <*> peek (Proxy @"primitive_uc") ptr_0) <*> peek (Proxy @"primitive_s") ptr_0) <*> peek (Proxy @"primitive_si") ptr_0) <*> peek (Proxy @"primitive_ss") ptr_0) <*> peek (Proxy @"primitive_ssi") ptr_0) <*> peek (Proxy @"primitive_us") ptr_0) <*> peek (Proxy @"primitive_usi") ptr_0) <*> peek (Proxy @"primitive_i") ptr_0) <*> peek (Proxy @"primitive_s2") ptr_0) <*> peek (Proxy @"primitive_si2") ptr_0) <*> peek (Proxy @"primitive_u") ptr_0) <*> peek (Proxy @"primitive_ui") ptr_0) <*> peek (Proxy @"primitive_l") ptr_0) <*> peek (Proxy @"primitive_li") ptr_0) <*> peek (Proxy @"primitive_sl") ptr_0) <*> peek (Proxy @"primitive_sli") ptr_0) <*> peek (Proxy @"primitive_ul") ptr_0) <*> peek (Proxy @"primitive_uli") ptr_0) <*> peek (Proxy @"primitive_ll") ptr_0) <*> peek (Proxy @"primitive_lli") ptr_0) <*> peek (Proxy @"primitive_sll") ptr_0) <*> peek (Proxy @"primitive_slli") ptr_0) <*> peek (Proxy @"primitive_ull") ptr_0) <*> peek (Proxy @"primitive_ulli") ptr_0) <*> peek (Proxy @"primitive_f") ptr_0) <*> peek (Proxy @"primitive_d") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Primitive primitive_c_3
-                                             primitive_sc_4
-                                             primitive_uc_5
-                                             primitive_s_6
-                                             primitive_si_7
-                                             primitive_ss_8
-                                             primitive_ssi_9
-                                             primitive_us_10
-                                             primitive_usi_11
-                                             primitive_i_12
-                                             primitive_s2_13
-                                             primitive_si2_14
-                                             primitive_u_15
-                                             primitive_ui_16
-                                             primitive_l_17
-                                             primitive_li_18
-                                             primitive_sl_19
-                                             primitive_sli_20
-                                             primitive_ul_21
-                                             primitive_uli_22
-                                             primitive_ll_23
-                                             primitive_lli_24
-                                             primitive_sll_25
-                                             primitive_slli_26
-                                             primitive_ull_27
-                                             primitive_ulli_28
-                                             primitive_f_29
-                                             primitive_d_30 -> poke (Proxy @"primitive_c") ptr_1 primitive_c_3 >> (poke (Proxy @"primitive_sc") ptr_1 primitive_sc_4 >> (poke (Proxy @"primitive_uc") ptr_1 primitive_uc_5 >> (poke (Proxy @"primitive_s") ptr_1 primitive_s_6 >> (poke (Proxy @"primitive_si") ptr_1 primitive_si_7 >> (poke (Proxy @"primitive_ss") ptr_1 primitive_ss_8 >> (poke (Proxy @"primitive_ssi") ptr_1 primitive_ssi_9 >> (poke (Proxy @"primitive_us") ptr_1 primitive_us_10 >> (poke (Proxy @"primitive_usi") ptr_1 primitive_usi_11 >> (poke (Proxy @"primitive_i") ptr_1 primitive_i_12 >> (poke (Proxy @"primitive_s2") ptr_1 primitive_s2_13 >> (poke (Proxy @"primitive_si2") ptr_1 primitive_si2_14 >> (poke (Proxy @"primitive_u") ptr_1 primitive_u_15 >> (poke (Proxy @"primitive_ui") ptr_1 primitive_ui_16 >> (poke (Proxy @"primitive_l") ptr_1 primitive_l_17 >> (poke (Proxy @"primitive_li") ptr_1 primitive_li_18 >> (poke (Proxy @"primitive_sl") ptr_1 primitive_sl_19 >> (poke (Proxy @"primitive_sli") ptr_1 primitive_sli_20 >> (poke (Proxy @"primitive_ul") ptr_1 primitive_ul_21 >> (poke (Proxy @"primitive_uli") ptr_1 primitive_uli_22 >> (poke (Proxy @"primitive_ll") ptr_1 primitive_ll_23 >> (poke (Proxy @"primitive_lli") ptr_1 primitive_lli_24 >> (poke (Proxy @"primitive_sll") ptr_1 primitive_sll_25 >> (poke (Proxy @"primitive_slli") ptr_1 primitive_slli_26 >> (poke (Proxy @"primitive_ull") ptr_1 primitive_ull_27 >> (poke (Proxy @"primitive_ulli") ptr_1 primitive_ulli_28 >> (poke (Proxy @"primitive_f") ptr_1 primitive_f_29 >> poke (Proxy @"primitive_d") ptr_1 primitive_d_30))))))))))))))))))))))))))
+instance StaticSize Primitive
+    where staticSizeOf = \_ -> 152 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Primitive
+    where readRaw = \ptr_0 -> (((((((((((((((((((((((((((pure Primitive <*> readRaw (Proxy @"primitive_c") ptr_0) <*> readRaw (Proxy @"primitive_sc") ptr_0) <*> readRaw (Proxy @"primitive_uc") ptr_0) <*> readRaw (Proxy @"primitive_s") ptr_0) <*> readRaw (Proxy @"primitive_si") ptr_0) <*> readRaw (Proxy @"primitive_ss") ptr_0) <*> readRaw (Proxy @"primitive_ssi") ptr_0) <*> readRaw (Proxy @"primitive_us") ptr_0) <*> readRaw (Proxy @"primitive_usi") ptr_0) <*> readRaw (Proxy @"primitive_i") ptr_0) <*> readRaw (Proxy @"primitive_s2") ptr_0) <*> readRaw (Proxy @"primitive_si2") ptr_0) <*> readRaw (Proxy @"primitive_u") ptr_0) <*> readRaw (Proxy @"primitive_ui") ptr_0) <*> readRaw (Proxy @"primitive_l") ptr_0) <*> readRaw (Proxy @"primitive_li") ptr_0) <*> readRaw (Proxy @"primitive_sl") ptr_0) <*> readRaw (Proxy @"primitive_sli") ptr_0) <*> readRaw (Proxy @"primitive_ul") ptr_0) <*> readRaw (Proxy @"primitive_uli") ptr_0) <*> readRaw (Proxy @"primitive_ll") ptr_0) <*> readRaw (Proxy @"primitive_lli") ptr_0) <*> readRaw (Proxy @"primitive_sll") ptr_0) <*> readRaw (Proxy @"primitive_slli") ptr_0) <*> readRaw (Proxy @"primitive_ull") ptr_0) <*> readRaw (Proxy @"primitive_ulli") ptr_0) <*> readRaw (Proxy @"primitive_f") ptr_0) <*> readRaw (Proxy @"primitive_d") ptr_0
+instance WriteRaw Primitive
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Primitive primitive_c_2
+                                                 primitive_sc_3
+                                                 primitive_uc_4
+                                                 primitive_s_5
+                                                 primitive_si_6
+                                                 primitive_ss_7
+                                                 primitive_ssi_8
+                                                 primitive_us_9
+                                                 primitive_usi_10
+                                                 primitive_i_11
+                                                 primitive_s2_12
+                                                 primitive_si2_13
+                                                 primitive_u_14
+                                                 primitive_ui_15
+                                                 primitive_l_16
+                                                 primitive_li_17
+                                                 primitive_sl_18
+                                                 primitive_sli_19
+                                                 primitive_ul_20
+                                                 primitive_uli_21
+                                                 primitive_ll_22
+                                                 primitive_lli_23
+                                                 primitive_sll_24
+                                                 primitive_slli_25
+                                                 primitive_ull_26
+                                                 primitive_ulli_27
+                                                 primitive_f_28
+                                                 primitive_d_29 -> writeRaw (Proxy @"primitive_c") ptr_0 primitive_c_2 >> (writeRaw (Proxy @"primitive_sc") ptr_0 primitive_sc_3 >> (writeRaw (Proxy @"primitive_uc") ptr_0 primitive_uc_4 >> (writeRaw (Proxy @"primitive_s") ptr_0 primitive_s_5 >> (writeRaw (Proxy @"primitive_si") ptr_0 primitive_si_6 >> (writeRaw (Proxy @"primitive_ss") ptr_0 primitive_ss_7 >> (writeRaw (Proxy @"primitive_ssi") ptr_0 primitive_ssi_8 >> (writeRaw (Proxy @"primitive_us") ptr_0 primitive_us_9 >> (writeRaw (Proxy @"primitive_usi") ptr_0 primitive_usi_10 >> (writeRaw (Proxy @"primitive_i") ptr_0 primitive_i_11 >> (writeRaw (Proxy @"primitive_s2") ptr_0 primitive_s2_12 >> (writeRaw (Proxy @"primitive_si2") ptr_0 primitive_si2_13 >> (writeRaw (Proxy @"primitive_u") ptr_0 primitive_u_14 >> (writeRaw (Proxy @"primitive_ui") ptr_0 primitive_ui_15 >> (writeRaw (Proxy @"primitive_l") ptr_0 primitive_l_16 >> (writeRaw (Proxy @"primitive_li") ptr_0 primitive_li_17 >> (writeRaw (Proxy @"primitive_sl") ptr_0 primitive_sl_18 >> (writeRaw (Proxy @"primitive_sli") ptr_0 primitive_sli_19 >> (writeRaw (Proxy @"primitive_ul") ptr_0 primitive_ul_20 >> (writeRaw (Proxy @"primitive_uli") ptr_0 primitive_uli_21 >> (writeRaw (Proxy @"primitive_ll") ptr_0 primitive_ll_22 >> (writeRaw (Proxy @"primitive_lli") ptr_0 primitive_lli_23 >> (writeRaw (Proxy @"primitive_sll") ptr_0 primitive_sll_24 >> (writeRaw (Proxy @"primitive_slli") ptr_0 primitive_slli_25 >> (writeRaw (Proxy @"primitive_ull") ptr_0 primitive_ull_26 >> (writeRaw (Proxy @"primitive_ulli") ptr_0 primitive_ulli_27 >> (writeRaw (Proxy @"primitive_f") ptr_0 primitive_f_28 >> writeRaw (Proxy @"primitive_d") ptr_0 primitive_d_29))))))))))))))))))))))))))
+deriving via (EquivStorable Primitive) instance Storable Primitive
 instance Prim Primitive
     where sizeOf# = \_ -> 152# :: Int#
           alignment# = \_ -> 8# :: Int#

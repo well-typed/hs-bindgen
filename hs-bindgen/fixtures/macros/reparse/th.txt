@@ -2524,12 +2524,15 @@ data Some_struct
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Some_struct
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Some_struct
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Some_struct -> return ()
+instance StaticSize Some_struct
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Some_struct
+    where readRaw = \ptr_0 -> pure Some_struct
+instance WriteRaw Some_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Some_struct -> return ()
+deriving via (EquivStorable Some_struct) instance Storable Some_struct
 instance Prim Some_struct
     where sizeOf# = \_ -> 0# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -3274,14 +3277,17 @@ data Example_struct
       __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Example_struct
-    where sizeOf = \_ -> 24 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Example_struct <*> peek (Proxy @"example_struct_field1") ptr_0) <*> peek (Proxy @"example_struct_field2") ptr_0) <*> peek (Proxy @"example_struct_field3") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Example_struct example_struct_field1_3
-                                                  example_struct_field2_4
-                                                  example_struct_field3_5 -> poke (Proxy @"example_struct_field1") ptr_1 example_struct_field1_3 >> (poke (Proxy @"example_struct_field2") ptr_1 example_struct_field2_4 >> poke (Proxy @"example_struct_field3") ptr_1 example_struct_field3_5)
+instance StaticSize Example_struct
+    where staticSizeOf = \_ -> 24 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Example_struct
+    where readRaw = \ptr_0 -> ((pure Example_struct <*> readRaw (Proxy @"example_struct_field1") ptr_0) <*> readRaw (Proxy @"example_struct_field2") ptr_0) <*> readRaw (Proxy @"example_struct_field3") ptr_0
+instance WriteRaw Example_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Example_struct example_struct_field1_2
+                                                      example_struct_field2_3
+                                                      example_struct_field3_4 -> writeRaw (Proxy @"example_struct_field1") ptr_0 example_struct_field1_2 >> (writeRaw (Proxy @"example_struct_field2") ptr_0 example_struct_field2_3 >> writeRaw (Proxy @"example_struct_field3") ptr_0 example_struct_field3_4)
+deriving via (EquivStorable Example_struct) instance Storable Example_struct
 instance HasCField Example_struct "example_struct_field1"
     where type CFieldType Example_struct "example_struct_field1" = A
           offset# = \_ -> \_ -> 0
@@ -3581,18 +3587,21 @@ data Example_struct_with_const
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Example_struct_with_const
-    where sizeOf = \_ -> 48 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((((((pure Example_struct_with_const <*> peek (Proxy @"example_struct_with_const_const_field1") ptr_0) <*> peek (Proxy @"example_struct_with_const_const_field2") ptr_0) <*> peek (Proxy @"example_struct_with_const_const_field3") ptr_0) <*> peek (Proxy @"example_struct_with_const_const_field4") ptr_0) <*> peek (Proxy @"example_struct_with_const_const_field5") ptr_0) <*> peek (Proxy @"example_struct_with_const_const_field6") ptr_0) <*> peek (Proxy @"example_struct_with_const_const_field7") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Example_struct_with_const example_struct_with_const_const_field1_3
-                                                             example_struct_with_const_const_field2_4
-                                                             example_struct_with_const_const_field3_5
-                                                             example_struct_with_const_const_field4_6
-                                                             example_struct_with_const_const_field5_7
-                                                             example_struct_with_const_const_field6_8
-                                                             example_struct_with_const_const_field7_9 -> poke (Proxy @"example_struct_with_const_const_field1") ptr_1 example_struct_with_const_const_field1_3 >> (poke (Proxy @"example_struct_with_const_const_field2") ptr_1 example_struct_with_const_const_field2_4 >> (poke (Proxy @"example_struct_with_const_const_field3") ptr_1 example_struct_with_const_const_field3_5 >> (poke (Proxy @"example_struct_with_const_const_field4") ptr_1 example_struct_with_const_const_field4_6 >> (poke (Proxy @"example_struct_with_const_const_field5") ptr_1 example_struct_with_const_const_field5_7 >> (poke (Proxy @"example_struct_with_const_const_field6") ptr_1 example_struct_with_const_const_field6_8 >> poke (Proxy @"example_struct_with_const_const_field7") ptr_1 example_struct_with_const_const_field7_9)))))
+instance StaticSize Example_struct_with_const
+    where staticSizeOf = \_ -> 48 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Example_struct_with_const
+    where readRaw = \ptr_0 -> ((((((pure Example_struct_with_const <*> readRaw (Proxy @"example_struct_with_const_const_field1") ptr_0) <*> readRaw (Proxy @"example_struct_with_const_const_field2") ptr_0) <*> readRaw (Proxy @"example_struct_with_const_const_field3") ptr_0) <*> readRaw (Proxy @"example_struct_with_const_const_field4") ptr_0) <*> readRaw (Proxy @"example_struct_with_const_const_field5") ptr_0) <*> readRaw (Proxy @"example_struct_with_const_const_field6") ptr_0) <*> readRaw (Proxy @"example_struct_with_const_const_field7") ptr_0
+instance WriteRaw Example_struct_with_const
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Example_struct_with_const example_struct_with_const_const_field1_2
+                                                                 example_struct_with_const_const_field2_3
+                                                                 example_struct_with_const_const_field3_4
+                                                                 example_struct_with_const_const_field4_5
+                                                                 example_struct_with_const_const_field5_6
+                                                                 example_struct_with_const_const_field6_7
+                                                                 example_struct_with_const_const_field7_8 -> writeRaw (Proxy @"example_struct_with_const_const_field1") ptr_0 example_struct_with_const_const_field1_2 >> (writeRaw (Proxy @"example_struct_with_const_const_field2") ptr_0 example_struct_with_const_const_field2_3 >> (writeRaw (Proxy @"example_struct_with_const_const_field3") ptr_0 example_struct_with_const_const_field3_4 >> (writeRaw (Proxy @"example_struct_with_const_const_field4") ptr_0 example_struct_with_const_const_field4_5 >> (writeRaw (Proxy @"example_struct_with_const_const_field5") ptr_0 example_struct_with_const_const_field5_6 >> (writeRaw (Proxy @"example_struct_with_const_const_field6") ptr_0 example_struct_with_const_const_field6_7 >> writeRaw (Proxy @"example_struct_with_const_const_field7") ptr_0 example_struct_with_const_const_field7_8)))))
+deriving via (EquivStorable Example_struct_with_const) instance Storable Example_struct_with_const
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field1"
     where type CFieldType Example_struct_with_const

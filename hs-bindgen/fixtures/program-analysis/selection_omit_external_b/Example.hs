@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -19,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
@@ -39,23 +42,29 @@ data Omitted = Omitted
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Omitted where
+instance HsBindgen.Runtime.Marshal.StaticSize Omitted where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Omitted where
+
+  readRaw =
     \ptr0 ->
           pure Omitted
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"omitted_n") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"omitted_n") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Omitted where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Omitted omitted_n2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"omitted_n") ptr0 omitted_n2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"omitted_n") ptr0 omitted_n2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Omitted instance F.Storable Omitted
 
 instance Data.Primitive.Types.Prim Omitted where
 
@@ -134,23 +143,29 @@ data DirectlyDependsOnOmitted = DirectlyDependsOnOmitted
   }
   deriving stock (Eq, Show)
 
-instance F.Storable DirectlyDependsOnOmitted where
+instance HsBindgen.Runtime.Marshal.StaticSize DirectlyDependsOnOmitted where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw DirectlyDependsOnOmitted where
+
+  readRaw =
     \ptr0 ->
           pure DirectlyDependsOnOmitted
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw DirectlyDependsOnOmitted where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           DirectlyDependsOnOmitted directlyDependsOnOmitted_o2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable DirectlyDependsOnOmitted instance F.Storable DirectlyDependsOnOmitted
 
 instance Data.Primitive.Types.Prim DirectlyDependsOnOmitted where
 
@@ -230,23 +245,29 @@ data IndirectlyDependsOnOmitted = IndirectlyDependsOnOmitted
   }
   deriving stock (Eq, Show)
 
-instance F.Storable IndirectlyDependsOnOmitted where
+instance HsBindgen.Runtime.Marshal.StaticSize IndirectlyDependsOnOmitted where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw IndirectlyDependsOnOmitted where
+
+  readRaw =
     \ptr0 ->
           pure IndirectlyDependsOnOmitted
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw IndirectlyDependsOnOmitted where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable IndirectlyDependsOnOmitted instance F.Storable IndirectlyDependsOnOmitted
 
 instance Data.Primitive.Types.Prim IndirectlyDependsOnOmitted where
 

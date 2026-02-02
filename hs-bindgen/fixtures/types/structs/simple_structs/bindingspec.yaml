@@ -58,8 +58,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S2_t
   representation:
     record:
@@ -73,8 +76,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S3_t
   representation:
     record:
@@ -86,8 +92,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S4
   representation:
     record:
@@ -100,8 +109,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S5
   representation:
     record:
@@ -114,8 +126,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S6
   representation:
     record:
@@ -128,8 +143,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S7a
   representation:
     newtype:
@@ -159,8 +177,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S7b
   representation:
     newtype:
@@ -190,5 +211,8 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

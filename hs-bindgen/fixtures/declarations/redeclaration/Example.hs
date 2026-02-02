@@ -75,23 +75,29 @@ data X = X
   }
   deriving stock (Eq, Show)
 
-instance F.Storable X where
+instance HsBindgen.Runtime.Marshal.StaticSize X where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw X where
+
+  readRaw =
     \ptr0 ->
           pure X
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"x_n") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"x_n") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw X where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           X x_n2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"x_n") ptr0 x_n2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"x_n") ptr0 x_n2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable X instance F.Storable X
 
 instance Data.Primitive.Types.Prim X where
 

@@ -157,7 +157,7 @@ getDecls :: forall n.
   -> (Hs.Struct n, [Hs.Decl])
 getDecls supInsts hCfg spec structName info struct fieldsVec insts =
     ( hsStruct
-    , storableDecl ++ primDecl ++ optDecls ++ fieldDecls
+    , marshalDecls ++ primDecl ++ optDecls ++ fieldDecls
     )
   where
     getHsField :: C.StructField Final -> Hs.Field
@@ -183,24 +183,67 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
             }
         }
 
-    storableDecl :: [Hs.Decl]
-    storableDecl
-      | Inst.Storable `Set.notMember` insts = []
-      | otherwise = singleton $ Hs.DeclDefineInstance
-          Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
-                sizeOf    = struct.sizeof
-              , alignment = struct.alignment
-              , peek      = Hs.Lambda "ptr" $
-                  Hs.Ap (Hs.StructCon hsStruct) $
-                    map (peekField IZ) struct.fields
-              , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                  Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
-                    Vec.zipWith (pokeField (weaken wk I1))
-                      fieldsVec xs
-              }
-          }
+    marshalDecls :: [Hs.Decl]
+    marshalDecls =
+      let hasStaticSize = Inst.StaticSize `Set.member` insts
+          hasReadRaw    = Inst.ReadRaw    `Set.member` insts
+          hasWriteRaw   = Inst.WriteRaw   `Set.member` insts
+          hasStorable   = Inst.Storable   `Set.member` insts
+          justWhen p x  = if p then Just x else Nothing
+      in  catMaybes [
+              justWhen hasStaticSize $
+                Hs.DeclDefineInstance Hs.DefineInstance{
+                    comment      = Nothing
+                  , instanceDecl =
+                      Hs.InstanceStaticSize hsStruct Hs.StaticSizeInstance{
+                          staticSizeOf    = struct.sizeof
+                        , staticAlignment = struct.alignment
+                        }
+                  }
+            , justWhen hasReadRaw $
+                Hs.DeclDefineInstance Hs.DefineInstance{
+                    comment      = Nothing
+                  , instanceDecl =
+                      Hs.InstanceReadRaw hsStruct Hs.ReadRawInstance{
+                          readRaw = Hs.Lambda "ptr" $
+                            Hs.Ap (Hs.StructCon hsStruct) $
+                              map (readRawField IZ) struct.fields
+                        }
+                  }
+            , justWhen hasWriteRaw $
+                Hs.DeclDefineInstance Hs.DefineInstance{
+                    comment      = Nothing
+                  , instanceDecl =
+                      Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
+                          writeRaw = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                            Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
+                              Vec.zipWith (writeRawField (weaken wk I1))
+                                fieldsVec xs
+                        }
+                  }
+            , if hasStaticSize && hasReadRaw && hasWriteRaw
+                then Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                    strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef structName Nothing))
+                  , clss     = Inst.Storable
+                  , name     = structName
+                  , comment  = Nothing
+                  }
+                else justWhen hasStorable $
+                  Hs.DeclDefineInstance Hs.DefineInstance {
+                      comment      = Nothing
+                    , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
+                          sizeOf    = struct.sizeof
+                        , alignment = struct.alignment
+                        , peek      = Hs.Lambda "ptr" $
+                            Hs.Ap (Hs.StructCon hsStruct) $
+                              map (peekField IZ) struct.fields
+                        , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                            Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
+                              Vec.zipWith (pokeField (weaken wk I1))
+                                fieldsVec xs
+                        }
+                    }
+            ]
 
     primDecl :: [Hs.Decl]
     primDecl = HsPrim.mkPrimInstance insts hsStruct struct
@@ -326,5 +369,23 @@ pokeField :: Idx ctx -> C.StructField Final -> Idx ctx -> Hs.PokeCField ctx
 pokeField ptr field x = case field.width of
     Nothing  -> Hs.PokeCField    (HsStrLit name) ptr x
     Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
+  where
+    name = Text.unpack field.info.name.hsName.text
+
+readRawField :: Idx ctx -> C.StructField Final -> Hs.ReadRawCField ctx
+readRawField ptr field = case field.width of
+    Nothing -> Hs.ReadRawCField    (HsStrLit name) ptr
+    Just _w -> Hs.ReadRawCBitfield (HsStrLit name) ptr
+  where
+    name = Text.unpack field.info.name.hsName.text
+
+writeRawField ::
+     Idx ctx
+  -> C.StructField Final
+  -> Idx ctx
+  -> Hs.WriteRawCField ctx
+writeRawField ptr field x = case field.width of
+    Nothing  -> Hs.WriteRawCField    (HsStrLit name) ptr x
+    Just _w  -> Hs.WriteRawCBitfield (HsStrLit name) ptr x
   where
     name = Text.unpack field.info.name.hsName.text

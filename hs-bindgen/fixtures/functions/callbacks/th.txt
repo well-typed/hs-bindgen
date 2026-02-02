@@ -688,13 +688,16 @@ data Measurement
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Measurement
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Measurement <*> peek (Proxy @"measurement_value") ptr_0) <*> peek (Proxy @"measurement_timestamp") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Measurement measurement_value_3
-                                               measurement_timestamp_4 -> poke (Proxy @"measurement_value") ptr_1 measurement_value_3 >> poke (Proxy @"measurement_timestamp") ptr_1 measurement_timestamp_4
+instance StaticSize Measurement
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Measurement
+    where readRaw = \ptr_0 -> (pure Measurement <*> readRaw (Proxy @"measurement_value") ptr_0) <*> readRaw (Proxy @"measurement_timestamp") ptr_0
+instance WriteRaw Measurement
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Measurement measurement_value_2
+                                                   measurement_timestamp_3 -> writeRaw (Proxy @"measurement_value") ptr_0 measurement_value_2 >> writeRaw (Proxy @"measurement_timestamp") ptr_0 measurement_timestamp_3
+deriving via (EquivStorable Measurement) instance Storable Measurement
 instance Prim Measurement
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -972,14 +975,17 @@ data MeasurementHandler
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Show)
-instance Storable MeasurementHandler
-    where sizeOf = \_ -> 24 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure MeasurementHandler <*> peek (Proxy @"measurementHandler_onReceived") ptr_0) <*> peek (Proxy @"measurementHandler_validate") ptr_0) <*> peek (Proxy @"measurementHandler_onError") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MeasurementHandler measurementHandler_onReceived_3
-                                                      measurementHandler_validate_4
-                                                      measurementHandler_onError_5 -> poke (Proxy @"measurementHandler_onReceived") ptr_1 measurementHandler_onReceived_3 >> (poke (Proxy @"measurementHandler_validate") ptr_1 measurementHandler_validate_4 >> poke (Proxy @"measurementHandler_onError") ptr_1 measurementHandler_onError_5)
+instance StaticSize MeasurementHandler
+    where staticSizeOf = \_ -> 24 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw MeasurementHandler
+    where readRaw = \ptr_0 -> ((pure MeasurementHandler <*> readRaw (Proxy @"measurementHandler_onReceived") ptr_0) <*> readRaw (Proxy @"measurementHandler_validate") ptr_0) <*> readRaw (Proxy @"measurementHandler_onError") ptr_0
+instance WriteRaw MeasurementHandler
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       MeasurementHandler measurementHandler_onReceived_2
+                                                          measurementHandler_validate_3
+                                                          measurementHandler_onError_4 -> writeRaw (Proxy @"measurementHandler_onReceived") ptr_0 measurementHandler_onReceived_2 >> (writeRaw (Proxy @"measurementHandler_validate") ptr_0 measurementHandler_validate_3 >> writeRaw (Proxy @"measurementHandler_onError") ptr_0 measurementHandler_onError_4)
+deriving via (EquivStorable MeasurementHandler) instance Storable MeasurementHandler
 instance HasCField MeasurementHandler
                    "measurementHandler_onReceived"
     where type CFieldType MeasurementHandler
@@ -1049,14 +1055,17 @@ data DataPipeline
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Show)
-instance Storable DataPipeline
-    where sizeOf = \_ -> 24 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure DataPipeline <*> peek (Proxy @"dataPipeline_preProcess") ptr_0) <*> peek (Proxy @"dataPipeline_process") ptr_0) <*> peek (Proxy @"dataPipeline_postProcess") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   DataPipeline dataPipeline_preProcess_3
-                                                dataPipeline_process_4
-                                                dataPipeline_postProcess_5 -> poke (Proxy @"dataPipeline_preProcess") ptr_1 dataPipeline_preProcess_3 >> (poke (Proxy @"dataPipeline_process") ptr_1 dataPipeline_process_4 >> poke (Proxy @"dataPipeline_postProcess") ptr_1 dataPipeline_postProcess_5)
+instance StaticSize DataPipeline
+    where staticSizeOf = \_ -> 24 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw DataPipeline
+    where readRaw = \ptr_0 -> ((pure DataPipeline <*> readRaw (Proxy @"dataPipeline_preProcess") ptr_0) <*> readRaw (Proxy @"dataPipeline_process") ptr_0) <*> readRaw (Proxy @"dataPipeline_postProcess") ptr_0
+instance WriteRaw DataPipeline
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       DataPipeline dataPipeline_preProcess_2
+                                                    dataPipeline_process_3
+                                                    dataPipeline_postProcess_4 -> writeRaw (Proxy @"dataPipeline_preProcess") ptr_0 dataPipeline_preProcess_2 >> (writeRaw (Proxy @"dataPipeline_process") ptr_0 dataPipeline_process_3 >> writeRaw (Proxy @"dataPipeline_postProcess") ptr_0 dataPipeline_postProcess_4)
+deriving via (EquivStorable DataPipeline) instance Storable DataPipeline
 instance HasCField DataPipeline "dataPipeline_preProcess"
     where type CFieldType DataPipeline
                           "dataPipeline_preProcess" = FunPtr (Ptr Measurement ->
@@ -1373,13 +1382,16 @@ data Processor
 
            __exported by:__ @functions\/callbacks.h@
       -}
-instance Storable Processor
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Processor <*> peek (Proxy @"processor_mode") ptr_0) <*> peek (Proxy @"processor_callback") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Processor processor_mode_3
-                                             processor_callback_4 -> poke (Proxy @"processor_mode") ptr_1 processor_mode_3 >> poke (Proxy @"processor_callback") ptr_1 processor_callback_4
+instance StaticSize Processor
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Processor
+    where readRaw = \ptr_0 -> (pure Processor <*> readRaw (Proxy @"processor_mode") ptr_0) <*> readRaw (Proxy @"processor_callback") ptr_0
+instance WriteRaw Processor
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Processor processor_mode_2
+                                                 processor_callback_3 -> writeRaw (Proxy @"processor_mode") ptr_0 processor_mode_2 >> writeRaw (Proxy @"processor_callback") ptr_0 processor_callback_3
+deriving via (EquivStorable Processor) instance Storable Processor
 instance Prim Processor
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#

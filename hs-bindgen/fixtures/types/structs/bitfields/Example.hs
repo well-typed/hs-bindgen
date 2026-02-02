@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -21,6 +23,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -77,23 +80,27 @@ data Flags = Flags
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Flags where
+instance HsBindgen.Runtime.Marshal.StaticSize Flags where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Flags where
+
+  readRaw =
     \ptr0 ->
           pure Flags
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"flags_fieldX") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"flags_fieldX") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_flagA") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_flagB") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_flagC") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"flags_fieldY") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"flags_fieldY") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_bits") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Flags where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -104,12 +111,14 @@ instance F.Storable Flags where
             flags_flagC5
             flags_fieldY6
             flags_bits7 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"flags_fieldX") ptr0 flags_fieldX2
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"flags_fieldX") ptr0 flags_fieldX2
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_flagA") ptr0 flags_flagA3
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_flagB") ptr0 flags_flagB4
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_flagC") ptr0 flags_flagC5
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"flags_fieldY") ptr0 flags_fieldY6
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"flags_fieldY") ptr0 flags_fieldY6
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_bits") ptr0 flags_bits7
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Flags instance F.Storable Flags
 
 instance Data.Primitive.Types.Prim Flags where
 
@@ -324,20 +333,24 @@ data Overflow32 = Overflow32
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Overflow32 where
+instance HsBindgen.Runtime.Marshal.StaticSize Overflow32 where
 
-  sizeOf = \_ -> (12 :: Int)
+  staticSizeOf = \_ -> (12 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Overflow32 where
+
+  readRaw =
     \ptr0 ->
           pure Overflow32
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32_x") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32_y") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32_z") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -345,6 +358,8 @@ instance F.Storable Overflow32 where
                HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32_x") ptr0 overflow32_x2
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32_y") ptr0 overflow32_y3
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32_z") ptr0 overflow32_z4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32 instance F.Storable Overflow32
 
 instance Data.Primitive.Types.Prim Overflow32 where
 
@@ -486,20 +501,24 @@ data Overflow32b = Overflow32b
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Overflow32b where
+instance HsBindgen.Runtime.Marshal.StaticSize Overflow32b where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Overflow32b where
+
+  readRaw =
     \ptr0 ->
           pure Overflow32b
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32b_x") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32b_y") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32b_z") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32b where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -507,6 +526,8 @@ instance F.Storable Overflow32b where
                HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32b_x") ptr0 overflow32b_x2
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32b_y") ptr0 overflow32b_y3
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32b_z") ptr0 overflow32b_z4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32b instance F.Storable Overflow32b
 
 instance Data.Primitive.Types.Prim Overflow32b where
 
@@ -648,20 +669,24 @@ data Overflow32c = Overflow32c
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Overflow32c where
+instance HsBindgen.Runtime.Marshal.StaticSize Overflow32c where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Overflow32c where
+
+  readRaw =
     \ptr0 ->
           pure Overflow32c
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32c_x") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32c_y") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32c_z") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32c where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -669,6 +694,8 @@ instance F.Storable Overflow32c where
                HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32c_x") ptr0 overflow32c_x2
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32c_y") ptr0 overflow32c_y3
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32c_z") ptr0 overflow32c_z4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32c instance F.Storable Overflow32c
 
 instance Data.Primitive.Types.Prim Overflow32c where
 
@@ -803,25 +830,31 @@ data Overflow64 = Overflow64
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Overflow64 where
+instance HsBindgen.Runtime.Marshal.StaticSize Overflow64 where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Overflow64 where
+
+  readRaw =
     \ptr0 ->
           pure Overflow64
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow64_x") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow64_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Overflow64 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Overflow64 overflow64_x2 overflow64_y3 ->
                HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow64_x") ptr0 overflow64_x2
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow64_y") ptr0 overflow64_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow64 instance F.Storable Overflow64
 
 instance Data.Primitive.Types.Prim Overflow64 where
 
@@ -933,25 +966,31 @@ data AlignA = AlignA
   }
   deriving stock (Eq, Show)
 
-instance F.Storable AlignA where
+instance HsBindgen.Runtime.Marshal.StaticSize AlignA where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw AlignA where
+
+  readRaw =
     \ptr0 ->
           pure AlignA
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignA_x") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignA_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw AlignA where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AlignA alignA_x2 alignA_y3 ->
                HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignA_x") ptr0 alignA_x2
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignA_y") ptr0 alignA_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable AlignA instance F.Storable AlignA
 
 instance Data.Primitive.Types.Prim AlignA where
 
@@ -1061,25 +1100,31 @@ data AlignB = AlignB
   }
   deriving stock (Eq, Show)
 
-instance F.Storable AlignB where
+instance HsBindgen.Runtime.Marshal.StaticSize AlignB where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw AlignB where
+
+  readRaw =
     \ptr0 ->
           pure AlignB
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignB_x") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignB_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw AlignB where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AlignB alignB_x2 alignB_y3 ->
                HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignB_x") ptr0 alignB_x2
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignB_y") ptr0 alignB_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable AlignB instance F.Storable AlignB
 
 instance Data.Primitive.Types.Prim AlignB where
 

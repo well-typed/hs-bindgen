@@ -21,8 +21,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: 'Y'
   representation:
     newtype:

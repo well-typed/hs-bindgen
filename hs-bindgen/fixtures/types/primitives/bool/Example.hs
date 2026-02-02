@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -54,25 +56,31 @@ data Bools1 = Bools1
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Bools1 where
+instance HsBindgen.Runtime.Marshal.StaticSize Bools1 where
 
-  sizeOf = \_ -> (2 :: Int)
+  staticSizeOf = \_ -> (2 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Bools1 where
+
+  readRaw =
     \ptr0 ->
           pure Bools1
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools1_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools1_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools1_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools1_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Bools1 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools1 bools1_x2 bools1_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools1_x") ptr0 bools1_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools1_y") ptr0 bools1_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools1_x") ptr0 bools1_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools1_y") ptr0 bools1_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Bools1 instance F.Storable Bools1
 
 instance Data.Primitive.Types.Prim Bools1 where
 
@@ -178,25 +186,31 @@ data Bools2 = Bools2
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Bools2 where
+instance HsBindgen.Runtime.Marshal.StaticSize Bools2 where
 
-  sizeOf = \_ -> (2 :: Int)
+  staticSizeOf = \_ -> (2 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Bools2 where
+
+  readRaw =
     \ptr0 ->
           pure Bools2
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools2_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools2_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools2_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools2_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Bools2 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools2 bools2_x2 bools2_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools2_x") ptr0 bools2_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools2_y") ptr0 bools2_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools2_x") ptr0 bools2_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools2_y") ptr0 bools2_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Bools2 instance F.Storable Bools2
 
 instance Data.Primitive.Types.Prim Bools2 where
 
@@ -326,25 +340,31 @@ data Bools3 = Bools3
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Bools3 where
+instance HsBindgen.Runtime.Marshal.StaticSize Bools3 where
 
-  sizeOf = \_ -> (2 :: Int)
+  staticSizeOf = \_ -> (2 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Bools3 where
+
+  readRaw =
     \ptr0 ->
           pure Bools3
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools3_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bools3_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools3_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools3_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Bools3 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools3 bools3_x2 bools3_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools3_x") ptr0 bools3_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bools3_y") ptr0 bools3_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools3_x") ptr0 bools3_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools3_y") ptr0 bools3_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Bools3 instance F.Storable Bools3
 
 instance Data.Primitive.Types.Prim Bools3 where
 

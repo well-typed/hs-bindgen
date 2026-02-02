@@ -70,8 +70,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct2
   representation:
     record:
@@ -83,8 +86,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct3
   representation:
     record:
@@ -96,8 +102,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct3_t
   representation:
     newtype:
@@ -109,8 +118,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct4
   representation:
     record:
@@ -122,8 +134,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TC
   representation:
     newtype:

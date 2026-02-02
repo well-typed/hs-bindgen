@@ -123,12 +123,15 @@ data S
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure S
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S -> return ()
+instance StaticSize S
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S -> return ()
+deriving via (EquivStorable S) instance Storable S
 instance Prim S
     where sizeOf# = \_ -> 0# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -275,7 +278,7 @@ newtype TS
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType TS "unwrapTS") =>
          HasField "unwrapTS" (Ptr TS) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTS")
@@ -381,7 +384,7 @@ newtype TTS
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType TTS "unwrapTTS") =>
          HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTS")

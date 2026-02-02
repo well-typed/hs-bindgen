@@ -27,8 +27,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     newtype:
@@ -40,8 +43,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: E
   representation:
     newtype:
@@ -62,5 +68,8 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

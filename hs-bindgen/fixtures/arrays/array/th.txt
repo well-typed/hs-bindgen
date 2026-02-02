@@ -769,13 +769,16 @@ data Example
            __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Example
-    where sizeOf = \_ -> 48 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Example <*> peek (Proxy @"example_triple") ptr_0) <*> peek (Proxy @"example_sudoku") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Example example_triple_3
-                                           example_sudoku_4 -> poke (Proxy @"example_triple") ptr_1 example_triple_3 >> poke (Proxy @"example_sudoku") ptr_1 example_sudoku_4
+instance StaticSize Example
+    where staticSizeOf = \_ -> 48 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Example
+    where readRaw = \ptr_0 -> (pure Example <*> readRaw (Proxy @"example_triple") ptr_0) <*> readRaw (Proxy @"example_sudoku") ptr_0
+instance WriteRaw Example
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Example example_triple_2
+                                               example_sudoku_3 -> writeRaw (Proxy @"example_triple") ptr_0 example_triple_2 >> writeRaw (Proxy @"example_sudoku") ptr_0 example_sudoku_3
+deriving via (EquivStorable Example) instance Storable Example
 instance HasCField Example "example_triple"
     where type CFieldType Example "example_triple" = ConstantArray 3
                                                                    CInt

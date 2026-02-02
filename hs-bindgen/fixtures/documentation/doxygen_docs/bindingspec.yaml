@@ -72,8 +72,11 @@ hstypes:
   - HasCBitField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Color_enum
   representation:
     newtype:
@@ -109,8 +112,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Data_union_t
   representation:
     newtype:
@@ -136,8 +142,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Event_callback_t
   representation:
     newtype:
@@ -183,8 +192,11 @@ hstypes:
   - Flam_Offset
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Forward_declared_struct
   representation: emptydata
 - hsname: Forward_declared_union

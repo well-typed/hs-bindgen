@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -19,6 +21,7 @@ import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
@@ -54,25 +57,31 @@ data Bar = Bar
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Bar where
+instance HsBindgen.Runtime.Marshal.StaticSize Bar where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Bar where
+
+  readRaw =
     \ptr0 ->
           pure Bar
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bar_ptrA") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"bar_ptrB") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bar_ptrA") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bar_ptrB") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Bar where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bar bar_ptrA2 bar_ptrB3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bar_ptrA") ptr0 bar_ptrA2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"bar_ptrB") ptr0 bar_ptrB3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bar_ptrA") ptr0 bar_ptrA2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bar_ptrB") ptr0 bar_ptrB3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Bar instance F.Storable Bar
 
 instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_ptrA" where
 
@@ -108,19 +117,25 @@ data Baz = Baz
   {}
   deriving stock (Eq, Show)
 
-instance F.Storable Baz where
+instance HsBindgen.Runtime.Marshal.StaticSize Baz where
 
-  sizeOf = \_ -> (0 :: Int)
+  staticSizeOf = \_ -> (0 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek = \ptr0 -> pure Baz
+instance HsBindgen.Runtime.Marshal.ReadRaw Baz where
 
-  poke =
+  readRaw = \ptr0 -> pure Baz
+
+instance HsBindgen.Runtime.Marshal.WriteRaw Baz where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Baz -> return ()
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Baz instance F.Storable Baz
 
 instance Data.Primitive.Types.Prim Baz where
 

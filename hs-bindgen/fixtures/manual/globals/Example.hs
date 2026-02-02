@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -56,25 +58,31 @@ data GlobalConfig = GlobalConfig
   }
   deriving stock (Eq, Show)
 
-instance F.Storable GlobalConfig where
+instance HsBindgen.Runtime.Marshal.StaticSize GlobalConfig where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw GlobalConfig where
+
+  readRaw =
     \ptr0 ->
           pure GlobalConfig
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw GlobalConfig where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           GlobalConfig globalConfig_numThreads2 globalConfig_numWorkers3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0 globalConfig_numThreads2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0 globalConfig_numWorkers3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0 globalConfig_numThreads2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0 globalConfig_numWorkers3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable GlobalConfig instance F.Storable GlobalConfig
 
 instance Data.Primitive.Types.Prim GlobalConfig where
 
@@ -206,25 +214,31 @@ data Tuple = Tuple
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Tuple where
+instance HsBindgen.Runtime.Marshal.StaticSize Tuple where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Tuple where
+
+  readRaw =
     \ptr0 ->
           pure Tuple
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tuple_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"tuple_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"tuple_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"tuple_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Tuple where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Tuple tuple_x2 tuple_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tuple_x") ptr0 tuple_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"tuple_y") ptr0 tuple_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"tuple_x") ptr0 tuple_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"tuple_y") ptr0 tuple_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Tuple instance F.Storable Tuple
 
 instance Data.Primitive.Types.Prim Tuple where
 

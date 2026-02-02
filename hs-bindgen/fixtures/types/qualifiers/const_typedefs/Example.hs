@@ -71,19 +71,25 @@ data S = S
   {}
   deriving stock (Eq, Show)
 
-instance F.Storable S where
+instance HsBindgen.Runtime.Marshal.StaticSize S where
 
-  sizeOf = \_ -> (0 :: Int)
+  staticSizeOf = \_ -> (0 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek = \ptr0 -> pure S
+instance HsBindgen.Runtime.Marshal.ReadRaw S where
 
-  poke =
+  readRaw = \ptr0 -> pure S
+
+instance HsBindgen.Runtime.Marshal.WriteRaw S where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S -> return ()
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S instance F.Storable S
 
 instance Data.Primitive.Types.Prim S where
 
@@ -268,7 +274,7 @@ newtype TS = TS
   { unwrapTS :: S
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TS) "unwrapTS")
          ) => GHC.Records.HasField "unwrapTS" (Ptr.Ptr TS) (Ptr.Ptr ty) where
@@ -363,7 +369,7 @@ newtype TTS = TTS
   { unwrapTTS :: TS
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTS) "unwrapTTS")
          ) => GHC.Records.HasField "unwrapTTS" (Ptr.Ptr TTS) (Ptr.Ptr ty) where

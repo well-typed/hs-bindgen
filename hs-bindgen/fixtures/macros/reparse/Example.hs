@@ -79,19 +79,25 @@ data Some_struct = Some_struct
   {}
   deriving stock (Eq, Show)
 
-instance F.Storable Some_struct where
+instance HsBindgen.Runtime.Marshal.StaticSize Some_struct where
 
-  sizeOf = \_ -> (0 :: Int)
+  staticSizeOf = \_ -> (0 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek = \ptr0 -> pure Some_struct
+instance HsBindgen.Runtime.Marshal.ReadRaw Some_struct where
 
-  poke =
+  readRaw = \ptr0 -> pure Some_struct
+
+instance HsBindgen.Runtime.Marshal.WriteRaw Some_struct where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Some_struct -> return ()
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_struct instance F.Storable Some_struct
 
 instance Data.Primitive.Types.Prim Some_struct where
 
@@ -890,20 +896,24 @@ data Example_struct = Example_struct
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Example_struct where
+instance HsBindgen.Runtime.Marshal.StaticSize Example_struct where
 
-  sizeOf = \_ -> (24 :: Int)
+  staticSizeOf = \_ -> (24 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Example_struct where
+
+  readRaw =
     \ptr0 ->
           pure Example_struct
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_field1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_field2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_field3") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_field1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_field2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_field3") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Example_struct where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -911,9 +921,11 @@ instance F.Storable Example_struct where
             example_struct_field12
             example_struct_field23
             example_struct_field34 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_field1") ptr0 example_struct_field12
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_field2") ptr0 example_struct_field23
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_field3") ptr0 example_struct_field34
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_field1") ptr0 example_struct_field12
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_field2") ptr0 example_struct_field23
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_field3") ptr0 example_struct_field34
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Example_struct instance F.Storable Example_struct
 
 instance HsBindgen.Runtime.HasCField.HasCField Example_struct "example_struct_field1" where
 
@@ -1188,24 +1200,28 @@ data Example_struct_with_const = Example_struct_with_const
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Example_struct_with_const where
+instance HsBindgen.Runtime.Marshal.StaticSize Example_struct_with_const where
 
-  sizeOf = \_ -> (48 :: Int)
+  staticSizeOf = \_ -> (48 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Example_struct_with_const where
+
+  readRaw =
     \ptr0 ->
           pure Example_struct_with_const
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_with_const_const_field1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_with_const_const_field2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_with_const_const_field3") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_with_const_const_field4") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_with_const_const_field5") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_with_const_const_field6") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_struct_with_const_const_field7") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field3") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field4") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field5") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field6") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field7") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Example_struct_with_const where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -1217,13 +1233,15 @@ instance F.Storable Example_struct_with_const where
             example_struct_with_const_const_field56
             example_struct_with_const_const_field67
             example_struct_with_const_const_field78 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_with_const_const_field1") ptr0 example_struct_with_const_const_field12
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_with_const_const_field2") ptr0 example_struct_with_const_const_field23
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_with_const_const_field3") ptr0 example_struct_with_const_const_field34
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_with_const_const_field4") ptr0 example_struct_with_const_const_field45
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_with_const_const_field5") ptr0 example_struct_with_const_const_field56
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_with_const_const_field6") ptr0 example_struct_with_const_const_field67
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_struct_with_const_const_field7") ptr0 example_struct_with_const_const_field78
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field1") ptr0 example_struct_with_const_const_field12
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field2") ptr0 example_struct_with_const_const_field23
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field3") ptr0 example_struct_with_const_const_field34
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field4") ptr0 example_struct_with_const_const_field45
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field5") ptr0 example_struct_with_const_const_field56
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field6") ptr0 example_struct_with_const_const_field67
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_struct_with_const_const_field7") ptr0 example_struct_with_const_const_field78
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Example_struct_with_const instance F.Storable Example_struct_with_const
 
 instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field1" where
 

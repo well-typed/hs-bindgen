@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -135,20 +137,24 @@ data MyStruct = MyStruct
   }
   deriving stock (Eq, Show)
 
-instance F.Storable MyStruct where
+instance HsBindgen.Runtime.Marshal.StaticSize MyStruct where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw MyStruct where
+
+  readRaw =
     \ptr0 ->
           pure MyStruct
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_x") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_y") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_z") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw MyStruct where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -156,6 +162,8 @@ instance F.Storable MyStruct where
                HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_x") ptr0 myStruct_x2
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_y") ptr0 myStruct_y3
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_z") ptr0 myStruct_z4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable MyStruct instance F.Storable MyStruct
 
 instance Data.Primitive.Types.Prim MyStruct where
 

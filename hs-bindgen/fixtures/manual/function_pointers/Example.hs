@@ -110,23 +110,29 @@ data Apply1Struct = Apply1Struct
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Apply1Struct where
+instance HsBindgen.Runtime.Marshal.StaticSize Apply1Struct where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Apply1Struct where
+
+  readRaw =
     \ptr0 ->
           pure Apply1Struct
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Apply1Struct where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Apply1Struct apply1Struct_apply1_nopointer_struct_field2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0 apply1Struct_apply1_nopointer_struct_field2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0 apply1Struct_apply1_nopointer_struct_field2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Apply1Struct instance F.Storable Apply1Struct
 
 instance HsBindgen.Runtime.HasCField.HasCField Apply1Struct "apply1Struct_apply1_nopointer_struct_field" where
 

@@ -62,25 +62,31 @@ data Outside = Outside
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Outside where
+instance HsBindgen.Runtime.Marshal.StaticSize Outside where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Outside where
+
+  readRaw =
     \ptr0 ->
           pure Outside
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"outside_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"outside_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"outside_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"outside_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Outside where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Outside outside_x2 outside_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"outside_x") ptr0 outside_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"outside_y") ptr0 outside_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"outside_x") ptr0 outside_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"outside_y") ptr0 outside_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Outside instance F.Storable Outside
 
 instance Data.Primitive.Types.Prim Outside where
 
@@ -190,25 +196,31 @@ data Named_struct = Named_struct
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Named_struct where
+instance HsBindgen.Runtime.Marshal.StaticSize Named_struct where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Named_struct where
+
+  readRaw =
     \ptr0 ->
           pure Named_struct
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"named_struct_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"named_struct_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"named_struct_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"named_struct_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Named_struct where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Named_struct named_struct_x2 named_struct_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"named_struct_x") ptr0 named_struct_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"named_struct_y") ptr0 named_struct_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"named_struct_x") ptr0 named_struct_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"named_struct_y") ptr0 named_struct_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Named_struct instance F.Storable Named_struct
 
 instance Data.Primitive.Types.Prim Named_struct where
 

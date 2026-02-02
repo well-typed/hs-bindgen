@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -19,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -229,45 +232,49 @@ data Primitive = Primitive
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Primitive where
+instance HsBindgen.Runtime.Marshal.StaticSize Primitive where
 
-  sizeOf = \_ -> (152 :: Int)
+  staticSizeOf = \_ -> (152 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Primitive where
+
+  readRaw =
     \ptr0 ->
           pure Primitive
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_c") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_sc") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_uc") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_s") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_si") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_ss") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_ssi") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_us") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_usi") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_i") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_s2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_si2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_u") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_ui") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_l") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_li") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_sl") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_sli") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_ul") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_uli") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_ll") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_lli") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_sll") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_slli") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_ull") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_ulli") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_f") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"primitive_d") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_c") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_sc") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_uc") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_s") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_si") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_ss") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_ssi") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_us") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_usi") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_i") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_s2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_si2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_u") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_ui") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_l") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_li") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_sl") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_sli") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_ul") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_uli") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_ll") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_lli") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_sll") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_slli") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_ull") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_ulli") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_f") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"primitive_d") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Primitive where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -300,34 +307,36 @@ instance F.Storable Primitive where
             primitive_ulli27
             primitive_f28
             primitive_d29 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_c") ptr0 primitive_c2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_sc") ptr0 primitive_sc3
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_uc") ptr0 primitive_uc4
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_s") ptr0 primitive_s5
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_si") ptr0 primitive_si6
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_ss") ptr0 primitive_ss7
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_ssi") ptr0 primitive_ssi8
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_us") ptr0 primitive_us9
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_usi") ptr0 primitive_usi10
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_i") ptr0 primitive_i11
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_s2") ptr0 primitive_s212
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_si2") ptr0 primitive_si213
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_u") ptr0 primitive_u14
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_ui") ptr0 primitive_ui15
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_l") ptr0 primitive_l16
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_li") ptr0 primitive_li17
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_sl") ptr0 primitive_sl18
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_sli") ptr0 primitive_sli19
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_ul") ptr0 primitive_ul20
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_uli") ptr0 primitive_uli21
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_ll") ptr0 primitive_ll22
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_lli") ptr0 primitive_lli23
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_sll") ptr0 primitive_sll24
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_slli") ptr0 primitive_slli25
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_ull") ptr0 primitive_ull26
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_ulli") ptr0 primitive_ulli27
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_f") ptr0 primitive_f28
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"primitive_d") ptr0 primitive_d29
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_c") ptr0 primitive_c2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_sc") ptr0 primitive_sc3
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_uc") ptr0 primitive_uc4
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_s") ptr0 primitive_s5
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_si") ptr0 primitive_si6
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_ss") ptr0 primitive_ss7
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_ssi") ptr0 primitive_ssi8
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_us") ptr0 primitive_us9
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_usi") ptr0 primitive_usi10
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_i") ptr0 primitive_i11
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_s2") ptr0 primitive_s212
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_si2") ptr0 primitive_si213
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_u") ptr0 primitive_u14
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_ui") ptr0 primitive_ui15
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_l") ptr0 primitive_l16
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_li") ptr0 primitive_li17
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_sl") ptr0 primitive_sl18
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_sli") ptr0 primitive_sli19
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_ul") ptr0 primitive_ul20
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_uli") ptr0 primitive_uli21
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_ll") ptr0 primitive_ll22
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_lli") ptr0 primitive_lli23
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_sll") ptr0 primitive_sll24
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_slli") ptr0 primitive_slli25
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_ull") ptr0 primitive_ull26
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_ulli") ptr0 primitive_ulli27
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_f") ptr0 primitive_f28
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"primitive_d") ptr0 primitive_d29
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Primitive instance F.Storable Primitive
 
 instance Data.Primitive.Types.Prim Primitive where
 

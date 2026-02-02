@@ -21,12 +21,15 @@ data UnrelatedDeclaration
            __exported by:__ @program-analysis\/selection_omit_external_a.h@
       -}
     deriving stock (Eq, Show)
-instance Storable UnrelatedDeclaration
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure UnrelatedDeclaration <*> peek (Proxy @"unrelatedDeclaration_m") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   UnrelatedDeclaration unrelatedDeclaration_m_3 -> poke (Proxy @"unrelatedDeclaration_m") ptr_1 unrelatedDeclaration_m_3
+instance StaticSize UnrelatedDeclaration
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw UnrelatedDeclaration
+    where readRaw = \ptr_0 -> pure UnrelatedDeclaration <*> readRaw (Proxy @"unrelatedDeclaration_m") ptr_0
+instance WriteRaw UnrelatedDeclaration
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       UnrelatedDeclaration unrelatedDeclaration_m_2 -> writeRaw (Proxy @"unrelatedDeclaration_m") ptr_0 unrelatedDeclaration_m_2
+deriving via (EquivStorable UnrelatedDeclaration) instance Storable UnrelatedDeclaration
 instance Prim UnrelatedDeclaration
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

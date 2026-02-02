@@ -40,8 +40,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Baz
   representation:
     record:
@@ -54,8 +57,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: FILE
   representation:
     record:
@@ -68,8 +74,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo
   representation:
     record:
@@ -82,8 +91,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Qux
   representation:
     record:
@@ -96,5 +108,8 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

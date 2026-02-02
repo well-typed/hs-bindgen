@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -50,25 +52,31 @@ data S1 = S1
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S1 where
+instance HsBindgen.Runtime.Marshal.StaticSize S1 where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S1 where
+
+  readRaw =
     \ptr0 ->
           pure S1
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s1_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s1_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s1_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s1_b") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S1 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S1 s1_a2 s1_b3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s1_a") ptr0 s1_a2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s1_b") ptr0 s1_b3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s1_a") ptr0 s1_a2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s1_b") ptr0 s1_b3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S1 instance F.Storable S1
 
 instance Data.Primitive.Types.Prim S1 where
 
@@ -181,27 +189,33 @@ data S2_t = S2_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S2_t where
+instance HsBindgen.Runtime.Marshal.StaticSize S2_t where
 
-  sizeOf = \_ -> (12 :: Int)
+  staticSizeOf = \_ -> (12 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S2_t where
+
+  readRaw =
     \ptr0 ->
           pure S2_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s2_t_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s2_t_b") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s2_t_c") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s2_t_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s2_t_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s2_t_c") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S2_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S2_t s2_t_a2 s2_t_b3 s2_t_c4 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s2_t_a") ptr0 s2_t_a2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s2_t_b") ptr0 s2_t_b3
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s2_t_c") ptr0 s2_t_c4
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s2_t_a") ptr0 s2_t_a2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s2_t_b") ptr0 s2_t_b3
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s2_t_c") ptr0 s2_t_c4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S2_t instance F.Storable S2_t
 
 instance Data.Primitive.Types.Prim S2_t where
 
@@ -320,23 +334,29 @@ data S3_t = S3_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S3_t where
+instance HsBindgen.Runtime.Marshal.StaticSize S3_t where
 
-  sizeOf = \_ -> (1 :: Int)
+  staticSizeOf = \_ -> (1 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S3_t where
+
+  readRaw =
     \ptr0 ->
           pure S3_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s3_t_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s3_t_a") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S3_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S3_t s3_t_a2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s3_t_a") ptr0 s3_t_a2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s3_t_a") ptr0 s3_t_a2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S3_t instance F.Storable S3_t
 
 instance Data.Primitive.Types.Prim S3_t where
 
@@ -429,27 +449,33 @@ data S4 = S4
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S4 where
+instance HsBindgen.Runtime.Marshal.StaticSize S4 where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S4 where
+
+  readRaw =
     \ptr0 ->
           pure S4
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s4_b") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s4_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s4_c") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s4_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s4_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s4_c") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S4 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S4 s4_b2 s4_a3 s4_c4 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s4_b") ptr0 s4_b2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s4_a") ptr0 s4_a3
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s4_c") ptr0 s4_c4
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s4_b") ptr0 s4_b2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s4_a") ptr0 s4_a3
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s4_c") ptr0 s4_c4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S4 instance F.Storable S4
 
 instance HsBindgen.Runtime.HasCField.HasCField S4 "s4_b" where
 
@@ -511,25 +537,31 @@ data S5 = S5
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S5 where
+instance HsBindgen.Runtime.Marshal.StaticSize S5 where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S5 where
+
+  readRaw =
     \ptr0 ->
           pure S5
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s5_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s5_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s5_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s5_b") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S5 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S5 s5_a2 s5_b3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s5_a") ptr0 s5_a2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s5_b") ptr0 s5_b3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s5_a") ptr0 s5_a2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s5_b") ptr0 s5_b3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S5 instance F.Storable S5
 
 instance Data.Primitive.Types.Prim S5 where
 
@@ -635,25 +667,31 @@ data S6 = S6
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S6 where
+instance HsBindgen.Runtime.Marshal.StaticSize S6 where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S6 where
+
+  readRaw =
     \ptr0 ->
           pure S6
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s6_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s6_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s6_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s6_b") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S6 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S6 s6_a2 s6_b3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s6_a") ptr0 s6_a2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s6_b") ptr0 s6_b3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s6_a") ptr0 s6_a2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s6_b") ptr0 s6_b3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S6 instance F.Storable S6
 
 instance Data.Primitive.Types.Prim S6 where
 
@@ -759,25 +797,31 @@ data S7a_Aux = S7a_Aux
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S7a_Aux where
+instance HsBindgen.Runtime.Marshal.StaticSize S7a_Aux where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S7a_Aux where
+
+  readRaw =
     \ptr0 ->
           pure S7a_Aux
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s7a_Aux_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s7a_Aux_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7a_Aux_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7a_Aux_b") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S7a_Aux where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S7a_Aux s7a_Aux_a2 s7a_Aux_b3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s7a_Aux_a") ptr0 s7a_Aux_a2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s7a_Aux_b") ptr0 s7a_Aux_b3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7a_Aux_a") ptr0 s7a_Aux_a2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7a_Aux_b") ptr0 s7a_Aux_b3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S7a_Aux instance F.Storable S7a_Aux
 
 instance Data.Primitive.Types.Prim S7a_Aux where
 
@@ -907,25 +951,31 @@ data S7b_Aux = S7b_Aux
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S7b_Aux where
+instance HsBindgen.Runtime.Marshal.StaticSize S7b_Aux where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw S7b_Aux where
+
+  readRaw =
     \ptr0 ->
           pure S7b_Aux
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s7b_Aux_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"s7b_Aux_b") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7b_Aux_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7b_Aux_b") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw S7b_Aux where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S7b_Aux s7b_Aux_a2 s7b_Aux_b3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s7b_Aux_a") ptr0 s7b_Aux_a2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"s7b_Aux_b") ptr0 s7b_Aux_b3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7b_Aux_a") ptr0 s7b_Aux_a2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7b_Aux_b") ptr0 s7b_Aux_b3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable S7b_Aux instance F.Storable S7b_Aux
 
 instance Data.Primitive.Types.Prim S7b_Aux where
 

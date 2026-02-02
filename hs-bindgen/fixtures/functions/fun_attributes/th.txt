@@ -452,12 +452,15 @@ data FILE
       __exported by:__ @functions\/fun_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable FILE
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure FILE
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   FILE -> return ()
+instance StaticSize FILE
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw FILE
+    where readRaw = \ptr_0 -> pure FILE
+instance WriteRaw FILE
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       FILE -> return ()
+deriving via (EquivStorable FILE) instance Storable FILE
 instance Prim FILE
     where sizeOf# = \_ -> 0# :: Int#
           alignment# = \_ -> 1# :: Int#

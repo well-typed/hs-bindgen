@@ -413,22 +413,26 @@ data Config_t = Config_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Config_t where
+instance HsBindgen.Runtime.Marshal.StaticSize Config_t where
 
-  sizeOf = \_ -> (88 :: Int)
+  staticSizeOf = \_ -> (88 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Config_t where
+
+  readRaw =
     \ptr0 ->
           pure Config_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"config_t_id") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"config_t_name") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"config_t_flags") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"config_t_callback") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"config_t_user_data") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"config_t_id") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"config_t_name") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"config_t_flags") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"config_t_callback") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"config_t_user_data") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Config_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -438,11 +442,13 @@ instance F.Storable Config_t where
             config_t_flags4
             config_t_callback5
             config_t_user_data6 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"config_t_id") ptr0 config_t_id2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"config_t_name") ptr0 config_t_name3
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"config_t_flags") ptr0 config_t_flags4
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"config_t_callback") ptr0 config_t_callback5
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"config_t_user_data") ptr0 config_t_user_data6
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_t_id") ptr0 config_t_id2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_t_name") ptr0 config_t_name3
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_t_flags") ptr0 config_t_flags4
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_t_callback") ptr0 config_t_callback5
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_t_user_data") ptr0 config_t_user_data6
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Config_t instance F.Storable Config_t
 
 instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_id" where
 
@@ -704,25 +710,31 @@ data Data_union_t_as_parts = Data_union_t_as_parts
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Data_union_t_as_parts where
+instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t_as_parts where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (2 :: Int)
+  staticAlignment = \_ -> (2 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Data_union_t_as_parts where
+
+  readRaw =
     \ptr0 ->
           pure Data_union_t_as_parts
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"data_union_t_as_parts_low") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"data_union_t_as_parts_high") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"data_union_t_as_parts_low") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"data_union_t_as_parts_high") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Data_union_t_as_parts where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Data_union_t_as_parts data_union_t_as_parts_low2 data_union_t_as_parts_high3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"data_union_t_as_parts_low") ptr0 data_union_t_as_parts_low2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"data_union_t_as_parts_high") ptr0 data_union_t_as_parts_high3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"data_union_t_as_parts_low") ptr0 data_union_t_as_parts_low2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"data_union_t_as_parts_high") ptr0 data_union_t_as_parts_high3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Data_union_t_as_parts instance F.Storable Data_union_t_as_parts
 
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" where
 
@@ -1006,13 +1018,15 @@ data Bitfield_t = Bitfield_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Bitfield_t where
+instance HsBindgen.Runtime.Marshal.StaticSize Bitfield_t where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Bitfield_t where
+
+  readRaw =
     \ptr0 ->
           pure Bitfield_t
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"bitfield_t_flag1") ptr0
@@ -1020,7 +1034,9 @@ instance F.Storable Bitfield_t where
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"bitfield_t_counter") ptr0
       <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"bitfield_t_reserved") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Bitfield_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -1033,6 +1049,8 @@ instance F.Storable Bitfield_t where
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"bitfield_t_flag2") ptr0 bitfield_t_flag23
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"bitfield_t_counter") ptr0 bitfield_t_counter4
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"bitfield_t_reserved") ptr0 bitfield_t_reserved5
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Bitfield_t instance F.Storable Bitfield_t
 
 instance Data.Primitive.Types.Prim Bitfield_t where
 
@@ -1329,23 +1347,29 @@ data Flexible_array_Aux = Flexible_array
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Flexible_array_Aux where
+instance HsBindgen.Runtime.Marshal.StaticSize Flexible_array_Aux where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Flexible_array_Aux where
+
+  readRaw =
     \ptr0 ->
           pure Flexible_array
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"flexible_array_count") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"flexible_array_count") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Flexible_array_Aux where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Flexible_array flexible_array_count2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"flexible_array_count") ptr0 flexible_array_count2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"flexible_array_count") ptr0 flexible_array_count2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Flexible_array_Aux instance F.Storable Flexible_array_Aux
 
 instance HsBindgen.Runtime.HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
 

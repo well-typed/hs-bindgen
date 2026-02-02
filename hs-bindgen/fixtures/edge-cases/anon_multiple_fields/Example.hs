@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -19,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -47,25 +50,31 @@ data Some_struct_field1 = Some_struct_field1
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Some_struct_field1 where
+instance HsBindgen.Runtime.Marshal.StaticSize Some_struct_field1 where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Some_struct_field1 where
+
+  readRaw =
     \ptr0 ->
           pure Some_struct_field1
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field1_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field1_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"some_struct_field1_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"some_struct_field1_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Some_struct_field1 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Some_struct_field1 some_struct_field1_x2 some_struct_field1_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field1_x") ptr0 some_struct_field1_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field1_y") ptr0 some_struct_field1_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"some_struct_field1_x") ptr0 some_struct_field1_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"some_struct_field1_y") ptr0 some_struct_field1_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_struct_field1 instance F.Storable Some_struct_field1
 
 instance Data.Primitive.Types.Prim Some_struct_field1 where
 
@@ -180,27 +189,33 @@ data Some_struct = Some_struct
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Some_struct where
+instance HsBindgen.Runtime.Marshal.StaticSize Some_struct where
 
-  sizeOf = \_ -> (24 :: Int)
+  staticSizeOf = \_ -> (24 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Some_struct where
+
+  readRaw =
     \ptr0 ->
           pure Some_struct
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"some_struct_field3") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"some_struct_field1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"some_struct_field2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"some_struct_field3") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Some_struct where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Some_struct some_struct_field12 some_struct_field23 some_struct_field34 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field1") ptr0 some_struct_field12
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field2") ptr0 some_struct_field23
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"some_struct_field3") ptr0 some_struct_field34
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"some_struct_field1") ptr0 some_struct_field12
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"some_struct_field2") ptr0 some_struct_field23
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"some_struct_field3") ptr0 some_struct_field34
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_struct instance F.Storable Some_struct
 
 instance Data.Primitive.Types.Prim Some_struct where
 

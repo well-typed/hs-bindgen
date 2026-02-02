@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -17,6 +19,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -44,25 +47,31 @@ data Linked_list_A_t = Linked_list_A_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Linked_list_A_t where
+instance HsBindgen.Runtime.Marshal.StaticSize Linked_list_A_t where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Linked_list_A_t where
+
+  readRaw =
     \ptr0 ->
           pure Linked_list_A_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Linked_list_A_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Linked_list_A_t linked_list_A_t_x2 linked_list_A_t_next3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0 linked_list_A_t_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0 linked_list_A_t_next3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"linked_list_A_t_x") ptr0 linked_list_A_t_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"linked_list_A_t_next") ptr0 linked_list_A_t_next3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Linked_list_A_t instance F.Storable Linked_list_A_t
 
 instance HsBindgen.Runtime.HasCField.HasCField Linked_list_A_t "linked_list_A_t_x" where
 
@@ -114,25 +123,31 @@ data Linked_list_B_t = Linked_list_B_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Linked_list_B_t where
+instance HsBindgen.Runtime.Marshal.StaticSize Linked_list_B_t where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Linked_list_B_t where
+
+  readRaw =
     \ptr0 ->
           pure Linked_list_B_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Linked_list_B_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Linked_list_B_t linked_list_B_t_x2 linked_list_B_t_next3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0 linked_list_B_t_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0 linked_list_B_t_next3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"linked_list_B_t_x") ptr0 linked_list_B_t_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"linked_list_B_t_next") ptr0 linked_list_B_t_next3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Linked_list_B_t instance F.Storable Linked_list_B_t
 
 instance HsBindgen.Runtime.HasCField.HasCField Linked_list_B_t "linked_list_B_t_x" where
 

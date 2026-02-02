@@ -20,12 +20,15 @@ data S1_t
            __exported by:__ @declarations\/forward_declaration.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S1_t
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure S1_t <*> peek (Proxy @"s1_t_a") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S1_t s1_t_a_3 -> poke (Proxy @"s1_t_a") ptr_1 s1_t_a_3
+instance StaticSize S1_t
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S1_t
+    where readRaw = \ptr_0 -> pure S1_t <*> readRaw (Proxy @"s1_t_a") ptr_0
+instance WriteRaw S1_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S1_t s1_t_a_2 -> writeRaw (Proxy @"s1_t_a") ptr_0 s1_t_a_2
+deriving via (EquivStorable S1_t) instance Storable S1_t
 instance Prim S1_t
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -66,12 +69,15 @@ data S2
            __exported by:__ @declarations\/forward_declaration.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S2
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure S2 <*> peek (Proxy @"s2_a") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2 s2_a_3 -> poke (Proxy @"s2_a") ptr_1 s2_a_3
+instance StaticSize S2
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S2
+    where readRaw = \ptr_0 -> pure S2 <*> readRaw (Proxy @"s2_a") ptr_0
+instance WriteRaw S2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2 s2_a_2 -> writeRaw (Proxy @"s2_a") ptr_0 s2_a_2
+deriving via (EquivStorable S2) instance Storable S2
 instance Prim S2
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

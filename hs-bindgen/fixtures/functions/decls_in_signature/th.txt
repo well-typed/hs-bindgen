@@ -101,13 +101,16 @@ data Outside
            __exported by:__ @functions\/decls_in_signature.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Outside
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Outside <*> peek (Proxy @"outside_x") ptr_0) <*> peek (Proxy @"outside_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Outside outside_x_3
-                                           outside_y_4 -> poke (Proxy @"outside_x") ptr_1 outside_x_3 >> poke (Proxy @"outside_y") ptr_1 outside_y_4
+instance StaticSize Outside
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Outside
+    where readRaw = \ptr_0 -> (pure Outside <*> readRaw (Proxy @"outside_x") ptr_0) <*> readRaw (Proxy @"outside_y") ptr_0
+instance WriteRaw Outside
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Outside outside_x_2
+                                               outside_y_3 -> writeRaw (Proxy @"outside_x") ptr_0 outside_x_2 >> writeRaw (Proxy @"outside_y") ptr_0 outside_y_3
+deriving via (EquivStorable Outside) instance Storable Outside
 instance Prim Outside
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -179,13 +182,16 @@ data Named_struct
       __exported by:__ @functions\/decls_in_signature.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Named_struct
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Named_struct <*> peek (Proxy @"named_struct_x") ptr_0) <*> peek (Proxy @"named_struct_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Named_struct named_struct_x_3
-                                                named_struct_y_4 -> poke (Proxy @"named_struct_x") ptr_1 named_struct_x_3 >> poke (Proxy @"named_struct_y") ptr_1 named_struct_y_4
+instance StaticSize Named_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Named_struct
+    where readRaw = \ptr_0 -> (pure Named_struct <*> readRaw (Proxy @"named_struct_x") ptr_0) <*> readRaw (Proxy @"named_struct_y") ptr_0
+instance WriteRaw Named_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Named_struct named_struct_x_2
+                                                    named_struct_y_3 -> writeRaw (Proxy @"named_struct_x") ptr_0 named_struct_x_2 >> writeRaw (Proxy @"named_struct_y") ptr_0 named_struct_y_3
+deriving via (EquivStorable Named_struct) instance Storable Named_struct
 instance Prim Named_struct
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#

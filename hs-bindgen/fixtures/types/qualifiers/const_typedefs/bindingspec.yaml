@@ -97,8 +97,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TE
   representation:
     newtype:
@@ -157,8 +160,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTE
   representation:
     newtype:
@@ -217,8 +223,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTU
   representation:
     newtype:

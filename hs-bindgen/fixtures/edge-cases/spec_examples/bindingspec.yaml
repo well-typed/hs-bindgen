@@ -42,8 +42,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     record:
@@ -52,8 +55,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: C
   representation: emptydata
 - hsname: Cint16_T
@@ -68,8 +74,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Int16_T
   representation:
     newtype:

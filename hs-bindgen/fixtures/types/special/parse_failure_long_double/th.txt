@@ -41,12 +41,15 @@ data Struct2
            __exported by:__ @types\/special\/parse_failure_long_double.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct2
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct2 <*> peek (Proxy @"struct2_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct2 struct2_x_3 -> poke (Proxy @"struct2_x") ptr_1 struct2_x_3
+instance StaticSize Struct2
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Struct2
+    where readRaw = \ptr_0 -> pure Struct2 <*> readRaw (Proxy @"struct2_x") ptr_0
+instance WriteRaw Struct2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct2 struct2_x_2 -> writeRaw (Proxy @"struct2_x") ptr_0 struct2_x_2
+deriving via (EquivStorable Struct2) instance Storable Struct2
 instance Prim Struct2
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

@@ -51,13 +51,16 @@ data Point1a
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Point1a
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Point1a <*> peek (Proxy @"point1a_x") ptr_0) <*> peek (Proxy @"point1a_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Point1a point1a_x_3
-                                           point1a_y_4 -> poke (Proxy @"point1a_x") ptr_1 point1a_x_3 >> poke (Proxy @"point1a_y") ptr_1 point1a_y_4
+instance StaticSize Point1a
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point1a
+    where readRaw = \ptr_0 -> (pure Point1a <*> readRaw (Proxy @"point1a_x") ptr_0) <*> readRaw (Proxy @"point1a_y") ptr_0
+instance WriteRaw Point1a
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point1a point1a_x_2
+                                               point1a_y_3 -> writeRaw (Proxy @"point1a_x") ptr_0 point1a_x_2 >> writeRaw (Proxy @"point1a_y") ptr_0 point1a_y_3
+deriving via (EquivStorable Point1a) instance Storable Point1a
 instance Prim Point1a
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -108,7 +111,7 @@ newtype Point1b
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType Point1b "unwrapPoint1b") =>
          HasField "unwrapPoint1b" (Ptr Point1b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint1b")
@@ -143,13 +146,16 @@ data Point2a
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Point2a
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Point2a <*> peek (Proxy @"point2a_x") ptr_0) <*> peek (Proxy @"point2a_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Point2a point2a_x_3
-                                           point2a_y_4 -> poke (Proxy @"point2a_x") ptr_1 point2a_x_3 >> poke (Proxy @"point2a_y") ptr_1 point2a_y_4
+instance StaticSize Point2a
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point2a
+    where readRaw = \ptr_0 -> (pure Point2a <*> readRaw (Proxy @"point2a_x") ptr_0) <*> readRaw (Proxy @"point2a_y") ptr_0
+instance WriteRaw Point2a
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point2a point2a_x_2
+                                               point2a_y_3 -> writeRaw (Proxy @"point2a_x") ptr_0 point2a_x_2 >> writeRaw (Proxy @"point2a_y") ptr_0 point2a_y_3
+deriving via (EquivStorable Point2a) instance Storable Point2a
 instance Prim Point2a
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -239,13 +245,16 @@ data Point3a_Aux
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Point3a_Aux
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Point3a_Aux <*> peek (Proxy @"point3a_Aux_x") ptr_0) <*> peek (Proxy @"point3a_Aux_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Point3a_Aux point3a_Aux_x_3
-                                               point3a_Aux_y_4 -> poke (Proxy @"point3a_Aux_x") ptr_1 point3a_Aux_x_3 >> poke (Proxy @"point3a_Aux_y") ptr_1 point3a_Aux_y_4
+instance StaticSize Point3a_Aux
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point3a_Aux
+    where readRaw = \ptr_0 -> (pure Point3a_Aux <*> readRaw (Proxy @"point3a_Aux_x") ptr_0) <*> readRaw (Proxy @"point3a_Aux_y") ptr_0
+instance WriteRaw Point3a_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point3a_Aux point3a_Aux_x_2
+                                                   point3a_Aux_y_3 -> writeRaw (Proxy @"point3a_Aux_x") ptr_0 point3a_Aux_x_2 >> writeRaw (Proxy @"point3a_Aux_y") ptr_0 point3a_Aux_y_3
+deriving via (EquivStorable Point3a_Aux) instance Storable Point3a_Aux
 instance Prim Point3a_Aux
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#

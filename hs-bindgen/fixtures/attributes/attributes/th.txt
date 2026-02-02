@@ -27,13 +27,16 @@ data Foo
            __exported by:__ @attributes\/attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Foo
-    where sizeOf = \_ -> 5 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Foo <*> peek (Proxy @"foo_c") ptr_0) <*> peek (Proxy @"foo_i") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_c_3
-                                       foo_i_4 -> poke (Proxy @"foo_c") ptr_1 foo_c_3 >> poke (Proxy @"foo_i") ptr_1 foo_i_4
+instance StaticSize Foo
+    where staticSizeOf = \_ -> 5 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Foo
+    where readRaw = \ptr_0 -> (pure Foo <*> readRaw (Proxy @"foo_c") ptr_0) <*> readRaw (Proxy @"foo_i") ptr_0
+instance WriteRaw Foo
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo foo_c_2
+                                           foo_i_3 -> writeRaw (Proxy @"foo_c") ptr_0 foo_c_2 >> writeRaw (Proxy @"foo_i") ptr_0 foo_i_3
+deriving via (EquivStorable Foo) instance Storable Foo
 instance Prim Foo
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -97,13 +100,16 @@ data Bar
            __exported by:__ @attributes\/attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Bar
-    where sizeOf = \_ -> 5 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Bar <*> peek (Proxy @"bar_c") ptr_0) <*> peek (Proxy @"bar_i") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Bar bar_c_3
-                                       bar_i_4 -> poke (Proxy @"bar_c") ptr_1 bar_c_3 >> poke (Proxy @"bar_i") ptr_1 bar_i_4
+instance StaticSize Bar
+    where staticSizeOf = \_ -> 5 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Bar
+    where readRaw = \ptr_0 -> (pure Bar <*> readRaw (Proxy @"bar_c") ptr_0) <*> readRaw (Proxy @"bar_i") ptr_0
+instance WriteRaw Bar
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar bar_c_2
+                                           bar_i_3 -> writeRaw (Proxy @"bar_c") ptr_0 bar_c_2 >> writeRaw (Proxy @"bar_i") ptr_0 bar_i_3
+deriving via (EquivStorable Bar) instance Storable Bar
 instance Prim Bar
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -167,13 +173,16 @@ data Baz
            __exported by:__ @attributes\/attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Baz
-    where sizeOf = \_ -> 5 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Baz <*> peek (Proxy @"baz_c") ptr_0) <*> peek (Proxy @"baz_i") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Baz baz_c_3
-                                       baz_i_4 -> poke (Proxy @"baz_c") ptr_1 baz_c_3 >> poke (Proxy @"baz_i") ptr_1 baz_i_4
+instance StaticSize Baz
+    where staticSizeOf = \_ -> 5 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Baz
+    where readRaw = \ptr_0 -> (pure Baz <*> readRaw (Proxy @"baz_c") ptr_0) <*> readRaw (Proxy @"baz_i") ptr_0
+instance WriteRaw Baz
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Baz baz_c_2
+                                           baz_i_3 -> writeRaw (Proxy @"baz_c") ptr_0 baz_c_2 >> writeRaw (Proxy @"baz_i") ptr_0 baz_i_3
+deriving via (EquivStorable Baz) instance Storable Baz
 instance Prim Baz
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -237,13 +246,16 @@ data Qux
            __exported by:__ @attributes\/attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Qux
-    where sizeOf = \_ -> 5 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Qux <*> peek (Proxy @"qux_c") ptr_0) <*> peek (Proxy @"qux_i") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Qux qux_c_3
-                                       qux_i_4 -> poke (Proxy @"qux_c") ptr_1 qux_c_3 >> poke (Proxy @"qux_i") ptr_1 qux_i_4
+instance StaticSize Qux
+    where staticSizeOf = \_ -> 5 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Qux
+    where readRaw = \ptr_0 -> (pure Qux <*> readRaw (Proxy @"qux_c") ptr_0) <*> readRaw (Proxy @"qux_i") ptr_0
+instance WriteRaw Qux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Qux qux_c_2
+                                           qux_i_3 -> writeRaw (Proxy @"qux_c") ptr_0 qux_c_2 >> writeRaw (Proxy @"qux_i") ptr_0 qux_i_3
+deriving via (EquivStorable Qux) instance Storable Qux
 instance Prim Qux
     where sizeOf# = \_ -> 5# :: Int#
           alignment# = \_ -> 1# :: Int#
@@ -314,14 +326,17 @@ data FILE
            __exported by:__ @attributes\/attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable FILE
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure FILE <*> peek (Proxy @"fILE__r") ptr_0) <*> peek (Proxy @"fILE__w") ptr_0) <*> peek (Proxy @"fILE__close") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   FILE fILE__r_3
-                                        fILE__w_4
-                                        fILE__close_5 -> poke (Proxy @"fILE__r") ptr_1 fILE__r_3 >> (poke (Proxy @"fILE__w") ptr_1 fILE__w_4 >> poke (Proxy @"fILE__close") ptr_1 fILE__close_5)
+instance StaticSize FILE
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw FILE
+    where readRaw = \ptr_0 -> ((pure FILE <*> readRaw (Proxy @"fILE__r") ptr_0) <*> readRaw (Proxy @"fILE__w") ptr_0) <*> readRaw (Proxy @"fILE__close") ptr_0
+instance WriteRaw FILE
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       FILE fILE__r_2
+                                            fILE__w_3
+                                            fILE__close_4 -> writeRaw (Proxy @"fILE__r") ptr_0 fILE__r_2 >> (writeRaw (Proxy @"fILE__w") ptr_0 fILE__w_3 >> writeRaw (Proxy @"fILE__close") ptr_0 fILE__close_4)
+deriving via (EquivStorable FILE) instance Storable FILE
 instance HasCField FILE "fILE__r"
     where type CFieldType FILE "fILE__r" = CInt
           offset# = \_ -> \_ -> 0

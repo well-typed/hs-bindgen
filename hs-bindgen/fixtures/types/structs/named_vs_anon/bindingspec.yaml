@@ -78,8 +78,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B_s
   representation:
     record:
@@ -88,8 +91,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: C
   representation:
     record:
@@ -98,8 +104,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: D
   representation:
     record:
@@ -108,8 +117,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: E_s
   representation:
     record:
@@ -118,8 +130,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F
   representation:
     record:
@@ -128,8 +143,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: G
   representation:
     record:
@@ -138,8 +156,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: H
   representation:
     record:
@@ -148,8 +169,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct1
   representation:
     record:
@@ -158,8 +182,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct2_s
   representation:
     record:
@@ -168,8 +195,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct3
   representation:
     record:
@@ -178,8 +208,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct4
   representation:
     record:
@@ -188,8 +221,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct5_s
   representation:
     record:
@@ -198,8 +234,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Typedef1
   representation:
     record:
@@ -208,8 +247,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Typedef2
   representation:
     record:
@@ -218,8 +260,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Typedef3
   representation:
     record:
@@ -228,5 +273,8 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

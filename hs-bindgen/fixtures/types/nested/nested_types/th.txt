@@ -27,13 +27,16 @@ data Foo
            __exported by:__ @types\/nested\/nested_types.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Foo
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Foo <*> peek (Proxy @"foo_i") ptr_0) <*> peek (Proxy @"foo_c") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_i_3
-                                       foo_c_4 -> poke (Proxy @"foo_i") ptr_1 foo_i_3 >> poke (Proxy @"foo_c") ptr_1 foo_c_4
+instance StaticSize Foo
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo
+    where readRaw = \ptr_0 -> (pure Foo <*> readRaw (Proxy @"foo_i") ptr_0) <*> readRaw (Proxy @"foo_c") ptr_0
+instance WriteRaw Foo
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo foo_i_2
+                                           foo_c_3 -> writeRaw (Proxy @"foo_i") ptr_0 foo_i_2 >> writeRaw (Proxy @"foo_c") ptr_0 foo_c_3
+deriving via (EquivStorable Foo) instance Storable Foo
 instance Prim Foo
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -97,13 +100,16 @@ data Bar
            __exported by:__ @types\/nested\/nested_types.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Bar
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Bar <*> peek (Proxy @"bar_foo1") ptr_0) <*> peek (Proxy @"bar_foo2") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Bar bar_foo1_3
-                                       bar_foo2_4 -> poke (Proxy @"bar_foo1") ptr_1 bar_foo1_3 >> poke (Proxy @"bar_foo2") ptr_1 bar_foo2_4
+instance StaticSize Bar
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Bar
+    where readRaw = \ptr_0 -> (pure Bar <*> readRaw (Proxy @"bar_foo1") ptr_0) <*> readRaw (Proxy @"bar_foo2") ptr_0
+instance WriteRaw Bar
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar bar_foo1_2
+                                           bar_foo2_3 -> writeRaw (Proxy @"bar_foo1") ptr_0 bar_foo1_2 >> writeRaw (Proxy @"bar_foo2") ptr_0 bar_foo2_3
+deriving via (EquivStorable Bar) instance Storable Bar
 instance Prim Bar
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -167,13 +173,16 @@ data Ex3_ex3_struct
            __exported by:__ @types\/nested\/nested_types.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Ex3_ex3_struct
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Ex3_ex3_struct <*> peek (Proxy @"ex3_ex3_struct_ex3_a") ptr_0) <*> peek (Proxy @"ex3_ex3_struct_ex3_b") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Ex3_ex3_struct ex3_ex3_struct_ex3_a_3
-                                                  ex3_ex3_struct_ex3_b_4 -> poke (Proxy @"ex3_ex3_struct_ex3_a") ptr_1 ex3_ex3_struct_ex3_a_3 >> poke (Proxy @"ex3_ex3_struct_ex3_b") ptr_1 ex3_ex3_struct_ex3_b_4
+instance StaticSize Ex3_ex3_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Ex3_ex3_struct
+    where readRaw = \ptr_0 -> (pure Ex3_ex3_struct <*> readRaw (Proxy @"ex3_ex3_struct_ex3_a") ptr_0) <*> readRaw (Proxy @"ex3_ex3_struct_ex3_b") ptr_0
+instance WriteRaw Ex3_ex3_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex3_ex3_struct ex3_ex3_struct_ex3_a_2
+                                                      ex3_ex3_struct_ex3_b_3 -> writeRaw (Proxy @"ex3_ex3_struct_ex3_a") ptr_0 ex3_ex3_struct_ex3_a_2 >> writeRaw (Proxy @"ex3_ex3_struct_ex3_b") ptr_0 ex3_ex3_struct_ex3_b_3
+deriving via (EquivStorable Ex3_ex3_struct) instance Storable Ex3_ex3_struct
 instance Prim Ex3_ex3_struct
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -239,13 +248,16 @@ data Ex3
            __exported by:__ @types\/nested\/nested_types.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Ex3
-    where sizeOf = \_ -> 12 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Ex3 <*> peek (Proxy @"ex3_ex3_struct") ptr_0) <*> peek (Proxy @"ex3_ex3_c") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Ex3 ex3_ex3_struct_3
-                                       ex3_ex3_c_4 -> poke (Proxy @"ex3_ex3_struct") ptr_1 ex3_ex3_struct_3 >> poke (Proxy @"ex3_ex3_c") ptr_1 ex3_ex3_c_4
+instance StaticSize Ex3
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Ex3
+    where readRaw = \ptr_0 -> (pure Ex3 <*> readRaw (Proxy @"ex3_ex3_struct") ptr_0) <*> readRaw (Proxy @"ex3_ex3_c") ptr_0
+instance WriteRaw Ex3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex3 ex3_ex3_struct_2
+                                           ex3_ex3_c_3 -> writeRaw (Proxy @"ex3_ex3_struct") ptr_0 ex3_ex3_struct_2 >> writeRaw (Proxy @"ex3_ex3_c") ptr_0 ex3_ex3_c_3
+deriving via (EquivStorable Ex3) instance Storable Ex3
 instance Prim Ex3
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -309,13 +321,16 @@ data Ex4_odd
            __exported by:__ @types\/nested\/nested_types.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Ex4_odd
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Ex4_odd <*> peek (Proxy @"ex4_odd_value") ptr_0) <*> peek (Proxy @"ex4_odd_next") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Ex4_odd ex4_odd_value_3
-                                           ex4_odd_next_4 -> poke (Proxy @"ex4_odd_value") ptr_1 ex4_odd_value_3 >> poke (Proxy @"ex4_odd_next") ptr_1 ex4_odd_next_4
+instance StaticSize Ex4_odd
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Ex4_odd
+    where readRaw = \ptr_0 -> (pure Ex4_odd <*> readRaw (Proxy @"ex4_odd_value") ptr_0) <*> readRaw (Proxy @"ex4_odd_next") ptr_0
+instance WriteRaw Ex4_odd
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex4_odd ex4_odd_value_2
+                                               ex4_odd_next_3 -> writeRaw (Proxy @"ex4_odd_value") ptr_0 ex4_odd_value_2 >> writeRaw (Proxy @"ex4_odd_next") ptr_0 ex4_odd_next_3
+deriving via (EquivStorable Ex4_odd) instance Storable Ex4_odd
 instance HasCField Ex4_odd "ex4_odd_value"
     where type CFieldType Ex4_odd "ex4_odd_value" = CInt
           offset# = \_ -> \_ -> 0
@@ -356,13 +371,16 @@ data Ex4_even
            __exported by:__ @types\/nested\/nested_types.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Ex4_even
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Ex4_even <*> peek (Proxy @"ex4_even_value") ptr_0) <*> peek (Proxy @"ex4_even_next") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Ex4_even ex4_even_value_3
-                                            ex4_even_next_4 -> poke (Proxy @"ex4_even_value") ptr_1 ex4_even_value_3 >> poke (Proxy @"ex4_even_next") ptr_1 ex4_even_next_4
+instance StaticSize Ex4_even
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Ex4_even
+    where readRaw = \ptr_0 -> (pure Ex4_even <*> readRaw (Proxy @"ex4_even_value") ptr_0) <*> readRaw (Proxy @"ex4_even_next") ptr_0
+instance WriteRaw Ex4_even
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Ex4_even ex4_even_value_2
+                                                ex4_even_next_3 -> writeRaw (Proxy @"ex4_even_value") ptr_0 ex4_even_value_2 >> writeRaw (Proxy @"ex4_even_next") ptr_0 ex4_even_next_3
+deriving via (EquivStorable Ex4_even) instance Storable Ex4_even
 instance HasCField Ex4_even "ex4_even_value"
     where type CFieldType Ex4_even "ex4_even_value" = CDouble
           offset# = \_ -> \_ -> 0

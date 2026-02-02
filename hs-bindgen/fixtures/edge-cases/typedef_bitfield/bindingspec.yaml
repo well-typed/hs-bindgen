@@ -85,8 +85,11 @@ hstypes:
   - HasCBitField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyUInt
   representation:
     newtype:

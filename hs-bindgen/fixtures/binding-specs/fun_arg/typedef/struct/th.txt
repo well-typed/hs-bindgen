@@ -141,12 +141,15 @@ data MyStruct
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
     deriving stock (Eq, Show)
-instance Storable MyStruct
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure MyStruct <*> peek (Proxy @"myStruct_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MyStruct myStruct_x_3 -> poke (Proxy @"myStruct_x") ptr_1 myStruct_x_3
+instance StaticSize MyStruct
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw MyStruct
+    where readRaw = \ptr_0 -> pure MyStruct <*> readRaw (Proxy @"myStruct_x") ptr_0
+instance WriteRaw MyStruct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       MyStruct myStruct_x_2 -> writeRaw (Proxy @"myStruct_x") ptr_0 myStruct_x_2
+deriving via (EquivStorable MyStruct) instance Storable MyStruct
 instance Prim MyStruct
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -181,7 +184,7 @@ newtype A
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType A "unwrapA") =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
@@ -203,7 +206,7 @@ newtype B
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType B "unwrapB") =>
          HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")

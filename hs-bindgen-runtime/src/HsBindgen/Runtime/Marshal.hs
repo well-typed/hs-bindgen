@@ -17,6 +17,7 @@ module HsBindgen.Runtime.Marshal (
   , newZero
   ) where
 
+import Data.Complex (Complex ((:+)))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Proxy (Proxy (Proxy))
 import Data.Word (Word16, Word32, Word64, Word8)
@@ -418,3 +419,23 @@ instance WriteRaw   Bool
 instance StaticSize ()
 instance ReadRaw    ()
 instance WriteRaw   ()
+
+--------------------------------------------------------------------------------
+
+-- The instances for 'Complex' follow the 'Storable' instance.  It is rewritten
+-- so that they only rely on the classes defined in this module, not 'Storable'.
+
+instance StaticSize a => StaticSize (Complex a) where
+  staticSizeOf    _ = 2 * staticSizeOf (Proxy @a)
+  staticAlignment _ = staticAlignment (Proxy @a)
+
+instance (ReadRaw a, StaticSize a) => ReadRaw (Complex a) where
+  readRaw ptrComplex =
+    let ptrPart = Ptr.castPtr ptrComplex
+    in  (:+) <$> readRaw ptrPart <*> readRawElemOff ptrPart 1
+
+instance (StaticSize a, WriteRaw a) => WriteRaw (Complex a) where
+  writeRaw ptrComplex  (r :+ i) = do
+    let ptrPart = Ptr.castPtr ptrComplex
+    writeRaw ptrPart r
+    writeRawElemOff ptrPart 1 i

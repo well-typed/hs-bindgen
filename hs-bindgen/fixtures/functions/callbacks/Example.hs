@@ -318,25 +318,31 @@ data Measurement = Measurement
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Measurement where
+instance HsBindgen.Runtime.Marshal.StaticSize Measurement where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Measurement where
+
+  readRaw =
     \ptr0 ->
           pure Measurement
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurement_value") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurement_timestamp") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurement_value") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurement_timestamp") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Measurement where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Measurement measurement_value2 measurement_timestamp3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurement_value") ptr0 measurement_value2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurement_timestamp") ptr0 measurement_timestamp3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurement_value") ptr0 measurement_value2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurement_timestamp") ptr0 measurement_timestamp3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Measurement instance F.Storable Measurement
 
 instance Data.Primitive.Types.Prim Measurement where
 
@@ -634,20 +640,24 @@ data MeasurementHandler = MeasurementHandler
   }
   deriving stock (Eq, Show)
 
-instance F.Storable MeasurementHandler where
+instance HsBindgen.Runtime.Marshal.StaticSize MeasurementHandler where
 
-  sizeOf = \_ -> (24 :: Int)
+  staticSizeOf = \_ -> (24 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw MeasurementHandler where
+
+  readRaw =
     \ptr0 ->
           pure MeasurementHandler
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurementHandler_validate") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurementHandler_onError") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurementHandler_validate") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurementHandler_onError") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw MeasurementHandler where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -655,9 +665,11 @@ instance F.Storable MeasurementHandler where
             measurementHandler_onReceived2
             measurementHandler_validate3
             measurementHandler_onError4 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0 measurementHandler_onReceived2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurementHandler_validate") ptr0 measurementHandler_validate3
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurementHandler_onError") ptr0 measurementHandler_onError4
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0 measurementHandler_onReceived2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurementHandler_validate") ptr0 measurementHandler_validate3
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurementHandler_onError") ptr0 measurementHandler_onError4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable MeasurementHandler instance F.Storable MeasurementHandler
 
 instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHandler_onReceived" where
 
@@ -729,20 +741,24 @@ data DataPipeline = DataPipeline
   }
   deriving stock (Eq, Show)
 
-instance F.Storable DataPipeline where
+instance HsBindgen.Runtime.Marshal.StaticSize DataPipeline where
 
-  sizeOf = \_ -> (24 :: Int)
+  staticSizeOf = \_ -> (24 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw DataPipeline where
+
+  readRaw =
     \ptr0 ->
           pure DataPipeline
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"dataPipeline_process") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dataPipeline_process") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw DataPipeline where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -750,9 +766,11 @@ instance F.Storable DataPipeline where
             dataPipeline_preProcess2
             dataPipeline_process3
             dataPipeline_postProcess4 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0 dataPipeline_preProcess2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"dataPipeline_process") ptr0 dataPipeline_process3
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0 dataPipeline_postProcess4
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0 dataPipeline_preProcess2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dataPipeline_process") ptr0 dataPipeline_process3
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0 dataPipeline_postProcess4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable DataPipeline instance F.Storable DataPipeline
 
 instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_preProcess" where
 
@@ -1077,25 +1095,31 @@ data Processor = Processor
     -}
   }
 
-instance F.Storable Processor where
+instance HsBindgen.Runtime.Marshal.StaticSize Processor where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Processor where
+
+  readRaw =
     \ptr0 ->
           pure Processor
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"processor_mode") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"processor_callback") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"processor_mode") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"processor_callback") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Processor where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Processor processor_mode2 processor_callback3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"processor_mode") ptr0 processor_mode2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"processor_callback") ptr0 processor_callback3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"processor_mode") ptr0 processor_mode2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"processor_callback") ptr0 processor_callback3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Processor instance F.Storable Processor
 
 instance Data.Primitive.Types.Prim Processor where
 

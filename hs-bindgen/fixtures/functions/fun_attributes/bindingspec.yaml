@@ -21,8 +21,11 @@ hstypes:
   instances:
   - Eq
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Size_t
   representation:
     newtype:

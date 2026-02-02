@@ -49,13 +49,16 @@ data Named
            __exported by:__ @binding-specs\/rep\/emptydata\/struct.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Named
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Named <*> peek (Proxy @"named_e") ptr_0) <*> peek (Proxy @"named_f") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Named named_e_3
-                                         named_f_4 -> poke (Proxy @"named_e") ptr_1 named_e_3 >> poke (Proxy @"named_f") ptr_1 named_f_4
+instance StaticSize Named
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Named
+    where readRaw = \ptr_0 -> (pure Named <*> readRaw (Proxy @"named_e") ptr_0) <*> readRaw (Proxy @"named_f") ptr_0
+instance WriteRaw Named
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Named named_e_2
+                                             named_f_3 -> writeRaw (Proxy @"named_e") ptr_0 named_e_2 >> writeRaw (Proxy @"named_f") ptr_0 named_f_3
+deriving via (EquivStorable Named) instance Storable Named
 instance Prim Named
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#

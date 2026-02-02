@@ -14,12 +14,15 @@ data Pascal_Aux
                    __exported by:__ @edge-cases\/flam.h@
               -}}
     deriving stock (Eq, Show)
-instance Storable Pascal_Aux
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Pascal <*> peek (Proxy @"pascal_len") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Pascal pascal_len_3 -> poke (Proxy @"pascal_len") ptr_1 pascal_len_3
+instance StaticSize Pascal_Aux
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Pascal_Aux
+    where readRaw = \ptr_0 -> pure Pascal <*> readRaw (Proxy @"pascal_len") ptr_0
+instance WriteRaw Pascal_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Pascal pascal_len_2 -> writeRaw (Proxy @"pascal_len") ptr_0 pascal_len_2
+deriving via (EquivStorable Pascal_Aux) instance Storable Pascal_Aux
 instance Prim Pascal_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -70,13 +73,16 @@ data Foo_bar
            __exported by:__ @edge-cases\/flam.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Foo_bar
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Foo_bar <*> peek (Proxy @"foo_bar_x") ptr_0) <*> peek (Proxy @"foo_bar_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo_bar foo_bar_x_3
-                                           foo_bar_y_4 -> poke (Proxy @"foo_bar_x") ptr_1 foo_bar_x_3 >> poke (Proxy @"foo_bar_y") ptr_1 foo_bar_y_4
+instance StaticSize Foo_bar
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo_bar
+    where readRaw = \ptr_0 -> (pure Foo_bar <*> readRaw (Proxy @"foo_bar_x") ptr_0) <*> readRaw (Proxy @"foo_bar_y") ptr_0
+instance WriteRaw Foo_bar
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo_bar foo_bar_x_2
+                                               foo_bar_y_3 -> writeRaw (Proxy @"foo_bar_x") ptr_0 foo_bar_x_2 >> writeRaw (Proxy @"foo_bar_y") ptr_0 foo_bar_y_3
+deriving via (EquivStorable Foo_bar) instance Storable Foo_bar
 instance Prim Foo_bar
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -127,12 +133,15 @@ data Foo_Aux
                 __exported by:__ @edge-cases\/flam.h@
            -}}
     deriving stock (Eq, Show)
-instance Storable Foo_Aux
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Foo <*> peek (Proxy @"foo_len") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_len_3 -> poke (Proxy @"foo_len") ptr_1 foo_len_3
+instance StaticSize Foo_Aux
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo_Aux
+    where readRaw = \ptr_0 -> pure Foo <*> readRaw (Proxy @"foo_len") ptr_0
+instance WriteRaw Foo_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo foo_len_2 -> writeRaw (Proxy @"foo_len") ptr_0 foo_len_2
+deriving via (EquivStorable Foo_Aux) instance Storable Foo_Aux
 instance Prim Foo_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -177,13 +186,16 @@ data Diff_Aux
                  __exported by:__ @edge-cases\/flam.h@
             -}}
     deriving stock (Eq, Show)
-instance Storable Diff_Aux
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Diff <*> peek (Proxy @"diff_first") ptr_0) <*> peek (Proxy @"diff_second") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Diff diff_first_3
-                                        diff_second_4 -> poke (Proxy @"diff_first") ptr_1 diff_first_3 >> poke (Proxy @"diff_second") ptr_1 diff_second_4
+instance StaticSize Diff_Aux
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Diff_Aux
+    where readRaw = \ptr_0 -> (pure Diff <*> readRaw (Proxy @"diff_first") ptr_0) <*> readRaw (Proxy @"diff_second") ptr_0
+instance WriteRaw Diff_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Diff diff_first_2
+                                            diff_second_3 -> writeRaw (Proxy @"diff_first") ptr_0 diff_first_2 >> writeRaw (Proxy @"diff_second") ptr_0 diff_second_3
+deriving via (EquivStorable Diff_Aux) instance Storable Diff_Aux
 instance Prim Diff_Aux
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -239,12 +251,15 @@ data Triplets_Aux
                      __exported by:__ @edge-cases\/flam.h@
                 -}}
     deriving stock (Eq, Show)
-instance Storable Triplets_Aux
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Triplets <*> peek (Proxy @"triplets_len") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Triplets triplets_len_3 -> poke (Proxy @"triplets_len") ptr_1 triplets_len_3
+instance StaticSize Triplets_Aux
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Triplets_Aux
+    where readRaw = \ptr_0 -> pure Triplets <*> readRaw (Proxy @"triplets_len") ptr_0
+instance WriteRaw Triplets_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Triplets triplets_len_2 -> writeRaw (Proxy @"triplets_len") ptr_0 triplets_len_2
+deriving via (EquivStorable Triplets_Aux) instance Storable Triplets_Aux
 instance Prim Triplets_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

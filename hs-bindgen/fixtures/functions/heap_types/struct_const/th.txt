@@ -43,12 +43,15 @@ data T
            __exported by:__ @functions\/heap_types\/struct_const.h@
       -}
     deriving stock (Eq, Show)
-instance Storable T
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure T <*> peek (Proxy @"t_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   T t_x_3 -> poke (Proxy @"t_x") ptr_1 t_x_3
+instance StaticSize T
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw T
+    where readRaw = \ptr_0 -> pure T <*> readRaw (Proxy @"t_x") ptr_0
+instance WriteRaw T
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       T t_x_2 -> writeRaw (Proxy @"t_x") ptr_0 t_x_2
+deriving via (EquivStorable T) instance Storable T
 instance Prim T
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

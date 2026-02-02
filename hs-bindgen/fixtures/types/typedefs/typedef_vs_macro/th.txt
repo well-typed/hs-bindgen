@@ -211,15 +211,18 @@ data ExampleStruct
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Show)
-instance Storable ExampleStruct
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (((pure ExampleStruct <*> peek (Proxy @"exampleStruct_t1") ptr_0) <*> peek (Proxy @"exampleStruct_t2") ptr_0) <*> peek (Proxy @"exampleStruct_m1") ptr_0) <*> peek (Proxy @"exampleStruct_m2") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExampleStruct exampleStruct_t1_3
-                                                 exampleStruct_t2_4
-                                                 exampleStruct_m1_5
-                                                 exampleStruct_m2_6 -> poke (Proxy @"exampleStruct_t1") ptr_1 exampleStruct_t1_3 >> (poke (Proxy @"exampleStruct_t2") ptr_1 exampleStruct_t2_4 >> (poke (Proxy @"exampleStruct_m1") ptr_1 exampleStruct_m1_5 >> poke (Proxy @"exampleStruct_m2") ptr_1 exampleStruct_m2_6))
+instance StaticSize ExampleStruct
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExampleStruct
+    where readRaw = \ptr_0 -> (((pure ExampleStruct <*> readRaw (Proxy @"exampleStruct_t1") ptr_0) <*> readRaw (Proxy @"exampleStruct_t2") ptr_0) <*> readRaw (Proxy @"exampleStruct_m1") ptr_0) <*> readRaw (Proxy @"exampleStruct_m2") ptr_0
+instance WriteRaw ExampleStruct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExampleStruct exampleStruct_t1_2
+                                                     exampleStruct_t2_3
+                                                     exampleStruct_m1_4
+                                                     exampleStruct_m2_5 -> writeRaw (Proxy @"exampleStruct_t1") ptr_0 exampleStruct_t1_2 >> (writeRaw (Proxy @"exampleStruct_t2") ptr_0 exampleStruct_t2_3 >> (writeRaw (Proxy @"exampleStruct_m1") ptr_0 exampleStruct_m1_4 >> writeRaw (Proxy @"exampleStruct_m2") ptr_0 exampleStruct_m2_5))
+deriving via (EquivStorable ExampleStruct) instance Storable ExampleStruct
 instance Prim ExampleStruct
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -342,12 +345,15 @@ data Foo
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Foo
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Foo <*> peek (Proxy @"foo_a") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_a_3 -> poke (Proxy @"foo_a") ptr_1 foo_a_3
+instance StaticSize Foo
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Foo
+    where readRaw = \ptr_0 -> pure Foo <*> readRaw (Proxy @"foo_a") ptr_0
+instance WriteRaw Foo
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo foo_a_2 -> writeRaw (Proxy @"foo_a") ptr_0 foo_a_2
+deriving via (EquivStorable Foo) instance Storable Foo
 instance HasCField Foo "foo_a"
     where type CFieldType Foo "foo_a" = Ptr Uint64_t
           offset# = \_ -> \_ -> 0

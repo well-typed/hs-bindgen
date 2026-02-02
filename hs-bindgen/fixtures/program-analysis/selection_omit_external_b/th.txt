@@ -21,12 +21,15 @@ data Omitted
            __exported by:__ @program-analysis\/selection_omit_external_b.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Omitted
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Omitted <*> peek (Proxy @"omitted_n") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Omitted omitted_n_3 -> poke (Proxy @"omitted_n") ptr_1 omitted_n_3
+instance StaticSize Omitted
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Omitted
+    where readRaw = \ptr_0 -> pure Omitted <*> readRaw (Proxy @"omitted_n") ptr_0
+instance WriteRaw Omitted
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Omitted omitted_n_2 -> writeRaw (Proxy @"omitted_n") ptr_0 omitted_n_2
+deriving via (EquivStorable Omitted) instance Storable Omitted
 instance Prim Omitted
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -67,12 +70,15 @@ data DirectlyDependsOnOmitted
            __exported by:__ @program-analysis\/selection_omit_external_b.h@
       -}
     deriving stock (Eq, Show)
-instance Storable DirectlyDependsOnOmitted
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure DirectlyDependsOnOmitted <*> peek (Proxy @"directlyDependsOnOmitted_o") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   DirectlyDependsOnOmitted directlyDependsOnOmitted_o_3 -> poke (Proxy @"directlyDependsOnOmitted_o") ptr_1 directlyDependsOnOmitted_o_3
+instance StaticSize DirectlyDependsOnOmitted
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw DirectlyDependsOnOmitted
+    where readRaw = \ptr_0 -> pure DirectlyDependsOnOmitted <*> readRaw (Proxy @"directlyDependsOnOmitted_o") ptr_0
+instance WriteRaw DirectlyDependsOnOmitted
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       DirectlyDependsOnOmitted directlyDependsOnOmitted_o_2 -> writeRaw (Proxy @"directlyDependsOnOmitted_o") ptr_0 directlyDependsOnOmitted_o_2
+deriving via (EquivStorable DirectlyDependsOnOmitted) instance Storable DirectlyDependsOnOmitted
 instance Prim DirectlyDependsOnOmitted
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -121,12 +127,15 @@ data IndirectlyDependsOnOmitted
            __exported by:__ @program-analysis\/selection_omit_external_b.h@
       -}
     deriving stock (Eq, Show)
-instance Storable IndirectlyDependsOnOmitted
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure IndirectlyDependsOnOmitted <*> peek (Proxy @"indirectlyDependsOnOmitted_d") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_3 -> poke (Proxy @"indirectlyDependsOnOmitted_d") ptr_1 indirectlyDependsOnOmitted_d_3
+instance StaticSize IndirectlyDependsOnOmitted
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw IndirectlyDependsOnOmitted
+    where readRaw = \ptr_0 -> pure IndirectlyDependsOnOmitted <*> readRaw (Proxy @"indirectlyDependsOnOmitted_d") ptr_0
+instance WriteRaw IndirectlyDependsOnOmitted
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_2 -> writeRaw (Proxy @"indirectlyDependsOnOmitted_d") ptr_0 indirectlyDependsOnOmitted_d_2
+deriving via (EquivStorable IndirectlyDependsOnOmitted) instance Storable IndirectlyDependsOnOmitted
 instance Prim IndirectlyDependsOnOmitted
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

@@ -55,17 +55,20 @@ data Flags
            __exported by:__ @types\/structs\/bitfields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Flags
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (((((pure Flags <*> peek (Proxy @"flags_fieldX") ptr_0) <*> peek (Proxy @"flags_flagA") ptr_0) <*> peek (Proxy @"flags_flagB") ptr_0) <*> peek (Proxy @"flags_flagC") ptr_0) <*> peek (Proxy @"flags_fieldY") ptr_0) <*> peek (Proxy @"flags_bits") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Flags flags_fieldX_3
-                                         flags_flagA_4
-                                         flags_flagB_5
-                                         flags_flagC_6
-                                         flags_fieldY_7
-                                         flags_bits_8 -> poke (Proxy @"flags_fieldX") ptr_1 flags_fieldX_3 >> (poke (Proxy @"flags_flagA") ptr_1 flags_flagA_4 >> (poke (Proxy @"flags_flagB") ptr_1 flags_flagB_5 >> (poke (Proxy @"flags_flagC") ptr_1 flags_flagC_6 >> (poke (Proxy @"flags_fieldY") ptr_1 flags_fieldY_7 >> poke (Proxy @"flags_bits") ptr_1 flags_bits_8))))
+instance StaticSize Flags
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Flags
+    where readRaw = \ptr_0 -> (((((pure Flags <*> readRaw (Proxy @"flags_fieldX") ptr_0) <*> peek (Proxy @"flags_flagA") ptr_0) <*> peek (Proxy @"flags_flagB") ptr_0) <*> peek (Proxy @"flags_flagC") ptr_0) <*> readRaw (Proxy @"flags_fieldY") ptr_0) <*> peek (Proxy @"flags_bits") ptr_0
+instance WriteRaw Flags
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Flags flags_fieldX_2
+                                             flags_flagA_3
+                                             flags_flagB_4
+                                             flags_flagC_5
+                                             flags_fieldY_6
+                                             flags_bits_7 -> writeRaw (Proxy @"flags_fieldX") ptr_0 flags_fieldX_2 >> (poke (Proxy @"flags_flagA") ptr_0 flags_flagA_3 >> (poke (Proxy @"flags_flagB") ptr_0 flags_flagB_4 >> (poke (Proxy @"flags_flagC") ptr_0 flags_flagC_5 >> (writeRaw (Proxy @"flags_fieldY") ptr_0 flags_fieldY_6 >> poke (Proxy @"flags_bits") ptr_0 flags_bits_7))))
+deriving via (EquivStorable Flags) instance Storable Flags
 instance Prim Flags
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -198,14 +201,17 @@ data Overflow32
            __exported by:__ @types\/structs\/bitfields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Overflow32
-    where sizeOf = \_ -> 12 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((pure Overflow32 <*> peek (Proxy @"overflow32_x") ptr_0) <*> peek (Proxy @"overflow32_y") ptr_0) <*> peek (Proxy @"overflow32_z") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Overflow32 overflow32_x_3
-                                              overflow32_y_4
-                                              overflow32_z_5 -> poke (Proxy @"overflow32_x") ptr_1 overflow32_x_3 >> (poke (Proxy @"overflow32_y") ptr_1 overflow32_y_4 >> poke (Proxy @"overflow32_z") ptr_1 overflow32_z_5)
+instance StaticSize Overflow32
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Overflow32
+    where readRaw = \ptr_0 -> ((pure Overflow32 <*> peek (Proxy @"overflow32_x") ptr_0) <*> peek (Proxy @"overflow32_y") ptr_0) <*> peek (Proxy @"overflow32_z") ptr_0
+instance WriteRaw Overflow32
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Overflow32 overflow32_x_2
+                                                  overflow32_y_3
+                                                  overflow32_z_4 -> poke (Proxy @"overflow32_x") ptr_0 overflow32_x_2 >> (poke (Proxy @"overflow32_y") ptr_0 overflow32_y_3 >> poke (Proxy @"overflow32_z") ptr_0 overflow32_z_4)
+deriving via (EquivStorable Overflow32) instance Storable Overflow32
 instance Prim Overflow32
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -295,14 +301,17 @@ data Overflow32b
            __exported by:__ @types\/structs\/bitfields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Overflow32b
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Overflow32b <*> peek (Proxy @"overflow32b_x") ptr_0) <*> peek (Proxy @"overflow32b_y") ptr_0) <*> peek (Proxy @"overflow32b_z") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Overflow32b overflow32b_x_3
-                                               overflow32b_y_4
-                                               overflow32b_z_5 -> poke (Proxy @"overflow32b_x") ptr_1 overflow32b_x_3 >> (poke (Proxy @"overflow32b_y") ptr_1 overflow32b_y_4 >> poke (Proxy @"overflow32b_z") ptr_1 overflow32b_z_5)
+instance StaticSize Overflow32b
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Overflow32b
+    where readRaw = \ptr_0 -> ((pure Overflow32b <*> peek (Proxy @"overflow32b_x") ptr_0) <*> peek (Proxy @"overflow32b_y") ptr_0) <*> peek (Proxy @"overflow32b_z") ptr_0
+instance WriteRaw Overflow32b
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Overflow32b overflow32b_x_2
+                                                   overflow32b_y_3
+                                                   overflow32b_z_4 -> poke (Proxy @"overflow32b_x") ptr_0 overflow32b_x_2 >> (poke (Proxy @"overflow32b_y") ptr_0 overflow32b_y_3 >> poke (Proxy @"overflow32b_z") ptr_0 overflow32b_z_4)
+deriving via (EquivStorable Overflow32b) instance Storable Overflow32b
 instance Prim Overflow32b
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -392,14 +401,17 @@ data Overflow32c
            __exported by:__ @types\/structs\/bitfields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Overflow32c
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Overflow32c <*> peek (Proxy @"overflow32c_x") ptr_0) <*> peek (Proxy @"overflow32c_y") ptr_0) <*> peek (Proxy @"overflow32c_z") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Overflow32c overflow32c_x_3
-                                               overflow32c_y_4
-                                               overflow32c_z_5 -> poke (Proxy @"overflow32c_x") ptr_1 overflow32c_x_3 >> (poke (Proxy @"overflow32c_y") ptr_1 overflow32c_y_4 >> poke (Proxy @"overflow32c_z") ptr_1 overflow32c_z_5)
+instance StaticSize Overflow32c
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Overflow32c
+    where readRaw = \ptr_0 -> ((pure Overflow32c <*> peek (Proxy @"overflow32c_x") ptr_0) <*> peek (Proxy @"overflow32c_y") ptr_0) <*> peek (Proxy @"overflow32c_z") ptr_0
+instance WriteRaw Overflow32c
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Overflow32c overflow32c_x_2
+                                                   overflow32c_y_3
+                                                   overflow32c_z_4 -> poke (Proxy @"overflow32c_x") ptr_0 overflow32c_x_2 >> (poke (Proxy @"overflow32c_y") ptr_0 overflow32c_y_3 >> poke (Proxy @"overflow32c_z") ptr_0 overflow32c_z_4)
+deriving via (EquivStorable Overflow32c) instance Storable Overflow32c
 instance Prim Overflow32c
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -482,13 +494,16 @@ data Overflow64
            __exported by:__ @types\/structs\/bitfields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Overflow64
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Overflow64 <*> peek (Proxy @"overflow64_x") ptr_0) <*> peek (Proxy @"overflow64_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Overflow64 overflow64_x_3
-                                              overflow64_y_4 -> poke (Proxy @"overflow64_x") ptr_1 overflow64_x_3 >> poke (Proxy @"overflow64_y") ptr_1 overflow64_y_4
+instance StaticSize Overflow64
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Overflow64
+    where readRaw = \ptr_0 -> (pure Overflow64 <*> peek (Proxy @"overflow64_x") ptr_0) <*> peek (Proxy @"overflow64_y") ptr_0
+instance WriteRaw Overflow64
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Overflow64 overflow64_x_2
+                                                  overflow64_y_3 -> poke (Proxy @"overflow64_x") ptr_0 overflow64_x_2 >> poke (Proxy @"overflow64_y") ptr_0 overflow64_y_3
+deriving via (EquivStorable Overflow64) instance Storable Overflow64
 instance Prim Overflow64
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
@@ -554,13 +569,16 @@ data AlignA
            __exported by:__ @types\/structs\/bitfields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable AlignA
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure AlignA <*> peek (Proxy @"alignA_x") ptr_0) <*> peek (Proxy @"alignA_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   AlignA alignA_x_3
-                                          alignA_y_4 -> poke (Proxy @"alignA_x") ptr_1 alignA_x_3 >> poke (Proxy @"alignA_y") ptr_1 alignA_y_4
+instance StaticSize AlignA
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AlignA
+    where readRaw = \ptr_0 -> (pure AlignA <*> peek (Proxy @"alignA_x") ptr_0) <*> peek (Proxy @"alignA_y") ptr_0
+instance WriteRaw AlignA
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AlignA alignA_x_2
+                                              alignA_y_3 -> poke (Proxy @"alignA_x") ptr_0 alignA_x_2 >> poke (Proxy @"alignA_y") ptr_0 alignA_y_3
+deriving via (EquivStorable AlignA) instance Storable AlignA
 instance Prim AlignA
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -626,13 +644,16 @@ data AlignB
            __exported by:__ @types\/structs\/bitfields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable AlignB
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure AlignB <*> peek (Proxy @"alignB_x") ptr_0) <*> peek (Proxy @"alignB_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   AlignB alignB_x_3
-                                          alignB_y_4 -> poke (Proxy @"alignB_x") ptr_1 alignB_x_3 >> poke (Proxy @"alignB_y") ptr_1 alignB_y_4
+instance StaticSize AlignB
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw AlignB
+    where readRaw = \ptr_0 -> (pure AlignB <*> peek (Proxy @"alignB_x") ptr_0) <*> peek (Proxy @"alignB_y") ptr_0
+instance WriteRaw AlignB
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       AlignB alignB_x_2
+                                              alignB_y_3 -> poke (Proxy @"alignB_x") ptr_0 alignB_x_2 >> poke (Proxy @"alignB_y") ptr_0 alignB_y_3
+deriving via (EquivStorable AlignB) instance Storable AlignB
 instance Prim AlignB
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#

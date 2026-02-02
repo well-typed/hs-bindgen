@@ -20,12 +20,15 @@ data OkBefore
            __exported by:__ @program-analysis\/selection_fail.h@
       -}
     deriving stock (Eq, Show)
-instance Storable OkBefore
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure OkBefore <*> peek (Proxy @"okBefore_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   OkBefore okBefore_x_3 -> poke (Proxy @"okBefore_x") ptr_1 okBefore_x_3
+instance StaticSize OkBefore
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw OkBefore
+    where readRaw = \ptr_0 -> pure OkBefore <*> readRaw (Proxy @"okBefore_x") ptr_0
+instance WriteRaw OkBefore
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       OkBefore okBefore_x_2 -> writeRaw (Proxy @"okBefore_x") ptr_0 okBefore_x_2
+deriving via (EquivStorable OkBefore) instance Storable OkBefore
 instance Prim OkBefore
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -20,6 +22,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -55,20 +58,24 @@ data Complex_object_t = Complex_object_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Complex_object_t where
+instance HsBindgen.Runtime.Marshal.StaticSize Complex_object_t where
 
-  sizeOf = \_ -> (32 :: Int)
+  staticSizeOf = \_ -> (32 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Complex_object_t where
+
+  readRaw =
     \ptr0 ->
           pure Complex_object_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"complex_object_t_position") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"complex_object_t_id") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"complex_object_t_position") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"complex_object_t_id") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Complex_object_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -76,9 +83,11 @@ instance F.Storable Complex_object_t where
             complex_object_t_velocity2
             complex_object_t_position3
             complex_object_t_id4 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0 complex_object_t_velocity2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"complex_object_t_position") ptr0 complex_object_t_position3
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"complex_object_t_id") ptr0 complex_object_t_id4
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"complex_object_t_velocity") ptr0 complex_object_t_velocity2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"complex_object_t_position") ptr0 complex_object_t_position3
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"complex_object_t_id") ptr0 complex_object_t_id4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Complex_object_t instance F.Storable Complex_object_t
 
 instance Data.Primitive.Types.Prim Complex_object_t where
 

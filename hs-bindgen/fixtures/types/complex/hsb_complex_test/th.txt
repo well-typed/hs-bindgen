@@ -170,14 +170,17 @@ data Complex_object_t
            __exported by:__ @types\/complex\/hsb_complex_test.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Complex_object_t
-    where sizeOf = \_ -> 32 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Complex_object_t <*> peek (Proxy @"complex_object_t_velocity") ptr_0) <*> peek (Proxy @"complex_object_t_position") ptr_0) <*> peek (Proxy @"complex_object_t_id") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Complex_object_t complex_object_t_velocity_3
-                                                    complex_object_t_position_4
-                                                    complex_object_t_id_5 -> poke (Proxy @"complex_object_t_velocity") ptr_1 complex_object_t_velocity_3 >> (poke (Proxy @"complex_object_t_position") ptr_1 complex_object_t_position_4 >> poke (Proxy @"complex_object_t_id") ptr_1 complex_object_t_id_5)
+instance StaticSize Complex_object_t
+    where staticSizeOf = \_ -> 32 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Complex_object_t
+    where readRaw = \ptr_0 -> ((pure Complex_object_t <*> readRaw (Proxy @"complex_object_t_velocity") ptr_0) <*> readRaw (Proxy @"complex_object_t_position") ptr_0) <*> readRaw (Proxy @"complex_object_t_id") ptr_0
+instance WriteRaw Complex_object_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Complex_object_t complex_object_t_velocity_2
+                                                        complex_object_t_position_3
+                                                        complex_object_t_id_4 -> writeRaw (Proxy @"complex_object_t_velocity") ptr_0 complex_object_t_velocity_2 >> (writeRaw (Proxy @"complex_object_t_position") ptr_0 complex_object_t_position_3 >> writeRaw (Proxy @"complex_object_t_id") ptr_0 complex_object_t_id_4)
+deriving via (EquivStorable Complex_object_t) instance Storable Complex_object_t
 instance Prim Complex_object_t
     where sizeOf# = \_ -> 32# :: Int#
           alignment# = \_ -> 8# :: Int#

@@ -323,12 +323,15 @@ data Struct1
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct1
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct1 <*> peek (Proxy @"struct1_a") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct1 struct1_a_3 -> poke (Proxy @"struct1_a") ptr_1 struct1_a_3
+instance StaticSize Struct1
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Struct1
+    where readRaw = \ptr_0 -> pure Struct1 <*> readRaw (Proxy @"struct1_a") ptr_0
+instance WriteRaw Struct1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct1 struct1_a_2 -> writeRaw (Proxy @"struct1_a") ptr_0 struct1_a_2
+deriving via (EquivStorable Struct1) instance Storable Struct1
 instance Prim Struct1
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -369,12 +372,15 @@ data Struct2
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct2
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct2 <*> peek (Proxy @"struct2_a") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct2 struct2_a_3 -> poke (Proxy @"struct2_a") ptr_1 struct2_a_3
+instance StaticSize Struct2
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Struct2
+    where readRaw = \ptr_0 -> pure Struct2 <*> readRaw (Proxy @"struct2_a") ptr_0
+instance WriteRaw Struct2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct2 struct2_a_2 -> writeRaw (Proxy @"struct2_a") ptr_0 struct2_a_2
+deriving via (EquivStorable Struct2) instance Storable Struct2
 instance Prim Struct2
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -415,12 +421,15 @@ data Struct3
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct3
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct3 <*> peek (Proxy @"struct3_a") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct3 struct3_a_3 -> poke (Proxy @"struct3_a") ptr_1 struct3_a_3
+instance StaticSize Struct3
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Struct3
+    where readRaw = \ptr_0 -> pure Struct3 <*> readRaw (Proxy @"struct3_a") ptr_0
+instance WriteRaw Struct3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct3 struct3_a_2 -> writeRaw (Proxy @"struct3_a") ptr_0 struct3_a_2
+deriving via (EquivStorable Struct3) instance Storable Struct3
 instance Prim Struct3
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -455,7 +464,7 @@ newtype Struct3_t
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
 instance TyEq ty (CFieldType Struct3_t "unwrapStruct3_t") =>
          HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct3_t")
@@ -483,12 +492,15 @@ data Struct4
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct4
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct4 <*> peek (Proxy @"struct4_a") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct4 struct4_a_3 -> poke (Proxy @"struct4_a") ptr_1 struct4_a_3
+instance StaticSize Struct4
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Struct4
+    where readRaw = \ptr_0 -> pure Struct4 <*> readRaw (Proxy @"struct4_a") ptr_0
+instance WriteRaw Struct4
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct4 struct4_a_2 -> writeRaw (Proxy @"struct4_a") ptr_0 struct4_a_2
+deriving via (EquivStorable Struct4) instance Storable Struct4
 instance Prim Struct4
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

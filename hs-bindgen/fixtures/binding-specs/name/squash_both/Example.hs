@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -19,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -47,25 +50,31 @@ data Hoge = Hoge
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Hoge where
+instance HsBindgen.Runtime.Marshal.StaticSize Hoge where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Hoge where
+
+  readRaw =
     \ptr0 ->
           pure Hoge
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"hoge_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"hoge_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"hoge_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"hoge_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Hoge where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Hoge hoge_x2 hoge_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"hoge_x") ptr0 hoge_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"hoge_y") ptr0 hoge_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"hoge_x") ptr0 hoge_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"hoge_y") ptr0 hoge_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Hoge instance F.Storable Hoge
 
 instance Data.Primitive.Types.Prim Hoge where
 

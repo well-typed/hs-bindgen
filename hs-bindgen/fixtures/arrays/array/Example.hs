@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -146,25 +148,31 @@ data Example = Example
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Example where
+instance HsBindgen.Runtime.Marshal.StaticSize Example where
 
-  sizeOf = \_ -> (48 :: Int)
+  staticSizeOf = \_ -> (48 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Example where
+
+  readRaw =
     \ptr0 ->
           pure Example
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_triple") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_sudoku") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_triple") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_sudoku") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Example where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Example example_triple2 example_sudoku3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_triple") ptr0 example_triple2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_sudoku") ptr0 example_sudoku3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_triple") ptr0 example_triple2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_sudoku") ptr0 example_sudoku3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Example instance F.Storable Example
 
 instance HsBindgen.Runtime.HasCField.HasCField Example "example_triple" where
 

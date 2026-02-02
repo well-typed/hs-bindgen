@@ -158,23 +158,29 @@ data ExA = ExA
   }
   deriving stock (Eq, Show)
 
-instance F.Storable ExA where
+instance HsBindgen.Runtime.Marshal.StaticSize ExA where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExA where
+
+  readRaw =
     \ptr0 ->
           pure ExA
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exA_fieldA1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExA where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExA instance F.Storable ExA
 
 instance Data.Primitive.Types.Prim ExA where
 
@@ -364,23 +370,29 @@ data ExB = ExB
   }
   deriving stock (Eq, Show)
 
-instance F.Storable ExB where
+instance HsBindgen.Runtime.Marshal.StaticSize ExB where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExB where
+
+  readRaw =
     \ptr0 ->
           pure ExB
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exB_fieldB1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExB where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB instance F.Storable ExB
 
 instance Data.Primitive.Types.Prim ExB where
 

@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -50,25 +52,31 @@ data Point1a = Point1a
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Point1a where
+instance HsBindgen.Runtime.Marshal.StaticSize Point1a where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Point1a where
+
+  readRaw =
     \ptr0 ->
           pure Point1a
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point1a_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point1a_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point1a_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point1a_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Point1a where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point1a point1a_x2 point1a_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point1a_x") ptr0 point1a_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point1a_y") ptr0 point1a_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point1a_x") ptr0 point1a_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point1a_y") ptr0 point1a_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Point1a instance F.Storable Point1a
 
 instance Data.Primitive.Types.Prim Point1a where
 
@@ -160,7 +168,7 @@ newtype Point1b = Point1b
   { unwrapPoint1b :: Point1a
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
+  deriving newtype (HsBindgen.Runtime.Marshal.StaticSize, HsBindgen.Runtime.Marshal.ReadRaw, HsBindgen.Runtime.Marshal.WriteRaw, F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1b) "unwrapPoint1b")
          ) => GHC.Records.HasField "unwrapPoint1b" (Ptr.Ptr Point1b) (Ptr.Ptr ty) where
@@ -198,25 +206,31 @@ data Point2a = Point2a
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Point2a where
+instance HsBindgen.Runtime.Marshal.StaticSize Point2a where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Point2a where
+
+  readRaw =
     \ptr0 ->
           pure Point2a
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point2a_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point2a_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point2a_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point2a_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Point2a where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point2a point2a_x2 point2a_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point2a_x") ptr0 point2a_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point2a_y") ptr0 point2a_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point2a_x") ptr0 point2a_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point2a_y") ptr0 point2a_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Point2a instance F.Storable Point2a
 
 instance Data.Primitive.Types.Prim Point2a where
 
@@ -347,25 +361,31 @@ data Point3a_Aux = Point3a_Aux
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Point3a_Aux where
+instance HsBindgen.Runtime.Marshal.StaticSize Point3a_Aux where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Point3a_Aux where
+
+  readRaw =
     \ptr0 ->
           pure Point3a_Aux
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point3a_Aux_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"point3a_Aux_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point3a_Aux_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point3a_Aux_y") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Point3a_Aux where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point3a_Aux point3a_Aux_x2 point3a_Aux_y3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point3a_Aux_x") ptr0 point3a_Aux_x2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"point3a_Aux_y") ptr0 point3a_Aux_y3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point3a_Aux_x") ptr0 point3a_Aux_x2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point3a_Aux_y") ptr0 point3a_Aux_y3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Point3a_Aux instance F.Storable Point3a_Aux
 
 instance Data.Primitive.Types.Prim Point3a_Aux where
 

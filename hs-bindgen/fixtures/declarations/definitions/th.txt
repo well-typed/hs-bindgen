@@ -47,12 +47,15 @@ data X
            __exported by:__ @declarations\/definitions.h@
       -}
     deriving stock (Eq, Show)
-instance Storable X
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure X <*> peek (Proxy @"x_n") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   X x_n_3 -> poke (Proxy @"x_n") ptr_1 x_n_3
+instance StaticSize X
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw X
+    where readRaw = \ptr_0 -> pure X <*> readRaw (Proxy @"x_n") ptr_0
+instance WriteRaw X
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       X x_n_2 -> writeRaw (Proxy @"x_n") ptr_0 x_n_2
+deriving via (EquivStorable X) instance Storable X
 instance Prim X
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

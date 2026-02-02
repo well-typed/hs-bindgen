@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -16,6 +18,7 @@ import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
@@ -36,23 +39,29 @@ data B = B
   }
   deriving stock (Eq, Show)
 
-instance F.Storable B where
+instance HsBindgen.Runtime.Marshal.StaticSize B where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw B where
+
+  readRaw =
     \ptr0 ->
           pure B
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"b_toA") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"b_toA") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw B where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           B b_toA2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"b_toA") ptr0 b_toA2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"b_toA") ptr0 b_toA2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable B instance F.Storable B
 
 instance HsBindgen.Runtime.HasCField.HasCField B "b_toA" where
 
@@ -83,23 +92,29 @@ data A = A
   }
   deriving stock (Eq, Show)
 
-instance F.Storable A where
+instance HsBindgen.Runtime.Marshal.StaticSize A where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw A where
+
+  readRaw =
     \ptr0 ->
           pure A
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_toB") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_toB") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw A where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           A a_toB2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_toB") ptr0 a_toB2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_toB") ptr0 a_toB2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable A instance F.Storable A
 
 instance HsBindgen.Runtime.HasCField.HasCField A "a_toB" where
 

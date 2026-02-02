@@ -77,13 +77,16 @@ data Point
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Point
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Point <*> peek (Proxy @"point_x") ptr_0) <*> peek (Proxy @"point_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Point point_x_3
-                                         point_y_4 -> poke (Proxy @"point_x") ptr_1 point_x_3 >> poke (Proxy @"point_y") ptr_1 point_y_4
+instance StaticSize Point
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point
+    where readRaw = \ptr_0 -> (pure Point <*> readRaw (Proxy @"point_x") ptr_0) <*> readRaw (Proxy @"point_y") ptr_0
+instance WriteRaw Point
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point point_x_2
+                                             point_y_3 -> writeRaw (Proxy @"point_x") ptr_0 point_x_2 >> writeRaw (Proxy @"point_y") ptr_0 point_y_3
+deriving via (EquivStorable Point) instance Storable Point
 instance Prim Point
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -147,13 +150,16 @@ data Rectangle
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Rectangle
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Rectangle <*> peek (Proxy @"rectangle_topleft") ptr_0) <*> peek (Proxy @"rectangle_bottomright") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Rectangle rectangle_topleft_3
-                                             rectangle_bottomright_4 -> poke (Proxy @"rectangle_topleft") ptr_1 rectangle_topleft_3 >> poke (Proxy @"rectangle_bottomright") ptr_1 rectangle_bottomright_4
+instance StaticSize Rectangle
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Rectangle
+    where readRaw = \ptr_0 -> (pure Rectangle <*> readRaw (Proxy @"rectangle_topleft") ptr_0) <*> readRaw (Proxy @"rectangle_bottomright") ptr_0
+instance WriteRaw Rectangle
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rectangle rectangle_topleft_2
+                                                 rectangle_bottomright_3 -> writeRaw (Proxy @"rectangle_topleft") ptr_0 rectangle_topleft_2 >> writeRaw (Proxy @"rectangle_bottomright") ptr_0 rectangle_bottomright_3
+deriving via (EquivStorable Rectangle) instance Storable Rectangle
 instance Prim Rectangle
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -217,13 +223,16 @@ data Circle
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Circle
-    where sizeOf = \_ -> 12 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Circle <*> peek (Proxy @"circle_midpoint") ptr_0) <*> peek (Proxy @"circle_radius") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Circle circle_midpoint_3
-                                          circle_radius_4 -> poke (Proxy @"circle_midpoint") ptr_1 circle_midpoint_3 >> poke (Proxy @"circle_radius") ptr_1 circle_radius_4
+instance StaticSize Circle
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Circle
+    where readRaw = \ptr_0 -> (pure Circle <*> readRaw (Proxy @"circle_midpoint") ptr_0) <*> readRaw (Proxy @"circle_radius") ptr_0
+instance WriteRaw Circle
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Circle circle_midpoint_2
+                                              circle_radius_3 -> writeRaw (Proxy @"circle_midpoint") ptr_0 circle_midpoint_2 >> writeRaw (Proxy @"circle_radius") ptr_0 circle_radius_3
+deriving via (EquivStorable Circle) instance Storable Circle
 instance Prim Circle
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -407,16 +416,19 @@ data Colour
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Colour
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((((pure Colour <*> peek (Proxy @"colour_opacity") ptr_0) <*> peek (Proxy @"colour_brightness") ptr_0) <*> peek (Proxy @"colour_red") ptr_0) <*> peek (Proxy @"colour_green") ptr_0) <*> peek (Proxy @"colour_blue") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Colour colour_opacity_3
-                                          colour_brightness_4
-                                          colour_red_5
-                                          colour_green_6
-                                          colour_blue_7 -> poke (Proxy @"colour_opacity") ptr_1 colour_opacity_3 >> (poke (Proxy @"colour_brightness") ptr_1 colour_brightness_4 >> (poke (Proxy @"colour_red") ptr_1 colour_red_5 >> (poke (Proxy @"colour_green") ptr_1 colour_green_6 >> poke (Proxy @"colour_blue") ptr_1 colour_blue_7)))
+instance StaticSize Colour
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Colour
+    where readRaw = \ptr_0 -> ((((pure Colour <*> peek (Proxy @"colour_opacity") ptr_0) <*> peek (Proxy @"colour_brightness") ptr_0) <*> peek (Proxy @"colour_red") ptr_0) <*> peek (Proxy @"colour_green") ptr_0) <*> peek (Proxy @"colour_blue") ptr_0
+instance WriteRaw Colour
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Colour colour_opacity_2
+                                              colour_brightness_3
+                                              colour_red_4
+                                              colour_green_5
+                                              colour_blue_6 -> poke (Proxy @"colour_opacity") ptr_0 colour_opacity_2 >> (poke (Proxy @"colour_brightness") ptr_0 colour_brightness_3 >> (poke (Proxy @"colour_red") ptr_0 colour_red_4 >> (poke (Proxy @"colour_green") ptr_0 colour_green_5 >> poke (Proxy @"colour_blue") ptr_0 colour_blue_6)))
+deriving via (EquivStorable Colour) instance Storable Colour
 instance Prim Colour
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -565,13 +577,16 @@ data Drawing
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Drawing
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Drawing <*> peek (Proxy @"drawing_shape") ptr_0) <*> peek (Proxy @"drawing_colour") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Drawing drawing_shape_3
-                                           drawing_colour_4 -> poke (Proxy @"drawing_shape") ptr_1 drawing_shape_3 >> poke (Proxy @"drawing_colour") ptr_1 drawing_colour_4
+instance StaticSize Drawing
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Drawing
+    where readRaw = \ptr_0 -> (pure Drawing <*> readRaw (Proxy @"drawing_shape") ptr_0) <*> readRaw (Proxy @"drawing_colour") ptr_0
+instance WriteRaw Drawing
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Drawing drawing_shape_2
+                                               drawing_colour_3 -> writeRaw (Proxy @"drawing_shape") ptr_0 drawing_shape_2 >> writeRaw (Proxy @"drawing_colour") ptr_0 drawing_colour_3
+deriving via (EquivStorable Drawing) instance Storable Drawing
 instance HasCField Drawing "drawing_shape"
     where type CFieldType Drawing "drawing_shape" = Ptr Shape
           offset# = \_ -> \_ -> 0
@@ -619,14 +634,17 @@ data Tic_tac_toe
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Tic_tac_toe
-    where sizeOf = \_ -> 36 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((pure Tic_tac_toe <*> peek (Proxy @"tic_tac_toe_row1") ptr_0) <*> peek (Proxy @"tic_tac_toe_row2") ptr_0) <*> peek (Proxy @"tic_tac_toe_row3") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Tic_tac_toe tic_tac_toe_row1_3
-                                               tic_tac_toe_row2_4
-                                               tic_tac_toe_row3_5 -> poke (Proxy @"tic_tac_toe_row1") ptr_1 tic_tac_toe_row1_3 >> (poke (Proxy @"tic_tac_toe_row2") ptr_1 tic_tac_toe_row2_4 >> poke (Proxy @"tic_tac_toe_row3") ptr_1 tic_tac_toe_row3_5)
+instance StaticSize Tic_tac_toe
+    where staticSizeOf = \_ -> 36 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Tic_tac_toe
+    where readRaw = \ptr_0 -> ((pure Tic_tac_toe <*> readRaw (Proxy @"tic_tac_toe_row1") ptr_0) <*> readRaw (Proxy @"tic_tac_toe_row2") ptr_0) <*> readRaw (Proxy @"tic_tac_toe_row3") ptr_0
+instance WriteRaw Tic_tac_toe
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Tic_tac_toe tic_tac_toe_row1_2
+                                                   tic_tac_toe_row2_3
+                                                   tic_tac_toe_row3_4 -> writeRaw (Proxy @"tic_tac_toe_row1") ptr_0 tic_tac_toe_row1_2 >> (writeRaw (Proxy @"tic_tac_toe_row2") ptr_0 tic_tac_toe_row2_3 >> writeRaw (Proxy @"tic_tac_toe_row3") ptr_0 tic_tac_toe_row3_4)
+deriving via (EquivStorable Tic_tac_toe) instance Storable Tic_tac_toe
 instance HasCField Tic_tac_toe "tic_tac_toe_row1"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row1" = ConstantArray 3 CInt
@@ -663,12 +681,15 @@ data Vector_Aux
                    __exported by:__ @manual\/zero_copy.h@
               -}}
     deriving stock (Eq, Show)
-instance Storable Vector_Aux
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Vector <*> peek (Proxy @"vector_len") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Vector vector_len_3 -> poke (Proxy @"vector_len") ptr_1 vector_len_3
+instance StaticSize Vector_Aux
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Vector_Aux
+    where readRaw = \ptr_0 -> pure Vector <*> readRaw (Proxy @"vector_len") ptr_0
+instance WriteRaw Vector_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Vector vector_len_2 -> writeRaw (Proxy @"vector_len") ptr_0 vector_len_2
+deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
 instance Prim Vector_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

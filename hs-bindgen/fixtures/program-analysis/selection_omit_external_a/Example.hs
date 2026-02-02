@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -19,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
@@ -39,23 +42,29 @@ data UnrelatedDeclaration = UnrelatedDeclaration
   }
   deriving stock (Eq, Show)
 
-instance F.Storable UnrelatedDeclaration where
+instance HsBindgen.Runtime.Marshal.StaticSize UnrelatedDeclaration where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw UnrelatedDeclaration where
+
+  readRaw =
     \ptr0 ->
           pure UnrelatedDeclaration
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw UnrelatedDeclaration where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           UnrelatedDeclaration unrelatedDeclaration_m2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0 unrelatedDeclaration_m2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"unrelatedDeclaration_m") ptr0 unrelatedDeclaration_m2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable UnrelatedDeclaration instance F.Storable UnrelatedDeclaration
 
 instance Data.Primitive.Types.Prim UnrelatedDeclaration where
 

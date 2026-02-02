@@ -160,13 +160,16 @@ data GlobalConfig
            __exported by:__ @manual\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable GlobalConfig
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure GlobalConfig <*> peek (Proxy @"globalConfig_numThreads") ptr_0) <*> peek (Proxy @"globalConfig_numWorkers") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   GlobalConfig globalConfig_numThreads_3
-                                                globalConfig_numWorkers_4 -> poke (Proxy @"globalConfig_numThreads") ptr_1 globalConfig_numThreads_3 >> poke (Proxy @"globalConfig_numWorkers") ptr_1 globalConfig_numWorkers_4
+instance StaticSize GlobalConfig
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw GlobalConfig
+    where readRaw = \ptr_0 -> (pure GlobalConfig <*> readRaw (Proxy @"globalConfig_numThreads") ptr_0) <*> readRaw (Proxy @"globalConfig_numWorkers") ptr_0
+instance WriteRaw GlobalConfig
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       GlobalConfig globalConfig_numThreads_2
+                                                    globalConfig_numWorkers_3 -> writeRaw (Proxy @"globalConfig_numThreads") ptr_0 globalConfig_numThreads_2 >> writeRaw (Proxy @"globalConfig_numWorkers") ptr_0 globalConfig_numWorkers_3
+deriving via (EquivStorable GlobalConfig) instance Storable GlobalConfig
 instance Prim GlobalConfig
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -268,13 +271,16 @@ data Tuple
            __exported by:__ @manual\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Tuple
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Tuple <*> peek (Proxy @"tuple_x") ptr_0) <*> peek (Proxy @"tuple_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Tuple tuple_x_3
-                                         tuple_y_4 -> poke (Proxy @"tuple_x") ptr_1 tuple_x_3 >> poke (Proxy @"tuple_y") ptr_1 tuple_y_4
+instance StaticSize Tuple
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Tuple
+    where readRaw = \ptr_0 -> (pure Tuple <*> readRaw (Proxy @"tuple_x") ptr_0) <*> readRaw (Proxy @"tuple_y") ptr_0
+instance WriteRaw Tuple
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Tuple tuple_x_2
+                                             tuple_y_3 -> writeRaw (Proxy @"tuple_x") ptr_0 tuple_x_2 >> writeRaw (Proxy @"tuple_y") ptr_0 tuple_y_3
+deriving via (EquivStorable Tuple) instance Storable Tuple
 instance Prim Tuple
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#

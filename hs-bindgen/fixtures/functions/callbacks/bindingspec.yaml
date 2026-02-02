@@ -58,8 +58,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: DataValidator
   representation:
     newtype:
@@ -162,8 +165,11 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MeasurementHandler
   representation:
     record:
@@ -176,8 +182,11 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MeasurementReceived
   representation:
     newtype:
@@ -223,7 +232,10 @@ hstypes:
   - HasCField
   - HasField
   - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ProcessorCallback
   representation:
     newtype:

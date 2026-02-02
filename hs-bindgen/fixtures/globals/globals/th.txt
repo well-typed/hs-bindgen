@@ -146,13 +146,16 @@ data Config
            __exported by:__ @globals\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Config
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Config <*> peek (Proxy @"config_x") ptr_0) <*> peek (Proxy @"config_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Config config_x_3
-                                          config_y_4 -> poke (Proxy @"config_x") ptr_1 config_x_3 >> poke (Proxy @"config_y") ptr_1 config_y_4
+instance StaticSize Config
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Config
+    where readRaw = \ptr_0 -> (pure Config <*> readRaw (Proxy @"config_x") ptr_0) <*> readRaw (Proxy @"config_y") ptr_0
+instance WriteRaw Config
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Config config_x_2
+                                              config_y_3 -> writeRaw (Proxy @"config_x") ptr_0 config_x_2 >> writeRaw (Proxy @"config_y") ptr_0 config_y_3
+deriving via (EquivStorable Config) instance Storable Config
 instance Prim Config
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -216,13 +219,16 @@ data Inline_struct
            __exported by:__ @globals\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Inline_struct
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Inline_struct <*> peek (Proxy @"inline_struct_x") ptr_0) <*> peek (Proxy @"inline_struct_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Inline_struct inline_struct_x_3
-                                                 inline_struct_y_4 -> poke (Proxy @"inline_struct_x") ptr_1 inline_struct_x_3 >> poke (Proxy @"inline_struct_y") ptr_1 inline_struct_y_4
+instance StaticSize Inline_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Inline_struct
+    where readRaw = \ptr_0 -> (pure Inline_struct <*> readRaw (Proxy @"inline_struct_x") ptr_0) <*> readRaw (Proxy @"inline_struct_y") ptr_0
+instance WriteRaw Inline_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Inline_struct inline_struct_x_2
+                                                     inline_struct_y_3 -> writeRaw (Proxy @"inline_struct_x") ptr_0 inline_struct_x_2 >> writeRaw (Proxy @"inline_struct_y") ptr_0 inline_struct_y_3
+deriving via (EquivStorable Inline_struct) instance Storable Inline_struct
 instance Prim Inline_struct
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -293,14 +299,17 @@ data Version_t
            __exported by:__ @globals\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Version_t
-    where sizeOf = \_ -> 6 :: Int
-          alignment = \_ -> 2 :: Int
-          peek = \ptr_0 -> ((pure Version_t <*> peek (Proxy @"version_t_major") ptr_0) <*> peek (Proxy @"version_t_minor") ptr_0) <*> peek (Proxy @"version_t_patch") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Version_t version_t_major_3
-                                             version_t_minor_4
-                                             version_t_patch_5 -> poke (Proxy @"version_t_major") ptr_1 version_t_major_3 >> (poke (Proxy @"version_t_minor") ptr_1 version_t_minor_4 >> poke (Proxy @"version_t_patch") ptr_1 version_t_patch_5)
+instance StaticSize Version_t
+    where staticSizeOf = \_ -> 6 :: Int
+          staticAlignment = \_ -> 2 :: Int
+instance ReadRaw Version_t
+    where readRaw = \ptr_0 -> ((pure Version_t <*> readRaw (Proxy @"version_t_major") ptr_0) <*> readRaw (Proxy @"version_t_minor") ptr_0) <*> readRaw (Proxy @"version_t_patch") ptr_0
+instance WriteRaw Version_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Version_t version_t_major_2
+                                                 version_t_minor_3
+                                                 version_t_patch_4 -> writeRaw (Proxy @"version_t_major") ptr_0 version_t_major_2 >> (writeRaw (Proxy @"version_t_minor") ptr_0 version_t_minor_3 >> writeRaw (Proxy @"version_t_patch") ptr_0 version_t_patch_4)
+deriving via (EquivStorable Version_t) instance Storable Version_t
 instance HasCField Version_t "version_t_major"
     where type CFieldType Version_t
                           "version_t_major" = HsBindgen.Runtime.LibC.Word8
@@ -357,14 +366,17 @@ data Struct1_t
            __exported by:__ @globals\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct1_t
-    where sizeOf = \_ -> 10 :: Int
-          alignment = \_ -> 2 :: Int
-          peek = \ptr_0 -> ((pure Struct1_t <*> peek (Proxy @"struct1_t_x") ptr_0) <*> peek (Proxy @"struct1_t_y") ptr_0) <*> peek (Proxy @"struct1_t_version") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct1_t struct1_t_x_3
-                                             struct1_t_y_4
-                                             struct1_t_version_5 -> poke (Proxy @"struct1_t_x") ptr_1 struct1_t_x_3 >> (poke (Proxy @"struct1_t_y") ptr_1 struct1_t_y_4 >> poke (Proxy @"struct1_t_version") ptr_1 struct1_t_version_5)
+instance StaticSize Struct1_t
+    where staticSizeOf = \_ -> 10 :: Int
+          staticAlignment = \_ -> 2 :: Int
+instance ReadRaw Struct1_t
+    where readRaw = \ptr_0 -> ((pure Struct1_t <*> readRaw (Proxy @"struct1_t_x") ptr_0) <*> readRaw (Proxy @"struct1_t_y") ptr_0) <*> readRaw (Proxy @"struct1_t_version") ptr_0
+instance WriteRaw Struct1_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct1_t struct1_t_x_2
+                                                 struct1_t_y_3
+                                                 struct1_t_version_4 -> writeRaw (Proxy @"struct1_t_x") ptr_0 struct1_t_x_2 >> (writeRaw (Proxy @"struct1_t_y") ptr_0 struct1_t_y_3 >> writeRaw (Proxy @"struct1_t_version") ptr_0 struct1_t_version_4)
+deriving via (EquivStorable Struct1_t) instance Storable Struct1_t
 instance HasCField Struct1_t "struct1_t_x"
     where type CFieldType Struct1_t
                           "struct1_t_x" = HsBindgen.Runtime.LibC.Word16
@@ -405,12 +417,15 @@ data Struct2_t
            __exported by:__ @globals\/globals.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct2_t
-    where sizeOf = \_ -> 10 :: Int
-          alignment = \_ -> 2 :: Int
-          peek = \ptr_0 -> pure Struct2_t <*> peek (Proxy @"struct2_t_field1") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct2_t struct2_t_field1_3 -> poke (Proxy @"struct2_t_field1") ptr_1 struct2_t_field1_3
+instance StaticSize Struct2_t
+    where staticSizeOf = \_ -> 10 :: Int
+          staticAlignment = \_ -> 2 :: Int
+instance ReadRaw Struct2_t
+    where readRaw = \ptr_0 -> pure Struct2_t <*> readRaw (Proxy @"struct2_t_field1") ptr_0
+instance WriteRaw Struct2_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct2_t struct2_t_field1_2 -> writeRaw (Proxy @"struct2_t_field1") ptr_0 struct2_t_field1_2
+deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
 instance HasCField Struct2_t "struct2_t_field1"
     where type CFieldType Struct2_t "struct2_t_field1" = Struct1_t
           offset# = \_ -> \_ -> 0

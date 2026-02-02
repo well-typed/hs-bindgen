@@ -34,13 +34,16 @@ data Bar
            __exported by:__ @declarations\/opaque_declaration.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Bar
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Bar <*> peek (Proxy @"bar_ptrA") ptr_0) <*> peek (Proxy @"bar_ptrB") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Bar bar_ptrA_3
-                                       bar_ptrB_4 -> poke (Proxy @"bar_ptrA") ptr_1 bar_ptrA_3 >> poke (Proxy @"bar_ptrB") ptr_1 bar_ptrB_4
+instance StaticSize Bar
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Bar
+    where readRaw = \ptr_0 -> (pure Bar <*> readRaw (Proxy @"bar_ptrA") ptr_0) <*> readRaw (Proxy @"bar_ptrB") ptr_0
+instance WriteRaw Bar
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar bar_ptrA_2
+                                           bar_ptrB_3 -> writeRaw (Proxy @"bar_ptrA") ptr_0 bar_ptrA_2 >> writeRaw (Proxy @"bar_ptrB") ptr_0 bar_ptrB_3
+deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_ptrA"
     where type CFieldType Bar "bar_ptrA" = Ptr Foo
           offset# = \_ -> \_ -> 0
@@ -68,12 +71,15 @@ data Baz
            __exported by:__ @declarations\/opaque_declaration.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Baz
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Baz
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Baz -> return ()
+instance StaticSize Baz
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Baz
+    where readRaw = \ptr_0 -> pure Baz
+instance WriteRaw Baz
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Baz -> return ()
+deriving via (EquivStorable Baz) instance Storable Baz
 instance Prim Baz
     where sizeOf# = \_ -> 0# :: Int#
           alignment# = \_ -> 1# :: Int#

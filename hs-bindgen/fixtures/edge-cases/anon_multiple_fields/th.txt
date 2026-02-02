@@ -27,13 +27,16 @@ data Some_struct_field1
            __exported by:__ @edge-cases\/anon_multiple_fields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Some_struct_field1
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Some_struct_field1 <*> peek (Proxy @"some_struct_field1_x") ptr_0) <*> peek (Proxy @"some_struct_field1_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Some_struct_field1 some_struct_field1_x_3
-                                                      some_struct_field1_y_4 -> poke (Proxy @"some_struct_field1_x") ptr_1 some_struct_field1_x_3 >> poke (Proxy @"some_struct_field1_y") ptr_1 some_struct_field1_y_4
+instance StaticSize Some_struct_field1
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Some_struct_field1
+    where readRaw = \ptr_0 -> (pure Some_struct_field1 <*> readRaw (Proxy @"some_struct_field1_x") ptr_0) <*> readRaw (Proxy @"some_struct_field1_y") ptr_0
+instance WriteRaw Some_struct_field1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Some_struct_field1 some_struct_field1_x_2
+                                                          some_struct_field1_y_3 -> writeRaw (Proxy @"some_struct_field1_x") ptr_0 some_struct_field1_x_2 >> writeRaw (Proxy @"some_struct_field1_y") ptr_0 some_struct_field1_y_3
+deriving via (EquivStorable Some_struct_field1) instance Storable Some_struct_field1
 instance Prim Some_struct_field1
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -108,14 +111,17 @@ data Some_struct
            __exported by:__ @edge-cases\/anon_multiple_fields.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Some_struct
-    where sizeOf = \_ -> 24 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((pure Some_struct <*> peek (Proxy @"some_struct_field1") ptr_0) <*> peek (Proxy @"some_struct_field2") ptr_0) <*> peek (Proxy @"some_struct_field3") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Some_struct some_struct_field1_3
-                                               some_struct_field2_4
-                                               some_struct_field3_5 -> poke (Proxy @"some_struct_field1") ptr_1 some_struct_field1_3 >> (poke (Proxy @"some_struct_field2") ptr_1 some_struct_field2_4 >> poke (Proxy @"some_struct_field3") ptr_1 some_struct_field3_5)
+instance StaticSize Some_struct
+    where staticSizeOf = \_ -> 24 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Some_struct
+    where readRaw = \ptr_0 -> ((pure Some_struct <*> readRaw (Proxy @"some_struct_field1") ptr_0) <*> readRaw (Proxy @"some_struct_field2") ptr_0) <*> readRaw (Proxy @"some_struct_field3") ptr_0
+instance WriteRaw Some_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Some_struct some_struct_field1_2
+                                                   some_struct_field2_3
+                                                   some_struct_field3_4 -> writeRaw (Proxy @"some_struct_field1") ptr_0 some_struct_field1_2 >> (writeRaw (Proxy @"some_struct_field2") ptr_0 some_struct_field2_3 >> writeRaw (Proxy @"some_struct_field3") ptr_0 some_struct_field3_4)
+deriving via (EquivStorable Some_struct) instance Storable Some_struct
 instance Prim Some_struct
     where sizeOf# = \_ -> 24# :: Int#
           alignment# = \_ -> 4# :: Int#

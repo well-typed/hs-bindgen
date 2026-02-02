@@ -27,13 +27,16 @@ data S1_c
            __exported by:__ @types\/structs\/anonymous.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S1_c
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S1_c <*> peek (Proxy @"s1_c_a") ptr_0) <*> peek (Proxy @"s1_c_b") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S1_c s1_c_a_3
-                                        s1_c_b_4 -> poke (Proxy @"s1_c_a") ptr_1 s1_c_a_3 >> poke (Proxy @"s1_c_b") ptr_1 s1_c_b_4
+instance StaticSize S1_c
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S1_c
+    where readRaw = \ptr_0 -> (pure S1_c <*> readRaw (Proxy @"s1_c_a") ptr_0) <*> readRaw (Proxy @"s1_c_b") ptr_0
+instance WriteRaw S1_c
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S1_c s1_c_a_2
+                                            s1_c_b_3 -> writeRaw (Proxy @"s1_c_a") ptr_0 s1_c_a_2 >> writeRaw (Proxy @"s1_c_b") ptr_0 s1_c_b_3
+deriving via (EquivStorable S1_c) instance Storable S1_c
 instance Prim S1_c
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -97,13 +100,16 @@ data S1
            __exported by:__ @types\/structs\/anonymous.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S1
-    where sizeOf = \_ -> 12 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S1 <*> peek (Proxy @"s1_c") ptr_0) <*> peek (Proxy @"s1_d") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S1 s1_c_3
-                                      s1_d_4 -> poke (Proxy @"s1_c") ptr_1 s1_c_3 >> poke (Proxy @"s1_d") ptr_1 s1_d_4
+instance StaticSize S1
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S1
+    where readRaw = \ptr_0 -> (pure S1 <*> readRaw (Proxy @"s1_c") ptr_0) <*> readRaw (Proxy @"s1_d") ptr_0
+instance WriteRaw S1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S1 s1_c_2
+                                          s1_d_3 -> writeRaw (Proxy @"s1_c") ptr_0 s1_c_2 >> writeRaw (Proxy @"s1_d") ptr_0 s1_d_3
+deriving via (EquivStorable S1) instance Storable S1
 instance Prim S1
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -160,12 +166,15 @@ data S2_inner_deep
            __exported by:__ @types\/structs\/anonymous.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S2_inner_deep
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure S2_inner_deep <*> peek (Proxy @"s2_inner_deep_b") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2_inner_deep s2_inner_deep_b_3 -> poke (Proxy @"s2_inner_deep_b") ptr_1 s2_inner_deep_b_3
+instance StaticSize S2_inner_deep
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S2_inner_deep
+    where readRaw = \ptr_0 -> pure S2_inner_deep <*> readRaw (Proxy @"s2_inner_deep_b") ptr_0
+instance WriteRaw S2_inner_deep
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2_inner_deep s2_inner_deep_b_2 -> writeRaw (Proxy @"s2_inner_deep_b") ptr_0 s2_inner_deep_b_2
+deriving via (EquivStorable S2_inner_deep) instance Storable S2_inner_deep
 instance Prim S2_inner_deep
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -214,13 +223,16 @@ data S2_inner
            __exported by:__ @types\/structs\/anonymous.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S2_inner
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S2_inner <*> peek (Proxy @"s2_inner_a") ptr_0) <*> peek (Proxy @"s2_inner_deep") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2_inner s2_inner_a_3
-                                            s2_inner_deep_4 -> poke (Proxy @"s2_inner_a") ptr_1 s2_inner_a_3 >> poke (Proxy @"s2_inner_deep") ptr_1 s2_inner_deep_4
+instance StaticSize S2_inner
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S2_inner
+    where readRaw = \ptr_0 -> (pure S2_inner <*> readRaw (Proxy @"s2_inner_a") ptr_0) <*> readRaw (Proxy @"s2_inner_deep") ptr_0
+instance WriteRaw S2_inner
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2_inner s2_inner_a_2
+                                                s2_inner_deep_3 -> writeRaw (Proxy @"s2_inner_a") ptr_0 s2_inner_a_2 >> writeRaw (Proxy @"s2_inner_deep") ptr_0 s2_inner_deep_3
+deriving via (EquivStorable S2_inner) instance Storable S2_inner
 instance Prim S2_inner
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -284,13 +296,16 @@ data S2
            __exported by:__ @types\/structs\/anonymous.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S2
-    where sizeOf = \_ -> 12 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S2 <*> peek (Proxy @"s2_inner") ptr_0) <*> peek (Proxy @"s2_d") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2 s2_inner_3
-                                      s2_d_4 -> poke (Proxy @"s2_inner") ptr_1 s2_inner_3 >> poke (Proxy @"s2_d") ptr_1 s2_d_4
+instance StaticSize S2
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S2
+    where readRaw = \ptr_0 -> (pure S2 <*> readRaw (Proxy @"s2_inner") ptr_0) <*> readRaw (Proxy @"s2_d") ptr_0
+instance WriteRaw S2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2 s2_inner_2
+                                          s2_d_3 -> writeRaw (Proxy @"s2_inner") ptr_0 s2_inner_2 >> writeRaw (Proxy @"s2_d") ptr_0 s2_d_3
+deriving via (EquivStorable S2) instance Storable S2
 instance Prim S2
     where sizeOf# = \_ -> 12# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -354,13 +369,16 @@ data S3
            __exported by:__ @types\/structs\/anonymous.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S3
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure S3 <*> peek (Proxy @"s3_c") ptr_0) <*> peek (Proxy @"s3_d") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S3 s3_c_3
-                                      s3_d_4 -> poke (Proxy @"s3_c") ptr_1 s3_c_3 >> poke (Proxy @"s3_d") ptr_1 s3_d_4
+instance StaticSize S3
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S3
+    where readRaw = \ptr_0 -> (pure S3 <*> readRaw (Proxy @"s3_c") ptr_0) <*> readRaw (Proxy @"s3_d") ptr_0
+instance WriteRaw S3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S3 s3_c_2
+                                          s3_d_3 -> writeRaw (Proxy @"s3_c") ptr_0 s3_c_2 >> writeRaw (Proxy @"s3_d") ptr_0 s3_d_3
+deriving via (EquivStorable S3) instance Storable S3
 instance HasCField S3 "s3_c"
     where type CFieldType S3 "s3_c" = Ptr (Ptr S3_c)
           offset# = \_ -> \_ -> 0
@@ -401,13 +419,16 @@ data S3_c
            __exported by:__ @types\/structs\/anonymous.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S3_c
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S3_c <*> peek (Proxy @"s3_c_a") ptr_0) <*> peek (Proxy @"s3_c_b") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S3_c s3_c_a_3
-                                        s3_c_b_4 -> poke (Proxy @"s3_c_a") ptr_1 s3_c_a_3 >> poke (Proxy @"s3_c_b") ptr_1 s3_c_b_4
+instance StaticSize S3_c
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S3_c
+    where readRaw = \ptr_0 -> (pure S3_c <*> readRaw (Proxy @"s3_c_a") ptr_0) <*> readRaw (Proxy @"s3_c_b") ptr_0
+instance WriteRaw S3_c
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S3_c s3_c_a_2
+                                            s3_c_b_3 -> writeRaw (Proxy @"s3_c_a") ptr_0 s3_c_a_2 >> writeRaw (Proxy @"s3_c_b") ptr_0 s3_c_b_3
+deriving via (EquivStorable S3_c) instance Storable S3_c
 instance Prim S3_c
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#

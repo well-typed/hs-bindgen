@@ -117,12 +117,15 @@ data Thing
            __exported by:__ @types\/structs\/struct_arg.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Thing
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Thing <*> peek (Proxy @"thing_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Thing thing_x_3 -> poke (Proxy @"thing_x") ptr_1 thing_x_3
+instance StaticSize Thing
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Thing
+    where readRaw = \ptr_0 -> pure Thing <*> readRaw (Proxy @"thing_x") ptr_0
+instance WriteRaw Thing
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Thing thing_x_2 -> writeRaw (Proxy @"thing_x") ptr_0 thing_x_2
+deriving via (EquivStorable Thing) instance Storable Thing
 instance Prim Thing
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#

@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -43,19 +45,25 @@ data FILE = FILE
   {}
   deriving stock (Eq, Show)
 
-instance F.Storable FILE where
+instance HsBindgen.Runtime.Marshal.StaticSize FILE where
 
-  sizeOf = \_ -> (0 :: Int)
+  staticSizeOf = \_ -> (0 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek = \ptr0 -> pure FILE
+instance HsBindgen.Runtime.Marshal.ReadRaw FILE where
 
-  poke =
+  readRaw = \ptr0 -> pure FILE
+
+instance HsBindgen.Runtime.Marshal.WriteRaw FILE where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           FILE -> return ()
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable FILE instance F.Storable FILE
 
 instance Data.Primitive.Types.Prim FILE where
 

@@ -20,12 +20,15 @@ data S
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure S <*> peek (Proxy @"s_f") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S s_f_3 -> poke (Proxy @"s_f") ptr_1 s_f_3
+instance StaticSize S
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_f") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_f_2 -> writeRaw (Proxy @"s_f") ptr_0 s_f_2
+deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_f"
     where type CFieldType S "s_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
@@ -91,12 +94,15 @@ data S2
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S2
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 16 :: Int
-          peek = \ptr_0 -> pure S2 <*> peek (Proxy @"s2_f") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2 s2_f_3 -> poke (Proxy @"s2_f") ptr_1 s2_f_3
+instance StaticSize S2
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 16 :: Int
+instance ReadRaw S2
+    where readRaw = \ptr_0 -> pure S2 <*> readRaw (Proxy @"s2_f") ptr_0
+instance WriteRaw S2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2 s2_f_2 -> writeRaw (Proxy @"s2_f") ptr_0 s2_f_2
+deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_f"
     where type CFieldType S2 "s2_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
@@ -131,13 +137,16 @@ data My_unpacked_struct
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable My_unpacked_struct
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure My_unpacked_struct <*> peek (Proxy @"my_unpacked_struct_c") ptr_0) <*> peek (Proxy @"my_unpacked_struct_i") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   My_unpacked_struct my_unpacked_struct_c_3
-                                                      my_unpacked_struct_i_4 -> poke (Proxy @"my_unpacked_struct_c") ptr_1 my_unpacked_struct_c_3 >> poke (Proxy @"my_unpacked_struct_i") ptr_1 my_unpacked_struct_i_4
+instance StaticSize My_unpacked_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw My_unpacked_struct
+    where readRaw = \ptr_0 -> (pure My_unpacked_struct <*> readRaw (Proxy @"my_unpacked_struct_c") ptr_0) <*> readRaw (Proxy @"my_unpacked_struct_i") ptr_0
+instance WriteRaw My_unpacked_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       My_unpacked_struct my_unpacked_struct_c_2
+                                                          my_unpacked_struct_i_3 -> writeRaw (Proxy @"my_unpacked_struct_c") ptr_0 my_unpacked_struct_c_2 >> writeRaw (Proxy @"my_unpacked_struct_i") ptr_0 my_unpacked_struct_i_3
+deriving via (EquivStorable My_unpacked_struct) instance Storable My_unpacked_struct
 instance Prim My_unpacked_struct
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
@@ -212,14 +221,17 @@ data My_packed_struct
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable My_packed_struct
-    where sizeOf = \_ -> 13 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> ((pure My_packed_struct <*> peek (Proxy @"my_packed_struct_c") ptr_0) <*> peek (Proxy @"my_packed_struct_i") ptr_0) <*> peek (Proxy @"my_packed_struct_s") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   My_packed_struct my_packed_struct_c_3
-                                                    my_packed_struct_i_4
-                                                    my_packed_struct_s_5 -> poke (Proxy @"my_packed_struct_c") ptr_1 my_packed_struct_c_3 >> (poke (Proxy @"my_packed_struct_i") ptr_1 my_packed_struct_i_4 >> poke (Proxy @"my_packed_struct_s") ptr_1 my_packed_struct_s_5)
+instance StaticSize My_packed_struct
+    where staticSizeOf = \_ -> 13 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw My_packed_struct
+    where readRaw = \ptr_0 -> ((pure My_packed_struct <*> readRaw (Proxy @"my_packed_struct_c") ptr_0) <*> readRaw (Proxy @"my_packed_struct_i") ptr_0) <*> readRaw (Proxy @"my_packed_struct_s") ptr_0
+instance WriteRaw My_packed_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       My_packed_struct my_packed_struct_c_2
+                                                        my_packed_struct_i_3
+                                                        my_packed_struct_s_4 -> writeRaw (Proxy @"my_packed_struct_c") ptr_0 my_packed_struct_c_2 >> (writeRaw (Proxy @"my_packed_struct_i") ptr_0 my_packed_struct_i_3 >> writeRaw (Proxy @"my_packed_struct_s") ptr_0 my_packed_struct_s_4)
+deriving via (EquivStorable My_packed_struct) instance Storable My_packed_struct
 instance Prim My_packed_struct
     where sizeOf# = \_ -> 13# :: Int#
           alignment# = \_ -> 1# :: Int#

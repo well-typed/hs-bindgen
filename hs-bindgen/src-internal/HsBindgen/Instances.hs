@@ -174,8 +174,11 @@ instance Default SupportedInstances where
           , mkDef Flam_Offset  Independent HsBindgen []
           , mkOpt Ord          Dependent             [Stock]
           , mkDef Prim         Dependent   HsBindgen []
+          , mkDef ReadRaw      Dependent   HsBindgen []
           , mkDef Show         Dependent   Stock     []
+          , mkDef StaticSize   Dependent   HsBindgen []
           , mkDef Storable     Dependent   HsBindgen []
+          , mkDef WriteRaw     Dependent   HsBindgen []
           ]
       , union = Map.fromList [
             mkDef HasCBitField Independent HsBindgen []

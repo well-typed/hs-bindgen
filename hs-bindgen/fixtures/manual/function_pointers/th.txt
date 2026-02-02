@@ -263,12 +263,15 @@ data Apply1Struct
       __exported by:__ @manual\/function_pointers.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Apply1Struct
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Apply1Struct <*> peek (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Apply1Struct apply1Struct_apply1_nopointer_struct_field_3 -> poke (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_1 apply1Struct_apply1_nopointer_struct_field_3
+instance StaticSize Apply1Struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Apply1Struct
+    where readRaw = \ptr_0 -> pure Apply1Struct <*> readRaw (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_0
+instance WriteRaw Apply1Struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Apply1Struct apply1Struct_apply1_nopointer_struct_field_2 -> writeRaw (Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr_0 apply1Struct_apply1_nopointer_struct_field_2
+deriving via (EquivStorable Apply1Struct) instance Storable Apply1Struct
 instance HasCField Apply1Struct
                    "apply1Struct_apply1_nopointer_struct_field"
     where type CFieldType Apply1Struct

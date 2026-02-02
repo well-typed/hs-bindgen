@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -20,6 +22,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
@@ -72,25 +75,31 @@ data Named = Named
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Named where
+instance HsBindgen.Runtime.Marshal.StaticSize Named where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Named where
+
+  readRaw =
     \ptr0 ->
           pure Named
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"named_e") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"named_f") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"named_e") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"named_f") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Named where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Named named_e2 named_f3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"named_e") ptr0 named_e2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"named_f") ptr0 named_f3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"named_e") ptr0 named_e2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"named_f") ptr0 named_f3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Named instance F.Storable Named
 
 instance Data.Primitive.Types.Prim Named where
 

@@ -197,27 +197,33 @@ data FileOperationRecord = FileOperationRecord
   }
   deriving stock (Eq, Show)
 
-instance F.Storable FileOperationRecord where
+instance HsBindgen.Runtime.Marshal.StaticSize FileOperationRecord where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw FileOperationRecord where
+
+  readRaw =
     \ptr0 ->
           pure FileOperationRecord
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationRecord where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           FileOperationRecord
             fileOperationRecord_status2
             fileOperationRecord_bytes_processed3 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable FileOperationRecord instance F.Storable FileOperationRecord
 
 instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
 
