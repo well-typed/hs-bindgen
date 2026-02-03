@@ -37,13 +37,13 @@ hs_bindgen_a19bc138e7f2759b :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrCo
 hs_bindgen_a19bc138e7f2759b =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a19bc138e7f2759b_base
 
-{-# NOINLINE list_example_funptr #-}
+{-# NOINLINE list_example #-}
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
-list_example_funptr :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool)
-list_example_funptr =
+list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool)
+list_example =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a19bc138e7f2759b

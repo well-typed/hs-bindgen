@@ -73,11 +73,11 @@ hs_bindgen_51195acecf6b880e =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-foo_unsafe ::
+foo ::
      Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo_unsafe = hs_bindgen_51195acecf6b880e
+foo = hs_bindgen_51195acecf6b880e
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10ca94f9_base ::
@@ -97,11 +97,11 @@ hs_bindgen_eb4a794c10ca94f9 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooA_unsafe ::
+fooA ::
      Ptr.Ptr A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA_unsafe = hs_bindgen_eb4a794c10ca94f9
+fooA = hs_bindgen_eb4a794c10ca94f9
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a953b64_base ::
@@ -121,11 +121,11 @@ hs_bindgen_a11eb4471a953b64 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooB_unsafe ::
+fooB ::
      Ptr.Ptr B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB_unsafe = hs_bindgen_a11eb4471a953b64
+fooB = hs_bindgen_a11eb4471a953b64
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311_base ::
@@ -145,11 +145,11 @@ hs_bindgen_1dea92b3f3346311 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooC_unsafe ::
+fooC ::
      Ptr.Ptr M.C
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooC_unsafe = hs_bindgen_1dea92b3f3346311
+fooC = hs_bindgen_1dea92b3f3346311
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d_base ::
@@ -169,11 +169,11 @@ hs_bindgen_dba6d56e1a316e2d =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooD_unsafe ::
+fooD ::
      Ptr.Ptr M.D
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooD_unsafe = hs_bindgen_dba6d56e1a316e2d
+fooD = hs_bindgen_dba6d56e1a316e2d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae_base ::
@@ -193,8 +193,8 @@ hs_bindgen_23b6f403a534aeae =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooE_unsafe ::
+fooE ::
      Ptr.Ptr E
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooE_unsafe = hs_bindgen_23b6f403a534aeae
+fooE = hs_bindgen_23b6f403a534aeae

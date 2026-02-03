@@ -128,15 +128,15 @@ hs_bindgen_2020929269c10652 :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CIn
 hs_bindgen_2020929269c10652 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2020929269c10652_base
 
-{-# NOINLINE foo_funptr #-}
+{-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 4:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-foo_funptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ())
-foo_funptr =
+foo :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ())
+foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2020929269c10652
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
@@ -148,15 +148,15 @@ hs_bindgen_3fbd7681308a7575 :: IO (Ptr.FunPtr ((Ptr.FunPtr A) -> IO ()))
 hs_bindgen_3fbd7681308a7575 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3fbd7681308a7575_base
 
-{-# NOINLINE fooA_funptr #-}
+{-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 9:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooA_funptr :: Ptr.FunPtr ((Ptr.FunPtr A) -> IO ())
-fooA_funptr =
+fooA :: Ptr.FunPtr ((Ptr.FunPtr A) -> IO ())
+fooA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3fbd7681308a7575
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
@@ -168,15 +168,15 @@ hs_bindgen_118f9a485493ca2d :: IO (Ptr.FunPtr ((Ptr.FunPtr B) -> IO ()))
 hs_bindgen_118f9a485493ca2d =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_118f9a485493ca2d_base
 
-{-# NOINLINE fooB_funptr #-}
+{-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooB_funptr :: Ptr.FunPtr ((Ptr.FunPtr B) -> IO ())
-fooB_funptr =
+fooB :: Ptr.FunPtr ((Ptr.FunPtr B) -> IO ())
+fooB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_118f9a485493ca2d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
@@ -188,15 +188,15 @@ hs_bindgen_dbe89d4787aae78a :: IO (Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ()))
 hs_bindgen_dbe89d4787aae78a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dbe89d4787aae78a_base
 
-{-# NOINLINE fooC_funptr #-}
+{-# NOINLINE fooC #-}
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 21:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooC_funptr :: Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ())
-fooC_funptr =
+fooC :: Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ())
+fooC =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dbe89d4787aae78a
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
@@ -208,15 +208,15 @@ hs_bindgen_cf5702eef5ab2ac4 :: IO (Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ()))
 hs_bindgen_cf5702eef5ab2ac4 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
 
-{-# NOINLINE fooD_funptr #-}
+{-# NOINLINE fooD #-}
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 22:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooD_funptr :: Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ())
-fooD_funptr =
+fooD :: Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ())
+fooD =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cf5702eef5ab2ac4
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
@@ -228,15 +228,15 @@ hs_bindgen_dc10cdc4b07670d1 :: IO (Ptr.FunPtr ((Ptr.FunPtr E) -> IO ()))
 hs_bindgen_dc10cdc4b07670d1 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dc10cdc4b07670d1_base
 
-{-# NOINLINE fooE_funptr #-}
+{-# NOINLINE fooE #-}
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 23:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooE_funptr :: Ptr.FunPtr ((Ptr.FunPtr E) -> IO ())
-fooE_funptr =
+fooE :: Ptr.FunPtr ((Ptr.FunPtr E) -> IO ())
+fooE =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dc10cdc4b07670d1
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_bar@
@@ -248,15 +248,15 @@ hs_bindgen_d07fcdceb06f5a2c :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CIn
 hs_bindgen_d07fcdceb06f5a2c =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d07fcdceb06f5a2c_base
 
-{-# NOINLINE bar_funptr #-}
+{-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 28:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-bar_funptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ())
-bar_funptr =
+bar :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ())
+bar =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d07fcdceb06f5a2c
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barA@
@@ -268,15 +268,15 @@ hs_bindgen_807763d49e9b12a2 :: IO (Ptr.FunPtr ((Ptr.FunPtr A) -> IO ()))
 hs_bindgen_807763d49e9b12a2 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_807763d49e9b12a2_base
 
-{-# NOINLINE barA_funptr #-}
+{-# NOINLINE barA #-}
 {-| __C declaration:__ @barA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 30:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barA_funptr :: Ptr.FunPtr ((Ptr.FunPtr A) -> IO ())
-barA_funptr =
+barA :: Ptr.FunPtr ((Ptr.FunPtr A) -> IO ())
+barA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_807763d49e9b12a2
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barB@
@@ -288,15 +288,15 @@ hs_bindgen_978114a8cf46bc2b :: IO (Ptr.FunPtr ((Ptr.FunPtr B) -> IO ()))
 hs_bindgen_978114a8cf46bc2b =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_978114a8cf46bc2b_base
 
-{-# NOINLINE barB_funptr #-}
+{-# NOINLINE barB #-}
 {-| __C declaration:__ @barB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 31:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barB_funptr :: Ptr.FunPtr ((Ptr.FunPtr B) -> IO ())
-barB_funptr =
+barB :: Ptr.FunPtr ((Ptr.FunPtr B) -> IO ())
+barB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_978114a8cf46bc2b
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barC@
@@ -308,15 +308,15 @@ hs_bindgen_8db1266f28c7b15e :: IO (Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ()))
 hs_bindgen_8db1266f28c7b15e =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8db1266f28c7b15e_base
 
-{-# NOINLINE barC_funptr #-}
+{-# NOINLINE barC #-}
 {-| __C declaration:__ @barC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 33:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barC_funptr :: Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ())
-barC_funptr =
+barC :: Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ())
+barC =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8db1266f28c7b15e
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barD@
@@ -328,15 +328,15 @@ hs_bindgen_643d72e5cfddafd7 :: IO (Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ()))
 hs_bindgen_643d72e5cfddafd7 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_643d72e5cfddafd7_base
 
-{-# NOINLINE barD_funptr #-}
+{-# NOINLINE barD #-}
 {-| __C declaration:__ @barD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 34:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barD_funptr :: Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ())
-barD_funptr =
+barD :: Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ())
+barD =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_643d72e5cfddafd7
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barE@
@@ -348,13 +348,13 @@ hs_bindgen_659e6f20e0c4f384 :: IO (Ptr.FunPtr ((Ptr.FunPtr E) -> IO ()))
 hs_bindgen_659e6f20e0c4f384 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_659e6f20e0c4f384_base
 
-{-# NOINLINE barE_funptr #-}
+{-# NOINLINE barE #-}
 {-| __C declaration:__ @barE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 35:6@
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barE_funptr :: Ptr.FunPtr ((Ptr.FunPtr E) -> IO ())
-barE_funptr =
+barE :: Ptr.FunPtr ((Ptr.FunPtr E) -> IO ())
+barE =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_659e6f20e0c4f384

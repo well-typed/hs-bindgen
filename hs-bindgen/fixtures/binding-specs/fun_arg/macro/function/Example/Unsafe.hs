@@ -74,11 +74,11 @@ hs_bindgen_fbc2ec26cd297034 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-foo_unsafe ::
+foo ::
      Ptr.FunPtr MyFunction
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo_unsafe = hs_bindgen_fbc2ec26cd297034
+foo = hs_bindgen_fbc2ec26cd297034
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8_base ::
@@ -98,11 +98,11 @@ hs_bindgen_cf67e2fc00fd28d8 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-fooA_unsafe ::
+fooA ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA_unsafe = hs_bindgen_cf67e2fc00fd28d8
+fooA = hs_bindgen_cf67e2fc00fd28d8
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed_base ::
@@ -122,11 +122,11 @@ hs_bindgen_269a46f9680e33ed =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-fooB_unsafe ::
+fooB ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB_unsafe = hs_bindgen_269a46f9680e33ed
+fooB = hs_bindgen_269a46f9680e33ed
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_0fdddb4fac9b77d1" hs_bindgen_0fdddb4fac9b77d1_base ::
@@ -146,11 +146,11 @@ hs_bindgen_0fdddb4fac9b77d1 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-bar_unsafe ::
+bar ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
      -- ^ __C declaration:__ @x@
   -> IO ()
-bar_unsafe = hs_bindgen_0fdddb4fac9b77d1
+bar = hs_bindgen_0fdddb4fac9b77d1
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barA@
 foreign import ccall unsafe "hs_bindgen_bd59a5d308c55504" hs_bindgen_bd59a5d308c55504_base ::
@@ -170,11 +170,11 @@ hs_bindgen_bd59a5d308c55504 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-barA_unsafe ::
+barA ::
      Ptr.FunPtr A
      -- ^ __C declaration:__ @x@
   -> IO ()
-barA_unsafe = hs_bindgen_bd59a5d308c55504
+barA = hs_bindgen_bd59a5d308c55504
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barB@
 foreign import ccall unsafe "hs_bindgen_b016bfc7a4cc0734" hs_bindgen_b016bfc7a4cc0734_base ::
@@ -194,8 +194,8 @@ hs_bindgen_b016bfc7a4cc0734 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-barB_unsafe ::
+barB ::
      Ptr.FunPtr B
      -- ^ __C declaration:__ @x@
   -> IO ()
-barB_unsafe = hs_bindgen_b016bfc7a4cc0734
+barB = hs_bindgen_b016bfc7a4cc0734

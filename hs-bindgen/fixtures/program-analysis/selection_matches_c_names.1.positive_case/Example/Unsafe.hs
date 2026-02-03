@@ -34,6 +34,6 @@ hs_bindgen_9a13a53e6a2f2416 =
 
     __exported by:__ @program-analysis\/selection_matches_c_names.h@
 -}
-functionWithAssignedHaskellNameByNameMangler_unsafe :: IO FC.CInt
-functionWithAssignedHaskellNameByNameMangler_unsafe =
+functionWithAssignedHaskellNameByNameMangler :: IO FC.CInt
+functionWithAssignedHaskellNameByNameMangler =
   hs_bindgen_9a13a53e6a2f2416

@@ -63,15 +63,15 @@ hs_bindgen_17a14e7ffaa1e2e5 :: IO (Ptr.FunPtr (Thing -> IO FC.CInt))
 hs_bindgen_17a14e7ffaa1e2e5 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_17a14e7ffaa1e2e5_base
 
-{-# NOINLINE thing_fun_1_funptr #-}
+{-# NOINLINE thing_fun_1 #-}
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_1_funptr :: Ptr.FunPtr (Thing -> IO FC.CInt)
-thing_fun_1_funptr =
+thing_fun_1 :: Ptr.FunPtr (Thing -> IO FC.CInt)
+thing_fun_1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_17a14e7ffaa1e2e5
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
@@ -83,15 +83,15 @@ hs_bindgen_91748ffd57eae163 :: IO (Ptr.FunPtr (FC.CInt -> IO Thing))
 hs_bindgen_91748ffd57eae163 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_91748ffd57eae163_base
 
-{-# NOINLINE thing_fun_2_funptr #-}
+{-# NOINLINE thing_fun_2 #-}
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_2_funptr :: Ptr.FunPtr (FC.CInt -> IO Thing)
-thing_fun_2_funptr =
+thing_fun_2 :: Ptr.FunPtr (FC.CInt -> IO Thing)
+thing_fun_2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_91748ffd57eae163
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
@@ -103,15 +103,15 @@ hs_bindgen_84d98a03314ff518 :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble ->
 hs_bindgen_84d98a03314ff518 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_84d98a03314ff518_base
 
-{-# NOINLINE thing_fun_3a_funptr #-}
+{-# NOINLINE thing_fun_3a #-}
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3a_funptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
-thing_fun_3a_funptr =
+thing_fun_3a :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
+thing_fun_3a =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_84d98a03314ff518
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
@@ -123,13 +123,13 @@ hs_bindgen_855ae9088b15005e :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble ->
 hs_bindgen_855ae9088b15005e =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_855ae9088b15005e_base
 
-{-# NOINLINE thing_fun_3b_funptr #-}
+{-# NOINLINE thing_fun_3b #-}
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3b_funptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
-thing_fun_3b_funptr =
+thing_fun_3b :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
+thing_fun_3b =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_855ae9088b15005e

@@ -44,13 +44,13 @@ hs_bindgen_f90e97b8d269be4e =
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test_unsafe ::
+test ::
      Point2a
      -- ^ __C declaration:__ @x@
   -> Point2b
      -- ^ __C declaration:__ @y@
   -> IO ()
-test_unsafe =
+test =
   \x0 ->
     \y1 ->
       F.with x0 (\x2 -> hs_bindgen_f90e97b8d269be4e x2 y1)

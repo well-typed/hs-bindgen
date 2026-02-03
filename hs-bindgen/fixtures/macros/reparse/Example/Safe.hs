@@ -799,13 +799,13 @@ __defined at:__ @macros\/reparse.h 17:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-args_char1_safe ::
+args_char1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_char1_safe = hs_bindgen_f15610128336b06a
+args_char1 = hs_bindgen_f15610128336b06a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char2@
 foreign import ccall safe "hs_bindgen_087f45ca0a284a03" hs_bindgen_087f45ca0a284a03_base ::
@@ -827,13 +827,13 @@ hs_bindgen_087f45ca0a284a03 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_char2_safe ::
+args_char2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CSChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_char2_safe = hs_bindgen_087f45ca0a284a03
+args_char2 = hs_bindgen_087f45ca0a284a03
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char3@
 foreign import ccall safe "hs_bindgen_f6cb5c5a728c2404" hs_bindgen_f6cb5c5a728c2404_base ::
@@ -855,13 +855,13 @@ hs_bindgen_f6cb5c5a728c2404 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_char3_safe ::
+args_char3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CUChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_char3_safe = hs_bindgen_f6cb5c5a728c2404
+args_char3 = hs_bindgen_f6cb5c5a728c2404
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short1@
 foreign import ccall safe "hs_bindgen_d485767e0caa1f7c" hs_bindgen_d485767e0caa1f7c_base ::
@@ -883,13 +883,13 @@ hs_bindgen_d485767e0caa1f7c =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_short1_safe ::
+args_short1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CShort
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_short1_safe = hs_bindgen_d485767e0caa1f7c
+args_short1 = hs_bindgen_d485767e0caa1f7c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short2@
 foreign import ccall safe "hs_bindgen_833c96c437533e02" hs_bindgen_833c96c437533e02_base ::
@@ -911,13 +911,13 @@ hs_bindgen_833c96c437533e02 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_short2_safe ::
+args_short2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CShort
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_short2_safe = hs_bindgen_833c96c437533e02
+args_short2 = hs_bindgen_833c96c437533e02
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short3@
 foreign import ccall safe "hs_bindgen_0e1eedc3fcbcea7a" hs_bindgen_0e1eedc3fcbcea7a_base ::
@@ -939,13 +939,13 @@ hs_bindgen_0e1eedc3fcbcea7a =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_short3_safe ::
+args_short3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CUShort
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_short3_safe = hs_bindgen_0e1eedc3fcbcea7a
+args_short3 = hs_bindgen_0e1eedc3fcbcea7a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int1@
 foreign import ccall safe "hs_bindgen_906f0ac7dfd36ab8" hs_bindgen_906f0ac7dfd36ab8_base ::
@@ -967,13 +967,13 @@ hs_bindgen_906f0ac7dfd36ab8 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_int1_safe ::
+args_int1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_int1_safe = hs_bindgen_906f0ac7dfd36ab8
+args_int1 = hs_bindgen_906f0ac7dfd36ab8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int2@
 foreign import ccall safe "hs_bindgen_0edbc9b995b2a589" hs_bindgen_0edbc9b995b2a589_base ::
@@ -995,13 +995,13 @@ hs_bindgen_0edbc9b995b2a589 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_int2_safe ::
+args_int2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_int2_safe = hs_bindgen_0edbc9b995b2a589
+args_int2 = hs_bindgen_0edbc9b995b2a589
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int3@
 foreign import ccall safe "hs_bindgen_a5c223f58a255115" hs_bindgen_a5c223f58a255115_base ::
@@ -1023,13 +1023,13 @@ hs_bindgen_a5c223f58a255115 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_int3_safe ::
+args_int3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CUInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_int3_safe = hs_bindgen_a5c223f58a255115
+args_int3 = hs_bindgen_a5c223f58a255115
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long1@
 foreign import ccall safe "hs_bindgen_41d1229384b9a529" hs_bindgen_41d1229384b9a529_base ::
@@ -1051,13 +1051,13 @@ hs_bindgen_41d1229384b9a529 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_long1_safe ::
+args_long1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CLong
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_long1_safe = hs_bindgen_41d1229384b9a529
+args_long1 = hs_bindgen_41d1229384b9a529
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long2@
 foreign import ccall safe "hs_bindgen_a9a4b09fd3bd83db" hs_bindgen_a9a4b09fd3bd83db_base ::
@@ -1079,13 +1079,13 @@ hs_bindgen_a9a4b09fd3bd83db =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_long2_safe ::
+args_long2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CLong
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_long2_safe = hs_bindgen_a9a4b09fd3bd83db
+args_long2 = hs_bindgen_a9a4b09fd3bd83db
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long3@
 foreign import ccall safe "hs_bindgen_31dc2e680b3f3eff" hs_bindgen_31dc2e680b3f3eff_base ::
@@ -1107,13 +1107,13 @@ hs_bindgen_31dc2e680b3f3eff =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_long3_safe ::
+args_long3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CULong
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_long3_safe = hs_bindgen_31dc2e680b3f3eff
+args_long3 = hs_bindgen_31dc2e680b3f3eff
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_float@
 foreign import ccall safe "hs_bindgen_3d400757b5cbf4b7" hs_bindgen_3d400757b5cbf4b7_base ::
@@ -1135,13 +1135,13 @@ hs_bindgen_3d400757b5cbf4b7 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_float_safe ::
+args_float ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_float_safe = hs_bindgen_3d400757b5cbf4b7
+args_float = hs_bindgen_3d400757b5cbf4b7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_double@
 foreign import ccall safe "hs_bindgen_70df07e39900487e" hs_bindgen_70df07e39900487e_base ::
@@ -1163,13 +1163,13 @@ hs_bindgen_70df07e39900487e =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_double_safe ::
+args_double ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_double_safe = hs_bindgen_70df07e39900487e
+args_double = hs_bindgen_70df07e39900487e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_bool1@
 foreign import ccall safe "hs_bindgen_0b7c534fe683f843" hs_bindgen_0b7c534fe683f843_base ::
@@ -1191,13 +1191,13 @@ hs_bindgen_0b7c534fe683f843 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_bool1_safe ::
+args_bool1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_bool1_safe = hs_bindgen_0b7c534fe683f843
+args_bool1 = hs_bindgen_0b7c534fe683f843
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_struct@
 foreign import ccall safe "hs_bindgen_b20e084f7b7941b5" hs_bindgen_b20e084f7b7941b5_base ::
@@ -1219,13 +1219,13 @@ hs_bindgen_b20e084f7b7941b5 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_struct_safe ::
+args_struct ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_struct
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_struct_safe =
+args_struct =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -1251,13 +1251,13 @@ hs_bindgen_23aff33f33b6bdd1 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_union_safe ::
+args_union ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_union
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_union_safe =
+args_union =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -1283,13 +1283,13 @@ hs_bindgen_fdd58ae14ce15ed5 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_enum_safe ::
+args_enum ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_enum
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_enum_safe = hs_bindgen_fdd58ae14ce15ed5
+args_enum = hs_bindgen_fdd58ae14ce15ed5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer1@
 foreign import ccall safe "hs_bindgen_42ce2ec4fd2eda72" hs_bindgen_42ce2ec4fd2eda72_base ::
@@ -1311,13 +1311,13 @@ hs_bindgen_42ce2ec4fd2eda72 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_pointer1_safe ::
+args_pointer1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_pointer1_safe = hs_bindgen_42ce2ec4fd2eda72
+args_pointer1 = hs_bindgen_42ce2ec4fd2eda72
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer2@
 foreign import ccall safe "hs_bindgen_01b2f6502d340abe" hs_bindgen_01b2f6502d340abe_base ::
@@ -1339,13 +1339,13 @@ hs_bindgen_01b2f6502d340abe =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_pointer2_safe ::
+args_pointer2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr (Ptr.Ptr FC.CInt)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_pointer2_safe = hs_bindgen_01b2f6502d340abe
+args_pointer2 = hs_bindgen_01b2f6502d340abe
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer3@
 foreign import ccall safe "hs_bindgen_3e64133f9aaebbf1" hs_bindgen_3e64133f9aaebbf1_base ::
@@ -1367,13 +1367,13 @@ hs_bindgen_3e64133f9aaebbf1 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_pointer3_safe ::
+args_pointer3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr Void
      -- ^ __C declaration:__ @arg3@
   -> IO ()
-args_pointer3_safe = hs_bindgen_3e64133f9aaebbf1
+args_pointer3 = hs_bindgen_3e64133f9aaebbf1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_A@
 foreign import ccall safe "hs_bindgen_c830401b459192fb" hs_bindgen_c830401b459192fb_base ::
@@ -1390,8 +1390,8 @@ hs_bindgen_c830401b459192fb =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_A_safe :: IO A
-ret_A_safe = hs_bindgen_c830401b459192fb
+ret_A :: IO A
+ret_A = hs_bindgen_c830401b459192fb
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char1@
 foreign import ccall safe "hs_bindgen_18b24c6e67a5412e" hs_bindgen_18b24c6e67a5412e_base ::
@@ -1411,11 +1411,11 @@ hs_bindgen_18b24c6e67a5412e =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_char1_safe ::
+ret_char1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CChar
-ret_char1_safe = hs_bindgen_18b24c6e67a5412e
+ret_char1 = hs_bindgen_18b24c6e67a5412e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char2@
 foreign import ccall safe "hs_bindgen_2da1160aeef9ff64" hs_bindgen_2da1160aeef9ff64_base ::
@@ -1435,11 +1435,11 @@ hs_bindgen_2da1160aeef9ff64 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_char2_safe ::
+ret_char2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CSChar
-ret_char2_safe = hs_bindgen_2da1160aeef9ff64
+ret_char2 = hs_bindgen_2da1160aeef9ff64
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char3@
 foreign import ccall safe "hs_bindgen_e3183f9de1b9f231" hs_bindgen_e3183f9de1b9f231_base ::
@@ -1459,11 +1459,11 @@ hs_bindgen_e3183f9de1b9f231 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_char3_safe ::
+ret_char3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CUChar
-ret_char3_safe = hs_bindgen_e3183f9de1b9f231
+ret_char3 = hs_bindgen_e3183f9de1b9f231
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short1@
 foreign import ccall safe "hs_bindgen_c313966d4478e3f4" hs_bindgen_c313966d4478e3f4_base ::
@@ -1483,11 +1483,11 @@ hs_bindgen_c313966d4478e3f4 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_short1_safe ::
+ret_short1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CShort
-ret_short1_safe = hs_bindgen_c313966d4478e3f4
+ret_short1 = hs_bindgen_c313966d4478e3f4
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short2@
 foreign import ccall safe "hs_bindgen_737fbec310eb0719" hs_bindgen_737fbec310eb0719_base ::
@@ -1507,11 +1507,11 @@ hs_bindgen_737fbec310eb0719 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_short2_safe ::
+ret_short2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CShort
-ret_short2_safe = hs_bindgen_737fbec310eb0719
+ret_short2 = hs_bindgen_737fbec310eb0719
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short3@
 foreign import ccall safe "hs_bindgen_b5bd9e111020db4e" hs_bindgen_b5bd9e111020db4e_base ::
@@ -1531,11 +1531,11 @@ hs_bindgen_b5bd9e111020db4e =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_short3_safe ::
+ret_short3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CUShort
-ret_short3_safe = hs_bindgen_b5bd9e111020db4e
+ret_short3 = hs_bindgen_b5bd9e111020db4e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int1@
 foreign import ccall safe "hs_bindgen_a30224259287f5f8" hs_bindgen_a30224259287f5f8_base ::
@@ -1555,11 +1555,11 @@ hs_bindgen_a30224259287f5f8 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_int1_safe ::
+ret_int1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CInt
-ret_int1_safe = hs_bindgen_a30224259287f5f8
+ret_int1 = hs_bindgen_a30224259287f5f8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int2@
 foreign import ccall safe "hs_bindgen_b5be09caf8cf5750" hs_bindgen_b5be09caf8cf5750_base ::
@@ -1579,11 +1579,11 @@ hs_bindgen_b5be09caf8cf5750 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_int2_safe ::
+ret_int2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CInt
-ret_int2_safe = hs_bindgen_b5be09caf8cf5750
+ret_int2 = hs_bindgen_b5be09caf8cf5750
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int3@
 foreign import ccall safe "hs_bindgen_698e3f97470d83be" hs_bindgen_698e3f97470d83be_base ::
@@ -1603,11 +1603,11 @@ hs_bindgen_698e3f97470d83be =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_int3_safe ::
+ret_int3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CUInt
-ret_int3_safe = hs_bindgen_698e3f97470d83be
+ret_int3 = hs_bindgen_698e3f97470d83be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long1@
 foreign import ccall safe "hs_bindgen_c7e0705dd09be530" hs_bindgen_c7e0705dd09be530_base ::
@@ -1627,11 +1627,11 @@ hs_bindgen_c7e0705dd09be530 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_long1_safe ::
+ret_long1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CLong
-ret_long1_safe = hs_bindgen_c7e0705dd09be530
+ret_long1 = hs_bindgen_c7e0705dd09be530
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long2@
 foreign import ccall safe "hs_bindgen_74b1f5b8c56ff22c" hs_bindgen_74b1f5b8c56ff22c_base ::
@@ -1651,11 +1651,11 @@ hs_bindgen_74b1f5b8c56ff22c =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_long2_safe ::
+ret_long2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CLong
-ret_long2_safe = hs_bindgen_74b1f5b8c56ff22c
+ret_long2 = hs_bindgen_74b1f5b8c56ff22c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long3@
 foreign import ccall safe "hs_bindgen_c2d07eaaab82d408" hs_bindgen_c2d07eaaab82d408_base ::
@@ -1675,11 +1675,11 @@ hs_bindgen_c2d07eaaab82d408 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_long3_safe ::
+ret_long3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CULong
-ret_long3_safe = hs_bindgen_c2d07eaaab82d408
+ret_long3 = hs_bindgen_c2d07eaaab82d408
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_float@
 foreign import ccall safe "hs_bindgen_0edfbc7067faa1f7" hs_bindgen_0edfbc7067faa1f7_base ::
@@ -1699,11 +1699,11 @@ hs_bindgen_0edfbc7067faa1f7 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_float_safe ::
+ret_float ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CFloat
-ret_float_safe = hs_bindgen_0edfbc7067faa1f7
+ret_float = hs_bindgen_0edfbc7067faa1f7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_double@
 foreign import ccall safe "hs_bindgen_786ca672396b33be" hs_bindgen_786ca672396b33be_base ::
@@ -1723,11 +1723,11 @@ hs_bindgen_786ca672396b33be =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_double_safe ::
+ret_double ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CDouble
-ret_double_safe = hs_bindgen_786ca672396b33be
+ret_double = hs_bindgen_786ca672396b33be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_bool1@
 foreign import ccall safe "hs_bindgen_2e99f19b59650996" hs_bindgen_2e99f19b59650996_base ::
@@ -1747,11 +1747,11 @@ hs_bindgen_2e99f19b59650996 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_bool1_safe ::
+ret_bool1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CBool
-ret_bool1_safe = hs_bindgen_2e99f19b59650996
+ret_bool1 = hs_bindgen_2e99f19b59650996
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_struct@
 foreign import ccall safe "hs_bindgen_6c999121eed8178f" hs_bindgen_6c999121eed8178f_base ::
@@ -1773,11 +1773,11 @@ hs_bindgen_6c999121eed8178f =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_struct_safe ::
+ret_struct ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO Some_struct
-ret_struct_safe =
+ret_struct =
   \arg10 ->
     HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
                                                      hs_bindgen_6c999121eed8178f arg10 res1)
@@ -1802,11 +1802,11 @@ hs_bindgen_481ee5d2d9bd34db =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_union_safe ::
+ret_union ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO Some_union
-ret_union_safe =
+ret_union =
   \arg10 ->
     HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
                                                      hs_bindgen_481ee5d2d9bd34db arg10 res1)
@@ -1829,11 +1829,11 @@ hs_bindgen_8bb240ba453b700d =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_enum_safe ::
+ret_enum ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO Some_enum
-ret_enum_safe = hs_bindgen_8bb240ba453b700d
+ret_enum = hs_bindgen_8bb240ba453b700d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer1@
 foreign import ccall safe "hs_bindgen_c346ed2cd20b9af1" hs_bindgen_c346ed2cd20b9af1_base ::
@@ -1853,11 +1853,11 @@ hs_bindgen_c346ed2cd20b9af1 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_pointer1_safe ::
+ret_pointer1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr FC.CInt)
-ret_pointer1_safe = hs_bindgen_c346ed2cd20b9af1
+ret_pointer1 = hs_bindgen_c346ed2cd20b9af1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer2@
 foreign import ccall safe "hs_bindgen_a21f618658151728" hs_bindgen_a21f618658151728_base ::
@@ -1877,11 +1877,11 @@ hs_bindgen_a21f618658151728 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_pointer2_safe ::
+ret_pointer2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
-ret_pointer2_safe = hs_bindgen_a21f618658151728
+ret_pointer2 = hs_bindgen_a21f618658151728
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer3@
 foreign import ccall safe "hs_bindgen_2d8c6e2d2f395342" hs_bindgen_2d8c6e2d2f395342_base ::
@@ -1901,11 +1901,11 @@ hs_bindgen_2d8c6e2d2f395342 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_pointer3_safe ::
+ret_pointer3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr Void)
-ret_pointer3_safe = hs_bindgen_2d8c6e2d2f395342
+ret_pointer3 = hs_bindgen_2d8c6e2d2f395342
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body1@
 foreign import ccall safe "hs_bindgen_b030d02030ed80bc" hs_bindgen_b030d02030ed80bc_base ::
@@ -1925,11 +1925,11 @@ hs_bindgen_b030d02030ed80bc =
 
     __exported by:__ @macros\/reparse.h@
 -}
-body1_safe ::
+body1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CInt
-body1_safe = hs_bindgen_b030d02030ed80bc
+body1 = hs_bindgen_b030d02030ed80bc
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body2@
 foreign import ccall safe "hs_bindgen_be50427e6a63df54" hs_bindgen_be50427e6a63df54_base ::
@@ -1946,8 +1946,8 @@ hs_bindgen_be50427e6a63df54 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-body2_safe :: IO A
-body2_safe = hs_bindgen_be50427e6a63df54
+body2 :: IO A
+body2 = hs_bindgen_be50427e6a63df54
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_complex_float@
 foreign import ccall safe "hs_bindgen_627a52a5c7617083" hs_bindgen_627a52a5c7617083_base ::
@@ -1969,13 +1969,13 @@ hs_bindgen_627a52a5c7617083 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_complex_float_safe ::
+args_complex_float ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Data.Complex.Complex FC.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_complex_float_safe =
+args_complex_float =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -2001,13 +2001,13 @@ hs_bindgen_392babebc1d83503 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-args_complex_double_safe ::
+args_complex_double ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Data.Complex.Complex FC.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-args_complex_double_safe =
+args_complex_double =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -2033,11 +2033,11 @@ hs_bindgen_8958183ede73dea8 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_complex_float_safe ::
+ret_complex_float ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Data.Complex.Complex FC.CFloat)
-ret_complex_float_safe =
+ret_complex_float =
   \arg10 ->
     HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
                                                      hs_bindgen_8958183ede73dea8 arg10 res1)
@@ -2062,11 +2062,11 @@ hs_bindgen_a95fabfd391a99aa =
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_complex_double_safe ::
+ret_complex_double ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Data.Complex.Complex FC.CDouble)
-ret_complex_double_safe =
+ret_complex_double =
   \arg10 ->
     HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res1 ->
                                                      hs_bindgen_a95fabfd391a99aa arg10 res1)
@@ -2091,13 +2091,13 @@ hs_bindgen_ad9f8630dd04a203 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_args1_safe ::
+bespoke_args1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-bespoke_args1_safe = hs_bindgen_ad9f8630dd04a203
+bespoke_args1 = hs_bindgen_ad9f8630dd04a203
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args2@
 foreign import ccall safe "hs_bindgen_4b34178a505131e2" hs_bindgen_4b34178a505131e2_base ::
@@ -2119,13 +2119,13 @@ hs_bindgen_4b34178a505131e2 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_args2_safe ::
+bespoke_args2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-bespoke_args2_safe = hs_bindgen_4b34178a505131e2
+bespoke_args2 = hs_bindgen_4b34178a505131e2
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret1@
 foreign import ccall safe "hs_bindgen_94b225a6394496c1" hs_bindgen_94b225a6394496c1_base ::
@@ -2145,11 +2145,11 @@ hs_bindgen_94b225a6394496c1 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_ret1_safe ::
+bespoke_ret1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO FC.CBool
-bespoke_ret1_safe = hs_bindgen_94b225a6394496c1
+bespoke_ret1 = hs_bindgen_94b225a6394496c1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret2@
 foreign import ccall safe "hs_bindgen_7c9a1792426b84a1" hs_bindgen_7c9a1792426b84a1_base ::
@@ -2169,11 +2169,11 @@ hs_bindgen_7c9a1792426b84a1 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-bespoke_ret2_safe ::
+bespoke_ret2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO HsBindgen.Runtime.LibC.CSize
-bespoke_ret2_safe = hs_bindgen_7c9a1792426b84a1
+bespoke_ret2 = hs_bindgen_7c9a1792426b84a1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
 foreign import ccall safe "hs_bindgen_e20689fe39004225" hs_bindgen_e20689fe39004225_base ::
@@ -2195,11 +2195,11 @@ __defined at:__ @macros\/reparse.h 104:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-arr_args1_safe ::
+arr_args1 ::
      Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray A)
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-arr_args1_safe = hs_bindgen_e20689fe39004225
+arr_args1 = hs_bindgen_e20689fe39004225
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
 foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" hs_bindgen_084796e4bfd3f4cd_base ::
@@ -2219,11 +2219,11 @@ hs_bindgen_084796e4bfd3f4cd =
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args2_safe ::
+arr_args2 ::
      Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-arr_args2_safe = hs_bindgen_084796e4bfd3f4cd
+arr_args2 = hs_bindgen_084796e4bfd3f4cd
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
 foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" hs_bindgen_a3d1560aaa4352df_base ::
@@ -2243,11 +2243,11 @@ hs_bindgen_a3d1560aaa4352df =
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args3_safe ::
+arr_args3 ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 5) A)
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-arr_args3_safe = hs_bindgen_a3d1560aaa4352df
+arr_args3 = hs_bindgen_a3d1560aaa4352df
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
 foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" hs_bindgen_88659ccccc6c1f5f_base ::
@@ -2267,11 +2267,11 @@ hs_bindgen_88659ccccc6c1f5f =
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args4_safe ::
+arr_args4 ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-arr_args4_safe = hs_bindgen_88659ccccc6c1f5f
+arr_args4 = hs_bindgen_88659ccccc6c1f5f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args1@
 foreign import ccall safe "hs_bindgen_3448d03cfd41161a" hs_bindgen_3448d03cfd41161a_base ::
@@ -2295,13 +2295,13 @@ __defined at:__ @macros\/reparse.h 126:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-funptr_args1_safe ::
+funptr_args1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (IO ())
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-funptr_args1_safe = hs_bindgen_3448d03cfd41161a
+funptr_args1 = hs_bindgen_3448d03cfd41161a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args2@
 foreign import ccall safe "hs_bindgen_92d7386f0a327d25" hs_bindgen_92d7386f0a327d25_base ::
@@ -2323,13 +2323,13 @@ hs_bindgen_92d7386f0a327d25 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args2_safe ::
+funptr_args2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (IO FC.CInt)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-funptr_args2_safe = hs_bindgen_92d7386f0a327d25
+funptr_args2 = hs_bindgen_92d7386f0a327d25
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args3@
 foreign import ccall safe "hs_bindgen_2881f594f98043e6" hs_bindgen_2881f594f98043e6_base ::
@@ -2351,13 +2351,13 @@ hs_bindgen_2881f594f98043e6 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args3_safe ::
+funptr_args3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (FC.CInt -> IO ())
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-funptr_args3_safe = hs_bindgen_2881f594f98043e6
+funptr_args3 = hs_bindgen_2881f594f98043e6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args4@
 foreign import ccall safe "hs_bindgen_1e85a05df4251f62" hs_bindgen_1e85a05df4251f62_base ::
@@ -2379,13 +2379,13 @@ hs_bindgen_1e85a05df4251f62 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args4_safe ::
+funptr_args4 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-funptr_args4_safe = hs_bindgen_1e85a05df4251f62
+funptr_args4 = hs_bindgen_1e85a05df4251f62
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args5@
 foreign import ccall safe "hs_bindgen_ccf4db7511f0d6d6" hs_bindgen_ccf4db7511f0d6d6_base ::
@@ -2407,13 +2407,13 @@ hs_bindgen_ccf4db7511f0d6d6 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_args5_safe ::
+funptr_args5 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-funptr_args5_safe = hs_bindgen_ccf4db7511f0d6d6
+funptr_args5 = hs_bindgen_ccf4db7511f0d6d6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_comments1@
 foreign import ccall safe "hs_bindgen_4c756db60673d221" hs_bindgen_4c756db60673d221_base ::
@@ -2437,11 +2437,11 @@ __defined at:__ @macros\/reparse.h 144:25@
 
 __exported by:__ @macros\/reparse.h@
 -}
-comments1_safe ::
+comments1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-comments1_safe = hs_bindgen_4c756db60673d221
+comments1 = hs_bindgen_4c756db60673d221
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before1@
 foreign import ccall safe "hs_bindgen_278568d7a2a3a4b6" hs_bindgen_278568d7a2a3a4b6_base ::
@@ -2467,13 +2467,13 @@ __defined at:__ @macros\/reparse.h 179:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-const_prim_before1_safe ::
+const_prim_before1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_prim_before1_safe = hs_bindgen_278568d7a2a3a4b6
+const_prim_before1 = hs_bindgen_278568d7a2a3a4b6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before2@
 foreign import ccall safe "hs_bindgen_87ee56525e5ea20c" hs_bindgen_87ee56525e5ea20c_base ::
@@ -2495,13 +2495,13 @@ hs_bindgen_87ee56525e5ea20c =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_before2_safe ::
+const_prim_before2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CSChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_prim_before2_safe = hs_bindgen_87ee56525e5ea20c
+const_prim_before2 = hs_bindgen_87ee56525e5ea20c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before3@
 foreign import ccall safe "hs_bindgen_c0b99594235bd99e" hs_bindgen_c0b99594235bd99e_base ::
@@ -2523,13 +2523,13 @@ hs_bindgen_c0b99594235bd99e =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_before3_safe ::
+const_prim_before3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CUChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_prim_before3_safe = hs_bindgen_c0b99594235bd99e
+const_prim_before3 = hs_bindgen_c0b99594235bd99e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after1@
 foreign import ccall safe "hs_bindgen_d718b682f157fc18" hs_bindgen_d718b682f157fc18_base ::
@@ -2551,13 +2551,13 @@ hs_bindgen_d718b682f157fc18 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_after1_safe ::
+const_prim_after1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_prim_after1_safe = hs_bindgen_d718b682f157fc18
+const_prim_after1 = hs_bindgen_d718b682f157fc18
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after2@
 foreign import ccall safe "hs_bindgen_f2c5b3d5eca68433" hs_bindgen_f2c5b3d5eca68433_base ::
@@ -2579,13 +2579,13 @@ hs_bindgen_f2c5b3d5eca68433 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_after2_safe ::
+const_prim_after2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CSChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_prim_after2_safe = hs_bindgen_f2c5b3d5eca68433
+const_prim_after2 = hs_bindgen_f2c5b3d5eca68433
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after3@
 foreign import ccall safe "hs_bindgen_ae2d994e06667b23" hs_bindgen_ae2d994e06667b23_base ::
@@ -2607,13 +2607,13 @@ hs_bindgen_ae2d994e06667b23 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_prim_after3_safe ::
+const_prim_after3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CUChar
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_prim_after3_safe = hs_bindgen_ae2d994e06667b23
+const_prim_after3 = hs_bindgen_ae2d994e06667b23
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before1@
 foreign import ccall safe "hs_bindgen_6940b58e7f4397a7" hs_bindgen_6940b58e7f4397a7_base ::
@@ -2635,13 +2635,13 @@ hs_bindgen_6940b58e7f4397a7 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before1_safe ::
+const_withoutSign_before1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before1_safe =
+const_withoutSign_before1 =
   hs_bindgen_6940b58e7f4397a7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before2@
@@ -2664,13 +2664,13 @@ hs_bindgen_00b6fe2282e779b1 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before2_safe ::
+const_withoutSign_before2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before2_safe =
+const_withoutSign_before2 =
   hs_bindgen_00b6fe2282e779b1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before3@
@@ -2693,13 +2693,13 @@ hs_bindgen_6517cc8d39aead93 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before3_safe ::
+const_withoutSign_before3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before3_safe =
+const_withoutSign_before3 =
   hs_bindgen_6517cc8d39aead93
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before4@
@@ -2722,13 +2722,13 @@ hs_bindgen_68c7661e95060488 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before4_safe ::
+const_withoutSign_before4 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_struct
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before4_safe =
+const_withoutSign_before4 =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -2754,13 +2754,13 @@ hs_bindgen_42b3b0bf73a7a51a =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before5_safe ::
+const_withoutSign_before5 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_union
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before5_safe =
+const_withoutSign_before5 =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -2786,13 +2786,13 @@ hs_bindgen_c4aabe9834aac12f =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before6_safe ::
+const_withoutSign_before6 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_enum
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before6_safe =
+const_withoutSign_before6 =
   hs_bindgen_c4aabe9834aac12f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before7@
@@ -2815,13 +2815,13 @@ hs_bindgen_486090a7fb4e34d4 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before7_safe ::
+const_withoutSign_before7 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before7_safe =
+const_withoutSign_before7 =
   hs_bindgen_486090a7fb4e34d4
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before8@
@@ -2844,13 +2844,13 @@ hs_bindgen_23fa742b614176dd =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before8_safe ::
+const_withoutSign_before8 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_before8_safe =
+const_withoutSign_before8 =
   hs_bindgen_23fa742b614176dd
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after1@
@@ -2873,13 +2873,13 @@ hs_bindgen_0aacd8a5d48f296d =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after1_safe ::
+const_withoutSign_after1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CFloat
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after1_safe =
+const_withoutSign_after1 =
   hs_bindgen_0aacd8a5d48f296d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after2@
@@ -2902,13 +2902,13 @@ hs_bindgen_16ec2102221485b7 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after2_safe ::
+const_withoutSign_after2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CDouble
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after2_safe =
+const_withoutSign_after2 =
   hs_bindgen_16ec2102221485b7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after3@
@@ -2931,13 +2931,13 @@ hs_bindgen_9aa934d44ec3790c =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after3_safe ::
+const_withoutSign_after3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after3_safe =
+const_withoutSign_after3 =
   hs_bindgen_9aa934d44ec3790c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after4@
@@ -2960,13 +2960,13 @@ hs_bindgen_043d2869e29bedcf =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after4_safe ::
+const_withoutSign_after4 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_struct
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after4_safe =
+const_withoutSign_after4 =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -2992,13 +2992,13 @@ hs_bindgen_b5f9bca1de9d69de =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after5_safe ::
+const_withoutSign_after5 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_union
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after5_safe =
+const_withoutSign_after5 =
   \arg10 ->
     \arg21 ->
       F.with arg21 (\arg22 ->
@@ -3024,13 +3024,13 @@ hs_bindgen_77d641d518b2504f =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after6_safe ::
+const_withoutSign_after6 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Some_enum
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after6_safe =
+const_withoutSign_after6 =
   hs_bindgen_77d641d518b2504f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after7@
@@ -3053,13 +3053,13 @@ hs_bindgen_691b4f2909140b49 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after7_safe ::
+const_withoutSign_after7 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> FC.CBool
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after7_safe =
+const_withoutSign_after7 =
   hs_bindgen_691b4f2909140b49
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after8@
@@ -3082,13 +3082,13 @@ hs_bindgen_ae74c8dcdc2ec9eb =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after8_safe ::
+const_withoutSign_after8 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_withoutSign_after8_safe =
+const_withoutSign_after8 =
   hs_bindgen_ae74c8dcdc2ec9eb
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args1@
@@ -3111,14 +3111,13 @@ hs_bindgen_07606c41eadf9146 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args1_safe ::
+const_pointers_args1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.PtrConst.PtrConst FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_pointers_args1_safe =
-  hs_bindgen_07606c41eadf9146
+const_pointers_args1 = hs_bindgen_07606c41eadf9146
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args2@
 foreign import ccall safe "hs_bindgen_3836769f3a3416ac" hs_bindgen_3836769f3a3416ac_base ::
@@ -3140,14 +3139,13 @@ hs_bindgen_3836769f3a3416ac =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args2_safe ::
+const_pointers_args2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.PtrConst.PtrConst FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_pointers_args2_safe =
-  hs_bindgen_3836769f3a3416ac
+const_pointers_args2 = hs_bindgen_3836769f3a3416ac
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args3@
 foreign import ccall safe "hs_bindgen_12f19ea593aefd3f" hs_bindgen_12f19ea593aefd3f_base ::
@@ -3169,14 +3167,13 @@ hs_bindgen_12f19ea593aefd3f =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args3_safe ::
+const_pointers_args3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_pointers_args3_safe =
-  hs_bindgen_12f19ea593aefd3f
+const_pointers_args3 = hs_bindgen_12f19ea593aefd3f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args4@
 foreign import ccall safe "hs_bindgen_5a50e98897696d57" hs_bindgen_5a50e98897696d57_base ::
@@ -3198,14 +3195,13 @@ hs_bindgen_5a50e98897696d57 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args4_safe ::
+const_pointers_args4 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.PtrConst.PtrConst FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_pointers_args4_safe =
-  hs_bindgen_5a50e98897696d57
+const_pointers_args4 = hs_bindgen_5a50e98897696d57
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args5@
 foreign import ccall safe "hs_bindgen_666701f7cb61bd15" hs_bindgen_666701f7cb61bd15_base ::
@@ -3227,14 +3223,13 @@ hs_bindgen_666701f7cb61bd15 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args5_safe ::
+const_pointers_args5 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.PtrConst.PtrConst FC.CInt
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-const_pointers_args5_safe =
-  hs_bindgen_666701f7cb61bd15
+const_pointers_args5 = hs_bindgen_666701f7cb61bd15
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret1@
 foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" hs_bindgen_b94fbc3dfd285563_base ::
@@ -3254,12 +3249,11 @@ hs_bindgen_b94fbc3dfd285563 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret1_safe ::
+const_pointers_ret1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)
-const_pointers_ret1_safe =
-  hs_bindgen_b94fbc3dfd285563
+const_pointers_ret1 = hs_bindgen_b94fbc3dfd285563
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret2@
 foreign import ccall safe "hs_bindgen_33e2960e26b79450" hs_bindgen_33e2960e26b79450_base ::
@@ -3279,12 +3273,11 @@ hs_bindgen_33e2960e26b79450 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret2_safe ::
+const_pointers_ret2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)
-const_pointers_ret2_safe =
-  hs_bindgen_33e2960e26b79450
+const_pointers_ret2 = hs_bindgen_33e2960e26b79450
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret3@
 foreign import ccall safe "hs_bindgen_50c6e2fe4f3fb777" hs_bindgen_50c6e2fe4f3fb777_base ::
@@ -3304,12 +3297,11 @@ hs_bindgen_50c6e2fe4f3fb777 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret3_safe ::
+const_pointers_ret3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr FC.CInt)
-const_pointers_ret3_safe =
-  hs_bindgen_50c6e2fe4f3fb777
+const_pointers_ret3 = hs_bindgen_50c6e2fe4f3fb777
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret4@
 foreign import ccall safe "hs_bindgen_edc014695d896c8d" hs_bindgen_edc014695d896c8d_base ::
@@ -3329,12 +3321,11 @@ hs_bindgen_edc014695d896c8d =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret4_safe ::
+const_pointers_ret4 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)
-const_pointers_ret4_safe =
-  hs_bindgen_edc014695d896c8d
+const_pointers_ret4 = hs_bindgen_edc014695d896c8d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret5@
 foreign import ccall safe "hs_bindgen_6d3308cc5847f033" hs_bindgen_6d3308cc5847f033_base ::
@@ -3354,12 +3345,11 @@ hs_bindgen_6d3308cc5847f033 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret5_safe ::
+const_pointers_ret5 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)
-const_pointers_ret5_safe =
-  hs_bindgen_6d3308cc5847f033
+const_pointers_ret5 = hs_bindgen_6d3308cc5847f033
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
 foreign import ccall safe "hs_bindgen_678576320923a4d1" hs_bindgen_678576320923a4d1_base ::
@@ -3379,11 +3369,11 @@ hs_bindgen_678576320923a4d1 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1_safe ::
+const_array_elem1 ::
      HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.IncompleteArray.IncompleteArray A)
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-const_array_elem1_safe = hs_bindgen_678576320923a4d1
+const_array_elem1 = hs_bindgen_678576320923a4d1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
 foreign import ccall safe "hs_bindgen_b317941dde4eeff2" hs_bindgen_b317941dde4eeff2_base ::
@@ -3403,11 +3393,11 @@ hs_bindgen_b317941dde4eeff2 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem2_safe ::
+const_array_elem2 ::
      Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray (HsBindgen.Runtime.PtrConst.PtrConst A))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-const_array_elem2_safe = hs_bindgen_b317941dde4eeff2
+const_array_elem2 = hs_bindgen_b317941dde4eeff2
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
 foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" hs_bindgen_707e602e6beb1bb6_base ::
@@ -3427,11 +3417,11 @@ hs_bindgen_707e602e6beb1bb6 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3_safe ::
+const_array_elem3 ::
      HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A))
      -- ^ __C declaration:__ @arg1@
   -> IO ()
-const_array_elem3_safe = hs_bindgen_707e602e6beb1bb6
+const_array_elem3 = hs_bindgen_707e602e6beb1bb6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams1@
 foreign import ccall safe "hs_bindgen_93fecb4eb766c262" hs_bindgen_93fecb4eb766c262_base ::
@@ -3450,8 +3440,8 @@ __defined at:__ @macros\/reparse.h 256:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
-noParams1_safe :: IO A
-noParams1_safe = hs_bindgen_93fecb4eb766c262
+noParams1 :: IO A
+noParams1 = hs_bindgen_93fecb4eb766c262
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams2@
 foreign import ccall safe "hs_bindgen_4350965157c891f5" hs_bindgen_4350965157c891f5_base ::
@@ -3468,8 +3458,8 @@ hs_bindgen_4350965157c891f5 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-noParams2_safe :: IO A
-noParams2_safe = hs_bindgen_4350965157c891f5
+noParams2 :: IO A
+noParams2 = hs_bindgen_4350965157c891f5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams3@
 foreign import ccall safe "hs_bindgen_c4f59272a2b1c3b5" hs_bindgen_c4f59272a2b1c3b5_base ::
@@ -3491,13 +3481,13 @@ hs_bindgen_c4f59272a2b1c3b5 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-noParams3_safe ::
+noParams3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (IO FC.CInt)
      -- ^ __C declaration:__ @arg2@
   -> IO ()
-noParams3_safe = hs_bindgen_c4f59272a2b1c3b5
+noParams3 = hs_bindgen_c4f59272a2b1c3b5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret1@
 foreign import ccall safe "hs_bindgen_387a04c01e23c320" hs_bindgen_387a04c01e23c320_base ::
@@ -3517,11 +3507,11 @@ hs_bindgen_387a04c01e23c320 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret1_safe ::
+funptr_ret1 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (IO ()))
-funptr_ret1_safe = hs_bindgen_387a04c01e23c320
+funptr_ret1 = hs_bindgen_387a04c01e23c320
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret2@
 foreign import ccall safe "hs_bindgen_6f0c14cd3478dc19" hs_bindgen_6f0c14cd3478dc19_base ::
@@ -3541,11 +3531,11 @@ hs_bindgen_6f0c14cd3478dc19 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret2_safe ::
+funptr_ret2 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (IO FC.CInt))
-funptr_ret2_safe = hs_bindgen_6f0c14cd3478dc19
+funptr_ret2 = hs_bindgen_6f0c14cd3478dc19
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret3@
 foreign import ccall safe "hs_bindgen_08e8661d277cf7be" hs_bindgen_08e8661d277cf7be_base ::
@@ -3565,11 +3555,11 @@ hs_bindgen_08e8661d277cf7be =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret3_safe ::
+funptr_ret3 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
-funptr_ret3_safe = hs_bindgen_08e8661d277cf7be
+funptr_ret3 = hs_bindgen_08e8661d277cf7be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret4@
 foreign import ccall safe "hs_bindgen_609b5d953b68da92" hs_bindgen_609b5d953b68da92_base ::
@@ -3589,11 +3579,11 @@ hs_bindgen_609b5d953b68da92 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret4_safe ::
+funptr_ret4 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar))
-funptr_ret4_safe = hs_bindgen_609b5d953b68da92
+funptr_ret4 = hs_bindgen_609b5d953b68da92
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret5@
 foreign import ccall safe "hs_bindgen_13e6ae43abf40aee" hs_bindgen_13e6ae43abf40aee_base ::
@@ -3613,11 +3603,11 @@ hs_bindgen_13e6ae43abf40aee =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret5_safe ::
+funptr_ret5 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
-funptr_ret5_safe = hs_bindgen_13e6ae43abf40aee
+funptr_ret5 = hs_bindgen_13e6ae43abf40aee
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret6@
 foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" hs_bindgen_a4a3a86f28ca6299_base ::
@@ -3637,11 +3627,11 @@ hs_bindgen_a4a3a86f28ca6299 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret6_safe ::
+funptr_ret6 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)))
-funptr_ret6_safe = hs_bindgen_a4a3a86f28ca6299
+funptr_ret6 = hs_bindgen_a4a3a86f28ca6299
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret7@
 foreign import ccall safe "hs_bindgen_eae9dff04c88d00b" hs_bindgen_eae9dff04c88d00b_base ::
@@ -3661,11 +3651,11 @@ hs_bindgen_eae9dff04c88d00b =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret7_safe ::
+funptr_ret7 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)))
-funptr_ret7_safe = hs_bindgen_eae9dff04c88d00b
+funptr_ret7 = hs_bindgen_eae9dff04c88d00b
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret8@
 foreign import ccall safe "hs_bindgen_894457d90a2fc8db" hs_bindgen_894457d90a2fc8db_base ::
@@ -3685,11 +3675,11 @@ hs_bindgen_894457d90a2fc8db =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret8_safe ::
+funptr_ret8 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
-funptr_ret8_safe = hs_bindgen_894457d90a2fc8db
+funptr_ret8 = hs_bindgen_894457d90a2fc8db
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret9@
 foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" hs_bindgen_c893eb15ad9bc68c_base ::
@@ -3709,11 +3699,11 @@ hs_bindgen_c893eb15ad9bc68c =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret9_safe ::
+funptr_ret9 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)))
-funptr_ret9_safe = hs_bindgen_c893eb15ad9bc68c
+funptr_ret9 = hs_bindgen_c893eb15ad9bc68c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret10@
 foreign import ccall safe "hs_bindgen_d96c258298a44b28" hs_bindgen_d96c258298a44b28_base ::
@@ -3733,8 +3723,8 @@ hs_bindgen_d96c258298a44b28 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-funptr_ret10_safe ::
+funptr_ret10 ::
      A
      -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)))
-funptr_ret10_safe = hs_bindgen_d96c258298a44b28
+funptr_ret10 = hs_bindgen_d96c258298a44b28

@@ -50,13 +50,13 @@ hs_bindgen_f9f2776d121db261 =
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose_unsafe ::
+transpose ::
      HsBindgen.Runtime.PtrConst.PtrConst Matrix
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Matrix
      -- ^ __C declaration:__ @output@
   -> IO ()
-transpose_unsafe = hs_bindgen_f9f2776d121db261
+transpose = hs_bindgen_f9f2776d121db261
 
 -- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
 foreign import ccall unsafe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0abd14_base ::
@@ -78,9 +78,8 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets_unsafe ::
+pretty_print_triplets ::
      Ptr.Ptr Triplet_ptrs
      -- ^ __C declaration:__ @x@
   -> IO ()
-pretty_print_triplets_unsafe =
-  hs_bindgen_e43b4d44aa0abd14
+pretty_print_triplets = hs_bindgen_e43b4d44aa0abd14

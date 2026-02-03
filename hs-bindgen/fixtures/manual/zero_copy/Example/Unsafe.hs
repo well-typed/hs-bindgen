@@ -53,13 +53,13 @@ hs_bindgen_f9655173d51bbaac =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse_unsafe ::
+reverse ::
      HsBindgen.Runtime.PtrConst.PtrConst Vector
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Vector
      -- ^ __C declaration:__ @output@
   -> IO FC.CInt
-reverse_unsafe = hs_bindgen_f9655173d51bbaac
+reverse = hs_bindgen_f9655173d51bbaac
 
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2_base ::
@@ -81,10 +81,10 @@ hs_bindgen_ea25667627dd5ed2 =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose_unsafe ::
+transpose ::
      HsBindgen.Runtime.PtrConst.PtrConst Matrix
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Matrix
      -- ^ __C declaration:__ @output@
   -> IO ()
-transpose_unsafe = hs_bindgen_ea25667627dd5ed2
+transpose = hs_bindgen_ea25667627dd5ed2

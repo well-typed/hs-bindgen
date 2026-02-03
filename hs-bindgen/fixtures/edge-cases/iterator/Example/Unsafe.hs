@@ -93,11 +93,11 @@ hs_bindgen_1b7a6a61a9c0da07 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeToggle_unsafe ::
+makeToggle ::
      FC.CBool
      -- ^ __C declaration:__ @start@
   -> IO Toggle
-makeToggle_unsafe = hs_bindgen_1b7a6a61a9c0da07
+makeToggle = hs_bindgen_1b7a6a61a9c0da07
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
 foreign import ccall unsafe "hs_bindgen_4d2d650f2c8798d6" hs_bindgen_4d2d650f2c8798d6_base ::
@@ -117,11 +117,11 @@ hs_bindgen_4d2d650f2c8798d6 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-toggleNext_unsafe ::
+toggleNext ::
      Toggle
      -- ^ __C declaration:__ @block@
   -> IO FC.CBool
-toggleNext_unsafe = hs_bindgen_4d2d650f2c8798d6
+toggleNext = hs_bindgen_4d2d650f2c8798d6
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseToggle@
 foreign import ccall unsafe "hs_bindgen_ddbe11e76502cbdc" hs_bindgen_ddbe11e76502cbdc_base ::
@@ -141,11 +141,11 @@ hs_bindgen_ddbe11e76502cbdc =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseToggle_unsafe ::
+releaseToggle ::
      Toggle
      -- ^ __C declaration:__ @block@
   -> IO ()
-releaseToggle_unsafe = hs_bindgen_ddbe11e76502cbdc
+releaseToggle = hs_bindgen_ddbe11e76502cbdc
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
 foreign import ccall unsafe "hs_bindgen_2b04d558934551d2" hs_bindgen_2b04d558934551d2_base ::
@@ -167,13 +167,13 @@ hs_bindgen_2b04d558934551d2 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeCounter_unsafe ::
+makeCounter ::
      FC.CInt
      -- ^ __C declaration:__ @start@
   -> FC.CInt
      -- ^ __C declaration:__ @increment@
   -> IO Counter
-makeCounter_unsafe = hs_bindgen_2b04d558934551d2
+makeCounter = hs_bindgen_2b04d558934551d2
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
 foreign import ccall unsafe "hs_bindgen_5bba69c8bfbeedf0" hs_bindgen_5bba69c8bfbeedf0_base ::
@@ -193,11 +193,11 @@ hs_bindgen_5bba69c8bfbeedf0 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-counterNext_unsafe ::
+counterNext ::
      Counter
      -- ^ __C declaration:__ @block@
   -> IO FC.CInt
-counterNext_unsafe = hs_bindgen_5bba69c8bfbeedf0
+counterNext = hs_bindgen_5bba69c8bfbeedf0
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseCounter@
 foreign import ccall unsafe "hs_bindgen_429845bb55a5a7b5" hs_bindgen_429845bb55a5a7b5_base ::
@@ -217,11 +217,11 @@ hs_bindgen_429845bb55a5a7b5 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseCounter_unsafe ::
+releaseCounter ::
      Counter
      -- ^ __C declaration:__ @block@
   -> IO ()
-releaseCounter_unsafe = hs_bindgen_429845bb55a5a7b5
+releaseCounter = hs_bindgen_429845bb55a5a7b5
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
 foreign import ccall unsafe "hs_bindgen_4421633e88fc96c4" hs_bindgen_4421633e88fc96c4_base ::
@@ -241,11 +241,11 @@ hs_bindgen_4421633e88fc96c4 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-makeVarCounter_unsafe ::
+makeVarCounter ::
      FC.CInt
      -- ^ __C declaration:__ @start@
   -> IO VarCounter
-makeVarCounter_unsafe = hs_bindgen_4421633e88fc96c4
+makeVarCounter = hs_bindgen_4421633e88fc96c4
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
 foreign import ccall unsafe "hs_bindgen_31edd817cb78027d" hs_bindgen_31edd817cb78027d_base ::
@@ -267,13 +267,13 @@ hs_bindgen_31edd817cb78027d =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-varCounterNext_unsafe ::
+varCounterNext ::
      VarCounter
      -- ^ __C declaration:__ @block@
   -> FC.CInt
      -- ^ __C declaration:__ @increment@
   -> IO FC.CInt
-varCounterNext_unsafe = hs_bindgen_31edd817cb78027d
+varCounterNext = hs_bindgen_31edd817cb78027d
 
 -- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseVarCounter@
 foreign import ccall unsafe "hs_bindgen_32e5b257124f69a2" hs_bindgen_32e5b257124f69a2_base ::
@@ -293,9 +293,8 @@ hs_bindgen_32e5b257124f69a2 =
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-releaseVarCounter_unsafe ::
+releaseVarCounter ::
      VarCounter
      -- ^ __C declaration:__ @block@
   -> IO ()
-releaseVarCounter_unsafe =
-  hs_bindgen_32e5b257124f69a2
+releaseVarCounter = hs_bindgen_32e5b257124f69a2

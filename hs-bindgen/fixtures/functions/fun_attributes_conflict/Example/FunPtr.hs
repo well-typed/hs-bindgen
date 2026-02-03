@@ -58,7 +58,7 @@ hs_bindgen_9445b7269de35e9e :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_9445b7269de35e9e =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9445b7269de35e9e_base
 
-{-# NOINLINE square_cp_funptr #-}
+{-# NOINLINE square_cp #-}
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
@@ -69,8 +69,8 @@ __defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_cp_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-square_cp_funptr =
+square_cp :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_cp =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9445b7269de35e9e
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc@
@@ -82,15 +82,15 @@ hs_bindgen_b0c647124e93645d :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_b0c647124e93645d =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b0c647124e93645d_base
 
-{-# NOINLINE square_pc_funptr #-}
+{-# NOINLINE square_pc #-}
 {-| __C declaration:__ @square_pc@
 
     __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_pc_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-square_pc_funptr =
+square_pc :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_pc =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b0c647124e93645d
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc@
@@ -102,15 +102,15 @@ hs_bindgen_87ee2f018e6d262a :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_87ee2f018e6d262a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_87ee2f018e6d262a_base
 
-{-# NOINLINE square_cc_funptr #-}
+{-# NOINLINE square_cc #-}
 {-| __C declaration:__ @square_cc@
 
     __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_cc_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-square_cc_funptr =
+square_cc :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_cc =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_87ee2f018e6d262a
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp@
@@ -122,13 +122,13 @@ hs_bindgen_0f31a17bf5ee4e4f :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_0f31a17bf5ee4e4f =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0f31a17bf5ee4e4f_base
 
-{-# NOINLINE square_pp_funptr #-}
+{-# NOINLINE square_pp #-}
 {-| __C declaration:__ @square_pp@
 
     __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_pp_funptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-square_pp_funptr =
+square_pp :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_pp =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0f31a17bf5ee4e4f

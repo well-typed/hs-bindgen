@@ -36,13 +36,13 @@ hs_bindgen_cb36cf0957839e33 :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (P
 hs_bindgen_cb36cf0957839e33 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cb36cf0957839e33_base
 
-{-# NOINLINE new_vector_funptr #-}
+{-# NOINLINE new_vector #-}
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector_funptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector))
-new_vector_funptr =
+new_vector :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector))
+new_vector =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cb36cf0957839e33

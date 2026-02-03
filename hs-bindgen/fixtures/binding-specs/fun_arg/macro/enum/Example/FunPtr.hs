@@ -50,15 +50,15 @@ hs_bindgen_098964a440956602 :: IO (Ptr.FunPtr (MyEnum -> IO ()))
 hs_bindgen_098964a440956602 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_098964a440956602_base
 
-{-# NOINLINE foo_funptr #-}
+{-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 5:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
-foo_funptr :: Ptr.FunPtr (MyEnum -> IO ())
-foo_funptr =
+foo :: Ptr.FunPtr (MyEnum -> IO ())
+foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_098964a440956602
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
@@ -70,15 +70,15 @@ hs_bindgen_86b685b9d27ce50e :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_86b685b9d27ce50e =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_86b685b9d27ce50e_base
 
-{-# NOINLINE fooA_funptr #-}
+{-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
-fooA_funptr :: Ptr.FunPtr (A -> IO ())
-fooA_funptr =
+fooA :: Ptr.FunPtr (A -> IO ())
+fooA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_86b685b9d27ce50e
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
@@ -90,13 +90,13 @@ hs_bindgen_9383ae52414c2c19 :: IO (Ptr.FunPtr (B -> IO ()))
 hs_bindgen_9383ae52414c2c19 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9383ae52414c2c19_base
 
-{-# NOINLINE fooB_funptr #-}
+{-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 11:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
-fooB_funptr :: Ptr.FunPtr (B -> IO ())
-fooB_funptr =
+fooB :: Ptr.FunPtr (B -> IO ())
+fooB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9383ae52414c2c19

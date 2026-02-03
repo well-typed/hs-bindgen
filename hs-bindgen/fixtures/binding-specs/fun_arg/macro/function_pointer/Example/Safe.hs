@@ -52,11 +52,11 @@ hs_bindgen_40e15e86e5db36ce =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
-foo_safe ::
+foo ::
      MyFunctionPointer
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo_safe = hs_bindgen_40e15e86e5db36ce
+foo = hs_bindgen_40e15e86e5db36ce
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_e13a57fd1d27f6e6" hs_bindgen_e13a57fd1d27f6e6_base ::
@@ -76,11 +76,11 @@ hs_bindgen_e13a57fd1d27f6e6 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
-fooA_safe ::
+fooA ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA_safe = hs_bindgen_e13a57fd1d27f6e6
+fooA = hs_bindgen_e13a57fd1d27f6e6
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_fd490df5087893ae" hs_bindgen_fd490df5087893ae_base ::
@@ -100,8 +100,8 @@ hs_bindgen_fd490df5087893ae =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
-fooB_safe ::
+fooB ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB_safe = hs_bindgen_fd490df5087893ae
+fooB = hs_bindgen_fd490df5087893ae

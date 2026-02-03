@@ -34,13 +34,13 @@ hs_bindgen_d61a16f2d29260ed :: IO (Ptr.FunPtr (FC.CInt -> IO ()))
 hs_bindgen_d61a16f2d29260ed =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d61a16f2d29260ed_base
 
-{-# NOINLINE fun2_funptr #-}
+{-# NOINLINE fun2 #-}
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2_funptr :: Ptr.FunPtr (FC.CInt -> IO ())
-fun2_funptr =
+fun2 :: Ptr.FunPtr (FC.CInt -> IO ())
+fun2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d61a16f2d29260ed

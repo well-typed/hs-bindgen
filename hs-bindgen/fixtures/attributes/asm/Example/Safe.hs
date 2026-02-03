@@ -42,11 +42,10 @@ hs_bindgen_369133049bfc1e73 =
 
     __exported by:__ @attributes\/asm.h@
 -}
-asm_labeled_function_safe ::
+asm_labeled_function ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
      -- ^ __C declaration:__ @y@
   -> IO FC.CInt
-asm_labeled_function_safe =
-  hs_bindgen_369133049bfc1e73
+asm_labeled_function = hs_bindgen_369133049bfc1e73

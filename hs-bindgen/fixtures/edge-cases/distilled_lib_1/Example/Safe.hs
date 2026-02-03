@@ -50,7 +50,7 @@ hs_bindgen_57cb99ed92c001ad =
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-some_fun_safe ::
+some_fun ::
      Ptr.Ptr A_type_t
      -- ^ __C declaration:__ @i@
   -> HsBindgen.Runtime.LibC.Word32
@@ -58,4 +58,4 @@ some_fun_safe ::
   -> Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8)
      -- ^ __C declaration:__ @k@
   -> IO HsBindgen.Runtime.LibC.Int32
-some_fun_safe = hs_bindgen_57cb99ed92c001ad
+some_fun = hs_bindgen_57cb99ed92c001ad

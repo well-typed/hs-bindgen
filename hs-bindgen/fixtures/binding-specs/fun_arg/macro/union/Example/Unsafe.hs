@@ -53,11 +53,11 @@ hs_bindgen_f784f3292d76f05c =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-foo_unsafe ::
+foo ::
      MyUnion
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo_unsafe =
+foo =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_f784f3292d76f05c x1)
 
@@ -79,11 +79,11 @@ hs_bindgen_317131bf91a541b2 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-fooA_unsafe ::
+fooA ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA_unsafe =
+fooA =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_317131bf91a541b2 x1)
 
@@ -105,10 +105,10 @@ hs_bindgen_d2ce062db2e5b039 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-fooB_unsafe ::
+fooB ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB_unsafe =
+fooB =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_d2ce062db2e5b039 x1)

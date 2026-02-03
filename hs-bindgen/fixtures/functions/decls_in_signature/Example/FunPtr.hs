@@ -52,15 +52,15 @@ hs_bindgen_f3036965ea57b87f :: IO (Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outs
 hs_bindgen_f3036965ea57b87f =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f3036965ea57b87f_base
 
-{-# NOINLINE normal_funptr #-}
+{-# NOINLINE normal #-}
 {-| __C declaration:__ @normal@
 
     __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
-normal_funptr :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ())
-normal_funptr =
+normal :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ())
+normal =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f3036965ea57b87f
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_f1@
@@ -72,7 +72,7 @@ hs_bindgen_86a0bd6e9f7eb005 :: IO (Ptr.FunPtr (Named_struct -> IO ()))
 hs_bindgen_86a0bd6e9f7eb005 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_86a0bd6e9f7eb005_base
 
-{-# NOINLINE f1_funptr #-}
+{-# NOINLINE f1 #-}
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -83,8 +83,8 @@ __defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
-f1_funptr :: Ptr.FunPtr (Named_struct -> IO ())
-f1_funptr =
+f1 :: Ptr.FunPtr (Named_struct -> IO ())
+f1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_86a0bd6e9f7eb005
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_get_f2@
@@ -96,13 +96,13 @@ hs_bindgen_4bb469a35be04698 :: IO (Ptr.FunPtr (Named_union -> IO ()))
 hs_bindgen_4bb469a35be04698 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4bb469a35be04698_base
 
-{-# NOINLINE f2_funptr #-}
+{-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
-f2_funptr :: Ptr.FunPtr (Named_union -> IO ())
-f2_funptr =
+f2 :: Ptr.FunPtr (Named_union -> IO ())
+f2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4bb469a35be04698

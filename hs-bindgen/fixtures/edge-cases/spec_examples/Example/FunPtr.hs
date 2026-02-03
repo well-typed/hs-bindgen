@@ -40,13 +40,13 @@ hs_bindgen_2b8fc800dad87ec8 :: IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.
 hs_bindgen_2b8fc800dad87ec8 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2b8fc800dad87ec8_base
 
-{-# NOINLINE resample_funptr #-}
+{-# NOINLINE resample #-}
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h 31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
-resample_funptr :: Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ())
-resample_funptr =
+resample :: Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ())
+resample =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2b8fc800dad87ec8

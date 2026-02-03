@@ -50,15 +50,15 @@ hs_bindgen_fc9d87cbca4127e4 :: IO (Ptr.FunPtr (MyArray -> IO ()))
 hs_bindgen_fc9d87cbca4127e4 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fc9d87cbca4127e4_base
 
-{-# NOINLINE foo_funptr #-}
+{-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 5:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-foo_funptr :: Ptr.FunPtr (MyArray -> IO ())
-foo_funptr =
+foo :: Ptr.FunPtr (MyArray -> IO ())
+foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fc9d87cbca4127e4
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
@@ -70,15 +70,15 @@ hs_bindgen_0dbc306c53c94679 :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_0dbc306c53c94679 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0dbc306c53c94679_base
 
-{-# NOINLINE fooA_funptr #-}
+{-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooA_funptr :: Ptr.FunPtr (A -> IO ())
-fooA_funptr =
+fooA :: Ptr.FunPtr (A -> IO ())
+fooA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0dbc306c53c94679
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooB@
@@ -90,13 +90,13 @@ hs_bindgen_db0d885ae35d447f :: IO (Ptr.FunPtr (B -> IO ()))
 hs_bindgen_db0d885ae35d447f =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_db0d885ae35d447f_base
 
-{-# NOINLINE fooB_funptr #-}
+{-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooB_funptr :: Ptr.FunPtr (B -> IO ())
-fooB_funptr =
+fooB :: Ptr.FunPtr (B -> IO ())
+fooB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_db0d885ae35d447f

@@ -39,8 +39,8 @@ hs_bindgen_93ed1628a0edf6b0 =
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f_unsafe ::
+f ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-f_unsafe = hs_bindgen_93ed1628a0edf6b0
+f = hs_bindgen_93ed1628a0edf6b0

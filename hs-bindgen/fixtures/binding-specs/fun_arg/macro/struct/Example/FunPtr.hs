@@ -50,15 +50,15 @@ hs_bindgen_ccfc23165c7fd4a9 :: IO (Ptr.FunPtr (MyStruct -> IO ()))
 hs_bindgen_ccfc23165c7fd4a9 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ccfc23165c7fd4a9_base
 
-{-# NOINLINE foo_funptr #-}
+{-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 5:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo_funptr :: Ptr.FunPtr (MyStruct -> IO ())
-foo_funptr =
+foo :: Ptr.FunPtr (MyStruct -> IO ())
+foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ccfc23165c7fd4a9
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooA@
@@ -70,15 +70,15 @@ hs_bindgen_ab74a4a30349b6b2 :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_ab74a4a30349b6b2 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ab74a4a30349b6b2_base
 
-{-# NOINLINE fooA_funptr #-}
+{-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 10:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA_funptr :: Ptr.FunPtr (A -> IO ())
-fooA_funptr =
+fooA :: Ptr.FunPtr (A -> IO ())
+fooA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ab74a4a30349b6b2
 
 -- __unique:__ @test_bindingspecsfun_argmacrost_Example_get_fooB@
@@ -90,13 +90,13 @@ hs_bindgen_19855bed49223360 :: IO (Ptr.FunPtr (B -> IO ()))
 hs_bindgen_19855bed49223360 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_19855bed49223360_base
 
-{-# NOINLINE fooB_funptr #-}
+{-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 11:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB_funptr :: Ptr.FunPtr (B -> IO ())
-fooB_funptr =
+fooB :: Ptr.FunPtr (B -> IO ())
+fooB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_19855bed49223360

@@ -189,15 +189,15 @@ hs_bindgen_793b9ca86a272b6a :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -
 hs_bindgen_793b9ca86a272b6a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_793b9ca86a272b6a_base
 
-{-# NOINLINE readFileWithProcessor_funptr #-}
+{-# NOINLINE readFileWithProcessor #-}
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-readFileWithProcessor_funptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt)
-readFileWithProcessor_funptr =
+readFileWithProcessor :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt)
+readFileWithProcessor =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_793b9ca86a272b6a
 
 -- __unique:__ @test_functionscallbacks_Example_get_watchTemperature@
@@ -209,15 +209,15 @@ hs_bindgen_a2b606291df27114 :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -
 hs_bindgen_a2b606291df27114 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a2b606291df27114_base
 
-{-# NOINLINE watchTemperature_funptr #-}
+{-# NOINLINE watchTemperature #-}
 {-| __C declaration:__ @watchTemperature@
 
     __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-watchTemperature_funptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO ())
-watchTemperature_funptr =
+watchTemperature :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO ())
+watchTemperature =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a2b606291df27114
 
 -- __unique:__ @test_functionscallbacks_Example_get_onFileOpened@
@@ -229,15 +229,15 @@ hs_bindgen_2c00a09a05e4c87b :: IO (Ptr.FunPtr (FileOpenedNotification -> IO ()))
 hs_bindgen_2c00a09a05e4c87b =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2c00a09a05e4c87b_base
 
-{-# NOINLINE onFileOpened_funptr #-}
+{-# NOINLINE onFileOpened #-}
 {-| __C declaration:__ @onFileOpened@
 
     __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-onFileOpened_funptr :: Ptr.FunPtr (FileOpenedNotification -> IO ())
-onFileOpened_funptr =
+onFileOpened :: Ptr.FunPtr (FileOpenedNotification -> IO ())
+onFileOpened =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2c00a09a05e4c87b
 
 -- __unique:__ @test_functionscallbacks_Example_get_onProgressChanged@
@@ -249,15 +249,15 @@ hs_bindgen_84066778519d3ea8 :: IO (Ptr.FunPtr (ProgressUpdate -> IO ()))
 hs_bindgen_84066778519d3ea8 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_84066778519d3ea8_base
 
-{-# NOINLINE onProgressChanged_funptr #-}
+{-# NOINLINE onProgressChanged #-}
 {-| __C declaration:__ @onProgressChanged@
 
     __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-onProgressChanged_funptr :: Ptr.FunPtr (ProgressUpdate -> IO ())
-onProgressChanged_funptr =
+onProgressChanged :: Ptr.FunPtr (ProgressUpdate -> IO ())
+onProgressChanged =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_84066778519d3ea8
 
 -- __unique:__ @test_functionscallbacks_Example_get_validateInput@
@@ -269,15 +269,15 @@ hs_bindgen_4d522e3ec1eb0b9f :: IO (Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC
 hs_bindgen_4d522e3ec1eb0b9f =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4d522e3ec1eb0b9f_base
 
-{-# NOINLINE validateInput_funptr #-}
+{-# NOINLINE validateInput #-}
 {-| __C declaration:__ @validateInput@
 
     __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-validateInput_funptr :: Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt)
-validateInput_funptr =
+validateInput :: Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt)
+validateInput =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4d522e3ec1eb0b9f
 
 -- __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement@
@@ -289,15 +289,15 @@ hs_bindgen_a26d6914af82ade0 :: IO (Ptr.FunPtr (MeasurementReceived -> IO ()))
 hs_bindgen_a26d6914af82ade0 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a26d6914af82ade0_base
 
-{-# NOINLINE onNewMeasurement_funptr #-}
+{-# NOINLINE onNewMeasurement #-}
 {-| __C declaration:__ @onNewMeasurement@
 
     __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-onNewMeasurement_funptr :: Ptr.FunPtr (MeasurementReceived -> IO ())
-onNewMeasurement_funptr =
+onNewMeasurement :: Ptr.FunPtr (MeasurementReceived -> IO ())
+onNewMeasurement =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a26d6914af82ade0
 
 -- __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement2@
@@ -309,15 +309,15 @@ hs_bindgen_2c377b597bd80e50 :: IO (Ptr.FunPtr (MeasurementReceived2 -> IO ()))
 hs_bindgen_2c377b597bd80e50 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2c377b597bd80e50_base
 
-{-# NOINLINE onNewMeasurement2_funptr #-}
+{-# NOINLINE onNewMeasurement2 #-}
 {-| __C declaration:__ @onNewMeasurement2@
 
     __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-onNewMeasurement2_funptr :: Ptr.FunPtr (MeasurementReceived2 -> IO ())
-onNewMeasurement2_funptr =
+onNewMeasurement2 :: Ptr.FunPtr (MeasurementReceived2 -> IO ())
+onNewMeasurement2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2c377b597bd80e50
 
 -- __unique:__ @test_functionscallbacks_Example_get_onBufferReady@
@@ -329,15 +329,15 @@ hs_bindgen_d1ce142d0c667e22 :: IO (Ptr.FunPtr (SampleBufferFull -> IO ()))
 hs_bindgen_d1ce142d0c667e22 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d1ce142d0c667e22_base
 
-{-# NOINLINE onBufferReady_funptr #-}
+{-# NOINLINE onBufferReady #-}
 {-| __C declaration:__ @onBufferReady@
 
     __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-onBufferReady_funptr :: Ptr.FunPtr (SampleBufferFull -> IO ())
-onBufferReady_funptr =
+onBufferReady :: Ptr.FunPtr (SampleBufferFull -> IO ())
+onBufferReady =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d1ce142d0c667e22
 
 -- __unique:__ @test_functionscallbacks_Example_get_transformMeasurement@
@@ -349,15 +349,15 @@ hs_bindgen_2e8d6b201521b14a :: IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Fun
 hs_bindgen_2e8d6b201521b14a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2e8d6b201521b14a_base
 
-{-# NOINLINE transformMeasurement_funptr #-}
+{-# NOINLINE transformMeasurement #-}
 {-| __C declaration:__ @transformMeasurement@
 
     __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-transformMeasurement_funptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())) -> IO ())
-transformMeasurement_funptr =
+transformMeasurement :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())) -> IO ())
+transformMeasurement =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2e8d6b201521b14a
 
 -- __unique:__ @test_functionscallbacks_Example_get_processWithCallbacks@
@@ -369,15 +369,15 @@ hs_bindgen_7f4acb7260277d86 :: IO (Ptr.FunPtr ((Ptr.FunPtr ((Ptr.Ptr Measurement
 hs_bindgen_7f4acb7260277d86 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7f4acb7260277d86_base
 
-{-# NOINLINE processWithCallbacks_funptr #-}
+{-# NOINLINE processWithCallbacks #-}
 {-| __C declaration:__ @processWithCallbacks@
 
     __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-processWithCallbacks_funptr :: Ptr.FunPtr ((Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())) -> IO ())
-processWithCallbacks_funptr =
+processWithCallbacks :: Ptr.FunPtr ((Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())) -> IO ())
+processWithCallbacks =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7f4acb7260277d86
 
 -- __unique:__ @test_functionscallbacks_Example_get_registerHandler@
@@ -389,15 +389,15 @@ hs_bindgen_80684ecfa6d982b7 :: IO (Ptr.FunPtr ((Ptr.Ptr MeasurementHandler) -> I
 hs_bindgen_80684ecfa6d982b7 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_80684ecfa6d982b7_base
 
-{-# NOINLINE registerHandler_funptr #-}
+{-# NOINLINE registerHandler #-}
 {-| __C declaration:__ @registerHandler@
 
     __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-registerHandler_funptr :: Ptr.FunPtr ((Ptr.Ptr MeasurementHandler) -> IO ())
-registerHandler_funptr =
+registerHandler :: Ptr.FunPtr ((Ptr.Ptr MeasurementHandler) -> IO ())
+registerHandler =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_80684ecfa6d982b7
 
 -- __unique:__ @test_functionscallbacks_Example_get_executePipeline@
@@ -409,15 +409,15 @@ hs_bindgen_1714a267564c9f6f :: IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr
 hs_bindgen_1714a267564c9f6f =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1714a267564c9f6f_base
 
-{-# NOINLINE executePipeline_funptr #-}
+{-# NOINLINE executePipeline #-}
 {-| __C declaration:__ @executePipeline@
 
     __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-executePipeline_funptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr DataPipeline) -> IO ())
-executePipeline_funptr =
+executePipeline :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr DataPipeline) -> IO ())
+executePipeline =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1714a267564c9f6f
 
 -- __unique:__ @test_functionscallbacks_Example_get_runProcessor@
@@ -429,15 +429,15 @@ hs_bindgen_fedf80fe8e91dc7a :: IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr
 hs_bindgen_fedf80fe8e91dc7a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fedf80fe8e91dc7a_base
 
-{-# NOINLINE runProcessor_funptr #-}
+{-# NOINLINE runProcessor #-}
 {-| __C declaration:__ @runProcessor@
 
     __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-runProcessor_funptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr Processor) -> IO ())
-runProcessor_funptr =
+runProcessor :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr Processor) -> IO ())
+runProcessor =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fedf80fe8e91dc7a
 
 -- __unique:__ @test_functionscallbacks_Example_get_processMeasurementWithValidation@
@@ -449,15 +449,15 @@ hs_bindgen_443cb57c681c2cab :: IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Fun
 hs_bindgen_443cb57c681c2cab =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_443cb57c681c2cab_base
 
-{-# NOINLINE processMeasurementWithValidation_funptr #-}
+{-# NOINLINE processMeasurementWithValidation #-}
 {-| __C declaration:__ @processMeasurementWithValidation@
 
     __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-processMeasurementWithValidation_funptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ())
-processMeasurementWithValidation_funptr =
+processMeasurementWithValidation :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ())
+processMeasurementWithValidation =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_443cb57c681c2cab
 
 -- __unique:__ @test_functionscallbacks_Example_get_f@
@@ -469,15 +469,15 @@ hs_bindgen_7cf6cffd19682c36 :: IO (Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO
 hs_bindgen_7cf6cffd19682c36 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7cf6cffd19682c36_base
 
-{-# NOINLINE f_funptr #-}
+{-# NOINLINE f #-}
 {-| __C declaration:__ @f@
 
     __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-f_funptr :: Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO ())
-f_funptr =
+f :: Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO ())
+f =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7cf6cffd19682c36
 
 -- __unique:__ @test_functionscallbacks_Example_get_f2@
@@ -489,13 +489,13 @@ hs_bindgen_81fde2984e04c791 :: IO (Ptr.FunPtr ((Ptr.FunPtr (Foo2 -> IO ())) -> I
 hs_bindgen_81fde2984e04c791 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_81fde2984e04c791_base
 
-{-# NOINLINE f2_funptr #-}
+{-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-f2_funptr :: Ptr.FunPtr ((Ptr.FunPtr (Foo2 -> IO ())) -> IO ())
-f2_funptr =
+f2 :: Ptr.FunPtr ((Ptr.FunPtr (Foo2 -> IO ())) -> IO ())
+f2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_81fde2984e04c791

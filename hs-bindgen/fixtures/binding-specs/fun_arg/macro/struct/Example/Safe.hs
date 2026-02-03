@@ -53,11 +53,11 @@ hs_bindgen_f2a9c7d0ba1aaa3b =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-foo_safe ::
+foo ::
      MyStruct
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo_safe =
+foo =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_f2a9c7d0ba1aaa3b x1)
 
@@ -79,11 +79,11 @@ hs_bindgen_d7efef1db7e6b005 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooA_safe ::
+fooA ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA_safe =
+fooA =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_d7efef1db7e6b005 x1)
 
@@ -105,10 +105,10 @@ hs_bindgen_e49c2e985e471c99 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
 -}
-fooB_safe ::
+fooB ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB_safe =
+fooB =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_e49c2e985e471c99 x1)

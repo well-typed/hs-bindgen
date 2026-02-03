@@ -53,13 +53,13 @@ hs_bindgen_350cceac1101d344 =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse_safe ::
+reverse ::
      HsBindgen.Runtime.PtrConst.PtrConst Vector
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Vector
      -- ^ __C declaration:__ @output@
   -> IO FC.CInt
-reverse_safe = hs_bindgen_350cceac1101d344
+reverse = hs_bindgen_350cceac1101d344
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
@@ -81,10 +81,10 @@ hs_bindgen_2ff371c815d92b04 =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose_safe ::
+transpose ::
      HsBindgen.Runtime.PtrConst.PtrConst Matrix
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Matrix
      -- ^ __C declaration:__ @output@
   -> IO ()
-transpose_safe = hs_bindgen_2ff371c815d92b04
+transpose = hs_bindgen_2ff371c815d92b04

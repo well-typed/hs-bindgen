@@ -38,8 +38,8 @@ hs_bindgen_06a412f170b5ff91 =
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos_safe ::
+_acos ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> IO FC.CDouble
-_acos_safe = hs_bindgen_06a412f170b5ff91
+_acos = hs_bindgen_06a412f170b5ff91

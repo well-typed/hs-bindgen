@@ -135,13 +135,13 @@ hs_bindgen_d345c332b6547629 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-quux_safe ::
+quux ::
      F
      -- ^ __C declaration:__ @x@
   -> FC.CChar
      -- ^ __C declaration:__ @y@
   -> IO FC.CChar
-quux_safe = hs_bindgen_d345c332b6547629
+quux = hs_bindgen_d345c332b6547629
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_wam@
 foreign import ccall safe "hs_bindgen_195036c94aad554b" hs_bindgen_195036c94aad554b_base ::
@@ -163,13 +163,13 @@ hs_bindgen_195036c94aad554b =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-wam_safe ::
+wam ::
      FC.CFloat
      -- ^ __C declaration:__ @x@
   -> Ptr.Ptr C
      -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr C)
-wam_safe = hs_bindgen_195036c94aad554b
+wam = hs_bindgen_195036c94aad554b
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo1@
 foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" hs_bindgen_a40b504a8f7c1d11_base ::
@@ -191,13 +191,13 @@ hs_bindgen_a40b504a8f7c1d11 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-foo1_safe ::
+foo1 ::
      FC.CFloat
      -- ^ __C declaration:__ @x@
   -> Ptr.FunPtr (FC.CInt -> IO FC.CInt)
      -- ^ __C declaration:__ @g@
   -> IO (Ptr.Ptr FC.CChar)
-foo1_safe = hs_bindgen_a40b504a8f7c1d11
+foo1 = hs_bindgen_a40b504a8f7c1d11
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo2@
 foreign import ccall safe "hs_bindgen_83392129a2035c99" hs_bindgen_83392129a2035c99_base ::
@@ -219,13 +219,13 @@ hs_bindgen_83392129a2035c99 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-foo2_safe ::
+foo2 ::
      F
      -- ^ __C declaration:__ @x@
   -> Ptr.FunPtr (FC.CInt -> IO FC.CInt)
      -- ^ __C declaration:__ @g@
   -> IO (Ptr.Ptr FC.CChar)
-foo2_safe = hs_bindgen_83392129a2035c99
+foo2 = hs_bindgen_83392129a2035c99
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo3@
 foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" hs_bindgen_0c7f4bce7905d355_base ::
@@ -247,13 +247,13 @@ hs_bindgen_0c7f4bce7905d355 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-foo3_safe ::
+foo3 ::
      FC.CFloat
      -- ^ __C declaration:__ @x@
   -> Ptr.FunPtr (FC.CInt -> IO FC.CInt)
      -- ^ __C declaration:__ @g@
   -> IO (Ptr.Ptr C)
-foo3_safe = hs_bindgen_0c7f4bce7905d355
+foo3 = hs_bindgen_0c7f4bce7905d355
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar1@
 foreign import ccall safe "hs_bindgen_3471ca0525deb2c0" hs_bindgen_3471ca0525deb2c0_base ::
@@ -273,11 +273,11 @@ hs_bindgen_3471ca0525deb2c0 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-bar1_safe ::
+bar1 ::
      FC.CLong
      -- ^ __C declaration:__ @x@
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
-bar1_safe = hs_bindgen_3471ca0525deb2c0
+bar1 = hs_bindgen_3471ca0525deb2c0
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar2@
 foreign import ccall safe "hs_bindgen_d5a4af88f772ff72" hs_bindgen_d5a4af88f772ff72_base ::
@@ -297,11 +297,11 @@ hs_bindgen_d5a4af88f772ff72 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-bar2_safe ::
+bar2 ::
      L
      -- ^ __C declaration:__ @x@
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
-bar2_safe = hs_bindgen_d5a4af88f772ff72
+bar2 = hs_bindgen_d5a4af88f772ff72
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar3@
 foreign import ccall safe "hs_bindgen_b289d62136acab77" hs_bindgen_b289d62136acab77_base ::
@@ -321,11 +321,11 @@ hs_bindgen_b289d62136acab77 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-bar3_safe ::
+bar3 ::
      FC.CLong
      -- ^ __C declaration:__ @x@
   -> IO (Ptr.FunPtr (S -> IO FC.CInt))
-bar3_safe = hs_bindgen_b289d62136acab77
+bar3 = hs_bindgen_b289d62136acab77
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar4@
 foreign import ccall safe "hs_bindgen_2b5b36cf49f0e40e" hs_bindgen_2b5b36cf49f0e40e_base ::
@@ -345,11 +345,11 @@ hs_bindgen_2b5b36cf49f0e40e =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-bar4_safe ::
+bar4 ::
      FC.CLong
      -- ^ __C declaration:__ @x@
   -> IO (Ptr.FunPtr (FC.CShort -> IO I))
-bar4_safe = hs_bindgen_2b5b36cf49f0e40e
+bar4 = hs_bindgen_2b5b36cf49f0e40e
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
 foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" hs_bindgen_b56f5f3515f3cc33_base ::
@@ -369,11 +369,11 @@ hs_bindgen_b56f5f3515f3cc33 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz1_safe ::
+baz1 ::
      FC.CInt
      -- ^ __C declaration:__ @i@
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
-baz1_safe = hs_bindgen_b56f5f3515f3cc33
+baz1 = hs_bindgen_b56f5f3515f3cc33
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
 foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" hs_bindgen_0b9b2e4d1699b6f3_base ::
@@ -393,11 +393,11 @@ hs_bindgen_0b9b2e4d1699b6f3 =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz2_safe ::
+baz2 ::
      I
      -- ^ __C declaration:__ @i@
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
-baz2_safe = hs_bindgen_0b9b2e4d1699b6f3
+baz2 = hs_bindgen_0b9b2e4d1699b6f3
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
 foreign import ccall safe "hs_bindgen_459eabcbd019687c" hs_bindgen_459eabcbd019687c_base ::
@@ -417,11 +417,11 @@ hs_bindgen_459eabcbd019687c =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-baz3_safe ::
+baz3 ::
      FC.CInt
      -- ^ __C declaration:__ @i@
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
-baz3_safe = hs_bindgen_459eabcbd019687c
+baz3 = hs_bindgen_459eabcbd019687c
 
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_no_args_no_void@
 foreign import ccall safe "hs_bindgen_7ae4ab0ad4fb8cad" hs_bindgen_7ae4ab0ad4fb8cad_base ::
@@ -438,5 +438,5 @@ hs_bindgen_7ae4ab0ad4fb8cad =
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-no_args_no_void_safe :: IO I
-no_args_no_void_safe = hs_bindgen_7ae4ab0ad4fb8cad
+no_args_no_void :: IO I
+no_args_no_void = hs_bindgen_7ae4ab0ad4fb8cad

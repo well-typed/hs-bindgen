@@ -39,8 +39,8 @@ hs_bindgen_07fd5b433f381094 =
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo_unsafe ::
+foo ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> IO FC.CInt
-foo_unsafe = hs_bindgen_07fd5b433f381094
+foo = hs_bindgen_07fd5b433f381094

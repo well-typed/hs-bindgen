@@ -72,11 +72,11 @@ hs_bindgen_51195acecf6b880e =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
-foo_unsafe ::
+foo ::
      MyStruct
      -- ^ __C declaration:__ @x@
   -> IO ()
-foo_unsafe =
+foo =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_51195acecf6b880e x1)
 
@@ -98,11 +98,11 @@ hs_bindgen_eb4a794c10ca94f9 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
-fooA_unsafe ::
+fooA ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooA_unsafe =
+fooA =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_eb4a794c10ca94f9 x1)
 
@@ -124,11 +124,11 @@ hs_bindgen_a11eb4471a953b64 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
-fooB_unsafe ::
+fooB ::
      B
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooB_unsafe =
+fooB =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_a11eb4471a953b64 x1)
 
@@ -150,11 +150,11 @@ hs_bindgen_1dea92b3f3346311 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
-fooC_unsafe ::
+fooC ::
      M.C
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooC_unsafe =
+fooC =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_1dea92b3f3346311 x1)
 
@@ -176,11 +176,11 @@ hs_bindgen_dba6d56e1a316e2d =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
-fooD_unsafe ::
+fooD ::
      M.D
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooD_unsafe =
+fooD =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_dba6d56e1a316e2d x1)
 
@@ -202,10 +202,10 @@ hs_bindgen_23b6f403a534aeae =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
-fooE_unsafe ::
+fooE ::
      E
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooE_unsafe =
+fooE =
   \x0 ->
     F.with x0 (\x1 -> hs_bindgen_23b6f403a534aeae x1)

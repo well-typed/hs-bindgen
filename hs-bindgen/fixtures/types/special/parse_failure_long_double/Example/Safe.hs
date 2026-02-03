@@ -39,7 +39,7 @@ hs_bindgen_a1252a3becef09a6 =
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2_safe ::
+fun2 ::
      FC.CInt
   -> IO ()
-fun2_safe = hs_bindgen_a1252a3becef09a6
+fun2 = hs_bindgen_a1252a3becef09a6

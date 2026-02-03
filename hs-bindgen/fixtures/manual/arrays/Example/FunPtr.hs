@@ -43,15 +43,15 @@ hs_bindgen_c99d8a3b0363a0fa :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 hs_bindgen_c99d8a3b0363a0fa =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c99d8a3b0363a0fa_base
 
-{-# NOINLINE transpose_funptr #-}
+{-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose_funptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
-transpose_funptr =
+transpose :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
+transpose =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c99d8a3b0363a0fa
 
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
@@ -63,7 +63,7 @@ hs_bindgen_923b33cbbfeb5e7d :: IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 hs_bindgen_923b33cbbfeb5e7d =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_923b33cbbfeb5e7d_base
 
-{-# NOINLINE pretty_print_triplets_funptr #-}
+{-# NOINLINE pretty_print_triplets #-}
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -72,6 +72,6 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets_funptr :: Ptr.FunPtr (Triplet_ptrs -> IO ())
-pretty_print_triplets_funptr =
+pretty_print_triplets :: Ptr.FunPtr (Triplet_ptrs -> IO ())
+pretty_print_triplets =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_923b33cbbfeb5e7d

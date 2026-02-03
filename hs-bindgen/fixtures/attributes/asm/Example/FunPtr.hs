@@ -35,13 +35,13 @@ hs_bindgen_4f7c4fceed28f171 :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
 hs_bindgen_4f7c4fceed28f171 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4f7c4fceed28f171_base
 
-{-# NOINLINE asm_labeled_function_funptr #-}
+{-# NOINLINE asm_labeled_function #-}
 {-| __C declaration:__ @asm_labeled_function@
 
     __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}
-asm_labeled_function_funptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
-asm_labeled_function_funptr =
+asm_labeled_function :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
+asm_labeled_function =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4f7c4fceed28f171

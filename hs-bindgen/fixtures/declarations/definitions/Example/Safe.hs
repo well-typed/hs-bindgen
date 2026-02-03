@@ -39,8 +39,8 @@ hs_bindgen_9cdc88a6d09442d6 =
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo_safe ::
+foo ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> IO FC.CInt
-foo_safe = hs_bindgen_9cdc88a6d09442d6
+foo = hs_bindgen_9cdc88a6d09442d6

@@ -32,5 +32,5 @@ hs_bindgen_32ebae80cc3543e1 =
 
     __exported by:__ @functions\/varargs.h@
 -}
-h_unsafe :: IO ()
-h_unsafe = hs_bindgen_32ebae80cc3543e1
+h :: IO ()
+h = hs_bindgen_32ebae80cc3543e1
