@@ -16,8 +16,6 @@ data HsPrimType =
       -- * Others
       HsPrimVoid
     | HsPrimUnit
-    | HsPrimCStringLen
-    | HsPrimCPtrdiff
 
       -- * Basic FFI types (see 'BasicFFIType')
     | HsPrimChar

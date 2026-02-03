@@ -81,8 +81,6 @@ getInstances instanceMap name = aux
     hsPrimTypeInsts = \case
       HsPrimVoid       -> Set.fromList [Eq, Ix, Ord, Read, Show]
       HsPrimUnit       -> unitInsts
-      HsPrimCStringLen -> Set.fromList [Eq, Ord, Show]
-      HsPrimCPtrdiff -> integralInsts
       HsPrimChar -> Set.fromList [Eq, Ord, Show, Read]
       HsPrimInt -> integralInsts
       HsPrimDouble -> floatingInsts
