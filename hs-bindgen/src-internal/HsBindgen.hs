@@ -149,11 +149,12 @@ writeUseDeclGraph pol mPath = do
 -- | Get bindings (single module).
 getBindings :: Artefact String
 getBindings = do
+    fieldNaming <- FinalFieldNamingStrategy
     name  <- FinalModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsSingleModule name
-    pure $ render $ translateModuleSingle name decls
+    pure $ render $ translateModuleSingle fieldNaming name decls
 
 -- | Write bindings to file.
 writeBindings :: FileOverwritePolicy -> FilePath -> Artefact ()
@@ -206,11 +207,12 @@ writeBindingsToDir filePolicy dirPolicy hsOutputDir categoriesSelected =
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))
 getBindingsMultiple = do
+    fieldNaming <- FinalFieldNamingStrategy
     name  <- FinalModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
-    pure $ fmap render <$> translateModuleMultiple name decls
+    pure $ fmap render <$> translateModuleMultiple fieldNaming name decls
 
 -- | Write bindings to files in provided output directory.
 --

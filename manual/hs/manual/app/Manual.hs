@@ -23,6 +23,7 @@ into separate modules corresponding to the manual's structure:
 * 'Manual.GeneratedNames' - Examples for name generation (awkward names)
 * 'Manual.BindingSpecifications' - Examples for external binding specifications
 * 'Manual.Globals' - Examples for global variables and constants
+* 'Manual.UnprefixedFieldNames' - Examples for unprefixed field names
 * 'Manual.ZeroCopy' - Examples for zero-copy bindings
 -}
 module Manual (main) where
@@ -44,6 +45,7 @@ import Manual.Types.Enums qualified
 import Manual.Types.Structs qualified
 import Manual.Types.Typedefs qualified
 import Manual.Types.Unions qualified
+import Manual.UnprefixedFieldNames qualified
 import Manual.ZeroCopy qualified
 
 {-------------------------------------------------------------------------------
@@ -68,6 +70,7 @@ main = do
     Manual.Functions.FirstOrder.examples
     Manual.Types.Complex.examples
     Manual.Functions.HigherOrder.examples
+    Manual.UnprefixedFieldNames.examples
     Manual.ZeroCopy.examples
 
 {-------------------------------------------------------------------------------

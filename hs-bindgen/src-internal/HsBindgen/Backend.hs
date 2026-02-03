@@ -52,6 +52,7 @@ runBackend tracer config boot frontend = do
         hsDecls             = backendHsDecls
       , finalDecls          = backendFinalDecls
       , finalModuleBaseName = boot.baseModule
+      , fieldNamingStrategy = config.fieldNamingStrategy
       }
   where
     cache :: Cached a -> IO (Cached a)
@@ -65,6 +66,7 @@ data BackendArtefact = BackendArtefact {
       hsDecls             :: Cached (ByCategory_ [Hs.Decl])
     , finalDecls          :: Cached (ByCategory_ ([CWrapper], [SHs.SDecl]))
     , finalModuleBaseName :: BaseModuleName
+    , fieldNamingStrategy :: FieldNamingStrategy
     }
 
 {-------------------------------------------------------------------------------

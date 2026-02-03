@@ -4,6 +4,7 @@ module HsBindgen.Config (
   , UniqueId(..)
   , BaseModuleName(..)
   , BackendConfig(..)
+  , FieldNamingStrategy(..)
   , toBindgenConfig
     -- * Template Haskell
   , ConfigTH(..)
@@ -35,9 +36,10 @@ data Config_ path = Config {
   , bindingSpec :: BindingSpecConfig
 
     -- * Frontend
-  , parsePredicate  :: Boolean ParsePredicate
-  , selectPredicate :: Boolean SelectPredicate
-  , programSlicing  :: ProgramSlicing
+  , parsePredicate      :: Boolean ParsePredicate
+  , selectPredicate     :: Boolean SelectPredicate
+  , programSlicing      :: ProgramSlicing
+  , fieldNamingStrategy :: FieldNamingStrategy
 
     -- * Backend
   , haddockPathStyle :: PathStyle
@@ -59,14 +61,16 @@ toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
        , bindingSpec = config.bindingSpec
        }
     , frontend = FrontendConfig {
-         parsePredicate  = config.parsePredicate
-       , selectPredicate = config.selectPredicate
-       , programSlicing  = config.programSlicing
+         parsePredicate      = config.parsePredicate
+       , selectPredicate     = config.selectPredicate
+       , programSlicing      = config.programSlicing
+       , fieldNamingStrategy = config.fieldNamingStrategy
        }
     , backend = BackendConfig {
          uniqueId       = uniqueId
        , haddock        = def & #pathStyle .~ config.haddockPathStyle
        , categoryChoice = choice
+       , fieldNamingStrategy = config.fieldNamingStrategy
        }
     }
 

@@ -17,6 +17,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
+import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
@@ -46,9 +47,10 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     C.TranslationUnit ResolveBindingSpecs
+     FieldNamingStrategy
+  -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit MangleNames, [Msg MangleNames])
-mangleNames unit = (
+mangleNames fieldNaming unit = (
          C.TranslationUnit{
            decls        = catMaybes decls2
          , includeGraph = unit.includeGraph
@@ -71,9 +73,10 @@ mangleNames unit = (
     -- Pass 2.
     env :: Env
     env = Env{
-          typedefAnalysis = td
-        , fixCandidate    = fc
-        , nameMap         = nm
+          typedefAnalysis     = td
+        , fixCandidate        = fc
+        , nameMap             = nm
+        , fieldNamingStrategy = fieldNaming
         }
 
     decls2 :: [Maybe (C.Decl MangleNames)]
@@ -294,9 +297,10 @@ instance Monoid Report where
   mempty = Report [] []
 
 data Env = Env{
-      typedefAnalysis :: TypedefAnalysis
-    , nameMap         :: NameMap
-    , fixCandidate    :: FixCandidate Maybe
+      typedefAnalysis     :: TypedefAnalysis
+    , nameMap             :: NameMap
+    , fixCandidate        :: FixCandidate Maybe
+    , fieldNamingStrategy :: FieldNamingStrategy
     }
 
 runM :: Env -> M a -> (a, Report)
@@ -401,12 +405,16 @@ mangleFieldName ::
      C.DeclInfo MangleNames
   -> C.ScopedName
   -> M ScopedNamePair
-mangleFieldName info fieldCName =
+mangleFieldName info fieldCName = do
+    strategy <- WrapM $ asks (.fieldNamingStrategy)
+    let candidate :: Text
+        candidate = case strategy of
+          PrefixedFieldNames ->
+            info.id.unsafeHsName.text <> "_" <> fieldCName.text
+          UnprefixedFieldNames ->
+            fieldCName.text
     ScopedNamePair fieldCName <$>
       mkIdentifier info (Proxy @Hs.NsVar) candidate
-  where
-    candidate :: Text
-    candidate = info.id.unsafeHsName.text <> "_" <> fieldCName.text
 
 -- | Mangle enum constant name
 --
@@ -446,34 +454,41 @@ mkStructNames info = RecordNames{
     }
 
 -- | Generic construction of newtype names, given only the type name
-mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
-mkNewtypeNames info = NewtypeNames{
-      constr = Hs.unsafeHsIdHsName $             info.id.unsafeHsName
-    , field  = Hs.unsafeHsIdHsName $ "unwrap" <> info.id.unsafeHsName
+--
+mkNewtypeNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
+mkNewtypeNames strategy info = NewtypeNames{
+      constr = Hs.unsafeHsIdHsName $                     info.id.unsafeHsName
+    , field  = Hs.unsafeHsIdHsName $ unwrapName strategy info.id.unsafeHsName
     }
+  where
+    unwrapName :: FieldNamingStrategy -> Hs.Identifier -> Hs.Identifier
+    unwrapName fns typeName  = Hs.Identifier $
+      case fns of
+        PrefixedFieldNames   -> "unwrap" <> typeName.text
+        UnprefixedFieldNames -> "unwrap"
 
 -- | Union names
 --
 -- A union is represented by a newtype around the raw bytes.
-mkUnionNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkUnionNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
 mkUnionNames = mkNewtypeNames
 
 -- | Enum names
 --
 -- An enum is represented by a newtype around an integral value.
-mkEnumNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkEnumNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
 mkEnumNames = mkNewtypeNames
 
 -- | Typedef
 --
 -- Typedefs are represented by newtypes
-mkTypedefNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkTypedefNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
 mkTypedefNames = mkNewtypeNames
 
 -- | Macro types
 --
 -- These behave like typedefs.
-mkMacroTypeNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkMacroTypeNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
 mkMacroTypeNames = mkNewtypeNames
 
 {-------------------------------------------------------------------------------
@@ -537,12 +552,13 @@ instance MangleInDecl C.StructField where
 
 instance MangleInDecl C.Union where
   mangleInDecl info union = do
-      reconstruct <$> mapM (mangleInDecl info) union.fields
+      strategy <- WrapM $ asks (.fieldNamingStrategy)
+      reconstruct strategy <$> mapM (mangleInDecl info) union.fields
     where
-      reconstruct :: [C.UnionField MangleNames] -> C.Union MangleNames
-      reconstruct unionFields' = C.Union{
+      reconstruct :: FieldNamingStrategy -> [C.UnionField MangleNames] -> C.Union MangleNames
+      reconstruct strategy' unionFields' = C.Union{
             fields    = unionFields'
-          , ann       = mkUnionNames info
+          , ann       = mkUnionNames strategy' info
           , sizeof    = union.sizeof
           , alignment = union.alignment
           }
@@ -572,18 +588,20 @@ instance MangleInDecl C.UnionField where
 
 instance MangleInDecl C.Enum where
   mangleInDecl info enum = do
-      reconstruct
+      strategy <- WrapM $ asks (.fieldNamingStrategy)
+      reconstruct strategy
         <$> mangle enum.typ
         <*> mapM (mangleInDecl info) enum.constants
     where
       reconstruct ::
-           C.Type MangleNames
+           FieldNamingStrategy
+        -> C.Type MangleNames
         -> [C.EnumConstant MangleNames]
         -> C.Enum MangleNames
-      reconstruct enumType' enumConstants' = C.Enum{
+      reconstruct strategy' enumType' enumConstants' = C.Enum{
             typ       = enumType'
           , constants = enumConstants'
-          , ann       = mkEnumNames info
+          , ann       = mkEnumNames strategy' info
           , sizeof    = enum.sizeof
           , alignment = enum.alignment
           }
@@ -631,12 +649,13 @@ instance Mangle C.CommentRef where
 
 instance MangleInDecl C.Typedef where
   mangleInDecl info typedef = do
-      reconstruct <$> mangle typedef.typ
+      strategy <- WrapM $ asks (.fieldNamingStrategy)
+      reconstruct strategy <$> mangle typedef.typ
     where
-      reconstruct :: C.Type MangleNames -> C.Typedef MangleNames
-      reconstruct typedefType' = C.Typedef{
+      reconstruct :: FieldNamingStrategy -> C.Type MangleNames -> C.Typedef MangleNames
+      reconstruct strategy' typedefType' = C.Typedef{
             typ = typedefType'
-          , ann = mkTypedefNames info
+          , ann = mkTypedefNames strategy' info
           }
 
 instance MangleInDecl C.Function where
@@ -665,12 +684,13 @@ instance MangleInDecl CheckedMacro where
 
 instance MangleInDecl CheckedMacroType where
   mangleInDecl info macroType = do
-      reconstruct <$> mangle macroType.typ
+      strategy <- WrapM $ asks (.fieldNamingStrategy)
+      reconstruct strategy <$> mangle macroType.typ
     where
-      reconstruct :: C.Type MangleNames -> CheckedMacroType MangleNames
-      reconstruct typ' = CheckedMacroType{
+      reconstruct :: FieldNamingStrategy -> C.Type MangleNames -> CheckedMacroType MangleNames
+      reconstruct strategy' typ' = CheckedMacroType{
             typ = typ'
-          , ann = mkMacroTypeNames info
+          , ann = mkMacroTypeNames strategy' info
           }
 
 instance Mangle C.Type where

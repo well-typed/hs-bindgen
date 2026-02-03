@@ -171,6 +171,7 @@ parseConfig = Config
     <*> parseParsePredicate
     <*> parseSelectPredicate
     <*> parseProgramSlicing
+    <*> parseFieldNamingStrategy
     <*> parsePathStyle
 
 {-------------------------------------------------------------------------------
@@ -409,6 +410,18 @@ parseProgramSlicing =
           , " and also select their transitive dependencies;"
           , " program slicing can cause declarations to be included"
           , " even if they are explicitly deselected by a select predicate"
+          ]
+      ]
+
+parseFieldNamingStrategy :: Parser FieldNamingStrategy
+parseFieldNamingStrategy =
+    flag PrefixedFieldNames UnprefixedFieldNames $ mconcat [
+        long "unprefixed-field-names"
+      , help $ concat [
+            "Use unprefixed field names (e.g. 'x' instead of 'structName_x')."
+          , " All newtype unwrap functions are called 'unwrap'."
+          , " Enables DuplicateRecordFields, OverloadedRecordDot,"
+          , " and OverloadedRecordUpdate extensions."
           ]
       ]
 

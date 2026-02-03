@@ -9,11 +9,12 @@ import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Hs.AST (Strategy (..))
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Imports
 
 -- | Which GHC language extensions this declarations needs.
-requiredExtensions :: SDecl -> Set TH.Extension
-requiredExtensions = \case
+requiredExtensions :: FieldNamingStrategy -> SDecl -> Set TH.Extension
+requiredExtensions fieldNaming = \case
     DTypSyn typSyn -> mconcat [
         typeExtensions typSyn.typ
       ]
@@ -38,6 +39,7 @@ requiredExtensions = \case
     DRecord record -> mconcat [
         recordExtensions record
       , nestedDeriving record.deriv
+      , unprefixedFieldExtensions fieldNaming
       ]
     DNewtype newtyp -> mconcat [
         nestedDeriving newtyp.deriv
@@ -83,6 +85,15 @@ nestedDeriving deriv =
 
 recordExtensions :: Record -> Set TH.Extension
 recordExtensions record = foldMap fieldExtensions record.fields
+
+-- | Extensions required when using unprefixed field names.
+unprefixedFieldExtensions :: FieldNamingStrategy -> Set TH.Extension
+unprefixedFieldExtensions = \case
+    PrefixedFieldNames   -> mempty
+    UnprefixedFieldNames -> Set.fromList [
+        TH.DuplicateRecordFields
+      , TH.OverloadedRecordDot
+      ]
 
 fieldExtensions :: Field -> Set TH.Extension
 fieldExtensions field = typeExtensions field.typ

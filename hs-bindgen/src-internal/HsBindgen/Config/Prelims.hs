@@ -4,6 +4,9 @@ module HsBindgen.Config.Prelims (
   , baseModuleNameToString
   , fromBaseModuleName
 
+    -- * Field naming strategy
+  , FieldNamingStrategy(..)
+
     -- * Unique IDs
   , UniqueId (..)
   , UniqueIdMsg (..)
@@ -52,6 +55,27 @@ fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
     submodule CUnsafe = "Unsafe"
     submodule CFunPtr = "FunPtr"
     submodule CGlobal = "Global"
+
+{-------------------------------------------------------------------------------
+  Field naming strategy
+-------------------------------------------------------------------------------}
+
+-- | Strategy for naming struct\/union fields.
+--
+-- With 'PrefixedFieldNames' (the default), field names are prefixed with the
+-- struct name to avoid name collisions (e.g., @timeval_tv_sec@).
+--
+-- With 'UnprefixedFieldNames', field names are not prefixed (e.g., @tv_sec@).
+-- This requires the @DuplicateRecordFields@ and @OverloadedRecordDot@ GHC
+-- extensions, which are automatically added when this strategy is selected.
+--
+data FieldNamingStrategy =
+    PrefixedFieldNames
+  | UnprefixedFieldNames
+  deriving stock (Show, Eq, Generic)
+
+instance Default FieldNamingStrategy where
+  def = PrefixedFieldNames
 
 {-------------------------------------------------------------------------------
   Unique IDs
