@@ -16,7 +16,6 @@ import C.Expr.Typecheck.Type (Kind (Ct, Ty))
 import C.Expr.Typecheck.Type qualified as DSL
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.FixCandidate (FixCandidate)
@@ -80,7 +79,7 @@ typeTy env = go
         foldr (TFun . go) (go r) as
     go (DSL.TyConAppTy tc as) =
         case simpleTyConApp tc as of
-          Just ty -> TGlobal $ PrimType ty
+          Just ty -> TGlobal ty
           Nothing -> tAppN (TGlobal $ tyCon tc) (go <$> as)
 
 -- | Convert @IntLike t@ and @FloatLike t@ to Haskell types.
@@ -92,7 +91,7 @@ typeTy env = go
 simpleTyConApp ::
      DSL.TyCon n Ty
   -> Vec n (DSL.Type Ty)
-  -> Maybe HsPrimType
+  -> Maybe Global
 simpleTyConApp (DSL.GenerativeTyCon (DSL.DataTyCon tc)) (arg ::: VNil) =
     case (tc, arg) of
 
@@ -192,47 +191,47 @@ floatingLiteral :: DSL.FloatingLiteral -> SExpr ctx
 floatingLiteral lit =
     case DSL.floatingLiteralType lit of
       Runtime.FloatType ->
-        EFloat  (DSL.floatingLiteralFloatValue  lit) HsPrimCFloat
+        EFloat  (DSL.floatingLiteralFloatValue  lit) CFloat_type
       Runtime.DoubleType ->
-        EDouble (DSL.floatingLiteralDoubleValue lit) HsPrimCDouble
+        EDouble (DSL.floatingLiteralDoubleValue lit) CDouble_type
 
 {-------------------------------------------------------------------------------
   Primitive types
 -------------------------------------------------------------------------------}
 
-dslIntegral :: DSL.IntegralType -> HsPrimType
+dslIntegral :: DSL.IntegralType -> Global
 dslIntegral = \case
     DSL.CIntegralType primIntTy -> runtimeIntegral primIntTy
-    DSL.HsIntType               -> HsPrimInt
+    DSL.HsIntType               -> Int_type
 
-runtimeIntegral :: Runtime.IntegralType -> HsPrimType
+runtimeIntegral :: Runtime.IntegralType -> Global
 runtimeIntegral = \case
-    Runtime.Bool       -> HsPrimCBool
+    Runtime.Bool       -> CBool_type
     Runtime.CharLike c -> runtimeCharLike c
     Runtime.IntLike i  -> runtimeIntLike i
 
-runtimeCharLike :: Runtime.CharLikeType -> HsPrimType
+runtimeCharLike :: Runtime.CharLikeType -> Global
 runtimeCharLike = \case
-    Runtime.Char  -> HsPrimCChar
-    Runtime.SChar -> HsPrimCSChar
-    Runtime.UChar -> HsPrimCUChar
+    Runtime.Char  -> CChar_type
+    Runtime.SChar -> CSChar_type
+    Runtime.UChar -> CUChar_type
 
-runtimeIntLike :: Runtime.IntLikeType -> HsPrimType
+runtimeIntLike :: Runtime.IntLikeType -> Global
 runtimeIntLike = \case
-    Runtime.Short    Signed   -> HsPrimCShort
-    Runtime.Short    Unsigned -> HsPrimCUShort
-    Runtime.Int      Signed   -> HsPrimCInt
-    Runtime.Int      Unsigned -> HsPrimCUInt
-    Runtime.Long     Signed   -> HsPrimCLong
-    Runtime.Long     Unsigned -> HsPrimCULong
-    Runtime.LongLong Signed   -> HsPrimCLLong
-    Runtime.LongLong Unsigned -> HsPrimCULLong
-    Runtime.PtrDiff           -> HsPrimCPtrdiff
+    Runtime.Short    Signed   -> CShort_type
+    Runtime.Short    Unsigned -> CUShort_type
+    Runtime.Int      Signed   -> CInt_type
+    Runtime.Int      Unsigned -> CUInt_type
+    Runtime.Long     Signed   -> CLong_type
+    Runtime.Long     Unsigned -> CULong_type
+    Runtime.LongLong Signed   -> CLLong_type
+    Runtime.LongLong Unsigned -> CULLong_type
+    Runtime.PtrDiff           -> CPtrdiff_type
 
-runtimeFloating :: Runtime.FloatingType -> HsPrimType
+runtimeFloating :: Runtime.FloatingType -> Global
 runtimeFloating = \case
-    Runtime.FloatType  -> HsPrimCFloat
-    Runtime.DoubleType -> HsPrimCDouble
+    Runtime.FloatType  -> CFloat_type
+    Runtime.DoubleType -> CDouble_type
 
 {-------------------------------------------------------------------------------
   Globals
@@ -246,9 +245,9 @@ tyCon (DSL.FamilyTyCon tc)                      = familyTyCon tc
 dataTyCon :: DSL.DataTyCon n -> Global
 dataTyCon = \case
     DSL.TupleTyCon n          -> Tuple_type n
-    DSL.VoidTyCon             -> PrimType HsPrimVoid
-    DSL.PrimIntInfoTyCon tc   -> PrimType $ dslIntegral tc
-    DSL.PrimFloatInfoTyCon tc -> PrimType $ runtimeFloating tc
+    DSL.VoidTyCon             -> Void_type
+    DSL.PrimIntInfoTyCon tc   -> dslIntegral tc
+    DSL.PrimFloatInfoTyCon tc -> runtimeFloating tc
     DSL.PtrTyCon              -> Foreign_Ptr
     DSL.CharLitTyCon          -> CharValue_tycon
 

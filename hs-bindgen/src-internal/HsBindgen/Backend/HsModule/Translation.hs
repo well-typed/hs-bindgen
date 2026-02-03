@@ -276,7 +276,7 @@ resolveExprImports = \case
     EBound _x -> mempty
     EFree {} -> mempty
     ECon _n -> mempty
-    EIntegral _ t -> maybe mempty resolvePrimTypeImports t
+    EIntegral _ t -> maybe mempty resolveGlobalImports t
     EUnboxedIntegral _ -> mempty
     EChar {} -> mconcat $ map resolveGlobalImports
                   [ CharValue_tycon
@@ -286,10 +286,10 @@ resolveExprImports = \case
                   , Maybe_nothing
                   ]
     EString {} -> mempty
-    ECString {} -> resolvePrimTypeImports Hs.HsPrimCStringLen
+    ECString {} -> resolveGlobalImports CStringLen_type
                 <> resolveGlobalImports Ptr_constructor
-    EFloat _ t -> resolvePrimTypeImports t
-    EDouble _ t -> resolvePrimTypeImports t
+    EFloat _ t -> resolveGlobalImports t
+    EDouble _ t -> resolveGlobalImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x
     EInfix op x y ->
       resolveGlobalImports op <> resolveExprImports x <> resolveExprImports y
@@ -328,9 +328,6 @@ resolveTypeImports = \case
     TBound {} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)
-
-resolvePrimTypeImports :: Hs.HsPrimType -> ImportAcc
-resolvePrimTypeImports = resolveGlobalImports . PrimType
 
 resolveStrategyImports :: Hs.Strategy ClosedType -> ImportAcc
 resolveStrategyImports = \case
