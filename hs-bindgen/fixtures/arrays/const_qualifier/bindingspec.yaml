@@ -1,0 +1,82 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: arrays/const_qualifier.h
+  cname: S
+  hsname: S
+- headers: arrays/const_qualifier.h
+  cname: T
+  hsname: T
+- headers: arrays/const_qualifier.h
+  cname: U
+  hsname: U
+- headers: arrays/const_qualifier.h
+  cname: V
+  hsname: V
+- headers: arrays/const_qualifier.h
+  cname: W
+  hsname: W
+- headers: arrays/const_qualifier.h
+  cname: X
+  hsname: X
+hstypes:
+- hsname: S
+  representation:
+    newtype:
+      constructor: S
+      fields:
+      - unwrapS
+  instances:
+  - Eq
+  - Show
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - unwrapT
+  instances:
+  - Eq
+  - Show
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - unwrapU
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: V
+  representation:
+    newtype:
+      constructor: V
+      fields:
+      - unwrapV
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: W
+  representation:
+    newtype:
+      constructor: W
+      fields:
+      - unwrapW
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: X
+  representation:
+    newtype:
+      constructor: X
+      fields:
+      - unwrapX
+  instances:
+  - Eq
+  - Show
+  - Storable

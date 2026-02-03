@@ -87,7 +87,7 @@ examples = do
           peek ptr >>= print
           pokeElemOff ptr.tic_tac_toe_row2.toFirstElemPtr 1 2
           peek ptr >>= print
-          pokeElemOff (snd $ CA.toFirstElemPtr ptr.tic_tac_toe_row2) 2 1
+          pokeElemOff (ptr.tic_tac_toe_row2.toFirstElemPtr) 2 1
           peek ptr >>= print
 
       subsection "Flexible array members"
@@ -148,8 +148,8 @@ withDrawing shape colour k =
 transpose :: Ptr Gen.Matrix -> Ptr Gen.Matrix -> IO ()
 transpose inputPtr outputPtr =
     Gen.transpose
-      (PtrConst.unsafeFromPtr inputPtr.unwrapMatrix.toFirstElemPtr)
-      outputPtr.unwrapMatrix.toFirstElemPtr
+      (PtrConst.unsafeFromPtr inputPtr)
+      outputPtr
 
 instance FLAM.NumElems CChar Gen.Vector_Aux where
   numElems x = fromIntegral (Gen.vector_len x)

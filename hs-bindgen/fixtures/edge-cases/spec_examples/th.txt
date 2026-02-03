@@ -2,23 +2,23 @@
 -- #include <edge-cases/spec_examples.h>
 -- void hs_bindgen_8a72aafc705daf44 (
 --   int32_T *arg1,
---   cint16_T *arg2,
+--   cint16_T (*arg2)[30720000],
 --   int64_T arg3,
 --   int64_T arg4,
---   cint16_T *arg5
+--   cint16_T (*arg5)[30720000]
 -- )
 -- {
---   resample(arg1, arg2, arg3, arg4, arg5);
+--   resample(arg1, *arg2, arg3, arg4, *arg5);
 -- }
 -- void hs_bindgen_2311fa9c0d0d6d06 (
 --   int32_T *arg1,
---   cint16_T *arg2,
+--   cint16_T (*arg2)[30720000],
 --   int64_T arg3,
 --   int64_T arg4,
---   cint16_T *arg5
+--   cint16_T (*arg5)[30720000]
 -- )
 -- {
---   resample(arg1, arg2, arg3, arg4, arg5);
+--   resample(arg1, *arg2, arg3, arg4, *arg5);
 -- }
 -- /* test_edgecasesspec_examples_Example_get_resample */
 -- __attribute__ ((const))
@@ -343,7 +343,9 @@ foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705da
  -> IO Unit
 -- __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
 hs_bindgen_8a72aafc705daf44 :: Ptr Int32_T ->
-                               Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
+                               Ptr (ConstantArray 30720000 Cint16_T) ->
+                               Int64_T ->
+                               Int64_T -> Ptr (ConstantArray 30720000 Cint16_T) -> IO Unit
 -- __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
 hs_bindgen_8a72aafc705daf44 = fromFFIType hs_bindgen_8a72aafc705daf44_base
 {-| __C declaration:__ @resample@
@@ -353,7 +355,9 @@ hs_bindgen_8a72aafc705daf44 = fromFFIType hs_bindgen_8a72aafc705daf44_base
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 resample :: Ptr Int32_T ->
-            Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
+            Ptr (ConstantArray 30720000 Cint16_T) ->
+            Int64_T ->
+            Int64_T -> Ptr (ConstantArray 30720000 Cint16_T) -> IO Unit
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h 31:6@
@@ -371,7 +375,9 @@ foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0
  -> IO Unit
 -- __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 hs_bindgen_2311fa9c0d0d6d06 :: Ptr Int32_T ->
-                               Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
+                               Ptr (ConstantArray 30720000 Cint16_T) ->
+                               Int64_T ->
+                               Int64_T -> Ptr (ConstantArray 30720000 Cint16_T) -> IO Unit
 -- __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 hs_bindgen_2311fa9c0d0d6d06 = fromFFIType hs_bindgen_2311fa9c0d0d6d06_base
 {-| __C declaration:__ @resample@
@@ -381,7 +387,9 @@ hs_bindgen_2311fa9c0d0d6d06 = fromFFIType hs_bindgen_2311fa9c0d0d6d06_base
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 resample :: Ptr Int32_T ->
-            Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
+            Ptr (ConstantArray 30720000 Cint16_T) ->
+            Int64_T ->
+            Int64_T -> Ptr (ConstantArray 30720000 Cint16_T) -> IO Unit
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h 31:6@

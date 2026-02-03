@@ -11,11 +11,11 @@
 --   return reverse(arg1, arg2);
 -- }
 -- void hs_bindgen_2ff371c815d92b04 (
---   triplet const *arg1,
---   triplet *arg2
+--   matrix const *arg1,
+--   matrix *arg2
 -- )
 -- {
---   transpose(arg1, arg2);
+--   transpose(*arg1, *arg2);
 -- }
 -- signed int hs_bindgen_f9655173d51bbaac (
 --   struct vector const *arg1,
@@ -25,11 +25,11 @@
 --   return reverse(arg1, arg2);
 -- }
 -- void hs_bindgen_ea25667627dd5ed2 (
---   triplet const *arg1,
---   triplet *arg2
+--   matrix const *arg1,
+--   matrix *arg2
 -- )
 -- {
---   transpose(arg1, arg2);
+--   transpose(*arg1, *arg2);
 -- }
 -- /* test_manualzero_copy_Example_get_reverse */
 -- __attribute__ ((const))
@@ -761,8 +761,8 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
-hs_bindgen_2ff371c815d92b04 :: PtrConst Triplet ->
-                               Ptr Triplet -> IO Unit
+hs_bindgen_2ff371c815d92b04 :: PtrConst Matrix ->
+                               Ptr Matrix -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 {-| __C declaration:__ @transpose@
@@ -771,7 +771,7 @@ hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: PtrConst Triplet -> Ptr Triplet -> IO Unit
+transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -809,8 +809,8 @@ foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627d
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
-hs_bindgen_ea25667627dd5ed2 :: PtrConst Triplet ->
-                               Ptr Triplet -> IO Unit
+hs_bindgen_ea25667627dd5ed2 :: PtrConst Matrix ->
+                               Ptr Matrix -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 {-| __C declaration:__ @transpose@
@@ -819,7 +819,7 @@ hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: PtrConst Triplet -> Ptr Triplet -> IO Unit
+transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@

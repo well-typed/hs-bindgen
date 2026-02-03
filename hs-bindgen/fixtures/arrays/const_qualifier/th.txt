@@ -1,0 +1,1174 @@
+-- addDependentFile examples/golden/arrays/const_qualifier.h
+-- #include <arrays/const_qualifier.h>
+-- void hs_bindgen_41e3579627406714 (
+--   signed int const (*arg1)[]
+-- )
+-- {
+--   foo(*arg1);
+-- }
+-- void hs_bindgen_ef925a32def7d5e9 (
+--   S *arg1
+-- )
+-- {
+--   fooA(*arg1);
+-- }
+-- void hs_bindgen_4237cee8985eb7fc (
+--   S const *arg1
+-- )
+-- {
+--   fooB(*arg1);
+-- }
+-- void hs_bindgen_dc3d2325cbc25f6e (
+--   T const *arg1
+-- )
+-- {
+--   fooC(*arg1);
+-- }
+-- void hs_bindgen_0820d6c6e877663d (
+--   signed int const (*arg1)[3]
+-- )
+-- {
+--   bar(*arg1);
+-- }
+-- void hs_bindgen_bb3ba1c8635c0008 (
+--   U *arg1
+-- )
+-- {
+--   barA(*arg1);
+-- }
+-- void hs_bindgen_63794b19284a8cd9 (
+--   U const *arg1
+-- )
+-- {
+--   barB(*arg1);
+-- }
+-- void hs_bindgen_e936f5907d7bdf9b (
+--   V const *arg1
+-- )
+-- {
+--   barC(*arg1);
+-- }
+-- void hs_bindgen_e4f32da8a7d205db (
+--   signed int const (*arg1)[3]
+-- )
+-- {
+--   baz(arg1);
+-- }
+-- void hs_bindgen_abced453716ffe1c (
+--   W *arg1
+-- )
+-- {
+--   bazA(arg1);
+-- }
+-- void hs_bindgen_4602d92b6dafcfa7 (
+--   W const *arg1
+-- )
+-- {
+--   bazB(arg1);
+-- }
+-- void hs_bindgen_b49b704068741c9c (
+--   X const *arg1
+-- )
+-- {
+--   bazC(arg1);
+-- }
+-- void hs_bindgen_7eb8358d30ebb28b (
+--   signed int const (*arg1)[]
+-- )
+-- {
+--   foo(*arg1);
+-- }
+-- void hs_bindgen_2fc1970fe11a3461 (
+--   S *arg1
+-- )
+-- {
+--   fooA(*arg1);
+-- }
+-- void hs_bindgen_58689a7e4b1d44f6 (
+--   S const *arg1
+-- )
+-- {
+--   fooB(*arg1);
+-- }
+-- void hs_bindgen_f88b417ee6e28c0c (
+--   T const *arg1
+-- )
+-- {
+--   fooC(*arg1);
+-- }
+-- void hs_bindgen_78493aa01e9cc5da (
+--   signed int const (*arg1)[3]
+-- )
+-- {
+--   bar(*arg1);
+-- }
+-- void hs_bindgen_bee2c20f290d25d6 (
+--   U *arg1
+-- )
+-- {
+--   barA(*arg1);
+-- }
+-- void hs_bindgen_71f805899a96d9f1 (
+--   U const *arg1
+-- )
+-- {
+--   barB(*arg1);
+-- }
+-- void hs_bindgen_89af56a24c359834 (
+--   V const *arg1
+-- )
+-- {
+--   barC(*arg1);
+-- }
+-- void hs_bindgen_71d7d347923cf6e5 (
+--   signed int const (*arg1)[3]
+-- )
+-- {
+--   baz(arg1);
+-- }
+-- void hs_bindgen_25cc50be574bcc6c (
+--   W *arg1
+-- )
+-- {
+--   bazA(arg1);
+-- }
+-- void hs_bindgen_3fd3913cc13f61be (
+--   W const *arg1
+-- )
+-- {
+--   bazB(arg1);
+-- }
+-- void hs_bindgen_a91ac27216749da9 (
+--   X const *arg1
+-- )
+-- {
+--   bazC(arg1);
+-- }
+-- /* test_arraysconst_qualifier_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_08ac8ef9de29103e (void)) (
+--   signed int const arg1[]
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_fooA */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_54fbf41deabb186a (void)) (
+--   S arg1
+-- )
+-- {
+--   return &fooA;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_fooB */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_639b20c53a422f2a (void)) (
+--   S const arg1
+-- )
+-- {
+--   return &fooB;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_fooC */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_fef335c60d51fed2 (void)) (
+--   T const arg1
+-- )
+-- {
+--   return &fooC;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_20a55b314c10f7b0 (void)) (
+--   signed int const arg1[3]
+-- )
+-- {
+--   return &bar;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_barA */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_d75c925bc91f45d8 (void)) (
+--   U arg1
+-- )
+-- {
+--   return &barA;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_barB */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_aecd16e35ff42812 (void)) (
+--   U const arg1
+-- )
+-- {
+--   return &barB;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_barC */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_7b514bc063bee42a (void)) (
+--   V const arg1
+-- )
+-- {
+--   return &barC;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_baz */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_4839eb9bacfd303d (void)) (
+--   signed int const (*arg1)[3]
+-- )
+-- {
+--   return &baz;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_bazA */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_0ada0d6bbdb28946 (void)) (
+--   W *arg1
+-- )
+-- {
+--   return &bazA;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_bazB */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_d035691c9268d21a (void)) (
+--   W const *arg1
+-- )
+-- {
+--   return &bazB;
+-- }
+-- /* test_arraysconst_qualifier_Example_get_bazC */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_fc2dfbe62c6dc8b1 (void)) (
+--   X const *arg1
+-- )
+-- {
+--   return &bazC;
+-- }
+{-| __C declaration:__ @S@
+
+    __defined at:__ @arrays\/const_qualifier.h 7:19@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+newtype S
+    = S {unwrapS :: (IncompleteArray CInt)}
+      {- ^ __C declaration:__ @S@
+
+           __defined at:__ @arrays\/const_qualifier.h 7:19@
+
+           __exported by:__ @arrays\/const_qualifier.h@
+      -}
+    deriving stock (Eq, Show)
+instance TyEq ty (CFieldType S "unwrapS") =>
+         HasField "unwrapS" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapS")
+instance HasCField S "unwrapS"
+    where type CFieldType S "unwrapS" = IncompleteArray CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @T@
+
+    __defined at:__ @arrays\/const_qualifier.h 8:19@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+newtype T
+    = T {unwrapT :: (IncompleteArray CInt)}
+      {- ^ __C declaration:__ @T@
+
+           __defined at:__ @arrays\/const_qualifier.h 8:19@
+
+           __exported by:__ @arrays\/const_qualifier.h@
+      -}
+    deriving stock (Eq, Show)
+instance TyEq ty (CFieldType T "unwrapT") =>
+         HasField "unwrapT" (Ptr T) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapT")
+instance HasCField T "unwrapT"
+    where type CFieldType T "unwrapT" = IncompleteArray CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @U@
+
+    __defined at:__ @arrays\/const_qualifier.h 18:19@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+newtype U
+    = U {unwrapU :: (ConstantArray 3 CInt)}
+      {- ^ __C declaration:__ @U@
+
+           __defined at:__ @arrays\/const_qualifier.h 18:19@
+
+           __exported by:__ @arrays\/const_qualifier.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType U "unwrapU") =>
+         HasField "unwrapU" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapU")
+instance HasCField U "unwrapU"
+    where type CFieldType U "unwrapU" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @V@
+
+    __defined at:__ @arrays\/const_qualifier.h 19:19@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+newtype V
+    = V {unwrapV :: (ConstantArray 3 CInt)}
+      {- ^ __C declaration:__ @V@
+
+           __defined at:__ @arrays\/const_qualifier.h 19:19@
+
+           __exported by:__ @arrays\/const_qualifier.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType V "unwrapV") =>
+         HasField "unwrapV" (Ptr V) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapV")
+instance HasCField V "unwrapV"
+    where type CFieldType V "unwrapV" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @W@
+
+    __defined at:__ @arrays\/const_qualifier.h 29:19@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+newtype W
+    = W {unwrapW :: (ConstantArray 3 CInt)}
+      {- ^ __C declaration:__ @W@
+
+           __defined at:__ @arrays\/const_qualifier.h 29:19@
+
+           __exported by:__ @arrays\/const_qualifier.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType W "unwrapW") =>
+         HasField "unwrapW" (Ptr W) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapW")
+instance HasCField W "unwrapW"
+    where type CFieldType W "unwrapW" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @X@
+
+    __defined at:__ @arrays\/const_qualifier.h 30:19@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+newtype X
+    = X {unwrapX :: (ConstantArray 3 CInt)}
+      {- ^ __C declaration:__ @X@
+
+           __defined at:__ @arrays\/const_qualifier.h 30:19@
+
+           __exported by:__ @arrays\/const_qualifier.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType X "unwrapX") =>
+         HasField "unwrapX" (Ptr X) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapX")
+instance HasCField X "unwrapX"
+    where type CFieldType X "unwrapX" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_41e3579627406714" hs_bindgen_41e3579627406714_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_foo@
+hs_bindgen_41e3579627406714 :: PtrConst (IncompleteArray CInt) ->
+                               IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_foo@
+hs_bindgen_41e3579627406714 = fromFFIType hs_bindgen_41e3579627406714_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/const_qualifier.h 5:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+foo :: PtrConst (IncompleteArray CInt) -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/const_qualifier.h 5:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+foo = hs_bindgen_41e3579627406714
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooA@
+foreign import ccall safe "hs_bindgen_ef925a32def7d5e9" hs_bindgen_ef925a32def7d5e9_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooA@
+hs_bindgen_ef925a32def7d5e9 :: PtrConst S -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooA@
+hs_bindgen_ef925a32def7d5e9 = fromFFIType hs_bindgen_ef925a32def7d5e9_base
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @arrays\/const_qualifier.h 10:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooA :: PtrConst S -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @arrays\/const_qualifier.h 10:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooA = hs_bindgen_ef925a32def7d5e9
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooB@
+foreign import ccall safe "hs_bindgen_4237cee8985eb7fc" hs_bindgen_4237cee8985eb7fc_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooB@
+hs_bindgen_4237cee8985eb7fc :: PtrConst S -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooB@
+hs_bindgen_4237cee8985eb7fc = fromFFIType hs_bindgen_4237cee8985eb7fc_base
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @arrays\/const_qualifier.h 11:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooB :: PtrConst S -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @arrays\/const_qualifier.h 11:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooB = hs_bindgen_4237cee8985eb7fc
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooC@
+foreign import ccall safe "hs_bindgen_dc3d2325cbc25f6e" hs_bindgen_dc3d2325cbc25f6e_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooC@
+hs_bindgen_dc3d2325cbc25f6e :: PtrConst T -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_fooC@
+hs_bindgen_dc3d2325cbc25f6e = fromFFIType hs_bindgen_dc3d2325cbc25f6e_base
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @arrays\/const_qualifier.h 12:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooC :: PtrConst T -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @arrays\/const_qualifier.h 12:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooC = hs_bindgen_dc3d2325cbc25f6e
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_0820d6c6e877663d" hs_bindgen_0820d6c6e877663d_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bar@
+hs_bindgen_0820d6c6e877663d :: PtrConst (ConstantArray 3 CInt) ->
+                               IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bar@
+hs_bindgen_0820d6c6e877663d = fromFFIType hs_bindgen_0820d6c6e877663d_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/const_qualifier.h 16:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bar :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/const_qualifier.h 16:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bar = hs_bindgen_0820d6c6e877663d
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barA@
+foreign import ccall safe "hs_bindgen_bb3ba1c8635c0008" hs_bindgen_bb3ba1c8635c0008_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barA@
+hs_bindgen_bb3ba1c8635c0008 :: PtrConst U -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barA@
+hs_bindgen_bb3ba1c8635c0008 = fromFFIType hs_bindgen_bb3ba1c8635c0008_base
+{-| __C declaration:__ @barA@
+
+    __defined at:__ @arrays\/const_qualifier.h 21:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barA :: PtrConst U -> IO Unit
+{-| __C declaration:__ @barA@
+
+    __defined at:__ @arrays\/const_qualifier.h 21:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barA = hs_bindgen_bb3ba1c8635c0008
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barB@
+foreign import ccall safe "hs_bindgen_63794b19284a8cd9" hs_bindgen_63794b19284a8cd9_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barB@
+hs_bindgen_63794b19284a8cd9 :: PtrConst U -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barB@
+hs_bindgen_63794b19284a8cd9 = fromFFIType hs_bindgen_63794b19284a8cd9_base
+{-| __C declaration:__ @barB@
+
+    __defined at:__ @arrays\/const_qualifier.h 22:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barB :: PtrConst U -> IO Unit
+{-| __C declaration:__ @barB@
+
+    __defined at:__ @arrays\/const_qualifier.h 22:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barB = hs_bindgen_63794b19284a8cd9
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barC@
+foreign import ccall safe "hs_bindgen_e936f5907d7bdf9b" hs_bindgen_e936f5907d7bdf9b_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barC@
+hs_bindgen_e936f5907d7bdf9b :: PtrConst V -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_barC@
+hs_bindgen_e936f5907d7bdf9b = fromFFIType hs_bindgen_e936f5907d7bdf9b_base
+{-| __C declaration:__ @barC@
+
+    __defined at:__ @arrays\/const_qualifier.h 23:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barC :: PtrConst V -> IO Unit
+{-| __C declaration:__ @barC@
+
+    __defined at:__ @arrays\/const_qualifier.h 23:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barC = hs_bindgen_e936f5907d7bdf9b
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_baz@
+foreign import ccall safe "hs_bindgen_e4f32da8a7d205db" hs_bindgen_e4f32da8a7d205db_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_baz@
+hs_bindgen_e4f32da8a7d205db :: PtrConst (ConstantArray 3 CInt) ->
+                               IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_baz@
+hs_bindgen_e4f32da8a7d205db = fromFFIType hs_bindgen_e4f32da8a7d205db_base
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/const_qualifier.h 27:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+baz :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/const_qualifier.h 27:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+baz = hs_bindgen_e4f32da8a7d205db
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazA@
+foreign import ccall safe "hs_bindgen_abced453716ffe1c" hs_bindgen_abced453716ffe1c_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazA@
+hs_bindgen_abced453716ffe1c :: PtrConst W -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazA@
+hs_bindgen_abced453716ffe1c = fromFFIType hs_bindgen_abced453716ffe1c_base
+{-| __C declaration:__ @bazA@
+
+    __defined at:__ @arrays\/const_qualifier.h 32:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazA :: PtrConst W -> IO Unit
+{-| __C declaration:__ @bazA@
+
+    __defined at:__ @arrays\/const_qualifier.h 32:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazA = hs_bindgen_abced453716ffe1c
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazB@
+foreign import ccall safe "hs_bindgen_4602d92b6dafcfa7" hs_bindgen_4602d92b6dafcfa7_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazB@
+hs_bindgen_4602d92b6dafcfa7 :: PtrConst W -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazB@
+hs_bindgen_4602d92b6dafcfa7 = fromFFIType hs_bindgen_4602d92b6dafcfa7_base
+{-| __C declaration:__ @bazB@
+
+    __defined at:__ @arrays\/const_qualifier.h 33:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazB :: PtrConst W -> IO Unit
+{-| __C declaration:__ @bazB@
+
+    __defined at:__ @arrays\/const_qualifier.h 33:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazB = hs_bindgen_4602d92b6dafcfa7
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazC@
+foreign import ccall safe "hs_bindgen_b49b704068741c9c" hs_bindgen_b49b704068741c9c_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazC@
+hs_bindgen_b49b704068741c9c :: PtrConst X -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Safe_bazC@
+hs_bindgen_b49b704068741c9c = fromFFIType hs_bindgen_b49b704068741c9c_base
+{-| __C declaration:__ @bazC@
+
+    __defined at:__ @arrays\/const_qualifier.h 34:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazC :: PtrConst X -> IO Unit
+{-| __C declaration:__ @bazC@
+
+    __defined at:__ @arrays\/const_qualifier.h 34:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazC = hs_bindgen_b49b704068741c9c
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_7eb8358d30ebb28b" hs_bindgen_7eb8358d30ebb28b_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_foo@
+hs_bindgen_7eb8358d30ebb28b :: PtrConst (IncompleteArray CInt) ->
+                               IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_foo@
+hs_bindgen_7eb8358d30ebb28b = fromFFIType hs_bindgen_7eb8358d30ebb28b_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/const_qualifier.h 5:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+foo :: PtrConst (IncompleteArray CInt) -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/const_qualifier.h 5:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+foo = hs_bindgen_7eb8358d30ebb28b
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooA@
+foreign import ccall unsafe "hs_bindgen_2fc1970fe11a3461" hs_bindgen_2fc1970fe11a3461_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooA@
+hs_bindgen_2fc1970fe11a3461 :: PtrConst S -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooA@
+hs_bindgen_2fc1970fe11a3461 = fromFFIType hs_bindgen_2fc1970fe11a3461_base
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @arrays\/const_qualifier.h 10:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooA :: PtrConst S -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @arrays\/const_qualifier.h 10:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooA = hs_bindgen_2fc1970fe11a3461
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooB@
+foreign import ccall unsafe "hs_bindgen_58689a7e4b1d44f6" hs_bindgen_58689a7e4b1d44f6_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooB@
+hs_bindgen_58689a7e4b1d44f6 :: PtrConst S -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooB@
+hs_bindgen_58689a7e4b1d44f6 = fromFFIType hs_bindgen_58689a7e4b1d44f6_base
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @arrays\/const_qualifier.h 11:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooB :: PtrConst S -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @arrays\/const_qualifier.h 11:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooB = hs_bindgen_58689a7e4b1d44f6
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooC@
+foreign import ccall unsafe "hs_bindgen_f88b417ee6e28c0c" hs_bindgen_f88b417ee6e28c0c_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooC@
+hs_bindgen_f88b417ee6e28c0c :: PtrConst T -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_fooC@
+hs_bindgen_f88b417ee6e28c0c = fromFFIType hs_bindgen_f88b417ee6e28c0c_base
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @arrays\/const_qualifier.h 12:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooC :: PtrConst T -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @arrays\/const_qualifier.h 12:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooC = hs_bindgen_f88b417ee6e28c0c
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_78493aa01e9cc5da" hs_bindgen_78493aa01e9cc5da_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bar@
+hs_bindgen_78493aa01e9cc5da :: PtrConst (ConstantArray 3 CInt) ->
+                               IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bar@
+hs_bindgen_78493aa01e9cc5da = fromFFIType hs_bindgen_78493aa01e9cc5da_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/const_qualifier.h 16:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bar :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/const_qualifier.h 16:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bar = hs_bindgen_78493aa01e9cc5da
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barA@
+foreign import ccall unsafe "hs_bindgen_bee2c20f290d25d6" hs_bindgen_bee2c20f290d25d6_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barA@
+hs_bindgen_bee2c20f290d25d6 :: PtrConst U -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barA@
+hs_bindgen_bee2c20f290d25d6 = fromFFIType hs_bindgen_bee2c20f290d25d6_base
+{-| __C declaration:__ @barA@
+
+    __defined at:__ @arrays\/const_qualifier.h 21:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barA :: PtrConst U -> IO Unit
+{-| __C declaration:__ @barA@
+
+    __defined at:__ @arrays\/const_qualifier.h 21:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barA = hs_bindgen_bee2c20f290d25d6
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barB@
+foreign import ccall unsafe "hs_bindgen_71f805899a96d9f1" hs_bindgen_71f805899a96d9f1_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barB@
+hs_bindgen_71f805899a96d9f1 :: PtrConst U -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barB@
+hs_bindgen_71f805899a96d9f1 = fromFFIType hs_bindgen_71f805899a96d9f1_base
+{-| __C declaration:__ @barB@
+
+    __defined at:__ @arrays\/const_qualifier.h 22:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barB :: PtrConst U -> IO Unit
+{-| __C declaration:__ @barB@
+
+    __defined at:__ @arrays\/const_qualifier.h 22:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barB = hs_bindgen_71f805899a96d9f1
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barC@
+foreign import ccall unsafe "hs_bindgen_89af56a24c359834" hs_bindgen_89af56a24c359834_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barC@
+hs_bindgen_89af56a24c359834 :: PtrConst V -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_barC@
+hs_bindgen_89af56a24c359834 = fromFFIType hs_bindgen_89af56a24c359834_base
+{-| __C declaration:__ @barC@
+
+    __defined at:__ @arrays\/const_qualifier.h 23:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barC :: PtrConst V -> IO Unit
+{-| __C declaration:__ @barC@
+
+    __defined at:__ @arrays\/const_qualifier.h 23:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barC = hs_bindgen_89af56a24c359834
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_baz@
+foreign import ccall unsafe "hs_bindgen_71d7d347923cf6e5" hs_bindgen_71d7d347923cf6e5_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_baz@
+hs_bindgen_71d7d347923cf6e5 :: PtrConst (ConstantArray 3 CInt) ->
+                               IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_baz@
+hs_bindgen_71d7d347923cf6e5 = fromFFIType hs_bindgen_71d7d347923cf6e5_base
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/const_qualifier.h 27:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+baz :: PtrConst (ConstantArray 3 CInt) -> IO Unit
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/const_qualifier.h 27:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+baz = hs_bindgen_71d7d347923cf6e5
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazA@
+foreign import ccall unsafe "hs_bindgen_25cc50be574bcc6c" hs_bindgen_25cc50be574bcc6c_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazA@
+hs_bindgen_25cc50be574bcc6c :: PtrConst W -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazA@
+hs_bindgen_25cc50be574bcc6c = fromFFIType hs_bindgen_25cc50be574bcc6c_base
+{-| __C declaration:__ @bazA@
+
+    __defined at:__ @arrays\/const_qualifier.h 32:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazA :: PtrConst W -> IO Unit
+{-| __C declaration:__ @bazA@
+
+    __defined at:__ @arrays\/const_qualifier.h 32:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazA = hs_bindgen_25cc50be574bcc6c
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazB@
+foreign import ccall unsafe "hs_bindgen_3fd3913cc13f61be" hs_bindgen_3fd3913cc13f61be_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazB@
+hs_bindgen_3fd3913cc13f61be :: PtrConst W -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazB@
+hs_bindgen_3fd3913cc13f61be = fromFFIType hs_bindgen_3fd3913cc13f61be_base
+{-| __C declaration:__ @bazB@
+
+    __defined at:__ @arrays\/const_qualifier.h 33:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazB :: PtrConst W -> IO Unit
+{-| __C declaration:__ @bazB@
+
+    __defined at:__ @arrays\/const_qualifier.h 33:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazB = hs_bindgen_3fd3913cc13f61be
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazC@
+foreign import ccall unsafe "hs_bindgen_a91ac27216749da9" hs_bindgen_a91ac27216749da9_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazC@
+hs_bindgen_a91ac27216749da9 :: PtrConst X -> IO Unit
+-- __unique:__ @test_arraysconst_qualifier_Example_Unsafe_bazC@
+hs_bindgen_a91ac27216749da9 = fromFFIType hs_bindgen_a91ac27216749da9_base
+{-| __C declaration:__ @bazC@
+
+    __defined at:__ @arrays\/const_qualifier.h 34:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazC :: PtrConst X -> IO Unit
+{-| __C declaration:__ @bazC@
+
+    __defined at:__ @arrays\/const_qualifier.h 34:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazC = hs_bindgen_a91ac27216749da9
+-- __unique:__ @test_arraysconst_qualifier_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_08ac8ef9de29103e" hs_bindgen_08ac8ef9de29103e_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_foo@
+hs_bindgen_08ac8ef9de29103e :: IO (FunPtr (IncompleteArray CInt ->
+                                           IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_foo@
+hs_bindgen_08ac8ef9de29103e = fromFFIType hs_bindgen_08ac8ef9de29103e_base
+{-# NOINLINE foo #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/const_qualifier.h 5:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+foo :: FunPtr (IncompleteArray CInt -> IO Unit)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @arrays\/const_qualifier.h 5:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+foo = unsafePerformIO hs_bindgen_08ac8ef9de29103e
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooA@
+foreign import ccall unsafe "hs_bindgen_54fbf41deabb186a" hs_bindgen_54fbf41deabb186a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooA@
+hs_bindgen_54fbf41deabb186a :: IO (FunPtr (S -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooA@
+hs_bindgen_54fbf41deabb186a = fromFFIType hs_bindgen_54fbf41deabb186a_base
+{-# NOINLINE fooA #-}
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @arrays\/const_qualifier.h 10:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooA :: FunPtr (S -> IO Unit)
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @arrays\/const_qualifier.h 10:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooA = unsafePerformIO hs_bindgen_54fbf41deabb186a
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooB@
+foreign import ccall unsafe "hs_bindgen_639b20c53a422f2a" hs_bindgen_639b20c53a422f2a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooB@
+hs_bindgen_639b20c53a422f2a :: IO (FunPtr (S -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooB@
+hs_bindgen_639b20c53a422f2a = fromFFIType hs_bindgen_639b20c53a422f2a_base
+{-# NOINLINE fooB #-}
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @arrays\/const_qualifier.h 11:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooB :: FunPtr (S -> IO Unit)
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @arrays\/const_qualifier.h 11:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooB = unsafePerformIO hs_bindgen_639b20c53a422f2a
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooC@
+foreign import ccall unsafe "hs_bindgen_fef335c60d51fed2" hs_bindgen_fef335c60d51fed2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooC@
+hs_bindgen_fef335c60d51fed2 :: IO (FunPtr (T -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_fooC@
+hs_bindgen_fef335c60d51fed2 = fromFFIType hs_bindgen_fef335c60d51fed2_base
+{-# NOINLINE fooC #-}
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @arrays\/const_qualifier.h 12:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooC :: FunPtr (T -> IO Unit)
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @arrays\/const_qualifier.h 12:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+fooC = unsafePerformIO hs_bindgen_fef335c60d51fed2
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_20a55b314c10f7b0" hs_bindgen_20a55b314c10f7b0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bar@
+hs_bindgen_20a55b314c10f7b0 :: IO (FunPtr (ConstantArray 3 CInt ->
+                                           IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bar@
+hs_bindgen_20a55b314c10f7b0 = fromFFIType hs_bindgen_20a55b314c10f7b0_base
+{-# NOINLINE bar #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/const_qualifier.h 16:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bar :: FunPtr (ConstantArray 3 CInt -> IO Unit)
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @arrays\/const_qualifier.h 16:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bar = unsafePerformIO hs_bindgen_20a55b314c10f7b0
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barA@
+foreign import ccall unsafe "hs_bindgen_d75c925bc91f45d8" hs_bindgen_d75c925bc91f45d8_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barA@
+hs_bindgen_d75c925bc91f45d8 :: IO (FunPtr (U -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barA@
+hs_bindgen_d75c925bc91f45d8 = fromFFIType hs_bindgen_d75c925bc91f45d8_base
+{-# NOINLINE barA #-}
+{-| __C declaration:__ @barA@
+
+    __defined at:__ @arrays\/const_qualifier.h 21:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barA :: FunPtr (U -> IO Unit)
+{-| __C declaration:__ @barA@
+
+    __defined at:__ @arrays\/const_qualifier.h 21:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barA = unsafePerformIO hs_bindgen_d75c925bc91f45d8
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barB@
+foreign import ccall unsafe "hs_bindgen_aecd16e35ff42812" hs_bindgen_aecd16e35ff42812_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barB@
+hs_bindgen_aecd16e35ff42812 :: IO (FunPtr (U -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barB@
+hs_bindgen_aecd16e35ff42812 = fromFFIType hs_bindgen_aecd16e35ff42812_base
+{-# NOINLINE barB #-}
+{-| __C declaration:__ @barB@
+
+    __defined at:__ @arrays\/const_qualifier.h 22:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barB :: FunPtr (U -> IO Unit)
+{-| __C declaration:__ @barB@
+
+    __defined at:__ @arrays\/const_qualifier.h 22:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barB = unsafePerformIO hs_bindgen_aecd16e35ff42812
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barC@
+foreign import ccall unsafe "hs_bindgen_7b514bc063bee42a" hs_bindgen_7b514bc063bee42a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barC@
+hs_bindgen_7b514bc063bee42a :: IO (FunPtr (V -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_barC@
+hs_bindgen_7b514bc063bee42a = fromFFIType hs_bindgen_7b514bc063bee42a_base
+{-# NOINLINE barC #-}
+{-| __C declaration:__ @barC@
+
+    __defined at:__ @arrays\/const_qualifier.h 23:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barC :: FunPtr (V -> IO Unit)
+{-| __C declaration:__ @barC@
+
+    __defined at:__ @arrays\/const_qualifier.h 23:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+barC = unsafePerformIO hs_bindgen_7b514bc063bee42a
+-- __unique:__ @test_arraysconst_qualifier_Example_get_baz@
+foreign import ccall unsafe "hs_bindgen_4839eb9bacfd303d" hs_bindgen_4839eb9bacfd303d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_baz@
+hs_bindgen_4839eb9bacfd303d :: IO (FunPtr (PtrConst (ConstantArray 3
+                                                                   CInt) ->
+                                           IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_baz@
+hs_bindgen_4839eb9bacfd303d = fromFFIType hs_bindgen_4839eb9bacfd303d_base
+{-# NOINLINE baz #-}
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/const_qualifier.h 27:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+baz :: FunPtr (PtrConst (ConstantArray 3 CInt) -> IO Unit)
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @arrays\/const_qualifier.h 27:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+baz = unsafePerformIO hs_bindgen_4839eb9bacfd303d
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazA@
+foreign import ccall unsafe "hs_bindgen_0ada0d6bbdb28946" hs_bindgen_0ada0d6bbdb28946_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazA@
+hs_bindgen_0ada0d6bbdb28946 :: IO (FunPtr (PtrConst W -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazA@
+hs_bindgen_0ada0d6bbdb28946 = fromFFIType hs_bindgen_0ada0d6bbdb28946_base
+{-# NOINLINE bazA #-}
+{-| __C declaration:__ @bazA@
+
+    __defined at:__ @arrays\/const_qualifier.h 32:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazA :: FunPtr (PtrConst W -> IO Unit)
+{-| __C declaration:__ @bazA@
+
+    __defined at:__ @arrays\/const_qualifier.h 32:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazA = unsafePerformIO hs_bindgen_0ada0d6bbdb28946
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazB@
+foreign import ccall unsafe "hs_bindgen_d035691c9268d21a" hs_bindgen_d035691c9268d21a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazB@
+hs_bindgen_d035691c9268d21a :: IO (FunPtr (PtrConst W -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazB@
+hs_bindgen_d035691c9268d21a = fromFFIType hs_bindgen_d035691c9268d21a_base
+{-# NOINLINE bazB #-}
+{-| __C declaration:__ @bazB@
+
+    __defined at:__ @arrays\/const_qualifier.h 33:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazB :: FunPtr (PtrConst W -> IO Unit)
+{-| __C declaration:__ @bazB@
+
+    __defined at:__ @arrays\/const_qualifier.h 33:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazB = unsafePerformIO hs_bindgen_d035691c9268d21a
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazC@
+foreign import ccall unsafe "hs_bindgen_fc2dfbe62c6dc8b1" hs_bindgen_fc2dfbe62c6dc8b1_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazC@
+hs_bindgen_fc2dfbe62c6dc8b1 :: IO (FunPtr (PtrConst X -> IO Unit))
+-- __unique:__ @test_arraysconst_qualifier_Example_get_bazC@
+hs_bindgen_fc2dfbe62c6dc8b1 = fromFFIType hs_bindgen_fc2dfbe62c6dc8b1_base
+{-# NOINLINE bazC #-}
+{-| __C declaration:__ @bazC@
+
+    __defined at:__ @arrays\/const_qualifier.h 34:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazC :: FunPtr (PtrConst X -> IO Unit)
+{-| __C declaration:__ @bazC@
+
+    __defined at:__ @arrays\/const_qualifier.h 34:6@
+
+    __exported by:__ @arrays\/const_qualifier.h@
+-}
+bazC = unsafePerformIO hs_bindgen_fc2dfbe62c6dc8b1

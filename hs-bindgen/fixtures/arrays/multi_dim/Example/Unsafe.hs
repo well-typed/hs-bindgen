@@ -12,59 +12,61 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
+import Example
 import Prelude (IO)
 
 $(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
   [ "#include <arrays/multi_dim.h>"
   , "signed int hs_bindgen_3389520bc7419af4 ("
-  , "  signed int (*arg1)[4]"
+  , "  signed int (*arg1)[3][4]"
   , ")"
   , "{"
-  , "  return foo(arg1);"
+  , "  return foo(*arg1);"
   , "}"
   , "signed int hs_bindgen_73e2db5ad5d807f7 ("
-  , "  signed int const (*arg1)[4]"
+  , "  signed int const (*arg1)[3][4]"
   , ")"
   , "{"
-  , "  return foo_const(arg1);"
+  , "  return foo_const(*arg1);"
   , "}"
   , "signed int hs_bindgen_a28b81f0afc23eed ("
-  , "  signed int (*arg1)[2]"
+  , "  signed int (*arg1)[][2]"
   , ")"
   , "{"
-  , "  return bar(arg1);"
+  , "  return bar(*arg1);"
   , "}"
   , "signed int hs_bindgen_58337c492b64ae2c ("
-  , "  signed int const (*arg1)[2]"
+  , "  signed int const (*arg1)[][2]"
   , ")"
   , "{"
-  , "  return bar_const(arg1);"
+  , "  return bar_const(*arg1);"
   , "}"
   , "signed int hs_bindgen_48876e6767cb5923 ("
-  , "  signed int (*arg1)[3]"
+  , "  matrix *arg1"
   , ")"
   , "{"
-  , "  return baz(arg1);"
+  , "  return baz(*arg1);"
   , "}"
   , "signed int hs_bindgen_13ce150055e8aa41 ("
-  , "  signed int const (*arg1)[3]"
+  , "  matrix const *arg1"
   , ")"
   , "{"
-  , "  return baz_const(arg1);"
+  , "  return baz_const(*arg1);"
   , "}"
   , "signed int hs_bindgen_da5c432144bd5546 ("
-  , "  signed int (*arg1)[3]"
+  , "  triplets *arg1"
   , ")"
   , "{"
-  , "  return quuz(arg1);"
+  , "  return quuz(*arg1);"
   , "}"
   , "signed int hs_bindgen_70be94a6fb59f547 ("
-  , "  signed int const (*arg1)[3]"
+  , "  triplets const *arg1"
   , ")"
   , "{"
-  , "  return quuz_const(arg1);"
+  , "  return quuz_const(*arg1);"
   , "}"
   ]))
 
@@ -75,7 +77,7 @@ foreign import ccall unsafe "hs_bindgen_3389520bc7419af4" hs_bindgen_3389520bc74
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo@
 hs_bindgen_3389520bc7419af4 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_3389520bc7419af4 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3389520bc7419af4_base
@@ -87,7 +89,7 @@ hs_bindgen_3389520bc7419af4 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 foo ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 foo = hs_bindgen_3389520bc7419af4
@@ -99,7 +101,7 @@ foreign import ccall unsafe "hs_bindgen_73e2db5ad5d807f7" hs_bindgen_73e2db5ad5d
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_foo_const@
 hs_bindgen_73e2db5ad5d807f7 ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_73e2db5ad5d807f7 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_73e2db5ad5d807f7_base
@@ -111,7 +113,7 @@ hs_bindgen_73e2db5ad5d807f7 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 foo_const ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 foo_const = hs_bindgen_73e2db5ad5d807f7
@@ -123,7 +125,7 @@ foreign import ccall unsafe "hs_bindgen_a28b81f0afc23eed" hs_bindgen_a28b81f0afc
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar@
 hs_bindgen_a28b81f0afc23eed ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_a28b81f0afc23eed =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a28b81f0afc23eed_base
@@ -135,7 +137,7 @@ hs_bindgen_a28b81f0afc23eed =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 bar ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt))
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 bar = hs_bindgen_a28b81f0afc23eed
@@ -147,7 +149,7 @@ foreign import ccall unsafe "hs_bindgen_58337c492b64ae2c" hs_bindgen_58337c492b6
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_bar_const@
 hs_bindgen_58337c492b64ae2c ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt))
   -> IO FC.CInt
 hs_bindgen_58337c492b64ae2c =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_58337c492b64ae2c_base
@@ -159,7 +161,7 @@ hs_bindgen_58337c492b64ae2c =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 bar_const ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) FC.CInt))
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 bar_const = hs_bindgen_58337c492b64ae2c
@@ -171,7 +173,7 @@ foreign import ccall unsafe "hs_bindgen_48876e6767cb5923" hs_bindgen_48876e6767c
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz@
 hs_bindgen_48876e6767cb5923 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Ptr.Ptr Matrix
   -> IO FC.CInt
 hs_bindgen_48876e6767cb5923 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_48876e6767cb5923_base
@@ -183,7 +185,7 @@ hs_bindgen_48876e6767cb5923 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 baz ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Ptr.Ptr Matrix
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 baz = hs_bindgen_48876e6767cb5923
@@ -195,7 +197,7 @@ foreign import ccall unsafe "hs_bindgen_13ce150055e8aa41" hs_bindgen_13ce150055e
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_baz_const@
 hs_bindgen_13ce150055e8aa41 ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst Matrix
   -> IO FC.CInt
 hs_bindgen_13ce150055e8aa41 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_13ce150055e8aa41_base
@@ -207,7 +209,7 @@ hs_bindgen_13ce150055e8aa41 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 baz_const ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst Matrix
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 baz_const = hs_bindgen_13ce150055e8aa41
@@ -219,7 +221,7 @@ foreign import ccall unsafe "hs_bindgen_da5c432144bd5546" hs_bindgen_da5c432144b
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz@
 hs_bindgen_da5c432144bd5546 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Ptr.Ptr Triplets
   -> IO FC.CInt
 hs_bindgen_da5c432144bd5546 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_da5c432144bd5546_base
@@ -231,7 +233,7 @@ hs_bindgen_da5c432144bd5546 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 quuz ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     Ptr.Ptr Triplets
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 quuz = hs_bindgen_da5c432144bd5546
@@ -243,7 +245,7 @@ foreign import ccall unsafe "hs_bindgen_70be94a6fb59f547" hs_bindgen_70be94a6fb5
 
 -- __unique:__ @test_arraysmulti_dim_Example_Unsafe_quuz_const@
 hs_bindgen_70be94a6fb59f547 ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst Triplets
   -> IO FC.CInt
 hs_bindgen_70be94a6fb59f547 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_70be94a6fb59f547_base
@@ -255,7 +257,7 @@ hs_bindgen_70be94a6fb59f547 =
     __exported by:__ @arrays\/multi_dim.h@
 -}
 quuz_const ::
-     HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     HsBindgen.Runtime.PtrConst.PtrConst Triplets
      -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 quuz_const = hs_bindgen_70be94a6fb59f547

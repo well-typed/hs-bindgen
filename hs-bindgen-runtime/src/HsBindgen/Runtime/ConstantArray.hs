@@ -186,12 +186,12 @@ instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
 
 -- | /( O(n) /): Retrieve the underlying pointer
 withPtr ::
-     (Coercible b (ConstantArray n a), Storable a)
-  => b -> (Ptr a -> IO r) -> IO r
+     forall b n a r. (Coercible b (ConstantArray n a), Storable a)
+  => b -> (Ptr b -> IO r) -> IO r
 withPtr (coerce -> CA v) k = do
     -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
     VS.MVector _ fptr <- VS.thaw v
-    withForeignPtr fptr k
+    withForeignPtr fptr $ \(ptr :: Ptr a) -> k (toPtr (Proxy @n) ptr)
 
 {-------------------------------------------------------------------------------
   Construction

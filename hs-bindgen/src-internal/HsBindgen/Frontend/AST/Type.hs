@@ -41,10 +41,6 @@ module HsBindgen.Frontend.AST.Type (
   , isCanonicalTypeUnion
   , isCanonicalTypeArray
   , isErasedTypeConstQualified
-
-    -- ** Arrays
-  , ArrayClassification(..)
-  , getArrayElementType
   ) where
 
 import HsBindgen.Frontend.Pass
@@ -309,20 +305,12 @@ class ( IsPass p
   type family TypeMacroRefF tag p :: Star
   type family TypeEnumRefF tag p :: Star
 
-  getTypedefUnderlying :: TypedefRefF tag p -> TypeF tag p
-  getMacroUnderlying :: TypeMacroRefF tag p -> TypeF tag p
-  getExtBindingUnderlying :: TypeExtBindingRefF tag p -> TypeF tag p
-
 instance IsPass p => ValidTypeTag Full p where
   type instance TypedefRefF        Full p = TypedefRef p
   type instance TypeQualifierF     Full p = TypeQual
   type instance TypeExtBindingRefF Full p = ExtBindingRef p
   type instance TypeMacroRefF      Full p = MacroRef p
   type instance TypeEnumRefF       Full p = EnumRef p
-
-  getTypedefUnderlying = (.underlying)
-  getMacroUnderlying = (.underlying)
-  getExtBindingUnderlying = (.underlying)
 
 instance IsPass p => ValidTypeTag Erased p where
   type instance TypedefRefF        Erased p = Void
@@ -331,20 +319,12 @@ instance IsPass p => ValidTypeTag Erased p where
   type instance TypeMacroRefF      Erased p = Void
   type instance TypeEnumRefF       Erased p = Void
 
-  getTypedefUnderlying = absurd
-  getMacroUnderlying = absurd
-  getExtBindingUnderlying = absurd
-
 instance IsPass p => ValidTypeTag Canonical p where
   type instance TypedefRefF        Canonical p = Void
   type instance TypeQualifierF     Canonical p = Void
   type instance TypeExtBindingRefF Canonical p = Void
   type instance TypeMacroRefF      Canonical p = Void
   type instance TypeEnumRefF       Canonical p = Void
-
-  getTypedefUnderlying = absurd
-  getMacroUnderlying = absurd
-  getExtBindingUnderlying = absurd
 
 type Type          = FullType
 type FullType      = TypeF Full
@@ -589,47 +569,10 @@ isErasedTypeConstQualified ty =
       -- And otherwise, the type is not considered to be @const@-qualified.
       _ -> False
 
-{-------------------------------------------------------------------------------
-  Classification: arrays
--------------------------------------------------------------------------------}
-
--- | An array of known size or unknown size
-data ArrayClassification tag p =
-    -- | Array of known size
-    ConstantArrayClassification
-      Natural        -- ^ Array size
-      (TypeF tag p)  -- ^ Array element type
-
-    -- | Array of unkown size
-  | IncompleteArrayClassification
-      (TypeF tag p)  -- ^ Array element type
-
-getArrayElementType :: ArrayClassification tag p -> TypeF tag p
-getArrayElementType (ConstantArrayClassification _ ty) = ty
-getArrayElementType (IncompleteArrayClassification ty) = ty
-
 -- | Is the canonical type an array type?
---
--- If so, is it an array of known size or unknown size? And what is the /full
--- type/ of the array elements?
-isCanonicalTypeArray ::
-     ValidTypeTag tag p
-  => TypeF tag p -> Maybe (ArrayClassification tag p)
+isCanonicalTypeArray :: Normalize tag Canonical => TypeF tag p -> Bool
 isCanonicalTypeArray ty =
-    -- We do not use getCanonicalType here, because we might not want to
-    -- canonicalize the array /element/ type.
-    case ty of
-      TypePrim _pt          -> Nothing
-      TypeRef _declId       -> Nothing
-      TypeEnum _ref         -> Nothing
-      TypeMacro ref         -> isCanonicalTypeArray (getMacroUnderlying ref)
-      TypeTypedef ref       -> isCanonicalTypeArray (getTypedefUnderlying ref)
-      TypePointers _n _t    -> Nothing
-      TypeConstArray n t    -> Just (ConstantArrayClassification n t)
-      TypeFun _args _res    -> Nothing
-      TypeVoid              -> Nothing
-      TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
-      TypeBlock _t          -> Nothing
-      TypeQual _q t         -> isCanonicalTypeArray t
-      TypeExtBinding ref    -> isCanonicalTypeArray (getExtBindingUnderlying ref)
-      TypeComplex _pt       -> Nothing
+    case getCanonicalType ty of
+      TypeConstArray{}   -> True
+      TypeIncompleteArray{} -> True
+      _                     -> False

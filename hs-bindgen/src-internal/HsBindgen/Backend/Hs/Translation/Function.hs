@@ -27,6 +27,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
@@ -163,6 +164,7 @@ functionDecs safety opts haddockConfig moduleName sizeofs info origCFun _spec =
         -- A type that is not supported by the Haskell FFI as a function result.
         -- We pass it as a function parameter instead.
         PassByAddress {} -> Just $ toPrimitiveType primResult
+        PassByAddressArray{} -> panicPure "an array can not be a function result"
         -- A "normal" result type that is supported by the Haskell FFI.
         PassByValue {} -> Nothing
 
@@ -177,6 +179,7 @@ functionDecs safety opts haddockConfig moduleName sizeofs info origCFun _spec =
         -- A type that is not supported by the Haskell FFI as a function result.
         -- We pass it as a function parameter instead.
         PassByAddress {} -> mkFunRes C.TypeVoid
+        PassByAddressArray{} -> panicPure "an array can not be a function result"
         -- A "normal" result type that is supported by the Haskell FFI.
         PassByValue {} -> mkFunRes $ toPrimitiveType primResult
       where
@@ -232,9 +235,9 @@ getMainHashIncludeArg info = NonEmpty.head info.headerInfo.mainHeaders
 -- Only Haskell-pure functions are allowed to run without 'IO'. See the
 -- documentation on 'C.FunctionPurity'.
 --
--- But, if any of the function arguments are passed by address, then the
--- function has to run in 'IO' regardless of the function purity, because
--- pointer manipulation requires 'IO'.
+-- But, if any of the function arguments require restoration (see
+-- 'requiresRestore'), then the function has to run in 'IO' regardless of the
+-- function purity, because pointer manipulation requires 'IO'.
 --
 functionShouldRunInIO ::
      C.FunctionPurity -- ^ C function purity (function attribute)
@@ -242,13 +245,13 @@ functionShouldRunInIO ::
   -> [PassBy]         -- ^ C parameter types
   -> Bool
 functionShouldRunInIO purity resType argTypes
-  | all isPassByValue (resType : argTypes)
+  | any requiresRestore (resType : argTypes)
+  = True
+  | otherwise
   = case purity of
       C.HaskellPureFunction -> False
       C.CPureFunction       -> True
       C.ImpureFunction      -> True
-  | otherwise
-  = True
 
 -- | A haddock comment related to function purity
 ioComment ::
@@ -300,22 +303,25 @@ data PassBy =
       -- Ordinary, "primitive" types which can be handled by Haskell FFI
       -- directly.
       PassByValue (C.Type Final)
-      -- | Types passed by address
+      -- | Types passed by address: union, struct, and complex
       --
-      -- Structs and unions have to be passed by address, because they can not
-      -- be handled by the Haskell FFI directly.
+      -- These have to be passed by address, because they can not be handled by
+      -- the Haskell FFI directly.
     | PassByAddress (C.Type Final)
+      -- | Types passed by address: array
+      --
+      -- Arrays can be passed by passing a pointer to the first element of the
+      -- array, but that array element type might be internal information which
+      -- can lead to various issues. So instead we pass the whole array by
+      -- address.
+    | PassByAddressArray (C.Type Final)
   deriving Show
-
-isPassByValue :: PassBy -> Bool
-isPassByValue = \case
-    PassByValue{}     -> True
-    PassByAddress{} -> False
 
 isPassByAddress :: PassBy -> Bool
 isPassByAddress = \case
     PassByValue {} -> False
     PassByAddress {} -> True
+    PassByAddressArray {} -> True
 
 isVoidType :: PassBy -> Bool
 isVoidType = C.isVoid . toPrimitiveType
@@ -330,39 +336,42 @@ classifyArgPassingMethod ty
   = PassByAddress ty
 
   -- Array types
-  | Just aTy <- C.isCanonicalTypeArray ty
-  = PassByValue $ firstElemPtr ty (C.getArrayElementType aTy)
+  | C.isCanonicalTypeArray ty
+  = PassByAddressArray ty
 
   -- Other types
   | otherwise
   = PassByValue ty
-  where
-    -- NOTE: if an array type is const-qualified, then its array element type is
-    -- also const-qualified, and vice versa.
-    firstElemPtr :: C.Type Final -> C.Type Final -> C.Type Final
-    firstElemPtr aTy eTy
-      -- The array element type has a const qualifier.
-      | C.isErasedTypeConstQualified eTy
-      = C.TypePointers 1 eTy
-      -- The array type has a const qualifier, but the array element type does
-      -- not.
-      | C.isErasedTypeConstQualified aTy
-      = C.TypePointers 1 $ C.TypeQual C.QualConst eTy
-      -- No const qualifiers on either the array type or the array element type.
-      | otherwise
-      = C.TypePointers 1 eTy
 
 -- | Recover type used in the foreign import
 toPrimitiveType :: PassBy -> C.Type Final
 toPrimitiveType = \case
     PassByValue ty -> ty
     PassByAddress ty -> C.TypePointers 1 ty
+    PassByAddressArray ty -> C.TypePointers 1 ty
 
 -- | Recover type used in "restoreOrigSignature"
 toOrigType :: PassBy -> C.Type Final
 toOrigType = \case
     PassByValue ty -> ty
     PassByAddress ty -> ty
+    PassByAddressArray ty -> C.TypePointers 1 ty
+
+-- | Check whether a type needs to be restored
+--
+-- If a type is passed by address through the Haskell FFI when the C function
+-- takes it by value, then we restore the original type in the Haskell binding
+-- by peeking/poking the value from/to the address. This requires performing
+-- 'IO'.
+--
+-- Arrays are an exception: they are passed by address but we do not restore the
+-- original type of the C function argument\/result because these arrays might
+-- be mutated by the function.
+requiresRestore :: PassBy -> Bool
+requiresRestore = \case
+    PassByValue{} -> False
+    PassByAddress{} -> True
+    PassByAddressArray{} -> False
 
 {-------------------------------------------------------------------------------
   Userland-API C wrapper
@@ -428,26 +437,26 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
         -- said to include it.
       , result     = hsResult
       , body       =
-          if all isPassByValue (primResult : primParams)
-          then byValueBodyExpr
-          else bodyExpr
+          if any requiresRestore (primResult : primParams)
+          then bodyExpr
+          else noRecoveryBodyExpr
       , origin     = Origin.Function cFunc
       , pragmas    = []
       , comment    = mbComment
       }
   where
-    -- | The body of the function if no function arguments or results have to be
-    -- passed by address.
+    -- | The body of the function if no function arguments or results require
+    -- restoration (see 'requiresRestore').
     --
     -- For example, simply:
     --
     -- > foo
     --
-    byValueBodyExpr :: SHs.ClosedExpr
-    byValueBodyExpr = SHs.EFree loName
+    noRecoveryBodyExpr :: SHs.ClosedExpr
+    noRecoveryBodyExpr = SHs.EFree loName
 
-    -- | The body of the function if some function arguments or results have to
-    -- be passed by address.
+    -- | The body of the function if one or more function arguments or results
+    -- require restoration (see 'requiresRestore').
     --
     -- For example:
     --
@@ -515,8 +524,8 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     --
     -- > ... with x0 $ \y4 -> with x2 $ \y5 -> ...
     --
-    -- We do this for all function arguments that are 'PassByAddress', not if they
-    -- are 'PassByValue'.
+    -- We do this only if the function argument requires restoration (see
+    -- 'requiresRestore')
     --
     -- If the function argument is @const@-qualified, then we also record this
     -- information for later in the 'Var' type.
@@ -550,6 +559,8 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
                   go xs (IS <$> ys) (Var IZ wrapPtrConst : fmap succVar zs)
               ]
 
+            PassByAddressArray{} -> go xs ys (Var y False : zs)
+
             PassByValue{} -> go xs ys (Var y False : zs)
 
     -- | Construct an expression to pass the function result by address, if
@@ -559,8 +570,8 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     --
     -- > ... allocaAndPeek $ \z6 -> ...
     --
-    -- We do this only if the function result is a 'PassByAddress', not if it is
-    -- 'PassByValue'.
+    -- We do this only if the function result requires restoration (see
+    -- 'requiresRestore')
     --
     passResultByAddressIfNecessary ::
          -- | Context of in-scope variables to be passed to the foreign import
@@ -569,7 +580,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
       -> (forall ctx'. [Var ctx'] -> SHs.SExpr ctx')
       -> SHs.SExpr ctx
     passResultByAddressIfNecessary zs kont
-      | isPassByAddress primResult
+      | requiresRestore primResult
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
           (SHs.EGlobal SHs.Capi_allocaAndPeek)
@@ -603,7 +614,7 @@ data FunArg = FunArg {
 funArgToVarInfo :: FunArg -> VarInfo
 funArgToVarInfo arg = VarInfo {
       typ = arg.typ
-    , optNameHint = fmap (NameHint . T.unpack) arg.cParamName
+    , optNameHint = fmap (fromString . T.unpack) arg.cParamName
     }
 
 {-------------------------------------------------------------------------------
