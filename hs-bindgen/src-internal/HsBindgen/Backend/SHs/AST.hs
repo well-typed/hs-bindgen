@@ -283,10 +283,12 @@ data Global =
   | Block_type
   | ComplexType
 
-  | Void_type
-  | Unit_type
   | CStringLen_type
   | CPtrdiff_type
+
+  | Void_type
+  | Unit_type
+
   | Char_type
   | Int_type
   | Double_type

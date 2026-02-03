@@ -425,8 +425,6 @@ translatePrimType :: Hs.HsPrimType -> Global
 translatePrimType = \case
     HsPrimVoid -> Void_type
     HsPrimUnit -> Unit_type
-    HsPrimCStringLen -> CStringLen_type
-    HsPrimCPtrdiff -> CPtrdiff_type
     HsPrimChar -> Char_type
     HsPrimInt -> Int_type
     HsPrimDouble -> Double_type
