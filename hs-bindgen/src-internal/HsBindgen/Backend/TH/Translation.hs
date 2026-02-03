@@ -63,7 +63,6 @@ import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -314,8 +313,40 @@ mkGlobal = \case
       ByteArray_getUnionPayload -> 'HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
       ByteArray_setUnionPayload -> 'HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
-      PrimType t  -> mkGlobalP t
       ComplexType -> ''Data.Complex.Complex
+
+      Void_type       -> ''Data.Void.Void
+      Unit_type       -> ''()
+      CStringLen_type -> ''Foreign.C.String.CStringLen
+      CPtrdiff_type   -> ''Foreign.C.Types.CPtrdiff
+      Char_type       -> ''Char
+      Int_type        -> ''Int
+      Double_type     -> ''Double
+      Float_type      -> ''Float
+      Bool_type       -> ''Bool
+      Int8_type       -> ''Data.Int.Int8
+      Int16_type      -> ''Data.Int.Int16
+      Int32_type      -> ''Data.Int.Int32
+      Int64_type      -> ''Data.Int.Int64
+      Word_type       -> ''Word
+      Word8_type      -> ''Data.Word.Word8
+      Word16_type     -> ''Data.Word.Word16
+      Word32_type     -> ''Data.Word.Word32
+      Word64_type     -> ''Data.Word.Word64
+      CChar_type      -> ''Foreign.C.Types.CChar
+      CSChar_type     -> ''Foreign.C.Types.CSChar
+      CUChar_type     -> ''Foreign.C.Types.CUChar
+      CShort_type     -> ''Foreign.C.Types.CShort
+      CUShort_type    -> ''Foreign.C.Types.CUShort
+      CInt_type       -> ''Foreign.C.Types.CInt
+      CUInt_type      -> ''Foreign.C.Types.CUInt
+      CLong_type      -> ''Foreign.C.Types.CLong
+      CULong_type     -> ''Foreign.C.Types.CULong
+      CLLong_type     -> ''Foreign.C.Types.CLLong
+      CULLong_type    -> ''Foreign.C.Types.CULLong
+      CBool_type      -> ''Foreign.C.Types.CBool
+      CFloat_type     -> ''Foreign.C.Types.CFloat
+      CDouble_type    -> ''Foreign.C.Types.CDouble
 
 -- | A version of 'TH.tupleTypeName' that always uses the @(,,)@ syntax rather
 -- than @Tuple3@. This ensures consistency in TH tests across GHC versions.
@@ -331,41 +362,6 @@ tupleTypeName n =
       | n == 0 = "Unit"
       | n == 1 = "Solo"
       | otherwise = "(" ++ replicate (n - 1) ',' ++ ")"
-
-mkGlobalP :: HsPrimType -> TH.Name
-mkGlobalP = \case
-    HsPrimVoid       -> ''Data.Void.Void
-    HsPrimUnit       -> ''()
-    HsPrimCStringLen -> ''Foreign.C.String.CStringLen
-    HsPrimCPtrdiff   -> ''Foreign.C.Types.CPtrdiff
-    HsPrimChar       -> ''Char
-    HsPrimInt        -> ''Int
-    HsPrimDouble     -> ''Double
-    HsPrimFloat      -> ''Float
-    HsPrimBool       -> ''Bool
-    HsPrimInt8       -> ''Data.Int.Int8
-    HsPrimInt16      -> ''Data.Int.Int16
-    HsPrimInt32      -> ''Data.Int.Int32
-    HsPrimInt64      -> ''Data.Int.Int64
-    HsPrimWord       -> ''Word
-    HsPrimWord8      -> ''Data.Word.Word8
-    HsPrimWord16     -> ''Data.Word.Word16
-    HsPrimWord32     -> ''Data.Word.Word32
-    HsPrimWord64     -> ''Data.Word.Word64
-    HsPrimCChar      -> ''Foreign.C.Types.CChar
-    HsPrimCSChar     -> ''Foreign.C.Types.CSChar
-    HsPrimCUChar     -> ''Foreign.C.Types.CUChar
-    HsPrimCShort     -> ''Foreign.C.Types.CShort
-    HsPrimCUShort    -> ''Foreign.C.Types.CUShort
-    HsPrimCInt       -> ''Foreign.C.Types.CInt
-    HsPrimCUInt      -> ''Foreign.C.Types.CUInt
-    HsPrimCLong      -> ''Foreign.C.Types.CLong
-    HsPrimCULong     -> ''Foreign.C.Types.CULong
-    HsPrimCLLong     -> ''Foreign.C.Types.CLLong
-    HsPrimCULLong    -> ''Foreign.C.Types.CULLong
-    HsPrimCBool      -> ''Foreign.C.Types.CBool
-    HsPrimCFloat     -> ''Foreign.C.Types.CFloat
-    HsPrimCDouble    -> ''Foreign.C.Types.CDouble
 
 -- | Construct an 'TH.Exp' for a 'Global'
 mkGlobalExpr :: Quote q => Global -> q TH.Exp
@@ -599,8 +595,40 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ByteArray_type      -> panicPure "type in expression"
     SizedByteArray_type -> panicPure "type in expression"
     Block_type          -> panicPure "type in expression"
-    PrimType{}          -> panicPure "type in expression"
     ComplexType{}       -> panicPure "type in expression"
+
+    Void_type       -> panicPure "type in expression"
+    Unit_type       -> panicPure "type in expression"
+    CStringLen_type -> panicPure "type in expression"
+    CPtrdiff_type   -> panicPure "type in expression"
+    Char_type       -> panicPure "type in expression"
+    Int_type        -> panicPure "type in expression"
+    Double_type     -> panicPure "type in expression"
+    Float_type      -> panicPure "type in expression"
+    Bool_type       -> panicPure "type in expression"
+    Int8_type       -> panicPure "type in expression"
+    Int16_type      -> panicPure "type in expression"
+    Int32_type      -> panicPure "type in expression"
+    Int64_type      -> panicPure "type in expression"
+    Word_type       -> panicPure "type in expression"
+    Word8_type      -> panicPure "type in expression"
+    Word16_type     -> panicPure "type in expression"
+    Word32_type     -> panicPure "type in expression"
+    Word64_type     -> panicPure "type in expression"
+    CChar_type      -> panicPure "type in expression"
+    CSChar_type     -> panicPure "type in expression"
+    CUChar_type     -> panicPure "type in expression"
+    CShort_type     -> panicPure "type in expression"
+    CUShort_type    -> panicPure "type in expression"
+    CInt_type       -> panicPure "type in expression"
+    CUInt_type      -> panicPure "type in expression"
+    CLong_type      -> panicPure "type in expression"
+    CULong_type     -> panicPure "type in expression"
+    CLLong_type     -> panicPure "type in expression"
+    CULLong_type    -> panicPure "type in expression"
+    CBool_type      -> panicPure "type in expression"
+    CFloat_type     -> panicPure "type in expression"
+    CDouble_type    -> panicPure "type in expression"
   where
     name :: TH.Name
     name = mkGlobal n
@@ -613,7 +641,7 @@ mkExpr env = \case
       ECon n        -> hsConE n
       EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
       EIntegral i Nothing -> TH.litE (TH.IntegerL i)
-      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkPrimType t)
+      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (TH.conT $ mkGlobal t)
       -- TH doesn't have floating-point literals, because it represents them
       -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
       --
@@ -625,14 +653,14 @@ mkExpr env = \case
               then [| f |]
               else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
           )
-          (mkPrimType t)
+          (TH.conT $ mkGlobal t)
       EDouble d t ->
         TH.sigE
           ( if CExpr.DSL.canBeRepresentedAsRational d
               then [| d |]
               else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
           )
-          (mkPrimType t)
+          (TH.conT $ mkGlobal t)
       EChar c -> [| c |]
       EString s -> [| s |]
       ECString ba@(ByteArray ba#) ->
@@ -645,7 +673,7 @@ mkExpr env = \case
                       , TH.litE (TH.integerL len)
                       ]
             )
-          (mkPrimType HsPrimCStringLen)
+          (TH.conT $ mkGlobal CStringLen_type)
       EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
       EInfix op x y -> TH.infixE
                          (Just $ mkExpr env x)
@@ -717,9 +745,6 @@ mkType env = \case
             , "."
             , Text.unpack extRef.ident.text
             ]
-
-mkPrimType :: Quote q => HsPrimType -> q TH.Type
-mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
