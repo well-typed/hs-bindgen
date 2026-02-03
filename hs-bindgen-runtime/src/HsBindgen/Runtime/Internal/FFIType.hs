@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- NOTE: For now, this module is classified "Internal"; however, it may become
 -- public in the future. See also
 -- https://github.com/well-typed/hs-bindgen/issues/1565.

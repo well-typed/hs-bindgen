@@ -1,5 +1,3 @@
-{-# LANGUAGE ViewPatterns #-}
-
 module Test.HsBindgen.Runtime.Bitfield (tests) where
 
 import Data.Bits (Bits (..))

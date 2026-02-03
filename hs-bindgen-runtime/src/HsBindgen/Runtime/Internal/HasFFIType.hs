@@ -1,6 +1,6 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 -- NOTE: For now, this module is classified "Internal"; however, it may become
 -- public in the future. See also

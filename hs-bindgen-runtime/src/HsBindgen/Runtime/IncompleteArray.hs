@@ -1,5 +1,3 @@
-{-# LANGUAGE ViewPatterns #-}
-
 -- | C arrays of unknown size
 --
 -- This module is intended to be imported qualified.

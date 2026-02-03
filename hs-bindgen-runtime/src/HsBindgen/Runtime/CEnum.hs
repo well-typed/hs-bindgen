@@ -1,6 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE TypeFamilies #-}
-
 -- | C enumerations
 --
 -- This module is intended to be imported qualified.

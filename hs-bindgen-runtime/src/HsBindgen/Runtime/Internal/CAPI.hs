@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- We capitalize module names, but use camelCase/PascalCase in code:
 --
 -- - in types names:    CapiFoo, FooCapiBar

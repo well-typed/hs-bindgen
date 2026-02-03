@@ -1,9 +1,4 @@
-{-# LANGUAGE RoleAnnotations #-}
-{-# LANGUAGE StandaloneKindSignatures #-}
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE OverloadedRecordDot #-}
-{-# LANGUAGE PatternSynonyms #-}
-{-# LANGUAGE ViewPatterns #-}
 
 -- | Read-only pointers
 --
@@ -40,13 +35,13 @@ type PtrConst :: Type -> Type
 type PtrConst a = ConstPtr a
 #else
 type role PtrConst phantom
-newtype PtrConst a = PtrConst { un :: Ptr a }
+newtype PtrConst a = Wrap { unwrap :: Ptr a }
     deriving stock (Eq, Ord)
     deriving newtype Storable
 
 -- doesn't use record syntax
 instance Show (PtrConst a) where
-    showsPrec d (PtrConst p) = showParen (d > 10) $ showString "PtrConst " . showsPrec 11 p
+    showsPrec d (Wrap p) = showParen (d > 10) $ showString "PtrConst " . showsPrec 11 p
 #endif
 
 {-------------------------------------------------------------------------------
@@ -57,14 +52,14 @@ unPtrConst :: PtrConst a -> Ptr a
 #if MIN_VERSION_base(4,18,0)
 unPtrConst = unConstPtr
 #else
-unPtrConst = (.un)
+unPtrConst = unwrap
 #endif
 
 mkPtrConst :: Ptr a -> PtrConst a
 #if MIN_VERSION_base(4,18,0)
 mkPtrConst = ConstPtr
 #else
-mkPtrConst = PtrConst
+mkPtrConst = Wrap
 #endif
 
 {-------------------------------------------------------------------------------

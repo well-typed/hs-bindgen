@@ -1,6 +1,6 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE ExplicitNamespaces #-}
-{-# LANGUAGE TypeFamilies #-}
 
 module HsBindgen.Runtime.Internal.TypeEquality (
     -- $type-equality

@@ -1,5 +1,4 @@
 {-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeApplications #-}
 
 -- | This module provides TH splices that generate FFI wrappers and
 -- 'ToFunPtr' instances that are called in different modules to paralellize

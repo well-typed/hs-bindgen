@@ -1,5 +1,4 @@
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE TypeFamilies #-}
 
 -- | Declarations with C bitfields
 --

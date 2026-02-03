@@ -1,5 +1,4 @@
--- | User-facing convenience module, re-exporting definitions required to _use_
---   the generated bindings.
+-- | Common definitions for interfacing with @hs-bindgen@ generated code.
 module HsBindgen.Runtime.Prelude (
     -- * C enumerations
     CEnum(..)

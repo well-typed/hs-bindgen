@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeApplications #-}
+{-# OPTIONS_HADDOCK hide #-}
 
 -- | Function pointer utilities and type class for converting Haskell functions
 -- to C function pointers.

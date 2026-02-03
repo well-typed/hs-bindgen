@@ -1,5 +1,3 @@
-{-# LANGUAGE UndecidableInstances #-}
-
 -- | Bare-bones support for blocks
 --
 -- TODO: Ideally we would at least support @Block_copy@ and @Block_release@.

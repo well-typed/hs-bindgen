@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- | When @hs-bindgen@ generates code that uses @deriving via@, the constructors
 --   of the used type need to be in scope.
 --

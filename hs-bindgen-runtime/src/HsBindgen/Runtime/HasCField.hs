@@ -1,6 +1,4 @@
-{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 -- | Declarations with C fields
 --

@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- | Utilities for dealing with 'ByteArray' and 'Storable'
 --
 -- The additional copying we have to do here is a bit annoying, but in the end

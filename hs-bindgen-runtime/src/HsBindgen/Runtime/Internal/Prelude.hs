@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- | Prelude required by generated bindings.
 --
 -- This module ensures compatibility across GHC versions and @base@ library

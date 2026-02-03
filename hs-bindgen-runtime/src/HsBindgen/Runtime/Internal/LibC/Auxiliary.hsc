@@ -1,10 +1,12 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UnboxedTuples #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 -- | C standard library types that are not in @base@
-module HsBindgen.Runtime.LibC.Auxiliary (
+--
+-- These are re-exported in the public-facing module "HsBindgen.Runtime.LibC".
+module HsBindgen.Runtime.Internal.LibC.Auxiliary (
     -- * Floating Types
     CFenvT
   , CFexceptT

@@ -1,5 +1,3 @@
-{-# LANGUAGE TypeFamilies #-}
-
 module Test.HsBindgen.Runtime.ConstantArray (tests) where
 
 import Test.Tasty
