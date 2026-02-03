@@ -2,19 +2,50 @@
 
 -- | Declarations with C bitfields
 --
+-- Most users do not directly need to use @HasCField@, and can use record dot
+-- syntax instead. For example, given
+--
+-- Given
+--
+-- > struct DriverFlags {
+-- >   unsigned int safe      : 1;
+-- >   unsigned int allocates : 1;
+-- > };
+--
+-- @hs-bindgen@ will generate code such that if
+--
+-- > flagsPtr :: Ptr DriverFlags
+--
+-- then
+--
+-- > flagsPtr.driverFlags_allocates :: BitfieldPtr CUInt
+--
+-- Module "HsBindgen.Runtime.BitfieldPtr" can be used to interact with
+-- these 'BitfieldPtr's; for example:
+--
+-- > BitfieldPtr.peek flagsPtr.driverFlags_allocates
+--
+-- Bitfields can be chained with regular fields; for example, given
+--
+-- > struct Driver {
+-- >   struct DriverFlags flags;
+-- >   ..
+-- > };
+--
+-- then if
+--
+-- > driverPtr :: Ptr Driver
+--
+-- then
+--
+-- > driverPtr.driver_flags.driverFlags_allocates :: BitfieldPtr CUInt
+--
+-- See also "HsBindgen.Runtime.HasCField".
+--
 -- This module is intended to be imported qualified.
 --
 -- > import HsBindgen.Runtime.Prelude
 -- > import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
---
--- TODO #1633: Verify.
---
--- Most users do not directly need to use @HasCBitfield@. Instead, we provide
--- @HasField@ instances for pointers, and so we can use record dot syntax and
--- 'HsBindgen.Runtime.BitfieldPtr.peek' and
--- 'HsBindgen.Runtime.BitfieldPtr.poke'.
---
--- TODO #1633: Show example.
 module HsBindgen.Runtime.HasCBitfield (
     HasCBitfield(..)
   , offset

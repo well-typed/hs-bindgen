@@ -2,26 +2,51 @@
 
 -- | Declarations with C fields
 --
+-- Most users do not directly need to use @HasCField@, and can use record dot
+-- syntax instead. For example, given
+--
+-- > struct DriverInfo {
+-- >   char* name;
+-- >   int version;
+-- > };
+-- >
+-- > struct Driver {
+-- >   struct DriverInfo info;
+-- > };
+--
+-- @hs-bindgen@ will generate code such that if
+--
+-- > driverPtr :: Ptr Driver
+--
+-- then
+--
+-- > driverPtr.driver_version                    :: Ptr DriverInfo
+-- > driverPtr.driver_version.driverInfo_version :: Ptr CInt
+--
+-- Note that chaining like this can only be done for nested structs; no actual
+-- dereferencing takes place! For example, if we additionally had
+--
+-- > struct DriverCode {
+-- >   ..
+-- > };
+-- >
+-- > struct Driver {
+-- >   ..
+-- >   struct DriverCode* code;
+-- > };
+-- >
+--
+-- then
+--
+-- > driverPtr.driver_code :: Ptr (Ptr DriverCode)
+--
+-- (note the double 'Ptr'), which must be dereferenced before any fields of
+-- @DriverCode@ can be accessed.
+--
 -- This module is intended to be imported qualified.
 --
 -- > import HsBindgen.Runtime.Prelude
 -- > import HsBindgen.Runtime.HasCField qualified as HasCField
---
--- Most users do not directly need to use @HasCField@. Instead, we provide
--- @HasField@ instances for pointers, and so we can use record dot syntax and
--- _normal_ 'Foreign.Storable.peek' and 'Foreign.Storable.poke'.
---
--- For example,
---
--- @
--- f = do
---   ...
---   (backend :: Ptr Wl_backend) <- wlr_backend_autocreate eventLoop Foreign.nullPtr
---   let newOutputSignal :: Ptr Wl_signal
---       newOutputSignal = backend.wlr_backend_events.wlr_backend_events_new_output
---   outputSignal <- Foreign.Storable.peek newOutputSignal
---   ...
--- @
 module HsBindgen.Runtime.HasCField (
     -- * Fields
     HasCField(..)
