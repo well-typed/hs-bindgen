@@ -6,7 +6,7 @@
 -- This module provides the list of fixtures to compile by importing from
 -- the shared test case specifications in test-common.
 --
-module Test.THFixtures.TestCases (
+module Test.HsBindgen.THFixtures.TestCases (
     TestCaseInfo(..)
   , TestCaseSpec(..)
   , THStatus(..)

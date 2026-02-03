@@ -3,7 +3,7 @@
 -- This module provides functionality to compile generated TH modules
 -- with GHC to verify they produce valid Haskell code.
 --
-module Test.THFixtures.Compile (
+module Test.HsBindgen.THFixtures.Compile (
     compileThModule
   ) where
 
@@ -41,7 +41,7 @@ sanitizeName = map sanitizeChar
 
 -- | Compile a single Haskell file with GHC
 compileFile
-  :: FilePath -- ^ Package root
+  :: FilePath -- ^ Package root (hs-bindgen directory)
   -> FilePath -- ^ Output directory for build artifacts
   -> FilePath -- ^ Path to the Haskell file to compile
   -> IO (Either String ())
@@ -49,40 +49,39 @@ compileFile pkgRoot outputDir modulePath = do
   let examplesDir = pkgRoot </> "examples"
       goldenDir   = pkgRoot </> "examples" </> "golden"
 
-  -- Use cabal exec to get the correct GHC environment with packages
+  -- Run cabal exec from hs-bindgen directory (like compile-fixtures.sh does)
+  -- This ensures cabal uses the hs-bindgen package environment
+  let shellCmd = unwords
+        [ "cd", pkgRoot, "&&"
+        , "cabal", "exec", "--", "ghc"
+        , "-c"
+        , "-fforce-recomp"
+        , "-Wall"
+        , "-Wincomplete-uni-patterns"
+        , "-Wincomplete-record-updates"
+        , "-Wmissing-exported-signatures"
+        , "-Widentities"
+        , "-Wredundant-constraints"
+        , "-Wpartial-fields"
+        , "-Wcpp-undef"
+        , "-Wno-unused-matches"
+        , "-outputdir", outputDir
+        -- Use -package-id to expose the in-place hs-bindgen package
+        -- (it's marked as hidden by default in cabal exec environment)
+        , "-package-id", "hs-bindgen-0.1.0-inplace"
+        , "-package", "hs-bindgen-runtime"
+        , "-package", "c-expr-runtime"
+        , "-package", "optics"
+        , "-optc", "-I" ++ examplesDir
+        , "-optc", "-I" ++ goldenDir
+        , "-optc", "-std=gnu2x"
+        , "-optc", "-Wno-deprecated-declarations"
+        , "-optc", "-Wno-attributes"
+        , modulePath
+        ]
+
   (exitCode, _stdout, stderr) <-
-    readProcessWithExitCode "cabal"
-      [ "exec", "--", "ghc"
-      -- Compile only, no linking
-      , "-c"
-      -- Always recompile
-      , "-fforce-recomp"
-      -- Warnings (match compile-fixtures.sh)
-      , "-Wall"
-      , "-Wincomplete-uni-patterns"
-      , "-Wincomplete-record-updates"
-      , "-Wmissing-exported-signatures"
-      , "-Widentities"
-      , "-Wredundant-constraints"
-      , "-Wpartial-fields"
-      , "-Wcpp-undef"
-      , "-Wno-unused-matches"
-      -- Output directory for build artifacts
-      , "-outputdir", outputDir
-      -- Required packages
-      , "-package", "hs-bindgen"
-      , "-package", "hs-bindgen-runtime"
-      , "-package", "c-expr-runtime"
-      , "-package", "optics"
-      -- C compiler flags
-      , "-optc", "-I" ++ examplesDir
-      , "-optc", "-I" ++ goldenDir
-      , "-optc", "-std=gnu2x"
-      , "-optc", "-Wno-deprecated-declarations"
-      , "-optc", "-Wno-attributes"
-      -- The file to compile
-      , modulePath
-      ] ""
+    readProcessWithExitCode "sh" ["-c", shellCmd] ""
 
   return $ case exitCode of
       ExitSuccess   -> Right ()

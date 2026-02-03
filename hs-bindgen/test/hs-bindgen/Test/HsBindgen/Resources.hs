@@ -8,6 +8,8 @@ module Test.HsBindgen.Resources (
   , getTestPackageRoot
   , getTestDefaultClangArgsConfig
   , getTestDefaultBackendConfig
+  , getTestThBackendConfig
+  , testThCategoryChoice
   ) where
 
 import System.FilePath ((</>))
@@ -117,9 +119,24 @@ getTestDefaultBackendConfig testName pathStyle = def{
       -- See https://github.com/well-typed/hs-bindgen/issues/1587
     , categoryChoice = ByCategory {
           cType   = IncludeTypeCategory
-        , cSafe   = IncludeTermCategory $ RenameTerm (<> "_safe")
-        , cUnsafe = IncludeTermCategory $ RenameTerm (<> "_unsafe")
-        , cFunPtr = IncludeTermCategory $ RenameTerm (<> "_funptr")
+        , cSafe   = IncludeTermCategory def
+        , cUnsafe = IncludeTermCategory def
+        , cFunPtr = IncludeTermCategory def
         , cGlobal = IncludeTermCategory def
         }
+    }
+
+getTestThBackendConfig :: TestName -> PathStyle -> BackendConfig
+getTestThBackendConfig testName pathStyle =
+    (getTestDefaultBackendConfig testName pathStyle) {
+        categoryChoice = testThCategoryChoice
+      }
+
+testThCategoryChoice :: ByCategory Choice
+testThCategoryChoice = ByCategory {
+      cType   = IncludeTypeCategory
+    , cSafe   = IncludeTermCategory $ RenameTerm (<> "_safe")
+    , cUnsafe = IncludeTermCategory $ RenameTerm (<> "_unsafe")
+    , cFunPtr = IncludeTermCategory $ RenameTerm (<> "_funptr")
+    , cGlobal = IncludeTermCategory def
     }
