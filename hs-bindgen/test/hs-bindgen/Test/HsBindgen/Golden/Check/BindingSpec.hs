@@ -7,7 +7,6 @@ import Test.Tasty (TestTree)
 
 import HsBindgen
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
@@ -21,30 +20,9 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
-      let artefacts =
-            (,,,,,)
-              <$> IncludeGraph
-              <*> DeclIndex
-              <*> GetMainHeaders
-              <*> OmitTypes
-              <*> SquashedTypes
-              <*> HsDecls
-      ((_, includeGraph), declIndex, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
-        runTestHsBindgenSuccess report testResources test artefacts
-
-      let output :: String
-          output = UTF8.toString $
-              BindingSpec.genBindingSpec
-                BindingSpec.FormatYAML
-                "Example"
-                includeGraph
-                declIndex
-                getMainHeaders
-                omitTypes
-                squashedTypes
-                (concat hsDecls)
-
-      return $ ActualValue output
+      let artefacts = getBindingSpec BindingSpec.FormatYAML
+      output <- runTestHsBindgenSuccess report testResources test artefacts
+      pure $ ActualValue $ UTF8.toString output
   where
     fixture :: FilePath
     fixture = test.outputDir </> "bindingspec" <.> "yaml"
