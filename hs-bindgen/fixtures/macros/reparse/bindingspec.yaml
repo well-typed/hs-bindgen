@@ -736,7 +736,6 @@ hstypes:
       fields:
       - unwrapSome_union
   instances:
-  - Prim
   - ReadRaw
   - StaticSize
   - Storable

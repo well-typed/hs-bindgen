@@ -40,7 +40,6 @@ deriving via (SizedByteArray 4 4) instance StaticSize T
 deriving via (SizedByteArray 4 4) instance ReadRaw T
 deriving via (SizedByteArray 4 4) instance WriteRaw T
 deriving via (EquivStorable T) instance Storable T
-deriving via (SizedByteArray 4 4) instance Prim T
 {-|
 
   __See:__ 'set_t_x'

@@ -9,13 +9,11 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
-import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -98,8 +96,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 inst
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Y
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Y instance F.Storable Y
-
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Y
 
 {-|
 

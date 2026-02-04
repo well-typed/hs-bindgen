@@ -9,13 +9,11 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
-import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -215,8 +213,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 inst
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayload instance F.Storable DimPayload
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayload
-
 {-|
 
   __See:__ 'set_dimPayload_dim2'
@@ -385,8 +381,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 inst
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayloadB
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayloadB instance F.Storable DimPayloadB
-
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayloadB
 
 {-|
 
@@ -706,8 +700,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 ins
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.WriteRaw AnonA
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonA instance F.Storable AnonA
-
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance Data.Primitive.Types.Prim AnonA
 
 {-|
 

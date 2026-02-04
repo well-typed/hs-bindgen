@@ -133,8 +133,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 inst
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_union instance F.Storable Some_union
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
-
 {-| __C declaration:__ @enum some_enum@
 
     __defined at:__ @macros\/reparse.h 9:6@

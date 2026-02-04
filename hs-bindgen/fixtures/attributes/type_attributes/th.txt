@@ -252,7 +252,6 @@ deriving via (SizedByteArray 8
 deriving via (SizedByteArray 8
                              8) instance WriteRaw Wait_status_ptr_t
 deriving via (EquivStorable Wait_status_ptr_t) instance Storable Wait_status_ptr_t
-deriving via (SizedByteArray 8 8) instance Prim Wait_status_ptr_t
 {-|
 
   __See:__ 'set_wait_status_ptr_t___ip'

@@ -17,7 +17,6 @@ deriving via (SizedByteArray 4 4) instance StaticSize UnionA
 deriving via (SizedByteArray 4 4) instance ReadRaw UnionA
 deriving via (SizedByteArray 4 4) instance WriteRaw UnionA
 deriving via (EquivStorable UnionA) instance Storable UnionA
-deriving via (SizedByteArray 4 4) instance Prim UnionA
 {-|
 
   __See:__ 'set_unionA_a'
@@ -151,7 +150,6 @@ deriving via (SizedByteArray 4 4) instance StaticSize ExB_fieldB1
 deriving via (SizedByteArray 4 4) instance ReadRaw ExB_fieldB1
 deriving via (SizedByteArray 4 4) instance WriteRaw ExB_fieldB1
 deriving via (EquivStorable ExB_fieldB1) instance Storable ExB_fieldB1
-deriving via (SizedByteArray 4 4) instance Prim ExB_fieldB1
 {-|
 
   __See:__ 'set_exB_fieldB1_a'

@@ -183,7 +183,6 @@ instance Default SupportedInstances where
             mkDef HasCBitField Independent HsBindgen []
           , mkDef HasCField    Independent HsBindgen []
           , mkDef HasField     Independent HsBindgen []
-          , mkDef Prim         Independent HsBindgen []
           , mkDef ReadRaw      Independent HsBindgen []
           , mkDef StaticSize   Independent HsBindgen []
           , mkDef Storable     Independent HsBindgen []

@@ -810,8 +810,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 inst
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Data_union_t instance F.Storable Data_union_t
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Data_union_t
-
 {-|
 
   Integer representation

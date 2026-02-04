@@ -284,7 +284,6 @@ unionDecs haddockConfig info union spec = do
           -- when bit-fields in unions are supported.
             if null union.fields then Nothing else Just Inst.HasCField
           , if null union.fields then Nothing else Just Inst.HasField
-          , Just Inst.Prim
           , Just Inst.ReadRaw
           , Just Inst.StaticSize
           , Just Inst.Storable
@@ -294,7 +293,7 @@ unionDecs haddockConfig info union spec = do
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
     aux transState nt =
-        Hs.DeclNewtype nt : marshalDecls ++ primDecl : accessorDecls ++
+        Hs.DeclNewtype nt : marshalDecls ++ accessorDecls ++
         concatMap (unionFieldDecls nt.name) union.fields
       where
         marshalDecls :: [Hs.Decl]
@@ -324,14 +323,6 @@ unionDecs haddockConfig info union spec = do
               , comment  = Nothing
               }
           ]
-
-        primDecl :: Hs.Decl
-        primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
-              strategy = Hs.DeriveVia sba
-            , clss     = Inst.Prim
-            , name     = nt.name
-            , comment  = Nothing
-            }
 
         sba :: Hs.HsType
         sba =

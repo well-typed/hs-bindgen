@@ -377,8 +377,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 inst
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Wait_status_ptr_t instance F.Storable Wait_status_ptr_t
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Wait_status_ptr_t
-
 {-|
 
   __See:__ 'set_wait_status_ptr_t___ip'

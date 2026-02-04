@@ -65,7 +65,6 @@ hstypes:
   instances:
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - StaticSize
   - Storable

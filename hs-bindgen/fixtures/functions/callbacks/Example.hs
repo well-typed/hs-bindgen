@@ -808,8 +808,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 inst
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable ProcessorCallback instance F.Storable ProcessorCallback
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim ProcessorCallback
-
 {-|
 
   __See:__ 'set_processorCallback_simple'

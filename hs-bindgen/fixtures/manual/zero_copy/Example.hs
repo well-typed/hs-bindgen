@@ -279,8 +279,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 ins
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Shape instance F.Storable Shape
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance Data.Primitive.Types.Prim Shape
-
 {-|
 
   __See:__ 'set_shape_rectangle'

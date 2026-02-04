@@ -125,8 +125,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 inst
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable U instance F.Storable U
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim U
-
 {-| __C declaration:__ @enum E@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 13:6@
@@ -309,7 +307,6 @@ newtype TU = TU
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TU) "unwrapTU")
@@ -438,7 +435,6 @@ newtype TTU = TTU
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTU) "unwrapTTU")
