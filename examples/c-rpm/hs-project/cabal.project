@@ -1,5 +1,4 @@
 packages: .
-          ../../../ansi-diff
           ../../../hs-bindgen-runtime
           ../../../c-expr-runtime
           ../../../c-expr-dsl

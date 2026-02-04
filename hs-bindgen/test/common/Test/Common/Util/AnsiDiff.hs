@@ -1,4 +1,5 @@
-module AnsiDiff (
+-- | Pretty ANSI-colourful diffs
+module Test.Common.Util.AnsiDiff (
     ansidiff,
 ) where
 

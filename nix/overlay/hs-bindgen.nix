@@ -8,7 +8,6 @@ let
   llvmPackages = if maybeLlvmPackages == null then final.llvmPackages else maybeLlvmPackages;
   hlib = final.haskell.lib.compose;
   hsBindgenPkgNames = [
-    "ansi-diff"
     "c-expr-dsl"
     "c-expr-runtime"
     "hs-bindgen"
@@ -27,7 +26,7 @@ in
       in
       prev.haskell.packageOverrides hfinal hprev
       // {
-        inherit (hsBindgenPkgs) ansi-diff hs-bindgen-runtime hs-bindgen-test-runtime;
+        inherit (hsBindgenPkgs) hs-bindgen-runtime hs-bindgen-test-runtime;
         # TODO: The documentation fails to build.
         c-expr-dsl = hlib.dontHaddock hsBindgenPkgs.c-expr-dsl;
         # TODO: The test of `c-expr-runtime` requires `musl` headers, but

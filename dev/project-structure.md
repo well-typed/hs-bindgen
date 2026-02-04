@@ -8,7 +8,6 @@ help new developers understand how the codebase is organized.
 ```text
 hs-bindgen/
 ├── alternatives/
-├── ansi-diff/
 ├── c-expr/
 ├── clang/
 ├── dev/
