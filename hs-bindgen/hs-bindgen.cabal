@@ -348,31 +348,36 @@ library test-common
     Test.Common.HsBindgen.Trace
     Test.Common.HsBindgen.Trace.Patterns
     Test.Common.HsBindgen.Trace.Predicate
+    Test.Common.Util.AnsiDiff
     Test.Common.Util.Cabal
     Test.Common.Util.Tasty
     Test.Common.Util.Tasty.Golden
 
   -- Internal dependencies
   build-depends:
-    , ansi-diff
     , hs-bindgen:internal
     , libclang-bindings
 
   -- Inherited dependencies
   build-depends:
+    , ansi-terminal
     , bytestring
     , containers
     , directory
     , filepath
     , mtl
+    , primitive
     , text
+    , transformers
 
   -- External dependencies
   build-depends:
-    , deepseq      >=1.4    && <1.6
-    , tasty        >=1.5    && <1.6
-    , tasty-hunit  >=0.10.2 && <0.11
-    , utf8-string  >=1.0.2  && <1.1
+    , deepseq        >=1.4     && <1.6
+    , Diff           >=0.5     && <2.0
+    , edit-distance  >=0.2.2.1 && <0.3
+    , tasty          >=1.5     && <1.6
+    , tasty-hunit    >=0.10.2  && <0.11
+    , utf8-string    >=1.0.2   && <1.1
 
 test-suite test-hs-bindgen
   import:             lang

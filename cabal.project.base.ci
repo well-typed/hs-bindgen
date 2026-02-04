@@ -1,9 +1,6 @@
 import: ./cabal.project.base
 import: ./cabal.project.base.dev
 
-package ansi-diff
-  ghc-options: -Werror
-
 package c-expr-dsl
   ghc-options: -Werror
 

@@ -18,7 +18,7 @@ import System.Directory (removeFile)
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import AnsiDiff (ansidiff)
+import Test.Common.Util.AnsiDiff (ansidiff)
 import Test.Common.Util.Tasty.Golden
 
 {-------------------------------------------------------------------------------
