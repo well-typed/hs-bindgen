@@ -1,5 +1,6 @@
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 -- | C standard library types that are not in @base@
