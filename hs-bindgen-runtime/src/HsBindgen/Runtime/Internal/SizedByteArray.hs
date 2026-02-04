@@ -72,6 +72,7 @@ import HsBindgen.Runtime.Marshal
 -- <https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Type-Alignment.html>
 newtype SizedByteArray (size :: GHC.Nat) (alignment :: GHC.Nat) =
     SizedByteArray ByteArray
+  deriving Storable via EquivStorable (SizedByteArray size alignment)
 
 {-------------------------------------------------------------------------------
   StaticSize, ReadRaw, WriteRaw
@@ -86,17 +87,6 @@ instance GHC.KnownNat n => ReadRaw (SizedByteArray n m) where
 
 instance WriteRaw (SizedByteArray n m) where
   writeRaw = coerce $ pokeByteArray
-
-{-------------------------------------------------------------------------------
-  Storable
--------------------------------------------------------------------------------}
-
-instance (GHC.KnownNat n, GHC.KnownNat m) => Storable (SizedByteArray n m) where
-  sizeOf    _ = fromIntegral (GHC.natVal (Proxy @n))
-  alignment _ = fromIntegral (GHC.natVal (Proxy @m))
-
-  peek = coerce $ peekByteArray (fromIntegral (GHC.natVal (Proxy @n)))
-  poke = coerce $ pokeByteArray
 
 {-------------------------------------------------------------------------------
   Prim
