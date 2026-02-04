@@ -7,13 +7,13 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/array.h>"
   , "/* test_bindingspecsfun_argmacroar_Example_get_foo */"
   , "__attribute__ ((const))"
@@ -48,7 +48,7 @@ foreign import ccall unsafe "hs_bindgen_fc9d87cbca4127e4" hs_bindgen_fc9d87cbca4
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_foo@
 hs_bindgen_fc9d87cbca4127e4 :: IO (Ptr.FunPtr (MyArray -> IO ()))
 hs_bindgen_fc9d87cbca4127e4 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fc9d87cbca4127e4_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fc9d87cbca4127e4_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -68,7 +68,7 @@ foreign import ccall unsafe "hs_bindgen_0dbc306c53c94679" hs_bindgen_0dbc306c53c
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
 hs_bindgen_0dbc306c53c94679 :: IO (Ptr.FunPtr (A -> IO ()))
 hs_bindgen_0dbc306c53c94679 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0dbc306c53c94679_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0dbc306c53c94679_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -88,7 +88,7 @@ foreign import ccall unsafe "hs_bindgen_db0d885ae35d447f" hs_bindgen_db0d885ae35
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooB@
 hs_bindgen_db0d885ae35d447f :: IO (Ptr.FunPtr (B -> IO ()))
 hs_bindgen_db0d885ae35d447f =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_db0d885ae35d447f_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_db0d885ae35d447f_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@

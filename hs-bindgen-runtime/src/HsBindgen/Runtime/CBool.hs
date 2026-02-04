@@ -53,8 +53,8 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Runtime.CBoolSem qualified as CBoolSem
-module HsBindgen.Runtime.CBoolSem (
+-- > import HsBindgen.Runtime.CBool qualified as CBool
+module HsBindgen.Runtime.CBool (
     -- * Values
     true
   , false

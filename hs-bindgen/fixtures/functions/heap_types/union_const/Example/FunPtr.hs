@@ -7,13 +7,13 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/heap_types/union_const.h>"
   , "/* test_functionsheap_typesunion_con_Example_get_fun */"
   , "__attribute__ ((const))"
@@ -32,7 +32,7 @@ foreign import ccall unsafe "hs_bindgen_7e6af500caa71b85" hs_bindgen_7e6af500caa
 -- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
 hs_bindgen_7e6af500caa71b85 :: IO (Ptr.FunPtr (T -> IO T))
 hs_bindgen_7e6af500caa71b85 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7e6af500caa71b85_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7e6af500caa71b85_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@

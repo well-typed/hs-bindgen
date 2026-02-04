@@ -8,14 +8,14 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/zero_copy.h>"
   , "/* test_manualzero_copy_Example_get_reverse */"
   , "__attribute__ ((const))"
@@ -44,7 +44,7 @@ foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
 hs_bindgen_44cb8687c63f0086 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
 hs_bindgen_44cb8687c63f0086 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_44cb8687c63f0086_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_44cb8687c63f0086_base
 
 {-# NOINLINE reverse #-}
 {-| __C declaration:__ @reverse@
@@ -64,7 +64,7 @@ foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aef
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
 hs_bindgen_1bf30b28aefee5bf :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 hs_bindgen_1bf30b28aefee5bf =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1bf30b28aefee5bf_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@

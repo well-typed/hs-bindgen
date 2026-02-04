@@ -7,11 +7,11 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/adios.h>"
   , "signed int hs_bindgen_2a3071850c230aa3 (void)"
   , "{"
@@ -38,7 +38,7 @@ foreign import ccall unsafe "hs_bindgen_2a3071850c230aa3" hs_bindgen_2a3071850c2
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_adiós_fun@
 hs_bindgen_2a3071850c230aa3 :: IO FC.CInt
 hs_bindgen_2a3071850c230aa3 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2a3071850c230aa3_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2a3071850c230aa3_base
 
 {-| __C declaration:__ @adiós_fun@
 
@@ -56,7 +56,7 @@ foreign import ccall unsafe "hs_bindgen_1814d14d59d9daf7" hs_bindgen_1814d14d59d
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_ϒ@
 hs_bindgen_1814d14d59d9daf7 :: IO ()
 hs_bindgen_1814d14d59d9daf7 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1814d14d59d9daf7_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1814d14d59d9daf7_base
 
 {-| __C declaration:__ @ϒ@
 
@@ -74,7 +74,7 @@ foreign import ccall unsafe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e53
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_拜拜@
 hs_bindgen_c1ab9527e537714b :: IO ()
 hs_bindgen_c1ab9527e537714b =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c1ab9527e537714b_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c1ab9527e537714b_base
 
 {-| __C declaration:__ @拜拜@
 
@@ -92,7 +92,7 @@ foreign import ccall unsafe "hs_bindgen_d532055af9051fad" hs_bindgen_d532055af90
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_Say拜拜@
 hs_bindgen_d532055af9051fad :: IO ()
 hs_bindgen_d532055af9051fad =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_d532055af9051fad_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d532055af9051fad_base
 
 {-| __C declaration:__ @Say拜拜@
 

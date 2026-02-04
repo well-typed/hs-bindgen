@@ -5,11 +5,11 @@
 
 module Example.Unsafe where
 
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/varargs.h>"
   , "void hs_bindgen_32ebae80cc3543e1 (void)"
   , "{"
@@ -24,7 +24,7 @@ foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 hs_bindgen_32ebae80cc3543e1 :: IO ()
 hs_bindgen_32ebae80cc3543e1 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_32ebae80cc3543e1_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_32ebae80cc3543e1_base
 
 {-| __C declaration:__ @h@
 

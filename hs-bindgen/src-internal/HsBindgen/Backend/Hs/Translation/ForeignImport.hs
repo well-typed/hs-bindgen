@@ -13,7 +13,7 @@ import DeBruijn (Idx (IZ))
 import Optics.Core
 import Text.Printf (printf)
 
-import HsBindgen.Runtime.FFIType qualified as FFI
+import HsBindgen.Runtime.Internal.FFIType qualified as FFI
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type

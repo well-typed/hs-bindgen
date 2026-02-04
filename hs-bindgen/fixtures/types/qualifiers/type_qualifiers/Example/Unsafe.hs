@@ -8,14 +8,14 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
   , "_Bool hs_bindgen_360934a08f19eaab ("
   , "  char const **arg1,"
@@ -38,7 +38,7 @@ hs_bindgen_360934a08f19eaab ::
   -> HsBindgen.Runtime.LibC.CSize
   -> IO FC.CBool
 hs_bindgen_360934a08f19eaab =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_360934a08f19eaab_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_360934a08f19eaab_base
 
 {-| __C declaration:__ @list_example@
 

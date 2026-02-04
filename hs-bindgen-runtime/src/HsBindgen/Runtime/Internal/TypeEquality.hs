@@ -1,8 +1,8 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE ExplicitNamespaces #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_HADDOCK hide #-}
 
-module HsBindgen.Runtime.TypeEquality (
+{-# LANGUAGE CPP #-}
+
+module HsBindgen.Runtime.Internal.TypeEquality (
     -- $type-equality
     TyEq
   ) where

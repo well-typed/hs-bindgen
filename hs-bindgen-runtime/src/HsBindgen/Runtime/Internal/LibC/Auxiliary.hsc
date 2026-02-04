@@ -1,10 +1,12 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UnboxedTuples #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 -- | C standard library types that are not in @base@
-module HsBindgen.Runtime.LibC.Auxiliary (
+--
+-- These are re-exported in the public-facing module "HsBindgen.Runtime.LibC".
+module HsBindgen.Runtime.Internal.LibC.Auxiliary (
     -- * Floating Types
     CFenvT
   , CFexceptT
@@ -37,12 +39,12 @@ import Foreign.Ptr (Ptr)
 import Foreign.Storable
 import GHC.Records (HasField (..))
 
-import HsBindgen.Runtime.Bitfield (Bitfield)
 import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
-import HsBindgen.Runtime.HasFFIType (HasFFIType)
+import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
+import HsBindgen.Runtime.Internal.HasFFIType (HasFFIType)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.TypeEquality (TyEq)
 
 #include <inttypes.h>
 #include <locale.h>

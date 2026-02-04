@@ -8,15 +8,15 @@ module Example.Safe where
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
   , "int32_t hs_bindgen_57cb99ed92c001ad ("
   , "  a_type_t *arg1,"
@@ -42,7 +42,7 @@ hs_bindgen_57cb99ed92c001ad ::
   -> Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.LibC.Word8)
   -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_57cb99ed92c001ad =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_57cb99ed92c001ad_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_57cb99ed92c001ad_base
 
 {-| __C declaration:__ @some_fun@
 

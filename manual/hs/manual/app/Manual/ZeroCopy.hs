@@ -8,7 +8,7 @@ import Foreign
 import Foreign.C.Types
 
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
-import HsBindgen.Runtime.ConstantArray as CA
+import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst

@@ -7,11 +7,11 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (Double, IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <declarations/definitions.h>"
   , "signed int hs_bindgen_07fd5b433f381094 ("
   , "  double arg1"
@@ -31,7 +31,7 @@ hs_bindgen_07fd5b433f381094 ::
      FC.CDouble
   -> IO FC.CInt
 hs_bindgen_07fd5b433f381094 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_07fd5b433f381094_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_07fd5b433f381094_base
 
 {-| __C declaration:__ @foo@
 

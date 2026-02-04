@@ -8,14 +8,14 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/zero_copy.h>"
   , "signed int hs_bindgen_f9655173d51bbaac ("
   , "  struct vector const *arg1,"
@@ -45,7 +45,7 @@ hs_bindgen_f9655173d51bbaac ::
   -> Ptr.Ptr Vector
   -> IO FC.CInt
 hs_bindgen_f9655173d51bbaac =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f9655173d51bbaac_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f9655173d51bbaac_base
 
 {-| __C declaration:__ @reverse@
 
@@ -73,7 +73,7 @@ hs_bindgen_ea25667627dd5ed2 ::
   -> Ptr.Ptr Matrix
   -> IO ()
 hs_bindgen_ea25667627dd5ed2 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ea25667627dd5ed2_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ea25667627dd5ed2_base
 
 {-| __C declaration:__ @transpose@
 

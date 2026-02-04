@@ -8,12 +8,12 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/fun_attributes_conflict.h>"
   , "/* test_functionsfun_attributes_confl_Example_get_square_cp */"
   , "__attribute__ ((const))"
@@ -56,7 +56,7 @@ foreign import ccall unsafe "hs_bindgen_9445b7269de35e9e" hs_bindgen_9445b7269de
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp@
 hs_bindgen_9445b7269de35e9e :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_9445b7269de35e9e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9445b7269de35e9e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9445b7269de35e9e_base
 
 {-# NOINLINE square_cp #-}
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
@@ -80,7 +80,7 @@ foreign import ccall unsafe "hs_bindgen_b0c647124e93645d" hs_bindgen_b0c647124e9
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc@
 hs_bindgen_b0c647124e93645d :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_b0c647124e93645d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_b0c647124e93645d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b0c647124e93645d_base
 
 {-# NOINLINE square_pc #-}
 {-| __C declaration:__ @square_pc@
@@ -100,7 +100,7 @@ foreign import ccall unsafe "hs_bindgen_87ee2f018e6d262a" hs_bindgen_87ee2f018e6
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc@
 hs_bindgen_87ee2f018e6d262a :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_87ee2f018e6d262a =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_87ee2f018e6d262a_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_87ee2f018e6d262a_base
 
 {-# NOINLINE square_cc #-}
 {-| __C declaration:__ @square_cc@
@@ -120,7 +120,7 @@ foreign import ccall unsafe "hs_bindgen_0f31a17bf5ee4e4f" hs_bindgen_0f31a17bf5e
 -- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp@
 hs_bindgen_0f31a17bf5ee4e4f :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 hs_bindgen_0f31a17bf5ee4e4f =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0f31a17bf5ee4e4f_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0f31a17bf5ee4e4f_base
 
 {-# NOINLINE square_pp #-}
 {-| __C declaration:__ @square_pp@

@@ -7,13 +7,13 @@ module Example.Unsafe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/struct.h>"
   , "void hs_bindgen_9dbeca9fa307eee9 ("
   , "  struct MyStruct *arg1"
@@ -45,7 +45,7 @@ hs_bindgen_9dbeca9fa307eee9 ::
      Ptr.Ptr MyStruct
   -> IO ()
 hs_bindgen_9dbeca9fa307eee9 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9dbeca9fa307eee9_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9dbeca9fa307eee9_base
 
 {-| __C declaration:__ @foo@
 
@@ -71,7 +71,7 @@ hs_bindgen_fb94ee6f22de1d89 ::
      Ptr.Ptr A
   -> IO ()
 hs_bindgen_fb94ee6f22de1d89 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_fb94ee6f22de1d89_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fb94ee6f22de1d89_base
 
 {-| __C declaration:__ @fooA@
 
@@ -97,7 +97,7 @@ hs_bindgen_f8f83a7090687b7e ::
      Ptr.Ptr B
   -> IO ()
 hs_bindgen_f8f83a7090687b7e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f8f83a7090687b7e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f8f83a7090687b7e_base
 
 {-| __C declaration:__ @fooB@
 

@@ -7,11 +7,11 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <attributes/asm.h>"
   , "signed int hs_bindgen_3ad6c287a2386382 ("
   , "  signed int arg1,"
@@ -34,7 +34,7 @@ hs_bindgen_3ad6c287a2386382 ::
   -> FC.CInt
   -> IO FC.CInt
 hs_bindgen_3ad6c287a2386382 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3ad6c287a2386382_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3ad6c287a2386382_base
 
 {-| __C declaration:__ @asm_labeled_function@
 

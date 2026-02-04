@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- | When @hs-bindgen@ generates code that uses @deriving via@, the constructors
 --   of the used type need to be in scope.
 --
@@ -19,5 +21,5 @@ module HsBindgen.Runtime.Internal.Deriving (
   , SizedByteArray(..)
   ) where
 
+import HsBindgen.Runtime.Internal.SizedByteArray
 import HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.SizedByteArray

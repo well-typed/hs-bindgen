@@ -8,16 +8,16 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <arrays/const_qualifier.h>"
   , "void hs_bindgen_7eb8358d30ebb28b ("
   , "  signed int const (*arg1)[]"
@@ -103,7 +103,7 @@ hs_bindgen_7eb8358d30ebb28b ::
      HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
   -> IO ()
 hs_bindgen_7eb8358d30ebb28b =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7eb8358d30ebb28b_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7eb8358d30ebb28b_base
 
 {-| __C declaration:__ @foo@
 
@@ -127,7 +127,7 @@ hs_bindgen_2fc1970fe11a3461 ::
      HsBindgen.Runtime.PtrConst.PtrConst S
   -> IO ()
 hs_bindgen_2fc1970fe11a3461 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2fc1970fe11a3461_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2fc1970fe11a3461_base
 
 {-| __C declaration:__ @fooA@
 
@@ -151,7 +151,7 @@ hs_bindgen_58689a7e4b1d44f6 ::
      HsBindgen.Runtime.PtrConst.PtrConst S
   -> IO ()
 hs_bindgen_58689a7e4b1d44f6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_58689a7e4b1d44f6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_58689a7e4b1d44f6_base
 
 {-| __C declaration:__ @fooB@
 
@@ -175,7 +175,7 @@ hs_bindgen_f88b417ee6e28c0c ::
      HsBindgen.Runtime.PtrConst.PtrConst T
   -> IO ()
 hs_bindgen_f88b417ee6e28c0c =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f88b417ee6e28c0c_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f88b417ee6e28c0c_base
 
 {-| __C declaration:__ @fooC@
 
@@ -199,7 +199,7 @@ hs_bindgen_78493aa01e9cc5da ::
      HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   -> IO ()
 hs_bindgen_78493aa01e9cc5da =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_78493aa01e9cc5da_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_78493aa01e9cc5da_base
 
 {-| __C declaration:__ @bar@
 
@@ -223,7 +223,7 @@ hs_bindgen_bee2c20f290d25d6 ::
      HsBindgen.Runtime.PtrConst.PtrConst U
   -> IO ()
 hs_bindgen_bee2c20f290d25d6 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_bee2c20f290d25d6_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_bee2c20f290d25d6_base
 
 {-| __C declaration:__ @barA@
 
@@ -247,7 +247,7 @@ hs_bindgen_71f805899a96d9f1 ::
      HsBindgen.Runtime.PtrConst.PtrConst U
   -> IO ()
 hs_bindgen_71f805899a96d9f1 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_71f805899a96d9f1_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_71f805899a96d9f1_base
 
 {-| __C declaration:__ @barB@
 
@@ -271,7 +271,7 @@ hs_bindgen_89af56a24c359834 ::
      HsBindgen.Runtime.PtrConst.PtrConst V
   -> IO ()
 hs_bindgen_89af56a24c359834 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_89af56a24c359834_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_89af56a24c359834_base
 
 {-| __C declaration:__ @barC@
 
@@ -295,7 +295,7 @@ hs_bindgen_71d7d347923cf6e5 ::
      HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   -> IO ()
 hs_bindgen_71d7d347923cf6e5 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_71d7d347923cf6e5_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_71d7d347923cf6e5_base
 
 {-| __C declaration:__ @baz@
 
@@ -319,7 +319,7 @@ hs_bindgen_25cc50be574bcc6c ::
      HsBindgen.Runtime.PtrConst.PtrConst W
   -> IO ()
 hs_bindgen_25cc50be574bcc6c =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_25cc50be574bcc6c_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_25cc50be574bcc6c_base
 
 {-| __C declaration:__ @bazA@
 
@@ -343,7 +343,7 @@ hs_bindgen_3fd3913cc13f61be ::
      HsBindgen.Runtime.PtrConst.PtrConst W
   -> IO ()
 hs_bindgen_3fd3913cc13f61be =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3fd3913cc13f61be_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3fd3913cc13f61be_base
 
 {-| __C declaration:__ @bazB@
 
@@ -367,7 +367,7 @@ hs_bindgen_a91ac27216749da9 ::
      HsBindgen.Runtime.PtrConst.PtrConst X
   -> IO ()
 hs_bindgen_a91ac27216749da9 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a91ac27216749da9_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a91ac27216749da9_base
 
 {-| __C declaration:__ @bazC@
 

@@ -1,5 +1,3 @@
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE TypeApplications #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module Test.HsBindgen.Runtime.SizedByteArray (tests) where
@@ -21,7 +19,7 @@ import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.QuickCheck (testProperties, testProperty)
 
-import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..))
+import HsBindgen.Runtime.Internal.SizedByteArray (SizedByteArray (..))
 
 import Test.Util.Orphans ()
 

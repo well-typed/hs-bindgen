@@ -6,12 +6,12 @@
 module Example.Unsafe where
 
 import qualified GHC.Word
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/enum.h>"
   , "void hs_bindgen_0e6b98e93cad73ef ("
   , "  enum MyEnum arg1"
@@ -43,7 +43,7 @@ hs_bindgen_0e6b98e93cad73ef ::
      MyEnum
   -> IO ()
 hs_bindgen_0e6b98e93cad73ef =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_0e6b98e93cad73ef_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0e6b98e93cad73ef_base
 
 {-| __C declaration:__ @foo@
 
@@ -67,7 +67,7 @@ hs_bindgen_1c6de1b89014dc52 ::
      A
   -> IO ()
 hs_bindgen_1c6de1b89014dc52 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1c6de1b89014dc52_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1c6de1b89014dc52_base
 
 {-| __C declaration:__ @fooA@
 
@@ -91,7 +91,7 @@ hs_bindgen_a8e579f3b5035c03 ::
      B
   -> IO ()
 hs_bindgen_a8e579f3b5035c03 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a8e579f3b5035c03_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a8e579f3b5035c03_base
 
 {-| __C declaration:__ @fooB@
 

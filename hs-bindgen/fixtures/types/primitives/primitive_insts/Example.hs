@@ -21,13 +21,13 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 {-| __C declaration:__ @prim_HsPrimCPtrdiff@
@@ -45,9 +45,9 @@ newtype Prim_HsPrimCPtrdiff = Prim_HsPrimCPtrdiff
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -86,9 +86,9 @@ newtype Prim_HsPrimInt8 = Prim_HsPrimInt8
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -127,9 +127,9 @@ newtype Prim_HsPrimInt16 = Prim_HsPrimInt16
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -168,9 +168,9 @@ newtype Prim_HsPrimInt32 = Prim_HsPrimInt32
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -209,9 +209,9 @@ newtype Prim_HsPrimInt64 = Prim_HsPrimInt64
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -250,9 +250,9 @@ newtype Prim_HsPrimWord8 = Prim_HsPrimWord8
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -291,9 +291,9 @@ newtype Prim_HsPrimWord16 = Prim_HsPrimWord16
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -332,9 +332,9 @@ newtype Prim_HsPrimWord32 = Prim_HsPrimWord32
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -373,9 +373,9 @@ newtype Prim_HsPrimWord64 = Prim_HsPrimWord64
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -414,9 +414,9 @@ newtype Prim_HsPrimCChar = Prim_HsPrimCChar
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -455,9 +455,9 @@ newtype Prim_HsPrimCSChar = Prim_HsPrimCSChar
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -496,9 +496,9 @@ newtype Prim_HsPrimCUChar = Prim_HsPrimCUChar
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -537,9 +537,9 @@ newtype Prim_HsPrimCShort = Prim_HsPrimCShort
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -578,9 +578,9 @@ newtype Prim_HsPrimCUShort = Prim_HsPrimCUShort
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -619,9 +619,9 @@ newtype Prim_HsPrimCInt = Prim_HsPrimCInt
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -660,9 +660,9 @@ newtype Prim_HsPrimCUInt = Prim_HsPrimCUInt
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -701,9 +701,9 @@ newtype Prim_HsPrimCLong = Prim_HsPrimCLong
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -742,9 +742,9 @@ newtype Prim_HsPrimCULong = Prim_HsPrimCULong
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -783,9 +783,9 @@ newtype Prim_HsPrimCLLong = Prim_HsPrimCLLong
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -824,9 +824,9 @@ newtype Prim_HsPrimCULLong = Prim_HsPrimCULLong
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -865,9 +865,9 @@ newtype Prim_HsPrimCBool = Prim_HsPrimCBool
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -906,7 +906,7 @@ newtype Prim_HsPrimCFloat = Prim_HsPrimCFloat
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , Enum
     , Floating
@@ -945,7 +945,7 @@ newtype Prim_HsPrimCDouble = Prim_HsPrimCDouble
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
     , Enum
     , Floating

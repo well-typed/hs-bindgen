@@ -21,11 +21,11 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
-import qualified HsBindgen.Runtime.SizedByteArray
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct Dim2@
@@ -207,15 +207,15 @@ newtype DimPayload = DimPayload
   { unwrapDimPayload :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayload
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayload
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayload
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayload
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayload
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayload
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayload instance F.Storable DimPayload
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayload
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayload
 
 {-|
 
@@ -231,7 +231,7 @@ get_dimPayload_dim2 ::
      DimPayload
   -> Dim2
 get_dimPayload_dim2 =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -242,7 +242,7 @@ set_dimPayload_dim2 ::
      Dim2
   -> DimPayload
 set_dimPayload_dim2 =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -258,7 +258,7 @@ get_dimPayload_dim3 ::
      DimPayload
   -> Dim2
 get_dimPayload_dim3 =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -269,7 +269,7 @@ set_dimPayload_dim3 ::
      Dim2
   -> DimPayload
 set_dimPayload_dim3 =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField DimPayload "dimPayload_dim2" where
 
@@ -378,15 +378,15 @@ newtype DimPayloadB = DimPayloadB
   { unwrapDimPayloadB :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayloadB
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayloadB
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayloadB
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayloadB
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayloadB
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayloadB
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayloadB instance F.Storable DimPayloadB
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayloadB
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayloadB
 
 {-|
 
@@ -402,7 +402,7 @@ get_dimPayloadB_dim2 ::
      DimPayloadB
   -> Dim2
 get_dimPayloadB_dim2 =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -413,7 +413,7 @@ set_dimPayloadB_dim2 ::
      Dim2
   -> DimPayloadB
 set_dimPayloadB_dim2 =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -429,7 +429,7 @@ get_dimPayloadB_dim3 ::
      DimPayloadB
   -> Dim2
 get_dimPayloadB_dim3 =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -440,7 +440,7 @@ set_dimPayloadB_dim3 ::
      Dim2
   -> DimPayloadB
 set_dimPayloadB_dim3 =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
 
@@ -699,15 +699,15 @@ newtype AnonA = AnonA
   { unwrapAnonA :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.StaticSize AnonA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.StaticSize AnonA
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.ReadRaw AnonA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.ReadRaw AnonA
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.WriteRaw AnonA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.WriteRaw AnonA
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonA instance F.Storable AnonA
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance Data.Primitive.Types.Prim AnonA
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance Data.Primitive.Types.Prim AnonA
 
 {-|
 
@@ -723,7 +723,7 @@ get_anonA_xy ::
      AnonA
   -> AnonA_xy
 get_anonA_xy =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -734,7 +734,7 @@ set_anonA_xy ::
      AnonA_xy
   -> AnonA
 set_anonA_xy =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -750,7 +750,7 @@ get_anonA_polar ::
      AnonA
   -> AnonA_polar
 get_anonA_polar =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -761,7 +761,7 @@ set_anonA_polar ::
      AnonA_polar
   -> AnonA
 set_anonA_polar =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField AnonA "anonA_xy" where
 

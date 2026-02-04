@@ -1,8 +1,12 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE UndecidableInstances #-}
+{-# OPTIONS_HADDOCK hide #-}
 
-module HsBindgen.Runtime.HasFFIType (
+{-# LANGUAGE CPP #-}
+
+-- NOTE: For now, this module is classified "Internal"; however, it may become
+-- public in the future. See also
+-- https://github.com/well-typed/hs-bindgen/issues/1565.
+
+module HsBindgen.Runtime.Internal.HasFFIType (
     -- * Class
     HasFFIType
   , FFIType
@@ -38,7 +42,7 @@ import Foreign.Ptr as Types (FunPtr, IntPtr (..), Ptr, WordPtr (..))
 import Foreign.StablePtr (castPtrToStablePtr, castStablePtrToPtr)
 import Foreign.StablePtr as Types (StablePtr)
 
-import HsBindgen.Runtime.FFIType qualified as FFI
+import HsBindgen.Runtime.Internal.FFIType qualified as FFI
 import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
                                             unsafeToPtr)
 

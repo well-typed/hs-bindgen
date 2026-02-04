@@ -28,21 +28,21 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.FunPtr
+import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.PtrConst
-import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Double, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return, showsPrec)
 
 {-| __C declaration:__ @A@
@@ -60,9 +60,9 @@ newtype A = A
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -125,15 +125,15 @@ newtype Some_union = Some_union
   { unwrapSome_union :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.StaticSize Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.StaticSize Some_union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.ReadRaw Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.ReadRaw Some_union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.WriteRaw Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.WriteRaw Some_union
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_union instance F.Storable Some_union
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
 
 {-| __C declaration:__ @enum some_enum@
 
@@ -145,7 +145,7 @@ newtype Some_enum = Some_enum
   { unwrapSome_enum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Some_enum where
 
@@ -360,9 +360,9 @@ newtype Typedef1 = Typedef1
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -400,7 +400,7 @@ newtype Typedef2 = Typedef2
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef2) "unwrapTypedef2")
@@ -430,7 +430,7 @@ newtype Typedef3 = Typedef3
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef3) "unwrapTypedef3")
@@ -457,7 +457,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef1_Aux = Funptr_typedef1_Aux
   { unwrapFunptr_typedef1_Aux :: IO A
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
      IO GHC.Int.Int32
@@ -469,7 +469,7 @@ hs_bindgen_c584d0f839fd43de ::
   -> IO (Ptr.FunPtr Funptr_typedef1_Aux)
 hs_bindgen_c584d0f839fd43de =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_c584d0f839fd43de_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_c584d0f839fd43de_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_806a46dc418a062c_base ::
      Ptr.FunPtr (IO GHC.Int.Int32)
@@ -481,13 +481,13 @@ hs_bindgen_806a46dc418a062c ::
   -> Funptr_typedef1_Aux
 hs_bindgen_806a46dc418a062c =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_806a46dc418a062c_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_806a46dc418a062c_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef1_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Funptr_typedef1_Aux where
 
   toFunPtr = hs_bindgen_c584d0f839fd43de
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef1_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef1_Aux where
 
   fromFunPtr = hs_bindgen_806a46dc418a062c
 
@@ -519,7 +519,7 @@ newtype Funptr_typedef1 = Funptr_typedef1
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef1) "unwrapFunptr_typedef1")
@@ -546,7 +546,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef2_Aux = Funptr_typedef2_Aux
   { unwrapFunptr_typedef2_Aux :: IO (Ptr.Ptr A)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
      IO (Ptr.Ptr Void)
@@ -558,7 +558,7 @@ hs_bindgen_f174457a161ac5a0 ::
   -> IO (Ptr.FunPtr Funptr_typedef2_Aux)
 hs_bindgen_f174457a161ac5a0 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_f174457a161ac5a0_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_f174457a161ac5a0_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_323d07dff85b802c_base ::
      Ptr.FunPtr (IO (Ptr.Ptr Void))
@@ -570,13 +570,13 @@ hs_bindgen_323d07dff85b802c ::
   -> Funptr_typedef2_Aux
 hs_bindgen_323d07dff85b802c =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_323d07dff85b802c_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_323d07dff85b802c_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef2_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Funptr_typedef2_Aux where
 
   toFunPtr = hs_bindgen_f174457a161ac5a0
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef2_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef2_Aux where
 
   fromFunPtr = hs_bindgen_323d07dff85b802c
 
@@ -608,7 +608,7 @@ newtype Funptr_typedef2 = Funptr_typedef2
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef2) "unwrapFunptr_typedef2")
@@ -635,7 +635,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef3_Aux = Funptr_typedef3_Aux
   { unwrapFunptr_typedef3_Aux :: IO (Ptr.Ptr (Ptr.Ptr A))
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
      IO (Ptr.Ptr Void)
@@ -647,7 +647,7 @@ hs_bindgen_031d1a7decd790d8 ::
   -> IO (Ptr.FunPtr Funptr_typedef3_Aux)
 hs_bindgen_031d1a7decd790d8 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_031d1a7decd790d8_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_031d1a7decd790d8_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_82dc7b932974117e_base ::
      Ptr.FunPtr (IO (Ptr.Ptr Void))
@@ -659,13 +659,13 @@ hs_bindgen_82dc7b932974117e ::
   -> Funptr_typedef3_Aux
 hs_bindgen_82dc7b932974117e =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_82dc7b932974117e_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_82dc7b932974117e_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef3_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Funptr_typedef3_Aux where
 
   toFunPtr = hs_bindgen_031d1a7decd790d8
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef3_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef3_Aux where
 
   fromFunPtr = hs_bindgen_82dc7b932974117e
 
@@ -697,7 +697,7 @@ newtype Funptr_typedef3 = Funptr_typedef3
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef3) "unwrapFunptr_typedef3")
@@ -724,7 +724,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef4_Aux = Funptr_typedef4_Aux
   { unwrapFunptr_typedef4_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
      (GHC.Int.Int32 -> Double -> IO GHC.Int.Int32)
@@ -736,7 +736,7 @@ hs_bindgen_da2336d254667386 ::
   -> IO (Ptr.FunPtr Funptr_typedef4_Aux)
 hs_bindgen_da2336d254667386 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_da2336d254667386_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_da2336d254667386_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_d4a97954476da161_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO GHC.Int.Int32)
@@ -748,13 +748,13 @@ hs_bindgen_d4a97954476da161 ::
   -> Funptr_typedef4_Aux
 hs_bindgen_d4a97954476da161 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_d4a97954476da161_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_d4a97954476da161_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef4_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Funptr_typedef4_Aux where
 
   toFunPtr = hs_bindgen_da2336d254667386
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef4_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef4_Aux where
 
   fromFunPtr = hs_bindgen_d4a97954476da161
 
@@ -786,7 +786,7 @@ newtype Funptr_typedef4 = Funptr_typedef4
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef4) "unwrapFunptr_typedef4")
@@ -813,7 +813,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef5_Aux = Funptr_typedef5_Aux
   { unwrapFunptr_typedef5_Aux :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
      (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -825,7 +825,7 @@ hs_bindgen_1f45632f07742a46 ::
   -> IO (Ptr.FunPtr Funptr_typedef5_Aux)
 hs_bindgen_1f45632f07742a46 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_1f45632f07742a46_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_1f45632f07742a46_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_0bd1877eaaba0d3e_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -837,13 +837,13 @@ hs_bindgen_0bd1877eaaba0d3e ::
   -> Funptr_typedef5_Aux
 hs_bindgen_0bd1877eaaba0d3e =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_0bd1877eaaba0d3e_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_0bd1877eaaba0d3e_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef5_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Funptr_typedef5_Aux where
 
   toFunPtr = hs_bindgen_1f45632f07742a46
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef5_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef5_Aux where
 
   fromFunPtr = hs_bindgen_0bd1877eaaba0d3e
 
@@ -875,7 +875,7 @@ newtype Funptr_typedef5 = Funptr_typedef5
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef5) "unwrapFunptr_typedef5")
@@ -906,9 +906,9 @@ newtype Comments2 = Comments2
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -1049,9 +1049,9 @@ newtype Const_typedef1 = Const_typedef1
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -1090,9 +1090,9 @@ newtype Const_typedef2 = Const_typedef2
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -1131,7 +1131,7 @@ newtype Const_typedef3 = Const_typedef3
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef3) "unwrapConst_typedef3")
@@ -1162,7 +1162,7 @@ newtype Const_typedef4 = Const_typedef4
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef4) "unwrapConst_typedef4")
@@ -1193,7 +1193,7 @@ newtype Const_typedef5 = Const_typedef5
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef5) "unwrapConst_typedef5")
@@ -1224,7 +1224,7 @@ newtype Const_typedef6 = Const_typedef6
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef6) "unwrapConst_typedef6")
@@ -1255,7 +1255,7 @@ newtype Const_typedef7 = Const_typedef7
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef7) "unwrapConst_typedef7")
@@ -1475,7 +1475,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr1_Aux = Const_funptr1_Aux
   { unwrapConst_funptr1_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
      (GHC.Int.Int32 -> Double -> IO GHC.Int.Int32)
@@ -1487,7 +1487,7 @@ hs_bindgen_7f125e20a9d4075b ::
   -> IO (Ptr.FunPtr Const_funptr1_Aux)
 hs_bindgen_7f125e20a9d4075b =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_7f125e20a9d4075b_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_7f125e20a9d4075b_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_ac4bd8d789bba94b_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO GHC.Int.Int32)
@@ -1499,13 +1499,13 @@ hs_bindgen_ac4bd8d789bba94b ::
   -> Const_funptr1_Aux
 hs_bindgen_ac4bd8d789bba94b =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_ac4bd8d789bba94b_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_ac4bd8d789bba94b_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr1_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Const_funptr1_Aux where
 
   toFunPtr = hs_bindgen_7f125e20a9d4075b
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr1_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr1_Aux where
 
   fromFunPtr = hs_bindgen_ac4bd8d789bba94b
 
@@ -1537,7 +1537,7 @@ newtype Const_funptr1 = Const_funptr1
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr1) "unwrapConst_funptr1")
@@ -1564,7 +1564,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr2_Aux = Const_funptr2_Aux
   { unwrapConst_funptr2_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
      (GHC.Int.Int32 -> Double -> IO GHC.Int.Int32)
@@ -1576,7 +1576,7 @@ hs_bindgen_c7b1e36d845634fb ::
   -> IO (Ptr.FunPtr Const_funptr2_Aux)
 hs_bindgen_c7b1e36d845634fb =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_c7b1e36d845634fb_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_c7b1e36d845634fb_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_352cebf463125ca9_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO GHC.Int.Int32)
@@ -1588,13 +1588,13 @@ hs_bindgen_352cebf463125ca9 ::
   -> Const_funptr2_Aux
 hs_bindgen_352cebf463125ca9 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_352cebf463125ca9_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_352cebf463125ca9_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr2_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Const_funptr2_Aux where
 
   toFunPtr = hs_bindgen_c7b1e36d845634fb
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr2_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr2_Aux where
 
   fromFunPtr = hs_bindgen_352cebf463125ca9
 
@@ -1626,7 +1626,7 @@ newtype Const_funptr2 = Const_funptr2
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr2) "unwrapConst_funptr2")
@@ -1653,7 +1653,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr3_Aux = Const_funptr3_Aux
   { unwrapConst_funptr3_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
      (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1665,7 +1665,7 @@ hs_bindgen_2dcbfe1c2502178c ::
   -> IO (Ptr.FunPtr Const_funptr3_Aux)
 hs_bindgen_2dcbfe1c2502178c =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_2dcbfe1c2502178c_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_2dcbfe1c2502178c_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_86738dcfd7c9d33c_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1677,13 +1677,13 @@ hs_bindgen_86738dcfd7c9d33c ::
   -> Const_funptr3_Aux
 hs_bindgen_86738dcfd7c9d33c =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_86738dcfd7c9d33c_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_86738dcfd7c9d33c_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr3_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Const_funptr3_Aux where
 
   toFunPtr = hs_bindgen_2dcbfe1c2502178c
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr3_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr3_Aux where
 
   fromFunPtr = hs_bindgen_86738dcfd7c9d33c
 
@@ -1715,7 +1715,7 @@ newtype Const_funptr3 = Const_funptr3
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3) "unwrapConst_funptr3")
@@ -1742,7 +1742,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr4_Aux = Const_funptr4_Aux
   { unwrapConst_funptr4_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
      (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1754,7 +1754,7 @@ hs_bindgen_5461deeda491de0b ::
   -> IO (Ptr.FunPtr Const_funptr4_Aux)
 hs_bindgen_5461deeda491de0b =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_5461deeda491de0b_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_5461deeda491de0b_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_de7846fca3bfd1b6_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1766,13 +1766,13 @@ hs_bindgen_de7846fca3bfd1b6 ::
   -> Const_funptr4_Aux
 hs_bindgen_de7846fca3bfd1b6 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_de7846fca3bfd1b6_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_de7846fca3bfd1b6_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr4_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Const_funptr4_Aux where
 
   toFunPtr = hs_bindgen_5461deeda491de0b
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr4_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr4_Aux where
 
   fromFunPtr = hs_bindgen_de7846fca3bfd1b6
 
@@ -1804,7 +1804,7 @@ newtype Const_funptr4 = Const_funptr4
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4) "unwrapConst_funptr4")
@@ -1831,7 +1831,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr5_Aux = Const_funptr5_Aux
   { unwrapConst_funptr5_Aux :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
      (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1843,7 +1843,7 @@ hs_bindgen_7b0174fc978a1ce1 ::
   -> IO (Ptr.FunPtr Const_funptr5_Aux)
 hs_bindgen_7b0174fc978a1ce1 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_7b0174fc978a1ce1_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_7b0174fc978a1ce1_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_38a21d84bb7115b5_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1855,13 +1855,13 @@ hs_bindgen_38a21d84bb7115b5 ::
   -> Const_funptr5_Aux
 hs_bindgen_38a21d84bb7115b5 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_38a21d84bb7115b5_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_38a21d84bb7115b5_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr5_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Const_funptr5_Aux where
 
   toFunPtr = hs_bindgen_7b0174fc978a1ce1
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr5_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr5_Aux where
 
   fromFunPtr = hs_bindgen_38a21d84bb7115b5
 
@@ -1893,7 +1893,7 @@ newtype Const_funptr5 = Const_funptr5
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr5) "unwrapConst_funptr5")
@@ -1920,7 +1920,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr6_Aux = Const_funptr6_Aux
   { unwrapConst_funptr6_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
      (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1932,7 +1932,7 @@ hs_bindgen_4e32721222f4df9f ::
   -> IO (Ptr.FunPtr Const_funptr6_Aux)
 hs_bindgen_4e32721222f4df9f =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_4e32721222f4df9f_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_4e32721222f4df9f_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_45251216b04aa8b5_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -1944,13 +1944,13 @@ hs_bindgen_45251216b04aa8b5 ::
   -> Const_funptr6_Aux
 hs_bindgen_45251216b04aa8b5 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_45251216b04aa8b5_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_45251216b04aa8b5_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr6_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Const_funptr6_Aux where
 
   toFunPtr = hs_bindgen_4e32721222f4df9f
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr6_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr6_Aux where
 
   fromFunPtr = hs_bindgen_45251216b04aa8b5
 
@@ -1982,7 +1982,7 @@ newtype Const_funptr6 = Const_funptr6
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6) "unwrapConst_funptr6")
@@ -2009,7 +2009,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr7_Aux = Const_funptr7_Aux
   { unwrapConst_funptr7_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::
      (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -2021,7 +2021,7 @@ hs_bindgen_0d04fc96ffb9de06 ::
   -> IO (Ptr.FunPtr Const_funptr7_Aux)
 hs_bindgen_0d04fc96ffb9de06 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_0d04fc96ffb9de06_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_0d04fc96ffb9de06_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_42fbcebf75a973ba_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> Double -> IO (Ptr.Ptr Void))
@@ -2033,13 +2033,13 @@ hs_bindgen_42fbcebf75a973ba ::
   -> Const_funptr7_Aux
 hs_bindgen_42fbcebf75a973ba =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_42fbcebf75a973ba_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_42fbcebf75a973ba_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr7_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Const_funptr7_Aux where
 
   toFunPtr = hs_bindgen_0d04fc96ffb9de06
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr7_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr7_Aux where
 
   fromFunPtr = hs_bindgen_42fbcebf75a973ba
 
@@ -2071,7 +2071,7 @@ newtype Const_funptr7 = Const_funptr7
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7) "unwrapConst_funptr7")
@@ -2102,9 +2102,9 @@ newtype BOOL = BOOL
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -2142,9 +2142,9 @@ newtype INT = INT
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -2182,7 +2182,7 @@ newtype INTP = INTP
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INTP) "unwrapINTP")
@@ -2212,7 +2212,7 @@ newtype INTCP = INTCP
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INTCP) "unwrapINTCP")

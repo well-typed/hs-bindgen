@@ -7,11 +7,11 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Int
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/adios.h>"
   , "signed int hs_bindgen_2f6d4be143076044 (void)"
   , "{"
@@ -38,7 +38,7 @@ foreign import ccall safe "hs_bindgen_2f6d4be143076044" hs_bindgen_2f6d4be143076
 -- __unique:__ @test_edgecasesadios_Example_Safe_adiós_fun@
 hs_bindgen_2f6d4be143076044 :: IO FC.CInt
 hs_bindgen_2f6d4be143076044 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2f6d4be143076044_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2f6d4be143076044_base
 
 {-| __C declaration:__ @adiós_fun@
 
@@ -56,7 +56,7 @@ foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
 hs_bindgen_2010521804ef9a6e :: IO ()
 hs_bindgen_2010521804ef9a6e =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2010521804ef9a6e_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2010521804ef9a6e_base
 
 {-| __C declaration:__ @ϒ@
 
@@ -74,7 +74,7 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
 -- __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
 hs_bindgen_3bc3e53cc82c9580 :: IO ()
 hs_bindgen_3bc3e53cc82c9580 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_3bc3e53cc82c9580_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3bc3e53cc82c9580_base
 
 {-| __C declaration:__ @拜拜@
 
@@ -92,7 +92,7 @@ foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d
 -- __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
 hs_bindgen_ad8eb47027b2d49d :: IO ()
 hs_bindgen_ad8eb47027b2d49d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_ad8eb47027b2d49d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ad8eb47027b2d49d_base
 
 {-| __C declaration:__ @Say拜拜@
 

@@ -9,12 +9,12 @@ import qualified Data.Complex
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/complex/complex_non_float_test.h>"
   , "/* test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short */"
   , "__attribute__ ((const))"
@@ -55,7 +55,7 @@ foreign import ccall unsafe "hs_bindgen_f3018b1e87470bdd" hs_bindgen_f3018b1e874
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short@
 hs_bindgen_f3018b1e87470bdd :: IO (Ptr.Ptr (Data.Complex.Complex FC.CUShort))
 hs_bindgen_f3018b1e87470bdd =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_f3018b1e87470bdd_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f3018b1e87470bdd_base
 
 {-# NOINLINE global_complex_unsigned_short #-}
 {-| __C declaration:__ @global_complex_unsigned_short@
@@ -75,7 +75,7 @@ foreign import ccall unsafe "hs_bindgen_a553be84170a3efa" hs_bindgen_a553be84170
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short@
 hs_bindgen_a553be84170a3efa :: IO (Ptr.Ptr (Data.Complex.Complex FC.CShort))
 hs_bindgen_a553be84170a3efa =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_a553be84170a3efa_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a553be84170a3efa_base
 
 {-# NOINLINE global_complex_short #-}
 {-| __C declaration:__ @global_complex_short@
@@ -95,7 +95,7 @@ foreign import ccall unsafe "hs_bindgen_072fc08ef6d9395a" hs_bindgen_072fc08ef6d
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int@
 hs_bindgen_072fc08ef6d9395a :: IO (Ptr.Ptr (Data.Complex.Complex FC.CUInt))
 hs_bindgen_072fc08ef6d9395a =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_072fc08ef6d9395a_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_072fc08ef6d9395a_base
 
 {-# NOINLINE global_complex_unsigned_int #-}
 {-| __C declaration:__ @global_complex_unsigned_int@
@@ -115,7 +115,7 @@ foreign import ccall unsafe "hs_bindgen_1199a9d54fe334cb" hs_bindgen_1199a9d54fe
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int@
 hs_bindgen_1199a9d54fe334cb :: IO (Ptr.Ptr (Data.Complex.Complex FC.CInt))
 hs_bindgen_1199a9d54fe334cb =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_1199a9d54fe334cb_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1199a9d54fe334cb_base
 
 {-# NOINLINE global_complex_int #-}
 {-| __C declaration:__ @global_complex_int@
@@ -135,7 +135,7 @@ foreign import ccall unsafe "hs_bindgen_7c8cb41a7febc6fc" hs_bindgen_7c8cb41a7fe
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char@
 hs_bindgen_7c8cb41a7febc6fc :: IO (Ptr.Ptr (Data.Complex.Complex FC.CChar))
 hs_bindgen_7c8cb41a7febc6fc =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_7c8cb41a7febc6fc_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7c8cb41a7febc6fc_base
 
 {-# NOINLINE global_complex_char #-}
 {-| __C declaration:__ @global_complex_char@

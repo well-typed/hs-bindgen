@@ -1,4 +1,6 @@
-module HsBindgen.Runtime.Bitfield (
+{-# OPTIONS_HADDOCK hide #-}
+
+module HsBindgen.Runtime.Internal.Bitfield (
     Bitfield(..)
   , defaultNarrow
   , signedExtend

@@ -1,5 +1,3 @@
-{-# LANGUAGE TypeFamilies #-}
-
 module Test.HsBindgen.Runtime.CEnum (tests) where
 
 import Control.Monad (forM_)

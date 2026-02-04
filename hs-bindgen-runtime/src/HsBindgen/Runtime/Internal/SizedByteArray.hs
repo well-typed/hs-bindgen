@@ -1,7 +1,9 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE UnboxedTuples #-}
 
-module HsBindgen.Runtime.SizedByteArray (
+module HsBindgen.Runtime.Internal.SizedByteArray (
     SizedByteArray (..),
 ) where
 
@@ -14,7 +16,7 @@ import GHC.Base (Int (..))
 import GHC.Exts qualified as Exts
 import GHC.TypeNats qualified as GHC
 
-import HsBindgen.Runtime.ByteArray
+import HsBindgen.Runtime.Internal.ByteArray
 import HsBindgen.Runtime.Marshal
 
 {-------------------------------------------------------------------------------

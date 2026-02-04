@@ -1,5 +1,4 @@
 {-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeApplications #-}
 
 -- | This module provides TH splices that generate FFI wrappers and
 -- 'ToFunPtr' instances that are called in different modules to paralellize
@@ -24,7 +23,7 @@ import Foreign.C.Types
 import GHC.Ptr qualified as Ptr
 import Language.Haskell.TH
 
-import HsBindgen.Runtime.FunPtr.Class
+import HsBindgen.Runtime.Internal.FunPtr.Class
 
 -- | Get primitive marshallable types
 --

@@ -1,7 +1,46 @@
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE TypeFamilies #-}
 
 -- | Declarations with C bitfields
+--
+-- Most users do not directly need to use @HasCField@, and can use record dot
+-- syntax instead. For example, given
+--
+-- Given
+--
+-- > struct DriverFlags {
+-- >   unsigned int safe      : 1;
+-- >   unsigned int allocates : 1;
+-- > };
+--
+-- @hs-bindgen@ will generate code such that if
+--
+-- > flagsPtr :: Ptr DriverFlags
+--
+-- then
+--
+-- > flagsPtr.driverFlags_allocates :: BitfieldPtr CUInt
+--
+-- Module "HsBindgen.Runtime.BitfieldPtr" can be used to interact with
+-- these 'BitfieldPtr's; for example:
+--
+-- > BitfieldPtr.peek flagsPtr.driverFlags_allocates
+--
+-- Bitfields can be chained with regular fields; for example, given
+--
+-- > struct Driver {
+-- >   struct DriverFlags flags;
+-- >   ..
+-- > };
+--
+-- then if
+--
+-- > driverPtr :: Ptr Driver
+--
+-- then
+--
+-- > driverPtr.driver_flags.driverFlags_allocates :: BitfieldPtr CUInt
+--
+-- See also "HsBindgen.Runtime.HasCField".
 --
 -- This module is intended to be imported qualified.
 --
@@ -22,9 +61,9 @@ import Foreign.Ptr
 import GHC.Exts (Proxy#, proxy#)
 import GHC.TypeLits
 
-import HsBindgen.Runtime.Bitfield (Bitfield)
 import HsBindgen.Runtime.BitfieldPtr (BitfieldPtr (BitfieldPtr))
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
+import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
 
 -- | Evidence that a C object @a@ has a bit-field with the name @field@.
 --

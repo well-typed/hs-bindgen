@@ -30,24 +30,24 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
-import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.BitfieldPtr
-import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
-import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.ByteArray
+import qualified HsBindgen.Runtime.Internal.FunPtr
+import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
-import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import HsBindgen.Runtime.TypeEquality (TyEq)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| __C declaration:__ @MAX_NAME_LENGTH@
@@ -80,9 +80,9 @@ newtype Size_type = Size_type
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Bitfield.Bitfield
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -146,7 +146,7 @@ newtype Color_enum = Color_enum
   { unwrapColor_enum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Color_enum where
 
@@ -274,7 +274,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t_Aux = Event_callback_t_Aux
   { unwrapEvent_callback_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
      (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -286,7 +286,7 @@ hs_bindgen_111918b0aee2a7fb ::
   -> IO (Ptr.FunPtr Event_callback_t_Aux)
 hs_bindgen_111918b0aee2a7fb =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_111918b0aee2a7fb_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_111918b0aee2a7fb_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -298,13 +298,13 @@ hs_bindgen_9e9d478c2d75628c ::
   -> Event_callback_t_Aux
 hs_bindgen_9e9d478c2d75628c =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_9e9d478c2d75628c_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_9e9d478c2d75628c_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Event_callback_t_Aux where
 
   toFunPtr = hs_bindgen_111918b0aee2a7fb
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Event_callback_t_Aux where
 
   fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
@@ -346,7 +346,7 @@ newtype Event_callback_t = Event_callback_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "unwrapEvent_callback_t")
@@ -553,7 +553,7 @@ newtype Status_code_t = Status_code_t
   { unwrapStatus_code_t :: FC.CInt
   }
   deriving stock (Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Status_code_t where
 
@@ -802,15 +802,15 @@ newtype Data_union_t = Data_union_t
   { unwrapData_union_t :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Data_union_t
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Data_union_t
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Data_union_t instance F.Storable Data_union_t
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Data_union_t
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Data_union_t
 
 {-|
 
@@ -828,7 +828,7 @@ get_data_union_t_as_int ::
      Data_union_t
   -> HsBindgen.Runtime.LibC.Int32
 get_data_union_t_as_int =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -839,7 +839,7 @@ set_data_union_t_as_int ::
      HsBindgen.Runtime.LibC.Int32
   -> Data_union_t
 set_data_union_t_as_int =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -857,7 +857,7 @@ get_data_union_t_as_float ::
      Data_union_t
   -> FC.CFloat
 get_data_union_t_as_float =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -868,7 +868,7 @@ set_data_union_t_as_float ::
      FC.CFloat
   -> Data_union_t
 set_data_union_t_as_float =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
@@ -886,7 +886,7 @@ get_data_union_t_as_bytes ::
      Data_union_t
   -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8
 get_data_union_t_as_bytes =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -897,7 +897,7 @@ set_data_union_t_as_bytes ::
      (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8
   -> Data_union_t
 set_data_union_t_as_bytes =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-| As Parts Struct
 
@@ -913,7 +913,7 @@ get_data_union_t_as_parts ::
      Data_union_t
   -> Data_union_t_as_parts
 get_data_union_t_as_parts =
-  HsBindgen.Runtime.ByteArray.getUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
@@ -924,7 +924,7 @@ set_data_union_t_as_parts ::
      Data_union_t_as_parts
   -> Data_union_t
 set_data_union_t_as_parts =
-  HsBindgen.Runtime.ByteArray.setUnionPayload
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_int" where
 
@@ -1145,7 +1145,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t_Aux = Processor_fn_t_Aux
   { unwrapProcessor_fn_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
-  deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
      (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -1157,7 +1157,7 @@ hs_bindgen_d4e16471c82d5df0 ::
   -> IO (Ptr.FunPtr Processor_fn_t_Aux)
 hs_bindgen_d4e16471c82d5df0 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType (hs_bindgen_d4e16471c82d5df0_base (HsBindgen.Runtime.HasFFIType.toFFIType fun0))
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_d4e16471c82d5df0_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
      Ptr.FunPtr (GHC.Int.Int32 -> (Ptr.Ptr Void) -> IO GHC.Int.Int32)
@@ -1169,13 +1169,13 @@ hs_bindgen_0d4b3d0461629423 ::
   -> Processor_fn_t_Aux
 hs_bindgen_0d4b3d0461629423 =
   \funPtr0 ->
-    HsBindgen.Runtime.HasFFIType.fromFFIType (hs_bindgen_0d4b3d0461629423_base (HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType funPtr0))
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_0d4b3d0461629423_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr Processor_fn_t_Aux where
 
   toFunPtr = hs_bindgen_d4e16471c82d5df0
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Aux where
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Processor_fn_t_Aux where
 
   fromFunPtr = hs_bindgen_0d4b3d0461629423
 
@@ -1219,7 +1219,7 @@ newtype Processor_fn_t = Processor_fn_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "unwrapProcessor_fn_t")

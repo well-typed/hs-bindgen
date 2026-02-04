@@ -1,8 +1,10 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- We capitalize module names, but use camelCase/PascalCase in code:
 --
 -- - in types names:    CapiFoo, FooCapiBar
 -- - in variable names: capiFoo, fooCapiBar
-module HsBindgen.Runtime.CAPI (
+module HsBindgen.Runtime.Internal.CAPI (
     addCSource
   , allocaAndPeek
     -- * Auxiliary
@@ -20,4 +22,4 @@ addCSource src = do
     return []
 
 allocaAndPeek :: Storable a => (Ptr a -> IO ()) -> IO a
-allocaAndPeek kont = alloca $ \ptr -> kont ptr >> peek ptr
+allocaAndPeek k = alloca $ \ptr -> k ptr >> peek ptr

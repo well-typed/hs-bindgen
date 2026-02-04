@@ -1,3 +1,5 @@
+{-# OPTIONS_HADDOCK hide #-}
+
 -- | Utilities for dealing with 'ByteArray' and 'Storable'
 --
 -- The additional copying we have to do here is a bit annoying, but in the end
@@ -10,7 +12,7 @@
 -- 'peekByteArray' and 'pokeByteArray', and the calls to 'peek' and 'poke' in
 -- 'peekFromByteArray' and 'pokeToByteArray' will (likely) do copying of their
 -- own as well.
-module HsBindgen.Runtime.ByteArray (
+module HsBindgen.Runtime.Internal.ByteArray (
      -- * Support for defining 'Storable' instances for union types
      peekByteArray
    , pokeByteArray

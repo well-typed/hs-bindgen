@@ -43,23 +43,23 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
-import HsBindgen.Runtime.ByteArray qualified
-import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
-import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
-import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
+import HsBindgen.Runtime.Internal.Bitfield qualified
+import HsBindgen.Runtime.Internal.ByteArray qualified
+import HsBindgen.Runtime.Internal.CAPI qualified
+import HsBindgen.Runtime.Internal.FunPtr qualified
+import HsBindgen.Runtime.Internal.HasFFIType qualified
+import HsBindgen.Runtime.Internal.SizedByteArray qualified
+import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
-import HsBindgen.Runtime.SizedByteArray qualified
-import HsBindgen.Runtime.TypeEquality qualified
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -88,10 +88,10 @@ mkGlobal = \case
       Maybe_nothing         -> 'Data.Maybe.Nothing
       Monad_return          -> 'return
       Monad_seq             -> '(>>)
-      ToFunPtr_class        -> ''HsBindgen.Runtime.FunPtr.ToFunPtr
-      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.FunPtr.toFunPtr
-      FromFunPtr_class      -> ''HsBindgen.Runtime.FunPtr.FromFunPtr
-      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.FunPtr.fromFunPtr
+      ToFunPtr_class        -> ''HsBindgen.Runtime.Internal.FunPtr.ToFunPtr
+      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.Internal.FunPtr.toFunPtr
+      FromFunPtr_class      -> ''HsBindgen.Runtime.Internal.FunPtr.FromFunPtr
+      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.Internal.FunPtr.fromFunPtr
       Foreign_Ptr           -> ''Foreign.Ptr.Ptr
       Ptr_constructor       -> 'GHC.Ptr.Ptr
       Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
@@ -104,7 +104,7 @@ mkGlobal = \case
       CharValue_constructor -> 'CExpr.Runtime.CharValue
       CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
       Capi_with             -> 'Foreign.with
-      Capi_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
+      Capi_allocaAndPeek    -> 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
 
       -- StaticSize
       StaticSize_class           -> ''HsBindgen.Runtime.Marshal.StaticSize
@@ -169,11 +169,11 @@ mkGlobal = \case
       Proxy_constructor -> 'Data.Proxy.Proxy
 
       -- HasFFIType
-      HasFFIType_class                 -> ''HsBindgen.Runtime.HasFFIType.HasFFIType
-      HasFFIType_fromFFIType           -> 'HsBindgen.Runtime.HasFFIType.fromFFIType
-      HasFFIType_toFFIType             -> 'HsBindgen.Runtime.HasFFIType.toFFIType
-      HasFFIType_castFunPtrFromFFIType -> 'HsBindgen.Runtime.HasFFIType.castFunPtrFromFFIType
-      HasFFIType_castFunPtrToFFIType   -> 'HsBindgen.Runtime.HasFFIType.castFunPtrToFFIType
+      HasFFIType_class                 -> ''HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+      HasFFIType_fromFFIType           -> 'HsBindgen.Runtime.Internal.HasFFIType.fromFFIType
+      HasFFIType_toFFIType             -> 'HsBindgen.Runtime.Internal.HasFFIType.toFFIType
+      HasFFIType_castFunPtrFromFFIType -> 'HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType
+      HasFFIType_castFunPtrToFFIType   -> 'HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType
 
       -- Functor
       Functor_fmap -> 'fmap
@@ -200,7 +200,7 @@ mkGlobal = \case
       Prim_add#            -> '(GHC.Base.+#)
       Prim_mul#            -> '(GHC.Base.*#)
 
-      Bitfield_class    -> ''HsBindgen.Runtime.Bitfield.Bitfield
+      Bitfield_class    -> ''HsBindgen.Runtime.Internal.Bitfield.Bitfield
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
       Enum_class        -> ''Enum
@@ -223,7 +223,7 @@ mkGlobal = \case
       Show_class       -> ''Show
       Show_showsPrec   -> 'showsPrec
 
-      NomEq_class -> ''HsBindgen.Runtime.TypeEquality.TyEq
+      NomEq_class -> ''HsBindgen.Runtime.Internal.TypeEquality.TyEq
 
       Not_class             -> ''CExpr.Runtime.Not
       Not_not               ->  'CExpr.Runtime.not
@@ -306,11 +306,11 @@ mkGlobal = \case
       AsSequentialCEnum_type           -> ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 
       ByteArray_type      -> ''ByteArray
-      SizedByteArray_type -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
+      SizedByteArray_type -> ''HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray
       Block_type          -> ''HsBindgen.Runtime.Block.Block
 
-      ByteArray_getUnionPayload -> 'HsBindgen.Runtime.ByteArray.getUnionPayload
-      ByteArray_setUnionPayload -> 'HsBindgen.Runtime.ByteArray.setUnionPayload
+      ByteArray_getUnionPayload -> 'HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+      ByteArray_setUnionPayload -> 'HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
       PrimType t  -> mkGlobalP t
       ComplexType -> ''Data.Complex.Complex

@@ -1,14 +1,8 @@
 -- | Types used by the C standard library external binding specification
 --
--- The binding specification for the types in this module is defined in
--- @HsBindgen.BindingSpec.Private.Stdlib@ in the @hs-bindgen:internal@ library,
--- in the same order.
+-- Intended for qualified import.
 --
--- References in chronological order:
--- - https://github.com/well-typed/hs-bindgen/issues/293
--- - https://github.com/well-typed/hs-bindgen/issues/478
--- - https://github.com/well-typed/hs-bindgen/pull/957
--- - https://github.com/well-typed/hs-bindgen/issues/1123
+-- > import HsBindgen.Runtime.LibC qualified as LibC
 module HsBindgen.Runtime.LibC (
     -- * Primitive types
     -- $PrimitiveTypes
@@ -94,7 +88,19 @@ import Data.Int qualified
 import Data.Word qualified
 import Foreign.C qualified
 
-import HsBindgen.Runtime.LibC.Auxiliary as LibC
+import HsBindgen.Runtime.Internal.LibC.Auxiliary as LibC
+
+{-
+  The binding specification for the types in this module is defined in
+  @HsBindgen.BindingSpec.Private.Stdlib@ in the @hs-bindgen:internal@ library,
+  in the same order.
+
+  References in chronological order:
+  - https://github.com/well-typed/hs-bindgen/issues/293
+  - https://github.com/well-typed/hs-bindgen/issues/478
+  - https://github.com/well-typed/hs-bindgen/pull/957
+  - https://github.com/well-typed/hs-bindgen/issues/1123
+-}
 
 {-------------------------------------------------------------------------------
   Primitive types

@@ -7,13 +7,13 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/anon_multiple_typedefs.h>"
   , "/* test_edgecasesanon_multiple_typed_Example_get_test */"
   , "__attribute__ ((const))"
@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_8361517d92bfbc76" hs_bindgen_8361517d92b
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
 hs_bindgen_8361517d92bfbc76 :: IO (Ptr.FunPtr (Point2a -> Point2b -> IO ()))
 hs_bindgen_8361517d92bfbc76 =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_8361517d92bfbc76_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8361517d92bfbc76_base
 
 {-# NOINLINE test #-}
 {-| __C declaration:__ @test@

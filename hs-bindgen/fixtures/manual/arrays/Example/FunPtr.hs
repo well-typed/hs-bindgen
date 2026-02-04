@@ -7,13 +7,13 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Internal.CAPI
+import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
 import Example
 import Prelude (IO)
 
-$(HsBindgen.Runtime.CAPI.addCSource (HsBindgen.Runtime.CAPI.unlines
+$(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/arrays.h>"
   , "/* test_manualarrays_Example_get_transpose */"
   , "__attribute__ ((const))"
@@ -41,7 +41,7 @@ foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b036
 -- __unique:__ @test_manualarrays_Example_get_transpose@
 hs_bindgen_c99d8a3b0363a0fa :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 hs_bindgen_c99d8a3b0363a0fa =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c99d8a3b0363a0fa_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c99d8a3b0363a0fa_base
 
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
@@ -61,7 +61,7 @@ foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfe
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
 hs_bindgen_923b33cbbfeb5e7d :: IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 hs_bindgen_923b33cbbfeb5e7d =
-  HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_923b33cbbfeb5e7d_base
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_923b33cbbfeb5e7d_base
 
 {-# NOINLINE pretty_print_triplets #-}
 {-| A function that prints the given triplet_ptrs
