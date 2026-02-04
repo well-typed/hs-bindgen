@@ -22,6 +22,7 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Backend.SHs.Translation.Prim qualified as SHsPrim
+import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -108,8 +109,8 @@ translateDefineInstanceDecl defInst =
                         , ELam "_ty" $ EIntegral (toInteger i) Nothing)
                       ]
           }
-      Hs.InstanceCEnum struct fTyp vMap isSequential ->
-        DInst $ translateCEnumInstance struct fTyp vMap isSequential defInst.comment
+      Hs.InstanceCEnum struct fTyp vMap isSequential fieldNamingStrategy ->
+        DInst $ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy defInst.comment
       Hs.InstanceSequentialCEnum struct nameMin nameMax ->
         DInst $ translateSequentialCEnum struct nameMin nameMax defInst.comment
       Hs.InstanceCEnumShow struct ->
@@ -613,9 +614,10 @@ translateCEnumInstance ::
   -> HsType
   -> Map Integer (NonEmpty String)
   -> Bool
+  -> FieldNamingStrategy
   -> Maybe HsDoc.Comment
   -> Instance
-translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
+translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComment = Instance {
       clss    = CEnum_class
     , args    = [tcon]
     , super   = []
@@ -623,7 +625,7 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     , comment = mbComment
     , decs    = [
           (CEnum_toCEnum            , ECon struct.constr)
-        , (CEnum_fromCEnum          , EFree fname)
+        , (CEnum_fromCEnum          , fromCEnumE)
         , (CEnum_declaredValues     , EUnusedLam declaredValuesE)
         , (CEnum_showsUndeclared    , EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
         , (CEnum_readPrecUndeclared , EApp (EGlobal CEnum_readPrecWrappedUndeclared) dconStrE)
@@ -638,6 +640,18 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
 
     fname :: Hs.Name Hs.NsVar
     fname = (NonEmpty.head $ Vec.toNonEmpty struct.fields).name
+
+    -- When using EnableRecordDot, many newtypes will have fields named "unwrap",
+    -- which makes the bare identifier "unwrap" ambiguous. We use getField with
+    -- type application only in that case. Otherwise, we use the bare field name
+    -- directly since it's unique (e.g., unwrapE, unwrapValue).
+    fromCEnumE :: ClosedExpr
+    fromCEnumE =
+      case fieldNamingStrategy of
+        EnableRecordDot ->
+          EGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit "unwrap")
+        PrefixedFieldNames ->
+          EFree fname
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (EGlobal CEnum_declaredValuesFromList) $ EList [

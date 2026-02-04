@@ -411,7 +411,7 @@ mangleFieldName info fieldCName = do
         candidate = case strategy of
           PrefixedFieldNames ->
             info.id.unsafeHsName.text <> "_" <> fieldCName.text
-          UnprefixedFieldNames ->
+          EnableRecordDot ->
             fieldCName.text
     ScopedNamePair fieldCName <$>
       mkIdentifier info (Proxy @Hs.NsVar) candidate
@@ -465,7 +465,7 @@ mkNewtypeNames strategy info = NewtypeNames{
     unwrapName fns typeName  = Hs.Identifier $
       case fns of
         PrefixedFieldNames   -> "unwrap" <> typeName.text
-        UnprefixedFieldNames -> "unwrap"
+        EnableRecordDot      -> "unwrap"
 
 -- | Union names
 --

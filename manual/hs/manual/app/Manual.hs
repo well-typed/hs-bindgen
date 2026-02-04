@@ -23,7 +23,7 @@ into separate modules corresponding to the manual's structure:
 * 'Manual.GeneratedNames' - Examples for name generation (awkward names)
 * 'Manual.BindingSpecifications' - Examples for external binding specifications
 * 'Manual.Globals' - Examples for global variables and constants
-* 'Manual.UnprefixedFieldNames' - Examples for unprefixed field names
+* 'Manual.EnableRecordDot' - Examples for unprefixed field names
 * 'Manual.ZeroCopy' - Examples for zero-copy bindings
 -}
 module Manual (main) where
@@ -34,6 +34,7 @@ import System.IO.Unsafe
 import Example
 import Example.Unsafe
 import Manual.BindingSpecifications qualified
+import Manual.EnableRecordDot qualified
 import Manual.Functions.FirstOrder qualified
 import Manual.Functions.HigherOrder qualified
 import Manual.GeneratedNames qualified
@@ -45,7 +46,6 @@ import Manual.Types.Enums qualified
 import Manual.Types.Structs qualified
 import Manual.Types.Typedefs qualified
 import Manual.Types.Unions qualified
-import Manual.UnprefixedFieldNames qualified
 import Manual.ZeroCopy qualified
 
 {-------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ main = do
     Manual.Functions.FirstOrder.examples
     Manual.Types.Complex.examples
     Manual.Functions.HigherOrder.examples
-    Manual.UnprefixedFieldNames.examples
+    Manual.EnableRecordDot.examples
     Manual.ZeroCopy.examples
 
 {-------------------------------------------------------------------------------

@@ -114,11 +114,11 @@ cabal run hs-bindgen-cli -- \
     -I c \
     --create-output-dirs \
     --overwrite-files \
-    --unique-id com.hs-bindgen.manual.unprefixed \
+    --unique-id com.hs-bindgen.manual.enablerecorddot \
     --hs-output-dir hs/manual/generated \
-    --module UnprefixedFieldNames \
-    --unprefixed-field-names \
-    unprefixed_field_names.h
+    --module EnableRecordDot \
+    --enable-record-dot \
+    enable_record_dot.h
 
 echo "# "
 echo "# External bindings: vector example"

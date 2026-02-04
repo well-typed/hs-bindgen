@@ -3,19 +3,51 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: manual/unprefixed_field_names.h
+- headers: manual/enable_record_dot.h
   cname: struct Point
   hsname: Point
-- headers: manual/unprefixed_field_names.h
+- headers: manual/enable_record_dot.h
   cname: struct Size
   hsname: Size
-- headers: manual/unprefixed_field_names.h
+- headers: manual/enable_record_dot.h
   cname: struct Rect
   hsname: Rect
-- headers: manual/unprefixed_field_names.h
+- headers: manual/enable_record_dot.h
+  cname: enum E
+  hsname: E
+- headers: manual/enable_record_dot.h
   cname: Value
   hsname: Value
+- headers: manual/enable_record_dot.h
+  cname: struct Driver
+  hsname: Driver
+- headers: manual/enable_record_dot.h
+  cname: RunDriver
+  hsname: RunDriver
 hstypes:
+- hsname: Driver
+  representation: emptydata
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrap
+  instances:
+  - CEnum
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Point
   representation:
     record:
@@ -45,6 +77,23 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: RunDriver
+  representation:
+    newtype:
+      constructor: RunDriver
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
   - ReadRaw
   - Show
   - StaticSize

@@ -1,13 +1,15 @@
+{-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE OverloadedRecordDot #-}
+{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -19,40 +21,47 @@ module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
+import qualified Prelude as P
+import qualified Text.Read
 import Data.Bits (FiniteBits)
+import Data.Void (Void)
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| __C declaration:__ @struct Point@
 
-    __defined at:__ @manual\/unprefixed_field_names.h 12:8@
+    __defined at:__ @manual\/enable_record_dot.h 12:8@
 
-    __exported by:__ @manual\/unprefixed_field_names.h@
+    __exported by:__ @manual\/enable_record_dot.h@
 -}
 data Point = Point
   { x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 13:7@
+         __defined at:__ @manual\/enable_record_dot.h 13:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   , y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 14:7@
+         __defined at:__ @manual\/enable_record_dot.h 14:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
   deriving stock (Eq, Show)
@@ -109,24 +118,24 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "y")
 
 {-| __C declaration:__ @struct Size@
 
-    __defined at:__ @manual\/unprefixed_field_names.h 18:8@
+    __defined at:__ @manual\/enable_record_dot.h 18:8@
 
-    __exported by:__ @manual\/unprefixed_field_names.h@
+    __exported by:__ @manual\/enable_record_dot.h@
 -}
 data Size = Size
   { width :: FC.CInt
     {- ^ __C declaration:__ @width@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 19:7@
+         __defined at:__ @manual\/enable_record_dot.h 19:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   , height :: FC.CInt
     {- ^ __C declaration:__ @height@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 20:7@
+         __defined at:__ @manual\/enable_record_dot.h 20:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
   deriving stock (Eq, Show)
@@ -183,38 +192,38 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size) "height")
 
 {-| __C declaration:__ @struct Rect@
 
-    __defined at:__ @manual\/unprefixed_field_names.h 24:8@
+    __defined at:__ @manual\/enable_record_dot.h 24:8@
 
-    __exported by:__ @manual\/unprefixed_field_names.h@
+    __exported by:__ @manual\/enable_record_dot.h@
 -}
 data Rect = Rect
   { x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 25:7@
+         __defined at:__ @manual\/enable_record_dot.h 25:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   , y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 26:7@
+         __defined at:__ @manual\/enable_record_dot.h 26:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   , width :: FC.CInt
     {- ^ __C declaration:__ @width@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 27:7@
+         __defined at:__ @manual\/enable_record_dot.h 27:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   , height :: FC.CInt
     {- ^ __C declaration:__ @height@
 
-         __defined at:__ @manual\/unprefixed_field_names.h 28:7@
+         __defined at:__ @manual\/enable_record_dot.h 28:7@
 
-         __exported by:__ @manual\/unprefixed_field_names.h@
+         __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
   deriving stock (Eq, Show)
@@ -297,11 +306,119 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rect) "height")
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"height")
 
+{-| __C declaration:__ @enum E@
+
+    __defined at:__ @manual\/enable_record_dot.h 32:6@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype E = E
+  { unwrap :: FC.CUInt
+  }
+  deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+
+instance HsBindgen.Runtime.Marshal.StaticSize E where
+
+  staticSizeOf = \_ -> (4 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance HsBindgen.Runtime.Marshal.ReadRaw E where
+
+  readRaw =
+    \ptr0 ->
+          pure E
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
+
+instance HsBindgen.Runtime.Marshal.WriteRaw E where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          E unwrap2 ->
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrap2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable E instance F.Storable E
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim E
+
+instance HsBindgen.Runtime.CEnum.CEnum E where
+
+  type CEnumZ E = FC.CUInt
+
+  toCEnum = E
+
+  fromCEnum = GHC.Records.getField @"unwrap"
+
+  declaredValues =
+    \_ ->
+      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "X"), (1, Data.List.NonEmpty.singleton "Y")]
+
+  showsUndeclared =
+    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "E"
+
+  readPrecUndeclared =
+    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "E"
+
+  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+
+  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+
+instance HsBindgen.Runtime.CEnum.SequentialCEnum E where
+
+  minDeclaredValue = X
+
+  maxDeclaredValue = Y
+
+instance Show E where
+
+  showsPrec = HsBindgen.Runtime.CEnum.shows
+
+instance Read E where
+
+  readPrec = HsBindgen.Runtime.CEnum.readPrec
+
+  readList = Text.Read.readListDefault
+
+  readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "unwrap")
+         ) => GHC.Records.HasField "unwrap" (Ptr.Ptr E) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrap")
+
+instance HsBindgen.Runtime.HasCField.HasCField E "unwrap" where
+
+  type CFieldType E "unwrap" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @x@
+
+    __defined at:__ @manual\/enable_record_dot.h 33:3@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+pattern X :: E
+pattern X = E 0
+
+{-| __C declaration:__ @y@
+
+    __defined at:__ @manual\/enable_record_dot.h 34:3@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+pattern Y :: E
+pattern Y = E 1
+
 {-| __C declaration:__ @Value@
 
-    __defined at:__ @manual\/unprefixed_field_names.h 32:13@
+    __defined at:__ @manual\/enable_record_dot.h 38:13@
 
-    __exported by:__ @manual\/unprefixed_field_names.h@
+    __exported by:__ @manual\/enable_record_dot.h@
 -}
 newtype Value = Value
   { unwrap :: FC.CInt
@@ -334,5 +451,102 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Value) "unwrap")
 instance HsBindgen.Runtime.HasCField.HasCField Value "unwrap" where
 
   type CFieldType Value "unwrap" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @struct Driver@
+
+    __defined at:__ @manual\/enable_record_dot.h 41:8@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+data Driver
+
+{-| Auxiliary type used by 'RunDriver'
+
+__C declaration:__ @RunDriver@
+
+__defined at:__ @manual\/enable_record_dot.h 42:15@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype RunDriver_Aux = RunDriver_Aux
+  { unwrap :: (Ptr.Ptr Driver) -> IO FC.CInt
+  }
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+
+foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
+     ((Ptr.Ptr Void) -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO GHC.Int.Int32))
+
+-- __unique:__ @toRunDriver_Aux@
+hs_bindgen_d86ecf261d7044c6 ::
+     RunDriver_Aux
+  -> IO (Ptr.FunPtr RunDriver_Aux)
+hs_bindgen_d86ecf261d7044c6 =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
+     Ptr.FunPtr ((Ptr.Ptr Void) -> IO GHC.Int.Int32)
+  -> (Ptr.Ptr Void) -> IO GHC.Int.Int32
+
+-- __unique:__ @fromRunDriver_Aux@
+hs_bindgen_6520ae39b50ffb4e ::
+     Ptr.FunPtr RunDriver_Aux
+  -> RunDriver_Aux
+hs_bindgen_6520ae39b50ffb4e =
+  \funPtr0 ->
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_6520ae39b50ffb4e_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
+
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr RunDriver_Aux where
+
+  toFunPtr = hs_bindgen_d86ecf261d7044c6
+
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr RunDriver_Aux where
+
+  fromFunPtr = hs_bindgen_6520ae39b50ffb4e
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType RunDriver_Aux) "unwrap")
+         ) => GHC.Records.HasField "unwrap" (Ptr.Ptr RunDriver_Aux) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrap")
+
+instance HsBindgen.Runtime.HasCField.HasCField RunDriver_Aux "unwrap" where
+
+  type CFieldType RunDriver_Aux "unwrap" =
+    (Ptr.Ptr Driver) -> IO FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @RunDriver@
+
+    __defined at:__ @manual\/enable_record_dot.h 42:15@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype RunDriver = RunDriver
+  { unwrap :: Ptr.FunPtr RunDriver_Aux
+  }
+  deriving stock (Eq, Ord, Show)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType RunDriver) "unwrap")
+         ) => GHC.Records.HasField "unwrap" (Ptr.Ptr RunDriver) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrap")
+
+instance HsBindgen.Runtime.HasCField.HasCField RunDriver "unwrap" where
+
+  type CFieldType RunDriver "unwrap" =
+    Ptr.FunPtr RunDriver_Aux
 
   offset# = \_ -> \_ -> 0

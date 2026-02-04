@@ -23,6 +23,7 @@ executable run-manual
   main-is:         Manual.hs
   other-modules:
     Manual.BindingSpecifications
+    Manual.EnableRecordDot
     Manual.Functions.FirstOrder
     Manual.Functions.HigherOrder
     Manual.GeneratedNames
@@ -35,7 +36,6 @@ executable run-manual
     Manual.Types.Structs
     Manual.Types.Typedefs
     Manual.Types.Unions
-    Manual.UnprefixedFieldNames
     Manual.ZeroCopy
 
   ghc-options:     -main-is Manual
@@ -75,6 +75,7 @@ executable run-manual
     Complex
     Complex.Global
     Complex.Safe
+    EnableRecordDot
     Example
     Example.Unsafe
     FunctionPointers
@@ -86,7 +87,6 @@ executable run-manual
     Manual.Tools
     Structs
     Structs.Safe
-    UnprefixedFieldNames
     ZeroCopy
     ZeroCopy.FunPtr
     ZeroCopy.Safe

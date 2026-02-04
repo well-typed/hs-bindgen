@@ -18,6 +18,7 @@ import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
+import HsBindgen.Config (BackendConfig(..))
 
 {-------------------------------------------------------------------------------
   Tests
@@ -33,7 +34,10 @@ check testResources test =
           -- slightly unfortunate to invoke @hs-bindgen@ multiple times even if
           -- it can render all modules at the same time, but it's cheap to do so
           -- in practice.
-          let artefacts = (,) <$> FinalModuleBaseName <*> getBindingsMultiple
+          let artefacts = (,)
+                        <$> FinalModuleBaseName
+                        <*> getBindingsMultiple
+                              (view #fieldNamingStrategy $ getTestBackendConfig test)
           (baseName, output)
             <- runTestHsBindgenSuccess report testResources test artefacts
 

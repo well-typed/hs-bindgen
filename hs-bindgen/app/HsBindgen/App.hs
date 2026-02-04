@@ -415,13 +415,12 @@ parseProgramSlicing =
 
 parseFieldNamingStrategy :: Parser FieldNamingStrategy
 parseFieldNamingStrategy =
-    flag PrefixedFieldNames UnprefixedFieldNames $ mconcat [
-        long "unprefixed-field-names"
+    flag PrefixedFieldNames EnableRecordDot $ mconcat [
+        long "enable-record-dot"
       , help $ concat [
             "Use unprefixed field names (e.g. 'x' instead of 'structName_x')."
           , " All newtype unwrap functions are called 'unwrap'."
-          , " Enables DuplicateRecordFields, OverloadedRecordDot,"
-          , " and OverloadedRecordUpdate extensions."
+          , " Requires DuplicateRecordFields extension."
           ]
       ]
 

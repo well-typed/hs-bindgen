@@ -39,11 +39,12 @@ requiredExtensions fieldNaming = \case
     DRecord record -> mconcat [
         recordExtensions record
       , nestedDeriving record.deriv
-      , unprefixedFieldExtensions fieldNaming
+      , enableRecordDotExtensions fieldNaming
       ]
     DNewtype newtyp -> mconcat [
         nestedDeriving newtyp.deriv
       , typeExtensions newtyp.field.typ
+      , enableRecordDotExtensions fieldNaming
       ]
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls
@@ -86,14 +87,11 @@ nestedDeriving deriv =
 recordExtensions :: Record -> Set TH.Extension
 recordExtensions record = foldMap fieldExtensions record.fields
 
--- | Extensions required when using unprefixed field names.
-unprefixedFieldExtensions :: FieldNamingStrategy -> Set TH.Extension
-unprefixedFieldExtensions = \case
-    PrefixedFieldNames   -> mempty
-    UnprefixedFieldNames -> Set.fromList [
-        TH.DuplicateRecordFields
-      , TH.OverloadedRecordDot
-      ]
+-- | Extensions required when using enable record dot flag.
+enableRecordDotExtensions :: FieldNamingStrategy -> Set TH.Extension
+enableRecordDotExtensions = \case
+    PrefixedFieldNames -> mempty
+    EnableRecordDot    -> Set.singleton TH.DuplicateRecordFields
 
 fieldExtensions :: Field -> Set TH.Extension
 fieldExtensions field = typeExtensions field.typ

@@ -3,12 +3,12 @@
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# OPTIONS_GHC -Wno-ambiguous-fields #-}
 
-module Manual.UnprefixedFieldNames (examples) where
+module Manual.EnableRecordDot (examples) where
 
 import Prelude
 
+import EnableRecordDot
 import Manual.Tools
-import UnprefixedFieldNames
 
 {-------------------------------------------------------------------------------
   Examples
@@ -24,32 +24,25 @@ examples = do
         size  = Size 100 200
 
     -- Access fields using OverloadedRecordDot
-    putStrLn $ "Point x: " <> show (point.x)
-    putStrLn $ "Point y: " <> show (point.y)
-    putStrLn $ "Size width: " <> show (size.width)
-    putStrLn $ "Size height: " <> show (size.height)
-
-    subsection "Updating fields with OverloadedRecordUpdate"
-    -- Update specific fields using OverloadedRecordUpdate
-    let point' :: Point
-        point' = point { x = 30 }
-    putStrLn $ "Updated point x: " <> show (point'.x)
-    putStrLn $ "Unchanged point y: " <> show (point'.y)
+    putStrLn $ "Point x: " <> show point.x
+    putStrLn $ "Point y: " <> show point.y
+    putStrLn $ "Size width: " <> show size.width
+    putStrLn $ "Size height: " <> show size.height
 
     subsection "Unwrapping newtype values"
     -- Newtypes have field named 'unwrap' (not 'unwrapValue')
     let value = Value 42
-    putStrLn $ "Value: " <> show (value.unwrap)
+    putStrLn $ "Value: " <> show value.unwrap
 
     subsection "Rect with overlapping field names"
     -- Rect reuses x, y from Point and width, height from Size
     let rect = Rect 5 10 50 100
-    putStrLn $ "Rect x: " <> show (rect.x)
-    putStrLn $ "Rect y: " <> show (rect.y)
-    putStrLn $ "Rect width: " <> show (rect.width)
-    putStrLn $ "Rect height: " <> show (rect.height)
+    putStrLn $ "Rect x: " <> show rect.x
+    putStrLn $ "Rect y: " <> show rect.y
+    putStrLn $ "Rect width: " <> show rect.width
+    putStrLn $ "Rect height: " <> show rect.height
 
     -- Update rect using record update syntax
     let rect' :: Rect
         rect' = rect { x = 15, y = 25 }
-    putStrLn $ "Updated rect: " <> show (rect'.x) <> ", " <> show (rect'.y)
+    putStrLn $ "Updated rect: " <> show rect'.x <> ", " <> show rect'.y

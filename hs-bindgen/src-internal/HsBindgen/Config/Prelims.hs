@@ -65,13 +65,14 @@ fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
 -- With 'PrefixedFieldNames' (the default), field names are prefixed with the
 -- struct name to avoid name collisions (e.g., @timeval_tv_sec@).
 --
--- With 'UnprefixedFieldNames', field names are not prefixed (e.g., @tv_sec@).
--- This requires the @DuplicateRecordFields@ and @OverloadedRecordDot@ GHC
--- extensions, which are automatically added when this strategy is selected.
+-- With 'EnableRecordDot', field names are not prefixed (e.g., @tv_sec@).
+-- This enables the @DuplicateRecordFields@ GHC extension, which is
+-- automatically added when this strategy is selected. As the name suggests
+-- this enables the user to use @OverloadedRecordDot@ GHC extension.
 --
 data FieldNamingStrategy =
     PrefixedFieldNames
-  | UnprefixedFieldNames
+  | EnableRecordDot
   deriving stock (Show, Eq, Generic)
 
 instance Default FieldNamingStrategy where

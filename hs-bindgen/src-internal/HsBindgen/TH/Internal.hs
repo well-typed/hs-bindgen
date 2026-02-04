@@ -89,13 +89,12 @@ withHsBindgen config configTH hashIncludes = do
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
         uncheckedHashIncludeArgs = reverse bindgenState.hashIncludeArgs
 
-        artefact :: Artefact (FieldNamingStrategy, [SourcePath], ([CWrapper], [SHs.SDecl]))
-        artefact = (,,)
-          <$> FinalFieldNamingStrategy
-          <*> Dependencies
+        artefact :: Artefact ([SourcePath], ([CWrapper], [SHs.SDecl]))
+        artefact = (,)
+          <$> Dependencies
           <*> (Foldable.fold <$> FinalDecls)
 
-    (fieldNaming, deps, decls) <- liftIO $
+    (deps, decls) <- liftIO $
       hsBindgen
         tracerConfigUnsafe
         tracerConfigSafe
@@ -103,7 +102,8 @@ withHsBindgen config configTH hashIncludes = do
         uncheckedHashIncludeArgs
         artefact
 
-    let requiredExts = uncurry (getExtensions fieldNaming) decls
+    let fieldNaming = bindgenConfig.frontend.fieldNamingStrategy
+        requiredExts = uncurry (getExtensions fieldNaming) decls
     checkLanguageExtensions requiredExts
     uncurry (getThDecls deps) decls
 

@@ -101,6 +101,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
+import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -285,6 +286,7 @@ data InstanceDecl where
       -> HsType
       -> Map Integer (NonEmpty String)
       -> Bool  -- is sequential?
+      -> FieldNamingStrategy  -- field naming strategy
       -> InstanceDecl
     InstanceSequentialCEnum ::
          Struct (S Z)

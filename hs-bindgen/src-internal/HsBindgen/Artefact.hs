@@ -56,7 +56,6 @@ data Artefact (a :: Star) where
   HsDecls             :: Artefact (ByCategory_ [Hs.Decl])
   FinalDecls          :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact BaseModuleName
-  FinalFieldNamingStrategy :: Artefact FieldNamingStrategy
   -- * Control flow
   EmitTrace           :: ArtefactMsg -> Artefact ()
   Lift                :: DelayedIOM a -> Artefact a
@@ -113,7 +112,6 @@ runArtefacts tracer boot frontend backend artefact =
         HsDecls             -> runCached backend.hsDecls
         FinalDecls          -> runCached backend.finalDecls
         FinalModuleBaseName -> pure backend.finalModuleBaseName
-        FinalFieldNamingStrategy -> pure backend.fieldNamingStrategy
         -- Control flow
         (EmitTrace x)       -> emitTrace tracer x
         (Lift   f)          -> f

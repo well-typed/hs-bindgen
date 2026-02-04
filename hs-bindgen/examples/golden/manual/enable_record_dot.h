@@ -28,5 +28,15 @@ struct Rect {
   int height;
 };
 
+/* Enum that reuses field names from Point */
+enum E {
+  x,
+  y
+};
+
 /* Newtype example */
 typedef int Value;
+
+/* Typedef for a function pointer */
+struct Driver;
+typedef int (*RunDriver)(struct Driver* self);

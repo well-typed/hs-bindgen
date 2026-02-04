@@ -3,7 +3,7 @@
 /*
  * Unprefixed field names demonstration
  *
- * This example demonstrates the --unprefixed-field-names flag, which generates
+ * This example demonstrates the --enable-record-dot flag, which generates
  * Haskell records with unprefixed field names. This requires the
  * DuplicateRecordFields extension.
  */
@@ -28,5 +28,15 @@ struct Rect {
   int height;
 };
 
+/* Enum that reuses field names from Point */
+enum E {
+  x,
+  y
+};
+
 /* Newtype example */
 typedef int Value;
+
+/* Typedef for a function pointer */
+struct Driver;
+typedef int (*RunDriver)(struct Driver* self);

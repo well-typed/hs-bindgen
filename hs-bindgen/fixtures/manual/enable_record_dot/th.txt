@@ -1,0 +1,374 @@
+-- addDependentFile examples/golden/manual/enable_record_dot.h
+{-| __C declaration:__ @struct Point@
+
+    __defined at:__ @manual\/enable_record_dot.h 12:8@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+data Point
+    = Point {x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @manual\/enable_record_dot.h 25:7@
+
+                  __exported by:__ @manual\/enable_record_dot.h@
+             -},
+             y :: CInt
+             {- ^ __C declaration:__ @y@
+
+                  __defined at:__ @manual\/enable_record_dot.h 26:7@
+
+                  __exported by:__ @manual\/enable_record_dot.h@
+             -}}
+      {- ^ __C declaration:__ @struct Point@
+
+           __defined at:__ @manual\/enable_record_dot.h 12:8@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize Point
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point
+    where readRaw = \ptr_0 -> (pure Point <*> readRaw (Proxy @"x") ptr_0) <*> readRaw (Proxy @"y") ptr_0
+instance WriteRaw Point
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point x_2
+                                             y_3 -> writeRaw (Proxy @"x") ptr_0 x_2 >> writeRaw (Proxy @"y") ptr_0 y_3
+deriving via (EquivStorable Point) instance Storable Point
+instance HasCField Point "x"
+    where type CFieldType Point "x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Point "x") =>
+         HasField "x" (Ptr Point) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField Point "y"
+    where type CFieldType Point "y" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Point "y") =>
+         HasField "y" (Ptr Point) (Ptr ty)
+    where getField = fromPtr (Proxy @"y")
+{-| __C declaration:__ @struct Size@
+
+    __defined at:__ @manual\/enable_record_dot.h 18:8@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+data Size
+    = Size {width :: CInt
+            {- ^ __C declaration:__ @width@
+
+                 __defined at:__ @manual\/enable_record_dot.h 27:7@
+
+                 __exported by:__ @manual\/enable_record_dot.h@
+            -},
+            height :: CInt
+            {- ^ __C declaration:__ @height@
+
+                 __defined at:__ @manual\/enable_record_dot.h 28:7@
+
+                 __exported by:__ @manual\/enable_record_dot.h@
+            -}}
+      {- ^ __C declaration:__ @struct Size@
+
+           __defined at:__ @manual\/enable_record_dot.h 18:8@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize Size
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Size
+    where readRaw = \ptr_0 -> (pure Size <*> readRaw (Proxy @"width") ptr_0) <*> readRaw (Proxy @"height") ptr_0
+instance WriteRaw Size
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Size width_2
+                                            height_3 -> writeRaw (Proxy @"width") ptr_0 width_2 >> writeRaw (Proxy @"height") ptr_0 height_3
+deriving via (EquivStorable Size) instance Storable Size
+instance HasCField Size "width"
+    where type CFieldType Size "width" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Size "width") =>
+         HasField "width" (Ptr Size) (Ptr ty)
+    where getField = fromPtr (Proxy @"width")
+instance HasCField Size "height"
+    where type CFieldType Size "height" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Size "height") =>
+         HasField "height" (Ptr Size) (Ptr ty)
+    where getField = fromPtr (Proxy @"height")
+{-| __C declaration:__ @struct Rect@
+
+    __defined at:__ @manual\/enable_record_dot.h 24:8@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+data Rect
+    = Rect {x :: CInt
+            {- ^ __C declaration:__ @x@
+
+                 __defined at:__ @manual\/enable_record_dot.h 25:7@
+
+                 __exported by:__ @manual\/enable_record_dot.h@
+            -},
+            y :: CInt
+            {- ^ __C declaration:__ @y@
+
+                 __defined at:__ @manual\/enable_record_dot.h 26:7@
+
+                 __exported by:__ @manual\/enable_record_dot.h@
+            -},
+            width :: CInt
+            {- ^ __C declaration:__ @width@
+
+                 __defined at:__ @manual\/enable_record_dot.h 27:7@
+
+                 __exported by:__ @manual\/enable_record_dot.h@
+            -},
+            height :: CInt
+            {- ^ __C declaration:__ @height@
+
+                 __defined at:__ @manual\/enable_record_dot.h 28:7@
+
+                 __exported by:__ @manual\/enable_record_dot.h@
+            -}}
+      {- ^ __C declaration:__ @struct Rect@
+
+           __defined at:__ @manual\/enable_record_dot.h 24:8@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize Rect
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Rect
+    where readRaw = \ptr_0 -> (((pure Rect <*> readRaw (Proxy @"x") ptr_0) <*> readRaw (Proxy @"y") ptr_0) <*> readRaw (Proxy @"width") ptr_0) <*> readRaw (Proxy @"height") ptr_0
+instance WriteRaw Rect
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rect x_2
+                                            y_3
+                                            width_4
+                                            height_5 -> writeRaw (Proxy @"x") ptr_0 x_2 >> (writeRaw (Proxy @"y") ptr_0 y_3 >> (writeRaw (Proxy @"width") ptr_0 width_4 >> writeRaw (Proxy @"height") ptr_0 height_5))
+deriving via (EquivStorable Rect) instance Storable Rect
+instance HasCField Rect "x"
+    where type CFieldType Rect "x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Rect "x") =>
+         HasField "x" (Ptr Rect) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField Rect "y"
+    where type CFieldType Rect "y" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Rect "y") =>
+         HasField "y" (Ptr Rect) (Ptr ty)
+    where getField = fromPtr (Proxy @"y")
+instance HasCField Rect "width"
+    where type CFieldType Rect "width" = CInt
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Rect "width") =>
+         HasField "width" (Ptr Rect) (Ptr ty)
+    where getField = fromPtr (Proxy @"width")
+instance HasCField Rect "height"
+    where type CFieldType Rect "height" = CInt
+          offset# = \_ -> \_ -> 12
+instance TyEq ty (CFieldType Rect "height") =>
+         HasField "height" (Ptr Rect) (Ptr ty)
+    where getField = fromPtr (Proxy @"height")
+{-| __C declaration:__ @enum E@
+
+    __defined at:__ @manual\/enable_record_dot.h 32:6@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype E
+    = E {unwrap :: CUInt}
+      {- ^ __C declaration:__ @enum E@
+
+           __defined at:__ @manual\/enable_record_dot.h 32:6@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasFFIType
+instance StaticSize E
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw E
+    where readRaw = \ptr_0 -> pure E <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw E
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E unwrap_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrap_2
+deriving via (EquivStorable E) instance Storable E
+deriving via CUInt instance Prim E
+instance CEnum E
+    where type CEnumZ E = CUInt
+          toCEnum = E
+          fromCEnum = getField @"unwrap"
+          declaredValues = \_ -> declaredValuesFromList [(0, singleton "X"),
+                                                         (1, singleton "Y")]
+          showsUndeclared = showsWrappedUndeclared "E"
+          readPrecUndeclared = readPrecWrappedUndeclared "E"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E
+    where minDeclaredValue = X
+          maxDeclaredValue = Y
+instance Show E
+    where showsPrec = shows
+instance Read E
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType E "unwrap") =>
+         HasField "unwrap" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrap")
+instance HasCField E "unwrap"
+    where type CFieldType E "unwrap" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @x@
+
+    __defined at:__ @manual\/enable_record_dot.h 33:3@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+pattern X :: E
+{-| __C declaration:__ @x@
+
+    __defined at:__ @manual\/enable_record_dot.h 33:3@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+pattern X = E 0
+{-| __C declaration:__ @y@
+
+    __defined at:__ @manual\/enable_record_dot.h 34:3@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+pattern Y :: E
+{-| __C declaration:__ @y@
+
+    __defined at:__ @manual\/enable_record_dot.h 34:3@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+pattern Y = E 1
+{-| __C declaration:__ @Value@
+
+    __defined at:__ @manual\/enable_record_dot.h 38:13@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype Value
+    = Value {unwrap :: CInt}
+      {- ^ __C declaration:__ @Value@
+
+           __defined at:__ @manual\/enable_record_dot.h 38:13@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType Value "unwrap") =>
+         HasField "unwrap" (Ptr Value) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrap")
+instance HasCField Value "unwrap"
+    where type CFieldType Value "unwrap" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct Driver@
+
+    __defined at:__ @manual\/enable_record_dot.h 41:8@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+data Driver
+{-| Auxiliary type used by 'RunDriver'
+
+__C declaration:__ @RunDriver@
+
+__defined at:__ @manual\/enable_record_dot.h 42:15@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype RunDriver_Aux
+    = RunDriver_Aux {unwrap :: (Ptr Driver -> IO CInt)}
+      {- ^ Auxiliary type used by 'RunDriver'
+
+      __C declaration:__ @RunDriver@
+
+      __defined at:__ @manual\/enable_record_dot.h 42:15@
+
+      __exported by:__ @manual\/enable_record_dot.h@
+      -}
+    deriving newtype HasFFIType
+foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
+    Ptr Void -> IO Int32
+ -> IO (FunPtr (Ptr Void -> IO Int32))
+-- __unique:__ @toRunDriver_Aux@
+hs_bindgen_d86ecf261d7044c6 :: RunDriver_Aux ->
+                               IO (FunPtr RunDriver_Aux)
+-- __unique:__ @toRunDriver_Aux@
+hs_bindgen_d86ecf261d7044c6 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (toFFIType fun_0))
+foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
+    FunPtr (Ptr Void -> IO Int32)
+ -> Ptr Void
+ -> IO Int32
+-- __unique:__ @fromRunDriver_Aux@
+hs_bindgen_6520ae39b50ffb4e :: FunPtr RunDriver_Aux ->
+                               RunDriver_Aux
+-- __unique:__ @fromRunDriver_Aux@
+hs_bindgen_6520ae39b50ffb4e = \funPtr_0 -> fromFFIType (hs_bindgen_6520ae39b50ffb4e_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr RunDriver_Aux
+    where toFunPtr = hs_bindgen_d86ecf261d7044c6
+instance FromFunPtr RunDriver_Aux
+    where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
+instance TyEq ty (CFieldType RunDriver_Aux "unwrap") =>
+         HasField "unwrap" (Ptr RunDriver_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrap")
+instance HasCField RunDriver_Aux "unwrap"
+    where type CFieldType RunDriver_Aux "unwrap" = Ptr Driver ->
+                                                   IO CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @RunDriver@
+
+    __defined at:__ @manual\/enable_record_dot.h 42:15@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype RunDriver
+    = RunDriver {unwrap :: (FunPtr RunDriver_Aux)}
+      {- ^ __C declaration:__ @RunDriver@
+
+           __defined at:__ @manual\/enable_record_dot.h 42:15@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
+instance TyEq ty (CFieldType RunDriver "unwrap") =>
+         HasField "unwrap" (Ptr RunDriver) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrap")
+instance HasCField RunDriver "unwrap"
+    where type CFieldType RunDriver "unwrap" = FunPtr RunDriver_Aux
+          offset# = \_ -> \_ -> 0
