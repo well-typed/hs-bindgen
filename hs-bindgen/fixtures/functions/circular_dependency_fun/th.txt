@@ -61,7 +61,11 @@ newtype Fun_ptr
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Fun_ptr "unwrapFun_ptr") =>
          HasField "unwrapFun_ptr" (Ptr Fun_ptr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFun_ptr")
@@ -89,12 +93,15 @@ data Forward_declaration
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Forward_declaration
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Forward_declaration <*> peek (Proxy @"forward_declaration_f") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Forward_declaration forward_declaration_f_3 -> poke (Proxy @"forward_declaration_f") ptr_1 forward_declaration_f_3
+instance StaticSize Forward_declaration
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Forward_declaration
+    where readRaw = \ptr_0 -> pure Forward_declaration <*> readRaw (Proxy @"forward_declaration_f") ptr_0
+instance WriteRaw Forward_declaration
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Forward_declaration forward_declaration_f_2 -> writeRaw (Proxy @"forward_declaration_f") ptr_0 forward_declaration_f_2
+deriving via (EquivStorable Forward_declaration) instance Storable Forward_declaration
 instance HasCField Forward_declaration "forward_declaration_f"
     where type CFieldType Forward_declaration
                           "forward_declaration_f" = Fun_ptr

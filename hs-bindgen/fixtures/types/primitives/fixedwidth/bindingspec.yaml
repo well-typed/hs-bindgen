@@ -16,5 +16,10 @@ hstypes:
       - foo_thirty_two
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -18,8 +18,13 @@ hstypes:
       - a_toB
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     record:
@@ -28,5 +33,10 @@ hstypes:
       - b_toA
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

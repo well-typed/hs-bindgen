@@ -42,9 +42,14 @@ hstypes:
       - diff_second
   instances:
   - Eq
-  - Prim
+  - Flam_Offset
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo
   representation: typealias
 - hsname: Foo_Aux
@@ -55,9 +60,14 @@ hstypes:
       - foo_len
   instances:
   - Eq
-  - Prim
+  - Flam_Offset
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo_bar
   representation:
     record:
@@ -67,9 +77,13 @@ hstypes:
       - foo_bar_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Pascal
   representation: typealias
 - hsname: Pascal_Aux
@@ -80,9 +94,14 @@ hstypes:
       - pascal_len
   instances:
   - Eq
-  - Prim
+  - Flam_Offset
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Triplets
   representation: typealias
 - hsname: Triplets_Aux
@@ -93,6 +112,11 @@ hstypes:
       - triplets_len
   instances:
   - Eq
-  - Prim
+  - Flam_Offset
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -37,9 +37,13 @@ hstypes:
       - config_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Inline_struct
   representation:
     record:
@@ -49,9 +53,13 @@ hstypes:
       - inline_struct_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct1_t
   representation:
     record:
@@ -62,8 +70,13 @@ hstypes:
       - struct1_t_version
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct2_t
   representation:
     record:
@@ -72,8 +85,13 @@ hstypes:
       - struct2_t_field1
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Version_t
   representation:
     record:
@@ -84,5 +102,10 @@ hstypes:
       - version_t_patch
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

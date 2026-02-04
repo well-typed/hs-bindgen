@@ -32,21 +32,27 @@ hstypes:
       fields:
       - unwrapBOOLEAN_T
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Boolean_T
   representation:
     newtype:
@@ -54,21 +60,27 @@ hstypes:
       fields:
       - unwrapBoolean_T
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MTy
   representation:
     newtype:
@@ -80,16 +92,21 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - HasCField
   - HasFFIType
+  - HasField
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - RealFloat
   - RealFrac
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: PtrInt
   representation:
     newtype:
@@ -98,10 +115,15 @@ hstypes:
       - unwrapPtrInt
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: PtrPtrChar
   representation:
     newtype:
@@ -110,10 +132,15 @@ hstypes:
       - unwrapPtrPtrChar
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tty
   representation:
     newtype:
@@ -125,16 +152,21 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - HasCField
   - HasFFIType
+  - HasField
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - RealFloat
   - RealFrac
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: UINT8_T
   representation:
     newtype:
@@ -142,18 +174,24 @@ hstypes:
       fields:
       - unwrapUINT8_T
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

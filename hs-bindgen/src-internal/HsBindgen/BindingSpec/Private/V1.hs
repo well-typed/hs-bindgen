@@ -29,8 +29,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , HsNewtypeRep(..)
     -- ** Instances
   , InstanceSpec(..)
-  , StrategySpec(..)
-  , ConstraintSpec(..)
     -- * API
   , empty
   , getCTypes
@@ -75,6 +73,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
@@ -166,7 +165,7 @@ data HsTypeSpec = HsTypeSpec {
       hsRep :: Maybe HsTypeRep
 
        -- | Instance specification
-    , instances :: Map Hs.TypeClass (Omittable InstanceSpec)
+    , instances :: Map Inst.TypeClass (Omittable InstanceSpec)
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -239,12 +238,12 @@ data InstanceSpec = InstanceSpec {
       -- | Strategy used to generate/derive the instance
       --
       -- A 'Nothing' value indicates that @hs-bindgen@ defaults should be used.
-      strategy :: Maybe StrategySpec
+      strategy :: Maybe Inst.Strategy
 
       -- | Instance constraints
       --
       -- If specified, /all/ constraints must be listed.
-    , constraints :: [ConstraintSpec]
+    , constraints :: [Inst.Constraint]
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -253,27 +252,6 @@ instance Default InstanceSpec where
       strategy    = Nothing
     , constraints = []
     }
-
---------------------------------------------------------------------------------
-
--- | Strategy used to generate/derive an instance
-data StrategySpec =
-    -- | Generate an instance
-    StrategySpecHsBindgen
-  | -- | Derive an instance using the @newtype@ strategy
-    StrategySpecNewtype
-  | -- | Derive an instance using the @stock@ strategy
-    StrategySpecStock
-  deriving stock (Bounded, Enum, Eq, Generic, Ord, Show)
-
---------------------------------------------------------------------------------
-
--- | Constraint of an instance
-data ConstraintSpec = ConstraintSpec {
-      clss :: Hs.TypeClass
-    , ref  :: Hs.ExtRef
-    }
-  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   API
@@ -1004,9 +982,9 @@ instance Aeson.ToJSON (ARep V1 HsTypeRep) where
 --------------------------------------------------------------------------------
 
 data instance ARep V1 InstanceSpec = AInstanceSpec {
-      clss        :: Hs.TypeClass
-    , strategy    :: Maybe StrategySpec
-    , constraints :: [ConstraintSpec]
+      clss        :: Inst.TypeClass
+    , strategy    :: Maybe Inst.Strategy
+    , constraints :: [Inst.Constraint]
     }
   deriving stock (Show)
 
@@ -1044,7 +1022,7 @@ instance Aeson.ToJSON (ARep V1 InstanceSpec) where
         ]
 
 instance ARepKV V1 InstanceSpec where
-  newtype ARepK V1 InstanceSpec = AKInstanceSpec { unwrap :: Hs.TypeClass }
+  newtype ARepK V1 InstanceSpec = AKInstanceSpec { unwrap :: Inst.TypeClass }
 
   fromARepKV arep =
     ( AKInstanceSpec arep.clss
@@ -1073,13 +1051,13 @@ type AOInstanceSpec = AOmittable (ARepK V1 InstanceSpec) (ARep V1 InstanceSpec)
 -- duplicates ignored, last value retained
 fromAOInstanceSpecs ::
      [AOInstanceSpec]
-  -> Map Hs.TypeClass (Omittable InstanceSpec)
+  -> Map Inst.TypeClass (Omittable InstanceSpec)
 fromAOInstanceSpecs xs = Map.fromList . flip map xs $ \case
     ARequire arep -> bimap (.unwrap) Require (fromARepKV arep)
     AOmit    k    -> (k.unwrap, Omit)
 
 toAOInstanceSpecs ::
-     Map Hs.TypeClass (Omittable InstanceSpec)
+     Map Inst.TypeClass (Omittable InstanceSpec)
   -> [AOInstanceSpec]
 toAOInstanceSpecs instMap = [
       case oInstSpec of
@@ -1090,75 +1068,75 @@ toAOInstanceSpecs instMap = [
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep V1 Hs.TypeClass = ATypeClass Hs.TypeClass
+newtype instance ARep V1 Inst.TypeClass = ATypeClass Inst.TypeClass
   deriving stock (Show)
 
-instance ARepIso V1 Hs.TypeClass
+instance ARepIso V1 Inst.TypeClass
 
-instance Aeson.FromJSON (ARep V1 Hs.TypeClass) where
+instance Aeson.FromJSON (ARep V1 Inst.TypeClass) where
   parseJSON = Aeson.withText "TypeClass" $ \t ->
     let s = Text.unpack t
     in  case readMaybe s of
           Just clss -> return (ATypeClass clss)
           Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
 
-instance Aeson.ToJSON (ARep V1 Hs.TypeClass) where
+instance Aeson.ToJSON (ARep V1 Inst.TypeClass) where
   toJSON (ATypeClass clss) = Aeson.String $ Text.pack (show clss)
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep V1 StrategySpec = AStrategySpec StrategySpec
+newtype instance ARep V1 Inst.Strategy = AStrategy Inst.Strategy
   deriving stock (Show)
 
-instance ARepIso V1 StrategySpec
+instance ARepIso V1 Inst.Strategy
 
-instance Aeson.FromJSON (ARep V1 StrategySpec) where
-  parseJSON = Aeson.withText "StrategySpec" $ \t ->
-    case Map.lookup t strategySpecFromText of
-      Just strategy -> return (AStrategySpec strategy)
-      Nothing -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
+instance Aeson.FromJSON (ARep V1 Inst.Strategy) where
+  parseJSON = Aeson.withText "Strategy" $ \t ->
+    case Map.lookup t strategyFromText of
+      Just strat -> return (AStrategy strat)
+      Nothing    -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
 
-instance Aeson.ToJSON (ARep V1 StrategySpec) where
-  toJSON (AStrategySpec spec) = Aeson.String (strategySpecText spec)
+instance Aeson.ToJSON (ARep V1 Inst.Strategy) where
+  toJSON (AStrategy strat) = Aeson.String (strategyToText strat)
 
-strategySpecText :: StrategySpec -> Text
-strategySpecText = \case
-    StrategySpecHsBindgen -> "hs-bindgen"
-    StrategySpecNewtype   -> "newtype"
-    StrategySpecStock     -> "stock"
+strategyToText :: Inst.Strategy -> Text
+strategyToText = \case
+    Inst.HsBindgen -> "hs-bindgen"
+    Inst.Newtype   -> "newtype"
+    Inst.Stock     -> "stock"
 
-strategySpecFromText :: Map Text StrategySpec
-strategySpecFromText = Map.fromList [
-      (strategySpecText strat, strat)
+strategyFromText :: Map Text Inst.Strategy
+strategyFromText = Map.fromList [
+      (strategyToText strat, strat)
     | strat <- [minBound..]
     ]
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep V1 ConstraintSpec = AConstraintSpec ConstraintSpec
+newtype instance ARep V1 Inst.Constraint = AConstraint Inst.Constraint
   deriving stock (Show)
 
-instance ARepIso V1 ConstraintSpec
+instance ARepIso V1 Inst.Constraint
 
-instance Aeson.FromJSON (ARep V1 ConstraintSpec) where
-  parseJSON = Aeson.withObject "ConstraintSpec" $ \o -> do
-      constraintSpecClass <- o .: "class"
-      extRefModule        <- o .: "hsmodule"
-      extRefIdentifier    <- o .: "hsname"
-      let constraintSpecRef = Hs.ExtRef{
+instance Aeson.FromJSON (ARep V1 Inst.Constraint) where
+  parseJSON = Aeson.withObject "Constraint" $ \o -> do
+      constraintClass  <- o .: "class"
+      extRefModule     <- o .: "hsmodule"
+      extRefIdentifier <- o .: "hsname"
+      let constraintRef = Hs.ExtRef{
               moduleName = fromARep' extRefModule
             , ident      = fromARep' extRefIdentifier
             }
-      return $ AConstraintSpec ConstraintSpec{
-          clss = fromARep' constraintSpecClass
-        , ref  = constraintSpecRef
+      return $ AConstraint Inst.Constraint{
+          clss = fromARep' constraintClass
+        , ref  = constraintRef
         }
 
-instance Aeson.ToJSON (ARep V1 ConstraintSpec) where
-  toJSON (AConstraintSpec spec) = Aeson.object [
-        "class"    .= toARep' spec.clss
-      , "hsmodule" .= toARep' spec.ref.moduleName
-      , "hsname"   .= toARep' spec.ref.ident
+instance Aeson.ToJSON (ARep V1 Inst.Constraint) where
+  toJSON (AConstraint constraint) = Aeson.object [
+        "class"    .= toARep' constraint.clss
+      , "hsmodule" .= toARep' constraint.ref.moduleName
+      , "hsname"   .= toARep' constraint.ref.ident
       ]
 
 {-------------------------------------------------------------------------------

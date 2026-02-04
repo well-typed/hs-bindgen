@@ -34,7 +34,6 @@ module HsBindgen.Backend.Hs.AST (
   , VarDeclRHSAppHead(..)
     -- ** Deriving instances
   , Strategy(..)
-  , Hs.TypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , FunctionParameter(..)
@@ -46,6 +45,12 @@ module HsBindgen.Backend.Hs.AST (
     -- ** 'FromFunPtr'
   , FromFunPtrInstance(..)
   , ForeignImportDynamic(..)
+    -- ** @StaticSize@, @ReadRaw@, @WriteRaw@
+  , StaticSizeInstance(..)
+  , ReadRawInstance(..)
+  , WriteRawInstance(..)
+  , ReadRawCField(..)
+  , WriteRawCField(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekCField(..)
@@ -98,6 +103,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -124,7 +130,7 @@ data Struct (n :: Nat) = Struct{
     , constr    :: Hs.Name Hs.NsConstr
     , fields    :: Vec n Field
     , origin    :: Maybe (Origin.Decl Origin.Struct)
-    , instances :: Set Hs.TypeClass
+    , instances :: Set Inst.TypeClass
     , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
@@ -141,7 +147,7 @@ data Newtype = Newtype{
     , constr    :: Hs.Name Hs.NsConstr
     , field     :: Field
     , origin    :: Origin.Decl Origin.Newtype
-    , instances :: Set Hs.TypeClass
+    , instances :: Set Inst.TypeClass
     , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
@@ -193,7 +199,7 @@ data UnionSetter = UnionSetter{
 
 data DeriveInstance = DeriveInstance{
       strategy :: Strategy HsType
-    , clss     :: Hs.TypeClass
+    , clss     :: Inst.TypeClass
     , name     :: Hs.Name Hs.NsTypeConstr
     , comment  :: Maybe HsDoc.Comment
     }
@@ -265,6 +271,9 @@ data DefineInstance = DefineInstance{
 -- | Class instance declaration (with code that /we/ generate)
 type InstanceDecl :: Star
 data InstanceDecl where
+    InstanceStaticSize :: Struct n -> StaticSizeInstance -> InstanceDecl
+    InstanceReadRaw :: Struct n -> ReadRawInstance -> InstanceDecl
+    InstanceWriteRaw :: Struct n -> WriteRawInstance -> InstanceDecl
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
     InstancePrim :: Struct n -> PrimInstance -> InstanceDecl
     InstanceHasCField :: HasCFieldInstance -> InstanceDecl
@@ -408,6 +417,50 @@ data ForeignImportDynamic = ForeignImportDynamic {
     }
     deriving stock (Generic, Show)
 
+{-------------------------------------------------------------------------------
+  @StaticSize@, @ReadRaw@, @WriteRaw@
+-------------------------------------------------------------------------------}
+
+-- | 'HsBindgen.Runtime.Marshal.StaticSize' instance
+--
+-- Currently this models storable instances for structs /only/.
+data StaticSizeInstance = StaticSizeInstance{
+      staticSizeOf    :: Int
+    , staticAlignment :: Int
+    }
+  deriving stock (Generic, Show)
+
+-- | 'HsBindgen.Runtime.Marshal.ReadRaw' instance
+--
+-- Currently this models storable instances for structs /only/.
+data ReadRawInstance = ReadRawInstance{
+      readRaw :: Lambda (Ap StructCon ReadRawCField) EmptyCtx
+    }
+  deriving stock (Generic, Show)
+
+-- | 'HsBindgen.Runtime.Marshal.WriteRaw' instance
+--
+-- Currently this models storable instances for structs /only/.
+data WriteRawInstance = WriteRawInstance{
+      writeRaw :: Lambda (Lambda (ElimStruct (Seq WriteRawCField))) EmptyCtx
+    }
+  deriving stock (Generic, Show)
+
+-- | A call to 'readRawCField', 'readRawCBitfield', or 'readRawByteOff'
+type ReadRawCField :: Ctx -> Star
+data ReadRawCField ctx =
+    ReadRawCField HsType (Idx ctx)
+  | ReadRawCBitfield HsType (Idx ctx)
+  | ReadRawByteOff (Idx ctx) Int
+  deriving stock (Generic, Show)
+
+-- | A call to 'writeRawCField', 'writeRawCBitfield', or 'writeRawByteOff'
+type WriteRawCField :: Ctx -> Star
+data WriteRawCField ctx =
+    WriteRawCField HsType (Idx ctx) (Idx ctx)
+  | WriteRawCBitfield HsType (Idx ctx) (Idx ctx)
+  | WriteRawByteOff (Idx ctx) Int (Idx ctx)
+  deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   'Storable'

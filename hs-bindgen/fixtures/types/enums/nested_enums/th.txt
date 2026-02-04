@@ -15,12 +15,15 @@ newtype EnumA
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable EnumA
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumA unwrapEnumA_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumA_3
+instance StaticSize EnumA
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw EnumA
+    where readRaw = \ptr_0 -> pure EnumA <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw EnumA
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       EnumA unwrapEnumA_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapEnumA_2
+deriving via (EquivStorable EnumA) instance Storable EnumA
 deriving via CUInt instance Prim EnumA
 instance CEnum EnumA
     where type CEnumZ EnumA = CUInt
@@ -42,6 +45,12 @@ instance Read EnumA
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumA "unwrapEnumA") =>
+         HasField "unwrapEnumA" (Ptr EnumA) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumA")
+instance HasCField EnumA "unwrapEnumA"
+    where type CFieldType EnumA "unwrapEnumA" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @VALA_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 3:17@
@@ -91,12 +100,15 @@ data ExA
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
     deriving stock (Eq, Show)
-instance Storable ExA
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure ExA <*> peek (Proxy @"exA_fieldA1") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExA exA_fieldA1_3 -> poke (Proxy @"exA_fieldA1") ptr_1 exA_fieldA1_3
+instance StaticSize ExA
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExA
+    where readRaw = \ptr_0 -> pure ExA <*> readRaw (Proxy @"exA_fieldA1") ptr_0
+instance WriteRaw ExA
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExA exA_fieldA1_2 -> writeRaw (Proxy @"exA_fieldA1") ptr_0 exA_fieldA1_2
+deriving via (EquivStorable ExA) instance Storable ExA
 instance HasCField ExA "exA_fieldA1"
     where type CFieldType ExA "exA_fieldA1" = EnumA
           offset# = \_ -> \_ -> 0
@@ -119,12 +131,15 @@ newtype ExB_fieldB1
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable ExB_fieldB1
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure ExB_fieldB1 <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExB_fieldB1 unwrapExB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapExB_fieldB1_3
+instance StaticSize ExB_fieldB1
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExB_fieldB1
+    where readRaw = \ptr_0 -> pure ExB_fieldB1 <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw ExB_fieldB1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExB_fieldB1 unwrapExB_fieldB1_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapExB_fieldB1_2
+deriving via (EquivStorable ExB_fieldB1) instance Storable ExB_fieldB1
 deriving via CUInt instance Prim ExB_fieldB1
 instance CEnum ExB_fieldB1
     where type CEnumZ ExB_fieldB1 = CUInt
@@ -146,6 +161,12 @@ instance Read ExB_fieldB1
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType ExB_fieldB1 "unwrapExB_fieldB1") =>
+         HasField "unwrapExB_fieldB1" (Ptr ExB_fieldB1) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapExB_fieldB1")
+instance HasCField ExB_fieldB1 "unwrapExB_fieldB1"
+    where type CFieldType ExB_fieldB1 "unwrapExB_fieldB1" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @VALB_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 10:17@
@@ -195,12 +216,15 @@ data ExB
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
     deriving stock (Eq, Show)
-instance Storable ExB
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure ExB <*> peek (Proxy @"exB_fieldB1") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExB exB_fieldB1_3 -> poke (Proxy @"exB_fieldB1") ptr_1 exB_fieldB1_3
+instance StaticSize ExB
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExB
+    where readRaw = \ptr_0 -> pure ExB <*> readRaw (Proxy @"exB_fieldB1") ptr_0
+instance WriteRaw ExB
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExB exB_fieldB1_2 -> writeRaw (Proxy @"exB_fieldB1") ptr_0 exB_fieldB1_2
+deriving via (EquivStorable ExB) instance Storable ExB
 instance HasCField ExB "exB_fieldB1"
     where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
           offset# = \_ -> \_ -> 0

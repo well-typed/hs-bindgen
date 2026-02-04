@@ -30,6 +30,8 @@ hstypes:
       - unwrapS
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: T
   representation:
@@ -39,6 +41,8 @@ hstypes:
       - unwrapT
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: U
   representation:
@@ -48,8 +52,13 @@ hstypes:
       - unwrapU
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: V
   representation:
     newtype:
@@ -58,8 +67,13 @@ hstypes:
       - unwrapV
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: W
   representation:
     newtype:
@@ -68,8 +82,13 @@ hstypes:
       - unwrapW
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: X
   representation:
     newtype:
@@ -78,5 +97,10 @@ hstypes:
       - unwrapX
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

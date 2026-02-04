@@ -34,9 +34,13 @@ hstypes:
       - s1_d
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S1_c
   representation:
     record:
@@ -46,9 +50,13 @@ hstypes:
       - s1_c_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S2
   representation:
     record:
@@ -58,9 +66,13 @@ hstypes:
       - s2_d
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S2_inner
   representation:
     record:
@@ -70,9 +82,13 @@ hstypes:
       - s2_inner_deep
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S2_inner_deep
   representation:
     record:
@@ -81,9 +97,13 @@ hstypes:
       - s2_inner_deep_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S3
   representation:
     record:
@@ -93,8 +113,13 @@ hstypes:
       - s3_d
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S3_c
   representation:
     record:
@@ -104,6 +129,10 @@ hstypes:
       - s3_c_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -18,9 +18,13 @@ hstypes:
       - s_x
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: T
   representation:
     newtype:
@@ -29,6 +33,10 @@ hstypes:
       - unwrapT
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

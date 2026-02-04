@@ -15,7 +15,9 @@
 -- This module provides these constructors. It is re-exported from the public
 -- API of `hs-bindgen`; in particular, "HsBindgen.TH".
 module HsBindgen.Runtime.Internal.Deriving (
-    SizedByteArray(..)
+    EquivStorable(..)
+  , SizedByteArray(..)
   ) where
 
+import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.SizedByteArray

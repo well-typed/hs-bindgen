@@ -20,7 +20,9 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: B
   representation:
     newtype:
@@ -28,7 +30,9 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: MyFunction
   representation:
     newtype:
@@ -36,4 +40,8 @@ hstypes:
       fields:
       - unwrapMyFunction
   instances:
+  - FromFunPtr
+  - HasCField
   - HasFFIType
+  - HasField
+  - ToFunPtr

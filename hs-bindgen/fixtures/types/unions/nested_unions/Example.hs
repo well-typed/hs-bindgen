@@ -23,6 +23,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Int, pure)
@@ -37,7 +38,13 @@ newtype UnionA = UnionA
   { unwrapUnionA :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable UnionA
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize UnionA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw UnionA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw UnionA
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable UnionA instance F.Storable UnionA
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim UnionA
 
@@ -135,23 +142,29 @@ data ExA = ExA
     -}
   }
 
-instance F.Storable ExA where
+instance HsBindgen.Runtime.Marshal.StaticSize ExA where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExA where
+
+  readRaw =
     \ptr0 ->
           pure ExA
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exA_fieldA1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExA where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExA instance F.Storable ExA
 
 instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
 
@@ -175,7 +188,13 @@ newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable ExB_fieldB1
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw ExB_fieldB1
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw ExB_fieldB1
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB_fieldB1 instance F.Storable ExB_fieldB1
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim ExB_fieldB1
 
@@ -274,23 +293,29 @@ data ExB = ExB
     -}
   }
 
-instance F.Storable ExB where
+instance HsBindgen.Runtime.Marshal.StaticSize ExB where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExB where
+
+  readRaw =
     \ptr0 ->
           pure ExB
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exB_fieldB1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExB where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB instance F.Storable ExB
 
 instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
 

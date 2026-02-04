@@ -37,8 +37,13 @@ newtype A
            __exported by:__ @declarations\/declarations_required_for_scoping.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
+                      Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -47,6 +52,12 @@ newtype A
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType A "unwrapA") =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = HsBindgen.Runtime.LibC.CSize
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e326_base ::
     Word64

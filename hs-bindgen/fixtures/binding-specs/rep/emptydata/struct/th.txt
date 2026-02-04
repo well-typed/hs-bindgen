@@ -49,36 +49,16 @@ data Named
            __exported by:__ @binding-specs\/rep\/emptydata\/struct.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Named
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Named <*> peek (Proxy @"named_e") ptr_0) <*> peek (Proxy @"named_f") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Named named_e_3
-                                         named_f_4 -> poke (Proxy @"named_e") ptr_1 named_e_3 >> poke (Proxy @"named_f") ptr_1 named_f_4
-instance Prim Named
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Named (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Named v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Named named_e_13
-                                                                            named_f_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) named_e_13 s_12 of
-                                                                                          s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) named_f_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Named (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Named v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Named named_e_29
-                                                                            named_f_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) named_e_29 s_28 of
-                                                                                          s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) named_f_30 s_31
+instance StaticSize Named
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Named
+    where readRaw = \ptr_0 -> (pure Named <*> readRaw (Proxy @"named_e") ptr_0) <*> readRaw (Proxy @"named_f") ptr_0
+instance WriteRaw Named
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Named named_e_2
+                                             named_f_3 -> writeRaw (Proxy @"named_e") ptr_0 named_e_2 >> writeRaw (Proxy @"named_f") ptr_0 named_f_3
+deriving via (EquivStorable Named) instance Storable Named
 instance HasCField Named "named_e"
     where type CFieldType Named "named_e" = CInt
           offset# = \_ -> \_ -> 0

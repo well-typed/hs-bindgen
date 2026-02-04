@@ -23,12 +23,20 @@ hstypes:
       fields:
       - unwrapEnumA
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ExA
   representation:
     record:
@@ -37,8 +45,13 @@ hstypes:
       - exA_fieldA1
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ExB
   representation:
     record:
@@ -47,8 +60,13 @@ hstypes:
       - exB_fieldB1
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ExB_fieldB1
   representation:
     newtype:
@@ -56,9 +74,17 @@ hstypes:
       fields:
       - unwrapExB_fieldB1
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

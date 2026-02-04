@@ -14,23 +14,15 @@ data A
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable A
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure A
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   A -> return ()
-instance Prim A
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> A
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, A #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   A -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> A
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, A #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      A -> s_17
+instance StaticSize A
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw A
+    where readRaw = \ptr_0 -> pure A
+instance WriteRaw A
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       A -> return ()
+deriving via (EquivStorable A) instance Storable A
 {-| __C declaration:__ @struct struct1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 16:8@
@@ -46,23 +38,15 @@ data Struct1
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct1
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct1
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct1 -> return ()
-instance Prim Struct1
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct1
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct1 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct1 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct1
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct1 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct1 -> s_17
+instance StaticSize Struct1
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct1
+    where readRaw = \ptr_0 -> pure Struct1
+instance WriteRaw Struct1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct1 -> return ()
+deriving via (EquivStorable Struct1) instance Storable Struct1
 {-| __C declaration:__ @struct b_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 19:8@
@@ -78,23 +62,15 @@ data B_s
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable B_s
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure B_s
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   B_s -> return ()
-instance Prim B_s
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> B_s
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, B_s #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   B_s -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> B_s
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, B_s #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      B_s -> s_17
+instance StaticSize B_s
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw B_s
+    where readRaw = \ptr_0 -> pure B_s
+instance WriteRaw B_s
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       B_s -> return ()
+deriving via (EquivStorable B_s) instance Storable B_s
 {-| __C declaration:__ @struct struct2_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 20:8@
@@ -110,23 +86,15 @@ data Struct2_s
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct2_s
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct2_s
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct2_s -> return ()
-instance Prim Struct2_s
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct2_s
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct2_s #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct2_s -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct2_s
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct2_s #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct2_s -> s_17
+instance StaticSize Struct2_s
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct2_s
+    where readRaw = \ptr_0 -> pure Struct2_s
+instance WriteRaw Struct2_s
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct2_s -> return ()
+deriving via (EquivStorable Struct2_s) instance Storable Struct2_s
 {-| __C declaration:__ @struct c@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 23:36@
@@ -142,23 +110,15 @@ data C
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable C
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure C
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   C -> return ()
-instance Prim C
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> C
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, C #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   C -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> C
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, C #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      C -> s_17
+instance StaticSize C
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw C
+    where readRaw = \ptr_0 -> pure C
+instance WriteRaw C
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       C -> return ()
+deriving via (EquivStorable C) instance Storable C
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 24:36@
@@ -174,23 +134,15 @@ data Struct3
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct3
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct3
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct3 -> return ()
-instance Prim Struct3
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct3
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct3 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct3 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct3
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct3 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct3 -> s_17
+instance StaticSize Struct3
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct3
+    where readRaw = \ptr_0 -> pure Struct3
+instance WriteRaw Struct3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct3 -> return ()
+deriving via (EquivStorable Struct3) instance Storable Struct3
 {-| __C declaration:__ @struct d@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 27:15@
@@ -206,23 +158,15 @@ data D
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable D
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure D
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   D -> return ()
-instance Prim D
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> D
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, D #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   D -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> D
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, D #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      D -> s_17
+instance StaticSize D
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw D
+    where readRaw = \ptr_0 -> pure D
+instance WriteRaw D
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       D -> return ()
+deriving via (EquivStorable D) instance Storable D
 {-| __C declaration:__ @struct struct4@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 28:15@
@@ -238,23 +182,15 @@ data Struct4
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct4
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct4
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct4 -> return ()
-instance Prim Struct4
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct4
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct4 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct4 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct4
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct4 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct4 -> s_17
+instance StaticSize Struct4
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct4
+    where readRaw = \ptr_0 -> pure Struct4
+instance WriteRaw Struct4
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct4 -> return ()
+deriving via (EquivStorable Struct4) instance Storable Struct4
 {-| __C declaration:__ @struct e_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 31:15@
@@ -270,23 +206,15 @@ data E_s
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable E_s
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure E_s
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   E_s -> return ()
-instance Prim E_s
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> E_s
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, E_s #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   E_s -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> E_s
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, E_s #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      E_s -> s_17
+instance StaticSize E_s
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw E_s
+    where readRaw = \ptr_0 -> pure E_s
+instance WriteRaw E_s
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       E_s -> return ()
+deriving via (EquivStorable E_s) instance Storable E_s
 {-| __C declaration:__ @struct struct5_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 32:15@
@@ -302,23 +230,15 @@ data Struct5_s
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct5_s
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct5_s
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct5_s -> return ()
-instance Prim Struct5_s
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct5_s
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct5_s #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct5_s -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct5_s
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct5_s #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct5_s -> s_17
+instance StaticSize Struct5_s
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct5_s
+    where readRaw = \ptr_0 -> pure Struct5_s
+instance WriteRaw Struct5_s
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct5_s -> return ()
+deriving via (EquivStorable Struct5_s) instance Storable Struct5_s
 {-| __C declaration:__ @struct f@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 35:9@
@@ -334,23 +254,15 @@ data F
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable F
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure F
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   F -> return ()
-instance Prim F
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> F
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, F #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   F -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> F
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, F #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      F -> s_17
+instance StaticSize F
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw F
+    where readRaw = \ptr_0 -> pure F
+instance WriteRaw F
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       F -> return ()
+deriving via (EquivStorable F) instance Storable F
 {-| __C declaration:__ @struct typedef1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 36:9@
@@ -366,23 +278,15 @@ data Typedef1
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Typedef1
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Typedef1
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Typedef1 -> return ()
-instance Prim Typedef1
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Typedef1
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Typedef1 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Typedef1 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Typedef1
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Typedef1 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Typedef1 -> s_17
+instance StaticSize Typedef1
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Typedef1
+    where readRaw = \ptr_0 -> pure Typedef1
+instance WriteRaw Typedef1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Typedef1 -> return ()
+deriving via (EquivStorable Typedef1) instance Storable Typedef1
 {-| __C declaration:__ @struct g@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 39:9@
@@ -398,23 +302,15 @@ data G
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable G
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure G
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   G -> return ()
-instance Prim G
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> G
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, G #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   G -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> G
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, G #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      G -> s_17
+instance StaticSize G
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw G
+    where readRaw = \ptr_0 -> pure G
+instance WriteRaw G
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       G -> return ()
+deriving via (EquivStorable G) instance Storable G
 {-| __C declaration:__ @struct typedef2@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 40:9@
@@ -430,23 +326,15 @@ data Typedef2
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Typedef2
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Typedef2
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Typedef2 -> return ()
-instance Prim Typedef2
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Typedef2
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Typedef2 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Typedef2 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Typedef2
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Typedef2 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Typedef2 -> s_17
+instance StaticSize Typedef2
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Typedef2
+    where readRaw = \ptr_0 -> pure Typedef2
+instance WriteRaw Typedef2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Typedef2 -> return ()
+deriving via (EquivStorable Typedef2) instance Storable Typedef2
 {-| __C declaration:__ @struct h@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 43:9@
@@ -462,23 +350,15 @@ data H
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable H
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure H
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   H -> return ()
-instance Prim H
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> H
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, H #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   H -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> H
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, H #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      H -> s_17
+instance StaticSize H
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw H
+    where readRaw = \ptr_0 -> pure H
+instance WriteRaw H
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       H -> return ()
+deriving via (EquivStorable H) instance Storable H
 {-| __C declaration:__ @struct typedef3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h 44:9@
@@ -494,20 +374,12 @@ data Typedef3
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Typedef3
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Typedef3
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Typedef3 -> return ()
-instance Prim Typedef3
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Typedef3
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Typedef3 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Typedef3 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Typedef3
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Typedef3 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Typedef3 -> s_17
+instance StaticSize Typedef3
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Typedef3
+    where readRaw = \ptr_0 -> pure Typedef3
+instance WriteRaw Typedef3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Typedef3 -> return ()
+deriving via (EquivStorable Typedef3) instance Storable Typedef3

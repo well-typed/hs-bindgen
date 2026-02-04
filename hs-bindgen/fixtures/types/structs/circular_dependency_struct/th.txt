@@ -20,12 +20,15 @@ data B
            __exported by:__ @types\/structs\/circular_dependency_struct.h@
       -}
     deriving stock (Eq, Show)
-instance Storable B
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure B <*> peek (Proxy @"b_toA") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   B b_toA_3 -> poke (Proxy @"b_toA") ptr_1 b_toA_3
+instance StaticSize B
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw B
+    where readRaw = \ptr_0 -> pure B <*> readRaw (Proxy @"b_toA") ptr_0
+instance WriteRaw B
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       B b_toA_2 -> writeRaw (Proxy @"b_toA") ptr_0 b_toA_2
+deriving via (EquivStorable B) instance Storable B
 instance HasCField B "b_toA"
     where type CFieldType B "b_toA" = Ptr A
           offset# = \_ -> \_ -> 0
@@ -53,12 +56,15 @@ data A
            __exported by:__ @types\/structs\/circular_dependency_struct.h@
       -}
     deriving stock (Eq, Show)
-instance Storable A
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure A <*> peek (Proxy @"a_toB") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   A a_toB_3 -> poke (Proxy @"a_toB") ptr_1 a_toB_3
+instance StaticSize A
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw A
+    where readRaw = \ptr_0 -> pure A <*> readRaw (Proxy @"a_toB") ptr_0
+instance WriteRaw A
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       A a_toB_2 -> writeRaw (Proxy @"a_toB") ptr_0 a_toB_2
+deriving via (EquivStorable A) instance Storable A
 instance HasCField A "a_toB"
     where type CFieldType A "a_toB" = B
           offset# = \_ -> \_ -> 0

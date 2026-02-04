@@ -22,12 +22,15 @@ newtype Test
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Test
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Test <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Test unwrapTest_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapTest_3
+instance StaticSize Test
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Test
+    where readRaw = \ptr_0 -> pure Test <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Test
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Test unwrapTest_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapTest_2
+deriving via (EquivStorable Test) instance Storable Test
 deriving via CUInt instance Prim Test
 instance CEnum Test
     where type CEnumZ Test = CUInt
@@ -49,6 +52,12 @@ instance Read Test
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Test "unwrapTest") =>
+         HasField "unwrapTest" (Ptr Test) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTest")
+instance HasCField Test "unwrapTest"
+    where type CFieldType Test "unwrapTest" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @test_a@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h 4:3@

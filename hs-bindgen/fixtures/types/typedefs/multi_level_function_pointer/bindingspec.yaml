@@ -33,10 +33,15 @@ hstypes:
       - unwrapF1
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F2
   representation:
     newtype:
@@ -45,10 +50,15 @@ hstypes:
       - unwrapF2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F3
   representation:
     newtype:
@@ -57,10 +67,15 @@ hstypes:
       - unwrapF3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F4
   representation:
     newtype:
@@ -69,10 +84,15 @@ hstypes:
       - unwrapF4
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F5
   representation:
     newtype:
@@ -81,10 +101,15 @@ hstypes:
       - unwrapF5
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F6
   representation:
     newtype:
@@ -93,10 +118,15 @@ hstypes:
       - unwrapF6
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyInt
   representation:
     newtype:
@@ -110,13 +140,18 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

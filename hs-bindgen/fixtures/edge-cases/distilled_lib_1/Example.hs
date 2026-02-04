@@ -35,11 +35,11 @@ import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
@@ -67,89 +67,33 @@ data Another_typedef_struct_t = Another_typedef_struct_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Another_typedef_struct_t where
+instance HsBindgen.Runtime.Marshal.StaticSize Another_typedef_struct_t where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Another_typedef_struct_t where
+
+  readRaw =
     \ptr0 ->
           pure Another_typedef_struct_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"another_typedef_struct_t_foo") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"another_typedef_struct_t_bar") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"another_typedef_struct_t_foo") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"another_typedef_struct_t_bar") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Another_typedef_struct_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Another_typedef_struct_t
             another_typedef_struct_t_foo2
             another_typedef_struct_t_bar3 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"another_typedef_struct_t_foo") ptr0 another_typedef_struct_t_foo2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"another_typedef_struct_t_bar") ptr0 another_typedef_struct_t_bar3
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"another_typedef_struct_t_foo") ptr0 another_typedef_struct_t_foo2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"another_typedef_struct_t_bar") ptr0 another_typedef_struct_t_bar3
 
-instance Data.Primitive.Types.Prim Another_typedef_struct_t where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Another_typedef_struct_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  (# s5, Another_typedef_struct_t v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Another_typedef_struct_t
-                another_typedef_struct_t_foo4
-                another_typedef_struct_t_bar5 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) another_typedef_struct_t_foo4 s3 of
-                    s6 ->
-                      Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) another_typedef_struct_t_bar5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Another_typedef_struct_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  (# s5, Another_typedef_struct_t v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Another_typedef_struct_t
-                another_typedef_struct_t_foo4
-                another_typedef_struct_t_bar5 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) another_typedef_struct_t_foo4 s3 of
-                    s6 ->
-                      Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) another_typedef_struct_t_bar5 s6
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Another_typedef_struct_t instance F.Storable Another_typedef_struct_t
 
 instance HsBindgen.Runtime.HasCField.HasCField Another_typedef_struct_t "another_typedef_struct_t_foo" where
 
@@ -189,23 +133,29 @@ newtype Another_typedef_enum_e = Another_typedef_enum_e
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Another_typedef_enum_e where
+instance HsBindgen.Runtime.Marshal.StaticSize Another_typedef_enum_e where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Another_typedef_enum_e where
+
+  readRaw =
     \ptr0 ->
           pure Another_typedef_enum_e
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Another_typedef_enum_e where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Another_typedef_enum_e unwrapAnother_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapAnother_typedef_enum_e2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnother_typedef_enum_e2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Another_typedef_enum_e instance F.Storable Another_typedef_enum_e
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Another_typedef_enum_e
 
@@ -250,6 +200,19 @@ instance Read Another_typedef_enum_e where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_enum_e) "unwrapAnother_typedef_enum_e")
+         ) => GHC.Records.HasField "unwrapAnother_typedef_enum_e" (Ptr.Ptr Another_typedef_enum_e) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapAnother_typedef_enum_e")
+
+instance HsBindgen.Runtime.HasCField.HasCField Another_typedef_enum_e "unwrapAnother_typedef_enum_e" where
+
+  type CFieldType Another_typedef_enum_e "unwrapAnother_typedef_enum_e" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @FOO@
 
@@ -306,7 +269,23 @@ newtype A_type_t = A_type_t
   { unwrapA_type_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_type_t) "unwrapA_type_t")
          ) => GHC.Records.HasField "unwrapA_type_t" (Ptr.Ptr A_type_t) (Ptr.Ptr ty) where
@@ -330,7 +309,23 @@ newtype Var_t = Var_t
   { unwrapVar_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Var_t) "unwrapVar_t")
          ) => GHC.Records.HasField "unwrapVar_t" (Ptr.Ptr Var_t) (Ptr.Ptr ty) where
@@ -431,28 +426,32 @@ data A_typedef_struct_t = A_typedef_struct_t
   }
   deriving stock (Eq, Show)
 
-instance F.Storable A_typedef_struct_t where
+instance HsBindgen.Runtime.Marshal.StaticSize A_typedef_struct_t where
 
-  sizeOf = \_ -> (140 :: Int)
+  staticSizeOf = \_ -> (140 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw A_typedef_struct_t where
+
+  readRaw =
     \ptr0 ->
           pure A_typedef_struct_t
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_0") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_3") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_4") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_5") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_6") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_7") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_8") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_9") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"a_typedef_struct_t_field_10") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_0") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_3") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_4") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_5") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_6") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_7") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_8") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_9") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_10") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw A_typedef_struct_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -468,17 +467,19 @@ instance F.Storable A_typedef_struct_t where
             a_typedef_struct_t_field_810
             a_typedef_struct_t_field_911
             a_typedef_struct_t_field_1012 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_0") ptr0 a_typedef_struct_t_field_02
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_1") ptr0 a_typedef_struct_t_field_13
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_2") ptr0 a_typedef_struct_t_field_24
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_3") ptr0 a_typedef_struct_t_field_35
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_4") ptr0 a_typedef_struct_t_field_46
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_5") ptr0 a_typedef_struct_t_field_57
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_6") ptr0 a_typedef_struct_t_field_68
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_7") ptr0 a_typedef_struct_t_field_79
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_8") ptr0 a_typedef_struct_t_field_810
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_9") ptr0 a_typedef_struct_t_field_911
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"a_typedef_struct_t_field_10") ptr0 a_typedef_struct_t_field_1012
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_0") ptr0 a_typedef_struct_t_field_02
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_1") ptr0 a_typedef_struct_t_field_13
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_2") ptr0 a_typedef_struct_t_field_24
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_3") ptr0 a_typedef_struct_t_field_35
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_4") ptr0 a_typedef_struct_t_field_46
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_5") ptr0 a_typedef_struct_t_field_57
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_6") ptr0 a_typedef_struct_t_field_68
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_7") ptr0 a_typedef_struct_t_field_79
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_8") ptr0 a_typedef_struct_t_field_810
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_9") ptr0 a_typedef_struct_t_field_911
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_typedef_struct_t_field_10") ptr0 a_typedef_struct_t_field_1012
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable A_typedef_struct_t instance F.Storable A_typedef_struct_t
 
 instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_0" where
 
@@ -671,23 +672,29 @@ newtype A_typedef_enum_e = A_typedef_enum_e
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable A_typedef_enum_e where
+instance HsBindgen.Runtime.Marshal.StaticSize A_typedef_enum_e where
 
-  sizeOf = \_ -> (1 :: Int)
+  staticSizeOf = \_ -> (1 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw A_typedef_enum_e where
+
+  readRaw =
     \ptr0 ->
           pure A_typedef_enum_e
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw A_typedef_enum_e where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           A_typedef_enum_e unwrapA_typedef_enum_e2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapA_typedef_enum_e2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapA_typedef_enum_e2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable A_typedef_enum_e instance F.Storable A_typedef_enum_e
 
 deriving via FC.CUChar instance Data.Primitive.Types.Prim A_typedef_enum_e
 
@@ -734,6 +741,19 @@ instance Read A_typedef_enum_e where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_enum_e) "unwrapA_typedef_enum_e")
+         ) => GHC.Records.HasField "unwrapA_typedef_enum_e" (Ptr.Ptr A_typedef_enum_e) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA_typedef_enum_e")
+
+instance HsBindgen.Runtime.HasCField.HasCField A_typedef_enum_e "unwrapA_typedef_enum_e" where
+
+  type CFieldType A_typedef_enum_e "unwrapA_typedef_enum_e" =
+    FC.CUChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @ENUM_CASE_0@
 
@@ -839,7 +859,13 @@ newtype Callback_t = Callback_t
   { unwrapCallback_t :: Ptr.FunPtr Callback_t_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t) "unwrapCallback_t")
          ) => GHC.Records.HasField "unwrapCallback_t" (Ptr.Ptr Callback_t) (Ptr.Ptr ty) where

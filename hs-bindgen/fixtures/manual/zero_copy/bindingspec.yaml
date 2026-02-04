@@ -55,9 +55,13 @@ hstypes:
       - circle_radius
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Colour
   representation:
     record:
@@ -70,9 +74,13 @@ hstypes:
       - colour_blue
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Drawing
   representation:
     record:
@@ -82,8 +90,13 @@ hstypes:
       - drawing_colour
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Matrix
   representation:
     newtype:
@@ -92,8 +105,13 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyInt
   representation:
     newtype:
@@ -107,16 +125,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point
   representation:
     record:
@@ -126,9 +149,13 @@ hstypes:
       - point_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Rectangle
   representation:
     record:
@@ -138,9 +165,13 @@ hstypes:
       - rectangle_bottomright
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Shape
   representation:
     newtype:
@@ -148,7 +179,13 @@ hstypes:
       fields:
       - unwrapShape
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tic_tac_toe
   representation:
     record:
@@ -159,8 +196,13 @@ hstypes:
       - tic_tac_toe_row3
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Triplet
   representation:
     newtype:
@@ -169,8 +211,13 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Vector
   representation: typealias
 - hsname: Vector_Aux
@@ -181,6 +228,11 @@ hstypes:
       - vector_len
   instances:
   - Eq
-  - Prim
+  - Flam_Offset
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

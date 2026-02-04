@@ -20,9 +20,13 @@ hstypes:
       - some_struct_field3
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Some_struct_field1
   representation:
     record:
@@ -32,6 +36,10 @@ hstypes:
       - some_struct_field1_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

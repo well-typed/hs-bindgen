@@ -47,12 +47,20 @@ hstypes:
       fields:
       - unwrapE
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: I
   representation:
     newtype:
@@ -66,16 +74,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S
   representation:
     record:
@@ -83,9 +96,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TE
   representation:
     newtype:
@@ -94,11 +109,17 @@ hstypes:
       - unwrapTE
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TI
   representation:
     newtype:
@@ -112,16 +133,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TS
   representation:
     newtype:
@@ -130,9 +156,13 @@ hstypes:
       - unwrapTS
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTE
   representation:
     newtype:
@@ -141,11 +171,17 @@ hstypes:
       - unwrapTTE
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTI
   representation:
     newtype:
@@ -159,16 +195,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTS
   representation:
     newtype:
@@ -177,9 +218,13 @@ hstypes:
       - unwrapTTS
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TTU
   representation:
     newtype:
@@ -187,7 +232,13 @@ hstypes:
       fields:
       - unwrapTTU
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TU
   representation:
     newtype:
@@ -195,7 +246,13 @@ hstypes:
       fields:
       - unwrapTU
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: U
   representation:
     newtype:
@@ -203,4 +260,8 @@ hstypes:
       fields:
       - unwrapU
   instances:
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

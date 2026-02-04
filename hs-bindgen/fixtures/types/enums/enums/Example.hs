@@ -1,10 +1,16 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -12,11 +18,17 @@ module Example where
 
 import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum first@
@@ -31,23 +43,29 @@ newtype First = First
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable First where
+instance HsBindgen.Runtime.Marshal.StaticSize First where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw First where
+
+  readRaw =
     \ptr0 ->
           pure First
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw First where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           First unwrapFirst2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapFirst2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFirst2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable First instance F.Storable First
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim First
 
@@ -93,6 +111,18 @@ instance Read First where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType First) "unwrapFirst")
+         ) => GHC.Records.HasField "unwrapFirst" (Ptr.Ptr First) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFirst")
+
+instance HsBindgen.Runtime.HasCField.HasCField First "unwrapFirst" where
+
+  type CFieldType First "unwrapFirst" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @FIRST1@
 
     __defined at:__ @types\/enums\/enums.h 5:5@
@@ -123,23 +153,29 @@ newtype Second = Second
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Second where
+instance HsBindgen.Runtime.Marshal.StaticSize Second where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Second where
+
+  readRaw =
     \ptr0 ->
           pure Second
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Second where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Second unwrapSecond2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapSecond2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapSecond2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Second instance F.Storable Second
 
 deriving via FC.CInt instance Data.Primitive.Types.Prim Second
 
@@ -186,6 +222,18 @@ instance Read Second where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Second) "unwrapSecond")
+         ) => GHC.Records.HasField "unwrapSecond" (Ptr.Ptr Second) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSecond")
+
+instance HsBindgen.Runtime.HasCField.HasCField Second "unwrapSecond" where
+
+  type CFieldType Second "unwrapSecond" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @SECOND_A@
 
     __defined at:__ @types\/enums\/enums.h 10:5@
@@ -225,23 +273,29 @@ newtype Same = Same
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Same where
+instance HsBindgen.Runtime.Marshal.StaticSize Same where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Same where
+
+  readRaw =
     \ptr0 ->
           pure Same
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Same where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Same unwrapSame2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapSame2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapSame2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Same instance F.Storable Same
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Same
 
@@ -285,6 +339,18 @@ instance Read Same where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Same) "unwrapSame")
+         ) => GHC.Records.HasField "unwrapSame" (Ptr.Ptr Same) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSame")
+
+instance HsBindgen.Runtime.HasCField.HasCField Same "unwrapSame" where
+
+  type CFieldType Same "unwrapSame" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @SAME_A@
 
     __defined at:__ @types\/enums\/enums.h 16:5@
@@ -315,23 +381,29 @@ newtype Nonseq = Nonseq
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Nonseq where
+instance HsBindgen.Runtime.Marshal.StaticSize Nonseq where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Nonseq where
+
+  readRaw =
     \ptr0 ->
           pure Nonseq
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Nonseq where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Nonseq unwrapNonseq2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapNonseq2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapNonseq2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Nonseq instance F.Storable Nonseq
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Nonseq
 
@@ -367,6 +439,18 @@ instance Read Nonseq where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Nonseq) "unwrapNonseq")
+         ) => GHC.Records.HasField "unwrapNonseq" (Ptr.Ptr Nonseq) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapNonseq")
+
+instance HsBindgen.Runtime.HasCField.HasCField Nonseq "unwrapNonseq" where
+
+  type CFieldType Nonseq "unwrapNonseq" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @NONSEQ_A@
 
@@ -407,23 +491,29 @@ newtype Packed = Packed
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Packed where
+instance HsBindgen.Runtime.Marshal.StaticSize Packed where
 
-  sizeOf = \_ -> (1 :: Int)
+  staticSizeOf = \_ -> (1 :: Int)
 
-  alignment = \_ -> (1 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Packed where
+
+  readRaw =
     \ptr0 ->
           pure Packed
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Packed where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Packed unwrapPacked2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapPacked2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapPacked2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Packed instance F.Storable Packed
 
 deriving via FC.CUChar instance Data.Primitive.Types.Prim Packed
 
@@ -470,6 +560,18 @@ instance Read Packed where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Packed) "unwrapPacked")
+         ) => GHC.Records.HasField "unwrapPacked" (Ptr.Ptr Packed) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPacked")
+
+instance HsBindgen.Runtime.HasCField.HasCField Packed "unwrapPacked" where
+
+  type CFieldType Packed "unwrapPacked" = FC.CUChar
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @PACKED_A@
 
     __defined at:__ @types\/enums\/enums.h 27:5@
@@ -509,23 +611,29 @@ newtype EnumA = EnumA
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable EnumA where
+instance HsBindgen.Runtime.Marshal.StaticSize EnumA where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw EnumA where
+
+  readRaw =
     \ptr0 ->
           pure EnumA
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw EnumA where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           EnumA unwrapEnumA2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumA2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapEnumA2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable EnumA instance F.Storable EnumA
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumA
 
@@ -571,6 +679,18 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumA) "unwrapEnumA")
+         ) => GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumA")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumA "unwrapEnumA" where
+
+  type CFieldType EnumA "unwrapEnumA" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @A_FOO@
 
     __defined at:__ @types\/enums\/enums.h 30:16@
@@ -601,23 +721,29 @@ newtype EnumB = EnumB
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable EnumB where
+instance HsBindgen.Runtime.Marshal.StaticSize EnumB where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw EnumB where
+
+  readRaw =
     \ptr0 ->
           pure EnumB
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw EnumB where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           EnumB unwrapEnumB2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumB2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapEnumB2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable EnumB instance F.Storable EnumB
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumB
 
@@ -663,6 +789,18 @@ instance Read EnumB where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumB) "unwrapEnumB")
+         ) => GHC.Records.HasField "unwrapEnumB" (Ptr.Ptr EnumB) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumB")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumB "unwrapEnumB" where
+
+  type CFieldType EnumB "unwrapEnumB" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @B_FOO@
 
     __defined at:__ @types\/enums\/enums.h 32:22@
@@ -693,23 +831,29 @@ newtype EnumC = EnumC
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable EnumC where
+instance HsBindgen.Runtime.Marshal.StaticSize EnumC where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw EnumC where
+
+  readRaw =
     \ptr0 ->
           pure EnumC
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw EnumC where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           EnumC unwrapEnumC2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumC2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapEnumC2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable EnumC instance F.Storable EnumC
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumC
 
@@ -755,6 +899,18 @@ instance Read EnumC where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumC) "unwrapEnumC")
+         ) => GHC.Records.HasField "unwrapEnumC" (Ptr.Ptr EnumC) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumC")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumC "unwrapEnumC" where
+
+  type CFieldType EnumC "unwrapEnumC" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @C_FOO@
 
     __defined at:__ @types\/enums\/enums.h 34:14@
@@ -785,23 +941,29 @@ newtype EnumD_t = EnumD_t
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable EnumD_t where
+instance HsBindgen.Runtime.Marshal.StaticSize EnumD_t where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw EnumD_t where
+
+  readRaw =
     \ptr0 ->
           pure EnumD_t
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw EnumD_t where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           EnumD_t unwrapEnumD_t2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumD_t2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapEnumD_t2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable EnumD_t instance F.Storable EnumD_t
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumD_t
 
@@ -846,6 +1008,18 @@ instance Read EnumD_t where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumD_t) "unwrapEnumD_t")
+         ) => GHC.Records.HasField "unwrapEnumD_t" (Ptr.Ptr EnumD_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumD_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumD_t "unwrapEnumD_t" where
+
+  type CFieldType EnumD_t "unwrapEnumD_t" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @D_FOO@
 

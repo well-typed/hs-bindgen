@@ -283,6 +283,7 @@ toFFIType sizeofs = go
       HsComplexType{} -> no
       HsStrLit{} -> no
       HsWithFlam{} -> no
+      HsEquivStorable{} -> no
 
     goPrim :: HsPrimType -> Maybe FFI.FFIType
     goPrim pt = case pt of

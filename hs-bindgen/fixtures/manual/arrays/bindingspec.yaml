@@ -21,8 +21,13 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Triplet
   representation:
     newtype:
@@ -31,8 +36,13 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Triplet_ptrs
   representation:
     newtype:
@@ -41,4 +51,6 @@ hstypes:
       - unwrapTriplet_ptrs
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show

@@ -13,7 +13,10 @@ newtype UnionA
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable UnionA
+deriving via (SizedByteArray 4 4) instance StaticSize UnionA
+deriving via (SizedByteArray 4 4) instance ReadRaw UnionA
+deriving via (SizedByteArray 4 4) instance WriteRaw UnionA
+deriving via (EquivStorable UnionA) instance Storable UnionA
 deriving via (SizedByteArray 4 4) instance Prim UnionA
 {-|
 
@@ -115,12 +118,15 @@ data ExA
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
-instance Storable ExA
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure ExA <*> peek (Proxy @"exA_fieldA1") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExA exA_fieldA1_3 -> poke (Proxy @"exA_fieldA1") ptr_1 exA_fieldA1_3
+instance StaticSize ExA
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExA
+    where readRaw = \ptr_0 -> pure ExA <*> readRaw (Proxy @"exA_fieldA1") ptr_0
+instance WriteRaw ExA
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExA exA_fieldA1_2 -> writeRaw (Proxy @"exA_fieldA1") ptr_0 exA_fieldA1_2
+deriving via (EquivStorable ExA) instance Storable ExA
 instance HasCField ExA "exA_fieldA1"
     where type CFieldType ExA "exA_fieldA1" = UnionA
           offset# = \_ -> \_ -> 0
@@ -141,7 +147,10 @@ newtype ExB_fieldB1
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable ExB_fieldB1
+deriving via (SizedByteArray 4 4) instance StaticSize ExB_fieldB1
+deriving via (SizedByteArray 4 4) instance ReadRaw ExB_fieldB1
+deriving via (SizedByteArray 4 4) instance WriteRaw ExB_fieldB1
+deriving via (EquivStorable ExB_fieldB1) instance Storable ExB_fieldB1
 deriving via (SizedByteArray 4 4) instance Prim ExB_fieldB1
 {-|
 
@@ -243,12 +252,15 @@ data ExB
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
-instance Storable ExB
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure ExB <*> peek (Proxy @"exB_fieldB1") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   ExB exB_fieldB1_3 -> poke (Proxy @"exB_fieldB1") ptr_1 exB_fieldB1_3
+instance StaticSize ExB
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw ExB
+    where readRaw = \ptr_0 -> pure ExB <*> readRaw (Proxy @"exB_fieldB1") ptr_0
+instance WriteRaw ExB
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       ExB exB_fieldB1_2 -> writeRaw (Proxy @"exB_fieldB1") ptr_0 exB_fieldB1_2
+deriving via (EquivStorable ExB) instance Storable ExB
 instance HasCField ExB "exB_fieldB1"
     where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
           offset# = \_ -> \_ -> 0

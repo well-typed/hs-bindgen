@@ -18,9 +18,13 @@ hstypes:
       - okAfter_x
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: OkBefore
   representation:
     record:
@@ -29,6 +33,10 @@ hstypes:
       - okBefore_x
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

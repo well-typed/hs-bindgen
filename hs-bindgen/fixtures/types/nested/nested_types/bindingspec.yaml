@@ -31,9 +31,13 @@ hstypes:
       - bar_foo2
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Ex3
   representation:
     record:
@@ -43,9 +47,13 @@ hstypes:
       - ex3_ex3_c
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Ex3_ex3_struct
   representation:
     record:
@@ -55,9 +63,13 @@ hstypes:
       - ex3_ex3_struct_ex3_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Ex4_even
   representation:
     record:
@@ -67,8 +79,13 @@ hstypes:
       - ex4_even_next
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Ex4_odd
   representation:
     record:
@@ -78,8 +95,13 @@ hstypes:
       - ex4_odd_next
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo
   representation:
     record:
@@ -89,6 +111,10 @@ hstypes:
       - foo_c
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

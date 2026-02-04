@@ -37,9 +37,13 @@ hstypes:
       - bar_i
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Baz
   representation:
     record:
@@ -49,9 +53,13 @@ hstypes:
       - baz_i
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: FILE
   representation:
     record:
@@ -62,8 +70,13 @@ hstypes:
       - fILE__close
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo
   representation:
     record:
@@ -73,9 +86,13 @@ hstypes:
       - foo_i
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Qux
   representation:
     record:
@@ -85,6 +102,10 @@ hstypes:
       - qux_i
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

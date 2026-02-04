@@ -15,7 +15,10 @@ newtype ParsedAndSelected1
            __exported by:__ @declarations\/select_scoping.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

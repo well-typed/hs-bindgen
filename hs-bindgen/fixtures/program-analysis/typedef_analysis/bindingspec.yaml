@@ -98,9 +98,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct10_t_t
   representation:
     newtype:
@@ -109,9 +111,13 @@ hstypes:
       - unwrapStruct10_t_t
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct11_t
   representation:
     record:
@@ -121,8 +127,13 @@ hstypes:
       - struct11_t_self
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct12_t
   representation:
     record:
@@ -132,8 +143,13 @@ hstypes:
       - struct12_t_self
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct1_t
   representation:
     record:
@@ -141,9 +157,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct2_t
   representation:
     record:
@@ -151,9 +169,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct3_t
   representation: emptydata
 - hsname: Struct4_t
@@ -165,9 +185,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct5_t
   representation:
     newtype:
@@ -176,10 +198,15 @@ hstypes:
       - unwrapStruct5_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct6
   representation:
     newtype:
@@ -188,10 +215,15 @@ hstypes:
       - unwrapStruct6
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct6_Aux
   representation:
     record:
@@ -199,9 +231,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct7
   representation:
     record:
@@ -209,9 +243,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct7a
   representation:
     newtype:
@@ -220,9 +256,13 @@ hstypes:
       - unwrapStruct7a
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct7b
   representation:
     newtype:
@@ -231,9 +271,13 @@ hstypes:
       - unwrapStruct7b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct8
   representation:
     record:
@@ -241,9 +285,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct8b
   representation:
     newtype:
@@ -252,9 +298,13 @@ hstypes:
       - unwrapStruct8b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct9
   representation:
     record:
@@ -262,9 +312,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct9_t
   representation:
     newtype:
@@ -273,9 +325,13 @@ hstypes:
       - unwrapStruct9_t
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Use_sites
   representation:
     record:
@@ -301,5 +357,10 @@ hstypes:
       - use_sites_useTypedef_struct12_t
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

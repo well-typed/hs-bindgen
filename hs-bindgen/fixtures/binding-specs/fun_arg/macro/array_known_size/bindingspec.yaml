@@ -21,8 +21,13 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     newtype:
@@ -31,8 +36,13 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyArray
   representation:
     newtype:
@@ -41,5 +51,10 @@ hstypes:
       - unwrapMyArray
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

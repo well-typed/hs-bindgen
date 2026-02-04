@@ -26,16 +26,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: X
   representation:
     record:
@@ -44,9 +49,13 @@ hstypes:
       - x_n
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: 'Y'
   representation:
     newtype:
@@ -54,4 +63,10 @@ hstypes:
       fields:
       - unwrapY
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

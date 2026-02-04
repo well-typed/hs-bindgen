@@ -25,9 +25,13 @@ hstypes:
       - named_struct_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Named_union
   representation:
     newtype:
@@ -35,7 +39,13 @@ hstypes:
       fields:
       - unwrapNamed_union
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Opaque
   representation: emptydata
 - hsname: Outside
@@ -47,6 +57,10 @@ hstypes:
       - outside_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

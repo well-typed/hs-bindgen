@@ -35,12 +35,12 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
@@ -112,7 +112,13 @@ newtype FileOpenedNotification = FileOpenedNotification
   { unwrapFileOpenedNotification :: Ptr.FunPtr FileOpenedNotification_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification) "unwrapFileOpenedNotification")
          ) => GHC.Records.HasField "unwrapFileOpenedNotification" (Ptr.Ptr FileOpenedNotification) (Ptr.Ptr ty) where
@@ -195,7 +201,13 @@ newtype ProgressUpdate = ProgressUpdate
   { unwrapProgressUpdate :: Ptr.FunPtr ProgressUpdate_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate) "unwrapProgressUpdate")
          ) => GHC.Records.HasField "unwrapProgressUpdate" (Ptr.Ptr ProgressUpdate) (Ptr.Ptr ty) where
@@ -278,7 +290,13 @@ newtype DataValidator = DataValidator
   { unwrapDataValidator :: Ptr.FunPtr DataValidator_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator) "unwrapDataValidator")
          ) => GHC.Records.HasField "unwrapDataValidator" (Ptr.Ptr DataValidator) (Ptr.Ptr ty) where
@@ -317,81 +335,31 @@ data Measurement = Measurement
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Measurement where
+instance HsBindgen.Runtime.Marshal.StaticSize Measurement where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Measurement where
+
+  readRaw =
     \ptr0 ->
           pure Measurement
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurement_value") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurement_timestamp") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurement_value") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurement_timestamp") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Measurement where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Measurement measurement_value2 measurement_timestamp3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurement_value") ptr0 measurement_value2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurement_timestamp") ptr0 measurement_timestamp3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurement_value") ptr0 measurement_value2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurement_timestamp") ptr0 measurement_timestamp3
 
-instance Data.Primitive.Types.Prim Measurement where
-
-  sizeOf# = \_ -> (16#)
-
-  alignment# = \_ -> (8#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Measurement (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Measurement v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Measurement measurement_value4 measurement_timestamp5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) measurement_value4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) measurement_timestamp5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Measurement (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Measurement v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Measurement measurement_value4 measurement_timestamp5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) measurement_value4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) measurement_timestamp5 s6
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Measurement instance F.Storable Measurement
 
 instance HsBindgen.Runtime.HasCField.HasCField Measurement "measurement_value" where
 
@@ -487,7 +455,13 @@ newtype MeasurementReceived = MeasurementReceived
   { unwrapMeasurementReceived :: Ptr.FunPtr MeasurementReceived_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived) "unwrapMeasurementReceived")
          ) => GHC.Records.HasField "unwrapMeasurementReceived" (Ptr.Ptr MeasurementReceived) (Ptr.Ptr ty) where
@@ -537,7 +511,13 @@ newtype MeasurementReceived2 = MeasurementReceived2
   { unwrapMeasurementReceived2 :: Ptr.FunPtr MeasurementReceived2_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2) "unwrapMeasurementReceived2")
          ) => GHC.Records.HasField "unwrapMeasurementReceived2" (Ptr.Ptr MeasurementReceived2) (Ptr.Ptr ty) where
@@ -587,7 +567,13 @@ newtype SampleBufferFull = SampleBufferFull
   { unwrapSampleBufferFull :: Ptr.FunPtr SampleBufferFull_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull) "unwrapSampleBufferFull")
          ) => GHC.Records.HasField "unwrapSampleBufferFull" (Ptr.Ptr SampleBufferFull) (Ptr.Ptr ty) where
@@ -633,20 +619,24 @@ data MeasurementHandler = MeasurementHandler
   }
   deriving stock (Eq, Show)
 
-instance F.Storable MeasurementHandler where
+instance HsBindgen.Runtime.Marshal.StaticSize MeasurementHandler where
 
-  sizeOf = \_ -> (24 :: Int)
+  staticSizeOf = \_ -> (24 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw MeasurementHandler where
+
+  readRaw =
     \ptr0 ->
           pure MeasurementHandler
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurementHandler_validate") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"measurementHandler_onError") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurementHandler_validate") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"measurementHandler_onError") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw MeasurementHandler where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -654,9 +644,11 @@ instance F.Storable MeasurementHandler where
             measurementHandler_onReceived2
             measurementHandler_validate3
             measurementHandler_onError4 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0 measurementHandler_onReceived2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurementHandler_validate") ptr0 measurementHandler_validate3
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"measurementHandler_onError") ptr0 measurementHandler_onError4
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0 measurementHandler_onReceived2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurementHandler_validate") ptr0 measurementHandler_validate3
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"measurementHandler_onError") ptr0 measurementHandler_onError4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable MeasurementHandler instance F.Storable MeasurementHandler
 
 instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHandler_onReceived" where
 
@@ -728,20 +720,24 @@ data DataPipeline = DataPipeline
   }
   deriving stock (Eq, Show)
 
-instance F.Storable DataPipeline where
+instance HsBindgen.Runtime.Marshal.StaticSize DataPipeline where
 
-  sizeOf = \_ -> (24 :: Int)
+  staticSizeOf = \_ -> (24 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw DataPipeline where
+
+  readRaw =
     \ptr0 ->
           pure DataPipeline
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"dataPipeline_process") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dataPipeline_process") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw DataPipeline where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -749,9 +745,11 @@ instance F.Storable DataPipeline where
             dataPipeline_preProcess2
             dataPipeline_process3
             dataPipeline_postProcess4 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0 dataPipeline_preProcess2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"dataPipeline_process") ptr0 dataPipeline_process3
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0 dataPipeline_postProcess4
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0 dataPipeline_preProcess2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dataPipeline_process") ptr0 dataPipeline_process3
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0 dataPipeline_postProcess4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable DataPipeline instance F.Storable DataPipeline
 
 instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_preProcess" where
 
@@ -802,7 +800,13 @@ newtype ProcessorCallback = ProcessorCallback
   { unwrapProcessorCallback :: Data.Array.Byte.ByteArray
   }
 
-deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable ProcessorCallback
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize ProcessorCallback
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.ReadRaw ProcessorCallback
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.WriteRaw ProcessorCallback
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ProcessorCallback instance F.Storable ProcessorCallback
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim ProcessorCallback
 
@@ -938,23 +942,29 @@ newtype Processor_mode = Processor_mode
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Processor_mode where
+instance HsBindgen.Runtime.Marshal.StaticSize Processor_mode where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Processor_mode where
+
+  readRaw =
     \ptr0 ->
           pure Processor_mode
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Processor_mode where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Processor_mode unwrapProcessor_mode2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapProcessor_mode2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapProcessor_mode2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Processor_mode instance F.Storable Processor_mode
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim Processor_mode
 
@@ -1000,6 +1010,19 @@ instance Read Processor_mode where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_mode) "unwrapProcessor_mode")
+         ) => GHC.Records.HasField "unwrapProcessor_mode" (Ptr.Ptr Processor_mode) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProcessor_mode")
+
+instance HsBindgen.Runtime.HasCField.HasCField Processor_mode "unwrapProcessor_mode" where
+
+  type CFieldType Processor_mode "unwrapProcessor_mode" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @MODE_SIMPLE@
 
@@ -1051,25 +1074,31 @@ data Processor = Processor
     -}
   }
 
-instance F.Storable Processor where
+instance HsBindgen.Runtime.Marshal.StaticSize Processor where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Processor where
+
+  readRaw =
     \ptr0 ->
           pure Processor
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"processor_mode") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"processor_callback") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"processor_mode") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"processor_callback") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Processor where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Processor processor_mode2 processor_callback3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"processor_mode") ptr0 processor_mode2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"processor_callback") ptr0 processor_callback3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"processor_mode") ptr0 processor_mode2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"processor_callback") ptr0 processor_callback3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Processor instance F.Storable Processor
 
 instance HsBindgen.Runtime.HasCField.HasCField Processor "processor_mode" where
 
@@ -1107,7 +1136,23 @@ newtype Foo = Foo
   { unwrapFoo :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "unwrapFoo")
          ) => GHC.Records.HasField "unwrapFoo" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
@@ -1131,7 +1176,23 @@ newtype Foo2 = Foo2
   { unwrapFoo2 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo2) "unwrapFoo2")
          ) => GHC.Records.HasField "unwrapFoo2" (Ptr.Ptr Foo2) (Ptr.Ptr ty) where

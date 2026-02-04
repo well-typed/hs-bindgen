@@ -20,7 +20,13 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     newtype:
@@ -28,7 +34,13 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MyUnion
   representation:
     newtype:
@@ -36,4 +48,10 @@ hstypes:
       fields:
       - unwrapMyUnion
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

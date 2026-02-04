@@ -18,23 +18,15 @@ data Struct1_t
       __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct1_t
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct1_t
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct1_t -> return ()
-instance Prim Struct1_t
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct1_t
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct1_t #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct1_t -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct1_t
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct1_t #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct1_t -> s_17
+instance StaticSize Struct1_t
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct1_t
+    where readRaw = \ptr_0 -> pure Struct1_t
+instance WriteRaw Struct1_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct1_t -> return ()
+deriving via (EquivStorable Struct1_t) instance Storable Struct1_t
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 11:16@
@@ -50,23 +42,15 @@ data Struct2_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct2_t
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct2_t
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct2_t -> return ()
-instance Prim Struct2_t
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct2_t
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct2_t #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct2_t -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct2_t
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct2_t #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct2_t -> s_17
+instance StaticSize Struct2_t
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct2_t
+    where readRaw = \ptr_0 -> pure Struct2_t
+instance WriteRaw Struct2_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct2_t -> return ()
+deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 14:8@
@@ -96,23 +80,15 @@ data Struct5
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct5
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct5
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct5 -> return ()
-instance Prim Struct5
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct5
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct5 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct5 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct5
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct5 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct5 -> s_17
+instance StaticSize Struct5
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct5
+    where readRaw = \ptr_0 -> pure Struct5
+instance WriteRaw Struct5
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct5 -> return ()
+deriving via (EquivStorable Struct5) instance Storable Struct5
 {-| __C declaration:__ @struct5_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 22:25@
@@ -128,7 +104,11 @@ newtype Struct5_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Struct5_t "unwrapStruct5_t") =>
          HasField "unwrapStruct5_t" (Ptr Struct5_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct5_t")
@@ -150,24 +130,15 @@ data Struct6_Aux
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct6_Aux
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct6_Aux
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct6_Aux -> return ()
-instance Prim Struct6_Aux
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct6_Aux
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct6_Aux #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct6_Aux -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct6_Aux
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13,
-                                                          Struct6_Aux #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct6_Aux -> s_17
+instance StaticSize Struct6_Aux
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct6_Aux
+    where readRaw = \ptr_0 -> pure Struct6_Aux
+instance WriteRaw Struct6_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct6_Aux -> return ()
+deriving via (EquivStorable Struct6_Aux) instance Storable Struct6_Aux
 {-| __C declaration:__ @struct6@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 25:28@
@@ -183,7 +154,11 @@ newtype Struct6
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Struct6 "unwrapStruct6") =>
          HasField "unwrapStruct6" (Ptr Struct6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct6")
@@ -205,23 +180,15 @@ data Struct7
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct7
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct7
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct7 -> return ()
-instance Prim Struct7
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct7
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct7 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct7 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct7
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct7 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct7 -> s_17
+instance StaticSize Struct7
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct7
+    where readRaw = \ptr_0 -> pure Struct7
+instance WriteRaw Struct7
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct7 -> return ()
+deriving via (EquivStorable Struct7) instance Storable Struct7
 {-| __C declaration:__ @struct7a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 29:24@
@@ -237,7 +204,7 @@ newtype Struct7a
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct7a "unwrapStruct7a") =>
          HasField "unwrapStruct7a" (Ptr Struct7a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7a")
@@ -259,7 +226,7 @@ newtype Struct7b
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct7b "unwrapStruct7b") =>
          HasField "unwrapStruct7b" (Ptr Struct7b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7b")
@@ -281,23 +248,15 @@ data Struct8
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct8
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct8
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct8 -> return ()
-instance Prim Struct8
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct8
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct8 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct8 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct8
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct8 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct8 -> s_17
+instance StaticSize Struct8
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct8
+    where readRaw = \ptr_0 -> pure Struct8
+instance WriteRaw Struct8
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct8 -> return ()
+deriving via (EquivStorable Struct8) instance Storable Struct8
 {-| __C declaration:__ @struct8b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 35:24@
@@ -313,7 +272,7 @@ newtype Struct8b
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct8b "unwrapStruct8b") =>
          HasField "unwrapStruct8b" (Ptr Struct8b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct8b")
@@ -335,23 +294,15 @@ data Struct9
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct9
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct9
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct9 -> return ()
-instance Prim Struct9
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct9
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct9 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct9 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct9
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct9 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct9 -> s_17
+instance StaticSize Struct9
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct9
+    where readRaw = \ptr_0 -> pure Struct9
+instance WriteRaw Struct9
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct9 -> return ()
+deriving via (EquivStorable Struct9) instance Storable Struct9
 {-| __C declaration:__ @struct9_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 40:17@
@@ -367,7 +318,7 @@ newtype Struct9_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct9_t "unwrapStruct9_t") =>
          HasField "unwrapStruct9_t" (Ptr Struct9_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct9_t")
@@ -389,23 +340,15 @@ data Struct10_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct10_t
-    where sizeOf = \_ -> 0 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct10_t
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct10_t -> return ()
-instance Prim Struct10_t
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct10_t
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct10_t #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct10_t -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct10_t
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct10_t #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct10_t -> s_17
+instance StaticSize Struct10_t
+    where staticSizeOf = \_ -> 0 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Struct10_t
+    where readRaw = \ptr_0 -> pure Struct10_t
+instance WriteRaw Struct10_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct10_t -> return ()
+deriving via (EquivStorable Struct10_t) instance Storable Struct10_t
 {-| __C declaration:__ @struct10_t_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 48:20@
@@ -421,7 +364,7 @@ newtype Struct10_t_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct10_t_t "unwrapStruct10_t_t") =>
          HasField "unwrapStruct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct10_t_t")
@@ -457,13 +400,16 @@ data Struct11_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct11_t
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Struct11_t <*> peek (Proxy @"struct11_t_x") ptr_0) <*> peek (Proxy @"struct11_t_self") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct11_t struct11_t_x_3
-                                              struct11_t_self_4 -> poke (Proxy @"struct11_t_x") ptr_1 struct11_t_x_3 >> poke (Proxy @"struct11_t_self") ptr_1 struct11_t_self_4
+instance StaticSize Struct11_t
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Struct11_t
+    where readRaw = \ptr_0 -> (pure Struct11_t <*> readRaw (Proxy @"struct11_t_x") ptr_0) <*> readRaw (Proxy @"struct11_t_self") ptr_0
+instance WriteRaw Struct11_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct11_t struct11_t_x_2
+                                                  struct11_t_self_3 -> writeRaw (Proxy @"struct11_t_x") ptr_0 struct11_t_x_2 >> writeRaw (Proxy @"struct11_t_self") ptr_0 struct11_t_self_3
+deriving via (EquivStorable Struct11_t) instance Storable Struct11_t
 instance HasCField Struct11_t "struct11_t_x"
     where type CFieldType Struct11_t "struct11_t_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -504,13 +450,16 @@ data Struct12_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct12_t
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Struct12_t <*> peek (Proxy @"struct12_t_x") ptr_0) <*> peek (Proxy @"struct12_t_self") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct12_t struct12_t_x_3
-                                              struct12_t_self_4 -> poke (Proxy @"struct12_t_x") ptr_1 struct12_t_x_3 >> poke (Proxy @"struct12_t_self") ptr_1 struct12_t_self_4
+instance StaticSize Struct12_t
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Struct12_t
+    where readRaw = \ptr_0 -> (pure Struct12_t <*> readRaw (Proxy @"struct12_t_x") ptr_0) <*> readRaw (Proxy @"struct12_t_self") ptr_0
+instance WriteRaw Struct12_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Struct12_t struct12_t_x_2
+                                                  struct12_t_self_3 -> writeRaw (Proxy @"struct12_t_x") ptr_0 struct12_t_x_2 >> writeRaw (Proxy @"struct12_t_self") ptr_0 struct12_t_self_3
+deriving via (EquivStorable Struct12_t) instance Storable Struct12_t
 instance HasCField Struct12_t "struct12_t_x"
     where type CFieldType Struct12_t "struct12_t_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -663,29 +612,32 @@ data Use_sites
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Use_sites
-    where sizeOf = \_ -> 64 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (((((((((((((((((pure Use_sites <*> peek (Proxy @"use_sites_useTypedef_struct1_t") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct2_t") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct3_t") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct4_t") ptr_0) <*> peek (Proxy @"use_sites_useStruct_struct5") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct5_t") ptr_0) <*> peek (Proxy @"use_sites_useStruct_struct6") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct6") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct7a") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct7b") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct8") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct8b") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct9") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct9_t") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct10_t") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct11_t") ptr_0) <*> peek (Proxy @"use_sites_useTypedef_struct12_t") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Use_sites use_sites_useTypedef_struct1_t_3
-                                             use_sites_useTypedef_struct2_t_4
-                                             use_sites_useTypedef_struct3_t_5
-                                             use_sites_useTypedef_struct4_t_6
-                                             use_sites_useStruct_struct5_7
-                                             use_sites_useTypedef_struct5_t_8
-                                             use_sites_useStruct_struct6_9
-                                             use_sites_useTypedef_struct6_10
-                                             use_sites_useTypedef_struct7a_11
-                                             use_sites_useTypedef_struct7b_12
-                                             use_sites_useTypedef_struct8_13
-                                             use_sites_useTypedef_struct8b_14
-                                             use_sites_useTypedef_struct9_15
-                                             use_sites_useTypedef_struct9_t_16
-                                             use_sites_useTypedef_struct10_t_17
-                                             use_sites_useTypedef_struct10_t_t_18
-                                             use_sites_useTypedef_struct11_t_19
-                                             use_sites_useTypedef_struct12_t_20 -> poke (Proxy @"use_sites_useTypedef_struct1_t") ptr_1 use_sites_useTypedef_struct1_t_3 >> (poke (Proxy @"use_sites_useTypedef_struct2_t") ptr_1 use_sites_useTypedef_struct2_t_4 >> (poke (Proxy @"use_sites_useTypedef_struct3_t") ptr_1 use_sites_useTypedef_struct3_t_5 >> (poke (Proxy @"use_sites_useTypedef_struct4_t") ptr_1 use_sites_useTypedef_struct4_t_6 >> (poke (Proxy @"use_sites_useStruct_struct5") ptr_1 use_sites_useStruct_struct5_7 >> (poke (Proxy @"use_sites_useTypedef_struct5_t") ptr_1 use_sites_useTypedef_struct5_t_8 >> (poke (Proxy @"use_sites_useStruct_struct6") ptr_1 use_sites_useStruct_struct6_9 >> (poke (Proxy @"use_sites_useTypedef_struct6") ptr_1 use_sites_useTypedef_struct6_10 >> (poke (Proxy @"use_sites_useTypedef_struct7a") ptr_1 use_sites_useTypedef_struct7a_11 >> (poke (Proxy @"use_sites_useTypedef_struct7b") ptr_1 use_sites_useTypedef_struct7b_12 >> (poke (Proxy @"use_sites_useTypedef_struct8") ptr_1 use_sites_useTypedef_struct8_13 >> (poke (Proxy @"use_sites_useTypedef_struct8b") ptr_1 use_sites_useTypedef_struct8b_14 >> (poke (Proxy @"use_sites_useTypedef_struct9") ptr_1 use_sites_useTypedef_struct9_15 >> (poke (Proxy @"use_sites_useTypedef_struct9_t") ptr_1 use_sites_useTypedef_struct9_t_16 >> (poke (Proxy @"use_sites_useTypedef_struct10_t") ptr_1 use_sites_useTypedef_struct10_t_17 >> (poke (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_1 use_sites_useTypedef_struct10_t_t_18 >> (poke (Proxy @"use_sites_useTypedef_struct11_t") ptr_1 use_sites_useTypedef_struct11_t_19 >> poke (Proxy @"use_sites_useTypedef_struct12_t") ptr_1 use_sites_useTypedef_struct12_t_20))))))))))))))))
+instance StaticSize Use_sites
+    where staticSizeOf = \_ -> 64 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Use_sites
+    where readRaw = \ptr_0 -> (((((((((((((((((pure Use_sites <*> readRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0) <*> readRaw (Proxy @"use_sites_useStruct_struct5") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0) <*> readRaw (Proxy @"use_sites_useStruct_struct6") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct6") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0) <*> readRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0
+instance WriteRaw Use_sites
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Use_sites use_sites_useTypedef_struct1_t_2
+                                                 use_sites_useTypedef_struct2_t_3
+                                                 use_sites_useTypedef_struct3_t_4
+                                                 use_sites_useTypedef_struct4_t_5
+                                                 use_sites_useStruct_struct5_6
+                                                 use_sites_useTypedef_struct5_t_7
+                                                 use_sites_useStruct_struct6_8
+                                                 use_sites_useTypedef_struct6_9
+                                                 use_sites_useTypedef_struct7a_10
+                                                 use_sites_useTypedef_struct7b_11
+                                                 use_sites_useTypedef_struct8_12
+                                                 use_sites_useTypedef_struct8b_13
+                                                 use_sites_useTypedef_struct9_14
+                                                 use_sites_useTypedef_struct9_t_15
+                                                 use_sites_useTypedef_struct10_t_16
+                                                 use_sites_useTypedef_struct10_t_t_17
+                                                 use_sites_useTypedef_struct11_t_18
+                                                 use_sites_useTypedef_struct12_t_19 -> writeRaw (Proxy @"use_sites_useTypedef_struct1_t") ptr_0 use_sites_useTypedef_struct1_t_2 >> (writeRaw (Proxy @"use_sites_useTypedef_struct2_t") ptr_0 use_sites_useTypedef_struct2_t_3 >> (writeRaw (Proxy @"use_sites_useTypedef_struct3_t") ptr_0 use_sites_useTypedef_struct3_t_4 >> (writeRaw (Proxy @"use_sites_useTypedef_struct4_t") ptr_0 use_sites_useTypedef_struct4_t_5 >> (writeRaw (Proxy @"use_sites_useStruct_struct5") ptr_0 use_sites_useStruct_struct5_6 >> (writeRaw (Proxy @"use_sites_useTypedef_struct5_t") ptr_0 use_sites_useTypedef_struct5_t_7 >> (writeRaw (Proxy @"use_sites_useStruct_struct6") ptr_0 use_sites_useStruct_struct6_8 >> (writeRaw (Proxy @"use_sites_useTypedef_struct6") ptr_0 use_sites_useTypedef_struct6_9 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7a") ptr_0 use_sites_useTypedef_struct7a_10 >> (writeRaw (Proxy @"use_sites_useTypedef_struct7b") ptr_0 use_sites_useTypedef_struct7b_11 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8") ptr_0 use_sites_useTypedef_struct8_12 >> (writeRaw (Proxy @"use_sites_useTypedef_struct8b") ptr_0 use_sites_useTypedef_struct8b_13 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9") ptr_0 use_sites_useTypedef_struct9_14 >> (writeRaw (Proxy @"use_sites_useTypedef_struct9_t") ptr_0 use_sites_useTypedef_struct9_t_15 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t") ptr_0 use_sites_useTypedef_struct10_t_16 >> (writeRaw (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0 use_sites_useTypedef_struct10_t_t_17 >> (writeRaw (Proxy @"use_sites_useTypedef_struct11_t") ptr_0 use_sites_useTypedef_struct11_t_18 >> writeRaw (Proxy @"use_sites_useTypedef_struct12_t") ptr_0 use_sites_useTypedef_struct12_t_19))))))))))))))))
+deriving via (EquivStorable Use_sites) instance Storable Use_sites
 instance HasCField Use_sites "use_sites_useTypedef_struct1_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct1_t" = Struct1_t

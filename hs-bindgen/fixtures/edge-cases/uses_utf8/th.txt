@@ -15,12 +15,15 @@ newtype MyEnum
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable MyEnum
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MyEnum unwrapMyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapMyEnum_3
+instance StaticSize MyEnum
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw MyEnum
+    where readRaw = \ptr_0 -> pure MyEnum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw MyEnum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       MyEnum unwrapMyEnum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapMyEnum_2
+deriving via (EquivStorable MyEnum) instance Storable MyEnum
 deriving via CUInt instance Prim MyEnum
 instance CEnum MyEnum
     where type CEnumZ MyEnum = CUInt
@@ -42,6 +45,12 @@ instance Read MyEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType MyEnum "unwrapMyEnum") =>
+         HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapMyEnum")
+instance HasCField MyEnum "unwrapMyEnum"
+    where type CFieldType MyEnum "unwrapMyEnum" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @Say你好@
 
     __defined at:__ @edge-cases\/uses_utf8.h 5:9@

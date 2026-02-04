@@ -41,7 +41,13 @@ hstypes:
       fields:
       - unwrapAnonA
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: AnonA_polar
   representation:
     record:
@@ -51,9 +57,13 @@ hstypes:
       - anonA_polar_p
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: AnonA_xy
   representation:
     record:
@@ -63,9 +73,13 @@ hstypes:
       - anonA_xy_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Dim
   representation:
     record:
@@ -74,7 +88,12 @@ hstypes:
       - dim_tag
       - dim_payload
   instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Dim2
   representation:
     record:
@@ -84,9 +103,13 @@ hstypes:
       - dim2_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Dim3
   representation:
     record:
@@ -97,9 +120,13 @@ hstypes:
       - dim3_z
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: DimB
   representation:
     record:
@@ -108,7 +135,12 @@ hstypes:
       - dimB_tag
       - dimB_payload
   instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: DimPayload
   representation:
     newtype:
@@ -116,7 +148,13 @@ hstypes:
       fields:
       - unwrapDimPayload
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: DimPayloadB
   representation:
     newtype:
@@ -124,4 +162,10 @@ hstypes:
       fields:
       - unwrapDimPayloadB
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

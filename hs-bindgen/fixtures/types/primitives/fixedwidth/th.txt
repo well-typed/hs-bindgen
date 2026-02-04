@@ -30,13 +30,16 @@ data Foo
            __exported by:__ @types\/primitives\/fixedwidth.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Foo
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Foo <*> peek (Proxy @"foo_sixty_four") ptr_0) <*> peek (Proxy @"foo_thirty_two") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_sixty_four_3
-                                       foo_thirty_two_4 -> poke (Proxy @"foo_sixty_four") ptr_1 foo_sixty_four_3 >> poke (Proxy @"foo_thirty_two") ptr_1 foo_thirty_two_4
+instance StaticSize Foo
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Foo
+    where readRaw = \ptr_0 -> (pure Foo <*> readRaw (Proxy @"foo_sixty_four") ptr_0) <*> readRaw (Proxy @"foo_thirty_two") ptr_0
+instance WriteRaw Foo
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo foo_sixty_four_2
+                                           foo_thirty_two_3 -> writeRaw (Proxy @"foo_sixty_four") ptr_0 foo_sixty_four_2 >> writeRaw (Proxy @"foo_thirty_two") ptr_0 foo_thirty_two_3
+deriving via (EquivStorable Foo) instance Storable Foo
 instance HasCField Foo "foo_sixty_four"
     where type CFieldType Foo
                           "foo_sixty_four" = HsBindgen.Runtime.LibC.Word64

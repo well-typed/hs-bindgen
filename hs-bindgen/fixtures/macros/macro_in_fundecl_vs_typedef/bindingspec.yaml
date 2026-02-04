@@ -38,21 +38,27 @@ hstypes:
       fields:
       - unwrapMC
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct1
   representation:
     record:
@@ -61,9 +67,13 @@ hstypes:
       - struct1_a
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct2
   representation:
     record:
@@ -72,9 +82,13 @@ hstypes:
       - struct2_a
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct3
   representation:
     record:
@@ -83,9 +97,13 @@ hstypes:
       - struct3_a
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct3_t
   representation:
     newtype:
@@ -94,9 +112,13 @@ hstypes:
       - unwrapStruct3_t
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Struct4
   representation:
     record:
@@ -105,9 +127,13 @@ hstypes:
       - struct4_a
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: TC
   representation:
     newtype:
@@ -121,13 +147,18 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

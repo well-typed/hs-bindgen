@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -20,6 +22,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -33,7 +36,12 @@ newtype Triplet = Triplet
   { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
          ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
@@ -82,7 +90,12 @@ newtype Matrix = Matrix
   { unwrapMatrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "unwrapMatrix")
          ) => GHC.Records.HasField "unwrapMatrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
@@ -145,25 +158,31 @@ data Example = Example
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Example where
+instance HsBindgen.Runtime.Marshal.StaticSize Example where
 
-  sizeOf = \_ -> (48 :: Int)
+  staticSizeOf = \_ -> (48 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Example where
+
+  readRaw =
     \ptr0 ->
           pure Example
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_triple") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"example_sudoku") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_triple") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"example_sudoku") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Example where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Example example_triple2 example_sudoku3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_triple") ptr0 example_triple2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"example_sudoku") ptr0 example_sudoku3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_triple") ptr0 example_triple2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"example_sudoku") ptr0 example_sudoku3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Example instance F.Storable Example
 
 instance HsBindgen.Runtime.HasCField.HasCField Example "example_triple" where
 
@@ -203,7 +222,12 @@ newtype Sudoku = Sudoku
   { unwrapSudoku :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Sudoku) "unwrapSudoku")
          ) => GHC.Records.HasField "unwrapSudoku" (Ptr.Ptr Sudoku) (Ptr.Ptr ty) where

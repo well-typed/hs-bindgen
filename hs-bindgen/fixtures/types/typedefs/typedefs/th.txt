@@ -14,7 +14,10 @@ newtype Myint
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -47,7 +50,11 @@ newtype Intptr
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType Intptr "unwrapIntptr") =>
          HasField "unwrapIntptr" (Ptr Intptr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapIntptr")
@@ -160,7 +167,11 @@ newtype FunctionPointer_Function
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType FunctionPointer_Function
                           "unwrapFunctionPointer_Function") =>
@@ -280,7 +291,11 @@ newtype F1
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType F1 "unwrapF1") =>
          HasField "unwrapF1" (Ptr F1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF1")
@@ -341,7 +356,11 @@ newtype G2
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType G2 "unwrapG2") =>
          HasField "unwrapG2" (Ptr G2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapG2")
@@ -423,7 +442,11 @@ newtype H3
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty (CFieldType H3 "unwrapH3") =>
          HasField "unwrapH3" (Ptr H3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapH3")

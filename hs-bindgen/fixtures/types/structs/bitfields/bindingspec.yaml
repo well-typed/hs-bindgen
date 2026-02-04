@@ -34,9 +34,13 @@ hstypes:
       - alignA_y
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: AlignB
   representation:
     record:
@@ -46,9 +50,13 @@ hstypes:
       - alignB_y
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Flags
   representation:
     record:
@@ -62,9 +70,14 @@ hstypes:
       - flags_bits
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Overflow32
   representation:
     record:
@@ -75,9 +88,13 @@ hstypes:
       - overflow32_z
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Overflow32b
   representation:
     record:
@@ -88,9 +105,13 @@ hstypes:
       - overflow32b_z
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Overflow32c
   representation:
     record:
@@ -101,9 +122,13 @@ hstypes:
       - overflow32c_z
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Overflow64
   representation:
     record:
@@ -113,6 +138,10 @@ hstypes:
       - overflow64_y
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

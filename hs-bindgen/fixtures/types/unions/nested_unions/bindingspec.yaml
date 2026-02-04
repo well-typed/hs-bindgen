@@ -23,7 +23,12 @@ hstypes:
       fields:
       - exA_fieldA1
   instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ExB
   representation:
     record:
@@ -31,7 +36,12 @@ hstypes:
       fields:
       - exB_fieldB1
   instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ExB_fieldB1
   representation:
     newtype:
@@ -39,7 +49,13 @@ hstypes:
       fields:
       - unwrapExB_fieldB1
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: UnionA
   representation:
     newtype:
@@ -47,4 +63,10 @@ hstypes:
       fields:
       - unwrapUnionA
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -18,8 +18,13 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Triplets
   representation:
     newtype:
@@ -28,4 +33,6 @@ hstypes:
       - unwrapTriplets
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show

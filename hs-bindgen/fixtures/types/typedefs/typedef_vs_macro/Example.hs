@@ -1,10 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -24,8 +26,8 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -39,7 +41,23 @@ newtype T1 = T1
   { unwrapT1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "unwrapT1")
          ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
@@ -63,7 +81,23 @@ newtype T2 = T2
   { unwrapT2 :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, HsBindgen.Runtime.Bitfield.Bitfield, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T2) "unwrapT2")
          ) => GHC.Records.HasField "unwrapT2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
@@ -87,7 +121,35 @@ newtype M1 = M1
   { unwrapM1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType M1) "unwrapM1")
+         ) => GHC.Records.HasField "unwrapM1" (Ptr.Ptr M1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapM1")
+
+instance HsBindgen.Runtime.HasCField.HasCField M1 "unwrapM1" where
+
+  type CFieldType M1 "unwrapM1" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @M2@
 
@@ -99,7 +161,35 @@ newtype M2 = M2
   { unwrapM2 :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType M2) "unwrapM2")
+         ) => GHC.Records.HasField "unwrapM2" (Ptr.Ptr M2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapM2")
+
+instance HsBindgen.Runtime.HasCField.HasCField M2 "unwrapM2" where
+
+  type CFieldType M2 "unwrapM2" = FC.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @M3@
 
@@ -111,7 +201,25 @@ newtype M3 = M3
   { unwrapM3 :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType M3) "unwrapM3")
+         ) => GHC.Records.HasField "unwrapM3" (Ptr.Ptr M3) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapM3")
+
+instance HsBindgen.Runtime.HasCField.HasCField M3 "unwrapM3" where
+
+  type CFieldType M3 "unwrapM3" = Ptr.Ptr FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct ExampleStruct@
 
@@ -151,21 +259,25 @@ data ExampleStruct = ExampleStruct
   }
   deriving stock (Eq, Show)
 
-instance F.Storable ExampleStruct where
+instance HsBindgen.Runtime.Marshal.StaticSize ExampleStruct where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExampleStruct where
+
+  readRaw =
     \ptr0 ->
           pure ExampleStruct
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exampleStruct_t1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exampleStruct_t2") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exampleStruct_m1") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exampleStruct_m2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exampleStruct_t1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exampleStruct_t2") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exampleStruct_m1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exampleStruct_m2") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExampleStruct where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
@@ -174,90 +286,12 @@ instance F.Storable ExampleStruct where
             exampleStruct_t23
             exampleStruct_m14
             exampleStruct_m25 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exampleStruct_t1") ptr0 exampleStruct_t12
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exampleStruct_t2") ptr0 exampleStruct_t23
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exampleStruct_m1") ptr0 exampleStruct_m14
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exampleStruct_m2") ptr0 exampleStruct_m25
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exampleStruct_t1") ptr0 exampleStruct_t12
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exampleStruct_t2") ptr0 exampleStruct_t23
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exampleStruct_m1") ptr0 exampleStruct_m14
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exampleStruct_m2") ptr0 exampleStruct_m25
 
-instance Data.Primitive.Types.Prim ExampleStruct where
-
-  sizeOf# = \_ -> (16#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        ExampleStruct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (2#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (2#)) s5 of
-                    (# s7, v8 #) ->
-                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)) s7 of
-                        (# s9, v10 #) -> (# s9, ExampleStruct v4 v6 v8 v10 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              ExampleStruct
-                exampleStruct_t14
-                exampleStruct_t25
-                exampleStruct_m16
-                exampleStruct_m27 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (0#)) exampleStruct_t14 s3 of
-                    s8 ->
-                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (1#)) exampleStruct_t25 s8 of
-                        s9 ->
-                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (2#)) exampleStruct_m16 s9 of
-                            s10 ->
-                              Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)) exampleStruct_m27 s10
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        ExampleStruct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#)) s5 of
-                    (# s7, v8 #) ->
-                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)) s7 of
-                        (# s9, v10 #) -> (# s9, ExampleStruct v4 v6 v8 v10 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              ExampleStruct
-                exampleStruct_t14
-                exampleStruct_t25
-                exampleStruct_m16
-                exampleStruct_m27 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#)) exampleStruct_t14 s3 of
-                    s8 ->
-                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#)) exampleStruct_t25 s8 of
-                        s9 ->
-                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#)) exampleStruct_m16 s9 of
-                            s10 ->
-                              Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)) exampleStruct_m27 s10
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExampleStruct instance F.Storable ExampleStruct
 
 instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_t1" where
 
@@ -317,7 +351,35 @@ newtype Uint64_t = Uint64_t
   { unwrapUint64_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Uint64_t) "unwrapUint64_t")
+         ) => GHC.Records.HasField "unwrapUint64_t" (Ptr.Ptr Uint64_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapUint64_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField Uint64_t "unwrapUint64_t" where
+
+  type CFieldType Uint64_t "unwrapUint64_t" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @struct foo@
 
@@ -336,23 +398,29 @@ data Foo = Foo
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Foo where
+instance HsBindgen.Runtime.Marshal.StaticSize Foo where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Foo where
+
+  readRaw =
     \ptr0 ->
           pure Foo
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"foo_a") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Foo where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_a2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_a") ptr0 foo_a2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"foo_a") ptr0 foo_a2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Foo instance F.Storable Foo
 
 instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_a" where
 

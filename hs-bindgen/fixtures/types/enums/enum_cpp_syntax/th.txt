@@ -18,12 +18,15 @@ newtype Foo_enum
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Foo_enum
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Foo_enum <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo_enum unwrapFoo_enum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapFoo_enum_3
+instance StaticSize Foo_enum
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo_enum
+    where readRaw = \ptr_0 -> pure Foo_enum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Foo_enum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo_enum unwrapFoo_enum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapFoo_enum_2
+deriving via (EquivStorable Foo_enum) instance Storable Foo_enum
 deriving via HsBindgen.Runtime.LibC.Word32 instance Prim Foo_enum
 instance CEnum Foo_enum
     where type CEnumZ Foo_enum = HsBindgen.Runtime.LibC.Word32
@@ -45,6 +48,13 @@ instance Read Foo_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Foo_enum "unwrapFoo_enum") =>
+         HasField "unwrapFoo_enum" (Ptr Foo_enum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFoo_enum")
+instance HasCField Foo_enum "unwrapFoo_enum"
+    where type CFieldType Foo_enum
+                          "unwrapFoo_enum" = HsBindgen.Runtime.LibC.Word32
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @A@
 
     __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:27@

@@ -77,36 +77,16 @@ data Point
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Point
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Point <*> peek (Proxy @"point_x") ptr_0) <*> peek (Proxy @"point_y") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Point point_x_3
-                                         point_y_4 -> poke (Proxy @"point_x") ptr_1 point_x_3 >> poke (Proxy @"point_y") ptr_1 point_y_4
-instance Prim Point
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Point (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Point v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Point point_x_13
-                                                                            point_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) point_x_13 s_12 of
-                                                                                          s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) point_y_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Point (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Point v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Point point_x_29
-                                                                            point_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) point_x_29 s_28 of
-                                                                                          s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) point_y_30 s_31
+instance StaticSize Point
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Point
+    where readRaw = \ptr_0 -> (pure Point <*> readRaw (Proxy @"point_x") ptr_0) <*> readRaw (Proxy @"point_y") ptr_0
+instance WriteRaw Point
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Point point_x_2
+                                             point_y_3 -> writeRaw (Proxy @"point_x") ptr_0 point_x_2 >> writeRaw (Proxy @"point_y") ptr_0 point_y_3
+deriving via (EquivStorable Point) instance Storable Point
 instance HasCField Point "point_x"
     where type CFieldType Point "point_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -147,36 +127,16 @@ data Rectangle
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Rectangle
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Rectangle <*> peek (Proxy @"rectangle_topleft") ptr_0) <*> peek (Proxy @"rectangle_bottomright") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Rectangle rectangle_topleft_3
-                                             rectangle_bottomright_4 -> poke (Proxy @"rectangle_topleft") ptr_1 rectangle_topleft_3 >> poke (Proxy @"rectangle_bottomright") ptr_1 rectangle_bottomright_4
-instance Prim Rectangle
-    where sizeOf# = \_ -> 16# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Rectangle (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Rectangle v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Rectangle rectangle_topleft_13
-                                                                                rectangle_bottomright_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) rectangle_topleft_13 s_12 of
-                                                                                                            s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) rectangle_bottomright_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Rectangle (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Rectangle v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Rectangle rectangle_topleft_29
-                                                                                rectangle_bottomright_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) rectangle_topleft_29 s_28 of
-                                                                                                            s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) rectangle_bottomright_30 s_31
+instance StaticSize Rectangle
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Rectangle
+    where readRaw = \ptr_0 -> (pure Rectangle <*> readRaw (Proxy @"rectangle_topleft") ptr_0) <*> readRaw (Proxy @"rectangle_bottomright") ptr_0
+instance WriteRaw Rectangle
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rectangle rectangle_topleft_2
+                                                 rectangle_bottomright_3 -> writeRaw (Proxy @"rectangle_topleft") ptr_0 rectangle_topleft_2 >> writeRaw (Proxy @"rectangle_bottomright") ptr_0 rectangle_bottomright_3
+deriving via (EquivStorable Rectangle) instance Storable Rectangle
 instance HasCField Rectangle "rectangle_topleft"
     where type CFieldType Rectangle "rectangle_topleft" = Point
           offset# = \_ -> \_ -> 0
@@ -217,36 +177,16 @@ data Circle
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Circle
-    where sizeOf = \_ -> 12 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Circle <*> peek (Proxy @"circle_midpoint") ptr_0) <*> peek (Proxy @"circle_radius") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Circle circle_midpoint_3
-                                          circle_radius_4 -> poke (Proxy @"circle_midpoint") ptr_1 circle_midpoint_3 >> poke (Proxy @"circle_radius") ptr_1 circle_radius_4
-instance Prim Circle
-    where sizeOf# = \_ -> 12# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Circle (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Circle v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Circle circle_midpoint_13
-                                                                             circle_radius_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) circle_midpoint_13 s_12 of
-                                                                                                 s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) circle_radius_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Circle (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Circle v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Circle circle_midpoint_29
-                                                                             circle_radius_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) circle_midpoint_29 s_28 of
-                                                                                                 s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) circle_radius_30 s_31
+instance StaticSize Circle
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Circle
+    where readRaw = \ptr_0 -> (pure Circle <*> readRaw (Proxy @"circle_midpoint") ptr_0) <*> readRaw (Proxy @"circle_radius") ptr_0
+instance WriteRaw Circle
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Circle circle_midpoint_2
+                                              circle_radius_3 -> writeRaw (Proxy @"circle_midpoint") ptr_0 circle_midpoint_2 >> writeRaw (Proxy @"circle_radius") ptr_0 circle_radius_3
+deriving via (EquivStorable Circle) instance Storable Circle
 instance HasCField Circle "circle_midpoint"
     where type CFieldType Circle "circle_midpoint" = Point
           offset# = \_ -> \_ -> 0
@@ -273,7 +213,10 @@ newtype Shape
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-deriving via (SizedByteArray 16 4) instance Storable Shape
+deriving via (SizedByteArray 16 4) instance StaticSize Shape
+deriving via (SizedByteArray 16 4) instance ReadRaw Shape
+deriving via (SizedByteArray 16 4) instance WriteRaw Shape
+deriving via (EquivStorable Shape) instance Storable Shape
 deriving via (SizedByteArray 16 4) instance Prim Shape
 {-|
 
@@ -404,65 +347,19 @@ data Colour
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Colour
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((((pure Colour <*> peek (Proxy @"colour_opacity") ptr_0) <*> peek (Proxy @"colour_brightness") ptr_0) <*> peek (Proxy @"colour_red") ptr_0) <*> peek (Proxy @"colour_green") ptr_0) <*> peek (Proxy @"colour_blue") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Colour colour_opacity_3
-                                          colour_brightness_4
-                                          colour_red_5
-                                          colour_green_6
-                                          colour_blue_7 -> poke (Proxy @"colour_opacity") ptr_1 colour_opacity_3 >> (poke (Proxy @"colour_brightness") ptr_1 colour_brightness_4 >> (poke (Proxy @"colour_red") ptr_1 colour_red_5 >> (poke (Proxy @"colour_green") ptr_1 colour_green_6 >> poke (Proxy @"colour_blue") ptr_1 colour_blue_7)))
-instance Prim Colour
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Colour (indexByteArray# arr_0 ((+#) ((*#) (5# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (5# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (5# :: Int#) i_1) (2# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (5# :: Int#) i_1) (3# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (5# :: Int#) i_1) (4# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (5# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (5# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (5# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> case readByteArray# arr_2 ((+#) ((*#) (5# :: Int#) i_3) (3# :: Int#)) s_9 of
-                                                                                             (# s_11,
-                                                                                                v_12 #) -> case readByteArray# arr_2 ((+#) ((*#) (5# :: Int#) i_3) (4# :: Int#)) s_11 of
-                                                                                                           (# s_13,
-                                                                                                              v_14 #) -> (# s_13,
-                                                                                                                            Colour v_6 v_8 v_10 v_12 v_14 #)
-          writeByteArray# = \arr_15 -> \i_16 -> \struct_17 -> \s_18 -> case struct_17 of
-                                                                       Colour colour_opacity_19
-                                                                              colour_brightness_20
-                                                                              colour_red_21
-                                                                              colour_green_22
-                                                                              colour_blue_23 -> case writeByteArray# arr_15 ((+#) ((*#) (5# :: Int#) i_16) (0# :: Int#)) colour_opacity_19 s_18 of
-                                                                                                s_24 -> case writeByteArray# arr_15 ((+#) ((*#) (5# :: Int#) i_16) (1# :: Int#)) colour_brightness_20 s_24 of
-                                                                                                        s_25 -> case writeByteArray# arr_15 ((+#) ((*#) (5# :: Int#) i_16) (2# :: Int#)) colour_red_21 s_25 of
-                                                                                                                s_26 -> case writeByteArray# arr_15 ((+#) ((*#) (5# :: Int#) i_16) (3# :: Int#)) colour_green_22 s_26 of
-                                                                                                                        s_27 -> writeByteArray# arr_15 ((+#) ((*#) (5# :: Int#) i_16) (4# :: Int#)) colour_blue_23 s_27
-          indexOffAddr# = \addr_28 -> \i_29 -> Colour (indexOffAddr# addr_28 ((+#) ((*#) (5# :: Int#) i_29) (0# :: Int#))) (indexOffAddr# addr_28 ((+#) ((*#) (5# :: Int#) i_29) (1# :: Int#))) (indexOffAddr# addr_28 ((+#) ((*#) (5# :: Int#) i_29) (2# :: Int#))) (indexOffAddr# addr_28 ((+#) ((*#) (5# :: Int#) i_29) (3# :: Int#))) (indexOffAddr# addr_28 ((+#) ((*#) (5# :: Int#) i_29) (4# :: Int#)))
-          readOffAddr# = \addr_30 -> \i_31 -> \s_32 -> case readOffAddr# addr_30 ((+#) ((*#) (5# :: Int#) i_31) (0# :: Int#)) s_32 of
-                                                       (# s_33,
-                                                          v_34 #) -> case readOffAddr# addr_30 ((+#) ((*#) (5# :: Int#) i_31) (1# :: Int#)) s_33 of
-                                                                     (# s_35,
-                                                                        v_36 #) -> case readOffAddr# addr_30 ((+#) ((*#) (5# :: Int#) i_31) (2# :: Int#)) s_35 of
-                                                                                   (# s_37,
-                                                                                      v_38 #) -> case readOffAddr# addr_30 ((+#) ((*#) (5# :: Int#) i_31) (3# :: Int#)) s_37 of
-                                                                                                 (# s_39,
-                                                                                                    v_40 #) -> case readOffAddr# addr_30 ((+#) ((*#) (5# :: Int#) i_31) (4# :: Int#)) s_39 of
-                                                                                                               (# s_41,
-                                                                                                                  v_42 #) -> (# s_41,
-                                                                                                                                Colour v_34 v_36 v_38 v_40 v_42 #)
-          writeOffAddr# = \addr_43 -> \i_44 -> \struct_45 -> \s_46 -> case struct_45 of
-                                                                      Colour colour_opacity_47
-                                                                             colour_brightness_48
-                                                                             colour_red_49
-                                                                             colour_green_50
-                                                                             colour_blue_51 -> case writeOffAddr# addr_43 ((+#) ((*#) (5# :: Int#) i_44) (0# :: Int#)) colour_opacity_47 s_46 of
-                                                                                               s_52 -> case writeOffAddr# addr_43 ((+#) ((*#) (5# :: Int#) i_44) (1# :: Int#)) colour_brightness_48 s_52 of
-                                                                                                       s_53 -> case writeOffAddr# addr_43 ((+#) ((*#) (5# :: Int#) i_44) (2# :: Int#)) colour_red_49 s_53 of
-                                                                                                               s_54 -> case writeOffAddr# addr_43 ((+#) ((*#) (5# :: Int#) i_44) (3# :: Int#)) colour_green_50 s_54 of
-                                                                                                                       s_55 -> writeOffAddr# addr_43 ((+#) ((*#) (5# :: Int#) i_44) (4# :: Int#)) colour_blue_51 s_55
+instance StaticSize Colour
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Colour
+    where readRaw = \ptr_0 -> ((((pure Colour <*> peek (Proxy @"colour_opacity") ptr_0) <*> peek (Proxy @"colour_brightness") ptr_0) <*> peek (Proxy @"colour_red") ptr_0) <*> peek (Proxy @"colour_green") ptr_0) <*> peek (Proxy @"colour_blue") ptr_0
+instance WriteRaw Colour
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Colour colour_opacity_2
+                                              colour_brightness_3
+                                              colour_red_4
+                                              colour_green_5
+                                              colour_blue_6 -> poke (Proxy @"colour_opacity") ptr_0 colour_opacity_2 >> (poke (Proxy @"colour_brightness") ptr_0 colour_brightness_3 >> (poke (Proxy @"colour_red") ptr_0 colour_red_4 >> (poke (Proxy @"colour_green") ptr_0 colour_green_5 >> poke (Proxy @"colour_blue") ptr_0 colour_blue_6)))
+deriving via (EquivStorable Colour) instance Storable Colour
 instance HasCBitfield Colour "colour_opacity"
     where type CBitfieldType Colour "colour_opacity" = CUInt
           bitfieldOffset# = \_ -> \_ -> 0
@@ -513,7 +410,10 @@ newtype MyInt
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -559,13 +459,16 @@ data Drawing
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Drawing
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Drawing <*> peek (Proxy @"drawing_shape") ptr_0) <*> peek (Proxy @"drawing_colour") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Drawing drawing_shape_3
-                                           drawing_colour_4 -> poke (Proxy @"drawing_shape") ptr_1 drawing_shape_3 >> poke (Proxy @"drawing_colour") ptr_1 drawing_colour_4
+instance StaticSize Drawing
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Drawing
+    where readRaw = \ptr_0 -> (pure Drawing <*> readRaw (Proxy @"drawing_shape") ptr_0) <*> readRaw (Proxy @"drawing_colour") ptr_0
+instance WriteRaw Drawing
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Drawing drawing_shape_2
+                                               drawing_colour_3 -> writeRaw (Proxy @"drawing_shape") ptr_0 drawing_shape_2 >> writeRaw (Proxy @"drawing_colour") ptr_0 drawing_colour_3
+deriving via (EquivStorable Drawing) instance Storable Drawing
 instance HasCField Drawing "drawing_shape"
     where type CFieldType Drawing "drawing_shape" = Ptr Shape
           offset# = \_ -> \_ -> 0
@@ -613,14 +516,17 @@ data Tic_tac_toe
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Tic_tac_toe
-    where sizeOf = \_ -> 36 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> ((pure Tic_tac_toe <*> peek (Proxy @"tic_tac_toe_row1") ptr_0) <*> peek (Proxy @"tic_tac_toe_row2") ptr_0) <*> peek (Proxy @"tic_tac_toe_row3") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Tic_tac_toe tic_tac_toe_row1_3
-                                               tic_tac_toe_row2_4
-                                               tic_tac_toe_row3_5 -> poke (Proxy @"tic_tac_toe_row1") ptr_1 tic_tac_toe_row1_3 >> (poke (Proxy @"tic_tac_toe_row2") ptr_1 tic_tac_toe_row2_4 >> poke (Proxy @"tic_tac_toe_row3") ptr_1 tic_tac_toe_row3_5)
+instance StaticSize Tic_tac_toe
+    where staticSizeOf = \_ -> 36 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Tic_tac_toe
+    where readRaw = \ptr_0 -> ((pure Tic_tac_toe <*> readRaw (Proxy @"tic_tac_toe_row1") ptr_0) <*> readRaw (Proxy @"tic_tac_toe_row2") ptr_0) <*> readRaw (Proxy @"tic_tac_toe_row3") ptr_0
+instance WriteRaw Tic_tac_toe
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Tic_tac_toe tic_tac_toe_row1_2
+                                                   tic_tac_toe_row2_3
+                                                   tic_tac_toe_row3_4 -> writeRaw (Proxy @"tic_tac_toe_row1") ptr_0 tic_tac_toe_row1_2 >> (writeRaw (Proxy @"tic_tac_toe_row2") ptr_0 tic_tac_toe_row2_3 >> writeRaw (Proxy @"tic_tac_toe_row3") ptr_0 tic_tac_toe_row3_4)
+deriving via (EquivStorable Tic_tac_toe) instance Storable Tic_tac_toe
 instance HasCField Tic_tac_toe "tic_tac_toe_row1"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row1" = ConstantArray 3 CInt
@@ -657,25 +563,15 @@ data Vector_Aux
                    __exported by:__ @manual\/zero_copy.h@
               -}}
     deriving stock (Eq, Show)
-instance Storable Vector_Aux
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Vector <*> peek (Proxy @"vector_len") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Vector vector_len_3 -> poke (Proxy @"vector_len") ptr_1 vector_len_3
-instance Prim Vector_Aux
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Vector (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Vector v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Vector vector_len_11 -> writeByteArray# arr_7 i_8 vector_len_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Vector (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Vector v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Vector vector_len_23 -> writeOffAddr# addr_19 i_20 vector_len_23 s_22
+instance StaticSize Vector_Aux
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Vector_Aux
+    where readRaw = \ptr_0 -> pure Vector <*> readRaw (Proxy @"vector_len") ptr_0
+instance WriteRaw Vector_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Vector vector_len_2 -> writeRaw (Proxy @"vector_len") ptr_0 vector_len_2
+deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
 instance HasCField Vector_Aux "vector_len"
     where type CFieldType Vector_Aux "vector_len" = CInt
           offset# = \_ -> \_ -> 0
@@ -700,7 +596,7 @@ newtype Triplet
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
@@ -723,7 +619,7 @@ newtype Matrix
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")

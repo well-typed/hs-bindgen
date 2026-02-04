@@ -1,10 +1,16 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -12,11 +18,17 @@ module Example where
 
 import qualified Data.List.NonEmpty
 import qualified Data.Primitive.Types
+import qualified Data.Proxy
 import qualified Foreign as F
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum foo_enum@
@@ -31,23 +43,29 @@ newtype Foo_enum = Foo_enum
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable Foo_enum where
+instance HsBindgen.Runtime.Marshal.StaticSize Foo_enum where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Foo_enum where
+
+  readRaw =
     \ptr0 ->
           pure Foo_enum
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Foo_enum where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo_enum unwrapFoo_enum2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapFoo_enum2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFoo_enum2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Foo_enum instance F.Storable Foo_enum
 
 deriving via HsBindgen.Runtime.LibC.Word32 instance Data.Primitive.Types.Prim Foo_enum
 
@@ -93,6 +111,19 @@ instance Read Foo_enum where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_enum) "unwrapFoo_enum")
+         ) => GHC.Records.HasField "unwrapFoo_enum" (Ptr.Ptr Foo_enum) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFoo_enum")
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo_enum "unwrapFoo_enum" where
+
+  type CFieldType Foo_enum "unwrapFoo_enum" =
+    HsBindgen.Runtime.LibC.Word32
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @A@
 

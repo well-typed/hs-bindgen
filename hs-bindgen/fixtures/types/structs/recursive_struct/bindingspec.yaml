@@ -25,8 +25,13 @@ hstypes:
       - linked_list_A_t_next
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Linked_list_B_t
   representation:
     record:
@@ -36,5 +41,10 @@ hstypes:
       - linked_list_B_t_next
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -1,0 +1,715 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCPtrdiff
+  hsname: Prim_HsPrimCPtrdiff
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimInt8
+  hsname: Prim_HsPrimInt8
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimInt16
+  hsname: Prim_HsPrimInt16
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimInt32
+  hsname: Prim_HsPrimInt32
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimInt64
+  hsname: Prim_HsPrimInt64
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimWord8
+  hsname: Prim_HsPrimWord8
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimWord16
+  hsname: Prim_HsPrimWord16
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimWord32
+  hsname: Prim_HsPrimWord32
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimWord64
+  hsname: Prim_HsPrimWord64
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCChar
+  hsname: Prim_HsPrimCChar
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCSChar
+  hsname: Prim_HsPrimCSChar
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCUChar
+  hsname: Prim_HsPrimCUChar
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCShort
+  hsname: Prim_HsPrimCShort
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCUShort
+  hsname: Prim_HsPrimCUShort
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCInt
+  hsname: Prim_HsPrimCInt
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCUInt
+  hsname: Prim_HsPrimCUInt
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCLong
+  hsname: Prim_HsPrimCLong
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCULong
+  hsname: Prim_HsPrimCULong
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCLLong
+  hsname: Prim_HsPrimCLLong
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCULLong
+  hsname: Prim_HsPrimCULLong
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCBool
+  hsname: Prim_HsPrimCBool
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCFloat
+  hsname: Prim_HsPrimCFloat
+- headers: types/primitives/primitive_insts.h
+  cname: prim_HsPrimCDouble
+  hsname: Prim_HsPrimCDouble
+hstypes:
+- hsname: Prim_HsPrimCBool
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCBool
+      fields:
+      - unwrapPrim_HsPrimCBool
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCChar
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCChar
+      fields:
+      - unwrapPrim_HsPrimCChar
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCDouble
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCDouble
+      fields:
+      - unwrapPrim_HsPrimCDouble
+  instances:
+  - Enum
+  - Eq
+  - Floating
+  - Fractional
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - RealFloat
+  - RealFrac
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCFloat
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCFloat
+      fields:
+      - unwrapPrim_HsPrimCFloat
+  instances:
+  - Enum
+  - Eq
+  - Floating
+  - Fractional
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - RealFloat
+  - RealFrac
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCInt
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCInt
+      fields:
+      - unwrapPrim_HsPrimCInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCLLong
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCLLong
+      fields:
+      - unwrapPrim_HsPrimCLLong
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCLong
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCLong
+      fields:
+      - unwrapPrim_HsPrimCLong
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCPtrdiff
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCPtrdiff
+      fields:
+      - unwrapPrim_HsPrimCPtrdiff
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCSChar
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCSChar
+      fields:
+      - unwrapPrim_HsPrimCSChar
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCShort
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCShort
+      fields:
+      - unwrapPrim_HsPrimCShort
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCUChar
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCUChar
+      fields:
+      - unwrapPrim_HsPrimCUChar
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCUInt
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCUInt
+      fields:
+      - unwrapPrim_HsPrimCUInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCULLong
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCULLong
+      fields:
+      - unwrapPrim_HsPrimCULLong
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCULong
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCULong
+      fields:
+      - unwrapPrim_HsPrimCULong
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimCUShort
+  representation:
+    newtype:
+      constructor: Prim_HsPrimCUShort
+      fields:
+      - unwrapPrim_HsPrimCUShort
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimInt16
+  representation:
+    newtype:
+      constructor: Prim_HsPrimInt16
+      fields:
+      - unwrapPrim_HsPrimInt16
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimInt32
+  representation:
+    newtype:
+      constructor: Prim_HsPrimInt32
+      fields:
+      - unwrapPrim_HsPrimInt32
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimInt64
+  representation:
+    newtype:
+      constructor: Prim_HsPrimInt64
+      fields:
+      - unwrapPrim_HsPrimInt64
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimInt8
+  representation:
+    newtype:
+      constructor: Prim_HsPrimInt8
+      fields:
+      - unwrapPrim_HsPrimInt8
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimWord16
+  representation:
+    newtype:
+      constructor: Prim_HsPrimWord16
+      fields:
+      - unwrapPrim_HsPrimWord16
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimWord32
+  representation:
+    newtype:
+      constructor: Prim_HsPrimWord32
+      fields:
+      - unwrapPrim_HsPrimWord32
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimWord64
+  representation:
+    newtype:
+      constructor: Prim_HsPrimWord64
+      fields:
+      - unwrapPrim_HsPrimWord64
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Prim_HsPrimWord8
+  representation:
+    newtype:
+      constructor: Prim_HsPrimWord8
+      fields:
+      - unwrapPrim_HsPrimWord8
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

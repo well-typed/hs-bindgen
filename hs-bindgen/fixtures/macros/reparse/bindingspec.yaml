@@ -122,21 +122,27 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Arr_typedef1
   representation:
     newtype:
@@ -145,6 +151,8 @@ hstypes:
       - unwrapArr_typedef1
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Arr_typedef2
   representation:
@@ -154,6 +162,8 @@ hstypes:
       - unwrapArr_typedef2
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Arr_typedef3
   representation:
@@ -163,8 +173,13 @@ hstypes:
       - unwrapArr_typedef3
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Arr_typedef4
   representation:
     newtype:
@@ -173,8 +188,13 @@ hstypes:
       - unwrapArr_typedef4
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: BOOL
   representation:
     newtype:
@@ -182,21 +202,27 @@ hstypes:
       fields:
       - unwrapBOOL
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Comments2
   representation:
     newtype:
@@ -204,21 +230,27 @@ hstypes:
       fields:
       - unwrapComments2
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_funptr1
   representation:
     newtype:
@@ -227,10 +259,15 @@ hstypes:
       - unwrapConst_funptr1
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_funptr2
   representation:
     newtype:
@@ -239,10 +276,15 @@ hstypes:
       - unwrapConst_funptr2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_funptr3
   representation:
     newtype:
@@ -251,10 +293,15 @@ hstypes:
       - unwrapConst_funptr3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_funptr4
   representation:
     newtype:
@@ -263,10 +310,15 @@ hstypes:
       - unwrapConst_funptr4
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_funptr5
   representation:
     newtype:
@@ -275,10 +327,15 @@ hstypes:
       - unwrapConst_funptr5
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_funptr6
   representation:
     newtype:
@@ -287,10 +344,15 @@ hstypes:
       - unwrapConst_funptr6
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_funptr7
   representation:
     newtype:
@@ -299,10 +361,15 @@ hstypes:
       - unwrapConst_funptr7
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_typedef1
   representation:
     newtype:
@@ -310,21 +377,27 @@ hstypes:
       fields:
       - unwrapConst_typedef1
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_typedef2
   representation:
     newtype:
@@ -332,21 +405,27 @@ hstypes:
       fields:
       - unwrapConst_typedef2
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_typedef3
   representation:
     newtype:
@@ -355,10 +434,15 @@ hstypes:
       - unwrapConst_typedef3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_typedef4
   representation:
     newtype:
@@ -367,10 +451,15 @@ hstypes:
       - unwrapConst_typedef4
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_typedef5
   representation:
     newtype:
@@ -379,10 +468,15 @@ hstypes:
       - unwrapConst_typedef5
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_typedef6
   representation:
     newtype:
@@ -391,10 +485,15 @@ hstypes:
       - unwrapConst_typedef6
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Const_typedef7
   representation:
     newtype:
@@ -403,10 +502,15 @@ hstypes:
       - unwrapConst_typedef7
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Example_struct
   representation:
     record:
@@ -417,8 +521,13 @@ hstypes:
       - example_struct_field3
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Example_struct_with_const
   representation:
     record:
@@ -433,8 +542,13 @@ hstypes:
       - example_struct_with_const_const_field7
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Funptr_typedef1
   representation:
     newtype:
@@ -443,10 +557,15 @@ hstypes:
       - unwrapFunptr_typedef1
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Funptr_typedef2
   representation:
     newtype:
@@ -455,10 +574,15 @@ hstypes:
       - unwrapFunptr_typedef2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Funptr_typedef3
   representation:
     newtype:
@@ -467,10 +591,15 @@ hstypes:
       - unwrapFunptr_typedef3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Funptr_typedef4
   representation:
     newtype:
@@ -479,10 +608,15 @@ hstypes:
       - unwrapFunptr_typedef4
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Funptr_typedef5
   representation:
     newtype:
@@ -491,10 +625,15 @@ hstypes:
       - unwrapFunptr_typedef5
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: INT
   representation:
     newtype:
@@ -502,21 +641,27 @@ hstypes:
       fields:
       - unwrapINT
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: INTCP
   representation:
     newtype:
@@ -525,10 +670,15 @@ hstypes:
       - unwrapINTCP
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: INTP
   representation:
     newtype:
@@ -537,10 +687,15 @@ hstypes:
       - unwrapINTP
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Some_enum
   representation:
     newtype:
@@ -548,12 +703,20 @@ hstypes:
       fields:
       - unwrapSome_enum
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Some_struct
   representation:
     record:
@@ -561,9 +724,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Some_union
   representation:
     newtype:
@@ -571,7 +736,11 @@ hstypes:
       fields:
       - unwrapSome_union
   instances:
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Typedef1
   representation:
     newtype:
@@ -579,21 +748,27 @@ hstypes:
       fields:
       - unwrapTypedef1
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Typedef2
   representation:
     newtype:
@@ -602,10 +777,15 @@ hstypes:
       - unwrapTypedef2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Typedef3
   representation:
     newtype:
@@ -614,7 +794,12 @@ hstypes:
       - unwrapTypedef3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -24,6 +24,7 @@ import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Backend.SHs.Translation.Prim qualified as SHsPrim
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -80,6 +81,12 @@ translateDeclTypSyn d = DTypSyn $ TypeSynonym {
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl defInst =
     case defInst.instanceDecl of
+      Hs.InstanceStaticSize struct i ->
+        DInst $ translateStaticSizeInstance struct i defInst.comment
+      Hs.InstanceReadRaw struct i ->
+        DInst $ translateReadRawInstance struct i defInst.comment
+      Hs.InstanceWriteRaw struct i ->
+        DInst $ translateWriteRawInstance struct i defInst.comment
       Hs.InstanceStorable struct i ->
         DInst $ translateStorableInstance struct i defInst.comment
       Hs.InstancePrim struct i ->
@@ -183,31 +190,39 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
     , comment  = deriv.comment
     }
 
-translateTypeClass :: Hs.TypeClass -> ClosedType
+translateTypeClass :: Inst.TypeClass -> ClosedType
 translateTypeClass = \case
-    Hs.Bitfield   -> TGlobal Bitfield_class
-    Hs.Bits       -> TGlobal Bits_class
-    Hs.Bounded    -> TGlobal Bounded_class
-    Hs.Enum       -> TGlobal Enum_class
-    Hs.Eq         -> TGlobal Eq_class
-    Hs.FiniteBits -> TGlobal FiniteBits_class
-    Hs.Floating   -> TGlobal Floating_class
-    Hs.Fractional -> TGlobal Fractional_class
-    Hs.Integral   -> TGlobal Integral_class
-    Hs.Ix         -> TGlobal Ix_class
-    Hs.Num        -> TGlobal Num_class
-    Hs.Ord        -> TGlobal Ord_class
-    Hs.Prim       -> TGlobal Prim_class
-    Hs.Read       -> TGlobal Read_class
-    Hs.ReadRaw    -> TGlobal ReadRaw_class
-    Hs.Real       -> TGlobal Real_class
-    Hs.RealFloat  -> TGlobal RealFloat_class
-    Hs.RealFrac   -> TGlobal RealFrac_class
-    Hs.Show       -> TGlobal Show_class
-    Hs.StaticSize -> TGlobal StaticSize_class
-    Hs.Storable   -> TGlobal Storable_class
-    Hs.WriteRaw   -> TGlobal WriteRaw_class
-    Hs.HasFFIType -> TGlobal HasFFIType_class
+    Inst.Bitfield        -> TGlobal Bitfield_class
+    Inst.Bits            -> TGlobal Bits_class
+    Inst.Bounded         -> TGlobal Bounded_class
+    Inst.CEnum           -> TGlobal CEnum_class
+    Inst.Enum            -> TGlobal Enum_class
+    Inst.Eq              -> TGlobal Eq_class
+    Inst.FiniteBits      -> TGlobal FiniteBits_class
+    Inst.Floating        -> TGlobal Floating_class
+    Inst.Fractional      -> TGlobal Fractional_class
+    Inst.FromFunPtr      -> TGlobal FromFunPtr_class
+    Inst.HasCBitField    -> TGlobal HasCBitfield_class
+    Inst.HasCField       -> TGlobal HasCField_class
+    Inst.HasFFIType      -> TGlobal HasFFIType_class
+    Inst.HasField        -> TGlobal HasField_class
+    Inst.Flam_Offset     -> TGlobal Flam_Offset_class
+    Inst.Integral        -> TGlobal Integral_class
+    Inst.Ix              -> TGlobal Ix_class
+    Inst.Num             -> TGlobal Num_class
+    Inst.Ord             -> TGlobal Ord_class
+    Inst.Prim            -> TGlobal Prim_class
+    Inst.Read            -> TGlobal Read_class
+    Inst.ReadRaw         -> TGlobal ReadRaw_class
+    Inst.Real            -> TGlobal Real_class
+    Inst.RealFloat       -> TGlobal RealFloat_class
+    Inst.RealFrac        -> TGlobal RealFrac_class
+    Inst.SequentialCEnum -> TGlobal SequentialCEnum_class
+    Inst.Show            -> TGlobal Show_class
+    Inst.StaticSize      -> TGlobal StaticSize_class
+    Inst.Storable        -> TGlobal Storable_class
+    Inst.ToFunPtr        -> TGlobal ToFunPtr_class
+    Inst.WriteRaw        -> TGlobal WriteRaw_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
 translateForeignImportDecl importDecl = DForeignImport ForeignImport{
@@ -297,27 +312,113 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
-    Hs.HsPrimType t                  -> TGlobal (PrimType t)
-    Hs.HsTypRef r _                  -> TCon r
-    Hs.HsConstArray n t              -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
-    Hs.HsIncompleteArray t           -> TGlobal IncompleteArray `TApp` (translateType t)
-    Hs.HsPtr t                       -> TApp (TGlobal Foreign_Ptr) (translateType t)
-    Hs.HsFunPtr t                    -> TApp (TGlobal Foreign_FunPtr) (translateType t)
-    Hs.HsStablePtr t                 -> TApp (TGlobal Foreign_StablePtr) (translateType t)
-    Hs.HsPtrConst t                  -> TApp (TGlobal PtrConst_type) (translateType t)
-    Hs.HsIO t                        -> TApp (TGlobal IO_type) (translateType t)
-    Hs.HsFun a b                     -> TFun (translateType a) (translateType b)
-    Hs.HsExtBinding r c hs _         -> TExt r c hs
-    Hs.HsByteArray                   -> TGlobal ByteArray_type
-    Hs.HsSizedByteArray n m          -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-    Hs.HsBlock t                     -> TGlobal Block_type `TApp` translateType t
-    Hs.HsComplexType t               -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
-    Hs.HsStrLit s                    -> TStrLit s
-    Hs.HsWithFlam x y -> TApp
-                                          (TApp
-                                            (TGlobal WithFlam)
-                                            (translateType x))
-                                          (translateType y)
+    Hs.HsPrimType t          -> TGlobal (PrimType t)
+    Hs.HsTypRef r _          -> TCon r
+    Hs.HsConstArray n t      -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
+    Hs.HsIncompleteArray t   -> TGlobal IncompleteArray `TApp` (translateType t)
+    Hs.HsPtr t               -> TApp (TGlobal Foreign_Ptr) (translateType t)
+    Hs.HsFunPtr t            -> TApp (TGlobal Foreign_FunPtr) (translateType t)
+    Hs.HsStablePtr t         -> TApp (TGlobal Foreign_StablePtr) (translateType t)
+    Hs.HsPtrConst t          -> TApp (TGlobal PtrConst_type) (translateType t)
+    Hs.HsIO t                -> TApp (TGlobal IO_type) (translateType t)
+    Hs.HsFun a b             -> TFun (translateType a) (translateType b)
+    Hs.HsExtBinding r c hs _ -> TExt r c hs
+    Hs.HsByteArray           -> TGlobal ByteArray_type
+    Hs.HsSizedByteArray n m  -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+    Hs.HsBlock t             -> TGlobal Block_type `TApp` translateType t
+    Hs.HsComplexType t       -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
+    Hs.HsStrLit s            -> TStrLit s
+    Hs.HsWithFlam x y        ->
+      TApp (TApp (TGlobal WithFlam) (translateType x)) (translateType y)
+    Hs.HsEquivStorable t     -> TApp (TGlobal EquivStorable_type) (translateType t)
+
+{-------------------------------------------------------------------------------
+  @StaticSize@, @ReadRaw@, @WriteRaw@
+-------------------------------------------------------------------------------}
+
+translateStaticSizeInstance ::
+     Hs.Struct n
+  -> Hs.StaticSizeInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateStaticSizeInstance struct inst mbComment = Instance{
+      clss    = StaticSize_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [
+          (StaticSize_staticSizeOf    , EUnusedLam $ EInt inst.staticSizeOf)
+        , (StaticSize_staticAlignment , EUnusedLam $ EInt inst.staticAlignment)
+        ]
+    }
+
+translateReadRawInstance ::
+     Hs.Struct n
+  -> Hs.ReadRawInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateReadRawInstance struct inst mbComment = Instance{
+      clss    = ReadRaw_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [(ReadRaw_readRaw, readRaw)]
+    }
+  where
+    readRaw = lambda (idiom structCon translateReadRawCField) inst.readRaw
+
+translateWriteRawInstance ::
+     Hs.Struct n
+  -> Hs.WriteRawInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateWriteRawInstance struct inst mbComment = Instance{
+      clss    = WriteRaw_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [(WriteRaw_writeRaw, writeRaw)]
+    }
+  where
+    writeRaw =
+      lambda
+        (lambda (translateElimStruct (doAll translateWriteRawCField)))
+        inst.writeRaw
+
+translateReadRawCField :: Hs.ReadRawCField ctx -> SExpr ctx
+translateReadRawCField = \case
+    Hs.ReadRawCField field ptr ->
+      appMany HasCField_readRaw [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        ]
+    Hs.ReadRawCBitfield field ptr ->
+      appMany HasCBitfield_peek [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        ]
+    Hs.ReadRawByteOff ptr i ->
+      appMany ReadRaw_readRawByteOff [EBound ptr, EInt i]
+
+translateWriteRawCField :: Hs.WriteRawCField ctx -> SExpr ctx
+translateWriteRawCField = \case
+    Hs.WriteRawCField field ptr x ->
+      appMany HasCField_writeRaw [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        , EBound x
+        ]
+    Hs.WriteRawCBitfield field ptr x ->
+      appMany HasCBitfield_poke [
+          EGlobal Proxy_constructor `ETypeApp` translateType field
+        , EBound ptr
+        , EBound x
+        ]
+    Hs.WriteRawByteOff ptr i x ->
+      appMany WriteRaw_writeRawByteOff [EBound ptr, EInt i, EBound x]
 
 {-------------------------------------------------------------------------------
   'Storable'

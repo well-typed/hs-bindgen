@@ -441,18 +441,23 @@ instance Pretty SDecl where
 
 -- | Nested deriving clauses (as part of a datatype declaration)
 nestedDeriving :: [(Hs.Strategy ClosedType, [Global])] -> CtxDoc
-nestedDeriving deriv = PP.vcat [
-      PP.hsep [
-          "deriving"
-        , strategy s
-        , PP.hcat . concat $ [
-              ["("]
-            , List.intersperse (", ") $ map (pretty . resolve) clss
-            , [")"]
-            ]
-        ]
-    | (s, clss) <- deriv
-    ]
+nestedDeriving = PP.vcat . map (uncurry aux)
+  where
+    aux :: Hs.Strategy ClosedType -> [Global] -> CtxDoc
+    aux strat insts =
+      let l = auxOneLine strat insts
+      in  PP.ifFits l l $ auxMultiLines strat insts
+
+    auxOneLine :: Hs.Strategy ClosedType -> [Global] -> CtxDoc
+    auxOneLine strat insts = PP.hsep [
+        "deriving"
+      , strategy strat
+      , PP.hlist "(" ")" (map (pretty . resolve) insts)
+      ]
+
+    auxMultiLines :: Hs.Strategy ClosedType -> [Global] -> CtxDoc
+    auxMultiLines strat insts = PP.hang ("deriving" <+> strategy strat) 2 $
+      PP.vlist "(" ")" (map (pretty . resolve) insts)
 
 strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"

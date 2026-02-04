@@ -50,16 +50,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: A_typedef_enum_e
   representation:
     newtype:
@@ -67,12 +72,20 @@ hstypes:
       fields:
       - unwrapA_typedef_enum_e
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: A_typedef_struct_t
   representation:
     record:
@@ -91,8 +104,13 @@ hstypes:
       - a_typedef_struct_t_field_10
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Another_typedef_enum_e
   representation:
     newtype:
@@ -100,12 +118,20 @@ hstypes:
       fields:
       - unwrapAnother_typedef_enum_e
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Another_typedef_struct_t
   representation:
     record:
@@ -115,9 +141,13 @@ hstypes:
       - another_typedef_struct_t_bar
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Callback_t
   representation:
     newtype:
@@ -126,10 +156,15 @@ hstypes:
       - unwrapCallback_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Var_t
   representation:
     newtype:
@@ -143,13 +178,18 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

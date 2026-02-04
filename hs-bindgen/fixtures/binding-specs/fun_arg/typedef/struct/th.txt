@@ -141,25 +141,15 @@ data MyStruct
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
     deriving stock (Eq, Show)
-instance Storable MyStruct
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure MyStruct <*> peek (Proxy @"myStruct_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   MyStruct myStruct_x_3 -> poke (Proxy @"myStruct_x") ptr_1 myStruct_x_3
-instance Prim MyStruct
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> MyStruct (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, MyStruct v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    MyStruct myStruct_x_11 -> writeByteArray# arr_7 i_8 myStruct_x_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> MyStruct (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, MyStruct v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      MyStruct myStruct_x_23 -> writeOffAddr# addr_19 i_20 myStruct_x_23 s_22
+instance StaticSize MyStruct
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw MyStruct
+    where readRaw = \ptr_0 -> pure MyStruct <*> readRaw (Proxy @"myStruct_x") ptr_0
+instance WriteRaw MyStruct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       MyStruct myStruct_x_2 -> writeRaw (Proxy @"myStruct_x") ptr_0 myStruct_x_2
+deriving via (EquivStorable MyStruct) instance Storable MyStruct
 instance HasCField MyStruct "myStruct_x"
     where type CFieldType MyStruct "myStruct_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -181,7 +171,7 @@ newtype A
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType A "unwrapA") =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
@@ -203,7 +193,7 @@ newtype B
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType B "unwrapB") =>
          HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")

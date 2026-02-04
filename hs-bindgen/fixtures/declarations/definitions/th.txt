@@ -47,25 +47,15 @@ data X
            __exported by:__ @declarations\/definitions.h@
       -}
     deriving stock (Eq, Show)
-instance Storable X
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure X <*> peek (Proxy @"x_n") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   X x_n_3 -> poke (Proxy @"x_n") ptr_1 x_n_3
-instance Prim X
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> X (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, X v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    X x_n_11 -> writeByteArray# arr_7 i_8 x_n_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> X (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, X v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      X x_n_23 -> writeOffAddr# addr_19 i_20 x_n_23 s_22
+instance StaticSize X
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw X
+    where readRaw = \ptr_0 -> pure X <*> readRaw (Proxy @"x_n") ptr_0
+instance WriteRaw X
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       X x_n_2 -> writeRaw (Proxy @"x_n") ptr_0 x_n_2
+deriving via (EquivStorable X) instance Storable X
 instance HasCField X "x_n"
     where type CFieldType X "x_n" = CInt
           offset# = \_ -> \_ -> 0
@@ -86,7 +76,10 @@ newtype Y
 
            __exported by:__ @declarations\/definitions.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable Y
+deriving via (SizedByteArray 4 4) instance StaticSize Y
+deriving via (SizedByteArray 4 4) instance ReadRaw Y
+deriving via (SizedByteArray 4 4) instance WriteRaw Y
+deriving via (EquivStorable Y) instance Storable Y
 deriving via (SizedByteArray 4 4) instance Prim Y
 {-|
 

@@ -40,8 +40,6 @@ module HsBindgen.BindingSpec (
   , BindingSpec.HsRecordRep(..)
   , BindingSpec.HsNewtypeRep(..)
   , BindingSpec.InstanceSpec(..)
-  , BindingSpec.StrategySpec(..)
-  , BindingSpec.ConstraintSpec(..)
     -- ** Query
   , getCTypes
   , lookupCTypeSpec

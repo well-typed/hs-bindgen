@@ -69,9 +69,13 @@ hstypes:
       - bitfield_t_reserved
   instances:
   - Eq
-  - Prim
+  - HasCBitField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Color_enum
   representation:
     newtype:
@@ -79,12 +83,20 @@ hstypes:
       fields:
       - unwrapColor_enum
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Config_t
   representation:
     record:
@@ -97,8 +109,13 @@ hstypes:
       - config_t_user_data
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Data_union_t
   representation:
     newtype:
@@ -106,7 +123,13 @@ hstypes:
       fields:
       - unwrapData_union_t
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Data_union_t_as_parts
   representation:
     record:
@@ -116,8 +139,13 @@ hstypes:
       - data_union_t_as_parts_high
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Event_callback_t
   representation:
     newtype:
@@ -126,10 +154,15 @@ hstypes:
       - unwrapEvent_callback_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Filename_t
   representation:
     newtype:
@@ -138,8 +171,13 @@ hstypes:
       - unwrapFilename_t
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Flexible_array
   representation: typealias
 - hsname: Flexible_array_Aux
@@ -150,8 +188,14 @@ hstypes:
       - flexible_array_count
   instances:
   - Eq
+  - Flam_Offset
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Forward_declared_struct
   representation: emptydata
 - hsname: Forward_declared_union
@@ -164,10 +208,15 @@ hstypes:
       - unwrapProcessor_fn_t
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Size_type
   representation:
     newtype:
@@ -175,20 +224,27 @@ hstypes:
       fields:
       - unwrapSize_type
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Status_code_t
   representation:
     newtype:
@@ -196,9 +252,16 @@ hstypes:
       fields:
       - unwrapStatus_code_t
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

@@ -45,10 +45,15 @@ hstypes:
       - unwrapF1
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: FunctionPointer_Function
   representation:
     newtype:
@@ -57,10 +62,15 @@ hstypes:
       - unwrapFunctionPointer_Function
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: G1
   representation:
     newtype:
@@ -68,7 +78,11 @@ hstypes:
       fields:
       - unwrapG1
   instances:
+  - FromFunPtr
+  - HasCField
   - HasFFIType
+  - HasField
+  - ToFunPtr
 - hsname: G2
   representation:
     newtype:
@@ -77,10 +91,15 @@ hstypes:
       - unwrapG2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: H1
   representation:
     newtype:
@@ -88,7 +107,11 @@ hstypes:
       fields:
       - unwrapH1
   instances:
+  - FromFunPtr
+  - HasCField
   - HasFFIType
+  - HasField
+  - ToFunPtr
 - hsname: H2
   representation:
     newtype:
@@ -96,7 +119,9 @@ hstypes:
       fields:
       - unwrapH2
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: H3
   representation:
     newtype:
@@ -105,10 +130,15 @@ hstypes:
       - unwrapH3
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Int2int
   representation:
     newtype:
@@ -116,7 +146,11 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
+  - FromFunPtr
+  - HasCField
   - HasFFIType
+  - HasField
+  - ToFunPtr
 - hsname: Intptr
   representation:
     newtype:
@@ -125,10 +159,15 @@ hstypes:
       - unwrapIntptr
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Myint
   representation:
     newtype:
@@ -142,16 +181,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: NonFunctionPointer_Function
   representation:
     newtype:
@@ -159,4 +203,8 @@ hstypes:
       fields:
       - unwrapNonFunctionPointer_Function
   instances:
+  - FromFunPtr
+  - HasCField
   - HasFFIType
+  - HasField
+  - ToFunPtr

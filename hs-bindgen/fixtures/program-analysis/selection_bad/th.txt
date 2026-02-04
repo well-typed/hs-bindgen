@@ -15,9 +15,13 @@ newtype A
            __exported by:__ @program-analysis\/selection_bad.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -26,3 +30,9 @@ newtype A
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType A "unwrapA") =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = CInt
+          offset# = \_ -> \_ -> 0

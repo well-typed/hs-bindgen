@@ -385,8 +385,13 @@ newtype Size_type
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
+                      Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -452,12 +457,15 @@ newtype Color_enum
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Color_enum
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Color_enum <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Color_enum unwrapColor_enum_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapColor_enum_3
+instance StaticSize Color_enum
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Color_enum
+    where readRaw = \ptr_0 -> pure Color_enum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Color_enum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Color_enum unwrapColor_enum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapColor_enum_2
+deriving via (EquivStorable Color_enum) instance Storable Color_enum
 deriving via CUInt instance Prim Color_enum
 instance CEnum Color_enum
     where type CEnumZ Color_enum = CUInt
@@ -480,6 +488,12 @@ instance Read Color_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Color_enum "unwrapColor_enum") =>
+         HasField "unwrapColor_enum" (Ptr Color_enum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapColor_enum")
+instance HasCField Color_enum "unwrapColor_enum"
+    where type CFieldType Color_enum "unwrapColor_enum" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| Red color
 
 __C declaration:__ @COLOR_RED@
@@ -622,7 +636,11 @@ newtype Event_callback_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType Event_callback_t "unwrapEvent_callback_t") =>
          HasField "unwrapEvent_callback_t" (Ptr Event_callback_t) (Ptr ty)
@@ -714,16 +732,19 @@ data Config_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Config_t
-    where sizeOf = \_ -> 88 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((((pure Config_t <*> peek (Proxy @"config_t_id") ptr_0) <*> peek (Proxy @"config_t_name") ptr_0) <*> peek (Proxy @"config_t_flags") ptr_0) <*> peek (Proxy @"config_t_callback") ptr_0) <*> peek (Proxy @"config_t_user_data") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Config_t config_t_id_3
-                                            config_t_name_4
-                                            config_t_flags_5
-                                            config_t_callback_6
-                                            config_t_user_data_7 -> poke (Proxy @"config_t_id") ptr_1 config_t_id_3 >> (poke (Proxy @"config_t_name") ptr_1 config_t_name_4 >> (poke (Proxy @"config_t_flags") ptr_1 config_t_flags_5 >> (poke (Proxy @"config_t_callback") ptr_1 config_t_callback_6 >> poke (Proxy @"config_t_user_data") ptr_1 config_t_user_data_7)))
+instance StaticSize Config_t
+    where staticSizeOf = \_ -> 88 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Config_t
+    where readRaw = \ptr_0 -> ((((pure Config_t <*> readRaw (Proxy @"config_t_id") ptr_0) <*> readRaw (Proxy @"config_t_name") ptr_0) <*> readRaw (Proxy @"config_t_flags") ptr_0) <*> readRaw (Proxy @"config_t_callback") ptr_0) <*> readRaw (Proxy @"config_t_user_data") ptr_0
+instance WriteRaw Config_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Config_t config_t_id_2
+                                                config_t_name_3
+                                                config_t_flags_4
+                                                config_t_callback_5
+                                                config_t_user_data_6 -> writeRaw (Proxy @"config_t_id") ptr_0 config_t_id_2 >> (writeRaw (Proxy @"config_t_name") ptr_0 config_t_name_3 >> (writeRaw (Proxy @"config_t_flags") ptr_0 config_t_flags_4 >> (writeRaw (Proxy @"config_t_callback") ptr_0 config_t_callback_5 >> writeRaw (Proxy @"config_t_user_data") ptr_0 config_t_user_data_6)))
+deriving via (EquivStorable Config_t) instance Storable Config_t
 instance HasCField Config_t "config_t_id"
     where type CFieldType Config_t
                           "config_t_id" = HsBindgen.Runtime.LibC.Word32
@@ -786,12 +807,15 @@ newtype Status_code_t
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Status_code_t
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Status_code_t <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Status_code_t unwrapStatus_code_t_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapStatus_code_t_3
+instance StaticSize Status_code_t
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Status_code_t
+    where readRaw = \ptr_0 -> pure Status_code_t <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Status_code_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Status_code_t unwrapStatus_code_t_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapStatus_code_t_2
+deriving via (EquivStorable Status_code_t) instance Storable Status_code_t
 deriving via CInt instance Prim Status_code_t
 instance CEnum Status_code_t
     where type CEnumZ Status_code_t = CInt
@@ -811,6 +835,13 @@ instance Read Status_code_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty
+              (CFieldType Status_code_t "unwrapStatus_code_t") =>
+         HasField "unwrapStatus_code_t" (Ptr Status_code_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStatus_code_t")
+instance HasCField Status_code_t "unwrapStatus_code_t"
+    where type CFieldType Status_code_t "unwrapStatus_code_t" = CInt
+          offset# = \_ -> \_ -> 0
 {-|
 
   Operation successful
@@ -969,13 +1000,16 @@ data Data_union_t_as_parts
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Data_union_t_as_parts
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 2 :: Int
-          peek = \ptr_0 -> (pure Data_union_t_as_parts <*> peek (Proxy @"data_union_t_as_parts_low") ptr_0) <*> peek (Proxy @"data_union_t_as_parts_high") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Data_union_t_as_parts data_union_t_as_parts_low_3
-                                                         data_union_t_as_parts_high_4 -> poke (Proxy @"data_union_t_as_parts_low") ptr_1 data_union_t_as_parts_low_3 >> poke (Proxy @"data_union_t_as_parts_high") ptr_1 data_union_t_as_parts_high_4
+instance StaticSize Data_union_t_as_parts
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 2 :: Int
+instance ReadRaw Data_union_t_as_parts
+    where readRaw = \ptr_0 -> (pure Data_union_t_as_parts <*> readRaw (Proxy @"data_union_t_as_parts_low") ptr_0) <*> readRaw (Proxy @"data_union_t_as_parts_high") ptr_0
+instance WriteRaw Data_union_t_as_parts
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Data_union_t_as_parts data_union_t_as_parts_low_2
+                                                             data_union_t_as_parts_high_3 -> writeRaw (Proxy @"data_union_t_as_parts_low") ptr_0 data_union_t_as_parts_low_2 >> writeRaw (Proxy @"data_union_t_as_parts_high") ptr_0 data_union_t_as_parts_high_3
+deriving via (EquivStorable Data_union_t_as_parts) instance Storable Data_union_t_as_parts
 instance HasCField Data_union_t_as_parts
                    "data_union_t_as_parts_low"
     where type CFieldType Data_union_t_as_parts
@@ -1028,7 +1062,10 @@ newtype Data_union_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-deriving via (SizedByteArray 4 4) instance Storable Data_union_t
+deriving via (SizedByteArray 4 4) instance StaticSize Data_union_t
+deriving via (SizedByteArray 4 4) instance ReadRaw Data_union_t
+deriving via (SizedByteArray 4 4) instance WriteRaw Data_union_t
+deriving via (EquivStorable Data_union_t) instance Storable Data_union_t
 deriving via (SizedByteArray 4 4) instance Prim Data_union_t
 {-|
 
@@ -1288,56 +1325,18 @@ data Bitfield_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Bitfield_t
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (((pure Bitfield_t <*> peek (Proxy @"bitfield_t_flag1") ptr_0) <*> peek (Proxy @"bitfield_t_flag2") ptr_0) <*> peek (Proxy @"bitfield_t_counter") ptr_0) <*> peek (Proxy @"bitfield_t_reserved") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Bitfield_t bitfield_t_flag1_3
-                                              bitfield_t_flag2_4
-                                              bitfield_t_counter_5
-                                              bitfield_t_reserved_6 -> poke (Proxy @"bitfield_t_flag1") ptr_1 bitfield_t_flag1_3 >> (poke (Proxy @"bitfield_t_flag2") ptr_1 bitfield_t_flag2_4 >> (poke (Proxy @"bitfield_t_counter") ptr_1 bitfield_t_counter_5 >> poke (Proxy @"bitfield_t_reserved") ptr_1 bitfield_t_reserved_6))
-instance Prim Bitfield_t
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Bitfield_t (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (2# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (3# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (3# :: Int#)) s_9 of
-                                                                                             (# s_11,
-                                                                                                v_12 #) -> (# s_11,
-                                                                                                              Bitfield_t v_6 v_8 v_10 v_12 #)
-          writeByteArray# = \arr_13 -> \i_14 -> \struct_15 -> \s_16 -> case struct_15 of
-                                                                       Bitfield_t bitfield_t_flag1_17
-                                                                                  bitfield_t_flag2_18
-                                                                                  bitfield_t_counter_19
-                                                                                  bitfield_t_reserved_20 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (0# :: Int#)) bitfield_t_flag1_17 s_16 of
-                                                                                                            s_21 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (1# :: Int#)) bitfield_t_flag2_18 s_21 of
-                                                                                                                    s_22 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (2# :: Int#)) bitfield_t_counter_19 s_22 of
-                                                                                                                            s_23 -> writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (3# :: Int#)) bitfield_t_reserved_20 s_23
-          indexOffAddr# = \addr_24 -> \i_25 -> Bitfield_t (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (0# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (1# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (2# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (3# :: Int#)))
-          readOffAddr# = \addr_26 -> \i_27 -> \s_28 -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (0# :: Int#)) s_28 of
-                                                       (# s_29,
-                                                          v_30 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (1# :: Int#)) s_29 of
-                                                                     (# s_31,
-                                                                        v_32 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (2# :: Int#)) s_31 of
-                                                                                   (# s_33,
-                                                                                      v_34 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (3# :: Int#)) s_33 of
-                                                                                                 (# s_35,
-                                                                                                    v_36 #) -> (# s_35,
-                                                                                                                  Bitfield_t v_30 v_32 v_34 v_36 #)
-          writeOffAddr# = \addr_37 -> \i_38 -> \struct_39 -> \s_40 -> case struct_39 of
-                                                                      Bitfield_t bitfield_t_flag1_41
-                                                                                 bitfield_t_flag2_42
-                                                                                 bitfield_t_counter_43
-                                                                                 bitfield_t_reserved_44 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (0# :: Int#)) bitfield_t_flag1_41 s_40 of
-                                                                                                           s_45 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (1# :: Int#)) bitfield_t_flag2_42 s_45 of
-                                                                                                                   s_46 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (2# :: Int#)) bitfield_t_counter_43 s_46 of
-                                                                                                                           s_47 -> writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (3# :: Int#)) bitfield_t_reserved_44 s_47
+instance StaticSize Bitfield_t
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Bitfield_t
+    where readRaw = \ptr_0 -> (((pure Bitfield_t <*> peek (Proxy @"bitfield_t_flag1") ptr_0) <*> peek (Proxy @"bitfield_t_flag2") ptr_0) <*> peek (Proxy @"bitfield_t_counter") ptr_0) <*> peek (Proxy @"bitfield_t_reserved") ptr_0
+instance WriteRaw Bitfield_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bitfield_t bitfield_t_flag1_2
+                                                  bitfield_t_flag2_3
+                                                  bitfield_t_counter_4
+                                                  bitfield_t_reserved_5 -> poke (Proxy @"bitfield_t_flag1") ptr_0 bitfield_t_flag1_2 >> (poke (Proxy @"bitfield_t_flag2") ptr_0 bitfield_t_flag2_3 >> (poke (Proxy @"bitfield_t_counter") ptr_0 bitfield_t_counter_4 >> poke (Proxy @"bitfield_t_reserved") ptr_0 bitfield_t_reserved_5))
+deriving via (EquivStorable Bitfield_t) instance Storable Bitfield_t
 instance HasCBitfield Bitfield_t "bitfield_t_flag1"
     where type CBitfieldType Bitfield_t "bitfield_t_flag1" = CUInt
           bitfieldOffset# = \_ -> \_ -> 0
@@ -1458,7 +1457,11 @@ newtype Processor_fn_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype (Storable, HasFFIType)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
 instance TyEq ty
               (CFieldType Processor_fn_t "unwrapProcessor_fn_t") =>
          HasField "unwrapProcessor_fn_t" (Ptr Processor_fn_t) (Ptr ty)
@@ -1494,7 +1497,7 @@ newtype Filename_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Filename_t "unwrapFilename_t") =>
          HasField "unwrapFilename_t" (Ptr Filename_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFilename_t")
@@ -1529,12 +1532,15 @@ data Flexible_array_Aux
                       __exported by:__ @documentation\/doxygen_docs.h@
                       -}}
     deriving stock (Eq, Show)
-instance Storable Flexible_array_Aux
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Flexible_array <*> peek (Proxy @"flexible_array_count") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Flexible_array flexible_array_count_3 -> poke (Proxy @"flexible_array_count") ptr_1 flexible_array_count_3
+instance StaticSize Flexible_array_Aux
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Flexible_array_Aux
+    where readRaw = \ptr_0 -> pure Flexible_array <*> readRaw (Proxy @"flexible_array_count") ptr_0
+instance WriteRaw Flexible_array_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Flexible_array flexible_array_count_2 -> writeRaw (Proxy @"flexible_array_count") ptr_0 flexible_array_count_2
+deriving via (EquivStorable Flexible_array_Aux) instance Storable Flexible_array_Aux
 instance HasCField Flexible_array_Aux "flexible_array_count"
     where type CFieldType Flexible_array_Aux
                           "flexible_array_count" = HsBindgen.Runtime.LibC.CSize

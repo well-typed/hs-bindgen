@@ -21,8 +21,13 @@ hstypes:
       - apply1Struct_apply1_nopointer_struct_field
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Apply1Union
   representation:
     newtype:
@@ -30,7 +35,13 @@ hstypes:
       fields:
       - unwrapApply1Union
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Int2int
   representation:
     newtype:
@@ -38,4 +49,8 @@ hstypes:
       fields:
       - unwrapInt2int
   instances:
+  - FromFunPtr
+  - HasCField
   - HasFFIType
+  - HasField
+  - ToFunPtr

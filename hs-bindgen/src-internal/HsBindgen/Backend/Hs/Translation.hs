@@ -23,7 +23,6 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
@@ -47,6 +46,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.PrettyC qualified as PC
@@ -56,17 +56,17 @@ import HsBindgen.PrettyC qualified as PC
 -------------------------------------------------------------------------------}
 
 generateDeclarations ::
-     TranslationConfig
+     UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> ByCategory_ [Hs.Decl]
-generateDeclarations opts config name declIndex sizeofs =
+generateDeclarations uniqueId config name declIndex sizeofs =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' opts config name declIndex sizeofs
+      generateDeclarations' uniqueId config name declIndex sizeofs
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -80,14 +80,14 @@ data WithCategory a = WithCategory {
   } deriving (Show)
 
 generateDeclarations' ::
-     TranslationConfig
+     UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> [WithCategory Hs.Decl]
-generateDeclarations' opts haddockConfig moduleName declIndex sizeofs decs =
+generateDeclarations' uniqueId haddockConfig moduleName declIndex sizeofs decs =
     State.runHsM $ do
       let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested callback types
@@ -100,7 +100,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex sizeofs decs =
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
                    ]
-      hsDecls <- concat <$> mapM (generateDecs opts haddockConfig moduleName sizeofs) decs
+      hsDecls <- concat <$> mapM (generateDecs uniqueId haddockConfig moduleName sizeofs) decs
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
@@ -152,54 +152,57 @@ isDefinedInCurrentModule declIndex =
 
 -- TODO: Take DeclSpec into account
 generateDecs ::
-     TranslationConfig
+     UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> C.Sizeofs
   -> C.Decl Final
   -> HsM [WithCategory Hs.Decl]
-generateDecs opts haddockConfig moduleName sizeofs (C.Decl info kind spec) =
+generateDecs uniqueId haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
-        structDecs opts haddockConfig info struct spec
+        structDecs supInsts.struct haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
         unionDecs haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
-        enumDecs opts haddockConfig info enum spec
+        enumDecs supInsts.enum haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
         pure $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         -- Deal with typedefs around function pointers (#1380)
         case typedef.typ of
           C.TypePointers n (C.TypeFun args res) ->
-            typedefFunPtrDecs opts haddockConfig sizeofs info n (args, res) typedef.names spec
+            typedefFunPtrDecs supInsts.typedef haddockConfig sizeofs info n (args, res) typedef.names spec
           _otherwise ->
-            typedefDecs opts haddockConfig sizeofs info Origin.Typedef typedef spec
+            typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
       C.DeclOpaque -> withCategoryM CType $
         opaqueDecs haddockConfig info spec
       C.DeclFunction function -> do
         let funDeclsWith safety =
-              functionDecs safety opts haddockConfig moduleName sizeofs info function spec
+              functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
             funType = C.TypeFun (map snd function.args) function.res
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
-              addressStubDecs opts haddockConfig moduleName sizeofs info funType HaskellId spec
+              addressStubDecs uniqueId haddockConfig moduleName sizeofs info funType HaskellId spec
         pure $ withCategory (CTerm CSafe)   (funDeclsWith SHs.Safe)
             ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
             ++ withCategory (CTerm CFunPtr)  funPtrDecls
       C.DeclMacro macro -> withCategoryM CType $
-        macroDecs opts haddockConfig info macro spec
+        macroDecs supInsts.typedef haddockConfig info macro spec
       C.DeclGlobal ty -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
-          global opts haddockConfig moduleName transState sizeofs info ty spec
-    where
-      withCategory :: Category -> [a] -> [WithCategory a]
-      withCategory c = map (WithCategory c)
+          global uniqueId haddockConfig moduleName transState sizeofs info ty spec
+  where
+    withCategory :: Category -> [a] -> [WithCategory a]
+    withCategory c = map (WithCategory c)
 
-      withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
-      withCategoryM c = fmap (withCategory c)
+    withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
+    withCategoryM c = fmap (withCategory c)
+
+    supInsts :: Inst.SupportedInstances
+    supInsts = def
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -271,30 +274,61 @@ unionDecs haddockConfig info union spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
+        candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
 
-        knownInsts :: Set Hs.TypeClass
-        knownInsts = Set.singleton Hs.Storable
+        knownInsts :: Set Inst.TypeClass
+        knownInsts = Set.fromList $ catMaybes [
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
+          -- Should correctly detect 'Inst.HasCBitField' and 'Inst.HasCField'
+          -- when bit-fields in unions are supported.
+            if null union.fields then Nothing else Just Inst.HasCField
+          , if null union.fields then Nothing else Just Inst.HasField
+          , Just Inst.Prim
+          , Just Inst.ReadRaw
+          , Just Inst.StaticSize
+          , Just Inst.Storable
+          , Just Inst.WriteRaw
+          ]
 
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
     aux transState nt =
-        Hs.DeclNewtype nt : storableDecl : primDecl : accessorDecls ++
+        Hs.DeclNewtype nt : marshalDecls ++ primDecl : accessorDecls ++
         concatMap (unionFieldDecls nt.name) union.fields
       where
-        storableDecl :: Hs.Decl
-        storableDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
-              strategy = Hs.DeriveVia sba
-            , clss     = Hs.Storable
-            , name     = nt.name
-            , comment  = Nothing
-            }
+        marshalDecls :: [Hs.Decl]
+        marshalDecls = [
+            Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia sba
+              , clss     = Inst.StaticSize
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia sba
+              , clss     = Inst.ReadRaw
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia sba
+              , clss     = Inst.WriteRaw
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef nt.name Nothing))
+              , clss     = Inst.Storable
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          ]
 
         primDecl :: Hs.Decl
         primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
               strategy = Hs.DeriveVia sba
-            , clss     = Hs.Prim
+            , clss     = Inst.Prim
             , name     = nt.name
             , comment  = Nothing
             }
@@ -310,7 +344,7 @@ unionDecs haddockConfig info union spec = do
 
         getAccessorDecls :: C.UnionField Final -> [Hs.Decl]
         getAccessorDecls field =
-            if Hs.Storable `Set.notMember` fInsts
+            if Inst.Storable `Set.notMember` fInsts
               then []
               else [
                   Hs.DeclUnionGetter Hs.UnionGetter{
@@ -332,7 +366,7 @@ unionDecs haddockConfig info union spec = do
             fInsts     = Hs.getInstances
                             transState.instanceMap
                             (Just nt.name)
-                            (Set.singleton Hs.Storable)
+                            (Set.singleton Inst.Storable)
                             [hsType]
             -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
             getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
@@ -433,16 +467,31 @@ unionFieldDecls unionName field = [
 -------------------------------------------------------------------------------}
 
 enumDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Enum Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-enumDecs opts haddockConfig info enum spec = do
-    nt <- newtypeDec
-    pure $ aux nt
+enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
   where
+    valueMap :: Map Integer (NonEmpty (C.FieldInfo Final, Hs.Name Hs.NsConstr))
+    valueMap = Map.fromListWith (flip (<>)) [ -- preserve source order
+        let name = Hs.unsafeHsIdHsName constant.info.name.hsName
+        in  (constant.value, NonEmpty.singleton (constant.info, name))
+      | constant <- enum.constants
+      ]
+
+    valueNames :: Map Integer (NonEmpty String)
+    valueNames = NonEmpty.map (Text.unpack . Hs.getName . snd) <$> valueMap
+
+    mSeqBounds :: Maybe (Hs.Name Hs.NsConstr, Hs.Name Hs.NsConstr)
+    mSeqBounds = do
+      (minV, minNames) <- fmap (NonEmpty.map snd) <$> Map.lookupMin valueMap
+      (maxV, maxNames) <- fmap (NonEmpty.map snd) <$> Map.lookupMax valueMap
+      guard $ maxV - minV + 1 == fromIntegral (Map.size valueMap)
+      return (NonEmpty.head minNames, NonEmpty.head maxNames)
+
     newtypeDec :: HsM Hs.Newtype
     newtypeDec =
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
@@ -472,18 +521,34 @@ enumDecs opts haddockConfig info enum spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
-        candidateInsts = Set.empty
+        candidateInsts :: Set Inst.TypeClass
+        candidateInsts = Hs.getCandidateInsts supInsts
 
-        knownInsts :: Set Hs.TypeClass
-        knownInsts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable, Hs.HasFFIType]) $
-            Set.fromList (snd <$> opts.deriveEnum)
+        knownInsts :: Set Inst.TypeClass
+        knownInsts = Set.fromList $ catMaybes [
+            Just Inst.CEnum
+          , Just Inst.HasCField
+          , Just Inst.HasField
+          , Just Inst.Prim
+          , Just Inst.Read
+          , Just Inst.ReadRaw
+          , Inst.SequentialCEnum <$ mSeqBounds
+          , Just Inst.Show
+          , Just Inst.StaticSize
+          , Just Inst.Storable
+          , Just Inst.WriteRaw
+          ]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl : primDecl : Hs.hasFFITypeDecs nt ++
-        optDecls ++ cEnumInstanceDecls ++ valueDecls
+        Hs.DeclNewtype nt
+        : marshalDecls
+        ++ primDecl
+        : optDecls
+        ++ cEnumInstanceDecls
+        ++ typedefFieldDecls nt
+        ++ valueDecls
       where
         hsStruct :: Hs.Struct (S Z)
         hsStruct = Hs.Struct {
@@ -495,43 +560,94 @@ enumDecs opts haddockConfig info enum spec = do
             , comment   = Nothing
             }
 
-        storableDecl :: Hs.Decl
-        storableDecl = Hs.DeclDefineInstance
-          Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
-                sizeOf    = enum.sizeof
-              , alignment = enum.alignment
-              , peek      = Hs.Lambda "ptr" $
-                  Hs.Ap (Hs.StructCon hsStruct) [ Hs.PeekByteOff IZ 0 ]
-              , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                  Hs.ElimStruct IZ hsStruct (AS AZ) $
-                    Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
+        marshalDecls :: [Hs.Decl]
+        marshalDecls = [
+            Hs.DeclDefineInstance Hs.DefineInstance{
+                comment      = Nothing
+              , instanceDecl =
+                  Hs.InstanceStaticSize hsStruct Hs.StaticSizeInstance{
+                      staticSizeOf    = enum.sizeof
+                    , staticAlignment = enum.alignment
+                    }
               }
-          }
+          , Hs.DeclDefineInstance Hs.DefineInstance{
+                comment      = Nothing
+              , instanceDecl =
+                  Hs.InstanceReadRaw hsStruct Hs.ReadRawInstance{
+                      readRaw = Hs.Lambda "ptr" $
+                        Hs.Ap (Hs.StructCon hsStruct) [ Hs.ReadRawByteOff IZ 0 ]
+                    }
+              }
+          , Hs.DeclDefineInstance Hs.DefineInstance{
+                comment      = Nothing
+              , instanceDecl =
+                  Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
+                      writeRaw = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                        Hs.ElimStruct IZ hsStruct (AS AZ) $
+                          Hs.Seq [ Hs.WriteRawByteOff I2 0 IZ ]
+                    }
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef nt.name Nothing))
+              , clss     = Inst.Storable
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          ]
 
         primDecl :: Hs.Decl
         primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
               strategy = Hs.DeriveVia nt.field.typ
-            , clss     = Hs.Prim
+            , clss     = Inst.Prim
             , name     = nt.name
             , comment  = Nothing
             }
 
         optDecls :: [Hs.Decl]
-        optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance{
-                name     = nt.name
-              , clss     = clss
-              , strategy = strat
-              , comment  = Nothing
-              }
-          | (strat, clss) <- opts.deriveEnum
+        optDecls = catMaybes [
+            case Hs.getDeriveStrat supStrats of
+              Nothing    -> Nothing
+              Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                  name     = nt.name
+                , clss     = clss
+                , strategy = strat
+                , comment  = Nothing
+                }
+          | (clss, supStrats) <- Map.assocs supInsts
           ]
 
+        cEnumInstanceDecls :: [Hs.Decl]
+        cEnumInstanceDecls =
+          let cEnumDecl = Hs.DeclDefineInstance Hs.DefineInstance{
+                  comment      = Nothing
+                , instanceDecl =
+                    Hs.InstanceCEnum
+                      hsStruct
+                      nt.field.typ
+                      valueNames
+                      (isJust mSeqBounds)
+                }
+              cEnumShowDecl = Hs.DeclDefineInstance Hs.DefineInstance{
+                  comment      = Nothing
+                , instanceDecl = Hs.InstanceCEnumShow hsStruct
+                }
+              cEnumReadDecl = Hs.DeclDefineInstance Hs.DefineInstance{
+                  comment      = Nothing
+                , instanceDecl = Hs.InstanceCEnumRead hsStruct
+                }
+              sequentialCEnumDecl = case mSeqBounds of
+                Just (nameMin, nameMax) -> List.singleton $
+                  Hs.DeclDefineInstance Hs.DefineInstance{
+                      comment      = Nothing
+                    , instanceDecl =
+                        Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
+                    }
+                Nothing -> []
+          in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl, cEnumReadDecl]
+
         valueDecls :: [Hs.Decl]
-        valueDecls =
-            [ Hs.DeclPatSyn Hs.PatSyn{
+        valueDecls = [
+              Hs.DeclPatSyn Hs.PatSyn{
                   name    = Hs.unsafeHsIdHsName constant.info.name.hsName
                 , typ     = HsTypRef nt.name (Just nt.field.typ)
                 , constr  = Just nt.constr
@@ -542,53 +658,12 @@ enumDecs opts haddockConfig info enum spec = do
             | constant <- enum.constants
             ]
 
-        cEnumInstanceDecls :: [Hs.Decl]
-        cEnumInstanceDecls =
-          let vNames = Map.fromListWith (flip (<>)) [ -- preserve source order
-                  ( pat.value
-                  , NonEmpty.singleton pat.name
-                  )
-                | Hs.DeclPatSyn pat <- valueDecls
-                ]
-              mSeqBounds = do
-                (minV, minNames) <- Map.lookupMin vNames
-                (maxV, maxNames) <- Map.lookupMax vNames
-                guard $ maxV - minV + 1 == fromIntegral (Map.size vNames)
-                return (NonEmpty.head minNames, NonEmpty.head maxNames)
-              fTyp = nt.field.typ
-              vStrs = fmap (Text.unpack . Hs.getName) <$> vNames
-              cEnumDecl = Hs.DeclDefineInstance
-                Hs.DefineInstance {
-                  comment      = Nothing
-                , instanceDecl = Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
-                }
-              cEnumShowDecl = Hs.DeclDefineInstance
-                Hs.DefineInstance {
-                  comment      = Nothing
-                , instanceDecl = Hs.InstanceCEnumShow hsStruct
-                }
-              cEnumReadDecl = Hs.DeclDefineInstance
-                Hs.DefineInstance {
-                  comment      = Nothing
-                , instanceDecl = Hs.InstanceCEnumRead hsStruct
-                }
-              sequentialCEnumDecl = case mSeqBounds of
-                Just (nameMin, nameMax) -> List.singleton
-                                        . Hs.DeclDefineInstance
-                                        $ Hs.DefineInstance {
-                                            comment      = Nothing
-                                          , instanceDecl =
-                                              Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
-                                          }
-                Nothing -> []
-          in  cEnumDecl : sequentialCEnumDecl ++ [cEnumShowDecl, cEnumReadDecl]
-
 {-------------------------------------------------------------------------------
   Typedef
 -------------------------------------------------------------------------------}
 
 typedefDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
@@ -596,7 +671,7 @@ typedefDecs ::
   -> C.Typedef Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
+typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
@@ -629,68 +704,43 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment =  mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
-        candidateInsts = Set.unions
-                      [ Set.singleton Hs.Storable
-                      , Set.singleton Hs.Bitfield
-                      , Set.singleton Hs.HasFFIType
-                      , Set.fromList (snd <$> opts.deriveTypedef)
-                      ]
+        candidateInsts :: Set Inst.TypeClass
+        candidateInsts = Hs.getCandidateInsts supInsts
 
-        knownInsts :: Set Hs.TypeClass
-        knownInsts = Set.empty
+        knownInsts :: Set Inst.TypeClass
+        knownInsts = Set.fromList $ catMaybes [
+            Inst.FromFunPtr <$ mFunPtr
+          , Just Inst.HasCField
+          , Just Inst.HasField
+          , Inst.ToFunPtr <$ mFunPtr
+          ]
+
+        -- See comment in 'newtypeWrapper` below
+        mFunPtr :: Maybe ()
+        mFunPtr = case typedef.typ of
+          C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
+            Just ()
+          _otherwise -> Nothing
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
         Hs.DeclNewtype nt
         : newtypeWrapper
-        ++ storableDecl
-        ++ bitfieldDecl
-        ++ primDecl
         ++ optDecls
         ++ typedefFieldDecls nt
-        ++ Hs.hasFFITypeDecs nt
       where
-        storableDecl :: [Hs.Decl]
-        storableDecl
-          | Hs.Storable `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Hs.Storable
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
-        bitfieldDecl :: [Hs.Decl]
-        bitfieldDecl
-          | Hs.Bitfield `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Hs.Bitfield
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
-        primDecl :: [Hs.Decl]
-        primDecl
-          | Hs.Prim `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Hs.Prim
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
         optDecls :: [Hs.Decl]
-        optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance {
-                strategy = strat
-              , clss     = clss
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          | (strat, clss) <- opts.deriveTypedef
+        optDecls = catMaybes [
+            case Hs.getDeriveStrat supStrats of
+              Nothing    -> Nothing
+              Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                  name     = nt.name
+                , clss     = clss
+                , strategy = strat
+                , comment  = Nothing
+                }
+          | (clss, supStrats) <- Map.assocs supInsts
           , clss `Set.member` nt.instances
           ]
 
@@ -749,7 +799,7 @@ typedefFieldDecls hsNewType = [
     , Hs.DeclDefineInstance $
         Hs.DefineInstance {
             comment      = Nothing
-          , instanceDecl = Hs.InstanceHasCField $ elimHasCFieldDecl
+          , instanceDecl = Hs.InstanceHasCField elimHasCFieldDecl
           }
     ]
   where
@@ -785,7 +835,7 @@ typedefFieldDecls hsNewType = [
 --
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunPtrDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
@@ -794,10 +844,10 @@ typedefFunPtrDecs ::
   -> MangleNames.NewtypeNames
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-typedefFunPtrDecs opts haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
+typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
     fmap concat $ sequence [
-        typedefDecs opts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
-      , typedefDecs opts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
+        typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
+      , typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
       ]
   where
     -- TODO: For historical reasons we currently implement this by making a
@@ -862,25 +912,25 @@ typedefFunPtrDecs opts haddockConfig sizeofs origInfo n (args, res) origNames or
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> CheckedMacro Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-macroDecs opts haddockConfig info checkedMacro spec =
+macroDecs supInsts haddockConfig info checkedMacro spec =
     case checkedMacro of
-      MacroType ty   -> macroDecsTypedef opts haddockConfig info ty spec
+      MacroType ty   -> macroDecsTypedef supInsts haddockConfig info ty spec
       MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
 macroDecsTypedef ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> CheckedMacroType Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-macroDecsTypedef opts haddockConfig info macroType spec = do
+macroDecsTypedef supInsts haddockConfig info macroType spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
@@ -913,40 +963,27 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
-        candidateInsts = Set.unions [
-            Set.singleton Hs.Storable
-          , Set.singleton Hs.HasFFIType
-          , Set.fromList (snd <$> opts.deriveTypedef)
-          ]
+        candidateInsts :: Set Inst.TypeClass
+        candidateInsts = Hs.getCandidateInsts supInsts
 
-        knownInsts :: Set Hs.TypeClass
-        knownInsts = Set.empty
+        knownInsts :: Set Inst.TypeClass
+        knownInsts = Set.fromList [Inst.HasCField, Inst.HasField]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
-    aux nt =
-        Hs.DeclNewtype nt : storableDecl ++ Hs.hasFFITypeDecs nt ++ optDecls
+    aux nt = Hs.DeclNewtype nt : optDecls ++ typedefFieldDecls nt
       where
-        storableDecl :: [Hs.Decl]
-        storableDecl
-          | Hs.Storable `Set.notMember` nt.instances = []
-          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveNewtype
-              , clss     = Hs.Storable
-              , name     = nt.name
-              , comment  = Nothing
-              }
-
         optDecls :: [Hs.Decl]
-        optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = strat
-              , clss     = clss
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          | (strat, clss) <- opts.deriveTypedef
+        optDecls = catMaybes [
+            case Hs.getDeriveStrat supStrats of
+              Nothing    -> Nothing
+              Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                  name     = nt.name
+                , clss     = clss
+                , strategy = strat
+                , comment  = Nothing
+                }
+          | (clss, supStrats) <- Map.assocs supInsts
           , clss `Set.member` nt.instances
           ]
 
@@ -1003,7 +1040,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
 -- also generate an additional \"getter\" function in Haskell land that returns
 -- precisely the value of the constant rather than a /pointer/ to the value.
 global ::
-     TranslationConfig
+     UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> TranslationState
@@ -1012,7 +1049,7 @@ global ::
   -> C.Type Final
   -> PrescriptiveDeclSpec
   -> [Hs.Decl]
-global opts haddockConfig moduleName transState sizeofs info ty _spec
+global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
     -- type because we want to see through newtypes as well.
     --
@@ -1027,7 +1064,7 @@ global opts haddockConfig moduleName transState sizeofs info ty _spec
     --
     -- TODO: we don't yet check whether the Storable instance has no
     -- superclass constraints. See issue #993.
-    | C.isErasedTypeConstQualified ty && Hs.Storable `elem` insts =
+    | C.isErasedTypeConstQualified ty && Inst.Storable `elem` insts =
       let stubDecs     :: [Hs.Decl]
           pureStubName :: Hs.Name Hs.NsVar
           (stubDecs, pureStubName) = getStubDecsWith GlobalUniqueId
@@ -1038,14 +1075,14 @@ global opts haddockConfig moduleName transState sizeofs info ty _spec
     | otherwise = fst $ getStubDecsWith HaskellId
   where
     getStubDecsWith :: RunnerNameSpec -> ([Hs.Decl], Hs.Name Hs.NsVar)
-    getStubDecsWith x = addressStubDecs opts haddockConfig moduleName sizeofs info ty x _spec
+    getStubDecsWith x = addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty x _spec
 
-    insts :: Set Hs.TypeClass
+    insts :: Set Inst.TypeClass
     insts =
       Hs.getInstances
         transState.instanceMap
         Nothing
-        (Set.singleton Hs.Storable)
+        (Set.singleton Inst.Storable)
         [Type.topLevel ty]
 
 -- | Getter for a constant (i.e., @const@) global variable
@@ -1101,7 +1138,7 @@ data RunnerNameSpec =
 --
 -- * @pureStubName@: the identifier of the /pure/ stub.
 addressStubDecs ::
-     TranslationConfig
+     UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> C.Sizeofs
@@ -1112,7 +1149,7 @@ addressStubDecs ::
   -> ( [Hs.Decl]
      , Hs.Name 'Hs.NsVar
      )
-addressStubDecs opts haddockConfig moduleName sizeofs info ty runnerNameSpec _spec =
+addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec _spec =
     (foreignImport ++ runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
@@ -1120,9 +1157,7 @@ addressStubDecs opts haddockConfig moduleName sizeofs info ty runnerNameSpec _sp
     stubImportType = HsIO $ Type.topLevel stubType
 
     stubSymbol :: UniqueSymbol
-    stubSymbol =
-        globallyUnique opts.uniqueId moduleName $
-          "get_" ++ varName
+    stubSymbol = globallyUnique uniqueId moduleName $ "get_" ++ varName
 
     stubName :: Hs.Name Hs.NsVar
     stubName = Hs.InternalName stubSymbol
@@ -1194,7 +1229,7 @@ addressStubDecs opts haddockConfig moduleName sizeofs info ty runnerNameSpec _sp
     name = info.id.unsafeHsName.text
 
     uniquify :: Text -> UniqueSymbol
-    uniquify = globallyUnique opts.uniqueId moduleName . Text.unpack
+    uniquify = globallyUnique uniqueId moduleName . Text.unpack
 
     runnerName = case runnerNameSpec of
         HaskellId      -> Hs.ExportedName (Hs.UnsafeExportedName name)

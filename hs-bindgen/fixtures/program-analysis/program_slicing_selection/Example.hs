@@ -27,6 +27,7 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -43,23 +44,29 @@ newtype FileOperationStatus = FileOperationStatus
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable FileOperationStatus where
+instance HsBindgen.Runtime.Marshal.StaticSize FileOperationStatus where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw FileOperationStatus where
+
+  readRaw =
     \ptr0 ->
           pure FileOperationStatus
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationStatus where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           FileOperationStatus unwrapFileOperationStatus2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable FileOperationStatus instance F.Storable FileOperationStatus
 
 deriving via FC.CInt instance Data.Primitive.Types.Prim FileOperationStatus
 
@@ -98,6 +105,19 @@ instance Read FileOperationStatus where
   readList = Text.Read.readListDefault
 
   readListPrec = Text.Read.readListPrecDefault
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationStatus) "unwrapFileOperationStatus")
+         ) => GHC.Records.HasField "unwrapFileOperationStatus" (Ptr.Ptr FileOperationStatus) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFileOperationStatus")
+
+instance HsBindgen.Runtime.HasCField.HasCField FileOperationStatus "unwrapFileOperationStatus" where
+
+  type CFieldType FileOperationStatus "unwrapFileOperationStatus" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @SUCCESS@
 
@@ -177,27 +197,33 @@ data FileOperationRecord = FileOperationRecord
   }
   deriving stock (Eq, Show)
 
-instance F.Storable FileOperationRecord where
+instance HsBindgen.Runtime.Marshal.StaticSize FileOperationRecord where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw FileOperationRecord where
+
+  readRaw =
     \ptr0 ->
           pure FileOperationRecord
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationRecord where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           FileOperationRecord
             fileOperationRecord_status2
             fileOperationRecord_bytes_processed3 ->
-                 HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
-              >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
+              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable FileOperationRecord instance F.Storable FileOperationRecord
 
 instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
 

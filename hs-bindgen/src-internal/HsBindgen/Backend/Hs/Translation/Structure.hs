@@ -18,9 +18,7 @@ import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
-import HsBindgen.Backend.Hs.Translation.Prim qualified as HsPrim
 import HsBindgen.Backend.Hs.Translation.State (HsM)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
@@ -30,21 +28,22 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Generate declarations for given C struct
 structDecs ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Struct Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-structDecs cfg hCfg info struct spec =
+structDecs supInsts hCfg info struct spec =
     reifyStructFields $ case struct.flam of
-      Nothing   -> getDeclsFieldVec          cfg hCfg spec info struct
-      Just flam -> getDeclsFieldVecFlam flam cfg hCfg spec info struct
+      Nothing   -> getDeclsFieldVec          supInsts hCfg spec info struct
+      Just flam -> getDeclsFieldVecFlam flam supInsts hCfg spec info struct
   where
     reifyStructFields ::
       (forall n. SNatI n => Vec n (C.StructField Final) -> a) -> a
@@ -52,18 +51,19 @@ structDecs cfg hCfg info struct spec =
 
 getDeclsFieldVec :: forall n.
      SNatI n
-  => TranslationConfig
+  => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
   -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
-getDeclsFieldVec cfg hCfg spec info struct fieldsVec = do
-    insts <- getInstances cfg name struct.fields <$> State.gets (.instanceMap)
-    State.modify' $ #instanceMap %~ Map.insert name insts
+getDeclsFieldVec supInsts hCfg spec info struct fieldsVec = do
+    insts <-
+      getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
     let (hsStruct, decls) =
-          getDecls cfg hCfg spec name info struct fieldsVec insts
+          getDecls supInsts hCfg spec name info struct fieldsVec insts
+    State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -72,18 +72,20 @@ getDeclsFieldVec cfg hCfg spec info struct fieldsVec = do
 getDeclsFieldVecFlam :: forall n.
      SNatI n
   => C.StructField Final
-  -> TranslationConfig
+  -> Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> C.DeclInfo Final
   -> C.Struct Final
   -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
-getDeclsFieldVecFlam flam cfg hCfg spec info struct fieldsVec = do
-    insts <- getInstances cfg auxName struct.fields <$> State.gets (.instanceMap)
-    State.modify' $ #instanceMap %~ Map.insert auxName insts
-    let (hsStruct, decls) =
-          getDecls cfg hCfg spec auxName info struct fieldsVec insts
+getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
+    insts <-
+      getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
+    let insts' = Set.insert Inst.Flam_Offset insts
+        (hsStruct, decls) =
+          getDecls supInsts hCfg spec auxName info struct fieldsVec insts'
+    State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls ++ [getHasFlamInstanceDecl hsStruct, flamDecl]
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -124,24 +126,23 @@ getDeclsFieldVecFlam flam cfg hCfg spec info struct fieldsVec = do
           }
 
 getInstances ::
-     TranslationConfig
+     Map Inst.TypeClass Inst.SupportedStrategies
   -> Hs.Name Hs.NsTypeConstr
   -> [C.StructField Final]
   -> Hs.InstanceMap
-  -> Set Hs.TypeClass
-getInstances opts structName fields instanceMap =
+  -> Set Inst.TypeClass
+getInstances supInsts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.HsType]
     fieldTypes = Type.topLevel . (.typ) <$> fields
 
-    candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.fromList [Hs.Storable, Hs.Prim]) $
-        Set.fromList (snd <$> opts.deriveStruct)
+    candidateInsts :: Set Inst.TypeClass
+    candidateInsts = Hs.getCandidateInsts supInsts
 
 getDecls :: forall n.
      SNatI n
-  => TranslationConfig
+  => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> PrescriptiveDeclSpec
   -> Hs.Name Hs.NsTypeConstr
@@ -151,11 +152,11 @@ getDecls :: forall n.
      -- vector contains information about the number of fields on the type
      -- level. Tracking this information here may not be necessary.
   -> Vec n (C.StructField Final)
-  -> Set Hs.TypeClass
+  -> Set Inst.TypeClass
   -> (Hs.Struct n, [Hs.Decl])
-getDecls cfg hCfg spec structName info struct fieldsVec insts =
+getDecls supInsts hCfg spec structName info struct fieldsVec insts =
     ( hsStruct
-    , storableDecl ++ primDecl ++ optDecls ++ fieldDecls
+    , marshalDecls ++ optDecls ++ fieldDecls
     )
   where
     getHsField :: C.StructField Final -> Hs.Field
@@ -172,7 +173,7 @@ getDecls cfg hCfg spec structName info struct fieldsVec insts =
           name      = structName
         , constr    = struct.names.constr
         , fields    = Vec.map getHsField fieldsVec
-        , instances = insts
+        , instances = insts <> knownInsts
         , comment   = mkHaddocks hCfg info structName
         , origin    = Just Origin.Decl{
               info
@@ -181,42 +182,95 @@ getDecls cfg hCfg spec structName info struct fieldsVec insts =
             }
         }
 
-    storableDecl :: [Hs.Decl]
-    storableDecl
-      | Hs.Storable `Set.notMember` insts = []
-      | otherwise = singleton $ Hs.DeclDefineInstance
-          Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
-                sizeOf    = struct.sizeof
-              , alignment = struct.alignment
-              , peek      = Hs.Lambda "ptr" $
-                  Hs.Ap (Hs.StructCon hsStruct) $
-                    map (peekField IZ) struct.fields
-              , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                  Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
-                    Vec.zipWith (pokeField (weaken wk I1))
-                      fieldsVec xs
-              }
-          }
-
-    primDecl :: [Hs.Decl]
-    primDecl = HsPrim.mkPrimInstance insts hsStruct struct
+    marshalDecls :: [Hs.Decl]
+    marshalDecls =
+      let hasStaticSize = Inst.StaticSize `Set.member` insts
+          hasReadRaw    = Inst.ReadRaw    `Set.member` insts
+          hasWriteRaw   = Inst.WriteRaw   `Set.member` insts
+          hasStorable   = Inst.Storable   `Set.member` insts
+          justWhen p x  = if p then Just x else Nothing
+      in  catMaybes [
+              justWhen hasStaticSize $
+                Hs.DeclDefineInstance Hs.DefineInstance{
+                    comment      = Nothing
+                  , instanceDecl =
+                      Hs.InstanceStaticSize hsStruct Hs.StaticSizeInstance{
+                          staticSizeOf    = struct.sizeof
+                        , staticAlignment = struct.alignment
+                        }
+                  }
+            , justWhen hasReadRaw $
+                Hs.DeclDefineInstance Hs.DefineInstance{
+                    comment      = Nothing
+                  , instanceDecl =
+                      Hs.InstanceReadRaw hsStruct Hs.ReadRawInstance{
+                          readRaw = Hs.Lambda "ptr" $
+                            Hs.Ap (Hs.StructCon hsStruct) $
+                              map (readRawField IZ) struct.fields
+                        }
+                  }
+            , justWhen hasWriteRaw $
+                Hs.DeclDefineInstance Hs.DefineInstance{
+                    comment      = Nothing
+                  , instanceDecl =
+                      Hs.InstanceWriteRaw hsStruct Hs.WriteRawInstance{
+                          writeRaw = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                            Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
+                              Vec.zipWith (writeRawField (weaken wk I1))
+                                fieldsVec xs
+                        }
+                  }
+            , if hasStaticSize && hasReadRaw && hasWriteRaw
+                then Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                    strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef structName Nothing))
+                  , clss     = Inst.Storable
+                  , name     = structName
+                  , comment  = Nothing
+                  }
+                else justWhen hasStorable $
+                  Hs.DeclDefineInstance Hs.DefineInstance {
+                      comment      = Nothing
+                    , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
+                          sizeOf    = struct.sizeof
+                        , alignment = struct.alignment
+                        , peek      = Hs.Lambda "ptr" $
+                            Hs.Ap (Hs.StructCon hsStruct) $
+                              map (peekField IZ) struct.fields
+                        , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                            Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ Vec.toList $
+                              Vec.zipWith (pokeField (weaken wk I1))
+                                fieldsVec xs
+                        }
+                    }
+            ]
 
     optDecls :: [Hs.Decl]
-    optDecls = [
-        Hs.DeclDeriveInstance Hs.DeriveInstance{
-            strategy = strat
-          , clss     = clss
-          , name     = structName
-          , comment  = Nothing
-          }
-      | (strat, clss) <- cfg.deriveStruct
+    optDecls = catMaybes [
+        case Hs.getDeriveStrat supStrats of
+          Nothing    -> Nothing
+          Just strat -> Just $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+              name     = structName
+            , clss     = clss
+            , strategy = strat
+            , comment  = Nothing
+            }
+      | (clss, supStrats) <- Map.assocs supInsts
       , clss `Set.member` insts
       ]
 
     fieldDecls :: [Hs.Decl]
     fieldDecls = concatMap (getFieldDecls structName) struct.fields
+
+    knownInsts :: Set Inst.TypeClass
+    knownInsts = Set.fromList $ catMaybes [
+        if any (isJust . (.width)) struct.fields
+          then Just Inst.HasCBitField
+          else Nothing
+      , if any (isNothing . (.width)) struct.fields
+          then Just Inst.HasCField
+          else Nothing
+      , if null struct.fields then Nothing else Just Inst.HasField
+      ]
 
 {-------------------------------------------------------------------------------
   Fields
@@ -311,5 +365,23 @@ pokeField :: Idx ctx -> C.StructField Final -> Idx ctx -> Hs.PokeCField ctx
 pokeField ptr field x = case field.width of
     Nothing  -> Hs.PokeCField    (HsStrLit name) ptr x
     Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
+  where
+    name = Text.unpack field.info.name.hsName.text
+
+readRawField :: Idx ctx -> C.StructField Final -> Hs.ReadRawCField ctx
+readRawField ptr field = case field.width of
+    Nothing -> Hs.ReadRawCField    (HsStrLit name) ptr
+    Just _w -> Hs.ReadRawCBitfield (HsStrLit name) ptr
+  where
+    name = Text.unpack field.info.name.hsName.text
+
+writeRawField ::
+     Idx ctx
+  -> C.StructField Final
+  -> Idx ctx
+  -> Hs.WriteRawCField ctx
+writeRawField ptr field x = case field.width of
+    Nothing  -> Hs.WriteRawCField    (HsStrLit name) ptr x
+    Just _w  -> Hs.WriteRawCBitfield (HsStrLit name) ptr x
   where
     name = Text.unpack field.info.name.hsName.text

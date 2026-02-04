@@ -31,8 +31,13 @@ hstypes:
       - example_sudoku
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: List
   representation:
     newtype:
@@ -41,6 +46,8 @@ hstypes:
       - unwrapList
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Matrix
   representation:
@@ -50,8 +57,13 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Sudoku
   representation:
     newtype:
@@ -60,8 +72,13 @@ hstypes:
       - unwrapSudoku
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Triplet
   representation:
     newtype:
@@ -70,8 +87,13 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tripletlist
   representation:
     newtype:
@@ -80,4 +102,6 @@ hstypes:
       - unwrapTripletlist
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show

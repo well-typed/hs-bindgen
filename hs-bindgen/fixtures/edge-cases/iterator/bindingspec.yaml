@@ -20,7 +20,9 @@ hstypes:
       fields:
       - unwrapCounter
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: Toggle
   representation:
     newtype:
@@ -28,7 +30,9 @@ hstypes:
       fields:
       - unwrapToggle
   instances:
+  - HasCField
   - HasFFIType
+  - HasField
 - hsname: VarCounter
   representation:
     newtype:
@@ -36,4 +40,6 @@ hstypes:
       fields:
       - unwrapVarCounter
   instances:
+  - HasCField
   - HasFFIType
+  - HasField

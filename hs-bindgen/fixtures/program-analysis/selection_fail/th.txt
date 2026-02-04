@@ -20,25 +20,15 @@ data OkBefore
            __exported by:__ @program-analysis\/selection_fail.h@
       -}
     deriving stock (Eq, Show)
-instance Storable OkBefore
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure OkBefore <*> peek (Proxy @"okBefore_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   OkBefore okBefore_x_3 -> poke (Proxy @"okBefore_x") ptr_1 okBefore_x_3
-instance Prim OkBefore
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> OkBefore (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, OkBefore v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    OkBefore okBefore_x_11 -> writeByteArray# arr_7 i_8 okBefore_x_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> OkBefore (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, OkBefore v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      OkBefore okBefore_x_23 -> writeOffAddr# addr_19 i_20 okBefore_x_23 s_22
+instance StaticSize OkBefore
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw OkBefore
+    where readRaw = \ptr_0 -> pure OkBefore <*> readRaw (Proxy @"okBefore_x") ptr_0
+instance WriteRaw OkBefore
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       OkBefore okBefore_x_2 -> writeRaw (Proxy @"okBefore_x") ptr_0 okBefore_x_2
+deriving via (EquivStorable OkBefore) instance Storable OkBefore
 instance HasCField OkBefore "okBefore_x"
     where type CFieldType OkBefore "okBefore_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -66,25 +56,15 @@ data OkAfter
            __exported by:__ @program-analysis\/selection_fail.h@
       -}
     deriving stock (Eq, Show)
-instance Storable OkAfter
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure OkAfter <*> peek (Proxy @"okAfter_x") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   OkAfter okAfter_x_3 -> poke (Proxy @"okAfter_x") ptr_1 okAfter_x_3
-instance Prim OkAfter
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> OkAfter (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, OkAfter v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    OkAfter okAfter_x_11 -> writeByteArray# arr_7 i_8 okAfter_x_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> OkAfter (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, OkAfter v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      OkAfter okAfter_x_23 -> writeOffAddr# addr_19 i_20 okAfter_x_23 s_22
+instance StaticSize OkAfter
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw OkAfter
+    where readRaw = \ptr_0 -> pure OkAfter <*> readRaw (Proxy @"okAfter_x") ptr_0
+instance WriteRaw OkAfter
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       OkAfter okAfter_x_2 -> writeRaw (Proxy @"okAfter_x") ptr_0 okAfter_x_2
+deriving via (EquivStorable OkAfter) instance Storable OkAfter
 instance HasCField OkAfter "okAfter_x"
     where type CFieldType OkAfter "okAfter_x" = CInt
           offset# = \_ -> \_ -> 0

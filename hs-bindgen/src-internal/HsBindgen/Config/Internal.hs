@@ -15,7 +15,6 @@ module HsBindgen.Config.Internal (
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Prelims
@@ -86,7 +85,7 @@ data FrontendConfig = FrontendConfig {
 --
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
-      translation    :: TranslationConfig
+      uniqueId       :: UniqueId
     , haddock        :: HaddockConfig
     , categoryChoice :: ByCategory Choice
     }
@@ -97,7 +96,7 @@ checkBackendConfig :: Tracer BackendConfigMsg -> BackendConfig -> IO ()
 checkBackendConfig tracer backendConfig =
     checkUniqueId
       (contramap BackendConfigUniqueId tracer)
-      backendConfig.translation.uniqueId
+      backendConfig.uniqueId
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)

@@ -1,0 +1,872 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CBool
+  hsname: Stdlib_CBool
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Int8
+  hsname: Stdlib_Int8
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Int16
+  hsname: Stdlib_Int16
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Int32
+  hsname: Stdlib_Int32
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Int64
+  hsname: Stdlib_Int64
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Word8
+  hsname: Stdlib_Word8
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Word16
+  hsname: Stdlib_Word16
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Word32
+  hsname: Stdlib_Word32
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_Word64
+  hsname: Stdlib_Word64
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CIntMax
+  hsname: Stdlib_CIntMax
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CUIntMax
+  hsname: Stdlib_CUIntMax
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CIntPtr
+  hsname: Stdlib_CIntPtr
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CUIntPtr
+  hsname: Stdlib_CUIntPtr
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CFenvT
+  hsname: Stdlib_CFenvT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CFexceptT
+  hsname: Stdlib_CFexceptT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CDivT
+  hsname: Stdlib_CDivT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CLdivT
+  hsname: Stdlib_CLdivT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CLldivT
+  hsname: Stdlib_CLldivT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CImaxdivT
+  hsname: Stdlib_CImaxdivT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CSize
+  hsname: Stdlib_CSize
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CPtrdiff
+  hsname: Stdlib_CPtrdiff
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CJmpBuf
+  hsname: Stdlib_CJmpBuf
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CWchar
+  hsname: Stdlib_CWchar
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CWintT
+  hsname: Stdlib_CWintT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CMbstateT
+  hsname: Stdlib_CMbstateT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CWctransT
+  hsname: Stdlib_CWctransT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CWctypeT
+  hsname: Stdlib_CWctypeT
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CChar16T
+  hsname: Stdlib_CChar16T
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CChar32T
+  hsname: Stdlib_CChar32T
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CTime
+  hsname: Stdlib_CTime
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CClock
+  hsname: Stdlib_CClock
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CTm
+  hsname: Stdlib_CTm
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CFile
+  hsname: Stdlib_CFile
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CFpos
+  hsname: Stdlib_CFpos
+- headers: types/stdlib/stdlib_insts.h
+  cname: stdlib_CSigAtomic
+  hsname: Stdlib_CSigAtomic
+hstypes:
+- hsname: Stdlib_CBool
+  representation:
+    newtype:
+      constructor: Stdlib_CBool
+      fields:
+      - unwrapStdlib_CBool
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CChar16T
+  representation:
+    newtype:
+      constructor: Stdlib_CChar16T
+      fields:
+      - unwrapStdlib_CChar16T
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CChar32T
+  representation:
+    newtype:
+      constructor: Stdlib_CChar32T
+      fields:
+      - unwrapStdlib_CChar32T
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CClock
+  representation:
+    newtype:
+      constructor: Stdlib_CClock
+      fields:
+      - unwrapStdlib_CClock
+  instances:
+  - Enum
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Num
+  - Ord
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CDivT
+  representation:
+    newtype:
+      constructor: Stdlib_CDivT
+      fields:
+      - unwrapStdlib_CDivT
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+- hsname: Stdlib_CFenvT
+  representation:
+    newtype:
+      constructor: Stdlib_CFenvT
+      fields:
+      - unwrapStdlib_CFenvT
+  instances:
+  - HasCField
+  - HasField
+- hsname: Stdlib_CFexceptT
+  representation:
+    newtype:
+      constructor: Stdlib_CFexceptT
+      fields:
+      - unwrapStdlib_CFexceptT
+  instances:
+  - HasCField
+  - HasField
+- hsname: Stdlib_CFile
+  representation:
+    newtype:
+      constructor: Stdlib_CFile
+      fields:
+      - unwrapStdlib_CFile
+  instances:
+  - HasCField
+  - HasField
+- hsname: Stdlib_CFpos
+  representation:
+    newtype:
+      constructor: Stdlib_CFpos
+      fields:
+      - unwrapStdlib_CFpos
+  instances:
+  - HasCField
+  - HasField
+- hsname: Stdlib_CImaxdivT
+  representation:
+    newtype:
+      constructor: Stdlib_CImaxdivT
+      fields:
+      - unwrapStdlib_CImaxdivT
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+- hsname: Stdlib_CIntMax
+  representation:
+    newtype:
+      constructor: Stdlib_CIntMax
+      fields:
+      - unwrapStdlib_CIntMax
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CIntPtr
+  representation:
+    newtype:
+      constructor: Stdlib_CIntPtr
+      fields:
+      - unwrapStdlib_CIntPtr
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CJmpBuf
+  representation:
+    newtype:
+      constructor: Stdlib_CJmpBuf
+      fields:
+      - unwrapStdlib_CJmpBuf
+  instances:
+  - HasCField
+  - HasField
+- hsname: Stdlib_CLdivT
+  representation:
+    newtype:
+      constructor: Stdlib_CLdivT
+      fields:
+      - unwrapStdlib_CLdivT
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+- hsname: Stdlib_CLldivT
+  representation:
+    newtype:
+      constructor: Stdlib_CLldivT
+      fields:
+      - unwrapStdlib_CLldivT
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+- hsname: Stdlib_CMbstateT
+  representation:
+    newtype:
+      constructor: Stdlib_CMbstateT
+      fields:
+      - unwrapStdlib_CMbstateT
+  instances:
+  - HasCField
+  - HasField
+- hsname: Stdlib_CPtrdiff
+  representation:
+    newtype:
+      constructor: Stdlib_CPtrdiff
+      fields:
+      - unwrapStdlib_CPtrdiff
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CSigAtomic
+  representation:
+    newtype:
+      constructor: Stdlib_CSigAtomic
+      fields:
+      - unwrapStdlib_CSigAtomic
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CSize
+  representation:
+    newtype:
+      constructor: Stdlib_CSize
+      fields:
+      - unwrapStdlib_CSize
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CTime
+  representation:
+    newtype:
+      constructor: Stdlib_CTime
+      fields:
+      - unwrapStdlib_CTime
+  instances:
+  - Enum
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Num
+  - Ord
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CTm
+  representation:
+    newtype:
+      constructor: Stdlib_CTm
+      fields:
+      - unwrapStdlib_CTm
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CUIntMax
+  representation:
+    newtype:
+      constructor: Stdlib_CUIntMax
+      fields:
+      - unwrapStdlib_CUIntMax
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CUIntPtr
+  representation:
+    newtype:
+      constructor: Stdlib_CUIntPtr
+      fields:
+      - unwrapStdlib_CUIntPtr
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CWchar
+  representation:
+    newtype:
+      constructor: Stdlib_CWchar
+      fields:
+      - unwrapStdlib_CWchar
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CWctransT
+  representation:
+    newtype:
+      constructor: Stdlib_CWctransT
+      fields:
+      - unwrapStdlib_CWctransT
+  instances:
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Prim
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CWctypeT
+  representation:
+    newtype:
+      constructor: Stdlib_CWctypeT
+      fields:
+      - unwrapStdlib_CWctypeT
+  instances:
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Prim
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_CWintT
+  representation:
+    newtype:
+      constructor: Stdlib_CWintT
+      fields:
+      - unwrapStdlib_CWintT
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Int16
+  representation:
+    newtype:
+      constructor: Stdlib_Int16
+      fields:
+      - unwrapStdlib_Int16
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Int32
+  representation:
+    newtype:
+      constructor: Stdlib_Int32
+      fields:
+      - unwrapStdlib_Int32
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Int64
+  representation:
+    newtype:
+      constructor: Stdlib_Int64
+      fields:
+      - unwrapStdlib_Int64
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Int8
+  representation:
+    newtype:
+      constructor: Stdlib_Int8
+      fields:
+      - unwrapStdlib_Int8
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Word16
+  representation:
+    newtype:
+      constructor: Stdlib_Word16
+      fields:
+      - unwrapStdlib_Word16
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Word32
+  representation:
+    newtype:
+      constructor: Stdlib_Word32
+      fields:
+      - unwrapStdlib_Word32
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Word64
+  representation:
+    newtype:
+      constructor: Stdlib_Word64
+      fields:
+      - unwrapStdlib_Word64
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Stdlib_Word8
+  representation:
+    newtype:
+      constructor: Stdlib_Word8
+      fields:
+      - unwrapStdlib_Word8
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

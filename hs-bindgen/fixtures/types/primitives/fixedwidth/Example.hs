@@ -1,9 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -17,6 +19,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.LibC
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -44,25 +47,31 @@ data Foo = Foo
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Foo where
+instance HsBindgen.Runtime.Marshal.StaticSize Foo where
 
-  sizeOf = \_ -> (16 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Foo where
+
+  readRaw =
     \ptr0 ->
           pure Foo
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_sixty_four") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_thirty_two") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"foo_sixty_four") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"foo_thirty_two") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Foo where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_sixty_four2 foo_thirty_two3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
+            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Foo instance F.Storable Foo
 
 instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
 

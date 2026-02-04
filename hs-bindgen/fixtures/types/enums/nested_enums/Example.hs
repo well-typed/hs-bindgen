@@ -26,6 +26,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -42,23 +43,29 @@ newtype EnumA = EnumA
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable EnumA where
+instance HsBindgen.Runtime.Marshal.StaticSize EnumA where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw EnumA where
+
+  readRaw =
     \ptr0 ->
           pure EnumA
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw EnumA where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           EnumA unwrapEnumA2 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapEnumA2
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapEnumA2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable EnumA instance F.Storable EnumA
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumA
 
@@ -104,6 +111,18 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumA) "unwrapEnumA")
+         ) => GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumA")
+
+instance HsBindgen.Runtime.HasCField.HasCField EnumA "unwrapEnumA" where
+
+  type CFieldType EnumA "unwrapEnumA" = FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @VALA_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 3:17@
@@ -139,23 +158,29 @@ data ExA = ExA
   }
   deriving stock (Eq, Show)
 
-instance F.Storable ExA where
+instance HsBindgen.Runtime.Marshal.StaticSize ExA where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExA where
+
+  readRaw =
     \ptr0 ->
           pure ExA
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exA_fieldA1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExA where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExA instance F.Storable ExA
 
 instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
 
@@ -181,23 +206,29 @@ newtype ExB_fieldB1 = ExB_fieldB1
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.HasFFIType.HasFFIType)
 
-instance F.Storable ExB_fieldB1 where
+instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1 where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExB_fieldB1 where
+
+  readRaw =
     \ptr0 ->
           pure ExB_fieldB1
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExB_fieldB1 where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB_fieldB1 unwrapExB_fieldB12 ->
-            F.pokeByteOff ptr0 (0 :: Int) unwrapExB_fieldB12
+            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapExB_fieldB12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB_fieldB1 instance F.Storable ExB_fieldB1
 
 deriving via FC.CUInt instance Data.Primitive.Types.Prim ExB_fieldB1
 
@@ -243,6 +274,19 @@ instance Read ExB_fieldB1 where
 
   readListPrec = Text.Read.readListPrecDefault
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB_fieldB1) "unwrapExB_fieldB1")
+         ) => GHC.Records.HasField "unwrapExB_fieldB1" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapExB_fieldB1")
+
+instance HsBindgen.Runtime.HasCField.HasCField ExB_fieldB1 "unwrapExB_fieldB1" where
+
+  type CFieldType ExB_fieldB1 "unwrapExB_fieldB1" =
+    FC.CUInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @VALB_1@
 
     __defined at:__ @types\/enums\/nested_enums.h 10:17@
@@ -278,23 +322,29 @@ data ExB = ExB
   }
   deriving stock (Eq, Show)
 
-instance F.Storable ExB where
+instance HsBindgen.Runtime.Marshal.StaticSize ExB where
 
-  sizeOf = \_ -> (4 :: Int)
+  staticSizeOf = \_ -> (4 :: Int)
 
-  alignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (4 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw ExB where
+
+  readRaw =
     \ptr0 ->
           pure ExB
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"exB_fieldB1") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw ExB where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB instance F.Storable ExB
 
 instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
 

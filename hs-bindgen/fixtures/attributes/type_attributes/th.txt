@@ -20,12 +20,15 @@ data S
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure S <*> peek (Proxy @"s_f") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S s_f_3 -> poke (Proxy @"s_f") ptr_1 s_f_3
+instance StaticSize S
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_f") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_f_2 -> writeRaw (Proxy @"s_f") ptr_0 s_f_2
+deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_f"
     where type CFieldType S "s_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
@@ -47,7 +50,10 @@ newtype More_aligned_int
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -88,12 +94,15 @@ data S2
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S2
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 16 :: Int
-          peek = \ptr_0 -> pure S2 <*> peek (Proxy @"s2_f") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S2 s2_f_3 -> poke (Proxy @"s2_f") ptr_1 s2_f_3
+instance StaticSize S2
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 16 :: Int
+instance ReadRaw S2
+    where readRaw = \ptr_0 -> pure S2 <*> readRaw (Proxy @"s2_f") ptr_0
+instance WriteRaw S2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2 s2_f_2 -> writeRaw (Proxy @"s2_f") ptr_0 s2_f_2
+deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_f"
     where type CFieldType S2 "s2_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
@@ -128,36 +137,16 @@ data My_unpacked_struct
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable My_unpacked_struct
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure My_unpacked_struct <*> peek (Proxy @"my_unpacked_struct_c") ptr_0) <*> peek (Proxy @"my_unpacked_struct_i") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   My_unpacked_struct my_unpacked_struct_c_3
-                                                      my_unpacked_struct_i_4 -> poke (Proxy @"my_unpacked_struct_c") ptr_1 my_unpacked_struct_c_3 >> poke (Proxy @"my_unpacked_struct_i") ptr_1 my_unpacked_struct_i_4
-instance Prim My_unpacked_struct
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> My_unpacked_struct (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       My_unpacked_struct v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      My_unpacked_struct my_unpacked_struct_c_13
-                                                                                         my_unpacked_struct_i_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) my_unpacked_struct_c_13 s_12 of
-                                                                                                                    s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) my_unpacked_struct_i_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> My_unpacked_struct (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            My_unpacked_struct v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      My_unpacked_struct my_unpacked_struct_c_29
-                                                                                         my_unpacked_struct_i_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) my_unpacked_struct_c_29 s_28 of
-                                                                                                                    s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) my_unpacked_struct_i_30 s_31
+instance StaticSize My_unpacked_struct
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw My_unpacked_struct
+    where readRaw = \ptr_0 -> (pure My_unpacked_struct <*> readRaw (Proxy @"my_unpacked_struct_c") ptr_0) <*> readRaw (Proxy @"my_unpacked_struct_i") ptr_0
+instance WriteRaw My_unpacked_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       My_unpacked_struct my_unpacked_struct_c_2
+                                                          my_unpacked_struct_i_3 -> writeRaw (Proxy @"my_unpacked_struct_c") ptr_0 my_unpacked_struct_c_2 >> writeRaw (Proxy @"my_unpacked_struct_i") ptr_0 my_unpacked_struct_i_3
+deriving via (EquivStorable My_unpacked_struct) instance Storable My_unpacked_struct
 instance HasCField My_unpacked_struct "my_unpacked_struct_c"
     where type CFieldType My_unpacked_struct
                           "my_unpacked_struct_c" = CChar
@@ -209,47 +198,17 @@ data My_packed_struct
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Show)
-instance Storable My_packed_struct
-    where sizeOf = \_ -> 13 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> ((pure My_packed_struct <*> peek (Proxy @"my_packed_struct_c") ptr_0) <*> peek (Proxy @"my_packed_struct_i") ptr_0) <*> peek (Proxy @"my_packed_struct_s") ptr_0
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   My_packed_struct my_packed_struct_c_3
-                                                    my_packed_struct_i_4
-                                                    my_packed_struct_s_5 -> poke (Proxy @"my_packed_struct_c") ptr_1 my_packed_struct_c_3 >> (poke (Proxy @"my_packed_struct_i") ptr_1 my_packed_struct_i_4 >> poke (Proxy @"my_packed_struct_s") ptr_1 my_packed_struct_s_5)
-instance Prim My_packed_struct
-    where sizeOf# = \_ -> 13# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> My_packed_struct (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> (# s_9,
-                                                                                                My_packed_struct v_6 v_8 v_10 #)
-          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
-                                                                       My_packed_struct my_packed_struct_c_15
-                                                                                        my_packed_struct_i_16
-                                                                                        my_packed_struct_s_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) my_packed_struct_c_15 s_14 of
-                                                                                                                 s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) my_packed_struct_i_16 s_18 of
-                                                                                                                         s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) my_packed_struct_s_17 s_19
-          indexOffAddr# = \addr_20 -> \i_21 -> My_packed_struct (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
-          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
-                                                       (# s_25,
-                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
-                                                                     (# s_27,
-                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
-                                                                                   (# s_29,
-                                                                                      v_30 #) -> (# s_29,
-                                                                                                    My_packed_struct v_26 v_28 v_30 #)
-          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
-                                                                      My_packed_struct my_packed_struct_c_35
-                                                                                       my_packed_struct_i_36
-                                                                                       my_packed_struct_s_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) my_packed_struct_c_35 s_34 of
-                                                                                                                s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) my_packed_struct_i_36 s_38 of
-                                                                                                                        s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) my_packed_struct_s_37 s_39
+instance StaticSize My_packed_struct
+    where staticSizeOf = \_ -> 13 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw My_packed_struct
+    where readRaw = \ptr_0 -> ((pure My_packed_struct <*> readRaw (Proxy @"my_packed_struct_c") ptr_0) <*> readRaw (Proxy @"my_packed_struct_i") ptr_0) <*> readRaw (Proxy @"my_packed_struct_s") ptr_0
+instance WriteRaw My_packed_struct
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       My_packed_struct my_packed_struct_c_2
+                                                        my_packed_struct_i_3
+                                                        my_packed_struct_s_4 -> writeRaw (Proxy @"my_packed_struct_c") ptr_0 my_packed_struct_c_2 >> (writeRaw (Proxy @"my_packed_struct_i") ptr_0 my_packed_struct_i_3 >> writeRaw (Proxy @"my_packed_struct_s") ptr_0 my_packed_struct_s_4)
+deriving via (EquivStorable My_packed_struct) instance Storable My_packed_struct
 instance HasCField My_packed_struct "my_packed_struct_c"
     where type CFieldType My_packed_struct "my_packed_struct_c" = CChar
           offset# = \_ -> \_ -> 0
@@ -287,7 +246,12 @@ newtype Wait_status_ptr_t
            __exported by:__ @attributes\/type_attributes.h@
       -}
 deriving via (SizedByteArray 8
-                             8) instance Storable Wait_status_ptr_t
+                             8) instance StaticSize Wait_status_ptr_t
+deriving via (SizedByteArray 8
+                             8) instance ReadRaw Wait_status_ptr_t
+deriving via (SizedByteArray 8
+                             8) instance WriteRaw Wait_status_ptr_t
+deriving via (EquivStorable Wait_status_ptr_t) instance Storable Wait_status_ptr_t
 deriving via (SizedByteArray 8 8) instance Prim Wait_status_ptr_t
 {-|
 
@@ -395,7 +359,10 @@ newtype T1
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,
@@ -428,7 +395,10 @@ newtype Short_a
            __exported by:__ @attributes\/type_attributes.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Bitfield,

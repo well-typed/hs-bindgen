@@ -19,6 +19,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Eq, Show)
 
@@ -32,7 +33,12 @@ newtype MyArray = MyArray
   { unwrapMyArray :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyArray) "unwrapMyArray")
          ) => GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
@@ -57,7 +63,24 @@ newtype A = A
   { unwrapA :: MyArray
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+
+instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+
+  type CFieldType A "unwrapA" = MyArray
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @B@
 
@@ -69,4 +92,21 @@ newtype B = B
   { unwrapB :: A
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "unwrapB")
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+
+instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+
+  type CFieldType B "unwrapB" = A
+
+  offset# = \_ -> \_ -> 0

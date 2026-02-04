@@ -21,9 +21,13 @@ hstypes:
       - directlyDependsOnOmitted_o
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: IndirectlyDependsOnOmitted
   representation:
     record:
@@ -32,9 +36,13 @@ hstypes:
       - indirectlyDependsOnOmitted_d
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Omitted
   representation:
     record:
@@ -43,6 +51,10 @@ hstypes:
       - omitted_n
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

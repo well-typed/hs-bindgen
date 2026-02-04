@@ -20,6 +20,11 @@ hstypes:
       - vector_length
   instances:
   - Eq
-  - Prim
+  - Flam_Offset
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

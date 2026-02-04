@@ -32,16 +32,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: GlobalConfig
   representation:
     record:
@@ -51,9 +56,13 @@ hstypes:
       - globalConfig_numWorkers
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: List
   representation:
     newtype:
@@ -62,6 +71,8 @@ hstypes:
       - unwrapList
   instances:
   - Eq
+  - HasCField
+  - HasField
   - Show
 - hsname: Triplet
   representation:
@@ -71,8 +82,13 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Tuple
   representation:
     record:
@@ -82,6 +98,10 @@ hstypes:
       - tuple_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

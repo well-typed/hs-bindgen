@@ -26,21 +26,27 @@ hstypes:
       fields:
       - unwrapC
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: F
   representation:
     newtype:
@@ -52,16 +58,21 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - HasCField
   - HasFFIType
+  - HasField
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - RealFloat
   - RealFrac
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: I
   representation:
     newtype:
@@ -69,21 +80,27 @@ hstypes:
       fields:
       - unwrapI
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: L
   representation:
     newtype:
@@ -91,21 +108,27 @@ hstypes:
       fields:
       - unwrapL
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S
   representation:
     newtype:
@@ -113,18 +136,24 @@ hstypes:
       fields:
       - unwrapS
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

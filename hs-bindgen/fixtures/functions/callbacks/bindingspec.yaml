@@ -56,8 +56,13 @@ hstypes:
       - dataPipeline_postProcess
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: DataValidator
   representation:
     newtype:
@@ -66,10 +71,15 @@ hstypes:
       - unwrapDataValidator
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: FileOpenedNotification
   representation:
     newtype:
@@ -78,10 +88,15 @@ hstypes:
       - unwrapFileOpenedNotification
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo
   representation:
     newtype:
@@ -95,16 +110,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo2
   representation:
     newtype:
@@ -118,16 +138,21 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasCField
   - HasFFIType
+  - HasField
   - Integral
   - Ix
   - Num
   - Ord
   - Prim
   - Read
+  - ReadRaw
   - Real
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Measurement
   representation:
     record:
@@ -137,9 +162,13 @@ hstypes:
       - measurement_timestamp
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MeasurementHandler
   representation:
     record:
@@ -150,8 +179,13 @@ hstypes:
       - measurementHandler_onError
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MeasurementReceived
   representation:
     newtype:
@@ -160,10 +194,15 @@ hstypes:
       - unwrapMeasurementReceived
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: MeasurementReceived2
   representation:
     newtype:
@@ -172,10 +211,15 @@ hstypes:
       - unwrapMeasurementReceived2
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Processor
   representation:
     record:
@@ -184,7 +228,12 @@ hstypes:
       - processor_mode
       - processor_callback
   instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ProcessorCallback
   representation:
     newtype:
@@ -192,7 +241,13 @@ hstypes:
       fields:
       - unwrapProcessorCallback
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Processor_mode
   representation:
     newtype:
@@ -200,12 +255,20 @@ hstypes:
       fields:
       - unwrapProcessor_mode
   instances:
+  - CEnum
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - Prim
   - Read
+  - ReadRaw
+  - SequentialCEnum
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: ProgressUpdate
   representation:
     newtype:
@@ -214,10 +277,15 @@ hstypes:
       - unwrapProgressUpdate
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: SampleBufferFull
   representation:
     newtype:
@@ -226,7 +294,12 @@ hstypes:
       - unwrapSampleBufferFull
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

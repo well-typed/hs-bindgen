@@ -22,6 +22,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -143,8 +144,8 @@ bindingSpec = BindingSpec.BindingSpec{
           ]
       , mkTypeN "wint_t"    "CWintT"         intI ["wchar.h", "wctype.h"]
       , mkType  "mbstate_t" "CMbstateT" hsED []   ["uchar.h", "wchar.h"]
-      , mkTypeN "wctrans_t" "CWctransT"      eqI  ["wctype.h"]
-      , mkTypeN "wctype_t"  "CWctypeT"       eqI  ["wchar.h", "wctype.h"]
+      , mkTypeN "wctrans_t" "CWctransT"      nEqI ["wctype.h"]
+      , mkTypeN "wctype_t"  "CWctypeT"       nEqI ["wchar.h", "wctype.h"]
       , mkTypeN "char16_t"  "CChar16T"       intI ["uchar.h"]
       , mkTypeN "char32_t"  "CChar32T"       intI ["uchar.h"]
       ]
@@ -164,7 +165,7 @@ bindingSpec = BindingSpec.BindingSpec{
               , "cTm_yday"
               , "cTm_isdst"
               ]
-        in  mkType "struct tm" "CTm" hsR eqI ["time.h"]
+        in  mkType "struct tm" "CTm" hsR rEqI ["time.h"]
       ]
 
     fileTypes :: [(CTypeKV, HsTypeKV)]
@@ -178,41 +179,70 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "sig_atomic_t" "CSigAtomic" intI ["signal.h"]
       ]
 
-    divI, eqI, intI, timeI :: [Hs.TypeClass]
-    divI = [Hs.Eq, Hs.Ord, Hs.ReadRaw, Hs.Show]
-    eqI = [Hs.Eq, Hs.ReadRaw, Hs.Show, Hs.StaticSize, Hs.Storable, Hs.WriteRaw]
+    divI, intI, nEqI, rEqI, timeI :: [Inst.TypeClass]
+    divI = [
+        Inst.Eq
+      , Inst.HasCField
+      , Inst.HasField
+      , Inst.Ord
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
+      ]
     intI = [
-        Hs.Bits
-      , Hs.Bounded
-      , Hs.Enum
-      , Hs.Eq
-      , Hs.FiniteBits
-      , Hs.Integral
-      , Hs.Ix
-      , Hs.Num
-      , Hs.Ord
-      , Hs.Read
-      , Hs.ReadRaw
-      , Hs.Real
-      , Hs.Show
-      , Hs.StaticSize
-      , Hs.Storable
-      , Hs.WriteRaw
-      , Hs.HasFFIType
+        Inst.Bitfield
+      , Inst.Bits
+      , Inst.Bounded
+      , Inst.Enum
+      , Inst.Eq
+      , Inst.FiniteBits
+      , Inst.HasFFIType
+      , Inst.Integral
+      , Inst.Ix
+      , Inst.Num
+      , Inst.Ord
+      , Inst.Prim
+      , Inst.Read
+      , Inst.ReadRaw
+      , Inst.Real
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+    nEqI = [ -- newtype equality
+        Inst.Eq
+      , Inst.HasFFIType
+      , Inst.Prim
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+    rEqI = [ -- record equality
+        Inst.Eq
+      , Inst.HasCField
+      , Inst.HasField
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
       ]
     timeI = [
-        Hs.Enum
-      , Hs.Eq
-      , Hs.Num
-      , Hs.Ord
-      , Hs.Read
-      , Hs.ReadRaw
-      , Hs.Real
-      , Hs.Show
-      , Hs.StaticSize
-      , Hs.Storable
-      , Hs.WriteRaw
-      , Hs.HasFFIType
+        Inst.Enum
+      , Inst.Eq
+      , Inst.HasFFIType
+      , Inst.Num
+      , Inst.Ord
+      , Inst.Read
+      , Inst.ReadRaw
+      , Inst.Real
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
       ]
 
 {-------------------------------------------------------------------------------
@@ -243,7 +273,7 @@ mkType ::
      Text
   -> Hs.Identifier
   -> BindingSpec.HsTypeRep
-  -> [Hs.TypeClass]
+  -> [Inst.TypeClass]
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
 mkType t hsIdentifier hsTypeRep insts headers' =
@@ -300,7 +330,7 @@ mkHsN constructorName = BindingSpec.HsTypeRepNewtype $
 mkTypeN ::
      Text
   -> Hs.Identifier
-  -> [Hs.TypeClass]
+  -> [Inst.TypeClass]
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
 mkTypeN t hsIdentifier insts headers =

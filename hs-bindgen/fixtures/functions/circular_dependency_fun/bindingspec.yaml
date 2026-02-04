@@ -18,8 +18,13 @@ hstypes:
       - forward_declaration_f
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Fun_ptr
   representation:
     newtype:
@@ -28,7 +33,12 @@ hstypes:
       - unwrapFun_ptr
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

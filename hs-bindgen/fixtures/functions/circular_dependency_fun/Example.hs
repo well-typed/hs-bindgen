@@ -1,11 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -20,6 +22,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Void (Void)
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -93,7 +96,13 @@ newtype Fun_ptr = Fun_ptr
   { unwrapFun_ptr :: Ptr.FunPtr Fun_ptr_Aux
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasFFIType.HasFFIType)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.HasFFIType.HasFFIType
+    )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "unwrapFun_ptr")
          ) => GHC.Records.HasField "unwrapFun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where
@@ -125,23 +134,29 @@ data Forward_declaration = Forward_declaration
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Forward_declaration where
+instance HsBindgen.Runtime.Marshal.StaticSize Forward_declaration where
 
-  sizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (8 :: Int)
 
-  alignment = \_ -> (8 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-  peek =
+instance HsBindgen.Runtime.Marshal.ReadRaw Forward_declaration where
+
+  readRaw =
     \ptr0 ->
           pure Forward_declaration
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"forward_declaration_f") ptr0
+      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"forward_declaration_f") ptr0
 
-  poke =
+instance HsBindgen.Runtime.Marshal.WriteRaw Forward_declaration where
+
+  writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Forward_declaration forward_declaration_f2 ->
-            HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"forward_declaration_f") ptr0 forward_declaration_f2
+            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"forward_declaration_f") ptr0 forward_declaration_f2
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable Forward_declaration instance F.Storable Forward_declaration
 
 instance HsBindgen.Runtime.HasCField.HasCField Forward_declaration "forward_declaration_f" where
 

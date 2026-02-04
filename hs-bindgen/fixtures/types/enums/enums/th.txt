@@ -15,12 +15,15 @@ newtype First
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable First
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   First unwrapFirst_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapFirst_3
+instance StaticSize First
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw First
+    where readRaw = \ptr_0 -> pure First <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw First
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       First unwrapFirst_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapFirst_2
+deriving via (EquivStorable First) instance Storable First
 deriving via CUInt instance Prim First
 instance CEnum First
     where type CEnumZ First = CUInt
@@ -42,6 +45,12 @@ instance Read First
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType First "unwrapFirst") =>
+         HasField "unwrapFirst" (Ptr First) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFirst")
+instance HasCField First "unwrapFirst"
+    where type CFieldType First "unwrapFirst" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FIRST1@
 
     __defined at:__ @types\/enums\/enums.h 5:5@
@@ -86,12 +95,15 @@ newtype Second
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Second
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Second unwrapSecond_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapSecond_3
+instance StaticSize Second
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Second
+    where readRaw = \ptr_0 -> pure Second <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Second
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Second unwrapSecond_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapSecond_2
+deriving via (EquivStorable Second) instance Storable Second
 deriving via CInt instance Prim Second
 instance CEnum Second
     where type CEnumZ Second = CInt
@@ -114,6 +126,12 @@ instance Read Second
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Second "unwrapSecond") =>
+         HasField "unwrapSecond" (Ptr Second) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSecond")
+instance HasCField Second "unwrapSecond"
+    where type CFieldType Second "unwrapSecond" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SECOND_A@
 
     __defined at:__ @types\/enums\/enums.h 10:5@
@@ -172,12 +190,15 @@ newtype Same
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Same
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Same unwrapSame_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapSame_3
+instance StaticSize Same
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Same
+    where readRaw = \ptr_0 -> pure Same <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Same
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Same unwrapSame_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapSame_2
+deriving via (EquivStorable Same) instance Storable Same
 deriving via CUInt instance Prim Same
 instance CEnum Same
     where type CEnumZ Same = CUInt
@@ -198,6 +219,12 @@ instance Read Same
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Same "unwrapSame") =>
+         HasField "unwrapSame" (Ptr Same) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSame")
+instance HasCField Same "unwrapSame"
+    where type CFieldType Same "unwrapSame" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SAME_A@
 
     __defined at:__ @types\/enums\/enums.h 16:5@
@@ -242,12 +269,15 @@ newtype Nonseq
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Nonseq
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Nonseq <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Nonseq unwrapNonseq_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapNonseq_3
+instance StaticSize Nonseq
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Nonseq
+    where readRaw = \ptr_0 -> pure Nonseq <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Nonseq
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Nonseq unwrapNonseq_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapNonseq_2
+deriving via (EquivStorable Nonseq) instance Storable Nonseq
 deriving via CUInt instance Prim Nonseq
 instance CEnum Nonseq
     where type CEnumZ Nonseq = CUInt
@@ -265,6 +295,12 @@ instance Read Nonseq
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Nonseq "unwrapNonseq") =>
+         HasField "unwrapNonseq" (Ptr Nonseq) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapNonseq")
+instance HasCField Nonseq "unwrapNonseq"
+    where type CFieldType Nonseq "unwrapNonseq" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @NONSEQ_A@
 
     __defined at:__ @types\/enums\/enums.h 21:5@
@@ -323,12 +359,15 @@ newtype Packed
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable Packed
-    where sizeOf = \_ -> 1 :: Int
-          alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Packed <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Packed unwrapPacked_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapPacked_3
+instance StaticSize Packed
+    where staticSizeOf = \_ -> 1 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Packed
+    where readRaw = \ptr_0 -> pure Packed <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Packed
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Packed unwrapPacked_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapPacked_2
+deriving via (EquivStorable Packed) instance Storable Packed
 deriving via CUChar instance Prim Packed
 instance CEnum Packed
     where type CEnumZ Packed = CUChar
@@ -351,6 +390,12 @@ instance Read Packed
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType Packed "unwrapPacked") =>
+         HasField "unwrapPacked" (Ptr Packed) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPacked")
+instance HasCField Packed "unwrapPacked"
+    where type CFieldType Packed "unwrapPacked" = CUChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @PACKED_A@
 
     __defined at:__ @types\/enums\/enums.h 27:5@
@@ -409,12 +454,15 @@ newtype EnumA
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable EnumA
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumA unwrapEnumA_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumA_3
+instance StaticSize EnumA
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw EnumA
+    where readRaw = \ptr_0 -> pure EnumA <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw EnumA
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       EnumA unwrapEnumA_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapEnumA_2
+deriving via (EquivStorable EnumA) instance Storable EnumA
 deriving via CUInt instance Prim EnumA
 instance CEnum EnumA
     where type CEnumZ EnumA = CUInt
@@ -436,6 +484,12 @@ instance Read EnumA
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumA "unwrapEnumA") =>
+         HasField "unwrapEnumA" (Ptr EnumA) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumA")
+instance HasCField EnumA "unwrapEnumA"
+    where type CFieldType EnumA "unwrapEnumA" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @A_FOO@
 
     __defined at:__ @types\/enums\/enums.h 30:16@
@@ -480,12 +534,15 @@ newtype EnumB
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable EnumB
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumB unwrapEnumB_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumB_3
+instance StaticSize EnumB
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw EnumB
+    where readRaw = \ptr_0 -> pure EnumB <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw EnumB
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       EnumB unwrapEnumB_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapEnumB_2
+deriving via (EquivStorable EnumB) instance Storable EnumB
 deriving via CUInt instance Prim EnumB
 instance CEnum EnumB
     where type CEnumZ EnumB = CUInt
@@ -507,6 +564,12 @@ instance Read EnumB
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumB "unwrapEnumB") =>
+         HasField "unwrapEnumB" (Ptr EnumB) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumB")
+instance HasCField EnumB "unwrapEnumB"
+    where type CFieldType EnumB "unwrapEnumB" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @B_FOO@
 
     __defined at:__ @types\/enums\/enums.h 32:22@
@@ -551,12 +614,15 @@ newtype EnumC
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable EnumC
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumC unwrapEnumC_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumC_3
+instance StaticSize EnumC
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw EnumC
+    where readRaw = \ptr_0 -> pure EnumC <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw EnumC
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       EnumC unwrapEnumC_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapEnumC_2
+deriving via (EquivStorable EnumC) instance Storable EnumC
 deriving via CUInt instance Prim EnumC
 instance CEnum EnumC
     where type CEnumZ EnumC = CUInt
@@ -578,6 +644,12 @@ instance Read EnumC
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumC "unwrapEnumC") =>
+         HasField "unwrapEnumC" (Ptr EnumC) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumC")
+instance HasCField EnumC "unwrapEnumC"
+    where type CFieldType EnumC "unwrapEnumC" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @C_FOO@
 
     __defined at:__ @types\/enums\/enums.h 34:14@
@@ -622,12 +694,15 @@ newtype EnumD_t
       -}
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
-instance Storable EnumD_t
-    where sizeOf = \_ -> 4 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure EnumD_t <*> peekByteOff ptr_0 (0 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   EnumD_t unwrapEnumD_t_3 -> pokeByteOff ptr_1 (0 :: Int) unwrapEnumD_t_3
+instance StaticSize EnumD_t
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw EnumD_t
+    where readRaw = \ptr_0 -> pure EnumD_t <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw EnumD_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       EnumD_t unwrapEnumD_t_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapEnumD_t_2
+deriving via (EquivStorable EnumD_t) instance Storable EnumD_t
 deriving via CUInt instance Prim EnumD_t
 instance CEnum EnumD_t
     where type CEnumZ EnumD_t = CUInt
@@ -649,6 +724,12 @@ instance Read EnumD_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
+instance TyEq ty (CFieldType EnumD_t "unwrapEnumD_t") =>
+         HasField "unwrapEnumD_t" (Ptr EnumD_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapEnumD_t")
+instance HasCField EnumD_t "unwrapEnumD_t"
+    where type CFieldType EnumD_t "unwrapEnumD_t" = CUInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @D_FOO@
 
     __defined at:__ @types\/enums\/enums.h 37:14@

@@ -55,9 +55,13 @@ hstypes:
       - s1_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S2_t
   representation:
     record:
@@ -68,9 +72,13 @@ hstypes:
       - s2_t_c
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S3_t
   representation:
     record:
@@ -79,9 +87,13 @@ hstypes:
       - s3_t_a
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S4
   representation:
     record:
@@ -92,8 +104,13 @@ hstypes:
       - s4_c
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S5
   representation:
     record:
@@ -103,9 +120,13 @@ hstypes:
       - s5_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S6
   representation:
     record:
@@ -115,9 +136,13 @@ hstypes:
       - s6_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S7a
   representation:
     newtype:
@@ -126,10 +151,15 @@ hstypes:
       - unwrapS7a
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S7a_Aux
   representation:
     record:
@@ -139,9 +169,13 @@ hstypes:
       - s7a_Aux_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S7b
   representation:
     newtype:
@@ -150,10 +184,15 @@ hstypes:
       - unwrapS7b
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: S7b_Aux
   representation:
     record:
@@ -163,6 +202,10 @@ hstypes:
       - s7b_Aux_b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw

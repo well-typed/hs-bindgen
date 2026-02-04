@@ -28,8 +28,13 @@ hstypes:
       - bar_ptrB
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Baz
   representation:
     record:
@@ -37,9 +42,11 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Foo
   representation: emptydata
 - hsname: Opaque_union

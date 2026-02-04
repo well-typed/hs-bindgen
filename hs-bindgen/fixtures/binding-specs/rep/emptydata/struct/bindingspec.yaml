@@ -30,9 +30,13 @@ hstypes:
       - named_f
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Oaa
   representation: emptydata
 - hsname: Oan

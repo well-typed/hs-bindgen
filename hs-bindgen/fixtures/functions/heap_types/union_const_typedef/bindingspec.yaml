@@ -17,7 +17,13 @@ hstypes:
       fields:
       - unwrapT
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: U
   representation:
     newtype:
@@ -25,4 +31,10 @@ hstypes:
       fields:
       - unwrapU
   instances:
+  - HasCField
+  - HasField
+  - Prim
+  - ReadRaw
+  - StaticSize
   - Storable
+  - WriteRaw

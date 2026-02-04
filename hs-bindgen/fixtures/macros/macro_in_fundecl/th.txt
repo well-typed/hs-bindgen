@@ -326,9 +326,13 @@ newtype I
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -337,6 +341,12 @@ newtype I
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType I "unwrapI") =>
+         HasField "unwrapI" (Ptr I) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapI")
+instance HasCField I "unwrapI"
+    where type CFieldType I "unwrapI" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
@@ -352,9 +362,13 @@ newtype C
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -363,6 +377,12 @@ newtype C
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType C "unwrapC") =>
+         HasField "unwrapC" (Ptr C) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapC")
+instance HasCField C "unwrapC"
+    where type CFieldType C "unwrapC" = CChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
@@ -378,7 +398,10 @@ newtype F
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
                       Enum,
@@ -388,6 +411,12 @@ newtype F
                       Real,
                       RealFloat,
                       RealFrac)
+instance TyEq ty (CFieldType F "unwrapF") =>
+         HasField "unwrapF" (Ptr F) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapF")
+instance HasCField F "unwrapF"
+    where type CFieldType F "unwrapF" = CFloat
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
@@ -403,9 +432,13 @@ newtype L
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -414,6 +447,12 @@ newtype L
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType L "unwrapL") =>
+         HasField "unwrapL" (Ptr L) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapL")
+instance HasCField L "unwrapL"
+    where type CFieldType L "unwrapL" = CLong
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
@@ -429,9 +468,13 @@ newtype S
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
-    deriving newtype (Storable,
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
                       HasFFIType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -440,6 +483,12 @@ newtype S
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType S "unwrapS") =>
+         HasField "unwrapS" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapS")
+instance HasCField S "unwrapS"
+    where type CFieldType S "unwrapS" = CShort
+          offset# = \_ -> \_ -> 0
 foreign import ccall safe "wrapper" hs_bindgen_074b9de694d8f359_base ::
     Int16 -> IO Int32
  -> IO (FunPtr (Int16 -> IO Int32))

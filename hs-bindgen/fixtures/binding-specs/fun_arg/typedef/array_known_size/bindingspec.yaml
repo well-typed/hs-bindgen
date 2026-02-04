@@ -21,8 +21,13 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: B
   representation:
     newtype:
@@ -31,11 +36,19 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: E
   representation:
     newtype:
       constructor: E
       fields:
       - unwrapE
+  instances:
+  - HasCField
+  - HasField

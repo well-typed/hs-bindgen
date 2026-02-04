@@ -40,9 +40,13 @@ hstypes:
       - point1a_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point1b
   representation:
     newtype:
@@ -51,9 +55,13 @@ hstypes:
       - unwrapPoint1b
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point2a
   representation:
     record:
@@ -63,9 +71,13 @@ hstypes:
       - point2a_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point2b
   representation:
     newtype:
@@ -74,10 +86,15 @@ hstypes:
       - unwrapPoint2b
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point3a
   representation:
     newtype:
@@ -86,10 +103,15 @@ hstypes:
       - unwrapPoint3a
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point3a_Aux
   representation:
     record:
@@ -99,9 +121,13 @@ hstypes:
       - point3a_Aux_y
   instances:
   - Eq
-  - Prim
+  - HasCField
+  - HasField
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
 - hsname: Point3b
   representation:
     newtype:
@@ -110,7 +136,12 @@ hstypes:
       - unwrapPoint3b
   instances:
   - Eq
+  - HasCField
   - HasFFIType
+  - HasField
   - Ord
+  - ReadRaw
   - Show
+  - StaticSize
   - Storable
+  - WriteRaw
