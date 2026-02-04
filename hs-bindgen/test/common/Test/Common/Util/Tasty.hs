@@ -6,6 +6,7 @@ module Test.Common.Util.Tasty (
     assertException
     -- * Golden tests
   , goldenAnsiDiff
+  , goldenDirAnsiDiff
   ) where
 
 import Control.Exception
@@ -14,11 +15,13 @@ import Data.ByteString qualified as BS
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.Either (isRight)
 import Data.Proxy
-import System.Directory (removeFile)
+import System.Directory (doesDirectoryExist, removeDirectoryRecursive,
+                         removeFile)
 import Test.Tasty
 import Test.Tasty.HUnit
 
 import Test.Common.Util.AnsiDiff (ansidiff)
+import Test.Common.Util.FSTree
 import Test.Common.Util.Tasty.Golden
 
 {-------------------------------------------------------------------------------
@@ -60,3 +63,33 @@ goldenAnsiDiff name fp actual =
 
     remove :: IO ()
     remove = removeFile fp
+
+-- | Golden test a directory structure using 'ansidiff'
+goldenDirAnsiDiff ::
+     TestName
+  -> FilePath
+  -> ((String -> IO ()) -> IO (ActualValue (Shortcut String)))
+  -> TestTree
+goldenDirAnsiDiff name fp actual =
+    goldenTestSteps name correct actual cmp update remove
+  where
+    correct :: IO (Shortcut String)
+    correct = do
+        t <- listDirectoryRecursive fp
+        readFiles_ (fmap fst $ withFullPaths_ t)
+
+    cmp ::
+         Shortcut String
+      -> Shortcut String
+      -> IO (Maybe String)
+    cmp t1 t2 = pure $ cmpAnsiDiff_ t1 t2
+
+    update :: Shortcut String -> IO ()
+    update t = do
+        exists <- doesDirectoryExist fp
+        when exists $ removeDirectoryRecursive fp
+        writeFiles_ (withFullPaths_ t)
+        -- TODO: technically, we should also write directories
+
+    remove :: IO ()
+    remove = removeDirectoryRecursive fp
