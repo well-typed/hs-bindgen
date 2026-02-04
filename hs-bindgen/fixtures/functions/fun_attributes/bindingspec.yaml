@@ -20,7 +20,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize

@@ -29,7 +29,6 @@ import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
@@ -225,66 +224,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationRecord where
               >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable FileOperationRecord instance F.Storable FileOperationRecord
-
-instance Data.Primitive.Types.Prim FileOperationRecord where
-
-  sizeOf# = \_ -> (16#)
-
-  alignment# = \_ -> (8#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        FileOperationRecord (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, FileOperationRecord v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              FileOperationRecord
-                fileOperationRecord_status4
-                fileOperationRecord_bytes_processed5 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) fileOperationRecord_status4 s3 of
-                    s6 ->
-                      Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) fileOperationRecord_bytes_processed5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        FileOperationRecord (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, FileOperationRecord v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              FileOperationRecord
-                fileOperationRecord_status4
-                fileOperationRecord_bytes_processed5 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) fileOperationRecord_status4 s3 of
-                    s6 ->
-                      Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) fileOperationRecord_bytes_processed5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
 

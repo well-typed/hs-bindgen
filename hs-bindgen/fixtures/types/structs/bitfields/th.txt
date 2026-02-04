@@ -69,63 +69,6 @@ instance WriteRaw Flags
                                              flags_fieldY_6
                                              flags_bits_7 -> writeRaw (Proxy @"flags_fieldX") ptr_0 flags_fieldX_2 >> (poke (Proxy @"flags_flagA") ptr_0 flags_flagA_3 >> (poke (Proxy @"flags_flagB") ptr_0 flags_flagB_4 >> (poke (Proxy @"flags_flagC") ptr_0 flags_flagC_5 >> (writeRaw (Proxy @"flags_fieldY") ptr_0 flags_fieldY_6 >> poke (Proxy @"flags_bits") ptr_0 flags_bits_7))))
 deriving via (EquivStorable Flags) instance Storable Flags
-instance Prim Flags
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Flags (indexByteArray# arr_0 ((+#) ((*#) (6# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (6# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (6# :: Int#) i_1) (2# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (6# :: Int#) i_1) (3# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (6# :: Int#) i_1) (4# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (6# :: Int#) i_1) (5# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (6# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (6# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (6# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> case readByteArray# arr_2 ((+#) ((*#) (6# :: Int#) i_3) (3# :: Int#)) s_9 of
-                                                                                             (# s_11,
-                                                                                                v_12 #) -> case readByteArray# arr_2 ((+#) ((*#) (6# :: Int#) i_3) (4# :: Int#)) s_11 of
-                                                                                                           (# s_13,
-                                                                                                              v_14 #) -> case readByteArray# arr_2 ((+#) ((*#) (6# :: Int#) i_3) (5# :: Int#)) s_13 of
-                                                                                                                         (# s_15,
-                                                                                                                            v_16 #) -> (# s_15,
-                                                                                                                                          Flags v_6 v_8 v_10 v_12 v_14 v_16 #)
-          writeByteArray# = \arr_17 -> \i_18 -> \struct_19 -> \s_20 -> case struct_19 of
-                                                                       Flags flags_fieldX_21
-                                                                             flags_flagA_22
-                                                                             flags_flagB_23
-                                                                             flags_flagC_24
-                                                                             flags_fieldY_25
-                                                                             flags_bits_26 -> case writeByteArray# arr_17 ((+#) ((*#) (6# :: Int#) i_18) (0# :: Int#)) flags_fieldX_21 s_20 of
-                                                                                              s_27 -> case writeByteArray# arr_17 ((+#) ((*#) (6# :: Int#) i_18) (1# :: Int#)) flags_flagA_22 s_27 of
-                                                                                                      s_28 -> case writeByteArray# arr_17 ((+#) ((*#) (6# :: Int#) i_18) (2# :: Int#)) flags_flagB_23 s_28 of
-                                                                                                              s_29 -> case writeByteArray# arr_17 ((+#) ((*#) (6# :: Int#) i_18) (3# :: Int#)) flags_flagC_24 s_29 of
-                                                                                                                      s_30 -> case writeByteArray# arr_17 ((+#) ((*#) (6# :: Int#) i_18) (4# :: Int#)) flags_fieldY_25 s_30 of
-                                                                                                                              s_31 -> writeByteArray# arr_17 ((+#) ((*#) (6# :: Int#) i_18) (5# :: Int#)) flags_bits_26 s_31
-          indexOffAddr# = \addr_32 -> \i_33 -> Flags (indexOffAddr# addr_32 ((+#) ((*#) (6# :: Int#) i_33) (0# :: Int#))) (indexOffAddr# addr_32 ((+#) ((*#) (6# :: Int#) i_33) (1# :: Int#))) (indexOffAddr# addr_32 ((+#) ((*#) (6# :: Int#) i_33) (2# :: Int#))) (indexOffAddr# addr_32 ((+#) ((*#) (6# :: Int#) i_33) (3# :: Int#))) (indexOffAddr# addr_32 ((+#) ((*#) (6# :: Int#) i_33) (4# :: Int#))) (indexOffAddr# addr_32 ((+#) ((*#) (6# :: Int#) i_33) (5# :: Int#)))
-          readOffAddr# = \addr_34 -> \i_35 -> \s_36 -> case readOffAddr# addr_34 ((+#) ((*#) (6# :: Int#) i_35) (0# :: Int#)) s_36 of
-                                                       (# s_37,
-                                                          v_38 #) -> case readOffAddr# addr_34 ((+#) ((*#) (6# :: Int#) i_35) (1# :: Int#)) s_37 of
-                                                                     (# s_39,
-                                                                        v_40 #) -> case readOffAddr# addr_34 ((+#) ((*#) (6# :: Int#) i_35) (2# :: Int#)) s_39 of
-                                                                                   (# s_41,
-                                                                                      v_42 #) -> case readOffAddr# addr_34 ((+#) ((*#) (6# :: Int#) i_35) (3# :: Int#)) s_41 of
-                                                                                                 (# s_43,
-                                                                                                    v_44 #) -> case readOffAddr# addr_34 ((+#) ((*#) (6# :: Int#) i_35) (4# :: Int#)) s_43 of
-                                                                                                               (# s_45,
-                                                                                                                  v_46 #) -> case readOffAddr# addr_34 ((+#) ((*#) (6# :: Int#) i_35) (5# :: Int#)) s_45 of
-                                                                                                                             (# s_47,
-                                                                                                                                v_48 #) -> (# s_47,
-                                                                                                                                              Flags v_38 v_40 v_42 v_44 v_46 v_48 #)
-          writeOffAddr# = \addr_49 -> \i_50 -> \struct_51 -> \s_52 -> case struct_51 of
-                                                                      Flags flags_fieldX_53
-                                                                            flags_flagA_54
-                                                                            flags_flagB_55
-                                                                            flags_flagC_56
-                                                                            flags_fieldY_57
-                                                                            flags_bits_58 -> case writeOffAddr# addr_49 ((+#) ((*#) (6# :: Int#) i_50) (0# :: Int#)) flags_fieldX_53 s_52 of
-                                                                                             s_59 -> case writeOffAddr# addr_49 ((+#) ((*#) (6# :: Int#) i_50) (1# :: Int#)) flags_flagA_54 s_59 of
-                                                                                                     s_60 -> case writeOffAddr# addr_49 ((+#) ((*#) (6# :: Int#) i_50) (2# :: Int#)) flags_flagB_55 s_60 of
-                                                                                                             s_61 -> case writeOffAddr# addr_49 ((+#) ((*#) (6# :: Int#) i_50) (3# :: Int#)) flags_flagC_56 s_61 of
-                                                                                                                     s_62 -> case writeOffAddr# addr_49 ((+#) ((*#) (6# :: Int#) i_50) (4# :: Int#)) flags_fieldY_57 s_62 of
-                                                                                                                             s_63 -> writeOffAddr# addr_49 ((+#) ((*#) (6# :: Int#) i_50) (5# :: Int#)) flags_bits_58 s_63
 instance HasCField Flags "flags_fieldX"
     where type CFieldType Flags "flags_fieldX" = CChar
           offset# = \_ -> \_ -> 0
@@ -212,39 +155,6 @@ instance WriteRaw Overflow32
                                                   overflow32_y_3
                                                   overflow32_z_4 -> poke (Proxy @"overflow32_x") ptr_0 overflow32_x_2 >> (poke (Proxy @"overflow32_y") ptr_0 overflow32_y_3 >> poke (Proxy @"overflow32_z") ptr_0 overflow32_z_4)
 deriving via (EquivStorable Overflow32) instance Storable Overflow32
-instance Prim Overflow32
-    where sizeOf# = \_ -> 12# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Overflow32 (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> (# s_9,
-                                                                                                Overflow32 v_6 v_8 v_10 #)
-          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
-                                                                       Overflow32 overflow32_x_15
-                                                                                  overflow32_y_16
-                                                                                  overflow32_z_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) overflow32_x_15 s_14 of
-                                                                                                     s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) overflow32_y_16 s_18 of
-                                                                                                             s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) overflow32_z_17 s_19
-          indexOffAddr# = \addr_20 -> \i_21 -> Overflow32 (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
-          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
-                                                       (# s_25,
-                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
-                                                                     (# s_27,
-                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
-                                                                                   (# s_29,
-                                                                                      v_30 #) -> (# s_29,
-                                                                                                    Overflow32 v_26 v_28 v_30 #)
-          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
-                                                                      Overflow32 overflow32_x_35
-                                                                                 overflow32_y_36
-                                                                                 overflow32_z_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) overflow32_x_35 s_34 of
-                                                                                                    s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) overflow32_y_36 s_38 of
-                                                                                                            s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) overflow32_z_37 s_39
 instance HasCBitfield Overflow32 "overflow32_x"
     where type CBitfieldType Overflow32 "overflow32_x" = CInt
           bitfieldOffset# = \_ -> \_ -> 0
@@ -312,39 +222,6 @@ instance WriteRaw Overflow32b
                                                    overflow32b_y_3
                                                    overflow32b_z_4 -> poke (Proxy @"overflow32b_x") ptr_0 overflow32b_x_2 >> (poke (Proxy @"overflow32b_y") ptr_0 overflow32b_y_3 >> poke (Proxy @"overflow32b_z") ptr_0 overflow32b_z_4)
 deriving via (EquivStorable Overflow32b) instance Storable Overflow32b
-instance Prim Overflow32b
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Overflow32b (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> (# s_9,
-                                                                                                Overflow32b v_6 v_8 v_10 #)
-          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
-                                                                       Overflow32b overflow32b_x_15
-                                                                                   overflow32b_y_16
-                                                                                   overflow32b_z_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) overflow32b_x_15 s_14 of
-                                                                                                       s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) overflow32b_y_16 s_18 of
-                                                                                                               s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) overflow32b_z_17 s_19
-          indexOffAddr# = \addr_20 -> \i_21 -> Overflow32b (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
-          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
-                                                       (# s_25,
-                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
-                                                                     (# s_27,
-                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
-                                                                                   (# s_29,
-                                                                                      v_30 #) -> (# s_29,
-                                                                                                    Overflow32b v_26 v_28 v_30 #)
-          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
-                                                                      Overflow32b overflow32b_x_35
-                                                                                  overflow32b_y_36
-                                                                                  overflow32b_z_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) overflow32b_x_35 s_34 of
-                                                                                                      s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) overflow32b_y_36 s_38 of
-                                                                                                              s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) overflow32b_z_37 s_39
 instance HasCBitfield Overflow32b "overflow32b_x"
     where type CBitfieldType Overflow32b "overflow32b_x" = CLong
           bitfieldOffset# = \_ -> \_ -> 0
@@ -412,39 +289,6 @@ instance WriteRaw Overflow32c
                                                    overflow32c_y_3
                                                    overflow32c_z_4 -> poke (Proxy @"overflow32c_x") ptr_0 overflow32c_x_2 >> (poke (Proxy @"overflow32c_y") ptr_0 overflow32c_y_3 >> poke (Proxy @"overflow32c_z") ptr_0 overflow32c_z_4)
 deriving via (EquivStorable Overflow32c) instance Storable Overflow32c
-instance Prim Overflow32c
-    where sizeOf# = \_ -> 16# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Overflow32c (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> (# s_9,
-                                                                                                Overflow32c v_6 v_8 v_10 #)
-          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
-                                                                       Overflow32c overflow32c_x_15
-                                                                                   overflow32c_y_16
-                                                                                   overflow32c_z_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) overflow32c_x_15 s_14 of
-                                                                                                       s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) overflow32c_y_16 s_18 of
-                                                                                                               s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) overflow32c_z_17 s_19
-          indexOffAddr# = \addr_20 -> \i_21 -> Overflow32c (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
-          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
-                                                       (# s_25,
-                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
-                                                                     (# s_27,
-                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
-                                                                                   (# s_29,
-                                                                                      v_30 #) -> (# s_29,
-                                                                                                    Overflow32c v_26 v_28 v_30 #)
-          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
-                                                                      Overflow32c overflow32c_x_35
-                                                                                  overflow32c_y_36
-                                                                                  overflow32c_z_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) overflow32c_x_35 s_34 of
-                                                                                                      s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) overflow32c_y_36 s_38 of
-                                                                                                              s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) overflow32c_z_37 s_39
 instance HasCBitfield Overflow32c "overflow32c_x"
     where type CBitfieldType Overflow32c "overflow32c_x" = CLong
           bitfieldOffset# = \_ -> \_ -> 0
@@ -504,29 +348,6 @@ instance WriteRaw Overflow64
                                        Overflow64 overflow64_x_2
                                                   overflow64_y_3 -> poke (Proxy @"overflow64_x") ptr_0 overflow64_x_2 >> poke (Proxy @"overflow64_y") ptr_0 overflow64_y_3
 deriving via (EquivStorable Overflow64) instance Storable Overflow64
-instance Prim Overflow64
-    where sizeOf# = \_ -> 16# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Overflow64 (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Overflow64 v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Overflow64 overflow64_x_13
-                                                                                 overflow64_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) overflow64_x_13 s_12 of
-                                                                                                    s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) overflow64_y_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Overflow64 (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Overflow64 v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Overflow64 overflow64_x_29
-                                                                                 overflow64_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) overflow64_x_29 s_28 of
-                                                                                                    s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) overflow64_y_30 s_31
 instance HasCBitfield Overflow64 "overflow64_x"
     where type CBitfieldType Overflow64 "overflow64_x" = CLong
           bitfieldOffset# = \_ -> \_ -> 0
@@ -579,29 +400,6 @@ instance WriteRaw AlignA
                                        AlignA alignA_x_2
                                               alignA_y_3 -> poke (Proxy @"alignA_x") ptr_0 alignA_x_2 >> poke (Proxy @"alignA_y") ptr_0 alignA_y_3
 deriving via (EquivStorable AlignA) instance Storable AlignA
-instance Prim AlignA
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> AlignA (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       AlignA v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      AlignA alignA_x_13
-                                                                             alignA_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) alignA_x_13 s_12 of
-                                                                                            s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) alignA_y_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> AlignA (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            AlignA v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      AlignA alignA_x_29
-                                                                             alignA_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) alignA_x_29 s_28 of
-                                                                                            s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) alignA_y_30 s_31
 instance HasCBitfield AlignA "alignA_x"
     where type CBitfieldType AlignA "alignA_x" = CUChar
           bitfieldOffset# = \_ -> \_ -> 0
@@ -654,29 +452,6 @@ instance WriteRaw AlignB
                                        AlignB alignB_x_2
                                               alignB_y_3 -> poke (Proxy @"alignB_x") ptr_0 alignB_x_2 >> poke (Proxy @"alignB_y") ptr_0 alignB_y_3
 deriving via (EquivStorable AlignB) instance Storable AlignB
-instance Prim AlignB
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> AlignB (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       AlignB v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      AlignB alignB_x_13
-                                                                             alignB_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) alignB_x_13 s_12 of
-                                                                                            s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) alignB_y_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> AlignB (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            AlignB v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      AlignB alignB_x_29
-                                                                             alignB_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) alignB_x_29 s_28 of
-                                                                                            s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) alignB_y_30 s_31
 instance HasCBitfield AlignB "alignB_x"
     where type CBitfieldType AlignB "alignB_x" = CUChar
           bitfieldOffset# = \_ -> \_ -> 0

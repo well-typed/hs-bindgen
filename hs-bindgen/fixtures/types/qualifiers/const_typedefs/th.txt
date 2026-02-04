@@ -132,17 +132,6 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S -> return ()
 deriving via (EquivStorable S) instance Storable S
-instance Prim S
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> S
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, S #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   S -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> S
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, S #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      S -> s_17
 {-| __C declaration:__ @union U@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
@@ -278,7 +267,7 @@ newtype TS
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType TS "unwrapTS") =>
          HasField "unwrapTS" (Ptr TS) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTS")
@@ -384,7 +373,7 @@ newtype TTS
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType TTS "unwrapTTS") =>
          HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTS")

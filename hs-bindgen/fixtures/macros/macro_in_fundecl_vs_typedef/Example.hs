@@ -152,54 +152,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct1 where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct1 instance F.Storable Struct1
 
-instance Data.Primitive.Types.Prim Struct1 where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Struct1 (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct1 v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct1 struct1_a4 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 struct1_a4 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Struct1 (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct1 v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct1 struct1_a4 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 struct1_a4 s3
-
 instance HsBindgen.Runtime.HasCField.HasCField Struct1 "struct1_a" where
 
   type CFieldType Struct1 "struct1_a" = FC.CInt
@@ -252,54 +204,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct2 where
             HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct2_a") ptr0 struct2_a2
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct2 instance F.Storable Struct2
-
-instance Data.Primitive.Types.Prim Struct2 where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Struct2 (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct2 v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct2 struct2_a4 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 struct2_a4 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Struct2 (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct2 v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct2 struct2_a4 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 struct2_a4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct2 "struct2_a" where
 
@@ -354,54 +258,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct3 where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct3 instance F.Storable Struct3
 
-instance Data.Primitive.Types.Prim Struct3 where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Struct3 (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct3 v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct3 struct3_a4 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 struct3_a4 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Struct3 (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct3 v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct3 struct3_a4 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 struct3_a4 s3
-
 instance HsBindgen.Runtime.HasCField.HasCField Struct3 "struct3_a" where
 
   type CFieldType Struct3 "struct3_a" = FC.CInt
@@ -429,7 +285,6 @@ newtype Struct3_t = Struct3_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3_t) "unwrapStruct3_t")
@@ -484,54 +339,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct4 where
             HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct4_a") ptr0 struct4_a2
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct4 instance F.Storable Struct4
-
-instance Data.Primitive.Types.Prim Struct4 where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Struct4 (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct4 v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct4 struct4_a4 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 struct4_a4 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Struct4 (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct4 v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct4 struct4_a4 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 struct4_a4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct4 "struct4_a" where
 

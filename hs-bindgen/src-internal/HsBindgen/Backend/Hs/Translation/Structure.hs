@@ -19,7 +19,6 @@ import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
-import HsBindgen.Backend.Hs.Translation.Prim qualified as HsPrim
 import HsBindgen.Backend.Hs.Translation.State (HsM)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
@@ -157,7 +156,7 @@ getDecls :: forall n.
   -> (Hs.Struct n, [Hs.Decl])
 getDecls supInsts hCfg spec structName info struct fieldsVec insts =
     ( hsStruct
-    , marshalDecls ++ primDecl ++ optDecls ++ fieldDecls
+    , marshalDecls ++ optDecls ++ fieldDecls
     )
   where
     getHsField :: C.StructField Final -> Hs.Field
@@ -244,9 +243,6 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
                         }
                     }
             ]
-
-    primDecl :: [Hs.Decl]
-    primDecl = HsPrim.mkPrimInstance insts hsStruct struct
 
     optDecls :: [Hs.Decl]
     optDecls = catMaybes [

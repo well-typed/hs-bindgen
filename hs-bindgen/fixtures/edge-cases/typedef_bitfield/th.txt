@@ -153,39 +153,6 @@ instance WriteRaw MyStruct
                                                 myStruct_y_3
                                                 myStruct_z_4 -> poke (Proxy @"myStruct_x") ptr_0 myStruct_x_2 >> (poke (Proxy @"myStruct_y") ptr_0 myStruct_y_3 >> poke (Proxy @"myStruct_z") ptr_0 myStruct_z_4)
 deriving via (EquivStorable MyStruct) instance Storable MyStruct
-instance Prim MyStruct
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> MyStruct (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> (# s_9,
-                                                                                                MyStruct v_6 v_8 v_10 #)
-          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
-                                                                       MyStruct myStruct_x_15
-                                                                                myStruct_y_16
-                                                                                myStruct_z_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) myStruct_x_15 s_14 of
-                                                                                                 s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) myStruct_y_16 s_18 of
-                                                                                                         s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) myStruct_z_17 s_19
-          indexOffAddr# = \addr_20 -> \i_21 -> MyStruct (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
-          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
-                                                       (# s_25,
-                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
-                                                                     (# s_27,
-                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
-                                                                                   (# s_29,
-                                                                                      v_30 #) -> (# s_29,
-                                                                                                    MyStruct v_26 v_28 v_30 #)
-          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
-                                                                      MyStruct myStruct_x_35
-                                                                               myStruct_y_36
-                                                                               myStruct_z_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) myStruct_x_35 s_34 of
-                                                                                                s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) myStruct_y_36 s_38 of
-                                                                                                        s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) myStruct_z_37 s_39
 instance HasCBitfield MyStruct "myStruct_x"
     where type CBitfieldType MyStruct "myStruct_x" = MyInt
           bitfieldOffset# = \_ -> \_ -> 0

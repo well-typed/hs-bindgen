@@ -40,7 +40,6 @@ import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
@@ -95,68 +94,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Another_typedef_struct_t where
               >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"another_typedef_struct_t_bar") ptr0 another_typedef_struct_t_bar3
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Another_typedef_struct_t instance F.Storable Another_typedef_struct_t
-
-instance Data.Primitive.Types.Prim Another_typedef_struct_t where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Another_typedef_struct_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  (# s5, Another_typedef_struct_t v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Another_typedef_struct_t
-                another_typedef_struct_t_foo4
-                another_typedef_struct_t_bar5 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) another_typedef_struct_t_foo4 s3 of
-                    s6 ->
-                      Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) another_typedef_struct_t_bar5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Another_typedef_struct_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  (# s5, Another_typedef_struct_t v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Another_typedef_struct_t
-                another_typedef_struct_t_foo4
-                another_typedef_struct_t_bar5 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) another_typedef_struct_t_foo4 s3 of
-                    s6 ->
-                      Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) another_typedef_struct_t_bar5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Another_typedef_struct_t "another_typedef_struct_t_foo" where
 

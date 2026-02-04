@@ -1010,29 +1010,6 @@ instance WriteRaw Data_union_t_as_parts
                                        Data_union_t_as_parts data_union_t_as_parts_low_2
                                                              data_union_t_as_parts_high_3 -> writeRaw (Proxy @"data_union_t_as_parts_low") ptr_0 data_union_t_as_parts_low_2 >> writeRaw (Proxy @"data_union_t_as_parts_high") ptr_0 data_union_t_as_parts_high_3
 deriving via (EquivStorable Data_union_t_as_parts) instance Storable Data_union_t_as_parts
-instance Prim Data_union_t_as_parts
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 2# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Data_union_t_as_parts (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Data_union_t_as_parts v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Data_union_t_as_parts data_union_t_as_parts_low_13
-                                                                                            data_union_t_as_parts_high_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) data_union_t_as_parts_low_13 s_12 of
-                                                                                                                             s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) data_union_t_as_parts_high_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Data_union_t_as_parts (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Data_union_t_as_parts v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Data_union_t_as_parts data_union_t_as_parts_low_29
-                                                                                            data_union_t_as_parts_high_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) data_union_t_as_parts_low_29 s_28 of
-                                                                                                                             s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) data_union_t_as_parts_high_30 s_31
 instance HasCField Data_union_t_as_parts
                    "data_union_t_as_parts_low"
     where type CFieldType Data_union_t_as_parts
@@ -1360,47 +1337,6 @@ instance WriteRaw Bitfield_t
                                                   bitfield_t_counter_4
                                                   bitfield_t_reserved_5 -> poke (Proxy @"bitfield_t_flag1") ptr_0 bitfield_t_flag1_2 >> (poke (Proxy @"bitfield_t_flag2") ptr_0 bitfield_t_flag2_3 >> (poke (Proxy @"bitfield_t_counter") ptr_0 bitfield_t_counter_4 >> poke (Proxy @"bitfield_t_reserved") ptr_0 bitfield_t_reserved_5))
 deriving via (EquivStorable Bitfield_t) instance Storable Bitfield_t
-instance Prim Bitfield_t
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Bitfield_t (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (2# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (3# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7,
-                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (2# :: Int#)) s_7 of
-                                                                               (# s_9,
-                                                                                  v_10 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (3# :: Int#)) s_9 of
-                                                                                             (# s_11,
-                                                                                                v_12 #) -> (# s_11,
-                                                                                                              Bitfield_t v_6 v_8 v_10 v_12 #)
-          writeByteArray# = \arr_13 -> \i_14 -> \struct_15 -> \s_16 -> case struct_15 of
-                                                                       Bitfield_t bitfield_t_flag1_17
-                                                                                  bitfield_t_flag2_18
-                                                                                  bitfield_t_counter_19
-                                                                                  bitfield_t_reserved_20 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (0# :: Int#)) bitfield_t_flag1_17 s_16 of
-                                                                                                            s_21 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (1# :: Int#)) bitfield_t_flag2_18 s_21 of
-                                                                                                                    s_22 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (2# :: Int#)) bitfield_t_counter_19 s_22 of
-                                                                                                                            s_23 -> writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (3# :: Int#)) bitfield_t_reserved_20 s_23
-          indexOffAddr# = \addr_24 -> \i_25 -> Bitfield_t (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (0# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (1# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (2# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (3# :: Int#)))
-          readOffAddr# = \addr_26 -> \i_27 -> \s_28 -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (0# :: Int#)) s_28 of
-                                                       (# s_29,
-                                                          v_30 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (1# :: Int#)) s_29 of
-                                                                     (# s_31,
-                                                                        v_32 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (2# :: Int#)) s_31 of
-                                                                                   (# s_33,
-                                                                                      v_34 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (3# :: Int#)) s_33 of
-                                                                                                 (# s_35,
-                                                                                                    v_36 #) -> (# s_35,
-                                                                                                                  Bitfield_t v_30 v_32 v_34 v_36 #)
-          writeOffAddr# = \addr_37 -> \i_38 -> \struct_39 -> \s_40 -> case struct_39 of
-                                                                      Bitfield_t bitfield_t_flag1_41
-                                                                                 bitfield_t_flag2_42
-                                                                                 bitfield_t_counter_43
-                                                                                 bitfield_t_reserved_44 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (0# :: Int#)) bitfield_t_flag1_41 s_40 of
-                                                                                                           s_45 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (1# :: Int#)) bitfield_t_flag2_42 s_45 of
-                                                                                                                   s_46 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (2# :: Int#)) bitfield_t_counter_43 s_46 of
-                                                                                                                           s_47 -> writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (3# :: Int#)) bitfield_t_reserved_44 s_47
 instance HasCBitfield Bitfield_t "bitfield_t_flag1"
     where type CBitfieldType Bitfield_t "bitfield_t_flag1" = CUInt
           bitfieldOffset# = \_ -> \_ -> 0
@@ -1605,20 +1541,6 @@ instance WriteRaw Flexible_array_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Flexible_array flexible_array_count_2 -> writeRaw (Proxy @"flexible_array_count") ptr_0 flexible_array_count_2
 deriving via (EquivStorable Flexible_array_Aux) instance Storable Flexible_array_Aux
-instance Prim Flexible_array_Aux
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Flexible_array (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Flexible_array v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Flexible_array flexible_array_count_11 -> writeByteArray# arr_7 i_8 flexible_array_count_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Flexible_array (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17,
-                                                                              Flexible_array v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Flexible_array flexible_array_count_23 -> writeOffAddr# addr_19 i_20 flexible_array_count_23 s_22
 instance HasCField Flexible_array_Aux "flexible_array_count"
     where type CFieldType Flexible_array_Aux
                           "flexible_array_count" = HsBindgen.Runtime.LibC.CSize

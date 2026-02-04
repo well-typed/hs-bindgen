@@ -23,19 +23,6 @@ instance WriteRaw Pascal_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Pascal pascal_len_2 -> writeRaw (Proxy @"pascal_len") ptr_0 pascal_len_2
 deriving via (EquivStorable Pascal_Aux) instance Storable Pascal_Aux
-instance Prim Pascal_Aux
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Pascal (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Pascal v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Pascal pascal_len_11 -> writeByteArray# arr_7 i_8 pascal_len_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Pascal (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Pascal v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Pascal pascal_len_23 -> writeOffAddr# addr_19 i_20 pascal_len_23 s_22
 instance HasCField Pascal_Aux "pascal_len"
     where type CFieldType Pascal_Aux "pascal_len" = CInt
           offset# = \_ -> \_ -> 0
@@ -83,29 +70,6 @@ instance WriteRaw Foo_bar
                                        Foo_bar foo_bar_x_2
                                                foo_bar_y_3 -> writeRaw (Proxy @"foo_bar_x") ptr_0 foo_bar_x_2 >> writeRaw (Proxy @"foo_bar_y") ptr_0 foo_bar_y_3
 deriving via (EquivStorable Foo_bar) instance Storable Foo_bar
-instance Prim Foo_bar
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Foo_bar (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Foo_bar v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Foo_bar foo_bar_x_13
-                                                                              foo_bar_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) foo_bar_x_13 s_12 of
-                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) foo_bar_y_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Foo_bar (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Foo_bar v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Foo_bar foo_bar_x_29
-                                                                              foo_bar_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) foo_bar_x_29 s_28 of
-                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) foo_bar_y_30 s_31
 instance HasCField Foo_bar "foo_bar_x"
     where type CFieldType Foo_bar "foo_bar_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -142,19 +106,6 @@ instance WriteRaw Foo_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Foo foo_len_2 -> writeRaw (Proxy @"foo_len") ptr_0 foo_len_2
 deriving via (EquivStorable Foo_Aux) instance Storable Foo_Aux
-instance Prim Foo_Aux
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Foo (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Foo v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Foo foo_len_11 -> writeByteArray# arr_7 i_8 foo_len_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Foo (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Foo v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Foo foo_len_23 -> writeOffAddr# addr_19 i_20 foo_len_23 s_22
 instance HasCField Foo_Aux "foo_len"
     where type CFieldType Foo_Aux "foo_len" = CInt
           offset# = \_ -> \_ -> 0
@@ -196,29 +147,6 @@ instance WriteRaw Diff_Aux
                                        Diff diff_first_2
                                             diff_second_3 -> writeRaw (Proxy @"diff_first") ptr_0 diff_first_2 >> writeRaw (Proxy @"diff_second") ptr_0 diff_second_3
 deriving via (EquivStorable Diff_Aux) instance Storable Diff_Aux
-instance Prim Diff_Aux
-    where sizeOf# = \_ -> 16# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Diff (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       Diff v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      Diff diff_first_13
-                                                                           diff_second_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) diff_first_13 s_12 of
-                                                                                             s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) diff_second_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> Diff (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            Diff v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      Diff diff_first_29
-                                                                           diff_second_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) diff_first_29 s_28 of
-                                                                                             s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) diff_second_30 s_31
 instance HasCField Diff_Aux "diff_first"
     where type CFieldType Diff_Aux "diff_first" = CLong
           offset# = \_ -> \_ -> 0
@@ -260,19 +188,6 @@ instance WriteRaw Triplets_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Triplets triplets_len_2 -> writeRaw (Proxy @"triplets_len") ptr_0 triplets_len_2
 deriving via (EquivStorable Triplets_Aux) instance Storable Triplets_Aux
-instance Prim Triplets_Aux
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Triplets (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Triplets v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Triplets triplets_len_11 -> writeByteArray# arr_7 i_8 triplets_len_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Triplets (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Triplets v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Triplets triplets_len_23 -> writeOffAddr# addr_19 i_20 triplets_len_23 s_22
 instance HasCField Triplets_Aux "triplets_len"
     where type CFieldType Triplets_Aux "triplets_len" = CInt
           offset# = \_ -> \_ -> 0

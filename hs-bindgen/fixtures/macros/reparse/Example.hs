@@ -115,38 +115,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Some_struct where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_struct instance F.Storable Some_struct
 
-instance Data.Primitive.Types.Prim Some_struct where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Some_struct
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Some_struct #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Some_struct -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Some_struct
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Some_struct #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Some_struct -> s3
-
 {-| __C declaration:__ @union some_union@
 
     __defined at:__ @macros\/reparse.h 8:7@

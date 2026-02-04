@@ -212,29 +212,6 @@ instance WriteRaw FileOperationRecord
                                        FileOperationRecord fileOperationRecord_status_2
                                                            fileOperationRecord_bytes_processed_3 -> writeRaw (Proxy @"fileOperationRecord_status") ptr_0 fileOperationRecord_status_2 >> writeRaw (Proxy @"fileOperationRecord_bytes_processed") ptr_0 fileOperationRecord_bytes_processed_3
 deriving via (EquivStorable FileOperationRecord) instance Storable FileOperationRecord
-instance Prim FileOperationRecord
-    where sizeOf# = \_ -> 16# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> FileOperationRecord (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
-                                                     (# s_5,
-                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
-                                                                  (# s_7, v_8 #) -> (# s_7,
-                                                                                       FileOperationRecord v_6 v_8 #)
-          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      FileOperationRecord fileOperationRecord_status_13
-                                                                                          fileOperationRecord_bytes_processed_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) fileOperationRecord_status_13 s_12 of
-                                                                                                                                    s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) fileOperationRecord_bytes_processed_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> FileOperationRecord (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
-          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
-                                                       (# s_21,
-                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
-                                                                     (# s_23, v_24 #) -> (# s_23,
-                                                                                            FileOperationRecord v_22 v_24 #)
-          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      FileOperationRecord fileOperationRecord_status_29
-                                                                                          fileOperationRecord_bytes_processed_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) fileOperationRecord_status_29 s_28 of
-                                                                                                                                    s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) fileOperationRecord_bytes_processed_30 s_31
 instance HasCField FileOperationRecord "fileOperationRecord_status"
     where type CFieldType FileOperationRecord
                           "fileOperationRecord_status" = FileOperationStatus

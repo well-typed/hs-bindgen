@@ -9,12 +9,10 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
-import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -23,7 +21,6 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -76,62 +73,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Config where
             >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_y") ptr0 config_y3
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Config instance F.Storable Config
-
-instance Data.Primitive.Types.Prim Config where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Config (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Config v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Config config_x4 config_y5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) config_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) config_y5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Config (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Config v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Config config_x4 config_y5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) config_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) config_y5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Config "config_x" where
 
@@ -206,62 +147,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Inline_struct where
             >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"inline_struct_y") ptr0 inline_struct_y3
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Inline_struct instance F.Storable Inline_struct
-
-instance Data.Primitive.Types.Prim Inline_struct where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Inline_struct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Inline_struct v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Inline_struct inline_struct_x4 inline_struct_y5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) inline_struct_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) inline_struct_y5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Inline_struct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Inline_struct v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Inline_struct inline_struct_x4 inline_struct_y5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) inline_struct_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) inline_struct_y5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Inline_struct "inline_struct_x" where
 
@@ -347,70 +232,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Version_t where
             >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"version_t_patch") ptr0 version_t_patch4
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Version_t instance F.Storable Version_t
-
-instance Data.Primitive.Types.Prim Version_t where
-
-  sizeOf# = \_ -> (6#)
-
-  alignment# = \_ -> (2#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Version_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Version_t v4 v6 v8 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Version_t version_t_major4 version_t_minor5 version_t_patch6 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) version_t_major4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) version_t_minor5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) version_t_patch6 s8
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Version_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Version_t v4 v6 v8 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Version_t version_t_major4 version_t_minor5 version_t_patch6 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) version_t_major4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) version_t_minor5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) version_t_patch6 s8
 
 instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_major" where
 
@@ -510,70 +331,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct1_t where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct1_t instance F.Storable Struct1_t
 
-instance Data.Primitive.Types.Prim Struct1_t where
-
-  sizeOf# = \_ -> (10#)
-
-  alignment# = \_ -> (2#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Struct1_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Struct1_t v4 v6 v8 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct1_t struct1_t_x4 struct1_t_y5 struct1_t_version6 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) struct1_t_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) struct1_t_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) struct1_t_version6 s8
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Struct1_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Struct1_t v4 v6 v8 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct1_t struct1_t_x4 struct1_t_y5 struct1_t_version6 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) struct1_t_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) struct1_t_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) struct1_t_version6 s8
-
 instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_x" where
 
   type CFieldType Struct1_t "struct1_t_x" =
@@ -652,54 +409,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct2_t where
             HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct2_t_field1") ptr0 struct2_t_field12
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct2_t instance F.Storable Struct2_t
-
-instance Data.Primitive.Types.Prim Struct2_t where
-
-  sizeOf# = \_ -> (10#)
-
-  alignment# = \_ -> (2#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Struct2_t (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct2_t v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct2_t struct2_t_field14 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 struct2_t_field14 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Struct2_t (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, Struct2_t v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct2_t struct2_t_field14 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 struct2_t_field14 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct2_t "struct2_t_field1" where
 

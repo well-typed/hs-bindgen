@@ -164,7 +164,6 @@ hstypes:
   - Eq
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -231,7 +230,6 @@ hstypes:
   instances:
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - StaticSize
   - Storable

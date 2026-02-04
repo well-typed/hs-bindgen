@@ -36,7 +36,6 @@ hstypes:
   - Eq
   - HasCBitField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -53,7 +52,6 @@ hstypes:
   - Eq
   - HasCBitField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -75,7 +73,6 @@ hstypes:
   - HasCBitField
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -93,7 +90,6 @@ hstypes:
   - Eq
   - HasCBitField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -111,7 +107,6 @@ hstypes:
   - Eq
   - HasCBitField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -129,7 +124,6 @@ hstypes:
   - Eq
   - HasCBitField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -146,7 +140,6 @@ hstypes:
   - Eq
   - HasCBitField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize

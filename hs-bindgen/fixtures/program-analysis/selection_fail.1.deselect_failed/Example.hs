@@ -9,12 +9,10 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
-import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -65,54 +63,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw OkBefore where
             HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"okBefore_x") ptr0 okBefore_x2
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable OkBefore instance F.Storable OkBefore
-
-instance Data.Primitive.Types.Prim OkBefore where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        OkBefore (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, OkBefore v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              OkBefore okBefore_x4 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 okBefore_x4 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        OkBefore (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, OkBefore v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              OkBefore okBefore_x4 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 okBefore_x4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField OkBefore "okBefore_x" where
 
@@ -166,54 +116,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw OkAfter where
             HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"okAfter_x") ptr0 okAfter_x2
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable OkAfter instance F.Storable OkAfter
-
-instance Data.Primitive.Types.Prim OkAfter where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        OkAfter (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, OkAfter v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              OkAfter okAfter_x4 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 okAfter_x4 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        OkAfter (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, OkAfter v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              OkAfter okAfter_x4 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 okAfter_x4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField OkAfter "okAfter_x" where
 

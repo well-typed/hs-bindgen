@@ -173,7 +173,6 @@ instance Default SupportedInstances where
           , mkDef HasField     Independent HsBindgen []
           , mkDef Flam_Offset  Independent HsBindgen []
           , mkOpt Ord          Dependent             [Stock]
-          , mkDef Prim         Dependent   HsBindgen []
           , mkDef ReadRaw      Dependent   HsBindgen []
           , mkDef Show         Dependent   Stock     []
           , mkDef StaticSize   Dependent   HsBindgen []

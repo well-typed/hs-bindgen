@@ -55,7 +55,6 @@ hstypes:
   - Eq
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -72,7 +71,6 @@ hstypes:
   - Eq
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -89,7 +87,6 @@ hstypes:
   - Eq
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize

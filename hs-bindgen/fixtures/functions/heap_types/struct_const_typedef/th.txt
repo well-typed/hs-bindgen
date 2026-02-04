@@ -52,19 +52,6 @@ instance WriteRaw S
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        S s_x_2 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2
 deriving via (EquivStorable S) instance Storable S
-instance Prim S
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> S (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, S v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    S s_x_11 -> writeByteArray# arr_7 i_8 s_x_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> S (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, S v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      S s_x_23 -> writeOffAddr# addr_19 i_20 s_x_23 s_22
 instance HasCField S "s_x"
     where type CFieldType S "s_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -86,7 +73,7 @@ newtype T
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType T "unwrapT") =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")

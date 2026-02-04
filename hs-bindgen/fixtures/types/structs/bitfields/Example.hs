@@ -9,12 +9,10 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
-import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -24,7 +22,6 @@ import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -119,108 +116,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Flags where
               >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_bits") ptr0 flags_bits7
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Flags instance F.Storable Flags
-
-instance Data.Primitive.Types.Prim Flags where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Flags (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (6#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (6#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (6#) i1) (2#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (6#) i1) (3#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (6#) i1) (4#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (6#) i1) (5#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (6#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (6#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (6#) i1) (2#)) s5 of
-                    (# s7, v8 #) ->
-                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (6#) i1) (3#)) s7 of
-                        (# s9, v10 #) ->
-                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (6#) i1) (4#)) s9 of
-                            (# s11, v12 #) ->
-                              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (6#) i1) (5#)) s11 of
-                                (# s13, v14 #) ->
-                                  (# s13, Flags v4 v6 v8 v10 v12 v14 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Flags
-                flags_fieldX4
-                flags_flagA5
-                flags_flagB6
-                flags_flagC7
-                flags_fieldY8
-                flags_bits9 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (6#) i1) (0#)) flags_fieldX4 s3 of
-                    s10 ->
-                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (6#) i1) (1#)) flags_flagA5 s10 of
-                        s11 ->
-                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (6#) i1) (2#)) flags_flagB6 s11 of
-                            s12 ->
-                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (6#) i1) (3#)) flags_flagC7 s12 of
-                                s13 ->
-                                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (6#) i1) (4#)) flags_fieldY8 s13 of
-                                    s14 ->
-                                      Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (6#) i1) (5#)) flags_bits9 s14
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Flags (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (6#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (6#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (6#) i1) (2#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (6#) i1) (3#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (6#) i1) (4#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (6#) i1) (5#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (6#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (6#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (6#) i1) (2#)) s5 of
-                    (# s7, v8 #) ->
-                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (6#) i1) (3#)) s7 of
-                        (# s9, v10 #) ->
-                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (6#) i1) (4#)) s9 of
-                            (# s11, v12 #) ->
-                              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (6#) i1) (5#)) s11 of
-                                (# s13, v14 #) ->
-                                  (# s13, Flags v4 v6 v8 v10 v12 v14 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Flags
-                flags_fieldX4
-                flags_flagA5
-                flags_flagB6
-                flags_flagC7
-                flags_fieldY8
-                flags_bits9 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (6#) i1) (0#)) flags_fieldX4 s3 of
-                    s10 ->
-                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (6#) i1) (1#)) flags_flagA5 s10 of
-                        s11 ->
-                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (6#) i1) (2#)) flags_flagB6 s11 of
-                            s12 ->
-                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (6#) i1) (3#)) flags_flagC7 s12 of
-                                s13 ->
-                                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (6#) i1) (4#)) flags_fieldY8 s13 of
-                                    s14 ->
-                                      Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (6#) i1) (5#)) flags_bits9 s14
 
 instance HsBindgen.Runtime.HasCField.HasCField Flags "flags_fieldX" where
 
@@ -361,70 +256,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32 where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32 instance F.Storable Overflow32
 
-instance Data.Primitive.Types.Prim Overflow32 where
-
-  sizeOf# = \_ -> (12#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Overflow32 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Overflow32 v4 v6 v8 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow32 overflow32_x4 overflow32_y5 overflow32_z6 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) overflow32_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) overflow32_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) overflow32_z6 s8
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Overflow32 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Overflow32 v4 v6 v8 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow32 overflow32_x4 overflow32_y5 overflow32_z6 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) overflow32_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) overflow32_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) overflow32_z6 s8
-
 instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32 "overflow32_x" where
 
   type CBitfieldType Overflow32 "overflow32_x" =
@@ -528,70 +359,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32b where
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32b_z") ptr0 overflow32b_z4
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32b instance F.Storable Overflow32b
-
-instance Data.Primitive.Types.Prim Overflow32b where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (8#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Overflow32b (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Overflow32b v4 v6 v8 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow32b overflow32b_x4 overflow32b_y5 overflow32b_z6 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) overflow32b_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) overflow32b_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) overflow32b_z6 s8
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Overflow32b (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Overflow32b v4 v6 v8 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow32b overflow32b_x4 overflow32b_y5 overflow32b_z6 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) overflow32b_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) overflow32b_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) overflow32b_z6 s8
 
 instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32b "overflow32b_x" where
 
@@ -697,70 +464,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32c where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32c instance F.Storable Overflow32c
 
-instance Data.Primitive.Types.Prim Overflow32c where
-
-  sizeOf# = \_ -> (16#)
-
-  alignment# = \_ -> (8#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Overflow32c (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Overflow32c v4 v6 v8 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow32c overflow32c_x4 overflow32c_y5 overflow32c_z6 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) overflow32c_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) overflow32c_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) overflow32c_z6 s8
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Overflow32c (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
-                    (# s7, v8 #) -> (# s7, Overflow32c v4 v6 v8 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow32c overflow32c_x4 overflow32c_y5 overflow32c_z6 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) overflow32c_x4 s3 of
-                  s7 ->
-                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) overflow32c_y5 s7 of
-                      s8 ->
-                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) overflow32c_z6 s8
-
 instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32c "overflow32c_x" where
 
   type CBitfieldType Overflow32c "overflow32c_x" =
@@ -856,62 +559,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Overflow64 where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow64 instance F.Storable Overflow64
 
-instance Data.Primitive.Types.Prim Overflow64 where
-
-  sizeOf# = \_ -> (16#)
-
-  alignment# = \_ -> (8#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        Overflow64 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Overflow64 v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow64 overflow64_x4 overflow64_y5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) overflow64_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) overflow64_y5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        Overflow64 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, Overflow64 v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Overflow64 overflow64_x4 overflow64_y5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) overflow64_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) overflow64_y5 s6
-
 instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow64 "overflow64_x" where
 
   type CBitfieldType Overflow64 "overflow64_x" =
@@ -992,62 +639,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw AlignA where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable AlignA instance F.Storable AlignA
 
-instance Data.Primitive.Types.Prim AlignA where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        AlignA (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AlignA v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AlignA alignA_x4 alignA_y5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) alignA_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) alignA_y5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        AlignA (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AlignA v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AlignA alignA_x4 alignA_y5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) alignA_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) alignA_y5 s6
-
 instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignA "alignA_x" where
 
   type CBitfieldType AlignA "alignA_x" = FC.CUChar
@@ -1125,62 +716,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw AlignB where
             >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignB_y") ptr0 alignB_y3
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable AlignB instance F.Storable AlignB
-
-instance Data.Primitive.Types.Prim AlignB where
-
-  sizeOf# = \_ -> (8#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        AlignB (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AlignB v4 v6 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AlignB alignB_x4 alignB_y5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) alignB_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) alignB_y5 s6
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        AlignB (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, AlignB v4 v6 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              AlignB alignB_x4 alignB_y5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) alignB_x4 s3 of
-                  s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) alignB_y5 s6
 
 instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignB "alignB_x" where
 

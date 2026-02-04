@@ -84,19 +84,6 @@ instance WriteRaw Vector_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Vector vector_length_2 -> writeRaw (Proxy @"vector_length") ptr_0 vector_length_2
 deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
-instance Prim Vector_Aux
-    where sizeOf# = \_ -> 8# :: Int#
-          alignment# = \_ -> 8# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Vector (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Vector v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Vector vector_length_11 -> writeByteArray# arr_7 i_8 vector_length_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Vector (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Vector v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Vector vector_length_23 -> writeOffAddr# addr_19 i_20 vector_length_23 s_22
 instance HasCField Vector_Aux "vector_length"
     where type CFieldType Vector_Aux "vector_length" = CInt
           offset# = \_ -> \_ -> 0

@@ -109,19 +109,6 @@ instance WriteRaw ExA
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        ExA exA_fieldA1_2 -> writeRaw (Proxy @"exA_fieldA1") ptr_0 exA_fieldA1_2
 deriving via (EquivStorable ExA) instance Storable ExA
-instance Prim ExA
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> ExA (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, ExA v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    ExA exA_fieldA1_11 -> writeByteArray# arr_7 i_8 exA_fieldA1_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> ExA (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, ExA v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      ExA exA_fieldA1_23 -> writeOffAddr# addr_19 i_20 exA_fieldA1_23 s_22
 instance HasCField ExA "exA_fieldA1"
     where type CFieldType ExA "exA_fieldA1" = EnumA
           offset# = \_ -> \_ -> 0
@@ -238,19 +225,6 @@ instance WriteRaw ExB
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        ExB exB_fieldB1_2 -> writeRaw (Proxy @"exB_fieldB1") ptr_0 exB_fieldB1_2
 deriving via (EquivStorable ExB) instance Storable ExB
-instance Prim ExB
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> ExB (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, ExB v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    ExB exB_fieldB1_11 -> writeByteArray# arr_7 i_8 exB_fieldB1_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> ExB (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, ExB v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      ExB exB_fieldB1_23 -> writeOffAddr# addr_19 i_20 exB_fieldB1_23 s_22
 instance HasCField ExB "exB_fieldB1"
     where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
           offset# = \_ -> \_ -> 0

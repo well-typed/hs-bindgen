@@ -25,7 +25,6 @@ hstypes:
   instances:
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - StaticSize
   - Storable
@@ -39,7 +38,6 @@ hstypes:
   instances:
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - StaticSize
   - Storable

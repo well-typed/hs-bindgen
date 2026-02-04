@@ -84,7 +84,6 @@ hstypes:
   - Eq
   - HasCBitField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize

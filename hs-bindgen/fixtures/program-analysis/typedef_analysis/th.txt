@@ -27,17 +27,6 @@ instance WriteRaw Struct1_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct1_t -> return ()
 deriving via (EquivStorable Struct1_t) instance Storable Struct1_t
-instance Prim Struct1_t
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct1_t
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct1_t #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct1_t -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct1_t
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct1_t #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct1_t -> s_17
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 11:16@
@@ -62,17 +51,6 @@ instance WriteRaw Struct2_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct2_t -> return ()
 deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
-instance Prim Struct2_t
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct2_t
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct2_t #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct2_t -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct2_t
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct2_t #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct2_t -> s_17
 {-| __C declaration:__ @struct struct3@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 14:8@
@@ -111,17 +89,6 @@ instance WriteRaw Struct5
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct5 -> return ()
 deriving via (EquivStorable Struct5) instance Storable Struct5
-instance Prim Struct5
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct5
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct5 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct5 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct5
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct5 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct5 -> s_17
 {-| __C declaration:__ @struct5_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 22:25@
@@ -172,18 +139,6 @@ instance WriteRaw Struct6_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct6_Aux -> return ()
 deriving via (EquivStorable Struct6_Aux) instance Storable Struct6_Aux
-instance Prim Struct6_Aux
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct6_Aux
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct6_Aux #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct6_Aux -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct6_Aux
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13,
-                                                          Struct6_Aux #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct6_Aux -> s_17
 {-| __C declaration:__ @struct6@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 25:28@
@@ -234,17 +189,6 @@ instance WriteRaw Struct7
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct7 -> return ()
 deriving via (EquivStorable Struct7) instance Storable Struct7
-instance Prim Struct7
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct7
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct7 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct7 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct7
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct7 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct7 -> s_17
 {-| __C declaration:__ @struct7a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 29:24@
@@ -260,7 +204,7 @@ newtype Struct7a
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct7a "unwrapStruct7a") =>
          HasField "unwrapStruct7a" (Ptr Struct7a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7a")
@@ -282,7 +226,7 @@ newtype Struct7b
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct7b "unwrapStruct7b") =>
          HasField "unwrapStruct7b" (Ptr Struct7b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7b")
@@ -313,17 +257,6 @@ instance WriteRaw Struct8
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct8 -> return ()
 deriving via (EquivStorable Struct8) instance Storable Struct8
-instance Prim Struct8
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct8
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct8 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct8 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct8
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct8 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct8 -> s_17
 {-| __C declaration:__ @struct8b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 35:24@
@@ -339,7 +272,7 @@ newtype Struct8b
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct8b "unwrapStruct8b") =>
          HasField "unwrapStruct8b" (Ptr Struct8b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct8b")
@@ -370,17 +303,6 @@ instance WriteRaw Struct9
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct9 -> return ()
 deriving via (EquivStorable Struct9) instance Storable Struct9
-instance Prim Struct9
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct9
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct9 #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct9 -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct9
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct9 #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct9 -> s_17
 {-| __C declaration:__ @struct9_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 40:17@
@@ -396,7 +318,7 @@ newtype Struct9_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct9_t "unwrapStruct9_t") =>
          HasField "unwrapStruct9_t" (Ptr Struct9_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct9_t")
@@ -427,17 +349,6 @@ instance WriteRaw Struct10_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct10_t -> return ()
 deriving via (EquivStorable Struct10_t) instance Storable Struct10_t
-instance Prim Struct10_t
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct10_t
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct10_t #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct10_t -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct10_t
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct10_t #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct10_t -> s_17
 {-| __C declaration:__ @struct10_t_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 48:20@
@@ -453,7 +364,7 @@ newtype Struct10_t_t
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct10_t_t "unwrapStruct10_t_t") =>
          HasField "unwrapStruct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct10_t_t")

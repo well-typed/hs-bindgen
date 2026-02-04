@@ -11,12 +11,10 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
-import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -60,38 +58,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct1_t where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct1_t instance F.Storable Struct1_t
 
-instance Data.Primitive.Types.Prim Struct1_t where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct1_t
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct1_t #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct1_t -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct1_t
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct1_t #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct1_t -> s3
-
 {-| __C declaration:__ @struct struct2@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 11:16@
@@ -121,38 +87,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct2_t where
           Struct2_t -> return ()
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct2_t instance F.Storable Struct2_t
-
-instance Data.Primitive.Types.Prim Struct2_t where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct2_t
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct2_t #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct2_t -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct2_t
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct2_t #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct2_t -> s3
 
 {-| __C declaration:__ @struct struct3@
 
@@ -199,38 +133,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct5 where
           Struct5 -> return ()
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct5 instance F.Storable Struct5
-
-instance Data.Primitive.Types.Prim Struct5 where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct5
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct5 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct5 -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct5
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct5 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct5 -> s3
 
 {-| __C declaration:__ @struct5_t@
 
@@ -293,38 +195,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct6_Aux where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct6_Aux instance F.Storable Struct6_Aux
 
-instance Data.Primitive.Types.Prim Struct6_Aux where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct6_Aux
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct6_Aux #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct6_Aux -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct6_Aux
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct6_Aux #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct6_Aux -> s3
-
 {-| __C declaration:__ @struct6@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 25:28@
@@ -386,38 +256,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct7 where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct7 instance F.Storable Struct7
 
-instance Data.Primitive.Types.Prim Struct7 where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct7
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct7 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct7 -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct7
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct7 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct7 -> s3
-
 {-| __C declaration:__ @struct7a@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 29:24@
@@ -433,7 +271,6 @@ newtype Struct7a = Struct7a
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7a) "unwrapStruct7a")
@@ -463,7 +300,6 @@ newtype Struct7b = Struct7b
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7b) "unwrapStruct7b")
@@ -508,38 +344,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct8 where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct8 instance F.Storable Struct8
 
-instance Data.Primitive.Types.Prim Struct8 where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct8
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct8 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct8 -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct8
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct8 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct8 -> s3
-
 {-| __C declaration:__ @struct8b@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 35:24@
@@ -555,7 +359,6 @@ newtype Struct8b = Struct8b
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct8b) "unwrapStruct8b")
@@ -600,38 +403,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct9 where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct9 instance F.Storable Struct9
 
-instance Data.Primitive.Types.Prim Struct9 where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct9
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct9 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct9 -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct9
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct9 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct9 -> s3
-
 {-| __C declaration:__ @struct9_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 40:17@
@@ -647,7 +418,6 @@ newtype Struct9_t = Struct9_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct9_t) "unwrapStruct9_t")
@@ -692,38 +462,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Struct10_t where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct10_t instance F.Storable Struct10_t
 
-instance Data.Primitive.Types.Prim Struct10_t where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> Struct10_t
-
-  readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct10_t #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct10_t -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> Struct10_t
-
-  readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct10_t #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              Struct10_t -> s3
-
 {-| __C declaration:__ @struct10_t_t@
 
     __defined at:__ @program-analysis\/typedef_analysis.h 48:20@
@@ -739,7 +477,6 @@ newtype Struct10_t_t = Struct10_t_t
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct10_t_t) "unwrapStruct10_t_t")

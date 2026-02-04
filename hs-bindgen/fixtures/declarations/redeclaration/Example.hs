@@ -115,54 +115,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw X where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable X instance F.Storable X
 
-instance Data.Primitive.Types.Prim X where
-
-  sizeOf# = \_ -> (4#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        X (Data.Primitive.Types.indexByteArray# arr0 i1)
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, X v4 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              X x_n4 ->
-                Data.Primitive.Types.writeByteArray# arr0 i1 x_n4 s3
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        X (Data.Primitive.Types.indexOffAddr# addr0 i1)
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
-            (# s3, v4 #) -> (# s3, X v4 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              X x_n4 ->
-                Data.Primitive.Types.writeOffAddr# addr0 i1 x_n4 s3
-
 instance HsBindgen.Runtime.HasCField.HasCField X "x_n" where
 
   type CFieldType X "x_n" = FC.CInt

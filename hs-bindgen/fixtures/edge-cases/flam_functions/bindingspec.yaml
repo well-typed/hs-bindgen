@@ -23,7 +23,6 @@ hstypes:
   - Flam_Offset
   - HasCField
   - HasField
-  - Prim
   - ReadRaw
   - Show
   - StaticSize

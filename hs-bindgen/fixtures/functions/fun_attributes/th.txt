@@ -461,17 +461,6 @@ instance WriteRaw FILE
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        FILE -> return ()
 deriving via (EquivStorable FILE) instance Storable FILE
-instance Prim FILE
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> FILE
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, FILE #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   FILE -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> FILE
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, FILE #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      FILE -> s_17
 {-| __C declaration:__ @size_t@
 
     __defined at:__ @functions\/fun_attributes.h 8:13@

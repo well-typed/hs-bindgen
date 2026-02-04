@@ -107,36 +107,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw S where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable S instance F.Storable S
 
-instance Data.Primitive.Types.Prim S where
-
-  sizeOf# = \_ -> (0#)
-
-  alignment# = \_ -> (1#)
-
-  indexByteArray# = \arr0 -> \i1 -> S
-
-  readByteArray# = \arr0 -> \i1 -> \s2 -> (# s2, S #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              S -> s3
-
-  indexOffAddr# = \addr0 -> \i1 -> S
-
-  readOffAddr# = \addr0 -> \i1 -> \s2 -> (# s2, S #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              S -> s3
-
 {-| __C declaration:__ @union U@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
@@ -311,7 +281,6 @@ newtype TS = TS
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TS) "unwrapTS")
@@ -441,7 +410,6 @@ newtype TTS = TTS
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
-    , Data.Primitive.Types.Prim
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTS) "unwrapTTS")

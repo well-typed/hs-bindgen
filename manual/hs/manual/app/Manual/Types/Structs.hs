@@ -57,6 +57,7 @@ examples = do
         putStrLn $ "The length of the surname is: " <> show (FLAM.numElems surname.aux)
         print $ VS.map castCCharToChar $ FLAM.flam surname
 
+{- TODO Delete or restore this test: https://github.com/well-typed/hs-bindgen/issues/1637
     subsection "PrimArray of structs"
     -- Create a PrimArray of Triple structs
     let triples = PA.primArrayFromList
@@ -68,3 +69,4 @@ examples = do
     putStrLn $ "First element: " <> show (PA.indexPrimArray triples 0)
     putStrLn $ "Second element: " <> show (PA.indexPrimArray triples 1)
     putStrLn $ "Third element: " <> show (PA.indexPrimArray triples 2)
+-}

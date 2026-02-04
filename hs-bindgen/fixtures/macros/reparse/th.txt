@@ -2533,18 +2533,6 @@ instance WriteRaw Some_struct
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Some_struct -> return ()
 deriving via (EquivStorable Some_struct) instance Storable Some_struct
-instance Prim Some_struct
-    where sizeOf# = \_ -> 0# :: Int#
-          alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Some_struct
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Some_struct #)
-          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Some_struct -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Some_struct
-          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13,
-                                                          Some_struct #)
-          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Some_struct -> s_17
 {-| __C declaration:__ @union some_union@
 
     __defined at:__ @macros\/reparse.h 8:7@

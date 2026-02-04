@@ -77,7 +77,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -90,7 +89,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -103,7 +101,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -116,7 +113,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -129,7 +125,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -142,7 +137,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -155,7 +149,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -168,7 +161,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -181,7 +173,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -194,7 +185,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -207,7 +197,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -220,7 +209,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -233,7 +221,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -246,7 +233,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -259,7 +245,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -272,7 +257,6 @@ hstypes:
       fields: []
   instances:
   - Eq
-  - Prim
   - ReadRaw
   - Show
   - StaticSize

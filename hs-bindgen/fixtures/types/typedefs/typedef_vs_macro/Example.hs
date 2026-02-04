@@ -28,7 +28,6 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -293,86 +292,6 @@ instance HsBindgen.Runtime.Marshal.WriteRaw ExampleStruct where
               >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exampleStruct_m2") ptr0 exampleStruct_m25
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable ExampleStruct instance F.Storable ExampleStruct
-
-instance Data.Primitive.Types.Prim ExampleStruct where
-
-  sizeOf# = \_ -> (16#)
-
-  alignment# = \_ -> (4#)
-
-  indexByteArray# =
-    \arr0 ->
-      \i1 ->
-        ExampleStruct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (2#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)))
-
-  readByteArray# =
-    \arr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (2#)) s5 of
-                    (# s7, v8 #) ->
-                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)) s7 of
-                        (# s9, v10 #) -> (# s9, ExampleStruct v4 v6 v8 v10 #)
-
-  writeByteArray# =
-    \arr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              ExampleStruct
-                exampleStruct_t14
-                exampleStruct_t25
-                exampleStruct_m16
-                exampleStruct_m27 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (0#)) exampleStruct_t14 s3 of
-                    s8 ->
-                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (1#)) exampleStruct_t25 s8 of
-                        s9 ->
-                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (2#)) exampleStruct_m16 s9 of
-                            s10 ->
-                              Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)) exampleStruct_m27 s10
-
-  indexOffAddr# =
-    \addr0 ->
-      \i1 ->
-        ExampleStruct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)))
-
-  readOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#)) s2 of
-            (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#)) s3 of
-                (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#)) s5 of
-                    (# s7, v8 #) ->
-                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)) s7 of
-                        (# s9, v10 #) -> (# s9, ExampleStruct v4 v6 v8 v10 #)
-
-  writeOffAddr# =
-    \addr0 ->
-      \i1 ->
-        \struct2 ->
-          \s3 ->
-            case struct2 of
-              ExampleStruct
-                exampleStruct_t14
-                exampleStruct_t25
-                exampleStruct_m16
-                exampleStruct_m27 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#)) exampleStruct_t14 s3 of
-                    s8 ->
-                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#)) exampleStruct_t25 s8 of
-                        s9 ->
-                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#)) exampleStruct_m16 s9 of
-                            s10 ->
-                              Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)) exampleStruct_m27 s10
 
 instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_t1" where
 

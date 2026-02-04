@@ -332,19 +332,6 @@ instance WriteRaw Struct1
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct1 struct1_a_2 -> writeRaw (Proxy @"struct1_a") ptr_0 struct1_a_2
 deriving via (EquivStorable Struct1) instance Storable Struct1
-instance Prim Struct1
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct1 (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Struct1 v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Struct1 struct1_a_11 -> writeByteArray# arr_7 i_8 struct1_a_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Struct1 (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Struct1 v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Struct1 struct1_a_23 -> writeOffAddr# addr_19 i_20 struct1_a_23 s_22
 instance HasCField Struct1 "struct1_a"
     where type CFieldType Struct1 "struct1_a" = CInt
           offset# = \_ -> \_ -> 0
@@ -381,19 +368,6 @@ instance WriteRaw Struct2
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct2 struct2_a_2 -> writeRaw (Proxy @"struct2_a") ptr_0 struct2_a_2
 deriving via (EquivStorable Struct2) instance Storable Struct2
-instance Prim Struct2
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct2 (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Struct2 v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Struct2 struct2_a_11 -> writeByteArray# arr_7 i_8 struct2_a_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Struct2 (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Struct2 v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Struct2 struct2_a_23 -> writeOffAddr# addr_19 i_20 struct2_a_23 s_22
 instance HasCField Struct2 "struct2_a"
     where type CFieldType Struct2 "struct2_a" = CInt
           offset# = \_ -> \_ -> 0
@@ -430,19 +404,6 @@ instance WriteRaw Struct3
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct3 struct3_a_2 -> writeRaw (Proxy @"struct3_a") ptr_0 struct3_a_2
 deriving via (EquivStorable Struct3) instance Storable Struct3
-instance Prim Struct3
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct3 (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Struct3 v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Struct3 struct3_a_11 -> writeByteArray# arr_7 i_8 struct3_a_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Struct3 (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Struct3 v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Struct3 struct3_a_23 -> writeOffAddr# addr_19 i_20 struct3_a_23 s_22
 instance HasCField Struct3 "struct3_a"
     where type CFieldType Struct3 "struct3_a" = CInt
           offset# = \_ -> \_ -> 0
@@ -464,7 +425,7 @@ newtype Struct3_t
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable, Prim)
+    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct3_t "unwrapStruct3_t") =>
          HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct3_t")
@@ -501,19 +462,6 @@ instance WriteRaw Struct4
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct4 struct4_a_2 -> writeRaw (Proxy @"struct4_a") ptr_0 struct4_a_2
 deriving via (EquivStorable Struct4) instance Storable Struct4
-instance Prim Struct4
-    where sizeOf# = \_ -> 4# :: Int#
-          alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct4 (indexByteArray# arr_0 i_1)
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
-                                                     (# s_5, v_6 #) -> (# s_5, Struct4 v_6 #)
-          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
-                                                                    Struct4 struct4_a_11 -> writeByteArray# arr_7 i_8 struct4_a_11 s_10
-          indexOffAddr# = \addr_12 -> \i_13 -> Struct4 (indexOffAddr# addr_12 i_13)
-          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
-                                                       (# s_17, v_18 #) -> (# s_17, Struct4 v_18 #)
-          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
-                                                                      Struct4 struct4_a_23 -> writeOffAddr# addr_19 i_20 struct4_a_23 s_22
 instance HasCField Struct4 "struct4_a"
     where type CFieldType Struct4 "struct4_a" = CInt
           offset# = \_ -> \_ -> 0
