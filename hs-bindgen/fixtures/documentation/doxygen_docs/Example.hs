@@ -30,6 +30,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Bitfield
 import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
@@ -81,6 +82,8 @@ newtype Size_type = Size_type
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
     , HsBindgen.Runtime.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Bitfield.Bitfield
     , Bits.Bits
     , Bounded
     , Enum
@@ -756,6 +759,62 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Data_union_t_as_parts where
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Data_union_t_as_parts instance F.Storable Data_union_t_as_parts
 
+instance Data.Primitive.Types.Prim Data_union_t_as_parts where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (2#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Data_union_t_as_parts (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Data_union_t_as_parts v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Data_union_t_as_parts data_union_t_as_parts_low4 data_union_t_as_parts_high5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) data_union_t_as_parts_low4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) data_union_t_as_parts_high5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Data_union_t_as_parts (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Data_union_t_as_parts v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Data_union_t_as_parts data_union_t_as_parts_low4 data_union_t_as_parts_high5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) data_union_t_as_parts_low4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) data_union_t_as_parts_high5 s6
+
 instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" where
 
   type CFieldType Data_union_t_as_parts "data_union_t_as_parts_low" =
@@ -1401,6 +1460,54 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Flexible_array_Aux where
             HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"flexible_array_count") ptr0 flexible_array_count2
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Flexible_array_Aux instance F.Storable Flexible_array_Aux
+
+instance Data.Primitive.Types.Prim Flexible_array_Aux where
+
+  sizeOf# = \_ -> (8#)
+
+  alignment# = \_ -> (8#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Flexible_array (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Flexible_array v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Flexible_array flexible_array_count4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 flexible_array_count4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Flexible_array (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Flexible_array v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Flexible_array flexible_array_count4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 flexible_array_count4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
 

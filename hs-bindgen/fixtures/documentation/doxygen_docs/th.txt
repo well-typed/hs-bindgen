@@ -390,6 +390,8 @@ newtype Size_type
                       WriteRaw,
                       Storable,
                       HasFFIType,
+                      Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,
@@ -1008,6 +1010,29 @@ instance WriteRaw Data_union_t_as_parts
                                        Data_union_t_as_parts data_union_t_as_parts_low_2
                                                              data_union_t_as_parts_high_3 -> writeRaw (Proxy @"data_union_t_as_parts_low") ptr_0 data_union_t_as_parts_low_2 >> writeRaw (Proxy @"data_union_t_as_parts_high") ptr_0 data_union_t_as_parts_high_3
 deriving via (EquivStorable Data_union_t_as_parts) instance Storable Data_union_t_as_parts
+instance Prim Data_union_t_as_parts
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 2# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Data_union_t_as_parts (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Data_union_t_as_parts v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Data_union_t_as_parts data_union_t_as_parts_low_13
+                                                                                            data_union_t_as_parts_high_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) data_union_t_as_parts_low_13 s_12 of
+                                                                                                                             s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) data_union_t_as_parts_high_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Data_union_t_as_parts (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Data_union_t_as_parts v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Data_union_t_as_parts data_union_t_as_parts_low_29
+                                                                                            data_union_t_as_parts_high_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) data_union_t_as_parts_low_29 s_28 of
+                                                                                                                             s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) data_union_t_as_parts_high_30 s_31
 instance HasCField Data_union_t_as_parts
                    "data_union_t_as_parts_low"
     where type CFieldType Data_union_t_as_parts
@@ -1580,6 +1605,20 @@ instance WriteRaw Flexible_array_Aux
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Flexible_array flexible_array_count_2 -> writeRaw (Proxy @"flexible_array_count") ptr_0 flexible_array_count_2
 deriving via (EquivStorable Flexible_array_Aux) instance Storable Flexible_array_Aux
+instance Prim Flexible_array_Aux
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 8# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Flexible_array (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, Flexible_array v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    Flexible_array flexible_array_count_11 -> writeByteArray# arr_7 i_8 flexible_array_count_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> Flexible_array (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17,
+                                                                              Flexible_array v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      Flexible_array flexible_array_count_23 -> writeOffAddr# addr_19 i_20 flexible_array_count_23 s_22
 instance HasCField Flexible_array_Aux "flexible_array_count"
     where type CFieldType Flexible_array_Aux
                           "flexible_array_count" = HsBindgen.Runtime.LibC.CSize

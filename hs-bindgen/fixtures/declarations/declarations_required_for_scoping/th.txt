@@ -42,6 +42,8 @@ newtype A
                       WriteRaw,
                       Storable,
                       HasFFIType,
+                      Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,

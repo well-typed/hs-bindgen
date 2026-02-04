@@ -142,6 +142,7 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -192,6 +193,7 @@ hstypes:
   - Flam_Offset
   - HasCField
   - HasField
+  - Prim
   - ReadRaw
   - Show
   - StaticSize
@@ -225,6 +227,7 @@ hstypes:
       fields:
       - unwrapSize_type
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -237,6 +240,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - ReadRaw
   - Real

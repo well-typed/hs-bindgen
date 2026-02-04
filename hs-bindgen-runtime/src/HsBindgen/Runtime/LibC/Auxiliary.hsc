@@ -1,3 +1,7 @@
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE UndecidableInstances #-}
+
 -- | C standard library types that are not in @base@
 module HsBindgen.Runtime.LibC.Auxiliary (
     -- * Floating Types
@@ -24,12 +28,20 @@ module HsBindgen.Runtime.LibC.Auxiliary (
 
 import Data.Bits (Bits, FiniteBits)
 import Data.Ix (Ix)
+import Data.Primitive.Types (Prim)
+import Data.Proxy (Proxy (..))
 import Data.Word (Word16, Word32)
 import Foreign.C.Types qualified as C
 import Foreign.Ptr (Ptr)
 import Foreign.Storable
+import GHC.Records (HasField (..))
 
+import HsBindgen.Runtime.Bitfield (Bitfield)
+import HsBindgen.Runtime.HasCField (HasCField (..))
+import HsBindgen.Runtime.HasCField qualified as HasCField
+import HsBindgen.Runtime.HasFFIType (HasFFIType)
 import HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.TypeEquality (TyEq)
 
 #include <inttypes.h>
 #include <locale.h>
@@ -44,6 +56,8 @@ import HsBindgen.Runtime.Marshal
 
 -- TODO CDoubleT @double_t@ (arch, uses long double, math.h)
 
+--------------------------------------------------------------------------------
+
 -- | C @fenv_t@ type
 --
 -- @fenv_t@ represents the entire floating-point environment.  It is
@@ -51,6 +65,8 @@ import HsBindgen.Runtime.Marshal
 -- used with a 'Ptr'.  It is available since C99.  It is defined in the @fenv.h@
 -- header file.
 data CFenvT
+
+--------------------------------------------------------------------------------
 
 -- | C @fexcept_t@ type
 --
@@ -75,11 +91,33 @@ data CDivT = CDivT {
     }
   deriving stock (Eq, Ord, Show)
 
+instance HasCField CDivT "quot" where
+  type CFieldType CDivT "quot" = C.CInt
+  offset## _ _ = #offset div_t, quot
+
+instance HasCField CDivT "rem" where
+  type CFieldType CDivT "rem" = C.CInt
+  offset## _ _ = #offset div_t, rem
+
+instance ( TyEq ty (CFieldType CDivT "quot")
+         ) => HasField "quot" (Ptr CDivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"quot")
+
+instance ( TyEq ty (CFieldType CDivT "rem")
+         ) => HasField "rem" (Ptr CDivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"rem")
+
 instance ReadRaw CDivT where
   readRaw ptr = do
     cDivT_quot <- (#peek div_t, quot) ptr
     cDivT_rem  <- (#peek div_t, rem)  ptr
     return CDivT{..}
+
+instance StaticSize CDivT where
+  staticSizeOf    _ = #size      div_t
+  staticAlignment _ = #alignment div_t
+
+--------------------------------------------------------------------------------
 
 -- | C @ldiv_t@ structure
 --
@@ -91,11 +129,33 @@ data CLdivT = CLdivT {
     }
   deriving stock (Eq, Ord, Show)
 
+instance HasCField CLdivT "quot" where
+  type CFieldType CLdivT "quot" = C.CInt
+  offset## _ _ = #offset ldiv_t, quot
+
+instance HasCField CLdivT "rem" where
+  type CFieldType CLdivT "rem" = C.CInt
+  offset## _ _ = #offset ldiv_t, rem
+
+instance ( TyEq ty (CFieldType CLdivT "quot")
+         ) => HasField "quot" (Ptr CLdivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"quot")
+
+instance ( TyEq ty (CFieldType CLdivT "rem")
+         ) => HasField "rem" (Ptr CLdivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"rem")
+
 instance ReadRaw CLdivT where
   readRaw ptr = do
     cLdivT_quot <- (#peek ldiv_t, quot) ptr
     cLdivT_rem  <- (#peek ldiv_t, rem)  ptr
     return CLdivT{..}
+
+instance StaticSize CLdivT where
+  staticSizeOf    _ = #size      ldiv_t
+  staticAlignment _ = #alignment ldiv_t
+
+--------------------------------------------------------------------------------
 
 -- | C @lldiv_t@ structure
 --
@@ -107,11 +167,33 @@ data CLldivT = CLldivT {
     }
   deriving stock (Eq, Ord, Show)
 
+instance HasCField CLldivT "quot" where
+  type CFieldType CLldivT "quot" = C.CInt
+  offset## _ _ = #offset lldiv_t, quot
+
+instance HasCField CLldivT "rem" where
+  type CFieldType CLldivT "rem" = C.CInt
+  offset## _ _ = #offset lldiv_t, rem
+
+instance ( TyEq ty (CFieldType CLldivT "quot")
+         ) => HasField "quot" (Ptr CLldivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"quot")
+
+instance ( TyEq ty (CFieldType CLldivT "rem")
+         ) => HasField "rem" (Ptr CLldivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"rem")
+
 instance ReadRaw CLldivT where
   readRaw ptr = do
     cLldivT_quot <- (#peek lldiv_t, quot) ptr
     cLldivT_rem  <- (#peek lldiv_t, rem)  ptr
     return CLldivT{..}
+
+instance StaticSize CLldivT where
+  staticSizeOf    _ = #size      lldiv_t
+  staticAlignment _ = #alignment lldiv_t
+
+--------------------------------------------------------------------------------
 
 -- | C @imaxdiv_t@ structure
 --
@@ -124,11 +206,31 @@ data CImaxdivT = CImaxdivT {
     }
   deriving stock (Eq, Ord, Show)
 
+instance HasCField CImaxdivT "quot" where
+  type CFieldType CImaxdivT "quot" = C.CInt
+  offset## _ _ = #offset imaxdiv_t, quot
+
+instance HasCField CImaxdivT "rem" where
+  type CFieldType CImaxdivT "rem" = C.CInt
+  offset## _ _ = #offset imaxdiv_t, rem
+
+instance ( TyEq ty (CFieldType CImaxdivT "quot")
+         ) => HasField "quot" (Ptr CImaxdivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"quot")
+
+instance ( TyEq ty (CFieldType CImaxdivT "rem")
+         ) => HasField "rem" (Ptr CImaxdivT) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"rem")
+
 instance ReadRaw CImaxdivT where
   readRaw ptr = do
     cImaxdivT_quot <- (#peek imaxdiv_t, quot) ptr
     cImaxdivT_rem  <- (#peek imaxdiv_t, rem)  ptr
     return CImaxdivT{..}
+
+instance StaticSize CImaxdivT where
+  staticSizeOf    _ = #size      imaxdiv_t
+  staticAlignment _ = #alignment imaxdiv_t
 
 {-------------------------------------------------------------------------------
   Standard Definitions
@@ -146,15 +248,18 @@ instance ReadRaw CImaxdivT where
 -- in the @wchar.h@ and @wctype.h@ header files.
 newtype CWintT = CWintT C.CUInt
   deriving newtype (
-      Bits
+      Bitfield
+    , Bits
     , Bounded
     , Enum
     , Eq
     , FiniteBits
+    , HasFFIType
     , Integral
     , Ix
     , Num
     , Ord
+    , Prim
     , Read
     , ReadRaw
     , Real
@@ -163,6 +268,8 @@ newtype CWintT = CWintT C.CUInt
     , Storable
     , WriteRaw
     )
+
+--------------------------------------------------------------------------------
 
 -- | C @mbstate_t@ type
 --
@@ -174,13 +281,26 @@ newtype CWintT = CWintT C.CUInt
 -- files.
 data CMbstateT
 
+--------------------------------------------------------------------------------
+
 -- | C @wctrans_t@ type
 --
 -- @wctrans_t@ is a scalar type that can hold values which represent
 -- locale-specific character transformations.  It is available since C95.  It is
 -- defined in the @wctype.h@ header file.
 newtype CWctransT = CWctransT (Ptr C.CInt)
-  deriving newtype (Eq, ReadRaw, Show, StaticSize, Storable, WriteRaw)
+  deriving newtype (
+      Eq
+    , HasFFIType
+    , Prim
+    , ReadRaw
+    , Show
+    , StaticSize
+    , Storable
+    , WriteRaw
+    )
+
+--------------------------------------------------------------------------------
 
 -- | C @wctype_t@ type
 --
@@ -188,7 +308,18 @@ newtype CWctransT = CWctransT (Ptr C.CInt)
 -- locale-specific character classification categories.  It is available since
 -- C95.  It is defined in the @wctype.h@ and @wchar.h@ header files.
 newtype CWctypeT = CWctypeT C.CULong
-  deriving newtype (Eq, ReadRaw, Show, StaticSize, Storable, WriteRaw)
+  deriving newtype (
+      Eq
+    , HasFFIType
+    , Prim
+    , ReadRaw
+    , Show
+    , StaticSize
+    , Storable
+    , WriteRaw
+    )
+
+--------------------------------------------------------------------------------
 
 -- | C @char16_t@ type
 --
@@ -196,15 +327,18 @@ newtype CWctypeT = CWctypeT C.CULong
 -- It is defined in the @uchar.h@ header file.
 newtype CChar16T = CChar16T Word16
   deriving newtype (
-      Bits
+      Bitfield
+    , Bits
     , Bounded
     , Enum
     , Eq
     , FiniteBits
+    , HasFFIType
     , Integral
     , Ix
     , Num
     , Ord
+    , Prim
     , Read
     , ReadRaw
     , Real
@@ -214,21 +348,26 @@ newtype CChar16T = CChar16T Word16
     , WriteRaw
     )
 
+--------------------------------------------------------------------------------
+
 -- | C @char32_t@ type
 --
 -- @char32_t@ represents a 32-bit Unicode character.  It is available since C11.
 -- It is defined in the @uchar.h@ header file.
 newtype CChar32T = CChar32T Word32
   deriving newtype (
-      Bits
+      Bitfield
+    , Bits
     , Bounded
     , Enum
     , Eq
     , FiniteBits
+    , HasFFIType
     , Integral
     , Ix
     , Num
     , Ord
+    , Prim
     , Read
     , ReadRaw
     , Real
@@ -268,9 +407,77 @@ data CTm = CTm {
   deriving stock (Eq, Show)
   deriving Storable via EquivStorable CTm
 
-instance StaticSize CTm where
-  staticSizeOf    _ = #size      struct tm
-  staticAlignment _ = #alignment struct tm
+instance HasCField CTm "sec" where
+  type CFieldType CTm "sec" = C.CInt
+  offset## _ _ = #offset struct tm, tm_sec
+
+instance HasCField CTm "min" where
+  type CFieldType CTm "min" = C.CInt
+  offset## _ _ = #offset struct tm, tm_min
+
+instance HasCField CTm "hour" where
+  type CFieldType CTm "hour" = C.CInt
+  offset## _ _ = #offset struct tm, tm_hour
+
+instance HasCField CTm "mday" where
+  type CFieldType CTm "mday" = C.CInt
+  offset## _ _ = #offset struct tm, tm_mday
+
+instance HasCField CTm "mon" where
+  type CFieldType CTm "mon" = C.CInt
+  offset## _ _ = #offset struct tm, tm_mon
+
+instance HasCField CTm "year" where
+  type CFieldType CTm "year" = C.CInt
+  offset## _ _ = #offset struct tm, tm_year
+
+instance HasCField CTm "wday" where
+  type CFieldType CTm "wday" = C.CInt
+  offset## _ _ = #offset struct tm, tm_wday
+
+instance HasCField CTm "yday" where
+  type CFieldType CTm "yday" = C.CInt
+  offset## _ _ = #offset struct tm, tm_yday
+
+instance HasCField CTm "isdst" where
+  type CFieldType CTm "isdst" = C.CInt
+  offset## _ _ = #offset struct tm, tm_isdst
+
+instance ( TyEq ty (CFieldType CTm "sec")
+         ) => HasField "sec" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"sec")
+
+instance ( TyEq ty (CFieldType CTm "min")
+         ) => HasField "min" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"min")
+
+instance ( TyEq ty (CFieldType CTm "hour")
+         ) => HasField "hour" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"hour")
+
+instance ( TyEq ty (CFieldType CTm "mday")
+         ) => HasField "mday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"mday")
+
+instance ( TyEq ty (CFieldType CTm "mon")
+         ) => HasField "mon" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"mon")
+
+instance ( TyEq ty (CFieldType CTm "year")
+         ) => HasField "year" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"year")
+
+instance ( TyEq ty (CFieldType CTm "wday")
+         ) => HasField "wday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"wday")
+
+instance ( TyEq ty (CFieldType CTm "yday")
+         ) => HasField "yday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"yday")
+
+instance ( TyEq ty (CFieldType CTm "isdst")
+         ) => HasField "isdst" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"isdst")
 
 instance ReadRaw CTm where
   readRaw ptr = do
@@ -284,6 +491,10 @@ instance ReadRaw CTm where
     cTm_yday  <- (#peek struct tm, tm_yday)  ptr
     cTm_isdst <- (#peek struct tm, tm_isdst) ptr
     return CTm{..}
+
+instance StaticSize CTm where
+  staticSizeOf    _ = #size      struct tm
+  staticAlignment _ = #alignment struct tm
 
 instance WriteRaw CTm where
   writeRaw ptr CTm{..} = do

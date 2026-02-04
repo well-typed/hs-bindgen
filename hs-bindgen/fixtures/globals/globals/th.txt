@@ -310,6 +310,39 @@ instance WriteRaw Version_t
                                                  version_t_minor_3
                                                  version_t_patch_4 -> writeRaw (Proxy @"version_t_major") ptr_0 version_t_major_2 >> (writeRaw (Proxy @"version_t_minor") ptr_0 version_t_minor_3 >> writeRaw (Proxy @"version_t_patch") ptr_0 version_t_patch_4)
 deriving via (EquivStorable Version_t) instance Storable Version_t
+instance Prim Version_t
+    where sizeOf# = \_ -> 6# :: Int#
+          alignment# = \_ -> 2# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Version_t (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7,
+                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
+                                                                               (# s_9,
+                                                                                  v_10 #) -> (# s_9,
+                                                                                                Version_t v_6 v_8 v_10 #)
+          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
+                                                                       Version_t version_t_major_15
+                                                                                 version_t_minor_16
+                                                                                 version_t_patch_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) version_t_major_15 s_14 of
+                                                                                                       s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) version_t_minor_16 s_18 of
+                                                                                                               s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) version_t_patch_17 s_19
+          indexOffAddr# = \addr_20 -> \i_21 -> Version_t (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
+          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
+                                                       (# s_25,
+                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
+                                                                     (# s_27,
+                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
+                                                                                   (# s_29,
+                                                                                      v_30 #) -> (# s_29,
+                                                                                                    Version_t v_26 v_28 v_30 #)
+          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
+                                                                      Version_t version_t_major_35
+                                                                                version_t_minor_36
+                                                                                version_t_patch_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) version_t_major_35 s_34 of
+                                                                                                      s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) version_t_minor_36 s_38 of
+                                                                                                              s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) version_t_patch_37 s_39
 instance HasCField Version_t "version_t_major"
     where type CFieldType Version_t
                           "version_t_major" = HsBindgen.Runtime.LibC.Word8
@@ -377,6 +410,39 @@ instance WriteRaw Struct1_t
                                                  struct1_t_y_3
                                                  struct1_t_version_4 -> writeRaw (Proxy @"struct1_t_x") ptr_0 struct1_t_x_2 >> (writeRaw (Proxy @"struct1_t_y") ptr_0 struct1_t_y_3 >> writeRaw (Proxy @"struct1_t_version") ptr_0 struct1_t_version_4)
 deriving via (EquivStorable Struct1_t) instance Storable Struct1_t
+instance Prim Struct1_t
+    where sizeOf# = \_ -> 10# :: Int#
+          alignment# = \_ -> 2# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct1_t (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7,
+                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
+                                                                               (# s_9,
+                                                                                  v_10 #) -> (# s_9,
+                                                                                                Struct1_t v_6 v_8 v_10 #)
+          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
+                                                                       Struct1_t struct1_t_x_15
+                                                                                 struct1_t_y_16
+                                                                                 struct1_t_version_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) struct1_t_x_15 s_14 of
+                                                                                                         s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) struct1_t_y_16 s_18 of
+                                                                                                                 s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) struct1_t_version_17 s_19
+          indexOffAddr# = \addr_20 -> \i_21 -> Struct1_t (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
+          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
+                                                       (# s_25,
+                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
+                                                                     (# s_27,
+                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
+                                                                                   (# s_29,
+                                                                                      v_30 #) -> (# s_29,
+                                                                                                    Struct1_t v_26 v_28 v_30 #)
+          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
+                                                                      Struct1_t struct1_t_x_35
+                                                                                struct1_t_y_36
+                                                                                struct1_t_version_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) struct1_t_x_35 s_34 of
+                                                                                                        s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) struct1_t_y_36 s_38 of
+                                                                                                                s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) struct1_t_version_37 s_39
 instance HasCField Struct1_t "struct1_t_x"
     where type CFieldType Struct1_t
                           "struct1_t_x" = HsBindgen.Runtime.LibC.Word16
@@ -426,6 +492,20 @@ instance WriteRaw Struct2_t
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
                                        Struct2_t struct2_t_field1_2 -> writeRaw (Proxy @"struct2_t_field1") ptr_0 struct2_t_field1_2
 deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
+instance Prim Struct2_t
+    where sizeOf# = \_ -> 10# :: Int#
+          alignment# = \_ -> 2# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct2_t (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, Struct2_t v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    Struct2_t struct2_t_field1_11 -> writeByteArray# arr_7 i_8 struct2_t_field1_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> Struct2_t (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17,
+                                                                              Struct2_t v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      Struct2_t struct2_t_field1_23 -> writeOffAddr# addr_19 i_20 struct2_t_field1_23 s_22
 instance HasCField Struct2_t "struct2_t_field1"
     where type CFieldType Struct2_t "struct2_t_field1" = Struct1_t
           offset# = \_ -> \_ -> 0

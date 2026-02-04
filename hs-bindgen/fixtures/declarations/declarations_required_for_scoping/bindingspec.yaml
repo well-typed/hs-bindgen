@@ -14,6 +14,7 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -26,6 +27,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - ReadRaw
   - Real

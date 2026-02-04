@@ -21,6 +21,7 @@ hstypes:
   - Eq
   - HasCField
   - HasField
+  - Prim
   - ReadRaw
   - Show
   - StaticSize

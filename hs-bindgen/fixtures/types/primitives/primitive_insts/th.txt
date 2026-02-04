@@ -1,0 +1,884 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile musl-include/x86_64/stdbool.h
+-- addDependentFile examples/golden/types/primitives/primitive_insts.h
+{-| __C declaration:__ @prim_HsPrimCPtrdiff@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 13:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCPtrdiff
+    = Prim_HsPrimCPtrdiff {unwrapPrim_HsPrimCPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff}
+      {- ^ __C declaration:__ @prim_HsPrimCPtrdiff@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 13:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCPtrdiff "unwrapPrim_HsPrimCPtrdiff") =>
+         HasField "unwrapPrim_HsPrimCPtrdiff"
+                  (Ptr Prim_HsPrimCPtrdiff)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCPtrdiff")
+instance HasCField Prim_HsPrimCPtrdiff "unwrapPrim_HsPrimCPtrdiff"
+    where type CFieldType Prim_HsPrimCPtrdiff
+                          "unwrapPrim_HsPrimCPtrdiff" = HsBindgen.Runtime.LibC.CPtrdiff
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimInt8@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 19:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimInt8
+    = Prim_HsPrimInt8 {unwrapPrim_HsPrimInt8 :: HsBindgen.Runtime.LibC.Int8}
+      {- ^ __C declaration:__ @prim_HsPrimInt8@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 19:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimInt8 "unwrapPrim_HsPrimInt8") =>
+         HasField "unwrapPrim_HsPrimInt8" (Ptr Prim_HsPrimInt8) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt8")
+instance HasCField Prim_HsPrimInt8 "unwrapPrim_HsPrimInt8"
+    where type CFieldType Prim_HsPrimInt8
+                          "unwrapPrim_HsPrimInt8" = HsBindgen.Runtime.LibC.Int8
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimInt16@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 20:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimInt16
+    = Prim_HsPrimInt16 {unwrapPrim_HsPrimInt16 :: HsBindgen.Runtime.LibC.Int16}
+      {- ^ __C declaration:__ @prim_HsPrimInt16@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 20:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimInt16 "unwrapPrim_HsPrimInt16") =>
+         HasField "unwrapPrim_HsPrimInt16" (Ptr Prim_HsPrimInt16) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt16")
+instance HasCField Prim_HsPrimInt16 "unwrapPrim_HsPrimInt16"
+    where type CFieldType Prim_HsPrimInt16
+                          "unwrapPrim_HsPrimInt16" = HsBindgen.Runtime.LibC.Int16
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimInt32@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 21:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimInt32
+    = Prim_HsPrimInt32 {unwrapPrim_HsPrimInt32 :: HsBindgen.Runtime.LibC.Int32}
+      {- ^ __C declaration:__ @prim_HsPrimInt32@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 21:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimInt32 "unwrapPrim_HsPrimInt32") =>
+         HasField "unwrapPrim_HsPrimInt32" (Ptr Prim_HsPrimInt32) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt32")
+instance HasCField Prim_HsPrimInt32 "unwrapPrim_HsPrimInt32"
+    where type CFieldType Prim_HsPrimInt32
+                          "unwrapPrim_HsPrimInt32" = HsBindgen.Runtime.LibC.Int32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimInt64@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 22:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimInt64
+    = Prim_HsPrimInt64 {unwrapPrim_HsPrimInt64 :: HsBindgen.Runtime.LibC.Int64}
+      {- ^ __C declaration:__ @prim_HsPrimInt64@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 22:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimInt64 "unwrapPrim_HsPrimInt64") =>
+         HasField "unwrapPrim_HsPrimInt64" (Ptr Prim_HsPrimInt64) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt64")
+instance HasCField Prim_HsPrimInt64 "unwrapPrim_HsPrimInt64"
+    where type CFieldType Prim_HsPrimInt64
+                          "unwrapPrim_HsPrimInt64" = HsBindgen.Runtime.LibC.Int64
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimWord8@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 24:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimWord8
+    = Prim_HsPrimWord8 {unwrapPrim_HsPrimWord8 :: HsBindgen.Runtime.LibC.Word8}
+      {- ^ __C declaration:__ @prim_HsPrimWord8@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 24:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimWord8 "unwrapPrim_HsPrimWord8") =>
+         HasField "unwrapPrim_HsPrimWord8" (Ptr Prim_HsPrimWord8) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord8")
+instance HasCField Prim_HsPrimWord8 "unwrapPrim_HsPrimWord8"
+    where type CFieldType Prim_HsPrimWord8
+                          "unwrapPrim_HsPrimWord8" = HsBindgen.Runtime.LibC.Word8
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimWord16@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 25:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimWord16
+    = Prim_HsPrimWord16 {unwrapPrim_HsPrimWord16 :: HsBindgen.Runtime.LibC.Word16}
+      {- ^ __C declaration:__ @prim_HsPrimWord16@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 25:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimWord16 "unwrapPrim_HsPrimWord16") =>
+         HasField "unwrapPrim_HsPrimWord16" (Ptr Prim_HsPrimWord16) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord16")
+instance HasCField Prim_HsPrimWord16 "unwrapPrim_HsPrimWord16"
+    where type CFieldType Prim_HsPrimWord16
+                          "unwrapPrim_HsPrimWord16" = HsBindgen.Runtime.LibC.Word16
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimWord32@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 26:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimWord32
+    = Prim_HsPrimWord32 {unwrapPrim_HsPrimWord32 :: HsBindgen.Runtime.LibC.Word32}
+      {- ^ __C declaration:__ @prim_HsPrimWord32@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 26:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimWord32 "unwrapPrim_HsPrimWord32") =>
+         HasField "unwrapPrim_HsPrimWord32" (Ptr Prim_HsPrimWord32) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord32")
+instance HasCField Prim_HsPrimWord32 "unwrapPrim_HsPrimWord32"
+    where type CFieldType Prim_HsPrimWord32
+                          "unwrapPrim_HsPrimWord32" = HsBindgen.Runtime.LibC.Word32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimWord64@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 27:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimWord64
+    = Prim_HsPrimWord64 {unwrapPrim_HsPrimWord64 :: HsBindgen.Runtime.LibC.Word64}
+      {- ^ __C declaration:__ @prim_HsPrimWord64@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 27:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimWord64 "unwrapPrim_HsPrimWord64") =>
+         HasField "unwrapPrim_HsPrimWord64" (Ptr Prim_HsPrimWord64) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord64")
+instance HasCField Prim_HsPrimWord64 "unwrapPrim_HsPrimWord64"
+    where type CFieldType Prim_HsPrimWord64
+                          "unwrapPrim_HsPrimWord64" = HsBindgen.Runtime.LibC.Word64
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCChar@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 28:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCChar
+    = Prim_HsPrimCChar {unwrapPrim_HsPrimCChar :: CChar}
+      {- ^ __C declaration:__ @prim_HsPrimCChar@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 28:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCChar "unwrapPrim_HsPrimCChar") =>
+         HasField "unwrapPrim_HsPrimCChar" (Ptr Prim_HsPrimCChar) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCChar")
+instance HasCField Prim_HsPrimCChar "unwrapPrim_HsPrimCChar"
+    where type CFieldType Prim_HsPrimCChar
+                          "unwrapPrim_HsPrimCChar" = CChar
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCSChar@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 29:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCSChar
+    = Prim_HsPrimCSChar {unwrapPrim_HsPrimCSChar :: CSChar}
+      {- ^ __C declaration:__ @prim_HsPrimCSChar@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 29:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCSChar "unwrapPrim_HsPrimCSChar") =>
+         HasField "unwrapPrim_HsPrimCSChar" (Ptr Prim_HsPrimCSChar) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCSChar")
+instance HasCField Prim_HsPrimCSChar "unwrapPrim_HsPrimCSChar"
+    where type CFieldType Prim_HsPrimCSChar
+                          "unwrapPrim_HsPrimCSChar" = CSChar
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCUChar@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 30:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCUChar
+    = Prim_HsPrimCUChar {unwrapPrim_HsPrimCUChar :: CUChar}
+      {- ^ __C declaration:__ @prim_HsPrimCUChar@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 30:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCUChar "unwrapPrim_HsPrimCUChar") =>
+         HasField "unwrapPrim_HsPrimCUChar" (Ptr Prim_HsPrimCUChar) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUChar")
+instance HasCField Prim_HsPrimCUChar "unwrapPrim_HsPrimCUChar"
+    where type CFieldType Prim_HsPrimCUChar
+                          "unwrapPrim_HsPrimCUChar" = CUChar
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCShort@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 31:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCShort
+    = Prim_HsPrimCShort {unwrapPrim_HsPrimCShort :: CShort}
+      {- ^ __C declaration:__ @prim_HsPrimCShort@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 31:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCShort "unwrapPrim_HsPrimCShort") =>
+         HasField "unwrapPrim_HsPrimCShort" (Ptr Prim_HsPrimCShort) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCShort")
+instance HasCField Prim_HsPrimCShort "unwrapPrim_HsPrimCShort"
+    where type CFieldType Prim_HsPrimCShort
+                          "unwrapPrim_HsPrimCShort" = CShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCUShort@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 32:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCUShort
+    = Prim_HsPrimCUShort {unwrapPrim_HsPrimCUShort :: CUShort}
+      {- ^ __C declaration:__ @prim_HsPrimCUShort@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 32:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCUShort "unwrapPrim_HsPrimCUShort") =>
+         HasField "unwrapPrim_HsPrimCUShort"
+                  (Ptr Prim_HsPrimCUShort)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUShort")
+instance HasCField Prim_HsPrimCUShort "unwrapPrim_HsPrimCUShort"
+    where type CFieldType Prim_HsPrimCUShort
+                          "unwrapPrim_HsPrimCUShort" = CUShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCInt@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 33:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCInt
+    = Prim_HsPrimCInt {unwrapPrim_HsPrimCInt :: CInt}
+      {- ^ __C declaration:__ @prim_HsPrimCInt@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 33:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCInt "unwrapPrim_HsPrimCInt") =>
+         HasField "unwrapPrim_HsPrimCInt" (Ptr Prim_HsPrimCInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCInt")
+instance HasCField Prim_HsPrimCInt "unwrapPrim_HsPrimCInt"
+    where type CFieldType Prim_HsPrimCInt
+                          "unwrapPrim_HsPrimCInt" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCUInt@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 34:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCUInt
+    = Prim_HsPrimCUInt {unwrapPrim_HsPrimCUInt :: CUInt}
+      {- ^ __C declaration:__ @prim_HsPrimCUInt@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 34:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCUInt "unwrapPrim_HsPrimCUInt") =>
+         HasField "unwrapPrim_HsPrimCUInt" (Ptr Prim_HsPrimCUInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUInt")
+instance HasCField Prim_HsPrimCUInt "unwrapPrim_HsPrimCUInt"
+    where type CFieldType Prim_HsPrimCUInt
+                          "unwrapPrim_HsPrimCUInt" = CUInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCLong@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 35:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCLong
+    = Prim_HsPrimCLong {unwrapPrim_HsPrimCLong :: CLong}
+      {- ^ __C declaration:__ @prim_HsPrimCLong@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 35:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCLong "unwrapPrim_HsPrimCLong") =>
+         HasField "unwrapPrim_HsPrimCLong" (Ptr Prim_HsPrimCLong) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLong")
+instance HasCField Prim_HsPrimCLong "unwrapPrim_HsPrimCLong"
+    where type CFieldType Prim_HsPrimCLong
+                          "unwrapPrim_HsPrimCLong" = CLong
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCULong@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 36:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCULong
+    = Prim_HsPrimCULong {unwrapPrim_HsPrimCULong :: CULong}
+      {- ^ __C declaration:__ @prim_HsPrimCULong@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 36:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCULong "unwrapPrim_HsPrimCULong") =>
+         HasField "unwrapPrim_HsPrimCULong" (Ptr Prim_HsPrimCULong) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCULong")
+instance HasCField Prim_HsPrimCULong "unwrapPrim_HsPrimCULong"
+    where type CFieldType Prim_HsPrimCULong
+                          "unwrapPrim_HsPrimCULong" = CULong
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCLLong@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 37:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCLLong
+    = Prim_HsPrimCLLong {unwrapPrim_HsPrimCLLong :: CLLong}
+      {- ^ __C declaration:__ @prim_HsPrimCLLong@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 37:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCLLong "unwrapPrim_HsPrimCLLong") =>
+         HasField "unwrapPrim_HsPrimCLLong" (Ptr Prim_HsPrimCLLong) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLLong")
+instance HasCField Prim_HsPrimCLLong "unwrapPrim_HsPrimCLLong"
+    where type CFieldType Prim_HsPrimCLLong
+                          "unwrapPrim_HsPrimCLLong" = CLLong
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCULLong@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 38:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCULLong
+    = Prim_HsPrimCULLong {unwrapPrim_HsPrimCULLong :: CULLong}
+      {- ^ __C declaration:__ @prim_HsPrimCULLong@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 38:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong") =>
+         HasField "unwrapPrim_HsPrimCULLong"
+                  (Ptr Prim_HsPrimCULLong)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCULLong")
+instance HasCField Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong"
+    where type CFieldType Prim_HsPrimCULLong
+                          "unwrapPrim_HsPrimCULLong" = CULLong
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCBool@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 39:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCBool
+    = Prim_HsPrimCBool {unwrapPrim_HsPrimCBool :: CBool}
+      {- ^ __C declaration:__ @prim_HsPrimCBool@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 39:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCBool "unwrapPrim_HsPrimCBool") =>
+         HasField "unwrapPrim_HsPrimCBool" (Ptr Prim_HsPrimCBool) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCBool")
+instance HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool"
+    where type CFieldType Prim_HsPrimCBool
+                          "unwrapPrim_HsPrimCBool" = CBool
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCFloat@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 40:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCFloat
+    = Prim_HsPrimCFloat {unwrapPrim_HsPrimCFloat :: CFloat}
+      {- ^ __C declaration:__ @prim_HsPrimCFloat@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 40:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Enum,
+                      Floating,
+                      Fractional,
+                      Num,
+                      Real,
+                      RealFloat,
+                      RealFrac)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCFloat "unwrapPrim_HsPrimCFloat") =>
+         HasField "unwrapPrim_HsPrimCFloat" (Ptr Prim_HsPrimCFloat) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCFloat")
+instance HasCField Prim_HsPrimCFloat "unwrapPrim_HsPrimCFloat"
+    where type CFieldType Prim_HsPrimCFloat
+                          "unwrapPrim_HsPrimCFloat" = CFloat
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @prim_HsPrimCDouble@
+
+    __defined at:__ @types\/primitives\/primitive_insts.h 41:28@
+
+    __exported by:__ @types\/primitives\/primitive_insts.h@
+-}
+newtype Prim_HsPrimCDouble
+    = Prim_HsPrimCDouble {unwrapPrim_HsPrimCDouble :: CDouble}
+      {- ^ __C declaration:__ @prim_HsPrimCDouble@
+
+           __defined at:__ @types\/primitives\/primitive_insts.h 41:28@
+
+           __exported by:__ @types\/primitives\/primitive_insts.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Enum,
+                      Floating,
+                      Fractional,
+                      Num,
+                      Real,
+                      RealFloat,
+                      RealFrac)
+instance TyEq ty
+              (CFieldType Prim_HsPrimCDouble "unwrapPrim_HsPrimCDouble") =>
+         HasField "unwrapPrim_HsPrimCDouble"
+                  (Ptr Prim_HsPrimCDouble)
+                  (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCDouble")
+instance HasCField Prim_HsPrimCDouble "unwrapPrim_HsPrimCDouble"
+    where type CFieldType Prim_HsPrimCDouble
+                          "unwrapPrim_HsPrimCDouble" = CDouble
+          offset# = \_ -> \_ -> 0

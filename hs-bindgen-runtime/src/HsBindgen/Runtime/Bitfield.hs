@@ -73,16 +73,23 @@ instance Bitfield CSChar     where extend = signedExtend
 instance Bitfield CShort     where extend = signedExtend
 instance Bitfield CInt       where extend = signedExtend
 instance Bitfield CLong      where extend = signedExtend
-instance Bitfield CLLong     where extend = signedExtend
 instance Bitfield CPtrdiff   where extend = signedExtend
+instance Bitfield CWchar     where extend = signedExtend
+instance Bitfield CSigAtomic where extend = signedExtend
+instance Bitfield CLLong     where extend = signedExtend
+instance Bitfield CIntPtr    where extend = signedExtend
+instance Bitfield CIntMax    where extend = signedExtend
 
 -- Instances for "Foreign.C.Types" unsigned integral types
-instance Bitfield CUChar    where extend = unsignedExtend
-instance Bitfield CUShort   where extend = unsignedExtend
-instance Bitfield CUInt     where extend = unsignedExtend
-instance Bitfield CULong    where extend = unsignedExtend
-instance Bitfield CULLong   where extend = unsignedExtend
-instance Bitfield CBool     where extend = unsignedExtend
+instance Bitfield CUChar   where extend = unsignedExtend
+instance Bitfield CUShort  where extend = unsignedExtend
+instance Bitfield CUInt    where extend = unsignedExtend
+instance Bitfield CULong   where extend = unsignedExtend
+instance Bitfield CSize    where extend = unsignedExtend
+instance Bitfield CULLong  where extend = unsignedExtend
+instance Bitfield CBool    where extend = unsignedExtend
+instance Bitfield CUIntPtr where extend = unsignedExtend
+instance Bitfield CUIntMax where extend = unsignedExtend
 
 -- | Default 'narrow' implementation. Takes the lowest @n@ bits.
 defaultNarrow :: Integral a => a -> Int -> Word64

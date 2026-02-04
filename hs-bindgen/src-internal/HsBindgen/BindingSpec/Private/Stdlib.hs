@@ -144,8 +144,8 @@ bindingSpec = BindingSpec.BindingSpec{
           ]
       , mkTypeN "wint_t"    "CWintT"         intI ["wchar.h", "wctype.h"]
       , mkType  "mbstate_t" "CMbstateT" hsED []   ["uchar.h", "wchar.h"]
-      , mkTypeN "wctrans_t" "CWctransT"      eqI  ["wctype.h"]
-      , mkTypeN "wctype_t"  "CWctypeT"       eqI  ["wchar.h", "wctype.h"]
+      , mkTypeN "wctrans_t" "CWctransT"      nEqI ["wctype.h"]
+      , mkTypeN "wctype_t"  "CWctypeT"       nEqI ["wchar.h", "wctype.h"]
       , mkTypeN "char16_t"  "CChar16T"       intI ["uchar.h"]
       , mkTypeN "char32_t"  "CChar32T"       intI ["uchar.h"]
       ]
@@ -165,7 +165,7 @@ bindingSpec = BindingSpec.BindingSpec{
               , "cTm_yday"
               , "cTm_isdst"
               ]
-        in  mkType "struct tm" "CTm" hsR eqI ["time.h"]
+        in  mkType "struct tm" "CTm" hsR rEqI ["time.h"]
       ]
 
     fileTypes :: [(CTypeKV, HsTypeKV)]
@@ -179,18 +179,19 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "sig_atomic_t" "CSigAtomic" intI ["signal.h"]
       ]
 
-    divI, eqI, intI, timeI :: [Inst.TypeClass]
-    divI = [Inst.Eq, Inst.Ord, Inst.ReadRaw, Inst.Show]
-    eqI = [
+    divI, intI, nEqI, rEqI, timeI :: [Inst.TypeClass]
+    divI = [
         Inst.Eq
+      , Inst.HasCField
+      , Inst.HasField
+      , Inst.Ord
       , Inst.ReadRaw
       , Inst.Show
       , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
       ]
     intI = [
-        Inst.Bits
+        Inst.Bitfield
+      , Inst.Bits
       , Inst.Bounded
       , Inst.Enum
       , Inst.Eq
@@ -200,9 +201,30 @@ bindingSpec = BindingSpec.BindingSpec{
       , Inst.Ix
       , Inst.Num
       , Inst.Ord
+      , Inst.Prim
       , Inst.Read
       , Inst.ReadRaw
       , Inst.Real
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+    nEqI = [ -- newtype equality
+        Inst.Eq
+      , Inst.HasFFIType
+      , Inst.Prim
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
+      , Inst.Storable
+      , Inst.WriteRaw
+      ]
+    rEqI = [ -- record equality
+        Inst.Eq
+      , Inst.HasCField
+      , Inst.HasField
+      , Inst.ReadRaw
       , Inst.Show
       , Inst.StaticSize
       , Inst.Storable
