@@ -55,6 +55,12 @@ union U3 {
   struct Size s;
 };
 
+/* Second Union with the same field names */
+union U4 {
+  int x;
+  int y;
+};
+
 /* Typedef for a function pointer */
 struct Driver;
 typedef int (*RunDriver)(struct Driver* self);

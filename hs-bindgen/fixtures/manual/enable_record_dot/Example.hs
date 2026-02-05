@@ -745,9 +745,105 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U3) "s")
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s")
 
+{-| __C declaration:__ @union U4@
+
+    __defined at:__ @manual\/enable_record_dot.h 59:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U4 = U4
+  { unwrap :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U4
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw U4
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw U4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable U4 instance F.Storable U4
+
+{-|
+
+  __See:__ 'set_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 60:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_x ::
+     U4
+  -> FC.CInt
+get_x =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_x'
+
+-}
+set_x ::
+     FC.CInt
+  -> U4
+set_x =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 61:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_y ::
+     U4
+  -> FC.CInt
+get_y =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_y'
+
+-}
+set_y ::
+     FC.CInt
+  -> U4
+set_y =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField U4 "x" where
+
+  type CFieldType U4 "x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U4) "x")
+         ) => GHC.Records.HasField "x" (Ptr.Ptr U4) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x")
+
+instance HsBindgen.Runtime.HasCField.HasCField U4 "y" where
+
+  type CFieldType U4 "y" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U4) "y")
+         ) => GHC.Records.HasField "y" (Ptr.Ptr U4) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y")
+
 {-| __C declaration:__ @struct Driver@
 
-    __defined at:__ @manual\/enable_record_dot.h 59:8@
+    __defined at:__ @manual\/enable_record_dot.h 65:8@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -757,7 +853,7 @@ data Driver
 
 __C declaration:__ @RunDriver@
 
-__defined at:__ @manual\/enable_record_dot.h 60:15@
+__defined at:__ @manual\/enable_record_dot.h 66:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -813,7 +909,7 @@ instance HsBindgen.Runtime.HasCField.HasCField RunDriver_Aux "unwrap" where
 
 {-| __C declaration:__ @RunDriver@
 
-    __defined at:__ @manual\/enable_record_dot.h 60:15@
+    __defined at:__ @manual\/enable_record_dot.h 66:15@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}

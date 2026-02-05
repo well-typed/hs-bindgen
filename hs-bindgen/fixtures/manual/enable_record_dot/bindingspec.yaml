@@ -31,6 +31,9 @@ ctypes:
   cname: union U3
   hsname: U3
 - headers: manual/enable_record_dot.h
+  cname: union U4
+  hsname: U4
+- headers: manual/enable_record_dot.h
   cname: struct Driver
   hsname: Driver
 - headers: manual/enable_record_dot.h
@@ -157,6 +160,19 @@ hstypes:
   representation:
     newtype:
       constructor: U3
+      fields:
+      - unwrap
+  instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U4
+  representation:
+    newtype:
+      constructor: U4
       fields:
       - unwrap
   instances:

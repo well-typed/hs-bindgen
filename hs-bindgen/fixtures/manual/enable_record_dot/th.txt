@@ -316,7 +316,7 @@ deriving via (EquivStorable U1) instance Storable U1
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 42:7@
+__defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -327,7 +327,7 @@ get_x :: U1 -> CInt
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 42:7@
+__defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -350,7 +350,7 @@ set_x = setUnionPayload
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 43:7@
+__defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -361,7 +361,7 @@ get_y :: U1 -> CInt
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 43:7@
+__defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -586,9 +586,107 @@ instance HasCField U3 "s"
 instance TyEq ty (CFieldType U3 "s") =>
          HasField "s" (Ptr U3) (Ptr ty)
     where getField = fromPtr (Proxy @"s")
+{-| __C declaration:__ @union U4@
+
+    __defined at:__ @manual\/enable_record_dot.h 59:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U4
+    = U4 {unwrap :: ByteArray}
+      {- ^ __C declaration:__ @union U4@
+
+           __defined at:__ @manual\/enable_record_dot.h 59:7@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+deriving via (SizedByteArray 4 4) instance StaticSize U4
+deriving via (SizedByteArray 4 4) instance ReadRaw U4
+deriving via (SizedByteArray 4 4) instance WriteRaw U4
+deriving via (EquivStorable U4) instance Storable U4
+{-|
+
+  __See:__ 'set_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 60:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_x :: U4 -> CInt
+{-|
+
+  __See:__ 'set_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 60:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_x = getUnionPayload
+{-|
+
+  __See:__ 'get_x'
+
+-}
+set_x :: CInt -> U4
+{-|
+
+  __See:__ 'get_x'
+
+-}
+set_x = setUnionPayload
+{-|
+
+  __See:__ 'set_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 61:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_y :: U4 -> CInt
+{-|
+
+  __See:__ 'set_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 61:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_y = getUnionPayload
+{-|
+
+  __See:__ 'get_y'
+
+-}
+set_y :: CInt -> U4
+{-|
+
+  __See:__ 'get_y'
+
+-}
+set_y = setUnionPayload
+instance HasCField U4 "x"
+    where type CFieldType U4 "x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U4 "x") =>
+         HasField "x" (Ptr U4) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField U4 "y"
+    where type CFieldType U4 "y" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U4 "y") =>
+         HasField "y" (Ptr U4) (Ptr ty)
+    where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @struct Driver@
 
-    __defined at:__ @manual\/enable_record_dot.h 59:8@
+    __defined at:__ @manual\/enable_record_dot.h 65:8@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -597,7 +695,7 @@ data Driver
 
 __C declaration:__ @RunDriver@
 
-__defined at:__ @manual\/enable_record_dot.h 60:15@
+__defined at:__ @manual\/enable_record_dot.h 66:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -607,7 +705,7 @@ newtype RunDriver_Aux
 
       __C declaration:__ @RunDriver@
 
-      __defined at:__ @manual\/enable_record_dot.h 60:15@
+      __defined at:__ @manual\/enable_record_dot.h 66:15@
 
       __exported by:__ @manual\/enable_record_dot.h@
       -}
@@ -642,7 +740,7 @@ instance HasCField RunDriver_Aux "unwrap"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @RunDriver@
 
-    __defined at:__ @manual\/enable_record_dot.h 60:15@
+    __defined at:__ @manual\/enable_record_dot.h 66:15@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -650,7 +748,7 @@ newtype RunDriver
     = RunDriver {unwrap :: (FunPtr RunDriver_Aux)}
       {- ^ __C declaration:__ @RunDriver@
 
-           __defined at:__ @manual\/enable_record_dot.h 60:15@
+           __defined at:__ @manual\/enable_record_dot.h 66:15@
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
