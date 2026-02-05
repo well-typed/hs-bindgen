@@ -1,6 +1,7 @@
 {-# OPTIONS_HADDOCK hide #-}
 
 {-# LANGUAGE MagicHash #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE UnboxedTuples #-}
 
 -- | C standard library types that are not in @base@
