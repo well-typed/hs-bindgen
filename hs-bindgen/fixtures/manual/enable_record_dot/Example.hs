@@ -477,7 +477,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable U1 instance F.Storable U1
 
 {-|
 
-  __See:__ 'set_U1_x'
+  __See:__ 'set_u1_x'
 
 __C declaration:__ @x@
 
@@ -485,26 +485,26 @@ __defined at:__ @manual\/enable_record_dot.h 42:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U1_x ::
+get_u1_x ::
      U1
   -> FC.CInt
-get_U1_x =
+get_u1_x =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U1_x'
+  __See:__ 'get_u1_x'
 
 -}
-set_U1_x ::
+set_u1_x ::
      FC.CInt
   -> U1
-set_U1_x =
+set_u1_x =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
-  __See:__ 'set_U1_y'
+  __See:__ 'set_u1_y'
 
 __C declaration:__ @y@
 
@@ -512,21 +512,21 @@ __defined at:__ @manual\/enable_record_dot.h 43:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U1_y ::
+get_u1_y ::
      U1
   -> FC.CInt
-get_U1_y =
+get_u1_y =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U1_y'
+  __See:__ 'get_u1_y'
 
 -}
-set_U1_y ::
+set_u1_y ::
      FC.CInt
   -> U1
-set_U1_y =
+set_u1_y =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField U1 "x" where
@@ -573,7 +573,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable U2_t instance F.Storable U2
 
 {-|
 
-  __See:__ 'set_U2_t_a'
+  __See:__ 'set_u2_t_a'
 
 __C declaration:__ @a@
 
@@ -581,26 +581,26 @@ __defined at:__ @manual\/enable_record_dot.h 48:8@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U2_t_a ::
+get_u2_t_a ::
      U2_t
   -> FC.CChar
-get_U2_t_a =
+get_u2_t_a =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U2_t_a'
+  __See:__ 'get_u2_t_a'
 
 -}
-set_U2_t_a ::
+set_u2_t_a ::
      FC.CChar
   -> U2_t
-set_U2_t_a =
+set_u2_t_a =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
-  __See:__ 'set_U2_t_b'
+  __See:__ 'set_u2_t_b'
 
 __C declaration:__ @b@
 
@@ -608,21 +608,21 @@ __defined at:__ @manual\/enable_record_dot.h 49:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U2_t_b ::
+get_u2_t_b ::
      U2_t
   -> FC.CInt
-get_U2_t_b =
+get_u2_t_b =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U2_t_b'
+  __See:__ 'get_u2_t_b'
 
 -}
-set_U2_t_b ::
+set_u2_t_b ::
      FC.CInt
   -> U2_t
-set_U2_t_b =
+set_u2_t_b =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField U2_t "a" where
@@ -669,7 +669,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable U3 instance F.Storable U3
 
 {-|
 
-  __See:__ 'set_U3_p'
+  __See:__ 'set_u3_p'
 
 __C declaration:__ @p@
 
@@ -677,26 +677,26 @@ __defined at:__ @manual\/enable_record_dot.h 54:16@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U3_p ::
+get_u3_p ::
      U3
   -> Point
-get_U3_p =
+get_u3_p =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U3_p'
+  __See:__ 'get_u3_p'
 
 -}
-set_U3_p ::
+set_u3_p ::
      Point
   -> U3
-set_U3_p =
+set_u3_p =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
-  __See:__ 'set_U3_s'
+  __See:__ 'set_u3_s'
 
 __C declaration:__ @s@
 
@@ -704,21 +704,21 @@ __defined at:__ @manual\/enable_record_dot.h 55:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U3_s ::
+get_u3_s ::
      U3
   -> Size
-get_U3_s =
+get_u3_s =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U3_s'
+  __See:__ 'get_u3_s'
 
 -}
-set_U3_s ::
+set_u3_s ::
      Size
   -> U3
-set_U3_s =
+set_u3_s =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField U3 "p" where
@@ -765,7 +765,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable U4 instance F.Storable U4
 
 {-|
 
-  __See:__ 'set_U4_x'
+  __See:__ 'set_u4_x'
 
 __C declaration:__ @x@
 
@@ -773,26 +773,26 @@ __defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U4_x ::
+get_u4_x ::
      U4
   -> FC.CInt
-get_U4_x =
+get_u4_x =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U4_x'
+  __See:__ 'get_u4_x'
 
 -}
-set_U4_x ::
+set_u4_x ::
      FC.CInt
   -> U4
-set_U4_x =
+set_u4_x =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 {-|
 
-  __See:__ 'set_U4_y'
+  __See:__ 'set_u4_y'
 
 __C declaration:__ @y@
 
@@ -800,21 +800,21 @@ __defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_U4_y ::
+get_u4_y ::
      U4
   -> FC.CInt
-get_U4_y =
+get_u4_y =
   HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
 
 {-|
 
-  __See:__ 'get_U4_y'
+  __See:__ 'get_u4_y'
 
 -}
-set_U4_y ::
+set_u4_y ::
      FC.CInt
   -> U4
-set_U4_y =
+set_u4_y =
   HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
 instance HsBindgen.Runtime.HasCField.HasCField U4 "x" where
