@@ -4,7 +4,7 @@ module HsBindgen.Runtime.Internal.SizedByteArray (
     SizedByteArray (..),
 ) where
 
-import Data.Array.Byte (ByteArray (..))
+import Data.Primitive.ByteArray (ByteArray (..))
 import Data.Primitive.ByteArray qualified as BA
 import Data.Proxy (Proxy (..))
 import Data.Word (Word8)
