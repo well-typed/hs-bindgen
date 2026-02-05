@@ -14,5 +14,5 @@ typedef B (*ex_func_ptr_tydef) (B x);
 // Importantly, the generated Haskell bindings for the ex_* declarations import
 // module B, but not module A. As a result, the constructor for B is in scope,
 // but the constructor for A is not. This can lead to Haskell compiler errors,
-// unless we use base foreign types. See issue
+// unless we use FFI types. See issue
 // [#1282](https://github.com/well-typed/hs-bindgen/issues/1282).

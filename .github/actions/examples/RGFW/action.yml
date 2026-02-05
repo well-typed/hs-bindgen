@@ -1,0 +1,25 @@
+name: RGFW example
+description: Build and run the RGFW example
+
+runs:
+  using: composite
+  steps:
+    - name: Install blocks runtime
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          libx11-dev \
+          libxrandr-dev \
+          libxcursor-dev \
+          libxi-dev \
+          libgl-dev \
+          libglx-dev \
+          libxrender-dev \
+          libxext-dev \
+          libxfixes-dev
+
+    - name: Run generation and build script
+      shell: bash
+      working-directory: ./examples/RGFW
+      run: ./generate-and-run.sh
