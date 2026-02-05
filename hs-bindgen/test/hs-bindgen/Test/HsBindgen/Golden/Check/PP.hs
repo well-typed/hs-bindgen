@@ -10,6 +10,7 @@ import Test.Tasty
 import HsBindgen (getBindingsMultiple)
 import HsBindgen hiding (getBindingsMultiple)
 import HsBindgen.Backend.Category
+import HsBindgen.Config (BackendConfig (..))
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Language.Haskell qualified as Hs
@@ -18,7 +19,6 @@ import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
-import HsBindgen.Config (BackendConfig(..))
 
 {-------------------------------------------------------------------------------
   Tests
