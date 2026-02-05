@@ -1,0 +1,467 @@
+-- addDependentFile examples/golden/types/structs/simple_structs.h
+{-| __C declaration:__ @struct S1@
+
+    __defined at:__ @types\/structs\/simple_structs.h 2:8@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S1
+    = S1 {a :: CInt
+          {- ^ __C declaration:__ @a@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -},
+          b :: CChar
+          {- ^ __C declaration:__ @b@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -}}
+      {- ^ __C declaration:__ @struct S1@
+
+           __defined at:__ @types\/structs\/simple_structs.h 2:8@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S1
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S1
+    where readRaw = \ptr_0 -> (pure S1 <*> readRaw (Proxy @"a") ptr_0) <*> readRaw (Proxy @"b") ptr_0
+instance WriteRaw S1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S1 a_2
+                                          b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
+deriving via (EquivStorable S1) instance Storable S1
+instance HasCField S1 "a"
+    where type CFieldType S1 "a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S1 "a") =>
+         HasField "a" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S1 "b"
+    where type CFieldType S1 "b" = CChar
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType S1 "b") =>
+         HasField "b" (Ptr S1) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+{-| __C declaration:__ @struct S2@
+
+    __defined at:__ @types\/structs\/simple_structs.h 8:16@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S2_t
+    = S2_t {a :: CChar
+            {- ^ __C declaration:__ @a@
+
+                 __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+                 __exported by:__ @types\/structs\/simple_structs.h@
+            -},
+            b :: CInt
+            {- ^ __C declaration:__ @b@
+
+                 __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+                 __exported by:__ @types\/structs\/simple_structs.h@
+            -},
+            c :: CFloat
+            {- ^ __C declaration:__ @c@
+
+                 __defined at:__ @types\/structs\/simple_structs.h 22:10@
+
+                 __exported by:__ @types\/structs\/simple_structs.h@
+            -}}
+      {- ^ __C declaration:__ @struct S2@
+
+           __defined at:__ @types\/structs\/simple_structs.h 8:16@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S2_t
+    where staticSizeOf = \_ -> 12 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S2_t
+    where readRaw = \ptr_0 -> ((pure S2_t <*> readRaw (Proxy @"a") ptr_0) <*> readRaw (Proxy @"b") ptr_0) <*> readRaw (Proxy @"c") ptr_0
+instance WriteRaw S2_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S2_t a_2
+                                            b_3
+                                            c_4 -> writeRaw (Proxy @"a") ptr_0 a_2 >> (writeRaw (Proxy @"b") ptr_0 b_3 >> writeRaw (Proxy @"c") ptr_0 c_4)
+deriving via (EquivStorable S2_t) instance Storable S2_t
+instance HasCField S2_t "a"
+    where type CFieldType S2_t "a" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S2_t "a") =>
+         HasField "a" (Ptr S2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S2_t "b"
+    where type CFieldType S2_t "b" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType S2_t "b") =>
+         HasField "b" (Ptr S2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S2_t "c"
+    where type CFieldType S2_t "c" = CFloat
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType S2_t "c") =>
+         HasField "c" (Ptr S2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"c")
+{-| __C declaration:__ @struct S3_t@
+
+    __defined at:__ @types\/structs\/simple_structs.h 15:9@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S3_t
+    = S3_t {a :: CChar
+            {- ^ __C declaration:__ @a@
+
+                 __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+                 __exported by:__ @types\/structs\/simple_structs.h@
+            -}}
+      {- ^ __C declaration:__ @struct S3_t@
+
+           __defined at:__ @types\/structs\/simple_structs.h 15:9@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S3_t
+    where staticSizeOf = \_ -> 1 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw S3_t
+    where readRaw = \ptr_0 -> pure S3_t <*> readRaw (Proxy @"a") ptr_0
+instance WriteRaw S3_t
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S3_t a_2 -> writeRaw (Proxy @"a") ptr_0 a_2
+deriving via (EquivStorable S3_t) instance Storable S3_t
+instance HasCField S3_t "a"
+    where type CFieldType S3_t "a" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S3_t "a") =>
+         HasField "a" (Ptr S3_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+{-| __C declaration:__ @struct S4@
+
+    __defined at:__ @types\/structs\/simple_structs.h 19:8@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S4
+    = S4 {b :: CChar
+          {- ^ __C declaration:__ @b@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -},
+          a :: CInt
+          {- ^ __C declaration:__ @a@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -},
+          c :: (Ptr CInt)
+          {- ^ __C declaration:__ @c@
+
+               __defined at:__ @types\/structs\/simple_structs.h 22:10@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -}}
+      {- ^ __C declaration:__ @struct S4@
+
+           __defined at:__ @types\/structs\/simple_structs.h 19:8@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S4
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S4
+    where readRaw = \ptr_0 -> ((pure S4 <*> readRaw (Proxy @"b") ptr_0) <*> readRaw (Proxy @"a") ptr_0) <*> readRaw (Proxy @"c") ptr_0
+instance WriteRaw S4
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S4 b_2
+                                          a_3
+                                          c_4 -> writeRaw (Proxy @"b") ptr_0 b_2 >> (writeRaw (Proxy @"a") ptr_0 a_3 >> writeRaw (Proxy @"c") ptr_0 c_4)
+deriving via (EquivStorable S4) instance Storable S4
+instance HasCField S4 "b"
+    where type CFieldType S4 "b" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S4 "b") =>
+         HasField "b" (Ptr S4) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+instance HasCField S4 "a"
+    where type CFieldType S4 "a" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType S4 "a") =>
+         HasField "a" (Ptr S4) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S4 "c"
+    where type CFieldType S4 "c" = Ptr CInt
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType S4 "c") =>
+         HasField "c" (Ptr S4) (Ptr ty)
+    where getField = fromPtr (Proxy @"c")
+{-| __C declaration:__ @struct S5@
+
+    __defined at:__ @types\/structs\/simple_structs.h 26:16@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S5
+    = S5 {a :: CChar
+          {- ^ __C declaration:__ @a@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -},
+          b :: CInt
+          {- ^ __C declaration:__ @b@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -}}
+      {- ^ __C declaration:__ @struct S5@
+
+           __defined at:__ @types\/structs\/simple_structs.h 26:16@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S5
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S5
+    where readRaw = \ptr_0 -> (pure S5 <*> readRaw (Proxy @"a") ptr_0) <*> readRaw (Proxy @"b") ptr_0
+instance WriteRaw S5
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S5 a_2
+                                          b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
+deriving via (EquivStorable S5) instance Storable S5
+instance HasCField S5 "a"
+    where type CFieldType S5 "a" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S5 "a") =>
+         HasField "a" (Ptr S5) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S5 "b"
+    where type CFieldType S5 "b" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType S5 "b") =>
+         HasField "b" (Ptr S5) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+{-| __C declaration:__ @struct S6@
+
+    __defined at:__ @types\/structs\/simple_structs.h 31:8@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S6
+    = S6 {a :: CChar
+          {- ^ __C declaration:__ @a@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -},
+          b :: CInt
+          {- ^ __C declaration:__ @b@
+
+               __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+               __exported by:__ @types\/structs\/simple_structs.h@
+          -}}
+      {- ^ __C declaration:__ @struct S6@
+
+           __defined at:__ @types\/structs\/simple_structs.h 31:8@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S6
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S6
+    where readRaw = \ptr_0 -> (pure S6 <*> readRaw (Proxy @"a") ptr_0) <*> readRaw (Proxy @"b") ptr_0
+instance WriteRaw S6
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S6 a_2
+                                          b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
+deriving via (EquivStorable S6) instance Storable S6
+instance HasCField S6 "a"
+    where type CFieldType S6 "a" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S6 "a") =>
+         HasField "a" (Ptr S6) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S6 "b"
+    where type CFieldType S6 "b" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType S6 "b") =>
+         HasField "b" (Ptr S6) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+{-| __C declaration:__ @struct \@S7a_Aux@
+
+    __defined at:__ @types\/structs\/simple_structs.h 34:9@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S7a_Aux
+    = S7a_Aux {a :: CChar
+               {- ^ __C declaration:__ @a@
+
+                    __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -},
+               b :: CInt
+               {- ^ __C declaration:__ @b@
+
+                    __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -}}
+      {- ^ __C declaration:__ @struct \@S7a_Aux@
+
+           __defined at:__ @types\/structs\/simple_structs.h 34:9@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S7a_Aux
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S7a_Aux
+    where readRaw = \ptr_0 -> (pure S7a_Aux <*> readRaw (Proxy @"a") ptr_0) <*> readRaw (Proxy @"b") ptr_0
+instance WriteRaw S7a_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S7a_Aux a_2
+                                               b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
+deriving via (EquivStorable S7a_Aux) instance Storable S7a_Aux
+instance HasCField S7a_Aux "a"
+    where type CFieldType S7a_Aux "a" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S7a_Aux "a") =>
+         HasField "a" (Ptr S7a_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S7a_Aux "b"
+    where type CFieldType S7a_Aux "b" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType S7a_Aux "b") =>
+         HasField "b" (Ptr S7a_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+{-| __C declaration:__ @S7a@
+
+    __defined at:__ @types\/structs\/simple_structs.h 34:36@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+newtype S7a
+    = S7a {unwrap :: (Ptr S7a_Aux)}
+      {- ^ __C declaration:__ @S7a@
+
+           __defined at:__ @types\/structs\/simple_structs.h 34:36@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
+instance TyEq ty (CFieldType S7a "unwrap") =>
+         HasField "unwrap" (Ptr S7a) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrap")
+instance HasCField S7a "unwrap"
+    where type CFieldType S7a "unwrap" = Ptr S7a_Aux
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@S7b_Aux@
+
+    __defined at:__ @types\/structs\/simple_structs.h 35:9@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+data S7b_Aux
+    = S7b_Aux {a :: CChar
+               {- ^ __C declaration:__ @a@
+
+                    __defined at:__ @types\/structs\/simple_structs.h 35:23@
+
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -},
+               b :: CInt
+               {- ^ __C declaration:__ @b@
+
+                    __defined at:__ @types\/structs\/simple_structs.h 35:30@
+
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -}}
+      {- ^ __C declaration:__ @struct \@S7b_Aux@
+
+           __defined at:__ @types\/structs\/simple_structs.h 35:9@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Show)
+instance StaticSize S7b_Aux
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S7b_Aux
+    where readRaw = \ptr_0 -> (pure S7b_Aux <*> readRaw (Proxy @"a") ptr_0) <*> readRaw (Proxy @"b") ptr_0
+instance WriteRaw S7b_Aux
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S7b_Aux a_2
+                                               b_3 -> writeRaw (Proxy @"a") ptr_0 a_2 >> writeRaw (Proxy @"b") ptr_0 b_3
+deriving via (EquivStorable S7b_Aux) instance Storable S7b_Aux
+instance HasCField S7b_Aux "a"
+    where type CFieldType S7b_Aux "a" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S7b_Aux "a") =>
+         HasField "a" (Ptr S7b_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField S7b_Aux "b"
+    where type CFieldType S7b_Aux "b" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType S7b_Aux "b") =>
+         HasField "b" (Ptr S7b_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+{-| __C declaration:__ @S7b@
+
+    __defined at:__ @types\/structs\/simple_structs.h 35:38@
+
+    __exported by:__ @types\/structs\/simple_structs.h@
+-}
+newtype S7b
+    = S7b {unwrap :: (Ptr (Ptr (Ptr S7b_Aux)))}
+      {- ^ __C declaration:__ @S7b@
+
+           __defined at:__ @types\/structs\/simple_structs.h 35:38@
+
+           __exported by:__ @types\/structs\/simple_structs.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
+instance TyEq ty (CFieldType S7b "unwrap") =>
+         HasField "unwrap" (Ptr S7b) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrap")
+instance HasCField S7b "unwrap"
+    where type CFieldType S7b "unwrap" = Ptr (Ptr (Ptr S7b_Aux))
+          offset# = \_ -> \_ -> 0

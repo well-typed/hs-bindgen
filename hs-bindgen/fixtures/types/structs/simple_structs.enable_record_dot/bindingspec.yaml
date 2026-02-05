@@ -1,0 +1,211 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/structs/simple_structs.h
+  cname: struct S1
+  hsname: S1
+- headers: types/structs/simple_structs.h
+  cname: struct S2
+  hsname: S2_t
+- headers: types/structs/simple_structs.h
+  cname: S2_t
+  hsname: S2_t
+- headers: types/structs/simple_structs.h
+  cname: struct S3_t
+  hsname: S3_t
+- headers: types/structs/simple_structs.h
+  cname: S3_t
+  hsname: S3_t
+- headers: types/structs/simple_structs.h
+  cname: struct S4
+  hsname: S4
+- headers: types/structs/simple_structs.h
+  cname: struct S5
+  hsname: S5
+- headers: types/structs/simple_structs.h
+  cname: S5
+  hsname: S5
+- headers: types/structs/simple_structs.h
+  cname: struct S6
+  hsname: S6
+- headers: types/structs/simple_structs.h
+  cname: S6
+  hsname: S6
+- headers: types/structs/simple_structs.h
+  cname: struct @S7a_Aux
+  hsname: S7a_Aux
+- headers: types/structs/simple_structs.h
+  cname: S7a
+  hsname: S7a
+- headers: types/structs/simple_structs.h
+  cname: struct @S7b_Aux
+  hsname: S7b_Aux
+- headers: types/structs/simple_structs.h
+  cname: S7b
+  hsname: S7b
+hstypes:
+- hsname: S1
+  representation:
+    record:
+      constructor: S1
+      fields:
+      - a
+      - b
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2_t
+  representation:
+    record:
+      constructor: S2_t
+      fields:
+      - a
+      - b
+      - c
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S3_t
+  representation:
+    record:
+      constructor: S3_t
+      fields:
+      - a
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S4
+  representation:
+    record:
+      constructor: S4
+      fields:
+      - b
+      - a
+      - c
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S5
+  representation:
+    record:
+      constructor: S5
+      fields:
+      - a
+      - b
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S6
+  representation:
+    record:
+      constructor: S6
+      fields:
+      - a
+      - b
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S7a
+  representation:
+    newtype:
+      constructor: S7a
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S7a_Aux
+  representation:
+    record:
+      constructor: S7a_Aux
+      fields:
+      - a
+      - b
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S7b
+  representation:
+    newtype:
+      constructor: S7b
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S7b_Aux
+  representation:
+    record:
+      constructor: S7b_Aux
+      fields:
+      - a
+      - b
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

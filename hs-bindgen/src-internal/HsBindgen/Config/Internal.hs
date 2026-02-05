@@ -68,9 +68,10 @@ instance Default BootConfig where
 --
 -- The frontend parses the C code and reifies the C declarations.
 data FrontendConfig = FrontendConfig {
-      parsePredicate  :: Boolean ParsePredicate
-    , selectPredicate :: Boolean SelectPredicate
-    , programSlicing  :: ProgramSlicing
+      parsePredicate      :: Boolean ParsePredicate
+    , selectPredicate     :: Boolean SelectPredicate
+    , programSlicing      :: ProgramSlicing
+    , fieldNamingStrategy :: FieldNamingStrategy
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
@@ -85,9 +86,10 @@ data FrontendConfig = FrontendConfig {
 --
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
-      uniqueId       :: UniqueId
-    , haddock        :: HaddockConfig
-    , categoryChoice :: ByCategory Choice
+      uniqueId            :: UniqueId
+    , haddock             :: HaddockConfig
+    , categoryChoice      :: ByCategory Choice
+    , fieldNamingStrategy :: FieldNamingStrategy
     }
   deriving stock (Show, Generic)
   deriving anyclass Default

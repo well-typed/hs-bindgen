@@ -117,7 +117,7 @@ exec opts = do
             (buildCategoryChoice lit.outputOptions)
 
         artefact :: Artefact ()
-        artefact = writeBindings opts.fileOverwritePolicy opts.output
+        artefact = writeBindings lit.config.fieldNamingStrategy opts.fileOverwritePolicy opts.output
 
     hsBindgen
       lit.globalOpts.unsafe

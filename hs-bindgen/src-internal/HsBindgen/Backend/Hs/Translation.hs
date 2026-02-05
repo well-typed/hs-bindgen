@@ -57,16 +57,17 @@ import HsBindgen.PrettyC qualified as PC
 
 generateDeclarations ::
      UniqueId
+  -> FieldNamingStrategy
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> ByCategory_ [Hs.Decl]
-generateDeclarations uniqueId config name declIndex sizeofs =
+generateDeclarations uniqueId fns config name declIndex sizeofs =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' uniqueId config name declIndex sizeofs
+      generateDeclarations' uniqueId fns config name declIndex sizeofs
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -81,13 +82,14 @@ data WithCategory a = WithCategory {
 
 generateDeclarations' ::
      UniqueId
+  -> FieldNamingStrategy
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> [WithCategory Hs.Decl]
-generateDeclarations' uniqueId haddockConfig moduleName declIndex sizeofs decs =
+generateDeclarations' uniqueId fns haddockConfig moduleName declIndex sizeofs decs =
     State.runHsM $ do
       let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested callback types
@@ -100,7 +102,7 @@ generateDeclarations' uniqueId haddockConfig moduleName declIndex sizeofs decs =
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
                    ]
-      hsDecls <- concat <$> mapM (generateDecs uniqueId haddockConfig moduleName sizeofs) decs
+      hsDecls <- concat <$> mapM (generateDecs uniqueId fns haddockConfig moduleName sizeofs) decs
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
@@ -153,26 +155,27 @@ isDefinedInCurrentModule declIndex =
 -- TODO: Take DeclSpec into account
 generateDecs ::
      UniqueId
+  -> FieldNamingStrategy
   -> HaddockConfig
   -> BaseModuleName
   -> C.Sizeofs
   -> C.Decl Final
   -> HsM [WithCategory Hs.Decl]
-generateDecs uniqueId haddockConfig moduleName sizeofs (C.Decl info kind spec) =
+generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
         structDecs supInsts.struct haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
         unionDecs haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
-        enumDecs supInsts.enum haddockConfig info enum spec
+        enumDecs supInsts.enum fns haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
         pure $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         -- Deal with typedefs around function pointers (#1380)
         case typedef.typ of
           C.TypePointers n (C.TypeFun args res) ->
-            typedefFunPtrDecs supInsts.typedef haddockConfig sizeofs info n (args, res) typedef.names spec
+            typedefFunPtrDecs supInsts.typedef fns haddockConfig sizeofs info n (args, res) typedef.names spec
           _otherwise ->
             typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
       C.DeclOpaque -> withCategoryM CType $
@@ -459,12 +462,13 @@ unionFieldDecls unionName field = [
 
 enumDecs ::
      Map Inst.TypeClass Inst.SupportedStrategies
+  -> FieldNamingStrategy
   -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Enum Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
+enumDecs supInsts fns haddockConfig info enum spec = aux <$> newtypeDec
   where
     valueMap :: Map Integer (NonEmpty (C.FieldInfo Final, Hs.Name Hs.NsConstr))
     valueMap = Map.fromListWith (flip (<>)) [ -- preserve source order
@@ -617,6 +621,7 @@ enumDecs supInsts haddockConfig info enum spec = aux <$> newtypeDec
                       nt.field.typ
                       valueNames
                       (isJust mSeqBounds)
+                      fns
                 }
               cEnumShowDecl = Hs.DeclDefineInstance Hs.DefineInstance{
                   comment      = Nothing
@@ -827,6 +832,7 @@ typedefFieldDecls hsNewType = [
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunPtrDecs ::
      Map Inst.TypeClass Inst.SupportedStrategies
+  -> FieldNamingStrategy
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
@@ -835,7 +841,7 @@ typedefFunPtrDecs ::
   -> MangleNames.NewtypeNames
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
+typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
     fmap concat $ sequence [
         typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
       , typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
@@ -877,8 +883,12 @@ typedefFunPtrDecs supInsts haddockConfig sizeofs origInfo n (args, res) origName
     auxTypedef = C.Typedef{
           typ = C.TypeFun args res
         , ann = MangleNames.NewtypeNames{
-              constr = Hs.unsafeHsIdHsName $             auxDeclIdPair.unsafeHsName
-            , field  = Hs.unsafeHsIdHsName $ "unwrap" <> auxDeclIdPair.unsafeHsName
+              constr = Hs.unsafeHsIdHsName auxDeclIdPair.unsafeHsName
+            , field  = Hs.unsafeHsIdHsName
+                     $ case fns of
+                         EnableRecordDot    -> "unwrap"
+                         PrefixedFieldNames -> "unwrap" <> auxDeclIdPair.unsafeHsName
+
             }
         }
 

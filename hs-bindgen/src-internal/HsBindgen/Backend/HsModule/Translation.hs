@@ -66,30 +66,33 @@ data HsModule = HsModule {
 -------------------------------------------------------------------------------}
 
 translateModuleMultiple ::
-     BaseModuleName
+     FieldNamingStrategy
+  -> BaseModuleName
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe HsModule)
-translateModuleMultiple moduleBaseName declsByCat =
+translateModuleMultiple fieldNaming moduleBaseName declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
     go _ ([], []) = Nothing
-    go cat xs     = Just $ translateModule' (Just cat) moduleBaseName xs
+    go cat xs     = Just $ translateModule' fieldNaming (Just cat) moduleBaseName xs
 
 translateModuleSingle ::
-     BaseModuleName
+     FieldNamingStrategy
+  -> BaseModuleName
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
-translateModuleSingle name declsByCat =
-    translateModule' Nothing name $ Foldable.fold declsByCat
+translateModuleSingle fieldNaming name declsByCat =
+    translateModule' fieldNaming Nothing name $ Foldable.fold declsByCat
 
 translateModule' ::
-     Maybe Category
+     FieldNamingStrategy
+  -> Maybe Category
   -> BaseModuleName
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' mcat moduleBaseName (cWrappers, decs) = HsModule{
-      pragmas   = resolvePragmas cWrappers decs
+translateModule' fieldNaming mcat moduleBaseName (cWrappers, decs) = HsModule{
+      pragmas   = resolvePragmas fieldNaming cWrappers decs
     , imports   = resolveImports moduleBaseName mcat cWrappers decs
     , name      = fromBaseModuleName moduleBaseName mcat
     , cWrappers = cWrappers
@@ -100,10 +103,11 @@ translateModule' mcat moduleBaseName (cWrappers, decs) = HsModule{
   Auxiliary: Pragma resolution
 -------------------------------------------------------------------------------}
 
-resolvePragmas :: [CWrapper] -> [SDecl] -> [GhcPragma]
-resolvePragmas wrappers ds =
+resolvePragmas :: FieldNamingStrategy -> [CWrapper] -> [SDecl] -> [GhcPragma]
+resolvePragmas fieldNaming wrappers ds =
     Set.toAscList . mconcat $
-      haddockPrunePragmas : userlandCapiPragmas : constPragmas : map resolveDeclPragmas ds
+      haddockPrunePragmas : userlandCapiPragmas : constPragmas
+        : map (resolveDeclPragmas fieldNaming) ds
   where
     constPragmas :: Set GhcPragma
     constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
@@ -118,9 +122,9 @@ resolvePragmas wrappers ds =
       []  -> Set.empty
       _xs -> Set.singleton "OPTIONS_HADDOCK prune"
 
-resolveDeclPragmas :: SDecl -> Set GhcPragma
-resolveDeclPragmas decl =
-    Set.map f (requiredExtensions decl)
+resolveDeclPragmas :: FieldNamingStrategy -> SDecl -> Set GhcPragma
+resolveDeclPragmas fieldNaming decl =
+    Set.map f (requiredExtensions fieldNaming decl)
   where
     f ext = GhcPragma ("LANGUAGE " ++ show ext)
 

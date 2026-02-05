@@ -32,7 +32,7 @@ runBackend ::
 runBackend tracer config boot frontend = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDeclsAll <- cache $
-      Hs.generateDeclarations config.uniqueId config.haddock boot.baseModule
+      Hs.generateDeclarations config.uniqueId config.fieldNamingStrategy config.haddock boot.baseModule
         <$> frontend.index
         <*> boot.sizeofs
         <*> frontend.cDecls
@@ -52,6 +52,7 @@ runBackend tracer config boot frontend = do
         hsDecls             = backendHsDecls
       , finalDecls          = backendFinalDecls
       , finalModuleBaseName = boot.baseModule
+      , fieldNamingStrategy = config.fieldNamingStrategy
       }
   where
     cache :: Cached a -> IO (Cached a)
@@ -65,6 +66,10 @@ data BackendArtefact = BackendArtefact {
       hsDecls             :: Cached (ByCategory_ [Hs.Decl])
     , finalDecls          :: Cached (ByCategory_ ([CWrapper], [SHs.SDecl]))
     , finalModuleBaseName :: BaseModuleName
+    -- | This is needed in the backend to compute the set of necessary
+    -- extensions, i.e. @DuplicateRecordFields@
+    --
+    , fieldNamingStrategy :: FieldNamingStrategy
     }
 
 {-------------------------------------------------------------------------------

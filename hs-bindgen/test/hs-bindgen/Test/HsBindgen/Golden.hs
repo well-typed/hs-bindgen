@@ -180,6 +180,9 @@ testCases_manual :: [TestCase]
 testCases_manual = [
       defaultTest "manual/arrays"
     , defaultTest "manual/function_pointers"
+    , defaultTest "manual/enable_record_dot"
+      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
     , defaultTest "manual/zero_copy"
     , test_manual_globals
     ]
@@ -1599,6 +1602,7 @@ testCases_bespoke_types = [
     , test_types_primitives_bool_c23
     , test_types_special_parse_failure_long_double
     , test_types_structs_named_vs_anon
+    , test_types_structs_enable_record_dot
     , test_types_structs_unnamed_struct
     , test_types_typedefs_typedefs
     , test_types_typedefs_typenames
@@ -1648,6 +1652,12 @@ test_types_structs_named_vs_anon :: TestCase
 test_types_structs_named_vs_anon =
     defaultTest "types/structs/named_vs_anon"
       & #clangVersion .~ Just (>= (19, 1, 0))
+
+test_types_structs_enable_record_dot :: TestCase
+test_types_structs_enable_record_dot =
+    testVariant "types/structs/simple_structs" "enable_record_dot"
+      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
 
 test_types_structs_unnamed_struct :: TestCase
 test_types_structs_unnamed_struct =

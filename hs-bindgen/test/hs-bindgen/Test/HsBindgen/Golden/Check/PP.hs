@@ -10,6 +10,7 @@ import Test.Tasty
 import HsBindgen (getBindingsMultiple)
 import HsBindgen hiding (getBindingsMultiple)
 import HsBindgen.Backend.Category
+import HsBindgen.Config (BackendConfig (..))
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Language.Haskell qualified as Hs
@@ -33,7 +34,10 @@ check testResources test =
           -- slightly unfortunate to invoke @hs-bindgen@ multiple times even if
           -- it can render all modules at the same time, but it's cheap to do so
           -- in practice.
-          let artefacts = (,) <$> FinalModuleBaseName <*> getBindingsMultiple
+          let artefacts = (,)
+                        <$> FinalModuleBaseName
+                        <*> getBindingsMultiple
+                              (view #fieldNamingStrategy $ getTestBackendConfig test)
           (baseName, output)
             <- runTestHsBindgenSuccess report testResources test artefacts
 

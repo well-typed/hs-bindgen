@@ -90,7 +90,9 @@ withHsBindgen config configTH hashIncludes = do
         uncheckedHashIncludeArgs = reverse bindgenState.hashIncludeArgs
 
         artefact :: Artefact ([SourcePath], ([CWrapper], [SHs.SDecl]))
-        artefact = (,) <$> Dependencies <*> (Foldable.fold <$> FinalDecls)
+        artefact = (,)
+          <$> Dependencies
+          <*> (Foldable.fold <$> FinalDecls)
 
     (deps, decls) <- liftIO $
       hsBindgen
@@ -100,7 +102,8 @@ withHsBindgen config configTH hashIncludes = do
         uncheckedHashIncludeArgs
         artefact
 
-    let requiredExts = uncurry getExtensions decls
+    let fieldNaming = bindgenConfig.frontend.fieldNamingStrategy
+        requiredExts = uncurry (getExtensions fieldNaming) decls
     checkLanguageExtensions requiredExts
     uncurry (getThDecls deps) decls
 
@@ -125,8 +128,9 @@ hashInclude arg = do
 -------------------------------------------------------------------------------}
 
 -- | Get required extensions
-getExtensions :: [CWrapper] -> [SHs.SDecl] -> Set TH.Extension
-getExtensions wrappers decls = userlandCapiExt <> foldMap requiredExtensions decls
+getExtensions :: FieldNamingStrategy -> [CWrapper] -> [SHs.SDecl] -> Set TH.Extension
+getExtensions fieldNaming wrappers decls =
+    userlandCapiExt <> foldMap (requiredExtensions fieldNaming) decls
   where
     userlandCapiExt = case wrappers of
       []  -> Set.empty

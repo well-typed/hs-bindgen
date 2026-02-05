@@ -89,11 +89,13 @@ exec global opts = do
       case opts.outputOptions of
         OutputOptions (SingleFile _) ->
           writeBindingsSingleToDir
+            opts.config.fieldNamingStrategy
             opts.fileOverwritePolicy
             opts.outputDirPolicy
             opts.hsOutputDir
         _                            ->
           writeBindingsMultiple
+            opts.config.fieldNamingStrategy
             opts.fileOverwritePolicy
             opts.outputDirPolicy
             opts.hsOutputDir

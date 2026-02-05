@@ -106,6 +106,21 @@ cabal run hs-bindgen-cli -- \
     zero_copy.h
 
 echo "# "
+echo "# Unprefixed field names"
+echo "# "
+
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.enablerecorddot \
+    --hs-output-dir hs/manual/generated \
+    --module EnableRecordDot \
+    --enable-record-dot \
+    enable_record_dot.h
+
+echo "# "
 echo "# External bindings: vector example"
 echo "# "
 

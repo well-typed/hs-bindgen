@@ -10,6 +10,7 @@ module Test.HsBindgen.Golden.TestCase (
   , defaultTest
   , defaultFailingTest
   , defaultFailingTestLibclang
+  , getTestBackendConfig
     -- ** Successful tests
   , testVariant
   , testTrace

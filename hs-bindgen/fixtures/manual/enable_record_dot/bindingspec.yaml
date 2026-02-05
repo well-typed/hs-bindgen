@@ -1,0 +1,145 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: manual/enable_record_dot.h
+  cname: struct Point
+  hsname: Point
+- headers: manual/enable_record_dot.h
+  cname: struct Size
+  hsname: Size
+- headers: manual/enable_record_dot.h
+  cname: struct Rect
+  hsname: Rect
+- headers: manual/enable_record_dot.h
+  cname: enum E
+  hsname: E
+- headers: manual/enable_record_dot.h
+  cname: Value
+  hsname: Value
+- headers: manual/enable_record_dot.h
+  cname: struct Driver
+  hsname: Driver
+- headers: manual/enable_record_dot.h
+  cname: RunDriver
+  hsname: RunDriver
+hstypes:
+- hsname: Driver
+  representation: emptydata
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrap
+  instances:
+  - CEnum
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Point
+  representation:
+    record:
+      constructor: Point
+      fields:
+      - x
+      - 'y'
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Rect
+  representation:
+    record:
+      constructor: Rect
+      fields:
+      - x
+      - 'y'
+      - width
+      - height
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: RunDriver
+  representation:
+    newtype:
+      constructor: RunDriver
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Size
+  representation:
+    record:
+      constructor: Size
+      fields:
+      - width
+      - height
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Value
+  representation:
+    newtype:
+      constructor: Value
+      fields:
+      - unwrap
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
