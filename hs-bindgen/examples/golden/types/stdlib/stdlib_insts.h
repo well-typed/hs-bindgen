@@ -50,10 +50,8 @@ typedef wint_t    stdlib_CWintT;
 typedef mbstate_t stdlib_CMbstateT;
 typedef wctrans_t stdlib_CWctransT;
 typedef wctype_t  stdlib_CWctypeT;
-#ifdef __CHAR16_TYPE__
+#if __has_include(<uchar.h>)
 typedef char16_t  stdlib_CChar16T;
-#endif
-#ifdef __CHAR32_TYPE__
 typedef char32_t  stdlib_CChar32T;
 #endif
 
