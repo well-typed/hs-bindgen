@@ -58,8 +58,7 @@ windowsSpecificFailures =
 macosSpecificFailures :: [(String, String)]
 macosSpecificFailures =
 #ifdef darwin_HOST_OS
-    [ ("types/stdlib/stdlib_insts"
-      , "macOS: uchar.h header not found in CI environment")
+    [
     ]
 #else
     []

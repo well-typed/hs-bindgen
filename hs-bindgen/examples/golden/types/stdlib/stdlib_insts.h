@@ -10,7 +10,9 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <time.h>
+#if __has_include(<uchar.h>)
 #include <uchar.h>
+#endif
 #include <wchar.h>
 #include <wctype.h>
 
@@ -48,8 +50,12 @@ typedef wint_t    stdlib_CWintT;
 typedef mbstate_t stdlib_CMbstateT;
 typedef wctrans_t stdlib_CWctransT;
 typedef wctype_t  stdlib_CWctypeT;
+#ifdef __CHAR16_TYPE__
 typedef char16_t  stdlib_CChar16T;
+#endif
+#ifdef __CHAR32_TYPE__
 typedef char32_t  stdlib_CChar32T;
+#endif
 
 // time types
 typedef time_t    stdlib_CTime;
