@@ -152,12 +152,12 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
 
 instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
-    ResolveBindingSpecsModuleMismatch{}       -> Error
+    ResolveBindingSpecsModuleMismatch{}       -> Warning
     ResolveBindingSpecsExtHsRefNoIdentifier{} -> Error
-    ResolveBindingSpecsNoHsTypeSpec{}         -> Error
+    ResolveBindingSpecsNoHsTypeSpec{}         -> Warning
     ResolveBindingSpecsNoHsTypeRep{}          -> Error
     ResolveBindingSpecsOmittedType{}          -> Info
-    ResolveBindingSpecsTypeNotUsed{}          -> Error
+    ResolveBindingSpecsTypeNotUsed{}          -> Warning
     ResolveBindingSpecsExtDecl{}              -> Info
     ResolveBindingSpecsExtType{}              -> Info
     ResolveBindingSpecsPreRequire{}           -> Info
