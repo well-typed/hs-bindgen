@@ -46,7 +46,6 @@ bindingSpec = BindingSpec.BindingSpec{
          boolTypes
       ++ integralTypes
       ++ floatingTypes
-      ++ mathTypes
       ++ stdTypes
       ++ nonLocalJumpTypes
       ++ wcharTypes
@@ -101,18 +100,6 @@ bindingSpec = BindingSpec.BindingSpec{
               ("fenv_t",    "CFenvT")
             , ("fexcept_t", "CFexceptT")
             ]
-
-    mathTypes :: [(CTypeKV, HsTypeKV)]
-    mathTypes = [
-        let hsR = mkHsR "CDivT" ["cDivT_quot", "cDivT_rem"]
-        in  mkType "div_t"     "CDivT"     hsR divI ["stdlib.h"]
-      , let hsR = mkHsR "CLdivT" ["cLdivT_quot", "cLdivT_rem"]
-        in  mkType "ldiv_t"    "CLdivT"    hsR divI ["stdlib.h"]
-      , let hsR = mkHsR "CLldivT" ["cLldivT_quot", "cLldivT_rem"]
-        in  mkType "lldiv_t"   "CLldivT"   hsR divI ["stdlib.h"]
-      , let hsR = mkHsR "CImaxdivT" ["cImaxdivT_quot", "cImaxdivT_rem"]
-        in  mkType "imaxdiv_t" "CImaxdivT" hsR divI ["inttypes.h"]
-      ]
 
     stdTypes :: [(CTypeKV, HsTypeKV)]
     stdTypes = [
@@ -179,16 +166,7 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "sig_atomic_t" "CSigAtomic" intI ["signal.h"]
       ]
 
-    divI, intI, nEqI, rEqI, timeI :: [Inst.TypeClass]
-    divI = [
-        Inst.Eq
-      , Inst.HasCField
-      , Inst.HasField
-      , Inst.Ord
-      , Inst.ReadRaw
-      , Inst.Show
-      , Inst.StaticSize
-      ]
+    intI, nEqI, rEqI, timeI :: [Inst.TypeClass]
     intI = [
         Inst.Bitfield
       , Inst.Bits

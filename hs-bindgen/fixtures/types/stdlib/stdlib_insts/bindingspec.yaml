@@ -49,18 +49,6 @@ ctypes:
   cname: stdlib_CFexceptT
   hsname: Stdlib_CFexceptT
 - headers: types/stdlib/stdlib_insts.h
-  cname: stdlib_CDivT
-  hsname: Stdlib_CDivT
-- headers: types/stdlib/stdlib_insts.h
-  cname: stdlib_CLdivT
-  hsname: Stdlib_CLdivT
-- headers: types/stdlib/stdlib_insts.h
-  cname: stdlib_CLldivT
-  hsname: Stdlib_CLldivT
-- headers: types/stdlib/stdlib_insts.h
-  cname: stdlib_CImaxdivT
-  hsname: Stdlib_CImaxdivT
-- headers: types/stdlib/stdlib_insts.h
   cname: stdlib_CSize
   hsname: Stdlib_CSize
 - headers: types/stdlib/stdlib_insts.h
@@ -214,20 +202,6 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Stdlib_CDivT
-  representation:
-    newtype:
-      constructor: Stdlib_CDivT
-      fields:
-      - unwrapStdlib_CDivT
-  instances:
-  - Eq
-  - HasCField
-  - HasField
-  - Ord
-  - ReadRaw
-  - Show
-  - StaticSize
 - hsname: Stdlib_CFenvT
   representation:
     newtype:
@@ -264,20 +238,6 @@ hstypes:
   instances:
   - HasCField
   - HasField
-- hsname: Stdlib_CImaxdivT
-  representation:
-    newtype:
-      constructor: Stdlib_CImaxdivT
-      fields:
-      - unwrapStdlib_CImaxdivT
-  instances:
-  - Eq
-  - HasCField
-  - HasField
-  - Ord
-  - ReadRaw
-  - Show
-  - StaticSize
 - hsname: Stdlib_CIntMax
   representation:
     newtype:
@@ -343,34 +303,6 @@ hstypes:
   instances:
   - HasCField
   - HasField
-- hsname: Stdlib_CLdivT
-  representation:
-    newtype:
-      constructor: Stdlib_CLdivT
-      fields:
-      - unwrapStdlib_CLdivT
-  instances:
-  - Eq
-  - HasCField
-  - HasField
-  - Ord
-  - ReadRaw
-  - Show
-  - StaticSize
-- hsname: Stdlib_CLldivT
-  representation:
-    newtype:
-      constructor: Stdlib_CLldivT
-      fields:
-      - unwrapStdlib_CLldivT
-  instances:
-  - Eq
-  - HasCField
-  - HasField
-  - Ord
-  - ReadRaw
-  - Show
-  - StaticSize
 - hsname: Stdlib_CMbstateT
   representation:
     newtype:

@@ -3,14 +3,12 @@
 // compiling the module tests that all of those instances exist.
 
 #include <fenv.h>
-#include <inttypes.h>
 #include <setjmp.h>
 #include <signal.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 #include <uchar.h>
 #include <wchar.h>
@@ -36,12 +34,6 @@ typedef uintptr_t stdlib_CUIntPtr;
 // floating types
 typedef fenv_t    stdlib_CFenvT;
 typedef fexcept_t stdlib_CFexceptT;
-
-// math types
-typedef div_t   stdlib_CDivT;
-typedef ldiv_t  stdlib_CLdivT;
-typedef lldiv_t stdlib_CLldivT;
-typedef imaxdiv_t stdlib_CImaxdivT;
 
 // standard types
 typedef size_t    stdlib_CSize;
