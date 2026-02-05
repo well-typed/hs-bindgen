@@ -236,7 +236,7 @@ newtype CChar32T = CChar32T Word32
 -- represented here.  It is defined in the @time.h@ header file, and it is made
 -- available in other header files that use it.
 data CTm = CTm {
-      tm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 60]@)
+      tm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 61]@)
     , tm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
     , tm_hour  :: C.CInt -- ^ Hours since midnight (@[0, 23]@)
     , tm_mday  :: C.CInt -- ^ Day of the month (@[1, 31]@)
