@@ -561,17 +561,8 @@ resolveExtBinding cDeclId declPaths mMsg = do
                   , cSpec  = cTypeSpec
                   , hsSpec = hsTypeSpec
                   }
-            case hsTypeSpec.hsRep of
-              Just _hsTypeSpecRep -> do
-                State.modify' $
-                  insertExtType
-                    cDeclId
-                    resolved
-                return (Just resolved)
-              Nothing -> do
-                State.modify' $
-                  insertTrace (ResolveBindingSpecsNoHsTypeRep cDeclId)
-                return Nothing
+            State.modify' $ insertExtType cDeclId resolved
+            return (Just resolved)
           (Nothing, _) -> do
             State.modify' $
               insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cDeclId)

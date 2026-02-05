@@ -96,7 +96,6 @@ data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
   | ResolveBindingSpecsExtHsRefNoIdentifier DeclId
   | ResolveBindingSpecsNoHsTypeSpec         DeclId
-  | ResolveBindingSpecsNoHsTypeRep          DeclId
   | ResolveBindingSpecsOmittedType          DeclId
   | ResolveBindingSpecsTypeNotUsed          DeclId
   | ResolveBindingSpecsExtDecl              DeclId
@@ -119,9 +118,6 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
           <+> prettyForTrace cDeclId
       ResolveBindingSpecsNoHsTypeSpec cDeclId ->
         "Haskell type spec not specified in binding specification:"
-          <+> prettyForTrace cDeclId
-      ResolveBindingSpecsNoHsTypeRep cDeclId ->
-        "Haskell type rep not specified in binding specification:"
           <+> prettyForTrace cDeclId
       ResolveBindingSpecsOmittedType cDeclId ->
         "Type omitted by binding specification used:"
@@ -155,7 +151,6 @@ instance IsTrace Level ResolveBindingSpecsMsg where
     ResolveBindingSpecsModuleMismatch{}       -> Warning
     ResolveBindingSpecsExtHsRefNoIdentifier{} -> Error
     ResolveBindingSpecsNoHsTypeSpec{}         -> Warning
-    ResolveBindingSpecsNoHsTypeRep{}          -> Error
     ResolveBindingSpecsOmittedType{}          -> Info
     ResolveBindingSpecsTypeNotUsed{}          -> Warning
     ResolveBindingSpecsExtDecl{}              -> Info
