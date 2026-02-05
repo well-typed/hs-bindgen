@@ -19,6 +19,7 @@
 
 module Example where
 
+import qualified Data.Array.Byte
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
@@ -32,8 +33,10 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.Bitfield
+import qualified HsBindgen.Runtime.Internal.ByteArray
 import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import qualified Text.Read
@@ -454,9 +457,393 @@ instance HsBindgen.Runtime.HasCField.HasCField Value "unwrap" where
 
   offset# = \_ -> \_ -> 0
 
+{-| __C declaration:__ @union U1@
+
+    __defined at:__ @manual\/enable_record_dot.h 41:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U1 = U1
+  { unwrap :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U1
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw U1
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw U1
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable U1 instance F.Storable U1
+
+{-|
+
+  __See:__ 'set_u1_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 42:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u1_x ::
+     U1
+  -> FC.CInt
+get_u1_x =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u1_x'
+
+-}
+set_u1_x ::
+     FC.CInt
+  -> U1
+set_u1_x =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u1_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 43:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u1_y ::
+     U1
+  -> FC.CInt
+get_u1_y =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u1_y'
+
+-}
+set_u1_y ::
+     FC.CInt
+  -> U1
+set_u1_y =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField U1 "x" where
+
+  type CFieldType U1 "x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U1) "x")
+         ) => GHC.Records.HasField "x" (Ptr.Ptr U1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x")
+
+instance HsBindgen.Runtime.HasCField.HasCField U1 "y" where
+
+  type CFieldType U1 "y" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U1) "y")
+         ) => GHC.Records.HasField "y" (Ptr.Ptr U1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y")
+
+{-| __C declaration:__ @union U2@
+
+    __defined at:__ @manual\/enable_record_dot.h 47:15@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U2_t = U2_t
+  { unwrap :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U2_t
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw U2_t
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw U2_t
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable U2_t instance F.Storable U2_t
+
+{-|
+
+  __See:__ 'set_u2_t_a'
+
+__C declaration:__ @a@
+
+__defined at:__ @manual\/enable_record_dot.h 48:8@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u2_t_a ::
+     U2_t
+  -> FC.CChar
+get_u2_t_a =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u2_t_a'
+
+-}
+set_u2_t_a ::
+     FC.CChar
+  -> U2_t
+set_u2_t_a =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u2_t_b'
+
+__C declaration:__ @b@
+
+__defined at:__ @manual\/enable_record_dot.h 49:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u2_t_b ::
+     U2_t
+  -> FC.CInt
+get_u2_t_b =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u2_t_b'
+
+-}
+set_u2_t_b ::
+     FC.CInt
+  -> U2_t
+set_u2_t_b =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField U2_t "a" where
+
+  type CFieldType U2_t "a" = FC.CChar
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U2_t) "a")
+         ) => GHC.Records.HasField "a" (Ptr.Ptr U2_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a")
+
+instance HsBindgen.Runtime.HasCField.HasCField U2_t "b" where
+
+  type CFieldType U2_t "b" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U2_t) "b")
+         ) => GHC.Records.HasField "b" (Ptr.Ptr U2_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"b")
+
+{-| __C declaration:__ @union U3@
+
+    __defined at:__ @manual\/enable_record_dot.h 53:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U3 = U3
+  { unwrap :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize U3
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw U3
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw U3
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable U3 instance F.Storable U3
+
+{-|
+
+  __See:__ 'set_u3_p'
+
+__C declaration:__ @p@
+
+__defined at:__ @manual\/enable_record_dot.h 54:16@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u3_p ::
+     U3
+  -> Point
+get_u3_p =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u3_p'
+
+-}
+set_u3_p ::
+     Point
+  -> U3
+set_u3_p =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u3_s'
+
+__C declaration:__ @s@
+
+__defined at:__ @manual\/enable_record_dot.h 55:15@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u3_s ::
+     U3
+  -> Size
+get_u3_s =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u3_s'
+
+-}
+set_u3_s ::
+     Size
+  -> U3
+set_u3_s =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField U3 "p" where
+
+  type CFieldType U3 "p" = Point
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U3) "p")
+         ) => GHC.Records.HasField "p" (Ptr.Ptr U3) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"p")
+
+instance HsBindgen.Runtime.HasCField.HasCField U3 "s" where
+
+  type CFieldType U3 "s" = Size
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U3) "s")
+         ) => GHC.Records.HasField "s" (Ptr.Ptr U3) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s")
+
+{-| __C declaration:__ @union U4@
+
+    __defined at:__ @manual\/enable_record_dot.h 59:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U4 = U4
+  { unwrap :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U4
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw U4
+
+deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw U4
+
+deriving via HsBindgen.Runtime.Marshal.EquivStorable U4 instance F.Storable U4
+
+{-|
+
+  __See:__ 'set_u4_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 60:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u4_x ::
+     U4
+  -> FC.CInt
+get_u4_x =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u4_x'
+
+-}
+set_u4_x ::
+     FC.CInt
+  -> U4
+set_u4_x =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u4_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 61:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u4_y ::
+     U4
+  -> FC.CInt
+get_u4_y =
+  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u4_y'
+
+-}
+set_u4_y ::
+     FC.CInt
+  -> U4
+set_u4_y =
+  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField U4 "x" where
+
+  type CFieldType U4 "x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U4) "x")
+         ) => GHC.Records.HasField "x" (Ptr.Ptr U4) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x")
+
+instance HsBindgen.Runtime.HasCField.HasCField U4 "y" where
+
+  type CFieldType U4 "y" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U4) "y")
+         ) => GHC.Records.HasField "y" (Ptr.Ptr U4) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y")
+
 {-| __C declaration:__ @struct Driver@
 
-    __defined at:__ @manual\/enable_record_dot.h 41:8@
+    __defined at:__ @manual\/enable_record_dot.h 65:8@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -466,7 +853,7 @@ data Driver
 
 __C declaration:__ @RunDriver@
 
-__defined at:__ @manual\/enable_record_dot.h 42:15@
+__defined at:__ @manual\/enable_record_dot.h 66:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -522,7 +909,7 @@ instance HsBindgen.Runtime.HasCField.HasCField RunDriver_Aux "unwrap" where
 
 {-| __C declaration:__ @RunDriver@
 
-    __defined at:__ @manual\/enable_record_dot.h 42:15@
+    __defined at:__ @manual\/enable_record_dot.h 66:15@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}

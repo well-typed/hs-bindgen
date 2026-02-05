@@ -292,9 +292,401 @@ instance TyEq ty (CFieldType Value "unwrap") =>
 instance HasCField Value "unwrap"
     where type CFieldType Value "unwrap" = CInt
           offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @union U1@
+
+    __defined at:__ @manual\/enable_record_dot.h 41:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U1
+    = U1 {unwrap :: ByteArray}
+      {- ^ __C declaration:__ @union U1@
+
+           __defined at:__ @manual\/enable_record_dot.h 41:7@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+deriving via (SizedByteArray 4 4) instance StaticSize U1
+deriving via (SizedByteArray 4 4) instance ReadRaw U1
+deriving via (SizedByteArray 4 4) instance WriteRaw U1
+deriving via (EquivStorable U1) instance Storable U1
+{-|
+
+  __See:__ 'set_u1_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 42:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u1_x :: U1 -> CInt
+{-|
+
+  __See:__ 'set_u1_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 42:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u1_x = getUnionPayload
+{-|
+
+  __See:__ 'get_u1_x'
+
+-}
+set_u1_x :: CInt -> U1
+{-|
+
+  __See:__ 'get_u1_x'
+
+-}
+set_u1_x = setUnionPayload
+{-|
+
+  __See:__ 'set_u1_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 43:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u1_y :: U1 -> CInt
+{-|
+
+  __See:__ 'set_u1_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 43:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u1_y = getUnionPayload
+{-|
+
+  __See:__ 'get_u1_y'
+
+-}
+set_u1_y :: CInt -> U1
+{-|
+
+  __See:__ 'get_u1_y'
+
+-}
+set_u1_y = setUnionPayload
+instance HasCField U1 "x"
+    where type CFieldType U1 "x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U1 "x") =>
+         HasField "x" (Ptr U1) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField U1 "y"
+    where type CFieldType U1 "y" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U1 "y") =>
+         HasField "y" (Ptr U1) (Ptr ty)
+    where getField = fromPtr (Proxy @"y")
+{-| __C declaration:__ @union U2@
+
+    __defined at:__ @manual\/enable_record_dot.h 47:15@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U2_t
+    = U2_t {unwrap :: ByteArray}
+      {- ^ __C declaration:__ @union U2@
+
+           __defined at:__ @manual\/enable_record_dot.h 47:15@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+deriving via (SizedByteArray 4 4) instance StaticSize U2_t
+deriving via (SizedByteArray 4 4) instance ReadRaw U2_t
+deriving via (SizedByteArray 4 4) instance WriteRaw U2_t
+deriving via (EquivStorable U2_t) instance Storable U2_t
+{-|
+
+  __See:__ 'set_u2_t_a'
+
+__C declaration:__ @a@
+
+__defined at:__ @manual\/enable_record_dot.h 48:8@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u2_t_a :: U2_t -> CChar
+{-|
+
+  __See:__ 'set_u2_t_a'
+
+__C declaration:__ @a@
+
+__defined at:__ @manual\/enable_record_dot.h 48:8@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u2_t_a = getUnionPayload
+{-|
+
+  __See:__ 'get_u2_t_a'
+
+-}
+set_u2_t_a :: CChar -> U2_t
+{-|
+
+  __See:__ 'get_u2_t_a'
+
+-}
+set_u2_t_a = setUnionPayload
+{-|
+
+  __See:__ 'set_u2_t_b'
+
+__C declaration:__ @b@
+
+__defined at:__ @manual\/enable_record_dot.h 49:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u2_t_b :: U2_t -> CInt
+{-|
+
+  __See:__ 'set_u2_t_b'
+
+__C declaration:__ @b@
+
+__defined at:__ @manual\/enable_record_dot.h 49:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u2_t_b = getUnionPayload
+{-|
+
+  __See:__ 'get_u2_t_b'
+
+-}
+set_u2_t_b :: CInt -> U2_t
+{-|
+
+  __See:__ 'get_u2_t_b'
+
+-}
+set_u2_t_b = setUnionPayload
+instance HasCField U2_t "a"
+    where type CFieldType U2_t "a" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U2_t "a") =>
+         HasField "a" (Ptr U2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"a")
+instance HasCField U2_t "b"
+    where type CFieldType U2_t "b" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U2_t "b") =>
+         HasField "b" (Ptr U2_t) (Ptr ty)
+    where getField = fromPtr (Proxy @"b")
+{-| __C declaration:__ @union U3@
+
+    __defined at:__ @manual\/enable_record_dot.h 53:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U3
+    = U3 {unwrap :: ByteArray}
+      {- ^ __C declaration:__ @union U3@
+
+           __defined at:__ @manual\/enable_record_dot.h 53:7@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+deriving via (SizedByteArray 8 4) instance StaticSize U3
+deriving via (SizedByteArray 8 4) instance ReadRaw U3
+deriving via (SizedByteArray 8 4) instance WriteRaw U3
+deriving via (EquivStorable U3) instance Storable U3
+{-|
+
+  __See:__ 'set_u3_p'
+
+__C declaration:__ @p@
+
+__defined at:__ @manual\/enable_record_dot.h 54:16@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u3_p :: U3 -> Point
+{-|
+
+  __See:__ 'set_u3_p'
+
+__C declaration:__ @p@
+
+__defined at:__ @manual\/enable_record_dot.h 54:16@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u3_p = getUnionPayload
+{-|
+
+  __See:__ 'get_u3_p'
+
+-}
+set_u3_p :: Point -> U3
+{-|
+
+  __See:__ 'get_u3_p'
+
+-}
+set_u3_p = setUnionPayload
+{-|
+
+  __See:__ 'set_u3_s'
+
+__C declaration:__ @s@
+
+__defined at:__ @manual\/enable_record_dot.h 55:15@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u3_s :: U3 -> Size
+{-|
+
+  __See:__ 'set_u3_s'
+
+__C declaration:__ @s@
+
+__defined at:__ @manual\/enable_record_dot.h 55:15@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u3_s = getUnionPayload
+{-|
+
+  __See:__ 'get_u3_s'
+
+-}
+set_u3_s :: Size -> U3
+{-|
+
+  __See:__ 'get_u3_s'
+
+-}
+set_u3_s = setUnionPayload
+instance HasCField U3 "p"
+    where type CFieldType U3 "p" = Point
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U3 "p") =>
+         HasField "p" (Ptr U3) (Ptr ty)
+    where getField = fromPtr (Proxy @"p")
+instance HasCField U3 "s"
+    where type CFieldType U3 "s" = Size
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U3 "s") =>
+         HasField "s" (Ptr U3) (Ptr ty)
+    where getField = fromPtr (Proxy @"s")
+{-| __C declaration:__ @union U4@
+
+    __defined at:__ @manual\/enable_record_dot.h 59:7@
+
+    __exported by:__ @manual\/enable_record_dot.h@
+-}
+newtype U4
+    = U4 {unwrap :: ByteArray}
+      {- ^ __C declaration:__ @union U4@
+
+           __defined at:__ @manual\/enable_record_dot.h 59:7@
+
+           __exported by:__ @manual\/enable_record_dot.h@
+      -}
+deriving via (SizedByteArray 4 4) instance StaticSize U4
+deriving via (SizedByteArray 4 4) instance ReadRaw U4
+deriving via (SizedByteArray 4 4) instance WriteRaw U4
+deriving via (EquivStorable U4) instance Storable U4
+{-|
+
+  __See:__ 'set_u4_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 60:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u4_x :: U4 -> CInt
+{-|
+
+  __See:__ 'set_u4_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @manual\/enable_record_dot.h 60:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u4_x = getUnionPayload
+{-|
+
+  __See:__ 'get_u4_x'
+
+-}
+set_u4_x :: CInt -> U4
+{-|
+
+  __See:__ 'get_u4_x'
+
+-}
+set_u4_x = setUnionPayload
+{-|
+
+  __See:__ 'set_u4_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 61:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u4_y :: U4 -> CInt
+{-|
+
+  __See:__ 'set_u4_y'
+
+__C declaration:__ @y@
+
+__defined at:__ @manual\/enable_record_dot.h 61:7@
+
+__exported by:__ @manual\/enable_record_dot.h@
+-}
+get_u4_y = getUnionPayload
+{-|
+
+  __See:__ 'get_u4_y'
+
+-}
+set_u4_y :: CInt -> U4
+{-|
+
+  __See:__ 'get_u4_y'
+
+-}
+set_u4_y = setUnionPayload
+instance HasCField U4 "x"
+    where type CFieldType U4 "x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U4 "x") =>
+         HasField "x" (Ptr U4) (Ptr ty)
+    where getField = fromPtr (Proxy @"x")
+instance HasCField U4 "y"
+    where type CFieldType U4 "y" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType U4 "y") =>
+         HasField "y" (Ptr U4) (Ptr ty)
+    where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @struct Driver@
 
-    __defined at:__ @manual\/enable_record_dot.h 41:8@
+    __defined at:__ @manual\/enable_record_dot.h 65:8@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -303,7 +695,7 @@ data Driver
 
 __C declaration:__ @RunDriver@
 
-__defined at:__ @manual\/enable_record_dot.h 42:15@
+__defined at:__ @manual\/enable_record_dot.h 66:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -313,7 +705,7 @@ newtype RunDriver_Aux
 
       __C declaration:__ @RunDriver@
 
-      __defined at:__ @manual\/enable_record_dot.h 42:15@
+      __defined at:__ @manual\/enable_record_dot.h 66:15@
 
       __exported by:__ @manual\/enable_record_dot.h@
       -}
@@ -348,7 +740,7 @@ instance HasCField RunDriver_Aux "unwrap"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @RunDriver@
 
-    __defined at:__ @manual\/enable_record_dot.h 42:15@
+    __defined at:__ @manual\/enable_record_dot.h 66:15@
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
@@ -356,7 +748,7 @@ newtype RunDriver
     = RunDriver {unwrap :: (FunPtr RunDriver_Aux)}
       {- ^ __C declaration:__ @RunDriver@
 
-           __defined at:__ @manual\/enable_record_dot.h 42:15@
+           __defined at:__ @manual\/enable_record_dot.h 66:15@
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}

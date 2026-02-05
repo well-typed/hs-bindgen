@@ -19,6 +19,21 @@ ctypes:
   cname: Value
   hsname: Value
 - headers: manual/enable_record_dot.h
+  cname: union U1
+  hsname: U1
+- headers: manual/enable_record_dot.h
+  cname: union U2
+  hsname: U2_t
+- headers: manual/enable_record_dot.h
+  cname: U2_t
+  hsname: U2_t
+- headers: manual/enable_record_dot.h
+  cname: union U3
+  hsname: U3
+- headers: manual/enable_record_dot.h
+  cname: union U4
+  hsname: U4
+- headers: manual/enable_record_dot.h
   cname: struct Driver
   hsname: Driver
 - headers: manual/enable_record_dot.h
@@ -112,6 +127,58 @@ hstypes:
   - HasField
   - ReadRaw
   - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U1
+  representation:
+    newtype:
+      constructor: U1
+      fields:
+      - unwrap
+  instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U2_t
+  representation:
+    newtype:
+      constructor: U2_t
+      fields:
+      - unwrap
+  instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U3
+  representation:
+    newtype:
+      constructor: U3
+      fields:
+      - unwrap
+  instances:
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U4
+  representation:
+    newtype:
+      constructor: U4
+      fields:
+      - unwrap
+  instances:
+  - HasCField
+  - HasField
+  - ReadRaw
   - StaticSize
   - Storable
   - WriteRaw

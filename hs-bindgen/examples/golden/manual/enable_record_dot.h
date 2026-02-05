@@ -37,6 +37,30 @@ enum E {
 /* Newtype example */
 typedef int Value;
 
+/* Union with common field names */
+union U1 {
+  int x;
+  int y;
+};
+
+/* Typedef union */
+typedef union U2 {
+  char a;
+  int b;
+} U2_t;
+
+/* Union containing struct with common field names */
+union U3 {
+  struct Point p;
+  struct Size s;
+};
+
+/* Second Union with the same field names */
+union U4 {
+  int x;
+  int y;
+};
+
 /* Typedef for a function pointer */
 struct Driver;
 typedef int (*RunDriver)(struct Driver* self);

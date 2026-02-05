@@ -35,7 +35,9 @@ import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
+import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Config.Internal
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -166,7 +168,7 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
       C.DeclStruct struct -> withCategoryM CType $
         structDecs supInsts.struct haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
-        unionDecs haddockConfig info union spec
+        unionDecs fns haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
         enumDecs supInsts.enum fns haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
@@ -239,12 +241,13 @@ opaqueDecs haddockConfig info spec = do
 -------------------------------------------------------------------------------}
 
 unionDecs ::
-     HaddockConfig
+     FieldNamingStrategy
+  -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Union Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-unionDecs haddockConfig info union spec = do
+unionDecs fieldNaming haddockConfig info union spec = do
     nt <- newtypeDec
     flip aux nt <$> State.get
   where
@@ -362,9 +365,35 @@ unionDecs haddockConfig info union spec = do
                             (Just nt.name)
                             (Set.singleton Inst.Storable)
                             [hsType]
-            -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
-            getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
-            setterName = Hs.unsafeHsIdHsName $ "set_" <> field.info.name.hsName
+
+            -- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
+            -- This should happen in the name mangler, so that we can deal with
+            -- collisions, errors thrown by 'fixCandidate', etc.
+            --
+            -- With PrefixedFieldNames: field.info.name.hsName already contains the
+            -- type prefix (e.g., "dimPayload_dim2"), so we use it directly.
+            -- With EnableRecordDot: field.info.name.hsName is just the C field name
+            -- (e.g., "dim2"), so we need to add the type name for uniqueness.
+            getterName = Hs.unsafeHsIdHsName $ "get_" <> fieldNameWithPrefix
+            setterName = Hs.unsafeHsIdHsName $ "set_" <> fieldNameWithPrefix
+
+            -- We ensure that we generate the /same/ getter and setter name
+            -- independent of whether record dot syntax is enabled or not.
+            fieldNameWithPrefix :: Hs.Identifier
+            fieldNameWithPrefix = case fieldNaming of
+              PrefixedFieldNames -> field.info.name.hsName
+              EnableRecordDot    ->
+                let candidate :: Text
+                    candidate = Hs.getName nt.name <> "_" <> field.info.name.hsName.text
+
+                    exportedName :: Hs.ExportedName Hs.NsVar
+                    exportedName =
+                       fromMaybe (panicPure $ "could not construct name for " ++ show candidate) $
+                         FixCandidate.fixCandidate
+                           FixCandidate.fixCandidateDefault
+                           candidate
+
+                in Hs.Identifier exportedName.text
 
             commentRefName :: Text -> Maybe HsDoc.Comment
             commentRefName name = Just $ HsDoc.paragraph [
