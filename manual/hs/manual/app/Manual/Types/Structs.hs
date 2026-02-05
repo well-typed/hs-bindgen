@@ -56,17 +56,3 @@ examples = do
         surname <- readRaw ptr
         putStrLn $ "The length of the surname is: " <> show (FLAM.numElems surname.aux)
         print $ VS.map castCCharToChar $ FLAM.flam surname
-
-{- TODO Delete or restore this test: https://github.com/well-typed/hs-bindgen/issues/1637
-    subsection "PrimArray of structs"
-    -- Create a PrimArray of Triple structs
-    let triples = PA.primArrayFromList
-          [ mkTriple 1 2 3
-          , mkTriple 4 5 6
-          , mkTriple 7 8 9
-          ]
-    putStrLn $ "Created PrimArray with " <> show (PA.sizeofPrimArray triples) <> " elements"
-    putStrLn $ "First element: " <> show (PA.indexPrimArray triples 0)
-    putStrLn $ "Second element: " <> show (PA.indexPrimArray triples 1)
-    putStrLn $ "Third element: " <> show (PA.indexPrimArray triples 2)
--}
