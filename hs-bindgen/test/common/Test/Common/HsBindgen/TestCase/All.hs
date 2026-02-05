@@ -210,7 +210,6 @@ testCaseSpecs_manual = [
       defaultSpec "manual/arrays"
     , defaultSpec "manual/function_pointers"
     , defaultSpec "manual/zero_copy"
-    , defaultSpec "manual/globals"
     , defaultSpec "manual/enable_record_dot"
       & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
       & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )

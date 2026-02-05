@@ -116,7 +116,7 @@ testCases_default = map fromSpec Specs.testCaseSpecs_default
 -------------------------------------------------------------------------------}
 
 testCases_manual :: [TestCase]
-testCases_manual = map fromSpec (take 4 Specs.testCaseSpecs_manual)
+testCases_manual = map fromSpec Specs.testCaseSpecs_manual
                 ++ [ test_manual_globals ]
 
 test_manual_globals :: TestCase
