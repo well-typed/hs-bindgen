@@ -250,77 +250,77 @@ data CTm = CTm {
   deriving stock (Eq, Show)
   deriving Storable via EquivStorable CTm
 
-instance HasCField CTm "sec" where
-  type CFieldType CTm "sec" = C.CInt
+instance HasCField CTm "tm_sec" where
+  type CFieldType CTm "tm_sec" = C.CInt
   offset## _ _ = #offset struct tm, tm_sec
 
-instance HasCField CTm "min" where
-  type CFieldType CTm "min" = C.CInt
+instance HasCField CTm "tm_min" where
+  type CFieldType CTm "tm_min" = C.CInt
   offset## _ _ = #offset struct tm, tm_min
 
-instance HasCField CTm "hour" where
-  type CFieldType CTm "hour" = C.CInt
+instance HasCField CTm "tm_hour" where
+  type CFieldType CTm "tm_hour" = C.CInt
   offset## _ _ = #offset struct tm, tm_hour
 
-instance HasCField CTm "mday" where
-  type CFieldType CTm "mday" = C.CInt
+instance HasCField CTm "tm_mday" where
+  type CFieldType CTm "tm_mday" = C.CInt
   offset## _ _ = #offset struct tm, tm_mday
 
-instance HasCField CTm "mon" where
-  type CFieldType CTm "mon" = C.CInt
+instance HasCField CTm "tm_mon" where
+  type CFieldType CTm "tm_mon" = C.CInt
   offset## _ _ = #offset struct tm, tm_mon
 
-instance HasCField CTm "year" where
-  type CFieldType CTm "year" = C.CInt
+instance HasCField CTm "tm_year" where
+  type CFieldType CTm "tm_year" = C.CInt
   offset## _ _ = #offset struct tm, tm_year
 
-instance HasCField CTm "wday" where
-  type CFieldType CTm "wday" = C.CInt
+instance HasCField CTm "tm_wday" where
+  type CFieldType CTm "tm_wday" = C.CInt
   offset## _ _ = #offset struct tm, tm_wday
 
-instance HasCField CTm "yday" where
-  type CFieldType CTm "yday" = C.CInt
+instance HasCField CTm "tm_yday" where
+  type CFieldType CTm "tm_yday" = C.CInt
   offset## _ _ = #offset struct tm, tm_yday
 
-instance HasCField CTm "isdst" where
-  type CFieldType CTm "isdst" = C.CInt
+instance HasCField CTm "tm_isdst" where
+  type CFieldType CTm "tm_isdst" = C.CInt
   offset## _ _ = #offset struct tm, tm_isdst
 
-instance ( TyEq ty (CFieldType CTm "sec")
-         ) => HasField "sec" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"sec")
+instance ( TyEq ty (CFieldType CTm "tm_sec")
+         ) => HasField "tm_sec" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_sec")
 
-instance ( TyEq ty (CFieldType CTm "min")
-         ) => HasField "min" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"min")
+instance ( TyEq ty (CFieldType CTm "tm_min")
+         ) => HasField "tm_min" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_min")
 
-instance ( TyEq ty (CFieldType CTm "hour")
-         ) => HasField "hour" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"hour")
+instance ( TyEq ty (CFieldType CTm "tm_hour")
+         ) => HasField "tm_hour" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_hour")
 
-instance ( TyEq ty (CFieldType CTm "mday")
-         ) => HasField "mday" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"mday")
+instance ( TyEq ty (CFieldType CTm "tm_mday")
+         ) => HasField "tm_mday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_mday")
 
-instance ( TyEq ty (CFieldType CTm "mon")
-         ) => HasField "mon" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"mon")
+instance ( TyEq ty (CFieldType CTm "tm_mon")
+         ) => HasField "tm_mon" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_mon")
 
-instance ( TyEq ty (CFieldType CTm "year")
-         ) => HasField "year" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"year")
+instance ( TyEq ty (CFieldType CTm "tm_year")
+         ) => HasField "tm_year" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_year")
 
-instance ( TyEq ty (CFieldType CTm "wday")
-         ) => HasField "wday" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"wday")
+instance ( TyEq ty (CFieldType CTm "tm_wday")
+         ) => HasField "tm_wday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_wday")
 
-instance ( TyEq ty (CFieldType CTm "yday")
-         ) => HasField "yday" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"yday")
+instance ( TyEq ty (CFieldType CTm "tm_yday")
+         ) => HasField "tm_yday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_yday")
 
-instance ( TyEq ty (CFieldType CTm "isdst")
-         ) => HasField "isdst" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"isdst")
+instance ( TyEq ty (CFieldType CTm "tm_isdst")
+         ) => HasField "tm_isdst" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_isdst")
 
 instance ReadRaw CTm where
   readRaw ptr = do
