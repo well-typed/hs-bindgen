@@ -31,7 +31,7 @@ echo "# "
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I "$RGFW_DIR/include" \
-    --parse-from-main-header-dirs \
+    --parse-all \
     --create-output-dirs \
     --overwrite-files \
     --hs-output-dir "hs-project/src" \
@@ -43,6 +43,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --safe "_safe" \
     --unsafe "_unsafe" \
     --pointer "_pointer" \
+    --enable-program-slicing \
     "RGFW.h"
 
 echo "# "
