@@ -312,72 +312,72 @@ deriving via (SizedByteArray 4 4) instance WriteRaw U1
 deriving via (EquivStorable U1) instance Storable U1
 {-|
 
-  __See:__ 'set_x'
+  __See:__ 'set_U1_x'
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 60:7@
+__defined at:__ @manual\/enable_record_dot.h 42:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_x :: U1 -> CInt
+get_U1_x :: U1 -> CInt
 {-|
 
-  __See:__ 'set_x'
+  __See:__ 'set_U1_x'
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 60:7@
+__defined at:__ @manual\/enable_record_dot.h 42:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_x = getUnionPayload
+get_U1_x = getUnionPayload
 {-|
 
-  __See:__ 'get_x'
+  __See:__ 'get_U1_x'
 
 -}
-set_x :: CInt -> U1
+set_U1_x :: CInt -> U1
 {-|
 
-  __See:__ 'get_x'
+  __See:__ 'get_U1_x'
 
 -}
-set_x = setUnionPayload
+set_U1_x = setUnionPayload
 {-|
 
-  __See:__ 'set_y'
+  __See:__ 'set_U1_y'
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 61:7@
+__defined at:__ @manual\/enable_record_dot.h 43:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_y :: U1 -> CInt
+get_U1_y :: U1 -> CInt
 {-|
 
-  __See:__ 'set_y'
+  __See:__ 'set_U1_y'
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 61:7@
+__defined at:__ @manual\/enable_record_dot.h 43:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_y = getUnionPayload
+get_U1_y = getUnionPayload
 {-|
 
-  __See:__ 'get_y'
+  __See:__ 'get_U1_y'
 
 -}
-set_y :: CInt -> U1
+set_U1_y :: CInt -> U1
 {-|
 
-  __See:__ 'get_y'
+  __See:__ 'get_U1_y'
 
 -}
-set_y = setUnionPayload
+set_U1_y = setUnionPayload
 instance HasCField U1 "x"
     where type CFieldType U1 "x" = CInt
           offset# = \_ -> \_ -> 0
@@ -410,7 +410,7 @@ deriving via (SizedByteArray 4 4) instance WriteRaw U2_t
 deriving via (EquivStorable U2_t) instance Storable U2_t
 {-|
 
-  __See:__ 'set_a'
+  __See:__ 'set_U2_t_a'
 
 __C declaration:__ @a@
 
@@ -418,10 +418,10 @@ __defined at:__ @manual\/enable_record_dot.h 48:8@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_a :: U2_t -> CChar
+get_U2_t_a :: U2_t -> CChar
 {-|
 
-  __See:__ 'set_a'
+  __See:__ 'set_U2_t_a'
 
 __C declaration:__ @a@
 
@@ -429,22 +429,22 @@ __defined at:__ @manual\/enable_record_dot.h 48:8@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_a = getUnionPayload
+get_U2_t_a = getUnionPayload
 {-|
 
-  __See:__ 'get_a'
+  __See:__ 'get_U2_t_a'
 
 -}
-set_a :: CChar -> U2_t
+set_U2_t_a :: CChar -> U2_t
 {-|
 
-  __See:__ 'get_a'
+  __See:__ 'get_U2_t_a'
 
 -}
-set_a = setUnionPayload
+set_U2_t_a = setUnionPayload
 {-|
 
-  __See:__ 'set_b'
+  __See:__ 'set_U2_t_b'
 
 __C declaration:__ @b@
 
@@ -452,10 +452,10 @@ __defined at:__ @manual\/enable_record_dot.h 49:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_b :: U2_t -> CInt
+get_U2_t_b :: U2_t -> CInt
 {-|
 
-  __See:__ 'set_b'
+  __See:__ 'set_U2_t_b'
 
 __C declaration:__ @b@
 
@@ -463,19 +463,19 @@ __defined at:__ @manual\/enable_record_dot.h 49:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_b = getUnionPayload
+get_U2_t_b = getUnionPayload
 {-|
 
-  __See:__ 'get_b'
+  __See:__ 'get_U2_t_b'
 
 -}
-set_b :: CInt -> U2_t
+set_U2_t_b :: CInt -> U2_t
 {-|
 
-  __See:__ 'get_b'
+  __See:__ 'get_U2_t_b'
 
 -}
-set_b = setUnionPayload
+set_U2_t_b = setUnionPayload
 instance HasCField U2_t "a"
     where type CFieldType U2_t "a" = CChar
           offset# = \_ -> \_ -> 0
@@ -508,7 +508,7 @@ deriving via (SizedByteArray 8 4) instance WriteRaw U3
 deriving via (EquivStorable U3) instance Storable U3
 {-|
 
-  __See:__ 'set_p'
+  __See:__ 'set_U3_p'
 
 __C declaration:__ @p@
 
@@ -516,10 +516,10 @@ __defined at:__ @manual\/enable_record_dot.h 54:16@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_p :: U3 -> Point
+get_U3_p :: U3 -> Point
 {-|
 
-  __See:__ 'set_p'
+  __See:__ 'set_U3_p'
 
 __C declaration:__ @p@
 
@@ -527,22 +527,22 @@ __defined at:__ @manual\/enable_record_dot.h 54:16@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_p = getUnionPayload
+get_U3_p = getUnionPayload
 {-|
 
-  __See:__ 'get_p'
+  __See:__ 'get_U3_p'
 
 -}
-set_p :: Point -> U3
+set_U3_p :: Point -> U3
 {-|
 
-  __See:__ 'get_p'
+  __See:__ 'get_U3_p'
 
 -}
-set_p = setUnionPayload
+set_U3_p = setUnionPayload
 {-|
 
-  __See:__ 'set_s'
+  __See:__ 'set_U3_s'
 
 __C declaration:__ @s@
 
@@ -550,10 +550,10 @@ __defined at:__ @manual\/enable_record_dot.h 55:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_s :: U3 -> Size
+get_U3_s :: U3 -> Size
 {-|
 
-  __See:__ 'set_s'
+  __See:__ 'set_U3_s'
 
 __C declaration:__ @s@
 
@@ -561,19 +561,19 @@ __defined at:__ @manual\/enable_record_dot.h 55:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_s = getUnionPayload
+get_U3_s = getUnionPayload
 {-|
 
-  __See:__ 'get_s'
+  __See:__ 'get_U3_s'
 
 -}
-set_s :: Size -> U3
+set_U3_s :: Size -> U3
 {-|
 
-  __See:__ 'get_s'
+  __See:__ 'get_U3_s'
 
 -}
-set_s = setUnionPayload
+set_U3_s = setUnionPayload
 instance HasCField U3 "p"
     where type CFieldType U3 "p" = Point
           offset# = \_ -> \_ -> 0
@@ -606,7 +606,7 @@ deriving via (SizedByteArray 4 4) instance WriteRaw U4
 deriving via (EquivStorable U4) instance Storable U4
 {-|
 
-  __See:__ 'set_x'
+  __See:__ 'set_U4_x'
 
 __C declaration:__ @x@
 
@@ -614,10 +614,10 @@ __defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_x :: U4 -> CInt
+get_U4_x :: U4 -> CInt
 {-|
 
-  __See:__ 'set_x'
+  __See:__ 'set_U4_x'
 
 __C declaration:__ @x@
 
@@ -625,22 +625,22 @@ __defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_x = getUnionPayload
+get_U4_x = getUnionPayload
 {-|
 
-  __See:__ 'get_x'
+  __See:__ 'get_U4_x'
 
 -}
-set_x :: CInt -> U4
+set_U4_x :: CInt -> U4
 {-|
 
-  __See:__ 'get_x'
+  __See:__ 'get_U4_x'
 
 -}
-set_x = setUnionPayload
+set_U4_x = setUnionPayload
 {-|
 
-  __See:__ 'set_y'
+  __See:__ 'set_U4_y'
 
 __C declaration:__ @y@
 
@@ -648,10 +648,10 @@ __defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_y :: U4 -> CInt
+get_U4_y :: U4 -> CInt
 {-|
 
-  __See:__ 'set_y'
+  __See:__ 'set_U4_y'
 
 __C declaration:__ @y@
 
@@ -659,19 +659,19 @@ __defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_y = getUnionPayload
+get_U4_y = getUnionPayload
 {-|
 
-  __See:__ 'get_y'
+  __See:__ 'get_U4_y'
 
 -}
-set_y :: CInt -> U4
+set_U4_y :: CInt -> U4
 {-|
 
-  __See:__ 'get_y'
+  __See:__ 'get_U4_y'
 
 -}
-set_y = setUnionPayload
+set_U4_y = setUnionPayload
 instance HasCField U4 "x"
     where type CFieldType U4 "x" = CInt
           offset# = \_ -> \_ -> 0

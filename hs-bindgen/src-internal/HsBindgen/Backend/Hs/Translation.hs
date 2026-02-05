@@ -166,7 +166,7 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
       C.DeclStruct struct -> withCategoryM CType $
         structDecs supInsts.struct haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
-        unionDecs haddockConfig info union spec
+        unionDecs fns haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
         enumDecs supInsts.enum fns haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
@@ -239,12 +239,13 @@ opaqueDecs haddockConfig info spec = do
 -------------------------------------------------------------------------------}
 
 unionDecs ::
-     HaddockConfig
+     FieldNamingStrategy
+  -> HaddockConfig
   -> C.DeclInfo Final
   -> C.Union Final
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
-unionDecs haddockConfig info union spec = do
+unionDecs fieldNaming haddockConfig info union spec = do
     nt <- newtypeDec
     flip aux nt <$> State.get
   where
@@ -363,8 +364,18 @@ unionDecs haddockConfig info union spec = do
                             (Set.singleton Inst.Storable)
                             [hsType]
             -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
-            getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
-            setterName = Hs.unsafeHsIdHsName $ "set_" <> field.info.name.hsName
+            --
+            -- With PrefixedFieldNames: field.info.name.hsName already contains the
+            -- type prefix (e.g., "dimPayload_dim2"), so we use it directly.
+            -- With EnableRecordDot: field.info.name.hsName is just the C field name
+            -- (e.g., "dim2"), so we need to add the type name for uniqueness.
+            getterName = Hs.unsafeHsIdHsName $ "get_" <> fieldNameWithPrefix
+            setterName = Hs.unsafeHsIdHsName $ "set_" <> fieldNameWithPrefix
+
+            fieldNameWithPrefix :: Hs.Identifier
+            fieldNameWithPrefix = case fieldNaming of
+              PrefixedFieldNames -> field.info.name.hsName
+              EnableRecordDot    -> Hs.Identifier (Hs.getName nt.name) <> "_" <> field.info.name.hsName
 
             commentRefName :: Text -> Maybe HsDoc.Comment
             commentRefName name = Just $ HsDoc.paragraph [
