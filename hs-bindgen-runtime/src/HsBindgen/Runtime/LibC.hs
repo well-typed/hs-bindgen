@@ -40,12 +40,6 @@ module HsBindgen.Runtime.LibC (
   , LibC.CFenvT
   , LibC.CFexceptT
 
-    -- * Mathematical types
-  , LibC.CDivT(..)
-  , LibC.CLdivT(..)
-  , LibC.CLldivT(..)
-  , LibC.CImaxdivT(..)
-
     -- * Standard definitions
     -- $StandardDefinitions
   , Foreign.C.CSize(..)

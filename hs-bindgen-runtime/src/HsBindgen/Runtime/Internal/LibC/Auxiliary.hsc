@@ -1,6 +1,7 @@
 {-# OPTIONS_HADDOCK hide #-}
 
 {-# LANGUAGE MagicHash #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE UnboxedTuples #-}
 
 -- | C standard library types that are not in @base@
@@ -10,12 +11,6 @@ module HsBindgen.Runtime.Internal.LibC.Auxiliary (
     -- * Floating Types
     CFenvT
   , CFexceptT
-
-    -- * Mathematical Types
-  , CDivT(..)
-  , CLdivT(..)
-  , CLldivT(..)
-  , CImaxdivT(..)
 
     -- * Wide Character Types
   , CWintT(..)
@@ -79,161 +74,6 @@ data CFenvT
 -- used with a 'Ptr'.  It is available since C99.  It is defined in the @fenv.h@
 -- header file.
 data CFexceptT
-
-{-------------------------------------------------------------------------------
-  Mathematical Types
--------------------------------------------------------------------------------}
-
--- | C @div_t@ structure
---
--- @div_t@ represents the result of integral division performed by function
--- @div@.  It is defined in the @stdlib.h@ header file.
-data CDivT = CDivT {
-      cDivT_quot :: C.CInt -- ^ Quotient
-    , cDivT_rem  :: C.CInt -- ^ Remainder
-    }
-  deriving stock (Eq, Ord, Show)
-
-instance HasCField CDivT "quot" where
-  type CFieldType CDivT "quot" = C.CInt
-  offset## _ _ = #offset div_t, quot
-
-instance HasCField CDivT "rem" where
-  type CFieldType CDivT "rem" = C.CInt
-  offset## _ _ = #offset div_t, rem
-
-instance ( TyEq ty (CFieldType CDivT "quot")
-         ) => HasField "quot" (Ptr CDivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"quot")
-
-instance ( TyEq ty (CFieldType CDivT "rem")
-         ) => HasField "rem" (Ptr CDivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"rem")
-
-instance ReadRaw CDivT where
-  readRaw ptr = do
-    cDivT_quot <- (#peek div_t, quot) ptr
-    cDivT_rem  <- (#peek div_t, rem)  ptr
-    return CDivT{..}
-
-instance StaticSize CDivT where
-  staticSizeOf    _ = #size      div_t
-  staticAlignment _ = #alignment div_t
-
---------------------------------------------------------------------------------
-
--- | C @ldiv_t@ structure
---
--- @ldiv_t@ represents the result of integral division performed by function
--- @ldiv@.  It is defined in the @stdlib.h@ header file.
-data CLdivT = CLdivT {
-      cLdivT_quot :: C.CLong -- ^ Quotient
-    , cLdivT_rem  :: C.CLong -- ^ Remainder
-    }
-  deriving stock (Eq, Ord, Show)
-
-instance HasCField CLdivT "quot" where
-  type CFieldType CLdivT "quot" = C.CInt
-  offset## _ _ = #offset ldiv_t, quot
-
-instance HasCField CLdivT "rem" where
-  type CFieldType CLdivT "rem" = C.CInt
-  offset## _ _ = #offset ldiv_t, rem
-
-instance ( TyEq ty (CFieldType CLdivT "quot")
-         ) => HasField "quot" (Ptr CLdivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"quot")
-
-instance ( TyEq ty (CFieldType CLdivT "rem")
-         ) => HasField "rem" (Ptr CLdivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"rem")
-
-instance ReadRaw CLdivT where
-  readRaw ptr = do
-    cLdivT_quot <- (#peek ldiv_t, quot) ptr
-    cLdivT_rem  <- (#peek ldiv_t, rem)  ptr
-    return CLdivT{..}
-
-instance StaticSize CLdivT where
-  staticSizeOf    _ = #size      ldiv_t
-  staticAlignment _ = #alignment ldiv_t
-
---------------------------------------------------------------------------------
-
--- | C @lldiv_t@ structure
---
--- @lldiv_t@ represents the result of integral division performed by function
--- @lldiv@.  It is defined in the @stdlib.h@ header file.
-data CLldivT = CLldivT {
-      cLldivT_quot :: C.CLLong -- ^ Quotient
-    , cLldivT_rem  :: C.CLLong -- ^ Remainder
-    }
-  deriving stock (Eq, Ord, Show)
-
-instance HasCField CLldivT "quot" where
-  type CFieldType CLldivT "quot" = C.CInt
-  offset## _ _ = #offset lldiv_t, quot
-
-instance HasCField CLldivT "rem" where
-  type CFieldType CLldivT "rem" = C.CInt
-  offset## _ _ = #offset lldiv_t, rem
-
-instance ( TyEq ty (CFieldType CLldivT "quot")
-         ) => HasField "quot" (Ptr CLldivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"quot")
-
-instance ( TyEq ty (CFieldType CLldivT "rem")
-         ) => HasField "rem" (Ptr CLldivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"rem")
-
-instance ReadRaw CLldivT where
-  readRaw ptr = do
-    cLldivT_quot <- (#peek lldiv_t, quot) ptr
-    cLldivT_rem  <- (#peek lldiv_t, rem)  ptr
-    return CLldivT{..}
-
-instance StaticSize CLldivT where
-  staticSizeOf    _ = #size      lldiv_t
-  staticAlignment _ = #alignment lldiv_t
-
---------------------------------------------------------------------------------
-
--- | C @imaxdiv_t@ structure
---
--- @imaxdiv_t@ represents the result of integral division performed by function
--- @imaxdiv@.  It is available since C99.  It is defined in the @inttypes.h@
--- header file.
-data CImaxdivT = CImaxdivT {
-      cImaxdivT_quot :: C.CIntMax -- ^ Quotient
-    , cImaxdivT_rem  :: C.CIntMax -- ^ Remainder
-    }
-  deriving stock (Eq, Ord, Show)
-
-instance HasCField CImaxdivT "quot" where
-  type CFieldType CImaxdivT "quot" = C.CInt
-  offset## _ _ = #offset imaxdiv_t, quot
-
-instance HasCField CImaxdivT "rem" where
-  type CFieldType CImaxdivT "rem" = C.CInt
-  offset## _ _ = #offset imaxdiv_t, rem
-
-instance ( TyEq ty (CFieldType CImaxdivT "quot")
-         ) => HasField "quot" (Ptr CImaxdivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"quot")
-
-instance ( TyEq ty (CFieldType CImaxdivT "rem")
-         ) => HasField "rem" (Ptr CImaxdivT) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"rem")
-
-instance ReadRaw CImaxdivT where
-  readRaw ptr = do
-    cImaxdivT_quot <- (#peek imaxdiv_t, quot) ptr
-    cImaxdivT_rem  <- (#peek imaxdiv_t, rem)  ptr
-    return CImaxdivT{..}
-
-instance StaticSize CImaxdivT where
-  staticSizeOf    _ = #size      imaxdiv_t
-  staticAlignment _ = #alignment imaxdiv_t
 
 {-------------------------------------------------------------------------------
   Standard Definitions
@@ -397,116 +237,103 @@ newtype CChar32T = CChar32T Word32
 -- represented here.  It is defined in the @time.h@ header file, and it is made
 -- available in other header files that use it.
 data CTm = CTm {
-      cTm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 60]@)
-    , cTm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
-    , cTm_hour  :: C.CInt -- ^ Hours since midnight (@[0, 23]@)
-    , cTm_mday  :: C.CInt -- ^ Day of the month (@[1, 31]@)
-    , cTm_mon   :: C.CInt -- ^ Months since January (@[0, 11]@)
-    , cTm_year  :: C.CInt -- ^ Years since 1900
-    , cTm_wday  :: C.CInt -- ^ Days since Sunday (@[0, 6]@)
-    , cTm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
-    , cTm_isdst :: C.CInt -- ^ Daylight Saving Time flag
+      tm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 61]@)
+    , tm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
+    , tm_hour  :: C.CInt -- ^ Hours since midnight (@[0, 23]@)
+    , tm_mday  :: C.CInt -- ^ Day of the month (@[1, 31]@)
+    , tm_mon   :: C.CInt -- ^ Months since January (@[0, 11]@)
+    , tm_year  :: C.CInt -- ^ Years since 1900
+    , tm_wday  :: C.CInt -- ^ Days since Sunday (@[0, 6]@)
+    , tm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
+    , tm_isdst :: C.CInt -- ^ Daylight Saving Time flag
     }
   deriving stock (Eq, Show)
-  deriving Storable via EquivStorable CTm
 
-instance HasCField CTm "sec" where
-  type CFieldType CTm "sec" = C.CInt
+instance HasCField CTm "tm_sec" where
+  type CFieldType CTm "tm_sec" = C.CInt
   offset## _ _ = #offset struct tm, tm_sec
 
-instance HasCField CTm "min" where
-  type CFieldType CTm "min" = C.CInt
+instance HasCField CTm "tm_min" where
+  type CFieldType CTm "tm_min" = C.CInt
   offset## _ _ = #offset struct tm, tm_min
 
-instance HasCField CTm "hour" where
-  type CFieldType CTm "hour" = C.CInt
+instance HasCField CTm "tm_hour" where
+  type CFieldType CTm "tm_hour" = C.CInt
   offset## _ _ = #offset struct tm, tm_hour
 
-instance HasCField CTm "mday" where
-  type CFieldType CTm "mday" = C.CInt
+instance HasCField CTm "tm_mday" where
+  type CFieldType CTm "tm_mday" = C.CInt
   offset## _ _ = #offset struct tm, tm_mday
 
-instance HasCField CTm "mon" where
-  type CFieldType CTm "mon" = C.CInt
+instance HasCField CTm "tm_mon" where
+  type CFieldType CTm "tm_mon" = C.CInt
   offset## _ _ = #offset struct tm, tm_mon
 
-instance HasCField CTm "year" where
-  type CFieldType CTm "year" = C.CInt
+instance HasCField CTm "tm_year" where
+  type CFieldType CTm "tm_year" = C.CInt
   offset## _ _ = #offset struct tm, tm_year
 
-instance HasCField CTm "wday" where
-  type CFieldType CTm "wday" = C.CInt
+instance HasCField CTm "tm_wday" where
+  type CFieldType CTm "tm_wday" = C.CInt
   offset## _ _ = #offset struct tm, tm_wday
 
-instance HasCField CTm "yday" where
-  type CFieldType CTm "yday" = C.CInt
+instance HasCField CTm "tm_yday" where
+  type CFieldType CTm "tm_yday" = C.CInt
   offset## _ _ = #offset struct tm, tm_yday
 
-instance HasCField CTm "isdst" where
-  type CFieldType CTm "isdst" = C.CInt
+instance HasCField CTm "tm_isdst" where
+  type CFieldType CTm "tm_isdst" = C.CInt
   offset## _ _ = #offset struct tm, tm_isdst
 
-instance ( TyEq ty (CFieldType CTm "sec")
-         ) => HasField "sec" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"sec")
+instance ( TyEq ty (CFieldType CTm "tm_sec")
+         ) => HasField "tm_sec" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_sec")
 
-instance ( TyEq ty (CFieldType CTm "min")
-         ) => HasField "min" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"min")
+instance ( TyEq ty (CFieldType CTm "tm_min")
+         ) => HasField "tm_min" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_min")
 
-instance ( TyEq ty (CFieldType CTm "hour")
-         ) => HasField "hour" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"hour")
+instance ( TyEq ty (CFieldType CTm "tm_hour")
+         ) => HasField "tm_hour" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_hour")
 
-instance ( TyEq ty (CFieldType CTm "mday")
-         ) => HasField "mday" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"mday")
+instance ( TyEq ty (CFieldType CTm "tm_mday")
+         ) => HasField "tm_mday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_mday")
 
-instance ( TyEq ty (CFieldType CTm "mon")
-         ) => HasField "mon" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"mon")
+instance ( TyEq ty (CFieldType CTm "tm_mon")
+         ) => HasField "tm_mon" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_mon")
 
-instance ( TyEq ty (CFieldType CTm "year")
-         ) => HasField "year" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"year")
+instance ( TyEq ty (CFieldType CTm "tm_year")
+         ) => HasField "tm_year" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_year")
 
-instance ( TyEq ty (CFieldType CTm "wday")
-         ) => HasField "wday" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"wday")
+instance ( TyEq ty (CFieldType CTm "tm_wday")
+         ) => HasField "tm_wday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_wday")
 
-instance ( TyEq ty (CFieldType CTm "yday")
-         ) => HasField "yday" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"yday")
+instance ( TyEq ty (CFieldType CTm "tm_yday")
+         ) => HasField "tm_yday" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_yday")
 
-instance ( TyEq ty (CFieldType CTm "isdst")
-         ) => HasField "isdst" (Ptr CTm) (Ptr ty) where
-  getField = HasCField.fromPtr (Proxy @"isdst")
+instance ( TyEq ty (CFieldType CTm "tm_isdst")
+         ) => HasField "tm_isdst" (Ptr CTm) (Ptr ty) where
+  getField = HasCField.fromPtr (Proxy @"tm_isdst")
 
 instance ReadRaw CTm where
   readRaw ptr = do
-    cTm_sec   <- (#peek struct tm, tm_sec)   ptr
-    cTm_min   <- (#peek struct tm, tm_min)   ptr
-    cTm_hour  <- (#peek struct tm, tm_hour)  ptr
-    cTm_mday  <- (#peek struct tm, tm_mday)  ptr
-    cTm_mon   <- (#peek struct tm, tm_mon)   ptr
-    cTm_year  <- (#peek struct tm, tm_year)  ptr
-    cTm_wday  <- (#peek struct tm, tm_wday)  ptr
-    cTm_yday  <- (#peek struct tm, tm_yday)  ptr
-    cTm_isdst <- (#peek struct tm, tm_isdst) ptr
+    tm_sec   <- (#peek struct tm, tm_sec)   ptr
+    tm_min   <- (#peek struct tm, tm_min)   ptr
+    tm_hour  <- (#peek struct tm, tm_hour)  ptr
+    tm_mday  <- (#peek struct tm, tm_mday)  ptr
+    tm_mon   <- (#peek struct tm, tm_mon)   ptr
+    tm_year  <- (#peek struct tm, tm_year)  ptr
+    tm_wday  <- (#peek struct tm, tm_wday)  ptr
+    tm_yday  <- (#peek struct tm, tm_yday)  ptr
+    tm_isdst <- (#peek struct tm, tm_isdst) ptr
     return CTm{..}
 
 instance StaticSize CTm where
   staticSizeOf    _ = #size      struct tm
   staticAlignment _ = #alignment struct tm
-
-instance WriteRaw CTm where
-  writeRaw ptr CTm{..} = do
-    (#poke struct tm, tm_sec)   ptr cTm_sec
-    (#poke struct tm, tm_min)   ptr cTm_min
-    (#poke struct tm, tm_hour)  ptr cTm_hour
-    (#poke struct tm, tm_mday)  ptr cTm_mday
-    (#poke struct tm, tm_mon)   ptr cTm_mon
-    (#poke struct tm, tm_year)  ptr cTm_year
-    (#poke struct tm, tm_wday)  ptr cTm_wday
-    (#poke struct tm, tm_yday)  ptr cTm_yday
-    (#poke struct tm, tm_isdst) ptr cTm_isdst

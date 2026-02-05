@@ -46,7 +46,6 @@ bindingSpec = BindingSpec.BindingSpec{
          boolTypes
       ++ integralTypes
       ++ floatingTypes
-      ++ mathTypes
       ++ stdTypes
       ++ nonLocalJumpTypes
       ++ wcharTypes
@@ -102,18 +101,6 @@ bindingSpec = BindingSpec.BindingSpec{
             , ("fexcept_t", "CFexceptT")
             ]
 
-    mathTypes :: [(CTypeKV, HsTypeKV)]
-    mathTypes = [
-        let hsR = mkHsR "CDivT" ["cDivT_quot", "cDivT_rem"]
-        in  mkType "div_t"     "CDivT"     hsR divI ["stdlib.h"]
-      , let hsR = mkHsR "CLdivT" ["cLdivT_quot", "cLdivT_rem"]
-        in  mkType "ldiv_t"    "CLdivT"    hsR divI ["stdlib.h"]
-      , let hsR = mkHsR "CLldivT" ["cLldivT_quot", "cLldivT_rem"]
-        in  mkType "lldiv_t"   "CLldivT"   hsR divI ["stdlib.h"]
-      , let hsR = mkHsR "CImaxdivT" ["cImaxdivT_quot", "cImaxdivT_rem"]
-        in  mkType "imaxdiv_t" "CImaxdivT" hsR divI ["inttypes.h"]
-      ]
-
     stdTypes :: [(CTypeKV, HsTypeKV)]
     stdTypes = [
         mkTypeN "size_t" "CSize" intI [
@@ -155,17 +142,17 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "time_t"  "CTime"  timeI ["signal.h", "time.h"]
       , mkTypeN "clock_t" "CClock" timeI ["signal.h", "time.h"]
       , let hsR = mkHsR "CTm" [
-                "cTm_sec"
-              , "cTm_min"
-              , "cTm_hour"
-              , "cTm_mday"
-              , "cTm_mon"
-              , "cTm_year"
-              , "cTm_wday"
-              , "cTm_yday"
-              , "cTm_isdst"
+                "tm_sec"
+              , "tm_min"
+              , "tm_hour"
+              , "tm_mday"
+              , "tm_mon"
+              , "tm_year"
+              , "tm_wday"
+              , "tm_yday"
+              , "tm_isdst"
               ]
-        in  mkType "struct tm" "CTm" hsR rEqI ["time.h"]
+        in  mkType "struct tm" "CTm" hsR tmI ["time.h"]
       ]
 
     fileTypes :: [(CTypeKV, HsTypeKV)]
@@ -179,16 +166,7 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "sig_atomic_t" "CSigAtomic" intI ["signal.h"]
       ]
 
-    divI, intI, nEqI, rEqI, timeI :: [Inst.TypeClass]
-    divI = [
-        Inst.Eq
-      , Inst.HasCField
-      , Inst.HasField
-      , Inst.Ord
-      , Inst.ReadRaw
-      , Inst.Show
-      , Inst.StaticSize
-      ]
+    intI, nEqI, timeI, tmI :: [Inst.TypeClass]
     intI = [
         Inst.Bitfield
       , Inst.Bits
@@ -220,16 +198,6 @@ bindingSpec = BindingSpec.BindingSpec{
       , Inst.Storable
       , Inst.WriteRaw
       ]
-    rEqI = [ -- record equality
-        Inst.Eq
-      , Inst.HasCField
-      , Inst.HasField
-      , Inst.ReadRaw
-      , Inst.Show
-      , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
-      ]
     timeI = [
         Inst.Enum
       , Inst.Eq
@@ -243,6 +211,14 @@ bindingSpec = BindingSpec.BindingSpec{
       , Inst.StaticSize
       , Inst.Storable
       , Inst.WriteRaw
+      ]
+    tmI = [ -- struct tm
+        Inst.Eq
+      , Inst.HasCField
+      , Inst.HasField
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
       ]
 
 {-------------------------------------------------------------------------------

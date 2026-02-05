@@ -15,7 +15,7 @@ import Data.Either (isRight)
 import Data.Proxy (Proxy (Proxy))
 import Data.Vector.Storable qualified as VS
 import Foreign (Ptr, Storable (..), nullPtr, with)
-import Foreign.C.Types (CInt, CLong)
+import Foreign.C.Types (CInt, CLong, CTime (..))
 import Foreign.Marshal.Alloc (alloca)
 import Test.Tasty (TestTree, defaultMain, testGroup)
 import Test.Tasty.HUnit (Assertion, HasCallStack, assertFailure, testCase,
@@ -27,7 +27,6 @@ import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FLAM qualified as FLAM
-import HsBindgen.Runtime.LibC qualified as LibC
 
 import Test.Common.Util.Tasty
 
@@ -204,17 +203,7 @@ t02Val :: Test02.Event
 t02Val = Test02.Event
     { Test02.event_id   = 42
     , Test02.event_name = nullPtr
-    , Test02.event_time = LibC.CTm
-        { LibC.cTm_sec   = 5
-        , LibC.cTm_min   = 4
-        , LibC.cTm_hour  = 3
-        , LibC.cTm_mday  = 2
-        , LibC.cTm_mon   = 1
-        , LibC.cTm_year  = 2000 - 1900
-        , LibC.cTm_wday  = 6
-        , LibC.cTm_yday  = 2
-        , LibC.cTm_isdst = 0
-        }
+    , Test02.event_time = CTime 1770276088
     }
 
 -- Unit tests
