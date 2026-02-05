@@ -378,7 +378,7 @@ library test-common
   -- External dependencies
   build-depends:
     , deepseq        >=1.4     && <1.6
-    , Diff           >=0.5     && <2.0
+    , Diff           >=1.0     && <1.1
     , edit-distance  >=0.2.2.1 && <0.3
     , tasty          >=1.5     && <1.6
     , tasty-hunit    >=0.10.2  && <0.11
