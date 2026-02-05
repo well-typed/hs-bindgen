@@ -18,10 +18,7 @@ import HsBindgen.Runtime.Marshal
   Definition
 -------------------------------------------------------------------------------}
 
--- | A 'SizedByteArray.SizedByteArray' is a 'Data.Array.Byte.ByteArray' with
--- given size
---
--- 'SizedByteArray's provide deriving-via support for 'ByteArray'.
+-- | 'SizedByteArray's provide deriving-via support for 'ByteArray'.
 --
 -- Intended usage:
 --
@@ -64,6 +61,8 @@ instance GHC.KnownNat n => ReadRaw (SizedByteArray n m) where
     BA.copyPtrToMutableByteArray arr 0 ptr size
     SizedByteArray <$> BA.unsafeFreezeByteArray arr
 
+-- | Write a 'SizedByteArray' to the specified location, which must have the
+-- correct alignment (matching @m@)
 instance GHC.KnownNat n => WriteRaw (SizedByteArray n m) where
   writeRaw ptrSBA (SizedByteArray arr) = do
     let ptr  = castPtr ptrSBA :: Ptr Word8

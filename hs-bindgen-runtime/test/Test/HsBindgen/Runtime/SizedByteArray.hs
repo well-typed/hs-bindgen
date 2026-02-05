@@ -41,6 +41,10 @@ fromBytes bytes
 toBytes :: SizedByteArray n m -> [Word8]
 toBytes (SizedByteArray arr) = BA.foldrByteArray (:) [] arr
 
+{-------------------------------------------------------------------------------
+  Reference implementation
+-------------------------------------------------------------------------------}
+
 -- | Read bytes using 'Storable'
 --
 -- This does /not/ use the 'Storable' instance of 'SizedByteArray'.
@@ -172,6 +176,10 @@ prop_writeRaw proxy sba = ioProperty $
       writeRaw ptr sba
       sba' <- peekSBA ptr
       return $ sba === sba'
+
+{-------------------------------------------------------------------------------
+  ReadRaw+WriteRaw: applicable laws from primLaws in quickcheck-classes
+-------------------------------------------------------------------------------}
 
 prop_readRead :: forall n m.
      (KnownNat n, KnownNat m)
