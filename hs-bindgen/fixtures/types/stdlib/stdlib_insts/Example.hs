@@ -1046,8 +1046,6 @@ newtype Stdlib_CTm = Stdlib_CTm
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
     )
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Stdlib_CTm) "unwrapStdlib_CTm")

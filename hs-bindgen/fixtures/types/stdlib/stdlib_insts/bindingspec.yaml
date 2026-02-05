@@ -430,8 +430,6 @@ hstypes:
   - ReadRaw
   - Show
   - StaticSize
-  - Storable
-  - WriteRaw
 - hsname: Stdlib_CUIntMax
   representation:
     newtype:

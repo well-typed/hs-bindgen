@@ -9,9 +9,9 @@
 #include <time.h>
 
 struct event {
-    uint64_t id;     // external binding in base
+    uint64_t id;  // external binding in base
     char *name;
-    struct tm time;  // external binding in hs-bindgen-runtime
+    time_t time;  // external binding in base
 };
 
 #endif // TEST_02_H

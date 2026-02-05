@@ -952,7 +952,7 @@ newtype Stdlib_CTm
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
+    deriving newtype (StaticSize, ReadRaw)
 instance TyEq ty (CFieldType Stdlib_CTm "unwrapStdlib_CTm") =>
          HasField "unwrapStdlib_CTm" (Ptr Stdlib_CTm) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTm")

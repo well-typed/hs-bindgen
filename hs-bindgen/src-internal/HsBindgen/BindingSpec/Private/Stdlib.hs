@@ -152,7 +152,7 @@ bindingSpec = BindingSpec.BindingSpec{
               , "tm_yday"
               , "tm_isdst"
               ]
-        in  mkType "struct tm" "CTm" hsR rEqI ["time.h"]
+        in  mkType "struct tm" "CTm" hsR tmI ["time.h"]
       ]
 
     fileTypes :: [(CTypeKV, HsTypeKV)]
@@ -166,7 +166,7 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "sig_atomic_t" "CSigAtomic" intI ["signal.h"]
       ]
 
-    intI, nEqI, rEqI, timeI :: [Inst.TypeClass]
+    intI, nEqI, timeI, tmI :: [Inst.TypeClass]
     intI = [
         Inst.Bitfield
       , Inst.Bits
@@ -198,16 +198,6 @@ bindingSpec = BindingSpec.BindingSpec{
       , Inst.Storable
       , Inst.WriteRaw
       ]
-    rEqI = [ -- record equality
-        Inst.Eq
-      , Inst.HasCField
-      , Inst.HasField
-      , Inst.ReadRaw
-      , Inst.Show
-      , Inst.StaticSize
-      , Inst.Storable
-      , Inst.WriteRaw
-      ]
     timeI = [
         Inst.Enum
       , Inst.Eq
@@ -221,6 +211,14 @@ bindingSpec = BindingSpec.BindingSpec{
       , Inst.StaticSize
       , Inst.Storable
       , Inst.WriteRaw
+      ]
+    tmI = [ -- struct tm
+        Inst.Eq
+      , Inst.HasCField
+      , Inst.HasField
+      , Inst.ReadRaw
+      , Inst.Show
+      , Inst.StaticSize
       ]
 
 {-------------------------------------------------------------------------------

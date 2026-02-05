@@ -248,7 +248,6 @@ data CTm = CTm {
     , tm_isdst :: C.CInt -- ^ Daylight Saving Time flag
     }
   deriving stock (Eq, Show)
-  deriving Storable via EquivStorable CTm
 
 instance HasCField CTm "tm_sec" where
   type CFieldType CTm "tm_sec" = C.CInt
@@ -338,15 +337,3 @@ instance ReadRaw CTm where
 instance StaticSize CTm where
   staticSizeOf    _ = #size      struct tm
   staticAlignment _ = #alignment struct tm
-
-instance WriteRaw CTm where
-  writeRaw ptr CTm{..} = do
-    (#poke struct tm, tm_sec)   ptr tm_sec
-    (#poke struct tm, tm_min)   ptr tm_min
-    (#poke struct tm, tm_hour)  ptr tm_hour
-    (#poke struct tm, tm_mday)  ptr tm_mday
-    (#poke struct tm, tm_mon)   ptr tm_mon
-    (#poke struct tm, tm_year)  ptr tm_year
-    (#poke struct tm, tm_wday)  ptr tm_wday
-    (#poke struct tm, tm_yday)  ptr tm_yday
-    (#poke struct tm, tm_isdst) ptr tm_isdst
