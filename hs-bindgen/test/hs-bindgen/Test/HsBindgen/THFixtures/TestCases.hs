@@ -44,6 +44,22 @@ windowsSpecificFailures =
       , "Windows: size_t typedef conflicts with system headers")
     , ("program-analysis/selection_bad"
       , "Windows: size_t typedef conflicts with system headers")
+    , ("types/stdlib/stdlib_insts"
+      , "Windows: stdlib headers contain _Static_assert not yet supported")
+    ]
+#else
+    []
+#endif
+
+-- | Tests that fail on macOS due to platform-specific issues
+--
+-- Each entry pairs a test name with its specific skip reason.
+--
+macosSpecificFailures :: [(String, String)]
+macosSpecificFailures =
+#ifdef darwin_HOST_OS
+    [ ("types/stdlib/stdlib_insts"
+      , "macOS: uchar.h header not found in CI environment")
     ]
 #else
     []
@@ -96,6 +112,8 @@ determineTHStatus :: TestCaseSpec -> THStatus
 determineTHStatus s
   -- Platform-specific failures
   | Just reason <- lookup s.name windowsSpecificFailures
+      = THSkip reason
+  | Just reason <- lookup s.name macosSpecificFailures
       = THSkip reason
   -- Check clangVersion requirement first
   | Just versionPred <- s.clangVersion
