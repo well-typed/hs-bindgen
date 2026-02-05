@@ -1,6 +1,8 @@
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
 
+import Optics.Operators ((.~))
+import Optics.Optic ((%), (&))
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((</>))
 import Test.Tasty
@@ -9,6 +11,7 @@ import Clang.LowLevel.Core
 import Clang.Version
 
 import HsBindgen.Backend.Category
+import HsBindgen.Config (FieldNamingStrategy (..))
 import HsBindgen.Config.Internal (BackendConfig (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.Naming
@@ -31,9 +34,6 @@ import Test.HsBindgen.Golden.Check.PP qualified as PP
 import Test.HsBindgen.Golden.Check.TH qualified as TH
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
-import Optics.Operators ((.~))
-import HsBindgen.Config (FieldNamingStrategy(..))
-import Optics.Optic ((&), (%))
 
 {-------------------------------------------------------------------------------
   Tests

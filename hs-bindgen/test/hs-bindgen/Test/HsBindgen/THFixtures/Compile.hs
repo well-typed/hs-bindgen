@@ -10,7 +10,7 @@ module Test.HsBindgen.THFixtures.Compile (
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
-import System.Process (readCreateProcessWithExitCode, proc, CreateProcess(cwd))
+import System.Process (CreateProcess (cwd), proc, readCreateProcessWithExitCode)
 
 {-------------------------------------------------------------------------------
   Compilation
