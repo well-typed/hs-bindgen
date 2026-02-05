@@ -236,15 +236,15 @@ newtype CChar32T = CChar32T Word32
 -- represented here.  It is defined in the @time.h@ header file, and it is made
 -- available in other header files that use it.
 data CTm = CTm {
-      cTm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 60]@)
-    , cTm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
-    , cTm_hour  :: C.CInt -- ^ Hours since midnight (@[0, 23]@)
-    , cTm_mday  :: C.CInt -- ^ Day of the month (@[1, 31]@)
-    , cTm_mon   :: C.CInt -- ^ Months since January (@[0, 11]@)
-    , cTm_year  :: C.CInt -- ^ Years since 1900
-    , cTm_wday  :: C.CInt -- ^ Days since Sunday (@[0, 6]@)
-    , cTm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
-    , cTm_isdst :: C.CInt -- ^ Daylight Saving Time flag
+      tm_sec   :: C.CInt -- ^ Seconds after the minute (@[0, 60]@)
+    , tm_min   :: C.CInt -- ^ Minutes after the hour (@[0, 59]@)
+    , tm_hour  :: C.CInt -- ^ Hours since midnight (@[0, 23]@)
+    , tm_mday  :: C.CInt -- ^ Day of the month (@[1, 31]@)
+    , tm_mon   :: C.CInt -- ^ Months since January (@[0, 11]@)
+    , tm_year  :: C.CInt -- ^ Years since 1900
+    , tm_wday  :: C.CInt -- ^ Days since Sunday (@[0, 6]@)
+    , tm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
+    , tm_isdst :: C.CInt -- ^ Daylight Saving Time flag
     }
   deriving stock (Eq, Show)
   deriving Storable via EquivStorable CTm
@@ -323,15 +323,15 @@ instance ( TyEq ty (CFieldType CTm "isdst")
 
 instance ReadRaw CTm where
   readRaw ptr = do
-    cTm_sec   <- (#peek struct tm, tm_sec)   ptr
-    cTm_min   <- (#peek struct tm, tm_min)   ptr
-    cTm_hour  <- (#peek struct tm, tm_hour)  ptr
-    cTm_mday  <- (#peek struct tm, tm_mday)  ptr
-    cTm_mon   <- (#peek struct tm, tm_mon)   ptr
-    cTm_year  <- (#peek struct tm, tm_year)  ptr
-    cTm_wday  <- (#peek struct tm, tm_wday)  ptr
-    cTm_yday  <- (#peek struct tm, tm_yday)  ptr
-    cTm_isdst <- (#peek struct tm, tm_isdst) ptr
+    tm_sec   <- (#peek struct tm, tm_sec)   ptr
+    tm_min   <- (#peek struct tm, tm_min)   ptr
+    tm_hour  <- (#peek struct tm, tm_hour)  ptr
+    tm_mday  <- (#peek struct tm, tm_mday)  ptr
+    tm_mon   <- (#peek struct tm, tm_mon)   ptr
+    tm_year  <- (#peek struct tm, tm_year)  ptr
+    tm_wday  <- (#peek struct tm, tm_wday)  ptr
+    tm_yday  <- (#peek struct tm, tm_yday)  ptr
+    tm_isdst <- (#peek struct tm, tm_isdst) ptr
     return CTm{..}
 
 instance StaticSize CTm where
@@ -340,12 +340,12 @@ instance StaticSize CTm where
 
 instance WriteRaw CTm where
   writeRaw ptr CTm{..} = do
-    (#poke struct tm, tm_sec)   ptr cTm_sec
-    (#poke struct tm, tm_min)   ptr cTm_min
-    (#poke struct tm, tm_hour)  ptr cTm_hour
-    (#poke struct tm, tm_mday)  ptr cTm_mday
-    (#poke struct tm, tm_mon)   ptr cTm_mon
-    (#poke struct tm, tm_year)  ptr cTm_year
-    (#poke struct tm, tm_wday)  ptr cTm_wday
-    (#poke struct tm, tm_yday)  ptr cTm_yday
-    (#poke struct tm, tm_isdst) ptr cTm_isdst
+    (#poke struct tm, tm_sec)   ptr tm_sec
+    (#poke struct tm, tm_min)   ptr tm_min
+    (#poke struct tm, tm_hour)  ptr tm_hour
+    (#poke struct tm, tm_mday)  ptr tm_mday
+    (#poke struct tm, tm_mon)   ptr tm_mon
+    (#poke struct tm, tm_year)  ptr tm_year
+    (#poke struct tm, tm_wday)  ptr tm_wday
+    (#poke struct tm, tm_yday)  ptr tm_yday
+    (#poke struct tm, tm_isdst) ptr tm_isdst

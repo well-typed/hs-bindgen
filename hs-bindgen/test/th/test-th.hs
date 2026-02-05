@@ -205,15 +205,15 @@ t02Val = Test02.Event
     { Test02.event_id   = 42
     , Test02.event_name = nullPtr
     , Test02.event_time = LibC.CTm
-        { LibC.cTm_sec   = 5
-        , LibC.cTm_min   = 4
-        , LibC.cTm_hour  = 3
-        , LibC.cTm_mday  = 2
-        , LibC.cTm_mon   = 1
-        , LibC.cTm_year  = 2000 - 1900
-        , LibC.cTm_wday  = 6
-        , LibC.cTm_yday  = 2
-        , LibC.cTm_isdst = 0
+        { LibC.tm_sec   = 5
+        , LibC.tm_min   = 4
+        , LibC.tm_hour  = 3
+        , LibC.tm_mday  = 2
+        , LibC.tm_mon   = 1
+        , LibC.tm_year  = 2000 - 1900
+        , LibC.tm_wday  = 6
+        , LibC.tm_yday  = 2
+        , LibC.tm_isdst = 0
         }
     }
 

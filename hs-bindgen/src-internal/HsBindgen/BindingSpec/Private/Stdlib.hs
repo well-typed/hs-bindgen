@@ -142,15 +142,15 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "time_t"  "CTime"  timeI ["signal.h", "time.h"]
       , mkTypeN "clock_t" "CClock" timeI ["signal.h", "time.h"]
       , let hsR = mkHsR "CTm" [
-                "cTm_sec"
-              , "cTm_min"
-              , "cTm_hour"
-              , "cTm_mday"
-              , "cTm_mon"
-              , "cTm_year"
-              , "cTm_wday"
-              , "cTm_yday"
-              , "cTm_isdst"
+                "tm_sec"
+              , "tm_min"
+              , "tm_hour"
+              , "tm_mday"
+              , "tm_mon"
+              , "tm_year"
+              , "tm_wday"
+              , "tm_yday"
+              , "tm_isdst"
               ]
         in  mkType "struct tm" "CTm" hsR rEqI ["time.h"]
       ]
