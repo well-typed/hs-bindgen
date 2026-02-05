@@ -1,22 +1,17 @@
 {-# OPTIONS_HADDOCK hide #-}
 
-{-# LANGUAGE MagicHash #-}
-{-# LANGUAGE UnboxedTuples #-}
-
 module HsBindgen.Runtime.Internal.SizedByteArray (
     SizedByteArray (..),
 ) where
 
 import Data.Array.Byte (ByteArray (..))
-import Data.Coerce (coerce)
-import Data.Primitive (Prim (..))
+import Data.Primitive.ByteArray qualified as BA
 import Data.Proxy (Proxy (..))
+import Data.Word (Word8)
 import Foreign (Storable (..))
-import GHC.Base (Int (..))
-import GHC.Exts qualified as Exts
+import Foreign.Ptr (Ptr, castPtr)
 import GHC.TypeNats qualified as GHC
 
-import HsBindgen.Runtime.Internal.ByteArray
 import HsBindgen.Runtime.Marshal
 
 {-------------------------------------------------------------------------------
@@ -49,27 +44,6 @@ import HsBindgen.Runtime.Marshal
 -- * call the C function, passing a pointer to this buffer
 --
 -- where /that temporary buffer/ must be memory aligned.
---
--- == Prim
---
--- Similar comments as for 'Storable' apply to 'Prim' also. Since 'Prim' can
--- be used to construct /arrays/, it's worth spelling out alignment requirements
--- in this case. If alignment is important, then typically /every/ element in
--- the array must be aligned. If the elements are stored in contiguous memory
--- locations, this will be the case only if
---
--- * the start of the array is memory aligned
---   (e.g., 'Data.Primitive.PrimArray.newAlignedPinnedPrimArray')
--- * the @size@ is an integral multiple of the @alignment@
---
--- If the @size@ and @alignment@ parameters originate from their values for a
--- choice of C type, then the second requirement will always be satisfied:
---
--- > The size of any type is always a multiple of its alignment; that way, in an
--- > array whose elements have that type, all the elements are properly aligned
--- > if the first one is.
---
--- <https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Type-Alignment.html>
 newtype SizedByteArray (size :: GHC.Nat) (alignment :: GHC.Nat) =
     SizedByteArray ByteArray
   deriving Storable via EquivStorable (SizedByteArray size alignment)
@@ -83,80 +57,15 @@ instance (GHC.KnownNat n, GHC.KnownNat m) => StaticSize (SizedByteArray n m) whe
   staticAlignment _ = fromIntegral (GHC.natVal (Proxy @m))
 
 instance GHC.KnownNat n => ReadRaw (SizedByteArray n m) where
-  readRaw = coerce $ peekByteArray (fromIntegral (GHC.natVal (Proxy @n)))
+  readRaw ptrSBA = do
+    let ptr  = castPtr ptrSBA :: Ptr Word8
+        size = fromIntegral $ GHC.natVal (Proxy @n)
+    arr <- BA.newByteArray size
+    BA.copyPtrToMutableByteArray arr 0 ptr size
+    SizedByteArray <$> BA.unsafeFreezeByteArray arr
 
-instance WriteRaw (SizedByteArray n m) where
-  writeRaw = coerce $ pokeByteArray
-
-{-------------------------------------------------------------------------------
-  Prim
--------------------------------------------------------------------------------}
-
-instance (GHC.KnownNat n, GHC.KnownNat m) => Prim (SizedByteArray n m) where
-  sizeOf# _ =
-    case fromIntegral (GHC.natVal (Proxy @n)) of
-      I# sz -> sz
-
-  alignment# _ =
-    case fromIntegral (GHC.natVal (Proxy @m)) of
-      I# al -> al
-
-  indexByteArray# src# i# =
-    -- Create a new ByteArray# by copying a slice from the source
-    -- This is safe to use unsafe operation because we're only reading
-    case Exts.runRW# $ \s0# ->
-      case Exts.newByteArray# size# s0# of
-        (# s1#, dest# #) ->
-          case Exts.copyByteArray# src# offset# dest# 0# size# s1# of
-            s2# -> Exts.unsafeFreezeByteArray# dest# s2#
-    of
-      (# _, frozen# #) -> SizedByteArray (ByteArray frozen#)
-    where
-      size# = case fromIntegral (GHC.natVal (Proxy @n)) of I# s -> s
-      offset# = i# Exts.*# size#
-
-  readByteArray# src# i# s0# =
-    case Exts.newByteArray# size# s0# of
-      (# s1#, dest# #) ->
-        case Exts.copyMutableByteArray# src# offset# dest# 0# size# s1# of
-          s2# -> case Exts.unsafeFreezeByteArray# dest# s2# of
-            (# s3#, frozen# #) -> (# s3#, SizedByteArray (ByteArray frozen#) #)
-    where
-      size# = case fromIntegral (GHC.natVal (Proxy @n)) of I# s -> s
-      offset# = i# Exts.*# size#
-
-  writeByteArray# dest# i# (SizedByteArray (ByteArray src#)) s# =
-    Exts.copyByteArray# src# 0# dest# offset# size# s#
-    where
-      size# = case fromIntegral (GHC.natVal (Proxy @n)) of I# s -> s
-      offset# = i# Exts.*# size#
-
-  indexOffAddr# addr# i# =
-    -- Similar to indexByteArray#, we need to copy from the address
-    --
-    case Exts.runRW# $ \s0# ->
-      case Exts.newByteArray# size# s0# of
-        (# s1#, dest# #) ->
-          case Exts.copyAddrToByteArray# (Exts.plusAddr# addr# offset#) dest# 0# size# s1# of
-            s2# -> Exts.unsafeFreezeByteArray# dest# s2#
-    of
-      (# _, frozen# #) -> SizedByteArray (ByteArray frozen#)
-    where
-      size# = case fromIntegral (GHC.natVal (Proxy @n)) of I# s -> s
-      offset# = i# Exts.*# size#
-
-  readOffAddr# addr# i# s0# =
-    case Exts.newByteArray# size# s0# of
-      (# s1#, dest# #) ->
-        case Exts.copyAddrToByteArray# (Exts.plusAddr# addr# offset#) dest# 0# size# s1# of
-          s2# -> case Exts.unsafeFreezeByteArray# dest# s2# of
-            (# s3#, frozen# #) -> (# s3#, SizedByteArray (ByteArray frozen#) #)
-    where
-      size# = case fromIntegral (GHC.natVal (Proxy @n)) of I# s -> s
-      offset# = i# Exts.*# size#
-
-  writeOffAddr# addr# i# (SizedByteArray (ByteArray src#)) s# =
-    Exts.copyByteArrayToAddr# src# 0# (Exts.plusAddr# addr# offset#) size# s#
-    where
-      size# = case fromIntegral (GHC.natVal (Proxy @n)) of I# s -> s
-      offset# = i# Exts.*# size#
+instance GHC.KnownNat n => WriteRaw (SizedByteArray n m) where
+  writeRaw ptrSBA (SizedByteArray arr) = do
+    let ptr  = castPtr ptrSBA :: Ptr Word8
+        size = fromIntegral $ GHC.natVal (Proxy @n)
+    BA.copyByteArrayToAddr ptr arr 0 size
