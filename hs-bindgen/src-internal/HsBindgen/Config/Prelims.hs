@@ -10,7 +10,6 @@ module HsBindgen.Config.Prelims (
     -- * Unique IDs
   , UniqueId (..)
   , UniqueIdMsg (..)
-  , checkUniqueId
   ) where
 
 import Data.Text qualified as Text
@@ -94,30 +93,8 @@ data UniqueId = UniqueId { unUniqueId :: String }
 instance Default UniqueId where
   def = UniqueId ""
 
--- | Maximum length of 'UniqueId' conforming to the C standard.
---
--- The C standard guarantees:
--- - at least 63 significant characters for internal ids,
--- - at least 31 significant characters for external ids;
--- - but only for historical reasons, and all new implementations support at
---   least 255 significant characters for external ids.
---
--- Calculation of maximum length:
---
--- - The @hs_bindgen_@ prefix has 11 characters.
---   > hs_bindgen_
---   > 12345678901
--- - The hash suffix has 1 + 16 characters.
---   > _HashHas16Characs
---   > 12345678901234567
---
--- That is, the unique ID can have a maximum of 63 - 11 - 17 = 35 characters.
-maxUniqueIdLength :: Int
-maxUniqueIdLength = 35
-
 data UniqueIdMsg =
     UniqueIdEmpty
-  | UniqueIdTooLong UniqueId
   deriving (Show, Eq, Ord)
 
 instance PrettyForTrace UniqueIdMsg where
@@ -128,23 +105,9 @@ instance PrettyForTrace UniqueIdMsg where
       , "  We encourage using a unique identifier to avoid duplicate symbol names."
       , "  For example, use and adapt 'com.example.package'."
       ]
-    UniqueIdTooLong (UniqueId val) -> PP.vcat $ map PP.string [
-        "unique identifier too long: " <> val
-      , "  The maximum unique identifier length is " <> show maxUniqueIdLength <> "."
-      , "  Your unique identifier has " <> show (length val) <> " characters."
-      , "  Reason: The C standard only guarantees 63 significant initial characters."
-      ]
 
 instance IsTrace Level UniqueIdMsg where
   getDefaultLogLevel = \case
     UniqueIdEmpty     -> Warning
-    UniqueIdTooLong _ -> Notice
   getSource  = const HsBindgen
   getTraceId = const "unique-id"
-
-checkUniqueId :: Tracer UniqueIdMsg -> UniqueId -> IO ()
-checkUniqueId tracer uniqueId@(UniqueId val) = do
-  when (null val) $
-    traceWith tracer UniqueIdEmpty
-  when (length val > maxUniqueIdLength) $
-    traceWith tracer (UniqueIdTooLong uniqueId)

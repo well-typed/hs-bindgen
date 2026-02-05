@@ -3,15 +3,21 @@ name:               hs-bindgen
 version:            0.1.0
 license:            BSD-3-Clause
 license-file:       LICENSE
-author:             Edsko de Vries
-maintainer:         edsko@well-typed.com
+author:             Well-Typed LLP
+maintainer:         info@well-typed.com
 category:           Development
 build-type:         Simple
 synopsis:           Generate Haskell bindings from C headers
 description:        Automatically generate Haskell bindings from C headers
 extra-doc-files:    CHANGELOG.md
 tested-with:
-  GHC ==9.2 || ==9.4 || ==9.6 || ==9.8 || ==9.10 || ==9.12
+  GHC ==9.2.8
+   || ==9.4.8
+   || ==9.6.7
+   || ==9.8.4
+   || ==9.10.3
+   || ==9.12.2
+   || ==9.14.1
 
 extra-source-files:
   bootstrap/*.h
@@ -33,7 +39,7 @@ common lang
     -Wredundant-constraints -Wunused-packages
     -Wno-unticked-promoted-constructors
 
-  build-depends:      base >=4.16 && <4.22
+  build-depends:      base >=4.16 && <4.23
   default-language:   GHC2021
   default-extensions:
     DataKinds
@@ -220,10 +226,10 @@ library internal
     , aeson               >=2.2.1.0    && <2.3
     , ansi-terminal       >=1.0.0      && <1.2
     , array               >=0.5.4.0    && <0.6
-    , base-compat         >=0.13.1     && <0.15
+    , base-compat         >=0.13.1     && <0.16
     , base16-bytestring   >=1.0.2.0    && <1.1
     , bytestring          >=0.11.4.0   && <0.13
-    , containers          >=0.6.5.1    && <0.8
+    , containers          >=0.6.5.1    && <0.9
     , contra-tracer       >=0.2        && <0.3
     , cryptohash-sha256   >=0.11.102.1 && <0.12
     , data-default        >=0.7        && <0.9
@@ -240,11 +246,11 @@ library internal
     , process             >=1.6        && <1.7
     , regex-pcre-builtin  >=0.95       && <0.96
     , some                >=1.0.6      && <1.1
-    , template-haskell    >=2.18       && <2.24
+    , template-haskell    >=2.18       && <2.25
     , text                >=1.2        && <2.2
-    , time                >=1.11       && <1.15
+    , time                >=1.11       && <1.16
     , transformers        >=0.5        && <0.7
-    , unliftio-core       ^>=0.2.1.0
+    , unliftio-core       >=0.2.1      && <0.3
     , vec                 >=0.5        && <0.6
     , witherable          >=0.4.2      && <0.6
     , yaml                >=0.11.11.1  && <0.12
@@ -311,9 +317,9 @@ executable hs-bindgen-cli
 
   -- External dependencies
   build-depends:
-    , optparse-applicative  >=0.18   && <0.19
-    , prettyprinter         ^>=1.7.1
-    , text                  >=1.2    && <2.2
+    , optparse-applicative  >=0.18  && <0.20
+    , prettyprinter         >=1.7.1 && <1.8
+    , text                  >=1.2   && <2.2
 
 executable clang-ast-dump
   import:         lang
@@ -338,7 +344,7 @@ executable clang-ast-dump
     , text
 
   -- External dependencies
-  build-depends:  optparse-applicative >=0.18 && <0.19
+  build-depends:  optparse-applicative >=0.18 && <0.20
 
 library test-common
   import:          lang
@@ -372,7 +378,7 @@ library test-common
   -- External dependencies
   build-depends:
     , deepseq        >=1.4     && <1.6
-    , Diff           >=0.5     && <2.0
+    , Diff           >=1.0     && <1.1
     , edit-distance  >=0.2.2.1 && <0.3
     , tasty          >=1.5     && <1.6
     , tasty-hunit    >=0.10.2  && <0.11
@@ -427,14 +433,23 @@ test-suite test-hs-bindgen
   -- Build tools needed for integration tests
   build-tool-depends: hs-bindgen:hs-bindgen-cli
 
+-- Test TH mode
+--
+-- We're intentionally /not/ importing the common @lang@ section here: this
+-- forces us to explicitly declare whatever language extensions are needed
+-- when using hs-bindgen's TH mode.
 test-suite test-th
   type:             exitcode-stdio-1.0
   main-is:          test-th.hs
   hs-source-dirs:   test/th
   include-dirs:     examples
   default-language: GHC2021
+  ghc-options:
+    -Wall -Widentities -Wprepositive-qualified-module
+    -Wredundant-constraints -Wunused-packages
+    -Wno-unticked-promoted-constructors
+
   other-modules:
-    Test.TH.Simple
     Test.TH.Test01
     Test.TH.Test02
 
@@ -452,50 +467,41 @@ test-suite test-th
     , tasty-hunit
 
   -- External dependencies
-  build-depends:
-    , ghc-prim
-    , primitive
-    , vector     ^>=0.13.2.0
+  build-depends:    vector ^>=0.13.2.0
 
-test-suite test-pp
+test-suite test-literate
   type:               exitcode-stdio-1.0
-  main-is:            ../th/test-th.hs
-  hs-source-dirs:     test/pp
+  main-is:            test-literate.hs
+  hs-source-dirs:     test/literate
   include-dirs:       examples
   default-language:   GHC2021
+  build-depends:      base >=4.16 && <4.23
+  ghc-options:
+    -Wall -Widentities -Wredundant-constraints -Wunused-packages
+    -Wno-unticked-promoted-constructors
+
   other-modules:
-    Test.PP.Test01
-    Test.PP.Test02
-    Test.PP.TestPointer
-    Test.PP.TestSafe
-    Test.PP.TestSafeAndUnsafe
-    Test.PP.TestUnsafe
+    Test.Literate.Test01
+    Test.Literate.Test02
+    Test.Literate.TestPointer
+    Test.Literate.TestSafe
+    Test.Literate.TestSafeAndUnsafe
+    Test.Literate.TestUnsafe
 
   -- Here we use literate haskell "hook" to avoid setting up true preprocessors
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
   ghc-options:        -pgmL hs-bindgen-cli -optL tool-support -optL literate
-  cpp-options:        -DTEST_PP
   build-tool-depends: hs-bindgen:hs-bindgen-cli
 
   -- Internal dependencies
   build-depends:
     , c-expr-runtime
     , hs-bindgen-runtime
-    , test-common
-
-  -- Inherited dependencies
-  build-depends:
-    , base         <5
-    , tasty
-    , tasty-hunit
 
   -- External dependencies
-  build-depends:
-    , ghc-prim
-    , primitive
-    , vector     ^>=0.13.2.0
+  build-depends:      primitive
 
   if impl(ghc <9.4)
     build-depends: data-array-byte

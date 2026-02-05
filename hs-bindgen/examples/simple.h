@@ -1,3 +1,0 @@
-struct simple {
-  int n;
-};
