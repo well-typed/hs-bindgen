@@ -11,7 +11,13 @@ synopsis:           Generate Haskell bindings from C headers
 description:        Automatically generate Haskell bindings from C headers
 extra-doc-files:    CHANGELOG.md
 tested-with:
-  GHC ==9.2 || ==9.4 || ==9.6 || ==9.8 || ==9.10 || ==9.12
+  GHC ==9.2.8
+   || ==9.4.8
+   || ==9.6.7
+   || ==9.8.4
+   || ==9.10.3
+   || ==9.12.2
+   || ==9.14.1
 
 extra-source-files:
   bootstrap/*.h
@@ -33,7 +39,7 @@ common lang
     -Wredundant-constraints -Wunused-packages
     -Wno-unticked-promoted-constructors
 
-  build-depends:      base >=4.16 && <4.22
+  build-depends:      base >=4.16 && <4.23
   default-language:   GHC2021
   default-extensions:
     DataKinds
@@ -220,10 +226,10 @@ library internal
     , aeson               >=2.2.1.0    && <2.3
     , ansi-terminal       >=1.0.0      && <1.2
     , array               >=0.5.4.0    && <0.6
-    , base-compat         >=0.13.1     && <0.15
+    , base-compat         >=0.13.1     && <0.16
     , base16-bytestring   >=1.0.2.0    && <1.1
     , bytestring          >=0.11.4.0   && <0.13
-    , containers          >=0.6.5.1    && <0.8
+    , containers          >=0.6.5.1    && <0.9
     , contra-tracer       >=0.2        && <0.3
     , cryptohash-sha256   >=0.11.102.1 && <0.12
     , data-default        >=0.7        && <0.9
@@ -240,11 +246,11 @@ library internal
     , process             >=1.6        && <1.7
     , regex-pcre-builtin  >=0.95       && <0.96
     , some                >=1.0.6      && <1.1
-    , template-haskell    >=2.18       && <2.24
+    , template-haskell    >=2.18       && <2.25
     , text                >=1.2        && <2.2
-    , time                >=1.11       && <1.15
+    , time                >=1.11       && <1.16
     , transformers        >=0.5        && <0.7
-    , unliftio-core       ^>=0.2.1.0
+    , unliftio-core       >=0.2.1      && <0.3
     , vec                 >=0.5        && <0.6
     , witherable          >=0.4.2      && <0.6
     , yaml                >=0.11.11.1  && <0.12
@@ -311,9 +317,9 @@ executable hs-bindgen-cli
 
   -- External dependencies
   build-depends:
-    , optparse-applicative  >=0.18   && <0.19
-    , prettyprinter         ^>=1.7.1
-    , text                  >=1.2    && <2.2
+    , optparse-applicative  >=0.18  && <0.20
+    , prettyprinter         >=1.7.1 && <1.8
+    , text                  >=1.2   && <2.2
 
 executable clang-ast-dump
   import:         lang
@@ -338,7 +344,7 @@ executable clang-ast-dump
     , text
 
   -- External dependencies
-  build-depends:  optparse-applicative >=0.18 && <0.19
+  build-depends:  optparse-applicative >=0.18 && <0.20
 
 library test-common
   import:          lang

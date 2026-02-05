@@ -165,7 +165,7 @@ withTracePredicate report predicate action =
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
 withTraceConfigPredicate ::
-     forall a b l. (Typeable a, IsTrace l a, Show l, Show a)
+     forall a b l. (Typeable a, IsTrace l a, Show a)
   => (String -> IO ())
   -> TracePredicate a
   -> (TracerConfig l a -> IO b)
@@ -215,7 +215,7 @@ instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
            )
 
 
-instance (Typeable a, IsTrace l a, Show l, Show a)
+instance (Typeable a, IsTrace l a, Show a)
   => Exception (TraceExpectationException a)
 
 {-------------------------------------------------------------------------------
