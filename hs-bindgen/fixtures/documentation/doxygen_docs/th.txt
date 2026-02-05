@@ -1066,7 +1066,6 @@ deriving via (SizedByteArray 4 4) instance StaticSize Data_union_t
 deriving via (SizedByteArray 4 4) instance ReadRaw Data_union_t
 deriving via (SizedByteArray 4 4) instance WriteRaw Data_union_t
 deriving via (EquivStorable Data_union_t) instance Storable Data_union_t
-deriving via (SizedByteArray 4 4) instance Prim Data_union_t
 {-|
 
   Integer representation

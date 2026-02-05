@@ -1090,7 +1090,6 @@ deriving via (SizedByteArray 8
 deriving via (SizedByteArray 8
                              8) instance WriteRaw ProcessorCallback
 deriving via (EquivStorable ProcessorCallback) instance Storable ProcessorCallback
-deriving via (SizedByteArray 8 8) instance Prim ProcessorCallback
 {-|
 
   __See:__ 'set_processorCallback_simple'

@@ -217,7 +217,6 @@ deriving via (SizedByteArray 16 4) instance StaticSize Shape
 deriving via (SizedByteArray 16 4) instance ReadRaw Shape
 deriving via (SizedByteArray 16 4) instance WriteRaw Shape
 deriving via (EquivStorable Shape) instance Storable Shape
-deriving via (SizedByteArray 16 4) instance Prim Shape
 {-|
 
   __See:__ 'set_shape_rectangle'

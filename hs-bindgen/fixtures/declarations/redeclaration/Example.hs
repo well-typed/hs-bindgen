@@ -145,8 +145,6 @@ deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 inst
 
 deriving via HsBindgen.Runtime.Marshal.EquivStorable Y instance F.Storable Y
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim Y
-
 {-|
 
   __See:__ 'set_y_m'
