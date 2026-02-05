@@ -3,8 +3,8 @@ name:          try-c2hs
 version:       0.1.0
 license:       BSD-3-Clause
 license-file:  LICENSE
-author:        Edsko de Vries
-maintainer:    edsko@well-typed.com
+author:        Well-Typed LLP
+maintainer:    info@well-typed.com
 build-type:    Simple
 
 common lang

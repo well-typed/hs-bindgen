@@ -3,8 +3,8 @@ name:            c-expr-dsl
 version:         0.1.0.0
 license:         BSD-3-Clause
 license-file:    LICENSE
-author:          sheaf
-maintainer:      Well-Typed LLP
+author:          Well-Typed LLP
+maintainer:      info@well-typed.com
 category:        System
 build-type:      Simple
 extra-doc-files: CHANGELOG.md

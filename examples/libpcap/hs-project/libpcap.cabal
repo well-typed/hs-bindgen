@@ -3,7 +3,7 @@ name:          libpcap
 version:       0.1.0.0
 license:       BSD-3-Clause
 license-file:  LICENSE
-author:        Well Typed
+author:        Well-Typed LLP
 maintainer:    info@well-typed.com
 category:      Development
 build-type:    Simple
