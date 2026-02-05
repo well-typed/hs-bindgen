@@ -206,7 +206,7 @@ deriving via CUInt instance Prim E
 instance CEnum E
     where type CEnumZ E = CUInt
           toCEnum = E
-          fromCEnum = getField @"unwrap"
+          fromCEnum = unwrap
           declaredValues = \_ -> declaredValuesFromList [(0, singleton "X"),
                                                          (1, singleton "Y")]
           showsUndeclared = showsWrappedUndeclared "E"
@@ -308,7 +308,7 @@ __defined at:__ @manual\/enable_record_dot.h 42:15@
 __exported by:__ @manual\/enable_record_dot.h@
 -}
 newtype RunDriver_Aux
-    = RunDriver_Aux {unwrap :: (Ptr Driver -> IO CInt)}
+    = RunDriver_Aux {unwrapRunDriver_Aux :: (Ptr Driver -> IO CInt)}
       {- ^ Auxiliary type used by 'RunDriver'
 
       __C declaration:__ @RunDriver@
@@ -339,12 +339,13 @@ instance ToFunPtr RunDriver_Aux
     where toFunPtr = hs_bindgen_d86ecf261d7044c6
 instance FromFunPtr RunDriver_Aux
     where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
-instance TyEq ty (CFieldType RunDriver_Aux "unwrap") =>
-         HasField "unwrap" (Ptr RunDriver_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"unwrap")
-instance HasCField RunDriver_Aux "unwrap"
-    where type CFieldType RunDriver_Aux "unwrap" = Ptr Driver ->
-                                                   IO CInt
+instance TyEq ty
+              (CFieldType RunDriver_Aux "unwrapRunDriver_Aux") =>
+         HasField "unwrapRunDriver_Aux" (Ptr RunDriver_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapRunDriver_Aux")
+instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
+    where type CFieldType RunDriver_Aux
+                          "unwrapRunDriver_Aux" = Ptr Driver -> IO CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @RunDriver@
 

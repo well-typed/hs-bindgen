@@ -168,14 +168,14 @@ hs_bindgen_cba7011c6d25362b = fromFFIType hs_bindgen_cba7011c6d25362b_base
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose_safe :: PtrConst Matrix -> Ptr Matrix -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose = hs_bindgen_cba7011c6d25362b
+transpose_safe = hs_bindgen_cba7011c6d25362b
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c626a_base ::
     Ptr Void
@@ -192,7 +192,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets :: Ptr Triplet_ptrs -> IO Unit
+pretty_print_triplets_safe :: Ptr Triplet_ptrs -> IO Unit
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -201,7 +201,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets = hs_bindgen_45d15697a99c626a
+pretty_print_triplets_safe = hs_bindgen_45d15697a99c626a
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121db261_base ::
     Ptr Void
@@ -218,14 +218,14 @@ hs_bindgen_f9f2776d121db261 = fromFFIType hs_bindgen_f9f2776d121db261_base
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose_unsafe :: PtrConst Matrix -> Ptr Matrix -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose = hs_bindgen_f9f2776d121db261
+transpose_unsafe = hs_bindgen_f9f2776d121db261
 -- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
 foreign import ccall unsafe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0abd14_base ::
     Ptr Void
@@ -242,7 +242,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets :: Ptr Triplet_ptrs -> IO Unit
+pretty_print_triplets_unsafe :: Ptr Triplet_ptrs -> IO Unit
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -251,7 +251,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets = hs_bindgen_e43b4d44aa0abd14
+pretty_print_triplets_unsafe = hs_bindgen_e43b4d44aa0abd14
 -- __unique:__ @test_manualarrays_Example_get_transpose@
 foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b0363a0fa_base ::
     IO (FunPtr Void)
@@ -260,21 +260,21 @@ hs_bindgen_c99d8a3b0363a0fa :: IO (FunPtr (Matrix ->
                                            Matrix -> IO Unit))
 -- __unique:__ @test_manualarrays_Example_get_transpose@
 hs_bindgen_c99d8a3b0363a0fa = fromFFIType hs_bindgen_c99d8a3b0363a0fa_base
-{-# NOINLINE transpose #-}
+{-# NOINLINE transpose_funptr #-}
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: FunPtr (Matrix -> Matrix -> IO Unit)
+transpose_funptr :: FunPtr (Matrix -> Matrix -> IO Unit)
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose = unsafePerformIO hs_bindgen_c99d8a3b0363a0fa
+transpose_funptr = unsafePerformIO hs_bindgen_c99d8a3b0363a0fa
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
 foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfeb5e7d_base ::
     IO (FunPtr Void)
@@ -283,7 +283,7 @@ hs_bindgen_923b33cbbfeb5e7d :: IO (FunPtr (Triplet_ptrs ->
                                            IO Unit))
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
 hs_bindgen_923b33cbbfeb5e7d = fromFFIType hs_bindgen_923b33cbbfeb5e7d_base
-{-# NOINLINE pretty_print_triplets #-}
+{-# NOINLINE pretty_print_triplets_funptr #-}
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -292,7 +292,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets :: FunPtr (Triplet_ptrs -> IO Unit)
+pretty_print_triplets_funptr :: FunPtr (Triplet_ptrs -> IO Unit)
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -301,7 +301,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets = unsafePerformIO hs_bindgen_923b33cbbfeb5e7d
+pretty_print_triplets_funptr = unsafePerformIO hs_bindgen_923b33cbbfeb5e7d
 -- __unique:__ @test_manualarrays_Example_get_arr1@
 foreign import ccall unsafe "hs_bindgen_6843a8f5c61ff74e" hs_bindgen_6843a8f5c61ff74e_base ::
     IO (Ptr Void)
