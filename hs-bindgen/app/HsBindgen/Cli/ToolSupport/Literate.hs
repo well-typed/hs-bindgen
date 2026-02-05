@@ -47,10 +47,13 @@ info = progDesc $ mconcat [
   Options (provided by @cabal-install@ on the command line)
 -------------------------------------------------------------------------------}
 
+-- | Command line options when the literate preprocessor is invoked
+--
+-- NOTE: Most of the /actual/ @hs-bindgen-cli@ arguments come from parsing the
+-- /contents/ of the file we are processing.
 data Opts = Opts {
-      input               :: FilePath
-    , output              :: FilePath
-    , fileOverwritePolicy :: FileOverwritePolicy
+      input  :: FilePath
+    , output :: FilePath
     }
   deriving (Show, Eq)
 
@@ -67,12 +70,10 @@ parseOpts = do
 
     input  <- strArgument $ metavar "IN"
     output <- strArgument $ metavar "OUT"
-    policy <- parseFileOverwritePolicy
 
     return Opts{
-        input               = input
-      , output              = output
-      , fileOverwritePolicy = policy
+        input  = input
+      , output = output
       }
 
 {-------------------------------------------------------------------------------
@@ -105,8 +106,7 @@ exec :: Opts -> IO ()
 exec opts = do
     args <- maybe (throwIO' "cannot parse literate file") return . readMaybe
       =<< readFile opts.input
-    lit <- maybe (throwIO' "cannot parse arguments in literate file") return $
-      pureParseLit args
+    lit <- handleParseResult $ pureParseLit args
 
     let bindgenConfig :: BindgenConfig
         bindgenConfig =
@@ -116,8 +116,13 @@ exec opts = do
             lit.baseModuleName
             (buildCategoryChoice lit.outputOptions)
 
+        -- It is understood that literate mode will overwrite existing files
+        -- (generated files will anyway live in @dist-newstyle@ or similar)
+        overwriteFiles :: FileOverwritePolicy
+        overwriteFiles = AllowFileOverwrite
+
         artefact :: Artefact ()
-        artefact = writeBindings lit.config.fieldNamingStrategy opts.fileOverwritePolicy opts.output
+        artefact = writeBindings lit.config.fieldNamingStrategy overwriteFiles opts.output
 
     hsBindgen
       lit.globalOpts.unsafe
@@ -129,10 +134,9 @@ exec opts = do
     throwIO' :: String -> IO a
     throwIO' = throwIO . LiterateFileException opts.input
 
-    pureParseLit :: [String] -> Maybe Lit
+    pureParseLit :: [String] -> ParserResult Lit
     pureParseLit =
-        getParseResult
-      . execParserPure (prefs subparserInline) (O.info parseLit mempty)
+        execParserPure (prefs subparserInline) (O.info parseLit mempty)
 
 {-------------------------------------------------------------------------------
   Exception

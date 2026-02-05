@@ -433,14 +433,23 @@ test-suite test-hs-bindgen
   -- Build tools needed for integration tests
   build-tool-depends: hs-bindgen:hs-bindgen-cli
 
+-- Test TH mode
+--
+-- We're intentionally /not/ importing the common @lang@ section here: this
+-- forces us to explicitly declare whatever language extensions are needed
+-- when using hs-bindgen's TH mode.
 test-suite test-th
   type:             exitcode-stdio-1.0
   main-is:          test-th.hs
   hs-source-dirs:   test/th
   include-dirs:     examples
   default-language: GHC2021
+  ghc-options:
+    -Wall -Widentities -Wprepositive-qualified-module
+    -Wredundant-constraints -Wunused-packages
+    -Wno-unticked-promoted-constructors
+
   other-modules:
-    Test.TH.Simple
     Test.TH.Test01
     Test.TH.Test02
 
@@ -458,50 +467,41 @@ test-suite test-th
     , tasty-hunit
 
   -- External dependencies
-  build-depends:
-    , ghc-prim
-    , primitive
-    , vector     ^>=0.13.2.0
+  build-depends:    vector ^>=0.13.2.0
 
-test-suite test-pp
+test-suite test-literate
   type:               exitcode-stdio-1.0
-  main-is:            ../th/test-th.hs
-  hs-source-dirs:     test/pp
+  main-is:            test-literate.hs
+  hs-source-dirs:     test/literate
   include-dirs:       examples
   default-language:   GHC2021
+  build-depends:      base >=4.16 && <4.23
+  ghc-options:
+    -Wall -Widentities -Wredundant-constraints -Wunused-packages
+    -Wno-unticked-promoted-constructors
+
   other-modules:
-    Test.PP.Test01
-    Test.PP.Test02
-    Test.PP.TestPointer
-    Test.PP.TestSafe
-    Test.PP.TestSafeAndUnsafe
-    Test.PP.TestUnsafe
+    Test.Literate.Test01
+    Test.Literate.Test02
+    Test.Literate.TestPointer
+    Test.Literate.TestSafe
+    Test.Literate.TestSafeAndUnsafe
+    Test.Literate.TestUnsafe
 
   -- Here we use literate haskell "hook" to avoid setting up true preprocessors
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).
   --
   -- The source files contains the actual options and arguments to be used with hs-bindgen
   ghc-options:        -pgmL hs-bindgen-cli -optL tool-support -optL literate
-  cpp-options:        -DTEST_PP
   build-tool-depends: hs-bindgen:hs-bindgen-cli
 
   -- Internal dependencies
   build-depends:
     , c-expr-runtime
     , hs-bindgen-runtime
-    , test-common
-
-  -- Inherited dependencies
-  build-depends:
-    , base         <5
-    , tasty
-    , tasty-hunit
 
   -- External dependencies
-  build-depends:
-    , ghc-prim
-    , primitive
-    , vector     ^>=0.13.2.0
+  build-depends:      primitive
 
   if impl(ghc <9.4)
     build-depends: data-array-byte
