@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -20,6 +21,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -42,6 +44,7 @@ import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 newtype Myint = Myint
   { unwrapMyint :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -82,6 +85,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Myint "unwrapMyint" where
 newtype Intptr = Intptr
   { unwrapIntptr :: Ptr.Ptr FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -113,6 +117,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Intptr "unwrapIntptr" where
 newtype Int2int = Int2int
   { unwrapInt2int :: FC.CInt -> IO FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
@@ -171,6 +176,7 @@ __exported by:__ @types\/typedefs\/typedefs.h@
 newtype FunctionPointer_Function_Aux = FunctionPointer_Function_Aux
   { unwrapFunctionPointer_Function_Aux :: IO ()
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_b171c028cdc0781d_base ::
@@ -227,6 +233,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function_Aux "unw
 newtype FunctionPointer_Function = FunctionPointer_Function
   { unwrapFunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -258,6 +265,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function "unwrapF
 newtype NonFunctionPointer_Function = NonFunctionPointer_Function
   { unwrapNonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
@@ -316,6 +324,7 @@ __exported by:__ @types\/typedefs\/typedefs.h@
 newtype F1_Aux = F1_Aux
   { unwrapF1_Aux :: IO ()
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
@@ -371,6 +380,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 newtype F1 = F1
   { unwrapF1 :: Ptr.FunPtr F1_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -401,6 +411,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1 "unwrapF1" where
 newtype G1 = G1
   { unwrapG1 :: IO ()
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_fa5806570b682579_base ::
@@ -456,6 +467,7 @@ instance HsBindgen.Runtime.HasCField.HasCField G1 "unwrapG1" where
 newtype G2 = G2
   { unwrapG2 :: Ptr.FunPtr G1
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -486,6 +498,7 @@ instance HsBindgen.Runtime.HasCField.HasCField G2 "unwrapG2" where
 newtype H1 = H1
   { unwrapH1 :: IO ()
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_ffae0d1234ed018f_base ::
@@ -541,6 +554,7 @@ instance HsBindgen.Runtime.HasCField.HasCField H1 "unwrapH1" where
 newtype H2 = H2
   { unwrapH2 :: H1
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H2) "unwrapH2")
@@ -564,6 +578,7 @@ instance HsBindgen.Runtime.HasCField.HasCField H2 "unwrapH2" where
 newtype H3 = H3
   { unwrapH3 :: Ptr.FunPtr H2
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

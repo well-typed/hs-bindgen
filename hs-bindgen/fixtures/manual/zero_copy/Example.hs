@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -22,6 +23,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.BitfieldPtr
@@ -60,6 +62,7 @@ data Point = Point
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Point where
@@ -134,6 +137,7 @@ data Rectangle = Rectangle
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Rectangle where
@@ -209,6 +213,7 @@ data Circle = Circle
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Circle where
@@ -270,6 +275,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Circle) "circle_radi
 newtype Shape = Shape
   { unwrapShape :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 4 instance HsBindgen.Runtime.Marshal.StaticSize Shape
 
@@ -400,6 +406,7 @@ data Colour = Colour
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Colour where
@@ -519,6 +526,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colou
 newtype MyInt = MyInt
   { unwrapMyInt :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -572,6 +580,7 @@ data Drawing = Drawing
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Drawing where
@@ -655,6 +664,7 @@ data Tic_tac_toe = Tic_tac_toe
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Tic_tac_toe where
@@ -739,6 +749,7 @@ data Vector_Aux = Vector
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Vector_Aux where
@@ -799,6 +810,7 @@ type Vector =
 newtype Triplet = Triplet
   { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -829,6 +841,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 newtype Matrix = Matrix
   { unwrapMatrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

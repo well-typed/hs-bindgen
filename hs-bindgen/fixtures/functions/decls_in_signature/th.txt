@@ -100,6 +100,7 @@ data Outside
 
            __exported by:__ @functions\/decls_in_signature.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Outside
     where staticSizeOf = \_ -> 8 :: Int
@@ -158,6 +159,7 @@ data Named_struct
 
       __exported by:__ @functions\/decls_in_signature.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Named_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -195,6 +197,7 @@ newtype Named_union
 
            __exported by:__ @functions\/decls_in_signature.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize Named_union
 deriving via (SizedByteArray 4 4) instance ReadRaw Named_union
 deriving via (SizedByteArray 4 4) instance WriteRaw Named_union

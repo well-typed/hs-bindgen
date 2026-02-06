@@ -145,6 +145,7 @@ data Config
 
            __exported by:__ @globals\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Config
     where staticSizeOf = \_ -> 8 :: Int
@@ -195,6 +196,7 @@ data Inline_struct
 
            __exported by:__ @globals\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Inline_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -252,6 +254,7 @@ data Version_t
 
            __exported by:__ @globals\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Version_t
     where staticSizeOf = \_ -> 6 :: Int
@@ -319,6 +322,7 @@ data Struct1_t
 
            __exported by:__ @globals\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct1_t
     where staticSizeOf = \_ -> 10 :: Int
@@ -370,6 +374,7 @@ data Struct2_t
 
            __exported by:__ @globals\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct2_t
     where staticSizeOf = \_ -> 10 :: Int

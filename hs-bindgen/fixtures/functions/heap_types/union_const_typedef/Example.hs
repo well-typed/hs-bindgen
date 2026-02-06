@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -18,6 +19,7 @@ import qualified Data.Array.Byte
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -35,6 +37,7 @@ import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 newtype U = U
   { unwrapU :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U
 
@@ -92,6 +95,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U) "u_x")
 newtype T = T
   { unwrapT :: U
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

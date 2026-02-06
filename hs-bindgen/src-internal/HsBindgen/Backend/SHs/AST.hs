@@ -77,6 +77,7 @@ data Global =
   | ByteArray_getUnionPayload
   | Capi_with
   | Capi_allocaAndPeek
+  | Generic_class
 
     -- StaticSize
   | StaticSize_class

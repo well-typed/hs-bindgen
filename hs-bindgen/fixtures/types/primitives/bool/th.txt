@@ -27,6 +27,7 @@ data Bools1
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Bools1
     where staticSizeOf = \_ -> 2 :: Int
@@ -77,6 +78,7 @@ data Bools2
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Bools2
     where staticSizeOf = \_ -> 2 :: Int
@@ -114,6 +116,7 @@ newtype BOOL
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -163,6 +166,7 @@ data Bools3
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Bools3
     where staticSizeOf = \_ -> 2 :: Int

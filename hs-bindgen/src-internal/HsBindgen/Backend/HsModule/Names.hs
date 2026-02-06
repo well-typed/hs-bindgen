@@ -61,6 +61,7 @@ import HsBindgen.Runtime.PtrConst qualified
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
+import HsBindgen.Imports qualified as GHC.Generics
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -301,6 +302,7 @@ resolveGlobal = \case
     CharValue_fromAddr    -> importQ 'CExpr.Runtime.charValueFromAddr
     Capi_with             -> importQ 'Foreign.with
     Capi_allocaAndPeek    -> importQ 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
+    Generic_class         -> importQ ''GHC.Generics.Generic
 
     -- StaticSize
     StaticSize_class           -> importQ ''HsBindgen.Runtime.Marshal.StaticSize

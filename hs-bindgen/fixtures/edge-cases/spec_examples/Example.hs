@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
@@ -22,6 +23,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
@@ -44,6 +46,7 @@ __exported by:__ @edge-cases\/spec_examples.h@
 newtype Int16_T = Int16_T
   { unwrapInt16_T :: FC.CShort
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -84,6 +87,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int16_T "unwrapInt16_T" where
 newtype Int32_T = Int32_T
   { unwrapInt32_T :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -124,6 +128,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int32_T "unwrapInt32_T" where
 newtype Int64_T = Int64_T
   { unwrapInt64_T :: FC.CLLong
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -177,6 +182,7 @@ data Cint16_T = Cint16_T
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Cint16_T where
@@ -237,6 +243,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Cint16_T) "cint16_T_
 -}
 data B = B
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize B where
@@ -302,6 +309,7 @@ data A = A
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A where

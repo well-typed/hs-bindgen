@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -21,6 +22,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -40,6 +42,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 newtype T1 = T1
   { unwrapT1 :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -80,6 +83,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
 newtype T2 = T2
   { unwrapT2 :: FC.CChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -120,6 +124,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T2 "unwrapT2" where
 newtype M1 = M1
   { unwrapM1 :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -160,6 +165,7 @@ instance HsBindgen.Runtime.HasCField.HasCField M1 "unwrapM1" where
 newtype M2 = M2
   { unwrapM2 :: FC.CChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -200,6 +206,7 @@ instance HsBindgen.Runtime.HasCField.HasCField M2 "unwrapM2" where
 newtype M3 = M3
   { unwrapM3 :: Ptr.Ptr FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -257,6 +264,7 @@ data ExampleStruct = ExampleStruct
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExampleStruct where
@@ -350,6 +358,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExampleStruct) "exam
 newtype Uint64_t = Uint64_t
   { unwrapUint64_t :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -396,6 +405,7 @@ data Foo = Foo
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo where

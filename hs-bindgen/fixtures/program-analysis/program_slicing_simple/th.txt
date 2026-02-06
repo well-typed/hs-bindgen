@@ -40,6 +40,7 @@ newtype Uint32_t
 
            __exported by:__ @program-analysis\/program_slicing_simple.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -89,6 +90,7 @@ data Foo
 
            __exported by:__ @program-analysis\/program_slicing_simple.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance Storable Foo
     where sizeOf = \_ -> 16 :: Int

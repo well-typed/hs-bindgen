@@ -665,6 +665,7 @@ newtype Triplet
 
            __exported by:__ @arrays\/array.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
@@ -688,6 +689,7 @@ newtype List
 
            __exported by:__ @arrays\/array.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType List "unwrapList") =>
          HasField "unwrapList" (Ptr List) (Ptr ty)
@@ -709,6 +711,7 @@ newtype Matrix
 
            __exported by:__ @arrays\/array.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
@@ -733,6 +736,7 @@ newtype Tripletlist
 
            __exported by:__ @arrays\/array.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Tripletlist "unwrapTripletlist") =>
          HasField "unwrapTripletlist" (Ptr Tripletlist) (Ptr ty)
@@ -768,6 +772,7 @@ data Example
 
            __exported by:__ @arrays\/array.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Example
     where staticSizeOf = \_ -> 48 :: Int
@@ -811,6 +816,7 @@ newtype Sudoku
 
       __exported by:__ @arrays\/array.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Sudoku "unwrapSudoku") =>

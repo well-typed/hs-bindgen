@@ -211,6 +211,7 @@ newtype Int2int
 
            __exported by:__ @manual\/function_pointers.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
     Int32 -> IO Int32
@@ -262,6 +263,7 @@ data Apply1Struct
 
       __exported by:__ @manual\/function_pointers.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Apply1Struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -303,6 +305,7 @@ newtype Apply1Union
 
       __exported by:__ @manual\/function_pointers.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 8 8) instance StaticSize Apply1Union
 deriving via (SizedByteArray 8 8) instance ReadRaw Apply1Union
 deriving via (SizedByteArray 8 8) instance WriteRaw Apply1Union

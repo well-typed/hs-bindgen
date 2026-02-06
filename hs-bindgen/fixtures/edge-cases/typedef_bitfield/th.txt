@@ -13,6 +13,7 @@ newtype MyInt
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -49,6 +50,7 @@ newtype MyUInt
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -85,6 +87,7 @@ newtype MyLong
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -141,6 +144,7 @@ data MyStruct
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize MyStruct
     where staticSizeOf = \_ -> 8 :: Int

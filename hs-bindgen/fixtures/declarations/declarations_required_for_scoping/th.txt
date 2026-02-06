@@ -36,6 +36,7 @@ newtype A
 
            __exported by:__ @declarations\/declarations_required_for_scoping.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

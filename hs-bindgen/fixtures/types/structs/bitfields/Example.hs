@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -16,6 +17,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.BitfieldPtr
@@ -75,6 +77,7 @@ data Flags = Flags
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Flags where
@@ -226,6 +229,7 @@ data Overflow32 = Overflow32
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Overflow32 where
@@ -330,6 +334,7 @@ data Overflow32b = Overflow32b
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Overflow32b where
@@ -434,6 +439,7 @@ data Overflow32c = Overflow32c
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Overflow32c where
@@ -531,6 +537,7 @@ data Overflow64 = Overflow64
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Overflow64 where
@@ -611,6 +618,7 @@ data AlignA = AlignA
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize AlignA where
@@ -689,6 +697,7 @@ data AlignB = AlignB
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize AlignB where

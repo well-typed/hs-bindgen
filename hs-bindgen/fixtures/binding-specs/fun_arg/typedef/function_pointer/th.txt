@@ -144,6 +144,7 @@ newtype A_Aux
 
       __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
     Int32 -> IO Int32
@@ -184,6 +185,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -210,6 +212,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -236,6 +239,7 @@ newtype E
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType E "unwrapE") =>
          HasField "unwrapE" (Ptr E) (Ptr ty)

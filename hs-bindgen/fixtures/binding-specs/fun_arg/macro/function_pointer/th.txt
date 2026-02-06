@@ -79,6 +79,7 @@ newtype MyFunctionPointer_Aux
 
       __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
     Int32 -> IO Int32
@@ -126,6 +127,7 @@ newtype MyFunctionPointer
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -154,6 +156,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -180,6 +183,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

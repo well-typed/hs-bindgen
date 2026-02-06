@@ -20,6 +20,7 @@ newtype Test
 
            __exported by:__ @edge-cases\/enum_as_array_size.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Test

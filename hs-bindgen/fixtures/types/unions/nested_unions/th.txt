@@ -13,6 +13,7 @@ newtype UnionA
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize UnionA
 deriving via (SizedByteArray 4 4) instance ReadRaw UnionA
 deriving via (SizedByteArray 4 4) instance WriteRaw UnionA
@@ -117,6 +118,7 @@ data ExA
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
+    deriving stock Generic
 instance StaticSize ExA
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -146,6 +148,7 @@ newtype ExB_fieldB1
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize ExB_fieldB1
 deriving via (SizedByteArray 4 4) instance ReadRaw ExB_fieldB1
 deriving via (SizedByteArray 4 4) instance WriteRaw ExB_fieldB1
@@ -250,6 +253,7 @@ data ExB
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
+    deriving stock Generic
 instance StaticSize ExB
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

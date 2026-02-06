@@ -74,6 +74,7 @@ data Vector_Aux
 
                    __exported by:__ @edge-cases\/flam_functions.h@
               -}}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Vector_Aux
     where staticSizeOf = \_ -> 8 :: Int

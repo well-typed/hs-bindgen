@@ -440,6 +440,7 @@ newtype FileOpenedNotification_Aux
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
     IO Unit
@@ -487,6 +488,7 @@ newtype FileOpenedNotification
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -524,6 +526,7 @@ newtype ProgressUpdate_Aux
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
     Int32 -> IO Unit
@@ -570,6 +573,7 @@ newtype ProgressUpdate
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -602,6 +606,7 @@ newtype DataValidator_Aux
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
     Int32 -> IO Int32
@@ -646,6 +651,7 @@ newtype DataValidator
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -687,6 +693,7 @@ data Measurement
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Measurement
     where staticSizeOf = \_ -> 16 :: Int
@@ -730,6 +737,7 @@ newtype MeasurementReceived_Aux
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
     Ptr Void -> IO Unit
@@ -778,6 +786,7 @@ newtype MeasurementReceived
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -813,6 +822,7 @@ newtype MeasurementReceived2_Aux
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
 instance TyEq ty
               (CFieldType MeasurementReceived2_Aux
                           "unwrapMeasurementReceived2_Aux") =>
@@ -839,6 +849,7 @@ newtype MeasurementReceived2
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -876,6 +887,7 @@ newtype SampleBufferFull_Aux
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
 instance TyEq ty
               (CFieldType SampleBufferFull_Aux "unwrapSampleBufferFull_Aux") =>
          HasField "unwrapSampleBufferFull_Aux"
@@ -901,6 +913,7 @@ newtype SampleBufferFull
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -951,6 +964,7 @@ data MeasurementHandler
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize MeasurementHandler
     where staticSizeOf = \_ -> 24 :: Int
@@ -1031,6 +1045,7 @@ data DataPipeline
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize DataPipeline
     where staticSizeOf = \_ -> 24 :: Int
@@ -1083,6 +1098,7 @@ newtype ProcessorCallback
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 8
                              8) instance StaticSize ProcessorCallback
 deriving via (SizedByteArray 8
@@ -1249,6 +1265,7 @@ newtype Processor_mode
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Processor_mode
@@ -1358,6 +1375,7 @@ data Processor
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
 instance StaticSize Processor
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -1395,6 +1413,7 @@ newtype Foo
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -1431,6 +1450,7 @@ newtype Foo2
 
            __exported by:__ @functions\/callbacks.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

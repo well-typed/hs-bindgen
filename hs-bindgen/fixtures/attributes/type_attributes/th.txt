@@ -19,6 +19,7 @@ data S
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 8 :: Int
@@ -49,6 +50,7 @@ newtype More_aligned_int
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -93,6 +95,7 @@ data S2
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S2
     where staticSizeOf = \_ -> 16 :: Int
@@ -136,6 +139,7 @@ data My_unpacked_struct
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize My_unpacked_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -197,6 +201,7 @@ data My_packed_struct
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize My_packed_struct
     where staticSizeOf = \_ -> 13 :: Int
@@ -245,6 +250,7 @@ newtype Wait_status_ptr_t
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 8
                              8) instance StaticSize Wait_status_ptr_t
 deriving via (SizedByteArray 8
@@ -357,6 +363,7 @@ newtype T1
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -393,6 +400,7 @@ newtype Short_a
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

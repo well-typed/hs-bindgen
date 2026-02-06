@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -16,6 +17,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -38,6 +40,7 @@ data Omitted = Omitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Omitted where
@@ -91,6 +94,7 @@ data DirectlyDependsOnOmitted = DirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize DirectlyDependsOnOmitted where
@@ -145,6 +149,7 @@ data IndirectlyDependsOnOmitted = IndirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize IndirectlyDependsOnOmitted where

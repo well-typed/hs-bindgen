@@ -30,6 +30,7 @@ import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32, castWord32ToFloat,
                   castWord64ToDouble)
+import GHC.Generics qualified
 import GHC.Ptr (Ptr (Ptr))
 import GHC.Records qualified
 import Language.Haskell.TH (Quote)
@@ -105,6 +106,7 @@ mkGlobal = \case
       CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
       Capi_with             -> 'Foreign.with
       Capi_allocaAndPeek    -> 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
+      Generic_class         -> ''GHC.Generics.Generic
 
       -- StaticSize
       StaticSize_class           -> ''HsBindgen.Runtime.Marshal.StaticSize
@@ -398,6 +400,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ByteArray_getUnionPayload -> TH.varE name
     Capi_with                 -> TH.varE name
     Capi_allocaAndPeek        -> TH.varE name
+    Generic_class             -> panicPure "class in expression"
 
     -- StaticSize
     StaticSize_class           -> panicPure "class in expression"

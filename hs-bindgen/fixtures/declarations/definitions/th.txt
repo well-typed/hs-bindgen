@@ -46,6 +46,7 @@ data X
 
            __exported by:__ @declarations\/definitions.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize X
     where staticSizeOf = \_ -> 4 :: Int
@@ -76,6 +77,7 @@ newtype Y
 
            __exported by:__ @declarations\/definitions.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize Y
 deriving via (SizedByteArray 4 4) instance ReadRaw Y
 deriving via (SizedByteArray 4 4) instance WriteRaw Y

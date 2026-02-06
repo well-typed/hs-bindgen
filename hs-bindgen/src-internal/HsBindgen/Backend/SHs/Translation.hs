@@ -146,7 +146,7 @@ translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord Record{
       typ     = struct.name
     , con     = struct.constr
-    , deriv   = []
+    , deriv   = [(Hs.DeriveStock, [Generic_class])]
     , comment = struct.comment
     , origin  = case struct.origin of
                   Just origin -> origin
@@ -174,7 +174,7 @@ translateNewtype n = DNewtype Newtype{
       name    = n.name
     , con     = n.constr
     , origin  = n.origin
-    , deriv   = []
+    , deriv   = [(Hs.DeriveStock, [Generic_class])]
     , comment = n.comment
     , field   = Field {
           name    = n.field.name

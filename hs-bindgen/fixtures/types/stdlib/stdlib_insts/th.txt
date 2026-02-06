@@ -30,6 +30,7 @@ newtype Stdlib_CBool
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -66,6 +67,7 @@ newtype Stdlib_Int8
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -103,6 +105,7 @@ newtype Stdlib_Int16
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -140,6 +143,7 @@ newtype Stdlib_Int32
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -177,6 +181,7 @@ newtype Stdlib_Int64
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -214,6 +219,7 @@ newtype Stdlib_Word8
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -251,6 +257,7 @@ newtype Stdlib_Word16
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -289,6 +296,7 @@ newtype Stdlib_Word32
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -327,6 +335,7 @@ newtype Stdlib_Word64
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -365,6 +374,7 @@ newtype Stdlib_CIntMax
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -403,6 +413,7 @@ newtype Stdlib_CUIntMax
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -441,6 +452,7 @@ newtype Stdlib_CIntPtr
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -479,6 +491,7 @@ newtype Stdlib_CUIntPtr
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -517,6 +530,7 @@ newtype Stdlib_CFenvT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
 instance TyEq ty
               (CFieldType Stdlib_CFenvT "unwrapStdlib_CFenvT") =>
          HasField "unwrapStdlib_CFenvT" (Ptr Stdlib_CFenvT) (Ptr ty)
@@ -539,6 +553,7 @@ newtype Stdlib_CFexceptT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
 instance TyEq ty
               (CFieldType Stdlib_CFexceptT "unwrapStdlib_CFexceptT") =>
          HasField "unwrapStdlib_CFexceptT" (Ptr Stdlib_CFexceptT) (Ptr ty)
@@ -561,6 +576,7 @@ newtype Stdlib_CSize
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -598,6 +614,7 @@ newtype Stdlib_CPtrdiff
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -636,6 +653,7 @@ newtype Stdlib_CJmpBuf
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
 instance TyEq ty
               (CFieldType Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf") =>
          HasField "unwrapStdlib_CJmpBuf" (Ptr Stdlib_CJmpBuf) (Ptr ty)
@@ -658,6 +676,7 @@ newtype Stdlib_CWchar
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -696,6 +715,7 @@ newtype Stdlib_CWintT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -734,6 +754,7 @@ newtype Stdlib_CMbstateT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
 instance TyEq ty
               (CFieldType Stdlib_CMbstateT "unwrapStdlib_CMbstateT") =>
          HasField "unwrapStdlib_CMbstateT" (Ptr Stdlib_CMbstateT) (Ptr ty)
@@ -756,6 +777,7 @@ newtype Stdlib_CWctransT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -785,6 +807,7 @@ newtype Stdlib_CWctypeT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -814,6 +837,7 @@ newtype Stdlib_CChar16T
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -852,6 +876,7 @@ newtype Stdlib_CChar32T
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -890,6 +915,7 @@ newtype Stdlib_CTime
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -920,6 +946,7 @@ newtype Stdlib_CClock
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -951,6 +978,7 @@ newtype Stdlib_CTm
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw)
 instance TyEq ty (CFieldType Stdlib_CTm "unwrapStdlib_CTm") =>
@@ -974,6 +1002,7 @@ newtype Stdlib_CFile
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
 instance TyEq ty (CFieldType Stdlib_CFile "unwrapStdlib_CFile") =>
          HasField "unwrapStdlib_CFile" (Ptr Stdlib_CFile) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFile")
@@ -995,6 +1024,7 @@ newtype Stdlib_CFpos
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
 instance TyEq ty (CFieldType Stdlib_CFpos "unwrapStdlib_CFpos") =>
          HasField "unwrapStdlib_CFpos" (Ptr Stdlib_CFpos) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFpos")
@@ -1016,6 +1046,7 @@ newtype Stdlib_CSigAtomic
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -20,6 +21,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -42,6 +44,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord,
 newtype I = I
   { unwrapI :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -82,6 +85,7 @@ instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
 newtype C = C
   { unwrapC :: FC.CChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -122,6 +126,7 @@ instance HsBindgen.Runtime.HasCField.HasCField C "unwrapC" where
 newtype F = F
   { unwrapF :: FC.CFloat
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -160,6 +165,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F "unwrapF" where
 newtype L = L
   { unwrapL :: FC.CLong
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -200,6 +206,7 @@ instance HsBindgen.Runtime.HasCField.HasCField L "unwrapL" where
 newtype S = S
   { unwrapS :: FC.CShort
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

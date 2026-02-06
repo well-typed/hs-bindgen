@@ -13,6 +13,7 @@ newtype First
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize First
@@ -93,6 +94,7 @@ newtype Second
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Second
@@ -188,6 +190,7 @@ newtype Same
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Same
@@ -267,6 +270,7 @@ newtype Nonseq
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Nonseq
@@ -357,6 +361,7 @@ newtype Packed
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Packed
@@ -452,6 +457,7 @@ newtype EnumA
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumA
@@ -532,6 +538,7 @@ newtype EnumB
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumB
@@ -612,6 +619,7 @@ newtype EnumC
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumC
@@ -692,6 +700,7 @@ newtype EnumD_t
 
            __exported by:__ @types\/enums\/enums.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumD_t

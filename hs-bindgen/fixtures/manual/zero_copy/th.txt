@@ -76,6 +76,7 @@ data Point
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
@@ -126,6 +127,7 @@ data Rectangle
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Rectangle
     where staticSizeOf = \_ -> 16 :: Int
@@ -176,6 +178,7 @@ data Circle
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Circle
     where staticSizeOf = \_ -> 12 :: Int
@@ -213,6 +216,7 @@ newtype Shape
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 16 4) instance StaticSize Shape
 deriving via (SizedByteArray 16 4) instance ReadRaw Shape
 deriving via (SizedByteArray 16 4) instance WriteRaw Shape
@@ -345,6 +349,7 @@ data Colour
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Colour
     where staticSizeOf = \_ -> 4 :: Int
@@ -408,6 +413,7 @@ newtype MyInt
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -457,6 +463,7 @@ data Drawing
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Drawing
     where staticSizeOf = \_ -> 16 :: Int
@@ -514,6 +521,7 @@ data Tic_tac_toe
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Tic_tac_toe
     where staticSizeOf = \_ -> 36 :: Int
@@ -561,6 +569,7 @@ data Vector_Aux
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Vector_Aux
     where staticSizeOf = \_ -> 4 :: Int
@@ -594,6 +603,7 @@ newtype Triplet
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
@@ -617,6 +627,7 @@ newtype Matrix
 
            __exported by:__ @manual\/zero_copy.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>

@@ -26,6 +26,7 @@ data Foo
 
            __exported by:__ @types\/nested\/nested_types.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 8 :: Int
@@ -76,6 +77,7 @@ data Bar
 
            __exported by:__ @types\/nested\/nested_types.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 16 :: Int
@@ -126,6 +128,7 @@ data Ex3_ex3_struct
 
            __exported by:__ @types\/nested\/nested_types.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Ex3_ex3_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -178,6 +181,7 @@ data Ex3
 
            __exported by:__ @types\/nested\/nested_types.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Ex3
     where staticSizeOf = \_ -> 12 :: Int
@@ -228,6 +232,7 @@ data Ex4_odd
 
            __exported by:__ @types\/nested\/nested_types.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Ex4_odd
     where staticSizeOf = \_ -> 16 :: Int
@@ -278,6 +283,7 @@ data Ex4_even
 
            __exported by:__ @types\/nested\/nested_types.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Ex4_even
     where staticSizeOf = \_ -> 16 :: Int

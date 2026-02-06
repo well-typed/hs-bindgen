@@ -325,6 +325,7 @@ newtype I
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -361,6 +362,7 @@ newtype C
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -397,6 +399,7 @@ newtype F
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -431,6 +434,7 @@ newtype L
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -467,6 +471,7 @@ newtype S
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

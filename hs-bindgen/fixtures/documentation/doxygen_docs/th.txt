@@ -384,6 +384,7 @@ newtype Size_type
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -455,6 +456,7 @@ newtype Color_enum
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Color_enum
@@ -567,6 +569,7 @@ newtype Event_callback_t_Aux
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
     Int32 -> Ptr Void -> IO Int32
@@ -635,6 +638,7 @@ newtype Event_callback_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -731,6 +735,7 @@ data Config_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Config_t
     where staticSizeOf = \_ -> 88 :: Int
@@ -805,6 +810,7 @@ newtype Status_code_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Status_code_t
@@ -999,6 +1005,7 @@ data Data_union_t_as_parts
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Data_union_t_as_parts
     where staticSizeOf = \_ -> 4 :: Int
@@ -1062,6 +1069,7 @@ newtype Data_union_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize Data_union_t
 deriving via (SizedByteArray 4 4) instance ReadRaw Data_union_t
 deriving via (SizedByteArray 4 4) instance WriteRaw Data_union_t
@@ -1323,6 +1331,7 @@ data Bitfield_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Bitfield_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -1384,6 +1393,7 @@ newtype Processor_fn_t_Aux
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
     Int32 -> Ptr Void -> IO Int32
@@ -1455,6 +1465,7 @@ newtype Processor_fn_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -1495,6 +1506,7 @@ newtype Filename_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Filename_t "unwrapFilename_t") =>
@@ -1530,6 +1542,7 @@ data Flexible_array_Aux
 
                       __exported by:__ @documentation\/doxygen_docs.h@
                       -}}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Flexible_array_Aux
     where staticSizeOf = \_ -> 8 :: Int

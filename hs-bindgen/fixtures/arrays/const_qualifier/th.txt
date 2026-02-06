@@ -254,6 +254,7 @@ newtype S
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType S "unwrapS") =>
          HasField "unwrapS" (Ptr S) (Ptr ty)
@@ -275,6 +276,7 @@ newtype T
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType T "unwrapT") =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
@@ -296,6 +298,7 @@ newtype U
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType U "unwrapU") =>
@@ -318,6 +321,7 @@ newtype V
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType V "unwrapV") =>
@@ -340,6 +344,7 @@ newtype W
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType W "unwrapW") =>
@@ -362,6 +367,7 @@ newtype X
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType X "unwrapX") =>

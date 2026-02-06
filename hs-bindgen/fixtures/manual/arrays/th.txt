@@ -93,6 +93,7 @@ newtype Triplet
 
            __exported by:__ @manual\/arrays.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
@@ -116,6 +117,7 @@ newtype Matrix
 
            __exported by:__ @manual\/arrays.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
@@ -144,6 +146,7 @@ newtype Triplet_ptrs
 
       __exported by:__ @manual\/arrays.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Triplet_ptrs "unwrapTriplet_ptrs") =>
          HasField "unwrapTriplet_ptrs" (Ptr Triplet_ptrs) (Ptr ty)

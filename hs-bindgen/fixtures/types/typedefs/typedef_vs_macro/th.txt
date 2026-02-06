@@ -13,6 +13,7 @@ newtype T1
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -49,6 +50,7 @@ newtype T2
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -85,6 +87,7 @@ newtype M1
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -121,6 +124,7 @@ newtype M2
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -157,6 +161,7 @@ newtype M3
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -210,6 +215,7 @@ data ExampleStruct
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize ExampleStruct
     where staticSizeOf = \_ -> 16 :: Int
@@ -261,6 +267,7 @@ newtype Uint64_t
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -303,6 +310,7 @@ data Foo
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 8 :: Int

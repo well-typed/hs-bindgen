@@ -17,6 +17,7 @@ newtype F1_Aux
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
     Int32 -> Int32 -> IO Unit
@@ -59,6 +60,7 @@ newtype F1
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -89,6 +91,7 @@ newtype F2_Aux
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8_base ::
     Int32 -> Int32 -> IO Unit
@@ -131,6 +134,7 @@ newtype F2
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -161,6 +165,7 @@ newtype F3_Aux
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef_base ::
     Int32 -> Int32 -> IO Unit
@@ -203,6 +208,7 @@ newtype F3
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -233,6 +239,7 @@ newtype F4_Aux
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_83bcff023b3bc648_base ::
     IO Int32
@@ -272,6 +279,7 @@ newtype F4
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -302,6 +310,7 @@ newtype F5_Aux
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_6891cbd81d6f42b9_base ::
     IO Unit
@@ -341,6 +350,7 @@ newtype F5
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -367,6 +377,7 @@ newtype MyInt
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -407,6 +418,7 @@ newtype F6_Aux
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45_base ::
     Int32 -> IO Unit
@@ -447,6 +459,7 @@ newtype F6
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

@@ -13,6 +13,7 @@ newtype T1
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -49,6 +50,7 @@ newtype T2
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -85,6 +87,7 @@ newtype T3
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -121,6 +124,7 @@ newtype T4
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

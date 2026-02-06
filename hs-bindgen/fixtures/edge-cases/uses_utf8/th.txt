@@ -13,6 +13,7 @@ newtype MyEnum
 
            __exported by:__ @edge-cases\/uses_utf8.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize MyEnum

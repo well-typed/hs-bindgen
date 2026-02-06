@@ -36,6 +36,7 @@ newtype T
 
            __exported by:__ @functions\/heap_types\/union.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize T
 deriving via (SizedByteArray 4 4) instance ReadRaw T
 deriving via (SizedByteArray 4 4) instance WriteRaw T

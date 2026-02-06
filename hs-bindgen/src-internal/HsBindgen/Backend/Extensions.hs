@@ -40,11 +40,13 @@ requiredExtensions fieldNaming = \case
         recordExtensions record
       , nestedDeriving record.deriv
       , enableRecordDotExtensions fieldNaming
+      , Set.singleton TH.DeriveGeneric
       ]
     DNewtype newtyp -> mconcat [
         nestedDeriving newtyp.deriv
       , typeExtensions newtyp.field.typ
       , enableRecordDotExtensions fieldNaming
+      , Set.singleton TH.DeriveGeneric
       ]
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls

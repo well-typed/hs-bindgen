@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -16,6 +17,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
@@ -40,6 +42,7 @@ data Pascal_Aux = Pascal
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Pascal_Aux where
@@ -113,6 +116,7 @@ data Foo_bar = Foo_bar
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo_bar where
@@ -180,6 +184,7 @@ data Foo_Aux = Foo
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo_Aux where
@@ -253,6 +258,7 @@ data Diff_Aux = Diff
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Diff_Aux where
@@ -335,6 +341,7 @@ data Triplets_Aux = Triplets
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Triplets_Aux where

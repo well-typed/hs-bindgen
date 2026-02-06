@@ -42,6 +42,7 @@ data T
 
            __exported by:__ @functions\/heap_types\/struct_const.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize T
     where staticSizeOf = \_ -> 4 :: Int

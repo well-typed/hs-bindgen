@@ -34,6 +34,7 @@ data NewName
 
            __exported by:__ @program-analysis\/selection_matches_c_names.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize NewName
     where staticSizeOf = \_ -> 4 :: Int
