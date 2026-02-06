@@ -704,11 +704,11 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         pure $ (fails ++) $
-          if not (null anonDecls) then [
+          if not (null anonDecls) && not isDefn then [
               parseFail info.id info.loc $
                 ParseUnexpectedAnonInExtern
             ]
-          else (map parseSucceed otherDecls ++) $
+          else (map parseSucceed (anonDecls ++ otherDecls) ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
                   | visibilityCanCauseErrors visibility linkage isDefn
@@ -744,6 +744,7 @@ varDecl info = \curr -> do
           -- Nested /new/ declarations
           Right CXCursor_StructDecl -> parseDecl curr
           Right CXCursor_UnionDecl  -> parseDecl curr
+          Right CXCursor_EnumDecl   -> parseDecl curr
 
           -- Initializers
           --
