@@ -1,5 +1,8 @@
 // Ptr CInt
 #define PtrInt int*
+#define ShortInt short int
+#define SignedShortInt signed short int
+#define UnsignedShortInt unsigned short int
 
 // Ptr (Ptr CChar)
 #define PtrPtrChar char**

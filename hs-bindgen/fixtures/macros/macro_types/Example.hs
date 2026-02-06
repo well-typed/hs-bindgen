@@ -63,9 +63,134 @@ instance HsBindgen.Runtime.HasCField.HasCField PtrInt "unwrapPtrInt" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @PtrPtrChar@
+{-| __C declaration:__ @ShortInt@
+
+    __defined at:__ @macros\/macro_types.h 3:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype ShortInt = ShortInt
+  { unwrapShortInt :: FC.CShort
+  }
+  deriving stock (GHC.Generics.Generic)
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ShortInt) "unwrapShortInt")
+         ) => GHC.Records.HasField "unwrapShortInt" (Ptr.Ptr ShortInt) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapShortInt")
+
+instance HsBindgen.Runtime.HasCField.HasCField ShortInt "unwrapShortInt" where
+
+  type CFieldType ShortInt "unwrapShortInt" = FC.CShort
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @SignedShortInt@
+
+    __defined at:__ @macros\/macro_types.h 4:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype SignedShortInt = SignedShortInt
+  { unwrapSignedShortInt :: FC.CShort
+  }
+  deriving stock (GHC.Generics.Generic)
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SignedShortInt) "unwrapSignedShortInt")
+         ) => GHC.Records.HasField "unwrapSignedShortInt" (Ptr.Ptr SignedShortInt) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSignedShortInt")
+
+instance HsBindgen.Runtime.HasCField.HasCField SignedShortInt "unwrapSignedShortInt" where
+
+  type CFieldType SignedShortInt "unwrapSignedShortInt" =
+    FC.CShort
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @UnsignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 5:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype UnsignedShortInt = UnsignedShortInt
+  { unwrapUnsignedShortInt :: FC.CUShort
+  }
+  deriving stock (GHC.Generics.Generic)
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype
+    ( HsBindgen.Runtime.Marshal.StaticSize
+    , HsBindgen.Runtime.Marshal.ReadRaw
+    , HsBindgen.Runtime.Marshal.WriteRaw
+    , F.Storable
+    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    , Data.Primitive.Types.Prim
+    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
+    , Bits.Bits
+    , Bounded
+    , Enum
+    , FiniteBits
+    , Integral
+    , Ix.Ix
+    , Num
+    , Real
+    )
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType UnsignedShortInt) "unwrapUnsignedShortInt")
+         ) => GHC.Records.HasField "unwrapUnsignedShortInt" (Ptr.Ptr UnsignedShortInt) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapUnsignedShortInt")
+
+instance HsBindgen.Runtime.HasCField.HasCField UnsignedShortInt "unwrapUnsignedShortInt" where
+
+  type CFieldType UnsignedShortInt "unwrapUnsignedShortInt" =
+    FC.CUShort
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @PtrPtrChar@
+
+    __defined at:__ @macros\/macro_types.h 8:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -97,7 +222,7 @@ instance HsBindgen.Runtime.HasCField.HasCField PtrPtrChar "unwrapPtrPtrChar" whe
 
 {-| __C declaration:__ @MTy@
 
-    __defined at:__ @macros\/macro_types.h 8:9@
+    __defined at:__ @macros\/macro_types.h 11:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -136,7 +261,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MTy "unwrapMTy" where
 
 {-| __C declaration:__ @tty@
 
-    __defined at:__ @macros\/macro_types.h 9:13@
+    __defined at:__ @macros\/macro_types.h 12:13@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -175,7 +300,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tty "unwrapTty" where
 
 {-| __C declaration:__ @UINT8_T@
 
-    __defined at:__ @macros\/macro_types.h 11:9@
+    __defined at:__ @macros\/macro_types.h 14:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -216,7 +341,7 @@ instance HsBindgen.Runtime.HasCField.HasCField UINT8_T "unwrapUINT8_T" where
 
 {-| __C declaration:__ @BOOLEAN_T@
 
-    __defined at:__ @macros\/macro_types.h 12:9@
+    __defined at:__ @macros\/macro_types.h 15:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -257,7 +382,7 @@ instance HsBindgen.Runtime.HasCField.HasCField BOOLEAN_T "unwrapBOOLEAN_T" where
 
 {-| __C declaration:__ @boolean_T@
 
-    __defined at:__ @macros\/macro_types.h 13:19@
+    __defined at:__ @macros\/macro_types.h 16:19@
 
     __exported by:__ @macros\/macro_types.h@
 -}

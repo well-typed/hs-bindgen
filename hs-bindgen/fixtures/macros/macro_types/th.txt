@@ -26,9 +26,124 @@ instance TyEq ty (CFieldType PtrInt "unwrapPtrInt") =>
 instance HasCField PtrInt "unwrapPtrInt"
     where type CFieldType PtrInt "unwrapPtrInt" = Ptr CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @PtrPtrChar@
+{-| __C declaration:__ @ShortInt@
+
+    __defined at:__ @macros\/macro_types.h 3:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype ShortInt
+    = ShortInt {unwrapShortInt :: CShort}
+      {- ^ __C declaration:__ @ShortInt@
+
+           __defined at:__ @macros\/macro_types.h 3:9@
+
+           __exported by:__ @macros\/macro_types.h@
+      -}
+    deriving stock Generic
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType ShortInt "unwrapShortInt") =>
+         HasField "unwrapShortInt" (Ptr ShortInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapShortInt")
+instance HasCField ShortInt "unwrapShortInt"
+    where type CFieldType ShortInt "unwrapShortInt" = CShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @SignedShortInt@
+
+    __defined at:__ @macros\/macro_types.h 4:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype SignedShortInt
+    = SignedShortInt {unwrapSignedShortInt :: CShort}
+      {- ^ __C declaration:__ @SignedShortInt@
+
+           __defined at:__ @macros\/macro_types.h 4:9@
+
+           __exported by:__ @macros\/macro_types.h@
+      -}
+    deriving stock Generic
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType SignedShortInt "unwrapSignedShortInt") =>
+         HasField "unwrapSignedShortInt" (Ptr SignedShortInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapSignedShortInt")
+instance HasCField SignedShortInt "unwrapSignedShortInt"
+    where type CFieldType SignedShortInt
+                          "unwrapSignedShortInt" = CShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @UnsignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 5:9@
+
+    __exported by:__ @macros\/macro_types.h@
+-}
+newtype UnsignedShortInt
+    = UnsignedShortInt {unwrapUnsignedShortInt :: CUShort}
+      {- ^ __C declaration:__ @UnsignedShortInt@
+
+           __defined at:__ @macros\/macro_types.h 5:9@
+
+           __exported by:__ @macros\/macro_types.h@
+      -}
+    deriving stock Generic
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty
+              (CFieldType UnsignedShortInt "unwrapUnsignedShortInt") =>
+         HasField "unwrapUnsignedShortInt" (Ptr UnsignedShortInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapUnsignedShortInt")
+instance HasCField UnsignedShortInt "unwrapUnsignedShortInt"
+    where type CFieldType UnsignedShortInt
+                          "unwrapUnsignedShortInt" = CUShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @PtrPtrChar@
+
+    __defined at:__ @macros\/macro_types.h 8:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -36,7 +151,7 @@ newtype PtrPtrChar
     = PtrPtrChar {unwrapPtrPtrChar :: (Ptr (Ptr CChar))}
       {- ^ __C declaration:__ @PtrPtrChar@
 
-           __defined at:__ @macros\/macro_types.h 5:9@
+           __defined at:__ @macros\/macro_types.h 8:9@
 
            __exported by:__ @macros\/macro_types.h@
       -}
@@ -56,7 +171,7 @@ instance HasCField PtrPtrChar "unwrapPtrPtrChar"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MTy@
 
-    __defined at:__ @macros\/macro_types.h 8:9@
+    __defined at:__ @macros\/macro_types.h 11:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -64,7 +179,7 @@ newtype MTy
     = MTy {unwrapMTy :: CFloat}
       {- ^ __C declaration:__ @MTy@
 
-           __defined at:__ @macros\/macro_types.h 8:9@
+           __defined at:__ @macros\/macro_types.h 11:9@
 
            __exported by:__ @macros\/macro_types.h@
       -}
@@ -91,7 +206,7 @@ instance HasCField MTy "unwrapMTy"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @tty@
 
-    __defined at:__ @macros\/macro_types.h 9:13@
+    __defined at:__ @macros\/macro_types.h 12:13@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -99,7 +214,7 @@ newtype Tty
     = Tty {unwrapTty :: MTy}
       {- ^ __C declaration:__ @tty@
 
-           __defined at:__ @macros\/macro_types.h 9:13@
+           __defined at:__ @macros\/macro_types.h 12:13@
 
            __exported by:__ @macros\/macro_types.h@
       -}
@@ -126,7 +241,7 @@ instance HasCField Tty "unwrapTty"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @UINT8_T@
 
-    __defined at:__ @macros\/macro_types.h 11:9@
+    __defined at:__ @macros\/macro_types.h 14:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -134,7 +249,7 @@ newtype UINT8_T
     = UINT8_T {unwrapUINT8_T :: CUChar}
       {- ^ __C declaration:__ @UINT8_T@
 
-           __defined at:__ @macros\/macro_types.h 11:9@
+           __defined at:__ @macros\/macro_types.h 14:9@
 
            __exported by:__ @macros\/macro_types.h@
       -}
@@ -163,7 +278,7 @@ instance HasCField UINT8_T "unwrapUINT8_T"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @BOOLEAN_T@
 
-    __defined at:__ @macros\/macro_types.h 12:9@
+    __defined at:__ @macros\/macro_types.h 15:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -171,7 +286,7 @@ newtype BOOLEAN_T
     = BOOLEAN_T {unwrapBOOLEAN_T :: UINT8_T}
       {- ^ __C declaration:__ @BOOLEAN_T@
 
-           __defined at:__ @macros\/macro_types.h 12:9@
+           __defined at:__ @macros\/macro_types.h 15:9@
 
            __exported by:__ @macros\/macro_types.h@
       -}
@@ -200,7 +315,7 @@ instance HasCField BOOLEAN_T "unwrapBOOLEAN_T"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @boolean_T@
 
-    __defined at:__ @macros\/macro_types.h 13:19@
+    __defined at:__ @macros\/macro_types.h 16:19@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -208,7 +323,7 @@ newtype Boolean_T
     = Boolean_T {unwrapBoolean_T :: BOOLEAN_T}
       {- ^ __C declaration:__ @boolean_T@
 
-           __defined at:__ @macros\/macro_types.h 13:19@
+           __defined at:__ @macros\/macro_types.h 16:19@
 
            __exported by:__ @macros\/macro_types.h@
       -}
