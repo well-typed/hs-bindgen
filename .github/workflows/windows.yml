@@ -1,0 +1,250 @@
+name: "Windows tests"
+
+# On Windows, we only test supported versions of GHC using the LLVM/Clang that
+# is installed with that version of GHC.
+#
+# Maintenance:
+#
+# * Configure supported GHC versions in
+#   `on.workflow_dispatch.inputs.ghc_versions.default`
+# * Configure GHC versions tested on pull requests in
+#   `jobs.setup.steps.("Setup GHC versions (PR)")
+# * Configure GHC versions tested on merge in
+#   `jobs.setup.steps.("Setup GHC versions (MQ)")
+
+on:
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      ghc_versions:
+        description: "Comma-separated list of GHC version strings"
+        default: '"9.4","9.6","9.8","9.10","9.12","9.14"'
+        required: true
+      enable_cache:
+        description: "Enable cache (load and save)"
+        default: true
+        required: true
+      debug_tmate:
+        description: "Debug with tmate after {checkout, setup, build, test, manual}"
+        default: "off"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    name: "Setup"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    outputs:
+      matrix: ${{ steps.setup-matrix.outputs.matrix }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: "Setup GHC versions (PR)"
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo GHC_VERSIONS='"9.4"' | tee -a "${GITHUB_ENV}"
+
+      - name: "Setup GHC versions (MQ)"
+        if: ${{ github.event_name == 'merge_group' }}
+        run: echo GHC_VERSIONS='"9.12"' | tee -a "${GITHUB_ENV}"
+
+      - name: "Setup GHC versions (dispatch)"
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo GHC_VERSIONS='${{ inputs.ghc_versions }}' | tee -a "${GITHUB_ENV}"
+
+      - name: "Setup matrix"
+        id: setup-matrix
+        run: |
+          echo "matrix={\"ghc\":[ ${GHC_VERSIONS} ]}" | tee -a "${GITHUB_OUTPUT}"
+
+  build-and-test:
+    name: "GHC ${{ matrix.ghc }}"
+    runs-on: windows-latest
+    timeout-minutes: 45
+
+    needs:
+      - setup
+
+    strategy:
+      matrix: ${{ fromJSON(needs.setup.outputs.matrix) }}
+      fail-fast: false
+
+    env:
+      # Increment this number to reset caches.
+      #
+      # Caches of the cabal store generally grow in size: new packages are
+      # added, but never removed, unless we start with a fresh cabal store once
+      # in a while.  The cache-reset-number is part of the cache key, and if it
+      # is incremented, then the "Restore cache" step fails to restore a cache,
+      # meaning we will start with an empty cabal store that we will then save a
+      # new cache for.
+      cache-reset-number: 0
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: "Configure git to use LF"
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "[tmate] Debug with tmate (checkout)"
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'checkout' }}
+        uses: mxschmitt/action-tmate@v3
+
+      - name: "[Debug] Disk usage (initial)"
+        run: |
+          echo '### Disk usage'
+          df -h
+          echo '### Home directory size'
+          du -sh "${HOME}"
+
+      - name: "Setup Haskell"
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: 3.16
+
+      - name: "[Debug] Haskell"
+        run: |
+          echo '### which ghc'
+          which ghc
+          echo '### ghc --version'
+          ghc --version
+          echo '### ghc --info'
+          ghc --info
+          echo '### ghc-pkg list'
+          ghc-pkg list
+
+      - name: "Configure LLVM/Clang"
+        run: |
+          I_PATH="$(dirname "$(dirname "$(which ghc)")")"
+          LLVM_PATH="${I_PATH}/mingw"
+          if [ ! -d "${LLVM_PATH}" ] ; then
+            LLVM_PATH="${I_PATH}/ghc/${{ steps.setup-haskell.outputs.ghc-version }}/mingw"
+            if [ ! -d "${LLVM_PATH}" ] ; then
+              echo "error: LLVM path not found"
+              false
+            fi
+          fi
+          echo LLVM_PATH="${LLVM_PATH}" | tee -a "${GITHUB_ENV}"
+          echo "${LLVM_PATH}/bin" | tee -a "${GITHUB_PATH}"
+          LLVM_CONFIG="${LLVM_PATH}/bin/llvm-config.exe"
+          if [ -x "${LLVM_CONFIG}" ] ; then
+            echo LLVM_CONFIG="${LLVM_CONFIG}" | tee -a "${GITHUB_ENV}"
+          fi
+
+      - name: "[Debug] LLVM/Clang"
+        run: |
+          echo '### $PATH'
+          echo "${PATH}"
+          echo '### which clang'
+          which clang
+          echo '### clang --version'
+          clang --version
+          echo '### $LLVM_PATH'
+          echo "${LLVM_PATH}"
+          echo '### ls $LLVM_PATH'
+          ls "${LLVM_PATH}"
+          echo '### ls $LLVM_PATH/bin'
+          ls "${LLVM_PATH}/bin"
+
+      - name: "Configure cabal.project"
+        run: cp cabal.project.ci cabal.project
+
+      - name: "Generate Cabal plan"
+        run: cabal build all --dry-run
+
+      - name: "Load cache"
+        # Do not load the cache it is disabled in a manual dispatch.
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.enable_cache }}
+        id: restore-cache
+        uses: actions/cache/restore@v4
+        env:
+          key: build-and-test-${{ env.cache-reset-number }}-windows-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+          restore-keys: ${{ env.key }}-
+
+      - name: "[tmate] Debug with tmate (setup)"
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'setup' }}
+        uses: mxschmitt/action-tmate@v3
+
+      - name: "Build dependencies"
+        run: |
+          echo '### Installing libclang-bindings dependencies'
+          cabal install --user --lib --only-dependencies libclang-bindings
+          echo '### Installing libclang-bindings'
+          cabal install -j1 --user --lib -v1 libclang-bindings
+          echo '### Building all dependencies'
+          cabal build all --only-dependencies
+
+      - name: "Build"
+        run: cabal build all
+
+      - name: "[Debug] Disk usage (after build)"
+        run: |
+          echo '### Disk usage'
+          df -h
+          echo '### Home directory size'
+          du -sh "${HOME}"
+
+      - name: "[Debug] hs-bindgen"
+        run: |
+          echo '### Version'
+          cabal run hs-bindgen-cli -- --version
+          echo '### libclang -v'
+          cabal run hs-bindgen-cli -- info libclang --clang-option=-v
+          echo '### Resolve stdint.h'
+          cabal run hs-bindgen-cli -- info resolve-header -v4 stdint.h
+          echo '### Resolve stddef.h'
+          cabal run hs-bindgen-cli -- info resolve-header -v4 stddef.h
+
+      - name: "[tmate] Debug with tmate (build)"
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'build' }}
+        uses: mxschmitt/action-tmate@v3
+
+      - name: "Test"
+        run: cabal test all --test-show-details=direct
+
+      - name: "[tmate] Debug with tmate (test)"
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'test' }}
+        uses: mxschmitt/action-tmate@v3
+
+# TODO manual
+
+#      - name: "[tmate] Debug with tmate (manual)"
+#        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'manual' }}
+#        uses: mxschmitt/action-tmate@v3
+
+#      - name: "Save cache"
+#        # Do not save the cache if the job gets canceled or it is disabled in a
+#        # manual dispatch.  Otherwise, save the cache even if a previous job
+#        # failed.
+#        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || inputs.enable_cache) }}
+#        uses: actions/cache/save@v4
+#        with:
+#          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+#          key: ${{steps.restore-cache.outputs.cache-primary-key }}
