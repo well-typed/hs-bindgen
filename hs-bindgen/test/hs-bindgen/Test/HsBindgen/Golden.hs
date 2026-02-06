@@ -1239,8 +1239,14 @@ test_macros_reparse =
 testCases_bespoke_programAnalysis :: [TestCase]
 testCases_bespoke_programAnalysis = [
       test_programAnalysis_delay_traces
+      -- * Program slicing
+    , test_programAnalysis_program_slicing_macro_selected
+    , test_programAnalysis_program_slicing_macro_unselected
+    , test_programAnalysis_program_slicing_typedef_selected
+    , test_programAnalysis_program_slicing_typedef_unselected
     , test_programAnalysis_program_slicing_selection
     , test_programAnalysis_program_slicing_simple
+      -- * Selection
     , test_programAnalysis_selection_bad
     , test_programAnalysis_selection_fail
     , test_programAnalysis_selection_fail_variant_1
@@ -1254,6 +1260,7 @@ testCases_bespoke_programAnalysis = [
     , test_programAnalysis_selection_omit_external_b
     , test_programAnalysis_selection_omit_prescriptive
     , test_programAnalysis_selection_squash
+      -- * Typedef analysis
     , test_programAnalysis_typedef_analysis
     ]
 
@@ -1284,6 +1291,56 @@ test_programAnalysis_delay_traces =
         , "struct long_double_s"
         , "struct nested_long_double_s"
         ]
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: program analysis: program slicing
+-------------------------------------------------------------------------------}
+test_programAnalysis_program_slicing_macro_selected :: TestCase
+test_programAnalysis_program_slicing_macro_selected =
+    defaultTest "program-analysis/program-slicing/macro_selected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ EnableProgramSlicing
+          )
+
+test_programAnalysis_program_slicing_macro_unselected :: TestCase
+test_programAnalysis_program_slicing_macro_unselected =
+    defaultTest "program-analysis/program-slicing/macro_unselected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ DisableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name TransitiveDependenciesMissing{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    -- TODO: set to ["foo"] once issue #1679 is fixed
+    declsWithMsgs = []
+
+test_programAnalysis_program_slicing_typedef_selected :: TestCase
+test_programAnalysis_program_slicing_typedef_selected =
+    defaultTest "program-analysis/program-slicing/typedef_selected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ EnableProgramSlicing
+          )
+
+test_programAnalysis_program_slicing_typedef_unselected :: TestCase
+test_programAnalysis_program_slicing_typedef_unselected =
+    defaultTest "program-analysis/program-slicing/typedef_unselected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ DisableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name TransitiveDependenciesMissing{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["foo"]
 
 test_programAnalysis_program_slicing_selection :: TestCase
 test_programAnalysis_program_slicing_selection =
@@ -1338,6 +1395,10 @@ test_programAnalysis_program_slicing_simple =
         , ("bar"        , "root")
         , ("uint32_t"   , "dependency")
         ]
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: program analysis: selection
+-------------------------------------------------------------------------------}
 
 test_programAnalysis_selection_bad :: TestCase
 test_programAnalysis_selection_bad =
@@ -1557,6 +1618,10 @@ test_programAnalysis_selection_squash =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["typedef_to_struct_a"]
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: program analysis: typedef analysis
+-------------------------------------------------------------------------------}
 
 test_programAnalysis_typedef_analysis :: TestCase
 test_programAnalysis_typedef_analysis =
