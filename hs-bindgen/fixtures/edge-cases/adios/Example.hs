@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -28,7 +26,6 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @adiós@
@@ -60,8 +57,7 @@ newtype Adio'0301s = Adio'0301s
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Adio'0301s) "unwrapAdio'0301s")
-         ) => GHC.Records.HasField "unwrapAdio'0301s" (Ptr.Ptr Adio'0301s) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapAdio'0301s" (Ptr.Ptr Adio'0301s) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapAdio'0301s")
@@ -102,8 +98,7 @@ newtype C数字 = C数字
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType C数字) "unwrapC\25968\23383")
-         ) => GHC.Records.HasField "unwrapC\25968\23383" (Ptr.Ptr C数字) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapC\25968\23383" (Ptr.Ptr C数字) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapC\25968\23383")

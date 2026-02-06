@@ -41,12 +41,10 @@ deriving via (EquivStorable Piyo) instance Storable Piyo
 instance HasCField Piyo "piyo_x"
     where type CFieldType Piyo "piyo_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Piyo "piyo_x") =>
-         HasField "piyo_x" (Ptr Piyo) (Ptr ty)
+instance HasField "piyo_x" (Ptr Piyo) (Ptr CInt)
     where getField = fromPtr (Proxy @"piyo_x")
 instance HasCField Piyo "piyo_y"
     where type CFieldType Piyo "piyo_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType Piyo "piyo_y") =>
-         HasField "piyo_y" (Ptr Piyo) (Ptr ty)
+instance HasField "piyo_y" (Ptr Piyo) (Ptr CInt)
     where getField = fromPtr (Proxy @"piyo_y")

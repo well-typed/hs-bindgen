@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,7 +21,6 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Eq, Show)
 
 {-| __C declaration:__ @S@
@@ -38,8 +35,7 @@ newtype S = S
   deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "unwrapS")
-         ) => GHC.Records.HasField "unwrapS" (Ptr.Ptr S) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapS" (Ptr.Ptr S) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS")
@@ -63,8 +59,7 @@ newtype T = T
   deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "unwrapT")
-         ) => GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT")
@@ -94,8 +89,7 @@ newtype U = U
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U) "unwrapU")
-         ) => GHC.Records.HasField "unwrapU" (Ptr.Ptr U) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapU" (Ptr.Ptr U) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapU")
@@ -125,8 +119,7 @@ newtype V = V
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType V) "unwrapV")
-         ) => GHC.Records.HasField "unwrapV" (Ptr.Ptr V) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapV" (Ptr.Ptr V) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapV")
@@ -156,8 +149,7 @@ newtype W = W
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType W) "unwrapW")
-         ) => GHC.Records.HasField "unwrapW" (Ptr.Ptr W) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapW" (Ptr.Ptr W) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapW")
@@ -187,8 +179,7 @@ newtype X = X
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "unwrapX")
-         ) => GHC.Records.HasField "unwrapX" (Ptr.Ptr X) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapX" (Ptr.Ptr X) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapX")

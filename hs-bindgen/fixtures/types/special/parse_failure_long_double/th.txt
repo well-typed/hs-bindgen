@@ -54,8 +54,7 @@ deriving via (EquivStorable Struct2) instance Storable Struct2
 instance HasCField Struct2 "struct2_x"
     where type CFieldType Struct2 "struct2_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Struct2 "struct2_x") =>
-         HasField "struct2_x" (Ptr Struct2) (Ptr ty)
+instance HasField "struct2_x" (Ptr Struct2) (Ptr CInt)
     where getField = fromPtr (Proxy @"struct2_x")
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef09a6_base ::

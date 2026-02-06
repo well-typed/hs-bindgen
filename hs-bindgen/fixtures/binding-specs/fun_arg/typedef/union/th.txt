@@ -176,8 +176,7 @@ set_myUnion_x = setUnionPayload
 instance HasCField MyUnion "myUnion_x"
     where type CFieldType MyUnion "myUnion_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType MyUnion "myUnion_x") =>
-         HasField "myUnion_x" (Ptr MyUnion) (Ptr ty)
+instance HasField "myUnion_x" (Ptr MyUnion) (Ptr CInt)
     where getField = fromPtr (Proxy @"myUnion_x")
 {-| __C declaration:__ @A@
 
@@ -195,8 +194,7 @@ newtype A
       -}
     deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr MyUnion)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyUnion
@@ -217,8 +215,7 @@ newtype B
       -}
     deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType B "unwrapB") =>
-         HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
@@ -238,8 +235,7 @@ newtype E
            __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
       -}
     deriving stock Generic
-instance TyEq ty (CFieldType E "unwrapE") =>
-         HasField "unwrapE" (Ptr E) (Ptr ty)
+instance HasField "unwrapE" (Ptr E) (Ptr M.C)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C

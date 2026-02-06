@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,7 +21,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct complex_object_t@
@@ -96,8 +93,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Complex_object_t "complex_object_
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Complex_object_t) "complex_object_t_velocity")
-         ) => GHC.Records.HasField "complex_object_t_velocity" (Ptr.Ptr Complex_object_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "complex_object_t_velocity" (Ptr.Ptr Complex_object_t) (Ptr.Ptr (Data.Complex.Complex FC.CFloat)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"complex_object_t_velocity")
@@ -109,8 +105,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Complex_object_t "complex_object_
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Complex_object_t) "complex_object_t_position")
-         ) => GHC.Records.HasField "complex_object_t_position" (Ptr.Ptr Complex_object_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "complex_object_t_position" (Ptr.Ptr Complex_object_t) (Ptr.Ptr (Data.Complex.Complex FC.CDouble)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"complex_object_t_position")
@@ -122,8 +117,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Complex_object_t "complex_object_
 
   offset# = \_ -> \_ -> 24
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Complex_object_t) "complex_object_t_id")
-         ) => GHC.Records.HasField "complex_object_t_id" (Ptr.Ptr Complex_object_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "complex_object_t_id" (Ptr.Ptr Complex_object_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"complex_object_t_id")

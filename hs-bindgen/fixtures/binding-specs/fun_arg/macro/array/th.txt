@@ -76,8 +76,9 @@ newtype MyArray
       -}
     deriving stock Generic
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType MyArray "unwrapMyArray") =>
-         HasField "unwrapMyArray" (Ptr MyArray) (Ptr ty)
+instance HasField "unwrapMyArray"
+                  (Ptr MyArray)
+                  (Ptr (IncompleteArray CInt))
     where getField = fromPtr (Proxy @"unwrapMyArray")
 instance HasCField MyArray "unwrapMyArray"
     where type CFieldType MyArray
@@ -99,8 +100,7 @@ newtype A
       -}
     deriving stock Generic
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr MyArray)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyArray
@@ -121,8 +121,7 @@ newtype B
       -}
     deriving stock Generic
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType B "unwrapB") =>
-         HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

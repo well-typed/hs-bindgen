@@ -27,8 +27,7 @@ deriving via (EquivStorable Pascal_Aux) instance Storable Pascal_Aux
 instance HasCField Pascal_Aux "pascal_len"
     where type CFieldType Pascal_Aux "pascal_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Pascal_Aux "pascal_len") =>
-         HasField "pascal_len" (Ptr Pascal_Aux) (Ptr ty)
+instance HasField "pascal_len" (Ptr Pascal_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"pascal_len")
 instance Offset CChar Pascal_Aux
     where offset = \_ty_0 -> 4
@@ -75,14 +74,12 @@ deriving via (EquivStorable Foo_bar) instance Storable Foo_bar
 instance HasCField Foo_bar "foo_bar_x"
     where type CFieldType Foo_bar "foo_bar_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Foo_bar "foo_bar_x") =>
-         HasField "foo_bar_x" (Ptr Foo_bar) (Ptr ty)
+instance HasField "foo_bar_x" (Ptr Foo_bar) (Ptr CInt)
     where getField = fromPtr (Proxy @"foo_bar_x")
 instance HasCField Foo_bar "foo_bar_y"
     where type CFieldType Foo_bar "foo_bar_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType Foo_bar "foo_bar_y") =>
-         HasField "foo_bar_y" (Ptr Foo_bar) (Ptr ty)
+instance HasField "foo_bar_y" (Ptr Foo_bar) (Ptr CInt)
     where getField = fromPtr (Proxy @"foo_bar_y")
 {-| __C declaration:__ @struct foo@
 
@@ -112,8 +109,7 @@ deriving via (EquivStorable Foo_Aux) instance Storable Foo_Aux
 instance HasCField Foo_Aux "foo_len"
     where type CFieldType Foo_Aux "foo_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Foo_Aux "foo_len") =>
-         HasField "foo_len" (Ptr Foo_Aux) (Ptr ty)
+instance HasField "foo_len" (Ptr Foo_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"foo_len")
 instance Offset Foo_bar Foo_Aux
     where offset = \_ty_0 -> 4
@@ -154,14 +150,12 @@ deriving via (EquivStorable Diff_Aux) instance Storable Diff_Aux
 instance HasCField Diff_Aux "diff_first"
     where type CFieldType Diff_Aux "diff_first" = CLong
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Diff_Aux "diff_first") =>
-         HasField "diff_first" (Ptr Diff_Aux) (Ptr ty)
+instance HasField "diff_first" (Ptr Diff_Aux) (Ptr CLong)
     where getField = fromPtr (Proxy @"diff_first")
 instance HasCField Diff_Aux "diff_second"
     where type CFieldType Diff_Aux "diff_second" = CChar
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Diff_Aux "diff_second") =>
-         HasField "diff_second" (Ptr Diff_Aux) (Ptr ty)
+instance HasField "diff_second" (Ptr Diff_Aux) (Ptr CChar)
     where getField = fromPtr (Proxy @"diff_second")
 instance Offset CChar Diff_Aux
     where offset = \_ty_0 -> 9
@@ -196,8 +190,7 @@ deriving via (EquivStorable Triplets_Aux) instance Storable Triplets_Aux
 instance HasCField Triplets_Aux "triplets_len"
     where type CFieldType Triplets_Aux "triplets_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Triplets_Aux "triplets_len") =>
-         HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
+instance HasField "triplets_len" (Ptr Triplets_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"triplets_len")
 instance Offset (ConstantArray 3 CInt) Triplets_Aux
     where offset = \_ty_0 -> 4

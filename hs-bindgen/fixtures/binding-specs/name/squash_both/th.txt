@@ -41,12 +41,10 @@ deriving via (EquivStorable Hoge) instance Storable Hoge
 instance HasCField Hoge "hoge_x"
     where type CFieldType Hoge "hoge_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Hoge "hoge_x") =>
-         HasField "hoge_x" (Ptr Hoge) (Ptr ty)
+instance HasField "hoge_x" (Ptr Hoge) (Ptr CInt)
     where getField = fromPtr (Proxy @"hoge_x")
 instance HasCField Hoge "hoge_y"
     where type CFieldType Hoge "hoge_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType Hoge "hoge_y") =>
-         HasField "hoge_y" (Ptr Hoge) (Ptr ty)
+instance HasField "hoge_y" (Ptr Hoge) (Ptr CInt)
     where getField = fromPtr (Proxy @"hoge_y")

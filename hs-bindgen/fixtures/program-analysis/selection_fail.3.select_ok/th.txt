@@ -33,6 +33,5 @@ deriving via (EquivStorable OkBefore) instance Storable OkBefore
 instance HasCField OkBefore "okBefore_x"
     where type CFieldType OkBefore "okBefore_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType OkBefore "okBefore_x") =>
-         HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
+instance HasField "okBefore_x" (Ptr OkBefore) (Ptr CInt)
     where getField = fromPtr (Proxy @"okBefore_x")

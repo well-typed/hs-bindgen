@@ -39,8 +39,9 @@ instance ToFunPtr F1_Aux
     where toFunPtr = hs_bindgen_00d16e666202ed6c
 instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
-instance TyEq ty (CFieldType F1_Aux "unwrapF1_Aux") =>
-         HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr ty)
+instance HasField "unwrapF1_Aux"
+                  (Ptr F1_Aux)
+                  (Ptr (CInt -> CInt -> IO Unit))
     where getField = fromPtr (Proxy @"unwrapF1_Aux")
 instance HasCField F1_Aux "unwrapF1_Aux"
     where type CFieldType F1_Aux "unwrapF1_Aux" = CInt ->
@@ -67,8 +68,7 @@ newtype F1
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType F1 "unwrapF1") =>
-         HasField "unwrapF1" (Ptr F1) (Ptr ty)
+instance HasField "unwrapF1" (Ptr F1) (Ptr (FunPtr F1_Aux))
     where getField = fromPtr (Proxy @"unwrapF1")
 instance HasCField F1 "unwrapF1"
     where type CFieldType F1 "unwrapF1" = FunPtr F1_Aux
@@ -113,8 +113,9 @@ instance ToFunPtr F2_Aux
     where toFunPtr = hs_bindgen_c39d7524b75b54e8
 instance FromFunPtr F2_Aux
     where fromFunPtr = hs_bindgen_e15bcd26f1ed1df7
-instance TyEq ty (CFieldType F2_Aux "unwrapF2_Aux") =>
-         HasField "unwrapF2_Aux" (Ptr F2_Aux) (Ptr ty)
+instance HasField "unwrapF2_Aux"
+                  (Ptr F2_Aux)
+                  (Ptr (CInt -> CInt -> IO Unit))
     where getField = fromPtr (Proxy @"unwrapF2_Aux")
 instance HasCField F2_Aux "unwrapF2_Aux"
     where type CFieldType F2_Aux "unwrapF2_Aux" = CInt ->
@@ -141,8 +142,7 @@ newtype F2
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType F2 "unwrapF2") =>
-         HasField "unwrapF2" (Ptr F2) (Ptr ty)
+instance HasField "unwrapF2" (Ptr F2) (Ptr (Ptr (FunPtr F2_Aux)))
     where getField = fromPtr (Proxy @"unwrapF2")
 instance HasCField F2 "unwrapF2"
     where type CFieldType F2 "unwrapF2" = Ptr (FunPtr F2_Aux)
@@ -187,8 +187,9 @@ instance ToFunPtr F3_Aux
     where toFunPtr = hs_bindgen_4a960721e7d1dcef
 instance FromFunPtr F3_Aux
     where fromFunPtr = hs_bindgen_66460422a7197535
-instance TyEq ty (CFieldType F3_Aux "unwrapF3_Aux") =>
-         HasField "unwrapF3_Aux" (Ptr F3_Aux) (Ptr ty)
+instance HasField "unwrapF3_Aux"
+                  (Ptr F3_Aux)
+                  (Ptr (CInt -> CInt -> IO Unit))
     where getField = fromPtr (Proxy @"unwrapF3_Aux")
 instance HasCField F3_Aux "unwrapF3_Aux"
     where type CFieldType F3_Aux "unwrapF3_Aux" = CInt ->
@@ -215,8 +216,9 @@ newtype F3
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType F3 "unwrapF3") =>
-         HasField "unwrapF3" (Ptr F3) (Ptr ty)
+instance HasField "unwrapF3"
+                  (Ptr F3)
+                  (Ptr (Ptr (Ptr (FunPtr F3_Aux))))
     where getField = fromPtr (Proxy @"unwrapF3")
 instance HasCField F3 "unwrapF3"
     where type CFieldType F3 "unwrapF3" = Ptr (Ptr (FunPtr F3_Aux))
@@ -259,8 +261,7 @@ instance ToFunPtr F4_Aux
     where toFunPtr = hs_bindgen_83bcff023b3bc648
 instance FromFunPtr F4_Aux
     where fromFunPtr = hs_bindgen_40f9a8d432b9eb97
-instance TyEq ty (CFieldType F4_Aux "unwrapF4_Aux") =>
-         HasField "unwrapF4_Aux" (Ptr F4_Aux) (Ptr ty)
+instance HasField "unwrapF4_Aux" (Ptr F4_Aux) (Ptr (IO CInt))
     where getField = fromPtr (Proxy @"unwrapF4_Aux")
 instance HasCField F4_Aux "unwrapF4_Aux"
     where type CFieldType F4_Aux "unwrapF4_Aux" = IO CInt
@@ -286,8 +287,7 @@ newtype F4
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType F4 "unwrapF4") =>
-         HasField "unwrapF4" (Ptr F4) (Ptr ty)
+instance HasField "unwrapF4" (Ptr F4) (Ptr (Ptr (FunPtr F4_Aux)))
     where getField = fromPtr (Proxy @"unwrapF4")
 instance HasCField F4 "unwrapF4"
     where type CFieldType F4 "unwrapF4" = Ptr (FunPtr F4_Aux)
@@ -330,8 +330,7 @@ instance ToFunPtr F5_Aux
     where toFunPtr = hs_bindgen_6891cbd81d6f42b9
 instance FromFunPtr F5_Aux
     where fromFunPtr = hs_bindgen_586f6635c057975f
-instance TyEq ty (CFieldType F5_Aux "unwrapF5_Aux") =>
-         HasField "unwrapF5_Aux" (Ptr F5_Aux) (Ptr ty)
+instance HasField "unwrapF5_Aux" (Ptr F5_Aux) (Ptr (IO Unit))
     where getField = fromPtr (Proxy @"unwrapF5_Aux")
 instance HasCField F5_Aux "unwrapF5_Aux"
     where type CFieldType F5_Aux "unwrapF5_Aux" = IO Unit
@@ -357,8 +356,7 @@ newtype F5
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType F5 "unwrapF5") =>
-         HasField "unwrapF5" (Ptr F5) (Ptr ty)
+instance HasField "unwrapF5" (Ptr F5) (Ptr (Ptr (FunPtr F5_Aux)))
     where getField = fromPtr (Proxy @"unwrapF5")
 instance HasCField F5 "unwrapF5"
     where type CFieldType F5 "unwrapF5" = Ptr (FunPtr F5_Aux)
@@ -394,8 +392,7 @@ newtype MyInt
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyInt "unwrapMyInt") =>
-         HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -439,8 +436,9 @@ instance ToFunPtr F6_Aux
     where toFunPtr = hs_bindgen_c1baf73f98614f45
 instance FromFunPtr F6_Aux
     where fromFunPtr = hs_bindgen_a887947b26e58f0c
-instance TyEq ty (CFieldType F6_Aux "unwrapF6_Aux") =>
-         HasField "unwrapF6_Aux" (Ptr F6_Aux) (Ptr ty)
+instance HasField "unwrapF6_Aux"
+                  (Ptr F6_Aux)
+                  (Ptr (MyInt -> IO Unit))
     where getField = fromPtr (Proxy @"unwrapF6_Aux")
 instance HasCField F6_Aux "unwrapF6_Aux"
     where type CFieldType F6_Aux "unwrapF6_Aux" = MyInt -> IO Unit
@@ -466,8 +464,7 @@ newtype F6
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType F6 "unwrapF6") =>
-         HasField "unwrapF6" (Ptr F6) (Ptr ty)
+instance HasField "unwrapF6" (Ptr F6) (Ptr (Ptr (FunPtr F6_Aux)))
     where getField = fromPtr (Proxy @"unwrapF6")
 instance HasCField F6 "unwrapF6"
     where type CFieldType F6 "unwrapF6" = Ptr (FunPtr F6_Aux)
