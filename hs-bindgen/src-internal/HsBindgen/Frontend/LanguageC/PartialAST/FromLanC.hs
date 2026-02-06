@@ -111,6 +111,14 @@ withSign f = \case
           PartialKnown . KnownType
         $ (if unknown.isConst then C.TypeQual C.QualConst else id)
         $ C.TypePrim $ f unknown.sign
+    alreadyKnown@(PartialKnown (KnownType _typ)) ->
+      -- In an example such as
+      --
+      -- > short int
+      --
+      -- a fully constructed type will already be present when we see the @int@
+      -- part; in this case, we just stick with the type we have already have.
+      return alreadyKnown
     other ->
       unexpected $ show other
 

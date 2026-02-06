@@ -7,6 +7,15 @@ ctypes:
   cname: PtrInt
   hsname: PtrInt
 - headers: macros/macro_types.h
+  cname: ShortInt
+  hsname: ShortInt
+- headers: macros/macro_types.h
+  cname: SignedShortInt
+  hsname: SignedShortInt
+- headers: macros/macro_types.h
+  cname: UnsignedShortInt
+  hsname: UnsignedShortInt
+- headers: macros/macro_types.h
   cname: PtrPtrChar
   hsname: PtrPtrChar
 - headers: macros/macro_types.h
@@ -141,6 +150,62 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: ShortInt
+  representation:
+    newtype:
+      constructor: ShortInt
+      fields:
+      - unwrapShortInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SignedShortInt
+  representation:
+    newtype:
+      constructor: SignedShortInt
+      fields:
+      - unwrapSignedShortInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Tty
   representation:
     newtype:
@@ -173,6 +238,34 @@ hstypes:
       constructor: UINT8_T
       fields:
       - unwrapUINT8_T
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UnsignedShortInt
+  representation:
+    newtype:
+      constructor: UnsignedShortInt
+      fields:
+      - unwrapUnsignedShortInt
   instances:
   - Bitfield
   - Bits
