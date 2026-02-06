@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
@@ -18,6 +19,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -36,6 +38,7 @@ __exported by:__ @program-analysis\/typedef_analysis.h@
 -}
 data Struct1_t = Struct1_t
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct1_t where
@@ -66,6 +69,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct1_t instance F.Storab
 -}
 data Struct2_t = Struct2_t
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct2_t where
@@ -112,6 +116,7 @@ data Struct4_t
 -}
 data Struct5 = Struct5
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct5 where
@@ -143,6 +148,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct5 instance F.Storable
 newtype Struct5_t = Struct5_t
   { unwrapStruct5_t :: Ptr.Ptr Struct5
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -173,6 +179,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct5_t "unwrapStruct5_t" where
 -}
 data Struct6_Aux = Struct6_Aux
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct6_Aux where
@@ -204,6 +211,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct6_Aux instance F.Stor
 newtype Struct6 = Struct6
   { unwrapStruct6 :: Ptr.Ptr Struct6_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -234,6 +242,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct6 "unwrapStruct6" where
 -}
 data Struct7 = Struct7
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct7 where
@@ -265,6 +274,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct7 instance F.Storable
 newtype Struct7a = Struct7a
   { unwrapStruct7a :: Struct7
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -294,6 +304,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct7a "unwrapStruct7a" where
 newtype Struct7b = Struct7b
   { unwrapStruct7b :: Struct7
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -322,6 +333,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct7b "unwrapStruct7b" where
 -}
 data Struct8 = Struct8
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct8 where
@@ -353,6 +365,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct8 instance F.Storable
 newtype Struct8b = Struct8b
   { unwrapStruct8b :: Struct8
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -381,6 +394,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct8b "unwrapStruct8b" where
 -}
 data Struct9 = Struct9
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct9 where
@@ -412,6 +426,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct9 instance F.Storable
 newtype Struct9_t = Struct9_t
   { unwrapStruct9_t :: Struct9
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -440,6 +455,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct9_t "unwrapStruct9_t" where
 -}
 data Struct10_t = Struct10_t
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct10_t where
@@ -471,6 +487,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct10_t instance F.Stora
 newtype Struct10_t_t = Struct10_t_t
   { unwrapStruct10_t_t :: Struct10_t
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -514,6 +531,7 @@ data Struct11_t = Struct11_t
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct11_t where
@@ -589,6 +607,7 @@ data Struct12_t = Struct12_t
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct12_t where
@@ -776,6 +795,7 @@ data Use_sites = Use_sites
          __exported by:__ @program-analysis\/typedef_analysis.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Use_sites where

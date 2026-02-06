@@ -20,6 +20,7 @@ data Omitted
 
            __exported by:__ @program-analysis\/selection_omit_external_b.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Omitted
     where staticSizeOf = \_ -> 4 :: Int
@@ -56,6 +57,7 @@ data DirectlyDependsOnOmitted
 
            __exported by:__ @program-analysis\/selection_omit_external_b.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize DirectlyDependsOnOmitted
     where staticSizeOf = \_ -> 4 :: Int
@@ -98,6 +100,7 @@ data IndirectlyDependsOnOmitted
 
            __exported by:__ @program-analysis\/selection_omit_external_b.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize IndirectlyDependsOnOmitted
     where staticSizeOf = \_ -> 4 :: Int

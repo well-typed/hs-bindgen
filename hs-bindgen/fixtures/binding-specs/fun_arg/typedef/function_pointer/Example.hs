@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -16,6 +17,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -39,6 +41,7 @@ __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
 newtype A_Aux = A_Aux
   { unwrapA_Aux :: FC.CInt -> IO FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
@@ -95,6 +98,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_Aux "unwrapA_Aux" where
 newtype A = A
   { unwrapA :: Ptr.FunPtr A_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -125,6 +129,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -155,6 +160,7 @@ instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
 newtype E = E
   { unwrapE :: M.C
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "unwrapE")

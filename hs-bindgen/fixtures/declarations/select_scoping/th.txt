@@ -14,6 +14,7 @@ newtype ParsedAndSelected1
 
            __exported by:__ @declarations\/select_scoping.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

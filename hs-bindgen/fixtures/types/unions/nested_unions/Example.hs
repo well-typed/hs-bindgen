@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -17,6 +18,7 @@ import qualified Data.Array.Byte
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -35,6 +37,7 @@ import Prelude ((<*>), Int, pure)
 newtype UnionA = UnionA
   { unwrapUnionA :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize UnionA
 
@@ -137,6 +140,7 @@ data ExA = ExA
          __exported by:__ @types\/unions\/nested_unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExA where
 
@@ -183,6 +187,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
 newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1
 
@@ -286,6 +291,7 @@ data ExB = ExB
          __exported by:__ @types\/unions\/nested_unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExB where
 

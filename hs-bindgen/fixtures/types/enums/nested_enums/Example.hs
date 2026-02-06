@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -21,6 +22,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
@@ -40,6 +42,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype EnumA = EnumA
   { unwrapEnumA :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -156,6 +159,7 @@ data ExA = ExA
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExA where
@@ -203,6 +207,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
 newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -320,6 +325,7 @@ data ExB = ExB
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExB where

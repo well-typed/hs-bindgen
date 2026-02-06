@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
@@ -27,6 +28,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -74,6 +76,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Size_type = Size_type
   { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -145,6 +148,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Color_enum = Color_enum
   { unwrapColor_enum :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -274,6 +278,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t_Aux = Event_callback_t_Aux
   { unwrapEvent_callback_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
@@ -340,6 +345,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t = Event_callback_t
   { unwrapEvent_callback_t :: Ptr.FunPtr Event_callback_t_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -433,6 +439,7 @@ data Config_t = Config_t
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Config_t where
@@ -552,6 +559,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Status_code_t = Status_code_t
   { unwrapStatus_code_t :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -730,6 +738,7 @@ data Data_union_t_as_parts = Data_union_t_as_parts
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t_as_parts where
@@ -801,6 +810,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Data_union_t = Data_union_t
   { unwrapData_union_t :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t
 
@@ -1036,6 +1046,7 @@ data Bitfield_t = Bitfield_t
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bitfield_t where
@@ -1143,6 +1154,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t_Aux = Processor_fn_t_Aux
   { unwrapProcessor_fn_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
@@ -1211,6 +1223,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t = Processor_fn_t
   { unwrapProcessor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1248,6 +1261,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Filename_t = Filename_t
   { unwrapFilename_t :: (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1296,6 +1310,7 @@ data Flexible_array_Aux = Flexible_array
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Flexible_array_Aux where

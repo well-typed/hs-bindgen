@@ -13,6 +13,7 @@ newtype Myint
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -49,6 +50,7 @@ newtype Intptr
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -75,6 +77,7 @@ newtype Int2int
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
     Int32 -> IO Int32
@@ -119,6 +122,7 @@ newtype FunctionPointer_Function_Aux
 
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_b171c028cdc0781d_base ::
     IO Unit
@@ -166,6 +170,7 @@ newtype FunctionPointer_Function
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -199,6 +204,7 @@ newtype NonFunctionPointer_Function
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
     Int32 -> IO Int32
@@ -251,6 +257,7 @@ newtype F1_Aux
 
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
     IO Unit
@@ -290,6 +297,7 @@ newtype F1
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -316,6 +324,7 @@ newtype G1
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_fa5806570b682579_base ::
     IO Unit
@@ -355,6 +364,7 @@ newtype G2
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -381,6 +391,7 @@ newtype H1
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_ffae0d1234ed018f_base ::
     IO Unit
@@ -420,6 +431,7 @@ newtype H2
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType H2 "unwrapH2") =>
          HasField "unwrapH2" (Ptr H2) (Ptr ty)
@@ -441,6 +453,7 @@ newtype H3
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

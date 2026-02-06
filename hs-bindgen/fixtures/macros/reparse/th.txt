@@ -2487,6 +2487,7 @@ newtype A
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -2523,6 +2524,7 @@ data Some_struct
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Some_struct
     where staticSizeOf = \_ -> 0 :: Int
@@ -2547,6 +2549,7 @@ newtype Some_union
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 0 1) instance StaticSize Some_union
 deriving via (SizedByteArray 0 1) instance ReadRaw Some_union
 deriving via (SizedByteArray 0 1) instance WriteRaw Some_union
@@ -2565,6 +2568,7 @@ newtype Some_enum
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Some_enum
@@ -2630,6 +2634,7 @@ newtype Arr_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Arr_typedef1 "unwrapArr_typedef1") =>
          HasField "unwrapArr_typedef1" (Ptr Arr_typedef1) (Ptr ty)
@@ -2652,6 +2657,7 @@ newtype Arr_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Arr_typedef2 "unwrapArr_typedef2") =>
          HasField "unwrapArr_typedef2" (Ptr Arr_typedef2) (Ptr ty)
@@ -2674,6 +2680,7 @@ newtype Arr_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Arr_typedef3 "unwrapArr_typedef3") =>
@@ -2697,6 +2704,7 @@ newtype Arr_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Arr_typedef4 "unwrapArr_typedef4") =>
@@ -2724,6 +2732,7 @@ newtype Typedef1
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -2760,6 +2769,7 @@ newtype Typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -2786,6 +2796,7 @@ newtype Typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -2816,6 +2827,7 @@ newtype Funptr_typedef1_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
     IO Int32
@@ -2861,6 +2873,7 @@ newtype Funptr_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -2893,6 +2906,7 @@ newtype Funptr_typedef2_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
     IO (Ptr Void)
@@ -2938,6 +2952,7 @@ newtype Funptr_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -2970,6 +2985,7 @@ newtype Funptr_typedef3_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
     IO (Ptr Void)
@@ -3015,6 +3031,7 @@ newtype Funptr_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3048,6 +3065,7 @@ newtype Funptr_typedef4_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
     Int32 -> Double -> IO Int32
@@ -3095,6 +3113,7 @@ newtype Funptr_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3128,6 +3147,7 @@ newtype Funptr_typedef5_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
     Int32 -> Double -> IO (Ptr Void)
@@ -3175,6 +3195,7 @@ newtype Funptr_typedef5
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3203,6 +3224,7 @@ newtype Comments2
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3263,6 +3285,7 @@ data Example_struct
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Example_struct
     where staticSizeOf = \_ -> 24 :: Int
@@ -3312,6 +3335,7 @@ newtype Const_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3349,6 +3373,7 @@ newtype Const_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3386,6 +3411,7 @@ newtype Const_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3414,6 +3440,7 @@ newtype Const_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3442,6 +3469,7 @@ newtype Const_typedef5
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3469,6 +3497,7 @@ newtype Const_typedef6
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3497,6 +3526,7 @@ newtype Const_typedef7
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3573,6 +3603,7 @@ data Example_struct_with_const
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Example_struct_with_const
     where staticSizeOf = \_ -> 48 :: Int
@@ -3692,6 +3723,7 @@ newtype Const_funptr1_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
     Int32 -> Double -> IO Int32
@@ -3737,6 +3769,7 @@ newtype Const_funptr1
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3770,6 +3803,7 @@ newtype Const_funptr2_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
     Int32 -> Double -> IO Int32
@@ -3815,6 +3849,7 @@ newtype Const_funptr2
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3848,6 +3883,7 @@ newtype Const_funptr3_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
     Int32 -> Double -> IO (Ptr Void)
@@ -3893,6 +3929,7 @@ newtype Const_funptr3
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -3926,6 +3963,7 @@ newtype Const_funptr4_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
     Int32 -> Double -> IO (Ptr Void)
@@ -3971,6 +4009,7 @@ newtype Const_funptr4
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -4004,6 +4043,7 @@ newtype Const_funptr5_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
     Int32 -> Double -> IO (Ptr Void)
@@ -4049,6 +4089,7 @@ newtype Const_funptr5
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -4082,6 +4123,7 @@ newtype Const_funptr6_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
     Int32 -> Double -> IO (Ptr Void)
@@ -4127,6 +4169,7 @@ newtype Const_funptr6
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -4160,6 +4203,7 @@ newtype Const_funptr7_Aux
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::
     Int32 -> Double -> IO (Ptr Void)
@@ -4205,6 +4249,7 @@ newtype Const_funptr7
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -4233,6 +4278,7 @@ newtype BOOL
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -4269,6 +4315,7 @@ newtype INT
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -4305,6 +4352,7 @@ newtype INTP
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -4331,6 +4379,7 @@ newtype INTCP
 
            __exported by:__ @macros\/reparse.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

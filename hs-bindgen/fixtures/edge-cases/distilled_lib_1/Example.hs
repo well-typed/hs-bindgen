@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE ExplicitForAll #-}
@@ -25,6 +26,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified GHC.Word
@@ -65,6 +67,7 @@ data Another_typedef_struct_t = Another_typedef_struct_t
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Another_typedef_struct_t where
@@ -130,6 +133,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_stru
 newtype Another_typedef_enum_e = Another_typedef_enum_e
   { unwrapAnother_typedef_enum_e :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -268,6 +272,7 @@ sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
 newtype A_type_t = A_type_t
   { unwrapA_type_t :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -308,6 +313,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_type_t "unwrapA_type_t" where
 newtype Var_t = Var_t
   { unwrapVar_t :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -424,6 +430,7 @@ data A_typedef_struct_t = A_typedef_struct_t
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A_typedef_struct_t where
@@ -669,6 +676,7 @@ tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 newtype A_typedef_enum_e = A_typedef_enum_e
   { unwrapA_typedef_enum_e :: FC.CUChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -802,6 +810,7 @@ __exported by:__ @edge-cases\/distilled_lib_1.h@
 newtype Callback_t_Aux = Callback_t_Aux
   { unwrapCallback_t_Aux :: (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
@@ -858,6 +867,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "unwrapCallback_t_
 newtype Callback_t = Callback_t
   { unwrapCallback_t :: Ptr.FunPtr Callback_t_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -15,6 +16,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
@@ -33,6 +35,7 @@ import Prelude (Eq, Show)
 newtype S = S
   { unwrapS :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "unwrapS")
@@ -57,6 +60,7 @@ instance HsBindgen.Runtime.HasCField.HasCField S "unwrapS" where
 newtype T = T
   { unwrapT :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "unwrapT")
@@ -81,6 +85,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T "unwrapT" where
 newtype U = U
   { unwrapU :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -111,6 +116,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U "unwrapU" where
 newtype V = V
   { unwrapV :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -141,6 +147,7 @@ instance HsBindgen.Runtime.HasCField.HasCField V "unwrapV" where
 newtype W = W
   { unwrapW :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -171,6 +178,7 @@ instance HsBindgen.Runtime.HasCField.HasCField W "unwrapW" where
 newtype X = X
   { unwrapX :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

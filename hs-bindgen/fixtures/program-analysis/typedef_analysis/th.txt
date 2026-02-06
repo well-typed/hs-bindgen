@@ -17,6 +17,7 @@ data Struct1_t
 
       __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct1_t
     where staticSizeOf = \_ -> 0 :: Int
@@ -41,6 +42,7 @@ data Struct2_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct2_t
     where staticSizeOf = \_ -> 0 :: Int
@@ -79,6 +81,7 @@ data Struct5
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct5
     where staticSizeOf = \_ -> 0 :: Int
@@ -103,6 +106,7 @@ newtype Struct5_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -129,6 +133,7 @@ data Struct6_Aux
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct6_Aux
     where staticSizeOf = \_ -> 0 :: Int
@@ -153,6 +158,7 @@ newtype Struct6
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -179,6 +185,7 @@ data Struct7
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct7
     where staticSizeOf = \_ -> 0 :: Int
@@ -203,6 +210,7 @@ newtype Struct7a
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct7a "unwrapStruct7a") =>
@@ -225,6 +233,7 @@ newtype Struct7b
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct7b "unwrapStruct7b") =>
@@ -247,6 +256,7 @@ data Struct8
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct8
     where staticSizeOf = \_ -> 0 :: Int
@@ -271,6 +281,7 @@ newtype Struct8b
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct8b "unwrapStruct8b") =>
@@ -293,6 +304,7 @@ data Struct9
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct9
     where staticSizeOf = \_ -> 0 :: Int
@@ -317,6 +329,7 @@ newtype Struct9_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct9_t "unwrapStruct9_t") =>
@@ -339,6 +352,7 @@ data Struct10_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct10_t
     where staticSizeOf = \_ -> 0 :: Int
@@ -363,6 +377,7 @@ newtype Struct10_t_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Struct10_t_t "unwrapStruct10_t_t") =>
@@ -399,6 +414,7 @@ data Struct11_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct11_t
     where staticSizeOf = \_ -> 16 :: Int
@@ -449,6 +465,7 @@ data Struct12_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Struct12_t
     where staticSizeOf = \_ -> 16 :: Int
@@ -611,6 +628,7 @@ data Use_sites
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Use_sites
     where staticSizeOf = \_ -> 64 :: Int

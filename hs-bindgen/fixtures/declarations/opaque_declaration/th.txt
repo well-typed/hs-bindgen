@@ -33,6 +33,7 @@ data Bar
 
            __exported by:__ @declarations\/opaque_declaration.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 16 :: Int
@@ -70,6 +71,7 @@ data Baz
 
            __exported by:__ @declarations\/opaque_declaration.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Baz
     where staticSizeOf = \_ -> 0 :: Int

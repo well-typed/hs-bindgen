@@ -20,6 +20,7 @@ data UnrelatedDeclaration
 
            __exported by:__ @program-analysis\/selection_omit_external_a.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize UnrelatedDeclaration
     where staticSizeOf = \_ -> 4 :: Int

@@ -13,6 +13,7 @@ newtype MY_TYPE
 
            __exported by:__ @macros\/macro_typedef_struct.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -62,6 +63,7 @@ data Bar
 
            __exported by:__ @macros\/macro_typedef_struct.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 8 :: Int

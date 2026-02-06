@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -21,6 +22,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
@@ -55,6 +57,7 @@ data GlobalConfig = GlobalConfig
          __exported by:__ @manual\/globals.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize GlobalConfig where
@@ -118,6 +121,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globa
 newtype ConstInt = ConstInt
   { unwrapConstInt :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -171,6 +175,7 @@ data Tuple = Tuple
          __exported by:__ @manual\/globals.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Tuple where
@@ -232,6 +237,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_y")
 newtype Triplet = Triplet
   { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -262,6 +268,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 newtype List = List
   { unwrapList :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "unwrapList")

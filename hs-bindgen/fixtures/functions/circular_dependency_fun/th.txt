@@ -18,6 +18,7 @@ newtype Fun_ptr_Aux
 
       __exported by:__ @functions\/circular_dependency_fun.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
     Ptr Void -> IO Unit
@@ -60,6 +61,7 @@ newtype Fun_ptr
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -92,6 +94,7 @@ data Forward_declaration
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Forward_declaration
     where staticSizeOf = \_ -> 8 :: Int

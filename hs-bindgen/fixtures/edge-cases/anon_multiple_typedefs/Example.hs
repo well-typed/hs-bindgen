@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -17,6 +18,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -47,6 +49,7 @@ data Point1a = Point1a
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Point1a where
@@ -108,6 +111,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point1a) "point1a_y"
 newtype Point1b = Point1b
   { unwrapPoint1b :: Point1a
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -150,6 +154,7 @@ data Point2a = Point2a
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Point2a where
@@ -211,6 +216,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point2a) "point2a_y"
 newtype Point2b = Point2b
   { unwrapPoint2b :: Ptr.Ptr Point2a
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -255,6 +261,7 @@ data Point3a_Aux = Point3a_Aux
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Point3a_Aux where
@@ -316,6 +323,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point3a_Aux) "point3
 newtype Point3a = Point3a
   { unwrapPoint3a :: Ptr.Ptr Point3a_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -347,6 +355,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Point3a "unwrapPoint3a" where
 newtype Point3b = Point3b
   { unwrapPoint3b :: Ptr.Ptr Point3a_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

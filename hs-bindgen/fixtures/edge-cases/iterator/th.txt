@@ -200,6 +200,7 @@ newtype Toggle
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType Toggle "unwrapToggle") =>
          HasField "unwrapToggle" (Ptr Toggle) (Ptr ty)
@@ -221,6 +222,7 @@ newtype Counter
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType Counter "unwrapCounter") =>
          HasField "unwrapCounter" (Ptr Counter) (Ptr ty)
@@ -242,6 +244,7 @@ newtype VarCounter
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType VarCounter "unwrapVarCounter") =>
          HasField "unwrapVarCounter" (Ptr VarCounter) (Ptr ty)

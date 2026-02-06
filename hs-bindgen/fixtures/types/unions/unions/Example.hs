@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -17,6 +18,7 @@ import qualified Data.Array.Byte
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -48,6 +50,7 @@ data Dim2 = Dim2
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Dim2 where
@@ -129,6 +132,7 @@ data Dim3 = Dim3
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Dim3 where
@@ -204,6 +208,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim3) "dim3_z")
 newtype DimPayload = DimPayload
   { unwrapDimPayload :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayload
 
@@ -313,6 +318,7 @@ data Dim = Dim
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Dim where
 
@@ -373,6 +379,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim) "dim_payload")
 newtype DimPayloadB = DimPayloadB
   { unwrapDimPayloadB :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayloadB
 
@@ -482,6 +489,7 @@ data DimB = DimB
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
 
 instance HsBindgen.Runtime.Marshal.StaticSize DimB where
 
@@ -555,6 +563,7 @@ data AnonA_xy = AnonA_xy
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize AnonA_xy where
@@ -629,6 +638,7 @@ data AnonA_polar = AnonA_polar
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize AnonA_polar where
@@ -692,6 +702,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_polar) "anonA_
 newtype AnonA = AnonA
   { unwrapAnonA :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.StaticSize AnonA
 

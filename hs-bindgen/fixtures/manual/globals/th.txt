@@ -159,6 +159,7 @@ data GlobalConfig
 
            __exported by:__ @manual\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize GlobalConfig
     where staticSizeOf = \_ -> 8 :: Int
@@ -198,6 +199,7 @@ newtype ConstInt
 
            __exported by:__ @manual\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -247,6 +249,7 @@ data Tuple
 
            __exported by:__ @manual\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Tuple
     where staticSizeOf = \_ -> 8 :: Int
@@ -284,6 +287,7 @@ newtype Triplet
 
            __exported by:__ @manual\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
@@ -307,6 +311,7 @@ newtype List
 
            __exported by:__ @manual\/globals.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType List "unwrapList") =>
          HasField "unwrapList" (Ptr List) (Ptr ty)

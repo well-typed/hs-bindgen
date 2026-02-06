@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE DuplicateRecordFields #-}
@@ -27,6 +28,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -67,6 +69,7 @@ data Point = Point
          __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Point where
@@ -141,6 +144,7 @@ data Size = Size
          __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Size where
@@ -229,6 +233,7 @@ data Rect = Rect
          __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Rect where
@@ -318,6 +323,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rect) "height")
 newtype E = E
   { unwrap :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -426,6 +432,7 @@ pattern Y = E 1
 newtype Value = Value
   { unwrap :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -466,6 +473,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Value "unwrap" where
 newtype U1 = U1
   { unwrap :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U1
 
@@ -562,6 +570,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U1) "y")
 newtype U2_t = U2_t
   { unwrap :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U2_t
 
@@ -658,6 +667,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U2_t) "b")
 newtype U3 = U3
   { unwrap :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize U3
 
@@ -754,6 +764,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U3) "s")
 newtype U4 = U4
   { unwrap :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U4
 
@@ -860,6 +871,7 @@ __exported by:__ @manual\/enable_record_dot.h@
 newtype RunDriver_Aux = RunDriver_Aux
   { unwrap :: (Ptr.Ptr Driver) -> IO FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
@@ -916,6 +928,7 @@ instance HsBindgen.Runtime.HasCField.HasCField RunDriver_Aux "unwrap" where
 newtype RunDriver = RunDriver
   { unwrap :: Ptr.FunPtr RunDriver_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

@@ -36,6 +36,7 @@ newtype U
 
            __exported by:__ @functions\/heap_types\/union_const_typedef.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U
 deriving via (SizedByteArray 4 4) instance ReadRaw U
 deriving via (SizedByteArray 4 4) instance WriteRaw U
@@ -94,6 +95,7 @@ newtype T
 
            __exported by:__ @functions\/heap_types\/union_const_typedef.h@
       -}
+    deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType T "unwrapT") =>
          HasField "unwrapT" (Ptr T) (Ptr ty)

@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -21,6 +22,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
@@ -40,6 +42,7 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
 newtype MC = MC
   { unwrapMC :: FC.CChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -80,6 +83,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MC "unwrapMC" where
 newtype TC = TC
   { unwrapTC :: FC.CChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -126,6 +130,7 @@ data Struct1 = Struct1
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct1 where
@@ -179,6 +184,7 @@ data Struct2 = Struct2
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct2 where
@@ -232,6 +238,7 @@ data Struct3 = Struct3
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct3 where
@@ -279,6 +286,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3) "struct3_a"
 newtype Struct3_t = Struct3_t
   { unwrapStruct3_t :: Struct3
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -314,6 +322,7 @@ data Struct4 = Struct4
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct4 where

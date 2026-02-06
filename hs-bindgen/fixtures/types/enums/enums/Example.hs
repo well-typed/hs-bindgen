@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -21,6 +22,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
@@ -40,6 +42,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype First = First
   { unwrapFirst :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -150,6 +153,7 @@ pattern FIRST2 = First 1
 newtype Second = Second
   { unwrapSecond :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -270,6 +274,7 @@ pattern SECOND_C = Second 1
 newtype Same = Same
   { unwrapSame :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -378,6 +383,7 @@ pattern SAME_B = Same 1
 newtype Nonseq = Nonseq
   { unwrapNonseq :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -488,6 +494,7 @@ pattern NONSEQ_C = Nonseq 404
 newtype Packed = Packed
   { unwrapPacked :: FC.CUChar
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -608,6 +615,7 @@ pattern PACKED_C = Packed 2
 newtype EnumA = EnumA
   { unwrapEnumA :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -718,6 +726,7 @@ pattern A_BAR = EnumA 1
 newtype EnumB = EnumB
   { unwrapEnumB :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -828,6 +837,7 @@ pattern B_BAR = EnumB 1
 newtype EnumC = EnumC
   { unwrapEnumC :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -938,6 +948,7 @@ pattern C_BAR = EnumC 1
 newtype EnumD_t = EnumD_t
   { unwrapEnumD_t :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 

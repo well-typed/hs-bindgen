@@ -266,6 +266,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
     Int32 -> IO Int32
@@ -306,6 +307,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType B "unwrapB") =>
          HasField "unwrapB" (Ptr B) (Ptr ty)
@@ -327,6 +329,7 @@ newtype E
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
       -}
+    deriving stock Generic
 instance TyEq ty (CFieldType E "unwrapE") =>
          HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")

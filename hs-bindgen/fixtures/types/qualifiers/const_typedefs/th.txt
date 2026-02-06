@@ -86,6 +86,7 @@ newtype I
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -122,6 +123,7 @@ data S
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 0 :: Int
@@ -146,6 +148,7 @@ newtype U
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 0 1) instance StaticSize U
 deriving via (SizedByteArray 0 1) instance ReadRaw U
 deriving via (SizedByteArray 0 1) instance WriteRaw U
@@ -164,6 +167,7 @@ newtype E
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
@@ -229,6 +233,7 @@ newtype TI
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -265,6 +270,7 @@ newtype TS
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType TS "unwrapTS") =>
@@ -287,6 +293,7 @@ newtype TU
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType TU "unwrapTU") =>
          HasField "unwrapTU" (Ptr TU) (Ptr ty)
@@ -308,6 +315,7 @@ newtype TE
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -335,6 +343,7 @@ newtype TTI
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -371,6 +380,7 @@ newtype TTS
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType TTS "unwrapTTS") =>
@@ -393,6 +403,7 @@ newtype TTU
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType TTU "unwrapTTU") =>
          HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
@@ -414,6 +425,7 @@ newtype TTE
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

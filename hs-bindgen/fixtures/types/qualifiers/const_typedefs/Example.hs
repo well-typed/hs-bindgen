@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -24,6 +25,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
@@ -46,6 +48,7 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
 newtype I = I
   { unwrapI :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -85,6 +88,7 @@ instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
 -}
 data S = S
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S where
@@ -116,6 +120,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable S instance F.Storable S
 newtype U = U
   { unwrapU :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.StaticSize U
 
@@ -134,6 +139,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable U instance F.Storable U
 newtype E = E
   { unwrapE :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -233,6 +239,7 @@ pattern Foo = E 0
 newtype TI = TI
   { unwrapTI :: I
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -273,6 +280,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TI "unwrapTI" where
 newtype TS = TS
   { unwrapTS :: S
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -302,6 +310,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TS "unwrapTS" where
 newtype TU = TU
   { unwrapTU :: U
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -330,6 +339,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TU "unwrapTU" where
 newtype TE = TE
   { unwrapTE :: E
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -361,6 +371,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TE "unwrapTE" where
 newtype TTI = TTI
   { unwrapTTI :: TI
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -401,6 +412,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TTI "unwrapTTI" where
 newtype TTS = TTS
   { unwrapTTS :: TS
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -430,6 +442,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TTS "unwrapTTS" where
 newtype TTU = TTU
   { unwrapTTU :: TU
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -458,6 +471,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TTU "unwrapTTU" where
 newtype TTE = TTE
   { unwrapTTE :: TE
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

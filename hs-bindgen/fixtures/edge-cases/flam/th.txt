@@ -13,6 +13,7 @@ data Pascal_Aux
 
                    __exported by:__ @edge-cases\/flam.h@
               -}}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Pascal_Aux
     where staticSizeOf = \_ -> 4 :: Int
@@ -59,6 +60,7 @@ data Foo_bar
 
            __exported by:__ @edge-cases\/flam.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Foo_bar
     where staticSizeOf = \_ -> 8 :: Int
@@ -96,6 +98,7 @@ data Foo_Aux
 
                 __exported by:__ @edge-cases\/flam.h@
            -}}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Foo_Aux
     where staticSizeOf = \_ -> 4 :: Int
@@ -136,6 +139,7 @@ data Diff_Aux
 
                  __exported by:__ @edge-cases\/flam.h@
             -}}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Diff_Aux
     where staticSizeOf = \_ -> 16 :: Int
@@ -178,6 +182,7 @@ data Triplets_Aux
 
                      __exported by:__ @edge-cases\/flam.h@
                 -}}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Triplets_Aux
     where staticSizeOf = \_ -> 4 :: Int

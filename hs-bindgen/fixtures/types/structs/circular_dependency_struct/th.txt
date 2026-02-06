@@ -19,6 +19,7 @@ data B
 
            __exported by:__ @types\/structs\/circular_dependency_struct.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize B
     where staticSizeOf = \_ -> 8 :: Int
@@ -55,6 +56,7 @@ data A
 
            __exported by:__ @types\/structs\/circular_dependency_struct.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize A
     where staticSizeOf = \_ -> 8 :: Int

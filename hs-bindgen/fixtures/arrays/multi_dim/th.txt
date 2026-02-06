@@ -174,6 +174,7 @@ newtype Matrix
 
            __exported by:__ @arrays\/multi_dim.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
@@ -198,6 +199,7 @@ newtype Triplets
 
            __exported by:__ @arrays\/multi_dim.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance TyEq ty (CFieldType Triplets "unwrapTriplets") =>
          HasField "unwrapTriplets" (Ptr Triplets) (Ptr ty)

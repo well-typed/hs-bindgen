@@ -1,4 +1,5 @@
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -14,6 +15,7 @@ module Example where
 
 import qualified Data.Proxy
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Block
@@ -31,6 +33,7 @@ import Prelude (IO)
 newtype Toggle = Toggle
   { unwrapToggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Toggle) "unwrapToggle")
@@ -55,6 +58,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Toggle "unwrapToggle" where
 newtype Counter = Counter
   { unwrapCounter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Counter) "unwrapCounter")
@@ -79,6 +83,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Counter "unwrapCounter" where
 newtype VarCounter = VarCounter
   { unwrapVarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType VarCounter) "unwrapVarCounter")

@@ -63,6 +63,7 @@ data Another_typedef_struct_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Another_typedef_struct_t
     where staticSizeOf = \_ -> 8 :: Int
@@ -112,6 +113,7 @@ newtype Another_typedef_enum_e
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Another_typedef_enum_e
@@ -240,6 +242,7 @@ newtype A_type_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -276,6 +279,7 @@ newtype Var_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -392,6 +396,7 @@ data A_typedef_struct_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize A_typedef_struct_t
     where staticSizeOf = \_ -> 140 :: Int
@@ -596,6 +601,7 @@ newtype A_typedef_enum_e
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize A_typedef_enum_e
@@ -714,6 +720,7 @@ newtype Callback_t_Aux
 
       __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
     Ptr Void -> Word32 -> IO Word32
@@ -761,6 +768,7 @@ newtype Callback_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

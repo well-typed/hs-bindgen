@@ -42,6 +42,7 @@ data S
 
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 4 :: Int
@@ -72,6 +73,7 @@ newtype T
 
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (CFieldType T "unwrapT") =>

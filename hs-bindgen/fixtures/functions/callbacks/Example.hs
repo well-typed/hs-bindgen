@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -25,6 +26,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -55,6 +57,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype FileOpenedNotification_Aux = FileOpenedNotification_Aux
   { unwrapFileOpenedNotification_Aux :: IO ()
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
@@ -111,6 +114,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification_Aux "unwra
 newtype FileOpenedNotification = FileOpenedNotification
   { unwrapFileOpenedNotification :: Ptr.FunPtr FileOpenedNotification_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -144,6 +148,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype ProgressUpdate_Aux = ProgressUpdate_Aux
   { unwrapProgressUpdate_Aux :: FC.CInt -> IO ()
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
@@ -200,6 +205,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate_Aux "unwrapProgres
 newtype ProgressUpdate = ProgressUpdate
   { unwrapProgressUpdate :: Ptr.FunPtr ProgressUpdate_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -233,6 +239,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype DataValidator_Aux = DataValidator_Aux
   { unwrapDataValidator_Aux :: FC.CInt -> IO FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
@@ -289,6 +296,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataValidator_Aux "unwrapDataVali
 newtype DataValidator = DataValidator
   { unwrapDataValidator :: Ptr.FunPtr DataValidator_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -333,6 +341,7 @@ data Measurement = Measurement
          __exported by:__ @functions\/callbacks.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Measurement where
@@ -398,6 +407,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype MeasurementReceived_Aux = MeasurementReceived_Aux
   { unwrapMeasurementReceived_Aux :: (Ptr.Ptr Measurement) -> IO ()
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
@@ -454,6 +464,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived_Aux "unwrapMe
 newtype MeasurementReceived = MeasurementReceived
   { unwrapMeasurementReceived :: Ptr.FunPtr MeasurementReceived_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -487,6 +498,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype MeasurementReceived2_Aux = MeasurementReceived2_Aux
   { unwrapMeasurementReceived2_Aux :: Measurement -> IO ()
   }
+  deriving stock (GHC.Generics.Generic)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2_Aux) "unwrapMeasurementReceived2_Aux")
          ) => GHC.Records.HasField "unwrapMeasurementReceived2_Aux" (Ptr.Ptr MeasurementReceived2_Aux) (Ptr.Ptr ty) where
@@ -510,6 +522,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2_Aux "unwrapM
 newtype MeasurementReceived2 = MeasurementReceived2
   { unwrapMeasurementReceived2 :: Ptr.FunPtr MeasurementReceived2_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -543,6 +556,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype SampleBufferFull_Aux = SampleBufferFull_Aux
   { unwrapSampleBufferFull_Aux :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
   }
+  deriving stock (GHC.Generics.Generic)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull_Aux) "unwrapSampleBufferFull_Aux")
          ) => GHC.Records.HasField "unwrapSampleBufferFull_Aux" (Ptr.Ptr SampleBufferFull_Aux) (Ptr.Ptr ty) where
@@ -566,6 +580,7 @@ instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Aux "unwrapSampl
 newtype SampleBufferFull = SampleBufferFull
   { unwrapSampleBufferFull :: Ptr.FunPtr SampleBufferFull_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -617,6 +632,7 @@ data MeasurementHandler = MeasurementHandler
          __exported by:__ @functions\/callbacks.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize MeasurementHandler where
@@ -718,6 +734,7 @@ data DataPipeline = DataPipeline
          __exported by:__ @functions\/callbacks.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize DataPipeline where
@@ -799,6 +816,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataP
 newtype ProcessorCallback = ProcessorCallback
   { unwrapProcessorCallback :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 8 instance HsBindgen.Runtime.Marshal.StaticSize ProcessorCallback
 
@@ -937,6 +955,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "
 newtype Processor_mode = Processor_mode
   { unwrapProcessor_mode :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -1071,6 +1090,7 @@ data Processor = Processor
          __exported by:__ @functions\/callbacks.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Processor where
 
@@ -1133,6 +1153,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor) "processo
 newtype Foo = Foo
   { unwrapFoo :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1173,6 +1194,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "unwrapFoo" where
 newtype Foo2 = Foo2
   { unwrapFoo2 :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

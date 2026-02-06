@@ -26,6 +26,7 @@ data Dim2
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Dim2
     where staticSizeOf = \_ -> 8 :: Int
@@ -83,6 +84,7 @@ data Dim3
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Dim3
     where staticSizeOf = \_ -> 12 :: Int
@@ -127,6 +129,7 @@ newtype DimPayload
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 8 4) instance StaticSize DimPayload
 deriving via (SizedByteArray 8 4) instance ReadRaw DimPayload
 deriving via (SizedByteArray 8 4) instance WriteRaw DimPayload
@@ -238,6 +241,7 @@ data Dim
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
 instance StaticSize Dim
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -274,6 +278,7 @@ newtype DimPayloadB
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 8 4) instance StaticSize DimPayloadB
 deriving via (SizedByteArray 8 4) instance ReadRaw DimPayloadB
 deriving via (SizedByteArray 8 4) instance WriteRaw DimPayloadB
@@ -385,6 +390,7 @@ data DimB
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
 instance StaticSize DimB
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -434,6 +440,7 @@ data AnonA_xy
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize AnonA_xy
     where staticSizeOf = \_ -> 16 :: Int
@@ -484,6 +491,7 @@ data AnonA_polar
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize AnonA_polar
     where staticSizeOf = \_ -> 16 :: Int
@@ -521,6 +529,7 @@ newtype AnonA
 
            __exported by:__ @types\/unions\/unions.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 16 8) instance StaticSize AnonA
 deriving via (SizedByteArray 16 8) instance ReadRaw AnonA
 deriving via (SizedByteArray 16 8) instance WriteRaw AnonA

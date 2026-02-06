@@ -26,6 +26,7 @@ data Point
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
@@ -76,6 +77,7 @@ data Size
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Size
     where staticSizeOf = \_ -> 8 :: Int
@@ -140,6 +142,7 @@ data Rect
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Rect
     where staticSizeOf = \_ -> 16 :: Int
@@ -191,6 +194,7 @@ newtype E
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
@@ -270,6 +274,7 @@ newtype Value
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -306,6 +311,7 @@ newtype U1
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U1
 deriving via (SizedByteArray 4 4) instance ReadRaw U1
 deriving via (SizedByteArray 4 4) instance WriteRaw U1
@@ -404,6 +410,7 @@ newtype U2_t
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U2_t
 deriving via (SizedByteArray 4 4) instance ReadRaw U2_t
 deriving via (SizedByteArray 4 4) instance WriteRaw U2_t
@@ -502,6 +509,7 @@ newtype U3
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 8 4) instance StaticSize U3
 deriving via (SizedByteArray 8 4) instance ReadRaw U3
 deriving via (SizedByteArray 8 4) instance WriteRaw U3
@@ -600,6 +608,7 @@ newtype U4
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U4
 deriving via (SizedByteArray 4 4) instance ReadRaw U4
 deriving via (SizedByteArray 4 4) instance WriteRaw U4
@@ -709,6 +718,7 @@ newtype RunDriver_Aux
 
       __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
     Ptr Void -> IO Int32
@@ -752,6 +762,7 @@ newtype RunDriver
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

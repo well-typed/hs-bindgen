@@ -26,6 +26,7 @@ data S1
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S1
     where staticSizeOf = \_ -> 8 :: Int
@@ -83,6 +84,7 @@ data S2_t
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S2_t
     where staticSizeOf = \_ -> 12 :: Int
@@ -133,6 +135,7 @@ data S3_t
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S3_t
     where staticSizeOf = \_ -> 1 :: Int
@@ -183,6 +186,7 @@ data S4
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S4
     where staticSizeOf = \_ -> 16 :: Int
@@ -240,6 +244,7 @@ data S5
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S5
     where staticSizeOf = \_ -> 8 :: Int
@@ -290,6 +295,7 @@ data S6
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S6
     where staticSizeOf = \_ -> 8 :: Int
@@ -340,6 +346,7 @@ data S7a_Aux
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S7a_Aux
     where staticSizeOf = \_ -> 8 :: Int
@@ -377,6 +384,7 @@ newtype S7a
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -416,6 +424,7 @@ data S7b_Aux
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize S7b_Aux
     where staticSizeOf = \_ -> 8 :: Int
@@ -453,6 +462,7 @@ newtype S7b
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,

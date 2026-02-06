@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
@@ -25,6 +26,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -54,6 +56,7 @@ import Prelude ((<*>), (>>), Bounded, Double, Enum, Eq, IO, Int, Integral, Num, 
 newtype A = A
   { unwrapA :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -93,6 +96,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 -}
 data Some_struct = Some_struct
   {}
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Some_struct where
@@ -124,6 +128,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_struct instance F.Stor
 newtype Some_union = Some_union
   { unwrapSome_union :: Data.Array.Byte.ByteArray
   }
+  deriving stock (GHC.Generics.Generic)
 
 deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 0) 1 instance HsBindgen.Runtime.Marshal.StaticSize Some_union
 
@@ -142,6 +147,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Some_union instance F.Stora
 newtype Some_enum = Some_enum
   { unwrapSome_enum :: FC.CUInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
@@ -242,6 +248,7 @@ pattern ENUM_A = Some_enum 0
 newtype Arr_typedef1 = Arr_typedef1
   { unwrapArr_typedef1 :: HsBindgen.Runtime.IncompleteArray.IncompleteArray A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef1) "unwrapArr_typedef1")
@@ -266,6 +273,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef1 "unwrapArr_typedef1"
 newtype Arr_typedef2 = Arr_typedef2
   { unwrapArr_typedef2 :: HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef2) "unwrapArr_typedef2")
@@ -290,6 +298,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef2 "unwrapArr_typedef2"
 newtype Arr_typedef3 = Arr_typedef3
   { unwrapArr_typedef3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -320,6 +329,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef3 "unwrapArr_typedef3"
 newtype Arr_typedef4 = Arr_typedef4
   { unwrapArr_typedef4 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -352,6 +362,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Typedef1 = Typedef1
   { unwrapTypedef1 :: A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -392,6 +403,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Typedef1 "unwrapTypedef1" where
 newtype Typedef2 = Typedef2
   { unwrapTypedef2 :: Ptr.Ptr A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -422,6 +434,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Typedef2 "unwrapTypedef2" where
 newtype Typedef3 = Typedef3
   { unwrapTypedef3 :: Ptr.Ptr (Ptr.Ptr A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -455,6 +468,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef1_Aux = Funptr_typedef1_Aux
   { unwrapFunptr_typedef1_Aux :: IO A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
@@ -511,6 +525,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1_Aux "unwrapFunptr
 newtype Funptr_typedef1 = Funptr_typedef1
   { unwrapFunptr_typedef1 :: Ptr.FunPtr Funptr_typedef1_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -544,6 +559,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef2_Aux = Funptr_typedef2_Aux
   { unwrapFunptr_typedef2_Aux :: IO (Ptr.Ptr A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
@@ -600,6 +616,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2_Aux "unwrapFunptr
 newtype Funptr_typedef2 = Funptr_typedef2
   { unwrapFunptr_typedef2 :: Ptr.FunPtr Funptr_typedef2_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -633,6 +650,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef3_Aux = Funptr_typedef3_Aux
   { unwrapFunptr_typedef3_Aux :: IO (Ptr.Ptr (Ptr.Ptr A))
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
@@ -689,6 +707,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3_Aux "unwrapFunptr
 newtype Funptr_typedef3 = Funptr_typedef3
   { unwrapFunptr_typedef3 :: Ptr.FunPtr Funptr_typedef3_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -722,6 +741,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef4_Aux = Funptr_typedef4_Aux
   { unwrapFunptr_typedef4_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
@@ -778,6 +798,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4_Aux "unwrapFunptr
 newtype Funptr_typedef4 = Funptr_typedef4
   { unwrapFunptr_typedef4 :: Ptr.FunPtr Funptr_typedef4_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -811,6 +832,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef5_Aux = Funptr_typedef5_Aux
   { unwrapFunptr_typedef5_Aux :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
@@ -867,6 +889,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5_Aux "unwrapFunptr
 newtype Funptr_typedef5 = Funptr_typedef5
   { unwrapFunptr_typedef5 :: Ptr.FunPtr Funptr_typedef5_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -898,6 +921,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5 "unwrapFunptr_typ
 newtype Comments2 = Comments2
   { unwrapComments2 :: A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -960,6 +984,7 @@ data Example_struct = Example_struct
          __exported by:__ @macros\/reparse.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Example_struct where
@@ -1041,6 +1066,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct) "exa
 newtype Const_typedef1 = Const_typedef1
   { unwrapConst_typedef1 :: A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1082,6 +1108,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef1 "unwrapConst_typed
 newtype Const_typedef2 = Const_typedef2
   { unwrapConst_typedef2 :: A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1123,6 +1150,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef2 "unwrapConst_typed
 newtype Const_typedef3 = Const_typedef3
   { unwrapConst_typedef3 :: HsBindgen.Runtime.PtrConst.PtrConst A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1154,6 +1182,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef3 "unwrapConst_typed
 newtype Const_typedef4 = Const_typedef4
   { unwrapConst_typedef4 :: HsBindgen.Runtime.PtrConst.PtrConst A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1185,6 +1214,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef4 "unwrapConst_typed
 newtype Const_typedef5 = Const_typedef5
   { unwrapConst_typedef5 :: Ptr.Ptr A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1216,6 +1246,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef5 "unwrapConst_typed
 newtype Const_typedef6 = Const_typedef6
   { unwrapConst_typedef6 :: HsBindgen.Runtime.PtrConst.PtrConst A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1247,6 +1278,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef6 "unwrapConst_typed
 newtype Const_typedef7 = Const_typedef7
   { unwrapConst_typedef7 :: HsBindgen.Runtime.PtrConst.PtrConst A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1326,6 +1358,7 @@ data Example_struct_with_const = Example_struct_with_const
          __exported by:__ @macros\/reparse.h@
     -}
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Example_struct_with_const where
@@ -1473,6 +1506,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr1_Aux = Const_funptr1_Aux
   { unwrapConst_funptr1_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
@@ -1529,6 +1563,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1_Aux "unwrapConst_fu
 newtype Const_funptr1 = Const_funptr1
   { unwrapConst_funptr1 :: Ptr.FunPtr Const_funptr1_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1562,6 +1597,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr2_Aux = Const_funptr2_Aux
   { unwrapConst_funptr2_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
@@ -1618,6 +1654,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2_Aux "unwrapConst_fu
 newtype Const_funptr2 = Const_funptr2
   { unwrapConst_funptr2 :: Ptr.FunPtr Const_funptr2_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1651,6 +1688,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr3_Aux = Const_funptr3_Aux
   { unwrapConst_funptr3_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
@@ -1707,6 +1745,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3_Aux "unwrapConst_fu
 newtype Const_funptr3 = Const_funptr3
   { unwrapConst_funptr3 :: Ptr.FunPtr Const_funptr3_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1740,6 +1779,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr4_Aux = Const_funptr4_Aux
   { unwrapConst_funptr4_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
@@ -1796,6 +1836,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4_Aux "unwrapConst_fu
 newtype Const_funptr4 = Const_funptr4
   { unwrapConst_funptr4 :: Ptr.FunPtr Const_funptr4_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1829,6 +1870,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr5_Aux = Const_funptr5_Aux
   { unwrapConst_funptr5_Aux :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
@@ -1885,6 +1927,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5_Aux "unwrapConst_fu
 newtype Const_funptr5 = Const_funptr5
   { unwrapConst_funptr5 :: Ptr.FunPtr Const_funptr5_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -1918,6 +1961,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr6_Aux = Const_funptr6_Aux
   { unwrapConst_funptr6_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
@@ -1974,6 +2018,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6_Aux "unwrapConst_fu
 newtype Const_funptr6 = Const_funptr6
   { unwrapConst_funptr6 :: Ptr.FunPtr Const_funptr6_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -2007,6 +2052,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr7_Aux = Const_funptr7_Aux
   { unwrapConst_funptr7_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A)
   }
+  deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::
@@ -2063,6 +2109,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7_Aux "unwrapConst_fu
 newtype Const_funptr7 = Const_funptr7
   { unwrapConst_funptr7 :: Ptr.FunPtr Const_funptr7_Aux
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -2094,6 +2141,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7 "unwrapConst_funptr
 newtype BOOL = BOOL
   { unwrapBOOL :: FC.CBool
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -2134,6 +2182,7 @@ instance HsBindgen.Runtime.HasCField.HasCField BOOL "unwrapBOOL" where
 newtype INT = INT
   { unwrapINT :: FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -2174,6 +2223,7 @@ instance HsBindgen.Runtime.HasCField.HasCField INT "unwrapINT" where
 newtype INTP = INTP
   { unwrapINTP :: Ptr.Ptr FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
@@ -2204,6 +2254,7 @@ instance HsBindgen.Runtime.HasCField.HasCField INTP "unwrapINTP" where
 newtype INTCP = INTCP
   { unwrapINTCP :: HsBindgen.Runtime.PtrConst.PtrConst FC.CInt
   }
+  deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize

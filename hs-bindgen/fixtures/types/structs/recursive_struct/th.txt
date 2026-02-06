@@ -26,6 +26,7 @@ data Linked_list_A_t
 
            __exported by:__ @types\/structs\/recursive_struct.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Linked_list_A_t
     where staticSizeOf = \_ -> 16 :: Int
@@ -79,6 +80,7 @@ data Linked_list_B_t
 
            __exported by:__ @types\/structs\/recursive_struct.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize Linked_list_B_t
     where staticSizeOf = \_ -> 16 :: Int

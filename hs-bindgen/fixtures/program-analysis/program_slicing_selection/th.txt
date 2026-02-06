@@ -49,6 +49,7 @@ newtype FileOperationStatus
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize FileOperationStatus
@@ -201,6 +202,7 @@ data FileOperationRecord
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Show)
 instance StaticSize FileOperationRecord
     where staticSizeOf = \_ -> 16 :: Int

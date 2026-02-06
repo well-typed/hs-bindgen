@@ -134,6 +134,7 @@ newtype MyEnum
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize MyEnum
@@ -198,6 +199,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -225,6 +227,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
@@ -252,6 +255,7 @@ newtype E
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
       -}
+    deriving stock Generic
     deriving newtype HasFFIType
 instance TyEq ty (CFieldType E "unwrapE") =>
          HasField "unwrapE" (Ptr E) (Ptr ty)

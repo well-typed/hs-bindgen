@@ -13,6 +13,7 @@ newtype FILE
 
            __exported by:__ @macros\/macro_redefines_global.h@
       -}
+    deriving stock Generic
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
