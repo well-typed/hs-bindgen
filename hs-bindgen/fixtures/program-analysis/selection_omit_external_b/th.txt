@@ -34,8 +34,7 @@ deriving via (EquivStorable Omitted) instance Storable Omitted
 instance HasCField Omitted "omitted_n"
     where type CFieldType Omitted "omitted_n" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Omitted "omitted_n") =>
-         HasField "omitted_n" (Ptr Omitted) (Ptr ty)
+instance HasField "omitted_n" (Ptr Omitted) (Ptr CInt)
     where getField = fromPtr (Proxy @"omitted_n")
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
@@ -73,12 +72,9 @@ instance HasCField DirectlyDependsOnOmitted
     where type CFieldType DirectlyDependsOnOmitted
                           "directlyDependsOnOmitted_o" = Omitted
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType DirectlyDependsOnOmitted
-                          "directlyDependsOnOmitted_o") =>
-         HasField "directlyDependsOnOmitted_o"
+instance HasField "directlyDependsOnOmitted_o"
                   (Ptr DirectlyDependsOnOmitted)
-                  (Ptr ty)
+                  (Ptr Omitted)
     where getField = fromPtr (Proxy @"directlyDependsOnOmitted_o")
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
@@ -116,10 +112,7 @@ instance HasCField IndirectlyDependsOnOmitted
     where type CFieldType IndirectlyDependsOnOmitted
                           "indirectlyDependsOnOmitted_d" = DirectlyDependsOnOmitted
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType IndirectlyDependsOnOmitted
-                          "indirectlyDependsOnOmitted_d") =>
-         HasField "indirectlyDependsOnOmitted_d"
+instance HasField "indirectlyDependsOnOmitted_d"
                   (Ptr IndirectlyDependsOnOmitted)
-                  (Ptr ty)
+                  (Ptr DirectlyDependsOnOmitted)
     where getField = fromPtr (Proxy @"indirectlyDependsOnOmitted_d")

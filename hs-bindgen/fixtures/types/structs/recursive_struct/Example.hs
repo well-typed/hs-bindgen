@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct linked_list_A_s@
@@ -83,8 +80,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Linked_list_A_t "linked_list_A_t_
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_A_t) "linked_list_A_t_x")
-         ) => GHC.Records.HasField "linked_list_A_t_x" (Ptr.Ptr Linked_list_A_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "linked_list_A_t_x" (Ptr.Ptr Linked_list_A_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_A_t_x")
@@ -96,8 +92,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Linked_list_A_t "linked_list_A_t_
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_A_t) "linked_list_A_t_next")
-         ) => GHC.Records.HasField "linked_list_A_t_next" (Ptr.Ptr Linked_list_A_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "linked_list_A_t_next" (Ptr.Ptr Linked_list_A_t) (Ptr.Ptr (Ptr.Ptr Linked_list_A_t)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_A_t_next")
@@ -160,8 +155,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Linked_list_B_t "linked_list_B_t_
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_B_t) "linked_list_B_t_x")
-         ) => GHC.Records.HasField "linked_list_B_t_x" (Ptr.Ptr Linked_list_B_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "linked_list_B_t_x" (Ptr.Ptr Linked_list_B_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_B_t_x")
@@ -173,8 +167,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Linked_list_B_t "linked_list_B_t_
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_B_t) "linked_list_B_t_next")
-         ) => GHC.Records.HasField "linked_list_B_t_next" (Ptr.Ptr Linked_list_B_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "linked_list_B_t_next" (Ptr.Ptr Linked_list_B_t) (Ptr.Ptr (Ptr.Ptr Linked_list_B_t)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"linked_list_B_t_next")

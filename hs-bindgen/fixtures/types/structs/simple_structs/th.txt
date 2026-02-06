@@ -41,14 +41,12 @@ deriving via (EquivStorable S1) instance Storable S1
 instance HasCField S1 "s1_a"
     where type CFieldType S1 "s1_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S1 "s1_a") =>
-         HasField "s1_a" (Ptr S1) (Ptr ty)
+instance HasField "s1_a" (Ptr S1) (Ptr CInt)
     where getField = fromPtr (Proxy @"s1_a")
 instance HasCField S1 "s1_b"
     where type CFieldType S1 "s1_b" = CChar
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S1 "s1_b") =>
-         HasField "s1_b" (Ptr S1) (Ptr ty)
+instance HasField "s1_b" (Ptr S1) (Ptr CChar)
     where getField = fromPtr (Proxy @"s1_b")
 {-| __C declaration:__ @struct S2@
 
@@ -100,20 +98,17 @@ deriving via (EquivStorable S2_t) instance Storable S2_t
 instance HasCField S2_t "s2_t_a"
     where type CFieldType S2_t "s2_t_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S2_t "s2_t_a") =>
-         HasField "s2_t_a" (Ptr S2_t) (Ptr ty)
+instance HasField "s2_t_a" (Ptr S2_t) (Ptr CChar)
     where getField = fromPtr (Proxy @"s2_t_a")
 instance HasCField S2_t "s2_t_b"
     where type CFieldType S2_t "s2_t_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S2_t "s2_t_b") =>
-         HasField "s2_t_b" (Ptr S2_t) (Ptr ty)
+instance HasField "s2_t_b" (Ptr S2_t) (Ptr CInt)
     where getField = fromPtr (Proxy @"s2_t_b")
 instance HasCField S2_t "s2_t_c"
     where type CFieldType S2_t "s2_t_c" = CFloat
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType S2_t "s2_t_c") =>
-         HasField "s2_t_c" (Ptr S2_t) (Ptr ty)
+instance HasField "s2_t_c" (Ptr S2_t) (Ptr CFloat)
     where getField = fromPtr (Proxy @"s2_t_c")
 {-| __C declaration:__ @struct S3_t@
 
@@ -149,8 +144,7 @@ deriving via (EquivStorable S3_t) instance Storable S3_t
 instance HasCField S3_t "s3_t_a"
     where type CFieldType S3_t "s3_t_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S3_t "s3_t_a") =>
-         HasField "s3_t_a" (Ptr S3_t) (Ptr ty)
+instance HasField "s3_t_a" (Ptr S3_t) (Ptr CChar)
     where getField = fromPtr (Proxy @"s3_t_a")
 {-| __C declaration:__ @struct S4@
 
@@ -202,20 +196,17 @@ deriving via (EquivStorable S4) instance Storable S4
 instance HasCField S4 "s4_b"
     where type CFieldType S4 "s4_b" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S4 "s4_b") =>
-         HasField "s4_b" (Ptr S4) (Ptr ty)
+instance HasField "s4_b" (Ptr S4) (Ptr CChar)
     where getField = fromPtr (Proxy @"s4_b")
 instance HasCField S4 "s4_a"
     where type CFieldType S4 "s4_a" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S4 "s4_a") =>
-         HasField "s4_a" (Ptr S4) (Ptr ty)
+instance HasField "s4_a" (Ptr S4) (Ptr CInt)
     where getField = fromPtr (Proxy @"s4_a")
 instance HasCField S4 "s4_c"
     where type CFieldType S4 "s4_c" = Ptr CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType S4 "s4_c") =>
-         HasField "s4_c" (Ptr S4) (Ptr ty)
+instance HasField "s4_c" (Ptr S4) (Ptr (Ptr CInt))
     where getField = fromPtr (Proxy @"s4_c")
 {-| __C declaration:__ @struct S5@
 
@@ -259,14 +250,12 @@ deriving via (EquivStorable S5) instance Storable S5
 instance HasCField S5 "s5_a"
     where type CFieldType S5 "s5_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S5 "s5_a") =>
-         HasField "s5_a" (Ptr S5) (Ptr ty)
+instance HasField "s5_a" (Ptr S5) (Ptr CChar)
     where getField = fromPtr (Proxy @"s5_a")
 instance HasCField S5 "s5_b"
     where type CFieldType S5 "s5_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S5 "s5_b") =>
-         HasField "s5_b" (Ptr S5) (Ptr ty)
+instance HasField "s5_b" (Ptr S5) (Ptr CInt)
     where getField = fromPtr (Proxy @"s5_b")
 {-| __C declaration:__ @struct S6@
 
@@ -310,14 +299,12 @@ deriving via (EquivStorable S6) instance Storable S6
 instance HasCField S6 "s6_a"
     where type CFieldType S6 "s6_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S6 "s6_a") =>
-         HasField "s6_a" (Ptr S6) (Ptr ty)
+instance HasField "s6_a" (Ptr S6) (Ptr CChar)
     where getField = fromPtr (Proxy @"s6_a")
 instance HasCField S6 "s6_b"
     where type CFieldType S6 "s6_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S6 "s6_b") =>
-         HasField "s6_b" (Ptr S6) (Ptr ty)
+instance HasField "s6_b" (Ptr S6) (Ptr CInt)
     where getField = fromPtr (Proxy @"s6_b")
 {-| __C declaration:__ @struct \@S7a_Aux@
 
@@ -361,14 +348,12 @@ deriving via (EquivStorable S7a_Aux) instance Storable S7a_Aux
 instance HasCField S7a_Aux "s7a_Aux_a"
     where type CFieldType S7a_Aux "s7a_Aux_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S7a_Aux "s7a_Aux_a") =>
-         HasField "s7a_Aux_a" (Ptr S7a_Aux) (Ptr ty)
+instance HasField "s7a_Aux_a" (Ptr S7a_Aux) (Ptr CChar)
     where getField = fromPtr (Proxy @"s7a_Aux_a")
 instance HasCField S7a_Aux "s7a_Aux_b"
     where type CFieldType S7a_Aux "s7a_Aux_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S7a_Aux "s7a_Aux_b") =>
-         HasField "s7a_Aux_b" (Ptr S7a_Aux) (Ptr ty)
+instance HasField "s7a_Aux_b" (Ptr S7a_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"s7a_Aux_b")
 {-| __C declaration:__ @S7a@
 
@@ -391,8 +376,7 @@ newtype S7a
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType S7a "unwrapS7a") =>
-         HasField "unwrapS7a" (Ptr S7a) (Ptr ty)
+instance HasField "unwrapS7a" (Ptr S7a) (Ptr (Ptr S7a_Aux))
     where getField = fromPtr (Proxy @"unwrapS7a")
 instance HasCField S7a "unwrapS7a"
     where type CFieldType S7a "unwrapS7a" = Ptr S7a_Aux
@@ -439,14 +423,12 @@ deriving via (EquivStorable S7b_Aux) instance Storable S7b_Aux
 instance HasCField S7b_Aux "s7b_Aux_a"
     where type CFieldType S7b_Aux "s7b_Aux_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S7b_Aux "s7b_Aux_a") =>
-         HasField "s7b_Aux_a" (Ptr S7b_Aux) (Ptr ty)
+instance HasField "s7b_Aux_a" (Ptr S7b_Aux) (Ptr CChar)
     where getField = fromPtr (Proxy @"s7b_Aux_a")
 instance HasCField S7b_Aux "s7b_Aux_b"
     where type CFieldType S7b_Aux "s7b_Aux_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S7b_Aux "s7b_Aux_b") =>
-         HasField "s7b_Aux_b" (Ptr S7b_Aux) (Ptr ty)
+instance HasField "s7b_Aux_b" (Ptr S7b_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"s7b_Aux_b")
 {-| __C declaration:__ @S7b@
 
@@ -469,8 +451,9 @@ newtype S7b
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType S7b "unwrapS7b") =>
-         HasField "unwrapS7b" (Ptr S7b) (Ptr ty)
+instance HasField "unwrapS7b"
+                  (Ptr S7b)
+                  (Ptr (Ptr (Ptr (Ptr S7b_Aux))))
     where getField = fromPtr (Proxy @"unwrapS7b")
 instance HasCField S7b "unwrapS7b"
     where type CFieldType S7b "unwrapS7b" = Ptr (Ptr (Ptr S7b_Aux))

@@ -5,7 +5,6 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -14,7 +13,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -44,7 +42,6 @@ import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| __C declaration:__ @struct Point@
@@ -104,8 +101,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Point "x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "x")
-         ) => GHC.Records.HasField "x" (Ptr.Ptr Point) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "x" (Ptr.Ptr Point) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x")
@@ -116,8 +112,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Point "y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "y")
-         ) => GHC.Records.HasField "y" (Ptr.Ptr Point) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "y" (Ptr.Ptr Point) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y")
@@ -179,8 +174,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Size "width" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size) "width")
-         ) => GHC.Records.HasField "width" (Ptr.Ptr Size) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "width" (Ptr.Ptr Size) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"width")
@@ -191,8 +185,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Size "height" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size) "height")
-         ) => GHC.Records.HasField "height" (Ptr.Ptr Size) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "height" (Ptr.Ptr Size) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"height")
@@ -272,8 +265,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Rect "x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rect) "x")
-         ) => GHC.Records.HasField "x" (Ptr.Ptr Rect) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "x" (Ptr.Ptr Rect) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x")
@@ -284,8 +276,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Rect "y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rect) "y")
-         ) => GHC.Records.HasField "y" (Ptr.Ptr Rect) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "y" (Ptr.Ptr Rect) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y")
@@ -296,8 +287,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Rect "width" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rect) "width")
-         ) => GHC.Records.HasField "width" (Ptr.Ptr Rect) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "width" (Ptr.Ptr Rect) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"width")
@@ -308,8 +298,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Rect "height" where
 
   offset# = \_ -> \_ -> 12
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rect) "height")
-         ) => GHC.Records.HasField "height" (Ptr.Ptr Rect) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "height" (Ptr.Ptr Rect) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"height")
@@ -393,8 +382,7 @@ instance Read E where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "unwrap")
-         ) => GHC.Records.HasField "unwrap" (Ptr.Ptr E) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrap" (Ptr.Ptr E) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrap")
@@ -452,8 +440,7 @@ newtype Value = Value
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Value) "unwrap")
-         ) => GHC.Records.HasField "unwrap" (Ptr.Ptr Value) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrap" (Ptr.Ptr Value) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrap")
@@ -543,8 +530,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U1 "x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U1) "x")
-         ) => GHC.Records.HasField "x" (Ptr.Ptr U1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "x" (Ptr.Ptr U1) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x")
@@ -555,8 +541,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U1 "y" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U1) "y")
-         ) => GHC.Records.HasField "y" (Ptr.Ptr U1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "y" (Ptr.Ptr U1) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y")
@@ -640,8 +625,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U2_t "a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U2_t) "a")
-         ) => GHC.Records.HasField "a" (Ptr.Ptr U2_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a" (Ptr.Ptr U2_t) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a")
@@ -652,8 +636,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U2_t "b" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U2_t) "b")
-         ) => GHC.Records.HasField "b" (Ptr.Ptr U2_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "b" (Ptr.Ptr U2_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"b")
@@ -737,8 +720,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U3 "p" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U3) "p")
-         ) => GHC.Records.HasField "p" (Ptr.Ptr U3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "p" (Ptr.Ptr U3) (Ptr.Ptr Point) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"p")
@@ -749,8 +731,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U3 "s" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U3) "s")
-         ) => GHC.Records.HasField "s" (Ptr.Ptr U3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "s" (Ptr.Ptr U3) (Ptr.Ptr Size) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s")
@@ -834,8 +815,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U4 "x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U4) "x")
-         ) => GHC.Records.HasField "x" (Ptr.Ptr U4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "x" (Ptr.Ptr U4) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x")
@@ -846,8 +826,7 @@ instance HsBindgen.Runtime.HasCField.HasCField U4 "y" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U4) "y")
-         ) => GHC.Records.HasField "y" (Ptr.Ptr U4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "y" (Ptr.Ptr U4) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y")
@@ -906,8 +885,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr RunDriver_Aux where
 
   fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType RunDriver_Aux) "unwrap")
-         ) => GHC.Records.HasField "unwrap" (Ptr.Ptr RunDriver_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrap" (Ptr.Ptr RunDriver_Aux) (Ptr.Ptr ((Ptr.Ptr Driver) -> IO FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrap")
@@ -938,8 +916,7 @@ newtype RunDriver = RunDriver
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType RunDriver) "unwrap")
-         ) => GHC.Records.HasField "unwrap" (Ptr.Ptr RunDriver) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrap" (Ptr.Ptr RunDriver) (Ptr.Ptr (Ptr.FunPtr RunDriver_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrap")

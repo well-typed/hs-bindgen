@@ -102,11 +102,9 @@ instance ToFunPtr MyFunctionPointer_Aux
     where toFunPtr = hs_bindgen_47dfd04698dd2e6f
 instance FromFunPtr MyFunctionPointer_Aux
     where fromFunPtr = hs_bindgen_5738272f94a589e2
-instance TyEq ty
-              (CFieldType MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux") =>
-         HasField "unwrapMyFunctionPointer_Aux"
+instance HasField "unwrapMyFunctionPointer_Aux"
                   (Ptr MyFunctionPointer_Aux)
-                  (Ptr ty)
+                  (Ptr (CInt -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapMyFunctionPointer_Aux")
 instance HasCField MyFunctionPointer_Aux
                    "unwrapMyFunctionPointer_Aux"
@@ -134,9 +132,9 @@ newtype MyFunctionPointer
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType MyFunctionPointer "unwrapMyFunctionPointer") =>
-         HasField "unwrapMyFunctionPointer" (Ptr MyFunctionPointer) (Ptr ty)
+instance HasField "unwrapMyFunctionPointer"
+                  (Ptr MyFunctionPointer)
+                  (Ptr (FunPtr MyFunctionPointer_Aux))
     where getField = fromPtr (Proxy @"unwrapMyFunctionPointer")
 instance HasCField MyFunctionPointer "unwrapMyFunctionPointer"
     where type CFieldType MyFunctionPointer
@@ -163,8 +161,7 @@ newtype A
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr MyFunctionPointer)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyFunctionPointer
@@ -190,8 +187,7 @@ newtype B
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType B "unwrapB") =>
-         HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

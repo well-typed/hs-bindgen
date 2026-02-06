@@ -91,14 +91,12 @@ deriving via (EquivStorable Point) instance Storable Point
 instance HasCField Point "point_x"
     where type CFieldType Point "point_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Point "point_x") =>
-         HasField "point_x" (Ptr Point) (Ptr ty)
+instance HasField "point_x" (Ptr Point) (Ptr CInt)
     where getField = fromPtr (Proxy @"point_x")
 instance HasCField Point "point_y"
     where type CFieldType Point "point_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType Point "point_y") =>
-         HasField "point_y" (Ptr Point) (Ptr ty)
+instance HasField "point_y" (Ptr Point) (Ptr CInt)
     where getField = fromPtr (Proxy @"point_y")
 {-| __C declaration:__ @struct rectangle@
 
@@ -142,14 +140,14 @@ deriving via (EquivStorable Rectangle) instance Storable Rectangle
 instance HasCField Rectangle "rectangle_topleft"
     where type CFieldType Rectangle "rectangle_topleft" = Point
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Rectangle "rectangle_topleft") =>
-         HasField "rectangle_topleft" (Ptr Rectangle) (Ptr ty)
+instance HasField "rectangle_topleft" (Ptr Rectangle) (Ptr Point)
     where getField = fromPtr (Proxy @"rectangle_topleft")
 instance HasCField Rectangle "rectangle_bottomright"
     where type CFieldType Rectangle "rectangle_bottomright" = Point
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Rectangle "rectangle_bottomright") =>
-         HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr ty)
+instance HasField "rectangle_bottomright"
+                  (Ptr Rectangle)
+                  (Ptr Point)
     where getField = fromPtr (Proxy @"rectangle_bottomright")
 {-| __C declaration:__ @struct circle@
 
@@ -193,14 +191,12 @@ deriving via (EquivStorable Circle) instance Storable Circle
 instance HasCField Circle "circle_midpoint"
     where type CFieldType Circle "circle_midpoint" = Point
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Circle "circle_midpoint") =>
-         HasField "circle_midpoint" (Ptr Circle) (Ptr ty)
+instance HasField "circle_midpoint" (Ptr Circle) (Ptr Point)
     where getField = fromPtr (Proxy @"circle_midpoint")
 instance HasCField Circle "circle_radius"
     where type CFieldType Circle "circle_radius" = CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Circle "circle_radius") =>
-         HasField "circle_radius" (Ptr Circle) (Ptr ty)
+instance HasField "circle_radius" (Ptr Circle) (Ptr CInt)
     where getField = fromPtr (Proxy @"circle_radius")
 {-| __C declaration:__ @union shape@
 
@@ -292,14 +288,12 @@ set_shape_circle = setUnionPayload
 instance HasCField Shape "shape_rectangle"
     where type CFieldType Shape "shape_rectangle" = Rectangle
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Shape "shape_rectangle") =>
-         HasField "shape_rectangle" (Ptr Shape) (Ptr ty)
+instance HasField "shape_rectangle" (Ptr Shape) (Ptr Rectangle)
     where getField = fromPtr (Proxy @"shape_rectangle")
 instance HasCField Shape "shape_circle"
     where type CFieldType Shape "shape_circle" = Circle
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Shape "shape_circle") =>
-         HasField "shape_circle" (Ptr Shape) (Ptr ty)
+instance HasField "shape_circle" (Ptr Shape) (Ptr Circle)
     where getField = fromPtr (Proxy @"shape_circle")
 {-| __C declaration:__ @struct colour@
 
@@ -368,36 +362,33 @@ instance HasCBitfield Colour "colour_opacity"
     where type CBitfieldType Colour "colour_opacity" = CUInt
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 2
-instance TyEq ty (CBitfieldType Colour "colour_opacity") =>
-         HasField "colour_opacity" (Ptr Colour) (BitfieldPtr ty)
+instance HasField "colour_opacity" (Ptr Colour) (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"colour_opacity")
 instance HasCBitfield Colour "colour_brightness"
     where type CBitfieldType Colour "colour_brightness" = CUInt
           bitfieldOffset# = \_ -> \_ -> 2
           bitfieldWidth# = \_ -> \_ -> 3
-instance TyEq ty (CBitfieldType Colour "colour_brightness") =>
-         HasField "colour_brightness" (Ptr Colour) (BitfieldPtr ty)
+instance HasField "colour_brightness"
+                  (Ptr Colour)
+                  (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"colour_brightness")
 instance HasCBitfield Colour "colour_red"
     where type CBitfieldType Colour "colour_red" = CUInt
           bitfieldOffset# = \_ -> \_ -> 5
           bitfieldWidth# = \_ -> \_ -> 8
-instance TyEq ty (CBitfieldType Colour "colour_red") =>
-         HasField "colour_red" (Ptr Colour) (BitfieldPtr ty)
+instance HasField "colour_red" (Ptr Colour) (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"colour_red")
 instance HasCBitfield Colour "colour_green"
     where type CBitfieldType Colour "colour_green" = CUInt
           bitfieldOffset# = \_ -> \_ -> 13
           bitfieldWidth# = \_ -> \_ -> 8
-instance TyEq ty (CBitfieldType Colour "colour_green") =>
-         HasField "colour_green" (Ptr Colour) (BitfieldPtr ty)
+instance HasField "colour_green" (Ptr Colour) (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"colour_green")
 instance HasCBitfield Colour "colour_blue"
     where type CBitfieldType Colour "colour_blue" = CUInt
           bitfieldOffset# = \_ -> \_ -> 21
           bitfieldWidth# = \_ -> \_ -> 8
-instance TyEq ty (CBitfieldType Colour "colour_blue") =>
-         HasField "colour_blue" (Ptr Colour) (BitfieldPtr ty)
+instance HasField "colour_blue" (Ptr Colour) (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"colour_blue")
 {-| __C declaration:__ @myInt@
 
@@ -430,8 +421,7 @@ newtype MyInt
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyInt "unwrapMyInt") =>
-         HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -478,14 +468,12 @@ deriving via (EquivStorable Drawing) instance Storable Drawing
 instance HasCField Drawing "drawing_shape"
     where type CFieldType Drawing "drawing_shape" = Ptr Shape
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Drawing "drawing_shape") =>
-         HasField "drawing_shape" (Ptr Drawing) (Ptr ty)
+instance HasField "drawing_shape" (Ptr Drawing) (Ptr (Ptr Shape))
     where getField = fromPtr (Proxy @"drawing_shape")
 instance HasCField Drawing "drawing_colour"
     where type CFieldType Drawing "drawing_colour" = Ptr Colour
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Drawing "drawing_colour") =>
-         HasField "drawing_colour" (Ptr Drawing) (Ptr ty)
+instance HasField "drawing_colour" (Ptr Drawing) (Ptr (Ptr Colour))
     where getField = fromPtr (Proxy @"drawing_colour")
 {-| __C declaration:__ @struct tic_tac_toe@
 
@@ -538,22 +526,25 @@ instance HasCField Tic_tac_toe "tic_tac_toe_row1"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row1" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row1") =>
-         HasField "tic_tac_toe_row1" (Ptr Tic_tac_toe) (Ptr ty)
+instance HasField "tic_tac_toe_row1"
+                  (Ptr Tic_tac_toe)
+                  (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"tic_tac_toe_row1")
 instance HasCField Tic_tac_toe "tic_tac_toe_row2"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row2" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 12
-instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row2") =>
-         HasField "tic_tac_toe_row2" (Ptr Tic_tac_toe) (Ptr ty)
+instance HasField "tic_tac_toe_row2"
+                  (Ptr Tic_tac_toe)
+                  (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"tic_tac_toe_row2")
 instance HasCField Tic_tac_toe "tic_tac_toe_row3"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row3" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 24
-instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row3") =>
-         HasField "tic_tac_toe_row3" (Ptr Tic_tac_toe) (Ptr ty)
+instance HasField "tic_tac_toe_row3"
+                  (Ptr Tic_tac_toe)
+                  (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"tic_tac_toe_row3")
 {-| __C declaration:__ @struct vector@
 
@@ -583,8 +574,7 @@ deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
 instance HasCField Vector_Aux "vector_len"
     where type CFieldType Vector_Aux "vector_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Vector_Aux "vector_len") =>
-         HasField "vector_len" (Ptr Vector_Aux) (Ptr ty)
+instance HasField "vector_len" (Ptr Vector_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"vector_len")
 instance Offset CChar Vector_Aux
     where offset = \_ty_0 -> 4
@@ -606,8 +596,9 @@ newtype Triplet
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
-         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
+instance HasField "unwrapTriplet"
+                  (Ptr Triplet)
+                  (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapTriplet")
 instance HasCField Triplet "unwrapTriplet"
     where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
@@ -630,8 +621,9 @@ newtype Matrix
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
-         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+instance HasField "unwrapMatrix"
+                  (Ptr Matrix)
+                  (Ptr (ConstantArray 3 Triplet))
     where getField = fromPtr (Proxy @"unwrapMatrix")
 instance HasCField Matrix "unwrapMatrix"
     where type CFieldType Matrix "unwrapMatrix" = ConstantArray 3

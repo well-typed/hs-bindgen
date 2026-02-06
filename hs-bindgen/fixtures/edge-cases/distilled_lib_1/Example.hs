@@ -4,7 +4,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE ExplicitForAll #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -13,7 +12,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -42,7 +40,6 @@ import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| __C declaration:__ @struct another_typedef_struct_t@
@@ -105,8 +102,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Another_typedef_struct_t "another
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_struct_t) "another_typedef_struct_t_foo")
-         ) => GHC.Records.HasField "another_typedef_struct_t_foo" (Ptr.Ptr Another_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "another_typedef_struct_t_foo" (Ptr.Ptr Another_typedef_struct_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"another_typedef_struct_t_foo")
@@ -118,8 +114,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Another_typedef_struct_t "another
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_struct_t) "another_typedef_struct_t_bar")
-         ) => GHC.Records.HasField "another_typedef_struct_t_bar" (Ptr.Ptr Another_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "another_typedef_struct_t_bar" (Ptr.Ptr Another_typedef_struct_t) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"another_typedef_struct_t_bar")
@@ -205,8 +200,7 @@ instance Read Another_typedef_enum_e where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_enum_e) "unwrapAnother_typedef_enum_e")
-         ) => GHC.Records.HasField "unwrapAnother_typedef_enum_e" (Ptr.Ptr Another_typedef_enum_e) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapAnother_typedef_enum_e" (Ptr.Ptr Another_typedef_enum_e) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapAnother_typedef_enum_e")
@@ -292,8 +286,7 @@ newtype A_type_t = A_type_t
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_type_t) "unwrapA_type_t")
-         ) => GHC.Records.HasField "unwrapA_type_t" (Ptr.Ptr A_type_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapA_type_t" (Ptr.Ptr A_type_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA_type_t")
@@ -333,8 +326,7 @@ newtype Var_t = Var_t
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Var_t) "unwrapVar_t")
-         ) => GHC.Records.HasField "unwrapVar_t" (Ptr.Ptr Var_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapVar_t" (Ptr.Ptr Var_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapVar_t")
@@ -495,8 +487,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_0")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_0" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_0" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr FC.CBool) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_0")
@@ -508,8 +499,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_1")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_1" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_1" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_1")
@@ -521,8 +511,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 2
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_2")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_2" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_2" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_2")
@@ -534,8 +523,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_3")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_3" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_3" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_3")
@@ -547,8 +535,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_4")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_4" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_4" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr Another_typedef_struct_t) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_4")
@@ -560,8 +547,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_5")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_5" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_5" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr (Ptr.Ptr Another_typedef_struct_t)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_5")
@@ -573,8 +559,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 24
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_6")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_6" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_6" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr (Ptr.Ptr Void)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_6")
@@ -586,8 +571,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 32
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_7")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_7" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_7" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.LibC.Word32)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_7")
@@ -599,8 +583,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 60
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_8")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_8" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_8" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr Another_typedef_enum_e) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_8")
@@ -612,8 +595,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 64
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_9")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_9" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_9" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) Another_typedef_enum_e)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_9")
@@ -625,8 +607,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_typedef_struct_t "a_typedef_str
 
   offset# = \_ -> \_ -> 80
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) "a_typedef_struct_t_field_10")
-         ) => GHC.Records.HasField "a_typedef_struct_t_field_10" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_typedef_struct_t_field_10" (Ptr.Ptr A_typedef_struct_t) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 5) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Another_typedef_enum_e))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_typedef_struct_t_field_10")
@@ -750,8 +731,7 @@ instance Read A_typedef_enum_e where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_enum_e) "unwrapA_typedef_enum_e")
-         ) => GHC.Records.HasField "unwrapA_typedef_enum_e" (Ptr.Ptr A_typedef_enum_e) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapA_typedef_enum_e" (Ptr.Ptr A_typedef_enum_e) (Ptr.Ptr FC.CUChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA_typedef_enum_e")
@@ -845,8 +825,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Callback_t_Aux where
 
   fromFunPtr = hs_bindgen_d6debb4b8d5bb869
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t_Aux) "unwrapCallback_t_Aux")
-         ) => GHC.Records.HasField "unwrapCallback_t_Aux" (Ptr.Ptr Callback_t_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapCallback_t_Aux" (Ptr.Ptr Callback_t_Aux) (Ptr.Ptr ((Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapCallback_t_Aux")
@@ -877,8 +856,7 @@ newtype Callback_t = Callback_t
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t) "unwrapCallback_t")
-         ) => GHC.Records.HasField "unwrapCallback_t" (Ptr.Ptr Callback_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapCallback_t" (Ptr.Ptr Callback_t) (Ptr.Ptr (Ptr.FunPtr Callback_t_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapCallback_t")

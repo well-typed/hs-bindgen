@@ -67,8 +67,7 @@ newtype Int16_T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int16_T "unwrapInt16_T") =>
-         HasField "unwrapInt16_T" (Ptr Int16_T) (Ptr ty)
+instance HasField "unwrapInt16_T" (Ptr Int16_T) (Ptr CShort)
     where getField = fromPtr (Proxy @"unwrapInt16_T")
 instance HasCField Int16_T "unwrapInt16_T"
     where type CFieldType Int16_T "unwrapInt16_T" = CShort
@@ -104,8 +103,7 @@ newtype Int32_T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int32_T "unwrapInt32_T") =>
-         HasField "unwrapInt32_T" (Ptr Int32_T) (Ptr ty)
+instance HasField "unwrapInt32_T" (Ptr Int32_T) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapInt32_T")
 instance HasCField Int32_T "unwrapInt32_T"
     where type CFieldType Int32_T "unwrapInt32_T" = CInt
@@ -141,8 +139,7 @@ newtype Int64_T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int64_T "unwrapInt64_T") =>
-         HasField "unwrapInt64_T" (Ptr Int64_T) (Ptr ty)
+instance HasField "unwrapInt64_T" (Ptr Int64_T) (Ptr CLLong)
     where getField = fromPtr (Proxy @"unwrapInt64_T")
 instance HasCField Int64_T "unwrapInt64_T"
     where type CFieldType Int64_T "unwrapInt64_T" = CLLong
@@ -189,14 +186,12 @@ deriving via (EquivStorable Cint16_T) instance Storable Cint16_T
 instance HasCField Cint16_T "cint16_T_re"
     where type CFieldType Cint16_T "cint16_T_re" = Int16_T
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Cint16_T "cint16_T_re") =>
-         HasField "cint16_T_re" (Ptr Cint16_T) (Ptr ty)
+instance HasField "cint16_T_re" (Ptr Cint16_T) (Ptr Int16_T)
     where getField = fromPtr (Proxy @"cint16_T_re")
 instance HasCField Cint16_T "cint16_T_im"
     where type CFieldType Cint16_T "cint16_T_im" = Int16_T
           offset# = \_ -> \_ -> 2
-instance TyEq ty (CFieldType Cint16_T "cint16_T_im") =>
-         HasField "cint16_T_im" (Ptr Cint16_T) (Ptr ty)
+instance HasField "cint16_T_im" (Ptr Cint16_T) (Ptr Int16_T)
     where getField = fromPtr (Proxy @"cint16_T_im")
 {-| __C declaration:__ @struct B@
 
@@ -289,32 +284,29 @@ deriving via (EquivStorable A) instance Storable A
 instance HasCField A "a_x"
     where type CFieldType A "a_x" = CDouble
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType A "a_x") =>
-         HasField "a_x" (Ptr A) (Ptr ty)
+instance HasField "a_x" (Ptr A) (Ptr CDouble)
     where getField = fromPtr (Proxy @"a_x")
 instance HasCField A "a_label"
     where type CFieldType A "a_label" = Ptr CChar
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType A "a_label") =>
-         HasField "a_label" (Ptr A) (Ptr ty)
+instance HasField "a_label" (Ptr A) (Ptr (Ptr CChar))
     where getField = fromPtr (Proxy @"a_label")
 instance HasCField A "a_samples"
     where type CFieldType A "a_samples" = ConstantArray 128 CChar
           offset# = \_ -> \_ -> 16
-instance TyEq ty (CFieldType A "a_samples") =>
-         HasField "a_samples" (Ptr A) (Ptr ty)
+instance HasField "a_samples"
+                  (Ptr A)
+                  (Ptr (ConstantArray 128 CChar))
     where getField = fromPtr (Proxy @"a_samples")
 instance HasCField A "a_b"
     where type CFieldType A "a_b" = B
           offset# = \_ -> \_ -> 144
-instance TyEq ty (CFieldType A "a_b") =>
-         HasField "a_b" (Ptr A) (Ptr ty)
+instance HasField "a_b" (Ptr A) (Ptr B)
     where getField = fromPtr (Proxy @"a_b")
 instance HasCField A "a_c"
     where type CFieldType A "a_c" = Ptr C
           offset# = \_ -> \_ -> 144
-instance TyEq ty (CFieldType A "a_c") =>
-         HasField "a_c" (Ptr A) (Ptr ty)
+instance HasField "a_c" (Ptr A) (Ptr (Ptr C))
     where getField = fromPtr (Proxy @"a_c")
 {-| __C declaration:__ @struct C@
 
