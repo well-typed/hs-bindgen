@@ -161,8 +161,9 @@ instance ToFunPtr MyFunction
     where toFunPtr = hs_bindgen_4e8a459829b269e0
 instance FromFunPtr MyFunction
     where fromFunPtr = hs_bindgen_bb71f7e730356103
-instance TyEq ty (CFieldType MyFunction "unwrapMyFunction") =>
-         HasField "unwrapMyFunction" (Ptr MyFunction) (Ptr ty)
+instance HasField "unwrapMyFunction"
+                  (Ptr MyFunction)
+                  (Ptr (CInt -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapMyFunction")
 instance HasCField MyFunction "unwrapMyFunction"
     where type CFieldType MyFunction "unwrapMyFunction" = CInt ->
@@ -184,8 +185,7 @@ newtype A
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr MyFunction)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyFunction
@@ -206,8 +206,7 @@ newtype B
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType B "unwrapB") =>
-         HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

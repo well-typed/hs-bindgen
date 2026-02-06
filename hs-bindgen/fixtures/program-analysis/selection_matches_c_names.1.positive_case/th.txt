@@ -48,8 +48,7 @@ deriving via (EquivStorable NewName) instance Storable NewName
 instance HasCField NewName "newName_x"
     where type CFieldType NewName "newName_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType NewName "newName_x") =>
-         HasField "newName_x" (Ptr NewName) (Ptr ty)
+instance HasField "newName_x" (Ptr NewName) (Ptr CInt)
     where getField = fromPtr (Proxy @"newName_x")
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8ced_base ::

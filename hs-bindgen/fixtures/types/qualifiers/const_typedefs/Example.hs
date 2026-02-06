@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -36,7 +34,6 @@ import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, return, showsPrec)
 
 {-| __C declaration:__ @I@
@@ -68,8 +65,7 @@ newtype I = I
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType I) "unwrapI")
-         ) => GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapI")
@@ -209,8 +205,7 @@ instance Read E where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "unwrapE")
-         ) => GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapE")
@@ -259,8 +254,7 @@ newtype TI = TI
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TI) "unwrapTI")
-         ) => GHC.Records.HasField "unwrapTI" (Ptr.Ptr TI) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTI" (Ptr.Ptr TI) (Ptr.Ptr I) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTI")
@@ -289,8 +283,7 @@ newtype TS = TS
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TS) "unwrapTS")
-         ) => GHC.Records.HasField "unwrapTS" (Ptr.Ptr TS) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTS" (Ptr.Ptr TS) (Ptr.Ptr S) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTS")
@@ -318,8 +311,7 @@ newtype TU = TU
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TU) "unwrapTU")
-         ) => GHC.Records.HasField "unwrapTU" (Ptr.Ptr TU) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTU" (Ptr.Ptr TU) (Ptr.Ptr U) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTU")
@@ -350,8 +342,7 @@ newtype TE = TE
     , Data.Primitive.Types.Prim
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TE) "unwrapTE")
-         ) => GHC.Records.HasField "unwrapTE" (Ptr.Ptr TE) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTE" (Ptr.Ptr TE) (Ptr.Ptr E) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTE")
@@ -391,8 +382,7 @@ newtype TTI = TTI
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTI) "unwrapTTI")
-         ) => GHC.Records.HasField "unwrapTTI" (Ptr.Ptr TTI) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTTI" (Ptr.Ptr TTI) (Ptr.Ptr TI) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTI")
@@ -421,8 +411,7 @@ newtype TTS = TTS
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTS) "unwrapTTS")
-         ) => GHC.Records.HasField "unwrapTTS" (Ptr.Ptr TTS) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTTS" (Ptr.Ptr TTS) (Ptr.Ptr TS) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTS")
@@ -450,8 +439,7 @@ newtype TTU = TTU
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTU) "unwrapTTU")
-         ) => GHC.Records.HasField "unwrapTTU" (Ptr.Ptr TTU) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTTU" (Ptr.Ptr TTU) (Ptr.Ptr TU) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTU")
@@ -482,8 +470,7 @@ newtype TTE = TTE
     , Data.Primitive.Types.Prim
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TTE) "unwrapTTE")
-         ) => GHC.Records.HasField "unwrapTTE" (Ptr.Ptr TTE) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTTE" (Ptr.Ptr TTE) (Ptr.Ptr TE) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTTE")

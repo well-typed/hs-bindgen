@@ -47,8 +47,9 @@ newtype Stdlib_CBool
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_CBool "unwrapStdlib_CBool") =>
-         HasField "unwrapStdlib_CBool" (Ptr Stdlib_CBool) (Ptr ty)
+instance HasField "unwrapStdlib_CBool"
+                  (Ptr Stdlib_CBool)
+                  (Ptr CBool)
     where getField = fromPtr (Proxy @"unwrapStdlib_CBool")
 instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
     where type CFieldType Stdlib_CBool "unwrapStdlib_CBool" = CBool
@@ -84,8 +85,9 @@ newtype Stdlib_Int8
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int8 "unwrapStdlib_Int8") =>
-         HasField "unwrapStdlib_Int8" (Ptr Stdlib_Int8) (Ptr ty)
+instance HasField "unwrapStdlib_Int8"
+                  (Ptr Stdlib_Int8)
+                  (Ptr HsBindgen.Runtime.LibC.Int8)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int8")
 instance HasCField Stdlib_Int8 "unwrapStdlib_Int8"
     where type CFieldType Stdlib_Int8
@@ -122,8 +124,9 @@ newtype Stdlib_Int16
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int16 "unwrapStdlib_Int16") =>
-         HasField "unwrapStdlib_Int16" (Ptr Stdlib_Int16) (Ptr ty)
+instance HasField "unwrapStdlib_Int16"
+                  (Ptr Stdlib_Int16)
+                  (Ptr HsBindgen.Runtime.LibC.Int16)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int16")
 instance HasCField Stdlib_Int16 "unwrapStdlib_Int16"
     where type CFieldType Stdlib_Int16
@@ -160,8 +163,9 @@ newtype Stdlib_Int32
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int32 "unwrapStdlib_Int32") =>
-         HasField "unwrapStdlib_Int32" (Ptr Stdlib_Int32) (Ptr ty)
+instance HasField "unwrapStdlib_Int32"
+                  (Ptr Stdlib_Int32)
+                  (Ptr HsBindgen.Runtime.LibC.Int32)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int32")
 instance HasCField Stdlib_Int32 "unwrapStdlib_Int32"
     where type CFieldType Stdlib_Int32
@@ -198,8 +202,9 @@ newtype Stdlib_Int64
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int64 "unwrapStdlib_Int64") =>
-         HasField "unwrapStdlib_Int64" (Ptr Stdlib_Int64) (Ptr ty)
+instance HasField "unwrapStdlib_Int64"
+                  (Ptr Stdlib_Int64)
+                  (Ptr HsBindgen.Runtime.LibC.Int64)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int64")
 instance HasCField Stdlib_Int64 "unwrapStdlib_Int64"
     where type CFieldType Stdlib_Int64
@@ -236,8 +241,9 @@ newtype Stdlib_Word8
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Word8 "unwrapStdlib_Word8") =>
-         HasField "unwrapStdlib_Word8" (Ptr Stdlib_Word8) (Ptr ty)
+instance HasField "unwrapStdlib_Word8"
+                  (Ptr Stdlib_Word8)
+                  (Ptr HsBindgen.Runtime.LibC.Word8)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word8")
 instance HasCField Stdlib_Word8 "unwrapStdlib_Word8"
     where type CFieldType Stdlib_Word8
@@ -274,9 +280,9 @@ newtype Stdlib_Word16
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_Word16 "unwrapStdlib_Word16") =>
-         HasField "unwrapStdlib_Word16" (Ptr Stdlib_Word16) (Ptr ty)
+instance HasField "unwrapStdlib_Word16"
+                  (Ptr Stdlib_Word16)
+                  (Ptr HsBindgen.Runtime.LibC.Word16)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word16")
 instance HasCField Stdlib_Word16 "unwrapStdlib_Word16"
     where type CFieldType Stdlib_Word16
@@ -313,9 +319,9 @@ newtype Stdlib_Word32
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_Word32 "unwrapStdlib_Word32") =>
-         HasField "unwrapStdlib_Word32" (Ptr Stdlib_Word32) (Ptr ty)
+instance HasField "unwrapStdlib_Word32"
+                  (Ptr Stdlib_Word32)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word32")
 instance HasCField Stdlib_Word32 "unwrapStdlib_Word32"
     where type CFieldType Stdlib_Word32
@@ -352,9 +358,9 @@ newtype Stdlib_Word64
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_Word64 "unwrapStdlib_Word64") =>
-         HasField "unwrapStdlib_Word64" (Ptr Stdlib_Word64) (Ptr ty)
+instance HasField "unwrapStdlib_Word64"
+                  (Ptr Stdlib_Word64)
+                  (Ptr HsBindgen.Runtime.LibC.Word64)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word64")
 instance HasCField Stdlib_Word64 "unwrapStdlib_Word64"
     where type CFieldType Stdlib_Word64
@@ -391,9 +397,9 @@ newtype Stdlib_CIntMax
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CIntMax "unwrapStdlib_CIntMax") =>
-         HasField "unwrapStdlib_CIntMax" (Ptr Stdlib_CIntMax) (Ptr ty)
+instance HasField "unwrapStdlib_CIntMax"
+                  (Ptr Stdlib_CIntMax)
+                  (Ptr HsBindgen.Runtime.LibC.CIntMax)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntMax")
 instance HasCField Stdlib_CIntMax "unwrapStdlib_CIntMax"
     where type CFieldType Stdlib_CIntMax
@@ -430,9 +436,9 @@ newtype Stdlib_CUIntMax
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CUIntMax "unwrapStdlib_CUIntMax") =>
-         HasField "unwrapStdlib_CUIntMax" (Ptr Stdlib_CUIntMax) (Ptr ty)
+instance HasField "unwrapStdlib_CUIntMax"
+                  (Ptr Stdlib_CUIntMax)
+                  (Ptr HsBindgen.Runtime.LibC.CUIntMax)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntMax")
 instance HasCField Stdlib_CUIntMax "unwrapStdlib_CUIntMax"
     where type CFieldType Stdlib_CUIntMax
@@ -469,9 +475,9 @@ newtype Stdlib_CIntPtr
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CIntPtr "unwrapStdlib_CIntPtr") =>
-         HasField "unwrapStdlib_CIntPtr" (Ptr Stdlib_CIntPtr) (Ptr ty)
+instance HasField "unwrapStdlib_CIntPtr"
+                  (Ptr Stdlib_CIntPtr)
+                  (Ptr HsBindgen.Runtime.LibC.CIntPtr)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntPtr")
 instance HasCField Stdlib_CIntPtr "unwrapStdlib_CIntPtr"
     where type CFieldType Stdlib_CIntPtr
@@ -508,9 +514,9 @@ newtype Stdlib_CUIntPtr
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr") =>
-         HasField "unwrapStdlib_CUIntPtr" (Ptr Stdlib_CUIntPtr) (Ptr ty)
+instance HasField "unwrapStdlib_CUIntPtr"
+                  (Ptr Stdlib_CUIntPtr)
+                  (Ptr HsBindgen.Runtime.LibC.CUIntPtr)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntPtr")
 instance HasCField Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr"
     where type CFieldType Stdlib_CUIntPtr
@@ -531,9 +537,9 @@ newtype Stdlib_CFenvT
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CFenvT "unwrapStdlib_CFenvT") =>
-         HasField "unwrapStdlib_CFenvT" (Ptr Stdlib_CFenvT) (Ptr ty)
+instance HasField "unwrapStdlib_CFenvT"
+                  (Ptr Stdlib_CFenvT)
+                  (Ptr HsBindgen.Runtime.LibC.CFenvT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFenvT")
 instance HasCField Stdlib_CFenvT "unwrapStdlib_CFenvT"
     where type CFieldType Stdlib_CFenvT
@@ -554,9 +560,9 @@ newtype Stdlib_CFexceptT
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CFexceptT "unwrapStdlib_CFexceptT") =>
-         HasField "unwrapStdlib_CFexceptT" (Ptr Stdlib_CFexceptT) (Ptr ty)
+instance HasField "unwrapStdlib_CFexceptT"
+                  (Ptr Stdlib_CFexceptT)
+                  (Ptr HsBindgen.Runtime.LibC.CFexceptT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFexceptT")
 instance HasCField Stdlib_CFexceptT "unwrapStdlib_CFexceptT"
     where type CFieldType Stdlib_CFexceptT
@@ -593,8 +599,9 @@ newtype Stdlib_CSize
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_CSize "unwrapStdlib_CSize") =>
-         HasField "unwrapStdlib_CSize" (Ptr Stdlib_CSize) (Ptr ty)
+instance HasField "unwrapStdlib_CSize"
+                  (Ptr Stdlib_CSize)
+                  (Ptr HsBindgen.Runtime.LibC.CSize)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSize")
 instance HasCField Stdlib_CSize "unwrapStdlib_CSize"
     where type CFieldType Stdlib_CSize
@@ -631,9 +638,9 @@ newtype Stdlib_CPtrdiff
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff") =>
-         HasField "unwrapStdlib_CPtrdiff" (Ptr Stdlib_CPtrdiff) (Ptr ty)
+instance HasField "unwrapStdlib_CPtrdiff"
+                  (Ptr Stdlib_CPtrdiff)
+                  (Ptr HsBindgen.Runtime.LibC.CPtrdiff)
     where getField = fromPtr (Proxy @"unwrapStdlib_CPtrdiff")
 instance HasCField Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff"
     where type CFieldType Stdlib_CPtrdiff
@@ -654,9 +661,9 @@ newtype Stdlib_CJmpBuf
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf") =>
-         HasField "unwrapStdlib_CJmpBuf" (Ptr Stdlib_CJmpBuf) (Ptr ty)
+instance HasField "unwrapStdlib_CJmpBuf"
+                  (Ptr Stdlib_CJmpBuf)
+                  (Ptr HsBindgen.Runtime.LibC.CJmpBuf)
     where getField = fromPtr (Proxy @"unwrapStdlib_CJmpBuf")
 instance HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf"
     where type CFieldType Stdlib_CJmpBuf
@@ -693,9 +700,9 @@ newtype Stdlib_CWchar
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CWchar "unwrapStdlib_CWchar") =>
-         HasField "unwrapStdlib_CWchar" (Ptr Stdlib_CWchar) (Ptr ty)
+instance HasField "unwrapStdlib_CWchar"
+                  (Ptr Stdlib_CWchar)
+                  (Ptr HsBindgen.Runtime.LibC.CWchar)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWchar")
 instance HasCField Stdlib_CWchar "unwrapStdlib_CWchar"
     where type CFieldType Stdlib_CWchar
@@ -732,9 +739,9 @@ newtype Stdlib_CWintT
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CWintT "unwrapStdlib_CWintT") =>
-         HasField "unwrapStdlib_CWintT" (Ptr Stdlib_CWintT) (Ptr ty)
+instance HasField "unwrapStdlib_CWintT"
+                  (Ptr Stdlib_CWintT)
+                  (Ptr HsBindgen.Runtime.LibC.CWintT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWintT")
 instance HasCField Stdlib_CWintT "unwrapStdlib_CWintT"
     where type CFieldType Stdlib_CWintT
@@ -755,9 +762,9 @@ newtype Stdlib_CMbstateT
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CMbstateT "unwrapStdlib_CMbstateT") =>
-         HasField "unwrapStdlib_CMbstateT" (Ptr Stdlib_CMbstateT) (Ptr ty)
+instance HasField "unwrapStdlib_CMbstateT"
+                  (Ptr Stdlib_CMbstateT)
+                  (Ptr HsBindgen.Runtime.LibC.CMbstateT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CMbstateT")
 instance HasCField Stdlib_CMbstateT "unwrapStdlib_CMbstateT"
     where type CFieldType Stdlib_CMbstateT
@@ -785,9 +792,9 @@ newtype Stdlib_CWctransT
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty
-              (CFieldType Stdlib_CWctransT "unwrapStdlib_CWctransT") =>
-         HasField "unwrapStdlib_CWctransT" (Ptr Stdlib_CWctransT) (Ptr ty)
+instance HasField "unwrapStdlib_CWctransT"
+                  (Ptr Stdlib_CWctransT)
+                  (Ptr HsBindgen.Runtime.LibC.CWctransT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctransT")
 instance HasCField Stdlib_CWctransT "unwrapStdlib_CWctransT"
     where type CFieldType Stdlib_CWctransT
@@ -815,9 +822,9 @@ newtype Stdlib_CWctypeT
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty
-              (CFieldType Stdlib_CWctypeT "unwrapStdlib_CWctypeT") =>
-         HasField "unwrapStdlib_CWctypeT" (Ptr Stdlib_CWctypeT) (Ptr ty)
+instance HasField "unwrapStdlib_CWctypeT"
+                  (Ptr Stdlib_CWctypeT)
+                  (Ptr HsBindgen.Runtime.LibC.CWctypeT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctypeT")
 instance HasCField Stdlib_CWctypeT "unwrapStdlib_CWctypeT"
     where type CFieldType Stdlib_CWctypeT
@@ -854,9 +861,9 @@ newtype Stdlib_CChar16T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CChar16T "unwrapStdlib_CChar16T") =>
-         HasField "unwrapStdlib_CChar16T" (Ptr Stdlib_CChar16T) (Ptr ty)
+instance HasField "unwrapStdlib_CChar16T"
+                  (Ptr Stdlib_CChar16T)
+                  (Ptr HsBindgen.Runtime.LibC.CChar16T)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar16T")
 instance HasCField Stdlib_CChar16T "unwrapStdlib_CChar16T"
     where type CFieldType Stdlib_CChar16T
@@ -893,9 +900,9 @@ newtype Stdlib_CChar32T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CChar32T "unwrapStdlib_CChar32T") =>
-         HasField "unwrapStdlib_CChar32T" (Ptr Stdlib_CChar32T) (Ptr ty)
+instance HasField "unwrapStdlib_CChar32T"
+                  (Ptr Stdlib_CChar32T)
+                  (Ptr HsBindgen.Runtime.LibC.CChar32T)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar32T")
 instance HasCField Stdlib_CChar32T "unwrapStdlib_CChar32T"
     where type CFieldType Stdlib_CChar32T
@@ -925,8 +932,9 @@ newtype Stdlib_CTime
                       Enum,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_CTime "unwrapStdlib_CTime") =>
-         HasField "unwrapStdlib_CTime" (Ptr Stdlib_CTime) (Ptr ty)
+instance HasField "unwrapStdlib_CTime"
+                  (Ptr Stdlib_CTime)
+                  (Ptr HsBindgen.Runtime.LibC.CTime)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTime")
 instance HasCField Stdlib_CTime "unwrapStdlib_CTime"
     where type CFieldType Stdlib_CTime
@@ -956,9 +964,9 @@ newtype Stdlib_CClock
                       Enum,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CClock "unwrapStdlib_CClock") =>
-         HasField "unwrapStdlib_CClock" (Ptr Stdlib_CClock) (Ptr ty)
+instance HasField "unwrapStdlib_CClock"
+                  (Ptr Stdlib_CClock)
+                  (Ptr HsBindgen.Runtime.LibC.CClock)
     where getField = fromPtr (Proxy @"unwrapStdlib_CClock")
 instance HasCField Stdlib_CClock "unwrapStdlib_CClock"
     where type CFieldType Stdlib_CClock
@@ -981,8 +989,9 @@ newtype Stdlib_CTm
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw)
-instance TyEq ty (CFieldType Stdlib_CTm "unwrapStdlib_CTm") =>
-         HasField "unwrapStdlib_CTm" (Ptr Stdlib_CTm) (Ptr ty)
+instance HasField "unwrapStdlib_CTm"
+                  (Ptr Stdlib_CTm)
+                  (Ptr HsBindgen.Runtime.LibC.CTm)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTm")
 instance HasCField Stdlib_CTm "unwrapStdlib_CTm"
     where type CFieldType Stdlib_CTm
@@ -1003,8 +1012,9 @@ newtype Stdlib_CFile
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
     deriving stock Generic
-instance TyEq ty (CFieldType Stdlib_CFile "unwrapStdlib_CFile") =>
-         HasField "unwrapStdlib_CFile" (Ptr Stdlib_CFile) (Ptr ty)
+instance HasField "unwrapStdlib_CFile"
+                  (Ptr Stdlib_CFile)
+                  (Ptr HsBindgen.Runtime.LibC.CFile)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFile")
 instance HasCField Stdlib_CFile "unwrapStdlib_CFile"
     where type CFieldType Stdlib_CFile
@@ -1025,8 +1035,9 @@ newtype Stdlib_CFpos
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
     deriving stock Generic
-instance TyEq ty (CFieldType Stdlib_CFpos "unwrapStdlib_CFpos") =>
-         HasField "unwrapStdlib_CFpos" (Ptr Stdlib_CFpos) (Ptr ty)
+instance HasField "unwrapStdlib_CFpos"
+                  (Ptr Stdlib_CFpos)
+                  (Ptr HsBindgen.Runtime.LibC.CFpos)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFpos")
 instance HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
     where type CFieldType Stdlib_CFpos
@@ -1063,9 +1074,9 @@ newtype Stdlib_CSigAtomic
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CSigAtomic "unwrapStdlib_CSigAtomic") =>
-         HasField "unwrapStdlib_CSigAtomic" (Ptr Stdlib_CSigAtomic) (Ptr ty)
+instance HasField "unwrapStdlib_CSigAtomic"
+                  (Ptr Stdlib_CSigAtomic)
+                  (Ptr HsBindgen.Runtime.LibC.CSigAtomic)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSigAtomic")
 instance HasCField Stdlib_CSigAtomic "unwrapStdlib_CSigAtomic"
     where type CFieldType Stdlib_CSigAtomic

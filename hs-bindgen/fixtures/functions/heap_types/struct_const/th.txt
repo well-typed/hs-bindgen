@@ -56,8 +56,7 @@ deriving via (EquivStorable T) instance Storable T
 instance HasCField T "t_x"
     where type CFieldType T "t_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType T "t_x") =>
-         HasField "t_x" (Ptr T) (Ptr ty)
+instance HasField "t_x" (Ptr T) (Ptr CInt)
     where getField = fromPtr (Proxy @"t_x")
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc_base ::

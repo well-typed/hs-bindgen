@@ -41,17 +41,17 @@ deriving via (EquivStorable Linked_list_A_t) instance Storable Linked_list_A_t
 instance HasCField Linked_list_A_t "linked_list_A_t_x"
     where type CFieldType Linked_list_A_t "linked_list_A_t_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Linked_list_A_t "linked_list_A_t_x") =>
-         HasField "linked_list_A_t_x" (Ptr Linked_list_A_t) (Ptr ty)
+instance HasField "linked_list_A_t_x"
+                  (Ptr Linked_list_A_t)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"linked_list_A_t_x")
 instance HasCField Linked_list_A_t "linked_list_A_t_next"
     where type CFieldType Linked_list_A_t
                           "linked_list_A_t_next" = Ptr Linked_list_A_t
           offset# = \_ -> \_ -> 8
-instance TyEq ty
-              (CFieldType Linked_list_A_t "linked_list_A_t_next") =>
-         HasField "linked_list_A_t_next" (Ptr Linked_list_A_t) (Ptr ty)
+instance HasField "linked_list_A_t_next"
+                  (Ptr Linked_list_A_t)
+                  (Ptr (Ptr Linked_list_A_t))
     where getField = fromPtr (Proxy @"linked_list_A_t_next")
 {-| __C declaration:__ @struct linked_list_B_t@
 
@@ -95,15 +95,15 @@ deriving via (EquivStorable Linked_list_B_t) instance Storable Linked_list_B_t
 instance HasCField Linked_list_B_t "linked_list_B_t_x"
     where type CFieldType Linked_list_B_t "linked_list_B_t_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Linked_list_B_t "linked_list_B_t_x") =>
-         HasField "linked_list_B_t_x" (Ptr Linked_list_B_t) (Ptr ty)
+instance HasField "linked_list_B_t_x"
+                  (Ptr Linked_list_B_t)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"linked_list_B_t_x")
 instance HasCField Linked_list_B_t "linked_list_B_t_next"
     where type CFieldType Linked_list_B_t
                           "linked_list_B_t_next" = Ptr Linked_list_B_t
           offset# = \_ -> \_ -> 8
-instance TyEq ty
-              (CFieldType Linked_list_B_t "linked_list_B_t_next") =>
-         HasField "linked_list_B_t_next" (Ptr Linked_list_B_t) (Ptr ty)
+instance HasField "linked_list_B_t_next"
+                  (Ptr Linked_list_B_t)
+                  (Ptr (Ptr Linked_list_B_t))
     where getField = fromPtr (Proxy @"linked_list_B_t_next")

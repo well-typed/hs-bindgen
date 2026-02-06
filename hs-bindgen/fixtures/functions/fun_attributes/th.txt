@@ -493,8 +493,7 @@ newtype Size_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Size_t "unwrapSize_t") =>
-         HasField "unwrapSize_t" (Ptr Size_t) (Ptr ty)
+instance HasField "unwrapSize_t" (Ptr Size_t) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapSize_t")
 instance HasCField Size_t "unwrapSize_t"
     where type CFieldType Size_t "unwrapSize_t" = CInt

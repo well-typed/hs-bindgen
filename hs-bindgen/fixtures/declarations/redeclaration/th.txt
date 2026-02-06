@@ -37,8 +37,7 @@ newtype Int_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Int_t "unwrapInt_t") =>
-         HasField "unwrapInt_t" (Ptr Int_t) (Ptr ty)
+instance HasField "unwrapInt_t" (Ptr Int_t) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapInt_t")
 instance HasCField Int_t "unwrapInt_t"
     where type CFieldType Int_t "unwrapInt_t" = CInt
@@ -77,8 +76,7 @@ deriving via (EquivStorable X) instance Storable X
 instance HasCField X "x_n"
     where type CFieldType X "x_n" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType X "x_n") =>
-         HasField "x_n" (Ptr X) (Ptr ty)
+instance HasField "x_n" (Ptr X) (Ptr CInt)
     where getField = fromPtr (Proxy @"x_n")
 {-| __C declaration:__ @union Y@
 
@@ -170,14 +168,12 @@ set_y_o = setUnionPayload
 instance HasCField Y "y_m"
     where type CFieldType Y "y_m" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Y "y_m") =>
-         HasField "y_m" (Ptr Y) (Ptr ty)
+instance HasField "y_m" (Ptr Y) (Ptr CInt)
     where getField = fromPtr (Proxy @"y_m")
 instance HasCField Y "y_o"
     where type CFieldType Y "y_o" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Y "y_o") =>
-         HasField "y_o" (Ptr Y) (Ptr ty)
+instance HasField "y_o" (Ptr Y) (Ptr CInt)
     where getField = fromPtr (Proxy @"y_o")
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9_base ::

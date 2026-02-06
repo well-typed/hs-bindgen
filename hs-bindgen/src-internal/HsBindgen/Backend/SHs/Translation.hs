@@ -516,6 +516,10 @@ translateHasCBitfieldInstance inst mbComment = Instance{
     o         = fromIntegral inst.bitOffset
     w         = fromIntegral inst.bitWidth
 
+{-------------------------------------------------------------------------------
+  'HasField'
+-------------------------------------------------------------------------------}
+
 translateHasFieldInstance ::
      Hs.HasFieldInstance
   -> Maybe HsDoc.Comment
@@ -525,12 +529,7 @@ translateHasFieldInstance inst mbComment = Instance{
     , args    = [fieldLit, parentPtr, tyPtr]
     , types   = []
     , comment = mbComment
-    , super   = [ ( NomEq_class
-                  , [ tyTypeVar
-                    , TGlobal fieldTypeGlobal `TApp` parent `TApp` fieldLit
-                    ]
-                  )
-                ]
+    , super   = []
     , decs    = [ ( HasField_getField
                   , EGlobal ptrToFieldGlobal `EApp`
                       (EGlobal Proxy_constructor `ETypeApp` fieldLit)
@@ -538,24 +537,21 @@ translateHasFieldInstance inst mbComment = Instance{
                 ]
     }
   where
-    (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) =
+    (ptrToFieldGlobal, tyPtr) =
       case inst.deriveVia of
         Hs.ViaHasCField -> (
-            HasCField_CFieldType
-          , HasCField_fromPtr
-          , TGlobal Foreign_Ptr `TApp` tyTypeVar
+            HasCField_fromPtr
+          , TGlobal Foreign_Ptr `TApp` field
           )
         Hs.ViaHasCBitfield -> (
-            HasCBitfield_CBitfieldType
-          , HasCBitfield_toPtr
-          , TGlobal HasCBitfield_BitfieldPtr `TApp` tyTypeVar
+            HasCBitfield_toPtr
+          , TGlobal HasCBitfield_BitfieldPtr `TApp` field
           )
 
     parent    = translateType inst.parentType
     parentPtr = TGlobal Foreign_Ptr `TApp` parent
+    field     = translateType inst.fieldType
     fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
-    -- TODO: this is not actually a free type variable. See issue #1287.
-    tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------
   Unions

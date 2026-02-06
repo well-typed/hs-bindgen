@@ -3,7 +3,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -12,7 +11,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -43,7 +41,6 @@ import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| Auxiliary type used by 'FileOpenedNotification'
@@ -92,8 +89,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr FileOpenedNotification_Aux
 
   fromFunPtr = hs_bindgen_f3ba5920f34c7f6a
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification_Aux) "unwrapFileOpenedNotification_Aux")
-         ) => GHC.Records.HasField "unwrapFileOpenedNotification_Aux" (Ptr.Ptr FileOpenedNotification_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFileOpenedNotification_Aux" (Ptr.Ptr FileOpenedNotification_Aux) (Ptr.Ptr (IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFileOpenedNotification_Aux")
@@ -124,8 +120,7 @@ newtype FileOpenedNotification = FileOpenedNotification
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification) "unwrapFileOpenedNotification")
-         ) => GHC.Records.HasField "unwrapFileOpenedNotification" (Ptr.Ptr FileOpenedNotification) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFileOpenedNotification" (Ptr.Ptr FileOpenedNotification) (Ptr.Ptr (Ptr.FunPtr FileOpenedNotification_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFileOpenedNotification")
@@ -183,8 +178,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr ProgressUpdate_Aux where
 
   fromFunPtr = hs_bindgen_ccf7f4b62a839a04
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate_Aux) "unwrapProgressUpdate_Aux")
-         ) => GHC.Records.HasField "unwrapProgressUpdate_Aux" (Ptr.Ptr ProgressUpdate_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapProgressUpdate_Aux" (Ptr.Ptr ProgressUpdate_Aux) (Ptr.Ptr (FC.CInt -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProgressUpdate_Aux")
@@ -215,8 +209,7 @@ newtype ProgressUpdate = ProgressUpdate
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate) "unwrapProgressUpdate")
-         ) => GHC.Records.HasField "unwrapProgressUpdate" (Ptr.Ptr ProgressUpdate) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapProgressUpdate" (Ptr.Ptr ProgressUpdate) (Ptr.Ptr (Ptr.FunPtr ProgressUpdate_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProgressUpdate")
@@ -274,8 +267,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr DataValidator_Aux where
 
   fromFunPtr = hs_bindgen_c1e79a4c11ca4033
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator_Aux) "unwrapDataValidator_Aux")
-         ) => GHC.Records.HasField "unwrapDataValidator_Aux" (Ptr.Ptr DataValidator_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapDataValidator_Aux" (Ptr.Ptr DataValidator_Aux) (Ptr.Ptr (FC.CInt -> IO FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapDataValidator_Aux")
@@ -306,8 +298,7 @@ newtype DataValidator = DataValidator
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator) "unwrapDataValidator")
-         ) => GHC.Records.HasField "unwrapDataValidator" (Ptr.Ptr DataValidator) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapDataValidator" (Ptr.Ptr DataValidator) (Ptr.Ptr (Ptr.FunPtr DataValidator_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapDataValidator")
@@ -377,8 +368,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Measurement "measurement_value" w
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Measurement) "measurement_value")
-         ) => GHC.Records.HasField "measurement_value" (Ptr.Ptr Measurement) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "measurement_value" (Ptr.Ptr Measurement) (Ptr.Ptr FC.CDouble) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"measurement_value")
@@ -390,8 +380,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Measurement "measurement_timestam
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Measurement) "measurement_timestamp")
-         ) => GHC.Records.HasField "measurement_timestamp" (Ptr.Ptr Measurement) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "measurement_timestamp" (Ptr.Ptr Measurement) (Ptr.Ptr FC.CDouble) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"measurement_timestamp")
@@ -442,8 +431,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr MeasurementReceived_Aux wh
 
   fromFunPtr = hs_bindgen_383c36bb22947621
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived_Aux) "unwrapMeasurementReceived_Aux")
-         ) => GHC.Records.HasField "unwrapMeasurementReceived_Aux" (Ptr.Ptr MeasurementReceived_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMeasurementReceived_Aux" (Ptr.Ptr MeasurementReceived_Aux) (Ptr.Ptr ((Ptr.Ptr Measurement) -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMeasurementReceived_Aux")
@@ -474,8 +462,7 @@ newtype MeasurementReceived = MeasurementReceived
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived) "unwrapMeasurementReceived")
-         ) => GHC.Records.HasField "unwrapMeasurementReceived" (Ptr.Ptr MeasurementReceived) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMeasurementReceived" (Ptr.Ptr MeasurementReceived) (Ptr.Ptr (Ptr.FunPtr MeasurementReceived_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMeasurementReceived")
@@ -500,8 +487,7 @@ newtype MeasurementReceived2_Aux = MeasurementReceived2_Aux
   }
   deriving stock (GHC.Generics.Generic)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2_Aux) "unwrapMeasurementReceived2_Aux")
-         ) => GHC.Records.HasField "unwrapMeasurementReceived2_Aux" (Ptr.Ptr MeasurementReceived2_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMeasurementReceived2_Aux" (Ptr.Ptr MeasurementReceived2_Aux) (Ptr.Ptr (Measurement -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMeasurementReceived2_Aux")
@@ -532,8 +518,7 @@ newtype MeasurementReceived2 = MeasurementReceived2
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2) "unwrapMeasurementReceived2")
-         ) => GHC.Records.HasField "unwrapMeasurementReceived2" (Ptr.Ptr MeasurementReceived2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMeasurementReceived2" (Ptr.Ptr MeasurementReceived2) (Ptr.Ptr (Ptr.FunPtr MeasurementReceived2_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMeasurementReceived2")
@@ -558,8 +543,7 @@ newtype SampleBufferFull_Aux = SampleBufferFull_Aux
   }
   deriving stock (GHC.Generics.Generic)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull_Aux) "unwrapSampleBufferFull_Aux")
-         ) => GHC.Records.HasField "unwrapSampleBufferFull_Aux" (Ptr.Ptr SampleBufferFull_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapSampleBufferFull_Aux" (Ptr.Ptr SampleBufferFull_Aux) (Ptr.Ptr (((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSampleBufferFull_Aux")
@@ -590,8 +574,7 @@ newtype SampleBufferFull = SampleBufferFull
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull) "unwrapSampleBufferFull")
-         ) => GHC.Records.HasField "unwrapSampleBufferFull" (Ptr.Ptr SampleBufferFull) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapSampleBufferFull" (Ptr.Ptr SampleBufferFull) (Ptr.Ptr (Ptr.FunPtr SampleBufferFull_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSampleBufferFull")
@@ -673,8 +656,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHa
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) "measurementHandler_onReceived")
-         ) => GHC.Records.HasField "measurementHandler_onReceived" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "measurementHandler_onReceived" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"measurementHandler_onReceived")
@@ -686,8 +668,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHa
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) "measurementHandler_validate")
-         ) => GHC.Records.HasField "measurementHandler_validate" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "measurementHandler_validate" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"measurementHandler_validate")
@@ -699,8 +680,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHa
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) "measurementHandler_onError")
-         ) => GHC.Records.HasField "measurementHandler_onError" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "measurementHandler_onError" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr (Ptr.FunPtr (FC.CInt -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"measurementHandler_onError")
@@ -775,8 +755,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_prePro
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataPipeline_preProcess")
-         ) => GHC.Records.HasField "dataPipeline_preProcess" (Ptr.Ptr DataPipeline) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "dataPipeline_preProcess" (Ptr.Ptr DataPipeline) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dataPipeline_preProcess")
@@ -788,8 +767,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_proces
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataPipeline_process")
-         ) => GHC.Records.HasField "dataPipeline_process" (Ptr.Ptr DataPipeline) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "dataPipeline_process" (Ptr.Ptr DataPipeline) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dataPipeline_process")
@@ -801,8 +779,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_postPr
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataPipeline_postProcess")
-         ) => GHC.Records.HasField "dataPipeline_postProcess" (Ptr.Ptr DataPipeline) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "dataPipeline_postProcess" (Ptr.Ptr DataPipeline) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dataPipeline_postProcess")
@@ -914,8 +891,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ProcessorCallback "processorCallb
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "processorCallback_simple")
-         ) => GHC.Records.HasField "processorCallback_simple" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "processorCallback_simple" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"processorCallback_simple")
@@ -927,8 +903,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ProcessorCallback "processorCallb
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "processorCallback_withValidator")
-         ) => GHC.Records.HasField "processorCallback_withValidator" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "processorCallback_withValidator" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"processorCallback_withValidator")
@@ -940,8 +915,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ProcessorCallback "processorCallb
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "processorCallback_withProgress")
-         ) => GHC.Records.HasField "processorCallback_withProgress" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "processorCallback_withProgress" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"processorCallback_withProgress")
@@ -1028,8 +1002,7 @@ instance Read Processor_mode where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_mode) "unwrapProcessor_mode")
-         ) => GHC.Records.HasField "unwrapProcessor_mode" (Ptr.Ptr Processor_mode) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapProcessor_mode" (Ptr.Ptr Processor_mode) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProcessor_mode")
@@ -1125,8 +1098,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Processor "processor_mode" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor) "processor_mode")
-         ) => GHC.Records.HasField "processor_mode" (Ptr.Ptr Processor) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "processor_mode" (Ptr.Ptr Processor) (Ptr.Ptr Processor_mode) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"processor_mode")
@@ -1138,8 +1110,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Processor "processor_callback" wh
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor) "processor_callback")
-         ) => GHC.Records.HasField "processor_callback" (Ptr.Ptr Processor) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "processor_callback" (Ptr.Ptr Processor) (Ptr.Ptr ProcessorCallback) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"processor_callback")
@@ -1173,8 +1144,7 @@ newtype Foo = Foo
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "unwrapFoo")
-         ) => GHC.Records.HasField "unwrapFoo" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFoo" (Ptr.Ptr Foo) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFoo")
@@ -1214,8 +1184,7 @@ newtype Foo2 = Foo2
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo2) "unwrapFoo2")
-         ) => GHC.Records.HasField "unwrapFoo2" (Ptr.Ptr Foo2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFoo2" (Ptr.Ptr Foo2) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFoo2")
