@@ -20,8 +20,35 @@
 #endif
 
 module C.Expr.HostPlatform
-  ( module C.Operator.Classes
+  ( -- explicit re-exports of everything in C.Operator.Classes
+    -- (we don't re-export the module, for better haddocks)
+
+    -- * Logical operators
+    Not(..)
+  , Logical(..)
+    -- * Equality and comparison
+  , RelEq(..), RelOrd(..)
+  , NotNull(..)
+    -- * Arithmetic
+    -- ** Unary
+  , Plus(..)
+  , Minus(..)
+    -- ** Binary
+  , Add(..)
+  , Sub(..)
+  , Mult(..)
+  , Div(..)
+  , Rem(..)
+    -- * Bitwise
+    -- ** Unary
+  , Complement(..)
+    -- ** Binary
+  , Bitwise(..)
+  , Shift(..)
+
+    -- instances
   , module CExprPlatform
   ) where
+
 import C.Operator.Classes
 import CExprPlatform
