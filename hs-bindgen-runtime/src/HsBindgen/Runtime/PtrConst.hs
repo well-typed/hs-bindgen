@@ -5,7 +5,7 @@
 -- This module is intended to be imported qualified.
 --
 -- > import HsBindgen.Runtime.Prelude
--- > import HsBindgne.Runtime.PtrConst qualified as PtrConst
+-- > import HsBindgen.Runtime.PtrConst qualified as PtrConst
 module HsBindgen.Runtime.PtrConst (
     PtrConst -- type synonym or opaque, depending on version of @base@
   , peek
