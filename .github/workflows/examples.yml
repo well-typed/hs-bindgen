@@ -42,7 +42,7 @@ jobs:
         # NOTE: add new example projects here. The example project has to
         # satisfy some requirements for this workflow to work correctly. See
         # ./examples/README.md (with respect to the repository root).
-        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue', 'c-rpm']
+        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue', 'c-rpm', 'RGFW']
 
     env:
       # We assume that the example executable lives in this directory
@@ -182,3 +182,7 @@ jobs:
     - name: 🧪 Build and run c-rpm example
       if: ${{ matrix.example == 'c-rpm' }}
       uses: ./.github/actions/examples/c-rpm
+
+    - name: 🧪 Build and run RGFW example
+      if: ${{ matrix.example == 'RGFW' }}
+      uses: ./.github/actions/examples/RGFW
