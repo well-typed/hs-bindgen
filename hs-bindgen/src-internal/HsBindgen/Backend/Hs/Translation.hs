@@ -112,7 +112,9 @@ generateDeclarations' uniqueId fns haddockConfig moduleName declIndex sizeofs de
 -- arguments for other functions (nth-order functions), fields of structs,
 -- unions and enums.
 --
--- This recursively traverses all types to find deeply nested function pointers.
+-- This explicitly excludes typedef function pointers (e.g., @typedef void (*F)()@)
+-- because these are handled separately by 'typedefFunPtrDecs' in 'generateDecs'.
+--
 scanAllFunctionPointerTypes :: [C.Decl Final] -> Set (C.Type Final)
 scanAllFunctionPointerTypes = foldMap $ \decl ->
     case decl.kind of
@@ -137,9 +139,14 @@ scanAllFunctionPointerTypes = foldMap $ \decl ->
       C.TypeConstArray _ t      -> scanTypeForFunctionPointers t
       C.TypeBlock t             -> scanTypeForFunctionPointers t
       C.TypeQual _ t            -> scanTypeForFunctionPointers t
-      -- TODO: do we have to scane the underlying type too? If so, elaborate in
-      -- a comment why we do this.
-      C.TypeTypedef (C.Ref _ t) -> scanTypeForFunctionPointers t
+
+      -- Don't scan through typedef function pointers; these are handled by
+      -- typedefFunPtrDecs (see generateDecs). Scanning would create duplicate
+      -- ToFunPtr/FromFunPtr instances. We still scan other typedefs to find
+      -- nested function pointers.
+      C.TypeTypedef (C.Ref _ t) -> case t of
+        C.TypePointers _ (C.TypeFun _ _) -> Set.empty
+        _                                -> scanTypeForFunctionPointers t
       _                         -> Set.empty
 
 -- | Check if a type is defined in the current module
