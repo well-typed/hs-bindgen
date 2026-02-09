@@ -11,6 +11,7 @@ import HsBindgen.Backend.Hs.AST (Strategy (..))
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: FieldNamingStrategy -> SDecl -> Set TH.Extension
@@ -21,20 +22,12 @@ requiredExtensions fieldNaming = \case
     DInst inst -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length inst.args >= 2]
       , [ext TH.TypeFamilies          | not (null inst.types)]
-      , [globalExtensions inst.clss]
-      , concat [
-            globalExtensions c : map typeExtensions ts
-          | (c, ts) <- inst.super
-          ]
-      , typeExtensions <$> inst.args
-      , concat [
-            globalExtensions t : typeExtensions r : map typeExtensions as
-          | (t, as, r) <- inst.types
-          ]
-      , concat [
-            [globalExtensions f, exprExtensions e]
-          | (f, e) <- inst.decs
-          ]
+      , [typeClassExtensions inst.clss]
+      , map typeExtensions inst.args
+      , map typeExtensions inst.super
+      , concat [ map typeExtensions tyVars ++ [typeExtensions tySyn]
+               | (_, tyVars, tySyn) <- inst.types ]
+      , map (exprExtensions . snd) inst.decs
       ]
     DRecord record -> mconcat [
         recordExtensions record
@@ -57,7 +50,7 @@ requiredExtensions fieldNaming = \case
           , TH.StandaloneDeriving
           ]
       , strategyExtensions deriv.strategy
-      , typeExtensions deriv.typ
+      , typeClassExtensions deriv.cls
       ]
     DForeignImport foreignImport -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
@@ -78,11 +71,11 @@ requiredExtensions fieldNaming = \case
     ext = Set.singleton
 
 -- | Extensions for deriving clauses that are part of the datatype declaration
-nestedDeriving :: [(Strategy ClosedType, [Global])] -> Set TH.Extension
+nestedDeriving :: [(Strategy ClosedType, [Inst.TypeClass])] -> Set TH.Extension
 nestedDeriving deriv =
        Set.singleton TH.DerivingStrategies
     <> mconcat [
-          strategyExtensions s <> foldMap globalExtensions gs
+          strategyExtensions s <> foldMap typeClassExtensions gs
         | (s, gs) <- deriv
         ]
 
@@ -98,20 +91,18 @@ enableRecordDotExtensions = \case
 fieldExtensions :: Field -> Set TH.Extension
 fieldExtensions field = typeExtensions field.typ
 
-globalExtensions :: Global -> Set TH.Extension
-globalExtensions = \case
-    HasCField_offset# -> Set.singleton TH.MagicHash
-    HasCBitfield_bitfieldOffset# -> Set.singleton TH.MagicHash
-    HasCBitfield_bitfieldWidth# -> Set.singleton TH.MagicHash
-    NomEq_class -> Set.singleton TH.TypeOperators
-    HasField_class -> Set.singleton TH.UndecidableInstances
-    HasFFIType_class -> Set.singleton TH.UndecidableInstances
-    Prim_class -> Set.singleton TH.UnboxedTuples
+typeClassExtensions :: Inst.TypeClass -> Set TH.Extension
+typeClassExtensions = \case
+    Inst.HasCField    -> Set.singleton TH.MagicHash
+    Inst.HasCBitfield -> Set.singleton TH.MagicHash
+    Inst.HasField     -> Set.singleton TH.UndecidableInstances
+    Inst.HasFFIType   -> Set.singleton TH.UndecidableInstances
+    Inst.Prim         -> Set.fromList [TH.MagicHash, TH.UnboxedTuples]
     _ -> mempty
 
 exprExtensions :: SExpr ctx -> Set TH.Extension
 exprExtensions = \case
-    EGlobal g -> globalExtensions g
+    EGlobal{} -> mempty
     EBound{} -> mempty
     EFree{} -> mempty
     ECon{} -> mempty
@@ -138,7 +129,8 @@ exprExtensions = \case
               Set.fromList [TH.UnboxedTuples, TH.MagicHash] <> exprExtensions body
         | alt <- alts
         ]
-    ETup xs -> foldMap exprExtensions xs
+    EBoxedOpenTup{} -> mempty
+    EBoxedClosedTup xs -> foldMap exprExtensions xs
     EUnboxedTup xs -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
                    <> foldMap exprExtensions xs
     EList xs -> foldMap exprExtensions xs
@@ -148,15 +140,17 @@ exprExtensions = \case
 -- We probably don't generate such types
 typeExtensions :: SType ctx -> Set TH.Extension
 typeExtensions = \case
-    TGlobal g  -> globalExtensions g
-    TCon _     -> Set.empty
-    TFree _    -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
-    TFun a b   -> typeExtensions a <> typeExtensions b
-    TLit _     -> Set.singleton TH.DataKinds
-    TStrLit _  -> Set.singleton TH.DataKinds
-    TExt{}     -> Set.empty
-    TBound _   -> Set.empty
-    TApp f b   -> typeExtensions f <> typeExtensions b
+    TGlobal{}         -> Set.empty
+    TCon _            -> Set.empty
+    TFree _           -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
+    TFun a b          -> typeExtensions a <> typeExtensions b
+    TLit _            -> Set.singleton TH.DataKinds
+    TStrLit _         -> Set.singleton TH.DataKinds
+    TExt{}            -> Set.empty
+    TBound _          -> Set.empty
+    TApp f b          -> typeExtensions f <> typeExtensions b
+    TBoxedOpenTup{}   -> Set.empty
+    TEq               -> Set.singleton TH.TypeOperators
     TForall _names _add preds b ->
         -- Note: GHC doesn't require ExplicitForAll for type signatures
         Set.singleton TH.ExplicitForAll <>

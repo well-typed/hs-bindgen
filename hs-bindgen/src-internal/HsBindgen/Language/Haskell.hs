@@ -9,6 +9,8 @@ module HsBindgen.Language.Haskell (
   , moduleNameFromString
   , moduleNameToString
   , moduleNamePath
+    -- * Module imports
+  , Import(..)
     -- * References
   , Identifier(..)
   , ExtRef(..)
@@ -56,6 +58,27 @@ moduleNamePath moduleName = withoutExt <.> "hs"
 
 instance PrettyForTrace ModuleName where
   prettyForTrace moduleName = PP.text moduleName.text
+
+{-------------------------------------------------------------------------------
+  Module imports
+-------------------------------------------------------------------------------}
+
+-- | A qualified or unqualified import of a module
+data Import =
+    -- | The symbol has been imported implicitly from the Haskell "Prelude"
+    --
+    -- We require an implicit prelude (1) for TH use and (2) the type equality
+    -- operator @(~)@ depends on it.
+    --
+    -- In detail: On GHC versions <= 9.2, type equality @(~)@ is a magic
+    -- built-in syntax, while on later GHC versions it is a proper type operator
+    -- that has to be imported from 'Prelude' or some other module from the
+    -- @base@ package.
+    ImplicitPrelude
+  | UnqualifiedImport ModuleName
+    -- | Qualified import possibly with an alias
+  | QualifiedImport   ModuleName (Maybe String)
+  deriving (Eq, Ord, Show)
 
 {-------------------------------------------------------------------------------
   References

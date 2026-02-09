@@ -2,10 +2,12 @@
 
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
-    Global (..)
-  , ClosedExpr
+    ClosedExpr
   , SExpr (..)
-  , pattern EInt
+  , eBindgenGlobal
+  , eInt
+  , InfixOp(..)
+  , infixOpGlobal
   , SAlt (..)
   , PatExpr (..)
     -- TODO: drop S prefix?
@@ -14,6 +16,7 @@ module HsBindgen.Backend.SHs.AST (
   , Pragma (..)
   , ClosedType
   , SType (..)
+  , tBindgenGlobal
   , Binding (..)
   , Instance (..)
   , Field (..)
@@ -33,6 +36,7 @@ import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 
 import C.Char qualified as CExpr.Runtime
 
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -40,6 +44,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -48,304 +53,37 @@ import HsBindgen.NameHint
   Backend representation
 -------------------------------------------------------------------------------}
 
-data Global =
-    Tuple_type Word
-  | Tuple_constructor Word
-  | Applicative_pure
-  | Applicative_seq
-  | Maybe_just
-  | Maybe_nothing
-  | Monad_return
-  | Monad_seq
-  | ToFunPtr_class
-  | ToFunPtr_toFunPtr
-  | FromFunPtr_class
-  | FromFunPtr_fromFunPtr
-  | Foreign_Ptr
-  | Ptr_constructor
-  | Foreign_FunPtr
-  | Foreign_plusPtr
-  | Foreign_StablePtr
-  | ConstantArray
-  | IncompleteArray
-  | IO_type
-  | CharValue_tycon
-  | CharValue_constructor
-  | CharValue_fromAddr
-  | ByteArray_setUnionPayload
-  | ByteArray_getUnionPayload
-  | Capi_with
-  | Capi_allocaAndPeek
-  | Generic_class
-
-    -- StaticSize
-  | StaticSize_class
-  | StaticSize_staticSizeOf
-  | StaticSize_staticAlignment
-
-    -- ReadRaw
-  | ReadRaw_class
-  | ReadRaw_readRaw
-  | ReadRaw_readRawByteOff
-
-    -- WriteRaw
-  | WriteRaw_class
-  | WriteRaw_writeRaw
-  | WriteRaw_writeRawByteOff
-
-    -- EquivStorable
-  | EquivStorable_type
-
-    -- Storable
-  | Storable_class
-  | Storable_sizeOf
-  | Storable_alignment
-  | Storable_peekByteOff
-  | Storable_pokeByteOff
-  | Storable_peek
-  | Storable_poke
-
-    -- Flexible array members
-  | Flam_Offset_class
-  | Flam_Offset_offset
-  | WithFlam
-
-    -- HasCField
-  | HasCField_class
-  | HasCField_CFieldType
-  | HasCField_offset#
-  | HasCField_fromPtr
-  | HasCField_peek
-  | HasCField_poke
-  | HasCField_readRaw
-  | HasCField_writeRaw
-
-    -- BitfieldPtr
-  | HasCBitfield_BitfieldPtr
-
-    -- HasCBitfield
-  | HasCBitfield_class
-  | HasCBitfield_CBitfieldType
-  | HasCBitfield_bitfieldOffset#
-  | HasCBitfield_bitfieldWidth#
-  | HasCBitfield_toPtr
-  | HasCBitfield_peek
-  | HasCBitfield_poke
-
-    -- HasField
-  | HasField_class
-  | HasField_getField
-
-    -- Proxy
-  | Proxy_type
-  | Proxy_constructor
-
-    -- HasFFIType
-  | HasFFIType_class
-  | HasFFIType_fromFFIType
-  | HasFFIType_toFFIType
-  | HasFFIType_castFunPtrFromFFIType
-  | HasFFIType_castFunPtrToFFIType
-
-    -- Functor
-  | Functor_fmap
-
-    -- Unsafe
-  | IO_unsafePerformIO
-
-    -- PtrConst
-  | PtrConst_type
-  | PtrConst_unsafeFromPtr
-  | PtrConst_unsafeToPtr
-  | PtrConst_peek
-
-    -- Prim
-  | Prim_class
-  | Prim_sizeOf#
-  | Prim_alignment#
-  | Prim_indexByteArray#
-  | Prim_readByteArray#
-  | Prim_writeByteArray#
-  | Prim_indexOffAddr#
-  | Prim_readOffAddr#
-  | Prim_writeOffAddr#
-  | Prim_add#
-  | Prim_mul#
-
-    -- Other type classes
-  | Bitfield_class
-  | Bits_class
-  | Bounded_class
-  | Enum_class
-  | Eq_class
-  | FiniteBits_class
-  | Floating_class
-  | Fractional_class
-  | Integral_class
-  | Ix_class
-  | Num_class
-  | Ord_class
-  | Read_class
-  | Read_readPrec
-  | Read_readList
-  | Read_readListPrec
-  | Real_class
-  | RealFloat_class
-  | RealFrac_class
-  | Show_class
-  | Show_showsPrec
-
-    -- | Primitive (unboxed) type equality
-  | NomEq_class
-
-  | Not_class
-  | Not_not
-  | Logical_class
-  | Logical_and
-  | Logical_or
-  | RelEq_class
-  | RelEq_eq
-  | RelEq_uneq
-  | RelOrd_class
-  | RelOrd_lt
-  | RelOrd_le
-  | RelOrd_gt
-  | RelOrd_ge
-  | Plus_class
-  | Plus_resTyCon
-  | Plus_plus
-  | Minus_class
-  | Minus_resTyCon
-  | Minus_negate
-  | Add_class
-  | Add_resTyCon
-  | Add_add
-  | Sub_class
-  | Sub_resTyCon
-  | Sub_minus
-  | Mult_class
-  | Mult_resTyCon
-  | Mult_mult
-  | Div_class
-  | Div_div
-  | Div_resTyCon
-  | Rem_class
-  | Rem_resTyCon
-  | Rem_rem
-  | Complement_class
-  | Complement_resTyCon
-  | Complement_complement
-  | Bitwise_class
-  | Bitwise_resTyCon
-  | Bitwise_and
-  | Bitwise_or
-  | Bitwise_xor
-  | Shift_class
-  | Shift_resTyCon
-  | Shift_shiftL
-  | Shift_shiftR
-
-  | CFloat_constructor
-  | CDouble_constructor
-  | GHC_Float_castWord32ToFloat
-  | GHC_Float_castWord64ToDouble
-
-  | NonEmpty_constructor
-  | NonEmpty_singleton
-  | Map_fromList
-  | Read_readListDefault
-  | Read_readListPrecDefault
-
-  | CEnum_class
-  | CEnumZ_tycon
-  | CEnum_toCEnum
-  | CEnum_fromCEnum
-  | CEnum_declaredValues
-  | CEnum_showsUndeclared
-  | CEnum_readPrecUndeclared
-  | CEnum_isDeclared
-  | CEnum_mkDeclared
-  | SequentialCEnum_class
-  | SequentialCEnum_minDeclaredValue
-  | SequentialCEnum_maxDeclaredValue
-  | CEnum_declaredValuesFromList
-  | CEnum_showsCEnum
-  | CEnum_showsWrappedUndeclared
-  | CEnum_readPrecCEnum
-  | CEnum_readPrecWrappedUndeclared
-  | CEnum_seqIsDeclared
-  | CEnum_seqMkDeclared
-  | AsCEnum_type
-  | AsSequentialCEnum_type
-
-  | ByteArray_type
-  | SizedByteArray_type
-  | Block_type
-  | ComplexType
-
-  | CStringLen_type
-  | CPtrdiff_type
-
-  | Void_type
-  | Unit_type
-
-  | Char_type
-  | Int_type
-  | Double_type
-  | Float_type
-  | Bool_type
-  | Int8_type
-  | Int16_type
-  | Int32_type
-  | Int64_type
-  | Word_type
-  | Word8_type
-  | Word16_type
-  | Word32_type
-  | Word64_type
-  | CChar_type
-  | CSChar_type
-  | CUChar_type
-  | CShort_type
-  | CUShort_type
-  | CInt_type
-  | CUInt_type
-  | CLong_type
-  | CULong_type
-  | CLLong_type
-  | CULLong_type
-  | CBool_type
-  | CFloat_type
-  | CDouble_type
-  deriving stock (Eq, Ord, Show)
-
 type ClosedExpr = SExpr EmptyCtx
 
 -- | Simple expressions
 type SExpr :: Ctx -> Star
 data SExpr ctx =
-    EGlobal Global
+    EGlobal (Global GExpr)
   | EBound (Idx ctx)
   | EFree (Hs.Name Hs.NsVar)
   | ECon (Hs.Name Hs.NsConstr)
   | EUnboxedIntegral Integer
-  | EIntegral Integer (Maybe Global)
-  | EFloat Float Global -- ^ Type annotation to distinguish Float/CFLoat
-  | EDouble Double Global
+  | EIntegral Integer (Maybe (Global GTyp))
+  | EFloat Float (Global GTyp)   -- ^ Type annotation to distinguish Float/CFloat
+  | EDouble Double (Global GTyp) -- ^ Type annotation to distinguish Double/CDouble
   | EChar CExpr.Runtime.CharValue
   | EString String
   | ECString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)
-  | EInfix Global (SExpr ctx) (SExpr ctx)
+  | EInfix InfixOp (SExpr ctx) (SExpr ctx)
   | ELam NameHint (SExpr (S ctx))
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
-  | ETup [SExpr ctx]
+  | EBoxedOpenTup Natural
+  | EBoxedClosedTup [SExpr ctx]
   | EUnboxedTup [SExpr ctx]
   | EList [SExpr ctx]
     -- | Type application using \@
   | ETypeApp (SExpr ctx) ClosedType
   deriving stock (Show)
+
+eBindgenGlobal :: BindgenGlobalExpr -> SExpr ctx
+eBindgenGlobal = EGlobal . bindgenGlobalExpr
 
 -- | Pattern&Expressions
 --
@@ -362,10 +100,24 @@ data PatExpr
   | PELit Integer
   deriving stock (Show)
 
-pattern EInt :: Int -> SExpr be
-pattern EInt i <- EIntegral (fromInteger -> i) (Just Int_type)
-  where
-    EInt i = EIntegral (fromIntegral i) (Just Int_type)
+eInt :: Int -> SExpr be
+eInt i = EIntegral (fromIntegral i) (Just $ bindgenGlobalType Int_type)
+
+-- TODO D: We perform case splits on infix operators, so I created a new data
+-- type.
+
+-- | Supported infix operators.
+data InfixOp =
+    InfixApplicative_seq
+  | InfixMonad_seq
+  | InfixNonEmpty_constructor
+  deriving stock (Show, Eq)
+
+infixOpGlobal :: InfixOp -> Global GExpr
+infixOpGlobal = bindgenGlobalExpr . \case
+  InfixApplicative_seq      -> Applicative_seq
+  InfixMonad_seq            -> Monad_seq
+  InfixNonEmpty_constructor -> NonEmpty_constructor
 
 -- | Case alternatives
 --
@@ -416,7 +168,7 @@ type ClosedType = SType EmptyCtx
 -- | Simple types
 type SType :: Ctx -> Star
 data SType ctx =
-    TGlobal Global
+    TGlobal (Global GTyp)
   | TCon (Hs.Name Hs.NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
@@ -425,7 +177,12 @@ data SType ctx =
   | TBound (Idx ctx)
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)
+  | TBoxedOpenTup Natural
+  | TEq
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
+
+tBindgenGlobal :: BindgenGlobalType -> SType ctx
+tBindgenGlobal = TGlobal . bindgenGlobalType
 
 data Pragma = NOINLINE
   deriving stock Show
@@ -443,11 +200,11 @@ data TypeSynonym = TypeSynonym{
   deriving stock (Show, Generic)
 
 data Instance = Instance{
-      clss    :: Global
+      clss    :: Inst.TypeClass
     , args    :: [ClosedType]
-    , super   :: [(Global, [ClosedType])]
-    , types   :: [(Global, [ClosedType], ClosedType)]
-    , decs    :: [(Global, ClosedExpr)]
+    , super   :: [ClosedType]
+    , types   :: [(Global GTyp, [ClosedType], ClosedType)]
+    , decs    :: [(Global GExpr, ClosedExpr)]
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
@@ -465,7 +222,7 @@ data Record = Record{
     , con     :: Hs.Name Hs.NsConstr
     , fields  :: [Field]
     , origin  :: Origin.Decl Origin.Struct
-    , deriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , deriv   :: [(Hs.Strategy ClosedType, [Inst.TypeClass])]
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
@@ -479,7 +236,8 @@ data EmptyData = EmptyData{
 
 data DerivingInstance = DerivingInstance{
       strategy :: Hs.Strategy ClosedType
-    , typ      :: ClosedType
+    , cls      :: Inst.TypeClass
+    , con      :: Hs.Name Hs.NsTypeConstr
     , comment  :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
@@ -489,7 +247,7 @@ data Newtype = Newtype{
     , con     :: Hs.Name Hs.NsConstr
     , field   :: Field
     , origin  :: Origin.Decl Origin.Newtype
-    , deriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , deriv   :: [(Hs.Strategy ClosedType, [Inst.TypeClass])]
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)

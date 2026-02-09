@@ -38,7 +38,6 @@ import HsBindgen.Runtime.HasCField (HasCField (..))
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
 import HsBindgen.Runtime.Internal.HasFFIType (HasFFIType)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import HsBindgen.Runtime.Marshal
 
 #include <inttypes.h>
@@ -294,39 +293,39 @@ instance HasCField CTm "tm_isdst" where
   type CFieldType CTm "tm_isdst" = C.CInt
   offset## _ _ = #offset struct tm, tm_isdst
 
-instance ( TyEq ty (CFieldType CTm "tm_sec")
+instance ( ty ~ (CFieldType CTm "tm_sec")
          ) => HasField "tm_sec" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_sec")
 
-instance ( TyEq ty (CFieldType CTm "tm_min")
+instance ( ty ~ (CFieldType CTm "tm_min")
          ) => HasField "tm_min" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_min")
 
-instance ( TyEq ty (CFieldType CTm "tm_hour")
+instance ( ty ~ (CFieldType CTm "tm_hour")
          ) => HasField "tm_hour" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_hour")
 
-instance ( TyEq ty (CFieldType CTm "tm_mday")
+instance ( ty ~ (CFieldType CTm "tm_mday")
          ) => HasField "tm_mday" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_mday")
 
-instance ( TyEq ty (CFieldType CTm "tm_mon")
+instance ( ty ~ (CFieldType CTm "tm_mon")
          ) => HasField "tm_mon" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_mon")
 
-instance ( TyEq ty (CFieldType CTm "tm_year")
+instance ( ty ~ (CFieldType CTm "tm_year")
          ) => HasField "tm_year" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_year")
 
-instance ( TyEq ty (CFieldType CTm "tm_wday")
+instance ( ty ~ (CFieldType CTm "tm_wday")
          ) => HasField "tm_wday" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_wday")
 
-instance ( TyEq ty (CFieldType CTm "tm_yday")
+instance ( ty ~ (CFieldType CTm "tm_yday")
          ) => HasField "tm_yday" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_yday")
 
-instance ( TyEq ty (CFieldType CTm "tm_isdst")
+instance ( ty ~ (CFieldType CTm "tm_isdst")
          ) => HasField "tm_isdst" (Ptr CTm) (Ptr ty) where
   getField = HasCField.fromPtr (Proxy @"tm_isdst")
 

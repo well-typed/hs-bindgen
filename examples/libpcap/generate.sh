@@ -10,6 +10,8 @@ module_flags=(
     --hs-output-dir hs-project/src
     # Create output directory if it does not exist.
     --create-output-dirs
+    # Overwrite files if they exist.
+    --overwrite-files
     # Base module name. Submodules will have name `Generated.Pcap.Safe`, for
     # example.
     --module Generated.Pcap

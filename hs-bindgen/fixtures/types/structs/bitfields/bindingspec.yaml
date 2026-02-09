@@ -35,7 +35,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasField
   - ReadRaw
   - Show
@@ -52,7 +52,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasField
   - ReadRaw
   - Show
@@ -73,7 +73,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasCField
   - HasField
   - ReadRaw
@@ -92,7 +92,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasField
   - ReadRaw
   - Show
@@ -110,7 +110,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasField
   - ReadRaw
   - Show
@@ -128,7 +128,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasField
   - ReadRaw
   - Show
@@ -145,7 +145,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasField
   - ReadRaw
   - Show

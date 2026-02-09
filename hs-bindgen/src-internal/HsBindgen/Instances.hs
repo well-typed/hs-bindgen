@@ -42,7 +42,7 @@ data TypeClass =
   | Fractional
   | FromFunPtr
   | Generic
-  | HasCBitField  -- Indicates instances for all bit fields
+  | HasCBitfield  -- Indicates instances for all bit fields
   | HasCField     -- Indicates instances for all non-bit fields
   | HasFFIType
   | HasField      -- Indicates instances for all fields
@@ -171,7 +171,7 @@ instance Default SupportedInstances where
             mkDef Eq           Dependent   Stock     []
           , mkDef Flam_Offset  Independent HsBindgen []
           , mkDef Generic      Independent Stock     []
-          , mkDef HasCBitField Independent HsBindgen []
+          , mkDef HasCBitfield Independent HsBindgen []
           , mkDef HasCField    Independent HsBindgen []
           , mkDef HasField     Independent HsBindgen []
           , mkOpt Ord          Dependent             [Stock]
@@ -183,7 +183,7 @@ instance Default SupportedInstances where
           ]
       , union = Map.fromList [
             mkDef Generic      Independent Stock     []
-          , mkDef HasCBitField Independent HsBindgen []
+          , mkDef HasCBitfield Independent HsBindgen []
           , mkDef HasCField    Independent HsBindgen []
           , mkDef HasField     Independent HsBindgen []
           , mkDef ReadRaw      Independent HsBindgen []

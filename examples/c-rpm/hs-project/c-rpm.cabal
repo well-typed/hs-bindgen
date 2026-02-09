@@ -63,7 +63,6 @@ library
   build-depends:
     , base
     , c-expr-runtime
-    , ghc-prim
     , hs-bindgen-runtime
     , primitive
 

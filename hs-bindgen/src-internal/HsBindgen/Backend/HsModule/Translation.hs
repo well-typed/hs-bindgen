@@ -16,13 +16,15 @@ import Data.Set qualified as Set
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.HsModule.CAPI (capiImport)
+import HsBindgen.Backend.HsModule.CAPI (capiModule)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -41,11 +43,11 @@ newtype GhcPragma = GhcPragma { unGhcPragma :: String }
 
 -- | Import list item
 data ImportListItem =
-    QualifiedImportListItem   HsImportModule
+    QualifiedImportListItem   Hs.ModuleName (Maybe String)
     -- An empty import list (@Just []@) means "import instances only", and
     -- differs greatly from having no import list (@Nothing@), which is an open,
     -- unqualified import.
-  | UnqualifiedImportListItem HsImportModule (Maybe [ResolvedName])
+  | UnqualifiedImportListItem Hs.ModuleName (Maybe [ResolvedName])
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
@@ -106,12 +108,9 @@ translateModule' fieldNaming mcat moduleBaseName (cWrappers, decs) = HsModule{
 resolvePragmas :: FieldNamingStrategy -> [CWrapper] -> [SDecl] -> [GhcPragma]
 resolvePragmas fieldNaming wrappers ds =
     Set.toAscList . mconcat $
-      haddockPrunePragmas : userlandCapiPragmas : constPragmas
+      haddockPrunePragmas : userlandCapiPragmas
         : map (resolveDeclPragmas fieldNaming) ds
   where
-    constPragmas :: Set GhcPragma
-    constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
-
     userlandCapiPragmas :: Set GhcPragma
     userlandCapiPragmas = case wrappers of
       []  -> Set.empty
@@ -143,35 +142,34 @@ resolveImports baseModule cat wrappers ds =
     let acc = mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $
             bindingCatImport acc.requireTypes
-          : Set.map QualifiedImportListItem (userlandCapiImport <> acc.qualified)
+          : Set.map (uncurry QualifiedImportListItem) (userlandCapiImport <> acc.qualified)
           : map (Set.singleton . uncurry mkUImportListItem) (Map.toList acc.unqualified)
   where
-    mkUImportListItem :: HsImportModule -> Set ResolvedName -> ImportListItem
-    mkUImportListItem imp xs = UnqualifiedImportListItem imp (Just $ Set.toAscList xs)
+    mkUImportListItem :: Hs.ModuleName -> Set ResolvedName -> ImportListItem
+    mkUImportListItem m xs = UnqualifiedImportListItem m (Just $ Set.toAscList xs)
 
     bindingCatImport :: Bool -> Set ImportListItem
-    bindingCatImport False = mempty
-    bindingCatImport True = case cat of
-      Nothing    -> mempty
-      Just CType -> mempty
-      _otherCat  ->
-        let base = HsImportModule{
-                name  = fromBaseModuleName baseModule (Just CType)
-              , alias = Nothing
-              }
-        in  Set.singleton $ UnqualifiedImportListItem base Nothing
-    userlandCapiImport :: Set HsImportModule
+    bindingCatImport requireTypes = case requireTypes of
+      False -> mempty
+      True  -> case cat of
+        Nothing    -> mempty
+        Just CType -> mempty
+        _otherCat  ->
+          let moduleName = fromBaseModuleName baseModule (Just CType)
+          in  Set.singleton $ UnqualifiedImportListItem moduleName Nothing
+
+    userlandCapiImport :: Set (Hs.ModuleName, Maybe String)
     userlandCapiImport = case wrappers of
       []  -> mempty
-      _xs -> Set.singleton capiImport
+      _xs -> Set.singleton (capiModule, Nothing)
 
 -- | Accumulator for resolving imports
 --
 -- Both qualified imports and unqualified imports are accumulated.
 data ImportAcc = ImportAcc {
       requireTypes :: Bool
-    , qualified    :: Set HsImportModule
-    , unqualified  :: Map HsImportModule (Set ResolvedName)
+    , qualified    :: Set (Hs.ModuleName, Maybe String)
+    , unqualified  :: Map Hs.ModuleName (Set ResolvedName)
     }
 
 instance Semigroup ImportAcc where
@@ -198,12 +196,9 @@ resolveDeclImports = \case
         resolveTypeImports typSyn.typ
       ]
     DInst inst -> mconcat $ concat [
-        [resolveGlobalImports inst.clss]
+        [resolveTypeClassImports inst.clss]
       , map resolveTypeImports inst.args
-      , concat [
-           resolveGlobalImports c : map resolveTypeImports ts
-         | (c, ts) <- inst.super
-         ]
+      , [ resolveTypeImports t | t <- inst.super ]
       , concat [
            resolveGlobalImports t : resolveTypeImports r : map resolveTypeImports as
          | (t, as, r) <- inst.types
@@ -225,7 +220,7 @@ resolveDeclImports = \case
       ]
     DDerivingInstance deriv -> mconcat [
         resolveStrategyImports deriv.strategy
-      , resolveTypeImports deriv.typ
+      , resolveTypeClassImports deriv.cls
       ]
     DForeignImport foreignImport -> mconcat [
         foldMap (resolveTypeImports . (.typ)) foreignImport.parameters
@@ -242,32 +237,35 @@ resolveDeclImports = \case
       ]
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)
-resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Global])] -> ImportAcc
+resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Inst.TypeClass])] -> ImportAcc
 resolveNestedDeriv = mconcat . map aux
   where
-    aux :: (Hs.Strategy ClosedType, [Global]) -> ImportAcc
+    aux :: (Hs.Strategy ClosedType, [Inst.TypeClass]) -> ImportAcc
     aux (strategy, cls) = mconcat $
           resolveStrategyImports strategy
-        : map resolveGlobalImports cls
+        : map resolveTypeClassImports cls
+
+resolveTypeClassImports :: Inst.TypeClass -> ImportAcc
+resolveTypeClassImports = resolveGlobalImports . typeClassGlobal
 
 -- | Resolve global imports
-resolveGlobalImports :: Global -> ImportAcc
+resolveGlobalImports :: Global c -> ImportAcc
 resolveGlobalImports global =
     case resolved.hsImport of
-      Nothing -> ImportAcc{
-           requireTypes = False
-         , qualified    = mempty
-         , unqualified  = mempty
-         }
-      Just (QualifiedHsImport hsImportModule) -> ImportAcc{
-          requireTypes = False
-        , qualified    = Set.singleton hsImportModule
-        , unqualified  = mempty
-        }
-      Just (UnqualifiedHsImport hsImportModule) -> ImportAcc{
+      Hs.ImplicitPrelude -> ImportAcc{
           requireTypes = False
         , qualified    = mempty
-        , unqualified  = Map.singleton hsImportModule (Set.singleton resolved)
+        , unqualified  = mempty
+        }
+      Hs.QualifiedImport m as -> ImportAcc{
+          requireTypes = False
+        , qualified    = Set.singleton (m, as)
+        , unqualified  = mempty
+        }
+      Hs.UnqualifiedImport m -> ImportAcc{
+          requireTypes = False
+        , qualified    = mempty
+        , unqualified  = Map.singleton m (Set.singleton resolved)
         }
   where
     resolved :: ResolvedName
@@ -282,21 +280,26 @@ resolveExprImports = \case
     ECon _n -> mempty
     EIntegral _ t -> maybe mempty resolveGlobalImports t
     EUnboxedIntegral _ -> mempty
-    EChar {} -> mconcat $ map resolveGlobalImports
-                  [ CharValue_tycon
-                  , CharValue_constructor
-                  , CharValue_fromAddr
-                  , Maybe_just
-                  , Maybe_nothing
-                  ]
+    EChar {} -> mconcat $
+      map (resolveGlobalImports . cExprGlobalType) [
+          CharValue_type
+        ] ++
+      map (resolveGlobalImports . cExprGlobalExpr) [
+          CharValue_constructor
+        , CharValue_fromAddr
+        ] ++
+      map (resolveGlobalImports . bindgenGlobalExpr) [
+          Maybe_just
+        , Maybe_nothing
+        ]
     EString {} -> mempty
-    ECString {} -> resolveGlobalImports CStringLen_type
-                <> resolveGlobalImports Ptr_constructor
+    ECString {} -> resolveGlobalImports (bindgenGlobalType CStringLen_type)
+                <> resolveGlobalImports (bindgenGlobalExpr Foreign_Ptr_constructor)
     EFloat _ t -> resolveGlobalImports t
     EDouble _ t -> resolveGlobalImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x
     EInfix op x y ->
-      resolveGlobalImports op <> resolveExprImports x <> resolveExprImports y
+      resolveGlobalImports (infixOpGlobal op) <> resolveExprImports x <> resolveExprImports y
     ELam _mPat body -> resolveExprImports body
     EUnusedLam body -> resolveExprImports body
     ECase x alts -> mconcat $
@@ -307,7 +310,15 @@ resolveExprImports = \case
             SAltUnboxedTuple _add _hints body -> resolveExprImports body
         | alt <- alts
         ]
-    ETup xs -> foldMap resolveExprImports xs
+    -- TODO D: Complicated. Can we do better?
+    EBoxedOpenTup n | n<= 1 ->
+      ImportAcc{
+          requireTypes = False
+        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
+        , unqualified = mempty
+        }
+    EBoxedOpenTup{} -> mempty
+    EBoxedClosedTup{} -> mempty
     EUnboxedTup xs -> foldMap resolveExprImports xs
     EList xs -> foldMap resolveExprImports xs
     ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
@@ -322,14 +333,27 @@ resolvePatExprImports = \case
 resolveTypeImports :: SType ctx -> ImportAcc
 resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
-    TCon _n -> ImportAcc True mempty mempty
+    TCon _n -> ImportAcc {
+        requireTypes = True
+      , qualified    = mempty
+      , unqualified  = mempty
+      }
     TFree _ -> mempty
     TLit _n -> mempty
     TStrLit _s -> mempty
     TExt ref _cTypeSpec _hsTypeSpec -> resolveExtHsRefImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
-    TBound {} -> mempty
+    TBound{} -> mempty
+    -- TODO D: Complicated. Can we do better?
+    TBoxedOpenTup n | n <= 1 ->
+      ImportAcc{
+          requireTypes = False
+        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
+        , unqualified = mempty
+        }
+    TBoxedOpenTup{} -> mempty
+    TEq{} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)
 
@@ -342,11 +366,6 @@ resolveStrategyImports = \case
 resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
 resolveExtHsRefImports extRef = ImportAcc{
       requireTypes = False
-    , qualified    = Set.singleton hsImportModule
+    , qualified    = Set.singleton (extRef.moduleName, Nothing)
     , unqualified  = mempty
     }
-  where
-    hsImportModule = HsImportModule {
-        name  = extRef.moduleName
-      , alias = Nothing
-      }
