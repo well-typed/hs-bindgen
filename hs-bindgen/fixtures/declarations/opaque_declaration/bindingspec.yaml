@@ -28,6 +28,7 @@ hstypes:
       - bar_ptrB
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -42,6 +43,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize

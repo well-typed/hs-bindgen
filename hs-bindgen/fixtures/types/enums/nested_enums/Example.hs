@@ -39,8 +39,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype EnumA = EnumA
   { unwrapEnumA :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize EnumA where
@@ -155,8 +154,7 @@ data ExA = ExA
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExA where
 
@@ -202,8 +200,7 @@ instance GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr EnumA) where
 newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1 where
@@ -319,8 +316,7 @@ data ExB = ExB
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExB where
 

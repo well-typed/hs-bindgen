@@ -98,6 +98,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -111,6 +112,7 @@ hstypes:
       - unwrapStruct10_t_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -127,6 +129,7 @@ hstypes:
       - struct11_t_self
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -143,6 +146,7 @@ hstypes:
       - struct12_t_self
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -157,6 +161,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -169,6 +174,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -185,6 +191,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -198,6 +205,7 @@ hstypes:
       - unwrapStruct5_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -215,6 +223,7 @@ hstypes:
       - unwrapStruct6
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -231,6 +240,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -243,6 +253,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -256,6 +267,7 @@ hstypes:
       - unwrapStruct7a
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -271,6 +283,7 @@ hstypes:
       - unwrapStruct7b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -285,6 +298,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -298,6 +312,7 @@ hstypes:
       - unwrapStruct8b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -312,6 +327,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -325,6 +341,7 @@ hstypes:
       - unwrapStruct9_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -357,6 +374,7 @@ hstypes:
       - use_sites_useTypedef_struct12_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

@@ -50,8 +50,7 @@ data S = S
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S where
 
@@ -98,8 +97,7 @@ instance GHC.Records.HasField "s_f" (Ptr.Ptr S) (Ptr.Ptr ((HsBindgen.Runtime.Con
 newtype More_aligned_int = More_aligned_int
   { unwrapMore_aligned_int :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -145,8 +143,7 @@ data S2 = S2
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S2 where
 
@@ -206,8 +203,7 @@ data My_unpacked_struct = My_unpacked_struct
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize My_unpacked_struct where
 
@@ -288,8 +284,7 @@ data My_packed_struct = My_packed_struct
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize My_packed_struct where
 
@@ -469,8 +464,7 @@ data Wait
 newtype T1 = T1
   { unwrapT1 :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -509,8 +503,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
 newtype Short_a = Short_a
   { unwrapShort_a :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

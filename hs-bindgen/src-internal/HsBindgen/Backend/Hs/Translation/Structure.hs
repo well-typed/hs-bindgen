@@ -61,8 +61,9 @@ getDeclsFieldVec :: forall n.
 getDeclsFieldVec supInsts hCfg spec info struct fieldsVec = do
     insts <-
       getInstances supInsts name struct.fields <$> State.gets (.instanceMap)
-    let (hsStruct, decls) =
-          getDecls supInsts hCfg spec name info struct fieldsVec insts
+    let insts' = Set.insert Inst.Generic insts
+        (hsStruct, decls) =
+          getDecls supInsts hCfg spec name info struct fieldsVec insts'
     State.modify' $ #instanceMap %~ Map.insert name hsStruct.instances
     pure $ Hs.DeclData hsStruct : decls
   where
@@ -82,7 +83,7 @@ getDeclsFieldVecFlam :: forall n.
 getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
     insts <-
       getInstances supInsts auxName struct.fields <$> State.gets (.instanceMap)
-    let insts' = Set.insert Inst.Flam_Offset insts
+    let insts' = insts <> Set.fromList [Inst.Flam_Offset, Inst.Generic]
         (hsStruct, decls) =
           getDecls supInsts hCfg spec auxName info struct fieldsVec insts'
     State.modify' $ #instanceMap %~ Map.insert auxName hsStruct.instances

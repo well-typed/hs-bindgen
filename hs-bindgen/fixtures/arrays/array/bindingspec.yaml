@@ -31,6 +31,7 @@ hstypes:
       - example_sudoku
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -46,6 +47,7 @@ hstypes:
       - unwrapList
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - Show
@@ -57,6 +59,7 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -72,6 +75,7 @@ hstypes:
       - unwrapSudoku
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -87,6 +91,7 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -102,6 +107,7 @@ hstypes:
       - unwrapTripletlist
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - Show

@@ -66,8 +66,7 @@ data Point = Point
          __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Point where
 
@@ -139,8 +138,7 @@ data Size = Size
          __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Size where
 
@@ -226,8 +224,7 @@ data Rect = Rect
          __exported by:__ @manual\/enable_record_dot.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Rect where
 
@@ -312,8 +309,7 @@ instance GHC.Records.HasField "height" (Ptr.Ptr Rect) (Ptr.Ptr FC.CInt) where
 newtype E = E
   { unwrap :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize E where
@@ -420,8 +416,7 @@ pattern Y = E 1
 newtype Value = Value
   { unwrap :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -906,8 +901,7 @@ instance HsBindgen.Runtime.HasCField.HasCField RunDriver_Aux "unwrap" where
 newtype RunDriver = RunDriver
   { unwrap :: Ptr.FunPtr RunDriver_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

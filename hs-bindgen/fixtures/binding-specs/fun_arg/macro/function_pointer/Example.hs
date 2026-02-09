@@ -93,8 +93,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer_Aux "unwrapMyFu
 newtype MyFunctionPointer = MyFunctionPointer
   { unwrapMyFunctionPointer :: Ptr.FunPtr MyFunctionPointer_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -124,8 +123,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer "unwrapMyFuncti
 newtype A = A
   { unwrapA :: MyFunctionPointer
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -154,8 +152,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

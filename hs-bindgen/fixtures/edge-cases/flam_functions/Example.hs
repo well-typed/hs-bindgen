@@ -38,8 +38,7 @@ data Vector_Aux = Vector
          __exported by:__ @edge-cases\/flam_functions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Vector_Aux where
 

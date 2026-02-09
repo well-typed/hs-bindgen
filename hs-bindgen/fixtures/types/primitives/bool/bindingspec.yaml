@@ -29,6 +29,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -53,6 +54,7 @@ hstypes:
       - bools1_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -69,6 +71,7 @@ hstypes:
       - bools2_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -85,6 +88,7 @@ hstypes:
       - bools3_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

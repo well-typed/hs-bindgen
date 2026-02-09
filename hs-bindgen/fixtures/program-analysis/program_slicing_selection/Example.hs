@@ -40,8 +40,7 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype FileOperationStatus = FileOperationStatus
   { unwrapFileOperationStatus :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize FileOperationStatus where
@@ -194,8 +193,7 @@ data FileOperationRecord = FileOperationRecord
          __exported by:__ @program-analysis\/program_slicing_selection.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize FileOperationRecord where
 

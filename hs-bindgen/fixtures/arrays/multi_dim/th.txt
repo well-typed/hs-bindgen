@@ -174,8 +174,7 @@ newtype Matrix
 
            __exported by:__ @arrays\/multi_dim.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapMatrix"
                   (Ptr Matrix)
@@ -200,8 +199,7 @@ newtype Triplets
 
            __exported by:__ @arrays\/multi_dim.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapTriplets"
                   (Ptr Triplets)
                   (Ptr (IncompleteArray (ConstantArray 3 CInt)))

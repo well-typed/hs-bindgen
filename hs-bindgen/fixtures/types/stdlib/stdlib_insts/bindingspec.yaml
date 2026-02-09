@@ -110,6 +110,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -138,6 +139,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -166,6 +168,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -190,6 +193,7 @@ hstypes:
   instances:
   - Enum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -209,6 +213,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFenvT
   instances:
+  - Generic
   - HasCField
   - HasField
 - hsname: Stdlib_CFexceptT
@@ -218,6 +223,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFexceptT
   instances:
+  - Generic
   - HasCField
   - HasField
 - hsname: Stdlib_CFile
@@ -227,6 +233,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFile
   instances:
+  - Generic
   - HasCField
   - HasField
 - hsname: Stdlib_CFpos
@@ -236,6 +243,7 @@ hstypes:
       fields:
       - unwrapStdlib_CFpos
   instances:
+  - Generic
   - HasCField
   - HasField
 - hsname: Stdlib_CIntMax
@@ -251,6 +259,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -279,6 +288,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -301,6 +311,7 @@ hstypes:
       fields:
       - unwrapStdlib_CJmpBuf
   instances:
+  - Generic
   - HasCField
   - HasField
 - hsname: Stdlib_CMbstateT
@@ -310,6 +321,7 @@ hstypes:
       fields:
       - unwrapStdlib_CMbstateT
   instances:
+  - Generic
   - HasCField
   - HasField
 - hsname: Stdlib_CPtrdiff
@@ -325,6 +337,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -353,6 +366,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -381,6 +395,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -405,6 +420,7 @@ hstypes:
   instances:
   - Enum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -425,6 +441,7 @@ hstypes:
       - unwrapStdlib_CTm
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -443,6 +460,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -471,6 +489,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -499,6 +518,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -522,6 +542,7 @@ hstypes:
       - unwrapStdlib_CWctransT
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -539,6 +560,7 @@ hstypes:
       - unwrapStdlib_CWctypeT
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -561,6 +583,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -589,6 +612,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -617,6 +641,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -645,6 +670,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -673,6 +699,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -701,6 +728,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -729,6 +757,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -757,6 +786,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -785,6 +815,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

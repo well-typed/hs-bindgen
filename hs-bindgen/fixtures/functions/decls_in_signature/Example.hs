@@ -56,8 +56,7 @@ data Outside = Outside
          __exported by:__ @functions\/decls_in_signature.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Outside where
 
@@ -133,8 +132,7 @@ data Named_struct = Named_struct
          __exported by:__ @functions\/decls_in_signature.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Named_struct where
 

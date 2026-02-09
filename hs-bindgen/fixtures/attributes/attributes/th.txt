@@ -26,8 +26,7 @@ data Foo
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -75,8 +74,7 @@ data Bar
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -124,8 +122,7 @@ data Baz
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Baz
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -173,8 +170,7 @@ data Qux
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Qux
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -229,8 +225,7 @@ data FILE
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize FILE
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int

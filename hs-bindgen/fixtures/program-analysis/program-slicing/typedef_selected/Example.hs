@@ -37,8 +37,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 newtype T = T
   { unwrapT :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -77,8 +76,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T "unwrapT" where
 newtype U = U
   { unwrapU :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

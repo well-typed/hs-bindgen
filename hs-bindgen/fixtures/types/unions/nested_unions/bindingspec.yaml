@@ -23,6 +23,7 @@ hstypes:
       fields:
       - exA_fieldA1
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -36,6 +37,7 @@ hstypes:
       fields:
       - exB_fieldB1
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -49,6 +51,7 @@ hstypes:
       fields:
       - unwrapExB_fieldB1
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -62,6 +65,7 @@ hstypes:
       fields:
       - unwrapUnionA
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

@@ -187,6 +187,7 @@ getHsPrimTypeInsts = \case
       , Inst.Enum
       , Inst.Eq
       , Inst.FiniteBits
+      , Inst.Generic
       , Inst.HasFFIType
       , Inst.Ix
       , Inst.Ord
@@ -262,6 +263,7 @@ getHsPrimTypeInsts = \case
     unitInsts :: Set Inst.TypeClass
     unitInsts = Set.fromList [
         Inst.Eq
+      , Inst.Generic
       , Inst.HasFFIType
       , Inst.Ord
       , Inst.Read
@@ -275,6 +277,7 @@ getHsPrimTypeInsts = \case
     voidInsts :: Set Inst.TypeClass
     voidInsts = Set.fromList [
         Inst.Eq
+      , Inst.Generic
       , Inst.Ix
       , Inst.Ord
       , Inst.Read

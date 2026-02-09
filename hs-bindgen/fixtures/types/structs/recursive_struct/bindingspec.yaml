@@ -25,6 +25,7 @@ hstypes:
       - linked_list_A_t_next
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -41,6 +42,7 @@ hstypes:
       - linked_list_B_t_next
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

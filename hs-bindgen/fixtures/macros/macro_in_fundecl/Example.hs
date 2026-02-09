@@ -41,8 +41,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord,
 newtype I = I
   { unwrapI :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -81,8 +80,7 @@ instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
 newtype C = C
   { unwrapC :: FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -121,8 +119,7 @@ instance HsBindgen.Runtime.HasCField.HasCField C "unwrapC" where
 newtype F = F
   { unwrapF :: FC.CFloat
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -159,8 +156,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F "unwrapF" where
 newtype L = L
   { unwrapL :: FC.CLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -199,8 +195,7 @@ instance HsBindgen.Runtime.HasCField.HasCField L "unwrapL" where
 newtype S = S
   { unwrapS :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

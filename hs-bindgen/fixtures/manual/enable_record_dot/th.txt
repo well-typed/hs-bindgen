@@ -26,8 +26,7 @@ data Point
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -75,8 +74,7 @@ data Size
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Size
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -138,8 +136,7 @@ data Rect
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Rect
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -186,8 +183,7 @@ newtype E
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
     where staticSizeOf = \_ -> 4 :: Int
@@ -265,8 +261,7 @@ newtype Value
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -745,8 +740,7 @@ newtype RunDriver
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

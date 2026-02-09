@@ -13,8 +13,7 @@ newtype Myint
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -49,8 +48,7 @@ newtype Intptr
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -166,8 +164,7 @@ newtype FunctionPointer_Function
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -286,8 +283,7 @@ newtype F1
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -351,8 +347,7 @@ newtype G2
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -437,8 +432,7 @@ newtype H3
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

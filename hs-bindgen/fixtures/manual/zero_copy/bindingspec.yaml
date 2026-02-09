@@ -55,6 +55,7 @@ hstypes:
       - circle_radius
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -74,6 +75,7 @@ hstypes:
       - colour_blue
   instances:
   - Eq
+  - Generic
   - HasCBitField
   - HasField
   - ReadRaw
@@ -90,6 +92,7 @@ hstypes:
       - drawing_colour
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -105,6 +108,7 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -125,6 +129,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -149,6 +154,7 @@ hstypes:
       - point_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -165,6 +171,7 @@ hstypes:
       - rectangle_bottomright
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -179,6 +186,7 @@ hstypes:
       fields:
       - unwrapShape
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -195,6 +203,7 @@ hstypes:
       - tic_tac_toe_row3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -210,6 +219,7 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -228,6 +238,7 @@ hstypes:
   instances:
   - Eq
   - Flam_Offset
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

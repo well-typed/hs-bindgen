@@ -94,8 +94,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_Aux "unwrapA_Aux" where
 newtype A = A
   { unwrapA :: Ptr.FunPtr A_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -124,8 +123,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

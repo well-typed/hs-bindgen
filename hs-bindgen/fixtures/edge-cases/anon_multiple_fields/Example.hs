@@ -44,8 +44,7 @@ data Some_struct_field1 = Some_struct_field1
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Some_struct_field1 where
 
@@ -126,8 +125,7 @@ data Some_struct = Some_struct
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Some_struct where
 

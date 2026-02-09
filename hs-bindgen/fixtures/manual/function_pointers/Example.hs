@@ -105,8 +105,7 @@ data Apply1Struct = Apply1Struct
          __exported by:__ @manual\/function_pointers.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Apply1Struct where
 

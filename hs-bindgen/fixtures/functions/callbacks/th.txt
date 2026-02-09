@@ -485,8 +485,7 @@ newtype FileOpenedNotification
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -565,8 +564,7 @@ newtype ProgressUpdate
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -643,8 +641,7 @@ newtype DataValidator
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -685,8 +682,7 @@ data Measurement
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Measurement
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -776,8 +772,7 @@ newtype MeasurementReceived
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -834,8 +829,7 @@ newtype MeasurementReceived2
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -894,8 +888,7 @@ newtype SampleBufferFull
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -945,8 +938,7 @@ data MeasurementHandler
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize MeasurementHandler
     where staticSizeOf = \_ -> 24 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -1020,8 +1012,7 @@ data DataPipeline
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize DataPipeline
     where staticSizeOf = \_ -> 24 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -1234,8 +1225,7 @@ newtype Processor_mode
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Processor_mode
     where staticSizeOf = \_ -> 4 :: Int
@@ -1384,8 +1374,7 @@ newtype Foo
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -1420,8 +1409,7 @@ newtype Foo2
 
            __exported by:__ @functions\/callbacks.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

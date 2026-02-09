@@ -37,8 +37,7 @@ data S1_t = S1_t
          __exported by:__ @declarations\/forward_declaration.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S1_t where
 
@@ -90,8 +89,7 @@ data S2 = S2
          __exported by:__ @declarations\/forward_declaration.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S2 where
 

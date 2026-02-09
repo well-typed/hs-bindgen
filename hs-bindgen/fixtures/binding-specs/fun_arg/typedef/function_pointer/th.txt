@@ -184,8 +184,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -210,8 +209,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

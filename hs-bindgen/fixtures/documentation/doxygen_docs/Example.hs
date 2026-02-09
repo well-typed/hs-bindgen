@@ -73,8 +73,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Size_type = Size_type
   { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -144,8 +143,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Color_enum = Color_enum
   { unwrapColor_enum :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Color_enum where
@@ -339,8 +337,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t = Event_callback_t
   { unwrapEvent_callback_t :: Ptr.FunPtr Event_callback_t_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -432,8 +429,7 @@ data Config_t = Config_t
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Config_t where
 
@@ -547,8 +543,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Status_code_t = Status_code_t
   { unwrapStatus_code_t :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Status_code_t where
@@ -725,8 +720,7 @@ data Data_union_t_as_parts = Data_union_t_as_parts
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t_as_parts where
 
@@ -1027,8 +1021,7 @@ data Bitfield_t = Bitfield_t
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bitfield_t where
 
@@ -1199,8 +1192,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t = Processor_fn_t
   { unwrapProcessor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -1236,8 +1228,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Filename_t = Filename_t
   { unwrapFilename_t :: (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -1284,8 +1275,7 @@ data Flexible_array_Aux = Flexible_array
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Flexible_array_Aux where
 

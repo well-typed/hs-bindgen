@@ -86,8 +86,7 @@ newtype I
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -122,8 +121,7 @@ data S
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -166,8 +164,7 @@ newtype E
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
     where staticSizeOf = \_ -> 4 :: Int
@@ -231,8 +228,7 @@ newtype TI
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -267,8 +263,7 @@ newtype TS
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapTS" (Ptr TS) (Ptr S)
     where getField = fromPtr (Proxy @"unwrapTS")
@@ -310,8 +305,7 @@ newtype TE
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -337,8 +331,7 @@ newtype TTI
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -373,8 +366,7 @@ newtype TTS
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapTTS" (Ptr TTS) (Ptr TS)
     where getField = fromPtr (Proxy @"unwrapTTS")
@@ -416,8 +408,7 @@ newtype TTE
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

@@ -38,8 +38,7 @@ data S = S
          __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S where
 
@@ -85,8 +84,7 @@ instance GHC.Records.HasField "s_x" (Ptr.Ptr S) (Ptr.Ptr FC.CInt) where
 newtype T = T
   { unwrapT :: S
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

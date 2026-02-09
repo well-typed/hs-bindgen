@@ -2487,8 +2487,7 @@ newtype A
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -2523,8 +2522,7 @@ data Some_struct
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Some_struct
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -2567,8 +2565,7 @@ newtype Some_enum
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Some_enum
     where staticSizeOf = \_ -> 4 :: Int
@@ -2632,8 +2629,7 @@ newtype Arr_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapArr_typedef1"
                   (Ptr Arr_typedef1)
                   (Ptr (IncompleteArray A))
@@ -2656,8 +2652,7 @@ newtype Arr_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapArr_typedef2"
                   (Ptr Arr_typedef2)
                   (Ptr (IncompleteArray (Ptr A)))
@@ -2680,8 +2675,7 @@ newtype Arr_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapArr_typedef3"
                   (Ptr Arr_typedef3)
@@ -2705,8 +2699,7 @@ newtype Arr_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapArr_typedef4"
                   (Ptr Arr_typedef4)
@@ -2734,8 +2727,7 @@ newtype Typedef1
 
       __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -2770,8 +2762,7 @@ newtype Typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -2796,8 +2787,7 @@ newtype Typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -2872,8 +2862,7 @@ newtype Funptr_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -2949,8 +2938,7 @@ newtype Funptr_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3026,8 +3014,7 @@ newtype Funptr_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3106,8 +3093,7 @@ newtype Funptr_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3186,8 +3172,7 @@ newtype Funptr_typedef5
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3215,8 +3200,7 @@ newtype Comments2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3275,8 +3259,7 @@ data Example_struct
 
       __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Example_struct
     where staticSizeOf = \_ -> 24 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -3325,8 +3308,7 @@ newtype Const_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3363,8 +3345,7 @@ newtype Const_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3401,8 +3382,7 @@ newtype Const_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3430,8 +3410,7 @@ newtype Const_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3459,8 +3438,7 @@ newtype Const_typedef5
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3487,8 +3465,7 @@ newtype Const_typedef6
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3516,8 +3493,7 @@ newtype Const_typedef7
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3593,8 +3569,7 @@ data Example_struct_with_const
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Example_struct_with_const
     where staticSizeOf = \_ -> 48 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -3738,8 +3713,7 @@ newtype Const_funptr1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3818,8 +3792,7 @@ newtype Const_funptr2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3898,8 +3871,7 @@ newtype Const_funptr3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3978,8 +3950,7 @@ newtype Const_funptr4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4058,8 +4029,7 @@ newtype Const_funptr5
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4138,8 +4108,7 @@ newtype Const_funptr6
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4218,8 +4187,7 @@ newtype Const_funptr7
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4247,8 +4215,7 @@ newtype BOOL
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4283,8 +4250,7 @@ newtype INT
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4319,8 +4285,7 @@ newtype INTP
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4345,8 +4310,7 @@ newtype INTCP
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

@@ -50,8 +50,7 @@ data Point1a
 
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Point1a
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -86,8 +85,7 @@ newtype Point1b
 
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapPoint1b" (Ptr Point1b) (Ptr Point1a)
     where getField = fromPtr (Proxy @"unwrapPoint1b")
@@ -121,8 +119,7 @@ data Point2a
 
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Point2a
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -157,8 +154,7 @@ newtype Point2b
 
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -196,8 +192,7 @@ data Point3a_Aux
 
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Point3a_Aux
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -232,8 +227,7 @@ newtype Point3a
 
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -260,8 +254,7 @@ newtype Point3b
 
            __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

@@ -26,6 +26,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -49,6 +50,7 @@ hstypes:
       - x_n
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -63,6 +65,7 @@ hstypes:
       fields:
       - unwrapY
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

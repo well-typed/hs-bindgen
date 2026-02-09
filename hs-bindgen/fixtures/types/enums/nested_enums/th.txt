@@ -13,8 +13,7 @@ newtype EnumA
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumA
     where staticSizeOf = \_ -> 4 :: Int
@@ -99,8 +98,7 @@ data ExA
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize ExA
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -129,8 +127,7 @@ newtype ExB_fieldB1
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize ExB_fieldB1
     where staticSizeOf = \_ -> 4 :: Int
@@ -215,8 +212,7 @@ data ExB
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize ExB
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

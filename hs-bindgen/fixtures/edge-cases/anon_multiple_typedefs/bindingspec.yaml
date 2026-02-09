@@ -40,6 +40,7 @@ hstypes:
       - point1a_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -55,6 +56,7 @@ hstypes:
       - unwrapPoint1b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -71,6 +73,7 @@ hstypes:
       - point2a_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -86,6 +89,7 @@ hstypes:
       - unwrapPoint2b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -103,6 +107,7 @@ hstypes:
       - unwrapPoint3a
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -121,6 +126,7 @@ hstypes:
       - point3a_Aux_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -136,6 +142,7 @@ hstypes:
       - unwrapPoint3b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

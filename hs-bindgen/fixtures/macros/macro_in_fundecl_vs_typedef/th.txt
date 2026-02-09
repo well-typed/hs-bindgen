@@ -244,8 +244,7 @@ newtype MC
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -280,8 +279,7 @@ newtype TC
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -322,8 +320,7 @@ data Struct1
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct1
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -358,8 +355,7 @@ data Struct2
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct2
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -394,8 +390,7 @@ data Struct3
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct3
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -424,8 +419,7 @@ newtype Struct3_t
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr Struct3)
     where getField = fromPtr (Proxy @"unwrapStruct3_t")
@@ -452,8 +446,7 @@ data Struct4
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct4
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

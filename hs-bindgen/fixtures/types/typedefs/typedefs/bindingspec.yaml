@@ -45,6 +45,7 @@ hstypes:
       - unwrapF1
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -62,6 +63,7 @@ hstypes:
       - unwrapFunctionPointer_Function
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -79,6 +81,7 @@ hstypes:
       - unwrapG1
   instances:
   - FromFunPtr
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -91,6 +94,7 @@ hstypes:
       - unwrapG2
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -108,6 +112,7 @@ hstypes:
       - unwrapH1
   instances:
   - FromFunPtr
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -119,6 +124,7 @@ hstypes:
       fields:
       - unwrapH2
   instances:
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -130,6 +136,7 @@ hstypes:
       - unwrapH3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -147,6 +154,7 @@ hstypes:
       - unwrapInt2int
   instances:
   - FromFunPtr
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -159,6 +167,7 @@ hstypes:
       - unwrapIntptr
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -181,6 +190,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -204,6 +214,7 @@ hstypes:
       - unwrapNonFunctionPointer_Function
   instances:
   - FromFunPtr
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

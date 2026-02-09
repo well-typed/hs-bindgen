@@ -42,6 +42,7 @@ hstypes:
       - primitive_d
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

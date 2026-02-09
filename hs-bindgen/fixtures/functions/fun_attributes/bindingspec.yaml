@@ -20,6 +20,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -38,6 +39,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

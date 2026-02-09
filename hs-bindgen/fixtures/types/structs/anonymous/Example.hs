@@ -44,8 +44,7 @@ data S1_c = S1_c
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S1_c where
 
@@ -117,8 +116,7 @@ data S1 = S1
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S1 where
 
@@ -183,8 +181,7 @@ data S2_inner_deep = S2_inner_deep
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S2_inner_deep where
 
@@ -244,8 +241,7 @@ data S2_inner = S2_inner
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S2_inner where
 
@@ -318,8 +314,7 @@ data S2 = S2
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S2 where
 
@@ -391,8 +386,7 @@ data S3 = S3
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S3 where
 
@@ -464,8 +458,7 @@ data S3_c = S3_c
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S3_c where
 

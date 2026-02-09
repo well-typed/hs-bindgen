@@ -76,8 +76,7 @@ data Point
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -125,8 +124,7 @@ data Rectangle
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Rectangle
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -176,8 +174,7 @@ data Circle
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Circle
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -343,8 +340,7 @@ data Colour
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Colour
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -404,8 +400,7 @@ newtype MyInt
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -453,8 +448,7 @@ data Drawing
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Drawing
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -509,8 +503,7 @@ data Tic_tac_toe
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Tic_tac_toe
     where staticSizeOf = \_ -> 36 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -560,8 +553,7 @@ data Vector_Aux
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Vector_Aux
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -593,8 +585,7 @@ newtype Triplet
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapTriplet"
                   (Ptr Triplet)
@@ -618,8 +609,7 @@ newtype Matrix
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapMatrix"
                   (Ptr Matrix)

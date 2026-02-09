@@ -45,8 +45,7 @@ data Foo = Foo
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo where
 
@@ -118,8 +117,7 @@ data Bar = Bar
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bar where
 
@@ -191,8 +189,7 @@ data Baz = Baz
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Baz where
 
@@ -264,8 +261,7 @@ data Qux = Qux
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Qux where
 
@@ -344,8 +340,7 @@ data FILE = FILE
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize FILE where
 

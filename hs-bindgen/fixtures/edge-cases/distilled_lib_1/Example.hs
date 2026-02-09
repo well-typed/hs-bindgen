@@ -64,8 +64,7 @@ data Another_typedef_struct_t = Another_typedef_struct_t
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Another_typedef_struct_t where
 
@@ -128,8 +127,7 @@ instance GHC.Records.HasField "another_typedef_struct_t_bar" (Ptr.Ptr Another_ty
 newtype Another_typedef_enum_e = Another_typedef_enum_e
   { unwrapAnother_typedef_enum_e :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Another_typedef_enum_e where
@@ -266,8 +264,7 @@ sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
 newtype A_type_t = A_type_t
   { unwrapA_type_t :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -306,8 +303,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_type_t "unwrapA_type_t" where
 newtype Var_t = Var_t
   { unwrapVar_t :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -422,8 +418,7 @@ data A_typedef_struct_t = A_typedef_struct_t
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A_typedef_struct_t where
 
@@ -657,8 +652,7 @@ tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 newtype A_typedef_enum_e = A_typedef_enum_e
   { unwrapA_typedef_enum_e :: FC.CUChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A_typedef_enum_e where
@@ -846,8 +840,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "unwrapCallback_t_
 newtype Callback_t = Callback_t
   { unwrapCallback_t :: Ptr.FunPtr Callback_t_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

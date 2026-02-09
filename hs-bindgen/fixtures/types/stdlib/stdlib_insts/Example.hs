@@ -38,8 +38,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 newtype Stdlib_CBool = Stdlib_CBool
   { unwrapStdlib_CBool :: FC.CBool
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -79,8 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CBool "unwrapStdlib_CBool"
 newtype Stdlib_Int8 = Stdlib_Int8
   { unwrapStdlib_Int8 :: HsBindgen.Runtime.LibC.Int8
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -120,8 +118,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int8 "unwrapStdlib_Int8" w
 newtype Stdlib_Int16 = Stdlib_Int16
   { unwrapStdlib_Int16 :: HsBindgen.Runtime.LibC.Int16
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -161,8 +158,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int16 "unwrapStdlib_Int16"
 newtype Stdlib_Int32 = Stdlib_Int32
   { unwrapStdlib_Int32 :: HsBindgen.Runtime.LibC.Int32
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -202,8 +198,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int32 "unwrapStdlib_Int32"
 newtype Stdlib_Int64 = Stdlib_Int64
   { unwrapStdlib_Int64 :: HsBindgen.Runtime.LibC.Int64
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -243,8 +238,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int64 "unwrapStdlib_Int64"
 newtype Stdlib_Word8 = Stdlib_Word8
   { unwrapStdlib_Word8 :: HsBindgen.Runtime.LibC.Word8
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -284,8 +278,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word8 "unwrapStdlib_Word8"
 newtype Stdlib_Word16 = Stdlib_Word16
   { unwrapStdlib_Word16 :: HsBindgen.Runtime.LibC.Word16
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -325,8 +318,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word16 "unwrapStdlib_Word1
 newtype Stdlib_Word32 = Stdlib_Word32
   { unwrapStdlib_Word32 :: HsBindgen.Runtime.LibC.Word32
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -366,8 +358,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word32 "unwrapStdlib_Word3
 newtype Stdlib_Word64 = Stdlib_Word64
   { unwrapStdlib_Word64 :: HsBindgen.Runtime.LibC.Word64
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -407,8 +398,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word64 "unwrapStdlib_Word6
 newtype Stdlib_CIntMax = Stdlib_CIntMax
   { unwrapStdlib_CIntMax :: HsBindgen.Runtime.LibC.CIntMax
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -448,8 +438,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CIntMax "unwrapStdlib_CInt
 newtype Stdlib_CUIntMax = Stdlib_CUIntMax
   { unwrapStdlib_CUIntMax :: HsBindgen.Runtime.LibC.CUIntMax
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -489,8 +478,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CUIntMax "unwrapStdlib_CUI
 newtype Stdlib_CIntPtr = Stdlib_CIntPtr
   { unwrapStdlib_CIntPtr :: HsBindgen.Runtime.LibC.CIntPtr
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -530,8 +518,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CIntPtr "unwrapStdlib_CInt
 newtype Stdlib_CUIntPtr = Stdlib_CUIntPtr
   { unwrapStdlib_CUIntPtr :: HsBindgen.Runtime.LibC.CUIntPtr
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -617,8 +604,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CFexceptT "unwrapStdlib_CF
 newtype Stdlib_CSize = Stdlib_CSize
   { unwrapStdlib_CSize :: HsBindgen.Runtime.LibC.CSize
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -658,8 +644,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CSize "unwrapStdlib_CSize"
 newtype Stdlib_CPtrdiff = Stdlib_CPtrdiff
   { unwrapStdlib_CPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -722,8 +707,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmp
 newtype Stdlib_CWchar = Stdlib_CWchar
   { unwrapStdlib_CWchar :: HsBindgen.Runtime.LibC.CWchar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -763,8 +747,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CWchar "unwrapStdlib_CWcha
 newtype Stdlib_CWintT = Stdlib_CWintT
   { unwrapStdlib_CWintT :: HsBindgen.Runtime.LibC.CWintT
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -827,8 +810,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CMbstateT "unwrapStdlib_CM
 newtype Stdlib_CWctransT = Stdlib_CWctransT
   { unwrapStdlib_CWctransT :: HsBindgen.Runtime.LibC.CWctransT
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -859,8 +841,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CWctransT "unwrapStdlib_CW
 newtype Stdlib_CWctypeT = Stdlib_CWctypeT
   { unwrapStdlib_CWctypeT :: HsBindgen.Runtime.LibC.CWctypeT
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -891,8 +872,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CWctypeT "unwrapStdlib_CWc
 newtype Stdlib_CChar16T = Stdlib_CChar16T
   { unwrapStdlib_CChar16T :: HsBindgen.Runtime.LibC.CChar16T
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -932,8 +912,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CChar16T "unwrapStdlib_CCh
 newtype Stdlib_CChar32T = Stdlib_CChar32T
   { unwrapStdlib_CChar32T :: HsBindgen.Runtime.LibC.CChar32T
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -973,8 +952,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CChar32T "unwrapStdlib_CCh
 newtype Stdlib_CTime = Stdlib_CTime
   { unwrapStdlib_CTime :: HsBindgen.Runtime.LibC.CTime
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -1007,8 +985,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CTime "unwrapStdlib_CTime"
 newtype Stdlib_CClock = Stdlib_CClock
   { unwrapStdlib_CClock :: HsBindgen.Runtime.LibC.CClock
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -1041,8 +1018,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CClock "unwrapStdlib_CCloc
 newtype Stdlib_CTm = Stdlib_CTm
   { unwrapStdlib_CTm :: HsBindgen.Runtime.LibC.CTm
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -1115,8 +1091,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
 newtype Stdlib_CSigAtomic = Stdlib_CSigAtomic
   { unwrapStdlib_CSigAtomic :: HsBindgen.Runtime.LibC.CSigAtomic
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

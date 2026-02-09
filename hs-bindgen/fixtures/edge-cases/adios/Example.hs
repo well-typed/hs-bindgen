@@ -37,8 +37,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 newtype Adio'0301s = Adio'0301s
   { unwrapAdio'0301s :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -78,8 +77,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Adio'0301s "unwrapAdio'0301s" whe
 newtype C数字 = C数字
   { unwrapC数字 :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

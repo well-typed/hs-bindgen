@@ -55,6 +55,7 @@ hstypes:
       - s1_b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -72,6 +73,7 @@ hstypes:
       - s2_t_c
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -87,6 +89,7 @@ hstypes:
       - s3_t_a
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -104,6 +107,7 @@ hstypes:
       - s4_c
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -120,6 +124,7 @@ hstypes:
       - s5_b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -136,6 +141,7 @@ hstypes:
       - s6_b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -151,6 +157,7 @@ hstypes:
       - unwrapS7a
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -169,6 +176,7 @@ hstypes:
       - s7a_Aux_b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -184,6 +192,7 @@ hstypes:
       - unwrapS7b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -202,6 +211,7 @@ hstypes:
       - s7b_Aux_b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

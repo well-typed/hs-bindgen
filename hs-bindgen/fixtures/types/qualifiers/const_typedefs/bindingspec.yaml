@@ -49,6 +49,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -74,6 +75,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -96,6 +98,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -109,6 +112,7 @@ hstypes:
       - unwrapTE
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -133,6 +137,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -156,6 +161,7 @@ hstypes:
       - unwrapTS
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -171,6 +177,7 @@ hstypes:
       - unwrapTTE
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -195,6 +202,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -218,6 +226,7 @@ hstypes:
       - unwrapTTS
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -232,6 +241,7 @@ hstypes:
       fields:
       - unwrapTTU
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -245,6 +255,7 @@ hstypes:
       fields:
       - unwrapTU
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -258,6 +269,7 @@ hstypes:
       fields:
       - unwrapU
   instances:
+  - Generic
   - ReadRaw
   - StaticSize
   - Storable

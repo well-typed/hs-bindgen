@@ -17,8 +17,7 @@ data Struct1_t
 
       __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct1_t
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -42,8 +41,7 @@ data Struct2_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct2_t
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -81,8 +79,7 @@ data Struct5
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct5
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -106,8 +103,7 @@ newtype Struct5_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -134,8 +130,7 @@ data Struct6_Aux
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct6_Aux
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -159,8 +154,7 @@ newtype Struct6
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -187,8 +181,7 @@ data Struct7
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct7
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -212,8 +205,7 @@ newtype Struct7a
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapStruct7a" (Ptr Struct7a) (Ptr Struct7)
     where getField = fromPtr (Proxy @"unwrapStruct7a")
@@ -234,8 +226,7 @@ newtype Struct7b
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapStruct7b" (Ptr Struct7b) (Ptr Struct7)
     where getField = fromPtr (Proxy @"unwrapStruct7b")
@@ -256,8 +247,7 @@ data Struct8
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct8
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -281,8 +271,7 @@ newtype Struct8b
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapStruct8b" (Ptr Struct8b) (Ptr Struct8)
     where getField = fromPtr (Proxy @"unwrapStruct8b")
@@ -303,8 +292,7 @@ data Struct9
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct9
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -328,8 +316,7 @@ newtype Struct9_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapStruct9_t" (Ptr Struct9_t) (Ptr Struct9)
     where getField = fromPtr (Proxy @"unwrapStruct9_t")
@@ -350,8 +337,7 @@ data Struct10_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct10_t
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -375,8 +361,7 @@ newtype Struct10_t_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapStruct10_t_t"
                   (Ptr Struct10_t_t)
@@ -413,8 +398,7 @@ data Struct11_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct11_t
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -464,8 +448,7 @@ data Struct12_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct12_t
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -627,8 +610,7 @@ data Use_sites
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Use_sites
     where staticSizeOf = \_ -> 64 :: Int
           staticAlignment = \_ -> 8 :: Int

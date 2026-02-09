@@ -665,8 +665,7 @@ newtype Triplet
 
            __exported by:__ @arrays\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapTriplet"
                   (Ptr Triplet)
@@ -690,8 +689,7 @@ newtype List
 
            __exported by:__ @arrays\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapList"
                   (Ptr List)
                   (Ptr (IncompleteArray CInt))
@@ -713,8 +711,7 @@ newtype Matrix
 
            __exported by:__ @arrays\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapMatrix"
                   (Ptr Matrix)
@@ -739,8 +736,7 @@ newtype Tripletlist
 
            __exported by:__ @arrays\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapTripletlist"
                   (Ptr Tripletlist)
                   (Ptr (IncompleteArray (ConstantArray 3 CInt)))
@@ -776,8 +772,7 @@ data Example
 
            __exported by:__ @arrays\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Example
     where staticSizeOf = \_ -> 48 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -822,8 +817,7 @@ newtype Sudoku
 
       __exported by:__ @arrays\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapSudoku"
                   (Ptr Sudoku)

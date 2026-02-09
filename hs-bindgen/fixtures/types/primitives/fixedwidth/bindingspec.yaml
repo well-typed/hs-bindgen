@@ -16,6 +16,7 @@ hstypes:
       - foo_thirty_two
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

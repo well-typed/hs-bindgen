@@ -50,8 +50,7 @@ newtype Int16_T
 
       __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -86,8 +85,7 @@ newtype Int32_T
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -122,8 +120,7 @@ newtype Int64_T
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -171,8 +168,7 @@ data Cint16_T
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Cint16_T
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 2 :: Int
@@ -207,8 +203,7 @@ data B
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize B
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -266,8 +261,7 @@ data A
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize A
     where staticSizeOf = \_ -> 152 :: Int
           staticAlignment = \_ -> 8 :: Int

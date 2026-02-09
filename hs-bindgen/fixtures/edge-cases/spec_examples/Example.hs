@@ -43,8 +43,7 @@ __exported by:__ @edge-cases\/spec_examples.h@
 newtype Int16_T = Int16_T
   { unwrapInt16_T :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -83,8 +82,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int16_T "unwrapInt16_T" where
 newtype Int32_T = Int32_T
   { unwrapInt32_T :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -123,8 +121,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int32_T "unwrapInt32_T" where
 newtype Int64_T = Int64_T
   { unwrapInt64_T :: FC.CLLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -176,8 +173,7 @@ data Cint16_T = Cint16_T
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Cint16_T where
 
@@ -235,8 +231,7 @@ instance GHC.Records.HasField "cint16_T_im" (Ptr.Ptr Cint16_T) (Ptr.Ptr Int16_T)
 -}
 data B = B
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize B where
 
@@ -301,8 +296,7 @@ data A = A
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A where
 

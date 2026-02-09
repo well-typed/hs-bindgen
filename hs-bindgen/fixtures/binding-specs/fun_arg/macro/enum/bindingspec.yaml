@@ -21,6 +21,7 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -40,6 +41,7 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -60,6 +62,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

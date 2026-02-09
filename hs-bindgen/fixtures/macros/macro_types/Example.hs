@@ -37,8 +37,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Rea
 newtype PtrInt = PtrInt
   { unwrapPtrInt :: Ptr.Ptr FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -68,8 +67,7 @@ instance HsBindgen.Runtime.HasCField.HasCField PtrInt "unwrapPtrInt" where
 newtype ShortInt = ShortInt
   { unwrapShortInt :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -108,8 +106,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ShortInt "unwrapShortInt" where
 newtype SignedShortInt = SignedShortInt
   { unwrapSignedShortInt :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -149,8 +146,7 @@ instance HsBindgen.Runtime.HasCField.HasCField SignedShortInt "unwrapSignedShort
 newtype UnsignedShortInt = UnsignedShortInt
   { unwrapUnsignedShortInt :: FC.CUShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -190,8 +186,7 @@ instance HsBindgen.Runtime.HasCField.HasCField UnsignedShortInt "unwrapUnsignedS
 newtype PtrPtrChar = PtrPtrChar
   { unwrapPtrPtrChar :: Ptr.Ptr (Ptr.Ptr FC.CChar)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -221,8 +216,7 @@ instance HsBindgen.Runtime.HasCField.HasCField PtrPtrChar "unwrapPtrPtrChar" whe
 newtype MTy = MTy
   { unwrapMTy :: FC.CFloat
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -259,8 +253,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MTy "unwrapMTy" where
 newtype Tty = Tty
   { unwrapTty :: MTy
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -297,8 +290,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tty "unwrapTty" where
 newtype UINT8_T = UINT8_T
   { unwrapUINT8_T :: FC.CUChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -337,8 +329,7 @@ instance HsBindgen.Runtime.HasCField.HasCField UINT8_T "unwrapUINT8_T" where
 newtype BOOLEAN_T = BOOLEAN_T
   { unwrapBOOLEAN_T :: UINT8_T
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -377,8 +368,7 @@ instance HsBindgen.Runtime.HasCField.HasCField BOOLEAN_T "unwrapBOOLEAN_T" where
 newtype Boolean_T = Boolean_T
   { unwrapBoolean_T :: BOOLEAN_T
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

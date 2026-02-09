@@ -99,8 +99,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 newtype F1 = F1
   { unwrapF1 :: Ptr.FunPtr F1_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -187,8 +186,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F2_Aux "unwrapF2_Aux" where
 newtype F2 = F2
   { unwrapF2 :: Ptr.Ptr (Ptr.FunPtr F2_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -276,8 +274,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F3_Aux "unwrapF3_Aux" where
 newtype F3 = F3
   { unwrapF3 :: Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F3_Aux))
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -364,8 +361,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F4_Aux "unwrapF4_Aux" where
 newtype F4 = F4
   { unwrapF4 :: Ptr.Ptr (Ptr.FunPtr F4_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -452,8 +448,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F5_Aux "unwrapF5_Aux" where
 newtype F5 = F5
   { unwrapF5 :: Ptr.Ptr (Ptr.FunPtr F5_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -483,8 +478,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F5 "unwrapF5" where
 newtype MyInt = MyInt
   { unwrapMyInt :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -581,8 +575,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F6_Aux "unwrapF6_Aux" where
 newtype F6 = F6
   { unwrapF6 :: Ptr.Ptr (Ptr.FunPtr F6_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

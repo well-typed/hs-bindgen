@@ -52,8 +52,7 @@ data Bools1 = Bools1
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bools1 where
 
@@ -125,8 +124,7 @@ data Bools2 = Bools2
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bools2 where
 
@@ -185,8 +183,7 @@ instance GHC.Records.HasField "bools2_y" (Ptr.Ptr Bools2) (Ptr.Ptr FC.CBool) whe
 newtype BOOL = BOOL
   { unwrapBOOL :: FC.CBool
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -238,8 +235,7 @@ data Bools3 = Bools3
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bools3 where
 
