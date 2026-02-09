@@ -1,0 +1,62 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: functions/typedef_funptr.h
+  cname: RunDriver
+  hsname: RunDriver
+- headers: functions/typedef_funptr.h
+  cname: struct Driver
+  hsname: Driver
+- headers: functions/typedef_funptr.h
+  cname: struct Bare
+  hsname: Bare
+hstypes:
+- hsname: Bare
+  representation:
+    record:
+      constructor: Bare
+      fields:
+      - bare_callback
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Driver
+  representation:
+    record:
+      constructor: Driver
+      fields:
+      - driver_run
+  instances:
+  - Eq
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: RunDriver
+  representation:
+    newtype:
+      constructor: RunDriver
+      fields:
+      - unwrapRunDriver
+  instances:
+  - Eq
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
