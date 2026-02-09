@@ -55,8 +55,8 @@ import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
 import HsBindgen.Runtime.Internal.ByteArray qualified
 import HsBindgen.Runtime.Internal.CAPI qualified
-import HsBindgen.Runtime.Internal.FunPtr qualified
 import HsBindgen.Runtime.Internal.HasFFIType qualified
+import HsBindgen.Runtime.Internal.Prelude qualified
 import HsBindgen.Runtime.Internal.SizedByteArray qualified
 import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
@@ -88,10 +88,10 @@ mkGlobal = \case
       Maybe_nothing         -> 'Data.Maybe.Nothing
       Monad_return          -> 'return
       Monad_seq             -> '(>>)
-      ToFunPtr_class        -> ''HsBindgen.Runtime.Internal.FunPtr.ToFunPtr
-      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.Internal.FunPtr.toFunPtr
-      FromFunPtr_class      -> ''HsBindgen.Runtime.Internal.FunPtr.FromFunPtr
-      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.Internal.FunPtr.fromFunPtr
+      ToFunPtr_class        -> ''HsBindgen.Runtime.Internal.Prelude.ToFunPtr
+      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.Internal.Prelude.toFunPtr
+      FromFunPtr_class      -> ''HsBindgen.Runtime.Internal.Prelude.FromFunPtr
+      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.Internal.Prelude.fromFunPtr
       Foreign_Ptr           -> ''Foreign.Ptr.Ptr
       Ptr_constructor       -> 'GHC.Ptr.Ptr
       Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr

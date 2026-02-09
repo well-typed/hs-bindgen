@@ -2,7 +2,8 @@
 
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
-    Global (..)
+    RpGlobal(..)
+  , Global (..)
   , ClosedExpr
   , SExpr (..)
   , pattern EInt
@@ -30,6 +31,7 @@ module HsBindgen.Backend.SHs.AST (
 
 import Data.Type.Nat (Nat1)
 import DeBruijn (Add, Ctx, EmptyCtx, Idx)
+import Language.Haskell.TH qualified as TH
 
 import C.Char qualified as CExpr.Runtime
 
@@ -47,6 +49,13 @@ import HsBindgen.NameHint
 {-------------------------------------------------------------------------------
   Backend representation
 -------------------------------------------------------------------------------}
+
+-- | Global symbol exported from "HsBindgen.Runtime.Internal.Prelude".
+--
+-- We do not check whether the symbol referenced by 'RpGlobal' is actually
+-- defined in in "HsBindgen.Runtime.Internal.Prelude"; see
+-- https://github.com/well-typed/hs-bindgen/issues/1687.
+newtype RpGlobal = RpGlobal { name :: TH.Name }
 
 data Global =
     Tuple_type Word

@@ -8,5 +8,8 @@
 --
 -- See https://github.com/well-typed/hs-bindgen/issues/1627.
 module HsBindgen.Runtime.Internal.Prelude (
-
+    ToFunPtr(..)
+  , FromFunPtr(..)
   ) where
+
+import HsBindgen.Runtime.Internal.FunPtr

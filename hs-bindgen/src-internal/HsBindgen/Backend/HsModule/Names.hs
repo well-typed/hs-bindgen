@@ -53,6 +53,7 @@ import HsBindgen.Runtime.Internal.Bitfield qualified
 import HsBindgen.Runtime.Internal.ByteArray qualified
 import HsBindgen.Runtime.Internal.CAPI qualified
 import HsBindgen.Runtime.Internal.HasFFIType qualified
+import HsBindgen.Runtime.Internal.Prelude qualified as RP
 import HsBindgen.Runtime.Internal.SizedByteArray qualified
 import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
@@ -122,6 +123,20 @@ importQ name = ResolvedName{
     }
   where
     s = TH.nameBase name
+
+
+-- | Qualified import from "HsBindgen.Runtime.Internal.Prelude".
+importQ' :: RpGlobal -> ResolvedName
+importQ' x = ResolvedName{
+      string   = s
+    , typ      = nameType s
+    , hsImport =
+      Just $
+        QualifiedHsImport $
+          HsImportModule "HsBindgen.Runtime.Internal.Prelude" Nothing
+    }
+  where
+    s = TH.nameBase x.name
 
 importU :: TH.Name -> ResolvedName
 importU name = ResolvedName{
@@ -252,41 +267,10 @@ resolveGlobal = \case
     Monad_return        -> importU 'return
     Monad_seq           -> importU '(>>)
 
-    -- TODO: If we use the TH resolution mechanism it is going to pick up
-    -- HsBindgen.Runtime.FunPtr.Class which is not exposed and leads to
-    -- generated code not compiling. So we have to construct the ResolvedName
-    -- records by hand here.
-    --
-    -- However, once #1061 is addressed this should no longer be a problem
-    --
-    ToFunPtr_class        -> let s = "ToFunPtr"
-                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
-                              in ResolvedName{
-                                    string   = s
-                                  , typ      = nameType s
-                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                  }
-    ToFunPtr_toFunPtr     -> let s = "toFunPtr"
-                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
-                              in ResolvedName{
-                                    string   = s
-                                  , typ      = nameType s
-                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                  }
-    FromFunPtr_class      -> let s = "FromFunPtr"
-                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
-                              in ResolvedName{
-                                    string   = s
-                                  , typ      = nameType s
-                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                  }
-    FromFunPtr_fromFunPtr -> let s = "fromFunPtr"
-                                 m = Just "HsBindgen.Runtime.Internal.FunPtr"
-                              in ResolvedName{
-                                    string   = s
-                                  , typ      = nameType s
-                                  , hsImport = fmap (QualifiedHsImport . moduleOf s) m
-                                  }
+    ToFunPtr_class        -> importQ' $ RpGlobal ''RP.ToFunPtr
+    ToFunPtr_toFunPtr     -> importQ' $ RpGlobal 'RP.toFunPtr
+    FromFunPtr_class      -> importQ' $ RpGlobal ''RP.FromFunPtr
+    FromFunPtr_fromFunPtr -> importQ' $ RpGlobal 'RP.fromFunPtr
 
     Foreign_Ptr           -> importQ ''Foreign.Ptr
     Ptr_constructor       -> importQ ''GHC.Ptr.Ptr
