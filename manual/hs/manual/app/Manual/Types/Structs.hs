@@ -4,7 +4,6 @@
 module Manual.Types.Structs (examples) where
 
 import Control.Exception (bracket)
-import Data.Primitive.PrimArray qualified as PA
 import Data.Vector.Storable qualified as VS
 import Foreign as F
 import Foreign.C (castCCharToChar)

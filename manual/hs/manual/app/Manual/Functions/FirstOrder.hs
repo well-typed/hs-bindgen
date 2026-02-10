@@ -3,7 +3,6 @@
 module Manual.Functions.FirstOrder (examples) where
 
 import Control.Monad ((<=<))
-import Foreign as F
 import Foreign.C (withCString)
 import System.IO.Unsafe
 
@@ -48,29 +47,29 @@ examples = do
     subsection "Implicit function to pointer conversion"
     do
       -- function pointer type in function parameter
-      print =<< Fun.apply1_pointer_arg (F.castFunPtr FunPtr.square) 4
-      print =<< Fun.apply1_pointer_arg (F.castFunPtr FunPtr.square) 5
-      print =<< Fun.apply1_pointer_arg (F.castFunPtr FunPtr.square) 6
+      print =<< Fun.apply1_pointer_arg (safeCastFunPtr FunPtr.square) 4
+      print =<< Fun.apply1_pointer_arg (safeCastFunPtr FunPtr.square) 5
+      print =<< Fun.apply1_pointer_arg (safeCastFunPtr FunPtr.square) 6
 
       -- function type in function parameter
-      print =<< Fun.apply1_nopointer_arg (F.castFunPtr FunPtr.square) 4
-      print =<< Fun.apply1_nopointer_arg (F.castFunPtr FunPtr.square) 5
-      print =<< Fun.apply1_nopointer_arg (F.castFunPtr FunPtr.square) 6
+      print =<< Fun.apply1_nopointer_arg (safeCastFunPtr FunPtr.square) 4
+      print =<< Fun.apply1_nopointer_arg (safeCastFunPtr FunPtr.square) 5
+      print =<< Fun.apply1_nopointer_arg (safeCastFunPtr FunPtr.square) 6
 
       subsubsection "Parameters of function type can occur almost anywhere!"
       do -- function type in function result
         apply1FunPtr <- Fun.apply1_nopointer_res
         let apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square) 4
+        print =<< apply1Fun (safeCastFunPtr FunPtr.square) 4
       do -- function type in global
         let apply1FunPtr = Fun.apply1_nopointer_var
             apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square) 5
+        print =<< apply1Fun (safeCastFunPtr FunPtr.square) 5
       do -- function type in struct field
         let apply1FunPtr = Fun.apply1Struct_apply1_nopointer_struct_field Fun.apply1_struct
             apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square) 6
+        print =<< apply1Fun (safeCastFunPtr FunPtr.square) 6
       do -- function type in union field
         let apply1FunPtr = Fun.get_apply1Union_apply1_nopointer_union_field Fun.apply1_union
             apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square) 7
+        print =<< apply1Fun (safeCastFunPtr FunPtr.square) 7
