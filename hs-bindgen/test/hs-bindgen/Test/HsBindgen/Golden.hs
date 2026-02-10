@@ -439,7 +439,8 @@ test_attributes_visibility_attributes =
 
 testCases_bespoke_bindingSpecs :: [TestCase]
 testCases_bespoke_bindingSpecs = [
-      test_bindingSpecs_omit_type
+      test_bindingSpecs_standard_library_external_binding_specs
+    , test_bindingSpecs_omit_type
       -- * Bugs / regression tests
     , test_bindingSpecs_macro_trans_dep_missing
       -- * Naming types
@@ -471,6 +472,13 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_struct
     , test_bindingSpecs_fun_arg_macro_union
     ]
+
+test_bindingSpecs_standard_library_external_binding_specs :: TestCase
+test_bindingSpecs_standard_library_external_binding_specs =
+    defaultTest "binding-specs/standard_library_external_binding_specs"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate  .~ BTrue
+          )
 
 test_bindingSpecs_omit_type :: TestCase
 test_bindingSpecs_omit_type =

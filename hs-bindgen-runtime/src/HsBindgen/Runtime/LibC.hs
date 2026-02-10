@@ -20,6 +20,10 @@ module HsBindgen.Runtime.LibC (
   , Foreign.C.CDouble(..)
   , Foreign.C.CString
 
+    -- * Boolean types
+    -- $BooleanTypes
+  , Foreign.C.CBool(..)
+
     -- * Integral types
     -- $IntegralTypes
   , Data.Int.Int8

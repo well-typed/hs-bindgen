@@ -6,8 +6,13 @@
 --
 -- > import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 --
--- The types for these bindings are defined in @HsBindgen.Runtime.Prelude@ in
--- the @hs-bindgen-runtime@ library, in the same order.
+-- If you change this file, note that:
+--
+-- - The types for these bindings are defined in @HsBindgen.Runtime.Prelude@ in
+--   the @hs-bindgen-runtime@ library, in the same order.
+--
+-- - The types for these bindings are tested in
+--   @standard_library_external_binding_specs.h@ in the same order.
 module HsBindgen.BindingSpec.Private.Stdlib (
     -- * Binding specification
     bindingSpec
