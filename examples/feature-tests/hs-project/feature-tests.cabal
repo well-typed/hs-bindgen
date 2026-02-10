@@ -1,0 +1,75 @@
+cabal-version: 3.0
+name:          feature-tests
+version:       0.1.0.0
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Well-Typed LLP
+maintainer:    info@well-typed.com
+build-type:    Simple
+
+common warnings
+  ghc-options:
+    -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wpartial-fields -Widentities
+    -Wredundant-constraints -Wmissing-export-lists
+    -Wno-unticked-promoted-constructors -Wunused-packages
+    -Wmissing-deriving-strategies
+
+common language
+  default-language:   GHC2021
+  default-extensions:
+    DerivingStrategies
+    ImportQualifiedPost
+    LambdaCase
+    PatternSynonyms
+    RecordWildCards
+    RoleAnnotations
+    ViewPatterns
+
+library generated
+  import:          warnings, language
+  visibility:      private
+  hs-source-dirs:  src-generated
+  exposed-modules:
+    Generated.Callbacks.Operators
+    Generated.Callbacks.Operators.FunPtr
+    Generated.Callbacks.Operators.Safe
+    Generated.Callbacks.Operators.Unsafe
+    Generated.Callbacks.Stream
+    Generated.Callbacks.Stream.FunPtr
+    Generated.Callbacks.Stream.Safe
+    Generated.Callbacks.Stream.Unsafe
+    Generated.Callbacks.View
+    Generated.Callbacks.View.FunPtr
+    Generated.Callbacks.View.Safe
+    Generated.Callbacks.View.Unsafe
+
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+
+  extra-libraries: feature-tests
+  ghc-options:     -Wno-missing-export-lists
+
+test-suite feature-tests
+  import:         warnings, language
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        Main.hs
+  other-modules:
+    Test.Callbacks.Operators
+    Test.Callbacks.Stream
+    Test.Callbacks.View
+    Test.Util
+    Test.Util.FunPtr
+    Test.Util.Orphans
+
+  build-depends:
+    , base
+    , directory
+    , feature-tests:generated
+    , hs-bindgen-runtime
+    , tasty
+    , tasty-quickcheck
+    , temporary
+    , vector
