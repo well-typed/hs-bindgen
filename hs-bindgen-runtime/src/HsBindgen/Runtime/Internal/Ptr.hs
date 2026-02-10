@@ -7,8 +7,10 @@
 -- | Pointer utilities
 module HsBindgen.Runtime.Internal.Ptr (
     plusPtrElem
+  , safeCastFunPtr
   ) where
 
+import Data.Coerce (Coercible, coerce)
 import Foreign.Ptr
 import Foreign.Storable
 
@@ -24,3 +26,11 @@ import Foreign.Storable
 -- alternatively use 'Data.Primitive.Ptr.advancePtr'.
 plusPtrElem :: forall a. Storable a => Ptr a -> Int -> Ptr a
 plusPtrElem ptr i = ptr `plusPtr` (i * sizeOf (undefined :: a))
+
+-- | Safely casts a 'FunPtr' to a 'FunPtr' of a different type.
+safeCastFunPtr ::
+  forall a b. Coercible a b => FunPtr a -> FunPtr b
+safeCastFunPtr = castFunPtr
+  where
+    _unused :: a -> b
+    _unused = coerce

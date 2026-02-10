@@ -18,6 +18,7 @@ module HsBindgen.Runtime.Prelude (
 
     -- * Pointers
   , plusPtrElem
+  , safeCastFunPtr
 
     -- * Arrays
   , ConstantArray   -- opaque
