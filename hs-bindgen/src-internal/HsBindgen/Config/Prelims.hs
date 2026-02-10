@@ -10,6 +10,7 @@ module HsBindgen.Config.Prelims (
     -- * Unique IDs
   , UniqueId (..)
   , UniqueIdMsg (..)
+  , checkUniqueId
   ) where
 
 import Data.Text qualified as Text
@@ -111,3 +112,7 @@ instance IsTrace Level UniqueIdMsg where
     UniqueIdEmpty     -> Warning
   getSource  = const HsBindgen
   getTraceId = const "unique-id"
+checkUniqueId :: Tracer UniqueIdMsg -> UniqueId -> IO ()
+checkUniqueId tracer (UniqueId val) = do
+  when (null val) $
+    traceWith tracer UniqueIdEmpty

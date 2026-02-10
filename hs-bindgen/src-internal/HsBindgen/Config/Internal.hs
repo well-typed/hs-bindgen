@@ -95,9 +95,10 @@ data BackendConfig = BackendConfig {
   deriving anyclass Default
 
 checkBackendConfig :: Tracer BackendConfigMsg -> BackendConfig -> IO ()
-checkBackendConfig _tracer _backendConfig =
-    -- Backend configuration currently cannot be incorrect.
-    return ()
+checkBackendConfig tracer backendConfig =
+    checkUniqueId
+      (contramap BackendConfigUniqueId tracer)
+      backendConfig.uniqueId
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)
