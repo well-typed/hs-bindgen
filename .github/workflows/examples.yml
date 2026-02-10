@@ -42,7 +42,7 @@ jobs:
         # NOTE: add new example projects here. The example project has to
         # satisfy some requirements for this workflow to work correctly. See
         # ./examples/README.md (with respect to the repository root).
-        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue', 'c-rpm']
+        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue', 'c-rpm', 'feature-tests']
 
     env:
       # We assume that the example executable lives in this directory
@@ -88,7 +88,7 @@ jobs:
     - name: 🛠️ Configure (${{ matrix.example }})
       working-directory: ${{ env.hs-project-directory }}
       run: |
-        cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
+        cabal configure --enable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
         cat "cabal.project.local"
 
     - name: 💾 Generate Cabal plan (hs-bindgen-cli)
@@ -182,3 +182,7 @@ jobs:
     - name: 🧪 Build and run c-rpm example
       if: ${{ matrix.example == 'c-rpm' }}
       uses: ./.github/actions/examples/c-rpm
+
+    - name: 🧪 Build and run feature-tests example
+      if: ${{ matrix.example == 'feature-tests' }}
+      uses: ./.github/actions/examples/feature-tests

@@ -1,0 +1,10 @@
+name: feature-tests example
+description: Build and run the feature-tests example
+
+runs:
+  using: composite
+  steps:
+    - name: Run generation and build script
+      shell: bash
+      working-directory: ./examples/feature-tests
+      run: ./generate-and-run.sh
