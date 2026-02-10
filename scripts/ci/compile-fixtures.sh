@@ -47,6 +47,8 @@ KNOWN_FAILURES=(
     functions/heap_types/union_const_member        # Issue #1490
     functions/heap_types/union_const_typedef       # Issue #1490
     functions/heap_types/union_const               # Issue #1490
+    program-analysis/program-slicing/macro_selected   # TODO: see issue #1679
+    program-analysis/program-slicing/macro_unselected # TODO: see issue #1679
 )
 
 # Known fixtures without code - these will be skipped
@@ -94,7 +96,7 @@ set_known_werror_unclean
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=152
+KNOWN_FIXTURES_COUNT=156
 
 # Default options
 JOBS=4
