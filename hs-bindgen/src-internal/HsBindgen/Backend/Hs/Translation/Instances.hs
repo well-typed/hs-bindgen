@@ -151,8 +151,6 @@ getHsPrimTypeInsts :: HsPrimType -> Set Inst.TypeClass
 getHsPrimTypeInsts = \case
     HsPrimVoid       -> voidInsts
     HsPrimUnit       -> unitInsts
-    HsPrimCStringLen -> cStringLenInsts
-    HsPrimCPtrdiff   -> integralInsts
     HsPrimChar       -> charInsts
     HsPrimInt        -> integralInsts
     HsPrimDouble     -> floatingInsts
@@ -215,13 +213,6 @@ getHsPrimTypeInsts = \case
       , Inst.StaticSize
       , Inst.Storable
       , Inst.WriteRaw
-      ]
-
-    cStringLenInsts :: Set Inst.TypeClass
-    cStringLenInsts = Set.fromList [
-        Inst.Eq
-      , Inst.Ord
-      , Inst.Show
       ]
 
     floatingInsts :: Set Inst.TypeClass

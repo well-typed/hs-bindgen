@@ -313,7 +313,7 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
-    Hs.HsPrimType t          -> TGlobal (PrimType t)
+    Hs.HsPrimType t          -> TGlobal (translatePrimType t)
     Hs.HsTypRef r _          -> TCon r
     Hs.HsConstArray n t      -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
     Hs.HsIncompleteArray t   -> TGlobal IncompleteArray `TApp` (translateType t)
@@ -420,6 +420,39 @@ translateWriteRawCField = \case
         ]
     Hs.WriteRawByteOff ptr i x ->
       appMany WriteRaw_writeRawByteOff [EBound ptr, EInt i, EBound x]
+
+translatePrimType :: Hs.HsPrimType -> Global
+translatePrimType = \case
+    HsPrimVoid -> Void_type
+    HsPrimUnit -> Unit_type
+    HsPrimChar -> Char_type
+    HsPrimInt -> Int_type
+    HsPrimDouble -> Double_type
+    HsPrimFloat -> Float_type
+    HsPrimBool -> Bool_type
+    HsPrimInt8 -> Int8_type
+    HsPrimInt16 -> Int16_type
+    HsPrimInt32 -> Int32_type
+    HsPrimInt64 -> Int64_type
+    HsPrimWord -> Word_type
+    HsPrimWord8 -> Word8_type
+    HsPrimWord16 -> Word16_type
+    HsPrimWord32 -> Word32_type
+    HsPrimWord64 -> Word64_type
+    HsPrimCChar -> CChar_type
+    HsPrimCSChar -> CSChar_type
+    HsPrimCUChar -> CUChar_type
+    HsPrimCShort -> CShort_type
+    HsPrimCUShort -> CUShort_type
+    HsPrimCInt -> CInt_type
+    HsPrimCUInt -> CUInt_type
+    HsPrimCLong -> CLong_type
+    HsPrimCULong -> CULong_type
+    HsPrimCLLong -> CLLong_type
+    HsPrimCULLong -> CULLong_type
+    HsPrimCBool -> CBool_type
+    HsPrimCFloat -> CFloat_type
+    HsPrimCDouble -> CDouble_type
 
 {-------------------------------------------------------------------------------
   'Storable'
