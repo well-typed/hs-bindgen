@@ -668,8 +668,9 @@ newtype Triplet
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Triplet "unwrapTriplet") =>
-         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
+instance HasField "unwrapTriplet"
+                  (Ptr Triplet)
+                  (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapTriplet")
 instance HasCField Triplet "unwrapTriplet"
     where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
@@ -691,8 +692,9 @@ newtype List
       -}
     deriving stock Generic
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType List "unwrapList") =>
-         HasField "unwrapList" (Ptr List) (Ptr ty)
+instance HasField "unwrapList"
+                  (Ptr List)
+                  (Ptr (IncompleteArray CInt))
     where getField = fromPtr (Proxy @"unwrapList")
 instance HasCField List "unwrapList"
     where type CFieldType List "unwrapList" = IncompleteArray CInt
@@ -714,8 +716,9 @@ newtype Matrix
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
-         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+instance HasField "unwrapMatrix"
+                  (Ptr Matrix)
+                  (Ptr (ConstantArray 4 (ConstantArray 3 CInt)))
     where getField = fromPtr (Proxy @"unwrapMatrix")
 instance HasCField Matrix "unwrapMatrix"
     where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
@@ -738,8 +741,9 @@ newtype Tripletlist
       -}
     deriving stock Generic
     deriving stock (Eq, Show)
-instance TyEq ty (CFieldType Tripletlist "unwrapTripletlist") =>
-         HasField "unwrapTripletlist" (Ptr Tripletlist) (Ptr ty)
+instance HasField "unwrapTripletlist"
+                  (Ptr Tripletlist)
+                  (Ptr (IncompleteArray (ConstantArray 3 CInt)))
     where getField = fromPtr (Proxy @"unwrapTripletlist")
 instance HasCField Tripletlist "unwrapTripletlist"
     where type CFieldType Tripletlist
@@ -788,15 +792,17 @@ instance HasCField Example "example_triple"
     where type CFieldType Example "example_triple" = ConstantArray 3
                                                                    CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Example "example_triple") =>
-         HasField "example_triple" (Ptr Example) (Ptr ty)
+instance HasField "example_triple"
+                  (Ptr Example)
+                  (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"example_triple")
 instance HasCField Example "example_sudoku"
     where type CFieldType Example "example_sudoku" = ConstantArray 3
                                                                    (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 12
-instance TyEq ty (CFieldType Example "example_sudoku") =>
-         HasField "example_sudoku" (Ptr Example) (Ptr ty)
+instance HasField "example_sudoku"
+                  (Ptr Example)
+                  (Ptr (ConstantArray 3 (ConstantArray 3 CInt)))
     where getField = fromPtr (Proxy @"example_sudoku")
 {-| Typedef-in-typedef
 
@@ -819,8 +825,9 @@ newtype Sudoku
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Sudoku "unwrapSudoku") =>
-         HasField "unwrapSudoku" (Ptr Sudoku) (Ptr ty)
+instance HasField "unwrapSudoku"
+                  (Ptr Sudoku)
+                  (Ptr (ConstantArray 3 Triplet))
     where getField = fromPtr (Proxy @"unwrapSudoku")
 instance HasCField Sudoku "unwrapSudoku"
     where type CFieldType Sudoku "unwrapSudoku" = ConstantArray 3

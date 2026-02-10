@@ -103,8 +103,7 @@ newtype I
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType I "unwrapI") =>
-         HasField "unwrapI" (Ptr I) (Ptr ty)
+instance HasField "unwrapI" (Ptr I) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapI")
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
@@ -199,8 +198,7 @@ instance Read E
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty (CFieldType E "unwrapE") =>
-         HasField "unwrapE" (Ptr E) (Ptr ty)
+instance HasField "unwrapE" (Ptr E) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = CUInt
@@ -250,8 +248,7 @@ newtype TI
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType TI "unwrapTI") =>
-         HasField "unwrapTI" (Ptr TI) (Ptr ty)
+instance HasField "unwrapTI" (Ptr TI) (Ptr I)
     where getField = fromPtr (Proxy @"unwrapTI")
 instance HasCField TI "unwrapTI"
     where type CFieldType TI "unwrapTI" = I
@@ -273,8 +270,7 @@ newtype TS
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType TS "unwrapTS") =>
-         HasField "unwrapTS" (Ptr TS) (Ptr ty)
+instance HasField "unwrapTS" (Ptr TS) (Ptr S)
     where getField = fromPtr (Proxy @"unwrapTS")
 instance HasCField TS "unwrapTS"
     where type CFieldType TS "unwrapTS" = S
@@ -295,8 +291,7 @@ newtype TU
       -}
     deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType TU "unwrapTU") =>
-         HasField "unwrapTU" (Ptr TU) (Ptr ty)
+instance HasField "unwrapTU" (Ptr TU) (Ptr U)
     where getField = fromPtr (Proxy @"unwrapTU")
 instance HasCField TU "unwrapTU"
     where type CFieldType TU "unwrapTU" = U
@@ -323,8 +318,7 @@ newtype TE
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty (CFieldType TE "unwrapTE") =>
-         HasField "unwrapTE" (Ptr TE) (Ptr ty)
+instance HasField "unwrapTE" (Ptr TE) (Ptr E)
     where getField = fromPtr (Proxy @"unwrapTE")
 instance HasCField TE "unwrapTE"
     where type CFieldType TE "unwrapTE" = E
@@ -360,8 +354,7 @@ newtype TTI
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType TTI "unwrapTTI") =>
-         HasField "unwrapTTI" (Ptr TTI) (Ptr ty)
+instance HasField "unwrapTTI" (Ptr TTI) (Ptr TI)
     where getField = fromPtr (Proxy @"unwrapTTI")
 instance HasCField TTI "unwrapTTI"
     where type CFieldType TTI "unwrapTTI" = TI
@@ -383,8 +376,7 @@ newtype TTS
     deriving stock Generic
     deriving stock (Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType TTS "unwrapTTS") =>
-         HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
+instance HasField "unwrapTTS" (Ptr TTS) (Ptr TS)
     where getField = fromPtr (Proxy @"unwrapTTS")
 instance HasCField TTS "unwrapTTS"
     where type CFieldType TTS "unwrapTTS" = TS
@@ -405,8 +397,7 @@ newtype TTU
       -}
     deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType TTU "unwrapTTU") =>
-         HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
+instance HasField "unwrapTTU" (Ptr TTU) (Ptr TU)
     where getField = fromPtr (Proxy @"unwrapTTU")
 instance HasCField TTU "unwrapTTU"
     where type CFieldType TTU "unwrapTTU" = TU
@@ -433,8 +424,7 @@ newtype TTE
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty (CFieldType TTE "unwrapTTE") =>
-         HasField "unwrapTTE" (Ptr TTE) (Ptr ty)
+instance HasField "unwrapTTE" (Ptr TTE) (Ptr TE)
     where getField = fromPtr (Proxy @"unwrapTTE")
 instance HasCField TTE "unwrapTTE"
     where type CFieldType TTE "unwrapTTE" = TE

@@ -3,7 +3,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -12,7 +11,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -44,7 +42,6 @@ import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Double, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return, showsPrec)
 
 {-| __C declaration:__ @A@
@@ -76,8 +73,7 @@ newtype A = A
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
@@ -217,8 +213,7 @@ instance Read Some_enum where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_enum) "unwrapSome_enum")
-         ) => GHC.Records.HasField "unwrapSome_enum" (Ptr.Ptr Some_enum) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapSome_enum" (Ptr.Ptr Some_enum) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSome_enum")
@@ -251,8 +246,7 @@ newtype Arr_typedef1 = Arr_typedef1
   deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef1) "unwrapArr_typedef1")
-         ) => GHC.Records.HasField "unwrapArr_typedef1" (Ptr.Ptr Arr_typedef1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapArr_typedef1" (Ptr.Ptr Arr_typedef1) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapArr_typedef1")
@@ -276,8 +270,7 @@ newtype Arr_typedef2 = Arr_typedef2
   deriving stock (GHC.Generics.Generic)
   deriving stock (Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef2) "unwrapArr_typedef2")
-         ) => GHC.Records.HasField "unwrapArr_typedef2" (Ptr.Ptr Arr_typedef2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapArr_typedef2" (Ptr.Ptr Arr_typedef2) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapArr_typedef2")
@@ -307,8 +300,7 @@ newtype Arr_typedef3 = Arr_typedef3
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef3) "unwrapArr_typedef3")
-         ) => GHC.Records.HasField "unwrapArr_typedef3" (Ptr.Ptr Arr_typedef3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapArr_typedef3" (Ptr.Ptr Arr_typedef3) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 5) A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapArr_typedef3")
@@ -338,8 +330,7 @@ newtype Arr_typedef4 = Arr_typedef4
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Arr_typedef4) "unwrapArr_typedef4")
-         ) => GHC.Records.HasField "unwrapArr_typedef4" (Ptr.Ptr Arr_typedef4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapArr_typedef4" (Ptr.Ptr Arr_typedef4) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapArr_typedef4")
@@ -382,8 +373,7 @@ newtype Typedef1 = Typedef1
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef1) "unwrapTypedef1")
-         ) => GHC.Records.HasField "unwrapTypedef1" (Ptr.Ptr Typedef1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTypedef1" (Ptr.Ptr Typedef1) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTypedef1")
@@ -413,8 +403,7 @@ newtype Typedef2 = Typedef2
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef2) "unwrapTypedef2")
-         ) => GHC.Records.HasField "unwrapTypedef2" (Ptr.Ptr Typedef2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTypedef2" (Ptr.Ptr Typedef2) (Ptr.Ptr (Ptr.Ptr A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTypedef2")
@@ -444,8 +433,7 @@ newtype Typedef3 = Typedef3
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef3) "unwrapTypedef3")
-         ) => GHC.Records.HasField "unwrapTypedef3" (Ptr.Ptr Typedef3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTypedef3" (Ptr.Ptr Typedef3) (Ptr.Ptr (Ptr.Ptr (Ptr.Ptr A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTypedef3")
@@ -503,8 +491,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef1_Aux where
 
   fromFunPtr = hs_bindgen_806a46dc418a062c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef1_Aux) "unwrapFunptr_typedef1_Aux")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef1_Aux" (Ptr.Ptr Funptr_typedef1_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef1_Aux" (Ptr.Ptr Funptr_typedef1_Aux) (Ptr.Ptr (IO A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef1_Aux")
@@ -535,8 +522,7 @@ newtype Funptr_typedef1 = Funptr_typedef1
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef1) "unwrapFunptr_typedef1")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef1" (Ptr.Ptr Funptr_typedef1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef1" (Ptr.Ptr Funptr_typedef1) (Ptr.Ptr (Ptr.FunPtr Funptr_typedef1_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef1")
@@ -594,8 +580,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef2_Aux where
 
   fromFunPtr = hs_bindgen_323d07dff85b802c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef2_Aux) "unwrapFunptr_typedef2_Aux")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef2_Aux" (Ptr.Ptr Funptr_typedef2_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef2_Aux" (Ptr.Ptr Funptr_typedef2_Aux) (Ptr.Ptr (IO (Ptr.Ptr A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef2_Aux")
@@ -626,8 +611,7 @@ newtype Funptr_typedef2 = Funptr_typedef2
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef2) "unwrapFunptr_typedef2")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef2" (Ptr.Ptr Funptr_typedef2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef2" (Ptr.Ptr Funptr_typedef2) (Ptr.Ptr (Ptr.FunPtr Funptr_typedef2_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef2")
@@ -685,8 +669,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef3_Aux where
 
   fromFunPtr = hs_bindgen_82dc7b932974117e
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef3_Aux) "unwrapFunptr_typedef3_Aux")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef3_Aux" (Ptr.Ptr Funptr_typedef3_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef3_Aux" (Ptr.Ptr Funptr_typedef3_Aux) (Ptr.Ptr (IO (Ptr.Ptr (Ptr.Ptr A)))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef3_Aux")
@@ -717,8 +700,7 @@ newtype Funptr_typedef3 = Funptr_typedef3
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef3) "unwrapFunptr_typedef3")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef3" (Ptr.Ptr Funptr_typedef3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef3" (Ptr.Ptr Funptr_typedef3) (Ptr.Ptr (Ptr.FunPtr Funptr_typedef3_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef3")
@@ -776,8 +758,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef4_Aux where
 
   fromFunPtr = hs_bindgen_d4a97954476da161
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef4_Aux) "unwrapFunptr_typedef4_Aux")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef4_Aux" (Ptr.Ptr Funptr_typedef4_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef4_Aux" (Ptr.Ptr Funptr_typedef4_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef4_Aux")
@@ -808,8 +789,7 @@ newtype Funptr_typedef4 = Funptr_typedef4
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef4) "unwrapFunptr_typedef4")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef4" (Ptr.Ptr Funptr_typedef4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef4" (Ptr.Ptr Funptr_typedef4) (Ptr.Ptr (Ptr.FunPtr Funptr_typedef4_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef4")
@@ -867,8 +847,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Funptr_typedef5_Aux where
 
   fromFunPtr = hs_bindgen_0bd1877eaaba0d3e
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef5_Aux) "unwrapFunptr_typedef5_Aux")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef5_Aux" (Ptr.Ptr Funptr_typedef5_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef5_Aux" (Ptr.Ptr Funptr_typedef5_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef5_Aux")
@@ -899,8 +878,7 @@ newtype Funptr_typedef5 = Funptr_typedef5
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef5) "unwrapFunptr_typedef5")
-         ) => GHC.Records.HasField "unwrapFunptr_typedef5" (Ptr.Ptr Funptr_typedef5) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFunptr_typedef5" (Ptr.Ptr Funptr_typedef5) (Ptr.Ptr (Ptr.FunPtr Funptr_typedef5_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFunptr_typedef5")
@@ -941,8 +919,7 @@ newtype Comments2 = Comments2
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Comments2) "unwrapComments2")
-         ) => GHC.Records.HasField "unwrapComments2" (Ptr.Ptr Comments2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapComments2" (Ptr.Ptr Comments2) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapComments2")
@@ -1025,8 +1002,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct "example_struct_fi
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct) "example_struct_field1")
-         ) => GHC.Records.HasField "example_struct_field1" (Ptr.Ptr Example_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_field1" (Ptr.Ptr Example_struct) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_field1")
@@ -1038,8 +1014,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct "example_struct_fi
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct) "example_struct_field2")
-         ) => GHC.Records.HasField "example_struct_field2" (Ptr.Ptr Example_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_field2" (Ptr.Ptr Example_struct) (Ptr.Ptr (Ptr.Ptr A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_field2")
@@ -1051,8 +1026,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct "example_struct_fi
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct) "example_struct_field3")
-         ) => GHC.Records.HasField "example_struct_field3" (Ptr.Ptr Example_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_field3" (Ptr.Ptr Example_struct) (Ptr.Ptr (Ptr.Ptr (Ptr.Ptr A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_field3")
@@ -1086,8 +1060,7 @@ newtype Const_typedef1 = Const_typedef1
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef1) "unwrapConst_typedef1")
-         ) => GHC.Records.HasField "unwrapConst_typedef1" (Ptr.Ptr Const_typedef1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_typedef1" (Ptr.Ptr Const_typedef1) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_typedef1")
@@ -1128,8 +1101,7 @@ newtype Const_typedef2 = Const_typedef2
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef2) "unwrapConst_typedef2")
-         ) => GHC.Records.HasField "unwrapConst_typedef2" (Ptr.Ptr Const_typedef2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_typedef2" (Ptr.Ptr Const_typedef2) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_typedef2")
@@ -1160,8 +1132,7 @@ newtype Const_typedef3 = Const_typedef3
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef3) "unwrapConst_typedef3")
-         ) => GHC.Records.HasField "unwrapConst_typedef3" (Ptr.Ptr Const_typedef3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_typedef3" (Ptr.Ptr Const_typedef3) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_typedef3")
@@ -1192,8 +1163,7 @@ newtype Const_typedef4 = Const_typedef4
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef4) "unwrapConst_typedef4")
-         ) => GHC.Records.HasField "unwrapConst_typedef4" (Ptr.Ptr Const_typedef4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_typedef4" (Ptr.Ptr Const_typedef4) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_typedef4")
@@ -1224,8 +1194,7 @@ newtype Const_typedef5 = Const_typedef5
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef5) "unwrapConst_typedef5")
-         ) => GHC.Records.HasField "unwrapConst_typedef5" (Ptr.Ptr Const_typedef5) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_typedef5" (Ptr.Ptr Const_typedef5) (Ptr.Ptr (Ptr.Ptr A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_typedef5")
@@ -1256,8 +1225,7 @@ newtype Const_typedef6 = Const_typedef6
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef6) "unwrapConst_typedef6")
-         ) => GHC.Records.HasField "unwrapConst_typedef6" (Ptr.Ptr Const_typedef6) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_typedef6" (Ptr.Ptr Const_typedef6) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_typedef6")
@@ -1288,8 +1256,7 @@ newtype Const_typedef7 = Const_typedef7
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef7) "unwrapConst_typedef7")
-         ) => GHC.Records.HasField "unwrapConst_typedef7" (Ptr.Ptr Const_typedef7) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_typedef7" (Ptr.Ptr Const_typedef7) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_typedef7")
@@ -1411,8 +1378,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "exampl
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_const) "example_struct_with_const_const_field1")
-         ) => GHC.Records.HasField "example_struct_with_const_const_field1" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_with_const_const_field1" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_with_const_const_field1")
@@ -1424,8 +1390,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "exampl
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_const) "example_struct_with_const_const_field2")
-         ) => GHC.Records.HasField "example_struct_with_const_const_field2" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_with_const_const_field2" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_with_const_const_field2")
@@ -1437,8 +1402,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "exampl
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_const) "example_struct_with_const_const_field3")
-         ) => GHC.Records.HasField "example_struct_with_const_const_field3" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_with_const_const_field3" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_with_const_const_field3")
@@ -1450,8 +1414,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "exampl
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_const) "example_struct_with_const_const_field4")
-         ) => GHC.Records.HasField "example_struct_with_const_const_field4" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_with_const_const_field4" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_with_const_const_field4")
@@ -1463,8 +1426,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "exampl
 
   offset# = \_ -> \_ -> 24
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_const) "example_struct_with_const_const_field5")
-         ) => GHC.Records.HasField "example_struct_with_const_const_field5" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_with_const_const_field5" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr (Ptr.Ptr A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_with_const_const_field5")
@@ -1476,8 +1438,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "exampl
 
   offset# = \_ -> \_ -> 32
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_const) "example_struct_with_const_const_field6")
-         ) => GHC.Records.HasField "example_struct_with_const_const_field6" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_with_const_const_field6" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_with_const_const_field6")
@@ -1489,8 +1450,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "exampl
 
   offset# = \_ -> \_ -> 40
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_const) "example_struct_with_const_const_field7")
-         ) => GHC.Records.HasField "example_struct_with_const_const_field7" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "example_struct_with_const_const_field7" (Ptr.Ptr Example_struct_with_const) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_struct_with_const_const_field7")
@@ -1541,8 +1501,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr1_Aux where
 
   fromFunPtr = hs_bindgen_ac4bd8d789bba94b
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr1_Aux) "unwrapConst_funptr1_Aux")
-         ) => GHC.Records.HasField "unwrapConst_funptr1_Aux" (Ptr.Ptr Const_funptr1_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr1_Aux" (Ptr.Ptr Const_funptr1_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr1_Aux")
@@ -1573,8 +1532,7 @@ newtype Const_funptr1 = Const_funptr1
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr1) "unwrapConst_funptr1")
-         ) => GHC.Records.HasField "unwrapConst_funptr1" (Ptr.Ptr Const_funptr1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr1" (Ptr.Ptr Const_funptr1) (Ptr.Ptr (Ptr.FunPtr Const_funptr1_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr1")
@@ -1632,8 +1590,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr2_Aux where
 
   fromFunPtr = hs_bindgen_352cebf463125ca9
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr2_Aux) "unwrapConst_funptr2_Aux")
-         ) => GHC.Records.HasField "unwrapConst_funptr2_Aux" (Ptr.Ptr Const_funptr2_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr2_Aux" (Ptr.Ptr Const_funptr2_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr2_Aux")
@@ -1664,8 +1621,7 @@ newtype Const_funptr2 = Const_funptr2
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr2) "unwrapConst_funptr2")
-         ) => GHC.Records.HasField "unwrapConst_funptr2" (Ptr.Ptr Const_funptr2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr2" (Ptr.Ptr Const_funptr2) (Ptr.Ptr (Ptr.FunPtr Const_funptr2_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr2")
@@ -1723,8 +1679,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr3_Aux where
 
   fromFunPtr = hs_bindgen_86738dcfd7c9d33c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3_Aux) "unwrapConst_funptr3_Aux")
-         ) => GHC.Records.HasField "unwrapConst_funptr3_Aux" (Ptr.Ptr Const_funptr3_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr3_Aux" (Ptr.Ptr Const_funptr3_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr3_Aux")
@@ -1755,8 +1710,7 @@ newtype Const_funptr3 = Const_funptr3
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3) "unwrapConst_funptr3")
-         ) => GHC.Records.HasField "unwrapConst_funptr3" (Ptr.Ptr Const_funptr3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr3" (Ptr.Ptr Const_funptr3) (Ptr.Ptr (Ptr.FunPtr Const_funptr3_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr3")
@@ -1814,8 +1768,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr4_Aux where
 
   fromFunPtr = hs_bindgen_de7846fca3bfd1b6
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4_Aux) "unwrapConst_funptr4_Aux")
-         ) => GHC.Records.HasField "unwrapConst_funptr4_Aux" (Ptr.Ptr Const_funptr4_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr4_Aux" (Ptr.Ptr Const_funptr4_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr4_Aux")
@@ -1846,8 +1799,7 @@ newtype Const_funptr4 = Const_funptr4
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4) "unwrapConst_funptr4")
-         ) => GHC.Records.HasField "unwrapConst_funptr4" (Ptr.Ptr Const_funptr4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr4" (Ptr.Ptr Const_funptr4) (Ptr.Ptr (Ptr.FunPtr Const_funptr4_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr4")
@@ -1905,8 +1857,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr5_Aux where
 
   fromFunPtr = hs_bindgen_38a21d84bb7115b5
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr5_Aux) "unwrapConst_funptr5_Aux")
-         ) => GHC.Records.HasField "unwrapConst_funptr5_Aux" (Ptr.Ptr Const_funptr5_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr5_Aux" (Ptr.Ptr Const_funptr5_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr5_Aux")
@@ -1937,8 +1888,7 @@ newtype Const_funptr5 = Const_funptr5
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr5) "unwrapConst_funptr5")
-         ) => GHC.Records.HasField "unwrapConst_funptr5" (Ptr.Ptr Const_funptr5) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr5" (Ptr.Ptr Const_funptr5) (Ptr.Ptr (Ptr.FunPtr Const_funptr5_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr5")
@@ -1996,8 +1946,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr6_Aux where
 
   fromFunPtr = hs_bindgen_45251216b04aa8b5
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6_Aux) "unwrapConst_funptr6_Aux")
-         ) => GHC.Records.HasField "unwrapConst_funptr6_Aux" (Ptr.Ptr Const_funptr6_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr6_Aux" (Ptr.Ptr Const_funptr6_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr6_Aux")
@@ -2028,8 +1977,7 @@ newtype Const_funptr6 = Const_funptr6
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6) "unwrapConst_funptr6")
-         ) => GHC.Records.HasField "unwrapConst_funptr6" (Ptr.Ptr Const_funptr6) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr6" (Ptr.Ptr Const_funptr6) (Ptr.Ptr (Ptr.FunPtr Const_funptr6_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr6")
@@ -2087,8 +2035,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Const_funptr7_Aux where
 
   fromFunPtr = hs_bindgen_42fbcebf75a973ba
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7_Aux) "unwrapConst_funptr7_Aux")
-         ) => GHC.Records.HasField "unwrapConst_funptr7_Aux" (Ptr.Ptr Const_funptr7_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr7_Aux" (Ptr.Ptr Const_funptr7_Aux) (Ptr.Ptr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.PtrConst.PtrConst A))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr7_Aux")
@@ -2119,8 +2066,7 @@ newtype Const_funptr7 = Const_funptr7
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7) "unwrapConst_funptr7")
-         ) => GHC.Records.HasField "unwrapConst_funptr7" (Ptr.Ptr Const_funptr7) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConst_funptr7" (Ptr.Ptr Const_funptr7) (Ptr.Ptr (Ptr.FunPtr Const_funptr7_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConst_funptr7")
@@ -2161,8 +2107,7 @@ newtype BOOL = BOOL
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType BOOL) "unwrapBOOL")
-         ) => GHC.Records.HasField "unwrapBOOL" (Ptr.Ptr BOOL) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapBOOL" (Ptr.Ptr BOOL) (Ptr.Ptr FC.CBool) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapBOOL")
@@ -2202,8 +2147,7 @@ newtype INT = INT
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INT) "unwrapINT")
-         ) => GHC.Records.HasField "unwrapINT" (Ptr.Ptr INT) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapINT" (Ptr.Ptr INT) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapINT")
@@ -2233,8 +2177,7 @@ newtype INTP = INTP
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INTP) "unwrapINTP")
-         ) => GHC.Records.HasField "unwrapINTP" (Ptr.Ptr INTP) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapINTP" (Ptr.Ptr INTP) (Ptr.Ptr (Ptr.Ptr FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapINTP")
@@ -2264,8 +2207,7 @@ newtype INTCP = INTCP
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType INTCP) "unwrapINTCP")
-         ) => GHC.Records.HasField "unwrapINTCP" (Ptr.Ptr INTCP) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapINTCP" (Ptr.Ptr INTCP) (Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapINTCP")

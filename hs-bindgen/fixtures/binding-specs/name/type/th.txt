@@ -30,8 +30,7 @@ newtype MySym
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MySym "unwrapMySym") =>
-         HasField "unwrapMySym" (Ptr MySym) (Ptr ty)
+instance HasField "unwrapMySym" (Ptr MySym) (Ptr CChar)
     where getField = fromPtr (Proxy @"unwrapMySym")
 instance HasCField MySym "unwrapMySym"
     where type CFieldType MySym "unwrapMySym" = CChar

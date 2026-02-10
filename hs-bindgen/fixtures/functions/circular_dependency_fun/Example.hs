@@ -3,7 +3,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -27,7 +25,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
 {-| Auxiliary type used by 'Fun_ptr'
@@ -76,8 +73,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Fun_ptr_Aux where
 
   fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Aux) "unwrapFun_ptr_Aux")
-         ) => GHC.Records.HasField "unwrapFun_ptr_Aux" (Ptr.Ptr Fun_ptr_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFun_ptr_Aux" (Ptr.Ptr Fun_ptr_Aux) (Ptr.Ptr ((Ptr.Ptr Forward_declaration) -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFun_ptr_Aux")
@@ -108,8 +104,7 @@ newtype Fun_ptr = Fun_ptr
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "unwrapFun_ptr")
-         ) => GHC.Records.HasField "unwrapFun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr (Ptr.FunPtr Fun_ptr_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFun_ptr")
@@ -170,8 +165,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Forward_declaration "forward_decl
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Forward_declaration) "forward_declaration_f")
-         ) => GHC.Records.HasField "forward_declaration_f" (Ptr.Ptr Forward_declaration) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "forward_declaration_f" (Ptr.Ptr Forward_declaration) (Ptr.Ptr Fun_ptr) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"forward_declaration_f")

@@ -41,14 +41,12 @@ deriving via (EquivStorable Foo) instance Storable Foo
 instance HasCField Foo "foo_c"
     where type CFieldType Foo "foo_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Foo "foo_c") =>
-         HasField "foo_c" (Ptr Foo) (Ptr ty)
+instance HasField "foo_c" (Ptr Foo) (Ptr CChar)
     where getField = fromPtr (Proxy @"foo_c")
 instance HasCField Foo "foo_i"
     where type CFieldType Foo "foo_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty (CFieldType Foo "foo_i") =>
-         HasField "foo_i" (Ptr Foo) (Ptr ty)
+instance HasField "foo_i" (Ptr Foo) (Ptr CInt)
     where getField = fromPtr (Proxy @"foo_i")
 {-| __C declaration:__ @struct bar@
 
@@ -92,14 +90,12 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_c"
     where type CFieldType Bar "bar_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Bar "bar_c") =>
-         HasField "bar_c" (Ptr Bar) (Ptr ty)
+instance HasField "bar_c" (Ptr Bar) (Ptr CChar)
     where getField = fromPtr (Proxy @"bar_c")
 instance HasCField Bar "bar_i"
     where type CFieldType Bar "bar_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty (CFieldType Bar "bar_i") =>
-         HasField "bar_i" (Ptr Bar) (Ptr ty)
+instance HasField "bar_i" (Ptr Bar) (Ptr CInt)
     where getField = fromPtr (Proxy @"bar_i")
 {-| __C declaration:__ @struct baz@
 
@@ -143,14 +139,12 @@ deriving via (EquivStorable Baz) instance Storable Baz
 instance HasCField Baz "baz_c"
     where type CFieldType Baz "baz_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Baz "baz_c") =>
-         HasField "baz_c" (Ptr Baz) (Ptr ty)
+instance HasField "baz_c" (Ptr Baz) (Ptr CChar)
     where getField = fromPtr (Proxy @"baz_c")
 instance HasCField Baz "baz_i"
     where type CFieldType Baz "baz_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty (CFieldType Baz "baz_i") =>
-         HasField "baz_i" (Ptr Baz) (Ptr ty)
+instance HasField "baz_i" (Ptr Baz) (Ptr CInt)
     where getField = fromPtr (Proxy @"baz_i")
 {-| __C declaration:__ @struct qux@
 
@@ -194,14 +188,12 @@ deriving via (EquivStorable Qux) instance Storable Qux
 instance HasCField Qux "qux_c"
     where type CFieldType Qux "qux_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Qux "qux_c") =>
-         HasField "qux_c" (Ptr Qux) (Ptr ty)
+instance HasField "qux_c" (Ptr Qux) (Ptr CChar)
     where getField = fromPtr (Proxy @"qux_c")
 instance HasCField Qux "qux_i"
     where type CFieldType Qux "qux_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty (CFieldType Qux "qux_i") =>
-         HasField "qux_i" (Ptr Qux) (Ptr ty)
+instance HasField "qux_i" (Ptr Qux) (Ptr CInt)
     where getField = fromPtr (Proxy @"qux_i")
 {-| __C declaration:__ @struct __sFILE@
 
@@ -253,19 +245,18 @@ deriving via (EquivStorable FILE) instance Storable FILE
 instance HasCField FILE "fILE__r"
     where type CFieldType FILE "fILE__r" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType FILE "fILE__r") =>
-         HasField "fILE__r" (Ptr FILE) (Ptr ty)
+instance HasField "fILE__r" (Ptr FILE) (Ptr CInt)
     where getField = fromPtr (Proxy @"fILE__r")
 instance HasCField FILE "fILE__w"
     where type CFieldType FILE "fILE__w" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType FILE "fILE__w") =>
-         HasField "fILE__w" (Ptr FILE) (Ptr ty)
+instance HasField "fILE__w" (Ptr FILE) (Ptr CInt)
     where getField = fromPtr (Proxy @"fILE__w")
 instance HasCField FILE "fILE__close"
     where type CFieldType FILE "fILE__close" = FunPtr (Ptr Void ->
                                                        IO CInt)
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType FILE "fILE__close") =>
-         HasField "fILE__close" (Ptr FILE) (Ptr ty)
+instance HasField "fILE__close"
+                  (Ptr FILE)
+                  (Ptr (FunPtr (Ptr Void -> IO CInt)))
     where getField = fromPtr (Proxy @"fILE__close")

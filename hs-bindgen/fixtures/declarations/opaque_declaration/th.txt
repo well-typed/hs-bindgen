@@ -48,14 +48,12 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_ptrA"
     where type CFieldType Bar "bar_ptrA" = Ptr Foo
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Bar "bar_ptrA") =>
-         HasField "bar_ptrA" (Ptr Bar) (Ptr ty)
+instance HasField "bar_ptrA" (Ptr Bar) (Ptr (Ptr Foo))
     where getField = fromPtr (Proxy @"bar_ptrA")
 instance HasCField Bar "bar_ptrB"
     where type CFieldType Bar "bar_ptrB" = Ptr Bar
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Bar "bar_ptrB") =>
-         HasField "bar_ptrB" (Ptr Bar) (Ptr ty)
+instance HasField "bar_ptrB" (Ptr Bar) (Ptr (Ptr Bar))
     where getField = fromPtr (Proxy @"bar_ptrB")
 {-| __C declaration:__ @struct baz@
 

@@ -41,14 +41,12 @@ deriving via (EquivStorable Foo) instance Storable Foo
 instance HasCField Foo "foo_i"
     where type CFieldType Foo "foo_i" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Foo "foo_i") =>
-         HasField "foo_i" (Ptr Foo) (Ptr ty)
+instance HasField "foo_i" (Ptr Foo) (Ptr CInt)
     where getField = fromPtr (Proxy @"foo_i")
 instance HasCField Foo "foo_c"
     where type CFieldType Foo "foo_c" = CChar
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType Foo "foo_c") =>
-         HasField "foo_c" (Ptr Foo) (Ptr ty)
+instance HasField "foo_c" (Ptr Foo) (Ptr CChar)
     where getField = fromPtr (Proxy @"foo_c")
 {-| __C declaration:__ @struct bar@
 
@@ -92,14 +90,12 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_foo1"
     where type CFieldType Bar "bar_foo1" = Foo
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Bar "bar_foo1") =>
-         HasField "bar_foo1" (Ptr Bar) (Ptr ty)
+instance HasField "bar_foo1" (Ptr Bar) (Ptr Foo)
     where getField = fromPtr (Proxy @"bar_foo1")
 instance HasCField Bar "bar_foo2"
     where type CFieldType Bar "bar_foo2" = Foo
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Bar "bar_foo2") =>
-         HasField "bar_foo2" (Ptr Bar) (Ptr ty)
+instance HasField "bar_foo2" (Ptr Bar) (Ptr Foo)
     where getField = fromPtr (Proxy @"bar_foo2")
 {-| __C declaration:__ @struct \@ex3_ex3_struct@
 
@@ -143,16 +139,16 @@ deriving via (EquivStorable Ex3_ex3_struct) instance Storable Ex3_ex3_struct
 instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a"
     where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a") =>
-         HasField "ex3_ex3_struct_ex3_a" (Ptr Ex3_ex3_struct) (Ptr ty)
+instance HasField "ex3_ex3_struct_ex3_a"
+                  (Ptr Ex3_ex3_struct)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_a")
 instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b"
     where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" = CChar
           offset# = \_ -> \_ -> 4
-instance TyEq ty
-              (CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b") =>
-         HasField "ex3_ex3_struct_ex3_b" (Ptr Ex3_ex3_struct) (Ptr ty)
+instance HasField "ex3_ex3_struct_ex3_b"
+                  (Ptr Ex3_ex3_struct)
+                  (Ptr CChar)
     where getField = fromPtr (Proxy @"ex3_ex3_struct_ex3_b")
 {-| __C declaration:__ @struct ex3@
 
@@ -196,14 +192,12 @@ deriving via (EquivStorable Ex3) instance Storable Ex3
 instance HasCField Ex3 "ex3_ex3_struct"
     where type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Ex3 "ex3_ex3_struct") =>
-         HasField "ex3_ex3_struct" (Ptr Ex3) (Ptr ty)
+instance HasField "ex3_ex3_struct" (Ptr Ex3) (Ptr Ex3_ex3_struct)
     where getField = fromPtr (Proxy @"ex3_ex3_struct")
 instance HasCField Ex3 "ex3_ex3_c"
     where type CFieldType Ex3 "ex3_ex3_c" = CFloat
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Ex3 "ex3_ex3_c") =>
-         HasField "ex3_ex3_c" (Ptr Ex3) (Ptr ty)
+instance HasField "ex3_ex3_c" (Ptr Ex3) (Ptr CFloat)
     where getField = fromPtr (Proxy @"ex3_ex3_c")
 {-| __C declaration:__ @struct ex4_odd@
 
@@ -247,14 +241,12 @@ deriving via (EquivStorable Ex4_odd) instance Storable Ex4_odd
 instance HasCField Ex4_odd "ex4_odd_value"
     where type CFieldType Ex4_odd "ex4_odd_value" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Ex4_odd "ex4_odd_value") =>
-         HasField "ex4_odd_value" (Ptr Ex4_odd) (Ptr ty)
+instance HasField "ex4_odd_value" (Ptr Ex4_odd) (Ptr CInt)
     where getField = fromPtr (Proxy @"ex4_odd_value")
 instance HasCField Ex4_odd "ex4_odd_next"
     where type CFieldType Ex4_odd "ex4_odd_next" = Ptr Ex4_even
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Ex4_odd "ex4_odd_next") =>
-         HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr ty)
+instance HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr (Ptr Ex4_even))
     where getField = fromPtr (Proxy @"ex4_odd_next")
 {-| __C declaration:__ @struct ex4_even@
 
@@ -298,12 +290,12 @@ deriving via (EquivStorable Ex4_even) instance Storable Ex4_even
 instance HasCField Ex4_even "ex4_even_value"
     where type CFieldType Ex4_even "ex4_even_value" = CDouble
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Ex4_even "ex4_even_value") =>
-         HasField "ex4_even_value" (Ptr Ex4_even) (Ptr ty)
+instance HasField "ex4_even_value" (Ptr Ex4_even) (Ptr CDouble)
     where getField = fromPtr (Proxy @"ex4_even_value")
 instance HasCField Ex4_even "ex4_even_next"
     where type CFieldType Ex4_even "ex4_even_next" = Ptr Ex4_odd
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Ex4_even "ex4_even_next") =>
-         HasField "ex4_even_next" (Ptr Ex4_even) (Ptr ty)
+instance HasField "ex4_even_next"
+                  (Ptr Ex4_even)
+                  (Ptr (Ptr Ex4_odd))
     where getField = fromPtr (Proxy @"ex4_even_next")

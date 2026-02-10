@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,7 +21,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct S@
@@ -74,8 +71,7 @@ instance HsBindgen.Runtime.HasCField.HasCField S "s_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_x")
-         ) => GHC.Records.HasField "s_x" (Ptr.Ptr S) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "s_x" (Ptr.Ptr S) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s_x")
@@ -98,8 +94,7 @@ newtype T = T
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T) "unwrapT")
-         ) => GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr S) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT")

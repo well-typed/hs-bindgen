@@ -33,8 +33,7 @@ deriving via (EquivStorable S1_t) instance Storable S1_t
 instance HasCField S1_t "s1_t_a"
     where type CFieldType S1_t "s1_t_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S1_t "s1_t_a") =>
-         HasField "s1_t_a" (Ptr S1_t) (Ptr ty)
+instance HasField "s1_t_a" (Ptr S1_t) (Ptr CInt)
     where getField = fromPtr (Proxy @"s1_t_a")
 {-| __C declaration:__ @struct S2@
 
@@ -70,6 +69,5 @@ deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_a"
     where type CFieldType S2 "s2_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S2 "s2_a") =>
-         HasField "s2_a" (Ptr S2) (Ptr ty)
+instance HasField "s2_a" (Ptr S2) (Ptr CInt)
     where getField = fromPtr (Proxy @"s2_a")

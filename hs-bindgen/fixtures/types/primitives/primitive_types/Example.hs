@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct primitive@
@@ -344,8 +341,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_c")
-         ) => GHC.Records.HasField "primitive_c" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_c" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_c")
@@ -356,8 +352,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_sc" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_sc")
-         ) => GHC.Records.HasField "primitive_sc" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_sc" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CSChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_sc")
@@ -368,8 +363,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_uc" where
 
   offset# = \_ -> \_ -> 2
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_uc")
-         ) => GHC.Records.HasField "primitive_uc" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_uc" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CUChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_uc")
@@ -380,8 +374,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_s" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_s")
-         ) => GHC.Records.HasField "primitive_s" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_s" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_s")
@@ -392,8 +385,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_si" where
 
   offset# = \_ -> \_ -> 6
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_si")
-         ) => GHC.Records.HasField "primitive_si" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_si" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_si")
@@ -404,8 +396,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_ss" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_ss")
-         ) => GHC.Records.HasField "primitive_ss" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_ss" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_ss")
@@ -416,8 +407,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_ssi" where
 
   offset# = \_ -> \_ -> 10
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_ssi")
-         ) => GHC.Records.HasField "primitive_ssi" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_ssi" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_ssi")
@@ -428,8 +418,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_us" where
 
   offset# = \_ -> \_ -> 12
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_us")
-         ) => GHC.Records.HasField "primitive_us" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_us" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CUShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_us")
@@ -441,8 +430,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_usi" where
 
   offset# = \_ -> \_ -> 14
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_usi")
-         ) => GHC.Records.HasField "primitive_usi" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_usi" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CUShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_usi")
@@ -453,8 +441,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_i" where
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_i")
-         ) => GHC.Records.HasField "primitive_i" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_i" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_i")
@@ -465,8 +452,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_s2" where
 
   offset# = \_ -> \_ -> 20
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_s2")
-         ) => GHC.Records.HasField "primitive_s2" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_s2" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_s2")
@@ -477,8 +463,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_si2" where
 
   offset# = \_ -> \_ -> 24
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_si2")
-         ) => GHC.Records.HasField "primitive_si2" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_si2" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_si2")
@@ -489,8 +474,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_u" where
 
   offset# = \_ -> \_ -> 28
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_u")
-         ) => GHC.Records.HasField "primitive_u" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_u" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_u")
@@ -501,8 +485,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_ui" where
 
   offset# = \_ -> \_ -> 32
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_ui")
-         ) => GHC.Records.HasField "primitive_ui" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_ui" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_ui")
@@ -513,8 +496,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_l" where
 
   offset# = \_ -> \_ -> 40
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_l")
-         ) => GHC.Records.HasField "primitive_l" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_l" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_l")
@@ -525,8 +507,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_li" where
 
   offset# = \_ -> \_ -> 48
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_li")
-         ) => GHC.Records.HasField "primitive_li" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_li" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_li")
@@ -537,8 +518,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_sl" where
 
   offset# = \_ -> \_ -> 56
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_sl")
-         ) => GHC.Records.HasField "primitive_sl" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_sl" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_sl")
@@ -549,8 +529,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_sli" where
 
   offset# = \_ -> \_ -> 64
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_sli")
-         ) => GHC.Records.HasField "primitive_sli" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_sli" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_sli")
@@ -561,8 +540,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_ul" where
 
   offset# = \_ -> \_ -> 72
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_ul")
-         ) => GHC.Records.HasField "primitive_ul" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_ul" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CULong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_ul")
@@ -573,8 +551,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_uli" where
 
   offset# = \_ -> \_ -> 80
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_uli")
-         ) => GHC.Records.HasField "primitive_uli" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_uli" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CULong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_uli")
@@ -585,8 +562,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_ll" where
 
   offset# = \_ -> \_ -> 88
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_ll")
-         ) => GHC.Records.HasField "primitive_ll" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_ll" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_ll")
@@ -597,8 +573,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_lli" where
 
   offset# = \_ -> \_ -> 96
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_lli")
-         ) => GHC.Records.HasField "primitive_lli" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_lli" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_lli")
@@ -609,8 +584,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_sll" where
 
   offset# = \_ -> \_ -> 104
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_sll")
-         ) => GHC.Records.HasField "primitive_sll" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_sll" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_sll")
@@ -622,8 +596,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_slli" where
 
   offset# = \_ -> \_ -> 112
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_slli")
-         ) => GHC.Records.HasField "primitive_slli" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_slli" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CLLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_slli")
@@ -635,8 +608,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_ull" where
 
   offset# = \_ -> \_ -> 120
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_ull")
-         ) => GHC.Records.HasField "primitive_ull" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_ull" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CULLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_ull")
@@ -648,8 +620,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_ulli" where
 
   offset# = \_ -> \_ -> 128
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_ulli")
-         ) => GHC.Records.HasField "primitive_ulli" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_ulli" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CULLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_ulli")
@@ -660,8 +631,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_f" where
 
   offset# = \_ -> \_ -> 136
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_f")
-         ) => GHC.Records.HasField "primitive_f" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_f" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CFloat) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_f")
@@ -672,8 +642,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_d" where
 
   offset# = \_ -> \_ -> 144
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Primitive) "primitive_d")
-         ) => GHC.Records.HasField "primitive_d" (Ptr.Ptr Primitive) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "primitive_d" (Ptr.Ptr Primitive) (Ptr.Ptr FC.CDouble) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"primitive_d")

@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -31,7 +29,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum FileOperationStatus@
@@ -109,8 +106,7 @@ instance Read FileOperationStatus where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationStatus) "unwrapFileOperationStatus")
-         ) => GHC.Records.HasField "unwrapFileOperationStatus" (Ptr.Ptr FileOperationStatus) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFileOperationStatus" (Ptr.Ptr FileOperationStatus) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFileOperationStatus")
@@ -236,8 +232,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperatio
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationRecord) "fileOperationRecord_status")
-         ) => GHC.Records.HasField "fileOperationRecord_status" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "fileOperationRecord_status" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr FileOperationStatus) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fileOperationRecord_status")
@@ -249,8 +244,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperatio
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationRecord) "fileOperationRecord_bytes_processed")
-         ) => GHC.Records.HasField "fileOperationRecord_bytes_processed" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "fileOperationRecord_bytes_processed" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr HsBindgen.Runtime.LibC.CSize) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed")

@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct OkBefore@
@@ -73,8 +70,7 @@ instance HsBindgen.Runtime.HasCField.HasCField OkBefore "okBefore_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType OkBefore) "okBefore_x")
-         ) => GHC.Records.HasField "okBefore_x" (Ptr.Ptr OkBefore) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "okBefore_x" (Ptr.Ptr OkBefore) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"okBefore_x")
@@ -127,8 +123,7 @@ instance HsBindgen.Runtime.HasCField.HasCField OkAfter "okAfter_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType OkAfter) "okAfter_x")
-         ) => GHC.Records.HasField "okAfter_x" (Ptr.Ptr OkAfter) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "okAfter_x" (Ptr.Ptr OkAfter) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"okAfter_x")

@@ -3,14 +3,12 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
@@ -81,8 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_a")
-         ) => GHC.Records.HasField "bar_a" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bar_a" (Ptr.Ptr Bar) (Ptr.Ptr (Ptr.Ptr Foo)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_a")
