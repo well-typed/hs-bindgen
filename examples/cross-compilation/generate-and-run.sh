@@ -225,28 +225,24 @@ fi
 #   5. GHC incorporates the result into the compiled output
 #
 # Why build from source: Nix's cross-GHC (pkgsCross.*.buildPackages.ghc) does
-# not ship an iserv binary. The libiserv library and GHCi.Utils module are not
-# in the cross-GHC's package database (only the ghci package is available,
-# providing GHCi.Run, GHCi.Message, GHCi.TH, etc.). This function inlines the
-# necessary source from GHC 9.6.6 (utils/iserv/ and libraries/libiserv/) and
-# compiles it with the cross-GHC. The resulting binary is a target-arch
-# executable that runs under QEMU.
+# not ship an iserv binary. However, the ghci package is available in the
+# cross-GHC's package database and provides GHCi.Server.defaultServer, which
+# is the entire iserv implementation. Building iserv from source is just
+# compiling a 4-line module:
 #
-# Why iservmain.c (custom C main): GHC's standard Haskell main() entry point
-# does not allow customising the RTS configuration before startup. iserv
-# requires a custom C main() compiled with -no-hs-main for two reasons:
+#   module Main (main) where
+#   import GHCi.Server (defaultServer)
+#   main :: IO ()
+#   main = defaultServer
 #
-#   1. keep_cafs = 1: Normally GHC's runtime garbage-collects CAFs (Constant
-#      Applicative Forms, i.e. top-level thunks) after evaluation. But iserv
-#      interprets code across multiple interactions: TH splices evaluated in
-#      one round may be referenced by later splices. Without keep_cafs, the
-#      RTS would GC those results, causing crashes with dangling pointers.
+# We compile with two additional GHC flags to configure the RTS:
 #
-#   2. rts_opts_enabled = RtsOptsAll: allows passing RTS options (e.g. +RTS
-#      -N for parallelism, -M for heap size) to iserv for debugging.
+#   -fkeep-cafs: Prevents the RTS from garbage-collecting CAFs (Constant
+#     Applicative Forms -- top-level thunks). Without this flag, the RTS would
+#     GC those results, causing crashes from dangling pointers.
 #
-#   The pattern comes from GHC's iserv build:
-#   https://gitlab.haskell.org/ghc/ghc/-/blob/wip/base-unit-hash/utils/iserv/cbits/iservmain.c
+#   -rtsopts=all: Allows passing RTS options (e.g. +RTS -M for heap size)
+#     to iserv for debugging.
 #
 # GHC OPTIONS:
 #   -fexternal-interpreter -- use iserv instead of built-in interpreter
@@ -256,9 +252,7 @@ fi
 # GHC passes iserv's arguments (pipe file descriptors) to the wrapper.
 #
 # References:
-#   GHC iserv source: https://gitlab.haskell.org/ghc/ghc/-/tree/master/utils/iserv
-#   GHC libiserv source: https://gitlab.haskell.org/ghc/ghc/-/tree/master/libraries/libiserv
-#   GHC iservmain.c: https://gitlab.haskell.org/ghc/ghc/-/blob/master/utils/iserv/cbits/iservmain.c
+#   GHC GHCI iserv: https://gitlab.haskell.org/ghc/ghc/-/blob/master/docs/users_guide/ghci.rst
 #   GHC external interpreter wiki: https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/external-interpreter
 # ============================================================================
 
@@ -276,119 +270,18 @@ build_iserv_for_target() {
     echo "  Building iserv for $target from source..."
     mkdir -p "$iserv_dir"
 
-    cat > "$iserv_dir/IServMain.hs" << 'HS_EOF'
-{-# LANGUAGE GADTs, ScopedTypeVariables, RankNTypes #-}
+    cat > "$iserv_dir/IServ.hs" << 'HS_EOF'
 module Main (main) where
-
-import GHCi.Run
-import GHCi.TH
-import GHCi.Message
-import GHCi.Signals
-
-import Control.DeepSeq
-import Control.Exception
-import Control.Monad
-import Data.Binary
-import Data.IORef
-import Foreign.C (CInt)
-import GHC.IO.Handle (Handle)
-import System.Environment
-import System.Exit
-import System.Posix (fdToHandle, Fd(..))
-
-getGhcHandle :: CInt -> IO Handle
-getGhcHandle fd = fdToHandle $ Fd fd
-
-type MessageHook = Msg -> IO Msg
-
-serv :: Bool -> MessageHook -> Pipe -> (forall a. IO a -> IO a) -> IO ()
-serv _verbose hook pipe restore = loop
-  where
-    loop = do
-        Msg msg <- readPipe pipe getMessage >>= hook
-        discardCtrlC
-        case msg of
-            Shutdown -> return ()
-            RunTH st q ty loc ->
-                wrapRunTH $ runTH pipe st q ty loc
-            RunModFinalizers st qrefs ->
-                wrapRunTH $ runModFinalizerRefs pipe st qrefs
-            _other -> run msg >>= reply
-
-    reply :: forall a. (Binary a, Show a) => a -> IO ()
-    reply r = do
-        writePipe pipe (put r)
-        loop
-
-    wrapRunTH :: forall a. (Binary a, Show a) => IO a -> IO ()
-    wrapRunTH io = do
-        r <- try io
-        writePipe pipe (putTHMessage RunTHDone)
-        case r of
-            Left e
-                | Just (GHCiQException _ err) <- fromException e ->
-                    reply (QFail err :: QResult a)
-                | otherwise -> do
-                    str <- showException e
-                    reply (QException str :: QResult a)
-            Right a ->
-                reply (QDone a)
-
-    showException :: SomeException -> IO String
-    showException e0 = do
-        r <- try $ evaluate (force (show (e0 :: SomeException)))
-        case r of
-            Left e  -> showException e
-            Right s -> return s
-
-    discardCtrlC = do
-        r <- try $ restore $ return ()
-        case r of
-            Left UserInterrupt -> return () >> discardCtrlC
-            Left e             -> throwIO e
-            _                  -> return ()
-
+import GHCi.Server (defaultServer)
 main :: IO ()
-main = do
-    args <- getArgs
-    (outh, inh, rest) <-
-        case args of
-            arg0:arg1:rest -> do
-                let wfd1 = read arg0
-                    rfd2 = read arg1
-                inh  <- getGhcHandle rfd2
-                outh <- getGhcHandle wfd1
-                return (outh, inh, rest)
-            _ -> do
-                prog <- getProgName
-                die $ prog ++ ": usage: iserv <write-fd> <read-fd> [-v]"
-    let verbose = "-v" `elem` rest
-    installSignalHandlers
-    lo_ref <- newIORef Nothing
-    let pipe = Pipe{pipeRead = inh, pipeWrite = outh, pipeLeftovers = lo_ref}
-    uninterruptibleMask $ serv verbose return pipe
+main = defaultServer
 HS_EOF
 
-    cat > "$iserv_dir/iservmain.c" << 'C_EOF'
-#include <Rts.h>
-#include <HsFFI.h>
-
-int main(int argc, char *argv[])
-{
-    RtsConfig conf = defaultRtsConfig;
-    conf.keep_cafs = 1;
-    conf.rts_opts_enabled = RtsOptsAll;
-    extern StgClosure ZCMain_main_closure;
-    hs_main(argc, argv, &ZCMain_main_closure, conf);
-}
-C_EOF
-
-    if "$ghc_path" -no-hs-main \
+    if "$ghc_path" \
         -package ghci \
-        -package deepseq \
-        -package binary \
-        "$iserv_dir/IServMain.hs" \
-        "$iserv_dir/iservmain.c" \
+        -fkeep-cafs \
+        -rtsopts=all \
+        "$iserv_dir/IServ.hs" \
         -o "$iserv_binary" >/dev/null 2>&1; then
         echo "  iserv built: $iserv_binary"
     else
@@ -421,19 +314,7 @@ build_hs_cross() {
     cd "$HS_PROJECT_DIR"
 
     local ghc_pkg_path="${GHC_PATH%-ghc}-ghc-pkg"
-    local ghc_dir
-    ghc_dir="$(dirname "$GHC_PATH")"
-    local hsc2hs_path
-
-    if [ -f "$ghc_dir/hsc2hs" ]; then
-        hsc2hs_path="$ghc_dir/hsc2hs"
-    else
-        hsc2hs_path=$(find "$ghc_dir" -name "*hsc2hs*" -type f -executable 2>/dev/null | head -1)
-    fi
-
-    if [ -z "$hsc2hs_path" ] || ! "$hsc2hs_path" --version &>/dev/null; then
-        hsc2hs_path=$(command -v hsc2hs 2>/dev/null || true)
-    fi
+    local hsc2hs_path="${GHC_PATH%-ghc}-hsc2hs"
 
     local qemu_cmd_path
     qemu_cmd_path="$(command -v "$QEMU_CMD")"

@@ -4,7 +4,7 @@
 host platform where the tool runs. This is useful when developing on one
 architecture (e.g., x86_64) but deploying to another (e.g., aarch64 or ARM).
 
-## Part A: Generating cross-compiled bindings
+## Generating cross-compiled bindings
 
 This section covers the `hs-bindgen`-specific part: generating Haskell bindings
 with correct struct sizes and alignments for a target architecture.
@@ -36,7 +36,7 @@ Common target triples:
 Pass the target to `hs-bindgen` using `--clang-option`:
 
 ```console
-hs-bindgen-cli preprocess \
+cabal run hs-bindgen-cli -- preprocess \
   --clang-option="--target=aarch64-linux-gnu" \
   -I include \
   --module Foo \
@@ -47,7 +47,7 @@ hs-bindgen-cli preprocess \
 To verify the target is being used correctly:
 
 ```console
-hs-bindgen-cli info libclang \
+cabal run hs-bindgen-cli -- info libclang \
   --clang-option="--target=aarch64-linux-gnu" \
   --clang-option="-v" \
   2>&1 | grep "^Target:"
@@ -90,10 +90,10 @@ hs-bindgen-cli preprocess \
 > [!NOTE]
 > When cross-compiling on NixOS/Nix, the `BINDGEN_EXTRA_CLANG_ARGS` environment
 > variable set by the Nix dev shell contains host-specific include paths that
-> conflict with the target.  Similarly, `BINDGEN_BUILTIN_INCLUDE_DIR` controls
+> conflict with the target. Similarly, `BINDGEN_BUILTIN_INCLUDE_DIR` controls
 > where `hs-bindgen` looks for Clang's built-in headers (like `stddef.h`); the
 > Nix dev shell sets it to prevent heuristic searching, but those paths are
-> host-specific.  Clear both when cross-compiling.
+> host-specific. Clear both when cross-compiling.
 
 Available cross-compilation targets in nixpkgs:
 
@@ -165,7 +165,7 @@ nix develop
 
 ## Part B: Building and running cross-compiled Haskell executables
 
-Generating bindings with `hs-bindgen` is the first step.  The generated code
+Generating bindings with `hs-bindgen` is the first step. The generated code
 must then be compiled with a GHC that produces target-architecture binaries.
 
 ### Why standard GHC cannot cross-compile
@@ -175,14 +175,14 @@ compiled base libraries are all built for one specific target architecture.
 A standard GHC installation for x86_64 can only produce x86_64 binaries.
 
 A **cross-compiling GHC** is a separate build of GHC that runs on your host
-(e.g., x86_64) but targets a different architecture (e.g., aarch64).  Its
+(e.g., x86_64) but targets a different architecture (e.g., aarch64). Its
 code generator emits target instructions, and its package database contains
 libraries compiled for the target.
 
 ### Getting a cross-compiling GHC
 
 The easiest way is through **Nix**, which provides pre-built cross-compiling GHC
-toolchains and QEMU in a reproducible setup.  Alternatively, you can build GHC
+toolchains and QEMU in a reproducible setup. Alternatively, you can build GHC
 from source (which gives full control but is complex) or use system packages
 (rarely available for cross targets).
 
@@ -203,9 +203,9 @@ complete `flake.nix` that can be adapted for your own projects.
 
 #### Building from source
 
-Follow the guides at <https://log.zw3rk.com/> and the
-[GHC Cross-Compilation Wiki](https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling)
-for detailed instructions.
+Follow the guides the [GHC Cross-Compilation
+Wiki](https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling) for
+detailed instructions.
 
 ### Template Haskell and iserv
 
@@ -255,44 +255,32 @@ GHC passes iserv's arguments (pipe file descriptors) to the wrapper.
 #### Why build iserv from source
 
 Nix's cross-GHC (`pkgsCross.*.buildPackages.ghc`) does not ship an iserv binary
-(`ghc-iserv` or `ghc-iserv-dyn`).  The `libiserv` library and `GHCi.Utils`
-module are not in the cross-GHC's package database -- only the `ghci` package is
-available (providing `GHCi.Run`, `GHCi.Message`, `GHCi.TH`, etc.).
+(`ghc-iserv` or `ghc-iserv-dyn`). However, the `ghci` package is available in
+the cross-GHC's package database and provides
+[`GHCi.Server.defaultServer`](https://gitlab.haskell.org/ghc/ghc/-/tree/master/utils/iserv),
+which is the entire iserv implementation. Building iserv from source is just
+compiling a 4-line module:
+
+```haskell
+module Main (main) where
+import GHCi.Server (defaultServer)
+main :: IO ()
+main = defaultServer
+```
+
+We compile with two additional GHC flags to configure the RTS:
+
+- **`-fkeep-cafs`**: prevents the RTS from garbage-collecting CAFs (Constant
+  Applicative Forms -- top-level thunks like `x = expensiveComputation`) after
+  evaluation. Without this flag, the RTS would GC those results, causing
+  crashes from dangling pointers.
+
+- **`-rtsopts=all`**: allows passing RTS options (e.g., `+RTS -M` for heap
+  size) to iserv for debugging.
 
 The [cross-compilation example](../../../examples/cross-compilation/) script
-inlines the necessary source from GHC 9.6.6
-([`utils/iserv/`](https://gitlab.haskell.org/ghc/ghc/-/tree/master/utils/iserv)
-and [`libraries/libiserv/`](https://gitlab.haskell.org/ghc/ghc/-/tree/master/libraries/libiserv))
-and compiles it with the cross-GHC.  Specifically, it inlines:
-
-- **`GHCi.Utils.getGhcHandle`**: converts a C file descriptor to a Haskell
-  `Handle`.  This module exists in the `ghci` package source but is not exposed
-  in its public API.
-
-- **`IServ.serv`**: the main message loop from `libiserv`.  It reads messages
-  from the GHC pipe, dispatches TH evaluation via `GHCi.TH.runTH`, and sends
-  results back.
-
-#### Why iserv needs a custom C main (`iservmain.c`)
-
-GHC's standard Haskell `main` entry point does not allow customising the RTS
-configuration before startup.  iserv requires a custom C `main()` compiled with
-`-no-hs-main` for two reasons:
-
-1. **`keep_cafs = 1`**: normally GHC's runtime garbage-collects CAFs (Constant
-   Applicative Forms -- top-level thunks like `x = expensiveComputation`) after
-   evaluation.  But iserv interprets code across multiple interactions: a TH
-   splice evaluated in one round may be referenced by a later splice.  Without
-   `keep_cafs`, the RTS would GC those results, causing crashes from dangling
-   pointers.  See
-   [`rts/sm/Storage.c`](https://gitlab.haskell.org/ghc/ghc/-/blob/master/rts/sm/Storage.c)
-   (`revertCAFs`).
-
-2. **`rts_opts_enabled = RtsOptsAll`**: allows passing RTS options (e.g.,
-   `+RTS -M` for heap size) to iserv for debugging.
-
-This pattern comes from GHC's own iserv build:
-[`utils/iserv/cbits/iservmain.c`](https://gitlab.haskell.org/ghc/ghc/-/blob/master/utils/iserv/cbits/iservmain.c).
+compiles this module with the cross-GHC, producing a target-architecture iserv
+binary that runs under QEMU.
 
 > [!TIP]
 > The `generate-and-run.sh` script handles iserv building, wrapper creation,
@@ -336,21 +324,19 @@ running it, and substituting the results into the Haskell source.
 
 `hs-bindgen-runtime` uses `.hsc` files, so `hsc2hs` is needed during the build.
 
-`hsc2hs` is a **build-time tool**: it runs on the host to generate Haskell
-source code.  It does not need to be cross-compiled.  However, Nix's cross-GHC
-ships a target-prefixed `hsc2hs` that sometimes fails cabal's version check.
-In that case, use the native `hsc2hs` as a fallback:
+Nix's cross-GHC ships `hsc2hs` under a target-prefixed name (e.g.,
+`aarch64-unknown-linux-gnu-hsc2hs`), which cabal does not discover
+automatically. Pass it explicitly with `--with-hsc2hs`:
 
 ```bash
 cabal build your-executable \
   --with-compiler="$GHC_AARCH64_PATH" \
-  --with-hsc2hs="$(command -v hsc2hs)" \
+  --with-hsc2hs="${GHC_AARCH64_PATH%-ghc}-hsc2hs" \
   ...
 ```
 
 > [!NOTE]
-> The `generate-and-run.sh` script handles this automatically: it tries the
-> cross-GHC's `hsc2hs` first and falls back to the native one if needed.
+> The `generate-and-run.sh` script handles this automatically.
 
 ### Running cross-compiled binaries with QEMU
 
