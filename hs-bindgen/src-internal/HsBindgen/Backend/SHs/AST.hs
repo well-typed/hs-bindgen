@@ -2,12 +2,10 @@
 
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
-    PGlobal(..)
-  , RGlobal(..)
-  , Global (..)
-  , ClosedExpr
+    ClosedExpr
   , SExpr (..)
-  , pattern EInt
+  , eBindgenGlobal
+  , eInt
   , SAlt (..)
   , PatExpr (..)
     -- TODO: drop S prefix?
@@ -16,6 +14,7 @@ module HsBindgen.Backend.SHs.AST (
   , Pragma (..)
   , ClosedType
   , SType (..)
+  , tBindgenGlobal
   , Binding (..)
   , Instance (..)
   , Field (..)
@@ -32,7 +31,6 @@ module HsBindgen.Backend.SHs.AST (
 
 import Data.Type.Nat (Nat1)
 import DeBruijn (Add, Ctx, EmptyCtx, Idx)
-import Language.Haskell.TH qualified as TH
 
 import C.Char qualified as CExpr.Runtime
 
@@ -41,8 +39,10 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.SHs.Global
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -50,291 +50,6 @@ import HsBindgen.NameHint
 {-------------------------------------------------------------------------------
   Backend representation
 -------------------------------------------------------------------------------}
-
--- | Global symbol exported from "Prelude".
---
--- We do not check at compile-time whether the symbol referenced by 'PGlobal' is
--- actually defined in "Prelude"; see
--- https://github.com/well-typed/hs-bindgen/issues/1687.
-newtype PGlobal = PGlobal { name :: TH.Name }
-
--- | Global symbol exported from "HsBindgen.Runtime.Internal.Prelude".
---
--- We do not check at compile-time whether the symbol referenced by 'RGlobal'
--- is actually defined in "HsBindgen.Runtime.Internal.Prelude"; see
--- https://github.com/well-typed/hs-bindgen/issues/1687.
-newtype RGlobal = RGlobal { name :: TH.Name }
-
-data Global =
-    Tuple_type Word
-  | Tuple_constructor Word
-  | Applicative_pure
-  | Applicative_seq
-  | Maybe_just
-  | Maybe_nothing
-  | Monad_return
-  | Monad_seq
-  | ToFunPtr_class
-  | ToFunPtr_toFunPtr
-  | FromFunPtr_class
-  | FromFunPtr_fromFunPtr
-  | Foreign_Ptr
-  | Foreign_Ptr_constructor
-  | Foreign_FunPtr
-  | Foreign_plusPtr
-  | Foreign_StablePtr
-  | ConstantArray
-  | IncompleteArray
-  | IO_type
-  | CharValue_tycon
-  | CharValue_constructor
-  | CharValue_fromAddr
-  | ByteArray_setUnionPayload
-  | ByteArray_getUnionPayload
-  | Capi_with
-  | Capi_allocaAndPeek
-  | Generic_class
-
-    -- StaticSize
-  | StaticSize_class
-  | StaticSize_staticSizeOf
-  | StaticSize_staticAlignment
-
-    -- ReadRaw
-  | ReadRaw_class
-  | ReadRaw_readRaw
-  | ReadRaw_readRawByteOff
-
-    -- WriteRaw
-  | WriteRaw_class
-  | WriteRaw_writeRaw
-  | WriteRaw_writeRawByteOff
-
-    -- EquivStorable
-  | EquivStorable_type
-
-    -- Storable
-  | Storable_class
-  | Storable_sizeOf
-  | Storable_alignment
-  | Storable_peekByteOff
-  | Storable_pokeByteOff
-  | Storable_peek
-  | Storable_poke
-
-    -- Flexible array members
-  | Flam_Offset_class
-  | Flam_Offset_offset
-  | Flam_WithFlam_constructor
-
-    -- HasCField
-  | HasCField_class
-  | HasCField_CFieldType
-  | HasCField_offset#
-  | HasCField_fromPtr
-  | HasCField_peek
-  | HasCField_poke
-  | HasCField_readRaw
-  | HasCField_writeRaw
-
-    -- BitfieldPtr
-  | HasCBitfield_BitfieldPtr
-
-    -- HasCBitfield
-  | HasCBitfield_class
-  | HasCBitfield_CBitfieldType
-  | HasCBitfield_bitfieldOffset#
-  | HasCBitfield_bitfieldWidth#
-  | HasCBitfield_toPtr
-  | HasCBitfield_peek
-  | HasCBitfield_poke
-
-    -- HasField
-  | HasField_class
-  | HasField_getField
-
-    -- Proxy
-  | Proxy_type
-  | Proxy_constructor
-
-    -- HasFFIType
-  | HasFFIType_class
-  | HasFFIType_fromFFIType
-  | HasFFIType_toFFIType
-  | HasFFIType_castFunPtrFromFFIType
-  | HasFFIType_castFunPtrToFFIType
-
-    -- Functor
-  | Functor_fmap
-
-    -- Unsafe
-  | IO_unsafePerformIO
-
-    -- PtrConst
-  | PtrConst_type
-  | PtrConst_unsafeFromPtr
-  | PtrConst_unsafeToPtr
-  | PtrConst_peek
-
-    -- Prim
-  | Prim_class
-  | Prim_sizeOf#
-  | Prim_alignment#
-  | Prim_indexByteArray#
-  | Prim_readByteArray#
-  | Prim_writeByteArray#
-  | Prim_indexOffAddr#
-  | Prim_readOffAddr#
-  | Prim_writeOffAddr#
-  | Prim_add#
-  | Prim_mul#
-
-    -- Other type classes
-  | Bitfield_class
-  | Bits_class
-  | Bounded_class
-  | Enum_class
-  | Eq_class
-  | FiniteBits_class
-  | Floating_class
-  | Fractional_class
-  | Integral_class
-  | Ix_class
-  | Num_class
-  | Ord_class
-  | Read_class
-  | Read_readPrec
-  | Read_readList
-  | Read_readListPrec
-  | Real_class
-  | RealFloat_class
-  | RealFrac_class
-  | Show_class
-  | Show_showsPrec
-
-    -- | Primitive (unboxed) type equality
-  | NomEq_class
-
-  | Not_class
-  | Not_not
-  | Logical_class
-  | Logical_and
-  | Logical_or
-  | RelEq_class
-  | RelEq_eq
-  | RelEq_uneq
-  | RelOrd_class
-  | RelOrd_lt
-  | RelOrd_le
-  | RelOrd_gt
-  | RelOrd_ge
-  | Plus_class
-  | Plus_resTyCon
-  | Plus_plus
-  | Minus_class
-  | Minus_resTyCon
-  | Minus_negate
-  | Add_class
-  | Add_resTyCon
-  | Add_add
-  | Sub_class
-  | Sub_resTyCon
-  | Sub_minus
-  | Mult_class
-  | Mult_resTyCon
-  | Mult_mult
-  | Div_class
-  | Div_div
-  | Div_resTyCon
-  | Rem_class
-  | Rem_resTyCon
-  | Rem_rem
-  | Complement_class
-  | Complement_resTyCon
-  | Complement_complement
-  | Bitwise_class
-  | Bitwise_resTyCon
-  | Bitwise_and
-  | Bitwise_or
-  | Bitwise_xor
-  | Shift_class
-  | Shift_resTyCon
-  | Shift_shiftL
-  | Shift_shiftR
-
-  | CFloat_constructor
-  | CDouble_constructor
-  | GHC_Float_castWord32ToFloat
-  | GHC_Float_castWord64ToDouble
-
-  | NonEmpty_constructor
-  | NonEmpty_singleton
-  | Map_fromList
-  | Read_readListDefault
-  | Read_readListPrecDefault
-
-  | CEnum_class
-  | CEnumZ_tycon
-  | CEnum_toCEnum
-  | CEnum_fromCEnum
-  | CEnum_declaredValues
-  | CEnum_showsUndeclared
-  | CEnum_readPrecUndeclared
-  | CEnum_isDeclared
-  | CEnum_mkDeclared
-  | SequentialCEnum_class
-  | SequentialCEnum_minDeclaredValue
-  | SequentialCEnum_maxDeclaredValue
-  | CEnum_declaredValuesFromList
-  | CEnum_showsCEnum
-  | CEnum_showsWrappedUndeclared
-  | CEnum_readPrecCEnum
-  | CEnum_readPrecWrappedUndeclared
-  | CEnum_seqIsDeclared
-  | CEnum_seqMkDeclared
-  | AsCEnum_type
-  | AsSequentialCEnum_type
-
-  | ByteArray_type
-  | SizedByteArray_type
-  | Block_type
-  | ComplexType
-
-  | CStringLen_type
-  | CPtrdiff_type
-
-  | Void_type
-  | Unit_type
-
-  | Char_type
-  | Int_type
-  | Double_type
-  | Float_type
-  | Bool_type
-  | Int8_type
-  | Int16_type
-  | Int32_type
-  | Int64_type
-  | Word_type
-  | Word8_type
-  | Word16_type
-  | Word32_type
-  | Word64_type
-  | CChar_type
-  | CSChar_type
-  | CUChar_type
-  | CShort_type
-  | CUShort_type
-  | CInt_type
-  | CUInt_type
-  | CLong_type
-  | CULong_type
-  | CLLong_type
-  | CULLong_type
-  | CBool_type
-  | CFloat_type
-  | CDouble_type
-  deriving stock (Eq, Ord, Show)
 
 type ClosedExpr = SExpr EmptyCtx
 
@@ -357,12 +72,15 @@ data SExpr ctx =
   | ELam NameHint (SExpr (S ctx))
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
-  | ETup [SExpr ctx]
+  | ETup Natural
   | EUnboxedTup [SExpr ctx]
   | EList [SExpr ctx]
     -- | Type application using \@
   | ETypeApp (SExpr ctx) ClosedType
   deriving stock (Show)
+
+eBindgenGlobal :: BindgenGlobal -> SExpr ctx
+eBindgenGlobal = EGlobal . bindgenGlobal
 
 -- | Pattern&Expressions
 --
@@ -379,10 +97,8 @@ data PatExpr
   | PELit Integer
   deriving stock (Show)
 
-pattern EInt :: Int -> SExpr be
-pattern EInt i <- EIntegral (fromInteger -> i) (Just Int_type)
-  where
-    EInt i = EIntegral (fromIntegral i) (Just Int_type)
+eInt :: Int -> SExpr be
+eInt i = EIntegral (fromIntegral i) (Just $ bindgenGlobal Int_type)
 
 -- | Case alternatives
 --
@@ -442,7 +158,12 @@ data SType ctx =
   | TBound (Idx ctx)
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)
+  | TTup Natural
+  | TEq
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
+
+tBindgenGlobal :: BindgenGlobal -> SType ctx
+tBindgenGlobal = TGlobal . bindgenGlobal
 
 data Pragma = NOINLINE
   deriving stock Show
@@ -460,7 +181,7 @@ data TypeSynonym = TypeSynonym{
   deriving stock (Show, Generic)
 
 data Instance = Instance{
-      clss    :: Global
+      clss    :: Inst.TypeClass
     , args    :: [ClosedType]
     , super   :: [(Global, [ClosedType])]
     , types   :: [(Global, [ClosedType], ClosedType)]

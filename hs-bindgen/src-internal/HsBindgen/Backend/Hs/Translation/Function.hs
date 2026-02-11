@@ -23,6 +23,7 @@ import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImp
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.SHs.Global qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims
@@ -551,7 +552,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs = case x.typ of
-            PassByAddress ty' ->  SHs.eAppMany (SHs.EGlobal SHs.Capi_with) $
+            PassByAddress ty' ->  SHs.eAppMany (SHs.eBindgenGlobal SHs.Capi_with) $
               let wrapPtrConst = C.isErasedTypeConstQualified ty' in
               [ SHs.EBound y
               , SHs.ELam x.ptrNameHint $
@@ -582,7 +583,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
       | requiresRestore primResult
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
-          (SHs.EGlobal SHs.Capi_allocaAndPeek)
+          (SHs.eBindgenGlobal SHs.Capi_allocaAndPeek)
           (SHs.ELam "res" $ kont zs')
       | otherwise
       = kont zs
@@ -648,7 +649,7 @@ succVar var = Var {
 exprVar :: Var ctx -> SHs.SExpr ctx
 exprVar var
   | var.wrapPtrConst
-  = SHs.EApp (SHs.EGlobal SHs.PtrConst_unsafeFromPtr) (SHs.EBound var.name)
+  = SHs.EApp (SHs.eBindgenGlobal SHs.PtrConst_unsafeFromPtr) (SHs.EBound var.name)
   | otherwise
   = SHs.EBound var.name
 

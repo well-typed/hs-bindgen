@@ -295,7 +295,7 @@ unionDecs fieldNaming haddockConfig info union spec = do
         knownInsts = Set.fromList $ catMaybes [
             Just Inst.Generic
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-          -- Should correctly detect 'Inst.HasCBitField' and 'Inst.HasCField'
+          -- Should correctly detect 'Inst.HasCBitfield' and 'Inst.HasCField'
           -- when bit-fields in unions are supported.
           , if null union.fields then Nothing else Just Inst.HasCField
           , if null union.fields then Nothing else Just Inst.HasField

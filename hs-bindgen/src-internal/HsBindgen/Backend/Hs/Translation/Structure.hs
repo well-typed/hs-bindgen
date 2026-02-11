@@ -265,7 +265,7 @@ getDecls supInsts hCfg spec structName info struct fieldsVec insts =
     knownInsts :: Set Inst.TypeClass
     knownInsts = Set.fromList $ catMaybes [
         if any (isJust . (.width)) struct.fields
-          then Just Inst.HasCBitField
+          then Just Inst.HasCBitfield
           else Nothing
       , if any (isNothing . (.width)) struct.fields
           then Just Inst.HasCField

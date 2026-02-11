@@ -9,6 +9,8 @@ module HsBindgen.Language.Haskell (
   , moduleNameFromString
   , moduleNameToString
   , moduleNamePath
+    -- * Module imports
+  , Import(..)
     -- * References
   , Identifier(..)
   , ExtRef(..)
@@ -56,6 +58,17 @@ moduleNamePath moduleName = withoutExt <.> "hs"
 
 instance PrettyForTrace ModuleName where
   prettyForTrace moduleName = PP.text moduleName.text
+
+{-------------------------------------------------------------------------------
+  Module imports
+-------------------------------------------------------------------------------}
+
+-- | A qualified or unqualified import of a module
+data Import =
+    -- | Qualified import, possibly with an alias.
+    QualifiedImport   ModuleName (Maybe String)
+  | UnqualifiedImport ModuleName
+  deriving (Eq, Ord, Show)
 
 {-------------------------------------------------------------------------------
   References

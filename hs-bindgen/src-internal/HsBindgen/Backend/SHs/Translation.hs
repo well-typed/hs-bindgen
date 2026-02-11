@@ -19,6 +19,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.Global
 import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Backend.SHs.Translation.Prim qualified as SHsPrim
@@ -100,12 +101,12 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasFieldInstance i defInst.comment
       Hs.InstanceHasFlam struct fty i ->
         DInst Instance{
-            clss    = Flam_Offset_class
+            clss    = Inst.Flam_Offset
           , args    = [ translateType fty, TCon struct.name ]
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( Flam_Offset_offset
+          , decs    = [ ( bindgenGlobal Flam_Offset_offset
                         , ELam "_ty" $ EIntegral (toInteger i) Nothing)
                       ]
           }
@@ -119,24 +120,24 @@ translateDefineInstanceDecl defInst =
         DInst $ translateCEnumInstanceRead struct defInst.comment
       Hs.InstanceToFunPtr inst ->
         DInst Instance{
-            clss    = ToFunPtr_class
+            clss    = Inst.ToFunPtr
           , args    = [translateType inst.typ]
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( ToFunPtr_toFunPtr
+          , decs    = [ ( bindgenGlobal ToFunPtr_toFunPtr
                         , EFree $ Hs.InternalName inst.body
                         )
                       ]
           }
       Hs.InstanceFromFunPtr inst ->
         DInst Instance{
-            clss    = FromFunPtr_class
+            clss    = Inst.FromFunPtr
           , args    = [translateType inst.typ]
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( FromFunPtr_fromFunPtr
+          , decs    = [ ( bindgenGlobal FromFunPtr_fromFunPtr
                         , EFree $ Hs.InternalName inst.body
                         )
                       ]
@@ -193,38 +194,38 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
 
 translateTypeClass :: Inst.TypeClass -> ClosedType
 translateTypeClass = \case
-    Inst.Bitfield        -> TGlobal Bitfield_class
-    Inst.Bits            -> TGlobal Bits_class
-    Inst.Bounded         -> TGlobal Bounded_class
-    Inst.CEnum           -> TGlobal CEnum_class
-    Inst.Enum            -> TGlobal Enum_class
-    Inst.Eq              -> TGlobal Eq_class
-    Inst.FiniteBits      -> TGlobal FiniteBits_class
-    Inst.Floating        -> TGlobal Floating_class
-    Inst.Fractional      -> TGlobal Fractional_class
-    Inst.FromFunPtr      -> TGlobal FromFunPtr_class
-    Inst.Generic         -> TGlobal Generic_class
-    Inst.HasCBitField    -> TGlobal HasCBitfield_class
-    Inst.HasCField       -> TGlobal HasCField_class
-    Inst.HasFFIType      -> TGlobal HasFFIType_class
-    Inst.HasField        -> TGlobal HasField_class
-    Inst.Flam_Offset     -> TGlobal Flam_Offset_class
-    Inst.Integral        -> TGlobal Integral_class
-    Inst.Ix              -> TGlobal Ix_class
-    Inst.Num             -> TGlobal Num_class
-    Inst.Ord             -> TGlobal Ord_class
-    Inst.Prim            -> TGlobal Prim_class
-    Inst.Read            -> TGlobal Read_class
-    Inst.ReadRaw         -> TGlobal ReadRaw_class
-    Inst.Real            -> TGlobal Real_class
-    Inst.RealFloat       -> TGlobal RealFloat_class
-    Inst.RealFrac        -> TGlobal RealFrac_class
-    Inst.SequentialCEnum -> TGlobal SequentialCEnum_class
-    Inst.Show            -> TGlobal Show_class
-    Inst.StaticSize      -> TGlobal StaticSize_class
-    Inst.Storable        -> TGlobal Storable_class
-    Inst.ToFunPtr        -> TGlobal ToFunPtr_class
-    Inst.WriteRaw        -> TGlobal WriteRaw_class
+    Inst.Bitfield        -> tBindgenGlobal Bitfield_class
+    Inst.Bits            -> tBindgenGlobal Bits_class
+    Inst.Bounded         -> tBindgenGlobal Bounded_class
+    Inst.CEnum           -> tBindgenGlobal CEnum_class
+    Inst.Enum            -> tBindgenGlobal Enum_class
+    Inst.Eq              -> tBindgenGlobal Eq_class
+    Inst.FiniteBits      -> tBindgenGlobal FiniteBits_class
+    Inst.Floating        -> tBindgenGlobal Floating_class
+    Inst.Fractional      -> tBindgenGlobal Fractional_class
+    Inst.FromFunPtr      -> tBindgenGlobal FromFunPtr_class
+    Inst.Generic         -> tBindgenGlobal Generic_class
+    Inst.HasCBitfield    -> tBindgenGlobal HasCBitfield_class
+    Inst.HasCField       -> tBindgenGlobal HasCField_class
+    Inst.HasFFIType      -> tBindgenGlobal HasFFIType_class
+    Inst.HasField        -> tBindgenGlobal HasField_class
+    Inst.Flam_Offset     -> tBindgenGlobal Flam_Offset_class
+    Inst.Integral        -> tBindgenGlobal Integral_class
+    Inst.Ix              -> tBindgenGlobal Ix_class
+    Inst.Num             -> tBindgenGlobal Num_class
+    Inst.Ord             -> tBindgenGlobal Ord_class
+    Inst.Prim            -> tBindgenGlobal Prim_class
+    Inst.Read            -> tBindgenGlobal Read_class
+    Inst.ReadRaw         -> tBindgenGlobal ReadRaw_class
+    Inst.Real            -> tBindgenGlobal Real_class
+    Inst.RealFloat       -> tBindgenGlobal RealFloat_class
+    Inst.RealFrac        -> tBindgenGlobal RealFrac_class
+    Inst.SequentialCEnum -> tBindgenGlobal SequentialCEnum_class
+    Inst.Show            -> tBindgenGlobal Show_class
+    Inst.StaticSize      -> tBindgenGlobal StaticSize_class
+    Inst.Storable        -> tBindgenGlobal Storable_class
+    Inst.ToFunPtr        -> tBindgenGlobal ToFunPtr_class
+    Inst.WriteRaw        -> tBindgenGlobal WriteRaw_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
 translateForeignImportDecl importDecl = DForeignImport ForeignImport{
@@ -254,8 +255,8 @@ translateForeignImportWrapper importWrapper = DForeignImport ForeignImport{
               }
           ]
     , result     = flip Result Nothing $
-          TGlobal IO_type `TApp`
-          (TGlobal Foreign_FunPtr `TApp`
+          tBindgenGlobal IO_type `TApp`
+          (tBindgenGlobal Foreign_FunPtr `TApp`
           translateType importWrapper.funType)
     , name       = importWrapper.name
     , origName   = C.DeclName "wrapper" C.NameKindOrdinary
@@ -270,7 +271,7 @@ translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
       parameters = [
             Parameter {
                 typ =
-                    TGlobal Foreign_FunPtr `TApp`
+                    tBindgenGlobal Foreign_FunPtr `TApp`
                     translateType importDyn.funType
               , comment = Nothing
               }
@@ -314,25 +315,25 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
-    Hs.HsPrimType t          -> TGlobal (translatePrimType t)
+    Hs.HsPrimType t          -> translatePrimType t
     Hs.HsTypRef r _          -> TCon r
-    Hs.HsConstArray n t      -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
-    Hs.HsIncompleteArray t   -> TGlobal IncompleteArray `TApp` (translateType t)
-    Hs.HsPtr t               -> TApp (TGlobal Foreign_Ptr) (translateType t)
-    Hs.HsFunPtr t            -> TApp (TGlobal Foreign_FunPtr) (translateType t)
-    Hs.HsStablePtr t         -> TApp (TGlobal Foreign_StablePtr) (translateType t)
-    Hs.HsPtrConst t          -> TApp (TGlobal PtrConst_type) (translateType t)
-    Hs.HsIO t                -> TApp (TGlobal IO_type) (translateType t)
+    Hs.HsConstArray n t      -> tBindgenGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
+    Hs.HsIncompleteArray t   -> tBindgenGlobal IncompleteArray `TApp` (translateType t)
+    Hs.HsPtr t               -> TApp (tBindgenGlobal Foreign_Ptr) (translateType t)
+    Hs.HsFunPtr t            -> TApp (tBindgenGlobal Foreign_FunPtr) (translateType t)
+    Hs.HsStablePtr t         -> TApp (tBindgenGlobal Foreign_StablePtr) (translateType t)
+    Hs.HsPtrConst t          -> TApp (tBindgenGlobal PtrConst_type) (translateType t)
+    Hs.HsIO t                -> TApp (tBindgenGlobal IO_type) (translateType t)
     Hs.HsFun a b             -> TFun (translateType a) (translateType b)
     Hs.HsExtBinding r c hs _ -> TExt r c hs
-    Hs.HsByteArray           -> TGlobal ByteArray_type
-    Hs.HsSizedByteArray n m  -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-    Hs.HsBlock t             -> TGlobal Block_type `TApp` translateType t
-    Hs.HsComplexType t       -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
+    Hs.HsByteArray           -> tBindgenGlobal ByteArray_type
+    Hs.HsSizedByteArray n m  -> tBindgenGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+    Hs.HsBlock t             -> tBindgenGlobal Block_type `TApp` translateType t
+    Hs.HsComplexType t       -> TApp (tBindgenGlobal ComplexType) (translateType (HsPrimType t))
     Hs.HsStrLit s            -> TStrLit s
     Hs.HsWithFlam x y        ->
-      TApp (TApp (TGlobal Flam_WithFlam_constructor) (translateType x)) (translateType y)
-    Hs.HsEquivStorable t     -> TApp (TGlobal EquivStorable_type) (translateType t)
+      TApp (TApp (tBindgenGlobal Flam_WithFlam_constructor) (translateType x)) (translateType y)
+    Hs.HsEquivStorable t     -> TApp (tBindgenGlobal EquivStorable_type) (translateType t)
 
 {-------------------------------------------------------------------------------
   @StaticSize@, @ReadRaw@, @WriteRaw@
@@ -344,14 +345,14 @@ translateStaticSizeInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateStaticSizeInstance struct inst mbComment = Instance{
-      clss    = StaticSize_class
+      clss    = Inst.StaticSize
     , args    = [TCon struct.name]
     , super   = []
     , types   = []
     , comment = mbComment
     , decs    = [
-          (StaticSize_staticSizeOf    , EUnusedLam $ EInt inst.staticSizeOf)
-        , (StaticSize_staticAlignment , EUnusedLam $ EInt inst.staticAlignment)
+          (bindgenGlobal StaticSize_staticSizeOf    , EUnusedLam $ eInt inst.staticSizeOf)
+        , (bindgenGlobal StaticSize_staticAlignment , EUnusedLam $ eInt inst.staticAlignment)
         ]
     }
 
@@ -361,12 +362,12 @@ translateReadRawInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateReadRawInstance struct inst mbComment = Instance{
-      clss    = ReadRaw_class
+      clss    = Inst.ReadRaw
     , args    = [TCon struct.name]
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [(ReadRaw_readRaw, readRaw)]
+    , decs    = [(bindgenGlobal ReadRaw_readRaw, readRaw)]
     }
   where
     readRaw = lambda (idiom structCon translateReadRawCField) inst.readRaw
@@ -377,12 +378,12 @@ translateWriteRawInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateWriteRawInstance struct inst mbComment = Instance{
-      clss    = WriteRaw_class
+      clss    = Inst.WriteRaw
     , args    = [TCon struct.name]
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [(WriteRaw_writeRaw, writeRaw)]
+    , decs    = [(bindgenGlobal WriteRaw_writeRaw, writeRaw)]
     }
   where
     writeRaw =
@@ -394,66 +395,66 @@ translateReadRawCField :: Hs.ReadRawCField ctx -> SExpr ctx
 translateReadRawCField = \case
     Hs.ReadRawCField field ptr ->
       appMany HasCField_readRaw [
-          EGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
         , EBound ptr
         ]
     Hs.ReadRawCBitfield field ptr ->
       appMany HasCBitfield_peek [
-          EGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
         , EBound ptr
         ]
     Hs.ReadRawByteOff ptr i ->
-      appMany ReadRaw_readRawByteOff [EBound ptr, EInt i]
+      appMany ReadRaw_readRawByteOff [EBound ptr, eInt i]
 
 translateWriteRawCField :: Hs.WriteRawCField ctx -> SExpr ctx
 translateWriteRawCField = \case
     Hs.WriteRawCField field ptr x ->
       appMany HasCField_writeRaw [
-          EGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
         , EBound ptr
         , EBound x
         ]
     Hs.WriteRawCBitfield field ptr x ->
       appMany HasCBitfield_poke [
-          EGlobal Proxy_constructor `ETypeApp` translateType field
+          eBindgenGlobal Proxy_constructor `ETypeApp` translateType field
         , EBound ptr
         , EBound x
         ]
     Hs.WriteRawByteOff ptr i x ->
-      appMany WriteRaw_writeRawByteOff [EBound ptr, EInt i, EBound x]
+      appMany WriteRaw_writeRawByteOff [EBound ptr, eInt i, EBound x]
 
-translatePrimType :: Hs.HsPrimType -> Global
+translatePrimType :: Hs.HsPrimType -> SType ctx
 translatePrimType = \case
-    HsPrimVoid -> Void_type
-    HsPrimUnit -> Unit_type
-    HsPrimChar -> Char_type
-    HsPrimInt -> Int_type
-    HsPrimDouble -> Double_type
-    HsPrimFloat -> Float_type
-    HsPrimBool -> Bool_type
-    HsPrimInt8 -> Int8_type
-    HsPrimInt16 -> Int16_type
-    HsPrimInt32 -> Int32_type
-    HsPrimInt64 -> Int64_type
-    HsPrimWord -> Word_type
-    HsPrimWord8 -> Word8_type
-    HsPrimWord16 -> Word16_type
-    HsPrimWord32 -> Word32_type
-    HsPrimWord64 -> Word64_type
-    HsPrimCChar -> CChar_type
-    HsPrimCSChar -> CSChar_type
-    HsPrimCUChar -> CUChar_type
-    HsPrimCShort -> CShort_type
-    HsPrimCUShort -> CUShort_type
-    HsPrimCInt -> CInt_type
-    HsPrimCUInt -> CUInt_type
-    HsPrimCLong -> CLong_type
-    HsPrimCULong -> CULong_type
-    HsPrimCLLong -> CLLong_type
-    HsPrimCULLong -> CULLong_type
-    HsPrimCBool -> CBool_type
-    HsPrimCFloat -> CFloat_type
-    HsPrimCDouble -> CDouble_type
+    HsPrimVoid    -> tBindgenGlobal Void_type
+    HsPrimUnit    -> TTup 0
+    HsPrimChar    -> tBindgenGlobal Char_type
+    HsPrimInt     -> tBindgenGlobal Int_type
+    HsPrimDouble  -> tBindgenGlobal Double_type
+    HsPrimFloat   -> tBindgenGlobal Float_type
+    HsPrimBool    -> tBindgenGlobal Bool_type
+    HsPrimInt8    -> tBindgenGlobal Int8_type
+    HsPrimInt16   -> tBindgenGlobal Int16_type
+    HsPrimInt32   -> tBindgenGlobal Int32_type
+    HsPrimInt64   -> tBindgenGlobal Int64_type
+    HsPrimWord    -> tBindgenGlobal Word_type
+    HsPrimWord8   -> tBindgenGlobal Word8_type
+    HsPrimWord16  -> tBindgenGlobal Word16_type
+    HsPrimWord32  -> tBindgenGlobal Word32_type
+    HsPrimWord64  -> tBindgenGlobal Word64_type
+    HsPrimCChar   -> tBindgenGlobal CChar_type
+    HsPrimCSChar  -> tBindgenGlobal CSChar_type
+    HsPrimCUChar  -> tBindgenGlobal CUChar_type
+    HsPrimCShort  -> tBindgenGlobal CShort_type
+    HsPrimCUShort -> tBindgenGlobal CUShort_type
+    HsPrimCInt    -> tBindgenGlobal CInt_type
+    HsPrimCUInt   -> tBindgenGlobal CUInt_type
+    HsPrimCLong   -> tBindgenGlobal CLong_type
+    HsPrimCULong  -> tBindgenGlobal CULong_type
+    HsPrimCLLong  -> tBindgenGlobal CLLong_type
+    HsPrimCULLong -> tBindgenGlobal CULLong_type
+    HsPrimCBool   -> tBindgenGlobal CBool_type
+    HsPrimCFloat  -> tBindgenGlobal CFloat_type
+    HsPrimCDouble -> tBindgenGlobal CDouble_type
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -465,14 +466,14 @@ translateStorableInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateStorableInstance struct inst mbComment = Instance{
-      clss    = Storable_class
+      clss    = Inst.Storable
     , args    = [TCon struct.name]
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [
-          (Storable_sizeOf    , EUnusedLam $ EInt inst.sizeOf)
-        , (Storable_alignment , EUnusedLam $ EInt inst.alignment)
+    , decs    = map (first bindgenGlobal) [
+          (Storable_sizeOf    , EUnusedLam $ eInt inst.sizeOf)
+        , (Storable_alignment , EUnusedLam $ eInt inst.alignment)
         , (Storable_peek      , peek)
         , (Storable_poke      , poke)
         ]
@@ -482,14 +483,20 @@ translateStorableInstance struct inst mbComment = Instance{
     poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) inst.poke
 
 translatePeekCField :: Hs.PeekCField ctx -> SExpr ctx
-translatePeekCField (Hs.PeekCField field ptr) = appMany HasCField_peek [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
-translatePeekCField (Hs.PeekCBitfield field ptr) = appMany HasCBitfield_peek [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
-translatePeekCField (Hs.PeekByteOff ptr i) = appMany Storable_peekByteOff [EBound ptr, EInt i]
+translatePeekCField (Hs.PeekCField field ptr) =
+    appMany HasCField_peek [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
+translatePeekCField (Hs.PeekCBitfield field ptr) =
+    appMany HasCBitfield_peek [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
+translatePeekCField (Hs.PeekByteOff ptr i) =
+    appMany Storable_peekByteOff [EBound ptr, eInt i]
 
 translatePokeCField :: Hs.PokeCField ctx -> SExpr ctx
-translatePokeCField (Hs.PokeCField field ptr x) = appMany HasCField_poke [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
-translatePokeCField (Hs.PokeCBitfield field ptr x) = appMany HasCBitfield_poke [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
-translatePokeCField (Hs.PokeByteOff ptr i x) = appMany Storable_pokeByteOff [EBound ptr, EInt i, EBound x]
+translatePokeCField (Hs.PokeCField field ptr x) =
+    appMany HasCField_poke [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
+translatePokeCField (Hs.PokeCBitfield field ptr x) =
+    appMany HasCBitfield_poke [eBindgenGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
+translatePokeCField (Hs.PokeByteOff ptr i x) =
+    appMany Storable_pokeByteOff [EBound ptr, eInt i, EBound x]
 
 {-------------------------------------------------------------------------------
   'HasCField'
@@ -500,14 +507,14 @@ translateHasCFieldInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateHasCFieldInstance inst mbComment = Instance {
-      clss    = HasCField_class
+      clss    = Inst.HasCField
     , args    = [parent, fieldLit]
     , super   = []
     , comment = mbComment
-    , types   = [ ( HasCField_CFieldType
+    , types   = [ ( bindgenGlobal HasCField_CFieldType
                   , [parent, fieldLit], fieldType)
                 ]
-    , decs    = [ ( HasCField_offset#
+    , decs    = [ ( bindgenGlobal HasCField_offset#
                   , EUnusedLam $ EUnusedLam $ EIntegral o Nothing
                   )
                 ]
@@ -527,18 +534,18 @@ translateHasCBitfieldInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateHasCBitfieldInstance inst mbComment = Instance{
-      clss    = HasCBitfield_class
+      clss    = Inst.HasCBitfield
     , args    = [parent, fieldLit]
     , super   = []
     , comment = mbComment
-    , types   = [ ( HasCBitfield_CBitfieldType
+    , types   = [ (bindgenGlobal HasCBitfield_CBitfieldType
                   , [parent, fieldLit], fieldType
                   )
                 ]
-    , decs    = [ ( HasCBitfield_bitfieldOffset#
+    , decs    = [ ( bindgenGlobal HasCBitfield_bitfieldOffset#
                   , EUnusedLam $ EUnusedLam $ EIntegral o Nothing
                   )
-                , ( HasCBitfield_bitfieldWidth#
+                , ( bindgenGlobal HasCBitfield_bitfieldWidth#
                   , EUnusedLam $ EUnusedLam $ EIntegral w Nothing
                   )
                 ]
@@ -559,14 +566,14 @@ translateHasFieldInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateHasFieldInstance inst mbComment = Instance{
-      clss   = HasField_class
+      clss   = Inst.HasField
     , args    = [fieldLit, parentPtr, tyPtr]
     , types   = []
     , comment = mbComment
     , super   = []
-    , decs    = [ ( HasField_getField
-                  , EGlobal ptrToFieldGlobal `EApp`
-                      (EGlobal Proxy_constructor `ETypeApp` fieldLit)
+    , decs    = [ ( bindgenGlobal HasField_getField
+                  , eBindgenGlobal ptrToFieldGlobal `EApp`
+                      (eBindgenGlobal Proxy_constructor `ETypeApp` fieldLit)
                   )
                 ]
     }
@@ -575,15 +582,15 @@ translateHasFieldInstance inst mbComment = Instance{
       case inst.deriveVia of
         Hs.ViaHasCField -> (
             HasCField_fromPtr
-          , TGlobal Foreign_Ptr `TApp` field
+          , tBindgenGlobal Foreign_Ptr `TApp` field
           )
         Hs.ViaHasCBitfield -> (
             HasCBitfield_toPtr
-          , TGlobal HasCBitfield_BitfieldPtr `TApp` field
+          , tBindgenGlobal HasCBitfield_BitfieldPtr `TApp` field
           )
 
     parent    = translateType inst.parentType
-    parentPtr = TGlobal Foreign_Ptr `TApp` parent
+    parentPtr = tBindgenGlobal Foreign_Ptr `TApp` parent
     field     = translateType inst.fieldType
     fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
 
@@ -595,7 +602,7 @@ translateUnionGetter :: Hs.UnionGetter -> SDecl
 translateUnionGetter getter = DBinding Binding{
       name       = getter.name
     , result     = Result (translateType getter.typ) Nothing
-    , body       = EGlobal ByteArray_getUnionPayload
+    , body       = eBindgenGlobal ByteArray_getUnionPayload
     , pragmas    = []
     , comment    = getter.comment
     , parameters = [
@@ -610,7 +617,7 @@ translateUnionSetter :: Hs.UnionSetter -> SDecl
 translateUnionSetter setter = DBinding Binding{
       name       = setter.name
     , result     = Result (TCon setter.constr) Nothing
-    , body       = EGlobal ByteArray_setUnionPayload
+    , body       = eBindgenGlobal ByteArray_setUnionPayload
     , pragmas    = []
     , comment    = setter.comment
     , parameters = [
@@ -648,17 +655,17 @@ translateCEnumInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComment = Instance {
-      clss    = CEnum_class
+      clss    = Inst.CEnum
     , args    = [tcon]
     , super   = []
-    , types   = [(CEnumZ_tycon, [tcon], translateType fTyp)]
+    , types   = [(bindgenGlobal CEnumZ_tycon, [tcon], translateType fTyp)]
     , comment = mbComment
-    , decs    = [
+    , decs    = map (first bindgenGlobal) [
           (CEnum_toCEnum            , ECon struct.constr)
         , (CEnum_fromCEnum          , fromCEnumE)
         , (CEnum_declaredValues     , EUnusedLam declaredValuesE)
-        , (CEnum_showsUndeclared    , EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
-        , (CEnum_readPrecUndeclared , EApp (EGlobal CEnum_readPrecWrappedUndeclared) dconStrE)
+        , (CEnum_showsUndeclared    , EApp (eBindgenGlobal CEnum_showsWrappedUndeclared) dconStrE)
+        , (CEnum_readPrecUndeclared , EApp (eBindgenGlobal CEnum_readPrecWrappedUndeclared) dconStrE)
         ] ++ seqDecs
     }
   where
@@ -679,19 +686,19 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
     fromCEnumE =
       case fieldNamingStrategy of
         EnableRecordDot ->
-          EGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit "unwrap")
+          eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit "unwrap")
         PrefixedFieldNames ->
           EFree fname
 
     declaredValuesE :: SExpr ctx
-    declaredValuesE = EApp (EGlobal CEnum_declaredValuesFromList) $ EList [
-        ETup [
+    declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [
+        appManyExpr (ETup 2) [
             EIntegral v Nothing
           , if null names
-              then EApp (EGlobal NonEmpty_singleton) (EString name)
+              then EApp (eBindgenGlobal NonEmpty_singleton) (EString name)
               else
                 EInfix
-                  NonEmpty_constructor
+                  (bindgenGlobal NonEmpty_constructor)
                   (EString name)
                   (EList (EString <$> names))
           ]
@@ -701,8 +708,8 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
     seqDecs :: [(Global, ClosedExpr)]
     seqDecs
       | isSequential = [
-            (CEnum_isDeclared, EGlobal CEnum_seqIsDeclared)
-          , (CEnum_mkDeclared, EGlobal CEnum_seqMkDeclared)
+            (bindgenGlobal CEnum_isDeclared, eBindgenGlobal CEnum_seqIsDeclared)
+          , (bindgenGlobal CEnum_mkDeclared, eBindgenGlobal CEnum_seqMkDeclared)
           ]
       | otherwise = []
 
@@ -713,14 +720,14 @@ translateSequentialCEnum ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
-      clss    = SequentialCEnum_class
+      clss    = Inst.SequentialCEnum
     , args    = [tcon]
     , super   = []
     , types   = []
     , comment = mbComment
     , decs    = [
-          (SequentialCEnum_minDeclaredValue, ECon nameMin)
-        , (SequentialCEnum_maxDeclaredValue, ECon nameMax)
+          (bindgenGlobal SequentialCEnum_minDeclaredValue, ECon nameMin)
+        , (bindgenGlobal SequentialCEnum_maxDeclaredValue, ECon nameMax)
         ]
     }
   where
@@ -732,12 +739,12 @@ translateCEnumInstanceShow ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceShow struct mbComment = Instance {
-      clss    = Show_class
+      clss    = Inst.Show
     , args    = [tcon]
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [(Show_showsPrec, EGlobal CEnum_showsCEnum)]
+    , decs    = [(bindgenGlobal Show_showsPrec, eBindgenGlobal CEnum_showsCEnum)]
     }
   where
     tcon :: ClosedType
@@ -748,15 +755,15 @@ translateCEnumInstanceRead ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceRead struct mbComment = Instance {
-      clss    = Read_class
+      clss    = Inst.Read
     , args    = [tcon]
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [
-          (Read_readPrec     , EGlobal CEnum_readPrecCEnum)
-        , (Read_readList     , EGlobal Read_readListDefault)
-        , (Read_readListPrec , EGlobal Read_readListPrecDefault)
+    , decs    = map (bimap bindgenGlobal eBindgenGlobal) [
+          (Read_readPrec     , CEnum_readPrecCEnum)
+        , (Read_readList     , Read_readListDefault)
+        , (Read_readListPrec , Read_readListPrecDefault)
         ]
     }
   where

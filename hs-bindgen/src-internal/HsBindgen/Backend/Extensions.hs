@@ -103,6 +103,7 @@ globalExtensions = \case
     HasCField_offset# -> Set.singleton TH.MagicHash
     HasCBitfield_bitfieldOffset# -> Set.singleton TH.MagicHash
     HasCBitfield_bitfieldWidth# -> Set.singleton TH.MagicHash
+    -- TODO D: Always enable or never (if not required) (NomEq not in TypeClass type).
     NomEq_class -> Set.singleton TH.TypeOperators
     HasField_class -> Set.singleton TH.UndecidableInstances
     HasFFIType_class -> Set.singleton TH.UndecidableInstances
