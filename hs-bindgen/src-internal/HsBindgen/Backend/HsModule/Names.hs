@@ -21,7 +21,6 @@ import Data.Ix qualified
 import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Maybe qualified
 import Data.Primitive.Types qualified as Primitive
 import Data.Proxy qualified
 import Data.Set qualified as Set
@@ -68,6 +67,7 @@ import HsBindgen.Language.Haskell qualified as Hs
   Imports
 -------------------------------------------------------------------------------}
 
+-- TODO D: I think we don't need the alias anymore, so we can remove this type.
 -- | An import module with an optional alias
 data HsImportModule = HsImportModule {
       name  :: Hs.ModuleName
@@ -115,6 +115,7 @@ tupleResolvedName wantType i = ResolvedName tup IdentifierName Nothing
   Imports helpers
 -------------------------------------------------------------------------------}
 
+-- TODO D: DEPRECATED
 importQ :: TH.Name -> ResolvedName
 importQ name = ResolvedName{
       string   = s
@@ -124,20 +125,7 @@ importQ name = ResolvedName{
   where
     s = TH.nameBase name
 
-
--- | Qualified import from "HsBindgen.Runtime.Internal.Prelude".
-importQ' :: RpGlobal -> ResolvedName
-importQ' x = ResolvedName{
-      string   = s
-    , typ      = nameType s
-    , hsImport =
-      Just $
-        QualifiedHsImport $
-          HsImportModule "HsBindgen.Runtime.Internal.Prelude" Nothing
-    }
-  where
-    s = TH.nameBase x.name
-
+-- TODO D: DEPRECATED
 importU :: TH.Name -> ResolvedName
 importU name = ResolvedName{
       string   = s
@@ -146,6 +134,62 @@ importU name = ResolvedName{
     }
   where
     s = TH.nameBase name
+
+-- | Unqualified import from "Prelude".
+pU :: PGlobal -> ResolvedName
+pU x = ResolvedName{
+      string   = s
+    , typ      = nameType s
+    , hsImport =
+      Just $
+        UnqualifiedHsImport $
+          HsImportModule "Prelude" Nothing
+    }
+  where
+    s :: String
+    s = TH.nameBase x.name
+
+-- | Qualified import from "Prelude".
+pQ :: PGlobal -> ResolvedName
+pQ x = ResolvedName{
+      string   = s
+    , typ      = nameType s
+    , hsImport =
+      Just $
+        QualifiedHsImport $
+          HsImportModule "Prelude" Nothing
+    }
+  where
+    s :: String
+    s = TH.nameBase x.name
+
+-- | Qualified import from "HsBindgen.Runtime.Internal.Prelude".
+rQ :: RGlobal -> ResolvedName
+rQ x = ResolvedName{
+      string   = s
+    , typ      = nameType s
+    , hsImport =
+      Just $
+        QualifiedHsImport $
+          HsImportModule "HsBindgen.Runtime.Internal.Prelude" Nothing
+    }
+  where
+    s :: String
+    s = TH.nameBase x.name
+
+-- | Unqualified import from "HsBindgen.Runtime.Internal.Prelude".
+rU :: RGlobal -> ResolvedName
+rU x = ResolvedName{
+      string   = s
+    , typ      = nameType s
+    , hsImport =
+      Just $
+        UnqualifiedHsImport $
+          HsImportModule "HsBindgen.Runtime.Internal.Prelude" Nothing
+    }
+  where
+    s :: String
+    s = TH.nameBase x.name
 
 -- | Name type
 data NameType =
@@ -173,6 +217,7 @@ nameType nm
     isIdentChar :: Char -> Bool
     isIdentChar c = Char.isAlphaNum c || c == '_' || c == '\''
 
+-- TODO D: Remove 'moduleOf'.
 -- | Create 'HsImportModule' from a definition module.
 --
 -- We need to map internal modules to external ones for @base@ names.
@@ -260,17 +305,17 @@ resolveGlobal = \case
     -- sure to reserve the name in "HsBindgen.Backend.Hs.AST.Name".
     Tuple_type i        -> tupleResolvedName True  i
     Tuple_constructor i -> tupleResolvedName False i
-    Applicative_pure    -> importU 'pure
-    Applicative_seq     -> importU '(<*>)
-    Maybe_just          -> importQ 'Data.Maybe.Just
-    Maybe_nothing       -> importQ 'Data.Maybe.Nothing
-    Monad_return        -> importU 'return
-    Monad_seq           -> importU '(>>)
+    Applicative_pure    -> pU $ PGlobal 'pure
+    Applicative_seq     -> pU $ PGlobal '(<*>)
+    Maybe_just          -> pQ $ PGlobal 'Just
+    Maybe_nothing       -> pQ $ PGlobal 'Nothing
+    Monad_return        -> pU $ PGlobal 'return
+    Monad_seq           -> pU $ PGlobal '(>>)
 
-    ToFunPtr_class        -> importQ' $ RpGlobal ''RP.ToFunPtr
-    ToFunPtr_toFunPtr     -> importQ' $ RpGlobal 'RP.toFunPtr
-    FromFunPtr_class      -> importQ' $ RpGlobal ''RP.FromFunPtr
-    FromFunPtr_fromFunPtr -> importQ' $ RpGlobal 'RP.fromFunPtr
+    ToFunPtr_class        -> rQ $ RGlobal ''RP.ToFunPtr
+    ToFunPtr_toFunPtr     -> rQ $ RGlobal  'RP.toFunPtr
+    FromFunPtr_class      -> rQ $ RGlobal ''RP.FromFunPtr
+    FromFunPtr_fromFunPtr -> rQ $ RGlobal  'RP.fromFunPtr
 
     Foreign_Ptr           -> importQ ''Foreign.Ptr
     Ptr_constructor       -> importQ ''GHC.Ptr.Ptr
@@ -357,7 +402,7 @@ resolveGlobal = \case
     HasFFIType_castFunPtrToFFIType   -> importQ 'HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType
 
     -- Functor
-    Functor_fmap -> importQ 'fmap
+    Functor_fmap -> pU $ PGlobal 'fmap
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO
@@ -384,24 +429,24 @@ resolveGlobal = \case
     Bitfield_class    -> importQ ''HsBindgen.Runtime.Internal.Bitfield.Bitfield
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded
-    Enum_class        -> importU ''Enum
-    Eq_class          -> importU ''Eq
+    Enum_class        -> pU $ PGlobal ''Enum
+    Eq_class          -> pU $ PGlobal ''Eq
     FiniteBits_class  -> importU ''Data.Bits.FiniteBits
-    Floating_class    -> importU ''Floating
-    Fractional_class  -> importU ''Fractional
-    Integral_class    -> importU ''Integral
+    Floating_class    -> pU $ PGlobal ''Floating
+    Fractional_class  -> pU $ PGlobal ''Fractional
+    Integral_class    -> pU $ PGlobal ''Integral
     Ix_class          -> importQ ''Data.Ix.Ix
-    Num_class         -> importU ''Num
-    Ord_class         -> importU ''Ord
-    Read_class        -> importU ''Read
+    Num_class         -> pU $ PGlobal ''Num
+    Ord_class         -> pU $ PGlobal ''Ord
+    Read_class        -> pU $ PGlobal ''Read
     Read_readPrec     -> importQ 'Text.Read.readPrec
     Read_readList     -> importQ 'Text.Read.readList
     Read_readListPrec -> importQ 'Text.Read.readListPrec
-    Real_class        -> importU ''Real
-    RealFloat_class   -> importU ''RealFloat
-    RealFrac_class    -> importU ''RealFrac
-    Show_class        -> importU ''Show
-    Show_showsPrec    -> importU 'showsPrec
+    Real_class        -> pU $ PGlobal ''Real
+    RealFloat_class   -> pU $ PGlobal ''RealFloat
+    RealFrac_class    -> pU $ PGlobal ''RealFrac
+    Show_class        -> pU $ PGlobal ''Show
+    Show_showsPrec    -> pU $ PGlobal  'showsPrec
 
     -- We use @TyEq@ rather than @(~)@ because the latter is magical syntax on
     -- GHC-9.2. The use of @TyEq@ is uniform across GHC versions.
@@ -500,11 +545,11 @@ resolveGlobal = \case
     Unit_type       -> tupleResolvedName True 0
     CStringLen_type -> importQ ''Foreign.C.String.CStringLen
     CPtrdiff_type   -> importQ ''Foreign.C.CPtrdiff
-    Char_type       -> importU ''Char
-    Int_type        -> importU ''Int
-    Double_type     -> importU ''Double
-    Float_type      -> importU ''Float
-    Bool_type       -> importU ''Bool
+    Char_type       -> pU $ PGlobal ''Char
+    Int_type        -> pU $ PGlobal ''Int
+    Double_type     -> pU $ PGlobal ''Double
+    Float_type      -> pU $ PGlobal ''Float
+    Bool_type       -> pU $ PGlobal ''Bool
     Int8_type       -> importQ ''Data.Int.Int8
     Int16_type      -> importQ ''Data.Int.Int16
     Int32_type      -> importQ ''Data.Int.Int32

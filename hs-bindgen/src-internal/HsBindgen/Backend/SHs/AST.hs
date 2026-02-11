@@ -2,7 +2,8 @@
 
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
-    RpGlobal(..)
+    PGlobal(..)
+  , RGlobal(..)
   , Global (..)
   , ClosedExpr
   , SExpr (..)
@@ -50,12 +51,19 @@ import HsBindgen.NameHint
   Backend representation
 -------------------------------------------------------------------------------}
 
+-- | Global symbol exported from "Prelude".
+--
+-- We do not check at compile-time whether the symbol referenced by 'PGlobal' is
+-- actually defined in "Prelude"; see
+-- https://github.com/well-typed/hs-bindgen/issues/1687.
+newtype PGlobal = PGlobal { name :: TH.Name }
+
 -- | Global symbol exported from "HsBindgen.Runtime.Internal.Prelude".
 --
--- We do not check whether the symbol referenced by 'RpGlobal' is actually
--- defined in in "HsBindgen.Runtime.Internal.Prelude"; see
+-- We do not check at compile-time whether the symbol referenced by 'RGlobal'
+-- is actually defined in "HsBindgen.Runtime.Internal.Prelude"; see
 -- https://github.com/well-typed/hs-bindgen/issues/1687.
-newtype RpGlobal = RpGlobal { name :: TH.Name }
+newtype RGlobal = RGlobal { name :: TH.Name }
 
 data Global =
     Tuple_type Word
