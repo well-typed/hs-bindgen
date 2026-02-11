@@ -26,7 +26,6 @@ import Data.Proxy qualified
 import Data.Set qualified as Set
 import Data.Void qualified
 import Data.Word qualified
-import Foreign qualified
 import Foreign.C qualified
 import Foreign.C.String qualified
 import GHC.Base qualified
@@ -50,7 +49,6 @@ import HsBindgen.Runtime.Internal.HasFFIType qualified
 import HsBindgen.Runtime.Internal.Prelude qualified as RP
 import HsBindgen.Runtime.Internal.SizedByteArray qualified
 import HsBindgen.Runtime.Internal.TypeEquality qualified
-import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
 
 import HsBindgen.Backend.SHs.AST
@@ -331,32 +329,32 @@ resolveGlobal = \case
     Capi_allocaAndPeek      -> rQ $ RGlobal  'RP.allocaAndPeek
     Generic_class           -> rQ $ RGlobal ''RP.Generic
 
-    -- StaticSize
-    StaticSize_class           -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
-    StaticSize_staticSizeOf    -> importQ 'HsBindgen.Runtime.Marshal.staticSizeOf
-    StaticSize_staticAlignment -> importQ 'HsBindgen.Runtime.Marshal.staticAlignment
+    -- Static size
+    StaticSize_class           -> rQ $ RGlobal ''RP.StaticSize
+    StaticSize_staticSizeOf    -> rQ $ RGlobal  'RP.staticSizeOf
+    StaticSize_staticAlignment -> rQ $ RGlobal  'RP.staticAlignment
 
-    -- ReadRaw
-    ReadRaw_class          -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
-    ReadRaw_readRaw        -> importQ 'HsBindgen.Runtime.Marshal.readRaw
-    ReadRaw_readRawByteOff -> importQ 'HsBindgen.Runtime.Marshal.readRawByteOff
+    -- Read raw
+    ReadRaw_class          -> rQ $ RGlobal ''RP.ReadRaw
+    ReadRaw_readRaw        -> rQ $ RGlobal  'RP.readRaw
+    ReadRaw_readRawByteOff -> rQ $ RGlobal  'RP.readRawByteOff
 
-    -- WriteRaw
-    WriteRaw_class           -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
-    WriteRaw_writeRaw        -> importQ 'HsBindgen.Runtime.Marshal.writeRaw
-    WriteRaw_writeRawByteOff -> importQ 'HsBindgen.Runtime.Marshal.writeRawByteOff
+    -- Write raw
+    WriteRaw_class           -> rQ $ RGlobal ''RP.WriteRaw
+    WriteRaw_writeRaw        -> rQ $ RGlobal  'RP.writeRaw
+    WriteRaw_writeRawByteOff -> rQ $ RGlobal  'RP.writeRawByteOff
 
-    -- EquivStorable
-    EquivStorable_type -> importQ ''HsBindgen.Runtime.Marshal.EquivStorable
+    -- Deriving 'Storable'
+    EquivStorable_type -> rQ $ RGlobal ''RP.EquivStorable
 
     -- Storable
-    Storable_class       -> importQ ''Foreign.Storable
-    Storable_sizeOf      -> importQ 'Foreign.sizeOf
-    Storable_alignment   -> importQ 'Foreign.alignment
-    Storable_peekByteOff -> importQ 'Foreign.peekByteOff
-    Storable_pokeByteOff -> importQ 'Foreign.pokeByteOff
-    Storable_peek        -> importQ 'Foreign.peek
-    Storable_poke        -> importQ 'Foreign.poke
+    Storable_class       -> rQ $ RGlobal ''RP.Storable
+    Storable_sizeOf      -> rQ $ RGlobal  'RP.sizeOf
+    Storable_alignment   -> rQ $ RGlobal  'RP.alignment
+    Storable_peekByteOff -> rQ $ RGlobal  'RP.peekByteOff
+    Storable_pokeByteOff -> rQ $ RGlobal  'RP.pokeByteOff
+    Storable_peek        -> rQ $ RGlobal  'RP.peek
+    Storable_poke        -> rQ $ RGlobal  'RP.poke
 
     -- Flexible array members
     Flam_Offset_class  -> importQ ''HsBindgen.Runtime.FLAM.Offset

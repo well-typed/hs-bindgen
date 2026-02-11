@@ -26,10 +26,30 @@ module HsBindgen.Runtime.Internal.Prelude (
   , with
   , allocaAndPeek
   , Generic
+
+    -- * Marshal
+
+    -- ** Static size
+  , StaticSize(staticSizeOf, staticAlignment)
+
+    -- ** Read raw
+  , ReadRaw(readRaw)
+  , readRawByteOff
+
+    -- ** Write raw
+  , WriteRaw(writeRaw)
+  , writeRawByteOff
+
+    -- ** Deriving 'Storable'
+  , EquivStorable(EquivStorable)
+
+    -- * Storable
+  , Storable(sizeOf, alignment, peekByteOff, pokeByteOff, peek, poke)
   ) where
 
 
-import Foreign (with)
+import Foreign (Storable (alignment, peek, peekByteOff, poke, pokeByteOff, sizeOf),
+                with)
 import GHC.Generics (Generic)
 import GHC.Ptr (FunPtr, Ptr (Ptr), plusPtr)
 import GHC.Stable (StablePtr)
@@ -41,3 +61,8 @@ import HsBindgen.Runtime.IncompleteArray (IncompleteArray)
 import HsBindgen.Runtime.Internal.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.Internal.FunPtr (FromFunPtr (fromFunPtr),
                                           ToFunPtr (toFunPtr))
+import HsBindgen.Runtime.Marshal (EquivStorable (EquivStorable),
+                                  ReadRaw (readRaw),
+                                  StaticSize (staticAlignment, staticSizeOf),
+                                  WriteRaw (writeRaw), readRawByteOff,
+                                  writeRawByteOff)
