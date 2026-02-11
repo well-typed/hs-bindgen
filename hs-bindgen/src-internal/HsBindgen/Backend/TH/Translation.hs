@@ -80,32 +80,32 @@ import HsBindgen.NameHint
 
 mkGlobal :: Global -> TH.Name
 mkGlobal = \case
-      Tuple_type i          -> tupleTypeName $ fromIntegral i
-      Tuple_constructor i   -> TH.tupleDataName $ fromIntegral i
-      Applicative_pure      -> 'pure
-      Applicative_seq       -> '(<*>)
-      Maybe_just            -> 'Data.Maybe.Just
-      Maybe_nothing         -> 'Data.Maybe.Nothing
-      Monad_return          -> 'return
-      Monad_seq             -> '(>>)
-      ToFunPtr_class        -> ''HsBindgen.Runtime.Internal.Prelude.ToFunPtr
-      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.Internal.Prelude.toFunPtr
-      FromFunPtr_class      -> ''HsBindgen.Runtime.Internal.Prelude.FromFunPtr
-      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.Internal.Prelude.fromFunPtr
-      Foreign_Ptr           -> ''Foreign.Ptr.Ptr
-      Ptr_constructor       -> 'GHC.Ptr.Ptr
-      Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
-      Foreign_plusPtr       -> 'Foreign.Ptr.plusPtr
-      Foreign_StablePtr     -> ''Foreign.StablePtr.StablePtr
-      ConstantArray         -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
-      IncompleteArray       -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
-      IO_type               -> ''IO
-      CharValue_tycon       -> ''CExpr.Runtime.CharValue
-      CharValue_constructor -> 'CExpr.Runtime.CharValue
-      CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
-      Capi_with             -> 'Foreign.with
-      Capi_allocaAndPeek    -> 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
-      Generic_class         -> ''GHC.Generics.Generic
+      Tuple_type i            -> tupleTypeName $ fromIntegral i
+      Tuple_constructor i     -> TH.tupleDataName $ fromIntegral i
+      Applicative_pure        -> 'pure
+      Applicative_seq         -> '(<*>)
+      Maybe_just              -> 'Data.Maybe.Just
+      Maybe_nothing           -> 'Data.Maybe.Nothing
+      Monad_return            -> 'return
+      Monad_seq               -> '(>>)
+      ToFunPtr_class          -> ''HsBindgen.Runtime.Internal.Prelude.ToFunPtr
+      ToFunPtr_toFunPtr       -> 'HsBindgen.Runtime.Internal.Prelude.toFunPtr
+      FromFunPtr_class        -> ''HsBindgen.Runtime.Internal.Prelude.FromFunPtr
+      FromFunPtr_fromFunPtr   -> 'HsBindgen.Runtime.Internal.Prelude.fromFunPtr
+      Foreign_Ptr             -> ''Foreign.Ptr.Ptr
+      Foreign_Ptr_constructor -> 'GHC.Ptr.Ptr
+      Foreign_FunPtr          -> ''Foreign.Ptr.FunPtr
+      Foreign_plusPtr         -> 'Foreign.Ptr.plusPtr
+      Foreign_StablePtr       -> ''Foreign.StablePtr.StablePtr
+      ConstantArray           -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
+      IncompleteArray         -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
+      IO_type                 -> ''IO
+      CharValue_tycon         -> ''CExpr.Runtime.CharValue
+      CharValue_constructor   -> 'CExpr.Runtime.CharValue
+      CharValue_fromAddr      -> 'CExpr.Runtime.charValueFromAddr
+      Capi_with               -> 'Foreign.with
+      Capi_allocaAndPeek      -> 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
+      Generic_class           -> ''GHC.Generics.Generic
 
       -- StaticSize
       StaticSize_class           -> ''HsBindgen.Runtime.Marshal.StaticSize
@@ -379,7 +379,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     FromFunPtr_class          -> panicPure "class in expression"
     FromFunPtr_fromFunPtr     -> TH.varE name
     Foreign_Ptr               -> panicPure "type in expression"
-    Ptr_constructor           -> TH.conE name
+    Foreign_Ptr_constructor   -> TH.conE name
     Foreign_FunPtr            -> panicPure "type in expression"
     Foreign_plusPtr           -> TH.varE name
     Foreign_StablePtr         -> panicPure "type in expression"

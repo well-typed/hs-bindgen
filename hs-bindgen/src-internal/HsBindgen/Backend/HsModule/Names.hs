@@ -31,26 +31,21 @@ import Foreign.C qualified
 import Foreign.C.String qualified
 import GHC.Base qualified
 import GHC.Float qualified
-import GHC.Ptr qualified
 import GHC.Records qualified
 import Language.Haskell.TH.Syntax qualified as TH
 import System.IO.Unsafe qualified
 import Text.Read qualified
 
-import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.CEnum qualified
-import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FLAM qualified
 import HsBindgen.Runtime.HasCBitfield qualified
 import HsBindgen.Runtime.HasCField qualified
-import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Internal.Bitfield qualified
 import HsBindgen.Runtime.Internal.ByteArray qualified
-import HsBindgen.Runtime.Internal.CAPI qualified
 import HsBindgen.Runtime.Internal.HasFFIType qualified
 import HsBindgen.Runtime.Internal.Prelude qualified as RP
 import HsBindgen.Runtime.Internal.SizedByteArray qualified
@@ -60,7 +55,6 @@ import HsBindgen.Runtime.PtrConst qualified
 
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
-import HsBindgen.Imports qualified as GHC.Generics
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -89,6 +83,9 @@ data HsImport =
   | UnqualifiedHsImport HsImportModule
   deriving (Eq, Ord, Show)
 
+-- TODO D: We could add the original TH.Name here, then we don't need any
+-- special functionality for TH mode.
+--
 -- | Resolved name
 data ResolvedName = ResolvedName {
       string   :: String
@@ -157,7 +154,7 @@ pQ x = ResolvedName{
     , hsImport =
       Just $
         QualifiedHsImport $
-          HsImportModule "Prelude" Nothing
+          HsImportModule "Prelude" (Just "P")
     }
   where
     s :: String
@@ -171,7 +168,7 @@ rQ x = ResolvedName{
     , hsImport =
       Just $
         QualifiedHsImport $
-          HsImportModule "HsBindgen.Runtime.Internal.Prelude" Nothing
+          HsImportModule "HsBindgen.Runtime.Internal.Prelude" (Just "RP")
     }
   where
     s :: String
@@ -312,25 +309,27 @@ resolveGlobal = \case
     Monad_return        -> pU $ PGlobal 'return
     Monad_seq           -> pU $ PGlobal '(>>)
 
+    -- Function pointers
     ToFunPtr_class        -> rQ $ RGlobal ''RP.ToFunPtr
     ToFunPtr_toFunPtr     -> rQ $ RGlobal  'RP.toFunPtr
     FromFunPtr_class      -> rQ $ RGlobal ''RP.FromFunPtr
     FromFunPtr_fromFunPtr -> rQ $ RGlobal  'RP.fromFunPtr
 
-    Foreign_Ptr           -> importQ ''Foreign.Ptr
-    Ptr_constructor       -> importQ ''GHC.Ptr.Ptr
-    Foreign_FunPtr        -> importQ ''Foreign.FunPtr
-    Foreign_plusPtr       -> importQ 'Foreign.plusPtr
-    Foreign_StablePtr     -> importQ ''Foreign.StablePtr
-    ConstantArray         -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
-    IncompleteArray       -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
-    IO_type               -> importU ''IO
-    CharValue_tycon       -> importQ ''CExpr.Runtime.CharValue
-    CharValue_constructor -> importQ 'CExpr.Runtime.CharValue
-    CharValue_fromAddr    -> importQ 'CExpr.Runtime.charValueFromAddr
-    Capi_with             -> importQ 'Foreign.with
-    Capi_allocaAndPeek    -> importQ 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
-    Generic_class         -> importQ ''GHC.Generics.Generic
+    -- Foreign function interface
+    Foreign_Ptr             -> rQ $ RGlobal ''RP.Ptr
+    Foreign_Ptr_constructor -> rQ $ RGlobal  'RP.Ptr
+    Foreign_FunPtr          -> rQ $ RGlobal ''RP.FunPtr
+    Foreign_plusPtr         -> rQ $ RGlobal  'RP.plusPtr
+    Foreign_StablePtr       -> rQ $ RGlobal ''RP.StablePtr
+    ConstantArray           -> rQ $ RGlobal ''RP.ConstantArray
+    IncompleteArray         -> rQ $ RGlobal ''RP.IncompleteArray
+    IO_type                 -> pU $ PGlobal ''IO
+    CharValue_tycon         -> rQ $ RGlobal ''RP.CharValue
+    CharValue_constructor   -> rQ $ RGlobal  'RP.CharValue
+    CharValue_fromAddr      -> rQ $ RGlobal  'RP.charValueFromAddr
+    Capi_with               -> rQ $ RGlobal  'RP.with
+    Capi_allocaAndPeek      -> rQ $ RGlobal  'RP.allocaAndPeek
+    Generic_class           -> rQ $ RGlobal ''RP.Generic
 
     -- StaticSize
     StaticSize_class           -> importQ ''HsBindgen.Runtime.Marshal.StaticSize

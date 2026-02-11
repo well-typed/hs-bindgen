@@ -291,7 +291,7 @@ resolveExprImports = \case
                   ]
     EString {} -> mempty
     ECString {} -> resolveGlobalImports CStringLen_type
-                <> resolveGlobalImports Ptr_constructor
+                <> resolveGlobalImports Foreign_Ptr_constructor
     EFloat _ t -> resolveGlobalImports t
     EDouble _ t -> resolveGlobalImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x

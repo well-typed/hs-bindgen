@@ -569,7 +569,7 @@ prettyExpr env prec = \case
       -- value of type CStringLen.
       let (str, len) = addrLiteral bs
       in PP.parens $ PP.hcat
-        [ PP.parens $ prettyExpr env 0 (EGlobal Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
+        [ PP.parens $ prettyExpr env 0 (EGlobal Foreign_Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
         , " :: "
         , prettyTypeGlobal CStringLen_type
         ]

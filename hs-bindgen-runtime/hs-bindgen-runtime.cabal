@@ -99,7 +99,7 @@ library
   hs-source-dirs:     src
 
   -- Internal dependencies
-  build-depends:
+  build-depends:      c-expr-runtime
 
   -- External dependencies
   build-depends:

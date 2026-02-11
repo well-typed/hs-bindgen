@@ -79,7 +79,7 @@ data Global =
   | FromFunPtr_class
   | FromFunPtr_fromFunPtr
   | Foreign_Ptr
-  | Ptr_constructor
+  | Foreign_Ptr_constructor
   | Foreign_FunPtr
   | Foreign_plusPtr
   | Foreign_StablePtr
