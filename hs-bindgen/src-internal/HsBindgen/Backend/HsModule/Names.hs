@@ -357,9 +357,9 @@ resolveGlobal = \case
     Storable_poke        -> rQ $ RGlobal  'RP.poke
 
     -- Flexible array members
-    Flam_Offset_class  -> importQ ''HsBindgen.Runtime.FLAM.Offset
-    Flam_Offset_offset -> importQ 'HsBindgen.Runtime.FLAM.offset
-    WithFlam           -> importQ 'HsBindgen.Runtime.FLAM.WithFlam
+    Flam_Offset_class         -> rQ $ RGlobal ''RP.Offset
+    Flam_Offset_offset        -> rQ $ RGlobal  'RP.offset
+    Flam_WithFlam_constructor -> rQ $ RGlobal  'RP.WithFlam
 
     -- HasCField
     HasCField_class      -> importQ ''HsBindgen.Runtime.HasCField.HasCField

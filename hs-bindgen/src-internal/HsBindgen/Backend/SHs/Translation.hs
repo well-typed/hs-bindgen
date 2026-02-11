@@ -331,7 +331,7 @@ translateType = \case
     Hs.HsComplexType t       -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
     Hs.HsStrLit s            -> TStrLit s
     Hs.HsWithFlam x y        ->
-      TApp (TApp (TGlobal WithFlam) (translateType x)) (translateType y)
+      TApp (TApp (TGlobal Flam_WithFlam_constructor) (translateType x)) (translateType y)
     Hs.HsEquivStorable t     -> TApp (TGlobal EquivStorable_type) (translateType t)
 
 {-------------------------------------------------------------------------------

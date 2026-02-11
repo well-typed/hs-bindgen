@@ -135,9 +135,9 @@ mkGlobal = \case
       Storable_poke        -> 'Foreign.Storable.poke
 
       -- Flexible array members
-      Flam_Offset_class  -> ''HsBindgen.Runtime.FLAM.Offset
-      Flam_Offset_offset ->  'HsBindgen.Runtime.FLAM.offset
-      WithFlam           -> ''HsBindgen.Runtime.FLAM.WithFlam
+      Flam_Offset_class         -> ''HsBindgen.Runtime.FLAM.Offset
+      Flam_Offset_offset        ->  'HsBindgen.Runtime.FLAM.offset
+      Flam_WithFlam_constructor -> ''HsBindgen.Runtime.FLAM.WithFlam
 
       -- HasCField
       HasCField_class      -> ''HsBindgen.Runtime.HasCField.HasCField
@@ -388,7 +388,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     IO_type                   -> panicPure "type in expression"
     Flam_Offset_class         -> panicPure "class in expression"
     Flam_Offset_offset        -> TH.varE name
-    WithFlam                  -> TH.varE name
+    Flam_WithFlam_constructor -> TH.varE name
     CharValue_tycon           -> panicPure "type in expression"
     CharValue_constructor     -> TH.conE name
     CharValue_fromAddr        -> TH.varE name

@@ -125,7 +125,7 @@ data Global =
     -- Flexible array members
   | Flam_Offset_class
   | Flam_Offset_offset
-  | WithFlam
+  | Flam_WithFlam_constructor
 
     -- HasCField
   | HasCField_class

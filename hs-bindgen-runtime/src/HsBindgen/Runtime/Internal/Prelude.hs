@@ -45,6 +45,10 @@ module HsBindgen.Runtime.Internal.Prelude (
 
     -- * Storable
   , Storable(sizeOf, alignment, peekByteOff, pokeByteOff, peek, poke)
+
+    -- * Flexible array members
+  , Offset(offset)
+  , WithFlam(WithFlam)
   ) where
 
 
@@ -57,6 +61,7 @@ import GHC.Stable (StablePtr)
 import C.Char (CharValue (CharValue), charValueFromAddr)
 
 import HsBindgen.Runtime.ConstantArray (ConstantArray)
+import HsBindgen.Runtime.FLAM (Offset (offset), WithFlam (WithFlam))
 import HsBindgen.Runtime.IncompleteArray (IncompleteArray)
 import HsBindgen.Runtime.Internal.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.Internal.FunPtr (FromFunPtr (fromFunPtr),
