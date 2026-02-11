@@ -598,3 +598,60 @@ MacOS.
   if !(os(linux) && arch(x86_64))
     buildable: false
   ```
+
+## Using `hs-bindgen` with bundled C source files (without shared libraries)
+
+All examples in the preceding sections assume that the C library you are
+binding to is built separately and linked as a shared library. However, when
+you are writing your own C code alongside your Haskell project, you can
+compile it directly into the package using Cabal's `c-sources` field.  This
+eliminates the need for a separate build step, `extra-libraries`,
+`extra-lib-dirs`/`extra-include-dirs` in `cabal.project.local`, and
+`LD_LIBRARY_PATH` at runtime.
+
+### `.cabal` configuration
+
+Instead of `extra-libraries`, use `c-sources` and `include-dirs`:
+
+```cabal
+executable my-app
+  main-is:        Main.hs
+  hs-source-dirs: app generated
+  c-sources:      cbits/my_lib.c
+  include-dirs:   cbits
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+```
+
+Cabal compiles the listed C files and links them into the executable
+automatically.
+
+### Generating bindings
+
+Run `hs-bindgen-cli` on the header file as usual:
+
+```bash
+hs-bindgen-cli preprocess \
+    -I cbits \
+    --hs-output-dir generated \
+    --module MyLib \
+    --create-output-dirs \
+    --overwrite-files \
+    my_lib.h
+```
+
+Since the C code is compiled by Cabal, there is no need to update
+`cabal.project.local` with library paths or set `LD_LIBRARY_PATH`.
+
+>[!NOTE]
+>
+> When using `c-sources`, GHC compiles the C files with its configured C
+> compiler (typically GCC on Linux), while `hs-bindgen` uses `libclang` to
+> parse the headers and derive type layouts.  For simple types this is
+> unlikely to cause problems, but GCC and Clang can disagree on memory layout
+> for more exotic constructs (bitfields, packed structs, platform-specific
+> alignment).  See [Compiler choice (GCC vs.
+> Clang)](#compiler-choice-gcc-vs-clang) above for details.
+
+A complete working example is available in [`examples/bundled-c`](../../../examples/bundled-c/).
