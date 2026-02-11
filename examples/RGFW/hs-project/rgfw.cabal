@@ -1,0 +1,49 @@
+cabal-version:   3.0
+name:            rgfw
+version:         0.1.0.0
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Joris Dral
+maintainer:      joris@well-typed.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common warnings
+  ghc-options:
+    -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wpartial-fields -Widentities
+    -Wredundant-constraints -Wmissing-export-lists
+    -Wno-unticked-promoted-constructors -Wunused-packages
+    -Wmissing-deriving-strategies
+
+common language
+  default-language:   GHC2021
+  default-extensions:
+    DerivingStrategies
+    ImportQualifiedPost
+    LambdaCase
+    PatternSynonyms
+    RecordWildCards
+    RoleAnnotations
+    ViewPatterns
+
+library
+  import:          warnings, language
+  hs-source-dirs:  src
+  other-modules:   Generated.RGFW
+  build-depends:
+    , base
+    , c-expr-runtime
+    , hs-bindgen-runtime
+    , primitive
+
+  extra-libraries: RGFW
+  ghc-options:
+    -Wno-unused-matches -Wno-missing-export-lists -optc-DRGFW_OPENGL
+    -optc-DRGFW_EXPORT -optc-DRGFW_IMPLEMENTATION
+
+executable rgfw
+  import:         warnings, language
+  main-is:        Main.hs
+  hs-source-dirs: app
+  build-depends:  base

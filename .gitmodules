@@ -19,3 +19,6 @@
 [submodule "examples/c-rpm/rpm"]
 	path = examples/c-rpm/rpm
 	url = https://github.com/rpm-software-management/rpm.git
+[submodule "examples/RGFW/RGFW"]
+	path = examples/RGFW/RGFW
+	url = https://github.com/ColleagueRiley/RGFW
