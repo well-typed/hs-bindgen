@@ -50,50 +50,14 @@ jobs:
           experimental-features = nix-command flakes
           max-jobs = auto
           cores = 4
-          keep-outputs = true
-          keep-derivations = true
 
-    - name: Setup Cachix
-      uses: cachix/cachix-action@v15
-      with:
-        name: hs-bindgen
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        extraPullNames: nix-community
+    - name: Cache Nix store
+      uses: DeterminateSystems/magic-nix-cache-action@v8
 
-    - name: Get cache key
-      id: cache-key
-      run: |
-        echo "key=nix-cross-${{ matrix.target }}-$(sha256sum examples/cross-compilation/flake.lock | cut -d' ' -f1)" >> $GITHUB_OUTPUT
-
-    - name: Restore Nix store paths
-      uses: actions/cache/restore@v4
-      id: cache-restore
-      with:
-        path: |
-          /nix/store
-          /nix/var/nix/db
-        key: ${{ steps.cache-key.outputs.key }}
-        restore-keys: |
-          nix-cross-${{ matrix.target }}-
-
-    - name: Build and cache dev shell
-      if: steps.cache-restore.outputs.cache-hit != 'true'
+    - name: Build dev shell
       working-directory: examples/cross-compilation
       run: |
-        set -x
-        echo "==> Building dev shell for ${{ matrix.target }}..."
-        echo "==> First run will be slow; subsequent runs use the cache."
-        time nix build .#devShells.x86_64-linux.${{ matrix.dev-shell }} --print-build-logs
-        echo "==> Dev shell built successfully"
-
-    - name: Save Nix store paths
-      if: steps.cache-restore.outputs.cache-hit != 'true'
-      uses: actions/cache/save@v4
-      with:
-        path: |
-          /nix/store
-          /nix/var/nix/db
-        key: ${{ steps.cache-key.outputs.key }}
+        nix build .#devShells.x86_64-linux.${{ matrix.dev-shell }} --print-build-logs
 
     - name: Update Hackage index
       run: |
@@ -102,17 +66,4 @@ jobs:
     - name: Run workflow with timing
       working-directory: examples/cross-compilation
       run: |
-        set -x
-        echo "==> Starting cross-compilation for ${{ matrix.target }}"
-        time nix develop .#${{ matrix.dev-shell }} --command ./generate-and-run.sh ${{ matrix.target }}
-
-    - name: Upload build logs on failure
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-logs-${{ matrix.target }}
-        path: |
-          examples/cross-compilation/hs-project/dist-newstyle*/
-          examples/cross-compilation/hs-project/**/*.log
-        retention-days: 7
-        if-no-files-found: ignore
+        nix develop .#${{ matrix.dev-shell }} --command ./generate-and-run.sh ${{ matrix.target }}
