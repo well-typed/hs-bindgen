@@ -1,0 +1,151 @@
+-- addDependentFile examples/golden/functions/typedef_funptr.h
+{-| Auxiliary type used by 'RunDriver'
+
+__C declaration:__ @RunDriver@
+
+__defined at:__ @functions\/typedef_funptr.h 12:15@
+
+__exported by:__ @functions\/typedef_funptr.h@
+-}
+newtype RunDriver_Aux
+    = RunDriver_Aux {unwrapRunDriver_Aux :: (Ptr Driver -> IO CInt)}
+      {- ^ Auxiliary type used by 'RunDriver'
+
+      __C declaration:__ @RunDriver@
+
+      __defined at:__ @functions\/typedef_funptr.h 12:15@
+
+      __exported by:__ @functions\/typedef_funptr.h@
+      -}
+    deriving stock Generic
+    deriving newtype HasFFIType
+foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
+    Ptr Void -> IO Int32
+ -> IO (FunPtr (Ptr Void -> IO Int32))
+-- __unique:__ @toRunDriver_Aux@
+hs_bindgen_d86ecf261d7044c6 :: RunDriver_Aux ->
+                               IO (FunPtr RunDriver_Aux)
+-- __unique:__ @toRunDriver_Aux@
+hs_bindgen_d86ecf261d7044c6 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_d86ecf261d7044c6_base (toFFIType fun_0))
+foreign import ccall safe "dynamic" hs_bindgen_6520ae39b50ffb4e_base ::
+    FunPtr (Ptr Void -> IO Int32)
+ -> Ptr Void
+ -> IO Int32
+-- __unique:__ @fromRunDriver_Aux@
+hs_bindgen_6520ae39b50ffb4e :: FunPtr RunDriver_Aux ->
+                               RunDriver_Aux
+-- __unique:__ @fromRunDriver_Aux@
+hs_bindgen_6520ae39b50ffb4e = \funPtr_0 -> fromFFIType (hs_bindgen_6520ae39b50ffb4e_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr RunDriver_Aux
+    where toFunPtr = hs_bindgen_d86ecf261d7044c6
+instance FromFunPtr RunDriver_Aux
+    where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
+instance HasField "unwrapRunDriver_Aux"
+                  (Ptr RunDriver_Aux)
+                  (Ptr (Ptr Driver -> IO CInt))
+    where getField = fromPtr (Proxy @"unwrapRunDriver_Aux")
+instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
+    where type CFieldType RunDriver_Aux
+                          "unwrapRunDriver_Aux" = Ptr Driver -> IO CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @RunDriver@
+
+    __defined at:__ @functions\/typedef_funptr.h 12:15@
+
+    __exported by:__ @functions\/typedef_funptr.h@
+-}
+newtype RunDriver
+    = RunDriver {unwrapRunDriver :: (FunPtr RunDriver_Aux)}
+      {- ^ __C declaration:__ @RunDriver@
+
+           __defined at:__ @functions\/typedef_funptr.h 12:15@
+
+           __exported by:__ @functions\/typedef_funptr.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType)
+instance HasField "unwrapRunDriver"
+                  (Ptr RunDriver)
+                  (Ptr (FunPtr RunDriver_Aux))
+    where getField = fromPtr (Proxy @"unwrapRunDriver")
+instance HasCField RunDriver "unwrapRunDriver"
+    where type CFieldType RunDriver
+                          "unwrapRunDriver" = FunPtr RunDriver_Aux
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct Driver@
+
+    __defined at:__ @functions\/typedef_funptr.h 13:8@
+
+    __exported by:__ @functions\/typedef_funptr.h@
+-}
+data Driver
+    = Driver {driver_run :: RunDriver
+              {- ^ __C declaration:__ @run@
+
+                   __defined at:__ @functions\/typedef_funptr.h 14:13@
+
+                   __exported by:__ @functions\/typedef_funptr.h@
+              -}}
+      {- ^ __C declaration:__ @struct Driver@
+
+           __defined at:__ @functions\/typedef_funptr.h 13:8@
+
+           __exported by:__ @functions\/typedef_funptr.h@
+      -}
+    deriving stock (Generic, Eq, Show)
+instance StaticSize Driver
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Driver
+    where readRaw = \ptr_0 -> pure Driver <*> readRaw (Proxy @"driver_run") ptr_0
+instance WriteRaw Driver
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Driver driver_run_2 -> writeRaw (Proxy @"driver_run") ptr_0 driver_run_2
+deriving via (EquivStorable Driver) instance Storable Driver
+instance HasCField Driver "driver_run"
+    where type CFieldType Driver "driver_run" = RunDriver
+          offset# = \_ -> \_ -> 0
+instance HasField "driver_run" (Ptr Driver) (Ptr RunDriver)
+    where getField = fromPtr (Proxy @"driver_run")
+{-| __C declaration:__ @struct Bare@
+
+    __defined at:__ @functions\/typedef_funptr.h 20:8@
+
+    __exported by:__ @functions\/typedef_funptr.h@
+-}
+data Bare
+    = Bare {bare_callback :: (FunPtr (CInt -> IO Unit))
+            {- ^ __C declaration:__ @callback@
+
+                 __defined at:__ @functions\/typedef_funptr.h 21:10@
+
+                 __exported by:__ @functions\/typedef_funptr.h@
+            -}}
+      {- ^ __C declaration:__ @struct Bare@
+
+           __defined at:__ @functions\/typedef_funptr.h 20:8@
+
+           __exported by:__ @functions\/typedef_funptr.h@
+      -}
+    deriving stock (Generic, Eq, Show)
+instance StaticSize Bare
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Bare
+    where readRaw = \ptr_0 -> pure Bare <*> readRaw (Proxy @"bare_callback") ptr_0
+instance WriteRaw Bare
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bare bare_callback_2 -> writeRaw (Proxy @"bare_callback") ptr_0 bare_callback_2
+deriving via (EquivStorable Bare) instance Storable Bare
+instance HasCField Bare "bare_callback"
+    where type CFieldType Bare "bare_callback" = FunPtr (CInt ->
+                                                         IO Unit)
+          offset# = \_ -> \_ -> 0
+instance HasField "bare_callback"
+                  (Ptr Bare)
+                  (Ptr (FunPtr (CInt -> IO Unit)))
+    where getField = fromPtr (Proxy @"bare_callback")

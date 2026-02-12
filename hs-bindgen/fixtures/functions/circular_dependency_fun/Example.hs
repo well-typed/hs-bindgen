@@ -167,35 +167,3 @@ instance GHC.Records.HasField "forward_declaration_f" (Ptr.Ptr Forward_declarati
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"forward_declaration_f")
-
-foreign import ccall safe "wrapper" hs_bindgen_fbe9c5dca66824d3_base ::
-     ((Ptr.Ptr Void) -> IO ())
-  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO ()))
-
--- __unique:__ @instance ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
-hs_bindgen_fbe9c5dca66824d3 ::
-     ((Ptr.Ptr Forward_declaration) -> IO ())
-  -> IO (Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ()))
-hs_bindgen_fbe9c5dca66824d3 =
-  \fun0 ->
-    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_fbe9c5dca66824d3_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
-
-foreign import ccall safe "dynamic" hs_bindgen_b3640137a9cf92cc_base ::
-     Ptr.FunPtr ((Ptr.Ptr Void) -> IO ())
-  -> (Ptr.Ptr Void) -> IO ()
-
--- __unique:__ @instance FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
-hs_bindgen_b3640137a9cf92cc ::
-     Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ())
-  -> (Ptr.Ptr Forward_declaration) -> IO ()
-hs_bindgen_b3640137a9cf92cc =
-  \funPtr0 ->
-    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_b3640137a9cf92cc_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
-
-instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
-
-  toFunPtr = hs_bindgen_fbe9c5dca66824d3
-
-instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
-
-  fromFunPtr = hs_bindgen_b3640137a9cf92cc

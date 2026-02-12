@@ -128,6 +128,7 @@ testCases_default = [
     , defaultTest "edge-cases/uses_utf8"
     , defaultTest "functions/callbacks"
     , defaultTest "functions/circular_dependency_fun"
+    , defaultTest "functions/typedef_funptr"
     , defaultTest "functions/heap_types/struct_const_member"
     , defaultTest "functions/heap_types/struct_const_typedef"
     , defaultTest "functions/heap_types/struct_const"
