@@ -3,7 +3,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -29,7 +27,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
 {-| Auxiliary type used by 'RunDriver'
@@ -78,8 +75,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr RunDriver_Aux where
 
   fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType RunDriver_Aux) "unwrapRunDriver_Aux")
-         ) => GHC.Records.HasField "unwrapRunDriver_Aux" (Ptr.Ptr RunDriver_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapRunDriver_Aux" (Ptr.Ptr RunDriver_Aux) (Ptr.Ptr ((Ptr.Ptr Driver) -> IO FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapRunDriver_Aux")
@@ -100,8 +96,7 @@ instance HsBindgen.Runtime.HasCField.HasCField RunDriver_Aux "unwrapRunDriver_Au
 newtype RunDriver = RunDriver
   { unwrapRunDriver :: Ptr.FunPtr RunDriver_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -110,8 +105,7 @@ newtype RunDriver = RunDriver
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType RunDriver) "unwrapRunDriver")
-         ) => GHC.Records.HasField "unwrapRunDriver" (Ptr.Ptr RunDriver) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapRunDriver" (Ptr.Ptr RunDriver) (Ptr.Ptr (Ptr.FunPtr RunDriver_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapRunDriver")
@@ -138,8 +132,7 @@ data Driver = Driver
          __exported by:__ @functions\/typedef_funptr.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Driver where
 
@@ -171,8 +164,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Driver "driver_run" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Driver) "driver_run")
-         ) => GHC.Records.HasField "driver_run" (Ptr.Ptr Driver) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "driver_run" (Ptr.Ptr Driver) (Ptr.Ptr RunDriver) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"driver_run")
@@ -192,8 +184,7 @@ data Bare = Bare
          __exported by:__ @functions\/typedef_funptr.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bare where
 
@@ -226,8 +217,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bare "bare_callback" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bare) "bare_callback")
-         ) => GHC.Records.HasField "bare_callback" (Ptr.Ptr Bare) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bare_callback" (Ptr.Ptr Bare) (Ptr.Ptr (Ptr.FunPtr (FC.CInt -> IO ()))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bare_callback")

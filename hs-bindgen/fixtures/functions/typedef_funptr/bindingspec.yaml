@@ -21,6 +21,7 @@ hstypes:
       - bare_callback
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -36,6 +37,7 @@ hstypes:
       - driver_run
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -51,6 +53,7 @@ hstypes:
       - unwrapRunDriver
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
