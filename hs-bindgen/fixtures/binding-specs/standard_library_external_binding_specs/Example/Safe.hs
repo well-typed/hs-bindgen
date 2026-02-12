@@ -68,6 +68,14 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return uintptr_t_fun();"
   , "}"
+  , "fenv_t *hs_bindgen_022e64c80f28a088 (void)"
+  , "{"
+  , "  return fenv_t_fun();"
+  , "}"
+  , "fexcept_t *hs_bindgen_8d8c1a943260a36f (void)"
+  , "{"
+  , "  return fexcept_t_fun();"
+  , "}"
   , "size_t hs_bindgen_40eea19a42956f94 (void)"
   , "{"
   , "  return size_t_fun();"
@@ -83,6 +91,10 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "wint_t hs_bindgen_852219a0121b41d7 (void)"
   , "{"
   , "  return wint_t_fun();"
+  , "}"
+  , "mbstate_t *hs_bindgen_13086c2489ffdb05 (void)"
+  , "{"
+  , "  return mbstate_t_fun();"
   , "}"
   , "wctrans_t hs_bindgen_c53570b502d22ff4 (void)"
   , "{"
@@ -108,6 +120,14 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return clock_t_fun();"
   , "}"
+  , "FILE *hs_bindgen_43e31177af31069b (void)"
+  , "{"
+  , "  return FILE_fun();"
+  , "}"
+  , "fpos_t *hs_bindgen_52f8ad773bdaa93a (void)"
+  , "{"
+  , "  return fpos_t_fun();"
+  , "}"
   , "sig_atomic_t hs_bindgen_3023ada5e9267a14 (void)"
   , "{"
   , "  return sig_atomic_t_fun();"
@@ -125,7 +145,7 @@ hs_bindgen_262e8aa1eac7a016 =
 
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 7:6@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 5:6@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -143,7 +163,7 @@ hs_bindgen_ff70de79bf2f9862 =
 
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 11:8@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 9:8@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -161,7 +181,7 @@ hs_bindgen_c149cbd27e2cf209 =
 
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 12:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 10:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -179,7 +199,7 @@ hs_bindgen_d97ef8ef05c29e07 =
 
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 13:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 11:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -197,7 +217,7 @@ hs_bindgen_84cc0c433f5e3bb6 =
 
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 14:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 12:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -215,7 +235,7 @@ hs_bindgen_252cf5f0030dea9a =
 
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 15:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 13:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -233,7 +253,7 @@ hs_bindgen_da9bcc99e8fe0e5e =
 
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 16:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 14:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -251,7 +271,7 @@ hs_bindgen_de65dc64ff5986ee =
 
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 17:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 15:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -269,7 +289,7 @@ hs_bindgen_be0138155abb9a04 =
 
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 18:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 16:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -287,7 +307,7 @@ hs_bindgen_4a2e0be8c0f07e83 =
 
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 19:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 17:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -305,7 +325,7 @@ hs_bindgen_dda0cf03aba26ff0 =
 
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 20:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 18:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -323,7 +343,7 @@ hs_bindgen_ca712b255f45c40e =
 
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 21:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 19:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -341,12 +361,48 @@ hs_bindgen_624ddd7ec7a31d85 =
 
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 22:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 20:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
 uintptr_t_fun :: IO HsBindgen.Runtime.LibC.CUIntPtr
 uintptr_t_fun = hs_bindgen_624ddd7ec7a31d85
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_fenv_t_fun@
+foreign import ccall safe "hs_bindgen_022e64c80f28a088" hs_bindgen_022e64c80f28a088_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_fenv_t_fun@
+hs_bindgen_022e64c80f28a088 :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFenvT)
+hs_bindgen_022e64c80f28a088 =
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_022e64c80f28a088_base
+
+{-| __C declaration:__ @fenv_t_fun@
+
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 24:9@
+
+    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
+-}
+fenv_t_fun :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFenvT)
+fenv_t_fun = hs_bindgen_022e64c80f28a088
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_fexcept_t_fun@
+foreign import ccall safe "hs_bindgen_8d8c1a943260a36f" hs_bindgen_8d8c1a943260a36f_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_fexcept_t_fun@
+hs_bindgen_8d8c1a943260a36f :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFexceptT)
+hs_bindgen_8d8c1a943260a36f =
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8d8c1a943260a36f_base
+
+{-| __C declaration:__ @fexcept_t_fun@
+
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 25:12@
+
+    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
+-}
+fexcept_t_fun :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFexceptT)
+fexcept_t_fun = hs_bindgen_8d8c1a943260a36f
 
 -- __unique:__ @test_bindingspecsstandard_library_Example_Safe_size_t_fun@
 foreign import ccall safe "hs_bindgen_40eea19a42956f94" hs_bindgen_40eea19a42956f94_base ::
@@ -359,7 +415,7 @@ hs_bindgen_40eea19a42956f94 =
 
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 33:8@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 29:8@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -377,7 +433,7 @@ hs_bindgen_916ccf08da9021d6 =
 
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 34:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 30:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -395,7 +451,7 @@ hs_bindgen_43335779500999a0 =
 
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 45:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 41:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -413,12 +469,30 @@ hs_bindgen_852219a0121b41d7 =
 
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 46:8@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 42:8@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
 wint_t_fun :: IO HsBindgen.Runtime.LibC.CWintT
 wint_t_fun = hs_bindgen_852219a0121b41d7
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_mbstate_t_fun@
+foreign import ccall safe "hs_bindgen_13086c2489ffdb05" hs_bindgen_13086c2489ffdb05_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_mbstate_t_fun@
+hs_bindgen_13086c2489ffdb05 :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CMbstateT)
+hs_bindgen_13086c2489ffdb05 =
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_13086c2489ffdb05_base
+
+{-| __C declaration:__ @mbstate_t_fun@
+
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 43:12@
+
+    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
+-}
+mbstate_t_fun :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CMbstateT)
+mbstate_t_fun = hs_bindgen_13086c2489ffdb05
 
 -- __unique:__ @test_bindingspecsstandard_library_Example_Safe_wctrans_t_fun@
 foreign import ccall safe "hs_bindgen_c53570b502d22ff4" hs_bindgen_c53570b502d22ff4_base ::
@@ -431,7 +505,7 @@ hs_bindgen_c53570b502d22ff4 =
 
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 49:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 44:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -449,7 +523,7 @@ hs_bindgen_6617bb0c70b633c0 =
 
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 50:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 45:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -467,7 +541,7 @@ hs_bindgen_39b4c66be46c6190 =
 
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 51:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 46:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -485,7 +559,7 @@ hs_bindgen_6cbd9aa92f356fbc =
 
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 52:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 47:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -503,7 +577,7 @@ hs_bindgen_b9005ae8ae14b093 =
 
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 56:8@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 51:8@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -521,12 +595,48 @@ hs_bindgen_e5521449112e47f8 =
 
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 57:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 52:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
 clock_t_fun :: IO HsBindgen.Runtime.LibC.CClock
 clock_t_fun = hs_bindgen_e5521449112e47f8
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_FILE_fun@
+foreign import ccall safe "hs_bindgen_43e31177af31069b" hs_bindgen_43e31177af31069b_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_FILE_fun@
+hs_bindgen_43e31177af31069b :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFile)
+hs_bindgen_43e31177af31069b =
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_43e31177af31069b_base
+
+{-| __C declaration:__ @FILE_fun@
+
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 58:7@
+
+    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
+-}
+fILE_fun :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFile)
+fILE_fun = hs_bindgen_43e31177af31069b
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_fpos_t_fun@
+foreign import ccall safe "hs_bindgen_52f8ad773bdaa93a" hs_bindgen_52f8ad773bdaa93a_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_bindingspecsstandard_library_Example_Safe_fpos_t_fun@
+hs_bindgen_52f8ad773bdaa93a :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFpos)
+hs_bindgen_52f8ad773bdaa93a =
+  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_52f8ad773bdaa93a_base
+
+{-| __C declaration:__ @fpos_t_fun@
+
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 59:9@
+
+    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
+-}
+fpos_t_fun :: IO (Ptr.Ptr HsBindgen.Runtime.LibC.CFpos)
+fpos_t_fun = hs_bindgen_52f8ad773bdaa93a
 
 -- __unique:__ @test_bindingspecsstandard_library_Example_Safe_sig_atomic_t_fun@
 foreign import ccall safe "hs_bindgen_3023ada5e9267a14" hs_bindgen_3023ada5e9267a14_base ::
@@ -539,7 +649,7 @@ hs_bindgen_3023ada5e9267a14 =
 
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 70:14@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 63:14@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}

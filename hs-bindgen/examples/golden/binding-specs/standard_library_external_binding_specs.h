@@ -1,7 +1,5 @@
 /* TODO: https://github.com/well-typed/hs-bindgen/issues/1690. Automatic test. */
 
-/* LAST UPDATE: February 10, 2026; revision 73a232ec01989e9ac38549aaf3829e7544f2085e */
-
 /* Boolean types */
 #include <stdbool.h>
 bool bool_fun();
@@ -23,10 +21,8 @@ uintptr_t uintptr_t_fun();
 
 /* Floating types */
 #include <fenv.h>
-/* TODO: https://github.com/well-typed/hs-bindgen/issues/786 */
-/* fenv_t fenv_t_fun(); */
-/* TODO: https://github.com/well-typed/hs-bindgen/issues/1689 */
-/* fexcept_t fexcept_t_fun(); */
+fenv_t *fenv_t_fun();
+fexcept_t *fexcept_t_fun();
 
 /* Standard types */
 #include <stddef.h>
@@ -44,8 +40,7 @@ extern jmp_buf jmp_buf_val;
 #include <wctype.h>
 wchar_t wchar_t_fun();
 wint_t wint_t_fun();
-/* TODO: https://github.com/well-typed/hs-bindgen/issues/786 */
-/* mbstate_t mbstate_t_fun(); */
+mbstate_t *mbstate_t_fun();
 wctrans_t wctrans_t_fun();
 wctype_t wctype_t_fun();
 char16_t char16_t_fun();
@@ -60,10 +55,8 @@ clock_t clock_t_fun();
 
 /* File types */
 #include <stdio.h>
-/* TODO: https://github.com/well-typed/hs-bindgen/issues/786 */
-/* FILE FILE_fun(); */
-/* TODO: https://github.com/well-typed/hs-bindgen/issues/786 */
-/* fpos_t fpos_t_fun(); */
+FILE *FILE_fun();
+fpos_t *fpos_t_fun();
 
 /* Signal types */
 #include <signal.h>
