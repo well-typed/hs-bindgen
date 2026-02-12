@@ -14,10 +14,10 @@
 #include <wchar.h>
 #include <wctype.h>
 
-// bool types
+// Boolean types
 typedef bool stdlib_CBool;
 
-// integral types
+// Integral types
 typedef int8_t    stdlib_Int8;
 typedef int16_t   stdlib_Int16;
 typedef int32_t   stdlib_Int32;
@@ -31,18 +31,18 @@ typedef uintmax_t stdlib_CUIntMax;
 typedef intptr_t  stdlib_CIntPtr;
 typedef uintptr_t stdlib_CUIntPtr;
 
-// floating types
+// Floating types
 typedef fenv_t    stdlib_CFenvT;
 typedef fexcept_t stdlib_CFexceptT;
 
-// standard types
+// Standard types
 typedef size_t    stdlib_CSize;
 typedef ptrdiff_t stdlib_CPtrdiff;
 
-// non-local jump types
+// Non-local jump types
 typedef jmp_buf stdlib_CJmpBuf;
 
-// wchar types
+// Wide character types
 typedef wchar_t   stdlib_CWchar;
 typedef wint_t    stdlib_CWintT;
 typedef mbstate_t stdlib_CMbstateT;
@@ -51,14 +51,14 @@ typedef wctype_t  stdlib_CWctypeT;
 typedef char16_t  stdlib_CChar16T;
 typedef char32_t  stdlib_CChar32T;
 
-// time types
+// Time types
 typedef time_t    stdlib_CTime;
 typedef clock_t   stdlib_CClock;
 typedef struct tm stdlib_CTm;
 
-// file types
+// File types
 typedef FILE   stdlib_CFile;
 typedef fpos_t stdlib_CFpos;
 
-// signal types
+// Signal types
 typedef sig_atomic_t stdlib_CSigAtomic;

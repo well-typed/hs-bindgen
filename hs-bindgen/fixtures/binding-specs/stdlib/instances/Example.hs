@@ -17,7 +17,6 @@ import qualified Data.Ix as Ix
 import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
-import qualified Foreign.C as FC
 import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
@@ -31,12 +30,12 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @stdlib_CBool@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 18:14@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 18:14@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CBool = Stdlib_CBool
-  { unwrapStdlib_CBool :: FC.CBool
+  { unwrapStdlib_CBool :: HsBindgen.Runtime.LibC.CBool
   }
   deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
@@ -57,7 +56,7 @@ newtype Stdlib_CBool = Stdlib_CBool
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CBool" (Ptr.Ptr Stdlib_CBool) (Ptr.Ptr FC.CBool) where
+instance GHC.Records.HasField "unwrapStdlib_CBool" (Ptr.Ptr Stdlib_CBool) (Ptr.Ptr HsBindgen.Runtime.LibC.CBool) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CBool")
@@ -65,15 +64,15 @@ instance GHC.Records.HasField "unwrapStdlib_CBool" (Ptr.Ptr Stdlib_CBool) (Ptr.P
 instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CBool "unwrapStdlib_CBool" where
 
   type CFieldType Stdlib_CBool "unwrapStdlib_CBool" =
-    FC.CBool
+    HsBindgen.Runtime.LibC.CBool
 
   offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @stdlib_Int8@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 21:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 21:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int8 = Stdlib_Int8
   { unwrapStdlib_Int8 :: HsBindgen.Runtime.LibC.Int8
@@ -111,9 +110,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int8 "unwrapStdlib_Int8" w
 
 {-| __C declaration:__ @stdlib_Int16@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 22:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 22:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int16 = Stdlib_Int16
   { unwrapStdlib_Int16 :: HsBindgen.Runtime.LibC.Int16
@@ -151,9 +150,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int16 "unwrapStdlib_Int16"
 
 {-| __C declaration:__ @stdlib_Int32@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 23:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 23:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int32 = Stdlib_Int32
   { unwrapStdlib_Int32 :: HsBindgen.Runtime.LibC.Int32
@@ -191,9 +190,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int32 "unwrapStdlib_Int32"
 
 {-| __C declaration:__ @stdlib_Int64@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 24:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 24:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int64 = Stdlib_Int64
   { unwrapStdlib_Int64 :: HsBindgen.Runtime.LibC.Int64
@@ -231,9 +230,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Int64 "unwrapStdlib_Int64"
 
 {-| __C declaration:__ @stdlib_Word8@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 25:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 25:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word8 = Stdlib_Word8
   { unwrapStdlib_Word8 :: HsBindgen.Runtime.LibC.Word8
@@ -271,9 +270,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word8 "unwrapStdlib_Word8"
 
 {-| __C declaration:__ @stdlib_Word16@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 26:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 26:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word16 = Stdlib_Word16
   { unwrapStdlib_Word16 :: HsBindgen.Runtime.LibC.Word16
@@ -311,9 +310,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word16 "unwrapStdlib_Word1
 
 {-| __C declaration:__ @stdlib_Word32@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 27:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 27:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word32 = Stdlib_Word32
   { unwrapStdlib_Word32 :: HsBindgen.Runtime.LibC.Word32
@@ -351,9 +350,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word32 "unwrapStdlib_Word3
 
 {-| __C declaration:__ @stdlib_Word64@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 28:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 28:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word64 = Stdlib_Word64
   { unwrapStdlib_Word64 :: HsBindgen.Runtime.LibC.Word64
@@ -391,9 +390,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_Word64 "unwrapStdlib_Word6
 
 {-| __C declaration:__ @stdlib_CIntMax@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 29:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 29:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CIntMax = Stdlib_CIntMax
   { unwrapStdlib_CIntMax :: HsBindgen.Runtime.LibC.CIntMax
@@ -431,9 +430,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CIntMax "unwrapStdlib_CInt
 
 {-| __C declaration:__ @stdlib_CUIntMax@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 30:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 30:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CUIntMax = Stdlib_CUIntMax
   { unwrapStdlib_CUIntMax :: HsBindgen.Runtime.LibC.CUIntMax
@@ -471,9 +470,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CUIntMax "unwrapStdlib_CUI
 
 {-| __C declaration:__ @stdlib_CIntPtr@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 31:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 31:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CIntPtr = Stdlib_CIntPtr
   { unwrapStdlib_CIntPtr :: HsBindgen.Runtime.LibC.CIntPtr
@@ -511,9 +510,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CIntPtr "unwrapStdlib_CInt
 
 {-| __C declaration:__ @stdlib_CUIntPtr@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 32:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 32:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CUIntPtr = Stdlib_CUIntPtr
   { unwrapStdlib_CUIntPtr :: HsBindgen.Runtime.LibC.CUIntPtr
@@ -551,9 +550,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CUIntPtr "unwrapStdlib_CUI
 
 {-| __C declaration:__ @stdlib_CFenvT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 35:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 35:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFenvT = Stdlib_CFenvT
   { unwrapStdlib_CFenvT :: HsBindgen.Runtime.LibC.CFenvT
@@ -574,9 +573,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CFenvT "unwrapStdlib_CFenv
 
 {-| __C declaration:__ @stdlib_CFexceptT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 36:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 36:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFexceptT = Stdlib_CFexceptT
   { unwrapStdlib_CFexceptT :: HsBindgen.Runtime.LibC.CFexceptT
@@ -597,9 +596,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CFexceptT "unwrapStdlib_CF
 
 {-| __C declaration:__ @stdlib_CSize@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 39:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 39:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CSize = Stdlib_CSize
   { unwrapStdlib_CSize :: HsBindgen.Runtime.LibC.CSize
@@ -637,9 +636,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CSize "unwrapStdlib_CSize"
 
 {-| __C declaration:__ @stdlib_CPtrdiff@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 40:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 40:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CPtrdiff = Stdlib_CPtrdiff
   { unwrapStdlib_CPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff
@@ -677,9 +676,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CPtrdiff "unwrapStdlib_CPt
 
 {-| __C declaration:__ @stdlib_CJmpBuf@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 43:17@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 43:17@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CJmpBuf = Stdlib_CJmpBuf
   { unwrapStdlib_CJmpBuf :: HsBindgen.Runtime.LibC.CJmpBuf
@@ -700,9 +699,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmp
 
 {-| __C declaration:__ @stdlib_CWchar@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 46:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 46:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWchar = Stdlib_CWchar
   { unwrapStdlib_CWchar :: HsBindgen.Runtime.LibC.CWchar
@@ -740,9 +739,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CWchar "unwrapStdlib_CWcha
 
 {-| __C declaration:__ @stdlib_CWintT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 47:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 47:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWintT = Stdlib_CWintT
   { unwrapStdlib_CWintT :: HsBindgen.Runtime.LibC.CWintT
@@ -780,9 +779,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CWintT "unwrapStdlib_CWint
 
 {-| __C declaration:__ @stdlib_CMbstateT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 48:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 48:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CMbstateT = Stdlib_CMbstateT
   { unwrapStdlib_CMbstateT :: HsBindgen.Runtime.LibC.CMbstateT
@@ -803,9 +802,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CMbstateT "unwrapStdlib_CM
 
 {-| __C declaration:__ @stdlib_CWctransT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 49:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 49:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWctransT = Stdlib_CWctransT
   { unwrapStdlib_CWctransT :: HsBindgen.Runtime.LibC.CWctransT
@@ -834,9 +833,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CWctransT "unwrapStdlib_CW
 
 {-| __C declaration:__ @stdlib_CWctypeT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 50:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 50:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWctypeT = Stdlib_CWctypeT
   { unwrapStdlib_CWctypeT :: HsBindgen.Runtime.LibC.CWctypeT
@@ -865,9 +864,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CWctypeT "unwrapStdlib_CWc
 
 {-| __C declaration:__ @stdlib_CChar16T@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 51:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 51:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CChar16T = Stdlib_CChar16T
   { unwrapStdlib_CChar16T :: HsBindgen.Runtime.LibC.CChar16T
@@ -905,9 +904,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CChar16T "unwrapStdlib_CCh
 
 {-| __C declaration:__ @stdlib_CChar32T@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 52:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 52:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CChar32T = Stdlib_CChar32T
   { unwrapStdlib_CChar32T :: HsBindgen.Runtime.LibC.CChar32T
@@ -945,9 +944,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CChar32T "unwrapStdlib_CCh
 
 {-| __C declaration:__ @stdlib_CTime@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 55:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 55:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CTime = Stdlib_CTime
   { unwrapStdlib_CTime :: HsBindgen.Runtime.LibC.CTime
@@ -978,9 +977,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CTime "unwrapStdlib_CTime"
 
 {-| __C declaration:__ @stdlib_CClock@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 56:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 56:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CClock = Stdlib_CClock
   { unwrapStdlib_CClock :: HsBindgen.Runtime.LibC.CClock
@@ -1011,9 +1010,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CClock "unwrapStdlib_CCloc
 
 {-| __C declaration:__ @stdlib_CTm@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 57:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 57:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CTm = Stdlib_CTm
   { unwrapStdlib_CTm :: HsBindgen.Runtime.LibC.CTm
@@ -1038,9 +1037,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CTm "unwrapStdlib_CTm" whe
 
 {-| __C declaration:__ @stdlib_CFile@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 60:16@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 60:16@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFile = Stdlib_CFile
   { unwrapStdlib_CFile :: HsBindgen.Runtime.LibC.CFile
@@ -1061,9 +1060,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CFile "unwrapStdlib_CFile"
 
 {-| __C declaration:__ @stdlib_CFpos@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 61:16@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 61:16@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFpos = Stdlib_CFpos
   { unwrapStdlib_CFpos :: HsBindgen.Runtime.LibC.CFpos
@@ -1084,9 +1083,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
 
 {-| __C declaration:__ @stdlib_CSigAtomic@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 64:22@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 64:22@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CSigAtomic = Stdlib_CSigAtomic
   { unwrapStdlib_CSigAtomic :: HsBindgen.Runtime.LibC.CSigAtomic

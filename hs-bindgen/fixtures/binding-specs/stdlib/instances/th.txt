@@ -15,20 +15,20 @@
 -- addDependentFile musl-include/x86_64/setjmp.h
 -- addDependentFile musl-include/x86_64/bits/fenv.h
 -- addDependentFile musl-include/x86_64/fenv.h
--- addDependentFile examples/golden/types/stdlib/stdlib_insts.h
+-- addDependentFile examples/golden/binding-specs/stdlib/instances.h
 {-| __C declaration:__ @stdlib_CBool@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 18:14@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 18:14@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CBool
-    = Stdlib_CBool {unwrapStdlib_CBool :: CBool}
+    = Stdlib_CBool {unwrapStdlib_CBool :: HsBindgen.Runtime.LibC.CBool}
       {- ^ __C declaration:__ @stdlib_CBool@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 18:14@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 18:14@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -48,24 +48,25 @@ newtype Stdlib_CBool
                       Real)
 instance HasField "unwrapStdlib_CBool"
                   (Ptr Stdlib_CBool)
-                  (Ptr CBool)
+                  (Ptr HsBindgen.Runtime.LibC.CBool)
     where getField = fromPtr (Proxy @"unwrapStdlib_CBool")
 instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
-    where type CFieldType Stdlib_CBool "unwrapStdlib_CBool" = CBool
+    where type CFieldType Stdlib_CBool
+                          "unwrapStdlib_CBool" = HsBindgen.Runtime.LibC.CBool
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int8@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 21:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 21:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int8
     = Stdlib_Int8 {unwrapStdlib_Int8 :: HsBindgen.Runtime.LibC.Int8}
       {- ^ __C declaration:__ @stdlib_Int8@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 21:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 21:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -93,17 +94,17 @@ instance HasCField Stdlib_Int8 "unwrapStdlib_Int8"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int16@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 22:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 22:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int16
     = Stdlib_Int16 {unwrapStdlib_Int16 :: HsBindgen.Runtime.LibC.Int16}
       {- ^ __C declaration:__ @stdlib_Int16@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 22:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 22:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -131,17 +132,17 @@ instance HasCField Stdlib_Int16 "unwrapStdlib_Int16"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int32@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 23:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 23:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int32
     = Stdlib_Int32 {unwrapStdlib_Int32 :: HsBindgen.Runtime.LibC.Int32}
       {- ^ __C declaration:__ @stdlib_Int32@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 23:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 23:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -169,17 +170,17 @@ instance HasCField Stdlib_Int32 "unwrapStdlib_Int32"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int64@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 24:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 24:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int64
     = Stdlib_Int64 {unwrapStdlib_Int64 :: HsBindgen.Runtime.LibC.Int64}
       {- ^ __C declaration:__ @stdlib_Int64@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 24:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 24:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -207,17 +208,17 @@ instance HasCField Stdlib_Int64 "unwrapStdlib_Int64"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word8@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 25:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 25:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word8
     = Stdlib_Word8 {unwrapStdlib_Word8 :: HsBindgen.Runtime.LibC.Word8}
       {- ^ __C declaration:__ @stdlib_Word8@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 25:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 25:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -245,17 +246,17 @@ instance HasCField Stdlib_Word8 "unwrapStdlib_Word8"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word16@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 26:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 26:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word16
     = Stdlib_Word16 {unwrapStdlib_Word16 :: HsBindgen.Runtime.LibC.Word16}
       {- ^ __C declaration:__ @stdlib_Word16@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 26:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 26:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -283,17 +284,17 @@ instance HasCField Stdlib_Word16 "unwrapStdlib_Word16"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word32@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 27:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 27:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word32
     = Stdlib_Word32 {unwrapStdlib_Word32 :: HsBindgen.Runtime.LibC.Word32}
       {- ^ __C declaration:__ @stdlib_Word32@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 27:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 27:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -321,17 +322,17 @@ instance HasCField Stdlib_Word32 "unwrapStdlib_Word32"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word64@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 28:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 28:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word64
     = Stdlib_Word64 {unwrapStdlib_Word64 :: HsBindgen.Runtime.LibC.Word64}
       {- ^ __C declaration:__ @stdlib_Word64@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 28:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 28:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -359,17 +360,17 @@ instance HasCField Stdlib_Word64 "unwrapStdlib_Word64"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CIntMax@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 29:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 29:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CIntMax
     = Stdlib_CIntMax {unwrapStdlib_CIntMax :: HsBindgen.Runtime.LibC.CIntMax}
       {- ^ __C declaration:__ @stdlib_CIntMax@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 29:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 29:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -397,17 +398,17 @@ instance HasCField Stdlib_CIntMax "unwrapStdlib_CIntMax"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CUIntMax@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 30:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 30:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CUIntMax
     = Stdlib_CUIntMax {unwrapStdlib_CUIntMax :: HsBindgen.Runtime.LibC.CUIntMax}
       {- ^ __C declaration:__ @stdlib_CUIntMax@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 30:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 30:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -435,17 +436,17 @@ instance HasCField Stdlib_CUIntMax "unwrapStdlib_CUIntMax"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CIntPtr@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 31:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 31:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CIntPtr
     = Stdlib_CIntPtr {unwrapStdlib_CIntPtr :: HsBindgen.Runtime.LibC.CIntPtr}
       {- ^ __C declaration:__ @stdlib_CIntPtr@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 31:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 31:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -473,17 +474,17 @@ instance HasCField Stdlib_CIntPtr "unwrapStdlib_CIntPtr"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CUIntPtr@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 32:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 32:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CUIntPtr
     = Stdlib_CUIntPtr {unwrapStdlib_CUIntPtr :: HsBindgen.Runtime.LibC.CUIntPtr}
       {- ^ __C declaration:__ @stdlib_CUIntPtr@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 32:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 32:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -511,17 +512,17 @@ instance HasCField Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFenvT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 35:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 35:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFenvT
     = Stdlib_CFenvT {unwrapStdlib_CFenvT :: HsBindgen.Runtime.LibC.CFenvT}
       {- ^ __C declaration:__ @stdlib_CFenvT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 35:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 35:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
 instance HasField "unwrapStdlib_CFenvT"
@@ -534,17 +535,17 @@ instance HasCField Stdlib_CFenvT "unwrapStdlib_CFenvT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFexceptT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 36:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 36:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFexceptT
     = Stdlib_CFexceptT {unwrapStdlib_CFexceptT :: HsBindgen.Runtime.LibC.CFexceptT}
       {- ^ __C declaration:__ @stdlib_CFexceptT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 36:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 36:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
 instance HasField "unwrapStdlib_CFexceptT"
@@ -557,17 +558,17 @@ instance HasCField Stdlib_CFexceptT "unwrapStdlib_CFexceptT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CSize@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 39:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 39:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CSize
     = Stdlib_CSize {unwrapStdlib_CSize :: HsBindgen.Runtime.LibC.CSize}
       {- ^ __C declaration:__ @stdlib_CSize@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 39:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 39:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -595,17 +596,17 @@ instance HasCField Stdlib_CSize "unwrapStdlib_CSize"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CPtrdiff@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 40:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 40:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CPtrdiff
     = Stdlib_CPtrdiff {unwrapStdlib_CPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff}
       {- ^ __C declaration:__ @stdlib_CPtrdiff@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 40:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 40:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -633,17 +634,17 @@ instance HasCField Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CJmpBuf@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 43:17@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 43:17@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CJmpBuf
     = Stdlib_CJmpBuf {unwrapStdlib_CJmpBuf :: HsBindgen.Runtime.LibC.CJmpBuf}
       {- ^ __C declaration:__ @stdlib_CJmpBuf@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 43:17@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 43:17@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
 instance HasField "unwrapStdlib_CJmpBuf"
@@ -656,17 +657,17 @@ instance HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWchar@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 46:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 46:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWchar
     = Stdlib_CWchar {unwrapStdlib_CWchar :: HsBindgen.Runtime.LibC.CWchar}
       {- ^ __C declaration:__ @stdlib_CWchar@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 46:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 46:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -694,17 +695,17 @@ instance HasCField Stdlib_CWchar "unwrapStdlib_CWchar"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWintT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 47:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 47:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWintT
     = Stdlib_CWintT {unwrapStdlib_CWintT :: HsBindgen.Runtime.LibC.CWintT}
       {- ^ __C declaration:__ @stdlib_CWintT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 47:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 47:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -732,17 +733,17 @@ instance HasCField Stdlib_CWintT "unwrapStdlib_CWintT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CMbstateT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 48:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 48:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CMbstateT
     = Stdlib_CMbstateT {unwrapStdlib_CMbstateT :: HsBindgen.Runtime.LibC.CMbstateT}
       {- ^ __C declaration:__ @stdlib_CMbstateT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 48:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 48:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
 instance HasField "unwrapStdlib_CMbstateT"
@@ -755,17 +756,17 @@ instance HasCField Stdlib_CMbstateT "unwrapStdlib_CMbstateT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWctransT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 49:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 49:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWctransT
     = Stdlib_CWctransT {unwrapStdlib_CWctransT :: HsBindgen.Runtime.LibC.CWctransT}
       {- ^ __C declaration:__ @stdlib_CWctransT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 49:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 49:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize,
@@ -784,17 +785,17 @@ instance HasCField Stdlib_CWctransT "unwrapStdlib_CWctransT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWctypeT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 50:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 50:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWctypeT
     = Stdlib_CWctypeT {unwrapStdlib_CWctypeT :: HsBindgen.Runtime.LibC.CWctypeT}
       {- ^ __C declaration:__ @stdlib_CWctypeT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 50:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 50:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize,
@@ -813,17 +814,17 @@ instance HasCField Stdlib_CWctypeT "unwrapStdlib_CWctypeT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CChar16T@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 51:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 51:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CChar16T
     = Stdlib_CChar16T {unwrapStdlib_CChar16T :: HsBindgen.Runtime.LibC.CChar16T}
       {- ^ __C declaration:__ @stdlib_CChar16T@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 51:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 51:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -851,17 +852,17 @@ instance HasCField Stdlib_CChar16T "unwrapStdlib_CChar16T"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CChar32T@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 52:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 52:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CChar32T
     = Stdlib_CChar32T {unwrapStdlib_CChar32T :: HsBindgen.Runtime.LibC.CChar32T}
       {- ^ __C declaration:__ @stdlib_CChar32T@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 52:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 52:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -889,17 +890,17 @@ instance HasCField Stdlib_CChar32T "unwrapStdlib_CChar32T"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CTime@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 55:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 55:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CTime
     = Stdlib_CTime {unwrapStdlib_CTime :: HsBindgen.Runtime.LibC.CTime}
       {- ^ __C declaration:__ @stdlib_CTime@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 55:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 55:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -920,17 +921,17 @@ instance HasCField Stdlib_CTime "unwrapStdlib_CTime"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CClock@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 56:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 56:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CClock
     = Stdlib_CClock {unwrapStdlib_CClock :: HsBindgen.Runtime.LibC.CClock}
       {- ^ __C declaration:__ @stdlib_CClock@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 56:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 56:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
@@ -951,17 +952,17 @@ instance HasCField Stdlib_CClock "unwrapStdlib_CClock"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CTm@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 57:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 57:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CTm
     = Stdlib_CTm {unwrapStdlib_CTm :: HsBindgen.Runtime.LibC.CTm}
       {- ^ __C declaration:__ @stdlib_CTm@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 57:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 57:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw)
@@ -975,17 +976,17 @@ instance HasCField Stdlib_CTm "unwrapStdlib_CTm"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFile@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 60:16@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 60:16@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFile
     = Stdlib_CFile {unwrapStdlib_CFile :: HsBindgen.Runtime.LibC.CFile}
       {- ^ __C declaration:__ @stdlib_CFile@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 60:16@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 60:16@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
 instance HasField "unwrapStdlib_CFile"
@@ -998,17 +999,17 @@ instance HasCField Stdlib_CFile "unwrapStdlib_CFile"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFpos@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 61:16@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 61:16@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFpos
     = Stdlib_CFpos {unwrapStdlib_CFpos :: HsBindgen.Runtime.LibC.CFpos}
       {- ^ __C declaration:__ @stdlib_CFpos@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 61:16@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 61:16@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
 instance HasField "unwrapStdlib_CFpos"
@@ -1021,17 +1022,17 @@ instance HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CSigAtomic@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 64:22@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 64:22@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CSigAtomic
     = Stdlib_CSigAtomic {unwrapStdlib_CSigAtomic :: HsBindgen.Runtime.LibC.CSigAtomic}
       {- ^ __C declaration:__ @stdlib_CSigAtomic@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 64:22@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 64:22@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,

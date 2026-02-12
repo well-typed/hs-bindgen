@@ -63,6 +63,10 @@ bindingSpec = BindingSpec.BindingSpec{
         mkTypeN "bool" "CBool" intI ["stdbool.h"]
       ]
 
+    -- Note that the \"least\" and \"fast\" types (such as @int_least32_t@)
+    -- /cannot/ be defined in the standard library because their implementations
+    -- differ across different @libc@ implementations, and users may choose
+    -- which @libc@ to use when running @hs-bindgen@.
     integralTypes :: [(CTypeKV, HsTypeKV)]
     integralTypes =
       let aux (t, hsIdentifier) =
@@ -76,22 +80,6 @@ bindingSpec = BindingSpec.BindingSpec{
             , ("uint16_t",       "Word16")
             , ("uint32_t",       "Word32")
             , ("uint64_t",       "Word64")
-            , ("int_least8_t",   "Int8")
-            , ("int_least16_t",  "Int16")
-            , ("int_least32_t",  "Int32")
-            , ("int_least64_t",  "Int64")
-            , ("uint_least8_t",  "Word8")
-            , ("uint_least16_t", "Word16")
-            , ("uint_least32_t", "Word32")
-            , ("uint_least64_t", "Word64")
-            , ("int_fast8_t",    "Int8")
-            , ("int_fast16_t",   "Int16")
-            , ("int_fast32_t",   "Int32")
-            , ("int_fast64_t",   "Int64")
-            , ("uint_fast8_t",   "Word8")
-            , ("uint_fast16_t",  "Word16")
-            , ("uint_fast32_t",  "Word32")
-            , ("uint_fast64_t",  "Word64")
             , ("intmax_t",       "CIntMax")
             , ("uintmax_t",      "CUIntMax")
             , ("intptr_t",       "CIntPtr")
