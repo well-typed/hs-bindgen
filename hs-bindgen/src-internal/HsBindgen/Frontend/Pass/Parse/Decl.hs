@@ -704,11 +704,7 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         pure $ (fails ++) $
-          if not (null anonDecls) then [
-              parseFail info.id info.loc $
-                ParseUnexpectedAnonInExtern
-            ]
-          else (map parseSucceed otherDecls ++) $
+          (map parseSucceed (anonDecls ++ otherDecls) ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
                   | visibilityCanCauseErrors visibility linkage isDefn
@@ -720,10 +716,10 @@ varDecl info = \curr -> do
                 msgs = nonPublicVisibility ++ potentialDuplicate
 
             in  case cls of
-              VarGlobal ->
-                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
-              VarConst ->
-                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
+              VarGlobal ext ->
+                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal ext typ)
+              VarConst ext ->
+                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal ext typ)
               VarThreadLocal -> [
                   parseFail info.id info.loc $
                     ParseUnsupportedTLS
@@ -744,6 +740,7 @@ varDecl info = \curr -> do
           -- Nested /new/ declarations
           Right CXCursor_StructDecl -> parseDecl curr
           Right CXCursor_UnionDecl  -> parseDecl curr
+          Right CXCursor_EnumDecl   -> parseDecl curr
 
           -- Initializers
           --
@@ -916,7 +913,7 @@ data VarClassification =
     -- | The simplest case: a simple global variable
     --
     -- > extern int simpleGlobal;
-    VarGlobal
+    VarGlobal C.IsExtern
 
     -- | Global constants
     --
@@ -931,7 +928,7 @@ data VarClassification =
     --
     -- TODO: <https://github.com/well-typed/hs-bindgen/issues/829>
     -- We could in principle expose the /value/ of the constant, if we know it.
-  | VarConst
+  | VarConst C.IsExtern
 
     -- | Thread local variables
     --
@@ -955,11 +952,11 @@ classifyVarDecl = \curr -> do
         canonical <- clang_getCanonicalType typ
         isConst   <- clang_isConstQualifiedType canonical
         case (fromSimpleEnum storage, isConst) of
-          (Right CX_SC_Extern , False) -> return VarGlobal
-          (Right CX_SC_None   , False) -> return VarGlobal
-          (Right CX_SC_Extern , True ) -> return VarConst
-          (Right CX_SC_Static , True ) -> return VarConst
-          (Right CX_SC_None   , True)  -> return VarConst
+          (Right CX_SC_Extern , False) -> return $ VarGlobal C.IsExtern
+          (Right CX_SC_None   , False) -> return $ VarGlobal C.IsNotExtern
+          (Right CX_SC_Extern , True ) -> return $ VarConst  C.IsExtern
+          (Right CX_SC_Static , True ) -> return $ VarConst  C.IsNotExtern
+          (Right CX_SC_None   , True)  -> return $ VarConst  C.IsNotExtern
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal

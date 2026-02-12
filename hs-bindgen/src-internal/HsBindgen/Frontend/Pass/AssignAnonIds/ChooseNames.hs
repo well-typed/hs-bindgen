@@ -50,6 +50,8 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
           fmap (nameForTypedefDirect anonId) <$> declName declInfo.id
         AnonUsageAnalysis.TypedefIndirect declInfo ->
           fmap (nameForTypedefIndirect anonId) <$> declName declInfo.id
+        AnonUsageAnalysis.GlobalVar declInfo ->
+          fmap (nameForGlobalVar anonId) <$> declName declInfo.id
 
     declName :: PrelimDeclId -> Memoize (Maybe DeclId)
     declName = \case
@@ -96,6 +98,28 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
           isAnon = True
         , name   = C.DeclName{
               text = typedef.name.text <> "_Aux"
+            , kind = anonId.kind
+            }
+        }
+
+    -- | Use the name of the global variable for the anonymous struct
+    --
+    -- For example, given:
+    --
+    -- > struct { int x; int y; } a;
+    --
+    -- the struct is named "a".
+    --
+    -- Unlike 'nameForTypedefDirect' (where @typedef struct { .. } foo;@ creates
+    -- a real C type name @foo@), @struct { .. } anonPoint;@ does /not/ create
+    -- any C type name — the struct remains anonymous from C's perspective.
+    -- We set @isAnon@ to @True@ so that the backend can detect this and avoid
+    -- generating invalid C types like @struct anonPoint *@.
+    nameForGlobalVar :: AnonId -> DeclId -> DeclId
+    nameForGlobalVar anonId globalVar = DeclId{
+          isAnon = True
+        , name   = C.DeclName{
+              text = globalVar.name.text
             , kind = anonId.kind
             }
         }
