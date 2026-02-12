@@ -47,6 +47,15 @@ import HsBindgen.Runtime.Marshal
 #include <time.h>
 
 {-------------------------------------------------------------------------------
+  Integral Types
+-------------------------------------------------------------------------------}
+
+-- NOTE The \"least\" and \"fast\" types (such as @int_least32_t@) /cannot/ be
+-- defined in the standard library because their implementations differ across
+-- different @libc@ implementations, and users may choose which @libc@ to use
+-- when running @hs-bindgen@.
+
+{-------------------------------------------------------------------------------
   Floating Types
 -------------------------------------------------------------------------------}
 

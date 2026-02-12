@@ -69,90 +69,6 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return &uint64_t_fun;"
   , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_int_least8_t_fun */"
-  , "__attribute__ ((const))"
-  , "int_least8_t (*hs_bindgen_204ba2aa5f40c5fa (void)) (void)"
-  , "{"
-  , "  return &int_least8_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_int_least16_t_fun */"
-  , "__attribute__ ((const))"
-  , "int_least16_t (*hs_bindgen_9754ff4ef5c8d79c (void)) (void)"
-  , "{"
-  , "  return &int_least16_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_int_least32_t_fun */"
-  , "__attribute__ ((const))"
-  , "int_least32_t (*hs_bindgen_ea21f76cf0f4788b (void)) (void)"
-  , "{"
-  , "  return &int_least32_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_int_least64_t_fun */"
-  , "__attribute__ ((const))"
-  , "int_least64_t (*hs_bindgen_81e7393ac6db4b83 (void)) (void)"
-  , "{"
-  , "  return &int_least64_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_uint_least8_t_fun */"
-  , "__attribute__ ((const))"
-  , "uint_least8_t (*hs_bindgen_f3b54e247fddd580 (void)) (void)"
-  , "{"
-  , "  return &uint_least8_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_uint_least16_t_fun */"
-  , "__attribute__ ((const))"
-  , "uint_least16_t (*hs_bindgen_e432f4a44b5c00fb (void)) (void)"
-  , "{"
-  , "  return &uint_least16_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_uint_least32_t_fun */"
-  , "__attribute__ ((const))"
-  , "uint_least32_t (*hs_bindgen_4731341b16926be1 (void)) (void)"
-  , "{"
-  , "  return &uint_least32_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_uint_least64_t_fun */"
-  , "__attribute__ ((const))"
-  , "uint_least64_t (*hs_bindgen_a796d3cd88467c40 (void)) (void)"
-  , "{"
-  , "  return &uint_least64_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_int_fast8_t_fun */"
-  , "__attribute__ ((const))"
-  , "int_fast8_t (*hs_bindgen_b9d35460329d6b4d (void)) (void)"
-  , "{"
-  , "  return &int_fast8_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_int_fast32_t_fun */"
-  , "__attribute__ ((const))"
-  , "int_fast32_t (*hs_bindgen_ac3c0ef78b4b880b (void)) (void)"
-  , "{"
-  , "  return &int_fast32_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_int_fast64_t_fun */"
-  , "__attribute__ ((const))"
-  , "int_fast64_t (*hs_bindgen_051b82f2be6fb5cf (void)) (void)"
-  , "{"
-  , "  return &int_fast64_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_uint_fast8_t_fun */"
-  , "__attribute__ ((const))"
-  , "uint_fast8_t (*hs_bindgen_8deac59faf09717a (void)) (void)"
-  , "{"
-  , "  return &uint_fast8_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_uint_fast32_t_fun */"
-  , "__attribute__ ((const))"
-  , "uint_fast32_t (*hs_bindgen_d2ec431c9ba1e735 (void)) (void)"
-  , "{"
-  , "  return &uint_fast32_t_fun;"
-  , "}"
-  , "/* test_bindingspecsstandard_library_Example_get_uint_fast64_t_fun */"
-  , "__attribute__ ((const))"
-  , "uint_fast64_t (*hs_bindgen_45a6a0d1f2cdf473 (void)) (void)"
-  , "{"
-  , "  return &uint_fast64_t_fun;"
-  , "}"
   , "/* test_bindingspecsstandard_library_Example_get_intmax_t_fun */"
   , "__attribute__ ((const))"
   , "intmax_t (*hs_bindgen_356803d6f1ee9998 (void)) (void)"
@@ -425,286 +341,6 @@ uint64_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word64)
 uint64_t_fun =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7bff4397ac5b0a84
 
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least8_t_fun@
-foreign import ccall unsafe "hs_bindgen_204ba2aa5f40c5fa" hs_bindgen_204ba2aa5f40c5fa_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least8_t_fun@
-hs_bindgen_204ba2aa5f40c5fa :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int8))
-hs_bindgen_204ba2aa5f40c5fa =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_204ba2aa5f40c5fa_base
-
-{-# NOINLINE int_least8_t_fun #-}
-{-| __C declaration:__ @int_least8_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 19:14@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-int_least8_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int8)
-int_least8_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_204ba2aa5f40c5fa
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least16_t_fun@
-foreign import ccall unsafe "hs_bindgen_9754ff4ef5c8d79c" hs_bindgen_9754ff4ef5c8d79c_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least16_t_fun@
-hs_bindgen_9754ff4ef5c8d79c :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int16))
-hs_bindgen_9754ff4ef5c8d79c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9754ff4ef5c8d79c_base
-
-{-# NOINLINE int_least16_t_fun #-}
-{-| __C declaration:__ @int_least16_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 20:15@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-int_least16_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int16)
-int_least16_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9754ff4ef5c8d79c
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least32_t_fun@
-foreign import ccall unsafe "hs_bindgen_ea21f76cf0f4788b" hs_bindgen_ea21f76cf0f4788b_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least32_t_fun@
-hs_bindgen_ea21f76cf0f4788b :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int32))
-hs_bindgen_ea21f76cf0f4788b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ea21f76cf0f4788b_base
-
-{-# NOINLINE int_least32_t_fun #-}
-{-| __C declaration:__ @int_least32_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 21:15@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-int_least32_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int32)
-int_least32_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ea21f76cf0f4788b
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least64_t_fun@
-foreign import ccall unsafe "hs_bindgen_81e7393ac6db4b83" hs_bindgen_81e7393ac6db4b83_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_least64_t_fun@
-hs_bindgen_81e7393ac6db4b83 :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int64))
-hs_bindgen_81e7393ac6db4b83 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_81e7393ac6db4b83_base
-
-{-# NOINLINE int_least64_t_fun #-}
-{-| __C declaration:__ @int_least64_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 22:15@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-int_least64_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int64)
-int_least64_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_81e7393ac6db4b83
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least8_t_fun@
-foreign import ccall unsafe "hs_bindgen_f3b54e247fddd580" hs_bindgen_f3b54e247fddd580_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least8_t_fun@
-hs_bindgen_f3b54e247fddd580 :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word8))
-hs_bindgen_f3b54e247fddd580 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f3b54e247fddd580_base
-
-{-# NOINLINE uint_least8_t_fun #-}
-{-| __C declaration:__ @uint_least8_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 23:15@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-uint_least8_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word8)
-uint_least8_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f3b54e247fddd580
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least16_t_fun@
-foreign import ccall unsafe "hs_bindgen_e432f4a44b5c00fb" hs_bindgen_e432f4a44b5c00fb_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least16_t_fun@
-hs_bindgen_e432f4a44b5c00fb :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word16))
-hs_bindgen_e432f4a44b5c00fb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e432f4a44b5c00fb_base
-
-{-# NOINLINE uint_least16_t_fun #-}
-{-| __C declaration:__ @uint_least16_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 24:16@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-uint_least16_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word16)
-uint_least16_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e432f4a44b5c00fb
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least32_t_fun@
-foreign import ccall unsafe "hs_bindgen_4731341b16926be1" hs_bindgen_4731341b16926be1_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least32_t_fun@
-hs_bindgen_4731341b16926be1 :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word32))
-hs_bindgen_4731341b16926be1 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4731341b16926be1_base
-
-{-# NOINLINE uint_least32_t_fun #-}
-{-| __C declaration:__ @uint_least32_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 25:16@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-uint_least32_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word32)
-uint_least32_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4731341b16926be1
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least64_t_fun@
-foreign import ccall unsafe "hs_bindgen_a796d3cd88467c40" hs_bindgen_a796d3cd88467c40_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_least64_t_fun@
-hs_bindgen_a796d3cd88467c40 :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word64))
-hs_bindgen_a796d3cd88467c40 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a796d3cd88467c40_base
-
-{-# NOINLINE uint_least64_t_fun #-}
-{-| __C declaration:__ @uint_least64_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 26:16@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-uint_least64_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word64)
-uint_least64_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a796d3cd88467c40
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_fast8_t_fun@
-foreign import ccall unsafe "hs_bindgen_b9d35460329d6b4d" hs_bindgen_b9d35460329d6b4d_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_fast8_t_fun@
-hs_bindgen_b9d35460329d6b4d :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int8))
-hs_bindgen_b9d35460329d6b4d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b9d35460329d6b4d_base
-
-{-# NOINLINE int_fast8_t_fun #-}
-{-| __C declaration:__ @int_fast8_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 27:13@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-int_fast8_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int8)
-int_fast8_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b9d35460329d6b4d
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_fast32_t_fun@
-foreign import ccall unsafe "hs_bindgen_ac3c0ef78b4b880b" hs_bindgen_ac3c0ef78b4b880b_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_fast32_t_fun@
-hs_bindgen_ac3c0ef78b4b880b :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int32))
-hs_bindgen_ac3c0ef78b4b880b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ac3c0ef78b4b880b_base
-
-{-# NOINLINE int_fast32_t_fun #-}
-{-| __C declaration:__ @int_fast32_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 30:14@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-int_fast32_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int32)
-int_fast32_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ac3c0ef78b4b880b
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_fast64_t_fun@
-foreign import ccall unsafe "hs_bindgen_051b82f2be6fb5cf" hs_bindgen_051b82f2be6fb5cf_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_int_fast64_t_fun@
-hs_bindgen_051b82f2be6fb5cf :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int64))
-hs_bindgen_051b82f2be6fb5cf =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_051b82f2be6fb5cf_base
-
-{-# NOINLINE int_fast64_t_fun #-}
-{-| __C declaration:__ @int_fast64_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 31:14@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-int_fast64_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Int64)
-int_fast64_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_051b82f2be6fb5cf
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_fast8_t_fun@
-foreign import ccall unsafe "hs_bindgen_8deac59faf09717a" hs_bindgen_8deac59faf09717a_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_fast8_t_fun@
-hs_bindgen_8deac59faf09717a :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word8))
-hs_bindgen_8deac59faf09717a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8deac59faf09717a_base
-
-{-# NOINLINE uint_fast8_t_fun #-}
-{-| __C declaration:__ @uint_fast8_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 32:14@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-uint_fast8_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word8)
-uint_fast8_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8deac59faf09717a
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_fast32_t_fun@
-foreign import ccall unsafe "hs_bindgen_d2ec431c9ba1e735" hs_bindgen_d2ec431c9ba1e735_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_fast32_t_fun@
-hs_bindgen_d2ec431c9ba1e735 :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word32))
-hs_bindgen_d2ec431c9ba1e735 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d2ec431c9ba1e735_base
-
-{-# NOINLINE uint_fast32_t_fun #-}
-{-| __C declaration:__ @uint_fast32_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 35:15@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-uint_fast32_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word32)
-uint_fast32_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d2ec431c9ba1e735
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_fast64_t_fun@
-foreign import ccall unsafe "hs_bindgen_45a6a0d1f2cdf473" hs_bindgen_45a6a0d1f2cdf473_base ::
-     IO (Ptr.FunPtr Void)
-
--- __unique:__ @test_bindingspecsstandard_library_Example_get_uint_fast64_t_fun@
-hs_bindgen_45a6a0d1f2cdf473 :: IO (Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word64))
-hs_bindgen_45a6a0d1f2cdf473 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_45a6a0d1f2cdf473_base
-
-{-# NOINLINE uint_fast64_t_fun #-}
-{-| __C declaration:__ @uint_fast64_t_fun@
-
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 36:15@
-
-    __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
--}
-uint_fast64_t_fun :: Ptr.FunPtr (IO HsBindgen.Runtime.LibC.Word64)
-uint_fast64_t_fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_45a6a0d1f2cdf473
-
 -- __unique:__ @test_bindingspecsstandard_library_Example_get_intmax_t_fun@
 foreign import ccall unsafe "hs_bindgen_356803d6f1ee9998" hs_bindgen_356803d6f1ee9998_base ::
      IO (Ptr.FunPtr Void)
@@ -717,7 +353,7 @@ hs_bindgen_356803d6f1ee9998 =
 {-# NOINLINE intmax_t_fun #-}
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 37:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 19:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -737,7 +373,7 @@ hs_bindgen_2536b40423863c3d =
 {-# NOINLINE uintmax_t_fun #-}
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 38:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 20:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -757,7 +393,7 @@ hs_bindgen_7588b9aeb45c8721 =
 {-# NOINLINE intptr_t_fun #-}
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 39:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 21:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -777,7 +413,7 @@ hs_bindgen_7edd04feb0afc86a =
 {-# NOINLINE uintptr_t_fun #-}
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 40:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 22:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -797,7 +433,7 @@ hs_bindgen_dbcbc3d798d90475 =
 {-# NOINLINE size_t_fun #-}
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 51:8@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 33:8@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -817,7 +453,7 @@ hs_bindgen_caab6bc707229fac =
 {-# NOINLINE ptrdiff_t_fun #-}
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 52:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 34:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -837,7 +473,7 @@ hs_bindgen_dccb9712296f4b74 =
 {-# NOINLINE wchar_t_fun #-}
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 63:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 45:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -857,7 +493,7 @@ hs_bindgen_d8cb689ef8e61b17 =
 {-# NOINLINE wint_t_fun #-}
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 64:8@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 46:8@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -877,7 +513,7 @@ hs_bindgen_28185bca762ef301 =
 {-# NOINLINE wctrans_t_fun #-}
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 67:11@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 49:11@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -897,7 +533,7 @@ hs_bindgen_5fd9a8b4db6b244b =
 {-# NOINLINE wctype_t_fun #-}
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 68:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 50:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -917,7 +553,7 @@ hs_bindgen_4cb6b9c15fb1faa4 =
 {-# NOINLINE char16_t_fun #-}
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 69:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 51:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -937,7 +573,7 @@ hs_bindgen_2027a27340ed8e9a =
 {-# NOINLINE char32_t_fun #-}
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 70:10@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 52:10@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -957,7 +593,7 @@ hs_bindgen_c7ee4c8b957eea48 =
 {-# NOINLINE time_t_fun #-}
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 74:8@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 56:8@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -977,7 +613,7 @@ hs_bindgen_e0560b6cdb0474fc =
 {-# NOINLINE clock_t_fun #-}
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 75:9@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 57:9@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}
@@ -997,7 +633,7 @@ hs_bindgen_2d7ac7038960087a =
 {-# NOINLINE sig_atomic_t_fun #-}
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 88:14@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 70:14@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}

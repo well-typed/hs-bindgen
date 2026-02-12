@@ -35,7 +35,7 @@ hs_bindgen_d15d2827ec787fb0 =
 {-# NOINLINE jmp_buf_val #-}
 {-| __C declaration:__ @jmp_buf_val@
 
-    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 57:16@
+    __defined at:__ @binding-specs\/standard_library_external_binding_specs.h 39:16@
 
     __exported by:__ @binding-specs\/standard_library_external_binding_specs.h@
 -}

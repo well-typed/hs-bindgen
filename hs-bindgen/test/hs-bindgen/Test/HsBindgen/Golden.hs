@@ -1673,6 +1673,7 @@ testCases_bespoke_types = [
     , test_types_implicit_fields_union
     , test_types_long_double
     , test_types_primitives_bool_c23
+    , test_types_primitives_least_fast
     , test_types_special_parse_failure_long_double
     , test_types_structs_named_vs_anon
     , test_types_structs_enable_record_dot
@@ -1709,6 +1710,11 @@ test_types_primitives_bool_c23 :: TestCase
 test_types_primitives_bool_c23 =
     defaultTest "types/primitives/bool_c23"
       & #clangVersion .~ Just (>= (15, 0, 0))
+
+test_types_primitives_least_fast :: TestCase
+test_types_primitives_least_fast =
+    defaultTest "types/primitives/least_fast"
+      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
 
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =
