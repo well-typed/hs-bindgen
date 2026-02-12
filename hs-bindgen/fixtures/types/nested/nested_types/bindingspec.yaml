@@ -31,6 +31,7 @@ hstypes:
       - bar_foo2
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -47,6 +48,7 @@ hstypes:
       - ex3_ex3_c
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -63,6 +65,7 @@ hstypes:
       - ex3_ex3_struct_ex3_b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -79,6 +82,7 @@ hstypes:
       - ex4_even_next
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -95,6 +99,7 @@ hstypes:
       - ex4_odd_next
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -111,6 +116,7 @@ hstypes:
       - foo_c
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

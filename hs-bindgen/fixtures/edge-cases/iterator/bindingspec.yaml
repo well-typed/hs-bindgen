@@ -20,6 +20,7 @@ hstypes:
       fields:
       - unwrapCounter
   instances:
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -30,6 +31,7 @@ hstypes:
       fields:
       - unwrapToggle
   instances:
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -40,6 +42,7 @@ hstypes:
       fields:
       - unwrapVarCounter
   instances:
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

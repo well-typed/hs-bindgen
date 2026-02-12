@@ -159,8 +159,7 @@ data GlobalConfig
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize GlobalConfig
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -199,8 +198,7 @@ newtype ConstInt
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -248,8 +246,7 @@ data Tuple
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Tuple
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -284,8 +281,7 @@ newtype Triplet
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapTriplet"
                   (Ptr Triplet)
@@ -309,8 +305,7 @@ newtype List
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapList"
                   (Ptr List)
                   (Ptr (IncompleteArray CInt))

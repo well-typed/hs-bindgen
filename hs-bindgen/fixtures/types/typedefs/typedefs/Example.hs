@@ -41,8 +41,7 @@ import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 newtype Myint = Myint
   { unwrapMyint :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -81,8 +80,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Myint "unwrapMyint" where
 newtype Intptr = Intptr
   { unwrapIntptr :: Ptr.Ptr FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -226,8 +224,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function_Aux "unw
 newtype FunctionPointer_Function = FunctionPointer_Function
   { unwrapFunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -370,8 +367,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 newtype F1 = F1
   { unwrapF1 :: Ptr.FunPtr F1_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -455,8 +451,7 @@ instance HsBindgen.Runtime.HasCField.HasCField G1 "unwrapG1" where
 newtype G2 = G2
   { unwrapG2 :: Ptr.FunPtr G1
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -563,8 +558,7 @@ instance HsBindgen.Runtime.HasCField.HasCField H2 "unwrapH2" where
 newtype H3 = H3
   { unwrapH3 :: Ptr.FunPtr H2
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

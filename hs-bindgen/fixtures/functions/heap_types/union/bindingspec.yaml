@@ -17,6 +17,7 @@ hstypes:
       fields:
       - unwrapT
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

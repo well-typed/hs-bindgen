@@ -116,8 +116,7 @@ data Thing
 
            __exported by:__ @types\/structs\/struct_arg.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Thing
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

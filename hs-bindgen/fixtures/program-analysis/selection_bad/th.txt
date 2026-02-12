@@ -14,8 +14,7 @@ newtype A
 
            __exported by:__ @program-analysis\/selection_bad.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

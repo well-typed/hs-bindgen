@@ -20,6 +20,7 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -33,6 +34,7 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -46,6 +48,7 @@ hstypes:
       fields:
       - unwrapMyUnion
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

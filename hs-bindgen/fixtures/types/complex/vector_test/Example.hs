@@ -44,8 +44,7 @@ data Vector = Vector
          __exported by:__ @types\/complex\/vector_test.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Vector where
 

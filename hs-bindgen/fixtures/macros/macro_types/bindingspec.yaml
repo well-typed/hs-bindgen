@@ -47,6 +47,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -75,6 +76,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -101,6 +103,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -124,6 +127,7 @@ hstypes:
       - unwrapPtrInt
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -141,6 +145,7 @@ hstypes:
       - unwrapPtrPtrChar
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -163,6 +168,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -191,6 +197,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -217,6 +224,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -245,6 +253,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -273,6 +282,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

@@ -36,8 +36,7 @@ data B = B
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize B where
 
@@ -89,8 +88,7 @@ data A = A
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A where
 

@@ -46,8 +46,7 @@ data S1 = S1
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S1 where
 
@@ -126,8 +125,7 @@ data S2_t = S2_t
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S2_t where
 
@@ -205,8 +203,7 @@ data S3_t = S3_t
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S3_t where
 
@@ -272,8 +269,7 @@ data S4 = S4
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S4 where
 
@@ -358,8 +354,7 @@ data S5 = S5
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S5 where
 
@@ -431,8 +426,7 @@ data S6 = S6
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S6 where
 
@@ -504,8 +498,7 @@ data S7a_Aux = S7a_Aux
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S7a_Aux where
 
@@ -564,8 +557,7 @@ instance GHC.Records.HasField "s7a_Aux_b" (Ptr.Ptr S7a_Aux) (Ptr.Ptr FC.CInt) wh
 newtype S7a = S7a
   { unwrapS7a :: Ptr.Ptr S7a_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -607,8 +599,7 @@ data S7b_Aux = S7b_Aux
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S7b_Aux where
 
@@ -667,8 +658,7 @@ instance GHC.Records.HasField "s7b_Aux_b" (Ptr.Ptr S7b_Aux) (Ptr.Ptr FC.CInt) wh
 newtype S7b = S7b
   { unwrapS7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

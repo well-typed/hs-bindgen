@@ -94,8 +94,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux" w
 newtype Fun_ptr = Fun_ptr
   { unwrapFun_ptr :: Ptr.FunPtr Fun_ptr_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -131,8 +130,7 @@ data Forward_declaration = Forward_declaration
          __exported by:__ @functions\/circular_dependency_fun.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Forward_declaration where
 

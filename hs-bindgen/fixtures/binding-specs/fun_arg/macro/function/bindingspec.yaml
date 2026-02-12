@@ -20,6 +20,7 @@ hstypes:
       fields:
       - unwrapA
   instances:
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -30,6 +31,7 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -41,6 +43,7 @@ hstypes:
       - unwrapMyFunction
   instances:
   - FromFunPtr
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

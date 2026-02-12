@@ -19,8 +19,7 @@ data OkBefore
 
            __exported by:__ @program-analysis\/selection_fail.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize OkBefore
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -55,8 +54,7 @@ data OkAfter
 
            __exported by:__ @program-analysis\/selection_fail.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize OkAfter
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

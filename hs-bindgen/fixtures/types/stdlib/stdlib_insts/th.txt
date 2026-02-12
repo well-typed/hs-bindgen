@@ -30,8 +30,7 @@ newtype Stdlib_CBool
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -68,8 +67,7 @@ newtype Stdlib_Int8
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -107,8 +105,7 @@ newtype Stdlib_Int16
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -146,8 +143,7 @@ newtype Stdlib_Int32
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -185,8 +181,7 @@ newtype Stdlib_Int64
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -224,8 +219,7 @@ newtype Stdlib_Word8
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -263,8 +257,7 @@ newtype Stdlib_Word16
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -302,8 +295,7 @@ newtype Stdlib_Word32
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -341,8 +333,7 @@ newtype Stdlib_Word64
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -380,8 +371,7 @@ newtype Stdlib_CIntMax
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -419,8 +409,7 @@ newtype Stdlib_CUIntMax
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -458,8 +447,7 @@ newtype Stdlib_CIntPtr
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -497,8 +485,7 @@ newtype Stdlib_CUIntPtr
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -582,8 +569,7 @@ newtype Stdlib_CSize
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -621,8 +607,7 @@ newtype Stdlib_CPtrdiff
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -683,8 +668,7 @@ newtype Stdlib_CWchar
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -722,8 +706,7 @@ newtype Stdlib_CWintT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -784,8 +767,7 @@ newtype Stdlib_CWctransT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -814,8 +796,7 @@ newtype Stdlib_CWctypeT
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -844,8 +825,7 @@ newtype Stdlib_CChar16T
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -883,8 +863,7 @@ newtype Stdlib_CChar32T
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -922,8 +901,7 @@ newtype Stdlib_CTime
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -954,8 +932,7 @@ newtype Stdlib_CClock
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -986,8 +963,7 @@ newtype Stdlib_CTm
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw)
 instance HasField "unwrapStdlib_CTm"
                   (Ptr Stdlib_CTm)
@@ -1057,8 +1033,7 @@ newtype Stdlib_CSigAtomic
 
            __exported by:__ @types\/stdlib\/stdlib_insts.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

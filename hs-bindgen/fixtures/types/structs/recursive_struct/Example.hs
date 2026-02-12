@@ -44,8 +44,7 @@ data Linked_list_A_t = Linked_list_A_t
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Linked_list_A_t where
 
@@ -119,8 +118,7 @@ data Linked_list_B_t = Linked_list_B_t
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Linked_list_B_t where
 

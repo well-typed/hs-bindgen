@@ -21,6 +21,7 @@ hstypes:
   instances:
   - Eq
   - Flam_Offset
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

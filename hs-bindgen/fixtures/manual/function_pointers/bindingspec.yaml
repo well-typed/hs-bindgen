@@ -21,6 +21,7 @@ hstypes:
       - apply1Struct_apply1_nopointer_struct_field
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -35,6 +36,7 @@ hstypes:
       fields:
       - unwrapApply1Union
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -49,6 +51,7 @@ hstypes:
       - unwrapInt2int
   instances:
   - FromFunPtr
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

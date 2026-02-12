@@ -146,7 +146,7 @@ translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord Record{
       typ     = struct.name
     , con     = struct.constr
-    , deriv   = [(Hs.DeriveStock, [Generic_class])]
+    , deriv   = []
     , comment = struct.comment
     , origin  = case struct.origin of
                   Just origin -> origin
@@ -174,7 +174,7 @@ translateNewtype n = DNewtype Newtype{
       name    = n.name
     , con     = n.constr
     , origin  = n.origin
-    , deriv   = [(Hs.DeriveStock, [Generic_class])]
+    , deriv   = []
     , comment = n.comment
     , field   = Field {
           name    = n.field.name
@@ -203,6 +203,7 @@ translateTypeClass = \case
     Inst.Floating        -> TGlobal Floating_class
     Inst.Fractional      -> TGlobal Fractional_class
     Inst.FromFunPtr      -> TGlobal FromFunPtr_class
+    Inst.Generic         -> TGlobal Generic_class
     Inst.HasCBitField    -> TGlobal HasCBitfield_class
     Inst.HasCField       -> TGlobal HasCField_class
     Inst.HasFFIType      -> TGlobal HasFFIType_class

@@ -39,8 +39,7 @@ data Pascal_Aux = Pascal
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Pascal_Aux where
 
@@ -112,8 +111,7 @@ data Foo_bar = Foo_bar
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo_bar where
 
@@ -178,8 +176,7 @@ data Foo_Aux = Foo
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo_Aux where
 
@@ -251,8 +248,7 @@ data Diff_Aux = Diff
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Diff_Aux where
 
@@ -332,8 +328,7 @@ data Triplets_Aux = Triplets
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Triplets_Aux where
 

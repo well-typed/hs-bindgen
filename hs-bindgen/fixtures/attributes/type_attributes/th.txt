@@ -19,8 +19,7 @@ data S
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -49,8 +48,7 @@ newtype More_aligned_int
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -94,8 +92,7 @@ data S2
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S2
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 16 :: Int
@@ -137,8 +134,7 @@ data My_unpacked_struct
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize My_unpacked_struct
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -199,8 +195,7 @@ data My_packed_struct
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize My_packed_struct
     where staticSizeOf = \_ -> 13 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -361,8 +356,7 @@ newtype T1
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -397,8 +391,7 @@ newtype Short_a
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

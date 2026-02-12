@@ -40,8 +40,7 @@ data Struct2
 
            __exported by:__ @types\/special\/parse_failure_long_double.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Struct2
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int

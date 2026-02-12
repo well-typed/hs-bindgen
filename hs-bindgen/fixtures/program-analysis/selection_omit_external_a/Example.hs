@@ -37,8 +37,7 @@ data UnrelatedDeclaration = UnrelatedDeclaration
          __exported by:__ @program-analysis\/selection_omit_external_a.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize UnrelatedDeclaration where
 

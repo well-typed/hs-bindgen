@@ -43,6 +43,7 @@ hstypes:
   instances:
   - Eq
   - Flam_Offset
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -61,6 +62,7 @@ hstypes:
   instances:
   - Eq
   - Flam_Offset
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -77,6 +79,7 @@ hstypes:
       - foo_bar_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -95,6 +98,7 @@ hstypes:
   instances:
   - Eq
   - Flam_Offset
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -113,6 +117,7 @@ hstypes:
   instances:
   - Eq
   - Flam_Offset
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

@@ -61,8 +61,7 @@ newtype F1
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -135,8 +134,7 @@ newtype F2
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -209,8 +207,7 @@ newtype F3
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -280,8 +277,7 @@ newtype F4
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -349,8 +345,7 @@ newtype F5
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -375,8 +370,7 @@ newtype MyInt
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -457,8 +451,7 @@ newtype F6
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

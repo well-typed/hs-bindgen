@@ -29,8 +29,7 @@ data Foo
 
            __exported by:__ @types\/primitives\/fixedwidth.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int

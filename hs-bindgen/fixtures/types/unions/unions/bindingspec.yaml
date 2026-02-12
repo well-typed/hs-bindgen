@@ -41,6 +41,7 @@ hstypes:
       fields:
       - unwrapAnonA
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -56,6 +57,7 @@ hstypes:
       - anonA_polar_p
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -72,6 +74,7 @@ hstypes:
       - anonA_xy_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -87,6 +90,7 @@ hstypes:
       - dim_tag
       - dim_payload
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -102,6 +106,7 @@ hstypes:
       - dim2_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -119,6 +124,7 @@ hstypes:
       - dim3_z
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -134,6 +140,7 @@ hstypes:
       - dimB_tag
       - dimB_payload
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -147,6 +154,7 @@ hstypes:
       fields:
       - unwrapDimPayload
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -160,6 +168,7 @@ hstypes:
       fields:
       - unwrapDimPayloadB
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

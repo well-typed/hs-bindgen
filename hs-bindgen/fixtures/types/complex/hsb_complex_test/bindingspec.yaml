@@ -20,6 +20,7 @@ hstypes:
       - complex_object_t_id
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

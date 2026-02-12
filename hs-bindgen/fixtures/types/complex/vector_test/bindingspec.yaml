@@ -19,6 +19,7 @@ hstypes:
       - vector_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

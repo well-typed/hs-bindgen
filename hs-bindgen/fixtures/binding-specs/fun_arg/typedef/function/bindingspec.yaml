@@ -21,6 +21,7 @@ hstypes:
       - unwrapA
   instances:
   - FromFunPtr
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -32,6 +33,7 @@ hstypes:
       fields:
       - unwrapB
   instances:
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -42,5 +44,6 @@ hstypes:
       fields:
       - unwrapE
   instances:
+  - Generic
   - HasCField
   - HasField

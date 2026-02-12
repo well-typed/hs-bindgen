@@ -47,8 +47,7 @@ data Dim2 = Dim2
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Dim2 where
 
@@ -127,8 +126,7 @@ data Dim3 = Dim3
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Dim3 where
 
@@ -547,8 +545,7 @@ data AnonA_xy = AnonA_xy
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize AnonA_xy where
 
@@ -620,8 +617,7 @@ data AnonA_polar = AnonA_polar
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize AnonA_polar where
 

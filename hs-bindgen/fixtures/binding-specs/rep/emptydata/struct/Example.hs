@@ -69,8 +69,7 @@ data Named = Named
          __exported by:__ @binding-specs\/rep\/emptydata\/struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Named where
 

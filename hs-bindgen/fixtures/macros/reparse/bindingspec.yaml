@@ -128,6 +128,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -151,6 +152,7 @@ hstypes:
       - unwrapArr_typedef1
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - Show
@@ -162,6 +164,7 @@ hstypes:
       - unwrapArr_typedef2
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - Show
@@ -173,6 +176,7 @@ hstypes:
       - unwrapArr_typedef3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -188,6 +192,7 @@ hstypes:
       - unwrapArr_typedef4
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -208,6 +213,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -236,6 +242,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -259,6 +266,7 @@ hstypes:
       - unwrapConst_funptr1
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -276,6 +284,7 @@ hstypes:
       - unwrapConst_funptr2
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -293,6 +302,7 @@ hstypes:
       - unwrapConst_funptr3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -310,6 +320,7 @@ hstypes:
       - unwrapConst_funptr4
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -327,6 +338,7 @@ hstypes:
       - unwrapConst_funptr5
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -344,6 +356,7 @@ hstypes:
       - unwrapConst_funptr6
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -361,6 +374,7 @@ hstypes:
       - unwrapConst_funptr7
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -383,6 +397,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -411,6 +426,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -434,6 +450,7 @@ hstypes:
       - unwrapConst_typedef3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -451,6 +468,7 @@ hstypes:
       - unwrapConst_typedef4
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -468,6 +486,7 @@ hstypes:
       - unwrapConst_typedef5
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -485,6 +504,7 @@ hstypes:
       - unwrapConst_typedef6
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -502,6 +522,7 @@ hstypes:
       - unwrapConst_typedef7
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -521,6 +542,7 @@ hstypes:
       - example_struct_field3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -542,6 +564,7 @@ hstypes:
       - example_struct_with_const_const_field7
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -557,6 +580,7 @@ hstypes:
       - unwrapFunptr_typedef1
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -574,6 +598,7 @@ hstypes:
       - unwrapFunptr_typedef2
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -591,6 +616,7 @@ hstypes:
       - unwrapFunptr_typedef3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -608,6 +634,7 @@ hstypes:
       - unwrapFunptr_typedef4
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -625,6 +652,7 @@ hstypes:
       - unwrapFunptr_typedef5
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -647,6 +675,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -670,6 +699,7 @@ hstypes:
       - unwrapINTCP
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -687,6 +717,7 @@ hstypes:
       - unwrapINTP
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -705,6 +736,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -724,6 +756,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -736,6 +769,7 @@ hstypes:
       fields:
       - unwrapSome_union
   instances:
+  - Generic
   - ReadRaw
   - StaticSize
   - Storable
@@ -753,6 +787,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -776,6 +811,7 @@ hstypes:
       - unwrapTypedef2
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -793,6 +829,7 @@ hstypes:
       - unwrapTypedef3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

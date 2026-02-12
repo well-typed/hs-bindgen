@@ -37,8 +37,7 @@ data Thing = Thing
          __exported by:__ @types\/structs\/struct_arg.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Thing where
 

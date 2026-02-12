@@ -30,6 +30,7 @@ hstypes:
       - named_f
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

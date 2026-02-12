@@ -13,8 +13,7 @@ newtype First
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize First
     where staticSizeOf = \_ -> 4 :: Int
@@ -93,8 +92,7 @@ newtype Second
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Second
     where staticSizeOf = \_ -> 4 :: Int
@@ -188,8 +186,7 @@ newtype Same
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Same
     where staticSizeOf = \_ -> 4 :: Int
@@ -267,8 +264,7 @@ newtype Nonseq
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Nonseq
     where staticSizeOf = \_ -> 4 :: Int
@@ -357,8 +353,7 @@ newtype Packed
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Packed
     where staticSizeOf = \_ -> 1 :: Int
@@ -452,8 +447,7 @@ newtype EnumA
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumA
     where staticSizeOf = \_ -> 4 :: Int
@@ -532,8 +526,7 @@ newtype EnumB
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumB
     where staticSizeOf = \_ -> 4 :: Int
@@ -612,8 +605,7 @@ newtype EnumC
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumC
     where staticSizeOf = \_ -> 4 :: Int
@@ -692,8 +684,7 @@ newtype EnumD_t
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumD_t
     where staticSizeOf = \_ -> 4 :: Int

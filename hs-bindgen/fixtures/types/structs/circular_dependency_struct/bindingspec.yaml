@@ -18,6 +18,7 @@ hstypes:
       - a_toB
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -33,6 +34,7 @@ hstypes:
       - b_toA
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

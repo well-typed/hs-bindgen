@@ -384,8 +384,7 @@ newtype Size_type
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -457,8 +456,7 @@ newtype Color_enum
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Color_enum
     where staticSizeOf = \_ -> 4 :: Int
@@ -636,8 +634,7 @@ newtype Event_callback_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -733,8 +730,7 @@ data Config_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Config_t
     where staticSizeOf = \_ -> 88 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -813,8 +809,7 @@ newtype Status_code_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Status_code_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -1008,8 +1003,7 @@ data Data_union_t_as_parts
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Data_union_t_as_parts
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 2 :: Int
@@ -1331,8 +1325,7 @@ data Bitfield_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Bitfield_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -1466,8 +1459,7 @@ newtype Processor_fn_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -1507,8 +1499,7 @@ newtype Filename_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapFilename_t"
                   (Ptr Filename_t)
@@ -1544,8 +1535,7 @@ data Flexible_array_Aux
 
                       __exported by:__ @documentation\/doxygen_docs.h@
                       -}}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Flexible_array_Aux
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int

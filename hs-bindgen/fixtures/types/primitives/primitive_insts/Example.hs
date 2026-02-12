@@ -38,8 +38,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Rea
 newtype Prim_HsPrimCPtrdiff = Prim_HsPrimCPtrdiff
   { unwrapPrim_HsPrimCPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -79,8 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCPtrdiff "unwrapPrim_H
 newtype Prim_HsPrimInt8 = Prim_HsPrimInt8
   { unwrapPrim_HsPrimInt8 :: HsBindgen.Runtime.LibC.Int8
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -120,8 +118,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt8 "unwrapPrim_HsPri
 newtype Prim_HsPrimInt16 = Prim_HsPrimInt16
   { unwrapPrim_HsPrimInt16 :: HsBindgen.Runtime.LibC.Int16
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -161,8 +158,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt16 "unwrapPrim_HsPr
 newtype Prim_HsPrimInt32 = Prim_HsPrimInt32
   { unwrapPrim_HsPrimInt32 :: HsBindgen.Runtime.LibC.Int32
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -202,8 +198,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt32 "unwrapPrim_HsPr
 newtype Prim_HsPrimInt64 = Prim_HsPrimInt64
   { unwrapPrim_HsPrimInt64 :: HsBindgen.Runtime.LibC.Int64
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -243,8 +238,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt64 "unwrapPrim_HsPr
 newtype Prim_HsPrimWord8 = Prim_HsPrimWord8
   { unwrapPrim_HsPrimWord8 :: HsBindgen.Runtime.LibC.Word8
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -284,8 +278,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord8 "unwrapPrim_HsPr
 newtype Prim_HsPrimWord16 = Prim_HsPrimWord16
   { unwrapPrim_HsPrimWord16 :: HsBindgen.Runtime.LibC.Word16
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -325,8 +318,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord16 "unwrapPrim_HsP
 newtype Prim_HsPrimWord32 = Prim_HsPrimWord32
   { unwrapPrim_HsPrimWord32 :: HsBindgen.Runtime.LibC.Word32
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -366,8 +358,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord32 "unwrapPrim_HsP
 newtype Prim_HsPrimWord64 = Prim_HsPrimWord64
   { unwrapPrim_HsPrimWord64 :: HsBindgen.Runtime.LibC.Word64
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -407,8 +398,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord64 "unwrapPrim_HsP
 newtype Prim_HsPrimCChar = Prim_HsPrimCChar
   { unwrapPrim_HsPrimCChar :: FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -448,8 +438,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCChar "unwrapPrim_HsPr
 newtype Prim_HsPrimCSChar = Prim_HsPrimCSChar
   { unwrapPrim_HsPrimCSChar :: FC.CSChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -489,8 +478,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCSChar "unwrapPrim_HsP
 newtype Prim_HsPrimCUChar = Prim_HsPrimCUChar
   { unwrapPrim_HsPrimCUChar :: FC.CUChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -530,8 +518,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCUChar "unwrapPrim_HsP
 newtype Prim_HsPrimCShort = Prim_HsPrimCShort
   { unwrapPrim_HsPrimCShort :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -571,8 +558,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCShort "unwrapPrim_HsP
 newtype Prim_HsPrimCUShort = Prim_HsPrimCUShort
   { unwrapPrim_HsPrimCUShort :: FC.CUShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -612,8 +598,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCUShort "unwrapPrim_Hs
 newtype Prim_HsPrimCInt = Prim_HsPrimCInt
   { unwrapPrim_HsPrimCInt :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -653,8 +638,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCInt "unwrapPrim_HsPri
 newtype Prim_HsPrimCUInt = Prim_HsPrimCUInt
   { unwrapPrim_HsPrimCUInt :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -694,8 +678,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCUInt "unwrapPrim_HsPr
 newtype Prim_HsPrimCLong = Prim_HsPrimCLong
   { unwrapPrim_HsPrimCLong :: FC.CLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -735,8 +718,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCLong "unwrapPrim_HsPr
 newtype Prim_HsPrimCULong = Prim_HsPrimCULong
   { unwrapPrim_HsPrimCULong :: FC.CULong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -776,8 +758,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCULong "unwrapPrim_HsP
 newtype Prim_HsPrimCLLong = Prim_HsPrimCLLong
   { unwrapPrim_HsPrimCLLong :: FC.CLLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -817,8 +798,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCLLong "unwrapPrim_HsP
 newtype Prim_HsPrimCULLong = Prim_HsPrimCULLong
   { unwrapPrim_HsPrimCULLong :: FC.CULLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -858,8 +838,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCULLong "unwrapPrim_Hs
 newtype Prim_HsPrimCBool = Prim_HsPrimCBool
   { unwrapPrim_HsPrimCBool :: FC.CBool
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -899,8 +878,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCBool "unwrapPrim_HsPr
 newtype Prim_HsPrimCFloat = Prim_HsPrimCFloat
   { unwrapPrim_HsPrimCFloat :: FC.CFloat
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -938,8 +916,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCFloat "unwrapPrim_HsP
 newtype Prim_HsPrimCDouble = Prim_HsPrimCDouble
   { unwrapPrim_HsPrimCDouble :: FC.CDouble
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

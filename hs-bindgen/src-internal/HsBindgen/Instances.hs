@@ -41,6 +41,7 @@ data TypeClass =
   | Floating
   | Fractional
   | FromFunPtr
+  | Generic
   | HasCBitField  -- Indicates instances for all bit fields
   | HasCField     -- Indicates instances for all non-bit fields
   | HasFFIType
@@ -168,10 +169,11 @@ instance Default SupportedInstances where
     SupportedInstances{
         struct = Map.fromList [
             mkDef Eq           Dependent   Stock     []
+          , mkDef Flam_Offset  Independent HsBindgen []
+          , mkDef Generic      Independent Stock     []
           , mkDef HasCBitField Independent HsBindgen []
           , mkDef HasCField    Independent HsBindgen []
           , mkDef HasField     Independent HsBindgen []
-          , mkDef Flam_Offset  Independent HsBindgen []
           , mkOpt Ord          Dependent             [Stock]
           , mkDef ReadRaw      Dependent   HsBindgen []
           , mkDef Show         Dependent   Stock     []
@@ -180,7 +182,8 @@ instance Default SupportedInstances where
           , mkDef WriteRaw     Dependent   HsBindgen []
           ]
       , union = Map.fromList [
-            mkDef HasCBitField Independent HsBindgen []
+            mkDef Generic      Independent Stock     []
+          , mkDef HasCBitField Independent HsBindgen []
           , mkDef HasCField    Independent HsBindgen []
           , mkDef HasField     Independent HsBindgen []
           , mkDef ReadRaw      Independent HsBindgen []
@@ -193,6 +196,7 @@ instance Default SupportedInstances where
           , mkDef CEnum           Independent HsBindgen []
           , mkOpt Enum            Independent           [HsBindgen, Newtype]
           , mkDef Eq              Dependent   Stock     []
+          , mkDef Generic         Independent Stock     []
           , mkDef HasCField       Independent HsBindgen []
           , mkDef HasFFIType      Dependent   Newtype   []
           , mkDef HasField        Independent HsBindgen []
@@ -216,6 +220,7 @@ instance Default SupportedInstances where
           , mkDef Floating   Dependent   Newtype   []
           , mkDef Fractional Dependent   Newtype   []
           , mkDef FromFunPtr Independent HsBindgen []
+          , mkDef Generic    Independent Stock     []
           , mkDef HasCField  Independent HsBindgen []
           , mkDef HasFFIType Dependent   Newtype   []
           , mkDef HasField   Independent HsBindgen []

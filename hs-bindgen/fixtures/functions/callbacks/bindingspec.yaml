@@ -56,6 +56,7 @@ hstypes:
       - dataPipeline_postProcess
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -71,6 +72,7 @@ hstypes:
       - unwrapDataValidator
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -88,6 +90,7 @@ hstypes:
       - unwrapFileOpenedNotification
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -110,6 +113,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -138,6 +142,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -162,6 +167,7 @@ hstypes:
       - measurement_timestamp
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -179,6 +185,7 @@ hstypes:
       - measurementHandler_onError
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -194,6 +201,7 @@ hstypes:
       - unwrapMeasurementReceived
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -211,6 +219,7 @@ hstypes:
       - unwrapMeasurementReceived2
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -228,6 +237,7 @@ hstypes:
       - processor_mode
       - processor_callback
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -241,6 +251,7 @@ hstypes:
       fields:
       - unwrapProcessorCallback
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -256,6 +267,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -276,6 +288,7 @@ hstypes:
       - unwrapProgressUpdate
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -293,6 +306,7 @@ hstypes:
       - unwrapSampleBufferFull
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

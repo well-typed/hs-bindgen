@@ -44,8 +44,7 @@ data Foo = Foo
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo where
 
@@ -117,8 +116,7 @@ data Bar = Bar
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bar where
 
@@ -190,8 +188,7 @@ data Ex3_ex3_struct = Ex3_ex3_struct
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex3_ex3_struct where
 
@@ -265,8 +262,7 @@ data Ex3 = Ex3
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex3 where
 
@@ -338,8 +334,7 @@ data Ex4_odd = Ex4_odd
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex4_odd where
 
@@ -412,8 +407,7 @@ data Ex4_even = Ex4_even
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex4_even where
 

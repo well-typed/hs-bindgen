@@ -13,8 +13,7 @@ newtype Triplet
 
            __exported by:__ @documentation\/data_kind_pragma.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapTriplet"
                   (Ptr Triplet)

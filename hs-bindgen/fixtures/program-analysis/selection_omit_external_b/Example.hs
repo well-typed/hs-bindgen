@@ -37,8 +37,7 @@ data Omitted = Omitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Omitted where
 
@@ -90,8 +89,7 @@ data DirectlyDependsOnOmitted = DirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize DirectlyDependsOnOmitted where
 
@@ -144,8 +142,7 @@ data IndirectlyDependsOnOmitted = IndirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize IndirectlyDependsOnOmitted where
 

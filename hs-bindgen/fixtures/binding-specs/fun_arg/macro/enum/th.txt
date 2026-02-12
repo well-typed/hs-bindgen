@@ -74,8 +74,7 @@ newtype MyEnum
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize MyEnum
     where staticSizeOf = \_ -> 4 :: Int
@@ -138,8 +137,7 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -165,8 +163,7 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,

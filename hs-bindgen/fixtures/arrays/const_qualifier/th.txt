@@ -254,8 +254,7 @@ newtype S
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapS" (Ptr S) (Ptr (IncompleteArray CInt))
     where getField = fromPtr (Proxy @"unwrapS")
 instance HasCField S "unwrapS"
@@ -275,8 +274,7 @@ newtype T
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance HasField "unwrapT" (Ptr T) (Ptr (IncompleteArray CInt))
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
@@ -296,8 +294,7 @@ newtype U
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapU" (Ptr U) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapU")
@@ -318,8 +315,7 @@ newtype V
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapV" (Ptr V) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapV")
@@ -340,8 +336,7 @@ newtype W
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapW" (Ptr W) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapW")
@@ -362,8 +357,7 @@ newtype X
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
 instance HasField "unwrapX" (Ptr X) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapX")

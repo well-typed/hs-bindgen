@@ -21,6 +21,7 @@ hstypes:
       - unwrapA
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -36,6 +37,7 @@ hstypes:
       - unwrapB
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -50,5 +52,6 @@ hstypes:
       fields:
       - unwrapE
   instances:
+  - Generic
   - HasCField
   - HasField

@@ -18,6 +18,7 @@ hstypes:
       - forward_declaration_f
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -33,6 +34,7 @@ hstypes:
       - unwrapFun_ptr
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

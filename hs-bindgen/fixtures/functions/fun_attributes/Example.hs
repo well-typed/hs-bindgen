@@ -42,8 +42,7 @@ __exported by:__ @functions\/fun_attributes.h@
 -}
 data FILE = FILE
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize FILE where
 
@@ -74,8 +73,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable FILE instance F.Storable FI
 newtype Size_t = Size_t
   { unwrapSize_t :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw

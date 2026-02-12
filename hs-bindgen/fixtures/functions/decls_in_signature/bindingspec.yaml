@@ -25,6 +25,7 @@ hstypes:
       - named_struct_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -39,6 +40,7 @@ hstypes:
       fields:
       - unwrapNamed_union
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -56,6 +58,7 @@ hstypes:
       - outside_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
