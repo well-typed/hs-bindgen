@@ -32,12 +32,6 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return &nonExternGlobalInt;"
   , "}"
-  , "/* test_manualglobals_Example_get_unusableAnon */"
-  , "__attribute__ ((const))"
-  , "void *hs_bindgen_15251fe91f31f74a (void)"
-  , "{"
-  , "  return &unusableAnon;"
-  , "}"
   , "/* test_manualglobals_Example_get_globalConstant */"
   , "__attribute__ ((const))"
   , "signed int const *hs_bindgen_d1d21f66d76e4647 (void)"
@@ -199,26 +193,6 @@ hs_bindgen_3cc5675744591425 =
 nonExternGlobalInt :: Ptr.Ptr FC.CInt
 nonExternGlobalInt =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3cc5675744591425
-
--- __unique:__ @test_manualglobals_Example_get_unusableAnon@
-foreign import ccall unsafe "hs_bindgen_15251fe91f31f74a" hs_bindgen_15251fe91f31f74a_base ::
-     IO (Ptr.Ptr Void)
-
--- __unique:__ @test_manualglobals_Example_get_unusableAnon@
-hs_bindgen_15251fe91f31f74a :: IO (Ptr.Ptr UnusableAnon)
-hs_bindgen_15251fe91f31f74a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_15251fe91f31f74a_base
-
-{-# NOINLINE unusableAnon #-}
-{-| __C declaration:__ @unusableAnon@
-
-    __defined at:__ @manual\/globals.h 33:3@
-
-    __exported by:__ @manual\/globals.h@
--}
-unusableAnon :: Ptr.Ptr UnusableAnon
-unusableAnon =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_15251fe91f31f74a
 
 -- __unique:__ @test_manualglobals_Example_get_globalConstant@
 foreign import ccall unsafe "hs_bindgen_d1d21f66d76e4647" hs_bindgen_d1d21f66d76e4647_base ::

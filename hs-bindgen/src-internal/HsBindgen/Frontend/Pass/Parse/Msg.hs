@@ -103,29 +103,6 @@ data DelayedParseMsg =
     -- of constructing any values), we rule them out.
   | ParseUnexpectedAnonInSignature
 
-    -- | Unexpected anonymous declaration inside @extern@
-    --
-    -- Something like
-    --
-    -- > extern struct { .. } config;
-    --
-    -- does not make sense: this declares the existence of some externally
-    -- defined global variable, but it is impossible to actually define said
-    -- global variable; an attempt such as
-    --
-    -- > #include "config.h"
-    -- > struct { .. } config = ..
-    --
-    -- will result in an error: "conflicting types for 'config'".
-    --
-    -- The /header/ however by itself will not result in a @clang@ warning, so
-    -- we detect the siutation and warn the user in @hs-bindgen@.
-    --
-    -- (As of C23, the situation is different for /named/ structs: multiple uses
-    -- of a struct with the same name are considered compatible as of
-    -- WG14-N3037.)
-  | ParseUnexpectedAnonInExtern
-
     -- | Thread local variables
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/828>
@@ -237,8 +214,6 @@ instance PrettyForTrace DelayedParseMsg where
         "unsupported implicit fields"
       ParseUnexpectedAnonInSignature -> noBindingsGenerated $
         "unexpected anonymous declaration in function signature"
-      ParseUnexpectedAnonInExtern -> noBindingsGenerated $
-        "unexpected anonymous declaration in global variable"
       ParseUnsupportedTLS -> noBindingsGenerated $
         "unsupported thread-local variable"
       ParseUnknownStorageClass storage -> noBindingsGenerated $ PP.hsep [
@@ -297,7 +272,6 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedType err         -> getDefaultLogLevel err
       ParseUnsupportedImplicitFields{} -> Warning
       ParseUnexpectedAnonInSignature{} -> Warning
-      ParseUnexpectedAnonInExtern{}    -> Warning
       ParseUnsupportedTLS{}            -> Warning
       ParseUnknownStorageClass{}       -> Warning
       ParsePotentialDuplicateSymbol{}  -> Notice

@@ -195,7 +195,12 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
             ++ withCategory (CTerm CFunPtr)  funPtrDecls
       C.DeclMacro macro -> withCategoryM CType $
         macroDecs supInsts.typedef haddockConfig info macro spec
-      C.DeclGlobal ty -> do
+      C.DeclGlobal C.IsExtern ty
+        -- An extern global with an anonymous type can never have a matching
+        -- definition (the anonymous struct/enum in a .c file would be a
+        -- different type), so we skip binding generation entirely.
+        | isAnonType ty -> pure []
+      C.DeclGlobal _ext ty -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
           global uniqueId haddockConfig moduleName transState sizeofs info ty spec
@@ -208,6 +213,11 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
 
     supInsts :: Inst.SupportedInstances
     supInsts = def
+
+    isAnonType :: C.Type Final -> Bool
+    isAnonType (C.TypeRef ref)  = ref.cName.isAnon
+    isAnonType (C.TypeEnum ref) = ref.name.cName.isAnon
+    isAnonType _                = False
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum

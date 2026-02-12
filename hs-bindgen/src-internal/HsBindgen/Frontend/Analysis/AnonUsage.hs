@@ -178,7 +178,7 @@ analyseDecl decl =
       C.DeclOpaque             -> []
       C.DeclMacro            _ -> []
       C.DeclFunction         _ -> []
-      C.DeclGlobal           x -> analyseGlobal  decl.info x
+      C.DeclGlobal         _ x -> analyseGlobal  decl.info x
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(AnonId, Context)]
 analyseStruct info struct = concat [
