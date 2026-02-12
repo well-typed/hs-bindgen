@@ -599,7 +599,7 @@ MacOS.
     buildable: false
   ```
 
-## Using `hs-bindgen` with bundled C source files (without shared libraries)
+## Using `hs-bindgen` with bundled C source files
 
 All examples in the preceding sections assume that the C library you are
 binding to is built separately and linked as a shared library. However, when
