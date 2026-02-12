@@ -144,6 +144,7 @@ scanAllFunctionPointerTypes = foldMap $ \decl ->
       -- typedefFunPtrDecs (see generateDecs). Scanning would create duplicate
       -- ToFunPtr/FromFunPtr instances. We still scan other typedefs to find
       -- nested function pointers.
+      -- When #1520 is addressed this could should be updated.
       C.TypeTypedef (C.Ref _ t) -> case t of
         C.TypePointers _ (C.TypeFun _ _) -> Set.empty
         _                                -> scanTypeForFunctionPointers t
