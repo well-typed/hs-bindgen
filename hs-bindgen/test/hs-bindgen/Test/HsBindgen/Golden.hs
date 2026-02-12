@@ -159,7 +159,6 @@ testCases_default = [
     , defaultTest "types/primitives/primitive_types"
     , defaultTest "types/qualifiers/type_qualifiers"
     , defaultTest "types/qualifiers/const_typedefs"
-    , defaultTest "types/stdlib/stdlib_insts"
     , defaultTest "types/structs/anonymous"
     , defaultTest "types/structs/bitfields"
     , defaultTest "types/structs/circular_dependency_struct"
@@ -439,8 +438,7 @@ test_attributes_visibility_attributes =
 
 testCases_bespoke_bindingSpecs :: [TestCase]
 testCases_bespoke_bindingSpecs = [
-      test_bindingSpecs_standard_library_external_binding_specs
-    , test_bindingSpecs_omit_type
+      test_bindingSpecs_omit_type
       -- * Bugs / regression tests
     , test_bindingSpecs_macro_trans_dep_missing
       -- * Naming types
@@ -471,14 +469,10 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_function_pointer
     , test_bindingSpecs_fun_arg_macro_struct
     , test_bindingSpecs_fun_arg_macro_union
+      -- * Standard library
+    , test_bindingSpecs_stdlib_instances
+    , test_bindingSpecs_standard_library_external_binding_specs
     ]
-
-test_bindingSpecs_standard_library_external_binding_specs :: TestCase
-test_bindingSpecs_standard_library_external_binding_specs =
-    defaultTest "binding-specs/standard_library_external_binding_specs"
-      & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate  .~ BTrue
-          )
 
 test_bindingSpecs_omit_type :: TestCase
 test_bindingSpecs_omit_type =
@@ -794,6 +788,30 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
     _otherwise ->
       Nothing
   )
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: binding specs: standard library
+-------------------------------------------------------------------------------}
+
+-- This test sets the parse predicate to parse all declarations, which results
+-- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
+-- setting the parse predicate, but it results in use of 'FC.CBool' instead.
+test_bindingSpecs_stdlib_instances :: TestCase
+test_bindingSpecs_stdlib_instances =
+    defaultTest "binding-specs/stdlib/instances"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate .~ BTrue
+          )
+
+-- This test sets the parse predicate to parse all declarations, which results
+-- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
+-- setting the parse predicate, but it results in use of 'FC.CBool' instead.
+test_bindingSpecs_standard_library_external_binding_specs :: TestCase
+test_bindingSpecs_standard_library_external_binding_specs =
+    defaultTest "binding-specs/standard_library_external_binding_specs"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate .~ BTrue
+          )
 
 {-------------------------------------------------------------------------------
   Bespoke tests: declarations
