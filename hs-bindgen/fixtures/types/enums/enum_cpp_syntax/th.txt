@@ -16,8 +16,7 @@ newtype Foo_enum
 
            __exported by:__ @types\/enums\/enum_cpp_syntax.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Foo_enum
     where staticSizeOf = \_ -> 4 :: Int
@@ -49,8 +48,9 @@ instance Read Foo_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty (CFieldType Foo_enum "unwrapFoo_enum") =>
-         HasField "unwrapFoo_enum" (Ptr Foo_enum) (Ptr ty)
+instance HasField "unwrapFoo_enum"
+                  (Ptr Foo_enum)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
     where getField = fromPtr (Proxy @"unwrapFoo_enum")
 instance HasCField Foo_enum "unwrapFoo_enum"
     where type CFieldType Foo_enum

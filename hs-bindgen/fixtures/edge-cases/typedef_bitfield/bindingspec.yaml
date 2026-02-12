@@ -29,6 +29,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -57,6 +58,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -82,6 +84,7 @@ hstypes:
       - myStruct_z
   instances:
   - Eq
+  - Generic
   - HasCBitField
   - HasField
   - ReadRaw
@@ -102,6 +105,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

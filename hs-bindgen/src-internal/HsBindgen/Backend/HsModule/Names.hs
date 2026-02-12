@@ -58,7 +58,6 @@ import HsBindgen.Runtime.Internal.TypeEquality qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.PtrConst qualified
 
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Imports qualified as GHC.Generics
@@ -511,41 +510,40 @@ resolveGlobal = \case
     ByteArray_getUnionPayload -> importQ 'HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
     ByteArray_setUnionPayload -> importQ 'HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
 
-    PrimType hsPrimType -> case hsPrimType of
-      HsPrimVoid       -> importU ''Data.Void.Void
-      HsPrimUnit       -> tupleResolvedName True 0
-      HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
-      HsPrimCPtrdiff   -> importQ ''Foreign.C.CPtrdiff
-      HsPrimChar       -> importU ''Char
-      HsPrimInt        -> importU ''Int
-      HsPrimDouble     -> importU ''Double
-      HsPrimFloat      -> importU ''Float
-      HsPrimBool       -> importU ''Bool
-      HsPrimInt8       -> importQ ''Data.Int.Int8
-      HsPrimInt16      -> importQ ''Data.Int.Int16
-      HsPrimInt32      -> importQ ''Data.Int.Int32
-      HsPrimInt64      -> importQ ''Data.Int.Int64
-      HsPrimWord       -> importQ ''Word
-      HsPrimWord8      -> importQ ''Data.Word.Word8
-      HsPrimWord16     -> importQ ''Data.Word.Word16
-      HsPrimWord32     -> importQ ''Data.Word.Word32
-      HsPrimWord64     -> importQ ''Data.Word.Word64
-      HsPrimCChar      -> importQ ''Foreign.C.CChar
-      HsPrimCSChar     -> importQ ''Foreign.C.CSChar
-      HsPrimCUChar     -> importQ ''Foreign.C.CUChar
-      HsPrimCShort     -> importQ ''Foreign.C.CShort
-      HsPrimCUShort    -> importQ ''Foreign.C.CUShort
-      HsPrimCInt       -> importQ ''Foreign.C.CInt
-      HsPrimCUInt      -> importQ ''Foreign.C.CUInt
-      HsPrimCLong      -> importQ ''Foreign.C.CLong
-      HsPrimCULong     -> importQ ''Foreign.C.CULong
-      HsPrimCLLong     -> importQ ''Foreign.C.CLLong
-      HsPrimCULLong    -> importQ ''Foreign.C.CULLong
-      HsPrimCBool      -> importQ ''Foreign.C.CBool
-      HsPrimCFloat     -> importQ ''Foreign.C.CFloat
-      HsPrimCDouble    -> importQ ''Foreign.C.CDouble
-
     ComplexType -> importQ ''Complex.Complex
+
+    Void_type       -> importU ''Data.Void.Void
+    Unit_type       -> tupleResolvedName True 0
+    CStringLen_type -> importQ ''Foreign.C.String.CStringLen
+    CPtrdiff_type   -> importQ ''Foreign.C.CPtrdiff
+    Char_type       -> importU ''Char
+    Int_type        -> importU ''Int
+    Double_type     -> importU ''Double
+    Float_type      -> importU ''Float
+    Bool_type       -> importU ''Bool
+    Int8_type       -> importQ ''Data.Int.Int8
+    Int16_type      -> importQ ''Data.Int.Int16
+    Int32_type      -> importQ ''Data.Int.Int32
+    Int64_type      -> importQ ''Data.Int.Int64
+    Word_type       -> importQ ''Word
+    Word8_type      -> importQ ''Data.Word.Word8
+    Word16_type     -> importQ ''Data.Word.Word16
+    Word32_type     -> importQ ''Data.Word.Word32
+    Word64_type     -> importQ ''Data.Word.Word64
+    CChar_type      -> importQ ''Foreign.C.CChar
+    CSChar_type     -> importQ ''Foreign.C.CSChar
+    CUChar_type     -> importQ ''Foreign.C.CUChar
+    CShort_type     -> importQ ''Foreign.C.CShort
+    CUShort_type    -> importQ ''Foreign.C.CUShort
+    CInt_type       -> importQ ''Foreign.C.CInt
+    CUInt_type      -> importQ ''Foreign.C.CUInt
+    CLong_type      -> importQ ''Foreign.C.CLong
+    CULong_type     -> importQ ''Foreign.C.CULong
+    CLLong_type     -> importQ ''Foreign.C.CLLong
+    CULLong_type    -> importQ ''Foreign.C.CULLong
+    CBool_type      -> importQ ''Foreign.C.CBool
+    CFloat_type     -> importQ ''Foreign.C.CFloat
+    CDouble_type    -> importQ ''Foreign.C.CDouble
 
 {-------------------------------------------------------------------------------
   BackendName

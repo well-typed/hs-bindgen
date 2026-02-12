@@ -3,14 +3,12 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,7 +21,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct rect@
@@ -72,8 +69,7 @@ data Named = Named
          __exported by:__ @binding-specs\/rep\/emptydata\/struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Named where
 
@@ -107,8 +103,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Named "named_e" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named) "named_e")
-         ) => GHC.Records.HasField "named_e" (Ptr.Ptr Named) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "named_e" (Ptr.Ptr Named) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_e")
@@ -119,8 +114,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Named "named_f" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named) "named_f")
-         ) => GHC.Records.HasField "named_f" (Ptr.Ptr Named) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "named_f" (Ptr.Ptr Named) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_f")

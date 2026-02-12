@@ -80,8 +80,7 @@ data MyStruct
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize MyStruct
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -94,8 +93,7 @@ deriving via (EquivStorable MyStruct) instance Storable MyStruct
 instance HasCField MyStruct "myStruct_x"
     where type CFieldType MyStruct "myStruct_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType MyStruct "myStruct_x") =>
-         HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
+instance HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
     where getField = fromPtr (Proxy @"myStruct_x")
 {-| __C declaration:__ @A@
 
@@ -111,11 +109,9 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr MyStruct)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyStruct
@@ -134,11 +130,9 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/struct.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType B "unwrapB") =>
-         HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

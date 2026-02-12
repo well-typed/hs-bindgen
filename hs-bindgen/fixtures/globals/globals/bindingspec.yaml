@@ -37,6 +37,7 @@ hstypes:
       - config_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -53,6 +54,7 @@ hstypes:
       - inline_struct_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -70,6 +72,7 @@ hstypes:
       - struct1_t_version
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -85,6 +88,7 @@ hstypes:
       - struct2_t_field1
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -102,6 +106,7 @@ hstypes:
       - version_t_patch
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

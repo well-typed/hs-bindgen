@@ -50,6 +50,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -74,6 +75,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -104,6 +106,7 @@ hstypes:
       - a_typedef_struct_t_field_10
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -120,6 +123,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -141,6 +145,7 @@ hstypes:
       - another_typedef_struct_t_bar
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -156,6 +161,7 @@ hstypes:
       - unwrapCallback_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -178,6 +184,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

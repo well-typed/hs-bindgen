@@ -169,8 +169,7 @@ data Complex_object_t
 
            __exported by:__ @types\/complex\/hsb_complex_test.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Complex_object_t
     where staticSizeOf = \_ -> 32 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -186,28 +185,24 @@ instance HasCField Complex_object_t "complex_object_t_velocity"
     where type CFieldType Complex_object_t
                           "complex_object_t_velocity" = Complex CFloat
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Complex_object_t "complex_object_t_velocity") =>
-         HasField "complex_object_t_velocity"
+instance HasField "complex_object_t_velocity"
                   (Ptr Complex_object_t)
-                  (Ptr ty)
+                  (Ptr (Complex CFloat))
     where getField = fromPtr (Proxy @"complex_object_t_velocity")
 instance HasCField Complex_object_t "complex_object_t_position"
     where type CFieldType Complex_object_t
                           "complex_object_t_position" = Complex CDouble
           offset# = \_ -> \_ -> 8
-instance TyEq ty
-              (CFieldType Complex_object_t "complex_object_t_position") =>
-         HasField "complex_object_t_position"
+instance HasField "complex_object_t_position"
                   (Ptr Complex_object_t)
-                  (Ptr ty)
+                  (Ptr (Complex CDouble))
     where getField = fromPtr (Proxy @"complex_object_t_position")
 instance HasCField Complex_object_t "complex_object_t_id"
     where type CFieldType Complex_object_t "complex_object_t_id" = CInt
           offset# = \_ -> \_ -> 24
-instance TyEq ty
-              (CFieldType Complex_object_t "complex_object_t_id") =>
-         HasField "complex_object_t_id" (Ptr Complex_object_t) (Ptr ty)
+instance HasField "complex_object_t_id"
+                  (Ptr Complex_object_t)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"complex_object_t_id")
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
 foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fba0e_base ::

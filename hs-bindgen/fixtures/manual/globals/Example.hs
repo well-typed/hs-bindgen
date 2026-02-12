@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -32,7 +30,6 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @struct globalConfig@
@@ -57,8 +54,7 @@ data GlobalConfig = GlobalConfig
          __exported by:__ @manual\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize GlobalConfig where
 
@@ -93,8 +89,7 @@ instance HsBindgen.Runtime.HasCField.HasCField GlobalConfig "globalConfig_numThr
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globalConfig_numThreads")
-         ) => GHC.Records.HasField "globalConfig_numThreads" (Ptr.Ptr GlobalConfig) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "globalConfig_numThreads" (Ptr.Ptr GlobalConfig) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"globalConfig_numThreads")
@@ -106,8 +101,7 @@ instance HsBindgen.Runtime.HasCField.HasCField GlobalConfig "globalConfig_numWor
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globalConfig_numWorkers")
-         ) => GHC.Records.HasField "globalConfig_numWorkers" (Ptr.Ptr GlobalConfig) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "globalConfig_numWorkers" (Ptr.Ptr GlobalConfig) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"globalConfig_numWorkers")
@@ -121,8 +115,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globa
 newtype ConstInt = ConstInt
   { unwrapConstInt :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -141,8 +134,7 @@ newtype ConstInt = ConstInt
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ConstInt) "unwrapConstInt")
-         ) => GHC.Records.HasField "unwrapConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConstInt")
@@ -175,8 +167,7 @@ data Tuple = Tuple
          __exported by:__ @manual\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Tuple where
 
@@ -210,8 +201,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tuple "tuple_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_x")
-         ) => GHC.Records.HasField "tuple_x" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "tuple_x" (Ptr.Ptr Tuple) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tuple_x")
@@ -222,8 +212,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tuple "tuple_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_y")
-         ) => GHC.Records.HasField "tuple_y" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "tuple_y" (Ptr.Ptr Tuple) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tuple_y")
@@ -237,8 +226,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_y")
 newtype Triplet = Triplet
   { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -246,8 +234,7 @@ newtype Triplet = Triplet
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
-         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
@@ -268,11 +255,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 newtype List = List
   { unwrapList :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType List) "unwrapList")
-         ) => GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapList")

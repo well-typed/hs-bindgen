@@ -49,8 +49,7 @@ newtype FileOperationStatus
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize FileOperationStatus
     where staticSizeOf = \_ -> 4 :: Int
@@ -81,11 +80,9 @@ instance Read FileOperationStatus
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty
-              (CFieldType FileOperationStatus "unwrapFileOperationStatus") =>
-         HasField "unwrapFileOperationStatus"
+instance HasField "unwrapFileOperationStatus"
                   (Ptr FileOperationStatus)
-                  (Ptr ty)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapFileOperationStatus")
 instance HasCField FileOperationStatus "unwrapFileOperationStatus"
     where type CFieldType FileOperationStatus
@@ -202,8 +199,7 @@ data FileOperationRecord
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize FileOperationRecord
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -218,23 +214,18 @@ instance HasCField FileOperationRecord "fileOperationRecord_status"
     where type CFieldType FileOperationRecord
                           "fileOperationRecord_status" = FileOperationStatus
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType FileOperationRecord "fileOperationRecord_status") =>
-         HasField "fileOperationRecord_status"
+instance HasField "fileOperationRecord_status"
                   (Ptr FileOperationRecord)
-                  (Ptr ty)
+                  (Ptr FileOperationStatus)
     where getField = fromPtr (Proxy @"fileOperationRecord_status")
 instance HasCField FileOperationRecord
                    "fileOperationRecord_bytes_processed"
     where type CFieldType FileOperationRecord
                           "fileOperationRecord_bytes_processed" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 8
-instance TyEq ty
-              (CFieldType FileOperationRecord
-                          "fileOperationRecord_bytes_processed") =>
-         HasField "fileOperationRecord_bytes_processed"
+instance HasField "fileOperationRecord_bytes_processed"
                   (Ptr FileOperationRecord)
-                  (Ptr ty)
+                  (Ptr HsBindgen.Runtime.LibC.CSize)
     where getField = fromPtr (Proxy @"fileOperationRecord_bytes_processed")
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::

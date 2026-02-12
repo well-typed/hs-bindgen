@@ -74,8 +74,7 @@ data Vector_Aux
 
                    __exported by:__ @edge-cases\/flam_functions.h@
               -}}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Vector_Aux
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -88,8 +87,7 @@ deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
 instance HasCField Vector_Aux "vector_length"
     where type CFieldType Vector_Aux "vector_length" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Vector_Aux "vector_length") =>
-         HasField "vector_length" (Ptr Vector_Aux) (Ptr ty)
+instance HasField "vector_length" (Ptr Vector_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"vector_length")
 instance Offset CLong Vector_Aux
     where offset = \_ty_0 -> 8

@@ -146,7 +146,7 @@ translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord Record{
       typ     = struct.name
     , con     = struct.constr
-    , deriv   = [(Hs.DeriveStock, [Generic_class])]
+    , deriv   = []
     , comment = struct.comment
     , origin  = case struct.origin of
                   Just origin -> origin
@@ -174,7 +174,7 @@ translateNewtype n = DNewtype Newtype{
       name    = n.name
     , con     = n.constr
     , origin  = n.origin
-    , deriv   = [(Hs.DeriveStock, [Generic_class])]
+    , deriv   = []
     , comment = n.comment
     , field   = Field {
           name    = n.field.name
@@ -203,6 +203,7 @@ translateTypeClass = \case
     Inst.Floating        -> TGlobal Floating_class
     Inst.Fractional      -> TGlobal Fractional_class
     Inst.FromFunPtr      -> TGlobal FromFunPtr_class
+    Inst.Generic         -> TGlobal Generic_class
     Inst.HasCBitField    -> TGlobal HasCBitfield_class
     Inst.HasCField       -> TGlobal HasCField_class
     Inst.HasFFIType      -> TGlobal HasFFIType_class
@@ -313,7 +314,7 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
-    Hs.HsPrimType t          -> TGlobal (PrimType t)
+    Hs.HsPrimType t          -> TGlobal (translatePrimType t)
     Hs.HsTypRef r _          -> TCon r
     Hs.HsConstArray n t      -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
     Hs.HsIncompleteArray t   -> TGlobal IncompleteArray `TApp` (translateType t)
@@ -421,6 +422,39 @@ translateWriteRawCField = \case
     Hs.WriteRawByteOff ptr i x ->
       appMany WriteRaw_writeRawByteOff [EBound ptr, EInt i, EBound x]
 
+translatePrimType :: Hs.HsPrimType -> Global
+translatePrimType = \case
+    HsPrimVoid -> Void_type
+    HsPrimUnit -> Unit_type
+    HsPrimChar -> Char_type
+    HsPrimInt -> Int_type
+    HsPrimDouble -> Double_type
+    HsPrimFloat -> Float_type
+    HsPrimBool -> Bool_type
+    HsPrimInt8 -> Int8_type
+    HsPrimInt16 -> Int16_type
+    HsPrimInt32 -> Int32_type
+    HsPrimInt64 -> Int64_type
+    HsPrimWord -> Word_type
+    HsPrimWord8 -> Word8_type
+    HsPrimWord16 -> Word16_type
+    HsPrimWord32 -> Word32_type
+    HsPrimWord64 -> Word64_type
+    HsPrimCChar -> CChar_type
+    HsPrimCSChar -> CSChar_type
+    HsPrimCUChar -> CUChar_type
+    HsPrimCShort -> CShort_type
+    HsPrimCUShort -> CUShort_type
+    HsPrimCInt -> CInt_type
+    HsPrimCUInt -> CUInt_type
+    HsPrimCLong -> CLong_type
+    HsPrimCULong -> CULong_type
+    HsPrimCLLong -> CLLong_type
+    HsPrimCULLong -> CULLong_type
+    HsPrimCBool -> CBool_type
+    HsPrimCFloat -> CFloat_type
+    HsPrimCDouble -> CDouble_type
+
 {-------------------------------------------------------------------------------
   'Storable'
 -------------------------------------------------------------------------------}
@@ -516,6 +550,10 @@ translateHasCBitfieldInstance inst mbComment = Instance{
     o         = fromIntegral inst.bitOffset
     w         = fromIntegral inst.bitWidth
 
+{-------------------------------------------------------------------------------
+  'HasField'
+-------------------------------------------------------------------------------}
+
 translateHasFieldInstance ::
      Hs.HasFieldInstance
   -> Maybe HsDoc.Comment
@@ -525,12 +563,7 @@ translateHasFieldInstance inst mbComment = Instance{
     , args    = [fieldLit, parentPtr, tyPtr]
     , types   = []
     , comment = mbComment
-    , super   = [ ( NomEq_class
-                  , [ tyTypeVar
-                    , TGlobal fieldTypeGlobal `TApp` parent `TApp` fieldLit
-                    ]
-                  )
-                ]
+    , super   = []
     , decs    = [ ( HasField_getField
                   , EGlobal ptrToFieldGlobal `EApp`
                       (EGlobal Proxy_constructor `ETypeApp` fieldLit)
@@ -538,24 +571,21 @@ translateHasFieldInstance inst mbComment = Instance{
                 ]
     }
   where
-    (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) =
+    (ptrToFieldGlobal, tyPtr) =
       case inst.deriveVia of
         Hs.ViaHasCField -> (
-            HasCField_CFieldType
-          , HasCField_fromPtr
-          , TGlobal Foreign_Ptr `TApp` tyTypeVar
+            HasCField_fromPtr
+          , TGlobal Foreign_Ptr `TApp` field
           )
         Hs.ViaHasCBitfield -> (
-            HasCBitfield_CBitfieldType
-          , HasCBitfield_toPtr
-          , TGlobal HasCBitfield_BitfieldPtr `TApp` tyTypeVar
+            HasCBitfield_toPtr
+          , TGlobal HasCBitfield_BitfieldPtr `TApp` field
           )
 
     parent    = translateType inst.parentType
     parentPtr = TGlobal Foreign_Ptr `TApp` parent
+    field     = translateType inst.fieldType
     fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
-    -- TODO: this is not actually a free type variable. See issue #1287.
-    tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------
   Unions

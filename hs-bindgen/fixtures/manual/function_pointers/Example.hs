@@ -3,7 +3,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -32,7 +30,6 @@ import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @int2int@
@@ -79,8 +76,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Int2int where
 
   fromFunPtr = hs_bindgen_65378a8a3cf640ad
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "unwrapInt2int")
-         ) => GHC.Records.HasField "unwrapInt2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapInt2int" (Ptr.Ptr Int2int) (Ptr.Ptr (FC.CInt -> IO FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt2int")
@@ -109,8 +105,7 @@ data Apply1Struct = Apply1Struct
          __exported by:__ @manual\/function_pointers.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Apply1Struct where
 
@@ -143,8 +138,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Apply1Struct "apply1Struct_apply1
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Struct) "apply1Struct_apply1_nopointer_struct_field")
-         ) => GHC.Records.HasField "apply1Struct_apply1_nopointer_struct_field" (Ptr.Ptr Apply1Struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "apply1Struct_apply1_nopointer_struct_field" (Ptr.Ptr Apply1Struct) (Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field")
@@ -204,8 +198,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Apply1Union "apply1Union_apply1_n
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Union) "apply1Union_apply1_nopointer_union_field")
-         ) => GHC.Records.HasField "apply1Union_apply1_nopointer_union_field" (Ptr.Ptr Apply1Union) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "apply1Union_apply1_nopointer_union_field" (Ptr.Ptr Apply1Union) (Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"apply1Union_apply1_nopointer_union_field")

@@ -26,8 +26,7 @@ data S1
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S1
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -41,14 +40,12 @@ deriving via (EquivStorable S1) instance Storable S1
 instance HasCField S1 "a"
     where type CFieldType S1 "a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S1 "a") =>
-         HasField "a" (Ptr S1) (Ptr ty)
+instance HasField "a" (Ptr S1) (Ptr CInt)
     where getField = fromPtr (Proxy @"a")
 instance HasCField S1 "b"
     where type CFieldType S1 "b" = CChar
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S1 "b") =>
-         HasField "b" (Ptr S1) (Ptr ty)
+instance HasField "b" (Ptr S1) (Ptr CChar)
     where getField = fromPtr (Proxy @"b")
 {-| __C declaration:__ @struct S2@
 
@@ -84,8 +81,7 @@ data S2_t
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S2_t
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -100,20 +96,17 @@ deriving via (EquivStorable S2_t) instance Storable S2_t
 instance HasCField S2_t "a"
     where type CFieldType S2_t "a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S2_t "a") =>
-         HasField "a" (Ptr S2_t) (Ptr ty)
+instance HasField "a" (Ptr S2_t) (Ptr CChar)
     where getField = fromPtr (Proxy @"a")
 instance HasCField S2_t "b"
     where type CFieldType S2_t "b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S2_t "b") =>
-         HasField "b" (Ptr S2_t) (Ptr ty)
+instance HasField "b" (Ptr S2_t) (Ptr CInt)
     where getField = fromPtr (Proxy @"b")
 instance HasCField S2_t "c"
     where type CFieldType S2_t "c" = CFloat
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType S2_t "c") =>
-         HasField "c" (Ptr S2_t) (Ptr ty)
+instance HasField "c" (Ptr S2_t) (Ptr CFloat)
     where getField = fromPtr (Proxy @"c")
 {-| __C declaration:__ @struct S3_t@
 
@@ -135,8 +128,7 @@ data S3_t
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S3_t
     where staticSizeOf = \_ -> 1 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -149,8 +141,7 @@ deriving via (EquivStorable S3_t) instance Storable S3_t
 instance HasCField S3_t "a"
     where type CFieldType S3_t "a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S3_t "a") =>
-         HasField "a" (Ptr S3_t) (Ptr ty)
+instance HasField "a" (Ptr S3_t) (Ptr CChar)
     where getField = fromPtr (Proxy @"a")
 {-| __C declaration:__ @struct S4@
 
@@ -186,8 +177,7 @@ data S4
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S4
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -202,20 +192,17 @@ deriving via (EquivStorable S4) instance Storable S4
 instance HasCField S4 "b"
     where type CFieldType S4 "b" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S4 "b") =>
-         HasField "b" (Ptr S4) (Ptr ty)
+instance HasField "b" (Ptr S4) (Ptr CChar)
     where getField = fromPtr (Proxy @"b")
 instance HasCField S4 "a"
     where type CFieldType S4 "a" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S4 "a") =>
-         HasField "a" (Ptr S4) (Ptr ty)
+instance HasField "a" (Ptr S4) (Ptr CInt)
     where getField = fromPtr (Proxy @"a")
 instance HasCField S4 "c"
     where type CFieldType S4 "c" = Ptr CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType S4 "c") =>
-         HasField "c" (Ptr S4) (Ptr ty)
+instance HasField "c" (Ptr S4) (Ptr (Ptr CInt))
     where getField = fromPtr (Proxy @"c")
 {-| __C declaration:__ @struct S5@
 
@@ -244,8 +231,7 @@ data S5
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S5
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -259,14 +245,12 @@ deriving via (EquivStorable S5) instance Storable S5
 instance HasCField S5 "a"
     where type CFieldType S5 "a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S5 "a") =>
-         HasField "a" (Ptr S5) (Ptr ty)
+instance HasField "a" (Ptr S5) (Ptr CChar)
     where getField = fromPtr (Proxy @"a")
 instance HasCField S5 "b"
     where type CFieldType S5 "b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S5 "b") =>
-         HasField "b" (Ptr S5) (Ptr ty)
+instance HasField "b" (Ptr S5) (Ptr CInt)
     where getField = fromPtr (Proxy @"b")
 {-| __C declaration:__ @struct S6@
 
@@ -295,8 +279,7 @@ data S6
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S6
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -310,14 +293,12 @@ deriving via (EquivStorable S6) instance Storable S6
 instance HasCField S6 "a"
     where type CFieldType S6 "a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S6 "a") =>
-         HasField "a" (Ptr S6) (Ptr ty)
+instance HasField "a" (Ptr S6) (Ptr CChar)
     where getField = fromPtr (Proxy @"a")
 instance HasCField S6 "b"
     where type CFieldType S6 "b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S6 "b") =>
-         HasField "b" (Ptr S6) (Ptr ty)
+instance HasField "b" (Ptr S6) (Ptr CInt)
     where getField = fromPtr (Proxy @"b")
 {-| __C declaration:__ @struct \@S7a_Aux@
 
@@ -346,8 +327,7 @@ data S7a_Aux
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S7a_Aux
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -361,14 +341,12 @@ deriving via (EquivStorable S7a_Aux) instance Storable S7a_Aux
 instance HasCField S7a_Aux "a"
     where type CFieldType S7a_Aux "a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S7a_Aux "a") =>
-         HasField "a" (Ptr S7a_Aux) (Ptr ty)
+instance HasField "a" (Ptr S7a_Aux) (Ptr CChar)
     where getField = fromPtr (Proxy @"a")
 instance HasCField S7a_Aux "b"
     where type CFieldType S7a_Aux "b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S7a_Aux "b") =>
-         HasField "b" (Ptr S7a_Aux) (Ptr ty)
+instance HasField "b" (Ptr S7a_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"b")
 {-| __C declaration:__ @S7a@
 
@@ -384,15 +362,13 @@ newtype S7a
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType S7a "unwrap") =>
-         HasField "unwrap" (Ptr S7a) (Ptr ty)
+instance HasField "unwrap" (Ptr S7a) (Ptr (Ptr S7a_Aux))
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField S7a "unwrap"
     where type CFieldType S7a "unwrap" = Ptr S7a_Aux
@@ -424,8 +400,7 @@ data S7b_Aux
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize S7b_Aux
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -439,14 +414,12 @@ deriving via (EquivStorable S7b_Aux) instance Storable S7b_Aux
 instance HasCField S7b_Aux "a"
     where type CFieldType S7b_Aux "a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S7b_Aux "a") =>
-         HasField "a" (Ptr S7b_Aux) (Ptr ty)
+instance HasField "a" (Ptr S7b_Aux) (Ptr CChar)
     where getField = fromPtr (Proxy @"a")
 instance HasCField S7b_Aux "b"
     where type CFieldType S7b_Aux "b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S7b_Aux "b") =>
-         HasField "b" (Ptr S7b_Aux) (Ptr ty)
+instance HasField "b" (Ptr S7b_Aux) (Ptr CInt)
     where getField = fromPtr (Proxy @"b")
 {-| __C declaration:__ @S7b@
 
@@ -462,15 +435,15 @@ newtype S7b
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType S7b "unwrap") =>
-         HasField "unwrap" (Ptr S7b) (Ptr ty)
+instance HasField "unwrap"
+                  (Ptr S7b)
+                  (Ptr (Ptr (Ptr (Ptr S7b_Aux))))
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField S7b "unwrap"
     where type CFieldType S7b "unwrap" = Ptr (Ptr (Ptr S7b_Aux))

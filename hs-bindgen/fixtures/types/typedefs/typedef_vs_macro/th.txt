@@ -13,8 +13,7 @@ newtype T1
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -30,8 +29,7 @@ newtype T1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T1 "unwrapT1") =>
-         HasField "unwrapT1" (Ptr T1) (Ptr ty)
+instance HasField "unwrapT1" (Ptr T1) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapT1")
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
@@ -50,8 +48,7 @@ newtype T2
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -67,8 +64,7 @@ newtype T2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T2 "unwrapT2") =>
-         HasField "unwrapT2" (Ptr T2) (Ptr ty)
+instance HasField "unwrapT2" (Ptr T2) (Ptr CChar)
     where getField = fromPtr (Proxy @"unwrapT2")
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = CChar
@@ -87,8 +83,7 @@ newtype M1
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -104,8 +99,7 @@ newtype M1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType M1 "unwrapM1") =>
-         HasField "unwrapM1" (Ptr M1) (Ptr ty)
+instance HasField "unwrapM1" (Ptr M1) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapM1")
 instance HasCField M1 "unwrapM1"
     where type CFieldType M1 "unwrapM1" = CInt
@@ -124,8 +118,7 @@ newtype M2
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -141,8 +134,7 @@ newtype M2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType M2 "unwrapM2") =>
-         HasField "unwrapM2" (Ptr M2) (Ptr ty)
+instance HasField "unwrapM2" (Ptr M2) (Ptr CChar)
     where getField = fromPtr (Proxy @"unwrapM2")
 instance HasCField M2 "unwrapM2"
     where type CFieldType M2 "unwrapM2" = CChar
@@ -161,15 +153,13 @@ newtype M3
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType M3 "unwrapM3") =>
-         HasField "unwrapM3" (Ptr M3) (Ptr ty)
+instance HasField "unwrapM3" (Ptr M3) (Ptr (Ptr CInt))
     where getField = fromPtr (Proxy @"unwrapM3")
 instance HasCField M3 "unwrapM3"
     where type CFieldType M3 "unwrapM3" = Ptr CInt
@@ -215,8 +205,7 @@ data ExampleStruct
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize ExampleStruct
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -232,26 +221,22 @@ deriving via (EquivStorable ExampleStruct) instance Storable ExampleStruct
 instance HasCField ExampleStruct "exampleStruct_t1"
     where type CFieldType ExampleStruct "exampleStruct_t1" = T1
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType ExampleStruct "exampleStruct_t1") =>
-         HasField "exampleStruct_t1" (Ptr ExampleStruct) (Ptr ty)
+instance HasField "exampleStruct_t1" (Ptr ExampleStruct) (Ptr T1)
     where getField = fromPtr (Proxy @"exampleStruct_t1")
 instance HasCField ExampleStruct "exampleStruct_t2"
     where type CFieldType ExampleStruct "exampleStruct_t2" = T2
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType ExampleStruct "exampleStruct_t2") =>
-         HasField "exampleStruct_t2" (Ptr ExampleStruct) (Ptr ty)
+instance HasField "exampleStruct_t2" (Ptr ExampleStruct) (Ptr T2)
     where getField = fromPtr (Proxy @"exampleStruct_t2")
 instance HasCField ExampleStruct "exampleStruct_m1"
     where type CFieldType ExampleStruct "exampleStruct_m1" = M1
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType ExampleStruct "exampleStruct_m1") =>
-         HasField "exampleStruct_m1" (Ptr ExampleStruct) (Ptr ty)
+instance HasField "exampleStruct_m1" (Ptr ExampleStruct) (Ptr M1)
     where getField = fromPtr (Proxy @"exampleStruct_m1")
 instance HasCField ExampleStruct "exampleStruct_m2"
     where type CFieldType ExampleStruct "exampleStruct_m2" = M2
           offset# = \_ -> \_ -> 12
-instance TyEq ty (CFieldType ExampleStruct "exampleStruct_m2") =>
-         HasField "exampleStruct_m2" (Ptr ExampleStruct) (Ptr ty)
+instance HasField "exampleStruct_m2" (Ptr ExampleStruct) (Ptr M2)
     where getField = fromPtr (Proxy @"exampleStruct_m2")
 {-| __C declaration:__ @uint64_t@
 
@@ -267,8 +252,7 @@ newtype Uint64_t
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -284,8 +268,7 @@ newtype Uint64_t
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Uint64_t "unwrapUint64_t") =>
-         HasField "unwrapUint64_t" (Ptr Uint64_t) (Ptr ty)
+instance HasField "unwrapUint64_t" (Ptr Uint64_t) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapUint64_t")
 instance HasCField Uint64_t "unwrapUint64_t"
     where type CFieldType Uint64_t "unwrapUint64_t" = CInt
@@ -310,8 +293,7 @@ data Foo
 
            __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -324,6 +306,5 @@ deriving via (EquivStorable Foo) instance Storable Foo
 instance HasCField Foo "foo_a"
     where type CFieldType Foo "foo_a" = Ptr Uint64_t
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Foo "foo_a") =>
-         HasField "foo_a" (Ptr Foo) (Ptr ty)
+instance HasField "foo_a" (Ptr Foo) (Ptr (Ptr Uint64_t))
     where getField = fromPtr (Proxy @"foo_a")

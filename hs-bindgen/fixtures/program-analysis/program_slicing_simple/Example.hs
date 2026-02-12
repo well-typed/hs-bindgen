@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -29,7 +27,6 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @uint32_t@
@@ -41,8 +38,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 newtype Uint32_t = Uint32_t
   { unwrapUint32_t :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -61,8 +57,7 @@ newtype Uint32_t = Uint32_t
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Uint32_t) "unwrapUint32_t")
-         ) => GHC.Records.HasField "unwrapUint32_t" (Ptr.Ptr Uint32_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapUint32_t" (Ptr.Ptr Uint32_t) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapUint32_t")
@@ -95,8 +90,7 @@ data Foo = Foo
          __exported by:__ @program-analysis\/program_slicing_simple.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance F.Storable Foo where
 
@@ -124,8 +118,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_sixty_four")
-         ) => GHC.Records.HasField "foo_sixty_four" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_sixty_four" (Ptr.Ptr Foo) (Ptr.Ptr Foreign.Word64) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_sixty_four")
@@ -136,8 +129,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_thirty_two" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_thirty_two")
-         ) => GHC.Records.HasField "foo_thirty_two" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_thirty_two" (Ptr.Ptr Foo) (Ptr.Ptr Uint32_t) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_thirty_two")

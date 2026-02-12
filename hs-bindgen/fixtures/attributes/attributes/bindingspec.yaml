@@ -37,6 +37,7 @@ hstypes:
       - bar_i
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -53,6 +54,7 @@ hstypes:
       - baz_i
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -70,6 +72,7 @@ hstypes:
       - fILE__close
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -86,6 +89,7 @@ hstypes:
       - foo_i
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -102,6 +106,7 @@ hstypes:
       - qux_i
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

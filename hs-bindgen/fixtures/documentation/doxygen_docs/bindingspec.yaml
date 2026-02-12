@@ -69,6 +69,7 @@ hstypes:
       - bitfield_t_reserved
   instances:
   - Eq
+  - Generic
   - HasCBitField
   - HasField
   - ReadRaw
@@ -85,6 +86,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -109,6 +111,7 @@ hstypes:
       - config_t_user_data
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -123,6 +126,7 @@ hstypes:
       fields:
       - unwrapData_union_t
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -138,6 +142,7 @@ hstypes:
       - data_union_t_as_parts_high
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -153,6 +158,7 @@ hstypes:
       - unwrapEvent_callback_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -170,6 +176,7 @@ hstypes:
       - unwrapFilename_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -188,6 +195,7 @@ hstypes:
   instances:
   - Eq
   - Flam_Offset
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -207,6 +215,7 @@ hstypes:
       - unwrapProcessor_fn_t
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -229,6 +238,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -253,6 +263,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

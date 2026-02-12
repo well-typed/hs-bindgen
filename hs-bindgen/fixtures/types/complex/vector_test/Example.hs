@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct vector@
@@ -47,8 +44,7 @@ data Vector = Vector
          __exported by:__ @types\/complex\/vector_test.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Vector where
 
@@ -82,8 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Vector "vector_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector) "vector_x")
-         ) => GHC.Records.HasField "vector_x" (Ptr.Ptr Vector) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "vector_x" (Ptr.Ptr Vector) (Ptr.Ptr FC.CDouble) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_x")
@@ -94,8 +89,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Vector "vector_y" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector) "vector_y")
-         ) => GHC.Records.HasField "vector_y" (Ptr.Ptr Vector) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "vector_y" (Ptr.Ptr Vector) (Ptr.Ptr FC.CDouble) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_y")

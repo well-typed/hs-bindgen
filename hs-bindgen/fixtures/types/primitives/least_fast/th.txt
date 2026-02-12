@@ -1,0 +1,1861 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile examples/golden/types/primitives/least_fast.h
+-- #include <types/primitives/least_fast.h>
+-- int_least8_t hs_bindgen_ad6572fbf5eadb77 (void)
+-- {
+--   return int_least8_t_fun();
+-- }
+-- int_least16_t hs_bindgen_1b76f016106283f9 (void)
+-- {
+--   return int_least16_t_fun();
+-- }
+-- int_least32_t hs_bindgen_6ed0daff627b4e5c (void)
+-- {
+--   return int_least32_t_fun();
+-- }
+-- int_least64_t hs_bindgen_3973a552158e924e (void)
+-- {
+--   return int_least64_t_fun();
+-- }
+-- uint_least8_t hs_bindgen_8444813dd4e79f7f (void)
+-- {
+--   return uint_least8_t_fun();
+-- }
+-- uint_least16_t hs_bindgen_1b71c9bb2bf1881f (void)
+-- {
+--   return uint_least16_t_fun();
+-- }
+-- uint_least32_t hs_bindgen_24abaf3275c0126f (void)
+-- {
+--   return uint_least32_t_fun();
+-- }
+-- uint_least64_t hs_bindgen_45be86cc87258955 (void)
+-- {
+--   return uint_least64_t_fun();
+-- }
+-- int_fast8_t hs_bindgen_223fd78a0ee18a9d (void)
+-- {
+--   return int_fast8_t_fun();
+-- }
+-- int_fast16_t hs_bindgen_097db32b72dabc72 (void)
+-- {
+--   return int_fast16_t_fun();
+-- }
+-- int_fast32_t hs_bindgen_a406174bb602d355 (void)
+-- {
+--   return int_fast32_t_fun();
+-- }
+-- int_fast64_t hs_bindgen_eeb2cb113fbc86ce (void)
+-- {
+--   return int_fast64_t_fun();
+-- }
+-- uint_fast8_t hs_bindgen_32aa304dae0c8a3d (void)
+-- {
+--   return uint_fast8_t_fun();
+-- }
+-- uint_fast16_t hs_bindgen_81ec605d32f0724d (void)
+-- {
+--   return uint_fast16_t_fun();
+-- }
+-- uint_fast32_t hs_bindgen_f20ac50dff139544 (void)
+-- {
+--   return uint_fast32_t_fun();
+-- }
+-- uint_fast64_t hs_bindgen_9d5a9bc3a5b3b294 (void)
+-- {
+--   return uint_fast64_t_fun();
+-- }
+-- int_least8_t hs_bindgen_57bd94cbb0575f53 (void)
+-- {
+--   return int_least8_t_fun();
+-- }
+-- int_least16_t hs_bindgen_f02c70143a88af90 (void)
+-- {
+--   return int_least16_t_fun();
+-- }
+-- int_least32_t hs_bindgen_f5bbad7b8ac35f06 (void)
+-- {
+--   return int_least32_t_fun();
+-- }
+-- int_least64_t hs_bindgen_b2036b95960e2751 (void)
+-- {
+--   return int_least64_t_fun();
+-- }
+-- uint_least8_t hs_bindgen_d893fc1d41730120 (void)
+-- {
+--   return uint_least8_t_fun();
+-- }
+-- uint_least16_t hs_bindgen_eaf2d3e09a41513e (void)
+-- {
+--   return uint_least16_t_fun();
+-- }
+-- uint_least32_t hs_bindgen_dfdb9c77b9f2e16d (void)
+-- {
+--   return uint_least32_t_fun();
+-- }
+-- uint_least64_t hs_bindgen_35c7ddf6def5281e (void)
+-- {
+--   return uint_least64_t_fun();
+-- }
+-- int_fast8_t hs_bindgen_5144ac530f23abd8 (void)
+-- {
+--   return int_fast8_t_fun();
+-- }
+-- int_fast16_t hs_bindgen_a102db8605e0b669 (void)
+-- {
+--   return int_fast16_t_fun();
+-- }
+-- int_fast32_t hs_bindgen_97faff4568d5bc6a (void)
+-- {
+--   return int_fast32_t_fun();
+-- }
+-- int_fast64_t hs_bindgen_ce1a64e61a9f9432 (void)
+-- {
+--   return int_fast64_t_fun();
+-- }
+-- uint_fast8_t hs_bindgen_653d74ee9fd982e2 (void)
+-- {
+--   return uint_fast8_t_fun();
+-- }
+-- uint_fast16_t hs_bindgen_31bf7eba8a098bae (void)
+-- {
+--   return uint_fast16_t_fun();
+-- }
+-- uint_fast32_t hs_bindgen_fb324d72364e5685 (void)
+-- {
+--   return uint_fast32_t_fun();
+-- }
+-- uint_fast64_t hs_bindgen_a2995f3603c68c65 (void)
+-- {
+--   return uint_fast64_t_fun();
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_least8_t_fun */
+-- __attribute__ ((const))
+-- int_least8_t (*hs_bindgen_0391876bad2745ce (void)) (void)
+-- {
+--   return &int_least8_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_least16_t_fun */
+-- __attribute__ ((const))
+-- int_least16_t (*hs_bindgen_0af5d61729271291 (void)) (void)
+-- {
+--   return &int_least16_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_least32_t_fun */
+-- __attribute__ ((const))
+-- int_least32_t (*hs_bindgen_335ec637d8d81f56 (void)) (void)
+-- {
+--   return &int_least32_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_least64_t_fun */
+-- __attribute__ ((const))
+-- int_least64_t (*hs_bindgen_eedbb79d8eb0ca67 (void)) (void)
+-- {
+--   return &int_least64_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_least8_t_fun */
+-- __attribute__ ((const))
+-- uint_least8_t (*hs_bindgen_cae759b263e9dcdd (void)) (void)
+-- {
+--   return &uint_least8_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_least16_t_fun */
+-- __attribute__ ((const))
+-- uint_least16_t (*hs_bindgen_66a8cb9486f831fe (void)) (void)
+-- {
+--   return &uint_least16_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_least32_t_fun */
+-- __attribute__ ((const))
+-- uint_least32_t (*hs_bindgen_bfc0feef86d3e7d0 (void)) (void)
+-- {
+--   return &uint_least32_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_least64_t_fun */
+-- __attribute__ ((const))
+-- uint_least64_t (*hs_bindgen_1886bff0b6836087 (void)) (void)
+-- {
+--   return &uint_least64_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_fast8_t_fun */
+-- __attribute__ ((const))
+-- int_fast8_t (*hs_bindgen_08f27d79a8ef226d (void)) (void)
+-- {
+--   return &int_fast8_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_fast16_t_fun */
+-- __attribute__ ((const))
+-- int_fast16_t (*hs_bindgen_1bff6fbb3c56abd5 (void)) (void)
+-- {
+--   return &int_fast16_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_fast32_t_fun */
+-- __attribute__ ((const))
+-- int_fast32_t (*hs_bindgen_8a1d629866650da2 (void)) (void)
+-- {
+--   return &int_fast32_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_int_fast64_t_fun */
+-- __attribute__ ((const))
+-- int_fast64_t (*hs_bindgen_c112b0dedac2cffa (void)) (void)
+-- {
+--   return &int_fast64_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_fast8_t_fun */
+-- __attribute__ ((const))
+-- uint_fast8_t (*hs_bindgen_c20e96bd69bdb439 (void)) (void)
+-- {
+--   return &uint_fast8_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_fast16_t_fun */
+-- __attribute__ ((const))
+-- uint_fast16_t (*hs_bindgen_c4f607ba753f0616 (void)) (void)
+-- {
+--   return &uint_fast16_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_fast32_t_fun */
+-- __attribute__ ((const))
+-- uint_fast32_t (*hs_bindgen_c22f26851616c098 (void)) (void)
+-- {
+--   return &uint_fast32_t_fun;
+-- }
+-- /* test_typesprimitivesleast_fast_Example_get_uint_fast64_t_fun */
+-- __attribute__ ((const))
+-- uint_fast64_t (*hs_bindgen_3ee59d750d0d2d2a (void)) (void)
+-- {
+--   return &uint_fast64_t_fun;
+-- }
+{-| __C declaration:__ @int_fast16_t@
+
+    __defined at:__ @bits\/stdint.h 1:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_fast16_t
+    = Int_fast16_t {unwrapInt_fast16_t :: HsBindgen.Runtime.LibC.Int32}
+      {- ^ __C declaration:__ @int_fast16_t@
+
+           __defined at:__ @bits\/stdint.h 1:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_fast16_t"
+                  (Ptr Int_fast16_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int32)
+    where getField = fromPtr (Proxy @"unwrapInt_fast16_t")
+instance HasCField Int_fast16_t "unwrapInt_fast16_t"
+    where type CFieldType Int_fast16_t
+                          "unwrapInt_fast16_t" = HsBindgen.Runtime.LibC.Int32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int_fast32_t@
+
+    __defined at:__ @bits\/stdint.h 2:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_fast32_t
+    = Int_fast32_t {unwrapInt_fast32_t :: HsBindgen.Runtime.LibC.Int32}
+      {- ^ __C declaration:__ @int_fast32_t@
+
+           __defined at:__ @bits\/stdint.h 2:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_fast32_t"
+                  (Ptr Int_fast32_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int32)
+    where getField = fromPtr (Proxy @"unwrapInt_fast32_t")
+instance HasCField Int_fast32_t "unwrapInt_fast32_t"
+    where type CFieldType Int_fast32_t
+                          "unwrapInt_fast32_t" = HsBindgen.Runtime.LibC.Int32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_fast16_t@
+
+    __defined at:__ @bits\/stdint.h 3:18@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_fast16_t
+    = Uint_fast16_t {unwrapUint_fast16_t :: HsBindgen.Runtime.LibC.Word32}
+      {- ^ __C declaration:__ @uint_fast16_t@
+
+           __defined at:__ @bits\/stdint.h 3:18@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_fast16_t"
+                  (Ptr Uint_fast16_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
+    where getField = fromPtr (Proxy @"unwrapUint_fast16_t")
+instance HasCField Uint_fast16_t "unwrapUint_fast16_t"
+    where type CFieldType Uint_fast16_t
+                          "unwrapUint_fast16_t" = HsBindgen.Runtime.LibC.Word32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_fast32_t@
+
+    __defined at:__ @bits\/stdint.h 4:18@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_fast32_t
+    = Uint_fast32_t {unwrapUint_fast32_t :: HsBindgen.Runtime.LibC.Word32}
+      {- ^ __C declaration:__ @uint_fast32_t@
+
+           __defined at:__ @bits\/stdint.h 4:18@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_fast32_t"
+                  (Ptr Uint_fast32_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
+    where getField = fromPtr (Proxy @"unwrapUint_fast32_t")
+instance HasCField Uint_fast32_t "unwrapUint_fast32_t"
+    where type CFieldType Uint_fast32_t
+                          "unwrapUint_fast32_t" = HsBindgen.Runtime.LibC.Word32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int_fast8_t@
+
+    __defined at:__ @stdint.h 22:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_fast8_t
+    = Int_fast8_t {unwrapInt_fast8_t :: HsBindgen.Runtime.LibC.Int8}
+      {- ^ __C declaration:__ @int_fast8_t@
+
+           __defined at:__ @stdint.h 22:16@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_fast8_t"
+                  (Ptr Int_fast8_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int8)
+    where getField = fromPtr (Proxy @"unwrapInt_fast8_t")
+instance HasCField Int_fast8_t "unwrapInt_fast8_t"
+    where type CFieldType Int_fast8_t
+                          "unwrapInt_fast8_t" = HsBindgen.Runtime.LibC.Int8
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int_fast64_t@
+
+    __defined at:__ @stdint.h 23:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_fast64_t
+    = Int_fast64_t {unwrapInt_fast64_t :: HsBindgen.Runtime.LibC.Int64}
+      {- ^ __C declaration:__ @int_fast64_t@
+
+           __defined at:__ @stdint.h 23:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_fast64_t"
+                  (Ptr Int_fast64_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int64)
+    where getField = fromPtr (Proxy @"unwrapInt_fast64_t")
+instance HasCField Int_fast64_t "unwrapInt_fast64_t"
+    where type CFieldType Int_fast64_t
+                          "unwrapInt_fast64_t" = HsBindgen.Runtime.LibC.Int64
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int_least8_t@
+
+    __defined at:__ @stdint.h 25:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_least8_t
+    = Int_least8_t {unwrapInt_least8_t :: HsBindgen.Runtime.LibC.Int8}
+      {- ^ __C declaration:__ @int_least8_t@
+
+           __defined at:__ @stdint.h 25:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_least8_t"
+                  (Ptr Int_least8_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int8)
+    where getField = fromPtr (Proxy @"unwrapInt_least8_t")
+instance HasCField Int_least8_t "unwrapInt_least8_t"
+    where type CFieldType Int_least8_t
+                          "unwrapInt_least8_t" = HsBindgen.Runtime.LibC.Int8
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int_least16_t@
+
+    __defined at:__ @stdint.h 26:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_least16_t
+    = Int_least16_t {unwrapInt_least16_t :: HsBindgen.Runtime.LibC.Int16}
+      {- ^ __C declaration:__ @int_least16_t@
+
+           __defined at:__ @stdint.h 26:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_least16_t"
+                  (Ptr Int_least16_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int16)
+    where getField = fromPtr (Proxy @"unwrapInt_least16_t")
+instance HasCField Int_least16_t "unwrapInt_least16_t"
+    where type CFieldType Int_least16_t
+                          "unwrapInt_least16_t" = HsBindgen.Runtime.LibC.Int16
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int_least32_t@
+
+    __defined at:__ @stdint.h 27:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_least32_t
+    = Int_least32_t {unwrapInt_least32_t :: HsBindgen.Runtime.LibC.Int32}
+      {- ^ __C declaration:__ @int_least32_t@
+
+           __defined at:__ @stdint.h 27:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_least32_t"
+                  (Ptr Int_least32_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int32)
+    where getField = fromPtr (Proxy @"unwrapInt_least32_t")
+instance HasCField Int_least32_t "unwrapInt_least32_t"
+    where type CFieldType Int_least32_t
+                          "unwrapInt_least32_t" = HsBindgen.Runtime.LibC.Int32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int_least64_t@
+
+    __defined at:__ @stdint.h 28:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Int_least64_t
+    = Int_least64_t {unwrapInt_least64_t :: HsBindgen.Runtime.LibC.Int64}
+      {- ^ __C declaration:__ @int_least64_t@
+
+           __defined at:__ @stdint.h 28:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapInt_least64_t"
+                  (Ptr Int_least64_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int64)
+    where getField = fromPtr (Proxy @"unwrapInt_least64_t")
+instance HasCField Int_least64_t "unwrapInt_least64_t"
+    where type CFieldType Int_least64_t
+                          "unwrapInt_least64_t" = HsBindgen.Runtime.LibC.Int64
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_fast8_t@
+
+    __defined at:__ @stdint.h 30:17@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_fast8_t
+    = Uint_fast8_t {unwrapUint_fast8_t :: HsBindgen.Runtime.LibC.Word8}
+      {- ^ __C declaration:__ @uint_fast8_t@
+
+           __defined at:__ @stdint.h 30:17@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_fast8_t"
+                  (Ptr Uint_fast8_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word8)
+    where getField = fromPtr (Proxy @"unwrapUint_fast8_t")
+instance HasCField Uint_fast8_t "unwrapUint_fast8_t"
+    where type CFieldType Uint_fast8_t
+                          "unwrapUint_fast8_t" = HsBindgen.Runtime.LibC.Word8
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_fast64_t@
+
+    __defined at:__ @stdint.h 31:18@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_fast64_t
+    = Uint_fast64_t {unwrapUint_fast64_t :: HsBindgen.Runtime.LibC.Word64}
+      {- ^ __C declaration:__ @uint_fast64_t@
+
+           __defined at:__ @stdint.h 31:18@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_fast64_t"
+                  (Ptr Uint_fast64_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word64)
+    where getField = fromPtr (Proxy @"unwrapUint_fast64_t")
+instance HasCField Uint_fast64_t "unwrapUint_fast64_t"
+    where type CFieldType Uint_fast64_t
+                          "unwrapUint_fast64_t" = HsBindgen.Runtime.LibC.Word64
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_least8_t@
+
+    __defined at:__ @stdint.h 33:18@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_least8_t
+    = Uint_least8_t {unwrapUint_least8_t :: HsBindgen.Runtime.LibC.Word8}
+      {- ^ __C declaration:__ @uint_least8_t@
+
+           __defined at:__ @stdint.h 33:18@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_least8_t"
+                  (Ptr Uint_least8_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word8)
+    where getField = fromPtr (Proxy @"unwrapUint_least8_t")
+instance HasCField Uint_least8_t "unwrapUint_least8_t"
+    where type CFieldType Uint_least8_t
+                          "unwrapUint_least8_t" = HsBindgen.Runtime.LibC.Word8
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_least16_t@
+
+    __defined at:__ @stdint.h 34:18@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_least16_t
+    = Uint_least16_t {unwrapUint_least16_t :: HsBindgen.Runtime.LibC.Word16}
+      {- ^ __C declaration:__ @uint_least16_t@
+
+           __defined at:__ @stdint.h 34:18@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_least16_t"
+                  (Ptr Uint_least16_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word16)
+    where getField = fromPtr (Proxy @"unwrapUint_least16_t")
+instance HasCField Uint_least16_t "unwrapUint_least16_t"
+    where type CFieldType Uint_least16_t
+                          "unwrapUint_least16_t" = HsBindgen.Runtime.LibC.Word16
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_least32_t@
+
+    __defined at:__ @stdint.h 35:18@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_least32_t
+    = Uint_least32_t {unwrapUint_least32_t :: HsBindgen.Runtime.LibC.Word32}
+      {- ^ __C declaration:__ @uint_least32_t@
+
+           __defined at:__ @stdint.h 35:18@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_least32_t"
+                  (Ptr Uint_least32_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
+    where getField = fromPtr (Proxy @"unwrapUint_least32_t")
+instance HasCField Uint_least32_t "unwrapUint_least32_t"
+    where type CFieldType Uint_least32_t
+                          "unwrapUint_least32_t" = HsBindgen.Runtime.LibC.Word32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @uint_least64_t@
+
+    __defined at:__ @stdint.h 36:18@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+newtype Uint_least64_t
+    = Uint_least64_t {unwrapUint_least64_t :: HsBindgen.Runtime.LibC.Word64}
+      {- ^ __C declaration:__ @uint_least64_t@
+
+           __defined at:__ @stdint.h 36:18@
+
+           __exported by:__ @types\/primitives\/least_fast.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapUint_least64_t"
+                  (Ptr Uint_least64_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word64)
+    where getField = fromPtr (Proxy @"unwrapUint_least64_t")
+instance HasCField Uint_least64_t "unwrapUint_least64_t"
+    where type CFieldType Uint_least64_t
+                          "unwrapUint_least64_t" = HsBindgen.Runtime.LibC.Word64
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least8_t_fun@
+foreign import ccall safe "hs_bindgen_ad6572fbf5eadb77" hs_bindgen_ad6572fbf5eadb77_base ::
+    IO Int8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least8_t_fun@
+hs_bindgen_ad6572fbf5eadb77 :: IO Int_least8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least8_t_fun@
+hs_bindgen_ad6572fbf5eadb77 = fromFFIType hs_bindgen_ad6572fbf5eadb77_base
+{-| __C declaration:__ @int_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 7:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least8_t_fun :: IO Int_least8_t
+{-| __C declaration:__ @int_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 7:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least8_t_fun = hs_bindgen_ad6572fbf5eadb77
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least16_t_fun@
+foreign import ccall safe "hs_bindgen_1b76f016106283f9" hs_bindgen_1b76f016106283f9_base ::
+    IO Int16
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least16_t_fun@
+hs_bindgen_1b76f016106283f9 :: IO Int_least16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least16_t_fun@
+hs_bindgen_1b76f016106283f9 = fromFFIType hs_bindgen_1b76f016106283f9_base
+{-| __C declaration:__ @int_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 8:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least16_t_fun :: IO Int_least16_t
+{-| __C declaration:__ @int_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 8:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least16_t_fun = hs_bindgen_1b76f016106283f9
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least32_t_fun@
+foreign import ccall safe "hs_bindgen_6ed0daff627b4e5c" hs_bindgen_6ed0daff627b4e5c_base ::
+    IO Int32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least32_t_fun@
+hs_bindgen_6ed0daff627b4e5c :: IO Int_least32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least32_t_fun@
+hs_bindgen_6ed0daff627b4e5c = fromFFIType hs_bindgen_6ed0daff627b4e5c_base
+{-| __C declaration:__ @int_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 9:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least32_t_fun :: IO Int_least32_t
+{-| __C declaration:__ @int_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 9:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least32_t_fun = hs_bindgen_6ed0daff627b4e5c
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least64_t_fun@
+foreign import ccall safe "hs_bindgen_3973a552158e924e" hs_bindgen_3973a552158e924e_base ::
+    IO Int64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least64_t_fun@
+hs_bindgen_3973a552158e924e :: IO Int_least64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_least64_t_fun@
+hs_bindgen_3973a552158e924e = fromFFIType hs_bindgen_3973a552158e924e_base
+{-| __C declaration:__ @int_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 10:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least64_t_fun :: IO Int_least64_t
+{-| __C declaration:__ @int_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 10:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least64_t_fun = hs_bindgen_3973a552158e924e
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least8_t_fun@
+foreign import ccall safe "hs_bindgen_8444813dd4e79f7f" hs_bindgen_8444813dd4e79f7f_base ::
+    IO Word8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least8_t_fun@
+hs_bindgen_8444813dd4e79f7f :: IO Uint_least8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least8_t_fun@
+hs_bindgen_8444813dd4e79f7f = fromFFIType hs_bindgen_8444813dd4e79f7f_base
+{-| __C declaration:__ @uint_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 12:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least8_t_fun :: IO Uint_least8_t
+{-| __C declaration:__ @uint_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 12:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least8_t_fun = hs_bindgen_8444813dd4e79f7f
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least16_t_fun@
+foreign import ccall safe "hs_bindgen_1b71c9bb2bf1881f" hs_bindgen_1b71c9bb2bf1881f_base ::
+    IO Word16
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least16_t_fun@
+hs_bindgen_1b71c9bb2bf1881f :: IO Uint_least16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least16_t_fun@
+hs_bindgen_1b71c9bb2bf1881f = fromFFIType hs_bindgen_1b71c9bb2bf1881f_base
+{-| __C declaration:__ @uint_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 13:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least16_t_fun :: IO Uint_least16_t
+{-| __C declaration:__ @uint_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 13:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least16_t_fun = hs_bindgen_1b71c9bb2bf1881f
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least32_t_fun@
+foreign import ccall safe "hs_bindgen_24abaf3275c0126f" hs_bindgen_24abaf3275c0126f_base ::
+    IO Word32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least32_t_fun@
+hs_bindgen_24abaf3275c0126f :: IO Uint_least32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least32_t_fun@
+hs_bindgen_24abaf3275c0126f = fromFFIType hs_bindgen_24abaf3275c0126f_base
+{-| __C declaration:__ @uint_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 14:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least32_t_fun :: IO Uint_least32_t
+{-| __C declaration:__ @uint_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 14:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least32_t_fun = hs_bindgen_24abaf3275c0126f
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least64_t_fun@
+foreign import ccall safe "hs_bindgen_45be86cc87258955" hs_bindgen_45be86cc87258955_base ::
+    IO Word64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least64_t_fun@
+hs_bindgen_45be86cc87258955 :: IO Uint_least64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_least64_t_fun@
+hs_bindgen_45be86cc87258955 = fromFFIType hs_bindgen_45be86cc87258955_base
+{-| __C declaration:__ @uint_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 15:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least64_t_fun :: IO Uint_least64_t
+{-| __C declaration:__ @uint_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 15:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least64_t_fun = hs_bindgen_45be86cc87258955
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast8_t_fun@
+foreign import ccall safe "hs_bindgen_223fd78a0ee18a9d" hs_bindgen_223fd78a0ee18a9d_base ::
+    IO Int8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast8_t_fun@
+hs_bindgen_223fd78a0ee18a9d :: IO Int_fast8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast8_t_fun@
+hs_bindgen_223fd78a0ee18a9d = fromFFIType hs_bindgen_223fd78a0ee18a9d_base
+{-| __C declaration:__ @int_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 17:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast8_t_fun :: IO Int_fast8_t
+{-| __C declaration:__ @int_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 17:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast8_t_fun = hs_bindgen_223fd78a0ee18a9d
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast16_t_fun@
+foreign import ccall safe "hs_bindgen_097db32b72dabc72" hs_bindgen_097db32b72dabc72_base ::
+    IO Int32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast16_t_fun@
+hs_bindgen_097db32b72dabc72 :: IO Int_fast16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast16_t_fun@
+hs_bindgen_097db32b72dabc72 = fromFFIType hs_bindgen_097db32b72dabc72_base
+{-| __C declaration:__ @int_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 18:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast16_t_fun :: IO Int_fast16_t
+{-| __C declaration:__ @int_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 18:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast16_t_fun = hs_bindgen_097db32b72dabc72
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast32_t_fun@
+foreign import ccall safe "hs_bindgen_a406174bb602d355" hs_bindgen_a406174bb602d355_base ::
+    IO Int32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast32_t_fun@
+hs_bindgen_a406174bb602d355 :: IO Int_fast32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast32_t_fun@
+hs_bindgen_a406174bb602d355 = fromFFIType hs_bindgen_a406174bb602d355_base
+{-| __C declaration:__ @int_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 19:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast32_t_fun :: IO Int_fast32_t
+{-| __C declaration:__ @int_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 19:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast32_t_fun = hs_bindgen_a406174bb602d355
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast64_t_fun@
+foreign import ccall safe "hs_bindgen_eeb2cb113fbc86ce" hs_bindgen_eeb2cb113fbc86ce_base ::
+    IO Int64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast64_t_fun@
+hs_bindgen_eeb2cb113fbc86ce :: IO Int_fast64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_int_fast64_t_fun@
+hs_bindgen_eeb2cb113fbc86ce = fromFFIType hs_bindgen_eeb2cb113fbc86ce_base
+{-| __C declaration:__ @int_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 20:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast64_t_fun :: IO Int_fast64_t
+{-| __C declaration:__ @int_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 20:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast64_t_fun = hs_bindgen_eeb2cb113fbc86ce
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast8_t_fun@
+foreign import ccall safe "hs_bindgen_32aa304dae0c8a3d" hs_bindgen_32aa304dae0c8a3d_base ::
+    IO Word8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast8_t_fun@
+hs_bindgen_32aa304dae0c8a3d :: IO Uint_fast8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast8_t_fun@
+hs_bindgen_32aa304dae0c8a3d = fromFFIType hs_bindgen_32aa304dae0c8a3d_base
+{-| __C declaration:__ @uint_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 22:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast8_t_fun :: IO Uint_fast8_t
+{-| __C declaration:__ @uint_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 22:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast8_t_fun = hs_bindgen_32aa304dae0c8a3d
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast16_t_fun@
+foreign import ccall safe "hs_bindgen_81ec605d32f0724d" hs_bindgen_81ec605d32f0724d_base ::
+    IO Word32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast16_t_fun@
+hs_bindgen_81ec605d32f0724d :: IO Uint_fast16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast16_t_fun@
+hs_bindgen_81ec605d32f0724d = fromFFIType hs_bindgen_81ec605d32f0724d_base
+{-| __C declaration:__ @uint_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 23:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast16_t_fun :: IO Uint_fast16_t
+{-| __C declaration:__ @uint_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 23:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast16_t_fun = hs_bindgen_81ec605d32f0724d
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast32_t_fun@
+foreign import ccall safe "hs_bindgen_f20ac50dff139544" hs_bindgen_f20ac50dff139544_base ::
+    IO Word32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast32_t_fun@
+hs_bindgen_f20ac50dff139544 :: IO Uint_fast32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast32_t_fun@
+hs_bindgen_f20ac50dff139544 = fromFFIType hs_bindgen_f20ac50dff139544_base
+{-| __C declaration:__ @uint_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 24:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast32_t_fun :: IO Uint_fast32_t
+{-| __C declaration:__ @uint_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 24:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast32_t_fun = hs_bindgen_f20ac50dff139544
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast64_t_fun@
+foreign import ccall safe "hs_bindgen_9d5a9bc3a5b3b294" hs_bindgen_9d5a9bc3a5b3b294_base ::
+    IO Word64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast64_t_fun@
+hs_bindgen_9d5a9bc3a5b3b294 :: IO Uint_fast64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Safe_uint_fast64_t_fun@
+hs_bindgen_9d5a9bc3a5b3b294 = fromFFIType hs_bindgen_9d5a9bc3a5b3b294_base
+{-| __C declaration:__ @uint_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 25:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast64_t_fun :: IO Uint_fast64_t
+{-| __C declaration:__ @uint_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 25:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast64_t_fun = hs_bindgen_9d5a9bc3a5b3b294
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least8_t_fun@
+foreign import ccall unsafe "hs_bindgen_57bd94cbb0575f53" hs_bindgen_57bd94cbb0575f53_base ::
+    IO Int8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least8_t_fun@
+hs_bindgen_57bd94cbb0575f53 :: IO Int_least8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least8_t_fun@
+hs_bindgen_57bd94cbb0575f53 = fromFFIType hs_bindgen_57bd94cbb0575f53_base
+{-| __C declaration:__ @int_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 7:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least8_t_fun :: IO Int_least8_t
+{-| __C declaration:__ @int_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 7:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least8_t_fun = hs_bindgen_57bd94cbb0575f53
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least16_t_fun@
+foreign import ccall unsafe "hs_bindgen_f02c70143a88af90" hs_bindgen_f02c70143a88af90_base ::
+    IO Int16
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least16_t_fun@
+hs_bindgen_f02c70143a88af90 :: IO Int_least16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least16_t_fun@
+hs_bindgen_f02c70143a88af90 = fromFFIType hs_bindgen_f02c70143a88af90_base
+{-| __C declaration:__ @int_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 8:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least16_t_fun :: IO Int_least16_t
+{-| __C declaration:__ @int_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 8:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least16_t_fun = hs_bindgen_f02c70143a88af90
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least32_t_fun@
+foreign import ccall unsafe "hs_bindgen_f5bbad7b8ac35f06" hs_bindgen_f5bbad7b8ac35f06_base ::
+    IO Int32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least32_t_fun@
+hs_bindgen_f5bbad7b8ac35f06 :: IO Int_least32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least32_t_fun@
+hs_bindgen_f5bbad7b8ac35f06 = fromFFIType hs_bindgen_f5bbad7b8ac35f06_base
+{-| __C declaration:__ @int_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 9:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least32_t_fun :: IO Int_least32_t
+{-| __C declaration:__ @int_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 9:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least32_t_fun = hs_bindgen_f5bbad7b8ac35f06
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least64_t_fun@
+foreign import ccall unsafe "hs_bindgen_b2036b95960e2751" hs_bindgen_b2036b95960e2751_base ::
+    IO Int64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least64_t_fun@
+hs_bindgen_b2036b95960e2751 :: IO Int_least64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_least64_t_fun@
+hs_bindgen_b2036b95960e2751 = fromFFIType hs_bindgen_b2036b95960e2751_base
+{-| __C declaration:__ @int_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 10:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least64_t_fun :: IO Int_least64_t
+{-| __C declaration:__ @int_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 10:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least64_t_fun = hs_bindgen_b2036b95960e2751
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least8_t_fun@
+foreign import ccall unsafe "hs_bindgen_d893fc1d41730120" hs_bindgen_d893fc1d41730120_base ::
+    IO Word8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least8_t_fun@
+hs_bindgen_d893fc1d41730120 :: IO Uint_least8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least8_t_fun@
+hs_bindgen_d893fc1d41730120 = fromFFIType hs_bindgen_d893fc1d41730120_base
+{-| __C declaration:__ @uint_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 12:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least8_t_fun :: IO Uint_least8_t
+{-| __C declaration:__ @uint_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 12:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least8_t_fun = hs_bindgen_d893fc1d41730120
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least16_t_fun@
+foreign import ccall unsafe "hs_bindgen_eaf2d3e09a41513e" hs_bindgen_eaf2d3e09a41513e_base ::
+    IO Word16
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least16_t_fun@
+hs_bindgen_eaf2d3e09a41513e :: IO Uint_least16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least16_t_fun@
+hs_bindgen_eaf2d3e09a41513e = fromFFIType hs_bindgen_eaf2d3e09a41513e_base
+{-| __C declaration:__ @uint_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 13:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least16_t_fun :: IO Uint_least16_t
+{-| __C declaration:__ @uint_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 13:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least16_t_fun = hs_bindgen_eaf2d3e09a41513e
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least32_t_fun@
+foreign import ccall unsafe "hs_bindgen_dfdb9c77b9f2e16d" hs_bindgen_dfdb9c77b9f2e16d_base ::
+    IO Word32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least32_t_fun@
+hs_bindgen_dfdb9c77b9f2e16d :: IO Uint_least32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least32_t_fun@
+hs_bindgen_dfdb9c77b9f2e16d = fromFFIType hs_bindgen_dfdb9c77b9f2e16d_base
+{-| __C declaration:__ @uint_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 14:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least32_t_fun :: IO Uint_least32_t
+{-| __C declaration:__ @uint_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 14:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least32_t_fun = hs_bindgen_dfdb9c77b9f2e16d
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least64_t_fun@
+foreign import ccall unsafe "hs_bindgen_35c7ddf6def5281e" hs_bindgen_35c7ddf6def5281e_base ::
+    IO Word64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least64_t_fun@
+hs_bindgen_35c7ddf6def5281e :: IO Uint_least64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_least64_t_fun@
+hs_bindgen_35c7ddf6def5281e = fromFFIType hs_bindgen_35c7ddf6def5281e_base
+{-| __C declaration:__ @uint_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 15:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least64_t_fun :: IO Uint_least64_t
+{-| __C declaration:__ @uint_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 15:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least64_t_fun = hs_bindgen_35c7ddf6def5281e
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast8_t_fun@
+foreign import ccall unsafe "hs_bindgen_5144ac530f23abd8" hs_bindgen_5144ac530f23abd8_base ::
+    IO Int8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast8_t_fun@
+hs_bindgen_5144ac530f23abd8 :: IO Int_fast8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast8_t_fun@
+hs_bindgen_5144ac530f23abd8 = fromFFIType hs_bindgen_5144ac530f23abd8_base
+{-| __C declaration:__ @int_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 17:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast8_t_fun :: IO Int_fast8_t
+{-| __C declaration:__ @int_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 17:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast8_t_fun = hs_bindgen_5144ac530f23abd8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast16_t_fun@
+foreign import ccall unsafe "hs_bindgen_a102db8605e0b669" hs_bindgen_a102db8605e0b669_base ::
+    IO Int32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast16_t_fun@
+hs_bindgen_a102db8605e0b669 :: IO Int_fast16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast16_t_fun@
+hs_bindgen_a102db8605e0b669 = fromFFIType hs_bindgen_a102db8605e0b669_base
+{-| __C declaration:__ @int_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 18:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast16_t_fun :: IO Int_fast16_t
+{-| __C declaration:__ @int_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 18:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast16_t_fun = hs_bindgen_a102db8605e0b669
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast32_t_fun@
+foreign import ccall unsafe "hs_bindgen_97faff4568d5bc6a" hs_bindgen_97faff4568d5bc6a_base ::
+    IO Int32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast32_t_fun@
+hs_bindgen_97faff4568d5bc6a :: IO Int_fast32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast32_t_fun@
+hs_bindgen_97faff4568d5bc6a = fromFFIType hs_bindgen_97faff4568d5bc6a_base
+{-| __C declaration:__ @int_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 19:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast32_t_fun :: IO Int_fast32_t
+{-| __C declaration:__ @int_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 19:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast32_t_fun = hs_bindgen_97faff4568d5bc6a
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast64_t_fun@
+foreign import ccall unsafe "hs_bindgen_ce1a64e61a9f9432" hs_bindgen_ce1a64e61a9f9432_base ::
+    IO Int64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast64_t_fun@
+hs_bindgen_ce1a64e61a9f9432 :: IO Int_fast64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_int_fast64_t_fun@
+hs_bindgen_ce1a64e61a9f9432 = fromFFIType hs_bindgen_ce1a64e61a9f9432_base
+{-| __C declaration:__ @int_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 20:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast64_t_fun :: IO Int_fast64_t
+{-| __C declaration:__ @int_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 20:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast64_t_fun = hs_bindgen_ce1a64e61a9f9432
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast8_t_fun@
+foreign import ccall unsafe "hs_bindgen_653d74ee9fd982e2" hs_bindgen_653d74ee9fd982e2_base ::
+    IO Word8
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast8_t_fun@
+hs_bindgen_653d74ee9fd982e2 :: IO Uint_fast8_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast8_t_fun@
+hs_bindgen_653d74ee9fd982e2 = fromFFIType hs_bindgen_653d74ee9fd982e2_base
+{-| __C declaration:__ @uint_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 22:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast8_t_fun :: IO Uint_fast8_t
+{-| __C declaration:__ @uint_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 22:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast8_t_fun = hs_bindgen_653d74ee9fd982e2
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast16_t_fun@
+foreign import ccall unsafe "hs_bindgen_31bf7eba8a098bae" hs_bindgen_31bf7eba8a098bae_base ::
+    IO Word32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast16_t_fun@
+hs_bindgen_31bf7eba8a098bae :: IO Uint_fast16_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast16_t_fun@
+hs_bindgen_31bf7eba8a098bae = fromFFIType hs_bindgen_31bf7eba8a098bae_base
+{-| __C declaration:__ @uint_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 23:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast16_t_fun :: IO Uint_fast16_t
+{-| __C declaration:__ @uint_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 23:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast16_t_fun = hs_bindgen_31bf7eba8a098bae
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast32_t_fun@
+foreign import ccall unsafe "hs_bindgen_fb324d72364e5685" hs_bindgen_fb324d72364e5685_base ::
+    IO Word32
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast32_t_fun@
+hs_bindgen_fb324d72364e5685 :: IO Uint_fast32_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast32_t_fun@
+hs_bindgen_fb324d72364e5685 = fromFFIType hs_bindgen_fb324d72364e5685_base
+{-| __C declaration:__ @uint_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 24:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast32_t_fun :: IO Uint_fast32_t
+{-| __C declaration:__ @uint_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 24:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast32_t_fun = hs_bindgen_fb324d72364e5685
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast64_t_fun@
+foreign import ccall unsafe "hs_bindgen_a2995f3603c68c65" hs_bindgen_a2995f3603c68c65_base ::
+    IO Word64
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast64_t_fun@
+hs_bindgen_a2995f3603c68c65 :: IO Uint_fast64_t
+-- __unique:__ @test_typesprimitivesleast_fast_Example_Unsafe_uint_fast64_t_fun@
+hs_bindgen_a2995f3603c68c65 = fromFFIType hs_bindgen_a2995f3603c68c65_base
+{-| __C declaration:__ @uint_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 25:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast64_t_fun :: IO Uint_fast64_t
+{-| __C declaration:__ @uint_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 25:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast64_t_fun = hs_bindgen_a2995f3603c68c65
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least8_t_fun@
+foreign import ccall unsafe "hs_bindgen_0391876bad2745ce" hs_bindgen_0391876bad2745ce_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least8_t_fun@
+hs_bindgen_0391876bad2745ce :: IO (FunPtr (IO Int_least8_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least8_t_fun@
+hs_bindgen_0391876bad2745ce = fromFFIType hs_bindgen_0391876bad2745ce_base
+{-# NOINLINE int_least8_t_fun #-}
+{-| __C declaration:__ @int_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 7:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least8_t_fun :: FunPtr (IO Int_least8_t)
+{-| __C declaration:__ @int_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 7:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least8_t_fun = unsafePerformIO hs_bindgen_0391876bad2745ce
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least16_t_fun@
+foreign import ccall unsafe "hs_bindgen_0af5d61729271291" hs_bindgen_0af5d61729271291_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least16_t_fun@
+hs_bindgen_0af5d61729271291 :: IO (FunPtr (IO Int_least16_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least16_t_fun@
+hs_bindgen_0af5d61729271291 = fromFFIType hs_bindgen_0af5d61729271291_base
+{-# NOINLINE int_least16_t_fun #-}
+{-| __C declaration:__ @int_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 8:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least16_t_fun :: FunPtr (IO Int_least16_t)
+{-| __C declaration:__ @int_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 8:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least16_t_fun = unsafePerformIO hs_bindgen_0af5d61729271291
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least32_t_fun@
+foreign import ccall unsafe "hs_bindgen_335ec637d8d81f56" hs_bindgen_335ec637d8d81f56_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least32_t_fun@
+hs_bindgen_335ec637d8d81f56 :: IO (FunPtr (IO Int_least32_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least32_t_fun@
+hs_bindgen_335ec637d8d81f56 = fromFFIType hs_bindgen_335ec637d8d81f56_base
+{-# NOINLINE int_least32_t_fun #-}
+{-| __C declaration:__ @int_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 9:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least32_t_fun :: FunPtr (IO Int_least32_t)
+{-| __C declaration:__ @int_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 9:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least32_t_fun = unsafePerformIO hs_bindgen_335ec637d8d81f56
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least64_t_fun@
+foreign import ccall unsafe "hs_bindgen_eedbb79d8eb0ca67" hs_bindgen_eedbb79d8eb0ca67_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least64_t_fun@
+hs_bindgen_eedbb79d8eb0ca67 :: IO (FunPtr (IO Int_least64_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_least64_t_fun@
+hs_bindgen_eedbb79d8eb0ca67 = fromFFIType hs_bindgen_eedbb79d8eb0ca67_base
+{-# NOINLINE int_least64_t_fun #-}
+{-| __C declaration:__ @int_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 10:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least64_t_fun :: FunPtr (IO Int_least64_t)
+{-| __C declaration:__ @int_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 10:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_least64_t_fun = unsafePerformIO hs_bindgen_eedbb79d8eb0ca67
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least8_t_fun@
+foreign import ccall unsafe "hs_bindgen_cae759b263e9dcdd" hs_bindgen_cae759b263e9dcdd_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least8_t_fun@
+hs_bindgen_cae759b263e9dcdd :: IO (FunPtr (IO Uint_least8_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least8_t_fun@
+hs_bindgen_cae759b263e9dcdd = fromFFIType hs_bindgen_cae759b263e9dcdd_base
+{-# NOINLINE uint_least8_t_fun #-}
+{-| __C declaration:__ @uint_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 12:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least8_t_fun :: FunPtr (IO Uint_least8_t)
+{-| __C declaration:__ @uint_least8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 12:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least8_t_fun = unsafePerformIO hs_bindgen_cae759b263e9dcdd
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least16_t_fun@
+foreign import ccall unsafe "hs_bindgen_66a8cb9486f831fe" hs_bindgen_66a8cb9486f831fe_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least16_t_fun@
+hs_bindgen_66a8cb9486f831fe :: IO (FunPtr (IO Uint_least16_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least16_t_fun@
+hs_bindgen_66a8cb9486f831fe = fromFFIType hs_bindgen_66a8cb9486f831fe_base
+{-# NOINLINE uint_least16_t_fun #-}
+{-| __C declaration:__ @uint_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 13:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least16_t_fun :: FunPtr (IO Uint_least16_t)
+{-| __C declaration:__ @uint_least16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 13:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least16_t_fun = unsafePerformIO hs_bindgen_66a8cb9486f831fe
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least32_t_fun@
+foreign import ccall unsafe "hs_bindgen_bfc0feef86d3e7d0" hs_bindgen_bfc0feef86d3e7d0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least32_t_fun@
+hs_bindgen_bfc0feef86d3e7d0 :: IO (FunPtr (IO Uint_least32_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least32_t_fun@
+hs_bindgen_bfc0feef86d3e7d0 = fromFFIType hs_bindgen_bfc0feef86d3e7d0_base
+{-# NOINLINE uint_least32_t_fun #-}
+{-| __C declaration:__ @uint_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 14:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least32_t_fun :: FunPtr (IO Uint_least32_t)
+{-| __C declaration:__ @uint_least32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 14:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least32_t_fun = unsafePerformIO hs_bindgen_bfc0feef86d3e7d0
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least64_t_fun@
+foreign import ccall unsafe "hs_bindgen_1886bff0b6836087" hs_bindgen_1886bff0b6836087_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least64_t_fun@
+hs_bindgen_1886bff0b6836087 :: IO (FunPtr (IO Uint_least64_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_least64_t_fun@
+hs_bindgen_1886bff0b6836087 = fromFFIType hs_bindgen_1886bff0b6836087_base
+{-# NOINLINE uint_least64_t_fun #-}
+{-| __C declaration:__ @uint_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 15:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least64_t_fun :: FunPtr (IO Uint_least64_t)
+{-| __C declaration:__ @uint_least64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 15:16@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_least64_t_fun = unsafePerformIO hs_bindgen_1886bff0b6836087
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast8_t_fun@
+foreign import ccall unsafe "hs_bindgen_08f27d79a8ef226d" hs_bindgen_08f27d79a8ef226d_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast8_t_fun@
+hs_bindgen_08f27d79a8ef226d :: IO (FunPtr (IO Int_fast8_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast8_t_fun@
+hs_bindgen_08f27d79a8ef226d = fromFFIType hs_bindgen_08f27d79a8ef226d_base
+{-# NOINLINE int_fast8_t_fun #-}
+{-| __C declaration:__ @int_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 17:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast8_t_fun :: FunPtr (IO Int_fast8_t)
+{-| __C declaration:__ @int_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 17:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast8_t_fun = unsafePerformIO hs_bindgen_08f27d79a8ef226d
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast16_t_fun@
+foreign import ccall unsafe "hs_bindgen_1bff6fbb3c56abd5" hs_bindgen_1bff6fbb3c56abd5_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast16_t_fun@
+hs_bindgen_1bff6fbb3c56abd5 :: IO (FunPtr (IO Int_fast16_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast16_t_fun@
+hs_bindgen_1bff6fbb3c56abd5 = fromFFIType hs_bindgen_1bff6fbb3c56abd5_base
+{-# NOINLINE int_fast16_t_fun #-}
+{-| __C declaration:__ @int_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 18:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast16_t_fun :: FunPtr (IO Int_fast16_t)
+{-| __C declaration:__ @int_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 18:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast16_t_fun = unsafePerformIO hs_bindgen_1bff6fbb3c56abd5
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast32_t_fun@
+foreign import ccall unsafe "hs_bindgen_8a1d629866650da2" hs_bindgen_8a1d629866650da2_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast32_t_fun@
+hs_bindgen_8a1d629866650da2 :: IO (FunPtr (IO Int_fast32_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast32_t_fun@
+hs_bindgen_8a1d629866650da2 = fromFFIType hs_bindgen_8a1d629866650da2_base
+{-# NOINLINE int_fast32_t_fun #-}
+{-| __C declaration:__ @int_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 19:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast32_t_fun :: FunPtr (IO Int_fast32_t)
+{-| __C declaration:__ @int_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 19:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast32_t_fun = unsafePerformIO hs_bindgen_8a1d629866650da2
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast64_t_fun@
+foreign import ccall unsafe "hs_bindgen_c112b0dedac2cffa" hs_bindgen_c112b0dedac2cffa_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast64_t_fun@
+hs_bindgen_c112b0dedac2cffa :: IO (FunPtr (IO Int_fast64_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_int_fast64_t_fun@
+hs_bindgen_c112b0dedac2cffa = fromFFIType hs_bindgen_c112b0dedac2cffa_base
+{-# NOINLINE int_fast64_t_fun #-}
+{-| __C declaration:__ @int_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 20:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast64_t_fun :: FunPtr (IO Int_fast64_t)
+{-| __C declaration:__ @int_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 20:14@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+int_fast64_t_fun = unsafePerformIO hs_bindgen_c112b0dedac2cffa
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast8_t_fun@
+foreign import ccall unsafe "hs_bindgen_c20e96bd69bdb439" hs_bindgen_c20e96bd69bdb439_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast8_t_fun@
+hs_bindgen_c20e96bd69bdb439 :: IO (FunPtr (IO Uint_fast8_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast8_t_fun@
+hs_bindgen_c20e96bd69bdb439 = fromFFIType hs_bindgen_c20e96bd69bdb439_base
+{-# NOINLINE uint_fast8_t_fun #-}
+{-| __C declaration:__ @uint_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 22:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast8_t_fun :: FunPtr (IO Uint_fast8_t)
+{-| __C declaration:__ @uint_fast8_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 22:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast8_t_fun = unsafePerformIO hs_bindgen_c20e96bd69bdb439
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast16_t_fun@
+foreign import ccall unsafe "hs_bindgen_c4f607ba753f0616" hs_bindgen_c4f607ba753f0616_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast16_t_fun@
+hs_bindgen_c4f607ba753f0616 :: IO (FunPtr (IO Uint_fast16_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast16_t_fun@
+hs_bindgen_c4f607ba753f0616 = fromFFIType hs_bindgen_c4f607ba753f0616_base
+{-# NOINLINE uint_fast16_t_fun #-}
+{-| __C declaration:__ @uint_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 23:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast16_t_fun :: FunPtr (IO Uint_fast16_t)
+{-| __C declaration:__ @uint_fast16_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 23:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast16_t_fun = unsafePerformIO hs_bindgen_c4f607ba753f0616
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast32_t_fun@
+foreign import ccall unsafe "hs_bindgen_c22f26851616c098" hs_bindgen_c22f26851616c098_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast32_t_fun@
+hs_bindgen_c22f26851616c098 :: IO (FunPtr (IO Uint_fast32_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast32_t_fun@
+hs_bindgen_c22f26851616c098 = fromFFIType hs_bindgen_c22f26851616c098_base
+{-# NOINLINE uint_fast32_t_fun #-}
+{-| __C declaration:__ @uint_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 24:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast32_t_fun :: FunPtr (IO Uint_fast32_t)
+{-| __C declaration:__ @uint_fast32_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 24:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast32_t_fun = unsafePerformIO hs_bindgen_c22f26851616c098
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast64_t_fun@
+foreign import ccall unsafe "hs_bindgen_3ee59d750d0d2d2a" hs_bindgen_3ee59d750d0d2d2a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast64_t_fun@
+hs_bindgen_3ee59d750d0d2d2a :: IO (FunPtr (IO Uint_fast64_t))
+-- __unique:__ @test_typesprimitivesleast_fast_Example_get_uint_fast64_t_fun@
+hs_bindgen_3ee59d750d0d2d2a = fromFFIType hs_bindgen_3ee59d750d0d2d2a_base
+{-# NOINLINE uint_fast64_t_fun #-}
+{-| __C declaration:__ @uint_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 25:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast64_t_fun :: FunPtr (IO Uint_fast64_t)
+{-| __C declaration:__ @uint_fast64_t_fun@
+
+    __defined at:__ @types\/primitives\/least_fast.h 25:15@
+
+    __exported by:__ @types\/primitives\/least_fast.h@
+-}
+uint_fast64_t_fun = unsafePerformIO hs_bindgen_3ee59d750d0d2d2a

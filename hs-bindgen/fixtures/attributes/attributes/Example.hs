@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,7 +21,6 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
@@ -48,8 +45,7 @@ data Foo = Foo
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo where
 
@@ -83,8 +79,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_c")
-         ) => GHC.Records.HasField "foo_c" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_c" (Ptr.Ptr Foo) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_c")
@@ -95,8 +90,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_i")
-         ) => GHC.Records.HasField "foo_i" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_i" (Ptr.Ptr Foo) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_i")
@@ -123,8 +117,7 @@ data Bar = Bar
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bar where
 
@@ -158,8 +151,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_c")
-         ) => GHC.Records.HasField "bar_c" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bar_c" (Ptr.Ptr Bar) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_c")
@@ -170,8 +162,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_i")
-         ) => GHC.Records.HasField "bar_i" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bar_i" (Ptr.Ptr Bar) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_i")
@@ -198,8 +189,7 @@ data Baz = Baz
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Baz where
 
@@ -233,8 +223,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Baz "baz_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Baz) "baz_c")
-         ) => GHC.Records.HasField "baz_c" (Ptr.Ptr Baz) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "baz_c" (Ptr.Ptr Baz) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"baz_c")
@@ -245,8 +234,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Baz "baz_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Baz) "baz_i")
-         ) => GHC.Records.HasField "baz_i" (Ptr.Ptr Baz) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "baz_i" (Ptr.Ptr Baz) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"baz_i")
@@ -273,8 +261,7 @@ data Qux = Qux
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Qux where
 
@@ -308,8 +295,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Qux "qux_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Qux) "qux_c")
-         ) => GHC.Records.HasField "qux_c" (Ptr.Ptr Qux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "qux_c" (Ptr.Ptr Qux) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"qux_c")
@@ -320,8 +306,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Qux "qux_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Qux) "qux_i")
-         ) => GHC.Records.HasField "qux_i" (Ptr.Ptr Qux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "qux_i" (Ptr.Ptr Qux) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"qux_i")
@@ -355,8 +340,7 @@ data FILE = FILE
          __exported by:__ @attributes\/attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize FILE where
 
@@ -392,8 +376,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FILE "fILE__r" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FILE) "fILE__r")
-         ) => GHC.Records.HasField "fILE__r" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "fILE__r" (Ptr.Ptr FILE) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fILE__r")
@@ -404,8 +387,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FILE "fILE__w" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FILE) "fILE__w")
-         ) => GHC.Records.HasField "fILE__w" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "fILE__w" (Ptr.Ptr FILE) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fILE__w")
@@ -417,8 +399,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FILE "fILE__close" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FILE) "fILE__close")
-         ) => GHC.Records.HasField "fILE__close" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "fILE__close" (Ptr.Ptr FILE) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fILE__close")

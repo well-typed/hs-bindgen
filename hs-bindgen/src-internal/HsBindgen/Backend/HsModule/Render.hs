@@ -30,7 +30,6 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -519,8 +518,8 @@ prettyType env prec = \case
           "forall" <+> PP.hsep params >< "." <+>
           PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
 
-prettyPrimType :: HsPrimType -> CtxDoc
-prettyPrimType = prettyType EmptyEnv 0 . TGlobal . PrimType
+prettyTypeGlobal :: Global -> CtxDoc
+prettyTypeGlobal = prettyType EmptyEnv 0 . TGlobal
 
 {-------------------------------------------------------------------------------
   PatEpxr pretty-printing
@@ -553,7 +552,7 @@ prettyExpr env prec = \case
     EUnboxedIntegral i ->
       PP.parens $ PP.hcat [PP.show i, "#"]
     EIntegral i (Just t) ->
-      PP.parens $ PP.hcat [PP.show i, " :: ", prettyPrimType t]
+      PP.parens $ PP.hcat [PP.show i, " :: ", prettyTypeGlobal t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
       prettyExpr env 0 (EGlobal CharValue_fromAddr)
         <+> PP.string str
@@ -572,7 +571,7 @@ prettyExpr env prec = \case
       in PP.parens $ PP.hcat
         [ PP.parens $ prettyExpr env 0 (EGlobal Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
         , " :: "
-        , prettyPrimType HsPrimCStringLen
+        , prettyTypeGlobal CStringLen_type
         ]
 
     EFloat f t -> PP.parens $ PP.hcat [
@@ -582,9 +581,9 @@ prettyExpr env prec = \case
           prettyExpr env prec $
             EApp (EGlobal CFloat_constructor) $
               EApp (EGlobal GHC_Float_castWord32ToFloat) $
-                EIntegral (toInteger $ castFloatToWord32 f) (Just HsPrimCUInt)
+                EIntegral (toInteger $ castFloatToWord32 f) (Just CUInt_type)
       , " :: "
-      , prettyPrimType t
+      , prettyTypeGlobal t
       ]
     EDouble f t -> PP.parens $ PP.hcat [
         if CExpr.DSL.canBeRepresentedAsRational f then
@@ -593,9 +592,9 @@ prettyExpr env prec = \case
           prettyExpr env  prec $
             EApp (EGlobal CDouble_constructor) $
               EApp (EGlobal GHC_Float_castWord64ToDouble) $
-                EIntegral (toInteger $ castDoubleToWord64 f) (Just HsPrimCULong)
+                EIntegral (toInteger $ castDoubleToWord64 f) (Just CULong_type)
       , " :: "
-      , prettyPrimType t
+      , prettyTypeGlobal t
       ]
 
     EApp f x -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x

@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,7 +21,6 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct Vector@
@@ -41,8 +38,7 @@ data Vector_Aux = Vector
          __exported by:__ @edge-cases\/flam_functions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Vector_Aux where
 
@@ -74,8 +70,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Vector_Aux "vector_length" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_length")
-         ) => GHC.Records.HasField "vector_length" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "vector_length" (Ptr.Ptr Vector_Aux) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_length")

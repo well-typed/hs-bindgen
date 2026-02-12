@@ -293,10 +293,11 @@ unionDecs fieldNaming haddockConfig info union spec = do
 
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
+            Just Inst.Generic
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
           -- Should correctly detect 'Inst.HasCBitField' and 'Inst.HasCField'
           -- when bit-fields in unions are supported.
-            if null union.fields then Nothing else Just Inst.HasCField
+          , if null union.fields then Nothing else Just Inst.HasCField
           , if null union.fields then Nothing else Just Inst.HasField
           , Just Inst.ReadRaw
           , Just Inst.StaticSize
@@ -313,6 +314,12 @@ unionDecs fieldNaming haddockConfig info union spec = do
         marshalDecls :: [Hs.Decl]
         marshalDecls = [
             Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveStock
+              , clss     = Inst.Generic
+              , name     = nt.name
+              , comment  = Nothing
+              }
+          , Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveVia sba
               , clss     = Inst.StaticSize
               , name     = nt.name
@@ -559,6 +566,7 @@ enumDecs supInsts fns haddockConfig info enum spec = aux <$> newtypeDec
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
             Just Inst.CEnum
+          , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
           , Just Inst.Prim
@@ -743,6 +751,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
         knownInsts :: Set Inst.TypeClass
         knownInsts = Set.fromList $ catMaybes [
             Inst.FromFunPtr <$ mFunPtr
+          , Just Inst.Generic
           , Just Inst.HasCField
           , Just Inst.HasField
           , Inst.ToFunPtr <$ mFunPtr
@@ -1005,7 +1014,7 @@ macroDecsTypedef supInsts haddockConfig info macroType spec = do
         candidateInsts = Hs.getCandidateInsts supInsts
 
         knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.fromList [Inst.HasCField, Inst.HasField]
+        knownInsts = Set.fromList [Inst.HasCField, Inst.HasField, Inst.Generic]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]

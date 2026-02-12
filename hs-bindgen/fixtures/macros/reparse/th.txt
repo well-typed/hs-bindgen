@@ -2487,8 +2487,7 @@ newtype A
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -2504,8 +2503,7 @@ newtype A
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CInt
@@ -2524,8 +2522,7 @@ data Some_struct
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Some_struct
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -2568,8 +2565,7 @@ newtype Some_enum
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Some_enum
     where staticSizeOf = \_ -> 4 :: Int
@@ -2600,8 +2596,7 @@ instance Read Some_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty (CFieldType Some_enum "unwrapSome_enum") =>
-         HasField "unwrapSome_enum" (Ptr Some_enum) (Ptr ty)
+instance HasField "unwrapSome_enum" (Ptr Some_enum) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapSome_enum")
 instance HasCField Some_enum "unwrapSome_enum"
     where type CFieldType Some_enum "unwrapSome_enum" = CUInt
@@ -2634,10 +2629,10 @@ newtype Arr_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
-instance TyEq ty (CFieldType Arr_typedef1 "unwrapArr_typedef1") =>
-         HasField "unwrapArr_typedef1" (Ptr Arr_typedef1) (Ptr ty)
+    deriving stock (Generic, Eq, Show)
+instance HasField "unwrapArr_typedef1"
+                  (Ptr Arr_typedef1)
+                  (Ptr (IncompleteArray A))
     where getField = fromPtr (Proxy @"unwrapArr_typedef1")
 instance HasCField Arr_typedef1 "unwrapArr_typedef1"
     where type CFieldType Arr_typedef1
@@ -2657,10 +2652,10 @@ newtype Arr_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
-instance TyEq ty (CFieldType Arr_typedef2 "unwrapArr_typedef2") =>
-         HasField "unwrapArr_typedef2" (Ptr Arr_typedef2) (Ptr ty)
+    deriving stock (Generic, Eq, Show)
+instance HasField "unwrapArr_typedef2"
+                  (Ptr Arr_typedef2)
+                  (Ptr (IncompleteArray (Ptr A)))
     where getField = fromPtr (Proxy @"unwrapArr_typedef2")
 instance HasCField Arr_typedef2 "unwrapArr_typedef2"
     where type CFieldType Arr_typedef2
@@ -2680,11 +2675,11 @@ newtype Arr_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Arr_typedef3 "unwrapArr_typedef3") =>
-         HasField "unwrapArr_typedef3" (Ptr Arr_typedef3) (Ptr ty)
+instance HasField "unwrapArr_typedef3"
+                  (Ptr Arr_typedef3)
+                  (Ptr (ConstantArray 5 A))
     where getField = fromPtr (Proxy @"unwrapArr_typedef3")
 instance HasCField Arr_typedef3 "unwrapArr_typedef3"
     where type CFieldType Arr_typedef3
@@ -2704,11 +2699,11 @@ newtype Arr_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Arr_typedef4 "unwrapArr_typedef4") =>
-         HasField "unwrapArr_typedef4" (Ptr Arr_typedef4) (Ptr ty)
+instance HasField "unwrapArr_typedef4"
+                  (Ptr Arr_typedef4)
+                  (Ptr (ConstantArray 5 (Ptr A)))
     where getField = fromPtr (Proxy @"unwrapArr_typedef4")
 instance HasCField Arr_typedef4 "unwrapArr_typedef4"
     where type CFieldType Arr_typedef4
@@ -2732,8 +2727,7 @@ newtype Typedef1
 
       __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -2749,8 +2743,7 @@ newtype Typedef1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Typedef1 "unwrapTypedef1") =>
-         HasField "unwrapTypedef1" (Ptr Typedef1) (Ptr ty)
+instance HasField "unwrapTypedef1" (Ptr Typedef1) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapTypedef1")
 instance HasCField Typedef1 "unwrapTypedef1"
     where type CFieldType Typedef1 "unwrapTypedef1" = A
@@ -2769,15 +2762,13 @@ newtype Typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType Typedef2 "unwrapTypedef2") =>
-         HasField "unwrapTypedef2" (Ptr Typedef2) (Ptr ty)
+instance HasField "unwrapTypedef2" (Ptr Typedef2) (Ptr (Ptr A))
     where getField = fromPtr (Proxy @"unwrapTypedef2")
 instance HasCField Typedef2 "unwrapTypedef2"
     where type CFieldType Typedef2 "unwrapTypedef2" = Ptr A
@@ -2796,15 +2787,15 @@ newtype Typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType Typedef3 "unwrapTypedef3") =>
-         HasField "unwrapTypedef3" (Ptr Typedef3) (Ptr ty)
+instance HasField "unwrapTypedef3"
+                  (Ptr Typedef3)
+                  (Ptr (Ptr (Ptr A)))
     where getField = fromPtr (Proxy @"unwrapTypedef3")
 instance HasCField Typedef3 "unwrapTypedef3"
     where type CFieldType Typedef3 "unwrapTypedef3" = Ptr (Ptr A)
@@ -2849,11 +2840,9 @@ instance ToFunPtr Funptr_typedef1_Aux
     where toFunPtr = hs_bindgen_c584d0f839fd43de
 instance FromFunPtr Funptr_typedef1_Aux
     where fromFunPtr = hs_bindgen_806a46dc418a062c
-instance TyEq ty
-              (CFieldType Funptr_typedef1_Aux "unwrapFunptr_typedef1_Aux") =>
-         HasField "unwrapFunptr_typedef1_Aux"
+instance HasField "unwrapFunptr_typedef1_Aux"
                   (Ptr Funptr_typedef1_Aux)
-                  (Ptr ty)
+                  (Ptr (IO A))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef1_Aux")
 instance HasCField Funptr_typedef1_Aux "unwrapFunptr_typedef1_Aux"
     where type CFieldType Funptr_typedef1_Aux
@@ -2873,16 +2862,15 @@ newtype Funptr_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Funptr_typedef1 "unwrapFunptr_typedef1") =>
-         HasField "unwrapFunptr_typedef1" (Ptr Funptr_typedef1) (Ptr ty)
+instance HasField "unwrapFunptr_typedef1"
+                  (Ptr Funptr_typedef1)
+                  (Ptr (FunPtr Funptr_typedef1_Aux))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef1")
 instance HasCField Funptr_typedef1 "unwrapFunptr_typedef1"
     where type CFieldType Funptr_typedef1
@@ -2928,11 +2916,9 @@ instance ToFunPtr Funptr_typedef2_Aux
     where toFunPtr = hs_bindgen_f174457a161ac5a0
 instance FromFunPtr Funptr_typedef2_Aux
     where fromFunPtr = hs_bindgen_323d07dff85b802c
-instance TyEq ty
-              (CFieldType Funptr_typedef2_Aux "unwrapFunptr_typedef2_Aux") =>
-         HasField "unwrapFunptr_typedef2_Aux"
+instance HasField "unwrapFunptr_typedef2_Aux"
                   (Ptr Funptr_typedef2_Aux)
-                  (Ptr ty)
+                  (Ptr (IO (Ptr A)))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef2_Aux")
 instance HasCField Funptr_typedef2_Aux "unwrapFunptr_typedef2_Aux"
     where type CFieldType Funptr_typedef2_Aux
@@ -2952,16 +2938,15 @@ newtype Funptr_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Funptr_typedef2 "unwrapFunptr_typedef2") =>
-         HasField "unwrapFunptr_typedef2" (Ptr Funptr_typedef2) (Ptr ty)
+instance HasField "unwrapFunptr_typedef2"
+                  (Ptr Funptr_typedef2)
+                  (Ptr (FunPtr Funptr_typedef2_Aux))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef2")
 instance HasCField Funptr_typedef2 "unwrapFunptr_typedef2"
     where type CFieldType Funptr_typedef2
@@ -3007,11 +2992,9 @@ instance ToFunPtr Funptr_typedef3_Aux
     where toFunPtr = hs_bindgen_031d1a7decd790d8
 instance FromFunPtr Funptr_typedef3_Aux
     where fromFunPtr = hs_bindgen_82dc7b932974117e
-instance TyEq ty
-              (CFieldType Funptr_typedef3_Aux "unwrapFunptr_typedef3_Aux") =>
-         HasField "unwrapFunptr_typedef3_Aux"
+instance HasField "unwrapFunptr_typedef3_Aux"
                   (Ptr Funptr_typedef3_Aux)
-                  (Ptr ty)
+                  (Ptr (IO (Ptr (Ptr A))))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef3_Aux")
 instance HasCField Funptr_typedef3_Aux "unwrapFunptr_typedef3_Aux"
     where type CFieldType Funptr_typedef3_Aux
@@ -3031,16 +3014,15 @@ newtype Funptr_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Funptr_typedef3 "unwrapFunptr_typedef3") =>
-         HasField "unwrapFunptr_typedef3" (Ptr Funptr_typedef3) (Ptr ty)
+instance HasField "unwrapFunptr_typedef3"
+                  (Ptr Funptr_typedef3)
+                  (Ptr (FunPtr Funptr_typedef3_Aux))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef3")
 instance HasCField Funptr_typedef3 "unwrapFunptr_typedef3"
     where type CFieldType Funptr_typedef3
@@ -3089,11 +3071,9 @@ instance ToFunPtr Funptr_typedef4_Aux
     where toFunPtr = hs_bindgen_da2336d254667386
 instance FromFunPtr Funptr_typedef4_Aux
     where fromFunPtr = hs_bindgen_d4a97954476da161
-instance TyEq ty
-              (CFieldType Funptr_typedef4_Aux "unwrapFunptr_typedef4_Aux") =>
-         HasField "unwrapFunptr_typedef4_Aux"
+instance HasField "unwrapFunptr_typedef4_Aux"
                   (Ptr Funptr_typedef4_Aux)
-                  (Ptr ty)
+                  (Ptr (CInt -> CDouble -> IO A))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef4_Aux")
 instance HasCField Funptr_typedef4_Aux "unwrapFunptr_typedef4_Aux"
     where type CFieldType Funptr_typedef4_Aux
@@ -3113,16 +3093,15 @@ newtype Funptr_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Funptr_typedef4 "unwrapFunptr_typedef4") =>
-         HasField "unwrapFunptr_typedef4" (Ptr Funptr_typedef4) (Ptr ty)
+instance HasField "unwrapFunptr_typedef4"
+                  (Ptr Funptr_typedef4)
+                  (Ptr (FunPtr Funptr_typedef4_Aux))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef4")
 instance HasCField Funptr_typedef4 "unwrapFunptr_typedef4"
     where type CFieldType Funptr_typedef4
@@ -3171,11 +3150,9 @@ instance ToFunPtr Funptr_typedef5_Aux
     where toFunPtr = hs_bindgen_1f45632f07742a46
 instance FromFunPtr Funptr_typedef5_Aux
     where fromFunPtr = hs_bindgen_0bd1877eaaba0d3e
-instance TyEq ty
-              (CFieldType Funptr_typedef5_Aux "unwrapFunptr_typedef5_Aux") =>
-         HasField "unwrapFunptr_typedef5_Aux"
+instance HasField "unwrapFunptr_typedef5_Aux"
                   (Ptr Funptr_typedef5_Aux)
-                  (Ptr ty)
+                  (Ptr (CInt -> CDouble -> IO (Ptr A)))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef5_Aux")
 instance HasCField Funptr_typedef5_Aux "unwrapFunptr_typedef5_Aux"
     where type CFieldType Funptr_typedef5_Aux
@@ -3195,16 +3172,15 @@ newtype Funptr_typedef5
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Funptr_typedef5 "unwrapFunptr_typedef5") =>
-         HasField "unwrapFunptr_typedef5" (Ptr Funptr_typedef5) (Ptr ty)
+instance HasField "unwrapFunptr_typedef5"
+                  (Ptr Funptr_typedef5)
+                  (Ptr (FunPtr Funptr_typedef5_Aux))
     where getField = fromPtr (Proxy @"unwrapFunptr_typedef5")
 instance HasCField Funptr_typedef5 "unwrapFunptr_typedef5"
     where type CFieldType Funptr_typedef5
@@ -3224,8 +3200,7 @@ newtype Comments2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3241,8 +3216,7 @@ newtype Comments2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Comments2 "unwrapComments2") =>
-         HasField "unwrapComments2" (Ptr Comments2) (Ptr ty)
+instance HasField "unwrapComments2" (Ptr Comments2) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapComments2")
 instance HasCField Comments2 "unwrapComments2"
     where type CFieldType Comments2 "unwrapComments2" = A
@@ -3285,8 +3259,7 @@ data Example_struct
 
       __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Example_struct
     where staticSizeOf = \_ -> 24 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -3301,25 +3274,25 @@ deriving via (EquivStorable Example_struct) instance Storable Example_struct
 instance HasCField Example_struct "example_struct_field1"
     where type CFieldType Example_struct "example_struct_field1" = A
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Example_struct "example_struct_field1") =>
-         HasField "example_struct_field1" (Ptr Example_struct) (Ptr ty)
+instance HasField "example_struct_field1"
+                  (Ptr Example_struct)
+                  (Ptr A)
     where getField = fromPtr (Proxy @"example_struct_field1")
 instance HasCField Example_struct "example_struct_field2"
     where type CFieldType Example_struct
                           "example_struct_field2" = Ptr A
           offset# = \_ -> \_ -> 8
-instance TyEq ty
-              (CFieldType Example_struct "example_struct_field2") =>
-         HasField "example_struct_field2" (Ptr Example_struct) (Ptr ty)
+instance HasField "example_struct_field2"
+                  (Ptr Example_struct)
+                  (Ptr (Ptr A))
     where getField = fromPtr (Proxy @"example_struct_field2")
 instance HasCField Example_struct "example_struct_field3"
     where type CFieldType Example_struct
                           "example_struct_field3" = Ptr (Ptr A)
           offset# = \_ -> \_ -> 16
-instance TyEq ty
-              (CFieldType Example_struct "example_struct_field3") =>
-         HasField "example_struct_field3" (Ptr Example_struct) (Ptr ty)
+instance HasField "example_struct_field3"
+                  (Ptr Example_struct)
+                  (Ptr (Ptr (Ptr A)))
     where getField = fromPtr (Proxy @"example_struct_field3")
 {-| __C declaration:__ @const_typedef1@
 
@@ -3335,8 +3308,7 @@ newtype Const_typedef1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3352,9 +3324,9 @@ newtype Const_typedef1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Const_typedef1 "unwrapConst_typedef1") =>
-         HasField "unwrapConst_typedef1" (Ptr Const_typedef1) (Ptr ty)
+instance HasField "unwrapConst_typedef1"
+                  (Ptr Const_typedef1)
+                  (Ptr A)
     where getField = fromPtr (Proxy @"unwrapConst_typedef1")
 instance HasCField Const_typedef1 "unwrapConst_typedef1"
     where type CFieldType Const_typedef1 "unwrapConst_typedef1" = A
@@ -3373,8 +3345,7 @@ newtype Const_typedef2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -3390,9 +3361,9 @@ newtype Const_typedef2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Const_typedef2 "unwrapConst_typedef2") =>
-         HasField "unwrapConst_typedef2" (Ptr Const_typedef2) (Ptr ty)
+instance HasField "unwrapConst_typedef2"
+                  (Ptr Const_typedef2)
+                  (Ptr A)
     where getField = fromPtr (Proxy @"unwrapConst_typedef2")
 instance HasCField Const_typedef2 "unwrapConst_typedef2"
     where type CFieldType Const_typedef2 "unwrapConst_typedef2" = A
@@ -3411,16 +3382,15 @@ newtype Const_typedef3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_typedef3 "unwrapConst_typedef3") =>
-         HasField "unwrapConst_typedef3" (Ptr Const_typedef3) (Ptr ty)
+instance HasField "unwrapConst_typedef3"
+                  (Ptr Const_typedef3)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"unwrapConst_typedef3")
 instance HasCField Const_typedef3 "unwrapConst_typedef3"
     where type CFieldType Const_typedef3
@@ -3440,16 +3410,15 @@ newtype Const_typedef4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_typedef4 "unwrapConst_typedef4") =>
-         HasField "unwrapConst_typedef4" (Ptr Const_typedef4) (Ptr ty)
+instance HasField "unwrapConst_typedef4"
+                  (Ptr Const_typedef4)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"unwrapConst_typedef4")
 instance HasCField Const_typedef4 "unwrapConst_typedef4"
     where type CFieldType Const_typedef4
@@ -3469,16 +3438,15 @@ newtype Const_typedef5
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_typedef5 "unwrapConst_typedef5") =>
-         HasField "unwrapConst_typedef5" (Ptr Const_typedef5) (Ptr ty)
+instance HasField "unwrapConst_typedef5"
+                  (Ptr Const_typedef5)
+                  (Ptr (Ptr A))
     where getField = fromPtr (Proxy @"unwrapConst_typedef5")
 instance HasCField Const_typedef5 "unwrapConst_typedef5"
     where type CFieldType Const_typedef5 "unwrapConst_typedef5" = Ptr A
@@ -3497,16 +3465,15 @@ newtype Const_typedef6
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_typedef6 "unwrapConst_typedef6") =>
-         HasField "unwrapConst_typedef6" (Ptr Const_typedef6) (Ptr ty)
+instance HasField "unwrapConst_typedef6"
+                  (Ptr Const_typedef6)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"unwrapConst_typedef6")
 instance HasCField Const_typedef6 "unwrapConst_typedef6"
     where type CFieldType Const_typedef6
@@ -3526,16 +3493,15 @@ newtype Const_typedef7
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_typedef7 "unwrapConst_typedef7") =>
-         HasField "unwrapConst_typedef7" (Ptr Const_typedef7) (Ptr ty)
+instance HasField "unwrapConst_typedef7"
+                  (Ptr Const_typedef7)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"unwrapConst_typedef7")
 instance HasCField Const_typedef7 "unwrapConst_typedef7"
     where type CFieldType Const_typedef7
@@ -3603,8 +3569,7 @@ data Example_struct_with_const
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Example_struct_with_const
     where staticSizeOf = \_ -> 48 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -3625,84 +3590,63 @@ instance HasCField Example_struct_with_const
     where type CFieldType Example_struct_with_const
                           "example_struct_with_const_const_field1" = A
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field1") =>
-         HasField "example_struct_with_const_const_field1"
+instance HasField "example_struct_with_const_const_field1"
                   (Ptr Example_struct_with_const)
-                  (Ptr ty)
+                  (Ptr A)
     where getField = fromPtr (Proxy @"example_struct_with_const_const_field1")
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field2"
     where type CFieldType Example_struct_with_const
                           "example_struct_with_const_const_field2" = A
           offset# = \_ -> \_ -> 4
-instance TyEq ty
-              (CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field2") =>
-         HasField "example_struct_with_const_const_field2"
+instance HasField "example_struct_with_const_const_field2"
                   (Ptr Example_struct_with_const)
-                  (Ptr ty)
+                  (Ptr A)
     where getField = fromPtr (Proxy @"example_struct_with_const_const_field2")
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field3"
     where type CFieldType Example_struct_with_const
                           "example_struct_with_const_const_field3" = PtrConst A
           offset# = \_ -> \_ -> 8
-instance TyEq ty
-              (CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field3") =>
-         HasField "example_struct_with_const_const_field3"
+instance HasField "example_struct_with_const_const_field3"
                   (Ptr Example_struct_with_const)
-                  (Ptr ty)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"example_struct_with_const_const_field3")
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field4"
     where type CFieldType Example_struct_with_const
                           "example_struct_with_const_const_field4" = PtrConst A
           offset# = \_ -> \_ -> 16
-instance TyEq ty
-              (CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field4") =>
-         HasField "example_struct_with_const_const_field4"
+instance HasField "example_struct_with_const_const_field4"
                   (Ptr Example_struct_with_const)
-                  (Ptr ty)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"example_struct_with_const_const_field4")
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field5"
     where type CFieldType Example_struct_with_const
                           "example_struct_with_const_const_field5" = Ptr A
           offset# = \_ -> \_ -> 24
-instance TyEq ty
-              (CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field5") =>
-         HasField "example_struct_with_const_const_field5"
+instance HasField "example_struct_with_const_const_field5"
                   (Ptr Example_struct_with_const)
-                  (Ptr ty)
+                  (Ptr (Ptr A))
     where getField = fromPtr (Proxy @"example_struct_with_const_const_field5")
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field6"
     where type CFieldType Example_struct_with_const
                           "example_struct_with_const_const_field6" = PtrConst A
           offset# = \_ -> \_ -> 32
-instance TyEq ty
-              (CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field6") =>
-         HasField "example_struct_with_const_const_field6"
+instance HasField "example_struct_with_const_const_field6"
                   (Ptr Example_struct_with_const)
-                  (Ptr ty)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"example_struct_with_const_const_field6")
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field7"
     where type CFieldType Example_struct_with_const
                           "example_struct_with_const_const_field7" = PtrConst A
           offset# = \_ -> \_ -> 40
-instance TyEq ty
-              (CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field7") =>
-         HasField "example_struct_with_const_const_field7"
+instance HasField "example_struct_with_const_const_field7"
                   (Ptr Example_struct_with_const)
-                  (Ptr ty)
+                  (Ptr (PtrConst A))
     where getField = fromPtr (Proxy @"example_struct_with_const_const_field7")
 {-| Auxiliary type used by 'Const_funptr1'
 
@@ -3747,9 +3691,9 @@ instance ToFunPtr Const_funptr1_Aux
     where toFunPtr = hs_bindgen_7f125e20a9d4075b
 instance FromFunPtr Const_funptr1_Aux
     where fromFunPtr = hs_bindgen_ac4bd8d789bba94b
-instance TyEq ty
-              (CFieldType Const_funptr1_Aux "unwrapConst_funptr1_Aux") =>
-         HasField "unwrapConst_funptr1_Aux" (Ptr Const_funptr1_Aux) (Ptr ty)
+instance HasField "unwrapConst_funptr1_Aux"
+                  (Ptr Const_funptr1_Aux)
+                  (Ptr (CInt -> CDouble -> IO A))
     where getField = fromPtr (Proxy @"unwrapConst_funptr1_Aux")
 instance HasCField Const_funptr1_Aux "unwrapConst_funptr1_Aux"
     where type CFieldType Const_funptr1_Aux
@@ -3769,16 +3713,15 @@ newtype Const_funptr1
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_funptr1 "unwrapConst_funptr1") =>
-         HasField "unwrapConst_funptr1" (Ptr Const_funptr1) (Ptr ty)
+instance HasField "unwrapConst_funptr1"
+                  (Ptr Const_funptr1)
+                  (Ptr (FunPtr Const_funptr1_Aux))
     where getField = fromPtr (Proxy @"unwrapConst_funptr1")
 instance HasCField Const_funptr1 "unwrapConst_funptr1"
     where type CFieldType Const_funptr1
@@ -3827,9 +3770,9 @@ instance ToFunPtr Const_funptr2_Aux
     where toFunPtr = hs_bindgen_c7b1e36d845634fb
 instance FromFunPtr Const_funptr2_Aux
     where fromFunPtr = hs_bindgen_352cebf463125ca9
-instance TyEq ty
-              (CFieldType Const_funptr2_Aux "unwrapConst_funptr2_Aux") =>
-         HasField "unwrapConst_funptr2_Aux" (Ptr Const_funptr2_Aux) (Ptr ty)
+instance HasField "unwrapConst_funptr2_Aux"
+                  (Ptr Const_funptr2_Aux)
+                  (Ptr (CInt -> CDouble -> IO A))
     where getField = fromPtr (Proxy @"unwrapConst_funptr2_Aux")
 instance HasCField Const_funptr2_Aux "unwrapConst_funptr2_Aux"
     where type CFieldType Const_funptr2_Aux
@@ -3849,16 +3792,15 @@ newtype Const_funptr2
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_funptr2 "unwrapConst_funptr2") =>
-         HasField "unwrapConst_funptr2" (Ptr Const_funptr2) (Ptr ty)
+instance HasField "unwrapConst_funptr2"
+                  (Ptr Const_funptr2)
+                  (Ptr (FunPtr Const_funptr2_Aux))
     where getField = fromPtr (Proxy @"unwrapConst_funptr2")
 instance HasCField Const_funptr2 "unwrapConst_funptr2"
     where type CFieldType Const_funptr2
@@ -3907,9 +3849,9 @@ instance ToFunPtr Const_funptr3_Aux
     where toFunPtr = hs_bindgen_2dcbfe1c2502178c
 instance FromFunPtr Const_funptr3_Aux
     where fromFunPtr = hs_bindgen_86738dcfd7c9d33c
-instance TyEq ty
-              (CFieldType Const_funptr3_Aux "unwrapConst_funptr3_Aux") =>
-         HasField "unwrapConst_funptr3_Aux" (Ptr Const_funptr3_Aux) (Ptr ty)
+instance HasField "unwrapConst_funptr3_Aux"
+                  (Ptr Const_funptr3_Aux)
+                  (Ptr (CInt -> CDouble -> IO (PtrConst A)))
     where getField = fromPtr (Proxy @"unwrapConst_funptr3_Aux")
 instance HasCField Const_funptr3_Aux "unwrapConst_funptr3_Aux"
     where type CFieldType Const_funptr3_Aux
@@ -3929,16 +3871,15 @@ newtype Const_funptr3
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_funptr3 "unwrapConst_funptr3") =>
-         HasField "unwrapConst_funptr3" (Ptr Const_funptr3) (Ptr ty)
+instance HasField "unwrapConst_funptr3"
+                  (Ptr Const_funptr3)
+                  (Ptr (FunPtr Const_funptr3_Aux))
     where getField = fromPtr (Proxy @"unwrapConst_funptr3")
 instance HasCField Const_funptr3 "unwrapConst_funptr3"
     where type CFieldType Const_funptr3
@@ -3987,9 +3928,9 @@ instance ToFunPtr Const_funptr4_Aux
     where toFunPtr = hs_bindgen_5461deeda491de0b
 instance FromFunPtr Const_funptr4_Aux
     where fromFunPtr = hs_bindgen_de7846fca3bfd1b6
-instance TyEq ty
-              (CFieldType Const_funptr4_Aux "unwrapConst_funptr4_Aux") =>
-         HasField "unwrapConst_funptr4_Aux" (Ptr Const_funptr4_Aux) (Ptr ty)
+instance HasField "unwrapConst_funptr4_Aux"
+                  (Ptr Const_funptr4_Aux)
+                  (Ptr (CInt -> CDouble -> IO (PtrConst A)))
     where getField = fromPtr (Proxy @"unwrapConst_funptr4_Aux")
 instance HasCField Const_funptr4_Aux "unwrapConst_funptr4_Aux"
     where type CFieldType Const_funptr4_Aux
@@ -4009,16 +3950,15 @@ newtype Const_funptr4
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_funptr4 "unwrapConst_funptr4") =>
-         HasField "unwrapConst_funptr4" (Ptr Const_funptr4) (Ptr ty)
+instance HasField "unwrapConst_funptr4"
+                  (Ptr Const_funptr4)
+                  (Ptr (FunPtr Const_funptr4_Aux))
     where getField = fromPtr (Proxy @"unwrapConst_funptr4")
 instance HasCField Const_funptr4 "unwrapConst_funptr4"
     where type CFieldType Const_funptr4
@@ -4067,9 +4007,9 @@ instance ToFunPtr Const_funptr5_Aux
     where toFunPtr = hs_bindgen_7b0174fc978a1ce1
 instance FromFunPtr Const_funptr5_Aux
     where fromFunPtr = hs_bindgen_38a21d84bb7115b5
-instance TyEq ty
-              (CFieldType Const_funptr5_Aux "unwrapConst_funptr5_Aux") =>
-         HasField "unwrapConst_funptr5_Aux" (Ptr Const_funptr5_Aux) (Ptr ty)
+instance HasField "unwrapConst_funptr5_Aux"
+                  (Ptr Const_funptr5_Aux)
+                  (Ptr (CInt -> CDouble -> IO (Ptr A)))
     where getField = fromPtr (Proxy @"unwrapConst_funptr5_Aux")
 instance HasCField Const_funptr5_Aux "unwrapConst_funptr5_Aux"
     where type CFieldType Const_funptr5_Aux
@@ -4089,16 +4029,15 @@ newtype Const_funptr5
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_funptr5 "unwrapConst_funptr5") =>
-         HasField "unwrapConst_funptr5" (Ptr Const_funptr5) (Ptr ty)
+instance HasField "unwrapConst_funptr5"
+                  (Ptr Const_funptr5)
+                  (Ptr (FunPtr Const_funptr5_Aux))
     where getField = fromPtr (Proxy @"unwrapConst_funptr5")
 instance HasCField Const_funptr5 "unwrapConst_funptr5"
     where type CFieldType Const_funptr5
@@ -4147,9 +4086,9 @@ instance ToFunPtr Const_funptr6_Aux
     where toFunPtr = hs_bindgen_4e32721222f4df9f
 instance FromFunPtr Const_funptr6_Aux
     where fromFunPtr = hs_bindgen_45251216b04aa8b5
-instance TyEq ty
-              (CFieldType Const_funptr6_Aux "unwrapConst_funptr6_Aux") =>
-         HasField "unwrapConst_funptr6_Aux" (Ptr Const_funptr6_Aux) (Ptr ty)
+instance HasField "unwrapConst_funptr6_Aux"
+                  (Ptr Const_funptr6_Aux)
+                  (Ptr (CInt -> CDouble -> IO (PtrConst A)))
     where getField = fromPtr (Proxy @"unwrapConst_funptr6_Aux")
 instance HasCField Const_funptr6_Aux "unwrapConst_funptr6_Aux"
     where type CFieldType Const_funptr6_Aux
@@ -4169,16 +4108,15 @@ newtype Const_funptr6
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_funptr6 "unwrapConst_funptr6") =>
-         HasField "unwrapConst_funptr6" (Ptr Const_funptr6) (Ptr ty)
+instance HasField "unwrapConst_funptr6"
+                  (Ptr Const_funptr6)
+                  (Ptr (FunPtr Const_funptr6_Aux))
     where getField = fromPtr (Proxy @"unwrapConst_funptr6")
 instance HasCField Const_funptr6 "unwrapConst_funptr6"
     where type CFieldType Const_funptr6
@@ -4227,9 +4165,9 @@ instance ToFunPtr Const_funptr7_Aux
     where toFunPtr = hs_bindgen_0d04fc96ffb9de06
 instance FromFunPtr Const_funptr7_Aux
     where fromFunPtr = hs_bindgen_42fbcebf75a973ba
-instance TyEq ty
-              (CFieldType Const_funptr7_Aux "unwrapConst_funptr7_Aux") =>
-         HasField "unwrapConst_funptr7_Aux" (Ptr Const_funptr7_Aux) (Ptr ty)
+instance HasField "unwrapConst_funptr7_Aux"
+                  (Ptr Const_funptr7_Aux)
+                  (Ptr (CInt -> CDouble -> IO (PtrConst A)))
     where getField = fromPtr (Proxy @"unwrapConst_funptr7_Aux")
 instance HasCField Const_funptr7_Aux "unwrapConst_funptr7_Aux"
     where type CFieldType Const_funptr7_Aux
@@ -4249,16 +4187,15 @@ newtype Const_funptr7
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Const_funptr7 "unwrapConst_funptr7") =>
-         HasField "unwrapConst_funptr7" (Ptr Const_funptr7) (Ptr ty)
+instance HasField "unwrapConst_funptr7"
+                  (Ptr Const_funptr7)
+                  (Ptr (FunPtr Const_funptr7_Aux))
     where getField = fromPtr (Proxy @"unwrapConst_funptr7")
 instance HasCField Const_funptr7 "unwrapConst_funptr7"
     where type CFieldType Const_funptr7
@@ -4278,8 +4215,7 @@ newtype BOOL
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4295,8 +4231,7 @@ newtype BOOL
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType BOOL "unwrapBOOL") =>
-         HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
+instance HasField "unwrapBOOL" (Ptr BOOL) (Ptr CBool)
     where getField = fromPtr (Proxy @"unwrapBOOL")
 instance HasCField BOOL "unwrapBOOL"
     where type CFieldType BOOL "unwrapBOOL" = CBool
@@ -4315,8 +4250,7 @@ newtype INT
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -4332,8 +4266,7 @@ newtype INT
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType INT "unwrapINT") =>
-         HasField "unwrapINT" (Ptr INT) (Ptr ty)
+instance HasField "unwrapINT" (Ptr INT) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapINT")
 instance HasCField INT "unwrapINT"
     where type CFieldType INT "unwrapINT" = CInt
@@ -4352,15 +4285,13 @@ newtype INTP
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType INTP "unwrapINTP") =>
-         HasField "unwrapINTP" (Ptr INTP) (Ptr ty)
+instance HasField "unwrapINTP" (Ptr INTP) (Ptr (Ptr CInt))
     where getField = fromPtr (Proxy @"unwrapINTP")
 instance HasCField INTP "unwrapINTP"
     where type CFieldType INTP "unwrapINTP" = Ptr CInt
@@ -4379,15 +4310,13 @@ newtype INTCP
 
            __exported by:__ @macros\/reparse.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType INTCP "unwrapINTCP") =>
-         HasField "unwrapINTCP" (Ptr INTCP) (Ptr ty)
+instance HasField "unwrapINTCP" (Ptr INTCP) (Ptr (PtrConst CInt))
     where getField = fromPtr (Proxy @"unwrapINTCP")
 instance HasCField INTCP "unwrapINTCP"
     where type CFieldType INTCP "unwrapINTCP" = PtrConst CInt

@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -24,7 +22,6 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct pascal@
@@ -42,8 +39,7 @@ data Pascal_Aux = Pascal
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Pascal_Aux where
 
@@ -75,8 +71,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Pascal_Aux "pascal_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal_Aux) "pascal_len")
-         ) => GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal_Aux) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"pascal_len")
@@ -116,8 +111,7 @@ data Foo_bar = Foo_bar
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo_bar where
 
@@ -151,8 +145,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_x")
-         ) => GHC.Records.HasField "foo_bar_x" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_bar_x" (Ptr.Ptr Foo_bar) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_bar_x")
@@ -163,8 +156,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_y")
-         ) => GHC.Records.HasField "foo_bar_y" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_bar_y" (Ptr.Ptr Foo_bar) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_bar_y")
@@ -184,8 +176,7 @@ data Foo_Aux = Foo
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo_Aux where
 
@@ -217,8 +208,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo_Aux "foo_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_Aux) "foo_len")
-         ) => GHC.Records.HasField "foo_len" (Ptr.Ptr Foo_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_len" (Ptr.Ptr Foo_Aux) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_len")
@@ -258,8 +248,7 @@ data Diff_Aux = Diff
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Diff_Aux where
 
@@ -293,8 +282,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Diff_Aux "diff_first" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff_Aux) "diff_first")
-         ) => GHC.Records.HasField "diff_first" (Ptr.Ptr Diff_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "diff_first" (Ptr.Ptr Diff_Aux) (Ptr.Ptr FC.CLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"diff_first")
@@ -305,8 +293,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Diff_Aux "diff_second" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff_Aux) "diff_second")
-         ) => GHC.Records.HasField "diff_second" (Ptr.Ptr Diff_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "diff_second" (Ptr.Ptr Diff_Aux) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"diff_second")
@@ -341,8 +328,7 @@ data Triplets_Aux = Triplets
          __exported by:__ @edge-cases\/flam.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Triplets_Aux where
 
@@ -374,8 +360,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplets_Aux "triplets_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets_Aux) "triplets_len")
-         ) => GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets_Aux) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"triplets_len")

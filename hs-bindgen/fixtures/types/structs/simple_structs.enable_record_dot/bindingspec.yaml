@@ -55,6 +55,7 @@ hstypes:
       - b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -72,6 +73,7 @@ hstypes:
       - c
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -87,6 +89,7 @@ hstypes:
       - a
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -104,6 +107,7 @@ hstypes:
       - c
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -120,6 +124,7 @@ hstypes:
       - b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -136,6 +141,7 @@ hstypes:
       - b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -151,6 +157,7 @@ hstypes:
       - unwrap
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -169,6 +176,7 @@ hstypes:
       - b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -184,6 +192,7 @@ hstypes:
       - unwrap
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -202,6 +211,7 @@ hstypes:
       - b
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

@@ -1,14 +1,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -29,7 +27,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 {-| __C declaration:__ @prim_HsPrimCPtrdiff@
@@ -41,8 +38,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Rea
 newtype Prim_HsPrimCPtrdiff = Prim_HsPrimCPtrdiff
   { unwrapPrim_HsPrimCPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -61,8 +57,7 @@ newtype Prim_HsPrimCPtrdiff = Prim_HsPrimCPtrdiff
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCPtrdiff) "unwrapPrim_HsPrimCPtrdiff")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCPtrdiff" (Ptr.Ptr Prim_HsPrimCPtrdiff) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCPtrdiff" (Ptr.Ptr Prim_HsPrimCPtrdiff) (Ptr.Ptr HsBindgen.Runtime.LibC.CPtrdiff) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCPtrdiff")
@@ -83,8 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCPtrdiff "unwrapPrim_H
 newtype Prim_HsPrimInt8 = Prim_HsPrimInt8
   { unwrapPrim_HsPrimInt8 :: HsBindgen.Runtime.LibC.Int8
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -103,8 +97,7 @@ newtype Prim_HsPrimInt8 = Prim_HsPrimInt8
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimInt8) "unwrapPrim_HsPrimInt8")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt8" (Ptr.Ptr Prim_HsPrimInt8) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimInt8" (Ptr.Ptr Prim_HsPrimInt8) (Ptr.Ptr HsBindgen.Runtime.LibC.Int8) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt8")
@@ -125,8 +118,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt8 "unwrapPrim_HsPri
 newtype Prim_HsPrimInt16 = Prim_HsPrimInt16
   { unwrapPrim_HsPrimInt16 :: HsBindgen.Runtime.LibC.Int16
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -145,8 +137,7 @@ newtype Prim_HsPrimInt16 = Prim_HsPrimInt16
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimInt16) "unwrapPrim_HsPrimInt16")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt16" (Ptr.Ptr Prim_HsPrimInt16) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimInt16" (Ptr.Ptr Prim_HsPrimInt16) (Ptr.Ptr HsBindgen.Runtime.LibC.Int16) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt16")
@@ -167,8 +158,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt16 "unwrapPrim_HsPr
 newtype Prim_HsPrimInt32 = Prim_HsPrimInt32
   { unwrapPrim_HsPrimInt32 :: HsBindgen.Runtime.LibC.Int32
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -187,8 +177,7 @@ newtype Prim_HsPrimInt32 = Prim_HsPrimInt32
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimInt32) "unwrapPrim_HsPrimInt32")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt32" (Ptr.Ptr Prim_HsPrimInt32) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimInt32" (Ptr.Ptr Prim_HsPrimInt32) (Ptr.Ptr HsBindgen.Runtime.LibC.Int32) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt32")
@@ -209,8 +198,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt32 "unwrapPrim_HsPr
 newtype Prim_HsPrimInt64 = Prim_HsPrimInt64
   { unwrapPrim_HsPrimInt64 :: HsBindgen.Runtime.LibC.Int64
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -229,8 +217,7 @@ newtype Prim_HsPrimInt64 = Prim_HsPrimInt64
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimInt64) "unwrapPrim_HsPrimInt64")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt64" (Ptr.Ptr Prim_HsPrimInt64) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimInt64" (Ptr.Ptr Prim_HsPrimInt64) (Ptr.Ptr HsBindgen.Runtime.LibC.Int64) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt64")
@@ -251,8 +238,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimInt64 "unwrapPrim_HsPr
 newtype Prim_HsPrimWord8 = Prim_HsPrimWord8
   { unwrapPrim_HsPrimWord8 :: HsBindgen.Runtime.LibC.Word8
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -271,8 +257,7 @@ newtype Prim_HsPrimWord8 = Prim_HsPrimWord8
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimWord8) "unwrapPrim_HsPrimWord8")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord8" (Ptr.Ptr Prim_HsPrimWord8) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimWord8" (Ptr.Ptr Prim_HsPrimWord8) (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord8")
@@ -293,8 +278,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord8 "unwrapPrim_HsPr
 newtype Prim_HsPrimWord16 = Prim_HsPrimWord16
   { unwrapPrim_HsPrimWord16 :: HsBindgen.Runtime.LibC.Word16
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -313,8 +297,7 @@ newtype Prim_HsPrimWord16 = Prim_HsPrimWord16
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimWord16) "unwrapPrim_HsPrimWord16")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord16" (Ptr.Ptr Prim_HsPrimWord16) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimWord16" (Ptr.Ptr Prim_HsPrimWord16) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord16")
@@ -335,8 +318,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord16 "unwrapPrim_HsP
 newtype Prim_HsPrimWord32 = Prim_HsPrimWord32
   { unwrapPrim_HsPrimWord32 :: HsBindgen.Runtime.LibC.Word32
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -355,8 +337,7 @@ newtype Prim_HsPrimWord32 = Prim_HsPrimWord32
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimWord32) "unwrapPrim_HsPrimWord32")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord32" (Ptr.Ptr Prim_HsPrimWord32) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimWord32" (Ptr.Ptr Prim_HsPrimWord32) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord32")
@@ -377,8 +358,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord32 "unwrapPrim_HsP
 newtype Prim_HsPrimWord64 = Prim_HsPrimWord64
   { unwrapPrim_HsPrimWord64 :: HsBindgen.Runtime.LibC.Word64
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -397,8 +377,7 @@ newtype Prim_HsPrimWord64 = Prim_HsPrimWord64
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimWord64) "unwrapPrim_HsPrimWord64")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord64" (Ptr.Ptr Prim_HsPrimWord64) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimWord64" (Ptr.Ptr Prim_HsPrimWord64) (Ptr.Ptr HsBindgen.Runtime.LibC.Word64) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord64")
@@ -419,8 +398,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimWord64 "unwrapPrim_HsP
 newtype Prim_HsPrimCChar = Prim_HsPrimCChar
   { unwrapPrim_HsPrimCChar :: FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -439,8 +417,7 @@ newtype Prim_HsPrimCChar = Prim_HsPrimCChar
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCChar) "unwrapPrim_HsPrimCChar")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCChar" (Ptr.Ptr Prim_HsPrimCChar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCChar" (Ptr.Ptr Prim_HsPrimCChar) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCChar")
@@ -461,8 +438,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCChar "unwrapPrim_HsPr
 newtype Prim_HsPrimCSChar = Prim_HsPrimCSChar
   { unwrapPrim_HsPrimCSChar :: FC.CSChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -481,8 +457,7 @@ newtype Prim_HsPrimCSChar = Prim_HsPrimCSChar
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCSChar) "unwrapPrim_HsPrimCSChar")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCSChar" (Ptr.Ptr Prim_HsPrimCSChar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCSChar" (Ptr.Ptr Prim_HsPrimCSChar) (Ptr.Ptr FC.CSChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCSChar")
@@ -503,8 +478,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCSChar "unwrapPrim_HsP
 newtype Prim_HsPrimCUChar = Prim_HsPrimCUChar
   { unwrapPrim_HsPrimCUChar :: FC.CUChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -523,8 +497,7 @@ newtype Prim_HsPrimCUChar = Prim_HsPrimCUChar
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCUChar) "unwrapPrim_HsPrimCUChar")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCUChar" (Ptr.Ptr Prim_HsPrimCUChar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCUChar" (Ptr.Ptr Prim_HsPrimCUChar) (Ptr.Ptr FC.CUChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCUChar")
@@ -545,8 +518,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCUChar "unwrapPrim_HsP
 newtype Prim_HsPrimCShort = Prim_HsPrimCShort
   { unwrapPrim_HsPrimCShort :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -565,8 +537,7 @@ newtype Prim_HsPrimCShort = Prim_HsPrimCShort
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCShort) "unwrapPrim_HsPrimCShort")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCShort" (Ptr.Ptr Prim_HsPrimCShort) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCShort" (Ptr.Ptr Prim_HsPrimCShort) (Ptr.Ptr FC.CShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCShort")
@@ -587,8 +558,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCShort "unwrapPrim_HsP
 newtype Prim_HsPrimCUShort = Prim_HsPrimCUShort
   { unwrapPrim_HsPrimCUShort :: FC.CUShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -607,8 +577,7 @@ newtype Prim_HsPrimCUShort = Prim_HsPrimCUShort
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCUShort) "unwrapPrim_HsPrimCUShort")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCUShort" (Ptr.Ptr Prim_HsPrimCUShort) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCUShort" (Ptr.Ptr Prim_HsPrimCUShort) (Ptr.Ptr FC.CUShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCUShort")
@@ -629,8 +598,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCUShort "unwrapPrim_Hs
 newtype Prim_HsPrimCInt = Prim_HsPrimCInt
   { unwrapPrim_HsPrimCInt :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -649,8 +617,7 @@ newtype Prim_HsPrimCInt = Prim_HsPrimCInt
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCInt) "unwrapPrim_HsPrimCInt")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCInt" (Ptr.Ptr Prim_HsPrimCInt) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCInt" (Ptr.Ptr Prim_HsPrimCInt) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCInt")
@@ -671,8 +638,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCInt "unwrapPrim_HsPri
 newtype Prim_HsPrimCUInt = Prim_HsPrimCUInt
   { unwrapPrim_HsPrimCUInt :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -691,8 +657,7 @@ newtype Prim_HsPrimCUInt = Prim_HsPrimCUInt
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCUInt) "unwrapPrim_HsPrimCUInt")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCUInt" (Ptr.Ptr Prim_HsPrimCUInt) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCUInt" (Ptr.Ptr Prim_HsPrimCUInt) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCUInt")
@@ -713,8 +678,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCUInt "unwrapPrim_HsPr
 newtype Prim_HsPrimCLong = Prim_HsPrimCLong
   { unwrapPrim_HsPrimCLong :: FC.CLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -733,8 +697,7 @@ newtype Prim_HsPrimCLong = Prim_HsPrimCLong
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCLong) "unwrapPrim_HsPrimCLong")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCLong" (Ptr.Ptr Prim_HsPrimCLong) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCLong" (Ptr.Ptr Prim_HsPrimCLong) (Ptr.Ptr FC.CLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCLong")
@@ -755,8 +718,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCLong "unwrapPrim_HsPr
 newtype Prim_HsPrimCULong = Prim_HsPrimCULong
   { unwrapPrim_HsPrimCULong :: FC.CULong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -775,8 +737,7 @@ newtype Prim_HsPrimCULong = Prim_HsPrimCULong
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCULong) "unwrapPrim_HsPrimCULong")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCULong" (Ptr.Ptr Prim_HsPrimCULong) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCULong" (Ptr.Ptr Prim_HsPrimCULong) (Ptr.Ptr FC.CULong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCULong")
@@ -797,8 +758,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCULong "unwrapPrim_HsP
 newtype Prim_HsPrimCLLong = Prim_HsPrimCLLong
   { unwrapPrim_HsPrimCLLong :: FC.CLLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -817,8 +777,7 @@ newtype Prim_HsPrimCLLong = Prim_HsPrimCLLong
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCLLong) "unwrapPrim_HsPrimCLLong")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCLLong" (Ptr.Ptr Prim_HsPrimCLLong) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCLLong" (Ptr.Ptr Prim_HsPrimCLLong) (Ptr.Ptr FC.CLLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCLLong")
@@ -839,8 +798,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCLLong "unwrapPrim_HsP
 newtype Prim_HsPrimCULLong = Prim_HsPrimCULLong
   { unwrapPrim_HsPrimCULLong :: FC.CULLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -859,8 +817,7 @@ newtype Prim_HsPrimCULLong = Prim_HsPrimCULLong
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCULLong) "unwrapPrim_HsPrimCULLong")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCULLong" (Ptr.Ptr Prim_HsPrimCULLong) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCULLong" (Ptr.Ptr Prim_HsPrimCULLong) (Ptr.Ptr FC.CULLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCULLong")
@@ -881,8 +838,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCULLong "unwrapPrim_Hs
 newtype Prim_HsPrimCBool = Prim_HsPrimCBool
   { unwrapPrim_HsPrimCBool :: FC.CBool
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -901,8 +857,7 @@ newtype Prim_HsPrimCBool = Prim_HsPrimCBool
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCBool) "unwrapPrim_HsPrimCBool")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCBool" (Ptr.Ptr Prim_HsPrimCBool) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCBool" (Ptr.Ptr Prim_HsPrimCBool) (Ptr.Ptr FC.CBool) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCBool")
@@ -923,8 +878,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCBool "unwrapPrim_HsPr
 newtype Prim_HsPrimCFloat = Prim_HsPrimCFloat
   { unwrapPrim_HsPrimCFloat :: FC.CFloat
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -941,8 +895,7 @@ newtype Prim_HsPrimCFloat = Prim_HsPrimCFloat
     , RealFrac
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCFloat) "unwrapPrim_HsPrimCFloat")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCFloat" (Ptr.Ptr Prim_HsPrimCFloat) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCFloat" (Ptr.Ptr Prim_HsPrimCFloat) (Ptr.Ptr FC.CFloat) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCFloat")
@@ -963,8 +916,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Prim_HsPrimCFloat "unwrapPrim_HsP
 newtype Prim_HsPrimCDouble = Prim_HsPrimCDouble
   { unwrapPrim_HsPrimCDouble :: FC.CDouble
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -981,8 +933,7 @@ newtype Prim_HsPrimCDouble = Prim_HsPrimCDouble
     , RealFrac
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Prim_HsPrimCDouble) "unwrapPrim_HsPrimCDouble")
-         ) => GHC.Records.HasField "unwrapPrim_HsPrimCDouble" (Ptr.Ptr Prim_HsPrimCDouble) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPrim_HsPrimCDouble" (Ptr.Ptr Prim_HsPrimCDouble) (Ptr.Ptr FC.CDouble) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCDouble")

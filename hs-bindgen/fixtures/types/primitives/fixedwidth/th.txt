@@ -29,8 +29,7 @@ data Foo
 
            __exported by:__ @types\/primitives\/fixedwidth.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -45,13 +44,15 @@ instance HasCField Foo "foo_sixty_four"
     where type CFieldType Foo
                           "foo_sixty_four" = HsBindgen.Runtime.LibC.Word64
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Foo "foo_sixty_four") =>
-         HasField "foo_sixty_four" (Ptr Foo) (Ptr ty)
+instance HasField "foo_sixty_four"
+                  (Ptr Foo)
+                  (Ptr HsBindgen.Runtime.LibC.Word64)
     where getField = fromPtr (Proxy @"foo_sixty_four")
 instance HasCField Foo "foo_thirty_two"
     where type CFieldType Foo
                           "foo_thirty_two" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Foo "foo_thirty_two") =>
-         HasField "foo_thirty_two" (Ptr Foo) (Ptr ty)
+instance HasField "foo_thirty_two"
+                  (Ptr Foo)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
     where getField = fromPtr (Proxy @"foo_thirty_two")

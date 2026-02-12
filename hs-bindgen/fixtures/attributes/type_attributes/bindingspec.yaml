@@ -47,6 +47,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -72,6 +73,7 @@ hstypes:
       - my_packed_struct_s
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -88,6 +90,7 @@ hstypes:
       - my_unpacked_struct_i
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -103,6 +106,7 @@ hstypes:
       - s_f
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -118,6 +122,7 @@ hstypes:
       - s2_f
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -138,6 +143,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -166,6 +172,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -190,6 +197,7 @@ hstypes:
       fields:
       - unwrapWait_status_ptr_t
   instances:
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

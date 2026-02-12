@@ -36,8 +36,7 @@ newtype A
 
            __exported by:__ @declarations\/declarations_required_for_scoping.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -53,8 +52,9 @@ newtype A
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA"
+                  (Ptr A)
+                  (Ptr HsBindgen.Runtime.LibC.CSize)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = HsBindgen.Runtime.LibC.CSize

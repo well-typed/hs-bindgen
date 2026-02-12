@@ -5,7 +5,6 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE ExplicitForAll #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -14,7 +13,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -49,7 +47,6 @@ import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| __C declaration:__ @MAX_NAME_LENGTH@
@@ -76,8 +73,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Size_type = Size_type
   { unwrapSize_type :: HsBindgen.Runtime.LibC.CSize
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -96,8 +92,7 @@ newtype Size_type = Size_type
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "unwrapSize_type")
-         ) => GHC.Records.HasField "unwrapSize_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapSize_type" (Ptr.Ptr Size_type) (Ptr.Ptr HsBindgen.Runtime.LibC.CSize) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSize_type")
@@ -148,8 +143,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Color_enum = Color_enum
   { unwrapColor_enum :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Color_enum where
@@ -221,8 +215,7 @@ instance Read Color_enum where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Color_enum) "unwrapColor_enum")
-         ) => GHC.Records.HasField "unwrapColor_enum" (Ptr.Ptr Color_enum) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapColor_enum" (Ptr.Ptr Color_enum) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapColor_enum")
@@ -313,8 +306,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Event_callback_t_Aux where
 
   fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t_Aux) "unwrapEvent_callback_t_Aux")
-         ) => GHC.Records.HasField "unwrapEvent_callback_t_Aux" (Ptr.Ptr Event_callback_t_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapEvent_callback_t_Aux" (Ptr.Ptr Event_callback_t_Aux) (Ptr.Ptr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEvent_callback_t_Aux")
@@ -345,8 +337,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t = Event_callback_t
   { unwrapEvent_callback_t :: Ptr.FunPtr Event_callback_t_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -355,8 +346,7 @@ newtype Event_callback_t = Event_callback_t
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "unwrapEvent_callback_t")
-         ) => GHC.Records.HasField "unwrapEvent_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapEvent_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr (Ptr.FunPtr Event_callback_t_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEvent_callback_t")
@@ -439,8 +429,7 @@ data Config_t = Config_t
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Config_t where
 
@@ -486,8 +475,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_id" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_id")
-         ) => GHC.Records.HasField "config_t_id" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "config_t_id" (Ptr.Ptr Config_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_t_id")
@@ -499,8 +487,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_name" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_name")
-         ) => GHC.Records.HasField "config_t_name" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "config_t_name" (Ptr.Ptr Config_t) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_t_name")
@@ -512,8 +499,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_flags" where
 
   offset# = \_ -> \_ -> 68
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_flags")
-         ) => GHC.Records.HasField "config_t_flags" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "config_t_flags" (Ptr.Ptr Config_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_t_flags")
@@ -525,8 +511,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_callback" wher
 
   offset# = \_ -> \_ -> 72
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_callback")
-         ) => GHC.Records.HasField "config_t_callback" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "config_t_callback" (Ptr.Ptr Config_t) (Ptr.Ptr Event_callback_t) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_t_callback")
@@ -538,8 +523,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_user_data" whe
 
   offset# = \_ -> \_ -> 80
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_user_data")
-         ) => GHC.Records.HasField "config_t_user_data" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "config_t_user_data" (Ptr.Ptr Config_t) (Ptr.Ptr (Ptr.Ptr Void)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_t_user_data")
@@ -559,8 +543,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Status_code_t = Status_code_t
   { unwrapStatus_code_t :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Status_code_t where
@@ -624,8 +607,7 @@ instance Read Status_code_t where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Status_code_t) "unwrapStatus_code_t")
-         ) => GHC.Records.HasField "unwrapStatus_code_t" (Ptr.Ptr Status_code_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapStatus_code_t" (Ptr.Ptr Status_code_t) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStatus_code_t")
@@ -738,8 +720,7 @@ data Data_union_t_as_parts = Data_union_t_as_parts
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Data_union_t_as_parts where
 
@@ -774,8 +755,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_parts) "data_union_t_as_parts_low")
-         ) => GHC.Records.HasField "data_union_t_as_parts_low" (Ptr.Ptr Data_union_t_as_parts) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "data_union_t_as_parts_low" (Ptr.Ptr Data_union_t_as_parts) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"data_union_t_as_parts_low")
@@ -787,8 +767,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union
 
   offset# = \_ -> \_ -> 2
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_parts) "data_union_t_as_parts_high")
-         ) => GHC.Records.HasField "data_union_t_as_parts_high" (Ptr.Ptr Data_union_t_as_parts) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "data_union_t_as_parts_high" (Ptr.Ptr Data_union_t_as_parts) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"data_union_t_as_parts_high")
@@ -941,8 +920,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_int
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_int")
-         ) => GHC.Records.HasField "data_union_t_as_int" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "data_union_t_as_int" (Ptr.Ptr Data_union_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Int32) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"data_union_t_as_int")
@@ -954,8 +932,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_flo
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_float")
-         ) => GHC.Records.HasField "data_union_t_as_float" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "data_union_t_as_float" (Ptr.Ptr Data_union_t) (Ptr.Ptr FC.CFloat) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"data_union_t_as_float")
@@ -967,8 +944,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_byt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_bytes")
-         ) => GHC.Records.HasField "data_union_t_as_bytes" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "data_union_t_as_bytes" (Ptr.Ptr Data_union_t) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.LibC.Word8)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"data_union_t_as_bytes")
@@ -980,8 +956,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_par
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_parts")
-         ) => GHC.Records.HasField "data_union_t_as_parts" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "data_union_t_as_parts" (Ptr.Ptr Data_union_t) (Ptr.Ptr Data_union_t_as_parts) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"data_union_t_as_parts")
@@ -1046,8 +1021,7 @@ data Bitfield_t = Bitfield_t
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bitfield_t where
 
@@ -1092,8 +1066,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Bitfield_t) "bitfield_t_flag1")
-         ) => GHC.Records.HasField "bitfield_t_flag1" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "bitfield_t_flag1" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"bitfield_t_flag1")
@@ -1107,8 +1080,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_flag
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Bitfield_t) "bitfield_t_flag2")
-         ) => GHC.Records.HasField "bitfield_t_flag2" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "bitfield_t_flag2" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"bitfield_t_flag2")
@@ -1122,8 +1094,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_coun
 
   bitfieldWidth# = \_ -> \_ -> 6
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Bitfield_t) "bitfield_t_counter")
-         ) => GHC.Records.HasField "bitfield_t_counter" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "bitfield_t_counter" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"bitfield_t_counter")
@@ -1137,8 +1108,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Bitfield_t "bitfield_t_rese
 
   bitfieldWidth# = \_ -> \_ -> 24
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Bitfield_t) "bitfield_t_reserved")
-         ) => GHC.Records.HasField "bitfield_t_reserved" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "bitfield_t_reserved" (Ptr.Ptr Bitfield_t) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"bitfield_t_reserved")
@@ -1189,8 +1159,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr Processor_fn_t_Aux where
 
   fromFunPtr = hs_bindgen_0d4b3d0461629423
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t_Aux) "unwrapProcessor_fn_t_Aux")
-         ) => GHC.Records.HasField "unwrapProcessor_fn_t_Aux" (Ptr.Ptr Processor_fn_t_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapProcessor_fn_t_Aux" (Ptr.Ptr Processor_fn_t_Aux) (Ptr.Ptr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProcessor_fn_t_Aux")
@@ -1223,8 +1192,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t = Processor_fn_t
   { unwrapProcessor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -1233,8 +1201,7 @@ newtype Processor_fn_t = Processor_fn_t
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "unwrapProcessor_fn_t")
-         ) => GHC.Records.HasField "unwrapProcessor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapProcessor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr (Ptr.FunPtr Processor_fn_t_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapProcessor_fn_t")
@@ -1261,8 +1228,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Filename_t = Filename_t
   { unwrapFilename_t :: (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -1270,8 +1236,7 @@ newtype Filename_t = Filename_t
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Filename_t) "unwrapFilename_t")
-         ) => GHC.Records.HasField "unwrapFilename_t" (Ptr.Ptr Filename_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFilename_t" (Ptr.Ptr Filename_t) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFilename_t")
@@ -1310,8 +1275,7 @@ data Flexible_array_Aux = Flexible_array
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Flexible_array_Aux where
 
@@ -1344,8 +1308,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Flexible_array_Aux "flexible_arra
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Flexible_array_Aux) "flexible_array_count")
-         ) => GHC.Records.HasField "flexible_array_count" (Ptr.Ptr Flexible_array_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "flexible_array_count" (Ptr.Ptr Flexible_array_Aux) (Ptr.Ptr HsBindgen.Runtime.LibC.CSize) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"flexible_array_count")

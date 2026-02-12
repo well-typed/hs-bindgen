@@ -13,8 +13,7 @@ newtype MyInt
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -30,8 +29,7 @@ newtype MyInt
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyInt "unwrapMyInt") =>
-         HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+instance HasField "unwrapMyInt" (Ptr MyInt) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -50,8 +48,7 @@ newtype MyUInt
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -67,8 +64,7 @@ newtype MyUInt
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyUInt "unwrapMyUInt") =>
-         HasField "unwrapMyUInt" (Ptr MyUInt) (Ptr ty)
+instance HasField "unwrapMyUInt" (Ptr MyUInt) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapMyUInt")
 instance HasCField MyUInt "unwrapMyUInt"
     where type CFieldType MyUInt "unwrapMyUInt" = CUInt
@@ -87,8 +83,7 @@ newtype MyLong
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -104,8 +99,7 @@ newtype MyLong
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType MyLong "unwrapMyLong") =>
-         HasField "unwrapMyLong" (Ptr MyLong) (Ptr ty)
+instance HasField "unwrapMyLong" (Ptr MyLong) (Ptr CLong)
     where getField = fromPtr (Proxy @"unwrapMyLong")
 instance HasCField MyLong "unwrapMyLong"
     where type CFieldType MyLong "unwrapMyLong" = CLong
@@ -144,8 +138,7 @@ data MyStruct
 
            __exported by:__ @edge-cases\/typedef_bitfield.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize MyStruct
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -161,20 +154,17 @@ instance HasCBitfield MyStruct "myStruct_x"
     where type CBitfieldType MyStruct "myStruct_x" = MyInt
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 2
-instance TyEq ty (CBitfieldType MyStruct "myStruct_x") =>
-         HasField "myStruct_x" (Ptr MyStruct) (BitfieldPtr ty)
+instance HasField "myStruct_x" (Ptr MyStruct) (BitfieldPtr MyInt)
     where getField = toPtr (Proxy @"myStruct_x")
 instance HasCBitfield MyStruct "myStruct_y"
     where type CBitfieldType MyStruct "myStruct_y" = MyUInt
           bitfieldOffset# = \_ -> \_ -> 2
           bitfieldWidth# = \_ -> \_ -> 4
-instance TyEq ty (CBitfieldType MyStruct "myStruct_y") =>
-         HasField "myStruct_y" (Ptr MyStruct) (BitfieldPtr ty)
+instance HasField "myStruct_y" (Ptr MyStruct) (BitfieldPtr MyUInt)
     where getField = toPtr (Proxy @"myStruct_y")
 instance HasCBitfield MyStruct "myStruct_z"
     where type CBitfieldType MyStruct "myStruct_z" = MyLong
           bitfieldOffset# = \_ -> \_ -> 6
           bitfieldWidth# = \_ -> \_ -> 3
-instance TyEq ty (CBitfieldType MyStruct "myStruct_z") =>
-         HasField "myStruct_z" (Ptr MyStruct) (BitfieldPtr ty)
+instance HasField "myStruct_z" (Ptr MyStruct) (BitfieldPtr MyLong)
     where getField = toPtr (Proxy @"myStruct_z")

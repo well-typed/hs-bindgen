@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -21,7 +19,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct b@
@@ -39,8 +36,7 @@ data B = B
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize B where
 
@@ -72,8 +68,7 @@ instance HsBindgen.Runtime.HasCField.HasCField B "b_toA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "b_toA")
-         ) => GHC.Records.HasField "b_toA" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "b_toA" (Ptr.Ptr B) (Ptr.Ptr (Ptr.Ptr A)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"b_toA")
@@ -93,8 +88,7 @@ data A = A
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A where
 
@@ -126,8 +120,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A "a_toB" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "a_toB")
-         ) => GHC.Records.HasField "a_toB" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "a_toB" (Ptr.Ptr A) (Ptr.Ptr B) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_toB")

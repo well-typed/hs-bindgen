@@ -19,6 +19,7 @@ hstypes:
       - hoge_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

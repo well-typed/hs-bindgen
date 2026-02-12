@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -30,7 +28,6 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @MC@
@@ -42,8 +39,7 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
 newtype MC = MC
   { unwrapMC :: FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -62,8 +58,7 @@ newtype MC = MC
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MC) "unwrapMC")
-         ) => GHC.Records.HasField "unwrapMC" (Ptr.Ptr MC) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMC" (Ptr.Ptr MC) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMC")
@@ -83,8 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MC "unwrapMC" where
 newtype TC = TC
   { unwrapTC :: FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -103,8 +97,7 @@ newtype TC = TC
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TC) "unwrapTC")
-         ) => GHC.Records.HasField "unwrapTC" (Ptr.Ptr TC) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTC" (Ptr.Ptr TC) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTC")
@@ -130,8 +123,7 @@ data Struct1 = Struct1
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct1 where
 
@@ -163,8 +155,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct1 "struct1_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct1) "struct1_a")
-         ) => GHC.Records.HasField "struct1_a" (Ptr.Ptr Struct1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "struct1_a" (Ptr.Ptr Struct1) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_a")
@@ -184,8 +175,7 @@ data Struct2 = Struct2
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct2 where
 
@@ -217,8 +207,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct2 "struct2_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct2) "struct2_a")
-         ) => GHC.Records.HasField "struct2_a" (Ptr.Ptr Struct2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "struct2_a" (Ptr.Ptr Struct2) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct2_a")
@@ -238,8 +227,7 @@ data Struct3 = Struct3
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct3 where
 
@@ -271,8 +259,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct3 "struct3_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3) "struct3_a")
-         ) => GHC.Records.HasField "struct3_a" (Ptr.Ptr Struct3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "struct3_a" (Ptr.Ptr Struct3) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct3_a")
@@ -286,8 +273,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3) "struct3_a"
 newtype Struct3_t = Struct3_t
   { unwrapStruct3_t :: Struct3
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -295,8 +281,7 @@ newtype Struct3_t = Struct3_t
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3_t) "unwrapStruct3_t")
-         ) => GHC.Records.HasField "unwrapStruct3_t" (Ptr.Ptr Struct3_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapStruct3_t" (Ptr.Ptr Struct3_t) (Ptr.Ptr Struct3) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct3_t")
@@ -322,8 +307,7 @@ data Struct4 = Struct4
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct4 where
 
@@ -355,8 +339,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct4 "struct4_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct4) "struct4_a")
-         ) => GHC.Records.HasField "struct4_a" (Ptr.Ptr Struct4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "struct4_a" (Ptr.Ptr Struct4) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct4_a")

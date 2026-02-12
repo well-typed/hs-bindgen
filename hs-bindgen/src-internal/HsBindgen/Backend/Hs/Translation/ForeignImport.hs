@@ -289,8 +289,6 @@ toFFIType sizeofs = go
     goPrim pt = case pt of
         HsPrimVoid -> no
         HsPrimUnit -> yes $ FFI.Unit
-        HsPrimCStringLen -> no
-        HsPrimCPtrdiff -> no
         HsPrimChar -> yes $ FFI.Basic FFI.Char
         HsPrimInt -> yes $ FFI.Basic FFI.Int
         HsPrimDouble -> yes $ FFI.Basic FFI.Double

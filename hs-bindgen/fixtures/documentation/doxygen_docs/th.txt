@@ -384,8 +384,7 @@ newtype Size_type
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -401,8 +400,9 @@ newtype Size_type
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Size_type "unwrapSize_type") =>
-         HasField "unwrapSize_type" (Ptr Size_type) (Ptr ty)
+instance HasField "unwrapSize_type"
+                  (Ptr Size_type)
+                  (Ptr HsBindgen.Runtime.LibC.CSize)
     where getField = fromPtr (Proxy @"unwrapSize_type")
 instance HasCField Size_type "unwrapSize_type"
     where type CFieldType Size_type
@@ -456,8 +456,7 @@ newtype Color_enum
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Color_enum
     where staticSizeOf = \_ -> 4 :: Int
@@ -490,8 +489,7 @@ instance Read Color_enum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty (CFieldType Color_enum "unwrapColor_enum") =>
-         HasField "unwrapColor_enum" (Ptr Color_enum) (Ptr ty)
+instance HasField "unwrapColor_enum" (Ptr Color_enum) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapColor_enum")
 instance HasCField Color_enum "unwrapColor_enum"
     where type CFieldType Color_enum "unwrapColor_enum" = CUInt
@@ -593,11 +591,9 @@ instance ToFunPtr Event_callback_t_Aux
     where toFunPtr = hs_bindgen_111918b0aee2a7fb
 instance FromFunPtr Event_callback_t_Aux
     where fromFunPtr = hs_bindgen_9e9d478c2d75628c
-instance TyEq ty
-              (CFieldType Event_callback_t_Aux "unwrapEvent_callback_t_Aux") =>
-         HasField "unwrapEvent_callback_t_Aux"
+instance HasField "unwrapEvent_callback_t_Aux"
                   (Ptr Event_callback_t_Aux)
-                  (Ptr ty)
+                  (Ptr (CInt -> Ptr Void -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapEvent_callback_t_Aux")
 instance HasCField Event_callback_t_Aux
                    "unwrapEvent_callback_t_Aux"
@@ -638,16 +634,15 @@ newtype Event_callback_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Event_callback_t "unwrapEvent_callback_t") =>
-         HasField "unwrapEvent_callback_t" (Ptr Event_callback_t) (Ptr ty)
+instance HasField "unwrapEvent_callback_t"
+                  (Ptr Event_callback_t)
+                  (Ptr (FunPtr Event_callback_t_Aux))
     where getField = fromPtr (Proxy @"unwrapEvent_callback_t")
 instance HasCField Event_callback_t "unwrapEvent_callback_t"
     where type CFieldType Event_callback_t
@@ -735,8 +730,7 @@ data Config_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Config_t
     where staticSizeOf = \_ -> 88 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -754,35 +748,40 @@ instance HasCField Config_t "config_t_id"
     where type CFieldType Config_t
                           "config_t_id" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Config_t "config_t_id") =>
-         HasField "config_t_id" (Ptr Config_t) (Ptr ty)
+instance HasField "config_t_id"
+                  (Ptr Config_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
     where getField = fromPtr (Proxy @"config_t_id")
 instance HasCField Config_t "config_t_name"
     where type CFieldType Config_t "config_t_name" = ConstantArray 64
                                                                    CChar
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType Config_t "config_t_name") =>
-         HasField "config_t_name" (Ptr Config_t) (Ptr ty)
+instance HasField "config_t_name"
+                  (Ptr Config_t)
+                  (Ptr (ConstantArray 64 CChar))
     where getField = fromPtr (Proxy @"config_t_name")
 instance HasCField Config_t "config_t_flags"
     where type CFieldType Config_t
                           "config_t_flags" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 68
-instance TyEq ty (CFieldType Config_t "config_t_flags") =>
-         HasField "config_t_flags" (Ptr Config_t) (Ptr ty)
+instance HasField "config_t_flags"
+                  (Ptr Config_t)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
     where getField = fromPtr (Proxy @"config_t_flags")
 instance HasCField Config_t "config_t_callback"
     where type CFieldType Config_t
                           "config_t_callback" = Event_callback_t
           offset# = \_ -> \_ -> 72
-instance TyEq ty (CFieldType Config_t "config_t_callback") =>
-         HasField "config_t_callback" (Ptr Config_t) (Ptr ty)
+instance HasField "config_t_callback"
+                  (Ptr Config_t)
+                  (Ptr Event_callback_t)
     where getField = fromPtr (Proxy @"config_t_callback")
 instance HasCField Config_t "config_t_user_data"
     where type CFieldType Config_t "config_t_user_data" = Ptr Void
           offset# = \_ -> \_ -> 80
-instance TyEq ty (CFieldType Config_t "config_t_user_data") =>
-         HasField "config_t_user_data" (Ptr Config_t) (Ptr ty)
+instance HasField "config_t_user_data"
+                  (Ptr Config_t)
+                  (Ptr (Ptr Void))
     where getField = fromPtr (Proxy @"config_t_user_data")
 {-|
 
@@ -810,8 +809,7 @@ newtype Status_code_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize Status_code_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -841,9 +839,9 @@ instance Read Status_code_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty
-              (CFieldType Status_code_t "unwrapStatus_code_t") =>
-         HasField "unwrapStatus_code_t" (Ptr Status_code_t) (Ptr ty)
+instance HasField "unwrapStatus_code_t"
+                  (Ptr Status_code_t)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapStatus_code_t")
 instance HasCField Status_code_t "unwrapStatus_code_t"
     where type CFieldType Status_code_t "unwrapStatus_code_t" = CInt
@@ -1005,8 +1003,7 @@ data Data_union_t_as_parts
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Data_union_t_as_parts
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 2 :: Int
@@ -1022,22 +1019,18 @@ instance HasCField Data_union_t_as_parts
     where type CFieldType Data_union_t_as_parts
                           "data_union_t_as_parts_low" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Data_union_t_as_parts "data_union_t_as_parts_low") =>
-         HasField "data_union_t_as_parts_low"
+instance HasField "data_union_t_as_parts_low"
                   (Ptr Data_union_t_as_parts)
-                  (Ptr ty)
+                  (Ptr HsBindgen.Runtime.LibC.Word16)
     where getField = fromPtr (Proxy @"data_union_t_as_parts_low")
 instance HasCField Data_union_t_as_parts
                    "data_union_t_as_parts_high"
     where type CFieldType Data_union_t_as_parts
                           "data_union_t_as_parts_high" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 2
-instance TyEq ty
-              (CFieldType Data_union_t_as_parts "data_union_t_as_parts_high") =>
-         HasField "data_union_t_as_parts_high"
+instance HasField "data_union_t_as_parts_high"
                   (Ptr Data_union_t_as_parts)
-                  (Ptr ty)
+                  (Ptr HsBindgen.Runtime.LibC.Word16)
     where getField = fromPtr (Proxy @"data_union_t_as_parts_high")
 {-|
 
@@ -1231,32 +1224,33 @@ instance HasCField Data_union_t "data_union_t_as_int"
     where type CFieldType Data_union_t
                           "data_union_t_as_int" = HsBindgen.Runtime.LibC.Int32
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Data_union_t "data_union_t_as_int") =>
-         HasField "data_union_t_as_int" (Ptr Data_union_t) (Ptr ty)
+instance HasField "data_union_t_as_int"
+                  (Ptr Data_union_t)
+                  (Ptr HsBindgen.Runtime.LibC.Int32)
     where getField = fromPtr (Proxy @"data_union_t_as_int")
 instance HasCField Data_union_t "data_union_t_as_float"
     where type CFieldType Data_union_t "data_union_t_as_float" = CFloat
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Data_union_t "data_union_t_as_float") =>
-         HasField "data_union_t_as_float" (Ptr Data_union_t) (Ptr ty)
+instance HasField "data_union_t_as_float"
+                  (Ptr Data_union_t)
+                  (Ptr CFloat)
     where getField = fromPtr (Proxy @"data_union_t_as_float")
 instance HasCField Data_union_t "data_union_t_as_bytes"
     where type CFieldType Data_union_t
                           "data_union_t_as_bytes" = ConstantArray 4
                                                                   HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Data_union_t "data_union_t_as_bytes") =>
-         HasField "data_union_t_as_bytes" (Ptr Data_union_t) (Ptr ty)
+instance HasField "data_union_t_as_bytes"
+                  (Ptr Data_union_t)
+                  (Ptr (ConstantArray 4 HsBindgen.Runtime.LibC.Word8))
     where getField = fromPtr (Proxy @"data_union_t_as_bytes")
 instance HasCField Data_union_t "data_union_t_as_parts"
     where type CFieldType Data_union_t
                           "data_union_t_as_parts" = Data_union_t_as_parts
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Data_union_t "data_union_t_as_parts") =>
-         HasField "data_union_t_as_parts" (Ptr Data_union_t) (Ptr ty)
+instance HasField "data_union_t_as_parts"
+                  (Ptr Data_union_t)
+                  (Ptr Data_union_t_as_parts)
     where getField = fromPtr (Proxy @"data_union_t_as_parts")
 {-|
 
@@ -1331,8 +1325,7 @@ data Bitfield_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Bitfield_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -1349,30 +1342,33 @@ instance HasCBitfield Bitfield_t "bitfield_t_flag1"
     where type CBitfieldType Bitfield_t "bitfield_t_flag1" = CUInt
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 1
-instance TyEq ty (CBitfieldType Bitfield_t "bitfield_t_flag1") =>
-         HasField "bitfield_t_flag1" (Ptr Bitfield_t) (BitfieldPtr ty)
+instance HasField "bitfield_t_flag1"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"bitfield_t_flag1")
 instance HasCBitfield Bitfield_t "bitfield_t_flag2"
     where type CBitfieldType Bitfield_t "bitfield_t_flag2" = CUInt
           bitfieldOffset# = \_ -> \_ -> 1
           bitfieldWidth# = \_ -> \_ -> 1
-instance TyEq ty (CBitfieldType Bitfield_t "bitfield_t_flag2") =>
-         HasField "bitfield_t_flag2" (Ptr Bitfield_t) (BitfieldPtr ty)
+instance HasField "bitfield_t_flag2"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"bitfield_t_flag2")
 instance HasCBitfield Bitfield_t "bitfield_t_counter"
     where type CBitfieldType Bitfield_t "bitfield_t_counter" = CUInt
           bitfieldOffset# = \_ -> \_ -> 2
           bitfieldWidth# = \_ -> \_ -> 6
-instance TyEq ty (CBitfieldType Bitfield_t "bitfield_t_counter") =>
-         HasField "bitfield_t_counter" (Ptr Bitfield_t) (BitfieldPtr ty)
+instance HasField "bitfield_t_counter"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"bitfield_t_counter")
 instance HasCBitfield Bitfield_t "bitfield_t_reserved"
     where type CBitfieldType Bitfield_t "bitfield_t_reserved" = CUInt
           bitfieldOffset# = \_ -> \_ -> 8
           bitfieldWidth# = \_ -> \_ -> 24
-instance TyEq ty
-              (CBitfieldType Bitfield_t "bitfield_t_reserved") =>
-         HasField "bitfield_t_reserved" (Ptr Bitfield_t) (BitfieldPtr ty)
+instance HasField "bitfield_t_reserved"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr CUInt)
     where getField = toPtr (Proxy @"bitfield_t_reserved")
 {-| Auxiliary type used by 'Processor_fn_t'
 
@@ -1417,11 +1413,9 @@ instance ToFunPtr Processor_fn_t_Aux
     where toFunPtr = hs_bindgen_d4e16471c82d5df0
 instance FromFunPtr Processor_fn_t_Aux
     where fromFunPtr = hs_bindgen_0d4b3d0461629423
-instance TyEq ty
-              (CFieldType Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux") =>
-         HasField "unwrapProcessor_fn_t_Aux"
+instance HasField "unwrapProcessor_fn_t_Aux"
                   (Ptr Processor_fn_t_Aux)
-                  (Ptr ty)
+                  (Ptr (CInt -> Ptr Void -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapProcessor_fn_t_Aux")
 instance HasCField Processor_fn_t_Aux "unwrapProcessor_fn_t_Aux"
     where type CFieldType Processor_fn_t_Aux
@@ -1465,16 +1459,15 @@ newtype Processor_fn_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType Processor_fn_t "unwrapProcessor_fn_t") =>
-         HasField "unwrapProcessor_fn_t" (Ptr Processor_fn_t) (Ptr ty)
+instance HasField "unwrapProcessor_fn_t"
+                  (Ptr Processor_fn_t)
+                  (Ptr (FunPtr Processor_fn_t_Aux))
     where getField = fromPtr (Proxy @"unwrapProcessor_fn_t")
 instance HasCField Processor_fn_t "unwrapProcessor_fn_t"
     where type CFieldType Processor_fn_t
@@ -1506,11 +1499,11 @@ newtype Filename_t
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Filename_t "unwrapFilename_t") =>
-         HasField "unwrapFilename_t" (Ptr Filename_t) (Ptr ty)
+instance HasField "unwrapFilename_t"
+                  (Ptr Filename_t)
+                  (Ptr (ConstantArray 256 CChar))
     where getField = fromPtr (Proxy @"unwrapFilename_t")
 instance HasCField Filename_t "unwrapFilename_t"
     where type CFieldType Filename_t
@@ -1542,8 +1535,7 @@ data Flexible_array_Aux
 
                       __exported by:__ @documentation\/doxygen_docs.h@
                       -}}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Flexible_array_Aux
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -1557,9 +1549,9 @@ instance HasCField Flexible_array_Aux "flexible_array_count"
     where type CFieldType Flexible_array_Aux
                           "flexible_array_count" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Flexible_array_Aux "flexible_array_count") =>
-         HasField "flexible_array_count" (Ptr Flexible_array_Aux) (Ptr ty)
+instance HasField "flexible_array_count"
+                  (Ptr Flexible_array_Aux)
+                  (Ptr HsBindgen.Runtime.LibC.CSize)
     where getField = fromPtr (Proxy @"flexible_array_count")
 instance Offset CInt Flexible_array_Aux
     where offset = \_ty_0 -> 8

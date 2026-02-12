@@ -174,11 +174,11 @@ newtype Matrix
 
            __exported by:__ @arrays\/multi_dim.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType Matrix "unwrapMatrix") =>
-         HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
+instance HasField "unwrapMatrix"
+                  (Ptr Matrix)
+                  (Ptr (ConstantArray 4 (ConstantArray 3 CInt)))
     where getField = fromPtr (Proxy @"unwrapMatrix")
 instance HasCField Matrix "unwrapMatrix"
     where type CFieldType Matrix "unwrapMatrix" = ConstantArray 4
@@ -199,10 +199,10 @@ newtype Triplets
 
            __exported by:__ @arrays\/multi_dim.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
-instance TyEq ty (CFieldType Triplets "unwrapTriplets") =>
-         HasField "unwrapTriplets" (Ptr Triplets) (Ptr ty)
+    deriving stock (Generic, Eq, Show)
+instance HasField "unwrapTriplets"
+                  (Ptr Triplets)
+                  (Ptr (IncompleteArray (ConstantArray 3 CInt)))
     where getField = fromPtr (Proxy @"unwrapTriplets")
 instance HasCField Triplets "unwrapTriplets"
     where type CFieldType Triplets

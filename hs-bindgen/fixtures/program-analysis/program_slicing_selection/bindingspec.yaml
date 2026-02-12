@@ -19,6 +19,7 @@ hstypes:
       - fileOperationRecord_bytes_processed
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -35,6 +36,7 @@ hstypes:
   instances:
   - CEnum
   - Eq
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

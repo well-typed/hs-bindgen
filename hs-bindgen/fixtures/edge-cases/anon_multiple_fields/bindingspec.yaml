@@ -20,6 +20,7 @@ hstypes:
       - some_struct_field3
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -36,6 +37,7 @@ hstypes:
       - some_struct_field1_y
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

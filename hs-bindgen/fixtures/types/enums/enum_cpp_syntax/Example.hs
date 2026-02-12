@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -30,7 +28,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum foo_enum@
@@ -42,8 +39,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype Foo_enum = Foo_enum
   { unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo_enum where
@@ -115,8 +111,7 @@ instance Read Foo_enum where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_enum) "unwrapFoo_enum")
-         ) => GHC.Records.HasField "unwrapFoo_enum" (Ptr.Ptr Foo_enum) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFoo_enum" (Ptr.Ptr Foo_enum) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFoo_enum")

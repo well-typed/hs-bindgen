@@ -14,8 +14,7 @@ newtype ParsedAndSelected1
 
            __exported by:__ @declarations\/select_scoping.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -31,11 +30,9 @@ newtype ParsedAndSelected1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType ParsedAndSelected1 "unwrapParsedAndSelected1") =>
-         HasField "unwrapParsedAndSelected1"
+instance HasField "unwrapParsedAndSelected1"
                   (Ptr ParsedAndSelected1)
-                  (Ptr ty)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapParsedAndSelected1")
 instance HasCField ParsedAndSelected1 "unwrapParsedAndSelected1"
     where type CFieldType ParsedAndSelected1

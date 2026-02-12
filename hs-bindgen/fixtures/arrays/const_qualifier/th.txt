@@ -254,10 +254,8 @@ newtype S
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
-instance TyEq ty (CFieldType S "unwrapS") =>
-         HasField "unwrapS" (Ptr S) (Ptr ty)
+    deriving stock (Generic, Eq, Show)
+instance HasField "unwrapS" (Ptr S) (Ptr (IncompleteArray CInt))
     where getField = fromPtr (Proxy @"unwrapS")
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = IncompleteArray CInt
@@ -276,10 +274,8 @@ newtype T
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
-instance TyEq ty (CFieldType T "unwrapT") =>
-         HasField "unwrapT" (Ptr T) (Ptr ty)
+    deriving stock (Generic, Eq, Show)
+instance HasField "unwrapT" (Ptr T) (Ptr (IncompleteArray CInt))
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = IncompleteArray CInt
@@ -298,11 +294,9 @@ newtype U
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType U "unwrapU") =>
-         HasField "unwrapU" (Ptr U) (Ptr ty)
+instance HasField "unwrapU" (Ptr U) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = ConstantArray 3 CInt
@@ -321,11 +315,9 @@ newtype V
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType V "unwrapV") =>
-         HasField "unwrapV" (Ptr V) (Ptr ty)
+instance HasField "unwrapV" (Ptr V) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapV")
 instance HasCField V "unwrapV"
     where type CFieldType V "unwrapV" = ConstantArray 3 CInt
@@ -344,11 +336,9 @@ newtype W
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType W "unwrapW") =>
-         HasField "unwrapW" (Ptr W) (Ptr ty)
+instance HasField "unwrapW" (Ptr W) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapW")
 instance HasCField W "unwrapW"
     where type CFieldType W "unwrapW" = ConstantArray 3 CInt
@@ -367,11 +357,9 @@ newtype X
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (CFieldType X "unwrapX") =>
-         HasField "unwrapX" (Ptr X) (Ptr ty)
+instance HasField "unwrapX" (Ptr X) (Ptr (ConstantArray 3 CInt))
     where getField = fromPtr (Proxy @"unwrapX")
 instance HasCField X "unwrapX"
     where type CFieldType X "unwrapX" = ConstantArray 3 CInt

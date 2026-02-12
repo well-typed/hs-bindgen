@@ -18,6 +18,7 @@ hstypes:
       - t_x
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

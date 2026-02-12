@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
@@ -47,8 +44,7 @@ data Foo = Foo
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Foo where
 
@@ -82,8 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_i" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_i")
-         ) => GHC.Records.HasField "foo_i" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_i" (Ptr.Ptr Foo) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_i")
@@ -94,8 +89,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_c" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_c")
-         ) => GHC.Records.HasField "foo_c" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "foo_c" (Ptr.Ptr Foo) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_c")
@@ -122,8 +116,7 @@ data Bar = Bar
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bar where
 
@@ -157,8 +150,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_foo1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_foo1")
-         ) => GHC.Records.HasField "bar_foo1" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bar_foo1" (Ptr.Ptr Bar) (Ptr.Ptr Foo) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_foo1")
@@ -169,8 +161,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_foo2" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_foo2")
-         ) => GHC.Records.HasField "bar_foo2" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bar_foo2" (Ptr.Ptr Bar) (Ptr.Ptr Foo) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_foo2")
@@ -197,8 +188,7 @@ data Ex3_ex3_struct = Ex3_ex3_struct
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex3_ex3_struct where
 
@@ -233,8 +223,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3_ex3_struct) "ex3_ex3_struct_ex3_a")
-         ) => GHC.Records.HasField "ex3_ex3_struct_ex3_a" (Ptr.Ptr Ex3_ex3_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex3_ex3_struct_ex3_a" (Ptr.Ptr Ex3_ex3_struct) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex3_ex3_struct_ex3_a")
@@ -246,8 +235,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex3_ex3_struct "ex3_ex3_struct_ex
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3_ex3_struct) "ex3_ex3_struct_ex3_b")
-         ) => GHC.Records.HasField "ex3_ex3_struct_ex3_b" (Ptr.Ptr Ex3_ex3_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex3_ex3_struct_ex3_b" (Ptr.Ptr Ex3_ex3_struct) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex3_ex3_struct_ex3_b")
@@ -274,8 +262,7 @@ data Ex3 = Ex3
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex3 where
 
@@ -309,8 +296,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex3 "ex3_ex3_struct" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3) "ex3_ex3_struct")
-         ) => GHC.Records.HasField "ex3_ex3_struct" (Ptr.Ptr Ex3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex3_ex3_struct" (Ptr.Ptr Ex3) (Ptr.Ptr Ex3_ex3_struct) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex3_ex3_struct")
@@ -321,8 +307,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex3 "ex3_ex3_c" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3) "ex3_ex3_c")
-         ) => GHC.Records.HasField "ex3_ex3_c" (Ptr.Ptr Ex3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex3_ex3_c" (Ptr.Ptr Ex3) (Ptr.Ptr FC.CFloat) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex3_ex3_c")
@@ -349,8 +334,7 @@ data Ex4_odd = Ex4_odd
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex4_odd where
 
@@ -384,8 +368,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex4_odd "ex4_odd_value" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex4_odd) "ex4_odd_value")
-         ) => GHC.Records.HasField "ex4_odd_value" (Ptr.Ptr Ex4_odd) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex4_odd_value" (Ptr.Ptr Ex4_odd) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex4_odd_value")
@@ -397,8 +380,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex4_odd "ex4_odd_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex4_odd) "ex4_odd_next")
-         ) => GHC.Records.HasField "ex4_odd_next" (Ptr.Ptr Ex4_odd) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex4_odd_next" (Ptr.Ptr Ex4_odd) (Ptr.Ptr (Ptr.Ptr Ex4_even)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex4_odd_next")
@@ -425,8 +407,7 @@ data Ex4_even = Ex4_even
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Ex4_even where
 
@@ -461,8 +442,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex4_even "ex4_even_value" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex4_even) "ex4_even_value")
-         ) => GHC.Records.HasField "ex4_even_value" (Ptr.Ptr Ex4_even) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex4_even_value" (Ptr.Ptr Ex4_even) (Ptr.Ptr FC.CDouble) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex4_even_value")
@@ -474,8 +454,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Ex4_even "ex4_even_next" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex4_even) "ex4_even_next")
-         ) => GHC.Records.HasField "ex4_even_next" (Ptr.Ptr Ex4_even) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "ex4_even_next" (Ptr.Ptr Ex4_even) (Ptr.Ptr (Ptr.Ptr Ex4_odd)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"ex4_even_next")

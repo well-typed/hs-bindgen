@@ -13,8 +13,7 @@ newtype Sym
 
            __exported by:__ @binding-specs\/omit_type.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -30,8 +29,7 @@ newtype Sym
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Sym "unwrapSym") =>
-         HasField "unwrapSym" (Ptr Sym) (Ptr ty)
+instance HasField "unwrapSym" (Ptr Sym) (Ptr CChar)
     where getField = fromPtr (Proxy @"unwrapSym")
 instance HasCField Sym "unwrapSym"
     where type CFieldType Sym "unwrapSym" = CChar

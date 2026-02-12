@@ -13,8 +13,7 @@ newtype MyEnum
 
            __exported by:__ @edge-cases\/uses_utf8.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize MyEnum
     where staticSizeOf = \_ -> 4 :: Int
@@ -46,8 +45,7 @@ instance Read MyEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty (CFieldType MyEnum "unwrapMyEnum") =>
-         HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr ty)
+instance HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapMyEnum")
 instance HasCField MyEnum "unwrapMyEnum"
     where type CFieldType MyEnum "unwrapMyEnum" = CUInt

@@ -21,6 +21,7 @@ hstypes:
       - s1_t_a
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -36,6 +37,7 @@ hstypes:
       - s2_a
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

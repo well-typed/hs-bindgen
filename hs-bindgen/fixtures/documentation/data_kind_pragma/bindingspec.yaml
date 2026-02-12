@@ -15,6 +15,7 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

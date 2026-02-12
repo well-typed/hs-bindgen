@@ -3,14 +3,12 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
 {-| __C declaration:__ @struct foo@
@@ -55,8 +52,7 @@ data Bar = Bar
          __exported by:__ @declarations\/opaque_declaration.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Bar where
 
@@ -90,8 +86,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_ptrA" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_ptrA")
-         ) => GHC.Records.HasField "bar_ptrA" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bar_ptrA" (Ptr.Ptr Bar) (Ptr.Ptr (Ptr.Ptr Foo)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_ptrA")
@@ -102,8 +97,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_ptrB" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_ptrB")
-         ) => GHC.Records.HasField "bar_ptrB" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "bar_ptrB" (Ptr.Ptr Bar) (Ptr.Ptr (Ptr.Ptr Bar)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_ptrB")
@@ -116,8 +110,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_ptrB")
 -}
 data Baz = Baz
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Baz where
 

@@ -74,8 +74,7 @@ newtype MyEnum
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord)
+    deriving stock (Generic, Eq, Ord)
     deriving newtype HasFFIType
 instance StaticSize MyEnum
     where staticSizeOf = \_ -> 4 :: Int
@@ -105,8 +104,7 @@ instance Read MyEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty (CFieldType MyEnum "unwrapMyEnum") =>
-         HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr ty)
+instance HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr CUInt)
     where getField = fromPtr (Proxy @"unwrapMyEnum")
 instance HasCField MyEnum "unwrapMyEnum"
     where type CFieldType MyEnum "unwrapMyEnum" = CUInt
@@ -139,16 +137,14 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr MyEnum)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyEnum
@@ -167,16 +163,14 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty (CFieldType B "unwrapB") =>
-         HasField "unwrapB" (Ptr B) (Ptr ty)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

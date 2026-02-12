@@ -13,8 +13,7 @@ newtype Myint
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -30,8 +29,7 @@ newtype Myint
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Myint "unwrapMyint") =>
-         HasField "unwrapMyint" (Ptr Myint) (Ptr ty)
+instance HasField "unwrapMyint" (Ptr Myint) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapMyint")
 instance HasCField Myint "unwrapMyint"
     where type CFieldType Myint "unwrapMyint" = CInt
@@ -50,15 +48,13 @@ newtype Intptr
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType Intptr "unwrapIntptr") =>
-         HasField "unwrapIntptr" (Ptr Intptr) (Ptr ty)
+instance HasField "unwrapIntptr" (Ptr Intptr) (Ptr (Ptr CInt))
     where getField = fromPtr (Proxy @"unwrapIntptr")
 instance HasCField Intptr "unwrapIntptr"
     where type CFieldType Intptr "unwrapIntptr" = Ptr CInt
@@ -98,8 +94,9 @@ instance ToFunPtr Int2int
     where toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 instance FromFunPtr Int2int
     where fromFunPtr = hs_bindgen_65378a8a3cf640ad
-instance TyEq ty (CFieldType Int2int "unwrapInt2int") =>
-         HasField "unwrapInt2int" (Ptr Int2int) (Ptr ty)
+instance HasField "unwrapInt2int"
+                  (Ptr Int2int)
+                  (Ptr (CInt -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapInt2int")
 instance HasCField Int2int "unwrapInt2int"
     where type CFieldType Int2int "unwrapInt2int" = CInt -> IO CInt
@@ -144,12 +141,9 @@ instance ToFunPtr FunctionPointer_Function_Aux
     where toFunPtr = hs_bindgen_b171c028cdc0781d
 instance FromFunPtr FunctionPointer_Function_Aux
     where fromFunPtr = hs_bindgen_4c3da8240a31e036
-instance TyEq ty
-              (CFieldType FunctionPointer_Function_Aux
-                          "unwrapFunctionPointer_Function_Aux") =>
-         HasField "unwrapFunctionPointer_Function_Aux"
+instance HasField "unwrapFunctionPointer_Function_Aux"
                   (Ptr FunctionPointer_Function_Aux)
-                  (Ptr ty)
+                  (Ptr (IO Unit))
     where getField = fromPtr (Proxy @"unwrapFunctionPointer_Function_Aux")
 instance HasCField FunctionPointer_Function_Aux
                    "unwrapFunctionPointer_Function_Aux"
@@ -170,19 +164,15 @@ newtype FunctionPointer_Function
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty
-              (CFieldType FunctionPointer_Function
-                          "unwrapFunctionPointer_Function") =>
-         HasField "unwrapFunctionPointer_Function"
+instance HasField "unwrapFunctionPointer_Function"
                   (Ptr FunctionPointer_Function)
-                  (Ptr ty)
+                  (Ptr (FunPtr FunctionPointer_Function_Aux))
     where getField = fromPtr (Proxy @"unwrapFunctionPointer_Function")
 instance HasCField FunctionPointer_Function
                    "unwrapFunctionPointer_Function"
@@ -227,12 +217,9 @@ instance ToFunPtr NonFunctionPointer_Function
     where toFunPtr = hs_bindgen_766ae751d60365e9
 instance FromFunPtr NonFunctionPointer_Function
     where fromFunPtr = hs_bindgen_36c7108d046bcbc3
-instance TyEq ty
-              (CFieldType NonFunctionPointer_Function
-                          "unwrapNonFunctionPointer_Function") =>
-         HasField "unwrapNonFunctionPointer_Function"
+instance HasField "unwrapNonFunctionPointer_Function"
                   (Ptr NonFunctionPointer_Function)
-                  (Ptr ty)
+                  (Ptr (CInt -> IO CInt))
     where getField = fromPtr (Proxy @"unwrapNonFunctionPointer_Function")
 instance HasCField NonFunctionPointer_Function
                    "unwrapNonFunctionPointer_Function"
@@ -277,8 +264,7 @@ instance ToFunPtr F1_Aux
     where toFunPtr = hs_bindgen_00d16e666202ed6c
 instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
-instance TyEq ty (CFieldType F1_Aux "unwrapF1_Aux") =>
-         HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr ty)
+instance HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr (IO Unit))
     where getField = fromPtr (Proxy @"unwrapF1_Aux")
 instance HasCField F1_Aux "unwrapF1_Aux"
     where type CFieldType F1_Aux "unwrapF1_Aux" = IO Unit
@@ -297,15 +283,13 @@ newtype F1
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType F1 "unwrapF1") =>
-         HasField "unwrapF1" (Ptr F1) (Ptr ty)
+instance HasField "unwrapF1" (Ptr F1) (Ptr (FunPtr F1_Aux))
     where getField = fromPtr (Proxy @"unwrapF1")
 instance HasCField F1 "unwrapF1"
     where type CFieldType F1 "unwrapF1" = FunPtr F1_Aux
@@ -344,8 +328,7 @@ instance ToFunPtr G1
     where toFunPtr = hs_bindgen_fa5806570b682579
 instance FromFunPtr G1
     where fromFunPtr = hs_bindgen_8405c8e75aa78be5
-instance TyEq ty (CFieldType G1 "unwrapG1") =>
-         HasField "unwrapG1" (Ptr G1) (Ptr ty)
+instance HasField "unwrapG1" (Ptr G1) (Ptr (IO Unit))
     where getField = fromPtr (Proxy @"unwrapG1")
 instance HasCField G1 "unwrapG1"
     where type CFieldType G1 "unwrapG1" = IO Unit
@@ -364,15 +347,13 @@ newtype G2
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType G2 "unwrapG2") =>
-         HasField "unwrapG2" (Ptr G2) (Ptr ty)
+instance HasField "unwrapG2" (Ptr G2) (Ptr (FunPtr G1))
     where getField = fromPtr (Proxy @"unwrapG2")
 instance HasCField G2 "unwrapG2"
     where type CFieldType G2 "unwrapG2" = FunPtr G1
@@ -411,8 +392,7 @@ instance ToFunPtr H1
     where toFunPtr = hs_bindgen_ffae0d1234ed018f
 instance FromFunPtr H1
     where fromFunPtr = hs_bindgen_1a33688324e1924f
-instance TyEq ty (CFieldType H1 "unwrapH1") =>
-         HasField "unwrapH1" (Ptr H1) (Ptr ty)
+instance HasField "unwrapH1" (Ptr H1) (Ptr (IO Unit))
     where getField = fromPtr (Proxy @"unwrapH1")
 instance HasCField H1 "unwrapH1"
     where type CFieldType H1 "unwrapH1" = IO Unit
@@ -433,8 +413,7 @@ newtype H2
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance TyEq ty (CFieldType H2 "unwrapH2") =>
-         HasField "unwrapH2" (Ptr H2) (Ptr ty)
+instance HasField "unwrapH2" (Ptr H2) (Ptr H1)
     where getField = fromPtr (Proxy @"unwrapH2")
 instance HasCField H2 "unwrapH2"
     where type CFieldType H2 "unwrapH2" = H1
@@ -453,15 +432,13 @@ newtype H3
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType H3 "unwrapH3") =>
-         HasField "unwrapH3" (Ptr H3) (Ptr ty)
+instance HasField "unwrapH3" (Ptr H3) (Ptr (FunPtr H2))
     where getField = fromPtr (Proxy @"unwrapH3")
 instance HasCField H3 "unwrapH3"
     where type CFieldType H3 "unwrapH3" = FunPtr H2

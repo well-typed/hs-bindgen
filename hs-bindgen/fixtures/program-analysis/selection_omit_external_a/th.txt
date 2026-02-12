@@ -20,8 +20,7 @@ data UnrelatedDeclaration
 
            __exported by:__ @program-analysis\/selection_omit_external_a.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize UnrelatedDeclaration
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -35,9 +34,7 @@ instance HasCField UnrelatedDeclaration "unrelatedDeclaration_m"
     where type CFieldType UnrelatedDeclaration
                           "unrelatedDeclaration_m" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType UnrelatedDeclaration "unrelatedDeclaration_m") =>
-         HasField "unrelatedDeclaration_m"
+instance HasField "unrelatedDeclaration_m"
                   (Ptr UnrelatedDeclaration)
-                  (Ptr ty)
+                  (Ptr CInt)
     where getField = fromPtr (Proxy @"unrelatedDeclaration_m")

@@ -30,6 +30,7 @@ hstypes:
       - unwrapS
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - Show
@@ -41,6 +42,7 @@ hstypes:
       - unwrapT
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - Show
@@ -52,6 +54,7 @@ hstypes:
       - unwrapU
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -67,6 +70,7 @@ hstypes:
       - unwrapV
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -82,6 +86,7 @@ hstypes:
       - unwrapW
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -97,6 +102,7 @@ hstypes:
       - unwrapX
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

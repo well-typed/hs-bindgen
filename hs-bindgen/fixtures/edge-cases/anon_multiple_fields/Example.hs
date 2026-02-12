@@ -2,14 +2,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,7 +20,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct \@some_struct_field1@
@@ -47,8 +44,7 @@ data Some_struct_field1 = Some_struct_field1
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Some_struct_field1 where
 
@@ -83,8 +79,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Some_struct_field1 "some_struct_f
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct_field1) "some_struct_field1_x")
-         ) => GHC.Records.HasField "some_struct_field1_x" (Ptr.Ptr Some_struct_field1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "some_struct_field1_x" (Ptr.Ptr Some_struct_field1) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field1_x")
@@ -96,8 +91,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Some_struct_field1 "some_struct_f
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct_field1) "some_struct_field1_y")
-         ) => GHC.Records.HasField "some_struct_field1_y" (Ptr.Ptr Some_struct_field1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "some_struct_field1_y" (Ptr.Ptr Some_struct_field1) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field1_y")
@@ -131,8 +125,7 @@ data Some_struct = Some_struct
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Some_struct where
 
@@ -169,8 +162,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Some_struct "some_struct_field1" 
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct) "some_struct_field1")
-         ) => GHC.Records.HasField "some_struct_field1" (Ptr.Ptr Some_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "some_struct_field1" (Ptr.Ptr Some_struct) (Ptr.Ptr Some_struct_field1) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field1")
@@ -182,8 +174,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Some_struct "some_struct_field2" 
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct) "some_struct_field2")
-         ) => GHC.Records.HasField "some_struct_field2" (Ptr.Ptr Some_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "some_struct_field2" (Ptr.Ptr Some_struct) (Ptr.Ptr Some_struct_field1) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field2")
@@ -195,8 +186,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Some_struct "some_struct_field3" 
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct) "some_struct_field3")
-         ) => GHC.Records.HasField "some_struct_field3" (Ptr.Ptr Some_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "some_struct_field3" (Ptr.Ptr Some_struct) (Ptr.Ptr Some_struct_field1) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"some_struct_field3")

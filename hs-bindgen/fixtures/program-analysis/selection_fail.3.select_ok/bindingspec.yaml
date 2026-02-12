@@ -15,6 +15,7 @@ hstypes:
       - okBefore_x
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw

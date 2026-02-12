@@ -1,13 +1,11 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -19,7 +17,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Eq, Show)
 
 {-| __C declaration:__ @MyArray@
@@ -31,11 +28,9 @@ import Prelude (Eq, Show)
 newtype MyArray = MyArray
   { unwrapMyArray :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyArray) "unwrapMyArray")
-         ) => GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyArray")
@@ -56,11 +51,9 @@ instance HsBindgen.Runtime.HasCField.HasCField MyArray "unwrapMyArray" where
 newtype A = A
   { unwrapA :: MyArray
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "unwrapA")
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr MyArray) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
@@ -80,11 +73,9 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "unwrapB")
-         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr A) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")

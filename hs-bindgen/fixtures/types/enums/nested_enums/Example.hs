@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -30,7 +28,6 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum enumA@
@@ -42,8 +39,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype EnumA = EnumA
   { unwrapEnumA :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize EnumA where
@@ -114,8 +110,7 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumA) "unwrapEnumA")
-         ) => GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumA")
@@ -159,8 +154,7 @@ data ExA = ExA
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExA where
 
@@ -192,8 +186,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
-         ) => GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr EnumA) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exA_fieldA1")
@@ -207,8 +200,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
 newtype ExB_fieldB1 = ExB_fieldB1
   { unwrapExB_fieldB1 :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1 where
@@ -279,8 +271,7 @@ instance Read ExB_fieldB1 where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB_fieldB1) "unwrapExB_fieldB1")
-         ) => GHC.Records.HasField "unwrapExB_fieldB1" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapExB_fieldB1" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapExB_fieldB1")
@@ -325,8 +316,7 @@ data ExB = ExB
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize ExB where
 
@@ -358,8 +348,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB) "exB_fieldB1")
-         ) => GHC.Records.HasField "exB_fieldB1" (Ptr.Ptr ExB) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "exB_fieldB1" (Ptr.Ptr ExB) (Ptr.Ptr ExB_fieldB1) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exB_fieldB1")

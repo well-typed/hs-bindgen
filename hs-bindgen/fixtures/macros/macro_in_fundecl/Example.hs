@@ -2,14 +2,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -32,7 +30,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 {-| __C declaration:__ @I@
@@ -44,8 +41,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord,
 newtype I = I
   { unwrapI :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -64,8 +60,7 @@ newtype I = I
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType I) "unwrapI")
-         ) => GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapI")
@@ -85,8 +80,7 @@ instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
 newtype C = C
   { unwrapC :: FC.CChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -105,8 +99,7 @@ newtype C = C
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType C) "unwrapC")
-         ) => GHC.Records.HasField "unwrapC" (Ptr.Ptr C) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapC" (Ptr.Ptr C) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapC")
@@ -126,8 +119,7 @@ instance HsBindgen.Runtime.HasCField.HasCField C "unwrapC" where
 newtype F = F
   { unwrapF :: FC.CFloat
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -144,8 +136,7 @@ newtype F = F
     , RealFrac
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F) "unwrapF")
-         ) => GHC.Records.HasField "unwrapF" (Ptr.Ptr F) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF" (Ptr.Ptr F) (Ptr.Ptr FC.CFloat) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF")
@@ -165,8 +156,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F "unwrapF" where
 newtype L = L
   { unwrapL :: FC.CLong
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -185,8 +175,7 @@ newtype L = L
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType L) "unwrapL")
-         ) => GHC.Records.HasField "unwrapL" (Ptr.Ptr L) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapL" (Ptr.Ptr L) (Ptr.Ptr FC.CLong) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapL")
@@ -206,8 +195,7 @@ instance HsBindgen.Runtime.HasCField.HasCField L "unwrapL" where
 newtype S = S
   { unwrapS :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -226,8 +214,7 @@ newtype S = S
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "unwrapS")
-         ) => GHC.Records.HasField "unwrapS" (Ptr.Ptr S) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapS" (Ptr.Ptr S) (Ptr.Ptr FC.CShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS")

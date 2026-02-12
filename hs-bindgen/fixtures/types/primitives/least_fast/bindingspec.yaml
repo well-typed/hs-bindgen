@@ -1,0 +1,518 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/primitives/least_fast.h
+  cname: int_fast16_t
+  hsname: Int_fast16_t
+- headers: types/primitives/least_fast.h
+  cname: int_fast32_t
+  hsname: Int_fast32_t
+- headers: types/primitives/least_fast.h
+  cname: uint_fast16_t
+  hsname: Uint_fast16_t
+- headers: types/primitives/least_fast.h
+  cname: uint_fast32_t
+  hsname: Uint_fast32_t
+- headers: types/primitives/least_fast.h
+  cname: int_fast8_t
+  hsname: Int_fast8_t
+- headers: types/primitives/least_fast.h
+  cname: int_fast64_t
+  hsname: Int_fast64_t
+- headers: types/primitives/least_fast.h
+  cname: int_least8_t
+  hsname: Int_least8_t
+- headers: types/primitives/least_fast.h
+  cname: int_least16_t
+  hsname: Int_least16_t
+- headers: types/primitives/least_fast.h
+  cname: int_least32_t
+  hsname: Int_least32_t
+- headers: types/primitives/least_fast.h
+  cname: int_least64_t
+  hsname: Int_least64_t
+- headers: types/primitives/least_fast.h
+  cname: uint_fast8_t
+  hsname: Uint_fast8_t
+- headers: types/primitives/least_fast.h
+  cname: uint_fast64_t
+  hsname: Uint_fast64_t
+- headers: types/primitives/least_fast.h
+  cname: uint_least8_t
+  hsname: Uint_least8_t
+- headers: types/primitives/least_fast.h
+  cname: uint_least16_t
+  hsname: Uint_least16_t
+- headers: types/primitives/least_fast.h
+  cname: uint_least32_t
+  hsname: Uint_least32_t
+- headers: types/primitives/least_fast.h
+  cname: uint_least64_t
+  hsname: Uint_least64_t
+hstypes:
+- hsname: Int_fast16_t
+  representation:
+    newtype:
+      constructor: Int_fast16_t
+      fields:
+      - unwrapInt_fast16_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Int_fast32_t
+  representation:
+    newtype:
+      constructor: Int_fast32_t
+      fields:
+      - unwrapInt_fast32_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Int_fast64_t
+  representation:
+    newtype:
+      constructor: Int_fast64_t
+      fields:
+      - unwrapInt_fast64_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Int_fast8_t
+  representation:
+    newtype:
+      constructor: Int_fast8_t
+      fields:
+      - unwrapInt_fast8_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Int_least16_t
+  representation:
+    newtype:
+      constructor: Int_least16_t
+      fields:
+      - unwrapInt_least16_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Int_least32_t
+  representation:
+    newtype:
+      constructor: Int_least32_t
+      fields:
+      - unwrapInt_least32_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Int_least64_t
+  representation:
+    newtype:
+      constructor: Int_least64_t
+      fields:
+      - unwrapInt_least64_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Int_least8_t
+  representation:
+    newtype:
+      constructor: Int_least8_t
+      fields:
+      - unwrapInt_least8_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_fast16_t
+  representation:
+    newtype:
+      constructor: Uint_fast16_t
+      fields:
+      - unwrapUint_fast16_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_fast32_t
+  representation:
+    newtype:
+      constructor: Uint_fast32_t
+      fields:
+      - unwrapUint_fast32_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_fast64_t
+  representation:
+    newtype:
+      constructor: Uint_fast64_t
+      fields:
+      - unwrapUint_fast64_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_fast8_t
+  representation:
+    newtype:
+      constructor: Uint_fast8_t
+      fields:
+      - unwrapUint_fast8_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_least16_t
+  representation:
+    newtype:
+      constructor: Uint_least16_t
+      fields:
+      - unwrapUint_least16_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_least32_t
+  representation:
+    newtype:
+      constructor: Uint_least32_t
+      fields:
+      - unwrapUint_least32_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_least64_t
+  representation:
+    newtype:
+      constructor: Uint_least64_t
+      fields:
+      - unwrapUint_least64_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint_least8_t
+  representation:
+    newtype:
+      constructor: Uint_least8_t
+      fields:
+      - unwrapUint_least8_t
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

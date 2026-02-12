@@ -160,7 +160,6 @@ testCases_default = [
     , defaultTest "types/primitives/primitive_types"
     , defaultTest "types/qualifiers/type_qualifiers"
     , defaultTest "types/qualifiers/const_typedefs"
-    , defaultTest "types/stdlib/stdlib_insts"
     , defaultTest "types/structs/anonymous"
     , defaultTest "types/structs/bitfields"
     , defaultTest "types/structs/circular_dependency_struct"
@@ -471,6 +470,9 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_function_pointer
     , test_bindingSpecs_fun_arg_macro_struct
     , test_bindingSpecs_fun_arg_macro_union
+      -- * Standard library
+    , test_bindingSpecs_stdlib_instances
+    , test_bindingSpecs_stdlib_return_values
     ]
 
 test_bindingSpecs_omit_type :: TestCase
@@ -787,6 +789,34 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
     _otherwise ->
       Nothing
   )
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: binding specs: standard library
+-------------------------------------------------------------------------------}
+
+-- This test sets the parse predicate to parse all declarations, which results
+-- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
+-- setting the parse predicate, but it results in use of 'FC.CBool' instead.
+-- This configuration should be removed when
+-- https://github.com/well-typed/hs-bindgen/issues/1627 is resolved.
+test_bindingSpecs_stdlib_instances :: TestCase
+test_bindingSpecs_stdlib_instances =
+    defaultTest "binding-specs/stdlib/instances"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate .~ BTrue
+          )
+
+-- This test sets the parse predicate to parse all declarations, which results
+-- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
+-- setting the parse predicate, but it results in use of 'FC.CBool' instead.
+-- This configuration should be removed when
+-- https://github.com/well-typed/hs-bindgen/issues/1627 is resolved.
+test_bindingSpecs_stdlib_return_values :: TestCase
+test_bindingSpecs_stdlib_return_values =
+    defaultTest "binding-specs/stdlib/return_values"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate .~ BTrue
+          )
 
 {-------------------------------------------------------------------------------
   Bespoke tests: declarations
@@ -1240,8 +1270,14 @@ test_macros_reparse =
 testCases_bespoke_programAnalysis :: [TestCase]
 testCases_bespoke_programAnalysis = [
       test_programAnalysis_delay_traces
+      -- * Program slicing
+    , test_programAnalysis_program_slicing_macro_selected
+    , test_programAnalysis_program_slicing_macro_unselected
+    , test_programAnalysis_program_slicing_typedef_selected
+    , test_programAnalysis_program_slicing_typedef_unselected
     , test_programAnalysis_program_slicing_selection
     , test_programAnalysis_program_slicing_simple
+      -- * Selection
     , test_programAnalysis_selection_bad
     , test_programAnalysis_selection_fail
     , test_programAnalysis_selection_fail_variant_1
@@ -1255,6 +1291,7 @@ testCases_bespoke_programAnalysis = [
     , test_programAnalysis_selection_omit_external_b
     , test_programAnalysis_selection_omit_prescriptive
     , test_programAnalysis_selection_squash
+      -- * Typedef analysis
     , test_programAnalysis_typedef_analysis
     ]
 
@@ -1285,6 +1322,56 @@ test_programAnalysis_delay_traces =
         , "struct long_double_s"
         , "struct nested_long_double_s"
         ]
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: program analysis: program slicing
+-------------------------------------------------------------------------------}
+test_programAnalysis_program_slicing_macro_selected :: TestCase
+test_programAnalysis_program_slicing_macro_selected =
+    defaultTest "program-analysis/program-slicing/macro_selected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ EnableProgramSlicing
+          )
+
+test_programAnalysis_program_slicing_macro_unselected :: TestCase
+test_programAnalysis_program_slicing_macro_unselected =
+    defaultTest "program-analysis/program-slicing/macro_unselected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ DisableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name TransitiveDependenciesMissing{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    -- TODO: set to ["foo"] once issue #1679 is fixed
+    declsWithMsgs = []
+
+test_programAnalysis_program_slicing_typedef_selected :: TestCase
+test_programAnalysis_program_slicing_typedef_selected =
+    defaultTest "program-analysis/program-slicing/typedef_selected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ EnableProgramSlicing
+          )
+
+test_programAnalysis_program_slicing_typedef_unselected :: TestCase
+test_programAnalysis_program_slicing_typedef_unselected =
+    defaultTest "program-analysis/program-slicing/typedef_unselected"
+      & #onFrontend .~ (\cfg -> cfg
+            & #programSlicing .~ DisableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name TransitiveDependenciesMissing{} ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["foo"]
 
 test_programAnalysis_program_slicing_selection :: TestCase
 test_programAnalysis_program_slicing_selection =
@@ -1339,6 +1426,10 @@ test_programAnalysis_program_slicing_simple =
         , ("bar"        , "root")
         , ("uint32_t"   , "dependency")
         ]
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: program analysis: selection
+-------------------------------------------------------------------------------}
 
 test_programAnalysis_selection_bad :: TestCase
 test_programAnalysis_selection_bad =
@@ -1559,6 +1650,10 @@ test_programAnalysis_selection_squash =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["typedef_to_struct_a"]
 
+{-------------------------------------------------------------------------------
+  Bespoke tests: program analysis: typedef analysis
+-------------------------------------------------------------------------------}
+
 test_programAnalysis_typedef_analysis :: TestCase
 test_programAnalysis_typedef_analysis =
     testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
@@ -1601,6 +1696,7 @@ testCases_bespoke_types = [
     , test_types_implicit_fields_union
     , test_types_long_double
     , test_types_primitives_bool_c23
+    , test_types_primitives_least_fast
     , test_types_special_parse_failure_long_double
     , test_types_structs_named_vs_anon
     , test_types_structs_enable_record_dot
@@ -1637,6 +1733,11 @@ test_types_primitives_bool_c23 :: TestCase
 test_types_primitives_bool_c23 =
     defaultTest "types/primitives/bool_c23"
       & #clangVersion .~ Just (>= (15, 0, 0))
+
+test_types_primitives_least_fast :: TestCase
+test_types_primitives_least_fast =
+    defaultTest "types/primitives/least_fast"
+      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
 
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =

@@ -40,8 +40,9 @@ instance ToFunPtr Fun_ptr_Aux
     where toFunPtr = hs_bindgen_5964bbadb359ee4a
 instance FromFunPtr Fun_ptr_Aux
     where fromFunPtr = hs_bindgen_f8391e85af67fcb6
-instance TyEq ty (CFieldType Fun_ptr_Aux "unwrapFun_ptr_Aux") =>
-         HasField "unwrapFun_ptr_Aux" (Ptr Fun_ptr_Aux) (Ptr ty)
+instance HasField "unwrapFun_ptr_Aux"
+                  (Ptr Fun_ptr_Aux)
+                  (Ptr (Ptr Forward_declaration -> IO Unit))
     where getField = fromPtr (Proxy @"unwrapFun_ptr_Aux")
 instance HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux"
     where type CFieldType Fun_ptr_Aux
@@ -61,15 +62,15 @@ newtype Fun_ptr
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Show)
+    deriving stock (Generic, Eq, Ord, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance TyEq ty (CFieldType Fun_ptr "unwrapFun_ptr") =>
-         HasField "unwrapFun_ptr" (Ptr Fun_ptr) (Ptr ty)
+instance HasField "unwrapFun_ptr"
+                  (Ptr Fun_ptr)
+                  (Ptr (FunPtr Fun_ptr_Aux))
     where getField = fromPtr (Proxy @"unwrapFun_ptr")
 instance HasCField Fun_ptr "unwrapFun_ptr"
     where type CFieldType Fun_ptr "unwrapFun_ptr" = FunPtr Fun_ptr_Aux
@@ -94,8 +95,7 @@ data Forward_declaration
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Forward_declaration
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -109,7 +109,7 @@ instance HasCField Forward_declaration "forward_declaration_f"
     where type CFieldType Forward_declaration
                           "forward_declaration_f" = Fun_ptr
           offset# = \_ -> \_ -> 0
-instance TyEq ty
-              (CFieldType Forward_declaration "forward_declaration_f") =>
-         HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
+instance HasField "forward_declaration_f"
+                  (Ptr Forward_declaration)
+                  (Ptr Fun_ptr)
     where getField = fromPtr (Proxy @"forward_declaration_f")

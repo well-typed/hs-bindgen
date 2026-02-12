@@ -40,6 +40,7 @@ hstypes:
       - a_c
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -54,6 +55,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Generic
   - ReadRaw
   - Show
   - StaticSize
@@ -70,6 +72,7 @@ hstypes:
       - cint16_T_im
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -90,6 +93,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -118,6 +122,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField
@@ -146,6 +151,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - Generic
   - HasCField
   - HasFFIType
   - HasField

@@ -15,23 +15,22 @@
 -- addDependentFile musl-include/x86_64/setjmp.h
 -- addDependentFile musl-include/x86_64/bits/fenv.h
 -- addDependentFile musl-include/x86_64/fenv.h
--- addDependentFile examples/golden/types/stdlib/stdlib_insts.h
+-- addDependentFile examples/golden/binding-specs/stdlib/instances.h
 {-| __C declaration:__ @stdlib_CBool@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 18:14@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 18:14@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CBool
-    = Stdlib_CBool {unwrapStdlib_CBool :: CBool}
+    = Stdlib_CBool {unwrapStdlib_CBool :: HsBindgen.Runtime.LibC.CBool}
       {- ^ __C declaration:__ @stdlib_CBool@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 18:14@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 18:14@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -47,28 +46,29 @@ newtype Stdlib_CBool
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_CBool "unwrapStdlib_CBool") =>
-         HasField "unwrapStdlib_CBool" (Ptr Stdlib_CBool) (Ptr ty)
+instance HasField "unwrapStdlib_CBool"
+                  (Ptr Stdlib_CBool)
+                  (Ptr HsBindgen.Runtime.LibC.CBool)
     where getField = fromPtr (Proxy @"unwrapStdlib_CBool")
 instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
-    where type CFieldType Stdlib_CBool "unwrapStdlib_CBool" = CBool
+    where type CFieldType Stdlib_CBool
+                          "unwrapStdlib_CBool" = HsBindgen.Runtime.LibC.CBool
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int8@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 21:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 21:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int8
     = Stdlib_Int8 {unwrapStdlib_Int8 :: HsBindgen.Runtime.LibC.Int8}
       {- ^ __C declaration:__ @stdlib_Int8@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 21:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 21:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -84,8 +84,9 @@ newtype Stdlib_Int8
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int8 "unwrapStdlib_Int8") =>
-         HasField "unwrapStdlib_Int8" (Ptr Stdlib_Int8) (Ptr ty)
+instance HasField "unwrapStdlib_Int8"
+                  (Ptr Stdlib_Int8)
+                  (Ptr HsBindgen.Runtime.LibC.Int8)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int8")
 instance HasCField Stdlib_Int8 "unwrapStdlib_Int8"
     where type CFieldType Stdlib_Int8
@@ -93,20 +94,19 @@ instance HasCField Stdlib_Int8 "unwrapStdlib_Int8"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int16@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 22:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 22:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int16
     = Stdlib_Int16 {unwrapStdlib_Int16 :: HsBindgen.Runtime.LibC.Int16}
       {- ^ __C declaration:__ @stdlib_Int16@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 22:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 22:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -122,8 +122,9 @@ newtype Stdlib_Int16
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int16 "unwrapStdlib_Int16") =>
-         HasField "unwrapStdlib_Int16" (Ptr Stdlib_Int16) (Ptr ty)
+instance HasField "unwrapStdlib_Int16"
+                  (Ptr Stdlib_Int16)
+                  (Ptr HsBindgen.Runtime.LibC.Int16)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int16")
 instance HasCField Stdlib_Int16 "unwrapStdlib_Int16"
     where type CFieldType Stdlib_Int16
@@ -131,20 +132,19 @@ instance HasCField Stdlib_Int16 "unwrapStdlib_Int16"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int32@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 23:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 23:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int32
     = Stdlib_Int32 {unwrapStdlib_Int32 :: HsBindgen.Runtime.LibC.Int32}
       {- ^ __C declaration:__ @stdlib_Int32@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 23:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 23:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -160,8 +160,9 @@ newtype Stdlib_Int32
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int32 "unwrapStdlib_Int32") =>
-         HasField "unwrapStdlib_Int32" (Ptr Stdlib_Int32) (Ptr ty)
+instance HasField "unwrapStdlib_Int32"
+                  (Ptr Stdlib_Int32)
+                  (Ptr HsBindgen.Runtime.LibC.Int32)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int32")
 instance HasCField Stdlib_Int32 "unwrapStdlib_Int32"
     where type CFieldType Stdlib_Int32
@@ -169,20 +170,19 @@ instance HasCField Stdlib_Int32 "unwrapStdlib_Int32"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Int64@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 24:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 24:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Int64
     = Stdlib_Int64 {unwrapStdlib_Int64 :: HsBindgen.Runtime.LibC.Int64}
       {- ^ __C declaration:__ @stdlib_Int64@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 24:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 24:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -198,8 +198,9 @@ newtype Stdlib_Int64
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Int64 "unwrapStdlib_Int64") =>
-         HasField "unwrapStdlib_Int64" (Ptr Stdlib_Int64) (Ptr ty)
+instance HasField "unwrapStdlib_Int64"
+                  (Ptr Stdlib_Int64)
+                  (Ptr HsBindgen.Runtime.LibC.Int64)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int64")
 instance HasCField Stdlib_Int64 "unwrapStdlib_Int64"
     where type CFieldType Stdlib_Int64
@@ -207,20 +208,19 @@ instance HasCField Stdlib_Int64 "unwrapStdlib_Int64"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word8@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 25:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 25:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word8
     = Stdlib_Word8 {unwrapStdlib_Word8 :: HsBindgen.Runtime.LibC.Word8}
       {- ^ __C declaration:__ @stdlib_Word8@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 25:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 25:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -236,8 +236,9 @@ newtype Stdlib_Word8
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_Word8 "unwrapStdlib_Word8") =>
-         HasField "unwrapStdlib_Word8" (Ptr Stdlib_Word8) (Ptr ty)
+instance HasField "unwrapStdlib_Word8"
+                  (Ptr Stdlib_Word8)
+                  (Ptr HsBindgen.Runtime.LibC.Word8)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word8")
 instance HasCField Stdlib_Word8 "unwrapStdlib_Word8"
     where type CFieldType Stdlib_Word8
@@ -245,20 +246,19 @@ instance HasCField Stdlib_Word8 "unwrapStdlib_Word8"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word16@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 26:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 26:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word16
     = Stdlib_Word16 {unwrapStdlib_Word16 :: HsBindgen.Runtime.LibC.Word16}
       {- ^ __C declaration:__ @stdlib_Word16@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 26:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 26:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -274,9 +274,9 @@ newtype Stdlib_Word16
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_Word16 "unwrapStdlib_Word16") =>
-         HasField "unwrapStdlib_Word16" (Ptr Stdlib_Word16) (Ptr ty)
+instance HasField "unwrapStdlib_Word16"
+                  (Ptr Stdlib_Word16)
+                  (Ptr HsBindgen.Runtime.LibC.Word16)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word16")
 instance HasCField Stdlib_Word16 "unwrapStdlib_Word16"
     where type CFieldType Stdlib_Word16
@@ -284,20 +284,19 @@ instance HasCField Stdlib_Word16 "unwrapStdlib_Word16"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word32@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 27:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 27:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word32
     = Stdlib_Word32 {unwrapStdlib_Word32 :: HsBindgen.Runtime.LibC.Word32}
       {- ^ __C declaration:__ @stdlib_Word32@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 27:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 27:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -313,9 +312,9 @@ newtype Stdlib_Word32
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_Word32 "unwrapStdlib_Word32") =>
-         HasField "unwrapStdlib_Word32" (Ptr Stdlib_Word32) (Ptr ty)
+instance HasField "unwrapStdlib_Word32"
+                  (Ptr Stdlib_Word32)
+                  (Ptr HsBindgen.Runtime.LibC.Word32)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word32")
 instance HasCField Stdlib_Word32 "unwrapStdlib_Word32"
     where type CFieldType Stdlib_Word32
@@ -323,20 +322,19 @@ instance HasCField Stdlib_Word32 "unwrapStdlib_Word32"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_Word64@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 28:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 28:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_Word64
     = Stdlib_Word64 {unwrapStdlib_Word64 :: HsBindgen.Runtime.LibC.Word64}
       {- ^ __C declaration:__ @stdlib_Word64@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 28:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 28:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -352,9 +350,9 @@ newtype Stdlib_Word64
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_Word64 "unwrapStdlib_Word64") =>
-         HasField "unwrapStdlib_Word64" (Ptr Stdlib_Word64) (Ptr ty)
+instance HasField "unwrapStdlib_Word64"
+                  (Ptr Stdlib_Word64)
+                  (Ptr HsBindgen.Runtime.LibC.Word64)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word64")
 instance HasCField Stdlib_Word64 "unwrapStdlib_Word64"
     where type CFieldType Stdlib_Word64
@@ -362,20 +360,19 @@ instance HasCField Stdlib_Word64 "unwrapStdlib_Word64"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CIntMax@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 29:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 29:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CIntMax
     = Stdlib_CIntMax {unwrapStdlib_CIntMax :: HsBindgen.Runtime.LibC.CIntMax}
       {- ^ __C declaration:__ @stdlib_CIntMax@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 29:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 29:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -391,9 +388,9 @@ newtype Stdlib_CIntMax
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CIntMax "unwrapStdlib_CIntMax") =>
-         HasField "unwrapStdlib_CIntMax" (Ptr Stdlib_CIntMax) (Ptr ty)
+instance HasField "unwrapStdlib_CIntMax"
+                  (Ptr Stdlib_CIntMax)
+                  (Ptr HsBindgen.Runtime.LibC.CIntMax)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntMax")
 instance HasCField Stdlib_CIntMax "unwrapStdlib_CIntMax"
     where type CFieldType Stdlib_CIntMax
@@ -401,20 +398,19 @@ instance HasCField Stdlib_CIntMax "unwrapStdlib_CIntMax"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CUIntMax@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 30:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 30:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CUIntMax
     = Stdlib_CUIntMax {unwrapStdlib_CUIntMax :: HsBindgen.Runtime.LibC.CUIntMax}
       {- ^ __C declaration:__ @stdlib_CUIntMax@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 30:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 30:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -430,9 +426,9 @@ newtype Stdlib_CUIntMax
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CUIntMax "unwrapStdlib_CUIntMax") =>
-         HasField "unwrapStdlib_CUIntMax" (Ptr Stdlib_CUIntMax) (Ptr ty)
+instance HasField "unwrapStdlib_CUIntMax"
+                  (Ptr Stdlib_CUIntMax)
+                  (Ptr HsBindgen.Runtime.LibC.CUIntMax)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntMax")
 instance HasCField Stdlib_CUIntMax "unwrapStdlib_CUIntMax"
     where type CFieldType Stdlib_CUIntMax
@@ -440,20 +436,19 @@ instance HasCField Stdlib_CUIntMax "unwrapStdlib_CUIntMax"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CIntPtr@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 31:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 31:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CIntPtr
     = Stdlib_CIntPtr {unwrapStdlib_CIntPtr :: HsBindgen.Runtime.LibC.CIntPtr}
       {- ^ __C declaration:__ @stdlib_CIntPtr@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 31:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 31:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -469,9 +464,9 @@ newtype Stdlib_CIntPtr
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CIntPtr "unwrapStdlib_CIntPtr") =>
-         HasField "unwrapStdlib_CIntPtr" (Ptr Stdlib_CIntPtr) (Ptr ty)
+instance HasField "unwrapStdlib_CIntPtr"
+                  (Ptr Stdlib_CIntPtr)
+                  (Ptr HsBindgen.Runtime.LibC.CIntPtr)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntPtr")
 instance HasCField Stdlib_CIntPtr "unwrapStdlib_CIntPtr"
     where type CFieldType Stdlib_CIntPtr
@@ -479,20 +474,19 @@ instance HasCField Stdlib_CIntPtr "unwrapStdlib_CIntPtr"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CUIntPtr@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 32:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 32:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CUIntPtr
     = Stdlib_CUIntPtr {unwrapStdlib_CUIntPtr :: HsBindgen.Runtime.LibC.CUIntPtr}
       {- ^ __C declaration:__ @stdlib_CUIntPtr@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 32:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 32:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -508,9 +502,9 @@ newtype Stdlib_CUIntPtr
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr") =>
-         HasField "unwrapStdlib_CUIntPtr" (Ptr Stdlib_CUIntPtr) (Ptr ty)
+instance HasField "unwrapStdlib_CUIntPtr"
+                  (Ptr Stdlib_CUIntPtr)
+                  (Ptr HsBindgen.Runtime.LibC.CUIntPtr)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntPtr")
 instance HasCField Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr"
     where type CFieldType Stdlib_CUIntPtr
@@ -518,22 +512,22 @@ instance HasCField Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFenvT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 35:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 35:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFenvT
     = Stdlib_CFenvT {unwrapStdlib_CFenvT :: HsBindgen.Runtime.LibC.CFenvT}
       {- ^ __C declaration:__ @stdlib_CFenvT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 35:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 35:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CFenvT "unwrapStdlib_CFenvT") =>
-         HasField "unwrapStdlib_CFenvT" (Ptr Stdlib_CFenvT) (Ptr ty)
+instance HasField "unwrapStdlib_CFenvT"
+                  (Ptr Stdlib_CFenvT)
+                  (Ptr HsBindgen.Runtime.LibC.CFenvT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFenvT")
 instance HasCField Stdlib_CFenvT "unwrapStdlib_CFenvT"
     where type CFieldType Stdlib_CFenvT
@@ -541,22 +535,22 @@ instance HasCField Stdlib_CFenvT "unwrapStdlib_CFenvT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFexceptT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 36:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 36:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFexceptT
     = Stdlib_CFexceptT {unwrapStdlib_CFexceptT :: HsBindgen.Runtime.LibC.CFexceptT}
       {- ^ __C declaration:__ @stdlib_CFexceptT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 36:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 36:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CFexceptT "unwrapStdlib_CFexceptT") =>
-         HasField "unwrapStdlib_CFexceptT" (Ptr Stdlib_CFexceptT) (Ptr ty)
+instance HasField "unwrapStdlib_CFexceptT"
+                  (Ptr Stdlib_CFexceptT)
+                  (Ptr HsBindgen.Runtime.LibC.CFexceptT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFexceptT")
 instance HasCField Stdlib_CFexceptT "unwrapStdlib_CFexceptT"
     where type CFieldType Stdlib_CFexceptT
@@ -564,20 +558,19 @@ instance HasCField Stdlib_CFexceptT "unwrapStdlib_CFexceptT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CSize@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 39:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 39:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CSize
     = Stdlib_CSize {unwrapStdlib_CSize :: HsBindgen.Runtime.LibC.CSize}
       {- ^ __C declaration:__ @stdlib_CSize@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 39:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 39:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -593,8 +586,9 @@ newtype Stdlib_CSize
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_CSize "unwrapStdlib_CSize") =>
-         HasField "unwrapStdlib_CSize" (Ptr Stdlib_CSize) (Ptr ty)
+instance HasField "unwrapStdlib_CSize"
+                  (Ptr Stdlib_CSize)
+                  (Ptr HsBindgen.Runtime.LibC.CSize)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSize")
 instance HasCField Stdlib_CSize "unwrapStdlib_CSize"
     where type CFieldType Stdlib_CSize
@@ -602,20 +596,19 @@ instance HasCField Stdlib_CSize "unwrapStdlib_CSize"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CPtrdiff@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 40:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 40:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CPtrdiff
     = Stdlib_CPtrdiff {unwrapStdlib_CPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff}
       {- ^ __C declaration:__ @stdlib_CPtrdiff@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 40:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 40:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -631,9 +624,9 @@ newtype Stdlib_CPtrdiff
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff") =>
-         HasField "unwrapStdlib_CPtrdiff" (Ptr Stdlib_CPtrdiff) (Ptr ty)
+instance HasField "unwrapStdlib_CPtrdiff"
+                  (Ptr Stdlib_CPtrdiff)
+                  (Ptr HsBindgen.Runtime.LibC.CPtrdiff)
     where getField = fromPtr (Proxy @"unwrapStdlib_CPtrdiff")
 instance HasCField Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff"
     where type CFieldType Stdlib_CPtrdiff
@@ -641,22 +634,22 @@ instance HasCField Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CJmpBuf@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 43:17@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 43:17@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CJmpBuf
     = Stdlib_CJmpBuf {unwrapStdlib_CJmpBuf :: HsBindgen.Runtime.LibC.CJmpBuf}
       {- ^ __C declaration:__ @stdlib_CJmpBuf@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 43:17@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 43:17@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf") =>
-         HasField "unwrapStdlib_CJmpBuf" (Ptr Stdlib_CJmpBuf) (Ptr ty)
+instance HasField "unwrapStdlib_CJmpBuf"
+                  (Ptr Stdlib_CJmpBuf)
+                  (Ptr HsBindgen.Runtime.LibC.CJmpBuf)
     where getField = fromPtr (Proxy @"unwrapStdlib_CJmpBuf")
 instance HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf"
     where type CFieldType Stdlib_CJmpBuf
@@ -664,20 +657,19 @@ instance HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWchar@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 46:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 46:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWchar
     = Stdlib_CWchar {unwrapStdlib_CWchar :: HsBindgen.Runtime.LibC.CWchar}
       {- ^ __C declaration:__ @stdlib_CWchar@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 46:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 46:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -693,9 +685,9 @@ newtype Stdlib_CWchar
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CWchar "unwrapStdlib_CWchar") =>
-         HasField "unwrapStdlib_CWchar" (Ptr Stdlib_CWchar) (Ptr ty)
+instance HasField "unwrapStdlib_CWchar"
+                  (Ptr Stdlib_CWchar)
+                  (Ptr HsBindgen.Runtime.LibC.CWchar)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWchar")
 instance HasCField Stdlib_CWchar "unwrapStdlib_CWchar"
     where type CFieldType Stdlib_CWchar
@@ -703,20 +695,19 @@ instance HasCField Stdlib_CWchar "unwrapStdlib_CWchar"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWintT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 47:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 47:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWintT
     = Stdlib_CWintT {unwrapStdlib_CWintT :: HsBindgen.Runtime.LibC.CWintT}
       {- ^ __C declaration:__ @stdlib_CWintT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 47:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 47:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -732,9 +723,9 @@ newtype Stdlib_CWintT
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CWintT "unwrapStdlib_CWintT") =>
-         HasField "unwrapStdlib_CWintT" (Ptr Stdlib_CWintT) (Ptr ty)
+instance HasField "unwrapStdlib_CWintT"
+                  (Ptr Stdlib_CWintT)
+                  (Ptr HsBindgen.Runtime.LibC.CWintT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWintT")
 instance HasCField Stdlib_CWintT "unwrapStdlib_CWintT"
     where type CFieldType Stdlib_CWintT
@@ -742,22 +733,22 @@ instance HasCField Stdlib_CWintT "unwrapStdlib_CWintT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CMbstateT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 48:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 48:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CMbstateT
     = Stdlib_CMbstateT {unwrapStdlib_CMbstateT :: HsBindgen.Runtime.LibC.CMbstateT}
       {- ^ __C declaration:__ @stdlib_CMbstateT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 48:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 48:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty
-              (CFieldType Stdlib_CMbstateT "unwrapStdlib_CMbstateT") =>
-         HasField "unwrapStdlib_CMbstateT" (Ptr Stdlib_CMbstateT) (Ptr ty)
+instance HasField "unwrapStdlib_CMbstateT"
+                  (Ptr Stdlib_CMbstateT)
+                  (Ptr HsBindgen.Runtime.LibC.CMbstateT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CMbstateT")
 instance HasCField Stdlib_CMbstateT "unwrapStdlib_CMbstateT"
     where type CFieldType Stdlib_CMbstateT
@@ -765,29 +756,28 @@ instance HasCField Stdlib_CMbstateT "unwrapStdlib_CMbstateT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWctransT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 49:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 49:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWctransT
     = Stdlib_CWctransT {unwrapStdlib_CWctransT :: HsBindgen.Runtime.LibC.CWctransT}
       {- ^ __C declaration:__ @stdlib_CWctransT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 49:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 49:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty
-              (CFieldType Stdlib_CWctransT "unwrapStdlib_CWctransT") =>
-         HasField "unwrapStdlib_CWctransT" (Ptr Stdlib_CWctransT) (Ptr ty)
+instance HasField "unwrapStdlib_CWctransT"
+                  (Ptr Stdlib_CWctransT)
+                  (Ptr HsBindgen.Runtime.LibC.CWctransT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctransT")
 instance HasCField Stdlib_CWctransT "unwrapStdlib_CWctransT"
     where type CFieldType Stdlib_CWctransT
@@ -795,29 +785,28 @@ instance HasCField Stdlib_CWctransT "unwrapStdlib_CWctransT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CWctypeT@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 50:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 50:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CWctypeT
     = Stdlib_CWctypeT {unwrapStdlib_CWctypeT :: HsBindgen.Runtime.LibC.CWctypeT}
       {- ^ __C declaration:__ @stdlib_CWctypeT@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 50:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 50:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
                       Storable,
                       HasFFIType,
                       Prim)
-instance TyEq ty
-              (CFieldType Stdlib_CWctypeT "unwrapStdlib_CWctypeT") =>
-         HasField "unwrapStdlib_CWctypeT" (Ptr Stdlib_CWctypeT) (Ptr ty)
+instance HasField "unwrapStdlib_CWctypeT"
+                  (Ptr Stdlib_CWctypeT)
+                  (Ptr HsBindgen.Runtime.LibC.CWctypeT)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctypeT")
 instance HasCField Stdlib_CWctypeT "unwrapStdlib_CWctypeT"
     where type CFieldType Stdlib_CWctypeT
@@ -825,20 +814,19 @@ instance HasCField Stdlib_CWctypeT "unwrapStdlib_CWctypeT"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CChar16T@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 51:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 51:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CChar16T
     = Stdlib_CChar16T {unwrapStdlib_CChar16T :: HsBindgen.Runtime.LibC.CChar16T}
       {- ^ __C declaration:__ @stdlib_CChar16T@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 51:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 51:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -854,9 +842,9 @@ newtype Stdlib_CChar16T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CChar16T "unwrapStdlib_CChar16T") =>
-         HasField "unwrapStdlib_CChar16T" (Ptr Stdlib_CChar16T) (Ptr ty)
+instance HasField "unwrapStdlib_CChar16T"
+                  (Ptr Stdlib_CChar16T)
+                  (Ptr HsBindgen.Runtime.LibC.CChar16T)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar16T")
 instance HasCField Stdlib_CChar16T "unwrapStdlib_CChar16T"
     where type CFieldType Stdlib_CChar16T
@@ -864,20 +852,19 @@ instance HasCField Stdlib_CChar16T "unwrapStdlib_CChar16T"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CChar32T@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 52:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 52:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CChar32T
     = Stdlib_CChar32T {unwrapStdlib_CChar32T :: HsBindgen.Runtime.LibC.CChar32T}
       {- ^ __C declaration:__ @stdlib_CChar32T@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 52:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 52:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -893,9 +880,9 @@ newtype Stdlib_CChar32T
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CChar32T "unwrapStdlib_CChar32T") =>
-         HasField "unwrapStdlib_CChar32T" (Ptr Stdlib_CChar32T) (Ptr ty)
+instance HasField "unwrapStdlib_CChar32T"
+                  (Ptr Stdlib_CChar32T)
+                  (Ptr HsBindgen.Runtime.LibC.CChar32T)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar32T")
 instance HasCField Stdlib_CChar32T "unwrapStdlib_CChar32T"
     where type CFieldType Stdlib_CChar32T
@@ -903,20 +890,19 @@ instance HasCField Stdlib_CChar32T "unwrapStdlib_CChar32T"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CTime@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 55:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 55:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CTime
     = Stdlib_CTime {unwrapStdlib_CTime :: HsBindgen.Runtime.LibC.CTime}
       {- ^ __C declaration:__ @stdlib_CTime@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 55:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 55:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -925,8 +911,9 @@ newtype Stdlib_CTime
                       Enum,
                       Num,
                       Real)
-instance TyEq ty (CFieldType Stdlib_CTime "unwrapStdlib_CTime") =>
-         HasField "unwrapStdlib_CTime" (Ptr Stdlib_CTime) (Ptr ty)
+instance HasField "unwrapStdlib_CTime"
+                  (Ptr Stdlib_CTime)
+                  (Ptr HsBindgen.Runtime.LibC.CTime)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTime")
 instance HasCField Stdlib_CTime "unwrapStdlib_CTime"
     where type CFieldType Stdlib_CTime
@@ -934,20 +921,19 @@ instance HasCField Stdlib_CTime "unwrapStdlib_CTime"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CClock@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 56:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 56:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CClock
     = Stdlib_CClock {unwrapStdlib_CClock :: HsBindgen.Runtime.LibC.CClock}
       {- ^ __C declaration:__ @stdlib_CClock@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 56:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 56:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -956,9 +942,9 @@ newtype Stdlib_CClock
                       Enum,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CClock "unwrapStdlib_CClock") =>
-         HasField "unwrapStdlib_CClock" (Ptr Stdlib_CClock) (Ptr ty)
+instance HasField "unwrapStdlib_CClock"
+                  (Ptr Stdlib_CClock)
+                  (Ptr HsBindgen.Runtime.LibC.CClock)
     where getField = fromPtr (Proxy @"unwrapStdlib_CClock")
 instance HasCField Stdlib_CClock "unwrapStdlib_CClock"
     where type CFieldType Stdlib_CClock
@@ -966,23 +952,23 @@ instance HasCField Stdlib_CClock "unwrapStdlib_CClock"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CTm@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 57:19@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 57:19@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CTm
     = Stdlib_CTm {unwrapStdlib_CTm :: HsBindgen.Runtime.LibC.CTm}
       {- ^ __C declaration:__ @stdlib_CTm@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 57:19@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 57:19@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw)
-instance TyEq ty (CFieldType Stdlib_CTm "unwrapStdlib_CTm") =>
-         HasField "unwrapStdlib_CTm" (Ptr Stdlib_CTm) (Ptr ty)
+instance HasField "unwrapStdlib_CTm"
+                  (Ptr Stdlib_CTm)
+                  (Ptr HsBindgen.Runtime.LibC.CTm)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTm")
 instance HasCField Stdlib_CTm "unwrapStdlib_CTm"
     where type CFieldType Stdlib_CTm
@@ -990,21 +976,22 @@ instance HasCField Stdlib_CTm "unwrapStdlib_CTm"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFile@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 60:16@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 60:16@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFile
     = Stdlib_CFile {unwrapStdlib_CFile :: HsBindgen.Runtime.LibC.CFile}
       {- ^ __C declaration:__ @stdlib_CFile@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 60:16@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 60:16@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty (CFieldType Stdlib_CFile "unwrapStdlib_CFile") =>
-         HasField "unwrapStdlib_CFile" (Ptr Stdlib_CFile) (Ptr ty)
+instance HasField "unwrapStdlib_CFile"
+                  (Ptr Stdlib_CFile)
+                  (Ptr HsBindgen.Runtime.LibC.CFile)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFile")
 instance HasCField Stdlib_CFile "unwrapStdlib_CFile"
     where type CFieldType Stdlib_CFile
@@ -1012,21 +999,22 @@ instance HasCField Stdlib_CFile "unwrapStdlib_CFile"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CFpos@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 61:16@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 61:16@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CFpos
     = Stdlib_CFpos {unwrapStdlib_CFpos :: HsBindgen.Runtime.LibC.CFpos}
       {- ^ __C declaration:__ @stdlib_CFpos@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 61:16@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 61:16@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty (CFieldType Stdlib_CFpos "unwrapStdlib_CFpos") =>
-         HasField "unwrapStdlib_CFpos" (Ptr Stdlib_CFpos) (Ptr ty)
+instance HasField "unwrapStdlib_CFpos"
+                  (Ptr Stdlib_CFpos)
+                  (Ptr HsBindgen.Runtime.LibC.CFpos)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFpos")
 instance HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
     where type CFieldType Stdlib_CFpos
@@ -1034,20 +1022,19 @@ instance HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @stdlib_CSigAtomic@
 
-    __defined at:__ @types\/stdlib\/stdlib_insts.h 64:22@
+    __defined at:__ @binding-specs\/stdlib\/instances.h 64:22@
 
-    __exported by:__ @types\/stdlib\/stdlib_insts.h@
+    __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CSigAtomic
     = Stdlib_CSigAtomic {unwrapStdlib_CSigAtomic :: HsBindgen.Runtime.LibC.CSigAtomic}
       {- ^ __C declaration:__ @stdlib_CSigAtomic@
 
-           __defined at:__ @types\/stdlib\/stdlib_insts.h 64:22@
+           __defined at:__ @binding-specs\/stdlib\/instances.h 64:22@
 
-           __exported by:__ @types\/stdlib\/stdlib_insts.h@
+           __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -1063,9 +1050,9 @@ newtype Stdlib_CSigAtomic
                       Ix,
                       Num,
                       Real)
-instance TyEq ty
-              (CFieldType Stdlib_CSigAtomic "unwrapStdlib_CSigAtomic") =>
-         HasField "unwrapStdlib_CSigAtomic" (Ptr Stdlib_CSigAtomic) (Ptr ty)
+instance HasField "unwrapStdlib_CSigAtomic"
+                  (Ptr Stdlib_CSigAtomic)
+                  (Ptr HsBindgen.Runtime.LibC.CSigAtomic)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSigAtomic")
 instance HasCField Stdlib_CSigAtomic "unwrapStdlib_CSigAtomic"
     where type CFieldType Stdlib_CSigAtomic

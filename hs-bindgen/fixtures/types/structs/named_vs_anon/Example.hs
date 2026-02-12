@@ -19,8 +19,7 @@ import Prelude (Eq, Int, Show, pure, return)
 -}
 data A = A
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize A where
 
@@ -50,8 +49,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable A instance F.Storable A
 -}
 data Struct1 = Struct1
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct1 where
 
@@ -81,8 +79,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct1 instance F.Storable
 -}
 data B_s = B_s
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize B_s where
 
@@ -112,8 +109,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable B_s instance F.Storable B_s
 -}
 data Struct2_s = Struct2_s
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct2_s where
 
@@ -143,8 +139,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct2_s instance F.Storab
 -}
 data C = C
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize C where
 
@@ -174,8 +169,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable C instance F.Storable C
 -}
 data Struct3 = Struct3
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct3 where
 
@@ -205,8 +199,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct3 instance F.Storable
 -}
 data D = D
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize D where
 
@@ -236,8 +229,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable D instance F.Storable D
 -}
 data Struct4 = Struct4
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct4 where
 
@@ -267,8 +259,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct4 instance F.Storable
 -}
 data E_s = E_s
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize E_s where
 
@@ -298,8 +289,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable E_s instance F.Storable E_s
 -}
 data Struct5_s = Struct5_s
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Struct5_s where
 
@@ -329,8 +319,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct5_s instance F.Storab
 -}
 data F = F
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize F where
 
@@ -360,8 +349,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable F instance F.Storable F
 -}
 data Typedef1 = Typedef1
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Typedef1 where
 
@@ -391,8 +379,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Typedef1 instance F.Storabl
 -}
 data G = G
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize G where
 
@@ -422,8 +409,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable G instance F.Storable G
 -}
 data Typedef2 = Typedef2
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Typedef2 where
 
@@ -453,8 +439,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable Typedef2 instance F.Storabl
 -}
 data H = H
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize H where
 
@@ -484,8 +469,7 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable H instance F.Storable H
 -}
 data Typedef3 = Typedef3
   {}
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Typedef3 where
 

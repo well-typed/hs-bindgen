@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -10,7 +9,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -37,7 +35,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @struct point@
@@ -62,8 +59,7 @@ data Point = Point
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Point where
 
@@ -97,8 +93,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Point "point_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "point_x")
-         ) => GHC.Records.HasField "point_x" (Ptr.Ptr Point) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "point_x" (Ptr.Ptr Point) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point_x")
@@ -109,8 +104,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Point "point_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "point_y")
-         ) => GHC.Records.HasField "point_y" (Ptr.Ptr Point) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "point_y" (Ptr.Ptr Point) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point_y")
@@ -137,8 +131,7 @@ data Rectangle = Rectangle
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Rectangle where
 
@@ -172,8 +165,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Rectangle "rectangle_topleft" whe
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rectangle) "rectangle_topleft")
-         ) => GHC.Records.HasField "rectangle_topleft" (Ptr.Ptr Rectangle) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "rectangle_topleft" (Ptr.Ptr Rectangle) (Ptr.Ptr Point) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"rectangle_topleft")
@@ -185,8 +177,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Rectangle "rectangle_bottomright"
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rectangle) "rectangle_bottomright")
-         ) => GHC.Records.HasField "rectangle_bottomright" (Ptr.Ptr Rectangle) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "rectangle_bottomright" (Ptr.Ptr Rectangle) (Ptr.Ptr Point) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"rectangle_bottomright")
@@ -213,8 +204,7 @@ data Circle = Circle
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Circle where
 
@@ -248,8 +238,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Circle "circle_midpoint" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Circle) "circle_midpoint")
-         ) => GHC.Records.HasField "circle_midpoint" (Ptr.Ptr Circle) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "circle_midpoint" (Ptr.Ptr Circle) (Ptr.Ptr Point) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"circle_midpoint")
@@ -260,8 +249,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Circle "circle_radius" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Circle) "circle_radius")
-         ) => GHC.Records.HasField "circle_radius" (Ptr.Ptr Circle) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "circle_radius" (Ptr.Ptr Circle) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"circle_radius")
@@ -345,8 +333,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Shape "shape_rectangle" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Shape) "shape_rectangle")
-         ) => GHC.Records.HasField "shape_rectangle" (Ptr.Ptr Shape) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "shape_rectangle" (Ptr.Ptr Shape) (Ptr.Ptr Rectangle) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"shape_rectangle")
@@ -357,8 +344,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Shape "shape_circle" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Shape) "shape_circle")
-         ) => GHC.Records.HasField "shape_circle" (Ptr.Ptr Shape) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "shape_circle" (Ptr.Ptr Shape) (Ptr.Ptr Circle) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"shape_circle")
@@ -406,8 +392,7 @@ data Colour = Colour
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Colour where
 
@@ -454,8 +439,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_opacity" whe
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_opacity")
-         ) => GHC.Records.HasField "colour_opacity" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "colour_opacity" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_opacity")
@@ -469,8 +453,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_brightness" 
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_brightness")
-         ) => GHC.Records.HasField "colour_brightness" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "colour_brightness" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_brightness")
@@ -483,8 +466,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_red" where
 
   bitfieldWidth# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_red")
-         ) => GHC.Records.HasField "colour_red" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "colour_red" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_red")
@@ -497,8 +479,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_green" where
 
   bitfieldWidth# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_green")
-         ) => GHC.Records.HasField "colour_green" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "colour_green" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_green")
@@ -511,8 +492,7 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Colour "colour_blue" where
 
   bitfieldWidth# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colour_blue")
-         ) => GHC.Records.HasField "colour_blue" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance GHC.Records.HasField "colour_blue" (Ptr.Ptr Colour) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"colour_blue")
@@ -526,8 +506,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCBitfield.CBitfieldType Colour) "colou
 newtype MyInt = MyInt
   { unwrapMyInt :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -546,8 +525,7 @@ newtype MyInt = MyInt
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "unwrapMyInt")
-         ) => GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyInt")
@@ -580,8 +558,7 @@ data Drawing = Drawing
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Drawing where
 
@@ -616,8 +593,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Drawing "drawing_shape" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Drawing) "drawing_shape")
-         ) => GHC.Records.HasField "drawing_shape" (Ptr.Ptr Drawing) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "drawing_shape" (Ptr.Ptr Drawing) (Ptr.Ptr (Ptr.Ptr Shape)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"drawing_shape")
@@ -629,8 +605,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Drawing "drawing_colour" where
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Drawing) "drawing_colour")
-         ) => GHC.Records.HasField "drawing_colour" (Ptr.Ptr Drawing) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "drawing_colour" (Ptr.Ptr Drawing) (Ptr.Ptr (Ptr.Ptr Colour)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"drawing_colour")
@@ -664,8 +639,7 @@ data Tic_tac_toe = Tic_tac_toe
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Tic_tac_toe where
 
@@ -702,8 +676,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row1" wh
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_tac_toe_row1")
-         ) => GHC.Records.HasField "tic_tac_toe_row1" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "tic_tac_toe_row1" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tic_tac_toe_row1")
@@ -715,8 +688,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row2" wh
 
   offset# = \_ -> \_ -> 12
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_tac_toe_row2")
-         ) => GHC.Records.HasField "tic_tac_toe_row2" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "tic_tac_toe_row2" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tic_tac_toe_row2")
@@ -728,8 +700,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tic_tac_toe "tic_tac_toe_row3" wh
 
   offset# = \_ -> \_ -> 24
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_tac_toe_row3")
-         ) => GHC.Records.HasField "tic_tac_toe_row3" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "tic_tac_toe_row3" (Ptr.Ptr Tic_tac_toe) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tic_tac_toe_row3")
@@ -749,8 +720,7 @@ data Vector_Aux = Vector
          __exported by:__ @manual\/zero_copy.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Vector_Aux where
 
@@ -782,8 +752,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Vector_Aux "vector_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_len")
-         ) => GHC.Records.HasField "vector_len" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "vector_len" (Ptr.Ptr Vector_Aux) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_len")
@@ -810,8 +779,7 @@ type Vector =
 newtype Triplet = Triplet
   { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -819,8 +787,7 @@ newtype Triplet = Triplet
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplet) "unwrapTriplet")
-         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
@@ -841,8 +808,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
 newtype Matrix = Matrix
   { unwrapMatrix :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -850,8 +816,7 @@ newtype Matrix = Matrix
     , F.Storable
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Matrix) "unwrapMatrix")
-         ) => GHC.Records.HasField "unwrapMatrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMatrix" (Ptr.Ptr Matrix) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMatrix")

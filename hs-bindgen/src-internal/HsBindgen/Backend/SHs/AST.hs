@@ -34,7 +34,6 @@ import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 import C.Char qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -282,8 +281,42 @@ data Global =
   | ByteArray_type
   | SizedByteArray_type
   | Block_type
-  | PrimType HsPrimType
   | ComplexType
+
+  | CStringLen_type
+  | CPtrdiff_type
+
+  | Void_type
+  | Unit_type
+
+  | Char_type
+  | Int_type
+  | Double_type
+  | Float_type
+  | Bool_type
+  | Int8_type
+  | Int16_type
+  | Int32_type
+  | Int64_type
+  | Word_type
+  | Word8_type
+  | Word16_type
+  | Word32_type
+  | Word64_type
+  | CChar_type
+  | CSChar_type
+  | CUChar_type
+  | CShort_type
+  | CUShort_type
+  | CInt_type
+  | CUInt_type
+  | CLong_type
+  | CULong_type
+  | CLLong_type
+  | CULLong_type
+  | CBool_type
+  | CFloat_type
+  | CDouble_type
   deriving stock (Eq, Ord, Show)
 
 type ClosedExpr = SExpr EmptyCtx
@@ -296,9 +329,9 @@ data SExpr ctx =
   | EFree (Hs.Name Hs.NsVar)
   | ECon (Hs.Name Hs.NsConstr)
   | EUnboxedIntegral Integer
-  | EIntegral Integer (Maybe HsPrimType)
-  | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
-  | EDouble Double HsPrimType
+  | EIntegral Integer (Maybe Global)
+  | EFloat Float Global -- ^ Type annotation to distinguish Float/CFLoat
+  | EDouble Double Global
   | EChar CExpr.Runtime.CharValue
   | EString String
   | ECString ByteArray
@@ -330,9 +363,9 @@ data PatExpr
   deriving stock (Show)
 
 pattern EInt :: Int -> SExpr be
-pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimInt)
+pattern EInt i <- EIntegral (fromInteger -> i) (Just Int_type)
   where
-    EInt i = EIntegral (fromIntegral i) (Just HsPrimInt)
+    EInt i = EIntegral (fromIntegral i) (Just Int_type)
 
 -- | Case alternatives
 --

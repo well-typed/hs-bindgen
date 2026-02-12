@@ -27,8 +27,7 @@ data Bools1
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Bools1
     where staticSizeOf = \_ -> 2 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -42,14 +41,12 @@ deriving via (EquivStorable Bools1) instance Storable Bools1
 instance HasCField Bools1 "bools1_x"
     where type CFieldType Bools1 "bools1_x" = CBool
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Bools1 "bools1_x") =>
-         HasField "bools1_x" (Ptr Bools1) (Ptr ty)
+instance HasField "bools1_x" (Ptr Bools1) (Ptr CBool)
     where getField = fromPtr (Proxy @"bools1_x")
 instance HasCField Bools1 "bools1_y"
     where type CFieldType Bools1 "bools1_y" = CBool
           offset# = \_ -> \_ -> 1
-instance TyEq ty (CFieldType Bools1 "bools1_y") =>
-         HasField "bools1_y" (Ptr Bools1) (Ptr ty)
+instance HasField "bools1_y" (Ptr Bools1) (Ptr CBool)
     where getField = fromPtr (Proxy @"bools1_y")
 {-| __C declaration:__ @struct bools2@
 
@@ -78,8 +75,7 @@ data Bools2
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Bools2
     where staticSizeOf = \_ -> 2 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -93,14 +89,12 @@ deriving via (EquivStorable Bools2) instance Storable Bools2
 instance HasCField Bools2 "bools2_x"
     where type CFieldType Bools2 "bools2_x" = CBool
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Bools2 "bools2_x") =>
-         HasField "bools2_x" (Ptr Bools2) (Ptr ty)
+instance HasField "bools2_x" (Ptr Bools2) (Ptr CBool)
     where getField = fromPtr (Proxy @"bools2_x")
 instance HasCField Bools2 "bools2_y"
     where type CFieldType Bools2 "bools2_y" = CBool
           offset# = \_ -> \_ -> 1
-instance TyEq ty (CFieldType Bools2 "bools2_y") =>
-         HasField "bools2_y" (Ptr Bools2) (Ptr ty)
+instance HasField "bools2_y" (Ptr Bools2) (Ptr CBool)
     where getField = fromPtr (Proxy @"bools2_y")
 {-| __C declaration:__ @BOOL@
 
@@ -116,8 +110,7 @@ newtype BOOL
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -133,8 +126,7 @@ newtype BOOL
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType BOOL "unwrapBOOL") =>
-         HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
+instance HasField "unwrapBOOL" (Ptr BOOL) (Ptr CBool)
     where getField = fromPtr (Proxy @"unwrapBOOL")
 instance HasCField BOOL "unwrapBOOL"
     where type CFieldType BOOL "unwrapBOOL" = CBool
@@ -166,8 +158,7 @@ data Bools3
 
            __exported by:__ @types\/primitives\/bool.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
+    deriving stock (Generic, Eq, Show)
 instance StaticSize Bools3
     where staticSizeOf = \_ -> 2 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -181,12 +172,10 @@ deriving via (EquivStorable Bools3) instance Storable Bools3
 instance HasCField Bools3 "bools3_x"
     where type CFieldType Bools3 "bools3_x" = BOOL
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Bools3 "bools3_x") =>
-         HasField "bools3_x" (Ptr Bools3) (Ptr ty)
+instance HasField "bools3_x" (Ptr Bools3) (Ptr BOOL)
     where getField = fromPtr (Proxy @"bools3_x")
 instance HasCField Bools3 "bools3_y"
     where type CFieldType Bools3 "bools3_y" = BOOL
           offset# = \_ -> \_ -> 1
-instance TyEq ty (CFieldType Bools3 "bools3_y") =>
-         HasField "bools3_y" (Ptr Bools3) (Ptr ty)
+instance HasField "bools3_y" (Ptr Bools3) (Ptr BOOL)
     where getField = fromPtr (Proxy @"bools3_y")

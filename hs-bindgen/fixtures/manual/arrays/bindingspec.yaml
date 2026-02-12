@@ -21,6 +21,7 @@ hstypes:
       - unwrapMatrix
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -36,6 +37,7 @@ hstypes:
       - unwrapTriplet
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - ReadRaw
@@ -51,6 +53,7 @@ hstypes:
       - unwrapTriplet_ptrs
   instances:
   - Eq
+  - Generic
   - HasCField
   - HasField
   - Show

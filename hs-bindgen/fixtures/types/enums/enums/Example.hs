@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -30,7 +28,6 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum first@
@@ -42,8 +39,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype First = First
   { unwrapFirst :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize First where
@@ -114,8 +110,7 @@ instance Read First where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType First) "unwrapFirst")
-         ) => GHC.Records.HasField "unwrapFirst" (Ptr.Ptr First) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapFirst" (Ptr.Ptr First) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFirst")
@@ -153,8 +148,7 @@ pattern FIRST2 = First 1
 newtype Second = Second
   { unwrapSecond :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Second where
@@ -226,8 +220,7 @@ instance Read Second where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Second) "unwrapSecond")
-         ) => GHC.Records.HasField "unwrapSecond" (Ptr.Ptr Second) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapSecond" (Ptr.Ptr Second) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSecond")
@@ -274,8 +267,7 @@ pattern SECOND_C = Second 1
 newtype Same = Same
   { unwrapSame :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Same where
@@ -344,8 +336,7 @@ instance Read Same where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Same) "unwrapSame")
-         ) => GHC.Records.HasField "unwrapSame" (Ptr.Ptr Same) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapSame" (Ptr.Ptr Same) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSame")
@@ -383,8 +374,7 @@ pattern SAME_B = Same 1
 newtype Nonseq = Nonseq
   { unwrapNonseq :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Nonseq where
@@ -446,8 +436,7 @@ instance Read Nonseq where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Nonseq) "unwrapNonseq")
-         ) => GHC.Records.HasField "unwrapNonseq" (Ptr.Ptr Nonseq) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapNonseq" (Ptr.Ptr Nonseq) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapNonseq")
@@ -494,8 +483,7 @@ pattern NONSEQ_C = Nonseq 404
 newtype Packed = Packed
   { unwrapPacked :: FC.CUChar
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Packed where
@@ -567,8 +555,7 @@ instance Read Packed where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Packed) "unwrapPacked")
-         ) => GHC.Records.HasField "unwrapPacked" (Ptr.Ptr Packed) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapPacked" (Ptr.Ptr Packed) (Ptr.Ptr FC.CUChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPacked")
@@ -615,8 +602,7 @@ pattern PACKED_C = Packed 2
 newtype EnumA = EnumA
   { unwrapEnumA :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize EnumA where
@@ -687,8 +673,7 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumA) "unwrapEnumA")
-         ) => GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumA")
@@ -726,8 +711,7 @@ pattern A_BAR = EnumA 1
 newtype EnumB = EnumB
   { unwrapEnumB :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize EnumB where
@@ -798,8 +782,7 @@ instance Read EnumB where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumB) "unwrapEnumB")
-         ) => GHC.Records.HasField "unwrapEnumB" (Ptr.Ptr EnumB) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapEnumB" (Ptr.Ptr EnumB) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumB")
@@ -837,8 +820,7 @@ pattern B_BAR = EnumB 1
 newtype EnumC = EnumC
   { unwrapEnumC :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize EnumC where
@@ -909,8 +891,7 @@ instance Read EnumC where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumC) "unwrapEnumC")
-         ) => GHC.Records.HasField "unwrapEnumC" (Ptr.Ptr EnumC) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapEnumC" (Ptr.Ptr EnumC) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumC")
@@ -948,8 +929,7 @@ pattern C_BAR = EnumC 1
 newtype EnumD_t = EnumD_t
   { unwrapEnumD_t :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize EnumD_t where
@@ -1020,8 +1000,7 @@ instance Read EnumD_t where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType EnumD_t) "unwrapEnumD_t")
-         ) => GHC.Records.HasField "unwrapEnumD_t" (Ptr.Ptr EnumD_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapEnumD_t" (Ptr.Ptr EnumD_t) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumD_t")

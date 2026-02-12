@@ -3,7 +3,6 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -35,7 +33,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @struct S@
@@ -53,8 +50,7 @@ data S = S
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S where
 
@@ -87,8 +83,7 @@ instance HsBindgen.Runtime.HasCField.HasCField S "s_f" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_f")
-         ) => GHC.Records.HasField "s_f" (Ptr.Ptr S) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "s_f" (Ptr.Ptr S) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s_f")
@@ -102,8 +97,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_f")
 newtype More_aligned_int = More_aligned_int
   { unwrapMore_aligned_int :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -122,8 +116,7 @@ newtype More_aligned_int = More_aligned_int
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType More_aligned_int) "unwrapMore_aligned_int")
-         ) => GHC.Records.HasField "unwrapMore_aligned_int" (Ptr.Ptr More_aligned_int) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMore_aligned_int" (Ptr.Ptr More_aligned_int) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMore_aligned_int")
@@ -150,8 +143,7 @@ data S2 = S2
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize S2 where
 
@@ -184,8 +176,7 @@ instance HsBindgen.Runtime.HasCField.HasCField S2 "s2_f" where
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2) "s2_f")
-         ) => GHC.Records.HasField "s2_f" (Ptr.Ptr S2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "s2_f" (Ptr.Ptr S2) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s2_f")
@@ -212,8 +203,7 @@ data My_unpacked_struct = My_unpacked_struct
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize My_unpacked_struct where
 
@@ -248,8 +238,7 @@ instance HsBindgen.Runtime.HasCField.HasCField My_unpacked_struct "my_unpacked_s
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_unpacked_struct) "my_unpacked_struct_c")
-         ) => GHC.Records.HasField "my_unpacked_struct_c" (Ptr.Ptr My_unpacked_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "my_unpacked_struct_c" (Ptr.Ptr My_unpacked_struct) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"my_unpacked_struct_c")
@@ -261,8 +250,7 @@ instance HsBindgen.Runtime.HasCField.HasCField My_unpacked_struct "my_unpacked_s
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_unpacked_struct) "my_unpacked_struct_i")
-         ) => GHC.Records.HasField "my_unpacked_struct_i" (Ptr.Ptr My_unpacked_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "my_unpacked_struct_i" (Ptr.Ptr My_unpacked_struct) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"my_unpacked_struct_i")
@@ -296,8 +284,7 @@ data My_packed_struct = My_packed_struct
          __exported by:__ @attributes\/type_attributes.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Show)
 
 instance HsBindgen.Runtime.Marshal.StaticSize My_packed_struct where
 
@@ -334,8 +321,7 @@ instance HsBindgen.Runtime.HasCField.HasCField My_packed_struct "my_packed_struc
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "my_packed_struct_c")
-         ) => GHC.Records.HasField "my_packed_struct_c" (Ptr.Ptr My_packed_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "my_packed_struct_c" (Ptr.Ptr My_packed_struct) (Ptr.Ptr FC.CChar) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"my_packed_struct_c")
@@ -347,8 +333,7 @@ instance HsBindgen.Runtime.HasCField.HasCField My_packed_struct "my_packed_struc
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "my_packed_struct_i")
-         ) => GHC.Records.HasField "my_packed_struct_i" (Ptr.Ptr My_packed_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "my_packed_struct_i" (Ptr.Ptr My_packed_struct) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"my_packed_struct_i")
@@ -360,8 +345,7 @@ instance HsBindgen.Runtime.HasCField.HasCField My_packed_struct "my_packed_struc
 
   offset# = \_ -> \_ -> 5
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "my_packed_struct_s")
-         ) => GHC.Records.HasField "my_packed_struct_s" (Ptr.Ptr My_packed_struct) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "my_packed_struct_s" (Ptr.Ptr My_packed_struct) (Ptr.Ptr My_unpacked_struct) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"my_packed_struct_s")
@@ -446,8 +430,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Wait_status_ptr_t "wait_status_pt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Wait_status_ptr_t) "wait_status_ptr_t___ip")
-         ) => GHC.Records.HasField "wait_status_ptr_t___ip" (Ptr.Ptr Wait_status_ptr_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "wait_status_ptr_t___ip" (Ptr.Ptr Wait_status_ptr_t) (Ptr.Ptr (Ptr.Ptr FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"wait_status_ptr_t___ip")
@@ -459,8 +442,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Wait_status_ptr_t "wait_status_pt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Wait_status_ptr_t) "wait_status_ptr_t___up")
-         ) => GHC.Records.HasField "wait_status_ptr_t___up" (Ptr.Ptr Wait_status_ptr_t) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "wait_status_ptr_t___up" (Ptr.Ptr Wait_status_ptr_t) (Ptr.Ptr (Ptr.Ptr Wait)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"wait_status_ptr_t___up")
@@ -482,8 +464,7 @@ data Wait
 newtype T1 = T1
   { unwrapT1 :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -502,8 +483,7 @@ newtype T1 = T1
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "unwrapT1")
-         ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT1")
@@ -523,8 +503,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
 newtype Short_a = Short_a
   { unwrapShort_a :: FC.CShort
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -543,8 +522,7 @@ newtype Short_a = Short_a
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Short_a) "unwrapShort_a")
-         ) => GHC.Records.HasField "unwrapShort_a" (Ptr.Ptr Short_a) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapShort_a" (Ptr.Ptr Short_a) (Ptr.Ptr FC.CShort) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapShort_a")

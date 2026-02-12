@@ -13,8 +13,7 @@ newtype T1
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -30,8 +29,7 @@ newtype T1
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T1 "unwrapT1") =>
-         HasField "unwrapT1" (Ptr T1) (Ptr ty)
+instance HasField "unwrapT1" (Ptr T1) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapT1")
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
@@ -50,8 +48,7 @@ newtype T2
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -67,8 +64,7 @@ newtype T2
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T2 "unwrapT2") =>
-         HasField "unwrapT2" (Ptr T2) (Ptr ty)
+instance HasField "unwrapT2" (Ptr T2) (Ptr T1)
     where getField = fromPtr (Proxy @"unwrapT2")
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = T1
@@ -87,8 +83,7 @@ newtype T3
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -104,8 +99,7 @@ newtype T3
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T3 "unwrapT3") =>
-         HasField "unwrapT3" (Ptr T3) (Ptr ty)
+instance HasField "unwrapT3" (Ptr T3) (Ptr T2)
     where getField = fromPtr (Proxy @"unwrapT3")
 instance HasCField T3 "unwrapT3"
     where type CFieldType T3 "unwrapT3" = T2
@@ -124,8 +118,7 @@ newtype T4
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -141,8 +134,7 @@ newtype T4
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType T4 "unwrapT4") =>
-         HasField "unwrapT4" (Ptr T4) (Ptr ty)
+instance HasField "unwrapT4" (Ptr T4) (Ptr T3)
     where getField = fromPtr (Proxy @"unwrapT4")
 instance HasCField T4 "unwrapT4"
     where type CFieldType T4 "unwrapT4" = T3

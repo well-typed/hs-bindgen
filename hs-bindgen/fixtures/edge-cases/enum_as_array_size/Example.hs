@@ -2,7 +2,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -11,7 +10,6 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -30,7 +28,6 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum test@
@@ -42,8 +39,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype Test = Test
   { unwrapTest :: FC.CUInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord)
+  deriving stock (GHC.Generics.Generic, Eq, Ord)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
 instance HsBindgen.Runtime.Marshal.StaticSize Test where
@@ -114,8 +110,7 @@ instance Read Test where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Test) "unwrapTest")
-         ) => GHC.Records.HasField "unwrapTest" (Ptr.Ptr Test) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapTest" (Ptr.Ptr Test) (Ptr.Ptr FC.CUInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTest")

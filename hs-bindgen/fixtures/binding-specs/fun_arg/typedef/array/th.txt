@@ -134,10 +134,8 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+    deriving stock (Generic, Eq, Show)
+instance HasField "unwrapA" (Ptr A) (Ptr (IncompleteArray CInt))
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = IncompleteArray CInt
@@ -156,10 +154,8 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Show)
-instance TyEq ty (CFieldType B "unwrapB") =>
-         HasField "unwrapB" (Ptr B) (Ptr ty)
+    deriving stock (Generic, Eq, Show)
+instance HasField "unwrapB" (Ptr B) (Ptr A)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
@@ -179,8 +175,7 @@ newtype E
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
       -}
     deriving stock Generic
-instance TyEq ty (CFieldType E "unwrapE") =>
-         HasField "unwrapE" (Ptr E) (Ptr ty)
+instance HasField "unwrapE" (Ptr E) (Ptr M.C)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C

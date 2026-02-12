@@ -1,0 +1,124 @@
+-- addDependentFile examples/golden/program-analysis/program-slicing/typedef_unselected_t.h
+-- addDependentFile examples/golden/program-analysis/program-slicing/typedef_unselected.h
+-- #include <program-analysis/program-slicing/typedef_unselected.h>
+-- void hs_bindgen_ef8f97cf27661c20 (
+--   U arg1
+-- )
+-- {
+--   bar(arg1);
+-- }
+-- void hs_bindgen_401f15168ffec8ae (
+--   U arg1
+-- )
+-- {
+--   bar(arg1);
+-- }
+-- /* test_programanalysisprogramslici_Example_get_bar */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_e57577b970e09cca (void)) (
+--   U arg1
+-- )
+-- {
+--   return &bar;
+-- }
+{-| __C declaration:__ @U@
+
+    __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 11:9@
+
+    __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+-}
+newtype U
+    = U {unwrapU :: CInt}
+      {- ^ __C declaration:__ @U@
+
+           __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 11:9@
+
+           __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+      -}
+    deriving stock (Generic, Eq, Ord, Read, Show)
+    deriving newtype (StaticSize,
+                      ReadRaw,
+                      WriteRaw,
+                      Storable,
+                      HasFFIType,
+                      Prim,
+                      Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance HasField "unwrapU" (Ptr U) (Ptr CInt)
+    where getField = fromPtr (Proxy @"unwrapU")
+instance HasCField U "unwrapU"
+    where type CFieldType U "unwrapU" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
+foreign import ccall safe "hs_bindgen_ef8f97cf27661c20" hs_bindgen_ef8f97cf27661c20_base ::
+    Int32
+ -> IO Unit
+-- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
+hs_bindgen_ef8f97cf27661c20 :: U -> IO Unit
+-- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
+hs_bindgen_ef8f97cf27661c20 = fromFFIType hs_bindgen_ef8f97cf27661c20_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 12:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+-}
+bar :: U -> IO Unit
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 12:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+-}
+bar = hs_bindgen_ef8f97cf27661c20
+-- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
+foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ffec8ae_base ::
+    Int32
+ -> IO Unit
+-- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
+hs_bindgen_401f15168ffec8ae :: U -> IO Unit
+-- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
+hs_bindgen_401f15168ffec8ae = fromFFIType hs_bindgen_401f15168ffec8ae_base
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 12:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+-}
+bar :: U -> IO Unit
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 12:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+-}
+bar = hs_bindgen_401f15168ffec8ae
+-- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
+foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e09cca_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
+hs_bindgen_e57577b970e09cca :: IO (FunPtr (U -> IO Unit))
+-- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
+hs_bindgen_e57577b970e09cca = fromFFIType hs_bindgen_e57577b970e09cca_base
+{-# NOINLINE bar #-}
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 12:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+-}
+bar :: FunPtr (U -> IO Unit)
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 12:6@
+
+    __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
+-}
+bar = unsafePerformIO hs_bindgen_e57577b970e09cca

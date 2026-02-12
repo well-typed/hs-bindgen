@@ -2,14 +2,12 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
-{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -32,7 +30,6 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
 import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 {-| Auxiliary type used by 'F1'
@@ -81,8 +78,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr F1_Aux where
 
   fromFunPtr = hs_bindgen_ddeb5206e8192425
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1_Aux) "unwrapF1_Aux")
-         ) => GHC.Records.HasField "unwrapF1_Aux" (Ptr.Ptr F1_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF1_Aux" (Ptr.Ptr F1_Aux) (Ptr.Ptr (FC.CInt -> FC.CInt -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF1_Aux")
@@ -103,8 +99,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "unwrapF1_Aux" where
 newtype F1 = F1
   { unwrapF1 :: Ptr.FunPtr F1_Aux
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -113,8 +108,7 @@ newtype F1 = F1
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1) "unwrapF1")
-         ) => GHC.Records.HasField "unwrapF1" (Ptr.Ptr F1) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF1" (Ptr.Ptr F1) (Ptr.Ptr (Ptr.FunPtr F1_Aux)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF1")
@@ -171,8 +165,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr F2_Aux where
 
   fromFunPtr = hs_bindgen_e15bcd26f1ed1df7
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F2_Aux) "unwrapF2_Aux")
-         ) => GHC.Records.HasField "unwrapF2_Aux" (Ptr.Ptr F2_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF2_Aux" (Ptr.Ptr F2_Aux) (Ptr.Ptr (FC.CInt -> FC.CInt -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF2_Aux")
@@ -193,8 +186,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F2_Aux "unwrapF2_Aux" where
 newtype F2 = F2
   { unwrapF2 :: Ptr.Ptr (Ptr.FunPtr F2_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -203,8 +195,7 @@ newtype F2 = F2
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F2) "unwrapF2")
-         ) => GHC.Records.HasField "unwrapF2" (Ptr.Ptr F2) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF2" (Ptr.Ptr F2) (Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F2_Aux))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF2")
@@ -262,8 +253,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr F3_Aux where
 
   fromFunPtr = hs_bindgen_66460422a7197535
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F3_Aux) "unwrapF3_Aux")
-         ) => GHC.Records.HasField "unwrapF3_Aux" (Ptr.Ptr F3_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF3_Aux" (Ptr.Ptr F3_Aux) (Ptr.Ptr (FC.CInt -> FC.CInt -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF3_Aux")
@@ -284,8 +274,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F3_Aux "unwrapF3_Aux" where
 newtype F3 = F3
   { unwrapF3 :: Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F3_Aux))
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -294,8 +283,7 @@ newtype F3 = F3
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F3) "unwrapF3")
-         ) => GHC.Records.HasField "unwrapF3" (Ptr.Ptr F3) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF3" (Ptr.Ptr F3) (Ptr.Ptr (Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F3_Aux)))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF3")
@@ -353,8 +341,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr F4_Aux where
 
   fromFunPtr = hs_bindgen_40f9a8d432b9eb97
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F4_Aux) "unwrapF4_Aux")
-         ) => GHC.Records.HasField "unwrapF4_Aux" (Ptr.Ptr F4_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF4_Aux" (Ptr.Ptr F4_Aux) (Ptr.Ptr (IO FC.CInt)) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF4_Aux")
@@ -374,8 +361,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F4_Aux "unwrapF4_Aux" where
 newtype F4 = F4
   { unwrapF4 :: Ptr.Ptr (Ptr.FunPtr F4_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -384,8 +370,7 @@ newtype F4 = F4
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F4) "unwrapF4")
-         ) => GHC.Records.HasField "unwrapF4" (Ptr.Ptr F4) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF4" (Ptr.Ptr F4) (Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F4_Aux))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF4")
@@ -443,8 +428,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr F5_Aux where
 
   fromFunPtr = hs_bindgen_586f6635c057975f
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F5_Aux) "unwrapF5_Aux")
-         ) => GHC.Records.HasField "unwrapF5_Aux" (Ptr.Ptr F5_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF5_Aux" (Ptr.Ptr F5_Aux) (Ptr.Ptr (IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF5_Aux")
@@ -464,8 +448,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F5_Aux "unwrapF5_Aux" where
 newtype F5 = F5
   { unwrapF5 :: Ptr.Ptr (Ptr.FunPtr F5_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -474,8 +457,7 @@ newtype F5 = F5
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F5) "unwrapF5")
-         ) => GHC.Records.HasField "unwrapF5" (Ptr.Ptr F5) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF5" (Ptr.Ptr F5) (Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F5_Aux))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF5")
@@ -496,8 +478,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F5 "unwrapF5" where
 newtype MyInt = MyInt
   { unwrapMyInt :: FC.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Read, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -516,8 +497,7 @@ newtype MyInt = MyInt
     , Real
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "unwrapMyInt")
-         ) => GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr FC.CInt) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyInt")
@@ -574,8 +554,7 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr F6_Aux where
 
   fromFunPtr = hs_bindgen_a887947b26e58f0c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F6_Aux) "unwrapF6_Aux")
-         ) => GHC.Records.HasField "unwrapF6_Aux" (Ptr.Ptr F6_Aux) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF6_Aux" (Ptr.Ptr F6_Aux) (Ptr.Ptr (MyInt -> IO ())) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF6_Aux")
@@ -596,8 +575,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F6_Aux "unwrapF6_Aux" where
 newtype F6 = F6
   { unwrapF6 :: Ptr.Ptr (Ptr.FunPtr F6_Aux)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving stock (Eq, Ord, Show)
+  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
   deriving newtype
     ( HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
@@ -606,8 +584,7 @@ newtype F6 = F6
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F6) "unwrapF6")
-         ) => GHC.Records.HasField "unwrapF6" (Ptr.Ptr F6) (Ptr.Ptr ty) where
+instance GHC.Records.HasField "unwrapF6" (Ptr.Ptr F6) (Ptr.Ptr (Ptr.Ptr (Ptr.FunPtr F6_Aux))) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF6")

@@ -14,8 +14,7 @@ newtype A
 
            __exported by:__ @program-analysis\/selection_bad.h@
       -}
-    deriving stock Generic
-    deriving stock (Eq, Ord, Read, Show)
+    deriving stock (Generic, Eq, Ord, Read, Show)
     deriving newtype (StaticSize,
                       ReadRaw,
                       WriteRaw,
@@ -31,8 +30,7 @@ newtype A
                       Ix,
                       Num,
                       Real)
-instance TyEq ty (CFieldType A "unwrapA") =>
-         HasField "unwrapA" (Ptr A) (Ptr ty)
+instance HasField "unwrapA" (Ptr A) (Ptr CInt)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = CInt
