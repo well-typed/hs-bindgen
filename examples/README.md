@@ -3,6 +3,7 @@
 This directory contains runnable example projects using `hs-bindgen`. These
 examples include bindings and toy programs for the following C libraries:
 
+* `bundled-c`
 * `c-minisat`
 * `libpcap`
 
