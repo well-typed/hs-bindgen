@@ -796,6 +796,8 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
 -- This test sets the parse predicate to parse all declarations, which results
 -- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
 -- setting the parse predicate, but it results in use of 'FC.CBool' instead.
+-- This configuration should be removed when
+-- https://github.com/well-typed/hs-bindgen/issues/1627 is resolved.
 test_bindingSpecs_stdlib_instances :: TestCase
 test_bindingSpecs_stdlib_instances =
     defaultTest "binding-specs/stdlib/instances"
@@ -806,6 +808,8 @@ test_bindingSpecs_stdlib_instances =
 -- This test sets the parse predicate to parse all declarations, which results
 -- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
 -- setting the parse predicate, but it results in use of 'FC.CBool' instead.
+-- This configuration should be removed when
+-- https://github.com/well-typed/hs-bindgen/issues/1627 is resolved.
 test_bindingSpecs_stdlib_return_values :: TestCase
 test_bindingSpecs_stdlib_return_values =
     defaultTest "binding-specs/stdlib/return_values"
