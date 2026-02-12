@@ -1,20 +1,20 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile musl-include/x86_64/bits/signal.h
 -- addDependentFile musl-include/x86_64/bits/setjmp.h
 -- addDependentFile musl-include/x86_64/features.h
+-- addDependentFile musl-include/x86_64/wctype.h
+-- addDependentFile musl-include/x86_64/wchar.h
+-- addDependentFile musl-include/x86_64/uchar.h
+-- addDependentFile musl-include/x86_64/time.h
+-- addDependentFile musl-include/x86_64/stdio.h
 -- addDependentFile musl-include/x86_64/signal.h
 -- addDependentFile musl-include/x86_64/setjmp.h
 -- addDependentFile musl-include/x86_64/bits/fenv.h
 -- addDependentFile musl-include/x86_64/fenv.h
--- addDependentFile musl-include/x86_64/bits/stdint.h
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stdio.h
--- addDependentFile musl-include/x86_64/time.h
--- addDependentFile musl-include/x86_64/wctype.h
--- addDependentFile musl-include/x86_64/wchar.h
--- addDependentFile musl-include/x86_64/uchar.h
--- addDependentFile musl-include/x86_64/stddef.h
--- addDependentFile musl-include/x86_64/stdint.h
--- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/binding-specs/stdlib/return_values.h
 -- #include <binding-specs/stdlib/return_values.h>
 -- bool hs_bindgen_4cd199ba56c14547 (void)
@@ -438,14 +438,14 @@ hs_bindgen_4cd199ba56c14547 :: IO HsBindgen.Runtime.LibC.CBool
 hs_bindgen_4cd199ba56c14547 = fromFFIType hs_bindgen_4cd199ba56c14547_base
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 5:6@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 bool_fun :: IO HsBindgen.Runtime.LibC.CBool
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 5:6@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -459,14 +459,14 @@ hs_bindgen_73c8e1f452482878 :: IO HsBindgen.Runtime.LibC.Int8
 hs_bindgen_73c8e1f452482878 = fromFFIType hs_bindgen_73c8e1f452482878_base
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 9:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int8_t_fun :: IO HsBindgen.Runtime.LibC.Int8
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 9:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -480,14 +480,14 @@ hs_bindgen_da3259b2446eb9bf :: IO HsBindgen.Runtime.LibC.Int16
 hs_bindgen_da3259b2446eb9bf = fromFFIType hs_bindgen_da3259b2446eb9bf_base
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 10:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int16_t_fun :: IO HsBindgen.Runtime.LibC.Int16
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 10:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -501,14 +501,14 @@ hs_bindgen_7dd577f0c34f0ff7 :: IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_7dd577f0c34f0ff7 = fromFFIType hs_bindgen_7dd577f0c34f0ff7_base
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 11:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int32_t_fun :: IO HsBindgen.Runtime.LibC.Int32
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 11:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -522,14 +522,14 @@ hs_bindgen_7a2709fa911a350e :: IO HsBindgen.Runtime.LibC.Int64
 hs_bindgen_7a2709fa911a350e = fromFFIType hs_bindgen_7a2709fa911a350e_base
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 12:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int64_t_fun :: IO HsBindgen.Runtime.LibC.Int64
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 12:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -543,14 +543,14 @@ hs_bindgen_1b2e687eaa715924 :: IO HsBindgen.Runtime.LibC.Word8
 hs_bindgen_1b2e687eaa715924 = fromFFIType hs_bindgen_1b2e687eaa715924_base
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 13:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint8_t_fun :: IO HsBindgen.Runtime.LibC.Word8
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 13:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -564,14 +564,14 @@ hs_bindgen_6da73658633b176e :: IO HsBindgen.Runtime.LibC.Word16
 hs_bindgen_6da73658633b176e = fromFFIType hs_bindgen_6da73658633b176e_base
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 14:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint16_t_fun :: IO HsBindgen.Runtime.LibC.Word16
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 14:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -585,14 +585,14 @@ hs_bindgen_c6cd0ee414c746de :: IO HsBindgen.Runtime.LibC.Word32
 hs_bindgen_c6cd0ee414c746de = fromFFIType hs_bindgen_c6cd0ee414c746de_base
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 15:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint32_t_fun :: IO HsBindgen.Runtime.LibC.Word32
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 15:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -606,14 +606,14 @@ hs_bindgen_cbb9017c67ce7652 :: IO HsBindgen.Runtime.LibC.Word64
 hs_bindgen_cbb9017c67ce7652 = fromFFIType hs_bindgen_cbb9017c67ce7652_base
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 16:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint64_t_fun :: IO HsBindgen.Runtime.LibC.Word64
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 16:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -627,14 +627,14 @@ hs_bindgen_844bf55e16de43a0 :: IO HsBindgen.Runtime.LibC.CIntMax
 hs_bindgen_844bf55e16de43a0 = fromFFIType hs_bindgen_844bf55e16de43a0_base
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 17:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 intmax_t_fun :: IO HsBindgen.Runtime.LibC.CIntMax
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 17:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -648,14 +648,14 @@ hs_bindgen_56900c9a548480d5 :: IO HsBindgen.Runtime.LibC.CUIntMax
 hs_bindgen_56900c9a548480d5 = fromFFIType hs_bindgen_56900c9a548480d5_base
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 18:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uintmax_t_fun :: IO HsBindgen.Runtime.LibC.CUIntMax
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 18:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -669,14 +669,14 @@ hs_bindgen_d656827fe2704de3 :: IO HsBindgen.Runtime.LibC.CIntPtr
 hs_bindgen_d656827fe2704de3 = fromFFIType hs_bindgen_d656827fe2704de3_base
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 19:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 intptr_t_fun :: IO HsBindgen.Runtime.LibC.CIntPtr
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 19:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -690,14 +690,14 @@ hs_bindgen_401c738c79c5e4ef :: IO HsBindgen.Runtime.LibC.CUIntPtr
 hs_bindgen_401c738c79c5e4ef = fromFFIType hs_bindgen_401c738c79c5e4ef_base
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uintptr_t_fun :: IO HsBindgen.Runtime.LibC.CUIntPtr
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -711,14 +711,14 @@ hs_bindgen_eb417aeaae001cd4 :: IO (Ptr HsBindgen.Runtime.LibC.CFenvT)
 hs_bindgen_eb417aeaae001cd4 = fromFFIType hs_bindgen_eb417aeaae001cd4_base
 {-| __C declaration:__ @fenv_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fenv_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFenvT)
 {-| __C declaration:__ @fenv_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -732,14 +732,14 @@ hs_bindgen_42f9ee7a2fa5ed3b :: IO (Ptr HsBindgen.Runtime.LibC.CFexceptT)
 hs_bindgen_42f9ee7a2fa5ed3b = fromFFIType hs_bindgen_42f9ee7a2fa5ed3b_base
 {-| __C declaration:__ @fexcept_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fexcept_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFexceptT)
 {-| __C declaration:__ @fexcept_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -753,14 +753,14 @@ hs_bindgen_66f735fc270b795a :: IO HsBindgen.Runtime.LibC.CSize
 hs_bindgen_66f735fc270b795a = fromFFIType hs_bindgen_66f735fc270b795a_base
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 size_t_fun :: IO HsBindgen.Runtime.LibC.CSize
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -774,14 +774,14 @@ hs_bindgen_2f5574764965bb49 :: IO HsBindgen.Runtime.LibC.CPtrdiff
 hs_bindgen_2f5574764965bb49 = fromFFIType hs_bindgen_2f5574764965bb49_base
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 ptrdiff_t_fun :: IO HsBindgen.Runtime.LibC.CPtrdiff
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -795,14 +795,14 @@ hs_bindgen_57ff329a6c1ab247 :: IO HsBindgen.Runtime.LibC.CWchar
 hs_bindgen_57ff329a6c1ab247 = fromFFIType hs_bindgen_57ff329a6c1ab247_base
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wchar_t_fun :: IO HsBindgen.Runtime.LibC.CWchar
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -816,14 +816,14 @@ hs_bindgen_fef1399636729a64 :: IO HsBindgen.Runtime.LibC.CWintT
 hs_bindgen_fef1399636729a64 = fromFFIType hs_bindgen_fef1399636729a64_base
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wint_t_fun :: IO HsBindgen.Runtime.LibC.CWintT
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -837,14 +837,14 @@ hs_bindgen_ec1c0b9428114ec6 :: IO (Ptr HsBindgen.Runtime.LibC.CMbstateT)
 hs_bindgen_ec1c0b9428114ec6 = fromFFIType hs_bindgen_ec1c0b9428114ec6_base
 {-| __C declaration:__ @mbstate_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 43:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 mbstate_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CMbstateT)
 {-| __C declaration:__ @mbstate_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 43:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -858,14 +858,14 @@ hs_bindgen_2d9b204c006f0667 :: IO HsBindgen.Runtime.LibC.CWctransT
 hs_bindgen_2d9b204c006f0667 = fromFFIType hs_bindgen_2d9b204c006f0667_base
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 44:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wctrans_t_fun :: IO HsBindgen.Runtime.LibC.CWctransT
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 44:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -879,14 +879,14 @@ hs_bindgen_977cddf620e22ba0 :: IO HsBindgen.Runtime.LibC.CWctypeT
 hs_bindgen_977cddf620e22ba0 = fromFFIType hs_bindgen_977cddf620e22ba0_base
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 45:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wctype_t_fun :: IO HsBindgen.Runtime.LibC.CWctypeT
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 45:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -900,14 +900,14 @@ hs_bindgen_4780a15ae4e392fd :: IO HsBindgen.Runtime.LibC.CChar16T
 hs_bindgen_4780a15ae4e392fd = fromFFIType hs_bindgen_4780a15ae4e392fd_base
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 char16_t_fun :: IO HsBindgen.Runtime.LibC.CChar16T
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -921,14 +921,14 @@ hs_bindgen_d258f4d9903b4e39 :: IO HsBindgen.Runtime.LibC.CChar32T
 hs_bindgen_d258f4d9903b4e39 = fromFFIType hs_bindgen_d258f4d9903b4e39_base
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 47:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 char32_t_fun :: IO HsBindgen.Runtime.LibC.CChar32T
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 47:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -942,14 +942,14 @@ hs_bindgen_82c178bd7c4d08b0 :: IO HsBindgen.Runtime.LibC.CTime
 hs_bindgen_82c178bd7c4d08b0 = fromFFIType hs_bindgen_82c178bd7c4d08b0_base
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 time_t_fun :: IO HsBindgen.Runtime.LibC.CTime
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -963,14 +963,14 @@ hs_bindgen_b472ecf9ffec8045 :: IO HsBindgen.Runtime.LibC.CClock
 hs_bindgen_b472ecf9ffec8045 = fromFFIType hs_bindgen_b472ecf9ffec8045_base
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 clock_t_fun :: IO HsBindgen.Runtime.LibC.CClock
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -984,14 +984,14 @@ hs_bindgen_0caa7d72a7701f1f :: IO (Ptr HsBindgen.Runtime.LibC.CFile)
 hs_bindgen_0caa7d72a7701f1f = fromFFIType hs_bindgen_0caa7d72a7701f1f_base
 {-| __C declaration:__ @FILE_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:7@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fILE_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFile)
 {-| __C declaration:__ @FILE_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:7@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1005,14 +1005,14 @@ hs_bindgen_47b37de28902f506 :: IO (Ptr HsBindgen.Runtime.LibC.CFpos)
 hs_bindgen_47b37de28902f506 = fromFFIType hs_bindgen_47b37de28902f506_base
 {-| __C declaration:__ @fpos_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fpos_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFpos)
 {-| __C declaration:__ @fpos_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1026,14 +1026,14 @@ hs_bindgen_222eab426c700a03 :: IO HsBindgen.Runtime.LibC.CSigAtomic
 hs_bindgen_222eab426c700a03 = fromFFIType hs_bindgen_222eab426c700a03_base
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 63:14@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 sig_atomic_t_fun :: IO HsBindgen.Runtime.LibC.CSigAtomic
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 63:14@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1047,14 +1047,14 @@ hs_bindgen_6b68851ce9c1f36f :: IO HsBindgen.Runtime.LibC.CBool
 hs_bindgen_6b68851ce9c1f36f = fromFFIType hs_bindgen_6b68851ce9c1f36f_base
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 5:6@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 bool_fun :: IO HsBindgen.Runtime.LibC.CBool
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 5:6@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1068,14 +1068,14 @@ hs_bindgen_a408da1bfa030a51 :: IO HsBindgen.Runtime.LibC.Int8
 hs_bindgen_a408da1bfa030a51 = fromFFIType hs_bindgen_a408da1bfa030a51_base
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 9:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int8_t_fun :: IO HsBindgen.Runtime.LibC.Int8
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 9:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1089,14 +1089,14 @@ hs_bindgen_6785058f9844b9b5 :: IO HsBindgen.Runtime.LibC.Int16
 hs_bindgen_6785058f9844b9b5 = fromFFIType hs_bindgen_6785058f9844b9b5_base
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 10:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int16_t_fun :: IO HsBindgen.Runtime.LibC.Int16
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 10:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1110,14 +1110,14 @@ hs_bindgen_191a7b2b445fb350 :: IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_191a7b2b445fb350 = fromFFIType hs_bindgen_191a7b2b445fb350_base
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 11:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int32_t_fun :: IO HsBindgen.Runtime.LibC.Int32
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 11:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1131,14 +1131,14 @@ hs_bindgen_0a523ac71d31b35c :: IO HsBindgen.Runtime.LibC.Int64
 hs_bindgen_0a523ac71d31b35c = fromFFIType hs_bindgen_0a523ac71d31b35c_base
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 12:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int64_t_fun :: IO HsBindgen.Runtime.LibC.Int64
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 12:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1152,14 +1152,14 @@ hs_bindgen_f4245406bfdade75 :: IO HsBindgen.Runtime.LibC.Word8
 hs_bindgen_f4245406bfdade75 = fromFFIType hs_bindgen_f4245406bfdade75_base
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 13:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint8_t_fun :: IO HsBindgen.Runtime.LibC.Word8
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 13:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1173,14 +1173,14 @@ hs_bindgen_f7a0d726d7268b30 :: IO HsBindgen.Runtime.LibC.Word16
 hs_bindgen_f7a0d726d7268b30 = fromFFIType hs_bindgen_f7a0d726d7268b30_base
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 14:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint16_t_fun :: IO HsBindgen.Runtime.LibC.Word16
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 14:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1194,14 +1194,14 @@ hs_bindgen_432f65d5f6e3c062 :: IO HsBindgen.Runtime.LibC.Word32
 hs_bindgen_432f65d5f6e3c062 = fromFFIType hs_bindgen_432f65d5f6e3c062_base
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 15:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint32_t_fun :: IO HsBindgen.Runtime.LibC.Word32
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 15:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1215,14 +1215,14 @@ hs_bindgen_af91a28f07360676 :: IO HsBindgen.Runtime.LibC.Word64
 hs_bindgen_af91a28f07360676 = fromFFIType hs_bindgen_af91a28f07360676_base
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 16:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint64_t_fun :: IO HsBindgen.Runtime.LibC.Word64
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 16:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1236,14 +1236,14 @@ hs_bindgen_34ebd7f9b1c9877f :: IO HsBindgen.Runtime.LibC.CIntMax
 hs_bindgen_34ebd7f9b1c9877f = fromFFIType hs_bindgen_34ebd7f9b1c9877f_base
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 17:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 intmax_t_fun :: IO HsBindgen.Runtime.LibC.CIntMax
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 17:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1257,14 +1257,14 @@ hs_bindgen_f147b22f36663ba2 :: IO HsBindgen.Runtime.LibC.CUIntMax
 hs_bindgen_f147b22f36663ba2 = fromFFIType hs_bindgen_f147b22f36663ba2_base
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 18:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uintmax_t_fun :: IO HsBindgen.Runtime.LibC.CUIntMax
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 18:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1278,14 +1278,14 @@ hs_bindgen_42bfd915930be089 :: IO HsBindgen.Runtime.LibC.CIntPtr
 hs_bindgen_42bfd915930be089 = fromFFIType hs_bindgen_42bfd915930be089_base
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 19:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 intptr_t_fun :: IO HsBindgen.Runtime.LibC.CIntPtr
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 19:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1299,14 +1299,14 @@ hs_bindgen_3d4e032e4f99ccdf :: IO HsBindgen.Runtime.LibC.CUIntPtr
 hs_bindgen_3d4e032e4f99ccdf = fromFFIType hs_bindgen_3d4e032e4f99ccdf_base
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uintptr_t_fun :: IO HsBindgen.Runtime.LibC.CUIntPtr
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1320,14 +1320,14 @@ hs_bindgen_d12ec6bea98f91aa :: IO (Ptr HsBindgen.Runtime.LibC.CFenvT)
 hs_bindgen_d12ec6bea98f91aa = fromFFIType hs_bindgen_d12ec6bea98f91aa_base
 {-| __C declaration:__ @fenv_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fenv_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFenvT)
 {-| __C declaration:__ @fenv_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1341,14 +1341,14 @@ hs_bindgen_bfb6abdc4397c064 :: IO (Ptr HsBindgen.Runtime.LibC.CFexceptT)
 hs_bindgen_bfb6abdc4397c064 = fromFFIType hs_bindgen_bfb6abdc4397c064_base
 {-| __C declaration:__ @fexcept_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fexcept_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFexceptT)
 {-| __C declaration:__ @fexcept_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1362,14 +1362,14 @@ hs_bindgen_3030e3c8a5de2e7e :: IO HsBindgen.Runtime.LibC.CSize
 hs_bindgen_3030e3c8a5de2e7e = fromFFIType hs_bindgen_3030e3c8a5de2e7e_base
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 size_t_fun :: IO HsBindgen.Runtime.LibC.CSize
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1383,14 +1383,14 @@ hs_bindgen_7033a7ddfdfe770f :: IO HsBindgen.Runtime.LibC.CPtrdiff
 hs_bindgen_7033a7ddfdfe770f = fromFFIType hs_bindgen_7033a7ddfdfe770f_base
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 ptrdiff_t_fun :: IO HsBindgen.Runtime.LibC.CPtrdiff
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1404,14 +1404,14 @@ hs_bindgen_ebae7f4d5db1ecd0 :: IO HsBindgen.Runtime.LibC.CWchar
 hs_bindgen_ebae7f4d5db1ecd0 = fromFFIType hs_bindgen_ebae7f4d5db1ecd0_base
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wchar_t_fun :: IO HsBindgen.Runtime.LibC.CWchar
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1425,14 +1425,14 @@ hs_bindgen_623e42289a1c3dc3 :: IO HsBindgen.Runtime.LibC.CWintT
 hs_bindgen_623e42289a1c3dc3 = fromFFIType hs_bindgen_623e42289a1c3dc3_base
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wint_t_fun :: IO HsBindgen.Runtime.LibC.CWintT
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1446,14 +1446,14 @@ hs_bindgen_bc84314eca8f2a7c :: IO (Ptr HsBindgen.Runtime.LibC.CMbstateT)
 hs_bindgen_bc84314eca8f2a7c = fromFFIType hs_bindgen_bc84314eca8f2a7c_base
 {-| __C declaration:__ @mbstate_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 43:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 mbstate_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CMbstateT)
 {-| __C declaration:__ @mbstate_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 43:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1467,14 +1467,14 @@ hs_bindgen_5524c9adc3841732 :: IO HsBindgen.Runtime.LibC.CWctransT
 hs_bindgen_5524c9adc3841732 = fromFFIType hs_bindgen_5524c9adc3841732_base
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 44:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wctrans_t_fun :: IO HsBindgen.Runtime.LibC.CWctransT
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 44:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1488,14 +1488,14 @@ hs_bindgen_72885cbcc8213893 :: IO HsBindgen.Runtime.LibC.CWctypeT
 hs_bindgen_72885cbcc8213893 = fromFFIType hs_bindgen_72885cbcc8213893_base
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 45:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wctype_t_fun :: IO HsBindgen.Runtime.LibC.CWctypeT
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 45:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1509,14 +1509,14 @@ hs_bindgen_4284e8eb72d43965 :: IO HsBindgen.Runtime.LibC.CChar16T
 hs_bindgen_4284e8eb72d43965 = fromFFIType hs_bindgen_4284e8eb72d43965_base
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 char16_t_fun :: IO HsBindgen.Runtime.LibC.CChar16T
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1530,14 +1530,14 @@ hs_bindgen_74e1167907c5de0e :: IO HsBindgen.Runtime.LibC.CChar32T
 hs_bindgen_74e1167907c5de0e = fromFFIType hs_bindgen_74e1167907c5de0e_base
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 47:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 char32_t_fun :: IO HsBindgen.Runtime.LibC.CChar32T
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 47:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1551,14 +1551,14 @@ hs_bindgen_a0c949d46b12627a :: IO HsBindgen.Runtime.LibC.CTime
 hs_bindgen_a0c949d46b12627a = fromFFIType hs_bindgen_a0c949d46b12627a_base
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 time_t_fun :: IO HsBindgen.Runtime.LibC.CTime
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1572,14 +1572,14 @@ hs_bindgen_ac7afd479db138db :: IO HsBindgen.Runtime.LibC.CClock
 hs_bindgen_ac7afd479db138db = fromFFIType hs_bindgen_ac7afd479db138db_base
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 clock_t_fun :: IO HsBindgen.Runtime.LibC.CClock
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1593,14 +1593,14 @@ hs_bindgen_51b6e01d56713f95 :: IO (Ptr HsBindgen.Runtime.LibC.CFile)
 hs_bindgen_51b6e01d56713f95 = fromFFIType hs_bindgen_51b6e01d56713f95_base
 {-| __C declaration:__ @FILE_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:7@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fILE_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFile)
 {-| __C declaration:__ @FILE_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:7@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1614,14 +1614,14 @@ hs_bindgen_e9ed5e9a298e9a7e :: IO (Ptr HsBindgen.Runtime.LibC.CFpos)
 hs_bindgen_e9ed5e9a298e9a7e = fromFFIType hs_bindgen_e9ed5e9a298e9a7e_base
 {-| __C declaration:__ @fpos_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fpos_t_fun :: IO (Ptr HsBindgen.Runtime.LibC.CFpos)
 {-| __C declaration:__ @fpos_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1635,14 +1635,14 @@ hs_bindgen_1aecb4fb9faabcf5 :: IO HsBindgen.Runtime.LibC.CSigAtomic
 hs_bindgen_1aecb4fb9faabcf5 = fromFFIType hs_bindgen_1aecb4fb9faabcf5_base
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 63:14@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 sig_atomic_t_fun :: IO HsBindgen.Runtime.LibC.CSigAtomic
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 63:14@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1657,14 +1657,14 @@ hs_bindgen_4d50a5da1d788aef = fromFFIType hs_bindgen_4d50a5da1d788aef_base
 {-# NOINLINE bool_fun #-}
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 5:6@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 bool_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CBool)
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 5:6@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1679,14 +1679,14 @@ hs_bindgen_afc12424e14cd900 = fromFFIType hs_bindgen_afc12424e14cd900_base
 {-# NOINLINE int8_t_fun #-}
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 9:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int8_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Int8)
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 9:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1701,14 +1701,14 @@ hs_bindgen_bb1fdb972582362b = fromFFIType hs_bindgen_bb1fdb972582362b_base
 {-# NOINLINE int16_t_fun #-}
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 10:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int16_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Int16)
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 10:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1723,14 +1723,14 @@ hs_bindgen_3ddcee1ca6e45ed1 = fromFFIType hs_bindgen_3ddcee1ca6e45ed1_base
 {-# NOINLINE int32_t_fun #-}
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 11:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int32_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Int32)
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 11:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1745,14 +1745,14 @@ hs_bindgen_87f02bc29c3faac0 = fromFFIType hs_bindgen_87f02bc29c3faac0_base
 {-# NOINLINE int64_t_fun #-}
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 12:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 int64_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Int64)
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 12:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1767,14 +1767,14 @@ hs_bindgen_e41f6841cb24d084 = fromFFIType hs_bindgen_e41f6841cb24d084_base
 {-# NOINLINE uint8_t_fun #-}
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 13:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint8_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Word8)
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 13:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1789,14 +1789,14 @@ hs_bindgen_a99c4081312f9a64 = fromFFIType hs_bindgen_a99c4081312f9a64_base
 {-# NOINLINE uint16_t_fun #-}
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 14:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint16_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Word16)
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 14:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1811,14 +1811,14 @@ hs_bindgen_d7c52be7143a7a68 = fromFFIType hs_bindgen_d7c52be7143a7a68_base
 {-# NOINLINE uint32_t_fun #-}
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 15:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint32_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Word32)
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 15:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1833,14 +1833,14 @@ hs_bindgen_ce7fc806ab2fc8e0 = fromFFIType hs_bindgen_ce7fc806ab2fc8e0_base
 {-# NOINLINE uint64_t_fun #-}
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 16:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uint64_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.Word64)
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 16:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1855,14 +1855,14 @@ hs_bindgen_5b1986d8b6b49f7e = fromFFIType hs_bindgen_5b1986d8b6b49f7e_base
 {-# NOINLINE intmax_t_fun #-}
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 17:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 intmax_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CIntMax)
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 17:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1877,14 +1877,14 @@ hs_bindgen_022ea568c1d290f4 = fromFFIType hs_bindgen_022ea568c1d290f4_base
 {-# NOINLINE uintmax_t_fun #-}
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 18:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uintmax_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CUIntMax)
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 18:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1899,14 +1899,14 @@ hs_bindgen_35eda59e93c8db9a = fromFFIType hs_bindgen_35eda59e93c8db9a_base
 {-# NOINLINE intptr_t_fun #-}
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 19:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 intptr_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CIntPtr)
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 19:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1921,14 +1921,14 @@ hs_bindgen_a45e879780c141ec = fromFFIType hs_bindgen_a45e879780c141ec_base
 {-# NOINLINE uintptr_t_fun #-}
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 uintptr_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CUIntPtr)
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1943,14 +1943,14 @@ hs_bindgen_266815b1305c1241 = fromFFIType hs_bindgen_266815b1305c1241_base
 {-# NOINLINE fenv_t_fun #-}
 {-| __C declaration:__ @fenv_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fenv_t_fun :: FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFenvT))
 {-| __C declaration:__ @fenv_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1965,14 +1965,14 @@ hs_bindgen_d0eee798617140b8 = fromFFIType hs_bindgen_d0eee798617140b8_base
 {-# NOINLINE fexcept_t_fun #-}
 {-| __C declaration:__ @fexcept_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fexcept_t_fun :: FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFexceptT))
 {-| __C declaration:__ @fexcept_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -1987,14 +1987,14 @@ hs_bindgen_0120eaefb471d45e = fromFFIType hs_bindgen_0120eaefb471d45e_base
 {-# NOINLINE size_t_fun #-}
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 size_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CSize)
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2009,14 +2009,14 @@ hs_bindgen_aa0444e3b2fda3de = fromFFIType hs_bindgen_aa0444e3b2fda3de_base
 {-# NOINLINE ptrdiff_t_fun #-}
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 ptrdiff_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CPtrdiff)
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2031,14 +2031,14 @@ hs_bindgen_c3e6697f6a14bc13 = fromFFIType hs_bindgen_c3e6697f6a14bc13_base
 {-# NOINLINE wchar_t_fun #-}
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wchar_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CWchar)
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2053,14 +2053,14 @@ hs_bindgen_f3077dc66d53977f = fromFFIType hs_bindgen_f3077dc66d53977f_base
 {-# NOINLINE wint_t_fun #-}
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wint_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CWintT)
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2075,14 +2075,14 @@ hs_bindgen_b863e606ff088408 = fromFFIType hs_bindgen_b863e606ff088408_base
 {-# NOINLINE mbstate_t_fun #-}
 {-| __C declaration:__ @mbstate_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 43:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 mbstate_t_fun :: FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CMbstateT))
 {-| __C declaration:__ @mbstate_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 43:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2097,14 +2097,14 @@ hs_bindgen_a9599637dbc12608 = fromFFIType hs_bindgen_a9599637dbc12608_base
 {-# NOINLINE wctrans_t_fun #-}
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 44:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wctrans_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CWctransT)
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 44:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2119,14 +2119,14 @@ hs_bindgen_207a54450593099a = fromFFIType hs_bindgen_207a54450593099a_base
 {-# NOINLINE wctype_t_fun #-}
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 45:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 wctype_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CWctypeT)
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 45:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2141,14 +2141,14 @@ hs_bindgen_28a6e39f56489ba2 = fromFFIType hs_bindgen_28a6e39f56489ba2_base
 {-# NOINLINE char16_t_fun #-}
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 char16_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CChar16T)
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2163,14 +2163,14 @@ hs_bindgen_f918c5a2d6c16885 = fromFFIType hs_bindgen_f918c5a2d6c16885_base
 {-# NOINLINE char32_t_fun #-}
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 47:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 char32_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CChar32T)
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 47:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2185,14 +2185,14 @@ hs_bindgen_f29cfe7708be784f = fromFFIType hs_bindgen_f29cfe7708be784f_base
 {-# NOINLINE time_t_fun #-}
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 time_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CTime)
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2207,14 +2207,14 @@ hs_bindgen_509d092c2afe1ddc = fromFFIType hs_bindgen_509d092c2afe1ddc_base
 {-# NOINLINE clock_t_fun #-}
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 clock_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CClock)
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2229,14 +2229,14 @@ hs_bindgen_8f5880570a38b5dd = fromFFIType hs_bindgen_8f5880570a38b5dd_base
 {-# NOINLINE fILE_fun #-}
 {-| __C declaration:__ @FILE_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:7@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fILE_fun :: FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFile))
 {-| __C declaration:__ @FILE_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:7@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2251,14 +2251,14 @@ hs_bindgen_8b563cc85422e790 = fromFFIType hs_bindgen_8b563cc85422e790_base
 {-# NOINLINE fpos_t_fun #-}
 {-| __C declaration:__ @fpos_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 fpos_t_fun :: FunPtr (IO (Ptr HsBindgen.Runtime.LibC.CFpos))
 {-| __C declaration:__ @fpos_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2273,14 +2273,14 @@ hs_bindgen_9fcd36cfaa3ea373 = fromFFIType hs_bindgen_9fcd36cfaa3ea373_base
 {-# NOINLINE sig_atomic_t_fun #-}
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 63:14@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 sig_atomic_t_fun :: FunPtr (IO HsBindgen.Runtime.LibC.CSigAtomic)
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 63:14@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -2295,14 +2295,14 @@ hs_bindgen_68c2b692efbc4734 = fromFFIType hs_bindgen_68c2b692efbc4734_base
 {-# NOINLINE jmp_buf_val #-}
 {-| __C declaration:__ @jmp_buf_val@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 35:16@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:16@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
 jmp_buf_val :: Ptr HsBindgen.Runtime.LibC.CJmpBuf
 {-| __C declaration:__ @jmp_buf_val@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 35:16@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:16@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}

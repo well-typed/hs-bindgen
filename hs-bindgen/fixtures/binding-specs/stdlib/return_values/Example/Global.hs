@@ -35,7 +35,7 @@ hs_bindgen_68c2b692efbc4734 =
 {-# NOINLINE jmp_buf_val #-}
 {-| __C declaration:__ @jmp_buf_val@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 35:16@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:16@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}

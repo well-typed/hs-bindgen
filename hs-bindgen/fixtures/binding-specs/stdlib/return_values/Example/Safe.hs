@@ -145,7 +145,7 @@ hs_bindgen_4cd199ba56c14547 =
 
 {-| __C declaration:__ @bool_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 5:6@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -163,7 +163,7 @@ hs_bindgen_73c8e1f452482878 =
 
 {-| __C declaration:__ @int8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 9:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 23:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -181,7 +181,7 @@ hs_bindgen_da3259b2446eb9bf =
 
 {-| __C declaration:__ @int16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 10:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -199,7 +199,7 @@ hs_bindgen_7dd577f0c34f0ff7 =
 
 {-| __C declaration:__ @int32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 11:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -217,7 +217,7 @@ hs_bindgen_7a2709fa911a350e =
 
 {-| __C declaration:__ @int64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 12:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 26:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -235,7 +235,7 @@ hs_bindgen_1b2e687eaa715924 =
 
 {-| __C declaration:__ @uint8_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 13:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 27:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -253,7 +253,7 @@ hs_bindgen_6da73658633b176e =
 
 {-| __C declaration:__ @uint16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 14:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 28:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -271,7 +271,7 @@ hs_bindgen_c6cd0ee414c746de =
 
 {-| __C declaration:__ @uint32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 15:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -289,7 +289,7 @@ hs_bindgen_cbb9017c67ce7652 =
 
 {-| __C declaration:__ @uint64_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 16:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -307,7 +307,7 @@ hs_bindgen_844bf55e16de43a0 =
 
 {-| __C declaration:__ @intmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 17:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 31:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -325,7 +325,7 @@ hs_bindgen_56900c9a548480d5 =
 
 {-| __C declaration:__ @uintmax_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 18:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 32:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -343,7 +343,7 @@ hs_bindgen_d656827fe2704de3 =
 
 {-| __C declaration:__ @intptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 19:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 33:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -361,7 +361,7 @@ hs_bindgen_401c738c79c5e4ef =
 
 {-| __C declaration:__ @uintptr_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 20:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 34:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -379,7 +379,7 @@ hs_bindgen_eb417aeaae001cd4 =
 
 {-| __C declaration:__ @fenv_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 24:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 37:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -397,7 +397,7 @@ hs_bindgen_42f9ee7a2fa5ed3b =
 
 {-| __C declaration:__ @fexcept_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 25:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 38:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -415,7 +415,7 @@ hs_bindgen_66f735fc270b795a =
 
 {-| __C declaration:__ @size_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 29:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -433,7 +433,7 @@ hs_bindgen_2f5574764965bb49 =
 
 {-| __C declaration:__ @ptrdiff_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 30:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -451,7 +451,7 @@ hs_bindgen_57ff329a6c1ab247 =
 
 {-| __C declaration:__ @wchar_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 41:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 49:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -469,7 +469,7 @@ hs_bindgen_fef1399636729a64 =
 
 {-| __C declaration:__ @wint_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 42:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 50:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -487,7 +487,7 @@ hs_bindgen_ec1c0b9428114ec6 =
 
 {-| __C declaration:__ @mbstate_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 43:12@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:12@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -505,7 +505,7 @@ hs_bindgen_2d9b204c006f0667 =
 
 {-| __C declaration:__ @wctrans_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 44:11@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -523,7 +523,7 @@ hs_bindgen_977cddf620e22ba0 =
 
 {-| __C declaration:__ @wctype_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 45:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 53:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -541,7 +541,7 @@ hs_bindgen_4780a15ae4e392fd =
 
 {-| __C declaration:__ @char16_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 46:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 54:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -559,7 +559,7 @@ hs_bindgen_d258f4d9903b4e39 =
 
 {-| __C declaration:__ @char32_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 47:10@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 55:11@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -577,7 +577,7 @@ hs_bindgen_82c178bd7c4d08b0 =
 
 {-| __C declaration:__ @time_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 51:8@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -595,7 +595,7 @@ hs_bindgen_b472ecf9ffec8045 =
 
 {-| __C declaration:__ @clock_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 52:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -613,7 +613,7 @@ hs_bindgen_0caa7d72a7701f1f =
 
 {-| __C declaration:__ @FILE_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 58:7@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 64:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -631,7 +631,7 @@ hs_bindgen_47b37de28902f506 =
 
 {-| __C declaration:__ @fpos_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 59:9@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 65:9@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
@@ -649,7 +649,7 @@ hs_bindgen_222eab426c700a03 =
 
 {-| __C declaration:__ @sig_atomic_t_fun@
 
-    __defined at:__ @binding-specs\/stdlib\/return_values.h 63:14@
+    __defined at:__ @binding-specs\/stdlib\/return_values.h 68:14@
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
