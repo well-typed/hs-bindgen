@@ -37,8 +37,19 @@ generateModule pkgRoot tc = unlines $ concat [
     includeDir :: FilePath
     includeDir = pkgRoot </> tc.inputDir
 
-    extraClangArgsLines :: [String]
-    extraClangArgsLines = extractClangArgs tc.onBoot
+    -- Target triple + any test-specific clang args (e.g. -std=c2x)
+    --
+    -- We pin to x86_64-pc-linux-musl for the same reason the golden tests do
+    -- (see 'mkTestClangArgsConfig' in "Test.HsBindgen.Resources").
+    --
+    allArgsBefore :: [String]
+    allArgsBefore = targetArgs ++ extractArgsBefore tc.onBoot
+
+    targetArgs :: [String]
+    targetArgs = ["-target", "x86_64-pc-linux-musl"]
+
+    enableBlocks :: Bool
+    enableBlocks = extractEnableBlocks tc.onBoot
 
     bindingSpecLines :: [String]
     bindingSpecLines = concat [
@@ -97,9 +108,12 @@ generateModule pkgRoot tc = unlines $ concat [
     letBlock = concat [
         [ "let cfg :: Config"
         , "    cfg = def"
-        , "      & #clang % #extraIncludeDirs .~ [Dir " ++ show includeDir ++ "]"
+        , "      & #clang % #extraIncludeDirs .~ [Dir " ++ show includeDir ++ ", Pkg \"musl-include/x86_64\"]"
+        , "      & #clang % #argsBefore .~ " ++ show allArgsBefore
         ]
-      , extraClangArgsLines
+      , [ "      & #clang % #enableBlocks .~ True"
+        | enableBlocks
+        ]
       , bindingSpecLines
       , thCategoryChoiceLines
       , [ "    cfgTh :: ConfigTH"
@@ -110,23 +124,19 @@ generateModule pkgRoot tc = unlines $ concat [
         ]
       ]
 
--- | Extract extra clang arguments from onBoot configuration
+-- | Extract extra @argsBefore@ from @onBoot@ configuration
 --
-extractClangArgs :: (BootConfig -> BootConfig) -> [String]
-extractClangArgs onBoot =
-    -- Apply the modifier to a default config and inspect clangArgs
-    let cfg = onBoot def :: BootConfig
-    in
-    case cfg of
-      BootConfig{clangArgs = ClangArgsConfig{argsBefore = args, enableBlocks = blocks}} ->
-        concat [
-            ["      & #clang % #argsBefore .~ " ++ show args
-            | not (null args)
-            ]
-          , ["      & #clang % #enableBlocks .~ True"
-            | blocks
-            ]
-          ]
+extractArgsBefore :: (BootConfig -> BootConfig) -> [String]
+extractArgsBefore onBoot =
+    let BootConfig{clangArgs = ClangArgsConfig{argsBefore = args}} = onBoot def
+    in args
+
+-- | Extract @enableBlocks@ from @onBoot@ configuration
+--
+extractEnableBlocks :: (BootConfig -> BootConfig) -> Bool
+extractEnableBlocks onBoot =
+    let BootConfig{clangArgs = ClangArgsConfig{enableBlocks = blocks}} = onBoot def
+    in blocks
 
 -- | Generate external binding spec configuration lines
 --
