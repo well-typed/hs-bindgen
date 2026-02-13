@@ -123,7 +123,7 @@ scanAllFunctionPointerTypes = foldMap $ \decl ->
       C.DeclUnion union   ->
         foldMap (scanTypeForFunctionPointers . (.typ)) union.fields
       C.DeclFunction fn ->
-        foldMap scanTypeForFunctionPointers (fn.res : map snd fn.args)
+        foldMap scanTypeForFunctionPointers (fn.res : map (.typ) fn.args)
       _ ->
         Set.empty
   where
@@ -193,7 +193,7 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
-            funType = C.TypeFun (map snd function.args) function.res
+            funType = C.TypeFun (map (.typ) function.args) function.res
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $

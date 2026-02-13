@@ -275,13 +275,11 @@ instance UpdateUseSites C.Enum where
 instance UpdateUseSites C.Function where
   updateUseSites function =
       reconstruct
-        <$> mapM
-              (\(mName, ty) -> (mName,) <$> updateUseSites ty)
-              function.args
+        <$> mapM updateUseSites function.args
         <*> updateUseSites function.res
     where
       reconstruct ::
-           [(Maybe (C.ScopedName), C.Type AssignAnonIds)]
+           [C.FunctionArg AssignAnonIds]
         -> C.Type AssignAnonIds
         -> C.Function AssignAnonIds
       reconstruct functionArgs' functionRes' = C.Function {
@@ -289,6 +287,21 @@ instance UpdateUseSites C.Function where
           , res   = functionRes'
           , attrs = function.attrs
           , ann   = function.ann
+          }
+
+instance UpdateUseSites C.FunctionArg where
+  updateUseSites functionArg =
+      reconstruct
+        <$> pure functionArg.name
+        <*> updateUseSites functionArg.typ
+    where
+      reconstruct ::
+           Maybe C.ScopedName
+        -> C.Type AssignAnonIds
+        -> C.FunctionArg AssignAnonIds
+      reconstruct name' typ' = C.FunctionArg {
+            name = name'
+          , typ = typ'
           }
 
 instance UpdateUseSites C.Type where

@@ -36,7 +36,7 @@ depsOfDecl (C.DeclMacro _ts) =
     -- having /any/ dependencies, and will rely instead on source ordering.
     []
 depsOfDecl (C.DeclFunction function) =
-    concatMap depsOfType (function.res : map snd function.args)
+    concatMap depsOfType (function.res : map (.typ) function.args)
 depsOfDecl (C.DeclGlobal ty) =
     depsOfType ty
 

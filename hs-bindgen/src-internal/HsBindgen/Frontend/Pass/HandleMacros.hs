@@ -344,7 +344,7 @@ processFunction info function =
           info = info
         , ann  = NoAnn
         , kind = C.DeclFunction C.Function{
-              args  = map (bimap id coercePass) function.args
+              args  = map coercePass function.args
             , res   = coercePass function.res
             , attrs = function.attrs
             , ann   = NoAnn
@@ -358,12 +358,17 @@ processFunction info function =
            info = info
          , ann  = NoAnn
          , kind = C.DeclFunction C.Function{
-               args  = map (first (fmap C.ScopedName)) tys
+               args  = map (uncurry mkFunctionArg) tys
              , res   = ty
              , attrs = function.attrs
              , ann   = NoAnn
              }
          }
+      where
+        mkFunctionArg name typ = C.FunctionArg {
+              name = C.ScopedName <$> name
+            , typ = typ
+            }
 
 -- | Globals (externs or constants)
 --

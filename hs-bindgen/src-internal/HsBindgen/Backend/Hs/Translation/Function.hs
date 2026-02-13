@@ -118,7 +118,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
     primResult = classifyArgPassingMethod origCFun.res
 
     primParams :: [PassBy]
-    primParams = map (classifyArgPassingMethod . snd) origCFun.args
+    primParams = map (classifyArgPassingMethod . (.typ)) origCFun.args
 
     foreignImport :: [Hs.Decl]
     foreignImport =
@@ -151,11 +151,11 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
           Hs.ForeignImport.FunParam {
               hsParam =
                 Hs.FunctionParameter{
-                  typ     = Type.inContext Type.FunArg (toPrimitiveType (classifyArgPassingMethod ty))
+                  typ     = Type.inContext Type.FunArg (toPrimitiveType (classifyArgPassingMethod arg.typ))
                 , comment = Nothing
                 }
             }
-        | (_mbName, ty) <- origCFun.args ++ toList ((Nothing,) <$> foreignImportOptParam)
+        | arg <- origCFun.args ++ toList (C.FunctionArg Nothing <$> foreignImportOptParam)
         ]
 
     foreignImportOptParam :: Maybe (C.Type Final)
@@ -203,12 +203,12 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
     restoreOrigSignatureParams :: [Hs.FunctionParameter]
     (mbRestoreOrigSignatureComment, restoreOrigSignatureParams) =
       let params :: [(Maybe Text, Hs.FunctionParameter)]
-          params = [ ( fmap (.cName.text) mbName
+          params = [ ( fmap (.cName.text) arg.name
                      , Hs.FunctionParameter{
-                         typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod ty))
+                         typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod arg.typ))
                        , comment = Nothing
                        })
-                     | (mbName, ty) <- origCFun.args
+                     | arg <- origCFun.args
                      ]
       in  mkHaddocksDecorateParams haddockConfig info mangledOrigName params
 
@@ -476,8 +476,8 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
             callForeignImport args'
       where
         cParamNames :: [Maybe Text]
-        cParamNames = [ fmap (.cName.text) mbName
-                      | (mbName, _ty) <- cFunc.args
+        cParamNames = [ fmap (.cName.text) arg.name
+                      | arg <- cFunc.args
                       ]
 
         mkFunArg :: Maybe Text -> PassBy -> Hs.FunctionParameter -> FunArg
