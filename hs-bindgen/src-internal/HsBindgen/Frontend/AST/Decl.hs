@@ -21,6 +21,7 @@ module HsBindgen.Frontend.AST.Decl (
   , EnumConstant(..)
   , AnonEnumConstant(..)
   , Function(..)
+  , FunctionArg(..)
   , FunctionAttributes(..)
   , FunctionPurity(..)
   , decideFunctionPurity
@@ -218,12 +219,18 @@ data AnonEnumConstant p = AnonEnumConstant{
   deriving stock (Generic, Show, Eq)
 
 data Function p = Function {
-      args  :: [(Maybe (ScopedName p), C.Type p)]
+      args  :: [FunctionArg p]
     , res   :: C.Type p
     , attrs :: FunctionAttributes
     , ann   :: Ann "Function" p
     }
   deriving stock (Generic)
+
+data FunctionArg p = FunctionArg {
+      name :: Maybe (ScopedName p)
+    , typ  :: C.Type p
+    }
+    deriving stock (Generic)
 
 -- | Function attributes specify properties for C functions.
 --
@@ -348,6 +355,7 @@ deriving stock instance IsPass p => Show (DeclKind         p)
 deriving stock instance IsPass p => Show (Enum             p)
 deriving stock instance IsPass p => Show (EnumConstant     p)
 deriving stock instance IsPass p => Show (Function         p)
+deriving stock instance IsPass p => Show (FunctionArg      p)
 deriving stock instance IsPass p => Show (Struct           p)
 deriving stock instance IsPass p => Show (StructField      p)
 deriving stock instance IsPass p => Show (TranslationUnit  p)
@@ -363,6 +371,7 @@ deriving stock instance IsPass p => Eq (Enum             p)
 deriving stock instance IsPass p => Eq (EnumConstant     p)
 deriving stock instance IsPass p => Eq (FieldInfo        p)
 deriving stock instance IsPass p => Eq (Function         p)
+deriving stock instance IsPass p => Eq (FunctionArg      p)
 deriving stock instance IsPass p => Eq (CommentRef       p)
 deriving stock instance IsPass p => Eq (Struct           p)
 deriving stock instance IsPass p => Eq (StructField      p)

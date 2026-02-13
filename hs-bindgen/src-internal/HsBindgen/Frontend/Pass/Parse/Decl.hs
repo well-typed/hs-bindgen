@@ -594,7 +594,7 @@ functionDecl info = \curr -> do
       -> ParseDecl (
             Either
               [ParseResult Parse]
-              ([(Maybe C.ScopedName, C.Type Parse)], C.Type Parse)
+              ([C.FunctionArg Parse], C.Type Parse)
           )
     guardTypeFunction curr ty =
         case ty of
@@ -608,7 +608,10 @@ functionDecl info = \curr -> do
                        then Nothing
                        else Just (C.ScopedName argName)
 
-              return (mbArgName, argCType)
+              return C.FunctionArg {
+                  name = mbArgName
+                , typ = argCType
+                }
             pure $ Right (args', res)
           C.TypeTypedef{} ->
             pure $ Left [

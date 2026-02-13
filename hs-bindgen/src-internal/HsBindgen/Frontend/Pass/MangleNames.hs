@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.MangleNames (
 
 import Control.Monad.Reader
 import Control.Monad.State
-import Data.Bitraversable (bimapM)
 import Data.Foldable qualified as Foldable
 import Data.Function
 import Data.Map qualified as Map
@@ -661,13 +660,22 @@ instance MangleInDecl C.Typedef where
 instance MangleInDecl C.Function where
   mangleInDecl info function = do
       reconstruct
-        <$> mapM
-              (bimapM (mapM $ mangleArgumentName info) mangle)
-              function.args
+        <$> mapM mangleFunctionArg function.args
         <*> mangle function.res
     where
+      mangleFunctionArg ::
+           C.FunctionArg ResolveBindingSpecs
+        -> M (C.FunctionArg MangleNames)
+      mangleFunctionArg functionArg = do
+          name' <- mapM (mangleArgumentName info) functionArg.name
+          typ' <- mangle functionArg.typ
+          pure C.FunctionArg {
+              name = name'
+            , typ = typ'
+            }
+
       reconstruct ::
-           [(Maybe ScopedNamePair, C.Type MangleNames)]
+           [C.FunctionArg MangleNames]
         -> C.Type MangleNames
         -> C.Function MangleNames
       reconstruct functionArgs' functionRes' = C.Function{

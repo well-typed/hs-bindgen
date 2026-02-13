@@ -256,10 +256,19 @@ instance (
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass C.Function p p' where
   coercePass function = C.Function{
-        args  = map (bimap id coercePass) function.args
+        args  = map coercePass function.args
       , res   = coercePass function.res
       , attrs = function.attrs
       , ann   = function.ann
+      }
+
+instance (
+      CoercePass C.Type p p'
+    , ScopedName p ~ ScopedName p'
+    ) => CoercePass C.FunctionArg p p' where
+  coercePass functionArg = C.FunctionArg{
+        name = functionArg.name
+      , typ = coercePass functionArg.typ
       }
 
 instance (

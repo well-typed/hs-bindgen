@@ -437,11 +437,11 @@ instance Resolve C.Typedef where
 instance Resolve C.Function where
   resolve ctx function =
     reconstruct
-      <$> mapM (\(mbName, ty) -> (mbName,) <$> resolve ctx ty) function.args
+      <$> mapM (resolve ctx) function.args
       <*> resolve ctx function.res
     where
       reconstruct ::
-           [(Maybe C.ScopedName, C.Type ResolveBindingSpecs)]
+           [C.FunctionArg ResolveBindingSpecs]
         -> C.Type ResolveBindingSpecs
         -> C.Function ResolveBindingSpecs
       reconstruct functionArgs' functionRes' = C.Function {
@@ -450,6 +450,21 @@ instance Resolve C.Function where
         , attrs = function.attrs
         , ann   = function.ann
         }
+
+instance Resolve C.FunctionArg where
+  resolve ctx functionArg =
+    reconstruct
+      <$> pure functionArg.name
+      <*> resolve ctx functionArg.typ
+    where
+      reconstruct ::
+           Maybe C.ScopedName
+        -> C.Type ResolveBindingSpecs
+        -> C.FunctionArg ResolveBindingSpecs
+      reconstruct name' typ' = C.FunctionArg {
+            name = name'
+          , typ = typ'
+          }
 
 instance Resolve CheckedMacro where
   resolve ctx = \case
