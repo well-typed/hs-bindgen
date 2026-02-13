@@ -72,10 +72,6 @@ module HsBindgen.Runtime.Internal.Prelude (
   , readListDefault
   , readListPrecDefault
 
-    -- TODO D: Check if the entire module can go.
-    -- Primitive (unboxed) type equality
-    -- , TyEq
-
     -- Floating point numbers
   , castWord32ToFloat
   , castWord64ToDouble

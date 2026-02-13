@@ -203,7 +203,7 @@ data Record = Record{
     , con     :: Hs.Name Hs.NsConstr
     , fields  :: [Field]
     , origin  :: Origin.Decl Origin.Struct
-    , deriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , deriv   :: [(Hs.Strategy ClosedType, [Inst.TypeClass])]
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
@@ -217,7 +217,8 @@ data EmptyData = EmptyData{
 
 data DerivingInstance = DerivingInstance{
       strategy :: Hs.Strategy ClosedType
-    , typ      :: ClosedType
+    , cls      :: Inst.TypeClass
+    , con      :: Hs.Name Hs.NsTypeConstr
     , comment  :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
@@ -227,7 +228,7 @@ data Newtype = Newtype{
     , con     :: Hs.Name Hs.NsConstr
     , field   :: Field
     , origin  :: Origin.Decl Origin.Newtype
-    , deriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , deriv   :: [(Hs.Strategy ClosedType, [Inst.TypeClass])]
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)

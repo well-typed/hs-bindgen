@@ -36,6 +36,7 @@ import HsBindgen.Runtime.PtrConst qualified as PtrConst
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Language.Haskell qualified as Hs
 
+-- | A bindgen
 data BindgenImport =
     -- | Unqualified import from "Prelude".
     IHaskellPrelude
@@ -47,8 +48,8 @@ data BindgenImport =
   deriving stock (Eq, Ord, Show)
 
 data Global =
-    BindgenGlobal BindgenImport     TH.Name
-  | CustomGlobal  (Maybe Hs.Import) TH.Name
+    BindgenGlobal BindgenImport TH.Name
+  | CustomGlobal  Hs.Import     TH.Name
   deriving stock (Eq, Ord, Show)
 
 getName :: Global -> TH.Name
@@ -59,9 +60,7 @@ getName = \case
 getHsImport :: Global -> Hs.Import
 getHsImport = \case
     BindgenGlobal i n -> toHsImport n i
-    CustomGlobal  mi n -> case mi of
-      Nothing -> Hs.QualifiedImport (unsafeGetModuleName n) Nothing
-      Just i  -> i
+    CustomGlobal  i _ -> i
   where
     toHsImport :: TH.Name -> BindgenImport -> Hs.Import
     toHsImport n = \case
@@ -582,7 +581,7 @@ data CExprGlobal =
 
 cExprGlobal :: CExprGlobal -> Global
 cExprGlobal x =
-  CustomGlobal (Just $ Hs.QualifiedImport "C.Expr.HostPlatform" Nothing) $ case x of
+  CustomGlobal (Hs.QualifiedImport "C.Expr.HostPlatform" Nothing) $ case x of
     Not_class             -> ''C.Expr.HostPlatform.Not
     Not_not               ->  'C.Expr.HostPlatform.not
     Logical_class         -> ''C.Expr.HostPlatform.Logical

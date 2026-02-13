@@ -37,6 +37,7 @@ import HsBindgen.Backend.HsModule.CAPI (renderCapiWrapper)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.Global
 import HsBindgen.Backend.SHs.Translation (translateType)
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -80,31 +81,29 @@ instance Pretty GhcPragma where
 -------------------------------------------------------------------------------}
 
 resolve :: Global -> BackendName
-resolve = ResolvedBackendName . resolveGlobal
+resolve = ResolvedBackendName . getResolvedName
 
 instance Pretty ImportListItem where
   pretty = \case
-    UnqualifiedImportListItem hsImport Nothing -> PP.hsep
+    UnqualifiedImportListItem name Nothing -> PP.hsep
       [ "import"
-      , PP.string (Hs.moduleNameToString hsImport.name)
+      , PP.string (Hs.moduleNameToString name)
       ]
-    UnqualifiedImportListItem hsImport (Just ns) -> PP.hsep
+    UnqualifiedImportListItem name (Just ns) -> PP.hsep
       [ "import"
-      , PP.string (Hs.moduleNameToString hsImport.name)
+      , PP.string (Hs.moduleNameToString name)
       , PP.parens . PP.hcat . List.intersperse ", " $ map pretty ns
       ]
-    QualifiedImportListItem hsImport -> case hsImport.alias of
-      Just q -> PP.hsep
+    QualifiedImportListItem name Nothing -> PP.hsep
         [ "import qualified"
-        , PP.string (Hs.moduleNameToString hsImport.name)
+        , PP.string (Hs.moduleNameToString name)
+        ]
+    QualifiedImportListItem name (Just q) -> PP.hsep
+        [ "import qualified"
+        , PP.string (Hs.moduleNameToString name)
         , "as"
         , PP.string q
         ]
-      Nothing -> PP.hsep
-        [ "import qualified"
-        , PP.string (Hs.moduleNameToString hsImport.name)
-        ]
-
 
 {-------------------------------------------------------------------------------
   Comment pretty-printing
@@ -809,10 +808,8 @@ instance Pretty ResolvedName where
 ppResolvedName :: ResolvedName -> CtxDoc
 ppResolvedName resolved =
     case resolved.hsImport of
-      Just (QualifiedHsImport hsImport) ->
-        let q = fromMaybe
-                  (Hs.moduleNameToString hsImport.name)
-                  hsImport.alias
+      Just (Hs.QualifiedImport name alias) ->
+        let q = fromMaybe (Hs.moduleNameToString name) alias
         in  PP.string $ q ++ '.' : resolved.string
       _otherwise ->
         PP.string resolved.string

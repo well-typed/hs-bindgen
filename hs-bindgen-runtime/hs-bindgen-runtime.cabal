@@ -85,7 +85,6 @@ library
     HsBindgen.Runtime.Internal.Prelude
     HsBindgen.Runtime.Internal.Ptr
     HsBindgen.Runtime.Internal.SizedByteArray
-    HsBindgen.Runtime.Internal.TypeEquality
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude

@@ -188,44 +188,10 @@ translateNewtype n = DNewtype Newtype{
 translateDeriveInstance :: Hs.DeriveInstance -> SDecl
 translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
       strategy = fmap translateType deriv.strategy
-    , typ      = TApp (translateTypeClass deriv.clss) (TCon deriv.name)
+    , cls      = deriv.clss
+    , con      = deriv.name
     , comment  = deriv.comment
     }
-
-translateTypeClass :: Inst.TypeClass -> ClosedType
-translateTypeClass = \case
-    Inst.Bitfield        -> tBindgenGlobal Bitfield_class
-    Inst.Bits            -> tBindgenGlobal Bits_class
-    Inst.Bounded         -> tBindgenGlobal Bounded_class
-    Inst.CEnum           -> tBindgenGlobal CEnum_class
-    Inst.Enum            -> tBindgenGlobal Enum_class
-    Inst.Eq              -> tBindgenGlobal Eq_class
-    Inst.FiniteBits      -> tBindgenGlobal FiniteBits_class
-    Inst.Floating        -> tBindgenGlobal Floating_class
-    Inst.Fractional      -> tBindgenGlobal Fractional_class
-    Inst.FromFunPtr      -> tBindgenGlobal FromFunPtr_class
-    Inst.Generic         -> tBindgenGlobal Generic_class
-    Inst.HasCBitfield    -> tBindgenGlobal HasCBitfield_class
-    Inst.HasCField       -> tBindgenGlobal HasCField_class
-    Inst.HasFFIType      -> tBindgenGlobal HasFFIType_class
-    Inst.HasField        -> tBindgenGlobal HasField_class
-    Inst.Flam_Offset     -> tBindgenGlobal Flam_Offset_class
-    Inst.Integral        -> tBindgenGlobal Integral_class
-    Inst.Ix              -> tBindgenGlobal Ix_class
-    Inst.Num             -> tBindgenGlobal Num_class
-    Inst.Ord             -> tBindgenGlobal Ord_class
-    Inst.Prim            -> tBindgenGlobal Prim_class
-    Inst.Read            -> tBindgenGlobal Read_class
-    Inst.ReadRaw         -> tBindgenGlobal ReadRaw_class
-    Inst.Real            -> tBindgenGlobal Real_class
-    Inst.RealFloat       -> tBindgenGlobal RealFloat_class
-    Inst.RealFrac        -> tBindgenGlobal RealFrac_class
-    Inst.SequentialCEnum -> tBindgenGlobal SequentialCEnum_class
-    Inst.Show            -> tBindgenGlobal Show_class
-    Inst.StaticSize      -> tBindgenGlobal StaticSize_class
-    Inst.Storable        -> tBindgenGlobal Storable_class
-    Inst.ToFunPtr        -> tBindgenGlobal ToFunPtr_class
-    Inst.WriteRaw        -> tBindgenGlobal WriteRaw_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
 translateForeignImportDecl importDecl = DForeignImport ForeignImport{
