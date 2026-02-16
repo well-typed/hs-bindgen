@@ -79,18 +79,20 @@ instance HasCField Another_typedef_struct_t
     where type CFieldType Another_typedef_struct_t
                           "another_typedef_struct_t_foo" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "another_typedef_struct_t_foo"
+instance TyEq ty CInt =>
+         HasField "another_typedef_struct_t_foo"
                   (Ptr Another_typedef_struct_t)
-                  (Ptr CInt)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"another_typedef_struct_t_foo")
 instance HasCField Another_typedef_struct_t
                    "another_typedef_struct_t_bar"
     where type CFieldType Another_typedef_struct_t
                           "another_typedef_struct_t_bar" = CChar
           offset# = \_ -> \_ -> 4
-instance HasField "another_typedef_struct_t_bar"
+instance TyEq ty CChar =>
+         HasField "another_typedef_struct_t_bar"
                   (Ptr Another_typedef_struct_t)
-                  (Ptr CChar)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"another_typedef_struct_t_bar")
 {-| __C declaration:__ @enum another_typedef_enum_e@
 
@@ -138,9 +140,10 @@ instance Read Another_typedef_enum_e
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance HasField "unwrapAnother_typedef_enum_e"
+instance TyEq ty CUInt =>
+         HasField "unwrapAnother_typedef_enum_e"
                   (Ptr Another_typedef_enum_e)
-                  (Ptr CUInt)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapAnother_typedef_enum_e")
 instance HasCField Another_typedef_enum_e
                    "unwrapAnother_typedef_enum_e"
@@ -247,7 +250,8 @@ newtype A_type_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapA_type_t" (Ptr A_type_t) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "unwrapA_type_t" (Ptr A_type_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA_type_t")
 instance HasCField A_type_t "unwrapA_type_t"
     where type CFieldType A_type_t "unwrapA_type_t" = CInt
@@ -282,7 +286,8 @@ newtype Var_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapVar_t" (Ptr Var_t) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "unwrapVar_t" (Ptr Var_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapVar_t")
 instance HasCField Var_t "unwrapVar_t"
     where type CFieldType Var_t "unwrapVar_t" = CInt
@@ -405,83 +410,93 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_0"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_0" = CBool
           offset# = \_ -> \_ -> 0
-instance HasField "a_typedef_struct_t_field_0"
+instance TyEq ty CBool =>
+         HasField "a_typedef_struct_t_field_0"
                   (Ptr A_typedef_struct_t)
-                  (Ptr CBool)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_0")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_1"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_1" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 1
-instance HasField "a_typedef_struct_t_field_1"
+instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "a_typedef_struct_t_field_1"
                   (Ptr A_typedef_struct_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word8)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_1")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_2"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_2" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 2
-instance HasField "a_typedef_struct_t_field_2"
+instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "a_typedef_struct_t_field_2"
                   (Ptr A_typedef_struct_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word16)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_2")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_3"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_3" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 4
-instance HasField "a_typedef_struct_t_field_3"
+instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "a_typedef_struct_t_field_3"
                   (Ptr A_typedef_struct_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word32)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_3")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_4"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_4" = Another_typedef_struct_t
           offset# = \_ -> \_ -> 8
-instance HasField "a_typedef_struct_t_field_4"
+instance TyEq ty Another_typedef_struct_t =>
+         HasField "a_typedef_struct_t_field_4"
                   (Ptr A_typedef_struct_t)
-                  (Ptr Another_typedef_struct_t)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_4")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_5"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_5" = Ptr Another_typedef_struct_t
           offset# = \_ -> \_ -> 16
-instance HasField "a_typedef_struct_t_field_5"
+instance TyEq ty (Ptr Another_typedef_struct_t) =>
+         HasField "a_typedef_struct_t_field_5"
                   (Ptr A_typedef_struct_t)
-                  (Ptr (Ptr Another_typedef_struct_t))
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_5")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_6"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_6" = Ptr Void
           offset# = \_ -> \_ -> 24
-instance HasField "a_typedef_struct_t_field_6"
+instance TyEq ty (Ptr Void) =>
+         HasField "a_typedef_struct_t_field_6"
                   (Ptr A_typedef_struct_t)
-                  (Ptr (Ptr Void))
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_6")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_7"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_7" = ConstantArray 7
                                                                        HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 32
-instance HasField "a_typedef_struct_t_field_7"
+instance TyEq ty (ConstantArray 7 HsBindgen.Runtime.LibC.Word32) =>
+         HasField "a_typedef_struct_t_field_7"
                   (Ptr A_typedef_struct_t)
-                  (Ptr (ConstantArray 7 HsBindgen.Runtime.LibC.Word32))
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_7")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_8"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_8" = Another_typedef_enum_e
           offset# = \_ -> \_ -> 60
-instance HasField "a_typedef_struct_t_field_8"
+instance TyEq ty Another_typedef_enum_e =>
+         HasField "a_typedef_struct_t_field_8"
                   (Ptr A_typedef_struct_t)
-                  (Ptr Another_typedef_enum_e)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_8")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_9"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_9" = ConstantArray 4
                                                                        Another_typedef_enum_e
           offset# = \_ -> \_ -> 64
-instance HasField "a_typedef_struct_t_field_9"
+instance TyEq ty (ConstantArray 4 Another_typedef_enum_e) =>
+         HasField "a_typedef_struct_t_field_9"
                   (Ptr A_typedef_struct_t)
-                  (Ptr (ConstantArray 4 Another_typedef_enum_e))
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_9")
 instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_10"
     where type CFieldType A_typedef_struct_t
@@ -489,9 +504,11 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_10"
                                                                         (ConstantArray 3
                                                                                        Another_typedef_enum_e)
           offset# = \_ -> \_ -> 80
-instance HasField "a_typedef_struct_t_field_10"
+instance TyEq ty
+              (ConstantArray 5 (ConstantArray 3 Another_typedef_enum_e)) =>
+         HasField "a_typedef_struct_t_field_10"
                   (Ptr A_typedef_struct_t)
-                  (Ptr (ConstantArray 5 (ConstantArray 3 Another_typedef_enum_e)))
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_10")
 {-| __C declaration:__ @A_DEFINE_0@
 
@@ -597,9 +614,8 @@ instance Read A_typedef_enum_e
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance HasField "unwrapA_typedef_enum_e"
-                  (Ptr A_typedef_enum_e)
-                  (Ptr CUChar)
+instance TyEq ty CUChar =>
+         HasField "unwrapA_typedef_enum_e" (Ptr A_typedef_enum_e) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA_typedef_enum_e")
 instance HasCField A_typedef_enum_e "unwrapA_typedef_enum_e"
     where type CFieldType A_typedef_enum_e
@@ -705,10 +721,11 @@ instance ToFunPtr Callback_t_Aux
     where toFunPtr = hs_bindgen_b6b6922e35047658
 instance FromFunPtr Callback_t_Aux
     where fromFunPtr = hs_bindgen_d6debb4b8d5bb869
-instance HasField "unwrapCallback_t_Aux"
-                  (Ptr Callback_t_Aux)
-                  (Ptr (Ptr Void ->
-                        HsBindgen.Runtime.LibC.Word32 -> IO HsBindgen.Runtime.LibC.Word32))
+instance TyEq ty
+              (Ptr Void ->
+               HsBindgen.Runtime.LibC.Word32 ->
+               IO HsBindgen.Runtime.LibC.Word32) =>
+         HasField "unwrapCallback_t_Aux" (Ptr Callback_t_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapCallback_t_Aux")
 instance HasCField Callback_t_Aux "unwrapCallback_t_Aux"
     where type CFieldType Callback_t_Aux
@@ -736,9 +753,8 @@ newtype Callback_t
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapCallback_t"
-                  (Ptr Callback_t)
-                  (Ptr (FunPtr Callback_t_Aux))
+instance TyEq ty (FunPtr Callback_t_Aux) =>
+         HasField "unwrapCallback_t" (Ptr Callback_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapCallback_t")
 instance HasCField Callback_t "unwrapCallback_t"
     where type CFieldType Callback_t

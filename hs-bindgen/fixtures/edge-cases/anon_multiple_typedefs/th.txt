@@ -64,12 +64,14 @@ deriving via (EquivStorable Point1a) instance Storable Point1a
 instance HasCField Point1a "point1a_x"
     where type CFieldType Point1a "point1a_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "point1a_x" (Ptr Point1a) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "point1a_x" (Ptr Point1a) (Ptr ty)
     where getField = fromPtr (Proxy @"point1a_x")
 instance HasCField Point1a "point1a_y"
     where type CFieldType Point1a "point1a_y" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "point1a_y" (Ptr Point1a) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "point1a_y" (Ptr Point1a) (Ptr ty)
     where getField = fromPtr (Proxy @"point1a_y")
 {-| __C declaration:__ @point1b@
 
@@ -87,7 +89,8 @@ newtype Point1b
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapPoint1b" (Ptr Point1b) (Ptr Point1a)
+instance TyEq ty Point1a =>
+         HasField "unwrapPoint1b" (Ptr Point1b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint1b")
 instance HasCField Point1b "unwrapPoint1b"
     where type CFieldType Point1b "unwrapPoint1b" = Point1a
@@ -133,12 +136,14 @@ deriving via (EquivStorable Point2a) instance Storable Point2a
 instance HasCField Point2a "point2a_x"
     where type CFieldType Point2a "point2a_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "point2a_x" (Ptr Point2a) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "point2a_x" (Ptr Point2a) (Ptr ty)
     where getField = fromPtr (Proxy @"point2a_x")
 instance HasCField Point2a "point2a_y"
     where type CFieldType Point2a "point2a_y" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "point2a_y" (Ptr Point2a) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "point2a_y" (Ptr Point2a) (Ptr ty)
     where getField = fromPtr (Proxy @"point2a_y")
 {-| __C declaration:__ @point2b@
 
@@ -160,7 +165,8 @@ newtype Point2b
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapPoint2b" (Ptr Point2b) (Ptr (Ptr Point2a))
+instance TyEq ty (Ptr Point2a) =>
+         HasField "unwrapPoint2b" (Ptr Point2b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint2b")
 instance HasCField Point2b "unwrapPoint2b"
     where type CFieldType Point2b "unwrapPoint2b" = Ptr Point2a
@@ -206,12 +212,14 @@ deriving via (EquivStorable Point3a_Aux) instance Storable Point3a_Aux
 instance HasCField Point3a_Aux "point3a_Aux_x"
     where type CFieldType Point3a_Aux "point3a_Aux_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "point3a_Aux_x" (Ptr Point3a_Aux) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "point3a_Aux_x" (Ptr Point3a_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"point3a_Aux_x")
 instance HasCField Point3a_Aux "point3a_Aux_y"
     where type CFieldType Point3a_Aux "point3a_Aux_y" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "point3a_Aux_y" (Ptr Point3a_Aux) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "point3a_Aux_y" (Ptr Point3a_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"point3a_Aux_y")
 {-| __C declaration:__ @point3a@
 
@@ -233,9 +241,8 @@ newtype Point3a
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapPoint3a"
-                  (Ptr Point3a)
-                  (Ptr (Ptr Point3a_Aux))
+instance TyEq ty (Ptr Point3a_Aux) =>
+         HasField "unwrapPoint3a" (Ptr Point3a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint3a")
 instance HasCField Point3a "unwrapPoint3a"
     where type CFieldType Point3a "unwrapPoint3a" = Ptr Point3a_Aux
@@ -260,9 +267,8 @@ newtype Point3b
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapPoint3b"
-                  (Ptr Point3b)
-                  (Ptr (Ptr Point3a_Aux))
+instance TyEq ty (Ptr Point3a_Aux) =>
+         HasField "unwrapPoint3b" (Ptr Point3b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPoint3b")
 instance HasCField Point3b "unwrapPoint3b"
     where type CFieldType Point3b "unwrapPoint3b" = Ptr Point3a_Aux

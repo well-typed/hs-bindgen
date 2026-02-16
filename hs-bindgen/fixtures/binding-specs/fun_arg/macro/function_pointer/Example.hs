@@ -2,12 +2,14 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -24,6 +26,7 @@ import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Prelude as P
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Eq, IO, Ord, Show)
 
 {-| Auxiliary type used by 'MyFunctionPointer'
@@ -72,7 +75,8 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr MyFunctionPointer_Aux wher
 
   fromFunPtr = hs_bindgen_5738272f94a589e2
 
-instance GHC.Records.HasField "unwrapMyFunctionPointer_Aux" (Ptr.Ptr MyFunctionPointer_Aux) (Ptr.Ptr (FC.CInt -> IO FC.CInt)) where
+instance ( TyEq ty (FC.CInt -> IO FC.CInt)
+         ) => GHC.Records.HasField "unwrapMyFunctionPointer_Aux" (Ptr.Ptr MyFunctionPointer_Aux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunctionPointer_Aux")
@@ -102,7 +106,8 @@ newtype MyFunctionPointer = MyFunctionPointer
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance GHC.Records.HasField "unwrapMyFunctionPointer" (Ptr.Ptr MyFunctionPointer) (Ptr.Ptr (Ptr.FunPtr MyFunctionPointer_Aux)) where
+instance ( TyEq ty (Ptr.FunPtr MyFunctionPointer_Aux)
+         ) => GHC.Records.HasField "unwrapMyFunctionPointer" (Ptr.Ptr MyFunctionPointer) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunctionPointer")
@@ -132,7 +137,8 @@ newtype A = A
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr MyFunctionPointer) where
+instance ( TyEq ty MyFunctionPointer
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
@@ -161,7 +167,8 @@ newtype B = B
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr A) where
+instance ( TyEq ty A
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")

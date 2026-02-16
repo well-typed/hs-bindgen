@@ -34,7 +34,8 @@ instance HasCField UnrelatedDeclaration "unrelatedDeclaration_m"
     where type CFieldType UnrelatedDeclaration
                           "unrelatedDeclaration_m" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "unrelatedDeclaration_m"
+instance TyEq ty CInt =>
+         HasField "unrelatedDeclaration_m"
                   (Ptr UnrelatedDeclaration)
-                  (Ptr CInt)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unrelatedDeclaration_m")

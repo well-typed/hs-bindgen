@@ -2,12 +2,14 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,6 +24,7 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified Prelude as P
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (IO)
 
 {-| __C declaration:__ @MyFunction@
@@ -68,7 +71,8 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr MyFunction where
 
   fromFunPtr = hs_bindgen_bb71f7e730356103
 
-instance GHC.Records.HasField "unwrapMyFunction" (Ptr.Ptr MyFunction) (Ptr.Ptr (FC.CInt -> IO FC.CInt)) where
+instance ( TyEq ty (FC.CInt -> IO FC.CInt)
+         ) => GHC.Records.HasField "unwrapMyFunction" (Ptr.Ptr MyFunction) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunction")
@@ -92,7 +96,8 @@ newtype A = A
   deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
-instance GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr MyFunction) where
+instance ( TyEq ty MyFunction
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
@@ -115,7 +120,8 @@ newtype B = B
   deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
-instance GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr A) where
+instance ( TyEq ty A
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")

@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -9,6 +10,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -28,6 +30,7 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @struct bools1@
@@ -86,7 +89,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bools1 "bools1_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "bools1_x" (Ptr.Ptr Bools1) (Ptr.Ptr FC.CBool) where
+instance ( TyEq ty FC.CBool
+         ) => GHC.Records.HasField "bools1_x" (Ptr.Ptr Bools1) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools1_x")
@@ -97,7 +101,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bools1 "bools1_y" where
 
   offset# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "bools1_y" (Ptr.Ptr Bools1) (Ptr.Ptr FC.CBool) where
+instance ( TyEq ty FC.CBool
+         ) => GHC.Records.HasField "bools1_y" (Ptr.Ptr Bools1) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools1_y")
@@ -158,7 +163,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bools2 "bools2_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "bools2_x" (Ptr.Ptr Bools2) (Ptr.Ptr FC.CBool) where
+instance ( TyEq ty FC.CBool
+         ) => GHC.Records.HasField "bools2_x" (Ptr.Ptr Bools2) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools2_x")
@@ -169,7 +175,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bools2 "bools2_y" where
 
   offset# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "bools2_y" (Ptr.Ptr Bools2) (Ptr.Ptr FC.CBool) where
+instance ( TyEq ty FC.CBool
+         ) => GHC.Records.HasField "bools2_y" (Ptr.Ptr Bools2) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools2_y")
@@ -202,7 +209,8 @@ newtype BOOL = BOOL
     , Real
     )
 
-instance GHC.Records.HasField "unwrapBOOL" (Ptr.Ptr BOOL) (Ptr.Ptr FC.CBool) where
+instance ( TyEq ty FC.CBool
+         ) => GHC.Records.HasField "unwrapBOOL" (Ptr.Ptr BOOL) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapBOOL")
@@ -269,7 +277,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bools3 "bools3_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "bools3_x" (Ptr.Ptr Bools3) (Ptr.Ptr BOOL) where
+instance ( TyEq ty BOOL
+         ) => GHC.Records.HasField "bools3_x" (Ptr.Ptr Bools3) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools3_x")
@@ -280,7 +289,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bools3 "bools3_y" where
 
   offset# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "bools3_y" (Ptr.Ptr Bools3) (Ptr.Ptr BOOL) where
+instance ( TyEq ty BOOL
+         ) => GHC.Records.HasField "bools3_y" (Ptr.Ptr Bools3) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools3_y")

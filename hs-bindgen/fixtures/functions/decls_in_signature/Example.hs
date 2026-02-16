@@ -3,12 +3,14 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -24,6 +26,7 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.ByteArray
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct opaque@
@@ -90,7 +93,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Outside "outside_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "outside_x" (Ptr.Ptr Outside) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "outside_x" (Ptr.Ptr Outside) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"outside_x")
@@ -101,7 +105,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Outside "outside_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "outside_y" (Ptr.Ptr Outside) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "outside_y" (Ptr.Ptr Outside) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"outside_y")
@@ -167,7 +172,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Named_struct "named_struct_x" whe
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "named_struct_x" (Ptr.Ptr Named_struct) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "named_struct_x" (Ptr.Ptr Named_struct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_struct_x")
@@ -179,7 +185,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Named_struct "named_struct_y" whe
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "named_struct_y" (Ptr.Ptr Named_struct) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "named_struct_y" (Ptr.Ptr Named_struct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_struct_y")
@@ -263,7 +270,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Named_union "named_union_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "named_union_x" (Ptr.Ptr Named_union) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "named_union_x" (Ptr.Ptr Named_union) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_union_x")
@@ -275,7 +283,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Named_union "named_union_y" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "named_union_y" (Ptr.Ptr Named_union) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "named_union_y" (Ptr.Ptr Named_union) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_union_y")

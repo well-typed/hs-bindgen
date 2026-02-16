@@ -15,9 +15,8 @@ newtype Triplet
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapTriplet"
-                  (Ptr Triplet)
-                  (Ptr (ConstantArray 3 CInt))
+instance TyEq ty (ConstantArray 3 CInt) =>
+         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
 instance HasCField Triplet "unwrapTriplet"
     where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3

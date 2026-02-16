@@ -341,7 +341,7 @@ newtype I
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapI" (Ptr I) (Ptr CInt)
+instance TyEq ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapI")
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
@@ -376,7 +376,7 @@ newtype C
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapC" (Ptr C) (Ptr CChar)
+instance TyEq ty CChar => HasField "unwrapC" (Ptr C) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapC")
 instance HasCField C "unwrapC"
     where type CFieldType C "unwrapC" = CChar
@@ -409,7 +409,7 @@ newtype F
                       Real,
                       RealFloat,
                       RealFrac)
-instance HasField "unwrapF" (Ptr F) (Ptr CFloat)
+instance TyEq ty CFloat => HasField "unwrapF" (Ptr F) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF")
 instance HasCField F "unwrapF"
     where type CFieldType F "unwrapF" = CFloat
@@ -444,7 +444,7 @@ newtype L
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapL" (Ptr L) (Ptr CLong)
+instance TyEq ty CLong => HasField "unwrapL" (Ptr L) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapL")
 instance HasCField L "unwrapL"
     where type CFieldType L "unwrapL" = CLong
@@ -479,7 +479,7 @@ newtype S
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapS" (Ptr S) (Ptr CShort)
+instance TyEq ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapS")
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = CShort

@@ -32,7 +32,8 @@ deriving via (EquivStorable OkBefore) instance Storable OkBefore
 instance HasCField OkBefore "okBefore_x"
     where type CFieldType OkBefore "okBefore_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "okBefore_x" (Ptr OkBefore) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
     where getField = fromPtr (Proxy @"okBefore_x")
 {-| __C declaration:__ @struct OkAfter@
 
@@ -67,5 +68,6 @@ deriving via (EquivStorable OkAfter) instance Storable OkAfter
 instance HasCField OkAfter "okAfter_x"
     where type CFieldType OkAfter "okAfter_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "okAfter_x" (Ptr OkAfter) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "okAfter_x" (Ptr OkAfter) (Ptr ty)
     where getField = fromPtr (Proxy @"okAfter_x")

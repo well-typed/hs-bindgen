@@ -30,9 +30,10 @@ newtype ParsedAndSelected1
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapParsedAndSelected1"
+instance TyEq ty CInt =>
+         HasField "unwrapParsedAndSelected1"
                   (Ptr ParsedAndSelected1)
-                  (Ptr CInt)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapParsedAndSelected1")
 instance HasCField ParsedAndSelected1 "unwrapParsedAndSelected1"
     where type CFieldType ParsedAndSelected1

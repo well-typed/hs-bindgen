@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,6 +25,7 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.ByteArray
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct Dim2@
@@ -81,7 +84,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Dim2 "dim2_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dim2_x" (Ptr.Ptr Dim2) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "dim2_x" (Ptr.Ptr Dim2) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim2_x")
@@ -92,7 +96,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Dim2 "dim2_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "dim2_y" (Ptr.Ptr Dim2) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "dim2_y" (Ptr.Ptr Dim2) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim2_y")
@@ -162,7 +167,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dim3_x" (Ptr.Ptr Dim3) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "dim3_x" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim3_x")
@@ -173,7 +179,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "dim3_y" (Ptr.Ptr Dim3) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "dim3_y" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim3_y")
@@ -184,7 +191,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_z" where
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "dim3_z" (Ptr.Ptr Dim3) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "dim3_z" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim3_z")
@@ -268,7 +276,8 @@ instance HsBindgen.Runtime.HasCField.HasCField DimPayload "dimPayload_dim2" wher
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dimPayload_dim2" (Ptr.Ptr DimPayload) (Ptr.Ptr Dim2) where
+instance ( TyEq ty Dim2
+         ) => GHC.Records.HasField "dimPayload_dim2" (Ptr.Ptr DimPayload) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayload_dim2")
@@ -279,7 +288,8 @@ instance HsBindgen.Runtime.HasCField.HasCField DimPayload "dimPayload_dim3" wher
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dimPayload_dim3" (Ptr.Ptr DimPayload) (Ptr.Ptr Dim2) where
+instance ( TyEq ty Dim2
+         ) => GHC.Records.HasField "dimPayload_dim3" (Ptr.Ptr DimPayload) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayload_dim3")
@@ -340,7 +350,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Dim "dim_tag" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dim_tag" (Ptr.Ptr Dim) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "dim_tag" (Ptr.Ptr Dim) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim_tag")
@@ -351,7 +362,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Dim "dim_payload" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "dim_payload" (Ptr.Ptr Dim) (Ptr.Ptr DimPayload) where
+instance ( TyEq ty DimPayload
+         ) => GHC.Records.HasField "dim_payload" (Ptr.Ptr Dim) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim_payload")
@@ -435,7 +447,8 @@ instance HsBindgen.Runtime.HasCField.HasCField DimPayloadB "dimPayloadB_dim2" wh
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dimPayloadB_dim2" (Ptr.Ptr DimPayloadB) (Ptr.Ptr Dim2) where
+instance ( TyEq ty Dim2
+         ) => GHC.Records.HasField "dimPayloadB_dim2" (Ptr.Ptr DimPayloadB) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayloadB_dim2")
@@ -446,7 +459,8 @@ instance HsBindgen.Runtime.HasCField.HasCField DimPayloadB "dimPayloadB_dim3" wh
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dimPayloadB_dim3" (Ptr.Ptr DimPayloadB) (Ptr.Ptr Dim2) where
+instance ( TyEq ty Dim2
+         ) => GHC.Records.HasField "dimPayloadB_dim3" (Ptr.Ptr DimPayloadB) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayloadB_dim3")
@@ -507,7 +521,8 @@ instance HsBindgen.Runtime.HasCField.HasCField DimB "dimB_tag" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "dimB_tag" (Ptr.Ptr DimB) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "dimB_tag" (Ptr.Ptr DimB) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimB_tag")
@@ -518,7 +533,8 @@ instance HsBindgen.Runtime.HasCField.HasCField DimB "dimB_payload" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "dimB_payload" (Ptr.Ptr DimB) (Ptr.Ptr DimPayloadB) where
+instance ( TyEq ty DimPayloadB
+         ) => GHC.Records.HasField "dimB_payload" (Ptr.Ptr DimB) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimB_payload")
@@ -579,7 +595,8 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonA_xy "anonA_xy_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "anonA_xy_x" (Ptr.Ptr AnonA_xy) (Ptr.Ptr FC.CDouble) where
+instance ( TyEq ty FC.CDouble
+         ) => GHC.Records.HasField "anonA_xy_x" (Ptr.Ptr AnonA_xy) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_xy_x")
@@ -590,7 +607,8 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonA_xy "anonA_xy_y" where
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "anonA_xy_y" (Ptr.Ptr AnonA_xy) (Ptr.Ptr FC.CDouble) where
+instance ( TyEq ty FC.CDouble
+         ) => GHC.Records.HasField "anonA_xy_y" (Ptr.Ptr AnonA_xy) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_xy_y")
@@ -652,7 +670,8 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonA_polar "anonA_polar_r" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "anonA_polar_r" (Ptr.Ptr AnonA_polar) (Ptr.Ptr FC.CDouble) where
+instance ( TyEq ty FC.CDouble
+         ) => GHC.Records.HasField "anonA_polar_r" (Ptr.Ptr AnonA_polar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_polar_r")
@@ -664,7 +683,8 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonA_polar "anonA_polar_p" where
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "anonA_polar_p" (Ptr.Ptr AnonA_polar) (Ptr.Ptr FC.CDouble) where
+instance ( TyEq ty FC.CDouble
+         ) => GHC.Records.HasField "anonA_polar_p" (Ptr.Ptr AnonA_polar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_polar_p")
@@ -748,7 +768,8 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonA "anonA_xy" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "anonA_xy" (Ptr.Ptr AnonA) (Ptr.Ptr AnonA_xy) where
+instance ( TyEq ty AnonA_xy
+         ) => GHC.Records.HasField "anonA_xy" (Ptr.Ptr AnonA) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_xy")
@@ -759,7 +780,8 @@ instance HsBindgen.Runtime.HasCField.HasCField AnonA "anonA_polar" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "anonA_polar" (Ptr.Ptr AnonA) (Ptr.Ptr AnonA_polar) where
+instance ( TyEq ty AnonA_polar
+         ) => GHC.Records.HasField "anonA_polar" (Ptr.Ptr AnonA) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_polar")

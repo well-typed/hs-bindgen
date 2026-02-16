@@ -34,9 +34,10 @@ newtype Prim_HsPrimCPtrdiff
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCPtrdiff"
+instance TyEq ty HsBindgen.Runtime.LibC.CPtrdiff =>
+         HasField "unwrapPrim_HsPrimCPtrdiff"
                   (Ptr Prim_HsPrimCPtrdiff)
-                  (Ptr HsBindgen.Runtime.LibC.CPtrdiff)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCPtrdiff")
 instance HasCField Prim_HsPrimCPtrdiff "unwrapPrim_HsPrimCPtrdiff"
     where type CFieldType Prim_HsPrimCPtrdiff
@@ -72,9 +73,8 @@ newtype Prim_HsPrimInt8
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimInt8"
-                  (Ptr Prim_HsPrimInt8)
-                  (Ptr HsBindgen.Runtime.LibC.Int8)
+instance TyEq ty HsBindgen.Runtime.LibC.Int8 =>
+         HasField "unwrapPrim_HsPrimInt8" (Ptr Prim_HsPrimInt8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt8")
 instance HasCField Prim_HsPrimInt8 "unwrapPrim_HsPrimInt8"
     where type CFieldType Prim_HsPrimInt8
@@ -110,9 +110,8 @@ newtype Prim_HsPrimInt16
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimInt16"
-                  (Ptr Prim_HsPrimInt16)
-                  (Ptr HsBindgen.Runtime.LibC.Int16)
+instance TyEq ty HsBindgen.Runtime.LibC.Int16 =>
+         HasField "unwrapPrim_HsPrimInt16" (Ptr Prim_HsPrimInt16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt16")
 instance HasCField Prim_HsPrimInt16 "unwrapPrim_HsPrimInt16"
     where type CFieldType Prim_HsPrimInt16
@@ -148,9 +147,8 @@ newtype Prim_HsPrimInt32
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimInt32"
-                  (Ptr Prim_HsPrimInt32)
-                  (Ptr HsBindgen.Runtime.LibC.Int32)
+instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapPrim_HsPrimInt32" (Ptr Prim_HsPrimInt32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt32")
 instance HasCField Prim_HsPrimInt32 "unwrapPrim_HsPrimInt32"
     where type CFieldType Prim_HsPrimInt32
@@ -186,9 +184,8 @@ newtype Prim_HsPrimInt64
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimInt64"
-                  (Ptr Prim_HsPrimInt64)
-                  (Ptr HsBindgen.Runtime.LibC.Int64)
+instance TyEq ty HsBindgen.Runtime.LibC.Int64 =>
+         HasField "unwrapPrim_HsPrimInt64" (Ptr Prim_HsPrimInt64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt64")
 instance HasCField Prim_HsPrimInt64 "unwrapPrim_HsPrimInt64"
     where type CFieldType Prim_HsPrimInt64
@@ -224,9 +221,8 @@ newtype Prim_HsPrimWord8
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimWord8"
-                  (Ptr Prim_HsPrimWord8)
-                  (Ptr HsBindgen.Runtime.LibC.Word8)
+instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "unwrapPrim_HsPrimWord8" (Ptr Prim_HsPrimWord8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord8")
 instance HasCField Prim_HsPrimWord8 "unwrapPrim_HsPrimWord8"
     where type CFieldType Prim_HsPrimWord8
@@ -262,9 +258,8 @@ newtype Prim_HsPrimWord16
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimWord16"
-                  (Ptr Prim_HsPrimWord16)
-                  (Ptr HsBindgen.Runtime.LibC.Word16)
+instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "unwrapPrim_HsPrimWord16" (Ptr Prim_HsPrimWord16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord16")
 instance HasCField Prim_HsPrimWord16 "unwrapPrim_HsPrimWord16"
     where type CFieldType Prim_HsPrimWord16
@@ -300,9 +295,8 @@ newtype Prim_HsPrimWord32
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimWord32"
-                  (Ptr Prim_HsPrimWord32)
-                  (Ptr HsBindgen.Runtime.LibC.Word32)
+instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "unwrapPrim_HsPrimWord32" (Ptr Prim_HsPrimWord32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord32")
 instance HasCField Prim_HsPrimWord32 "unwrapPrim_HsPrimWord32"
     where type CFieldType Prim_HsPrimWord32
@@ -338,9 +332,8 @@ newtype Prim_HsPrimWord64
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimWord64"
-                  (Ptr Prim_HsPrimWord64)
-                  (Ptr HsBindgen.Runtime.LibC.Word64)
+instance TyEq ty HsBindgen.Runtime.LibC.Word64 =>
+         HasField "unwrapPrim_HsPrimWord64" (Ptr Prim_HsPrimWord64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord64")
 instance HasCField Prim_HsPrimWord64 "unwrapPrim_HsPrimWord64"
     where type CFieldType Prim_HsPrimWord64
@@ -376,9 +369,8 @@ newtype Prim_HsPrimCChar
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCChar"
-                  (Ptr Prim_HsPrimCChar)
-                  (Ptr CChar)
+instance TyEq ty CChar =>
+         HasField "unwrapPrim_HsPrimCChar" (Ptr Prim_HsPrimCChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCChar")
 instance HasCField Prim_HsPrimCChar "unwrapPrim_HsPrimCChar"
     where type CFieldType Prim_HsPrimCChar
@@ -414,9 +406,8 @@ newtype Prim_HsPrimCSChar
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCSChar"
-                  (Ptr Prim_HsPrimCSChar)
-                  (Ptr CSChar)
+instance TyEq ty CSChar =>
+         HasField "unwrapPrim_HsPrimCSChar" (Ptr Prim_HsPrimCSChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCSChar")
 instance HasCField Prim_HsPrimCSChar "unwrapPrim_HsPrimCSChar"
     where type CFieldType Prim_HsPrimCSChar
@@ -452,9 +443,8 @@ newtype Prim_HsPrimCUChar
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCUChar"
-                  (Ptr Prim_HsPrimCUChar)
-                  (Ptr CUChar)
+instance TyEq ty CUChar =>
+         HasField "unwrapPrim_HsPrimCUChar" (Ptr Prim_HsPrimCUChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUChar")
 instance HasCField Prim_HsPrimCUChar "unwrapPrim_HsPrimCUChar"
     where type CFieldType Prim_HsPrimCUChar
@@ -490,9 +480,8 @@ newtype Prim_HsPrimCShort
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCShort"
-                  (Ptr Prim_HsPrimCShort)
-                  (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "unwrapPrim_HsPrimCShort" (Ptr Prim_HsPrimCShort) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCShort")
 instance HasCField Prim_HsPrimCShort "unwrapPrim_HsPrimCShort"
     where type CFieldType Prim_HsPrimCShort
@@ -528,9 +517,10 @@ newtype Prim_HsPrimCUShort
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCUShort"
+instance TyEq ty CUShort =>
+         HasField "unwrapPrim_HsPrimCUShort"
                   (Ptr Prim_HsPrimCUShort)
-                  (Ptr CUShort)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUShort")
 instance HasCField Prim_HsPrimCUShort "unwrapPrim_HsPrimCUShort"
     where type CFieldType Prim_HsPrimCUShort
@@ -566,9 +556,8 @@ newtype Prim_HsPrimCInt
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCInt"
-                  (Ptr Prim_HsPrimCInt)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "unwrapPrim_HsPrimCInt" (Ptr Prim_HsPrimCInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCInt")
 instance HasCField Prim_HsPrimCInt "unwrapPrim_HsPrimCInt"
     where type CFieldType Prim_HsPrimCInt
@@ -604,9 +593,8 @@ newtype Prim_HsPrimCUInt
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCUInt"
-                  (Ptr Prim_HsPrimCUInt)
-                  (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "unwrapPrim_HsPrimCUInt" (Ptr Prim_HsPrimCUInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUInt")
 instance HasCField Prim_HsPrimCUInt "unwrapPrim_HsPrimCUInt"
     where type CFieldType Prim_HsPrimCUInt
@@ -642,9 +630,8 @@ newtype Prim_HsPrimCLong
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCLong"
-                  (Ptr Prim_HsPrimCLong)
-                  (Ptr CLong)
+instance TyEq ty CLong =>
+         HasField "unwrapPrim_HsPrimCLong" (Ptr Prim_HsPrimCLong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLong")
 instance HasCField Prim_HsPrimCLong "unwrapPrim_HsPrimCLong"
     where type CFieldType Prim_HsPrimCLong
@@ -680,9 +667,8 @@ newtype Prim_HsPrimCULong
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCULong"
-                  (Ptr Prim_HsPrimCULong)
-                  (Ptr CULong)
+instance TyEq ty CULong =>
+         HasField "unwrapPrim_HsPrimCULong" (Ptr Prim_HsPrimCULong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCULong")
 instance HasCField Prim_HsPrimCULong "unwrapPrim_HsPrimCULong"
     where type CFieldType Prim_HsPrimCULong
@@ -718,9 +704,8 @@ newtype Prim_HsPrimCLLong
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCLLong"
-                  (Ptr Prim_HsPrimCLLong)
-                  (Ptr CLLong)
+instance TyEq ty CLLong =>
+         HasField "unwrapPrim_HsPrimCLLong" (Ptr Prim_HsPrimCLLong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLLong")
 instance HasCField Prim_HsPrimCLLong "unwrapPrim_HsPrimCLLong"
     where type CFieldType Prim_HsPrimCLLong
@@ -756,9 +741,10 @@ newtype Prim_HsPrimCULLong
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCULLong"
+instance TyEq ty CULLong =>
+         HasField "unwrapPrim_HsPrimCULLong"
                   (Ptr Prim_HsPrimCULLong)
-                  (Ptr CULLong)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCULLong")
 instance HasCField Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong"
     where type CFieldType Prim_HsPrimCULLong
@@ -794,9 +780,8 @@ newtype Prim_HsPrimCBool
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapPrim_HsPrimCBool"
-                  (Ptr Prim_HsPrimCBool)
-                  (Ptr CBool)
+instance TyEq ty CBool =>
+         HasField "unwrapPrim_HsPrimCBool" (Ptr Prim_HsPrimCBool) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCBool")
 instance HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool"
     where type CFieldType Prim_HsPrimCBool
@@ -830,9 +815,8 @@ newtype Prim_HsPrimCFloat
                       Real,
                       RealFloat,
                       RealFrac)
-instance HasField "unwrapPrim_HsPrimCFloat"
-                  (Ptr Prim_HsPrimCFloat)
-                  (Ptr CFloat)
+instance TyEq ty CFloat =>
+         HasField "unwrapPrim_HsPrimCFloat" (Ptr Prim_HsPrimCFloat) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCFloat")
 instance HasCField Prim_HsPrimCFloat "unwrapPrim_HsPrimCFloat"
     where type CFieldType Prim_HsPrimCFloat
@@ -866,9 +850,10 @@ newtype Prim_HsPrimCDouble
                       Real,
                       RealFloat,
                       RealFrac)
-instance HasField "unwrapPrim_HsPrimCDouble"
+instance TyEq ty CDouble =>
+         HasField "unwrapPrim_HsPrimCDouble"
                   (Ptr Prim_HsPrimCDouble)
-                  (Ptr CDouble)
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCDouble")
 instance HasCField Prim_HsPrimCDouble "unwrapPrim_HsPrimCDouble"
     where type CFieldType Prim_HsPrimCDouble

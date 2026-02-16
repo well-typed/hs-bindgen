@@ -39,5 +39,5 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_a"
     where type CFieldType Bar "bar_a" = Ptr Foo
           offset# = \_ -> \_ -> 0
-instance HasField "bar_a" (Ptr Bar) (Ptr (Ptr Foo))
+instance TyEq ty (Ptr Foo) => HasField "bar_a" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_a")

@@ -40,9 +40,8 @@ instance ToFunPtr RunDriver_Aux
     where toFunPtr = hs_bindgen_d86ecf261d7044c6
 instance FromFunPtr RunDriver_Aux
     where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
-instance HasField "unwrapRunDriver_Aux"
-                  (Ptr RunDriver_Aux)
-                  (Ptr (Ptr Driver -> IO CInt))
+instance TyEq ty (Ptr Driver -> IO CInt) =>
+         HasField "unwrapRunDriver_Aux" (Ptr RunDriver_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapRunDriver_Aux")
 instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
     where type CFieldType RunDriver_Aux
@@ -68,9 +67,8 @@ newtype RunDriver
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapRunDriver"
-                  (Ptr RunDriver)
-                  (Ptr (FunPtr RunDriver_Aux))
+instance TyEq ty (FunPtr RunDriver_Aux) =>
+         HasField "unwrapRunDriver" (Ptr RunDriver) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapRunDriver")
 instance HasCField RunDriver "unwrapRunDriver"
     where type CFieldType RunDriver
@@ -109,7 +107,8 @@ deriving via (EquivStorable Driver) instance Storable Driver
 instance HasCField Driver "driver_run"
     where type CFieldType Driver "driver_run" = RunDriver
           offset# = \_ -> \_ -> 0
-instance HasField "driver_run" (Ptr Driver) (Ptr RunDriver)
+instance TyEq ty RunDriver =>
+         HasField "driver_run" (Ptr Driver) (Ptr ty)
     where getField = fromPtr (Proxy @"driver_run")
 {-| __C declaration:__ @struct Bare@
 
@@ -145,7 +144,6 @@ instance HasCField Bare "bare_callback"
     where type CFieldType Bare "bare_callback" = FunPtr (CInt ->
                                                          IO Unit)
           offset# = \_ -> \_ -> 0
-instance HasField "bare_callback"
-                  (Ptr Bare)
-                  (Ptr (FunPtr (CInt -> IO Unit)))
+instance TyEq ty (FunPtr (CInt -> IO Unit)) =>
+         HasField "bare_callback" (Ptr Bare) (Ptr ty)
     where getField = fromPtr (Proxy @"bare_callback")

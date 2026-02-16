@@ -41,12 +41,12 @@ deriving via (EquivStorable Bools1) instance Storable Bools1
 instance HasCField Bools1 "bools1_x"
     where type CFieldType Bools1 "bools1_x" = CBool
           offset# = \_ -> \_ -> 0
-instance HasField "bools1_x" (Ptr Bools1) (Ptr CBool)
+instance TyEq ty CBool => HasField "bools1_x" (Ptr Bools1) (Ptr ty)
     where getField = fromPtr (Proxy @"bools1_x")
 instance HasCField Bools1 "bools1_y"
     where type CFieldType Bools1 "bools1_y" = CBool
           offset# = \_ -> \_ -> 1
-instance HasField "bools1_y" (Ptr Bools1) (Ptr CBool)
+instance TyEq ty CBool => HasField "bools1_y" (Ptr Bools1) (Ptr ty)
     where getField = fromPtr (Proxy @"bools1_y")
 {-| __C declaration:__ @struct bools2@
 
@@ -89,12 +89,12 @@ deriving via (EquivStorable Bools2) instance Storable Bools2
 instance HasCField Bools2 "bools2_x"
     where type CFieldType Bools2 "bools2_x" = CBool
           offset# = \_ -> \_ -> 0
-instance HasField "bools2_x" (Ptr Bools2) (Ptr CBool)
+instance TyEq ty CBool => HasField "bools2_x" (Ptr Bools2) (Ptr ty)
     where getField = fromPtr (Proxy @"bools2_x")
 instance HasCField Bools2 "bools2_y"
     where type CFieldType Bools2 "bools2_y" = CBool
           offset# = \_ -> \_ -> 1
-instance HasField "bools2_y" (Ptr Bools2) (Ptr CBool)
+instance TyEq ty CBool => HasField "bools2_y" (Ptr Bools2) (Ptr ty)
     where getField = fromPtr (Proxy @"bools2_y")
 {-| __C declaration:__ @BOOL@
 
@@ -126,7 +126,7 @@ newtype BOOL
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapBOOL" (Ptr BOOL) (Ptr CBool)
+instance TyEq ty CBool => HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBOOL")
 instance HasCField BOOL "unwrapBOOL"
     where type CFieldType BOOL "unwrapBOOL" = CBool
@@ -172,10 +172,10 @@ deriving via (EquivStorable Bools3) instance Storable Bools3
 instance HasCField Bools3 "bools3_x"
     where type CFieldType Bools3 "bools3_x" = BOOL
           offset# = \_ -> \_ -> 0
-instance HasField "bools3_x" (Ptr Bools3) (Ptr BOOL)
+instance TyEq ty BOOL => HasField "bools3_x" (Ptr Bools3) (Ptr ty)
     where getField = fromPtr (Proxy @"bools3_x")
 instance HasCField Bools3 "bools3_y"
     where type CFieldType Bools3 "bools3_y" = BOOL
           offset# = \_ -> \_ -> 1
-instance HasField "bools3_y" (Ptr Bools3) (Ptr BOOL)
+instance TyEq ty BOOL => HasField "bools3_y" (Ptr Bools3) (Ptr ty)
     where getField = fromPtr (Proxy @"bools3_y")

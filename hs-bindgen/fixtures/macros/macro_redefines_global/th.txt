@@ -29,7 +29,7 @@ newtype FILE
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapFILE" (Ptr FILE) (Ptr CInt)
+instance TyEq ty CInt => HasField "unwrapFILE" (Ptr FILE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFILE")
 instance HasCField FILE "unwrapFILE"
     where type CFieldType FILE "unwrapFILE" = CInt

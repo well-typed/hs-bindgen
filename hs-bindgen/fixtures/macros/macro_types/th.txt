@@ -19,7 +19,8 @@ newtype PtrInt
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapPtrInt" (Ptr PtrInt) (Ptr (Ptr CInt))
+instance TyEq ty (Ptr CInt) =>
+         HasField "unwrapPtrInt" (Ptr PtrInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrInt")
 instance HasCField PtrInt "unwrapPtrInt"
     where type CFieldType PtrInt "unwrapPtrInt" = Ptr CInt
@@ -54,7 +55,8 @@ newtype ShortInt
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapShortInt" (Ptr ShortInt) (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "unwrapShortInt" (Ptr ShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapShortInt")
 instance HasCField ShortInt "unwrapShortInt"
     where type CFieldType ShortInt "unwrapShortInt" = CShort
@@ -89,9 +91,8 @@ newtype SignedShortInt
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapSignedShortInt"
-                  (Ptr SignedShortInt)
-                  (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "unwrapSignedShortInt" (Ptr SignedShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSignedShortInt")
 instance HasCField SignedShortInt "unwrapSignedShortInt"
     where type CFieldType SignedShortInt
@@ -127,9 +128,8 @@ newtype UnsignedShortInt
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUnsignedShortInt"
-                  (Ptr UnsignedShortInt)
-                  (Ptr CUShort)
+instance TyEq ty CUShort =>
+         HasField "unwrapUnsignedShortInt" (Ptr UnsignedShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUnsignedShortInt")
 instance HasCField UnsignedShortInt "unwrapUnsignedShortInt"
     where type CFieldType UnsignedShortInt
@@ -155,9 +155,8 @@ newtype PtrPtrChar
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapPtrPtrChar"
-                  (Ptr PtrPtrChar)
-                  (Ptr (Ptr (Ptr CChar)))
+instance TyEq ty (Ptr (Ptr CChar)) =>
+         HasField "unwrapPtrPtrChar" (Ptr PtrPtrChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrPtrChar")
 instance HasCField PtrPtrChar "unwrapPtrPtrChar"
     where type CFieldType PtrPtrChar
@@ -191,7 +190,7 @@ newtype MTy
                       Real,
                       RealFloat,
                       RealFrac)
-instance HasField "unwrapMTy" (Ptr MTy) (Ptr CFloat)
+instance TyEq ty CFloat => HasField "unwrapMTy" (Ptr MTy) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMTy")
 instance HasCField MTy "unwrapMTy"
     where type CFieldType MTy "unwrapMTy" = CFloat
@@ -224,7 +223,7 @@ newtype Tty
                       Real,
                       RealFloat,
                       RealFrac)
-instance HasField "unwrapTty" (Ptr Tty) (Ptr MTy)
+instance TyEq ty MTy => HasField "unwrapTty" (Ptr Tty) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTty")
 instance HasCField Tty "unwrapTty"
     where type CFieldType Tty "unwrapTty" = MTy
@@ -259,7 +258,8 @@ newtype UINT8_T
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUINT8_T" (Ptr UINT8_T) (Ptr CUChar)
+instance TyEq ty CUChar =>
+         HasField "unwrapUINT8_T" (Ptr UINT8_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUINT8_T")
 instance HasCField UINT8_T "unwrapUINT8_T"
     where type CFieldType UINT8_T "unwrapUINT8_T" = CUChar
@@ -294,7 +294,8 @@ newtype BOOLEAN_T
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapBOOLEAN_T" (Ptr BOOLEAN_T) (Ptr UINT8_T)
+instance TyEq ty UINT8_T =>
+         HasField "unwrapBOOLEAN_T" (Ptr BOOLEAN_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBOOLEAN_T")
 instance HasCField BOOLEAN_T "unwrapBOOLEAN_T"
     where type CFieldType BOOLEAN_T "unwrapBOOLEAN_T" = UINT8_T
@@ -329,7 +330,8 @@ newtype Boolean_T
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapBoolean_T" (Ptr Boolean_T) (Ptr BOOLEAN_T)
+instance TyEq ty BOOLEAN_T =>
+         HasField "unwrapBoolean_T" (Ptr Boolean_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBoolean_T")
 instance HasCField Boolean_T "unwrapBoolean_T"
     where type CFieldType Boolean_T "unwrapBoolean_T" = BOOLEAN_T

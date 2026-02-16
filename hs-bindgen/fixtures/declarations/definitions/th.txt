@@ -59,7 +59,7 @@ deriving via (EquivStorable X) instance Storable X
 instance HasCField X "x_n"
     where type CFieldType X "x_n" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "x_n" (Ptr X) (Ptr CInt)
+instance TyEq ty CInt => HasField "x_n" (Ptr X) (Ptr ty)
     where getField = fromPtr (Proxy @"x_n")
 {-| __C declaration:__ @union Y@
 
@@ -151,12 +151,12 @@ set_y_o = setUnionPayload
 instance HasCField Y "y_m"
     where type CFieldType Y "y_m" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "y_m" (Ptr Y) (Ptr CInt)
+instance TyEq ty CInt => HasField "y_m" (Ptr Y) (Ptr ty)
     where getField = fromPtr (Proxy @"y_m")
 instance HasCField Y "y_o"
     where type CFieldType Y "y_o" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "y_o" (Ptr Y) (Ptr CInt)
+instance TyEq ty CInt => HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = fromPtr (Proxy @"y_o")
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d09442d6_base ::

@@ -40,12 +40,12 @@ deriving via (EquivStorable S1_c) instance Storable S1_c
 instance HasCField S1_c "s1_c_a"
     where type CFieldType S1_c "s1_c_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "s1_c_a" (Ptr S1_c) (Ptr CInt)
+instance TyEq ty CInt => HasField "s1_c_a" (Ptr S1_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c_a")
 instance HasCField S1_c "s1_c_b"
     where type CFieldType S1_c "s1_c_b" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "s1_c_b" (Ptr S1_c) (Ptr CInt)
+instance TyEq ty CInt => HasField "s1_c_b" (Ptr S1_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c_b")
 {-| __C declaration:__ @struct S1@
 
@@ -88,12 +88,12 @@ deriving via (EquivStorable S1) instance Storable S1
 instance HasCField S1 "s1_c"
     where type CFieldType S1 "s1_c" = S1_c
           offset# = \_ -> \_ -> 0
-instance HasField "s1_c" (Ptr S1) (Ptr S1_c)
+instance TyEq ty S1_c => HasField "s1_c" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c")
 instance HasCField S1 "s1_d"
     where type CFieldType S1 "s1_d" = CInt
           offset# = \_ -> \_ -> 8
-instance HasField "s1_d" (Ptr S1) (Ptr CInt)
+instance TyEq ty CInt => HasField "s1_d" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_d")
 {-| __C declaration:__ @struct \@S2_inner_deep@
 
@@ -128,7 +128,8 @@ deriving via (EquivStorable S2_inner_deep) instance Storable S2_inner_deep
 instance HasCField S2_inner_deep "s2_inner_deep_b"
     where type CFieldType S2_inner_deep "s2_inner_deep_b" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "s2_inner_deep_b" (Ptr S2_inner_deep) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "s2_inner_deep_b" (Ptr S2_inner_deep) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_deep_b")
 {-| __C declaration:__ @struct \@S2_inner@
 
@@ -171,14 +172,14 @@ deriving via (EquivStorable S2_inner) instance Storable S2_inner
 instance HasCField S2_inner "s2_inner_a"
     where type CFieldType S2_inner "s2_inner_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "s2_inner_a" (Ptr S2_inner) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "s2_inner_a" (Ptr S2_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_a")
 instance HasCField S2_inner "s2_inner_deep"
     where type CFieldType S2_inner "s2_inner_deep" = S2_inner_deep
           offset# = \_ -> \_ -> 4
-instance HasField "s2_inner_deep"
-                  (Ptr S2_inner)
-                  (Ptr S2_inner_deep)
+instance TyEq ty S2_inner_deep =>
+         HasField "s2_inner_deep" (Ptr S2_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_deep")
 {-| __C declaration:__ @struct S2@
 
@@ -221,12 +222,12 @@ deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_inner"
     where type CFieldType S2 "s2_inner" = S2_inner
           offset# = \_ -> \_ -> 0
-instance HasField "s2_inner" (Ptr S2) (Ptr S2_inner)
+instance TyEq ty S2_inner => HasField "s2_inner" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner")
 instance HasCField S2 "s2_d"
     where type CFieldType S2 "s2_d" = CInt
           offset# = \_ -> \_ -> 8
-instance HasField "s2_d" (Ptr S2) (Ptr CInt)
+instance TyEq ty CInt => HasField "s2_d" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_d")
 {-| __C declaration:__ @struct S3@
 
@@ -269,12 +270,13 @@ deriving via (EquivStorable S3) instance Storable S3
 instance HasCField S3 "s3_c"
     where type CFieldType S3 "s3_c" = Ptr (Ptr S3_c)
           offset# = \_ -> \_ -> 0
-instance HasField "s3_c" (Ptr S3) (Ptr (Ptr (Ptr S3_c)))
+instance TyEq ty (Ptr (Ptr S3_c)) =>
+         HasField "s3_c" (Ptr S3) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c")
 instance HasCField S3 "s3_d"
     where type CFieldType S3 "s3_d" = CInt
           offset# = \_ -> \_ -> 8
-instance HasField "s3_d" (Ptr S3) (Ptr CInt)
+instance TyEq ty CInt => HasField "s3_d" (Ptr S3) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_d")
 {-| __C declaration:__ @struct \@S3_c@
 
@@ -317,10 +319,10 @@ deriving via (EquivStorable S3_c) instance Storable S3_c
 instance HasCField S3_c "s3_c_a"
     where type CFieldType S3_c "s3_c_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "s3_c_a" (Ptr S3_c) (Ptr CInt)
+instance TyEq ty CInt => HasField "s3_c_a" (Ptr S3_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c_a")
 instance HasCField S3_c "s3_c_b"
     where type CFieldType S3_c "s3_c_b" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "s3_c_b" (Ptr S3_c) (Ptr CInt)
+instance TyEq ty CInt => HasField "s3_c_b" (Ptr S3_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c_b")

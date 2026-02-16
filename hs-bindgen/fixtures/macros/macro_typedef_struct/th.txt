@@ -29,7 +29,8 @@ newtype MY_TYPE
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapMY_TYPE" (Ptr MY_TYPE) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "unwrapMY_TYPE" (Ptr MY_TYPE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMY_TYPE")
 instance HasCField MY_TYPE "unwrapMY_TYPE"
     where type CFieldType MY_TYPE "unwrapMY_TYPE" = CInt
@@ -75,10 +76,10 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_x"
     where type CFieldType Bar "bar_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "bar_x" (Ptr Bar) (Ptr CInt)
+instance TyEq ty CInt => HasField "bar_x" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_x")
 instance HasCField Bar "bar_y"
     where type CFieldType Bar "bar_y" = MY_TYPE
           offset# = \_ -> \_ -> 4
-instance HasField "bar_y" (Ptr Bar) (Ptr MY_TYPE)
+instance TyEq ty MY_TYPE => HasField "bar_y" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_y")

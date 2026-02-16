@@ -260,7 +260,7 @@ newtype MC
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapMC" (Ptr MC) (Ptr CChar)
+instance TyEq ty CChar => HasField "unwrapMC" (Ptr MC) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMC")
 instance HasCField MC "unwrapMC"
     where type CFieldType MC "unwrapMC" = CChar
@@ -295,7 +295,7 @@ newtype TC
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapTC" (Ptr TC) (Ptr CChar)
+instance TyEq ty CChar => HasField "unwrapTC" (Ptr TC) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTC")
 instance HasCField TC "unwrapTC"
     where type CFieldType TC "unwrapTC" = CChar
@@ -333,7 +333,8 @@ deriving via (EquivStorable Struct1) instance Storable Struct1
 instance HasCField Struct1 "struct1_a"
     where type CFieldType Struct1 "struct1_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "struct1_a" (Ptr Struct1) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "struct1_a" (Ptr Struct1) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_a")
 {-| __C declaration:__ @struct struct2@
 
@@ -368,7 +369,8 @@ deriving via (EquivStorable Struct2) instance Storable Struct2
 instance HasCField Struct2 "struct2_a"
     where type CFieldType Struct2 "struct2_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "struct2_a" (Ptr Struct2) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "struct2_a" (Ptr Struct2) (Ptr ty)
     where getField = fromPtr (Proxy @"struct2_a")
 {-| __C declaration:__ @struct struct3@
 
@@ -403,7 +405,8 @@ deriving via (EquivStorable Struct3) instance Storable Struct3
 instance HasCField Struct3 "struct3_a"
     where type CFieldType Struct3 "struct3_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "struct3_a" (Ptr Struct3) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "struct3_a" (Ptr Struct3) (Ptr ty)
     where getField = fromPtr (Proxy @"struct3_a")
 {-| __C declaration:__ @struct3_t@
 
@@ -421,7 +424,8 @@ newtype Struct3_t
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr Struct3)
+instance TyEq ty Struct3 =>
+         HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct3_t")
 instance HasCField Struct3_t "unwrapStruct3_t"
     where type CFieldType Struct3_t "unwrapStruct3_t" = Struct3
@@ -459,7 +463,8 @@ deriving via (EquivStorable Struct4) instance Storable Struct4
 instance HasCField Struct4 "struct4_a"
     where type CFieldType Struct4 "struct4_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "struct4_a" (Ptr Struct4) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "struct4_a" (Ptr Struct4) (Ptr ty)
     where getField = fromPtr (Proxy @"struct4_a")
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
 foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470fd4_base ::

@@ -32,7 +32,8 @@ deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_f"
     where type CFieldType S "s_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
-instance HasField "s_f" (Ptr S) (Ptr (ConstantArray 3 CShort))
+instance TyEq ty (ConstantArray 3 CShort) =>
+         HasField "s_f" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_f")
 {-| __C declaration:__ @more_aligned_int@
 
@@ -64,9 +65,8 @@ newtype More_aligned_int
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapMore_aligned_int"
-                  (Ptr More_aligned_int)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "unwrapMore_aligned_int" (Ptr More_aligned_int) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMore_aligned_int")
 instance HasCField More_aligned_int "unwrapMore_aligned_int"
     where type CFieldType More_aligned_int
@@ -105,7 +105,8 @@ deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_f"
     where type CFieldType S2 "s2_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
-instance HasField "s2_f" (Ptr S2) (Ptr (ConstantArray 3 CShort))
+instance TyEq ty (ConstantArray 3 CShort) =>
+         HasField "s2_f" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_f")
 {-| __C declaration:__ @struct my_unpacked_struct@
 
@@ -149,17 +150,15 @@ instance HasCField My_unpacked_struct "my_unpacked_struct_c"
     where type CFieldType My_unpacked_struct
                           "my_unpacked_struct_c" = CChar
           offset# = \_ -> \_ -> 0
-instance HasField "my_unpacked_struct_c"
-                  (Ptr My_unpacked_struct)
-                  (Ptr CChar)
+instance TyEq ty CChar =>
+         HasField "my_unpacked_struct_c" (Ptr My_unpacked_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_unpacked_struct_c")
 instance HasCField My_unpacked_struct "my_unpacked_struct_i"
     where type CFieldType My_unpacked_struct
                           "my_unpacked_struct_i" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "my_unpacked_struct_i"
-                  (Ptr My_unpacked_struct)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "my_unpacked_struct_i" (Ptr My_unpacked_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_unpacked_struct_i")
 {-| __C declaration:__ @struct my_packed_struct@
 
@@ -210,24 +209,21 @@ deriving via (EquivStorable My_packed_struct) instance Storable My_packed_struct
 instance HasCField My_packed_struct "my_packed_struct_c"
     where type CFieldType My_packed_struct "my_packed_struct_c" = CChar
           offset# = \_ -> \_ -> 0
-instance HasField "my_packed_struct_c"
-                  (Ptr My_packed_struct)
-                  (Ptr CChar)
+instance TyEq ty CChar =>
+         HasField "my_packed_struct_c" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_c")
 instance HasCField My_packed_struct "my_packed_struct_i"
     where type CFieldType My_packed_struct "my_packed_struct_i" = CInt
           offset# = \_ -> \_ -> 1
-instance HasField "my_packed_struct_i"
-                  (Ptr My_packed_struct)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "my_packed_struct_i" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_i")
 instance HasCField My_packed_struct "my_packed_struct_s"
     where type CFieldType My_packed_struct
                           "my_packed_struct_s" = My_unpacked_struct
           offset# = \_ -> \_ -> 5
-instance HasField "my_packed_struct_s"
-                  (Ptr My_packed_struct)
-                  (Ptr My_unpacked_struct)
+instance TyEq ty My_unpacked_struct =>
+         HasField "my_packed_struct_s" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_s")
 {-| __C declaration:__ @union wait_status_ptr_t@
 
@@ -323,17 +319,15 @@ instance HasCField Wait_status_ptr_t "wait_status_ptr_t___ip"
     where type CFieldType Wait_status_ptr_t
                           "wait_status_ptr_t___ip" = Ptr CInt
           offset# = \_ -> \_ -> 0
-instance HasField "wait_status_ptr_t___ip"
-                  (Ptr Wait_status_ptr_t)
-                  (Ptr (Ptr CInt))
+instance TyEq ty (Ptr CInt) =>
+         HasField "wait_status_ptr_t___ip" (Ptr Wait_status_ptr_t) (Ptr ty)
     where getField = fromPtr (Proxy @"wait_status_ptr_t___ip")
 instance HasCField Wait_status_ptr_t "wait_status_ptr_t___up"
     where type CFieldType Wait_status_ptr_t
                           "wait_status_ptr_t___up" = Ptr Wait
           offset# = \_ -> \_ -> 0
-instance HasField "wait_status_ptr_t___up"
-                  (Ptr Wait_status_ptr_t)
-                  (Ptr (Ptr Wait))
+instance TyEq ty (Ptr Wait) =>
+         HasField "wait_status_ptr_t___up" (Ptr Wait_status_ptr_t) (Ptr ty)
     where getField = fromPtr (Proxy @"wait_status_ptr_t___up")
 {-| __C declaration:__ @union wait@
 
@@ -372,7 +366,7 @@ newtype T1
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapT1" (Ptr T1) (Ptr CInt)
+instance TyEq ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT1")
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
@@ -407,7 +401,8 @@ newtype Short_a
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapShort_a" (Ptr Short_a) (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "unwrapShort_a" (Ptr Short_a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapShort_a")
 instance HasCField Short_a "unwrapShort_a"
     where type CFieldType Short_a "unwrapShort_a" = CShort

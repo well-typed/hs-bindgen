@@ -52,9 +52,8 @@ newtype A
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapA"
-                  (Ptr A)
-                  (Ptr HsBindgen.Runtime.LibC.CSize)
+instance TyEq ty HsBindgen.Runtime.LibC.CSize =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = HsBindgen.Runtime.LibC.CSize

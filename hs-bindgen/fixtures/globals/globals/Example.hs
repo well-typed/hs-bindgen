@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -21,6 +23,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct config@
@@ -79,7 +82,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Config "config_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "config_x" (Ptr.Ptr Config) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "config_x" (Ptr.Ptr Config) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_x")
@@ -90,7 +94,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Config "config_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "config_y" (Ptr.Ptr Config) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "config_y" (Ptr.Ptr Config) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_y")
@@ -152,7 +157,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Inline_struct "inline_struct_x" w
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "inline_struct_x" (Ptr.Ptr Inline_struct) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "inline_struct_x" (Ptr.Ptr Inline_struct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"inline_struct_x")
@@ -164,7 +170,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Inline_struct "inline_struct_y" w
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "inline_struct_y" (Ptr.Ptr Inline_struct) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "inline_struct_y" (Ptr.Ptr Inline_struct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"inline_struct_y")
@@ -235,7 +242,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_major" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "version_t_major" (Ptr.Ptr Version_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word8
+         ) => GHC.Records.HasField "version_t_major" (Ptr.Ptr Version_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"version_t_major")
@@ -247,7 +255,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_minor" where
 
   offset# = \_ -> \_ -> 2
 
-instance GHC.Records.HasField "version_t_minor" (Ptr.Ptr Version_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word16
+         ) => GHC.Records.HasField "version_t_minor" (Ptr.Ptr Version_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"version_t_minor")
@@ -259,7 +268,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_patch" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "version_t_patch" (Ptr.Ptr Version_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word8
+         ) => GHC.Records.HasField "version_t_patch" (Ptr.Ptr Version_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"version_t_patch")
@@ -330,7 +340,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "struct1_t_x" (Ptr.Ptr Struct1_t) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word16
+         ) => GHC.Records.HasField "struct1_t_x" (Ptr.Ptr Struct1_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_t_x")
@@ -341,7 +352,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_y" where
 
   offset# = \_ -> \_ -> 2
 
-instance GHC.Records.HasField "struct1_t_y" (Ptr.Ptr Struct1_t) (Ptr.Ptr FC.CBool) where
+instance ( TyEq ty FC.CBool
+         ) => GHC.Records.HasField "struct1_t_y" (Ptr.Ptr Struct1_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_t_y")
@@ -353,7 +365,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_version" whe
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "struct1_t_version" (Ptr.Ptr Struct1_t) (Ptr.Ptr Version_t) where
+instance ( TyEq ty Version_t
+         ) => GHC.Records.HasField "struct1_t_version" (Ptr.Ptr Struct1_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_t_version")
@@ -406,7 +419,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct2_t "struct2_t_field1" wher
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "struct2_t_field1" (Ptr.Ptr Struct2_t) (Ptr.Ptr Struct1_t) where
+instance ( TyEq ty Struct1_t
+         ) => GHC.Records.HasField "struct2_t_field1" (Ptr.Ptr Struct2_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct2_t_field1")

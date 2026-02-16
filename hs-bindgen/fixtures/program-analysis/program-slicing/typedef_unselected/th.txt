@@ -51,7 +51,7 @@ newtype U
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapU" (Ptr U) (Ptr CInt)
+instance TyEq ty CInt => HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = CInt

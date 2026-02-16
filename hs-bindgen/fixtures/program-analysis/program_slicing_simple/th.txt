@@ -56,7 +56,8 @@ newtype Uint32_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint32_t" (Ptr Uint32_t) (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "unwrapUint32_t" (Ptr Uint32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint32_t")
 instance HasCField Uint32_t "unwrapUint32_t"
     where type CFieldType Uint32_t "unwrapUint32_t" = CUInt
@@ -99,12 +100,14 @@ instance Storable Foo
 instance HasCField Foo "foo_sixty_four"
     where type CFieldType Foo "foo_sixty_four" = Foreign.Word64
           offset# = \_ -> \_ -> 0
-instance HasField "foo_sixty_four" (Ptr Foo) (Ptr Foreign.Word64)
+instance TyEq ty Foreign.Word64 =>
+         HasField "foo_sixty_four" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_sixty_four")
 instance HasCField Foo "foo_thirty_two"
     where type CFieldType Foo "foo_thirty_two" = Uint32_t
           offset# = \_ -> \_ -> 8
-instance HasField "foo_thirty_two" (Ptr Foo) (Ptr Uint32_t)
+instance TyEq ty Uint32_t =>
+         HasField "foo_thirty_two" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_thirty_two")
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1_base ::

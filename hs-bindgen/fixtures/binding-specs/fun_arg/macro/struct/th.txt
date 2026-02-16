@@ -93,7 +93,8 @@ deriving via (EquivStorable MyStruct) instance Storable MyStruct
 instance HasCField MyStruct "myStruct_x"
     where type CFieldType MyStruct "myStruct_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"myStruct_x")
 {-| __C declaration:__ @A@
 
@@ -111,7 +112,7 @@ newtype A
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapA" (Ptr A) (Ptr MyStruct)
+instance TyEq ty MyStruct => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyStruct
@@ -132,7 +133,7 @@ newtype B
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapB" (Ptr B) (Ptr A)
+instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

@@ -32,7 +32,7 @@ deriving via (EquivStorable B) instance Storable B
 instance HasCField B "b_toA"
     where type CFieldType B "b_toA" = Ptr A
           offset# = \_ -> \_ -> 0
-instance HasField "b_toA" (Ptr B) (Ptr (Ptr A))
+instance TyEq ty (Ptr A) => HasField "b_toA" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"b_toA")
 {-| __C declaration:__ @struct a@
 
@@ -67,5 +67,5 @@ deriving via (EquivStorable A) instance Storable A
 instance HasCField A "a_toB"
     where type CFieldType A "a_toB" = B
           offset# = \_ -> \_ -> 0
-instance HasField "a_toB" (Ptr A) (Ptr B)
+instance TyEq ty B => HasField "a_toB" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_toB")

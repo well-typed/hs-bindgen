@@ -62,12 +62,12 @@ deriving via (EquivStorable Named) instance Storable Named
 instance HasCField Named "named_e"
     where type CFieldType Named "named_e" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "named_e" (Ptr Named) (Ptr CInt)
+instance TyEq ty CInt => HasField "named_e" (Ptr Named) (Ptr ty)
     where getField = fromPtr (Proxy @"named_e")
 instance HasCField Named "named_f"
     where type CFieldType Named "named_f" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "named_f" (Ptr Named) (Ptr CInt)
+instance TyEq ty CInt => HasField "named_f" (Ptr Named) (Ptr ty)
     where getField = fromPtr (Proxy @"named_f")
 {-| __C declaration:__ @struct oan@
 

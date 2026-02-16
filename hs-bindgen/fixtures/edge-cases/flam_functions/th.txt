@@ -87,7 +87,8 @@ deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
 instance HasCField Vector_Aux "vector_length"
     where type CFieldType Vector_Aux "vector_length" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "vector_length" (Ptr Vector_Aux) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "vector_length" (Ptr Vector_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"vector_length")
 instance Offset CLong Vector_Aux
     where offset = \_ty_0 -> 8

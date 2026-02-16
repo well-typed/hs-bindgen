@@ -164,7 +164,8 @@ instance Read MyEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyEnum")
 instance HasCField MyEnum "unwrapMyEnum"
     where type CFieldType MyEnum "unwrapMyEnum" = CUInt
@@ -204,7 +205,7 @@ newtype A
                       Storable,
                       HasFFIType,
                       Prim)
-instance HasField "unwrapA" (Ptr A) (Ptr MyEnum)
+instance TyEq ty MyEnum => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyEnum
@@ -230,7 +231,7 @@ newtype B
                       Storable,
                       HasFFIType,
                       Prim)
-instance HasField "unwrapB" (Ptr B) (Ptr A)
+instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
@@ -251,7 +252,7 @@ newtype E
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance HasField "unwrapE" (Ptr E) (Ptr M.C)
+instance TyEq ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C

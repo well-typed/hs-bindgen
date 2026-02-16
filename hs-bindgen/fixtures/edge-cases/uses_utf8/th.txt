@@ -45,7 +45,8 @@ instance Read MyEnum
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "unwrapMyEnum" (Ptr MyEnum) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyEnum")
 instance HasCField MyEnum "unwrapMyEnum"
     where type CFieldType MyEnum "unwrapMyEnum" = CUInt
