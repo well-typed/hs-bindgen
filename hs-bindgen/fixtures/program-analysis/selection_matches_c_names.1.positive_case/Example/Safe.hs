@@ -1,15 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/selection_matches_c_names.h>"
@@ -21,12 +17,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8ced_base ::
-     IO GHC.Int.Int32
+     IO RIP.Int32
 
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
-hs_bindgen_c9b1dc5577fd8ced :: IO FC.CInt
+hs_bindgen_c9b1dc5577fd8ced :: IO RIP.CInt
 hs_bindgen_c9b1dc5577fd8ced =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c9b1dc5577fd8ced_base
+  RIP.fromFFIType hs_bindgen_c9b1dc5577fd8ced_base
 
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
 
@@ -34,6 +30,6 @@ hs_bindgen_c9b1dc5577fd8ced =
 
     __exported by:__ @program-analysis\/selection_matches_c_names.h@
 -}
-functionWithAssignedHaskellNameByNameMangler :: IO FC.CInt
+functionWithAssignedHaskellNameByNameMangler :: IO RIP.CInt
 functionWithAssignedHaskellNameByNameMangler =
   hs_bindgen_c9b1dc5577fd8ced

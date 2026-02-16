@@ -50,23 +50,23 @@ newtype Int16_T
 
       __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CShort =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort =>
          HasField "unwrapInt16_T" (Ptr Int16_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt16_T")
 instance HasCField Int16_T "unwrapInt16_T"
@@ -86,23 +86,23 @@ newtype Int32_T
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
          HasField "unwrapInt32_T" (Ptr Int32_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt32_T")
 instance HasCField Int32_T "unwrapInt32_T"
@@ -122,23 +122,23 @@ newtype Int64_T
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CLLong =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CLLong =>
          HasField "unwrapInt64_T" (Ptr Int64_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt64_T")
 instance HasCField Int64_T "unwrapInt64_T"
@@ -171,7 +171,7 @@ data Cint16_T
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Cint16_T
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 2 :: Int
@@ -185,13 +185,13 @@ deriving via (EquivStorable Cint16_T) instance Storable Cint16_T
 instance HasCField Cint16_T "cint16_T_re"
     where type CFieldType Cint16_T "cint16_T_re" = Int16_T
           offset# = \_ -> \_ -> 0
-instance TyEq ty Int16_T =>
+instance (~) ty Int16_T =>
          HasField "cint16_T_re" (Ptr Cint16_T) (Ptr ty)
     where getField = fromPtr (Proxy @"cint16_T_re")
 instance HasCField Cint16_T "cint16_T_im"
     where type CFieldType Cint16_T "cint16_T_im" = Int16_T
           offset# = \_ -> \_ -> 2
-instance TyEq ty Int16_T =>
+instance (~) ty Int16_T =>
          HasField "cint16_T_im" (Ptr Cint16_T) (Ptr ty)
     where getField = fromPtr (Proxy @"cint16_T_im")
 {-| __C declaration:__ @struct B@
@@ -208,7 +208,7 @@ data B
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize B
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -266,7 +266,7 @@ data A
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize A
     where staticSizeOf = \_ -> 152 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -283,28 +283,28 @@ deriving via (EquivStorable A) instance Storable A
 instance HasCField A "a_x"
     where type CFieldType A "a_x" = CDouble
           offset# = \_ -> \_ -> 0
-instance TyEq ty CDouble => HasField "a_x" (Ptr A) (Ptr ty)
+instance (~) ty CDouble => HasField "a_x" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_x")
 instance HasCField A "a_label"
     where type CFieldType A "a_label" = Ptr CChar
           offset# = \_ -> \_ -> 8
-instance TyEq ty (Ptr CChar) => HasField "a_label" (Ptr A) (Ptr ty)
+instance (~) ty (Ptr CChar) => HasField "a_label" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_label")
 instance HasCField A "a_samples"
     where type CFieldType A "a_samples" = ConstantArray 128 CChar
           offset# = \_ -> \_ -> 16
-instance TyEq ty (ConstantArray 128 CChar) =>
+instance (~) ty (ConstantArray 128 CChar) =>
          HasField "a_samples" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_samples")
 instance HasCField A "a_b"
     where type CFieldType A "a_b" = B
           offset# = \_ -> \_ -> 144
-instance TyEq ty B => HasField "a_b" (Ptr A) (Ptr ty)
+instance (~) ty B => HasField "a_b" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_b")
 instance HasCField A "a_c"
     where type CFieldType A "a_c" = Ptr C
           offset# = \_ -> \_ -> 144
-instance TyEq ty (Ptr C) => HasField "a_c" (Ptr A) (Ptr ty)
+instance (~) ty (Ptr C) => HasField "a_c" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"a_c")
 {-| __C declaration:__ @struct C@
 

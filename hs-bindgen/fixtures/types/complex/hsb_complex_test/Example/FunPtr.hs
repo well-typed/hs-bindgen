@@ -1,18 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified Data.Complex
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/complex/hsb_complex_test.h>"
@@ -38,12 +31,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
 foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea741132943_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
-hs_bindgen_29b4fea741132943 :: IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)))
+hs_bindgen_29b4fea741132943 :: IO (RIP.FunPtr ((RIP.Complex RIP.CFloat) -> (RIP.Complex RIP.CFloat) -> IO (RIP.Complex RIP.CFloat)))
 hs_bindgen_29b4fea741132943 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_29b4fea741132943_base
+  RIP.fromFFIType hs_bindgen_29b4fea741132943_base
 
 {-# NOINLINE multiply_complex_f #-}
 {-| __C declaration:__ @multiply_complex_f@
@@ -52,18 +45,18 @@ hs_bindgen_29b4fea741132943 =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f :: Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat))
+multiply_complex_f :: RIP.FunPtr ((RIP.Complex RIP.CFloat) -> (RIP.Complex RIP.CFloat) -> IO (RIP.Complex RIP.CFloat))
 multiply_complex_f =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_29b4fea741132943
+  RIP.unsafePerformIO hs_bindgen_29b4fea741132943
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
 foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8dd36c_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
-hs_bindgen_b53577d6ad8dd36c :: IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)))
+hs_bindgen_b53577d6ad8dd36c :: IO (RIP.FunPtr ((RIP.Complex RIP.CDouble) -> (RIP.Complex RIP.CDouble) -> IO (RIP.Complex RIP.CDouble)))
 hs_bindgen_b53577d6ad8dd36c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
+  RIP.fromFFIType hs_bindgen_b53577d6ad8dd36c_base
 
 {-# NOINLINE add_complex #-}
 {-| __C declaration:__ @add_complex@
@@ -72,6 +65,6 @@ hs_bindgen_b53577d6ad8dd36c =
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex :: Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble))
+add_complex :: RIP.FunPtr ((RIP.Complex RIP.CDouble) -> (RIP.Complex RIP.CDouble) -> IO (RIP.Complex RIP.CDouble))
 add_complex =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b53577d6ad8dd36c
+  RIP.unsafePerformIO hs_bindgen_b53577d6ad8dd36c

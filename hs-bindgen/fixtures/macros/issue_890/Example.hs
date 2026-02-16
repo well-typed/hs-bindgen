@@ -1,11 +1,10 @@
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 
 module Example where
 
-import qualified C.Expr.HostPlatform as C
-import qualified Foreign.C as FC
+import qualified C.Expr.HostPlatform
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 {-| __C declaration:__ @A@
 
@@ -13,8 +12,8 @@ import qualified Foreign.C as FC
 
     __exported by:__ @macros\/issue_890.h@
 -}
-a :: FC.CInt
-a = (0 :: FC.CInt)
+a :: RIP.CInt
+a = (0 :: RIP.CInt)
 
 {-| __C declaration:__ @B@
 
@@ -22,8 +21,8 @@ a = (0 :: FC.CInt)
 
     __exported by:__ @macros\/issue_890.h@
 -}
-b :: forall a0. (C.Add a0) FC.CInt => a0 -> (C.AddRes a0) FC.CInt
-b = \x0 -> (C.+) x0 (1 :: FC.CInt)
+b :: forall a0. (C.Expr.HostPlatform.Add a0) RIP.CInt => a0 -> (C.Expr.HostPlatform.AddRes a0) RIP.CInt
+b = \x0 -> (C.Expr.HostPlatform.+) x0 (1 :: RIP.CInt)
 
 {-| __C declaration:__ @C@
 
@@ -31,8 +30,8 @@ b = \x0 -> (C.+) x0 (1 :: FC.CInt)
 
     __exported by:__ @macros\/issue_890.h@
 -}
-c :: FC.CInt
-c = b (0 :: FC.CInt)
+c :: RIP.CInt
+c = b (0 :: RIP.CInt)
 
 {-| __C declaration:__ @D@
 
@@ -40,7 +39,7 @@ c = b (0 :: FC.CInt)
 
     __exported by:__ @macros\/issue_890.h@
 -}
-d :: FC.CInt
+d :: RIP.CInt
 d = b a
 
 {-| __C declaration:__ @E@
@@ -49,5 +48,5 @@ d = b a
 
     __exported by:__ @macros\/issue_890.h@
 -}
-e :: FC.CInt
-e = b (1 :: FC.CInt)
+e :: RIP.CInt
+e = b (1 :: RIP.CInt)

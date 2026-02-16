@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/heap_types/union.h>"
@@ -27,12 +22,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_d5d6e9f882bc09ed" hs_bindgen_d5d6e9f882bc09ed_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
-hs_bindgen_d5d6e9f882bc09ed :: IO (Ptr.FunPtr (T -> IO T))
+hs_bindgen_d5d6e9f882bc09ed :: IO (RIP.FunPtr (T -> IO T))
 hs_bindgen_d5d6e9f882bc09ed =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d5d6e9f882bc09ed_base
+  RIP.fromFFIType hs_bindgen_d5d6e9f882bc09ed_base
 
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
@@ -41,6 +36,5 @@ hs_bindgen_d5d6e9f882bc09ed =
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
-fun :: Ptr.FunPtr (T -> IO T)
-fun =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d5d6e9f882bc09ed
+fun :: RIP.FunPtr (T -> IO T)
+fun = RIP.unsafePerformIO hs_bindgen_d5d6e9f882bc09ed

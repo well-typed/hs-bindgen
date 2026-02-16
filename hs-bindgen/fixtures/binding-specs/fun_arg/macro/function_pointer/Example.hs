@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -14,20 +13,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.FunPtr
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import qualified Prelude as P
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (Eq, IO, Ord, Show)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'MyFunctionPointer'
 
@@ -38,53 +26,53 @@ __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
 __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
-  { unwrapMyFunctionPointer_Aux :: FC.CInt -> IO FC.CInt
+  { unwrapMyFunctionPointer_Aux :: RIP.CInt -> IO RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
-     (GHC.Int.Int32 -> IO GHC.Int.Int32)
-  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32))
+     (RIP.Int32 -> IO RIP.Int32)
+  -> IO (RIP.FunPtr (RIP.Int32 -> IO RIP.Int32))
 
 -- __unique:__ @toMyFunctionPointer_Aux@
 hs_bindgen_47dfd04698dd2e6f ::
      MyFunctionPointer_Aux
-  -> IO (Ptr.FunPtr MyFunctionPointer_Aux)
+  -> IO (RIP.FunPtr MyFunctionPointer_Aux)
 hs_bindgen_47dfd04698dd2e6f =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_47dfd04698dd2e6f_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_47dfd04698dd2e6f_base (RIP.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
-     Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
-  -> GHC.Int.Int32 -> IO GHC.Int.Int32
+     RIP.FunPtr (RIP.Int32 -> IO RIP.Int32)
+  -> RIP.Int32 -> IO RIP.Int32
 
 -- __unique:__ @fromMyFunctionPointer_Aux@
 hs_bindgen_5738272f94a589e2 ::
-     Ptr.FunPtr MyFunctionPointer_Aux
+     RIP.FunPtr MyFunctionPointer_Aux
   -> MyFunctionPointer_Aux
 hs_bindgen_5738272f94a589e2 =
   \funPtr0 ->
-    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_5738272f94a589e2_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
+    RIP.fromFFIType (hs_bindgen_5738272f94a589e2_base (RIP.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr MyFunctionPointer_Aux where
+instance RIP.ToFunPtr MyFunctionPointer_Aux where
 
   toFunPtr = hs_bindgen_47dfd04698dd2e6f
 
-instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr MyFunctionPointer_Aux where
+instance RIP.FromFunPtr MyFunctionPointer_Aux where
 
   fromFunPtr = hs_bindgen_5738272f94a589e2
 
-instance ( TyEq ty (FC.CInt -> IO FC.CInt)
-         ) => GHC.Records.HasField "unwrapMyFunctionPointer_Aux" (Ptr.Ptr MyFunctionPointer_Aux) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.HasField "unwrapMyFunctionPointer_Aux" (RIP.Ptr MyFunctionPointer_Aux) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunctionPointer_Aux")
+    HasCField.fromPtr (RIP.Proxy @"unwrapMyFunctionPointer_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux" where
+instance HasCField.HasCField MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux" where
 
   type CFieldType MyFunctionPointer_Aux "unwrapMyFunctionPointer_Aux" =
-    FC.CInt -> IO FC.CInt
+    RIP.CInt -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -95,27 +83,27 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer_Aux "unwrapMyFu
     __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 -}
 newtype MyFunctionPointer = MyFunctionPointer
-  { unwrapMyFunctionPointer :: Ptr.FunPtr MyFunctionPointer_Aux
+  { unwrapMyFunctionPointer :: RIP.FunPtr MyFunctionPointer_Aux
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty (Ptr.FunPtr MyFunctionPointer_Aux)
-         ) => GHC.Records.HasField "unwrapMyFunctionPointer" (Ptr.Ptr MyFunctionPointer) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.FunPtr MyFunctionPointer_Aux)
+         ) => RIP.HasField "unwrapMyFunctionPointer" (RIP.Ptr MyFunctionPointer) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyFunctionPointer")
+    HasCField.fromPtr (RIP.Proxy @"unwrapMyFunctionPointer")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer "unwrapMyFunctionPointer" where
+instance HasCField.HasCField MyFunctionPointer "unwrapMyFunctionPointer" where
 
   type CFieldType MyFunctionPointer "unwrapMyFunctionPointer" =
-    Ptr.FunPtr MyFunctionPointer_Aux
+    RIP.FunPtr MyFunctionPointer_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -128,22 +116,21 @@ instance HsBindgen.Runtime.HasCField.HasCField MyFunctionPointer "unwrapMyFuncti
 newtype A = A
   { unwrapA :: MyFunctionPointer
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty MyFunctionPointer
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) MyFunctionPointer
+         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+instance HasCField.HasCField A "unwrapA" where
 
   type CFieldType A "unwrapA" = MyFunctionPointer
 
@@ -158,22 +145,20 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty A
-         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
-instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
 

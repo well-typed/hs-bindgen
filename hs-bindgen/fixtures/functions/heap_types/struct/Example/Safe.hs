@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign as F
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/heap_types/struct.h>"
@@ -26,17 +21,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b1fc_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
 hs_bindgen_a5d53f538e59b1fc ::
-     Ptr.Ptr T
-  -> Ptr.Ptr T
+     RIP.Ptr T
+  -> RIP.Ptr T
   -> IO ()
 hs_bindgen_a5d53f538e59b1fc =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a5d53f538e59b1fc_base
+  RIP.fromFFIType hs_bindgen_a5d53f538e59b1fc_base
 
 {-| __C declaration:__ @fun@
 
@@ -50,6 +45,6 @@ fun ::
   -> IO T
 fun =
   \x0 ->
-    F.with x0 (\x1 ->
-                 HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res2 ->
-                                                                  hs_bindgen_a5d53f538e59b1fc x1 res2))
+    RIP.with x0 (\x1 ->
+                   RIP.allocaAndPeek (\res2 ->
+                                        hs_bindgen_a5d53f538e59b1fc x1 res2))

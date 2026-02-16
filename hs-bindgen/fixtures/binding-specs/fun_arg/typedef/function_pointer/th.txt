@@ -165,7 +165,7 @@ instance ToFunPtr A_Aux
     where toFunPtr = hs_bindgen_1cabb32c661d9a0e
 instance FromFunPtr A_Aux
     where fromFunPtr = hs_bindgen_cdb12400c6863f15
-instance TyEq ty (CInt -> IO CInt) =>
+instance (~) ty (CInt -> IO CInt) =>
          HasField "unwrapA_Aux" (Ptr A_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA_Aux")
 instance HasCField A_Aux "unwrapA_Aux"
@@ -185,13 +185,13 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (FunPtr A_Aux) =>
+                      WriteRaw)
+instance (~) ty (FunPtr A_Aux) =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
@@ -211,13 +211,13 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
+                      WriteRaw)
+instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
@@ -238,7 +238,7 @@ newtype E
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance TyEq ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
+instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C

@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -16,22 +15,9 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @MC@
 
@@ -40,36 +26,35 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype MC = MC
-  { unwrapMC :: FC.CChar
+  { unwrapMC :: RIP.CChar
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "unwrapMC" (Ptr.Ptr MC) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "unwrapMC" (RIP.Ptr MC) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMC")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapMC")
 
-instance HsBindgen.Runtime.HasCField.HasCField MC "unwrapMC" where
+instance HasCField.HasCField MC "unwrapMC" where
 
-  type CFieldType MC "unwrapMC" = FC.CChar
+  type CFieldType MC "unwrapMC" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -80,36 +65,35 @@ instance HsBindgen.Runtime.HasCField.HasCField MC "unwrapMC" where
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 newtype TC = TC
-  { unwrapTC :: FC.CChar
+  { unwrapTC :: RIP.CChar
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "unwrapTC" (Ptr.Ptr TC) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "unwrapTC" (RIP.Ptr TC) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTC")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapTC")
 
-instance HsBindgen.Runtime.HasCField.HasCField TC "unwrapTC" where
+instance HasCField.HasCField TC "unwrapTC" where
 
-  type CFieldType TC "unwrapTC" = FC.CChar
+  type CFieldType TC "unwrapTC" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -120,7 +104,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TC "unwrapTC" where
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 data Struct1 = Struct1
-  { struct1_a :: FC.CInt
+  { struct1_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:30@
@@ -128,43 +112,42 @@ data Struct1 = Struct1
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Struct1 where
+instance Marshal.StaticSize Struct1 where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Struct1 where
+instance Marshal.ReadRaw Struct1 where
 
   readRaw =
     \ptr0 ->
           pure Struct1
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct1_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct1_a") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Struct1 where
+instance Marshal.WriteRaw Struct1 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct1 struct1_a2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct1_a") ptr0 struct1_a2
+            HasCField.writeRaw (RIP.Proxy @"struct1_a") ptr0 struct1_a2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct1 instance F.Storable Struct1
+deriving via Marshal.EquivStorable Struct1 instance RIP.Storable Struct1
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct1 "struct1_a" where
+instance HasCField.HasCField Struct1 "struct1_a" where
 
-  type CFieldType Struct1 "struct1_a" = FC.CInt
+  type CFieldType Struct1 "struct1_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "struct1_a" (Ptr.Ptr Struct1) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "struct1_a" (RIP.Ptr Struct1) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"struct1_a")
 
 {-| __C declaration:__ @struct struct2@
 
@@ -173,7 +156,7 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 data Struct2 = Struct2
-  { struct2_a :: FC.CInt
+  { struct2_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:30@
@@ -181,43 +164,42 @@ data Struct2 = Struct2
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Struct2 where
+instance Marshal.StaticSize Struct2 where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Struct2 where
+instance Marshal.ReadRaw Struct2 where
 
   readRaw =
     \ptr0 ->
           pure Struct2
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct2_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct2_a") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Struct2 where
+instance Marshal.WriteRaw Struct2 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct2 struct2_a2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct2_a") ptr0 struct2_a2
+            HasCField.writeRaw (RIP.Proxy @"struct2_a") ptr0 struct2_a2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct2 instance F.Storable Struct2
+deriving via Marshal.EquivStorable Struct2 instance RIP.Storable Struct2
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct2 "struct2_a" where
+instance HasCField.HasCField Struct2 "struct2_a" where
 
-  type CFieldType Struct2 "struct2_a" = FC.CInt
+  type CFieldType Struct2 "struct2_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "struct2_a" (Ptr.Ptr Struct2) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "struct2_a" (RIP.Ptr Struct2) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct2_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"struct2_a")
 
 {-| __C declaration:__ @struct struct3@
 
@@ -226,7 +208,7 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 data Struct3 = Struct3
-  { struct3_a :: FC.CInt
+  { struct3_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:30@
@@ -234,43 +216,42 @@ data Struct3 = Struct3
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Struct3 where
+instance Marshal.StaticSize Struct3 where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Struct3 where
+instance Marshal.ReadRaw Struct3 where
 
   readRaw =
     \ptr0 ->
           pure Struct3
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct3_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct3_a") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Struct3 where
+instance Marshal.WriteRaw Struct3 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct3 struct3_a2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct3_a") ptr0 struct3_a2
+            HasCField.writeRaw (RIP.Proxy @"struct3_a") ptr0 struct3_a2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct3 instance F.Storable Struct3
+deriving via Marshal.EquivStorable Struct3 instance RIP.Storable Struct3
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct3 "struct3_a" where
+instance HasCField.HasCField Struct3 "struct3_a" where
 
-  type CFieldType Struct3 "struct3_a" = FC.CInt
+  type CFieldType Struct3 "struct3_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "struct3_a" (Ptr.Ptr Struct3) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "struct3_a" (RIP.Ptr Struct3) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct3_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"struct3_a")
 
 {-| __C declaration:__ @struct3_t@
 
@@ -281,21 +262,21 @@ instance ( TyEq ty FC.CInt
 newtype Struct3_t = Struct3_t
   { unwrapStruct3_t :: Struct3
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty Struct3
-         ) => GHC.Records.HasField "unwrapStruct3_t" (Ptr.Ptr Struct3_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) Struct3
+         ) => RIP.HasField "unwrapStruct3_t" (RIP.Ptr Struct3_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStruct3_t")
+    HasCField.fromPtr (RIP.Proxy @"unwrapStruct3_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct3_t "unwrapStruct3_t" where
+instance HasCField.HasCField Struct3_t "unwrapStruct3_t" where
 
   type CFieldType Struct3_t "unwrapStruct3_t" = Struct3
 
@@ -308,7 +289,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct3_t "unwrapStruct3_t" where
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 data Struct4 = Struct4
-  { struct4_a :: FC.CInt
+  { struct4_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:30@
@@ -316,40 +297,39 @@ data Struct4 = Struct4
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Struct4 where
+instance Marshal.StaticSize Struct4 where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Struct4 where
+instance Marshal.ReadRaw Struct4 where
 
   readRaw =
     \ptr0 ->
           pure Struct4
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct4_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct4_a") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Struct4 where
+instance Marshal.WriteRaw Struct4 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct4 struct4_a2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct4_a") ptr0 struct4_a2
+            HasCField.writeRaw (RIP.Proxy @"struct4_a") ptr0 struct4_a2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct4 instance F.Storable Struct4
+deriving via Marshal.EquivStorable Struct4 instance RIP.Storable Struct4
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct4 "struct4_a" where
+instance HasCField.HasCField Struct4 "struct4_a" where
 
-  type CFieldType Struct4 "struct4_a" = FC.CInt
+  type CFieldType Struct4 "struct4_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "struct4_a" (Ptr.Ptr Struct4) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "struct4_a" (RIP.Ptr Struct4) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct4_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"struct4_a")

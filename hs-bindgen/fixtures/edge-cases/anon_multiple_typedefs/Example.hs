@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -15,17 +14,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct point1a@
 
@@ -34,14 +25,14 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 data Point1a = Point1a
-  { point1a_x :: FC.CInt
+  { point1a_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:22@
 
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
-  , point1a_y :: FC.CInt
+  , point1a_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:29@
@@ -49,57 +40,55 @@ data Point1a = Point1a
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Point1a where
+instance Marshal.StaticSize Point1a where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Point1a where
+instance Marshal.ReadRaw Point1a where
 
   readRaw =
     \ptr0 ->
           pure Point1a
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point1a_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point1a_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"point1a_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"point1a_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Point1a where
+instance Marshal.WriteRaw Point1a where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point1a point1a_x2 point1a_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point1a_x") ptr0 point1a_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point1a_y") ptr0 point1a_y3
+               HasCField.writeRaw (RIP.Proxy @"point1a_x") ptr0 point1a_x2
+            >> HasCField.writeRaw (RIP.Proxy @"point1a_y") ptr0 point1a_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Point1a instance F.Storable Point1a
+deriving via Marshal.EquivStorable Point1a instance RIP.Storable Point1a
 
-instance HsBindgen.Runtime.HasCField.HasCField Point1a "point1a_x" where
+instance HasCField.HasCField Point1a "point1a_x" where
 
-  type CFieldType Point1a "point1a_x" = FC.CInt
+  type CFieldType Point1a "point1a_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "point1a_x" (Ptr.Ptr Point1a) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "point1a_x" (RIP.Ptr Point1a) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point1a_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"point1a_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point1a "point1a_y" where
+instance HasCField.HasCField Point1a "point1a_y" where
 
-  type CFieldType Point1a "point1a_y" = FC.CInt
+  type CFieldType Point1a "point1a_y" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "point1a_y" (Ptr.Ptr Point1a) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "point1a_y" (RIP.Ptr Point1a) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point1a_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"point1a_y")
 
 {-| __C declaration:__ @point1b@
 
@@ -110,21 +99,21 @@ instance ( TyEq ty FC.CInt
 newtype Point1b = Point1b
   { unwrapPoint1b :: Point1a
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty Point1a
-         ) => GHC.Records.HasField "unwrapPoint1b" (Ptr.Ptr Point1b) (Ptr.Ptr ty) where
+instance ( ((~) ty) Point1a
+         ) => RIP.HasField "unwrapPoint1b" (RIP.Ptr Point1b) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint1b")
+    HasCField.fromPtr (RIP.Proxy @"unwrapPoint1b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point1b "unwrapPoint1b" where
+instance HasCField.HasCField Point1b "unwrapPoint1b" where
 
   type CFieldType Point1b "unwrapPoint1b" = Point1a
 
@@ -137,14 +126,14 @@ instance HsBindgen.Runtime.HasCField.HasCField Point1b "unwrapPoint1b" where
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 data Point2a = Point2a
-  { point2a_x :: FC.CInt
+  { point2a_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:22@
 
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
-  , point2a_y :: FC.CInt
+  , point2a_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:29@
@@ -152,57 +141,55 @@ data Point2a = Point2a
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Point2a where
+instance Marshal.StaticSize Point2a where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Point2a where
+instance Marshal.ReadRaw Point2a where
 
   readRaw =
     \ptr0 ->
           pure Point2a
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point2a_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point2a_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"point2a_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"point2a_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Point2a where
+instance Marshal.WriteRaw Point2a where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point2a point2a_x2 point2a_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point2a_x") ptr0 point2a_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point2a_y") ptr0 point2a_y3
+               HasCField.writeRaw (RIP.Proxy @"point2a_x") ptr0 point2a_x2
+            >> HasCField.writeRaw (RIP.Proxy @"point2a_y") ptr0 point2a_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Point2a instance F.Storable Point2a
+deriving via Marshal.EquivStorable Point2a instance RIP.Storable Point2a
 
-instance HsBindgen.Runtime.HasCField.HasCField Point2a "point2a_x" where
+instance HasCField.HasCField Point2a "point2a_x" where
 
-  type CFieldType Point2a "point2a_x" = FC.CInt
+  type CFieldType Point2a "point2a_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "point2a_x" (Ptr.Ptr Point2a) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "point2a_x" (RIP.Ptr Point2a) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point2a_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"point2a_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point2a "point2a_y" where
+instance HasCField.HasCField Point2a "point2a_y" where
 
-  type CFieldType Point2a "point2a_y" = FC.CInt
+  type CFieldType Point2a "point2a_y" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "point2a_y" (Ptr.Ptr Point2a) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "point2a_y" (RIP.Ptr Point2a) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point2a_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"point2a_y")
 
 {-| __C declaration:__ @point2b@
 
@@ -211,27 +198,27 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point2b = Point2b
-  { unwrapPoint2b :: Ptr.Ptr Point2a
+  { unwrapPoint2b :: RIP.Ptr Point2a
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty (Ptr.Ptr Point2a)
-         ) => GHC.Records.HasField "unwrapPoint2b" (Ptr.Ptr Point2b) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.Ptr Point2a)
+         ) => RIP.HasField "unwrapPoint2b" (RIP.Ptr Point2b) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint2b")
+    HasCField.fromPtr (RIP.Proxy @"unwrapPoint2b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point2b "unwrapPoint2b" where
+instance HasCField.HasCField Point2b "unwrapPoint2b" where
 
   type CFieldType Point2b "unwrapPoint2b" =
-    Ptr.Ptr Point2a
+    RIP.Ptr Point2a
 
   offset# = \_ -> \_ -> 0
 
@@ -242,14 +229,14 @@ instance HsBindgen.Runtime.HasCField.HasCField Point2b "unwrapPoint2b" where
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 data Point3a_Aux = Point3a_Aux
-  { point3a_Aux_x :: FC.CInt
+  { point3a_Aux_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:22@
 
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
-  , point3a_Aux_y :: FC.CInt
+  , point3a_Aux_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:29@
@@ -257,57 +244,59 @@ data Point3a_Aux = Point3a_Aux
          __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Point3a_Aux where
+instance Marshal.StaticSize Point3a_Aux where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Point3a_Aux where
+instance Marshal.ReadRaw Point3a_Aux where
 
   readRaw =
     \ptr0 ->
           pure Point3a_Aux
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point3a_Aux_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"point3a_Aux_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"point3a_Aux_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"point3a_Aux_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Point3a_Aux where
+instance Marshal.WriteRaw Point3a_Aux where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Point3a_Aux point3a_Aux_x2 point3a_Aux_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point3a_Aux_x") ptr0 point3a_Aux_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"point3a_Aux_y") ptr0 point3a_Aux_y3
+               HasCField.writeRaw (RIP.Proxy @"point3a_Aux_x") ptr0 point3a_Aux_x2
+            >> HasCField.writeRaw (RIP.Proxy @"point3a_Aux_y") ptr0 point3a_Aux_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Point3a_Aux instance F.Storable Point3a_Aux
+deriving via Marshal.EquivStorable Point3a_Aux instance RIP.Storable Point3a_Aux
 
-instance HsBindgen.Runtime.HasCField.HasCField Point3a_Aux "point3a_Aux_x" where
+instance HasCField.HasCField Point3a_Aux "point3a_Aux_x" where
 
-  type CFieldType Point3a_Aux "point3a_Aux_x" = FC.CInt
+  type CFieldType Point3a_Aux "point3a_Aux_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "point3a_Aux_x" (Ptr.Ptr Point3a_Aux) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "point3a_Aux_x" (RIP.Ptr Point3a_Aux) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point3a_Aux_x")
+    HasCField.fromPtr (RIP.Proxy @"point3a_Aux_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point3a_Aux "point3a_Aux_y" where
+instance HasCField.HasCField Point3a_Aux "point3a_Aux_y" where
 
-  type CFieldType Point3a_Aux "point3a_Aux_y" = FC.CInt
+  type CFieldType Point3a_Aux "point3a_Aux_y" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "point3a_Aux_y" (Ptr.Ptr Point3a_Aux) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "point3a_Aux_y" (RIP.Ptr Point3a_Aux) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"point3a_Aux_y")
+    HasCField.fromPtr (RIP.Proxy @"point3a_Aux_y")
 
 {-| __C declaration:__ @point3a@
 
@@ -316,27 +305,27 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point3a = Point3a
-  { unwrapPoint3a :: Ptr.Ptr Point3a_Aux
+  { unwrapPoint3a :: RIP.Ptr Point3a_Aux
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty (Ptr.Ptr Point3a_Aux)
-         ) => GHC.Records.HasField "unwrapPoint3a" (Ptr.Ptr Point3a) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.Ptr Point3a_Aux)
+         ) => RIP.HasField "unwrapPoint3a" (RIP.Ptr Point3a) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint3a")
+    HasCField.fromPtr (RIP.Proxy @"unwrapPoint3a")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point3a "unwrapPoint3a" where
+instance HasCField.HasCField Point3a "unwrapPoint3a" where
 
   type CFieldType Point3a "unwrapPoint3a" =
-    Ptr.Ptr Point3a_Aux
+    RIP.Ptr Point3a_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -347,26 +336,26 @@ instance HsBindgen.Runtime.HasCField.HasCField Point3a "unwrapPoint3a" where
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
 newtype Point3b = Point3b
-  { unwrapPoint3b :: Ptr.Ptr Point3a_Aux
+  { unwrapPoint3b :: RIP.Ptr Point3a_Aux
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty (Ptr.Ptr Point3a_Aux)
-         ) => GHC.Records.HasField "unwrapPoint3b" (Ptr.Ptr Point3b) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.Ptr Point3a_Aux)
+         ) => RIP.HasField "unwrapPoint3b" (RIP.Ptr Point3b) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPoint3b")
+    HasCField.fromPtr (RIP.Proxy @"unwrapPoint3b")
 
-instance HsBindgen.Runtime.HasCField.HasCField Point3b "unwrapPoint3b" where
+instance HasCField.HasCField Point3b "unwrapPoint3b" where
 
   type CFieldType Point3b "unwrapPoint3b" =
-    Ptr.Ptr Point3a_Aux
+    RIP.Ptr Point3a_Aux
 
   offset# = \_ -> \_ -> 0

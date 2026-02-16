@@ -40,7 +40,7 @@ instance ToFunPtr Fun_ptr_Aux
     where toFunPtr = hs_bindgen_5964bbadb359ee4a
 instance FromFunPtr Fun_ptr_Aux
     where fromFunPtr = hs_bindgen_f8391e85af67fcb6
-instance TyEq ty (Ptr Forward_declaration -> IO Unit) =>
+instance (~) ty (Ptr Forward_declaration -> IO Unit) =>
          HasField "unwrapFun_ptr_Aux" (Ptr Fun_ptr_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFun_ptr_Aux")
 instance HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux"
@@ -61,13 +61,13 @@ newtype Fun_ptr
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (FunPtr Fun_ptr_Aux) =>
+                      WriteRaw)
+instance (~) ty (FunPtr Fun_ptr_Aux) =>
          HasField "unwrapFun_ptr" (Ptr Fun_ptr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFun_ptr")
 instance HasCField Fun_ptr "unwrapFun_ptr"
@@ -93,7 +93,7 @@ data Forward_declaration
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Forward_declaration
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -107,6 +107,6 @@ instance HasCField Forward_declaration "forward_declaration_f"
     where type CFieldType Forward_declaration
                           "forward_declaration_f" = Fun_ptr
           offset# = \_ -> \_ -> 0
-instance TyEq ty Fun_ptr =>
+instance (~) ty Fun_ptr =>
          HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
     where getField = fromPtr (Proxy @"forward_declaration_f")

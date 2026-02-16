@@ -1,19 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
@@ -30,12 +24,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
 foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f2759b_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
-hs_bindgen_a19bc138e7f2759b :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool))
+hs_bindgen_a19bc138e7f2759b :: IO (RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool))
 hs_bindgen_a19bc138e7f2759b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a19bc138e7f2759b_base
+  RIP.fromFFIType hs_bindgen_a19bc138e7f2759b_base
 
 {-# NOINLINE list_example #-}
 {-| __C declaration:__ @list_example@
@@ -44,6 +38,6 @@ hs_bindgen_a19bc138e7f2759b =
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
-list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CBool)
+list_example :: RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool)
 list_example =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a19bc138e7f2759b
+  RIP.unsafePerformIO hs_bindgen_a19bc138e7f2759b

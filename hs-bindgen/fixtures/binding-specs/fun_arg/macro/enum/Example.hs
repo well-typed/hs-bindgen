@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
@@ -17,21 +16,10 @@
 
 module Example where
 
-import qualified Data.List.NonEmpty
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
+import qualified HsBindgen.Runtime.CEnum as CEnum
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @enum MyEnum@
 
@@ -40,40 +28,40 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
 newtype MyEnum = MyEnum
-  { unwrapMyEnum :: FC.CUInt
+  { unwrapMyEnum :: RIP.CUInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (Eq, RIP.Generic, Ord)
+  deriving newtype (RIP.HasFFIType)
 
-instance HsBindgen.Runtime.Marshal.StaticSize MyEnum where
+instance Marshal.StaticSize MyEnum where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw MyEnum where
+instance Marshal.ReadRaw MyEnum where
 
   readRaw =
     \ptr0 ->
           pure MyEnum
-      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
+      <*> Marshal.readRawByteOff ptr0 (0 :: Int)
 
-instance HsBindgen.Runtime.Marshal.WriteRaw MyEnum where
+instance Marshal.WriteRaw MyEnum where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           MyEnum unwrapMyEnum2 ->
-            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapMyEnum2
+            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapMyEnum2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable MyEnum instance F.Storable MyEnum
+deriving via Marshal.EquivStorable MyEnum instance RIP.Storable MyEnum
 
-deriving via FC.CUInt instance Data.Primitive.Types.Prim MyEnum
+deriving via RIP.CUInt instance RIP.Prim MyEnum
 
-instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
+instance CEnum.CEnum MyEnum where
 
-  type CEnumZ MyEnum = FC.CUInt
+  type CEnumZ MyEnum = RIP.CUInt
 
   toCEnum = MyEnum
 
@@ -81,19 +69,19 @@ instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [(0, Data.List.NonEmpty.singleton "X")]
+      CEnum.declaredValuesFromList [(0, RIP.singleton "X")]
 
   showsUndeclared =
-    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "MyEnum"
+    CEnum.showsWrappedUndeclared "MyEnum"
 
   readPrecUndeclared =
-    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "MyEnum"
+    CEnum.readPrecWrappedUndeclared "MyEnum"
 
-  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+  isDeclared = CEnum.seqIsDeclared
 
-  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+  mkDeclared = CEnum.seqMkDeclared
 
-instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
+instance CEnum.SequentialCEnum MyEnum where
 
   minDeclaredValue = X
 
@@ -101,25 +89,25 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum MyEnum where
 
 instance Show MyEnum where
 
-  showsPrec = HsBindgen.Runtime.CEnum.shows
+  showsPrec = CEnum.shows
 
 instance Read MyEnum where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrec
+  readPrec = CEnum.readPrec
 
-  readList = Text.Read.readListDefault
+  readList = RIP.readListDefault
 
-  readListPrec = Text.Read.readListPrecDefault
+  readListPrec = RIP.readListPrecDefault
 
-instance ( TyEq ty FC.CUInt
-         ) => GHC.Records.HasField "unwrapMyEnum" (Ptr.Ptr MyEnum) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CUInt
+         ) => RIP.HasField "unwrapMyEnum" (RIP.Ptr MyEnum) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyEnum")
+    HasCField.fromPtr (RIP.Proxy @"unwrapMyEnum")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyEnum "unwrapMyEnum" where
+instance HasCField.HasCField MyEnum "unwrapMyEnum" where
 
-  type CFieldType MyEnum "unwrapMyEnum" = FC.CUInt
+  type CFieldType MyEnum "unwrapMyEnum" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -141,23 +129,22 @@ pattern X = MyEnum 0
 newtype A = A
   { unwrapA :: MyEnum
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
+    ( RIP.HasFFIType
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty MyEnum
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) MyEnum
+         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+instance HasCField.HasCField A "unwrapA" where
 
   type CFieldType A "unwrapA" = MyEnum
 
@@ -172,23 +159,21 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
+    ( RIP.HasFFIType
+    , RIP.Prim
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty A
-         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
-instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
 

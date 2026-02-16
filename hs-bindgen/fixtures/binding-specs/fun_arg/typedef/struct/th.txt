@@ -140,7 +140,7 @@ data MyStruct
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize MyStruct
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -153,7 +153,7 @@ deriving via (EquivStorable MyStruct) instance Storable MyStruct
 instance HasCField MyStruct "myStruct_x"
     where type CFieldType MyStruct "myStruct_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"myStruct_x")
 {-| __C declaration:__ @A@
@@ -170,9 +170,9 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty MyStruct => HasField "unwrapA" (Ptr A) (Ptr ty)
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty MyStruct => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyStruct
@@ -191,9 +191,9 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
@@ -213,7 +213,7 @@ newtype E
            __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
       -}
     deriving stock Generic
-instance TyEq ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
+instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C

@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,16 +13,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct struct2@
 
@@ -32,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
 data Struct2 = Struct2
-  { struct2_x :: FC.CInt
+  { struct2_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/special\/parse_failure_long_double.h 14:7@
@@ -40,40 +32,39 @@ data Struct2 = Struct2
          __exported by:__ @types\/special\/parse_failure_long_double.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Struct2 where
+instance Marshal.StaticSize Struct2 where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Struct2 where
+instance Marshal.ReadRaw Struct2 where
 
   readRaw =
     \ptr0 ->
           pure Struct2
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct2_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct2_x") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Struct2 where
+instance Marshal.WriteRaw Struct2 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct2 struct2_x2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct2_x") ptr0 struct2_x2
+            HasCField.writeRaw (RIP.Proxy @"struct2_x") ptr0 struct2_x2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct2 instance F.Storable Struct2
+deriving via Marshal.EquivStorable Struct2 instance RIP.Storable Struct2
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct2 "struct2_x" where
+instance HasCField.HasCField Struct2 "struct2_x" where
 
-  type CFieldType Struct2 "struct2_x" = FC.CInt
+  type CFieldType Struct2 "struct2_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "struct2_x" (Ptr.Ptr Struct2) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "struct2_x" (RIP.Ptr Struct2) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct2_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"struct2_x")

@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/union.h>"
@@ -43,12 +38,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_cda902505d180c3d" hs_bindgen_cda902505d180c3d_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_foo@
-hs_bindgen_cda902505d180c3d :: IO (Ptr.FunPtr (MyUnion -> IO ()))
+hs_bindgen_cda902505d180c3d :: IO (RIP.FunPtr (MyUnion -> IO ()))
 hs_bindgen_cda902505d180c3d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cda902505d180c3d_base
+  RIP.fromFFIType hs_bindgen_cda902505d180c3d_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -57,18 +52,17 @@ hs_bindgen_cda902505d180c3d =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-foo :: Ptr.FunPtr (MyUnion -> IO ())
-foo =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cda902505d180c3d
+foo :: RIP.FunPtr (MyUnion -> IO ())
+foo = RIP.unsafePerformIO hs_bindgen_cda902505d180c3d
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooA@
 foreign import ccall unsafe "hs_bindgen_d2d25b201a07a90e" hs_bindgen_d2d25b201a07a90e_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooA@
-hs_bindgen_d2d25b201a07a90e :: IO (Ptr.FunPtr (A -> IO ()))
+hs_bindgen_d2d25b201a07a90e :: IO (RIP.FunPtr (A -> IO ()))
 hs_bindgen_d2d25b201a07a90e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d2d25b201a07a90e_base
+  RIP.fromFFIType hs_bindgen_d2d25b201a07a90e_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -77,18 +71,18 @@ hs_bindgen_d2d25b201a07a90e =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-fooA :: Ptr.FunPtr (A -> IO ())
+fooA :: RIP.FunPtr (A -> IO ())
 fooA =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d2d25b201a07a90e
+  RIP.unsafePerformIO hs_bindgen_d2d25b201a07a90e
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooB@
 foreign import ccall unsafe "hs_bindgen_4f49b9aa9b0c125d" hs_bindgen_4f49b9aa9b0c125d_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooB@
-hs_bindgen_4f49b9aa9b0c125d :: IO (Ptr.FunPtr (B -> IO ()))
+hs_bindgen_4f49b9aa9b0c125d :: IO (RIP.FunPtr (B -> IO ()))
 hs_bindgen_4f49b9aa9b0c125d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4f49b9aa9b0c125d_base
+  RIP.fromFFIType hs_bindgen_4f49b9aa9b0c125d_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
@@ -97,6 +91,6 @@ hs_bindgen_4f49b9aa9b0c125d =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
-fooB :: Ptr.FunPtr (B -> IO ())
+fooB :: RIP.FunPtr (B -> IO ())
 fooB =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4f49b9aa9b0c125d
+  RIP.unsafePerformIO hs_bindgen_4f49b9aa9b0c125d

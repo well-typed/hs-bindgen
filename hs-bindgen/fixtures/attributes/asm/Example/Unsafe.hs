@@ -1,15 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <attributes/asm.h>"
@@ -24,17 +20,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a2386382_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 hs_bindgen_3ad6c287a2386382 ::
-     FC.CInt
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_3ad6c287a2386382 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3ad6c287a2386382_base
+  RIP.fromFFIType hs_bindgen_3ad6c287a2386382_base
 
 {-| __C declaration:__ @asm_labeled_function@
 
@@ -43,9 +39,9 @@ hs_bindgen_3ad6c287a2386382 =
     __exported by:__ @attributes\/asm.h@
 -}
 asm_labeled_function ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> FC.CInt
+  -> RIP.CInt
      -- ^ __C declaration:__ @y@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 asm_labeled_function = hs_bindgen_3ad6c287a2386382

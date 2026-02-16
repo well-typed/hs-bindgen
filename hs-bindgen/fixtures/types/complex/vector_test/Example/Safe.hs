@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (Double, IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/complex/vector_test.h>"
@@ -28,15 +23,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
      Double
   -> Double
-  -> IO (Ptr.Ptr Void)
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 hs_bindgen_cd5f566bc96dcba0 ::
-     FC.CDouble
-  -> FC.CDouble
-  -> IO (Ptr.Ptr Vector)
+     RIP.CDouble
+  -> RIP.CDouble
+  -> IO (RIP.Ptr Vector)
 hs_bindgen_cd5f566bc96dcba0 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cd5f566bc96dcba0_base
+  RIP.fromFFIType hs_bindgen_cd5f566bc96dcba0_base
 
 {-| __C declaration:__ @new_vector@
 
@@ -45,9 +40,9 @@ hs_bindgen_cd5f566bc96dcba0 =
     __exported by:__ @types\/complex\/vector_test.h@
 -}
 new_vector ::
-     FC.CDouble
+     RIP.CDouble
      -- ^ __C declaration:__ @x@
-  -> FC.CDouble
+  -> RIP.CDouble
      -- ^ __C declaration:__ @y@
-  -> IO (Ptr.Ptr Vector)
+  -> IO (RIP.Ptr Vector)
 new_vector = hs_bindgen_cd5f566bc96dcba0

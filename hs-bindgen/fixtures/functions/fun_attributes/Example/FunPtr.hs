@@ -1,19 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/fun_attributes.h>"
@@ -194,12 +188,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsfun_attributes_Example_get___f1@
 foreign import ccall unsafe "hs_bindgen_99da7108788a2cf4" hs_bindgen_99da7108788a2cf4_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get___f1@
-hs_bindgen_99da7108788a2cf4 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_99da7108788a2cf4 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_99da7108788a2cf4 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_99da7108788a2cf4_base
+  RIP.fromFFIType hs_bindgen_99da7108788a2cf4_base
 
 {-# NOINLINE __f1 #-}
 {-| __C declaration:__ @__f1@
@@ -208,18 +202,18 @@ hs_bindgen_99da7108788a2cf4 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-__f1 :: Ptr.FunPtr (IO ())
+__f1 :: RIP.FunPtr (IO ())
 __f1 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_99da7108788a2cf4
+  RIP.unsafePerformIO hs_bindgen_99da7108788a2cf4
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_f1@
 foreign import ccall unsafe "hs_bindgen_a0d2ec6ffc23fc5a" hs_bindgen_a0d2ec6ffc23fc5a_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_f1@
-hs_bindgen_a0d2ec6ffc23fc5a :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_a0d2ec6ffc23fc5a :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_a0d2ec6ffc23fc5a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a0d2ec6ffc23fc5a_base
+  RIP.fromFFIType hs_bindgen_a0d2ec6ffc23fc5a_base
 
 {-# NOINLINE f1 #-}
 {-| __C declaration:__ @f1@
@@ -228,18 +222,17 @@ hs_bindgen_a0d2ec6ffc23fc5a =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f1 :: Ptr.FunPtr (IO ())
-f1 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a0d2ec6ffc23fc5a
+f1 :: RIP.FunPtr (IO ())
+f1 = RIP.unsafePerformIO hs_bindgen_a0d2ec6ffc23fc5a
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memalign@
 foreign import ccall unsafe "hs_bindgen_16a2a5a807cc26ec" hs_bindgen_16a2a5a807cc26ec_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memalign@
-hs_bindgen_16a2a5a807cc26ec :: IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_16a2a5a807cc26ec :: IO (RIP.FunPtr (Size_t -> Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_16a2a5a807cc26ec =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_16a2a5a807cc26ec_base
+  RIP.fromFFIType hs_bindgen_16a2a5a807cc26ec_base
 
 {-# NOINLINE my_memalign #-}
 {-| __C declaration:__ @my_memalign@
@@ -248,18 +241,18 @@ hs_bindgen_16a2a5a807cc26ec =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_memalign :: Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void))
+my_memalign :: RIP.FunPtr (Size_t -> Size_t -> IO (RIP.Ptr RIP.Void))
 my_memalign =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_16a2a5a807cc26ec
+  RIP.unsafePerformIO hs_bindgen_16a2a5a807cc26ec
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_calloc@
 foreign import ccall unsafe "hs_bindgen_976df97f9c9c1223" hs_bindgen_976df97f9c9c1223_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_calloc@
-hs_bindgen_976df97f9c9c1223 :: IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_976df97f9c9c1223 :: IO (RIP.FunPtr (Size_t -> Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_976df97f9c9c1223 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_976df97f9c9c1223_base
+  RIP.fromFFIType hs_bindgen_976df97f9c9c1223_base
 
 {-# NOINLINE my_calloc #-}
 {-| __C declaration:__ @my_calloc@
@@ -268,18 +261,18 @@ hs_bindgen_976df97f9c9c1223 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_calloc :: Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void))
+my_calloc :: RIP.FunPtr (Size_t -> Size_t -> IO (RIP.Ptr RIP.Void))
 my_calloc =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_976df97f9c9c1223
+  RIP.unsafePerformIO hs_bindgen_976df97f9c9c1223
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_realloc@
 foreign import ccall unsafe "hs_bindgen_4021d3c6eae30c8c" hs_bindgen_4021d3c6eae30c8c_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_realloc@
-hs_bindgen_4021d3c6eae30c8c :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_4021d3c6eae30c8c :: IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_4021d3c6eae30c8c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4021d3c6eae30c8c_base
+  RIP.fromFFIType hs_bindgen_4021d3c6eae30c8c_base
 
 {-# NOINLINE my_realloc #-}
 {-| __C declaration:__ @my_realloc@
@@ -288,18 +281,18 @@ hs_bindgen_4021d3c6eae30c8c =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_realloc :: Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void))
+my_realloc :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void))
 my_realloc =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4021d3c6eae30c8c
+  RIP.unsafePerformIO hs_bindgen_4021d3c6eae30c8c
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_alloc1@
 foreign import ccall unsafe "hs_bindgen_2ca35d0827c76ff7" hs_bindgen_2ca35d0827c76ff7_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_alloc1@
-hs_bindgen_2ca35d0827c76ff7 :: IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_2ca35d0827c76ff7 :: IO (RIP.FunPtr (Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_2ca35d0827c76ff7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2ca35d0827c76ff7_base
+  RIP.fromFFIType hs_bindgen_2ca35d0827c76ff7_base
 
 {-# NOINLINE my_alloc1 #-}
 {-| __C declaration:__ @my_alloc1@
@@ -308,18 +301,18 @@ hs_bindgen_2ca35d0827c76ff7 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_alloc1 :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
+my_alloc1 :: RIP.FunPtr (Size_t -> IO (RIP.Ptr RIP.Void))
 my_alloc1 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2ca35d0827c76ff7
+  RIP.unsafePerformIO hs_bindgen_2ca35d0827c76ff7
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_alloc2@
 foreign import ccall unsafe "hs_bindgen_a43746fed9206f42" hs_bindgen_a43746fed9206f42_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_alloc2@
-hs_bindgen_a43746fed9206f42 :: IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_a43746fed9206f42 :: IO (RIP.FunPtr (Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_a43746fed9206f42 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a43746fed9206f42_base
+  RIP.fromFFIType hs_bindgen_a43746fed9206f42_base
 
 {-# NOINLINE my_alloc2 #-}
 {-| __C declaration:__ @my_alloc2@
@@ -328,18 +321,18 @@ hs_bindgen_a43746fed9206f42 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_alloc2 :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
+my_alloc2 :: RIP.FunPtr (Size_t -> IO (RIP.Ptr RIP.Void))
 my_alloc2 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a43746fed9206f42
+  RIP.unsafePerformIO hs_bindgen_a43746fed9206f42
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_square@
 foreign import ccall unsafe "hs_bindgen_d41557222fd2ab94" hs_bindgen_d41557222fd2ab94_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_square@
-hs_bindgen_d41557222fd2ab94 :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_d41557222fd2ab94 :: IO (RIP.FunPtr (RIP.CInt -> IO RIP.CInt))
 hs_bindgen_d41557222fd2ab94 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d41557222fd2ab94_base
+  RIP.fromFFIType hs_bindgen_d41557222fd2ab94_base
 
 {-# NOINLINE square #-}
 {-| __C declaration:__ @square@
@@ -348,18 +341,18 @@ hs_bindgen_d41557222fd2ab94 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-square :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square :: RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
 square =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d41557222fd2ab94
+  RIP.unsafePerformIO hs_bindgen_d41557222fd2ab94
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_old_fn_deprecated@
 foreign import ccall unsafe "hs_bindgen_beee43878922a900" hs_bindgen_beee43878922a900_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_old_fn_deprecated@
-hs_bindgen_beee43878922a900 :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_beee43878922a900 :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_beee43878922a900 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_beee43878922a900_base
+  RIP.fromFFIType hs_bindgen_beee43878922a900_base
 
 {-# NOINLINE old_fn_deprecated #-}
 {-| __C declaration:__ @old_fn_deprecated@
@@ -368,18 +361,18 @@ hs_bindgen_beee43878922a900 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-old_fn_deprecated :: Ptr.FunPtr (IO FC.CInt)
+old_fn_deprecated :: RIP.FunPtr (IO RIP.CInt)
 old_fn_deprecated =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_beee43878922a900
+  RIP.unsafePerformIO hs_bindgen_beee43878922a900
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_dgettext@
 foreign import ccall unsafe "hs_bindgen_f95f43d50ed8f2b4" hs_bindgen_f95f43d50ed8f2b4_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_dgettext@
-hs_bindgen_f95f43d50ed8f2b4 :: IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
+hs_bindgen_f95f43d50ed8f2b4 :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr RIP.CChar)))
 hs_bindgen_f95f43d50ed8f2b4 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f95f43d50ed8f2b4_base
+  RIP.fromFFIType hs_bindgen_f95f43d50ed8f2b4_base
 
 {-# NOINLINE my_dgettext #-}
 {-| __C declaration:__ @my_dgettext@
@@ -388,18 +381,18 @@ hs_bindgen_f95f43d50ed8f2b4 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_dgettext :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FC.CChar))
+my_dgettext :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr RIP.CChar))
 my_dgettext =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f95f43d50ed8f2b4
+  RIP.unsafePerformIO hs_bindgen_f95f43d50ed8f2b4
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fdopen@
 foreign import ccall unsafe "hs_bindgen_986260288574592d" hs_bindgen_986260288574592d_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fdopen@
-hs_bindgen_986260288574592d :: IO (Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FILE)))
+hs_bindgen_986260288574592d :: IO (RIP.FunPtr (RIP.CInt -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr FILE)))
 hs_bindgen_986260288574592d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_986260288574592d_base
+  RIP.fromFFIType hs_bindgen_986260288574592d_base
 
 {-# NOINLINE fdopen #-}
 {-| __C declaration:__ @fdopen@
@@ -408,18 +401,18 @@ hs_bindgen_986260288574592d =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fdopen :: Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO (Ptr.Ptr FILE))
+fdopen :: RIP.FunPtr (RIP.CInt -> (PtrConst.PtrConst RIP.CChar) -> IO (RIP.Ptr FILE))
 fdopen =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_986260288574592d
+  RIP.unsafePerformIO hs_bindgen_986260288574592d
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_f2@
 foreign import ccall unsafe "hs_bindgen_fa90d405c15977a2" hs_bindgen_fa90d405c15977a2_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_f2@
-hs_bindgen_fa90d405c15977a2 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_fa90d405c15977a2 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_fa90d405c15977a2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fa90d405c15977a2_base
+  RIP.fromFFIType hs_bindgen_fa90d405c15977a2_base
 
 {-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
@@ -428,18 +421,17 @@ hs_bindgen_fa90d405c15977a2 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f2 :: Ptr.FunPtr (IO ())
-f2 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fa90d405c15977a2
+f2 :: RIP.FunPtr (IO ())
+f2 = RIP.unsafePerformIO hs_bindgen_fa90d405c15977a2
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memcpy@
 foreign import ccall unsafe "hs_bindgen_481e3a75205c85f2" hs_bindgen_481e3a75205c85f2_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_my_memcpy@
-hs_bindgen_481e3a75205c85f2 :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_481e3a75205c85f2 :: IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> (PtrConst.PtrConst RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_481e3a75205c85f2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_481e3a75205c85f2_base
+  RIP.fromFFIType hs_bindgen_481e3a75205c85f2_base
 
 {-# NOINLINE my_memcpy #-}
 {-| __C declaration:__ @my_memcpy@
@@ -448,18 +440,18 @@ hs_bindgen_481e3a75205c85f2 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_memcpy :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> Size_t -> IO (Ptr.Ptr Void))
+my_memcpy :: RIP.FunPtr ((RIP.Ptr RIP.Void) -> (PtrConst.PtrConst RIP.Void) -> Size_t -> IO (RIP.Ptr RIP.Void))
 my_memcpy =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_481e3a75205c85f2
+  RIP.unsafePerformIO hs_bindgen_481e3a75205c85f2
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fatal@
 foreign import ccall unsafe "hs_bindgen_99cc62837ebec657" hs_bindgen_99cc62837ebec657_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fatal@
-hs_bindgen_99cc62837ebec657 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_99cc62837ebec657 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_99cc62837ebec657 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_99cc62837ebec657_base
+  RIP.fromFFIType hs_bindgen_99cc62837ebec657_base
 
 {-# NOINLINE fatal #-}
 {-| __C declaration:__ @fatal@
@@ -468,18 +460,18 @@ hs_bindgen_99cc62837ebec657 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fatal :: Ptr.FunPtr (IO ())
+fatal :: RIP.FunPtr (IO ())
 fatal =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_99cc62837ebec657
+  RIP.unsafePerformIO hs_bindgen_99cc62837ebec657
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_hash@
 foreign import ccall unsafe "hs_bindgen_196cbfce2a9df94f" hs_bindgen_196cbfce2a9df94f_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_hash@
-hs_bindgen_196cbfce2a9df94f :: IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
+hs_bindgen_196cbfce2a9df94f :: IO (RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO RIP.CInt))
 hs_bindgen_196cbfce2a9df94f =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_196cbfce2a9df94f_base
+  RIP.fromFFIType hs_bindgen_196cbfce2a9df94f_base
 
 {-# NOINLINE hash #-}
 {-| __C declaration:__ @hash@
@@ -488,18 +480,18 @@ hs_bindgen_196cbfce2a9df94f =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-hash :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
+hash :: RIP.FunPtr ((RIP.Ptr RIP.CChar) -> IO RIP.CInt)
 hash =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_196cbfce2a9df94f
+  RIP.unsafePerformIO hs_bindgen_196cbfce2a9df94f
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_mymalloc@
 foreign import ccall unsafe "hs_bindgen_ae6b503283507bd2" hs_bindgen_ae6b503283507bd2_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_mymalloc@
-hs_bindgen_ae6b503283507bd2 :: IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_ae6b503283507bd2 :: IO (RIP.FunPtr (Size_t -> IO (RIP.Ptr RIP.Void)))
 hs_bindgen_ae6b503283507bd2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ae6b503283507bd2_base
+  RIP.fromFFIType hs_bindgen_ae6b503283507bd2_base
 
 {-# NOINLINE mymalloc #-}
 {-| __C declaration:__ @mymalloc@
@@ -508,18 +500,18 @@ hs_bindgen_ae6b503283507bd2 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-mymalloc :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
+mymalloc :: RIP.FunPtr (Size_t -> IO (RIP.Ptr RIP.Void))
 mymalloc =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ae6b503283507bd2
+  RIP.unsafePerformIO hs_bindgen_ae6b503283507bd2
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_foobar@
 foreign import ccall unsafe "hs_bindgen_ad3e5c88477c9e92" hs_bindgen_ad3e5c88477c9e92_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_foobar@
-hs_bindgen_ad3e5c88477c9e92 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_ad3e5c88477c9e92 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_ad3e5c88477c9e92 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ad3e5c88477c9e92_base
+  RIP.fromFFIType hs_bindgen_ad3e5c88477c9e92_base
 
 {-# NOINLINE foobar #-}
 {-| __C declaration:__ @foobar@
@@ -528,18 +520,18 @@ hs_bindgen_ad3e5c88477c9e92 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foobar :: Ptr.FunPtr (IO ())
+foobar :: RIP.FunPtr (IO ())
 foobar =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ad3e5c88477c9e92
+  RIP.unsafePerformIO hs_bindgen_ad3e5c88477c9e92
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_core2_func@
 foreign import ccall unsafe "hs_bindgen_508f28109ff2076e" hs_bindgen_508f28109ff2076e_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_core2_func@
-hs_bindgen_508f28109ff2076e :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_508f28109ff2076e :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_508f28109ff2076e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_508f28109ff2076e_base
+  RIP.fromFFIType hs_bindgen_508f28109ff2076e_base
 
 {-# NOINLINE core2_func #-}
 {-| __C declaration:__ @core2_func@
@@ -548,18 +540,18 @@ hs_bindgen_508f28109ff2076e =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-core2_func :: Ptr.FunPtr (IO FC.CInt)
+core2_func :: RIP.FunPtr (IO RIP.CInt)
 core2_func =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_508f28109ff2076e
+  RIP.unsafePerformIO hs_bindgen_508f28109ff2076e
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_sse3_func@
 foreign import ccall unsafe "hs_bindgen_6e4f5b53b36a3ecb" hs_bindgen_6e4f5b53b36a3ecb_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_sse3_func@
-hs_bindgen_6e4f5b53b36a3ecb :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_6e4f5b53b36a3ecb :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_6e4f5b53b36a3ecb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6e4f5b53b36a3ecb_base
+  RIP.fromFFIType hs_bindgen_6e4f5b53b36a3ecb_base
 
 {-# NOINLINE sse3_func #-}
 {-| __C declaration:__ @sse3_func@
@@ -568,18 +560,18 @@ hs_bindgen_6e4f5b53b36a3ecb =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-sse3_func :: Ptr.FunPtr (IO FC.CInt)
+sse3_func :: RIP.FunPtr (IO RIP.CInt)
 sse3_func =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6e4f5b53b36a3ecb
+  RIP.unsafePerformIO hs_bindgen_6e4f5b53b36a3ecb
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_f3@
 foreign import ccall unsafe "hs_bindgen_e39d5186f5da6c3f" hs_bindgen_e39d5186f5da6c3f_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_f3@
-hs_bindgen_e39d5186f5da6c3f :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_e39d5186f5da6c3f :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_e39d5186f5da6c3f =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e39d5186f5da6c3f_base
+  RIP.fromFFIType hs_bindgen_e39d5186f5da6c3f_base
 
 {-# NOINLINE f3 #-}
 {-| __C declaration:__ @f3@
@@ -588,18 +580,17 @@ hs_bindgen_e39d5186f5da6c3f =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f3 :: Ptr.FunPtr (IO ())
-f3 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e39d5186f5da6c3f
+f3 :: RIP.FunPtr (IO ())
+f3 = RIP.unsafePerformIO hs_bindgen_e39d5186f5da6c3f
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fn@
 foreign import ccall unsafe "hs_bindgen_acb0e567f47dc0eb" hs_bindgen_acb0e567f47dc0eb_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_fn@
-hs_bindgen_acb0e567f47dc0eb :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_acb0e567f47dc0eb :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_acb0e567f47dc0eb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_acb0e567f47dc0eb_base
+  RIP.fromFFIType hs_bindgen_acb0e567f47dc0eb_base
 
 {-# NOINLINE fn #-}
 {-| __C declaration:__ @fn@
@@ -608,18 +599,17 @@ hs_bindgen_acb0e567f47dc0eb =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fn :: Ptr.FunPtr (IO FC.CInt)
-fn =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_acb0e567f47dc0eb
+fn :: RIP.FunPtr (IO RIP.CInt)
+fn = RIP.unsafePerformIO hs_bindgen_acb0e567f47dc0eb
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_y@
 foreign import ccall unsafe "hs_bindgen_a1f58949b267b87f" hs_bindgen_a1f58949b267b87f_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_y@
-hs_bindgen_a1f58949b267b87f :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_a1f58949b267b87f :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_a1f58949b267b87f =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a1f58949b267b87f_base
+  RIP.fromFFIType hs_bindgen_a1f58949b267b87f_base
 
 {-# NOINLINE y #-}
 {-| __C declaration:__ @y@
@@ -628,18 +618,17 @@ hs_bindgen_a1f58949b267b87f =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-y :: Ptr.FunPtr (IO FC.CInt)
-y =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a1f58949b267b87f
+y :: RIP.FunPtr (IO RIP.CInt)
+y = RIP.unsafePerformIO hs_bindgen_a1f58949b267b87f
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_x1@
 foreign import ccall unsafe "hs_bindgen_06bd05eb2df3a936" hs_bindgen_06bd05eb2df3a936_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_x1@
-hs_bindgen_06bd05eb2df3a936 :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_06bd05eb2df3a936 :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_06bd05eb2df3a936 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_06bd05eb2df3a936_base
+  RIP.fromFFIType hs_bindgen_06bd05eb2df3a936_base
 
 {-# NOINLINE x1 #-}
 {-| __C declaration:__ @x1@
@@ -648,18 +637,17 @@ hs_bindgen_06bd05eb2df3a936 =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1 :: Ptr.FunPtr (IO FC.CInt)
-x1 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_06bd05eb2df3a936
+x1 :: RIP.FunPtr (IO RIP.CInt)
+x1 = RIP.unsafePerformIO hs_bindgen_06bd05eb2df3a936
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_x2@
 foreign import ccall unsafe "hs_bindgen_f2ae2154ea32940b" hs_bindgen_f2ae2154ea32940b_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_x2@
-hs_bindgen_f2ae2154ea32940b :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_f2ae2154ea32940b :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_f2ae2154ea32940b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f2ae2154ea32940b_base
+  RIP.fromFFIType hs_bindgen_f2ae2154ea32940b_base
 
 {-# NOINLINE x2 #-}
 {-| __C declaration:__ @x2@
@@ -668,6 +656,5 @@ hs_bindgen_f2ae2154ea32940b =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2 :: Ptr.FunPtr (IO FC.CInt)
-x2 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f2ae2154ea32940b
+x2 :: RIP.FunPtr (IO RIP.CInt)
+x2 = RIP.unsafePerformIO hs_bindgen_f2ae2154ea32940b

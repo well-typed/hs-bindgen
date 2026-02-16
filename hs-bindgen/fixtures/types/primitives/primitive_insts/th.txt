@@ -18,23 +18,23 @@ newtype Prim_HsPrimCPtrdiff
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CPtrdiff =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
          HasField "unwrapPrim_HsPrimCPtrdiff"
                   (Ptr Prim_HsPrimCPtrdiff)
                   (Ptr ty)
@@ -57,23 +57,23 @@ newtype Prim_HsPrimInt8
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
          HasField "unwrapPrim_HsPrimInt8" (Ptr Prim_HsPrimInt8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt8")
 instance HasCField Prim_HsPrimInt8 "unwrapPrim_HsPrimInt8"
@@ -94,23 +94,23 @@ newtype Prim_HsPrimInt16
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int16 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
          HasField "unwrapPrim_HsPrimInt16" (Ptr Prim_HsPrimInt16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt16")
 instance HasCField Prim_HsPrimInt16 "unwrapPrim_HsPrimInt16"
@@ -131,23 +131,23 @@ newtype Prim_HsPrimInt32
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "unwrapPrim_HsPrimInt32" (Ptr Prim_HsPrimInt32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt32")
 instance HasCField Prim_HsPrimInt32 "unwrapPrim_HsPrimInt32"
@@ -168,23 +168,23 @@ newtype Prim_HsPrimInt64
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
          HasField "unwrapPrim_HsPrimInt64" (Ptr Prim_HsPrimInt64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimInt64")
 instance HasCField Prim_HsPrimInt64 "unwrapPrim_HsPrimInt64"
@@ -205,23 +205,23 @@ newtype Prim_HsPrimWord8
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "unwrapPrim_HsPrimWord8" (Ptr Prim_HsPrimWord8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord8")
 instance HasCField Prim_HsPrimWord8 "unwrapPrim_HsPrimWord8"
@@ -242,23 +242,23 @@ newtype Prim_HsPrimWord16
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "unwrapPrim_HsPrimWord16" (Ptr Prim_HsPrimWord16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord16")
 instance HasCField Prim_HsPrimWord16 "unwrapPrim_HsPrimWord16"
@@ -279,23 +279,23 @@ newtype Prim_HsPrimWord32
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "unwrapPrim_HsPrimWord32" (Ptr Prim_HsPrimWord32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord32")
 instance HasCField Prim_HsPrimWord32 "unwrapPrim_HsPrimWord32"
@@ -316,23 +316,23 @@ newtype Prim_HsPrimWord64
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "unwrapPrim_HsPrimWord64" (Ptr Prim_HsPrimWord64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimWord64")
 instance HasCField Prim_HsPrimWord64 "unwrapPrim_HsPrimWord64"
@@ -353,23 +353,23 @@ newtype Prim_HsPrimCChar
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CChar =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CChar =>
          HasField "unwrapPrim_HsPrimCChar" (Ptr Prim_HsPrimCChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCChar")
 instance HasCField Prim_HsPrimCChar "unwrapPrim_HsPrimCChar"
@@ -390,23 +390,23 @@ newtype Prim_HsPrimCSChar
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CSChar =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CSChar =>
          HasField "unwrapPrim_HsPrimCSChar" (Ptr Prim_HsPrimCSChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCSChar")
 instance HasCField Prim_HsPrimCSChar "unwrapPrim_HsPrimCSChar"
@@ -427,23 +427,23 @@ newtype Prim_HsPrimCUChar
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CUChar =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUChar =>
          HasField "unwrapPrim_HsPrimCUChar" (Ptr Prim_HsPrimCUChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUChar")
 instance HasCField Prim_HsPrimCUChar "unwrapPrim_HsPrimCUChar"
@@ -464,23 +464,23 @@ newtype Prim_HsPrimCShort
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CShort =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort =>
          HasField "unwrapPrim_HsPrimCShort" (Ptr Prim_HsPrimCShort) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCShort")
 instance HasCField Prim_HsPrimCShort "unwrapPrim_HsPrimCShort"
@@ -501,23 +501,23 @@ newtype Prim_HsPrimCUShort
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CUShort =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUShort =>
          HasField "unwrapPrim_HsPrimCUShort"
                   (Ptr Prim_HsPrimCUShort)
                   (Ptr ty)
@@ -540,23 +540,23 @@ newtype Prim_HsPrimCInt
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
          HasField "unwrapPrim_HsPrimCInt" (Ptr Prim_HsPrimCInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCInt")
 instance HasCField Prim_HsPrimCInt "unwrapPrim_HsPrimCInt"
@@ -577,23 +577,23 @@ newtype Prim_HsPrimCUInt
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CUInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUInt =>
          HasField "unwrapPrim_HsPrimCUInt" (Ptr Prim_HsPrimCUInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCUInt")
 instance HasCField Prim_HsPrimCUInt "unwrapPrim_HsPrimCUInt"
@@ -614,23 +614,23 @@ newtype Prim_HsPrimCLong
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CLong =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CLong =>
          HasField "unwrapPrim_HsPrimCLong" (Ptr Prim_HsPrimCLong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLong")
 instance HasCField Prim_HsPrimCLong "unwrapPrim_HsPrimCLong"
@@ -651,23 +651,23 @@ newtype Prim_HsPrimCULong
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CULong =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CULong =>
          HasField "unwrapPrim_HsPrimCULong" (Ptr Prim_HsPrimCULong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCULong")
 instance HasCField Prim_HsPrimCULong "unwrapPrim_HsPrimCULong"
@@ -688,23 +688,23 @@ newtype Prim_HsPrimCLLong
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CLLong =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CLLong =>
          HasField "unwrapPrim_HsPrimCLLong" (Ptr Prim_HsPrimCLLong) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCLLong")
 instance HasCField Prim_HsPrimCLLong "unwrapPrim_HsPrimCLLong"
@@ -725,23 +725,23 @@ newtype Prim_HsPrimCULLong
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CULLong =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CULLong =>
          HasField "unwrapPrim_HsPrimCULLong"
                   (Ptr Prim_HsPrimCULLong)
                   (Ptr ty)
@@ -764,23 +764,23 @@ newtype Prim_HsPrimCBool
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CBool =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CBool =>
          HasField "unwrapPrim_HsPrimCBool" (Ptr Prim_HsPrimCBool) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCBool")
 instance HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool"
@@ -801,21 +801,21 @@ newtype Prim_HsPrimCFloat
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Enum,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
                       Floating,
                       Fractional,
+                      HasFFIType,
                       Num,
+                      Prim,
+                      ReadRaw,
                       Real,
                       RealFloat,
-                      RealFrac)
-instance TyEq ty CFloat =>
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CFloat =>
          HasField "unwrapPrim_HsPrimCFloat" (Ptr Prim_HsPrimCFloat) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCFloat")
 instance HasCField Prim_HsPrimCFloat "unwrapPrim_HsPrimCFloat"
@@ -836,21 +836,21 @@ newtype Prim_HsPrimCDouble
 
            __exported by:__ @types\/primitives\/primitive_insts.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Enum,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
                       Floating,
                       Fractional,
+                      HasFFIType,
                       Num,
+                      Prim,
+                      ReadRaw,
                       Real,
                       RealFloat,
-                      RealFrac)
-instance TyEq ty CDouble =>
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CDouble =>
          HasField "unwrapPrim_HsPrimCDouble"
                   (Ptr Prim_HsPrimCDouble)
                   (Ptr ty)

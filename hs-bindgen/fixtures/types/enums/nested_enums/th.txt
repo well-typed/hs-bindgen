@@ -13,7 +13,7 @@ newtype EnumA
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumA
     where staticSizeOf = \_ -> 4 :: Int
@@ -45,7 +45,7 @@ instance Read EnumA
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapEnumA" (Ptr EnumA) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapEnumA")
 instance HasCField EnumA "unwrapEnumA"
@@ -99,7 +99,7 @@ data ExA
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize ExA
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -112,7 +112,7 @@ deriving via (EquivStorable ExA) instance Storable ExA
 instance HasCField ExA "exA_fieldA1"
     where type CFieldType ExA "exA_fieldA1" = EnumA
           offset# = \_ -> \_ -> 0
-instance TyEq ty EnumA => HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
+instance (~) ty EnumA => HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
     where getField = fromPtr (Proxy @"exA_fieldA1")
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
@@ -128,7 +128,7 @@ newtype ExB_fieldB1
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize ExB_fieldB1
     where staticSizeOf = \_ -> 4 :: Int
@@ -160,7 +160,7 @@ instance Read ExB_fieldB1
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapExB_fieldB1" (Ptr ExB_fieldB1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapExB_fieldB1")
 instance HasCField ExB_fieldB1 "unwrapExB_fieldB1"
@@ -214,7 +214,7 @@ data ExB
 
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize ExB
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -227,6 +227,6 @@ deriving via (EquivStorable ExB) instance Storable ExB
 instance HasCField ExB "exB_fieldB1"
     where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
           offset# = \_ -> \_ -> 0
-instance TyEq ty ExB_fieldB1 =>
+instance (~) ty ExB_fieldB1 =>
          HasField "exB_fieldB1" (Ptr ExB) (Ptr ty)
     where getField = fromPtr (Proxy @"exB_fieldB1")

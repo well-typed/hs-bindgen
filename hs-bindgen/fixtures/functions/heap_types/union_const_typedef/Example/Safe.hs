@@ -1,18 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign as F
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/heap_types/union_const_typedef.h>"
@@ -27,17 +22,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 hs_bindgen_8a303cd5b4f7787b ::
-     HsBindgen.Runtime.PtrConst.PtrConst T
-  -> HsBindgen.Runtime.PtrConst.PtrConst T
+     PtrConst.PtrConst T
+  -> PtrConst.PtrConst T
   -> IO ()
 hs_bindgen_8a303cd5b4f7787b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8a303cd5b4f7787b_base
+  RIP.fromFFIType hs_bindgen_8a303cd5b4f7787b_base
 
 {-| __C declaration:__ @fun@
 
@@ -51,6 +46,6 @@ fun ::
   -> IO T
 fun =
   \x0 ->
-    F.with x0 (\x1 ->
-                 HsBindgen.Runtime.Internal.CAPI.allocaAndPeek (\res2 ->
-                                                                  hs_bindgen_8a303cd5b4f7787b (HsBindgen.Runtime.PtrConst.unsafeFromPtr x1) res2))
+    RIP.with x0 (\x1 ->
+                   RIP.allocaAndPeek (\res2 ->
+                                        hs_bindgen_8a303cd5b4f7787b (PtrConst.unsafeFromPtr x1) res2))

@@ -1,19 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/zero_copy.h>"
@@ -35,17 +29,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
+  -> IO RIP.Int32
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 hs_bindgen_350cceac1101d344 ::
-     HsBindgen.Runtime.PtrConst.PtrConst Vector
-  -> Ptr.Ptr Vector
-  -> IO FC.CInt
+     PtrConst.PtrConst Vector
+  -> RIP.Ptr Vector
+  -> IO RIP.CInt
 hs_bindgen_350cceac1101d344 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_350cceac1101d344_base
+  RIP.fromFFIType hs_bindgen_350cceac1101d344_base
 
 {-| __C declaration:__ @reverse@
 
@@ -54,26 +48,26 @@ hs_bindgen_350cceac1101d344 =
     __exported by:__ @manual\/zero_copy.h@
 -}
 reverse ::
-     HsBindgen.Runtime.PtrConst.PtrConst Vector
+     PtrConst.PtrConst Vector
      -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Vector
+  -> RIP.Ptr Vector
      -- ^ __C declaration:__ @output@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 reverse = hs_bindgen_350cceac1101d344
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 ::
-     HsBindgen.Runtime.PtrConst.PtrConst Matrix
-  -> Ptr.Ptr Matrix
+     PtrConst.PtrConst Matrix
+  -> RIP.Ptr Matrix
   -> IO ()
 hs_bindgen_2ff371c815d92b04 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2ff371c815d92b04_base
+  RIP.fromFFIType hs_bindgen_2ff371c815d92b04_base
 
 {-| __C declaration:__ @transpose@
 
@@ -82,9 +76,9 @@ hs_bindgen_2ff371c815d92b04 =
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose ::
-     HsBindgen.Runtime.PtrConst.PtrConst Matrix
+     PtrConst.PtrConst Matrix
      -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Matrix
+  -> RIP.Ptr Matrix
      -- ^ __C declaration:__ @output@
   -> IO ()
 transpose = hs_bindgen_2ff371c815d92b04

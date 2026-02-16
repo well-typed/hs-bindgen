@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign as F
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/anon_multiple_typedefs.h>"
@@ -26,17 +21,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
 foreign import ccall safe "hs_bindgen_c97a0d4458699ad7" hs_bindgen_c97a0d4458699ad7_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
 hs_bindgen_c97a0d4458699ad7 ::
-     Ptr.Ptr Point2a
+     RIP.Ptr Point2a
   -> Point2b
   -> IO ()
 hs_bindgen_c97a0d4458699ad7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c97a0d4458699ad7_base
+  RIP.fromFFIType hs_bindgen_c97a0d4458699ad7_base
 
 {-| __C declaration:__ @test@
 
@@ -53,4 +48,5 @@ test ::
 test =
   \x0 ->
     \y1 ->
-      F.with x0 (\x2 -> hs_bindgen_c97a0d4458699ad7 x2 y1)
+      RIP.with x0 (\x2 ->
+                     hs_bindgen_c97a0d4458699ad7 x2 y1)

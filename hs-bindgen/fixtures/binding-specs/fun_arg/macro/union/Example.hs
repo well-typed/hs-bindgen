@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -15,18 +14,9 @@
 
 module Example where
 
-import qualified Data.Array.Byte
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.ByteArray
-import qualified HsBindgen.Runtime.Internal.SizedByteArray
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @union MyUnion@
 
@@ -35,17 +25,17 @@ import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 newtype MyUnion = MyUnion
-  { unwrapMyUnion :: Data.Array.Byte.ByteArray
+  { unwrapMyUnion :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize MyUnion
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize MyUnion
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw MyUnion
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw MyUnion
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw MyUnion
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw MyUnion
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable MyUnion instance F.Storable MyUnion
+deriving via Marshal.EquivStorable MyUnion instance RIP.Storable MyUnion
 
 {-|
 
@@ -59,9 +49,8 @@ __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 get_myUnion_x ::
      MyUnion
-  -> FC.CInt
-get_myUnion_x =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CInt
+get_myUnion_x = RIP.getUnionPayload
 
 {-|
 
@@ -69,22 +58,20 @@ get_myUnion_x =
 
 -}
 set_myUnion_x ::
-     FC.CInt
+     RIP.CInt
   -> MyUnion
-set_myUnion_x =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_myUnion_x = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField MyUnion "myUnion_x" where
+instance HasCField.HasCField MyUnion "myUnion_x" where
 
-  type CFieldType MyUnion "myUnion_x" = FC.CInt
+  type CFieldType MyUnion "myUnion_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "myUnion_x" (Ptr.Ptr MyUnion) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "myUnion_x" (RIP.Ptr MyUnion) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"myUnion_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"myUnion_x")
 
 {-| __C declaration:__ @A@
 
@@ -95,21 +82,20 @@ instance ( TyEq ty FC.CInt
 newtype A = A
   { unwrapA :: MyUnion
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty MyUnion
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) MyUnion
+         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+instance HasCField.HasCField A "unwrapA" where
 
   type CFieldType A "unwrapA" = MyUnion
 
@@ -124,21 +110,19 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty A
-         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
-instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
 

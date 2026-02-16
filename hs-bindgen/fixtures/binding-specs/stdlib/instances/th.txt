@@ -30,23 +30,23 @@ newtype Stdlib_CBool
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CBool =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CBool =>
          HasField "unwrapStdlib_CBool" (Ptr Stdlib_CBool) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CBool")
 instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
@@ -67,23 +67,23 @@ newtype Stdlib_Int8
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
          HasField "unwrapStdlib_Int8" (Ptr Stdlib_Int8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int8")
 instance HasCField Stdlib_Int8 "unwrapStdlib_Int8"
@@ -104,23 +104,23 @@ newtype Stdlib_Int16
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int16 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
          HasField "unwrapStdlib_Int16" (Ptr Stdlib_Int16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int16")
 instance HasCField Stdlib_Int16 "unwrapStdlib_Int16"
@@ -141,23 +141,23 @@ newtype Stdlib_Int32
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "unwrapStdlib_Int32" (Ptr Stdlib_Int32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int32")
 instance HasCField Stdlib_Int32 "unwrapStdlib_Int32"
@@ -178,23 +178,23 @@ newtype Stdlib_Int64
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
          HasField "unwrapStdlib_Int64" (Ptr Stdlib_Int64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Int64")
 instance HasCField Stdlib_Int64 "unwrapStdlib_Int64"
@@ -215,23 +215,23 @@ newtype Stdlib_Word8
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "unwrapStdlib_Word8" (Ptr Stdlib_Word8) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word8")
 instance HasCField Stdlib_Word8 "unwrapStdlib_Word8"
@@ -252,23 +252,23 @@ newtype Stdlib_Word16
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "unwrapStdlib_Word16" (Ptr Stdlib_Word16) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word16")
 instance HasCField Stdlib_Word16 "unwrapStdlib_Word16"
@@ -289,23 +289,23 @@ newtype Stdlib_Word32
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "unwrapStdlib_Word32" (Ptr Stdlib_Word32) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word32")
 instance HasCField Stdlib_Word32 "unwrapStdlib_Word32"
@@ -326,23 +326,23 @@ newtype Stdlib_Word64
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "unwrapStdlib_Word64" (Ptr Stdlib_Word64) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_Word64")
 instance HasCField Stdlib_Word64 "unwrapStdlib_Word64"
@@ -363,23 +363,23 @@ newtype Stdlib_CIntMax
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CIntMax =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CIntMax =>
          HasField "unwrapStdlib_CIntMax" (Ptr Stdlib_CIntMax) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntMax")
 instance HasCField Stdlib_CIntMax "unwrapStdlib_CIntMax"
@@ -400,23 +400,23 @@ newtype Stdlib_CUIntMax
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CUIntMax =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CUIntMax =>
          HasField "unwrapStdlib_CUIntMax" (Ptr Stdlib_CUIntMax) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntMax")
 instance HasCField Stdlib_CUIntMax "unwrapStdlib_CUIntMax"
@@ -437,23 +437,23 @@ newtype Stdlib_CIntPtr
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CIntPtr =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CIntPtr =>
          HasField "unwrapStdlib_CIntPtr" (Ptr Stdlib_CIntPtr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CIntPtr")
 instance HasCField Stdlib_CIntPtr "unwrapStdlib_CIntPtr"
@@ -474,23 +474,23 @@ newtype Stdlib_CUIntPtr
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CUIntPtr =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CUIntPtr =>
          HasField "unwrapStdlib_CUIntPtr" (Ptr Stdlib_CUIntPtr) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CUIntPtr")
 instance HasCField Stdlib_CUIntPtr "unwrapStdlib_CUIntPtr"
@@ -512,7 +512,7 @@ newtype Stdlib_CFenvT
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty HsBindgen.Runtime.LibC.CFenvT =>
+instance (~) ty HsBindgen.Runtime.LibC.CFenvT =>
          HasField "unwrapStdlib_CFenvT" (Ptr Stdlib_CFenvT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFenvT")
 instance HasCField Stdlib_CFenvT "unwrapStdlib_CFenvT"
@@ -534,7 +534,7 @@ newtype Stdlib_CFexceptT
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty HsBindgen.Runtime.LibC.CFexceptT =>
+instance (~) ty HsBindgen.Runtime.LibC.CFexceptT =>
          HasField "unwrapStdlib_CFexceptT" (Ptr Stdlib_CFexceptT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFexceptT")
 instance HasCField Stdlib_CFexceptT "unwrapStdlib_CFexceptT"
@@ -555,23 +555,23 @@ newtype Stdlib_CSize
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CSize =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
          HasField "unwrapStdlib_CSize" (Ptr Stdlib_CSize) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSize")
 instance HasCField Stdlib_CSize "unwrapStdlib_CSize"
@@ -592,23 +592,23 @@ newtype Stdlib_CPtrdiff
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CPtrdiff =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CPtrdiff =>
          HasField "unwrapStdlib_CPtrdiff" (Ptr Stdlib_CPtrdiff) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CPtrdiff")
 instance HasCField Stdlib_CPtrdiff "unwrapStdlib_CPtrdiff"
@@ -630,7 +630,7 @@ newtype Stdlib_CJmpBuf
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty HsBindgen.Runtime.LibC.CJmpBuf =>
+instance (~) ty HsBindgen.Runtime.LibC.CJmpBuf =>
          HasField "unwrapStdlib_CJmpBuf" (Ptr Stdlib_CJmpBuf) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CJmpBuf")
 instance HasCField Stdlib_CJmpBuf "unwrapStdlib_CJmpBuf"
@@ -651,23 +651,23 @@ newtype Stdlib_CWchar
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CWchar =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CWchar =>
          HasField "unwrapStdlib_CWchar" (Ptr Stdlib_CWchar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWchar")
 instance HasCField Stdlib_CWchar "unwrapStdlib_CWchar"
@@ -688,23 +688,23 @@ newtype Stdlib_CWintT
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CWintT =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CWintT =>
          HasField "unwrapStdlib_CWintT" (Ptr Stdlib_CWintT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWintT")
 instance HasCField Stdlib_CWintT "unwrapStdlib_CWintT"
@@ -726,7 +726,7 @@ newtype Stdlib_CMbstateT
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty HsBindgen.Runtime.LibC.CMbstateT =>
+instance (~) ty HsBindgen.Runtime.LibC.CMbstateT =>
          HasField "unwrapStdlib_CMbstateT" (Ptr Stdlib_CMbstateT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CMbstateT")
 instance HasCField Stdlib_CMbstateT "unwrapStdlib_CMbstateT"
@@ -747,14 +747,14 @@ newtype Stdlib_CWctransT
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (HasFFIType,
+                      Prim,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType,
-                      Prim)
-instance TyEq ty HsBindgen.Runtime.LibC.CWctransT =>
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CWctransT =>
          HasField "unwrapStdlib_CWctransT" (Ptr Stdlib_CWctransT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctransT")
 instance HasCField Stdlib_CWctransT "unwrapStdlib_CWctransT"
@@ -775,14 +775,14 @@ newtype Stdlib_CWctypeT
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (HasFFIType,
+                      Prim,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType,
-                      Prim)
-instance TyEq ty HsBindgen.Runtime.LibC.CWctypeT =>
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CWctypeT =>
          HasField "unwrapStdlib_CWctypeT" (Ptr Stdlib_CWctypeT) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CWctypeT")
 instance HasCField Stdlib_CWctypeT "unwrapStdlib_CWctypeT"
@@ -803,23 +803,23 @@ newtype Stdlib_CChar16T
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CChar16T =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CChar16T =>
          HasField "unwrapStdlib_CChar16T" (Ptr Stdlib_CChar16T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar16T")
 instance HasCField Stdlib_CChar16T "unwrapStdlib_CChar16T"
@@ -840,23 +840,23 @@ newtype Stdlib_CChar32T
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CChar32T =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CChar32T =>
          HasField "unwrapStdlib_CChar32T" (Ptr Stdlib_CChar32T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CChar32T")
 instance HasCField Stdlib_CChar32T "unwrapStdlib_CChar32T"
@@ -877,16 +877,16 @@ newtype Stdlib_CTime
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
                       HasFFIType,
-                      Enum,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CTime =>
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CTime =>
          HasField "unwrapStdlib_CTime" (Ptr Stdlib_CTime) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTime")
 instance HasCField Stdlib_CTime "unwrapStdlib_CTime"
@@ -907,16 +907,16 @@ newtype Stdlib_CClock
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
                       HasFFIType,
-                      Enum,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CClock =>
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CClock =>
          HasField "unwrapStdlib_CClock" (Ptr Stdlib_CClock) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CClock")
 instance HasCField Stdlib_CClock "unwrapStdlib_CClock"
@@ -937,9 +937,9 @@ newtype Stdlib_CTm
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw)
-instance TyEq ty HsBindgen.Runtime.LibC.CTm =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize)
+instance (~) ty HsBindgen.Runtime.LibC.CTm =>
          HasField "unwrapStdlib_CTm" (Ptr Stdlib_CTm) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CTm")
 instance HasCField Stdlib_CTm "unwrapStdlib_CTm"
@@ -961,7 +961,7 @@ newtype Stdlib_CFile
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty HsBindgen.Runtime.LibC.CFile =>
+instance (~) ty HsBindgen.Runtime.LibC.CFile =>
          HasField "unwrapStdlib_CFile" (Ptr Stdlib_CFile) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFile")
 instance HasCField Stdlib_CFile "unwrapStdlib_CFile"
@@ -983,7 +983,7 @@ newtype Stdlib_CFpos
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
     deriving stock Generic
-instance TyEq ty HsBindgen.Runtime.LibC.CFpos =>
+instance (~) ty HsBindgen.Runtime.LibC.CFpos =>
          HasField "unwrapStdlib_CFpos" (Ptr Stdlib_CFpos) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CFpos")
 instance HasCField Stdlib_CFpos "unwrapStdlib_CFpos"
@@ -1004,23 +1004,23 @@ newtype Stdlib_CSigAtomic
 
            __exported by:__ @binding-specs\/stdlib\/instances.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.CSigAtomic =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.CSigAtomic =>
          HasField "unwrapStdlib_CSigAtomic" (Ptr Stdlib_CSigAtomic) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStdlib_CSigAtomic")
 instance HasCField Stdlib_CSigAtomic "unwrapStdlib_CSigAtomic"

@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,16 +13,10 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct foo@
 
@@ -47,56 +40,56 @@ data Foo = Foo
          __exported by:__ @types\/primitives\/fixedwidth.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Foo where
+instance Marshal.StaticSize Foo where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Foo where
+instance Marshal.ReadRaw Foo where
 
   readRaw =
     \ptr0 ->
           pure Foo
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"foo_sixty_four") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"foo_thirty_two") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"foo_sixty_four") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"foo_thirty_two") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Foo where
+instance Marshal.WriteRaw Foo where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_sixty_four2 foo_thirty_two3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+               HasCField.writeRaw (RIP.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
+            >> HasCField.writeRaw (RIP.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Foo instance F.Storable Foo
+deriving via Marshal.EquivStorable Foo instance RIP.Storable Foo
 
-instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
+instance HasCField.HasCField Foo "foo_sixty_four" where
 
   type CFieldType Foo "foo_sixty_four" =
     HsBindgen.Runtime.LibC.Word64
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.Word64
-         ) => GHC.Records.HasField "foo_sixty_four" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.Word64
+         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_sixty_four")
+    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
 
-instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_thirty_two" where
+instance HasCField.HasCField Foo "foo_thirty_two" where
 
   type CFieldType Foo "foo_thirty_two" =
     HsBindgen.Runtime.LibC.Word32
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.Word32
-         ) => GHC.Records.HasField "foo_thirty_two" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.Word32
+         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_thirty_two")
+    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")

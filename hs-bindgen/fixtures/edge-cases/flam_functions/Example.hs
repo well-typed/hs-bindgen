@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,17 +13,10 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.FLAM
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.FLAM as FLAM
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct Vector@
 
@@ -33,7 +25,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
 data Vector_Aux = Vector
-  { vector_length :: FC.CInt
+  { vector_length :: RIP.CInt
     {- ^ __C declaration:__ @length@
 
          __defined at:__ @edge-cases\/flam_functions.h 2:7@
@@ -41,45 +33,45 @@ data Vector_Aux = Vector
          __exported by:__ @edge-cases\/flam_functions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Vector_Aux where
+instance Marshal.StaticSize Vector_Aux where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Vector_Aux where
+instance Marshal.ReadRaw Vector_Aux where
 
   readRaw =
     \ptr0 ->
           pure Vector
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"vector_length") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"vector_length") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Vector_Aux where
+instance Marshal.WriteRaw Vector_Aux where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Vector vector_length2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"vector_length") ptr0 vector_length2
+            HasCField.writeRaw (RIP.Proxy @"vector_length") ptr0 vector_length2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Vector_Aux instance F.Storable Vector_Aux
+deriving via Marshal.EquivStorable Vector_Aux instance RIP.Storable Vector_Aux
 
-instance HsBindgen.Runtime.HasCField.HasCField Vector_Aux "vector_length" where
+instance HasCField.HasCField Vector_Aux "vector_length" where
 
-  type CFieldType Vector_Aux "vector_length" = FC.CInt
+  type CFieldType Vector_Aux "vector_length" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "vector_length" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "vector_length" (RIP.Ptr Vector_Aux) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"vector_length")
+    HasCField.fromPtr (RIP.Proxy @"vector_length")
 
-instance HsBindgen.Runtime.FLAM.Offset FC.CLong Vector_Aux where
+instance FLAM.Offset RIP.CLong Vector_Aux where
 
   offset = \_ty0 -> 8
 
@@ -89,5 +81,4 @@ instance HsBindgen.Runtime.FLAM.Offset FC.CLong Vector_Aux where
 
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
-type Vector =
-  (HsBindgen.Runtime.FLAM.WithFlam FC.CLong) Vector_Aux
+type Vector = (FLAM.WithFlam RIP.CLong) Vector_Aux

@@ -13,13 +13,13 @@ newtype PtrInt
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr CInt) =>
+                      WriteRaw)
+instance (~) ty (Ptr CInt) =>
          HasField "unwrapPtrInt" (Ptr PtrInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrInt")
 instance HasCField PtrInt "unwrapPtrInt"
@@ -39,23 +39,23 @@ newtype ShortInt
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CShort =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort =>
          HasField "unwrapShortInt" (Ptr ShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapShortInt")
 instance HasCField ShortInt "unwrapShortInt"
@@ -75,23 +75,23 @@ newtype SignedShortInt
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CShort =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort =>
          HasField "unwrapSignedShortInt" (Ptr SignedShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSignedShortInt")
 instance HasCField SignedShortInt "unwrapSignedShortInt"
@@ -112,23 +112,23 @@ newtype UnsignedShortInt
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CUShort =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUShort =>
          HasField "unwrapUnsignedShortInt" (Ptr UnsignedShortInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUnsignedShortInt")
 instance HasCField UnsignedShortInt "unwrapUnsignedShortInt"
@@ -149,13 +149,13 @@ newtype PtrPtrChar
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr (Ptr CChar)) =>
+                      WriteRaw)
+instance (~) ty (Ptr (Ptr CChar)) =>
          HasField "unwrapPtrPtrChar" (Ptr PtrPtrChar) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPtrPtrChar")
 instance HasCField PtrPtrChar "unwrapPtrPtrChar"
@@ -176,21 +176,21 @@ newtype MTy
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Enum,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
                       Floating,
                       Fractional,
+                      HasFFIType,
                       Num,
+                      Prim,
+                      ReadRaw,
                       Real,
                       RealFloat,
-                      RealFrac)
-instance TyEq ty CFloat => HasField "unwrapMTy" (Ptr MTy) (Ptr ty)
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CFloat => HasField "unwrapMTy" (Ptr MTy) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMTy")
 instance HasCField MTy "unwrapMTy"
     where type CFieldType MTy "unwrapMTy" = CFloat
@@ -209,21 +209,21 @@ newtype Tty
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Enum,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
                       Floating,
                       Fractional,
+                      HasFFIType,
                       Num,
+                      Prim,
+                      ReadRaw,
                       Real,
                       RealFloat,
-                      RealFrac)
-instance TyEq ty MTy => HasField "unwrapTty" (Ptr Tty) (Ptr ty)
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty MTy => HasField "unwrapTty" (Ptr Tty) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTty")
 instance HasCField Tty "unwrapTty"
     where type CFieldType Tty "unwrapTty" = MTy
@@ -242,23 +242,23 @@ newtype UINT8_T
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CUChar =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUChar =>
          HasField "unwrapUINT8_T" (Ptr UINT8_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUINT8_T")
 instance HasCField UINT8_T "unwrapUINT8_T"
@@ -278,23 +278,23 @@ newtype BOOLEAN_T
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty UINT8_T =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty UINT8_T =>
          HasField "unwrapBOOLEAN_T" (Ptr BOOLEAN_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBOOLEAN_T")
 instance HasCField BOOLEAN_T "unwrapBOOLEAN_T"
@@ -314,23 +314,23 @@ newtype Boolean_T
 
            __exported by:__ @macros\/macro_types.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty BOOLEAN_T =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty BOOLEAN_T =>
          HasField "unwrapBoolean_T" (Ptr Boolean_T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBoolean_T")
 instance HasCField Boolean_T "unwrapBoolean_T"

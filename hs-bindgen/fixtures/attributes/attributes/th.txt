@@ -26,7 +26,7 @@ data Foo
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -40,12 +40,12 @@ deriving via (EquivStorable Foo) instance Storable Foo
 instance HasCField Foo "foo_c"
     where type CFieldType Foo "foo_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar => HasField "foo_c" (Ptr Foo) (Ptr ty)
+instance (~) ty CChar => HasField "foo_c" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_c")
 instance HasCField Foo "foo_i"
     where type CFieldType Foo "foo_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty CInt => HasField "foo_i" (Ptr Foo) (Ptr ty)
+instance (~) ty CInt => HasField "foo_i" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_i")
 {-| __C declaration:__ @struct bar@
 
@@ -74,7 +74,7 @@ data Bar
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -88,12 +88,12 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_c"
     where type CFieldType Bar "bar_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar => HasField "bar_c" (Ptr Bar) (Ptr ty)
+instance (~) ty CChar => HasField "bar_c" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_c")
 instance HasCField Bar "bar_i"
     where type CFieldType Bar "bar_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty CInt => HasField "bar_i" (Ptr Bar) (Ptr ty)
+instance (~) ty CInt => HasField "bar_i" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_i")
 {-| __C declaration:__ @struct baz@
 
@@ -122,7 +122,7 @@ data Baz
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Baz
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -136,12 +136,12 @@ deriving via (EquivStorable Baz) instance Storable Baz
 instance HasCField Baz "baz_c"
     where type CFieldType Baz "baz_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar => HasField "baz_c" (Ptr Baz) (Ptr ty)
+instance (~) ty CChar => HasField "baz_c" (Ptr Baz) (Ptr ty)
     where getField = fromPtr (Proxy @"baz_c")
 instance HasCField Baz "baz_i"
     where type CFieldType Baz "baz_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty CInt => HasField "baz_i" (Ptr Baz) (Ptr ty)
+instance (~) ty CInt => HasField "baz_i" (Ptr Baz) (Ptr ty)
     where getField = fromPtr (Proxy @"baz_i")
 {-| __C declaration:__ @struct qux@
 
@@ -170,7 +170,7 @@ data Qux
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Qux
     where staticSizeOf = \_ -> 5 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -184,12 +184,12 @@ deriving via (EquivStorable Qux) instance Storable Qux
 instance HasCField Qux "qux_c"
     where type CFieldType Qux "qux_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar => HasField "qux_c" (Ptr Qux) (Ptr ty)
+instance (~) ty CChar => HasField "qux_c" (Ptr Qux) (Ptr ty)
     where getField = fromPtr (Proxy @"qux_c")
 instance HasCField Qux "qux_i"
     where type CFieldType Qux "qux_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty CInt => HasField "qux_i" (Ptr Qux) (Ptr ty)
+instance (~) ty CInt => HasField "qux_i" (Ptr Qux) (Ptr ty)
     where getField = fromPtr (Proxy @"qux_i")
 {-| __C declaration:__ @struct __sFILE@
 
@@ -225,7 +225,7 @@ data FILE
 
            __exported by:__ @attributes\/attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize FILE
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -240,17 +240,17 @@ deriving via (EquivStorable FILE) instance Storable FILE
 instance HasCField FILE "fILE__r"
     where type CFieldType FILE "fILE__r" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "fILE__r" (Ptr FILE) (Ptr ty)
+instance (~) ty CInt => HasField "fILE__r" (Ptr FILE) (Ptr ty)
     where getField = fromPtr (Proxy @"fILE__r")
 instance HasCField FILE "fILE__w"
     where type CFieldType FILE "fILE__w" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "fILE__w" (Ptr FILE) (Ptr ty)
+instance (~) ty CInt => HasField "fILE__w" (Ptr FILE) (Ptr ty)
     where getField = fromPtr (Proxy @"fILE__w")
 instance HasCField FILE "fILE__close"
     where type CFieldType FILE "fILE__close" = FunPtr (Ptr Void ->
                                                        IO CInt)
           offset# = \_ -> \_ -> 8
-instance TyEq ty (FunPtr (Ptr Void -> IO CInt)) =>
+instance (~) ty (FunPtr (Ptr Void -> IO CInt)) =>
          HasField "fILE__close" (Ptr FILE) (Ptr ty)
     where getField = fromPtr (Proxy @"fILE__close")

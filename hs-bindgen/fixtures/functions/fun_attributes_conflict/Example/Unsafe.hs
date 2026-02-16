@@ -1,15 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/fun_attributes_conflict.h>"
@@ -41,15 +37,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" hs_bindgen_648d4f0fd0df4c79_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
+     RIP.Int32
+  -> RIP.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 hs_bindgen_648d4f0fd0df4c79 ::
-     FC.CInt
-  -> FC.CInt
+     RIP.CInt
+  -> RIP.CInt
 hs_bindgen_648d4f0fd0df4c79 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_648d4f0fd0df4c79_base
+  RIP.fromFFIType hs_bindgen_648d4f0fd0df4c79_base
 
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
@@ -64,22 +60,22 @@ __defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cp ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> FC.CInt
+  -> RIP.CInt
 square_cp = hs_bindgen_648d4f0fd0df4c79
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
 foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" hs_bindgen_632a1e6eb5ceeda7_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
+     RIP.Int32
+  -> RIP.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
 hs_bindgen_632a1e6eb5ceeda7 ::
-     FC.CInt
-  -> FC.CInt
+     RIP.CInt
+  -> RIP.CInt
 hs_bindgen_632a1e6eb5ceeda7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_632a1e6eb5ceeda7_base
+  RIP.fromFFIType hs_bindgen_632a1e6eb5ceeda7_base
 
 {-|
 
@@ -92,22 +88,22 @@ __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> FC.CInt
+  -> RIP.CInt
 square_pc = hs_bindgen_632a1e6eb5ceeda7
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
 foreign import ccall unsafe "hs_bindgen_56d75b1ff2482f13" hs_bindgen_56d75b1ff2482f13_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
+     RIP.Int32
+  -> RIP.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
 hs_bindgen_56d75b1ff2482f13 ::
-     FC.CInt
-  -> FC.CInt
+     RIP.CInt
+  -> RIP.CInt
 hs_bindgen_56d75b1ff2482f13 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_56d75b1ff2482f13_base
+  RIP.fromFFIType hs_bindgen_56d75b1ff2482f13_base
 
 {-|
 
@@ -120,22 +116,22 @@ __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> FC.CInt
+  -> RIP.CInt
 square_cc = hs_bindgen_56d75b1ff2482f13
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 foreign import ccall unsafe "hs_bindgen_eac2f9645ef29119" hs_bindgen_eac2f9645ef29119_base ::
-     GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 hs_bindgen_eac2f9645ef29119 ::
-     FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_eac2f9645ef29119 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_eac2f9645ef29119_base
+  RIP.fromFFIType hs_bindgen_eac2f9645ef29119_base
 
 {-|
 
@@ -148,7 +144,7 @@ __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pp ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 square_pp = hs_bindgen_eac2f9645ef29119

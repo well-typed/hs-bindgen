@@ -1,16 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/array.h>"
@@ -36,15 +32,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_2a6ef3a515232132" hs_bindgen_2a6ef3a515232132_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 hs_bindgen_2a6ef3a515232132 ::
-     Ptr.Ptr MyArray
+     RIP.Ptr MyArray
   -> IO ()
 hs_bindgen_2a6ef3a515232132 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2a6ef3a515232132_base
+  RIP.fromFFIType hs_bindgen_2a6ef3a515232132_base
 
 {-| __C declaration:__ @foo@
 
@@ -53,22 +49,22 @@ hs_bindgen_2a6ef3a515232132 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 foo ::
-     Ptr.Ptr MyArray
+     RIP.Ptr MyArray
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_2a6ef3a515232132
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc499_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 hs_bindgen_4449a68917cbc499 ::
-     Ptr.Ptr A
+     RIP.Ptr A
   -> IO ()
 hs_bindgen_4449a68917cbc499 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4449a68917cbc499_base
+  RIP.fromFFIType hs_bindgen_4449a68917cbc499_base
 
 {-| __C declaration:__ @fooA@
 
@@ -77,22 +73,22 @@ hs_bindgen_4449a68917cbc499 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 fooA ::
-     Ptr.Ptr A
+     RIP.Ptr A
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_4449a68917cbc499
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b077bb_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 hs_bindgen_05766199d1b077bb ::
-     Ptr.Ptr B
+     RIP.Ptr B
   -> IO ()
 hs_bindgen_05766199d1b077bb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_05766199d1b077bb_base
+  RIP.fromFFIType hs_bindgen_05766199d1b077bb_base
 
 {-| __C declaration:__ @fooB@
 
@@ -101,7 +97,7 @@ hs_bindgen_05766199d1b077bb =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 fooB ::
-     Ptr.Ptr B
+     RIP.Ptr B
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_05766199d1b077bb

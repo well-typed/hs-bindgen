@@ -26,7 +26,7 @@ data Bar
 
            __exported by:__ @binding-specs\/rep\/emptydata\/opaque.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -39,5 +39,5 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_a"
     where type CFieldType Bar "bar_a" = Ptr Foo
           offset# = \_ -> \_ -> 0
-instance TyEq ty (Ptr Foo) => HasField "bar_a" (Ptr Bar) (Ptr ty)
+instance (~) ty (Ptr Foo) => HasField "bar_a" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_a")

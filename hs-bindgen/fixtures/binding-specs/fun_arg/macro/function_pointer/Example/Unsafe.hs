@@ -1,16 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/function_pointer.h>"
@@ -36,7 +32,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_fbc2ec26cd297034" hs_bindgen_fbc2ec26cd297034_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_foo@
@@ -44,7 +40,7 @@ hs_bindgen_fbc2ec26cd297034 ::
      MyFunctionPointer
   -> IO ()
 hs_bindgen_fbc2ec26cd297034 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fbc2ec26cd297034_base
+  RIP.fromFFIType hs_bindgen_fbc2ec26cd297034_base
 
 {-| __C declaration:__ @foo@
 
@@ -60,7 +56,7 @@ foo = hs_bindgen_fbc2ec26cd297034
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
@@ -68,7 +64,7 @@ hs_bindgen_cf67e2fc00fd28d8 ::
      A
   -> IO ()
 hs_bindgen_cf67e2fc00fd28d8 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cf67e2fc00fd28d8_base
+  RIP.fromFFIType hs_bindgen_cf67e2fc00fd28d8_base
 
 {-| __C declaration:__ @fooA@
 
@@ -84,7 +80,7 @@ fooA = hs_bindgen_cf67e2fc00fd28d8
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
@@ -92,7 +88,7 @@ hs_bindgen_269a46f9680e33ed ::
      B
   -> IO ()
 hs_bindgen_269a46f9680e33ed =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_269a46f9680e33ed_base
+  RIP.fromFFIType hs_bindgen_269a46f9680e33ed_base
 
 {-| __C declaration:__ @fooB@
 

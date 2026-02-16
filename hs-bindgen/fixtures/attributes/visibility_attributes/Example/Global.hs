@@ -1,17 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <attributes/visibility_attributes.h>"
@@ -139,12 +133,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i0@
 foreign import ccall unsafe "hs_bindgen_70b2711233a0b0ce" hs_bindgen_70b2711233a0b0ce_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i0@
-hs_bindgen_70b2711233a0b0ce :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_70b2711233a0b0ce :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_70b2711233a0b0ce =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_70b2711233a0b0ce_base
+  RIP.fromFFIType hs_bindgen_70b2711233a0b0ce_base
 
 {-# NOINLINE i0 #-}
 {-| __C declaration:__ @i0@
@@ -153,18 +147,17 @@ hs_bindgen_70b2711233a0b0ce =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i0 :: Ptr.Ptr FC.CInt
-i0 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_70b2711233a0b0ce
+i0 :: RIP.Ptr RIP.CInt
+i0 = RIP.unsafePerformIO hs_bindgen_70b2711233a0b0ce
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i1@
 foreign import ccall unsafe "hs_bindgen_8e3cae6c0337359f" hs_bindgen_8e3cae6c0337359f_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i1@
-hs_bindgen_8e3cae6c0337359f :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_8e3cae6c0337359f :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_8e3cae6c0337359f =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8e3cae6c0337359f_base
+  RIP.fromFFIType hs_bindgen_8e3cae6c0337359f_base
 
 {-# NOINLINE i1 #-}
 {-| __C declaration:__ @i1@
@@ -173,18 +166,17 @@ hs_bindgen_8e3cae6c0337359f =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i1 :: Ptr.Ptr FC.CInt
-i1 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8e3cae6c0337359f
+i1 :: RIP.Ptr RIP.CInt
+i1 = RIP.unsafePerformIO hs_bindgen_8e3cae6c0337359f
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i2@
 foreign import ccall unsafe "hs_bindgen_e9d06c8375760e65" hs_bindgen_e9d06c8375760e65_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i2@
-hs_bindgen_e9d06c8375760e65 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_e9d06c8375760e65 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_e9d06c8375760e65 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e9d06c8375760e65_base
+  RIP.fromFFIType hs_bindgen_e9d06c8375760e65_base
 
 {-# NOINLINE i2 #-}
 {-| __C declaration:__ @i2@
@@ -193,18 +185,17 @@ hs_bindgen_e9d06c8375760e65 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i2 :: Ptr.Ptr FC.CInt
-i2 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e9d06c8375760e65
+i2 :: RIP.Ptr RIP.CInt
+i2 = RIP.unsafePerformIO hs_bindgen_e9d06c8375760e65
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i3@
 foreign import ccall unsafe "hs_bindgen_de2fe93c2259b4c5" hs_bindgen_de2fe93c2259b4c5_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i3@
-hs_bindgen_de2fe93c2259b4c5 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_de2fe93c2259b4c5 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_de2fe93c2259b4c5 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_de2fe93c2259b4c5_base
+  RIP.fromFFIType hs_bindgen_de2fe93c2259b4c5_base
 
 {-# NOINLINE i3 #-}
 {-| __C declaration:__ @i3@
@@ -213,18 +204,17 @@ hs_bindgen_de2fe93c2259b4c5 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i3 :: Ptr.Ptr FC.CInt
-i3 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_de2fe93c2259b4c5
+i3 :: RIP.Ptr RIP.CInt
+i3 = RIP.unsafePerformIO hs_bindgen_de2fe93c2259b4c5
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i4@
 foreign import ccall unsafe "hs_bindgen_dd416cc3f6d465a3" hs_bindgen_dd416cc3f6d465a3_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i4@
-hs_bindgen_dd416cc3f6d465a3 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_dd416cc3f6d465a3 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_dd416cc3f6d465a3 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dd416cc3f6d465a3_base
+  RIP.fromFFIType hs_bindgen_dd416cc3f6d465a3_base
 
 {-# NOINLINE i4 #-}
 {-| __C declaration:__ @i4@
@@ -233,18 +223,17 @@ hs_bindgen_dd416cc3f6d465a3 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i4 :: Ptr.Ptr FC.CInt
-i4 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dd416cc3f6d465a3
+i4 :: RIP.Ptr RIP.CInt
+i4 = RIP.unsafePerformIO hs_bindgen_dd416cc3f6d465a3
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i5@
 foreign import ccall unsafe "hs_bindgen_71a58d536a57d502" hs_bindgen_71a58d536a57d502_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i5@
-hs_bindgen_71a58d536a57d502 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_71a58d536a57d502 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_71a58d536a57d502 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_71a58d536a57d502_base
+  RIP.fromFFIType hs_bindgen_71a58d536a57d502_base
 
 {-# NOINLINE i5 #-}
 {-| __C declaration:__ @i5@
@@ -253,18 +242,17 @@ hs_bindgen_71a58d536a57d502 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i5 :: Ptr.Ptr FC.CInt
-i5 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_71a58d536a57d502
+i5 :: RIP.Ptr RIP.CInt
+i5 = RIP.unsafePerformIO hs_bindgen_71a58d536a57d502
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i6@
 foreign import ccall unsafe "hs_bindgen_64a79cbcb421682d" hs_bindgen_64a79cbcb421682d_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i6@
-hs_bindgen_64a79cbcb421682d :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_64a79cbcb421682d :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_64a79cbcb421682d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_64a79cbcb421682d_base
+  RIP.fromFFIType hs_bindgen_64a79cbcb421682d_base
 
 {-# NOINLINE i6 #-}
 {-| __C declaration:__ @i6@
@@ -273,18 +261,17 @@ hs_bindgen_64a79cbcb421682d =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i6 :: Ptr.Ptr FC.CInt
-i6 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_64a79cbcb421682d
+i6 :: RIP.Ptr RIP.CInt
+i6 = RIP.unsafePerformIO hs_bindgen_64a79cbcb421682d
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i7@
 foreign import ccall unsafe "hs_bindgen_1dab5bd455fe1cd2" hs_bindgen_1dab5bd455fe1cd2_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i7@
-hs_bindgen_1dab5bd455fe1cd2 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_1dab5bd455fe1cd2 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_1dab5bd455fe1cd2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1dab5bd455fe1cd2_base
+  RIP.fromFFIType hs_bindgen_1dab5bd455fe1cd2_base
 
 {-# NOINLINE i7 #-}
 {-| __C declaration:__ @i7@
@@ -293,18 +280,17 @@ hs_bindgen_1dab5bd455fe1cd2 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i7 :: Ptr.Ptr FC.CInt
-i7 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1dab5bd455fe1cd2
+i7 :: RIP.Ptr RIP.CInt
+i7 = RIP.unsafePerformIO hs_bindgen_1dab5bd455fe1cd2
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i8@
 foreign import ccall unsafe "hs_bindgen_95f3d7edf9ffbfec" hs_bindgen_95f3d7edf9ffbfec_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i8@
-hs_bindgen_95f3d7edf9ffbfec :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_95f3d7edf9ffbfec :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_95f3d7edf9ffbfec =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_95f3d7edf9ffbfec_base
+  RIP.fromFFIType hs_bindgen_95f3d7edf9ffbfec_base
 
 {-# NOINLINE i8 #-}
 {-| __C declaration:__ @i8@
@@ -313,18 +299,17 @@ hs_bindgen_95f3d7edf9ffbfec =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i8 :: Ptr.Ptr FC.CInt
-i8 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_95f3d7edf9ffbfec
+i8 :: RIP.Ptr RIP.CInt
+i8 = RIP.unsafePerformIO hs_bindgen_95f3d7edf9ffbfec
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i9@
 foreign import ccall unsafe "hs_bindgen_726a1f70db74e014" hs_bindgen_726a1f70db74e014_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i9@
-hs_bindgen_726a1f70db74e014 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_726a1f70db74e014 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_726a1f70db74e014 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_726a1f70db74e014_base
+  RIP.fromFFIType hs_bindgen_726a1f70db74e014_base
 
 {-# NOINLINE i9 #-}
 {-| __C declaration:__ @i9@
@@ -333,18 +318,17 @@ hs_bindgen_726a1f70db74e014 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i9 :: Ptr.Ptr FC.CInt
-i9 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_726a1f70db74e014
+i9 :: RIP.Ptr RIP.CInt
+i9 = RIP.unsafePerformIO hs_bindgen_726a1f70db74e014
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i10@
 foreign import ccall unsafe "hs_bindgen_8bf7d37b407412c2" hs_bindgen_8bf7d37b407412c2_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i10@
-hs_bindgen_8bf7d37b407412c2 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_8bf7d37b407412c2 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_8bf7d37b407412c2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8bf7d37b407412c2_base
+  RIP.fromFFIType hs_bindgen_8bf7d37b407412c2_base
 
 {-# NOINLINE i10 #-}
 {-| __C declaration:__ @i10@
@@ -353,18 +337,17 @@ hs_bindgen_8bf7d37b407412c2 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i10 :: Ptr.Ptr FC.CInt
-i10 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8bf7d37b407412c2
+i10 :: RIP.Ptr RIP.CInt
+i10 = RIP.unsafePerformIO hs_bindgen_8bf7d37b407412c2
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i11@
 foreign import ccall unsafe "hs_bindgen_9d4d113b052a7d1c" hs_bindgen_9d4d113b052a7d1c_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i11@
-hs_bindgen_9d4d113b052a7d1c :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_9d4d113b052a7d1c :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_9d4d113b052a7d1c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9d4d113b052a7d1c_base
+  RIP.fromFFIType hs_bindgen_9d4d113b052a7d1c_base
 
 {-# NOINLINE i11 #-}
 {-| __C declaration:__ @i11@
@@ -373,18 +356,17 @@ hs_bindgen_9d4d113b052a7d1c =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i11 :: Ptr.Ptr FC.CInt
-i11 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9d4d113b052a7d1c
+i11 :: RIP.Ptr RIP.CInt
+i11 = RIP.unsafePerformIO hs_bindgen_9d4d113b052a7d1c
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i12@
 foreign import ccall unsafe "hs_bindgen_ce56442ac026dd87" hs_bindgen_ce56442ac026dd87_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i12@
-hs_bindgen_ce56442ac026dd87 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_ce56442ac026dd87 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_ce56442ac026dd87 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ce56442ac026dd87_base
+  RIP.fromFFIType hs_bindgen_ce56442ac026dd87_base
 
 {-# NOINLINE i12 #-}
 {-| __C declaration:__ @i12@
@@ -393,18 +375,17 @@ hs_bindgen_ce56442ac026dd87 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i12 :: Ptr.Ptr FC.CInt
-i12 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ce56442ac026dd87
+i12 :: RIP.Ptr RIP.CInt
+i12 = RIP.unsafePerformIO hs_bindgen_ce56442ac026dd87
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i13@
 foreign import ccall unsafe "hs_bindgen_5822d4dd4d1c00b5" hs_bindgen_5822d4dd4d1c00b5_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i13@
-hs_bindgen_5822d4dd4d1c00b5 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_5822d4dd4d1c00b5 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_5822d4dd4d1c00b5 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_5822d4dd4d1c00b5_base
+  RIP.fromFFIType hs_bindgen_5822d4dd4d1c00b5_base
 
 {-# NOINLINE i13 #-}
 {-| __C declaration:__ @i13@
@@ -413,18 +394,17 @@ hs_bindgen_5822d4dd4d1c00b5 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i13 :: Ptr.Ptr FC.CInt
-i13 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5822d4dd4d1c00b5
+i13 :: RIP.Ptr RIP.CInt
+i13 = RIP.unsafePerformIO hs_bindgen_5822d4dd4d1c00b5
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i14@
 foreign import ccall unsafe "hs_bindgen_1f5ecb9a293e4e85" hs_bindgen_1f5ecb9a293e4e85_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i14@
-hs_bindgen_1f5ecb9a293e4e85 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_1f5ecb9a293e4e85 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_1f5ecb9a293e4e85 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1f5ecb9a293e4e85_base
+  RIP.fromFFIType hs_bindgen_1f5ecb9a293e4e85_base
 
 {-# NOINLINE i14 #-}
 {-| __C declaration:__ @i14@
@@ -433,18 +413,17 @@ hs_bindgen_1f5ecb9a293e4e85 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i14 :: Ptr.Ptr FC.CInt
-i14 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1f5ecb9a293e4e85
+i14 :: RIP.Ptr RIP.CInt
+i14 = RIP.unsafePerformIO hs_bindgen_1f5ecb9a293e4e85
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i15@
 foreign import ccall unsafe "hs_bindgen_f8cafe2a4b2f0171" hs_bindgen_f8cafe2a4b2f0171_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i15@
-hs_bindgen_f8cafe2a4b2f0171 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_f8cafe2a4b2f0171 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_f8cafe2a4b2f0171 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f8cafe2a4b2f0171_base
+  RIP.fromFFIType hs_bindgen_f8cafe2a4b2f0171_base
 
 {-# NOINLINE i15 #-}
 {-| __C declaration:__ @i15@
@@ -453,18 +432,17 @@ hs_bindgen_f8cafe2a4b2f0171 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i15 :: Ptr.Ptr FC.CInt
-i15 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f8cafe2a4b2f0171
+i15 :: RIP.Ptr RIP.CInt
+i15 = RIP.unsafePerformIO hs_bindgen_f8cafe2a4b2f0171
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i16@
 foreign import ccall unsafe "hs_bindgen_9f351d568129877e" hs_bindgen_9f351d568129877e_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i16@
-hs_bindgen_9f351d568129877e :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_9f351d568129877e :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_9f351d568129877e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9f351d568129877e_base
+  RIP.fromFFIType hs_bindgen_9f351d568129877e_base
 
 {-# NOINLINE i16 #-}
 {-| __C declaration:__ @i16@
@@ -473,18 +451,17 @@ hs_bindgen_9f351d568129877e =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i16 :: Ptr.Ptr FC.CInt
-i16 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9f351d568129877e
+i16 :: RIP.Ptr RIP.CInt
+i16 = RIP.unsafePerformIO hs_bindgen_9f351d568129877e
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i17@
 foreign import ccall unsafe "hs_bindgen_4219dc8cc178afd0" hs_bindgen_4219dc8cc178afd0_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i17@
-hs_bindgen_4219dc8cc178afd0 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_4219dc8cc178afd0 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_4219dc8cc178afd0 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4219dc8cc178afd0_base
+  RIP.fromFFIType hs_bindgen_4219dc8cc178afd0_base
 
 {-# NOINLINE i17 #-}
 {-| __C declaration:__ @i17@
@@ -493,18 +470,17 @@ hs_bindgen_4219dc8cc178afd0 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i17 :: Ptr.Ptr FC.CInt
-i17 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4219dc8cc178afd0
+i17 :: RIP.Ptr RIP.CInt
+i17 = RIP.unsafePerformIO hs_bindgen_4219dc8cc178afd0
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i18@
 foreign import ccall unsafe "hs_bindgen_60dd1e2f74f319bb" hs_bindgen_60dd1e2f74f319bb_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i18@
-hs_bindgen_60dd1e2f74f319bb :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_60dd1e2f74f319bb :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_60dd1e2f74f319bb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_60dd1e2f74f319bb_base
+  RIP.fromFFIType hs_bindgen_60dd1e2f74f319bb_base
 
 {-# NOINLINE i18 #-}
 {-| __C declaration:__ @i18@
@@ -513,18 +489,17 @@ hs_bindgen_60dd1e2f74f319bb =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i18 :: Ptr.Ptr FC.CInt
-i18 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_60dd1e2f74f319bb
+i18 :: RIP.Ptr RIP.CInt
+i18 = RIP.unsafePerformIO hs_bindgen_60dd1e2f74f319bb
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i19@
 foreign import ccall unsafe "hs_bindgen_795a8bc9f1790423" hs_bindgen_795a8bc9f1790423_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i19@
-hs_bindgen_795a8bc9f1790423 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_795a8bc9f1790423 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_795a8bc9f1790423 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_795a8bc9f1790423_base
+  RIP.fromFFIType hs_bindgen_795a8bc9f1790423_base
 
 {-# NOINLINE i19 #-}
 {-| __C declaration:__ @i19@
@@ -533,6 +508,5 @@ hs_bindgen_795a8bc9f1790423 =
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-i19 :: Ptr.Ptr FC.CInt
-i19 =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_795a8bc9f1790423
+i19 :: RIP.Ptr RIP.CInt
+i19 = RIP.unsafePerformIO hs_bindgen_795a8bc9f1790423

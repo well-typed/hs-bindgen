@@ -232,7 +232,7 @@ instance ToFunPtr Int2int
     where toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 instance FromFunPtr Int2int
     where fromFunPtr = hs_bindgen_65378a8a3cf640ad
-instance TyEq ty (CInt -> IO CInt) =>
+instance (~) ty (CInt -> IO CInt) =>
          HasField "unwrapInt2int" (Ptr Int2int) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt2int")
 instance HasCField Int2int "unwrapInt2int"
@@ -263,7 +263,7 @@ data Apply1Struct
 
       __exported by:__ @manual\/function_pointers.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Apply1Struct
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -279,7 +279,7 @@ instance HasCField Apply1Struct
                           "apply1Struct_apply1_nopointer_struct_field" = FunPtr (FunPtr Int2int ->
                                                                                  CInt -> IO CInt)
           offset# = \_ -> \_ -> 0
-instance TyEq ty (FunPtr (FunPtr Int2int -> CInt -> IO CInt)) =>
+instance (~) ty (FunPtr (FunPtr Int2int -> CInt -> IO CInt)) =>
          HasField "apply1Struct_apply1_nopointer_struct_field"
                   (Ptr Apply1Struct)
                   (Ptr ty)
@@ -350,35 +350,35 @@ instance HasCField Apply1Union
                           "apply1Union_apply1_nopointer_union_field" = FunPtr (FunPtr Int2int ->
                                                                                CInt -> IO CInt)
           offset# = \_ -> \_ -> 0
-instance TyEq ty (FunPtr (FunPtr Int2int -> CInt -> IO CInt)) =>
+instance (~) ty (FunPtr (FunPtr Int2int -> CInt -> IO CInt)) =>
          HasField "apply1Union_apply1_nopointer_union_field"
                   (Ptr Apply1Union)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"apply1Union_apply1_nopointer_union_field")
-foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea_base ::
+foreign import ccall safe "wrapper" hs_bindgen_61d7176781c1adfc_base ::
     FunPtr Void -> Int32 -> IO Int32
  -> IO (FunPtr (FunPtr Void -> Int32 -> IO Int32))
--- __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-hs_bindgen_fe02c1e534fc52ea :: (FunPtr Int2int ->
+-- __unique:__ @instance ToFunPtr ((RIP.FunPtr Int2int) -> RIP.CInt -> IO RIP.CInt)@
+hs_bindgen_61d7176781c1adfc :: (FunPtr Int2int ->
                                 CInt -> IO CInt) ->
                                IO (FunPtr (FunPtr Int2int -> CInt -> IO CInt))
--- __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-hs_bindgen_fe02c1e534fc52ea = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_fe02c1e534fc52ea_base (toFFIType fun_0))
-foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139_base ::
+-- __unique:__ @instance ToFunPtr ((RIP.FunPtr Int2int) -> RIP.CInt -> IO RIP.CInt)@
+hs_bindgen_61d7176781c1adfc = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_61d7176781c1adfc_base (toFFIType fun_0))
+foreign import ccall safe "dynamic" hs_bindgen_767f8bdd743f5066_base ::
     FunPtr (FunPtr Void -> Int32 -> IO Int32)
  -> FunPtr Void
  -> Int32
  -> IO Int32
--- __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-hs_bindgen_fc27363846cb6139 :: FunPtr (FunPtr Int2int ->
+-- __unique:__ @instance FromFunPtr ((RIP.FunPtr Int2int) -> RIP.CInt -> IO RIP.CInt)@
+hs_bindgen_767f8bdd743f5066 :: FunPtr (FunPtr Int2int ->
                                        CInt -> IO CInt) ->
                                FunPtr Int2int -> CInt -> IO CInt
--- __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-hs_bindgen_fc27363846cb6139 = \funPtr_0 -> fromFFIType (hs_bindgen_fc27363846cb6139_base (castFunPtrToFFIType funPtr_0))
+-- __unique:__ @instance FromFunPtr ((RIP.FunPtr Int2int) -> RIP.CInt -> IO RIP.CInt)@
+hs_bindgen_767f8bdd743f5066 = \funPtr_0 -> fromFFIType (hs_bindgen_767f8bdd743f5066_base (castFunPtrToFFIType funPtr_0))
 instance ToFunPtr (FunPtr Int2int -> CInt -> IO CInt)
-    where toFunPtr = hs_bindgen_fe02c1e534fc52ea
+    where toFunPtr = hs_bindgen_61d7176781c1adfc
 instance FromFunPtr (FunPtr Int2int -> CInt -> IO CInt)
-    where fromFunPtr = hs_bindgen_fc27363846cb6139
+    where fromFunPtr = hs_bindgen_767f8bdd743f5066
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_8c6beff641297a13" hs_bindgen_8c6beff641297a13_base ::
     Int32

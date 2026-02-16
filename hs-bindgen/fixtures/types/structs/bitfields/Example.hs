@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,18 +13,11 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.BitfieldPtr
-import qualified HsBindgen.Runtime.HasCBitfield
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
+import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct flags@
 
@@ -34,42 +26,42 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
     __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Flags = Flags
-  { flags_fieldX :: FC.CChar
+  { flags_fieldX :: RIP.CChar
     {- ^ __C declaration:__ @fieldX@
 
          __defined at:__ @types\/structs\/bitfields.h 2:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_flagA :: FC.CInt
+  , flags_flagA :: RIP.CInt
     {- ^ __C declaration:__ @flagA@
 
          __defined at:__ @types\/structs\/bitfields.h 3:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_flagB :: FC.CInt
+  , flags_flagB :: RIP.CInt
     {- ^ __C declaration:__ @flagB@
 
          __defined at:__ @types\/structs\/bitfields.h 4:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_flagC :: FC.CInt
+  , flags_flagC :: RIP.CInt
     {- ^ __C declaration:__ @flagC@
 
          __defined at:__ @types\/structs\/bitfields.h 5:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_fieldY :: FC.CChar
+  , flags_fieldY :: RIP.CChar
     {- ^ __C declaration:__ @fieldY@
 
          __defined at:__ @types\/structs\/bitfields.h 6:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_bits :: FC.CInt
+  , flags_bits :: RIP.CInt
     {- ^ __C declaration:__ @bits@
 
          __defined at:__ @types\/structs\/bitfields.h 7:9@
@@ -77,27 +69,27 @@ data Flags = Flags
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Flags where
+instance Marshal.StaticSize Flags where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Flags where
+instance Marshal.ReadRaw Flags where
 
   readRaw =
     \ptr0 ->
           pure Flags
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"flags_fieldX") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_flagA") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_flagB") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_flagC") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"flags_fieldY") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"flags_bits") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"flags_fieldX") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"flags_flagA") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"flags_flagB") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"flags_flagC") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"flags_fieldY") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"flags_bits") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Flags where
+instance Marshal.WriteRaw Flags where
 
   writeRaw =
     \ptr0 ->
@@ -110,94 +102,94 @@ instance HsBindgen.Runtime.Marshal.WriteRaw Flags where
             flags_flagC5
             flags_fieldY6
             flags_bits7 ->
-                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"flags_fieldX") ptr0 flags_fieldX2
-              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_flagA") ptr0 flags_flagA3
-              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_flagB") ptr0 flags_flagB4
-              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_flagC") ptr0 flags_flagC5
-              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"flags_fieldY") ptr0 flags_fieldY6
-              >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"flags_bits") ptr0 flags_bits7
+                 HasCField.writeRaw (RIP.Proxy @"flags_fieldX") ptr0 flags_fieldX2
+              >> HasCBitfield.poke (RIP.Proxy @"flags_flagA") ptr0 flags_flagA3
+              >> HasCBitfield.poke (RIP.Proxy @"flags_flagB") ptr0 flags_flagB4
+              >> HasCBitfield.poke (RIP.Proxy @"flags_flagC") ptr0 flags_flagC5
+              >> HasCField.writeRaw (RIP.Proxy @"flags_fieldY") ptr0 flags_fieldY6
+              >> HasCBitfield.poke (RIP.Proxy @"flags_bits") ptr0 flags_bits7
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Flags instance F.Storable Flags
+deriving via Marshal.EquivStorable Flags instance RIP.Storable Flags
 
-instance HsBindgen.Runtime.HasCField.HasCField Flags "flags_fieldX" where
+instance HasCField.HasCField Flags "flags_fieldX" where
 
-  type CFieldType Flags "flags_fieldX" = FC.CChar
+  type CFieldType Flags "flags_fieldX" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "flags_fieldX" (Ptr.Ptr Flags) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "flags_fieldX" (RIP.Ptr Flags) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"flags_fieldX")
+    HasCField.fromPtr (RIP.Proxy @"flags_fieldX")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_flagA" where
+instance HasCBitfield.HasCBitfield Flags "flags_flagA" where
 
-  type CBitfieldType Flags "flags_flagA" = FC.CInt
+  type CBitfieldType Flags "flags_flagA" = RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 8
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "flags_flagA" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "flags_flagA" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_flagA")
+    HasCBitfield.toPtr (RIP.Proxy @"flags_flagA")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_flagB" where
+instance HasCBitfield.HasCBitfield Flags "flags_flagB" where
 
-  type CBitfieldType Flags "flags_flagB" = FC.CInt
+  type CBitfieldType Flags "flags_flagB" = RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 9
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "flags_flagB" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "flags_flagB" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_flagB")
+    HasCBitfield.toPtr (RIP.Proxy @"flags_flagB")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_flagC" where
+instance HasCBitfield.HasCBitfield Flags "flags_flagC" where
 
-  type CBitfieldType Flags "flags_flagC" = FC.CInt
+  type CBitfieldType Flags "flags_flagC" = RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 10
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "flags_flagC" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "flags_flagC" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_flagC")
+    HasCBitfield.toPtr (RIP.Proxy @"flags_flagC")
 
-instance HsBindgen.Runtime.HasCField.HasCField Flags "flags_fieldY" where
+instance HasCField.HasCField Flags "flags_fieldY" where
 
-  type CFieldType Flags "flags_fieldY" = FC.CChar
+  type CFieldType Flags "flags_fieldY" = RIP.CChar
 
   offset# = \_ -> \_ -> 2
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "flags_fieldY" (Ptr.Ptr Flags) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "flags_fieldY" (RIP.Ptr Flags) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"flags_fieldY")
+    HasCField.fromPtr (RIP.Proxy @"flags_fieldY")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_bits" where
+instance HasCBitfield.HasCBitfield Flags "flags_bits" where
 
-  type CBitfieldType Flags "flags_bits" = FC.CInt
+  type CBitfieldType Flags "flags_bits" = RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 24
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "flags_bits" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "flags_bits" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_bits")
+    HasCBitfield.toPtr (RIP.Proxy @"flags_bits")
 
 {-| __C declaration:__ @struct overflow32@
 
@@ -206,21 +198,21 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Overflow32 = Overflow32
-  { overflow32_x :: FC.CInt
+  { overflow32_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/bitfields.h 13:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow32_y :: FC.CInt
+  , overflow32_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/structs\/bitfields.h 14:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow32_z :: FC.CInt
+  , overflow32_z :: RIP.CInt
     {- ^ __C declaration:__ @z@
 
          __defined at:__ @types\/structs\/bitfields.h 15:9@
@@ -228,80 +220,80 @@ data Overflow32 = Overflow32
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Overflow32 where
+instance Marshal.StaticSize Overflow32 where
 
   staticSizeOf = \_ -> (12 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Overflow32 where
+instance Marshal.ReadRaw Overflow32 where
 
   readRaw =
     \ptr0 ->
           pure Overflow32
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32_x") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32_y") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32_z") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32_x") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32_y") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32_z") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32 where
+instance Marshal.WriteRaw Overflow32 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Overflow32 overflow32_x2 overflow32_y3 overflow32_z4 ->
-               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32_x") ptr0 overflow32_x2
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32_y") ptr0 overflow32_y3
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32_z") ptr0 overflow32_z4
+               HasCBitfield.poke (RIP.Proxy @"overflow32_x") ptr0 overflow32_x2
+            >> HasCBitfield.poke (RIP.Proxy @"overflow32_y") ptr0 overflow32_y3
+            >> HasCBitfield.poke (RIP.Proxy @"overflow32_z") ptr0 overflow32_z4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32 instance F.Storable Overflow32
+deriving via Marshal.EquivStorable Overflow32 instance RIP.Storable Overflow32
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32 "overflow32_x" where
+instance HasCBitfield.HasCBitfield Overflow32 "overflow32_x" where
 
   type CBitfieldType Overflow32 "overflow32_x" =
-    FC.CInt
+    RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "overflow32_x" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "overflow32_x" (RIP.Ptr Overflow32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32_x")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32_x")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32 "overflow32_y" where
+instance HasCBitfield.HasCBitfield Overflow32 "overflow32_y" where
 
   type CBitfieldType Overflow32 "overflow32_y" =
-    FC.CInt
+    RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 32
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "overflow32_y" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "overflow32_y" (RIP.Ptr Overflow32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32_y")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32_y")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32 "overflow32_z" where
+instance HasCBitfield.HasCBitfield Overflow32 "overflow32_z" where
 
   type CBitfieldType Overflow32 "overflow32_z" =
-    FC.CInt
+    RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 64
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "overflow32_z" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "overflow32_z" (RIP.Ptr Overflow32) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32_z")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32_z")
 
 {-| __C declaration:__ @struct overflow32b@
 
@@ -310,21 +302,21 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Overflow32b = Overflow32b
-  { overflow32b_x :: FC.CLong
+  { overflow32b_x :: RIP.CLong
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/bitfields.h 19:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow32b_y :: FC.CLong
+  , overflow32b_y :: RIP.CLong
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/structs\/bitfields.h 20:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow32b_z :: FC.CLong
+  , overflow32b_z :: RIP.CLong
     {- ^ __C declaration:__ @z@
 
          __defined at:__ @types\/structs\/bitfields.h 21:10@
@@ -332,80 +324,80 @@ data Overflow32b = Overflow32b
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Overflow32b where
+instance Marshal.StaticSize Overflow32b where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Overflow32b where
+instance Marshal.ReadRaw Overflow32b where
 
   readRaw =
     \ptr0 ->
           pure Overflow32b
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32b_x") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32b_y") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32b_z") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32b_x") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32b_y") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32b_z") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32b where
+instance Marshal.WriteRaw Overflow32b where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Overflow32b overflow32b_x2 overflow32b_y3 overflow32b_z4 ->
-               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32b_x") ptr0 overflow32b_x2
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32b_y") ptr0 overflow32b_y3
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32b_z") ptr0 overflow32b_z4
+               HasCBitfield.poke (RIP.Proxy @"overflow32b_x") ptr0 overflow32b_x2
+            >> HasCBitfield.poke (RIP.Proxy @"overflow32b_y") ptr0 overflow32b_y3
+            >> HasCBitfield.poke (RIP.Proxy @"overflow32b_z") ptr0 overflow32b_z4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32b instance F.Storable Overflow32b
+deriving via Marshal.EquivStorable Overflow32b instance RIP.Storable Overflow32b
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32b "overflow32b_x" where
+instance HasCBitfield.HasCBitfield Overflow32b "overflow32b_x" where
 
   type CBitfieldType Overflow32b "overflow32b_x" =
-    FC.CLong
+    RIP.CLong
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "overflow32b_x" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "overflow32b_x" (RIP.Ptr Overflow32b) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32b_x")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32b_x")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32b "overflow32b_y" where
+instance HasCBitfield.HasCBitfield Overflow32b "overflow32b_y" where
 
   type CBitfieldType Overflow32b "overflow32b_y" =
-    FC.CLong
+    RIP.CLong
 
   bitfieldOffset# = \_ -> \_ -> 17
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "overflow32b_y" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "overflow32b_y" (RIP.Ptr Overflow32b) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32b_y")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32b_y")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32b "overflow32b_z" where
+instance HasCBitfield.HasCBitfield Overflow32b "overflow32b_z" where
 
   type CBitfieldType Overflow32b "overflow32b_z" =
-    FC.CLong
+    RIP.CLong
 
   bitfieldOffset# = \_ -> \_ -> 34
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "overflow32b_z" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "overflow32b_z" (RIP.Ptr Overflow32b) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32b_z")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32b_z")
 
 {-| __C declaration:__ @struct overflow32c@
 
@@ -414,21 +406,21 @@ instance ( TyEq ty FC.CLong
     __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Overflow32c = Overflow32c
-  { overflow32c_x :: FC.CLong
+  { overflow32c_x :: RIP.CLong
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/bitfields.h 25:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow32c_y :: FC.CInt
+  , overflow32c_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/structs\/bitfields.h 26:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow32c_z :: FC.CLong
+  , overflow32c_z :: RIP.CLong
     {- ^ __C declaration:__ @z@
 
          __defined at:__ @types\/structs\/bitfields.h 27:10@
@@ -436,80 +428,80 @@ data Overflow32c = Overflow32c
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Overflow32c where
+instance Marshal.StaticSize Overflow32c where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Overflow32c where
+instance Marshal.ReadRaw Overflow32c where
 
   readRaw =
     \ptr0 ->
           pure Overflow32c
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32c_x") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32c_y") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow32c_z") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32c_x") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32c_y") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow32c_z") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Overflow32c where
+instance Marshal.WriteRaw Overflow32c where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Overflow32c overflow32c_x2 overflow32c_y3 overflow32c_z4 ->
-               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32c_x") ptr0 overflow32c_x2
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32c_y") ptr0 overflow32c_y3
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow32c_z") ptr0 overflow32c_z4
+               HasCBitfield.poke (RIP.Proxy @"overflow32c_x") ptr0 overflow32c_x2
+            >> HasCBitfield.poke (RIP.Proxy @"overflow32c_y") ptr0 overflow32c_y3
+            >> HasCBitfield.poke (RIP.Proxy @"overflow32c_z") ptr0 overflow32c_z4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow32c instance F.Storable Overflow32c
+deriving via Marshal.EquivStorable Overflow32c instance RIP.Storable Overflow32c
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32c "overflow32c_x" where
+instance HasCBitfield.HasCBitfield Overflow32c "overflow32c_x" where
 
   type CBitfieldType Overflow32c "overflow32c_x" =
-    FC.CLong
+    RIP.CLong
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "overflow32c_x" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "overflow32c_x" (RIP.Ptr Overflow32c) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32c_x")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32c_x")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32c "overflow32c_y" where
+instance HasCBitfield.HasCBitfield Overflow32c "overflow32c_y" where
 
   type CBitfieldType Overflow32c "overflow32c_y" =
-    FC.CInt
+    RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 32
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "overflow32c_y" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "overflow32c_y" (RIP.Ptr Overflow32c) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32c_y")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32c_y")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32c "overflow32c_z" where
+instance HasCBitfield.HasCBitfield Overflow32c "overflow32c_z" where
 
   type CBitfieldType Overflow32c "overflow32c_z" =
-    FC.CLong
+    RIP.CLong
 
   bitfieldOffset# = \_ -> \_ -> 64
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "overflow32c_z" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "overflow32c_z" (RIP.Ptr Overflow32c) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32c_z")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow32c_z")
 
 {-| __C declaration:__ @struct overflow64@
 
@@ -518,14 +510,14 @@ instance ( TyEq ty FC.CLong
     __exported by:__ @types\/structs\/bitfields.h@
 -}
 data Overflow64 = Overflow64
-  { overflow64_x :: FC.CLong
+  { overflow64_x :: RIP.CLong
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/bitfields.h 31:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow64_y :: FC.CLong
+  , overflow64_y :: RIP.CLong
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/structs\/bitfields.h 32:10@
@@ -533,63 +525,63 @@ data Overflow64 = Overflow64
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Overflow64 where
+instance Marshal.StaticSize Overflow64 where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Overflow64 where
+instance Marshal.ReadRaw Overflow64 where
 
   readRaw =
     \ptr0 ->
           pure Overflow64
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow64_x") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"overflow64_y") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow64_x") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"overflow64_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Overflow64 where
+instance Marshal.WriteRaw Overflow64 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Overflow64 overflow64_x2 overflow64_y3 ->
-               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow64_x") ptr0 overflow64_x2
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"overflow64_y") ptr0 overflow64_y3
+               HasCBitfield.poke (RIP.Proxy @"overflow64_x") ptr0 overflow64_x2
+            >> HasCBitfield.poke (RIP.Proxy @"overflow64_y") ptr0 overflow64_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Overflow64 instance F.Storable Overflow64
+deriving via Marshal.EquivStorable Overflow64 instance RIP.Storable Overflow64
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow64 "overflow64_x" where
+instance HasCBitfield.HasCBitfield Overflow64 "overflow64_x" where
 
   type CBitfieldType Overflow64 "overflow64_x" =
-    FC.CLong
+    RIP.CLong
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 33
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "overflow64_x" (Ptr.Ptr Overflow64) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "overflow64_x" (RIP.Ptr Overflow64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow64_x")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow64_x")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow64 "overflow64_y" where
+instance HasCBitfield.HasCBitfield Overflow64 "overflow64_y" where
 
   type CBitfieldType Overflow64 "overflow64_y" =
-    FC.CLong
+    RIP.CLong
 
   bitfieldOffset# = \_ -> \_ -> 64
 
   bitfieldWidth# = \_ -> \_ -> 33
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "overflow64_y" (Ptr.Ptr Overflow64) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "overflow64_y" (RIP.Ptr Overflow64) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow64_y")
+    HasCBitfield.toPtr (RIP.Proxy @"overflow64_y")
 
 {-| __C declaration:__ @struct alignA@
 
@@ -598,14 +590,14 @@ instance ( TyEq ty FC.CLong
     __exported by:__ @types\/structs\/bitfields.h@
 -}
 data AlignA = AlignA
-  { alignA_x :: FC.CUChar
+  { alignA_x :: RIP.CUChar
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/bitfields.h 37:16@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , alignA_y :: FC.CInt
+  , alignA_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/structs\/bitfields.h 38:6@
@@ -613,61 +605,59 @@ data AlignA = AlignA
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize AlignA where
+instance Marshal.StaticSize AlignA where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw AlignA where
+instance Marshal.ReadRaw AlignA where
 
   readRaw =
     \ptr0 ->
           pure AlignA
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignA_x") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignA_y") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"alignA_x") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"alignA_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw AlignA where
+instance Marshal.WriteRaw AlignA where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AlignA alignA_x2 alignA_y3 ->
-               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignA_x") ptr0 alignA_x2
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignA_y") ptr0 alignA_y3
+               HasCBitfield.poke (RIP.Proxy @"alignA_x") ptr0 alignA_x2
+            >> HasCBitfield.poke (RIP.Proxy @"alignA_y") ptr0 alignA_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable AlignA instance F.Storable AlignA
+deriving via Marshal.EquivStorable AlignA instance RIP.Storable AlignA
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignA "alignA_x" where
+instance HasCBitfield.HasCBitfield AlignA "alignA_x" where
 
-  type CBitfieldType AlignA "alignA_x" = FC.CUChar
+  type CBitfieldType AlignA "alignA_x" = RIP.CUChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance ( TyEq ty FC.CUChar
-         ) => GHC.Records.HasField "alignA_x" (Ptr.Ptr AlignA) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CUChar
+         ) => RIP.HasField "alignA_x" (RIP.Ptr AlignA) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignA_x")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"alignA_x")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignA "alignA_y" where
+instance HasCBitfield.HasCBitfield AlignA "alignA_y" where
 
-  type CBitfieldType AlignA "alignA_y" = FC.CInt
+  type CBitfieldType AlignA "alignA_y" = RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 1
 
   bitfieldWidth# = \_ -> \_ -> 10
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "alignA_y" (Ptr.Ptr AlignA) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "alignA_y" (RIP.Ptr AlignA) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignA_y")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"alignA_y")
 
 {-| __C declaration:__ @struct alignB@
 
@@ -676,14 +666,14 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @types\/structs\/bitfields.h@
 -}
 data AlignB = AlignB
-  { alignB_x :: FC.CUChar
+  { alignB_x :: RIP.CUChar
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/structs\/bitfields.h 42:16@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , alignB_y :: FC.CInt
+  , alignB_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/structs\/bitfields.h 43:6@
@@ -691,58 +681,56 @@ data AlignB = AlignB
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize AlignB where
+instance Marshal.StaticSize AlignB where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw AlignB where
+instance Marshal.ReadRaw AlignB where
 
   readRaw =
     \ptr0 ->
           pure AlignB
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignB_x") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"alignB_y") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"alignB_x") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"alignB_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw AlignB where
+instance Marshal.WriteRaw AlignB where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AlignB alignB_x2 alignB_y3 ->
-               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignB_x") ptr0 alignB_x2
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"alignB_y") ptr0 alignB_y3
+               HasCBitfield.poke (RIP.Proxy @"alignB_x") ptr0 alignB_x2
+            >> HasCBitfield.poke (RIP.Proxy @"alignB_y") ptr0 alignB_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable AlignB instance F.Storable AlignB
+deriving via Marshal.EquivStorable AlignB instance RIP.Storable AlignB
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignB "alignB_x" where
+instance HasCBitfield.HasCBitfield AlignB "alignB_x" where
 
-  type CBitfieldType AlignB "alignB_x" = FC.CUChar
+  type CBitfieldType AlignB "alignB_x" = RIP.CUChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
   bitfieldWidth# = \_ -> \_ -> 7
 
-instance ( TyEq ty FC.CUChar
-         ) => GHC.Records.HasField "alignB_x" (Ptr.Ptr AlignB) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CUChar
+         ) => RIP.HasField "alignB_x" (RIP.Ptr AlignB) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignB_x")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"alignB_x")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignB "alignB_y" where
+instance HasCBitfield.HasCBitfield AlignB "alignB_y" where
 
-  type CBitfieldType AlignB "alignB_y" = FC.CInt
+  type CBitfieldType AlignB "alignB_y" = RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 32
 
   bitfieldWidth# = \_ -> \_ -> 31
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "alignB_y" (Ptr.Ptr AlignB) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "alignB_y" (RIP.Ptr AlignB) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignB_y")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"alignB_y")

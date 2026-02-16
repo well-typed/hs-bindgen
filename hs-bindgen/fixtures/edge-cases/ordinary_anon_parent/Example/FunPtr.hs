@@ -1,17 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
@@ -27,12 +21,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
 foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
-hs_bindgen_147bbeebcb063844 :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
+hs_bindgen_147bbeebcb063844 :: IO (RIP.FunPtr (RIP.CDouble -> IO RIP.CDouble))
 hs_bindgen_147bbeebcb063844 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_147bbeebcb063844_base
+  RIP.fromFFIType hs_bindgen_147bbeebcb063844_base
 
 {-# NOINLINE _acos #-}
 {-| __C declaration:__ @_acos@
@@ -41,6 +35,6 @@ hs_bindgen_147bbeebcb063844 =
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
+_acos :: RIP.FunPtr (RIP.CDouble -> IO RIP.CDouble)
 _acos =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_147bbeebcb063844
+  RIP.unsafePerformIO hs_bindgen_147bbeebcb063844

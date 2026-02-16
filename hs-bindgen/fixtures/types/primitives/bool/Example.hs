@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -16,22 +15,9 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct bools1@
 
@@ -40,14 +26,14 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @types\/primitives\/bool.h@
 -}
 data Bools1 = Bools1
-  { bools1_x :: FC.CBool
+  { bools1_x :: RIP.CBool
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/primitives\/bool.h 2:11@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
-  , bools1_y :: FC.CBool
+  , bools1_y :: RIP.CBool
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/primitives\/bool.h 3:11@
@@ -55,57 +41,55 @@ data Bools1 = Bools1
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Bools1 where
+instance Marshal.StaticSize Bools1 where
 
   staticSizeOf = \_ -> (2 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Bools1 where
+instance Marshal.ReadRaw Bools1 where
 
   readRaw =
     \ptr0 ->
           pure Bools1
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools1_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools1_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"bools1_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"bools1_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Bools1 where
+instance Marshal.WriteRaw Bools1 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools1 bools1_x2 bools1_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools1_x") ptr0 bools1_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools1_y") ptr0 bools1_y3
+               HasCField.writeRaw (RIP.Proxy @"bools1_x") ptr0 bools1_x2
+            >> HasCField.writeRaw (RIP.Proxy @"bools1_y") ptr0 bools1_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Bools1 instance F.Storable Bools1
+deriving via Marshal.EquivStorable Bools1 instance RIP.Storable Bools1
 
-instance HsBindgen.Runtime.HasCField.HasCField Bools1 "bools1_x" where
+instance HasCField.HasCField Bools1 "bools1_x" where
 
-  type CFieldType Bools1 "bools1_x" = FC.CBool
+  type CFieldType Bools1 "bools1_x" = RIP.CBool
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CBool
-         ) => GHC.Records.HasField "bools1_x" (Ptr.Ptr Bools1) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CBool
+         ) => RIP.HasField "bools1_x" (RIP.Ptr Bools1) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools1_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools1_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Bools1 "bools1_y" where
+instance HasCField.HasCField Bools1 "bools1_y" where
 
-  type CFieldType Bools1 "bools1_y" = FC.CBool
+  type CFieldType Bools1 "bools1_y" = RIP.CBool
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty FC.CBool
-         ) => GHC.Records.HasField "bools1_y" (Ptr.Ptr Bools1) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CBool
+         ) => RIP.HasField "bools1_y" (RIP.Ptr Bools1) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools1_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools1_y")
 
 {-| __C declaration:__ @struct bools2@
 
@@ -114,14 +98,14 @@ instance ( TyEq ty FC.CBool
     __exported by:__ @types\/primitives\/bool.h@
 -}
 data Bools2 = Bools2
-  { bools2_x :: FC.CBool
+  { bools2_x :: RIP.CBool
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/primitives\/bool.h 9:10@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
-  , bools2_y :: FC.CBool
+  , bools2_y :: RIP.CBool
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/primitives\/bool.h 10:10@
@@ -129,57 +113,55 @@ data Bools2 = Bools2
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Bools2 where
+instance Marshal.StaticSize Bools2 where
 
   staticSizeOf = \_ -> (2 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Bools2 where
+instance Marshal.ReadRaw Bools2 where
 
   readRaw =
     \ptr0 ->
           pure Bools2
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools2_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools2_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"bools2_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"bools2_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Bools2 where
+instance Marshal.WriteRaw Bools2 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools2 bools2_x2 bools2_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools2_x") ptr0 bools2_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools2_y") ptr0 bools2_y3
+               HasCField.writeRaw (RIP.Proxy @"bools2_x") ptr0 bools2_x2
+            >> HasCField.writeRaw (RIP.Proxy @"bools2_y") ptr0 bools2_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Bools2 instance F.Storable Bools2
+deriving via Marshal.EquivStorable Bools2 instance RIP.Storable Bools2
 
-instance HsBindgen.Runtime.HasCField.HasCField Bools2 "bools2_x" where
+instance HasCField.HasCField Bools2 "bools2_x" where
 
-  type CFieldType Bools2 "bools2_x" = FC.CBool
+  type CFieldType Bools2 "bools2_x" = RIP.CBool
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CBool
-         ) => GHC.Records.HasField "bools2_x" (Ptr.Ptr Bools2) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CBool
+         ) => RIP.HasField "bools2_x" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools2_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools2_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Bools2 "bools2_y" where
+instance HasCField.HasCField Bools2 "bools2_y" where
 
-  type CFieldType Bools2 "bools2_y" = FC.CBool
+  type CFieldType Bools2 "bools2_y" = RIP.CBool
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty FC.CBool
-         ) => GHC.Records.HasField "bools2_y" (Ptr.Ptr Bools2) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CBool
+         ) => RIP.HasField "bools2_y" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools2_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")
 
 {-| __C declaration:__ @BOOL@
 
@@ -188,36 +170,36 @@ instance ( TyEq ty FC.CBool
     __exported by:__ @types\/primitives\/bool.h@
 -}
 newtype BOOL = BOOL
-  { unwrapBOOL :: FC.CBool
+  { unwrapBOOL :: RIP.CBool
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CBool
-         ) => GHC.Records.HasField "unwrapBOOL" (Ptr.Ptr BOOL) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CBool
+         ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapBOOL")
+    HasCField.fromPtr (RIP.Proxy @"unwrapBOOL")
 
-instance HsBindgen.Runtime.HasCField.HasCField BOOL "unwrapBOOL" where
+instance HasCField.HasCField BOOL "unwrapBOOL" where
 
-  type CFieldType BOOL "unwrapBOOL" = FC.CBool
+  type CFieldType BOOL "unwrapBOOL" = RIP.CBool
 
   offset# = \_ -> \_ -> 0
 
@@ -243,54 +225,52 @@ data Bools3 = Bools3
          __exported by:__ @types\/primitives\/bool.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Bools3 where
+instance Marshal.StaticSize Bools3 where
 
   staticSizeOf = \_ -> (2 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Bools3 where
+instance Marshal.ReadRaw Bools3 where
 
   readRaw =
     \ptr0 ->
           pure Bools3
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools3_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"bools3_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"bools3_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"bools3_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Bools3 where
+instance Marshal.WriteRaw Bools3 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bools3 bools3_x2 bools3_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools3_x") ptr0 bools3_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"bools3_y") ptr0 bools3_y3
+               HasCField.writeRaw (RIP.Proxy @"bools3_x") ptr0 bools3_x2
+            >> HasCField.writeRaw (RIP.Proxy @"bools3_y") ptr0 bools3_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Bools3 instance F.Storable Bools3
+deriving via Marshal.EquivStorable Bools3 instance RIP.Storable Bools3
 
-instance HsBindgen.Runtime.HasCField.HasCField Bools3 "bools3_x" where
+instance HasCField.HasCField Bools3 "bools3_x" where
 
   type CFieldType Bools3 "bools3_x" = BOOL
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty BOOL
-         ) => GHC.Records.HasField "bools3_x" (Ptr.Ptr Bools3) (Ptr.Ptr ty) where
+instance ( ((~) ty) BOOL
+         ) => RIP.HasField "bools3_x" (RIP.Ptr Bools3) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools3_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools3_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Bools3 "bools3_y" where
+instance HasCField.HasCField Bools3 "bools3_y" where
 
   type CFieldType Bools3 "bools3_y" = BOOL
 
   offset# = \_ -> \_ -> 1
 
-instance ( TyEq ty BOOL
-         ) => GHC.Records.HasField "bools3_y" (Ptr.Ptr Bools3) (Ptr.Ptr ty) where
+instance ( ((~) ty) BOOL
+         ) => RIP.HasField "bools3_y" (RIP.Ptr Bools3) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bools3_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"bools3_y")

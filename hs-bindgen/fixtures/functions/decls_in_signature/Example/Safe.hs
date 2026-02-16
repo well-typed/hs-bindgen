@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign as F
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/decls_in_signature.h>"
@@ -39,19 +34,19 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
 foreign import ccall safe "hs_bindgen_920e5c20f770432b" hs_bindgen_920e5c20f770432b_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
-  -> Ptr.Ptr Void
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
 hs_bindgen_920e5c20f770432b ::
-     Ptr.Ptr Opaque
-  -> Ptr.Ptr Outside
-  -> Ptr.Ptr Outside
+     RIP.Ptr Opaque
+  -> RIP.Ptr Outside
+  -> RIP.Ptr Outside
   -> IO ()
 hs_bindgen_920e5c20f770432b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_920e5c20f770432b_base
+  RIP.fromFFIType hs_bindgen_920e5c20f770432b_base
 
 {-| __C declaration:__ @normal@
 
@@ -60,9 +55,9 @@ hs_bindgen_920e5c20f770432b =
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal ::
-     Ptr.Ptr Opaque
+     RIP.Ptr Opaque
      -- ^ __C declaration:__ @ptr_to_opaque@
-  -> Ptr.Ptr Outside
+  -> RIP.Ptr Outside
      -- ^ __C declaration:__ @ptr_to_defined@
   -> Outside
      -- ^ __C declaration:__ @by_value@
@@ -71,20 +66,20 @@ normal =
   \ptr_to_opaque0 ->
     \ptr_to_defined1 ->
       \by_value2 ->
-        F.with by_value2 (\by_value3 ->
-                            hs_bindgen_920e5c20f770432b ptr_to_opaque0 ptr_to_defined1 by_value3)
+        RIP.with by_value2 (\by_value3 ->
+                              hs_bindgen_920e5c20f770432b ptr_to_opaque0 ptr_to_defined1 by_value3)
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
 foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" hs_bindgen_baea2c7a0c8b9965_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
 hs_bindgen_baea2c7a0c8b9965 ::
-     Ptr.Ptr Named_struct
+     RIP.Ptr Named_struct
   -> IO ()
 hs_bindgen_baea2c7a0c8b9965 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_baea2c7a0c8b9965_base
+  RIP.fromFFIType hs_bindgen_baea2c7a0c8b9965_base
 
 {-| Error cases
 
@@ -102,20 +97,20 @@ f1 ::
   -> IO ()
 f1 =
   \arg0 ->
-    F.with arg0 (\arg1 ->
-                   hs_bindgen_baea2c7a0c8b9965 arg1)
+    RIP.with arg0 (\arg1 ->
+                     hs_bindgen_baea2c7a0c8b9965 arg1)
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
 foreign import ccall safe "hs_bindgen_990d7be722ad5414" hs_bindgen_990d7be722ad5414_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
 hs_bindgen_990d7be722ad5414 ::
-     Ptr.Ptr Named_union
+     RIP.Ptr Named_union
   -> IO ()
 hs_bindgen_990d7be722ad5414 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_990d7be722ad5414_base
+  RIP.fromFFIType hs_bindgen_990d7be722ad5414_base
 
 {-| __C declaration:__ @f2@
 
@@ -129,5 +124,5 @@ f2 ::
   -> IO ()
 f2 =
   \arg0 ->
-    F.with arg0 (\arg1 ->
-                   hs_bindgen_990d7be722ad5414 arg1)
+    RIP.with arg0 (\arg1 ->
+                     hs_bindgen_990d7be722ad5414 arg1)

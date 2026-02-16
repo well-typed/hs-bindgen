@@ -19,7 +19,7 @@ data S1_t
 
            __exported by:__ @declarations\/forward_declaration.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S1_t
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -32,7 +32,7 @@ deriving via (EquivStorable S1_t) instance Storable S1_t
 instance HasCField S1_t "s1_t_a"
     where type CFieldType S1_t "s1_t_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "s1_t_a" (Ptr S1_t) (Ptr ty)
+instance (~) ty CInt => HasField "s1_t_a" (Ptr S1_t) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_t_a")
 {-| __C declaration:__ @struct S2@
 
@@ -54,7 +54,7 @@ data S2
 
            __exported by:__ @declarations\/forward_declaration.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S2
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -67,5 +67,5 @@ deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_a"
     where type CFieldType S2 "s2_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "s2_a" (Ptr S2) (Ptr ty)
+instance (~) ty CInt => HasField "s2_a" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_a")

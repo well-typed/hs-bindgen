@@ -241,23 +241,23 @@ newtype Int_fast16_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "unwrapInt_fast16_t" (Ptr Int_fast16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast16_t")
 instance HasCField Int_fast16_t "unwrapInt_fast16_t"
@@ -278,23 +278,23 @@ newtype Int_fast32_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "unwrapInt_fast32_t" (Ptr Int_fast32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast32_t")
 instance HasCField Int_fast32_t "unwrapInt_fast32_t"
@@ -315,23 +315,23 @@ newtype Uint_fast16_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "unwrapUint_fast16_t" (Ptr Uint_fast16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast16_t")
 instance HasCField Uint_fast16_t "unwrapUint_fast16_t"
@@ -352,23 +352,23 @@ newtype Uint_fast32_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "unwrapUint_fast32_t" (Ptr Uint_fast32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast32_t")
 instance HasCField Uint_fast32_t "unwrapUint_fast32_t"
@@ -389,23 +389,23 @@ newtype Int_fast8_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
          HasField "unwrapInt_fast8_t" (Ptr Int_fast8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast8_t")
 instance HasCField Int_fast8_t "unwrapInt_fast8_t"
@@ -426,23 +426,23 @@ newtype Int_fast64_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
          HasField "unwrapInt_fast64_t" (Ptr Int_fast64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast64_t")
 instance HasCField Int_fast64_t "unwrapInt_fast64_t"
@@ -463,23 +463,23 @@ newtype Int_least8_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int8 =>
          HasField "unwrapInt_least8_t" (Ptr Int_least8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least8_t")
 instance HasCField Int_least8_t "unwrapInt_least8_t"
@@ -500,23 +500,23 @@ newtype Int_least16_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int16 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int16 =>
          HasField "unwrapInt_least16_t" (Ptr Int_least16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least16_t")
 instance HasCField Int_least16_t "unwrapInt_least16_t"
@@ -537,23 +537,23 @@ newtype Int_least32_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int32 =>
          HasField "unwrapInt_least32_t" (Ptr Int_least32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least32_t")
 instance HasCField Int_least32_t "unwrapInt_least32_t"
@@ -574,23 +574,23 @@ newtype Int_least64_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Int64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Int64 =>
          HasField "unwrapInt_least64_t" (Ptr Int_least64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least64_t")
 instance HasCField Int_least64_t "unwrapInt_least64_t"
@@ -611,23 +611,23 @@ newtype Uint_fast8_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "unwrapUint_fast8_t" (Ptr Uint_fast8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast8_t")
 instance HasCField Uint_fast8_t "unwrapUint_fast8_t"
@@ -648,23 +648,23 @@ newtype Uint_fast64_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "unwrapUint_fast64_t" (Ptr Uint_fast64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast64_t")
 instance HasCField Uint_fast64_t "unwrapUint_fast64_t"
@@ -685,23 +685,23 @@ newtype Uint_least8_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "unwrapUint_least8_t" (Ptr Uint_least8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least8_t")
 instance HasCField Uint_least8_t "unwrapUint_least8_t"
@@ -722,23 +722,23 @@ newtype Uint_least16_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "unwrapUint_least16_t" (Ptr Uint_least16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least16_t")
 instance HasCField Uint_least16_t "unwrapUint_least16_t"
@@ -759,23 +759,23 @@ newtype Uint_least32_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "unwrapUint_least32_t" (Ptr Uint_least32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least32_t")
 instance HasCField Uint_least32_t "unwrapUint_least32_t"
@@ -796,23 +796,23 @@ newtype Uint_least64_t
 
            __exported by:__ @types\/primitives\/least_fast.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty HsBindgen.Runtime.LibC.Word64 =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty HsBindgen.Runtime.LibC.Word64 =>
          HasField "unwrapUint_least64_t" (Ptr Uint_least64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least64_t")
 instance HasCField Uint_least64_t "unwrapUint_least64_t"

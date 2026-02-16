@@ -1,9 +1,8 @@
 {-# LANGUAGE ExplicitForAll #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 
 module Example where
 
-import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 {-| __C declaration:__ @A@
 
@@ -11,5 +10,5 @@ import qualified Foreign.C as FC
 
     __exported by:__ @declarations\/redeclaration_identical.h@
 -}
-a :: FC.CInt
-a = (5 :: FC.CInt)
+a :: RIP.CInt
+a = (5 :: RIP.CInt)

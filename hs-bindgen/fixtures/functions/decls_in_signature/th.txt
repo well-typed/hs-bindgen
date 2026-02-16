@@ -100,7 +100,7 @@ data Outside
 
            __exported by:__ @functions\/decls_in_signature.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Outside
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -114,14 +114,12 @@ deriving via (EquivStorable Outside) instance Storable Outside
 instance HasCField Outside "outside_x"
     where type CFieldType Outside "outside_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
-         HasField "outside_x" (Ptr Outside) (Ptr ty)
+instance (~) ty CInt => HasField "outside_x" (Ptr Outside) (Ptr ty)
     where getField = fromPtr (Proxy @"outside_x")
 instance HasCField Outside "outside_y"
     where type CFieldType Outside "outside_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt =>
-         HasField "outside_y" (Ptr Outside) (Ptr ty)
+instance (~) ty CInt => HasField "outside_y" (Ptr Outside) (Ptr ty)
     where getField = fromPtr (Proxy @"outside_y")
 {-| Error cases
 
@@ -158,7 +156,7 @@ data Named_struct
 
       __exported by:__ @functions\/decls_in_signature.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Named_struct
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -172,13 +170,13 @@ deriving via (EquivStorable Named_struct) instance Storable Named_struct
 instance HasCField Named_struct "named_struct_x"
     where type CFieldType Named_struct "named_struct_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "named_struct_x" (Ptr Named_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"named_struct_x")
 instance HasCField Named_struct "named_struct_y"
     where type CFieldType Named_struct "named_struct_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "named_struct_y" (Ptr Named_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"named_struct_y")
 {-| __C declaration:__ @union named_union@
@@ -271,13 +269,13 @@ set_named_union_y = setUnionPayload
 instance HasCField Named_union "named_union_x"
     where type CFieldType Named_union "named_union_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "named_union_x" (Ptr Named_union) (Ptr ty)
     where getField = fromPtr (Proxy @"named_union_x")
 instance HasCField Named_union "named_union_y"
     where type CFieldType Named_union "named_union_y" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar =>
+instance (~) ty CChar =>
          HasField "named_union_y" (Ptr Named_union) (Ptr ty)
     where getField = fromPtr (Proxy @"named_union_y")
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@

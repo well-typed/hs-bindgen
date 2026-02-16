@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -15,25 +14,9 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.FunPtr
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import qualified Prelude as P
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @I@
 
@@ -42,36 +25,35 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord,
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype I = I
-  { unwrapI :: FC.CInt
+  { unwrapI :: RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unwrapI" (Ptr.Ptr I) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapI" (RIP.Ptr I) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapI")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapI")
 
-instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
+instance HasCField.HasCField I "unwrapI" where
 
-  type CFieldType I "unwrapI" = FC.CInt
+  type CFieldType I "unwrapI" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -82,36 +64,35 @@ instance HsBindgen.Runtime.HasCField.HasCField I "unwrapI" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype C = C
-  { unwrapC :: FC.CChar
+  { unwrapC :: RIP.CChar
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "unwrapC" (Ptr.Ptr C) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "unwrapC" (RIP.Ptr C) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapC")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapC")
 
-instance HsBindgen.Runtime.HasCField.HasCField C "unwrapC" where
+instance HasCField.HasCField C "unwrapC" where
 
-  type CFieldType C "unwrapC" = FC.CChar
+  type CFieldType C "unwrapC" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
@@ -122,34 +103,33 @@ instance HsBindgen.Runtime.HasCField.HasCField C "unwrapC" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype F = F
-  { unwrapF :: FC.CFloat
+  { unwrapF :: RIP.CFloat
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , Enum
+    ( Enum
     , Floating
     , Fractional
+    , RIP.HasFFIType
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
     , RealFloat
     , RealFrac
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CFloat
-         ) => GHC.Records.HasField "unwrapF" (Ptr.Ptr F) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CFloat
+         ) => RIP.HasField "unwrapF" (RIP.Ptr F) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapF")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapF")
 
-instance HsBindgen.Runtime.HasCField.HasCField F "unwrapF" where
+instance HasCField.HasCField F "unwrapF" where
 
-  type CFieldType F "unwrapF" = FC.CFloat
+  type CFieldType F "unwrapF" = RIP.CFloat
 
   offset# = \_ -> \_ -> 0
 
@@ -160,36 +140,35 @@ instance HsBindgen.Runtime.HasCField.HasCField F "unwrapF" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype L = L
-  { unwrapL :: FC.CLong
+  { unwrapL :: RIP.CLong
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "unwrapL" (Ptr.Ptr L) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "unwrapL" (RIP.Ptr L) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapL")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapL")
 
-instance HsBindgen.Runtime.HasCField.HasCField L "unwrapL" where
+instance HasCField.HasCField L "unwrapL" where
 
-  type CFieldType L "unwrapL" = FC.CLong
+  type CFieldType L "unwrapL" = RIP.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -200,99 +179,98 @@ instance HsBindgen.Runtime.HasCField.HasCField L "unwrapL" where
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
 newtype S = S
-  { unwrapS :: FC.CShort
+  { unwrapS :: RIP.CShort
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CShort
-         ) => GHC.Records.HasField "unwrapS" (Ptr.Ptr S) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CShort
+         ) => RIP.HasField "unwrapS" (RIP.Ptr S) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapS")
 
-instance HsBindgen.Runtime.HasCField.HasCField S "unwrapS" where
+instance HasCField.HasCField S "unwrapS" where
 
-  type CFieldType S "unwrapS" = FC.CShort
+  type CFieldType S "unwrapS" = RIP.CShort
 
   offset# = \_ -> \_ -> 0
 
-foreign import ccall safe "wrapper" hs_bindgen_074b9de694d8f359_base ::
-     (GHC.Int.Int16 -> IO GHC.Int.Int32)
-  -> IO (Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32))
+foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::
+     (RIP.Int16 -> IO RIP.Int32)
+  -> IO (RIP.FunPtr (RIP.Int16 -> IO RIP.Int32))
 
--- __unique:__ @instance ToFunPtr (FC.CShort -> IO I)@
-hs_bindgen_074b9de694d8f359 ::
-     (FC.CShort -> IO I)
-  -> IO (Ptr.FunPtr (FC.CShort -> IO I))
-hs_bindgen_074b9de694d8f359 =
+-- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
+hs_bindgen_25a28556cfbbf031 ::
+     (RIP.CShort -> IO I)
+  -> IO (RIP.FunPtr (RIP.CShort -> IO I))
+hs_bindgen_25a28556cfbbf031 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_074b9de694d8f359_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_25a28556cfbbf031_base (RIP.toFFIType fun0))
 
-foreign import ccall safe "dynamic" hs_bindgen_c7a8adce35e64925_base ::
-     Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32)
-  -> GHC.Int.Int16 -> IO GHC.Int.Int32
+foreign import ccall safe "dynamic" hs_bindgen_255a05599df0464e_base ::
+     RIP.FunPtr (RIP.Int16 -> IO RIP.Int32)
+  -> RIP.Int16 -> IO RIP.Int32
 
--- __unique:__ @instance FromFunPtr (FC.CShort -> IO I)@
-hs_bindgen_c7a8adce35e64925 ::
-     Ptr.FunPtr (FC.CShort -> IO I)
-  -> FC.CShort -> IO I
-hs_bindgen_c7a8adce35e64925 =
+-- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
+hs_bindgen_255a05599df0464e ::
+     RIP.FunPtr (RIP.CShort -> IO I)
+  -> RIP.CShort -> IO I
+hs_bindgen_255a05599df0464e =
   \funPtr0 ->
-    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_c7a8adce35e64925_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
+    RIP.fromFFIType (hs_bindgen_255a05599df0464e_base (RIP.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr (FC.CShort -> IO I) where
+instance RIP.ToFunPtr (RIP.CShort -> IO I) where
 
-  toFunPtr = hs_bindgen_074b9de694d8f359
+  toFunPtr = hs_bindgen_25a28556cfbbf031
 
-instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr (FC.CShort -> IO I) where
+instance RIP.FromFunPtr (RIP.CShort -> IO I) where
 
-  fromFunPtr = hs_bindgen_c7a8adce35e64925
+  fromFunPtr = hs_bindgen_255a05599df0464e
 
-foreign import ccall safe "wrapper" hs_bindgen_ffdbafa239adf14e_base ::
-     (GHC.Int.Int16 -> IO GHC.Int.Int32)
-  -> IO (Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32))
+foreign import ccall safe "wrapper" hs_bindgen_016f1407db09bd2f_base ::
+     (RIP.Int16 -> IO RIP.Int32)
+  -> IO (RIP.FunPtr (RIP.Int16 -> IO RIP.Int32))
 
--- __unique:__ @instance ToFunPtr (S -> IO FC.CInt)@
-hs_bindgen_ffdbafa239adf14e ::
-     (S -> IO FC.CInt)
-  -> IO (Ptr.FunPtr (S -> IO FC.CInt))
-hs_bindgen_ffdbafa239adf14e =
+-- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
+hs_bindgen_016f1407db09bd2f ::
+     (S -> IO RIP.CInt)
+  -> IO (RIP.FunPtr (S -> IO RIP.CInt))
+hs_bindgen_016f1407db09bd2f =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_ffdbafa239adf14e_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_016f1407db09bd2f_base (RIP.toFFIType fun0))
 
-foreign import ccall safe "dynamic" hs_bindgen_9c8a77fe3560cebd_base ::
-     Ptr.FunPtr (GHC.Int.Int16 -> IO GHC.Int.Int32)
-  -> GHC.Int.Int16 -> IO GHC.Int.Int32
+foreign import ccall safe "dynamic" hs_bindgen_1c14ce64db2e04d0_base ::
+     RIP.FunPtr (RIP.Int16 -> IO RIP.Int32)
+  -> RIP.Int16 -> IO RIP.Int32
 
--- __unique:__ @instance FromFunPtr (S -> IO FC.CInt)@
-hs_bindgen_9c8a77fe3560cebd ::
-     Ptr.FunPtr (S -> IO FC.CInt)
-  -> S -> IO FC.CInt
-hs_bindgen_9c8a77fe3560cebd =
+-- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
+hs_bindgen_1c14ce64db2e04d0 ::
+     RIP.FunPtr (S -> IO RIP.CInt)
+  -> S -> IO RIP.CInt
+hs_bindgen_1c14ce64db2e04d0 =
   \funPtr0 ->
-    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_9c8a77fe3560cebd_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
+    RIP.fromFFIType (hs_bindgen_1c14ce64db2e04d0_base (RIP.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr (S -> IO FC.CInt) where
+instance RIP.ToFunPtr (S -> IO RIP.CInt) where
 
-  toFunPtr = hs_bindgen_ffdbafa239adf14e
+  toFunPtr = hs_bindgen_016f1407db09bd2f
 
-instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr (S -> IO FC.CInt) where
+instance RIP.FromFunPtr (S -> IO RIP.CInt) where
 
-  fromFunPtr = hs_bindgen_9c8a77fe3560cebd
+  fromFunPtr = hs_bindgen_1c14ce64db2e04d0

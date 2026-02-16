@@ -13,23 +13,23 @@ newtype T1
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT1")
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
@@ -48,23 +48,23 @@ newtype T2
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty T1 => HasField "unwrapT2" (Ptr T2) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty T1 => HasField "unwrapT2" (Ptr T2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT2")
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = T1
@@ -83,23 +83,23 @@ newtype T3
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty T2 => HasField "unwrapT3" (Ptr T3) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty T2 => HasField "unwrapT3" (Ptr T3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT3")
 instance HasCField T3 "unwrapT3"
     where type CFieldType T3 "unwrapT3" = T2
@@ -118,23 +118,23 @@ newtype T4
 
            __exported by:__ @macros\/macro_typedef_scope.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty T3 => HasField "unwrapT4" (Ptr T4) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty T3 => HasField "unwrapT4" (Ptr T4) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT4")
 instance HasCField T4 "unwrapT4"
     where type CFieldType T4 "unwrapT4" = T3

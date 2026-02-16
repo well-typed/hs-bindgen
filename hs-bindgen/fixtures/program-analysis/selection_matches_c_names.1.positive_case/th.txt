@@ -34,7 +34,7 @@ data NewName
 
            __exported by:__ @program-analysis\/selection_matches_c_names.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize NewName
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -47,8 +47,7 @@ deriving via (EquivStorable NewName) instance Storable NewName
 instance HasCField NewName "newName_x"
     where type CFieldType NewName "newName_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
-         HasField "newName_x" (Ptr NewName) (Ptr ty)
+instance (~) ty CInt => HasField "newName_x" (Ptr NewName) (Ptr ty)
     where getField = fromPtr (Proxy @"newName_x")
 -- __unique:__ @test_programanalysisselection_mat_Example_Safe_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall safe "hs_bindgen_c9b1dc5577fd8ced" hs_bindgen_c9b1dc5577fd8ced_base ::

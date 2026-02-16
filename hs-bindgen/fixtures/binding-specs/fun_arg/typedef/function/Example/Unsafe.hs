@@ -1,18 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified M
-import Data.Void (Void)
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/typedef/function.h>"
@@ -96,15 +91,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_51195acecf6b880e" hs_bindgen_51195acecf6b880e_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 hs_bindgen_51195acecf6b880e ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
   -> IO ()
 hs_bindgen_51195acecf6b880e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_51195acecf6b880e_base
+  RIP.fromFFIType hs_bindgen_51195acecf6b880e_base
 
 {-| __C declaration:__ @foo@
 
@@ -113,22 +108,22 @@ hs_bindgen_51195acecf6b880e =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 foo ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_51195acecf6b880e
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10ca94f9_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 hs_bindgen_eb4a794c10ca94f9 ::
-     Ptr.FunPtr A
+     RIP.FunPtr A
   -> IO ()
 hs_bindgen_eb4a794c10ca94f9 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_eb4a794c10ca94f9_base
+  RIP.fromFFIType hs_bindgen_eb4a794c10ca94f9_base
 
 {-| __C declaration:__ @fooA@
 
@@ -137,22 +132,22 @@ hs_bindgen_eb4a794c10ca94f9 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 fooA ::
-     Ptr.FunPtr A
+     RIP.FunPtr A
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_eb4a794c10ca94f9
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a953b64_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 hs_bindgen_a11eb4471a953b64 ::
-     Ptr.FunPtr B
+     RIP.FunPtr B
   -> IO ()
 hs_bindgen_a11eb4471a953b64 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a11eb4471a953b64_base
+  RIP.fromFFIType hs_bindgen_a11eb4471a953b64_base
 
 {-| __C declaration:__ @fooB@
 
@@ -161,22 +156,22 @@ hs_bindgen_a11eb4471a953b64 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 fooB ::
-     Ptr.FunPtr B
+     RIP.FunPtr B
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_a11eb4471a953b64
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 hs_bindgen_1dea92b3f3346311 ::
-     Ptr.FunPtr M.C
+     RIP.FunPtr M.C
   -> IO ()
 hs_bindgen_1dea92b3f3346311 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1dea92b3f3346311_base
+  RIP.fromFFIType hs_bindgen_1dea92b3f3346311_base
 
 {-| __C declaration:__ @fooC@
 
@@ -185,22 +180,22 @@ hs_bindgen_1dea92b3f3346311 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 fooC ::
-     Ptr.FunPtr M.C
+     RIP.FunPtr M.C
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooC = hs_bindgen_1dea92b3f3346311
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 hs_bindgen_dba6d56e1a316e2d ::
-     Ptr.FunPtr M.D
+     RIP.FunPtr M.D
   -> IO ()
 hs_bindgen_dba6d56e1a316e2d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dba6d56e1a316e2d_base
+  RIP.fromFFIType hs_bindgen_dba6d56e1a316e2d_base
 
 {-| __C declaration:__ @fooD@
 
@@ -209,22 +204,22 @@ hs_bindgen_dba6d56e1a316e2d =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 fooD ::
-     Ptr.FunPtr M.D
+     RIP.FunPtr M.D
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooD = hs_bindgen_dba6d56e1a316e2d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 hs_bindgen_23b6f403a534aeae ::
-     Ptr.FunPtr E
+     RIP.FunPtr E
   -> IO ()
 hs_bindgen_23b6f403a534aeae =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_23b6f403a534aeae_base
+  RIP.fromFFIType hs_bindgen_23b6f403a534aeae_base
 
 {-| __C declaration:__ @fooE@
 
@@ -233,22 +228,22 @@ hs_bindgen_23b6f403a534aeae =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 fooE ::
-     Ptr.FunPtr E
+     RIP.FunPtr E
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooE = hs_bindgen_23b6f403a534aeae
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_44994e62548d5196" hs_bindgen_44994e62548d5196_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_bar@
 hs_bindgen_44994e62548d5196 ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
   -> IO ()
 hs_bindgen_44994e62548d5196 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_44994e62548d5196_base
+  RIP.fromFFIType hs_bindgen_44994e62548d5196_base
 
 {-| __C declaration:__ @bar@
 
@@ -257,22 +252,22 @@ hs_bindgen_44994e62548d5196 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 bar ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
      -- ^ __C declaration:__ @x@
   -> IO ()
 bar = hs_bindgen_44994e62548d5196
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barA@
 foreign import ccall unsafe "hs_bindgen_012af7936cfc5b63" hs_bindgen_012af7936cfc5b63_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barA@
 hs_bindgen_012af7936cfc5b63 ::
-     Ptr.FunPtr A
+     RIP.FunPtr A
   -> IO ()
 hs_bindgen_012af7936cfc5b63 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_012af7936cfc5b63_base
+  RIP.fromFFIType hs_bindgen_012af7936cfc5b63_base
 
 {-| __C declaration:__ @barA@
 
@@ -281,22 +276,22 @@ hs_bindgen_012af7936cfc5b63 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 barA ::
-     Ptr.FunPtr A
+     RIP.FunPtr A
      -- ^ __C declaration:__ @x@
   -> IO ()
 barA = hs_bindgen_012af7936cfc5b63
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barB@
 foreign import ccall unsafe "hs_bindgen_67ecffff9d788c07" hs_bindgen_67ecffff9d788c07_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barB@
 hs_bindgen_67ecffff9d788c07 ::
-     Ptr.FunPtr B
+     RIP.FunPtr B
   -> IO ()
 hs_bindgen_67ecffff9d788c07 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_67ecffff9d788c07_base
+  RIP.fromFFIType hs_bindgen_67ecffff9d788c07_base
 
 {-| __C declaration:__ @barB@
 
@@ -305,22 +300,22 @@ hs_bindgen_67ecffff9d788c07 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 barB ::
-     Ptr.FunPtr B
+     RIP.FunPtr B
      -- ^ __C declaration:__ @x@
   -> IO ()
 barB = hs_bindgen_67ecffff9d788c07
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barC@
 foreign import ccall unsafe "hs_bindgen_e8b5ec0471fff356" hs_bindgen_e8b5ec0471fff356_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barC@
 hs_bindgen_e8b5ec0471fff356 ::
-     Ptr.FunPtr M.C
+     RIP.FunPtr M.C
   -> IO ()
 hs_bindgen_e8b5ec0471fff356 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e8b5ec0471fff356_base
+  RIP.fromFFIType hs_bindgen_e8b5ec0471fff356_base
 
 {-| __C declaration:__ @barC@
 
@@ -329,22 +324,22 @@ hs_bindgen_e8b5ec0471fff356 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 barC ::
-     Ptr.FunPtr M.C
+     RIP.FunPtr M.C
      -- ^ __C declaration:__ @x@
   -> IO ()
 barC = hs_bindgen_e8b5ec0471fff356
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barD@
 foreign import ccall unsafe "hs_bindgen_98ea214fd1feaaca" hs_bindgen_98ea214fd1feaaca_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barD@
 hs_bindgen_98ea214fd1feaaca ::
-     Ptr.FunPtr M.D
+     RIP.FunPtr M.D
   -> IO ()
 hs_bindgen_98ea214fd1feaaca =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_98ea214fd1feaaca_base
+  RIP.fromFFIType hs_bindgen_98ea214fd1feaaca_base
 
 {-| __C declaration:__ @barD@
 
@@ -353,22 +348,22 @@ hs_bindgen_98ea214fd1feaaca =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 barD ::
-     Ptr.FunPtr M.D
+     RIP.FunPtr M.D
      -- ^ __C declaration:__ @x@
   -> IO ()
 barD = hs_bindgen_98ea214fd1feaaca
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barE@
 foreign import ccall unsafe "hs_bindgen_f145043f481aed3c" hs_bindgen_f145043f481aed3c_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_barE@
 hs_bindgen_f145043f481aed3c ::
-     Ptr.FunPtr E
+     RIP.FunPtr E
   -> IO ()
 hs_bindgen_f145043f481aed3c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f145043f481aed3c_base
+  RIP.fromFFIType hs_bindgen_f145043f481aed3c_base
 
 {-| __C declaration:__ @barE@
 
@@ -377,7 +372,7 @@ hs_bindgen_f145043f481aed3c =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 barE ::
-     Ptr.FunPtr E
+     RIP.FunPtr E
      -- ^ __C declaration:__ @x@
   -> IO ()
 barE = hs_bindgen_f145043f481aed3c

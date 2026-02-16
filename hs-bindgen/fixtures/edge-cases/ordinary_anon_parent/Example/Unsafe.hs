@@ -1,14 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Prelude (Double, IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
@@ -27,10 +24,10 @@ foreign import ccall unsafe "hs_bindgen_dca60678b5047ee4" hs_bindgen_dca60678b50
 
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
 hs_bindgen_dca60678b5047ee4 ::
-     FC.CDouble
-  -> IO FC.CDouble
+     RIP.CDouble
+  -> IO RIP.CDouble
 hs_bindgen_dca60678b5047ee4 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dca60678b5047ee4_base
+  RIP.fromFFIType hs_bindgen_dca60678b5047ee4_base
 
 {-| __C declaration:__ @_acos@
 
@@ -39,7 +36,7 @@ hs_bindgen_dca60678b5047ee4 =
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
 _acos ::
-     FC.CDouble
+     RIP.CDouble
      -- ^ __C declaration:__ @x@
-  -> IO FC.CDouble
+  -> IO RIP.CDouble
 _acos = hs_bindgen_dca60678b5047ee4

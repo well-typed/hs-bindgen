@@ -1,19 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Word
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import Data.Void (Void)
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
@@ -29,19 +23,19 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
-  -> GHC.Word.Word64
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO RIP.Int32
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 hs_bindgen_b2a91b3b7edf2ad3 ::
-     Ptr.Ptr HsBindgen.Runtime.LibC.CFile
-  -> Ptr.Ptr Void
+     RIP.Ptr HsBindgen.Runtime.LibC.CFile
+  -> RIP.Ptr RIP.Void
   -> HsBindgen.Runtime.LibC.CSize
   -> IO FileOperationStatus
 hs_bindgen_b2a91b3b7edf2ad3 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
+  RIP.fromFFIType hs_bindgen_b2a91b3b7edf2ad3_base
 
 {-| __C declaration:__ @read_file_chunk@
 
@@ -50,9 +44,9 @@ hs_bindgen_b2a91b3b7edf2ad3 =
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 read_file_chunk ::
-     Ptr.Ptr HsBindgen.Runtime.LibC.CFile
+     RIP.Ptr HsBindgen.Runtime.LibC.CFile
      -- ^ __C declaration:__ @file_ptr@
-  -> Ptr.Ptr Void
+  -> RIP.Ptr RIP.Void
      -- ^ __C declaration:__ @buffer@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @bytes_to_read@

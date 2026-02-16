@@ -19,7 +19,7 @@ data OkBefore
 
            __exported by:__ @program-analysis\/selection_fail.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize OkBefore
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -32,6 +32,6 @@ deriving via (EquivStorable OkBefore) instance Storable OkBefore
 instance HasCField OkBefore "okBefore_x"
     where type CFieldType OkBefore "okBefore_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
     where getField = fromPtr (Proxy @"okBefore_x")

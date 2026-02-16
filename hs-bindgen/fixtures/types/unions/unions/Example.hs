@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,19 +13,9 @@
 
 module Example where
 
-import qualified Data.Array.Byte
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.ByteArray
-import qualified HsBindgen.Runtime.Internal.SizedByteArray
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct Dim2@
 
@@ -35,14 +24,14 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
     __exported by:__ @types\/unions\/unions.h@
 -}
 data Dim2 = Dim2
-  { dim2_x :: FC.CInt
+  { dim2_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/unions\/unions.h 2:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , dim2_y :: FC.CInt
+  , dim2_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/unions\/unions.h 3:9@
@@ -50,57 +39,55 @@ data Dim2 = Dim2
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Dim2 where
+instance Marshal.StaticSize Dim2 where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Dim2 where
+instance Marshal.ReadRaw Dim2 where
 
   readRaw =
     \ptr0 ->
           pure Dim2
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dim2_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dim2_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dim2_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dim2_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Dim2 where
+instance Marshal.WriteRaw Dim2 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Dim2 dim2_x2 dim2_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dim2_x") ptr0 dim2_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dim2_y") ptr0 dim2_y3
+               HasCField.writeRaw (RIP.Proxy @"dim2_x") ptr0 dim2_x2
+            >> HasCField.writeRaw (RIP.Proxy @"dim2_y") ptr0 dim2_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Dim2 instance F.Storable Dim2
+deriving via Marshal.EquivStorable Dim2 instance RIP.Storable Dim2
 
-instance HsBindgen.Runtime.HasCField.HasCField Dim2 "dim2_x" where
+instance HasCField.HasCField Dim2 "dim2_x" where
 
-  type CFieldType Dim2 "dim2_x" = FC.CInt
+  type CFieldType Dim2 "dim2_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "dim2_x" (Ptr.Ptr Dim2) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "dim2_x" (RIP.Ptr Dim2) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim2_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"dim2_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Dim2 "dim2_y" where
+instance HasCField.HasCField Dim2 "dim2_y" where
 
-  type CFieldType Dim2 "dim2_y" = FC.CInt
+  type CFieldType Dim2 "dim2_y" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "dim2_y" (Ptr.Ptr Dim2) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "dim2_y" (RIP.Ptr Dim2) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim2_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"dim2_y")
 
 {-| __C declaration:__ @struct Dim3@
 
@@ -109,21 +96,21 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @types\/unions\/unions.h@
 -}
 data Dim3 = Dim3
-  { dim3_x :: FC.CInt
+  { dim3_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/unions\/unions.h 7:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , dim3_y :: FC.CInt
+  , dim3_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/unions\/unions.h 8:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , dim3_z :: FC.CInt
+  , dim3_z :: RIP.CInt
     {- ^ __C declaration:__ @z@
 
          __defined at:__ @types\/unions\/unions.h 9:9@
@@ -131,71 +118,68 @@ data Dim3 = Dim3
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Dim3 where
+instance Marshal.StaticSize Dim3 where
 
   staticSizeOf = \_ -> (12 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Dim3 where
+instance Marshal.ReadRaw Dim3 where
 
   readRaw =
     \ptr0 ->
           pure Dim3
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dim3_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dim3_y") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dim3_z") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dim3_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dim3_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dim3_z") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Dim3 where
+instance Marshal.WriteRaw Dim3 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Dim3 dim3_x2 dim3_y3 dim3_z4 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dim3_x") ptr0 dim3_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dim3_y") ptr0 dim3_y3
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dim3_z") ptr0 dim3_z4
+               HasCField.writeRaw (RIP.Proxy @"dim3_x") ptr0 dim3_x2
+            >> HasCField.writeRaw (RIP.Proxy @"dim3_y") ptr0 dim3_y3
+            >> HasCField.writeRaw (RIP.Proxy @"dim3_z") ptr0 dim3_z4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Dim3 instance F.Storable Dim3
+deriving via Marshal.EquivStorable Dim3 instance RIP.Storable Dim3
 
-instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_x" where
+instance HasCField.HasCField Dim3 "dim3_x" where
 
-  type CFieldType Dim3 "dim3_x" = FC.CInt
+  type CFieldType Dim3 "dim3_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "dim3_x" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "dim3_x" (RIP.Ptr Dim3) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim3_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"dim3_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_y" where
+instance HasCField.HasCField Dim3 "dim3_y" where
 
-  type CFieldType Dim3 "dim3_y" = FC.CInt
+  type CFieldType Dim3 "dim3_y" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "dim3_y" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "dim3_y" (RIP.Ptr Dim3) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim3_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"dim3_y")
 
-instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_z" where
+instance HasCField.HasCField Dim3 "dim3_z" where
 
-  type CFieldType Dim3 "dim3_z" = FC.CInt
+  type CFieldType Dim3 "dim3_z" = RIP.CInt
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "dim3_z" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "dim3_z" (RIP.Ptr Dim3) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim3_z")
+  getField = HasCField.fromPtr (RIP.Proxy @"dim3_z")
 
 {-| __C declaration:__ @union DimPayload@
 
@@ -204,17 +188,17 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayload = DimPayload
-  { unwrapDimPayload :: Data.Array.Byte.ByteArray
+  { unwrapDimPayload :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayload
+deriving via (RIP.SizedByteArray 8) 4 instance Marshal.StaticSize DimPayload
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayload
+deriving via (RIP.SizedByteArray 8) 4 instance Marshal.ReadRaw DimPayload
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayload
+deriving via (RIP.SizedByteArray 8) 4 instance Marshal.WriteRaw DimPayload
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayload instance F.Storable DimPayload
+deriving via Marshal.EquivStorable DimPayload instance RIP.Storable DimPayload
 
 {-|
 
@@ -229,8 +213,7 @@ __exported by:__ @types\/unions\/unions.h@
 get_dimPayload_dim2 ::
      DimPayload
   -> Dim2
-get_dimPayload_dim2 =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+get_dimPayload_dim2 = RIP.getUnionPayload
 
 {-|
 
@@ -240,8 +223,7 @@ get_dimPayload_dim2 =
 set_dimPayload_dim2 ::
      Dim2
   -> DimPayload
-set_dimPayload_dim2 =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_dimPayload_dim2 = RIP.setUnionPayload
 
 {-|
 
@@ -256,8 +238,7 @@ __exported by:__ @types\/unions\/unions.h@
 get_dimPayload_dim3 ::
      DimPayload
   -> Dim2
-get_dimPayload_dim3 =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+get_dimPayload_dim3 = RIP.getUnionPayload
 
 {-|
 
@@ -267,32 +248,31 @@ get_dimPayload_dim3 =
 set_dimPayload_dim3 ::
      Dim2
   -> DimPayload
-set_dimPayload_dim3 =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_dimPayload_dim3 = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField DimPayload "dimPayload_dim2" where
+instance HasCField.HasCField DimPayload "dimPayload_dim2" where
 
   type CFieldType DimPayload "dimPayload_dim2" = Dim2
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Dim2
-         ) => GHC.Records.HasField "dimPayload_dim2" (Ptr.Ptr DimPayload) (Ptr.Ptr ty) where
+instance ( ((~) ty) Dim2
+         ) => RIP.HasField "dimPayload_dim2" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayload_dim2")
+    HasCField.fromPtr (RIP.Proxy @"dimPayload_dim2")
 
-instance HsBindgen.Runtime.HasCField.HasCField DimPayload "dimPayload_dim3" where
+instance HasCField.HasCField DimPayload "dimPayload_dim3" where
 
   type CFieldType DimPayload "dimPayload_dim3" = Dim2
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Dim2
-         ) => GHC.Records.HasField "dimPayload_dim3" (Ptr.Ptr DimPayload) (Ptr.Ptr ty) where
+instance ( ((~) ty) Dim2
+         ) => RIP.HasField "dimPayload_dim3" (RIP.Ptr DimPayload) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayload_dim3")
+    HasCField.fromPtr (RIP.Proxy @"dimPayload_dim3")
 
 {-| __C declaration:__ @struct Dim@
 
@@ -301,7 +281,7 @@ instance ( TyEq ty Dim2
     __exported by:__ @types\/unions\/unions.h@
 -}
 data Dim = Dim
-  { dim_tag :: FC.CInt
+  { dim_tag :: RIP.CInt
     {- ^ __C declaration:__ @tag@
 
          __defined at:__ @types\/unions\/unions.h 18:9@
@@ -316,57 +296,56 @@ data Dim = Dim
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Dim where
+instance Marshal.StaticSize Dim where
 
   staticSizeOf = \_ -> (12 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Dim where
+instance Marshal.ReadRaw Dim where
 
   readRaw =
     \ptr0 ->
           pure Dim
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dim_tag") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dim_payload") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dim_tag") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dim_payload") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Dim where
+instance Marshal.WriteRaw Dim where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Dim dim_tag2 dim_payload3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dim_tag") ptr0 dim_tag2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dim_payload") ptr0 dim_payload3
+               HasCField.writeRaw (RIP.Proxy @"dim_tag") ptr0 dim_tag2
+            >> HasCField.writeRaw (RIP.Proxy @"dim_payload") ptr0 dim_payload3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Dim instance F.Storable Dim
+deriving via Marshal.EquivStorable Dim instance RIP.Storable Dim
 
-instance HsBindgen.Runtime.HasCField.HasCField Dim "dim_tag" where
+instance HasCField.HasCField Dim "dim_tag" where
 
-  type CFieldType Dim "dim_tag" = FC.CInt
+  type CFieldType Dim "dim_tag" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "dim_tag" (Ptr.Ptr Dim) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "dim_tag" (RIP.Ptr Dim) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim_tag")
+  getField = HasCField.fromPtr (RIP.Proxy @"dim_tag")
 
-instance HsBindgen.Runtime.HasCField.HasCField Dim "dim_payload" where
+instance HasCField.HasCField Dim "dim_payload" where
 
   type CFieldType Dim "dim_payload" = DimPayload
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty DimPayload
-         ) => GHC.Records.HasField "dim_payload" (Ptr.Ptr Dim) (Ptr.Ptr ty) where
+instance ( ((~) ty) DimPayload
+         ) => RIP.HasField "dim_payload" (RIP.Ptr Dim) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dim_payload")
+    HasCField.fromPtr (RIP.Proxy @"dim_payload")
 
 {-| __C declaration:__ @union DimPayloadB@
 
@@ -375,17 +354,17 @@ instance ( TyEq ty DimPayload
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype DimPayloadB = DimPayloadB
-  { unwrapDimPayloadB :: Data.Array.Byte.ByteArray
+  { unwrapDimPayloadB :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.StaticSize DimPayloadB
+deriving via (RIP.SizedByteArray 8) 4 instance Marshal.StaticSize DimPayloadB
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.ReadRaw DimPayloadB
+deriving via (RIP.SizedByteArray 8) 4 instance Marshal.ReadRaw DimPayloadB
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 8) 4 instance HsBindgen.Runtime.Marshal.WriteRaw DimPayloadB
+deriving via (RIP.SizedByteArray 8) 4 instance Marshal.WriteRaw DimPayloadB
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable DimPayloadB instance F.Storable DimPayloadB
+deriving via Marshal.EquivStorable DimPayloadB instance RIP.Storable DimPayloadB
 
 {-|
 
@@ -400,8 +379,7 @@ __exported by:__ @types\/unions\/unions.h@
 get_dimPayloadB_dim2 ::
      DimPayloadB
   -> Dim2
-get_dimPayloadB_dim2 =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+get_dimPayloadB_dim2 = RIP.getUnionPayload
 
 {-|
 
@@ -411,8 +389,7 @@ get_dimPayloadB_dim2 =
 set_dimPayloadB_dim2 ::
      Dim2
   -> DimPayloadB
-set_dimPayloadB_dim2 =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_dimPayloadB_dim2 = RIP.setUnionPayload
 
 {-|
 
@@ -427,8 +404,7 @@ __exported by:__ @types\/unions\/unions.h@
 get_dimPayloadB_dim3 ::
      DimPayloadB
   -> Dim2
-get_dimPayloadB_dim3 =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+get_dimPayloadB_dim3 = RIP.getUnionPayload
 
 {-|
 
@@ -438,32 +414,31 @@ get_dimPayloadB_dim3 =
 set_dimPayloadB_dim3 ::
      Dim2
   -> DimPayloadB
-set_dimPayloadB_dim3 =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_dimPayloadB_dim3 = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
+instance HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
 
   type CFieldType DimPayloadB "dimPayloadB_dim2" = Dim2
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Dim2
-         ) => GHC.Records.HasField "dimPayloadB_dim2" (Ptr.Ptr DimPayloadB) (Ptr.Ptr ty) where
+instance ( ((~) ty) Dim2
+         ) => RIP.HasField "dimPayloadB_dim2" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayloadB_dim2")
+    HasCField.fromPtr (RIP.Proxy @"dimPayloadB_dim2")
 
-instance HsBindgen.Runtime.HasCField.HasCField DimPayloadB "dimPayloadB_dim3" where
+instance HasCField.HasCField DimPayloadB "dimPayloadB_dim3" where
 
   type CFieldType DimPayloadB "dimPayloadB_dim3" = Dim2
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Dim2
-         ) => GHC.Records.HasField "dimPayloadB_dim3" (Ptr.Ptr DimPayloadB) (Ptr.Ptr ty) where
+instance ( ((~) ty) Dim2
+         ) => RIP.HasField "dimPayloadB_dim3" (RIP.Ptr DimPayloadB) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimPayloadB_dim3")
+    HasCField.fromPtr (RIP.Proxy @"dimPayloadB_dim3")
 
 {-| __C declaration:__ @struct DimB@
 
@@ -472,7 +447,7 @@ instance ( TyEq ty Dim2
     __exported by:__ @types\/unions\/unions.h@
 -}
 data DimB = DimB
-  { dimB_tag :: FC.CInt
+  { dimB_tag :: RIP.CInt
     {- ^ __C declaration:__ @tag@
 
          __defined at:__ @types\/unions\/unions.h 29:9@
@@ -487,57 +462,56 @@ data DimB = DimB
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-instance HsBindgen.Runtime.Marshal.StaticSize DimB where
+instance Marshal.StaticSize DimB where
 
   staticSizeOf = \_ -> (12 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw DimB where
+instance Marshal.ReadRaw DimB where
 
   readRaw =
     \ptr0 ->
           pure DimB
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dimB_tag") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"dimB_payload") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dimB_tag") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"dimB_payload") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw DimB where
+instance Marshal.WriteRaw DimB where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           DimB dimB_tag2 dimB_payload3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dimB_tag") ptr0 dimB_tag2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"dimB_payload") ptr0 dimB_payload3
+               HasCField.writeRaw (RIP.Proxy @"dimB_tag") ptr0 dimB_tag2
+            >> HasCField.writeRaw (RIP.Proxy @"dimB_payload") ptr0 dimB_payload3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable DimB instance F.Storable DimB
+deriving via Marshal.EquivStorable DimB instance RIP.Storable DimB
 
-instance HsBindgen.Runtime.HasCField.HasCField DimB "dimB_tag" where
+instance HasCField.HasCField DimB "dimB_tag" where
 
-  type CFieldType DimB "dimB_tag" = FC.CInt
+  type CFieldType DimB "dimB_tag" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "dimB_tag" (Ptr.Ptr DimB) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "dimB_tag" (RIP.Ptr DimB) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimB_tag")
+  getField = HasCField.fromPtr (RIP.Proxy @"dimB_tag")
 
-instance HsBindgen.Runtime.HasCField.HasCField DimB "dimB_payload" where
+instance HasCField.HasCField DimB "dimB_payload" where
 
   type CFieldType DimB "dimB_payload" = DimPayloadB
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty DimPayloadB
-         ) => GHC.Records.HasField "dimB_payload" (Ptr.Ptr DimB) (Ptr.Ptr ty) where
+instance ( ((~) ty) DimPayloadB
+         ) => RIP.HasField "dimB_payload" (RIP.Ptr DimB) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"dimB_payload")
+    HasCField.fromPtr (RIP.Proxy @"dimB_payload")
 
 {-| __C declaration:__ @struct \@AnonA_xy@
 
@@ -546,14 +520,14 @@ instance ( TyEq ty DimPayloadB
     __exported by:__ @types\/unions\/unions.h@
 -}
 data AnonA_xy = AnonA_xy
-  { anonA_xy_x :: FC.CDouble
+  { anonA_xy_x :: RIP.CDouble
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/unions\/unions.h 35:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , anonA_xy_y :: FC.CDouble
+  , anonA_xy_y :: RIP.CDouble
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/unions\/unions.h 35:31@
@@ -561,57 +535,57 @@ data AnonA_xy = AnonA_xy
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize AnonA_xy where
+instance Marshal.StaticSize AnonA_xy where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw AnonA_xy where
+instance Marshal.ReadRaw AnonA_xy where
 
   readRaw =
     \ptr0 ->
           pure AnonA_xy
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonA_xy_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonA_xy_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonA_xy_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonA_xy_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw AnonA_xy where
+instance Marshal.WriteRaw AnonA_xy where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AnonA_xy anonA_xy_x2 anonA_xy_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonA_xy_x") ptr0 anonA_xy_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonA_xy_y") ptr0 anonA_xy_y3
+               HasCField.writeRaw (RIP.Proxy @"anonA_xy_x") ptr0 anonA_xy_x2
+            >> HasCField.writeRaw (RIP.Proxy @"anonA_xy_y") ptr0 anonA_xy_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonA_xy instance F.Storable AnonA_xy
+deriving via Marshal.EquivStorable AnonA_xy instance RIP.Storable AnonA_xy
 
-instance HsBindgen.Runtime.HasCField.HasCField AnonA_xy "anonA_xy_x" where
+instance HasCField.HasCField AnonA_xy "anonA_xy_x" where
 
-  type CFieldType AnonA_xy "anonA_xy_x" = FC.CDouble
+  type CFieldType AnonA_xy "anonA_xy_x" = RIP.CDouble
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CDouble
-         ) => GHC.Records.HasField "anonA_xy_x" (Ptr.Ptr AnonA_xy) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CDouble
+         ) => RIP.HasField "anonA_xy_x" (RIP.Ptr AnonA_xy) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_xy_x")
+    HasCField.fromPtr (RIP.Proxy @"anonA_xy_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField AnonA_xy "anonA_xy_y" where
+instance HasCField.HasCField AnonA_xy "anonA_xy_y" where
 
-  type CFieldType AnonA_xy "anonA_xy_y" = FC.CDouble
+  type CFieldType AnonA_xy "anonA_xy_y" = RIP.CDouble
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty FC.CDouble
-         ) => GHC.Records.HasField "anonA_xy_y" (Ptr.Ptr AnonA_xy) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CDouble
+         ) => RIP.HasField "anonA_xy_y" (RIP.Ptr AnonA_xy) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_xy_y")
+    HasCField.fromPtr (RIP.Proxy @"anonA_xy_y")
 
 {-| __C declaration:__ @struct \@AnonA_polar@
 
@@ -620,14 +594,14 @@ instance ( TyEq ty FC.CDouble
     __exported by:__ @types\/unions\/unions.h@
 -}
 data AnonA_polar = AnonA_polar
-  { anonA_polar_r :: FC.CDouble
+  { anonA_polar_r :: RIP.CDouble
     {- ^ __C declaration:__ @r@
 
          __defined at:__ @types\/unions\/unions.h 36:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
-  , anonA_polar_p :: FC.CDouble
+  , anonA_polar_p :: RIP.CDouble
     {- ^ __C declaration:__ @p@
 
          __defined at:__ @types\/unions\/unions.h 36:31@
@@ -635,59 +609,59 @@ data AnonA_polar = AnonA_polar
          __exported by:__ @types\/unions\/unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize AnonA_polar where
+instance Marshal.StaticSize AnonA_polar where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw AnonA_polar where
+instance Marshal.ReadRaw AnonA_polar where
 
   readRaw =
     \ptr0 ->
           pure AnonA_polar
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonA_polar_r") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"anonA_polar_p") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonA_polar_r") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonA_polar_p") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw AnonA_polar where
+instance Marshal.WriteRaw AnonA_polar where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           AnonA_polar anonA_polar_r2 anonA_polar_p3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonA_polar_r") ptr0 anonA_polar_r2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
+               HasCField.writeRaw (RIP.Proxy @"anonA_polar_r") ptr0 anonA_polar_r2
+            >> HasCField.writeRaw (RIP.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonA_polar instance F.Storable AnonA_polar
+deriving via Marshal.EquivStorable AnonA_polar instance RIP.Storable AnonA_polar
 
-instance HsBindgen.Runtime.HasCField.HasCField AnonA_polar "anonA_polar_r" where
+instance HasCField.HasCField AnonA_polar "anonA_polar_r" where
 
   type CFieldType AnonA_polar "anonA_polar_r" =
-    FC.CDouble
+    RIP.CDouble
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CDouble
-         ) => GHC.Records.HasField "anonA_polar_r" (Ptr.Ptr AnonA_polar) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CDouble
+         ) => RIP.HasField "anonA_polar_r" (RIP.Ptr AnonA_polar) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_polar_r")
+    HasCField.fromPtr (RIP.Proxy @"anonA_polar_r")
 
-instance HsBindgen.Runtime.HasCField.HasCField AnonA_polar "anonA_polar_p" where
+instance HasCField.HasCField AnonA_polar "anonA_polar_p" where
 
   type CFieldType AnonA_polar "anonA_polar_p" =
-    FC.CDouble
+    RIP.CDouble
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty FC.CDouble
-         ) => GHC.Records.HasField "anonA_polar_p" (Ptr.Ptr AnonA_polar) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CDouble
+         ) => RIP.HasField "anonA_polar_p" (RIP.Ptr AnonA_polar) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_polar_p")
+    HasCField.fromPtr (RIP.Proxy @"anonA_polar_p")
 
 {-| __C declaration:__ @union AnonA@
 
@@ -696,17 +670,17 @@ instance ( TyEq ty FC.CDouble
     __exported by:__ @types\/unions\/unions.h@
 -}
 newtype AnonA = AnonA
-  { unwrapAnonA :: Data.Array.Byte.ByteArray
+  { unwrapAnonA :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.StaticSize AnonA
+deriving via (RIP.SizedByteArray 16) 8 instance Marshal.StaticSize AnonA
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.ReadRaw AnonA
+deriving via (RIP.SizedByteArray 16) 8 instance Marshal.ReadRaw AnonA
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 16) 8 instance HsBindgen.Runtime.Marshal.WriteRaw AnonA
+deriving via (RIP.SizedByteArray 16) 8 instance Marshal.WriteRaw AnonA
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable AnonA instance F.Storable AnonA
+deriving via Marshal.EquivStorable AnonA instance RIP.Storable AnonA
 
 {-|
 
@@ -721,8 +695,7 @@ __exported by:__ @types\/unions\/unions.h@
 get_anonA_xy ::
      AnonA
   -> AnonA_xy
-get_anonA_xy =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+get_anonA_xy = RIP.getUnionPayload
 
 {-|
 
@@ -732,8 +705,7 @@ get_anonA_xy =
 set_anonA_xy ::
      AnonA_xy
   -> AnonA
-set_anonA_xy =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_anonA_xy = RIP.setUnionPayload
 
 {-|
 
@@ -748,8 +720,7 @@ __exported by:__ @types\/unions\/unions.h@
 get_anonA_polar ::
      AnonA
   -> AnonA_polar
-get_anonA_polar =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+get_anonA_polar = RIP.getUnionPayload
 
 {-|
 
@@ -759,29 +730,27 @@ get_anonA_polar =
 set_anonA_polar ::
      AnonA_polar
   -> AnonA
-set_anonA_polar =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_anonA_polar = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField AnonA "anonA_xy" where
+instance HasCField.HasCField AnonA "anonA_xy" where
 
   type CFieldType AnonA "anonA_xy" = AnonA_xy
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty AnonA_xy
-         ) => GHC.Records.HasField "anonA_xy" (Ptr.Ptr AnonA) (Ptr.Ptr ty) where
+instance ( ((~) ty) AnonA_xy
+         ) => RIP.HasField "anonA_xy" (RIP.Ptr AnonA) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_xy")
+  getField = HasCField.fromPtr (RIP.Proxy @"anonA_xy")
 
-instance HsBindgen.Runtime.HasCField.HasCField AnonA "anonA_polar" where
+instance HasCField.HasCField AnonA "anonA_polar" where
 
   type CFieldType AnonA "anonA_polar" = AnonA_polar
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty AnonA_polar
-         ) => GHC.Records.HasField "anonA_polar" (Ptr.Ptr AnonA) (Ptr.Ptr ty) where
+instance ( ((~) ty) AnonA_polar
+         ) => RIP.HasField "anonA_polar" (RIP.Ptr AnonA) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"anonA_polar")
+    HasCField.fromPtr (RIP.Proxy @"anonA_polar")

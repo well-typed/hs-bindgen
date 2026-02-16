@@ -1,17 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/fun_attributes.h>"
@@ -25,12 +19,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
 foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982dd2d1a_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
-hs_bindgen_cd32cb4982dd2d1a :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_cd32cb4982dd2d1a :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_cd32cb4982dd2d1a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
+  RIP.fromFFIType hs_bindgen_cd32cb4982dd2d1a_base
 
 {-# NOINLINE i #-}
 {-| __C declaration:__ @i@
@@ -39,6 +33,5 @@ hs_bindgen_cd32cb4982dd2d1a =
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-i :: Ptr.Ptr FC.CInt
-i =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd32cb4982dd2d1a
+i :: RIP.Ptr RIP.CInt
+i = RIP.unsafePerformIO hs_bindgen_cd32cb4982dd2d1a
