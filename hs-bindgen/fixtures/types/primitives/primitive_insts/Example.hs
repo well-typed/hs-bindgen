@@ -1,12 +1,14 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -27,6 +29,7 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 {-| __C declaration:__ @prim_HsPrimCPtrdiff@
@@ -57,7 +60,8 @@ newtype Prim_HsPrimCPtrdiff = Prim_HsPrimCPtrdiff
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCPtrdiff" (Ptr.Ptr Prim_HsPrimCPtrdiff) (Ptr.Ptr HsBindgen.Runtime.LibC.CPtrdiff) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CPtrdiff
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCPtrdiff" (Ptr.Ptr Prim_HsPrimCPtrdiff) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCPtrdiff")
@@ -97,7 +101,8 @@ newtype Prim_HsPrimInt8 = Prim_HsPrimInt8
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimInt8" (Ptr.Ptr Prim_HsPrimInt8) (Ptr.Ptr HsBindgen.Runtime.LibC.Int8) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int8
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt8" (Ptr.Ptr Prim_HsPrimInt8) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt8")
@@ -137,7 +142,8 @@ newtype Prim_HsPrimInt16 = Prim_HsPrimInt16
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimInt16" (Ptr.Ptr Prim_HsPrimInt16) (Ptr.Ptr HsBindgen.Runtime.LibC.Int16) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int16
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt16" (Ptr.Ptr Prim_HsPrimInt16) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt16")
@@ -177,7 +183,8 @@ newtype Prim_HsPrimInt32 = Prim_HsPrimInt32
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimInt32" (Ptr.Ptr Prim_HsPrimInt32) (Ptr.Ptr HsBindgen.Runtime.LibC.Int32) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int32
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt32" (Ptr.Ptr Prim_HsPrimInt32) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt32")
@@ -217,7 +224,8 @@ newtype Prim_HsPrimInt64 = Prim_HsPrimInt64
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimInt64" (Ptr.Ptr Prim_HsPrimInt64) (Ptr.Ptr HsBindgen.Runtime.LibC.Int64) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int64
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimInt64" (Ptr.Ptr Prim_HsPrimInt64) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimInt64")
@@ -257,7 +265,8 @@ newtype Prim_HsPrimWord8 = Prim_HsPrimWord8
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimWord8" (Ptr.Ptr Prim_HsPrimWord8) (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word8
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord8" (Ptr.Ptr Prim_HsPrimWord8) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord8")
@@ -297,7 +306,8 @@ newtype Prim_HsPrimWord16 = Prim_HsPrimWord16
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimWord16" (Ptr.Ptr Prim_HsPrimWord16) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word16
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord16" (Ptr.Ptr Prim_HsPrimWord16) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord16")
@@ -337,7 +347,8 @@ newtype Prim_HsPrimWord32 = Prim_HsPrimWord32
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimWord32" (Ptr.Ptr Prim_HsPrimWord32) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word32
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord32" (Ptr.Ptr Prim_HsPrimWord32) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord32")
@@ -377,7 +388,8 @@ newtype Prim_HsPrimWord64 = Prim_HsPrimWord64
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimWord64" (Ptr.Ptr Prim_HsPrimWord64) (Ptr.Ptr HsBindgen.Runtime.LibC.Word64) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word64
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimWord64" (Ptr.Ptr Prim_HsPrimWord64) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimWord64")
@@ -417,7 +429,8 @@ newtype Prim_HsPrimCChar = Prim_HsPrimCChar
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCChar" (Ptr.Ptr Prim_HsPrimCChar) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCChar" (Ptr.Ptr Prim_HsPrimCChar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCChar")
@@ -457,7 +470,8 @@ newtype Prim_HsPrimCSChar = Prim_HsPrimCSChar
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCSChar" (Ptr.Ptr Prim_HsPrimCSChar) (Ptr.Ptr FC.CSChar) where
+instance ( TyEq ty FC.CSChar
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCSChar" (Ptr.Ptr Prim_HsPrimCSChar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCSChar")
@@ -497,7 +511,8 @@ newtype Prim_HsPrimCUChar = Prim_HsPrimCUChar
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCUChar" (Ptr.Ptr Prim_HsPrimCUChar) (Ptr.Ptr FC.CUChar) where
+instance ( TyEq ty FC.CUChar
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCUChar" (Ptr.Ptr Prim_HsPrimCUChar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCUChar")
@@ -537,7 +552,8 @@ newtype Prim_HsPrimCShort = Prim_HsPrimCShort
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCShort" (Ptr.Ptr Prim_HsPrimCShort) (Ptr.Ptr FC.CShort) where
+instance ( TyEq ty FC.CShort
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCShort" (Ptr.Ptr Prim_HsPrimCShort) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCShort")
@@ -577,7 +593,8 @@ newtype Prim_HsPrimCUShort = Prim_HsPrimCUShort
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCUShort" (Ptr.Ptr Prim_HsPrimCUShort) (Ptr.Ptr FC.CUShort) where
+instance ( TyEq ty FC.CUShort
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCUShort" (Ptr.Ptr Prim_HsPrimCUShort) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCUShort")
@@ -617,7 +634,8 @@ newtype Prim_HsPrimCInt = Prim_HsPrimCInt
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCInt" (Ptr.Ptr Prim_HsPrimCInt) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCInt" (Ptr.Ptr Prim_HsPrimCInt) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCInt")
@@ -657,7 +675,8 @@ newtype Prim_HsPrimCUInt = Prim_HsPrimCUInt
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCUInt" (Ptr.Ptr Prim_HsPrimCUInt) (Ptr.Ptr FC.CUInt) where
+instance ( TyEq ty FC.CUInt
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCUInt" (Ptr.Ptr Prim_HsPrimCUInt) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCUInt")
@@ -697,7 +716,8 @@ newtype Prim_HsPrimCLong = Prim_HsPrimCLong
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCLong" (Ptr.Ptr Prim_HsPrimCLong) (Ptr.Ptr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCLong" (Ptr.Ptr Prim_HsPrimCLong) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCLong")
@@ -737,7 +757,8 @@ newtype Prim_HsPrimCULong = Prim_HsPrimCULong
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCULong" (Ptr.Ptr Prim_HsPrimCULong) (Ptr.Ptr FC.CULong) where
+instance ( TyEq ty FC.CULong
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCULong" (Ptr.Ptr Prim_HsPrimCULong) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCULong")
@@ -777,7 +798,8 @@ newtype Prim_HsPrimCLLong = Prim_HsPrimCLLong
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCLLong" (Ptr.Ptr Prim_HsPrimCLLong) (Ptr.Ptr FC.CLLong) where
+instance ( TyEq ty FC.CLLong
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCLLong" (Ptr.Ptr Prim_HsPrimCLLong) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCLLong")
@@ -817,7 +839,8 @@ newtype Prim_HsPrimCULLong = Prim_HsPrimCULLong
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCULLong" (Ptr.Ptr Prim_HsPrimCULLong) (Ptr.Ptr FC.CULLong) where
+instance ( TyEq ty FC.CULLong
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCULLong" (Ptr.Ptr Prim_HsPrimCULLong) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCULLong")
@@ -857,7 +880,8 @@ newtype Prim_HsPrimCBool = Prim_HsPrimCBool
     , Real
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCBool" (Ptr.Ptr Prim_HsPrimCBool) (Ptr.Ptr FC.CBool) where
+instance ( TyEq ty FC.CBool
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCBool" (Ptr.Ptr Prim_HsPrimCBool) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCBool")
@@ -895,7 +919,8 @@ newtype Prim_HsPrimCFloat = Prim_HsPrimCFloat
     , RealFrac
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCFloat" (Ptr.Ptr Prim_HsPrimCFloat) (Ptr.Ptr FC.CFloat) where
+instance ( TyEq ty FC.CFloat
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCFloat" (Ptr.Ptr Prim_HsPrimCFloat) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCFloat")
@@ -933,7 +958,8 @@ newtype Prim_HsPrimCDouble = Prim_HsPrimCDouble
     , RealFrac
     )
 
-instance GHC.Records.HasField "unwrapPrim_HsPrimCDouble" (Ptr.Ptr Prim_HsPrimCDouble) (Ptr.Ptr FC.CDouble) where
+instance ( TyEq ty FC.CDouble
+         ) => GHC.Records.HasField "unwrapPrim_HsPrimCDouble" (Ptr.Ptr Prim_HsPrimCDouble) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapPrim_HsPrimCDouble")

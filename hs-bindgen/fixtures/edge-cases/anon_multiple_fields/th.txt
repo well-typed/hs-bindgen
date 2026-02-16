@@ -41,17 +41,15 @@ instance HasCField Some_struct_field1 "some_struct_field1_x"
     where type CFieldType Some_struct_field1
                           "some_struct_field1_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "some_struct_field1_x"
-                  (Ptr Some_struct_field1)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "some_struct_field1_x" (Ptr Some_struct_field1) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field1_x")
 instance HasCField Some_struct_field1 "some_struct_field1_y"
     where type CFieldType Some_struct_field1
                           "some_struct_field1_y" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "some_struct_field1_y"
-                  (Ptr Some_struct_field1)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "some_struct_field1_y" (Ptr Some_struct_field1) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field1_y")
 {-| __C declaration:__ @struct some_struct@
 
@@ -103,23 +101,20 @@ instance HasCField Some_struct "some_struct_field1"
     where type CFieldType Some_struct
                           "some_struct_field1" = Some_struct_field1
           offset# = \_ -> \_ -> 0
-instance HasField "some_struct_field1"
-                  (Ptr Some_struct)
-                  (Ptr Some_struct_field1)
+instance TyEq ty Some_struct_field1 =>
+         HasField "some_struct_field1" (Ptr Some_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field1")
 instance HasCField Some_struct "some_struct_field2"
     where type CFieldType Some_struct
                           "some_struct_field2" = Some_struct_field1
           offset# = \_ -> \_ -> 8
-instance HasField "some_struct_field2"
-                  (Ptr Some_struct)
-                  (Ptr Some_struct_field1)
+instance TyEq ty Some_struct_field1 =>
+         HasField "some_struct_field2" (Ptr Some_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field2")
 instance HasCField Some_struct "some_struct_field3"
     where type CFieldType Some_struct
                           "some_struct_field3" = Some_struct_field1
           offset# = \_ -> \_ -> 16
-instance HasField "some_struct_field3"
-                  (Ptr Some_struct)
-                  (Ptr Some_struct_field1)
+instance TyEq ty Some_struct_field1 =>
+         HasField "some_struct_field3" (Ptr Some_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"some_struct_field3")

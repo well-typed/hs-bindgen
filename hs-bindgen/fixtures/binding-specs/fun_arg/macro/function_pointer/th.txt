@@ -102,9 +102,10 @@ instance ToFunPtr MyFunctionPointer_Aux
     where toFunPtr = hs_bindgen_47dfd04698dd2e6f
 instance FromFunPtr MyFunctionPointer_Aux
     where fromFunPtr = hs_bindgen_5738272f94a589e2
-instance HasField "unwrapMyFunctionPointer_Aux"
+instance TyEq ty (CInt -> IO CInt) =>
+         HasField "unwrapMyFunctionPointer_Aux"
                   (Ptr MyFunctionPointer_Aux)
-                  (Ptr (CInt -> IO CInt))
+                  (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyFunctionPointer_Aux")
 instance HasCField MyFunctionPointer_Aux
                    "unwrapMyFunctionPointer_Aux"
@@ -131,9 +132,8 @@ newtype MyFunctionPointer
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapMyFunctionPointer"
-                  (Ptr MyFunctionPointer)
-                  (Ptr (FunPtr MyFunctionPointer_Aux))
+instance TyEq ty (FunPtr MyFunctionPointer_Aux) =>
+         HasField "unwrapMyFunctionPointer" (Ptr MyFunctionPointer) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyFunctionPointer")
 instance HasCField MyFunctionPointer "unwrapMyFunctionPointer"
     where type CFieldType MyFunctionPointer
@@ -159,7 +159,8 @@ newtype A
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapA" (Ptr A) (Ptr MyFunctionPointer)
+instance TyEq ty MyFunctionPointer =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyFunctionPointer
@@ -184,7 +185,7 @@ newtype B
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapB" (Ptr B) (Ptr A)
+instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

@@ -2,4 +2,5 @@
 
 ## 0.1.0 -- YYYY-mm-dd
 
-* BREAKING: `TyEq` no longer used in generated `HasField` instances
+* BREAKING: occurrences of the `CFieldType`/`CBitfieldType` type families in
+  class instance heads are now replaced by their definition.

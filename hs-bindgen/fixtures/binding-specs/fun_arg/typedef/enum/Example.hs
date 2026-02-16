@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -10,6 +11,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -29,6 +31,7 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified M
 import qualified Text.Read
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum MyEnum@
@@ -109,7 +112,8 @@ instance Read MyEnum where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance GHC.Records.HasField "unwrapMyEnum" (Ptr.Ptr MyEnum) (Ptr.Ptr FC.CUInt) where
+instance ( TyEq ty FC.CUInt
+         ) => GHC.Records.HasField "unwrapMyEnum" (Ptr.Ptr MyEnum) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyEnum")
@@ -148,7 +152,8 @@ newtype A = A
     , Data.Primitive.Types.Prim
     )
 
-instance GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr MyEnum) where
+instance ( TyEq ty MyEnum
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
@@ -178,7 +183,8 @@ newtype B = B
     , Data.Primitive.Types.Prim
     )
 
-instance GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr A) where
+instance ( TyEq ty A
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
@@ -201,7 +207,8 @@ newtype E = E
   deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
-instance GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr M.C) where
+instance ( TyEq ty M.C
+         ) => GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapE")

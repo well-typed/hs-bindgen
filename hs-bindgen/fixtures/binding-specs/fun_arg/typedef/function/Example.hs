@@ -2,12 +2,14 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,6 +25,7 @@ import qualified HsBindgen.Runtime.Internal.FunPtr
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified M
 import qualified Prelude as P
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (IO)
 
 {-| __C declaration:__ @A@
@@ -69,7 +72,8 @@ instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr A where
 
   fromFunPtr = hs_bindgen_0cf9a6d50f563441
 
-instance GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr (FC.CInt -> IO FC.CInt)) where
+instance ( TyEq ty (FC.CInt -> IO FC.CInt)
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
@@ -92,7 +96,8 @@ newtype B = B
   deriving stock (GHC.Generics.Generic)
   deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
-instance GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr A) where
+instance ( TyEq ty A
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
@@ -114,7 +119,8 @@ newtype E = E
   }
   deriving stock (GHC.Generics.Generic)
 
-instance GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr M.C) where
+instance ( TyEq ty M.C
+         ) => GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapE")

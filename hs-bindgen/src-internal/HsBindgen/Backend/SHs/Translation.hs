@@ -563,7 +563,12 @@ translateHasFieldInstance inst mbComment = Instance{
     , args    = [fieldLit, parentPtr, tyPtr]
     , types   = []
     , comment = mbComment
-    , super   = []
+    , super   = [ ( NomEq_class
+                  , [ tyTypeVar
+                    , field
+                    ]
+                  )
+                ]
     , decs    = [ ( HasField_getField
                   , EGlobal ptrToFieldGlobal `EApp`
                       (EGlobal Proxy_constructor `ETypeApp` fieldLit)
@@ -575,17 +580,19 @@ translateHasFieldInstance inst mbComment = Instance{
       case inst.deriveVia of
         Hs.ViaHasCField -> (
             HasCField_fromPtr
-          , TGlobal Foreign_Ptr `TApp` field
+          , TGlobal Foreign_Ptr `TApp` tyTypeVar
           )
         Hs.ViaHasCBitfield -> (
             HasCBitfield_toPtr
-          , TGlobal HasCBitfield_BitfieldPtr `TApp` field
+          , TGlobal HasCBitfield_BitfieldPtr `TApp` tyTypeVar
           )
 
     parent    = translateType inst.parentType
     parentPtr = TGlobal Foreign_Ptr `TApp` parent
     field     = translateType inst.fieldType
     fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    -- TODO: this is not actually a free type variable. See issue #1287.
+    tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------
   Unions

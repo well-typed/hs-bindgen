@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,6 +24,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct pascal@
@@ -71,7 +74,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Pascal_Aux "pascal_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal_Aux) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal_Aux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"pascal_len")
@@ -145,7 +149,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "foo_bar_x" (Ptr.Ptr Foo_bar) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "foo_bar_x" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_bar_x")
@@ -156,7 +161,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "foo_bar_y" (Ptr.Ptr Foo_bar) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "foo_bar_y" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_bar_y")
@@ -208,7 +214,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo_Aux "foo_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "foo_len" (Ptr.Ptr Foo_Aux) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "foo_len" (Ptr.Ptr Foo_Aux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_len")
@@ -282,7 +289,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Diff_Aux "diff_first" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "diff_first" (Ptr.Ptr Diff_Aux) (Ptr.Ptr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "diff_first" (Ptr.Ptr Diff_Aux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"diff_first")
@@ -293,7 +301,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Diff_Aux "diff_second" where
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "diff_second" (Ptr.Ptr Diff_Aux) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "diff_second" (Ptr.Ptr Diff_Aux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"diff_second")
@@ -360,7 +369,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplets_Aux "triplets_len" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets_Aux) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets_Aux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"triplets_len")

@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,6 +25,7 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.ByteArray
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct X@
@@ -72,7 +75,8 @@ instance HsBindgen.Runtime.HasCField.HasCField X "x_n" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "x_n" (Ptr.Ptr X) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "x_n" (Ptr.Ptr X) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x_n")
@@ -156,7 +160,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Y "y_m" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "y_m" (Ptr.Ptr Y) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "y_m" (Ptr.Ptr Y) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y_m")
@@ -167,7 +172,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Y "y_o" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "y_o" (Ptr.Ptr Y) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "y_o" (Ptr.Ptr Y) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y_o")

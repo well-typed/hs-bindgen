@@ -1,11 +1,13 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -17,6 +19,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Eq, Show)
 
 {-| __C declaration:__ @MyArray@
@@ -30,7 +33,8 @@ newtype MyArray = MyArray
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)) where
+instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+         ) => GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyArray")
@@ -53,7 +57,8 @@ newtype A = A
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr MyArray) where
+instance ( TyEq ty MyArray
+         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
@@ -75,7 +80,8 @@ newtype B = B
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr A) where
+instance ( TyEq ty A
+         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")

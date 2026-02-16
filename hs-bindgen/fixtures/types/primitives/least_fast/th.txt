@@ -257,9 +257,8 @@ newtype Int_fast16_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_fast16_t"
-                  (Ptr Int_fast16_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int32)
+instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapInt_fast16_t" (Ptr Int_fast16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast16_t")
 instance HasCField Int_fast16_t "unwrapInt_fast16_t"
     where type CFieldType Int_fast16_t
@@ -295,9 +294,8 @@ newtype Int_fast32_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_fast32_t"
-                  (Ptr Int_fast32_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int32)
+instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapInt_fast32_t" (Ptr Int_fast32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast32_t")
 instance HasCField Int_fast32_t "unwrapInt_fast32_t"
     where type CFieldType Int_fast32_t
@@ -333,9 +331,8 @@ newtype Uint_fast16_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_fast16_t"
-                  (Ptr Uint_fast16_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word32)
+instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "unwrapUint_fast16_t" (Ptr Uint_fast16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast16_t")
 instance HasCField Uint_fast16_t "unwrapUint_fast16_t"
     where type CFieldType Uint_fast16_t
@@ -371,9 +368,8 @@ newtype Uint_fast32_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_fast32_t"
-                  (Ptr Uint_fast32_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word32)
+instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "unwrapUint_fast32_t" (Ptr Uint_fast32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast32_t")
 instance HasCField Uint_fast32_t "unwrapUint_fast32_t"
     where type CFieldType Uint_fast32_t
@@ -409,9 +405,8 @@ newtype Int_fast8_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_fast8_t"
-                  (Ptr Int_fast8_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int8)
+instance TyEq ty HsBindgen.Runtime.LibC.Int8 =>
+         HasField "unwrapInt_fast8_t" (Ptr Int_fast8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast8_t")
 instance HasCField Int_fast8_t "unwrapInt_fast8_t"
     where type CFieldType Int_fast8_t
@@ -447,9 +442,8 @@ newtype Int_fast64_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_fast64_t"
-                  (Ptr Int_fast64_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int64)
+instance TyEq ty HsBindgen.Runtime.LibC.Int64 =>
+         HasField "unwrapInt_fast64_t" (Ptr Int_fast64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_fast64_t")
 instance HasCField Int_fast64_t "unwrapInt_fast64_t"
     where type CFieldType Int_fast64_t
@@ -485,9 +479,8 @@ newtype Int_least8_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_least8_t"
-                  (Ptr Int_least8_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int8)
+instance TyEq ty HsBindgen.Runtime.LibC.Int8 =>
+         HasField "unwrapInt_least8_t" (Ptr Int_least8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least8_t")
 instance HasCField Int_least8_t "unwrapInt_least8_t"
     where type CFieldType Int_least8_t
@@ -523,9 +516,8 @@ newtype Int_least16_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_least16_t"
-                  (Ptr Int_least16_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int16)
+instance TyEq ty HsBindgen.Runtime.LibC.Int16 =>
+         HasField "unwrapInt_least16_t" (Ptr Int_least16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least16_t")
 instance HasCField Int_least16_t "unwrapInt_least16_t"
     where type CFieldType Int_least16_t
@@ -561,9 +553,8 @@ newtype Int_least32_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_least32_t"
-                  (Ptr Int_least32_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int32)
+instance TyEq ty HsBindgen.Runtime.LibC.Int32 =>
+         HasField "unwrapInt_least32_t" (Ptr Int_least32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least32_t")
 instance HasCField Int_least32_t "unwrapInt_least32_t"
     where type CFieldType Int_least32_t
@@ -599,9 +590,8 @@ newtype Int_least64_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapInt_least64_t"
-                  (Ptr Int_least64_t)
-                  (Ptr HsBindgen.Runtime.LibC.Int64)
+instance TyEq ty HsBindgen.Runtime.LibC.Int64 =>
+         HasField "unwrapInt_least64_t" (Ptr Int_least64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapInt_least64_t")
 instance HasCField Int_least64_t "unwrapInt_least64_t"
     where type CFieldType Int_least64_t
@@ -637,9 +627,8 @@ newtype Uint_fast8_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_fast8_t"
-                  (Ptr Uint_fast8_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word8)
+instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "unwrapUint_fast8_t" (Ptr Uint_fast8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast8_t")
 instance HasCField Uint_fast8_t "unwrapUint_fast8_t"
     where type CFieldType Uint_fast8_t
@@ -675,9 +664,8 @@ newtype Uint_fast64_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_fast64_t"
-                  (Ptr Uint_fast64_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word64)
+instance TyEq ty HsBindgen.Runtime.LibC.Word64 =>
+         HasField "unwrapUint_fast64_t" (Ptr Uint_fast64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_fast64_t")
 instance HasCField Uint_fast64_t "unwrapUint_fast64_t"
     where type CFieldType Uint_fast64_t
@@ -713,9 +701,8 @@ newtype Uint_least8_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_least8_t"
-                  (Ptr Uint_least8_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word8)
+instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "unwrapUint_least8_t" (Ptr Uint_least8_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least8_t")
 instance HasCField Uint_least8_t "unwrapUint_least8_t"
     where type CFieldType Uint_least8_t
@@ -751,9 +738,8 @@ newtype Uint_least16_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_least16_t"
-                  (Ptr Uint_least16_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word16)
+instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+         HasField "unwrapUint_least16_t" (Ptr Uint_least16_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least16_t")
 instance HasCField Uint_least16_t "unwrapUint_least16_t"
     where type CFieldType Uint_least16_t
@@ -789,9 +775,8 @@ newtype Uint_least32_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_least32_t"
-                  (Ptr Uint_least32_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word32)
+instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+         HasField "unwrapUint_least32_t" (Ptr Uint_least32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least32_t")
 instance HasCField Uint_least32_t "unwrapUint_least32_t"
     where type CFieldType Uint_least32_t
@@ -827,9 +812,8 @@ newtype Uint_least64_t
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapUint_least64_t"
-                  (Ptr Uint_least64_t)
-                  (Ptr HsBindgen.Runtime.LibC.Word64)
+instance TyEq ty HsBindgen.Runtime.LibC.Word64 =>
+         HasField "unwrapUint_least64_t" (Ptr Uint_least64_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint_least64_t")
 instance HasCField Uint_least64_t "unwrapUint_least64_t"
     where type CFieldType Uint_least64_t

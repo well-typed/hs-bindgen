@@ -89,12 +89,12 @@ set_unionA_b = setUnionPayload
 instance HasCField UnionA "unionA_a"
     where type CFieldType UnionA "unionA_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "unionA_a" (Ptr UnionA) (Ptr CInt)
+instance TyEq ty CInt => HasField "unionA_a" (Ptr UnionA) (Ptr ty)
     where getField = fromPtr (Proxy @"unionA_a")
 instance HasCField UnionA "unionA_b"
     where type CFieldType UnionA "unionA_b" = CChar
           offset# = \_ -> \_ -> 0
-instance HasField "unionA_b" (Ptr UnionA) (Ptr CChar)
+instance TyEq ty CChar => HasField "unionA_b" (Ptr UnionA) (Ptr ty)
     where getField = fromPtr (Proxy @"unionA_b")
 {-| __C declaration:__ @struct exA@
 
@@ -129,7 +129,8 @@ deriving via (EquivStorable ExA) instance Storable ExA
 instance HasCField ExA "exA_fieldA1"
     where type CFieldType ExA "exA_fieldA1" = UnionA
           offset# = \_ -> \_ -> 0
-instance HasField "exA_fieldA1" (Ptr ExA) (Ptr UnionA)
+instance TyEq ty UnionA =>
+         HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
     where getField = fromPtr (Proxy @"exA_fieldA1")
 {-| __C declaration:__ @union \@exB_fieldB1@
 
@@ -221,12 +222,14 @@ set_exB_fieldB1_b = setUnionPayload
 instance HasCField ExB_fieldB1 "exB_fieldB1_a"
     where type CFieldType ExB_fieldB1 "exB_fieldB1_a" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "exB_fieldB1_a" (Ptr ExB_fieldB1) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "exB_fieldB1_a" (Ptr ExB_fieldB1) (Ptr ty)
     where getField = fromPtr (Proxy @"exB_fieldB1_a")
 instance HasCField ExB_fieldB1 "exB_fieldB1_b"
     where type CFieldType ExB_fieldB1 "exB_fieldB1_b" = CChar
           offset# = \_ -> \_ -> 0
-instance HasField "exB_fieldB1_b" (Ptr ExB_fieldB1) (Ptr CChar)
+instance TyEq ty CChar =>
+         HasField "exB_fieldB1_b" (Ptr ExB_fieldB1) (Ptr ty)
     where getField = fromPtr (Proxy @"exB_fieldB1_b")
 {-| __C declaration:__ @struct exB@
 
@@ -261,5 +264,6 @@ deriving via (EquivStorable ExB) instance Storable ExB
 instance HasCField ExB "exB_fieldB1"
     where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
           offset# = \_ -> \_ -> 0
-instance HasField "exB_fieldB1" (Ptr ExB) (Ptr ExB_fieldB1)
+instance TyEq ty ExB_fieldB1 =>
+         HasField "exB_fieldB1" (Ptr ExB) (Ptr ty)
     where getField = fromPtr (Proxy @"exB_fieldB1")

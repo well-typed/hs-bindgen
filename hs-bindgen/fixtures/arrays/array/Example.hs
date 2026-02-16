@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -9,6 +10,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -23,6 +25,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @triplet@
@@ -42,7 +45,8 @@ newtype Triplet = Triplet
     , F.Storable
     )
 
-instance GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
+instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
@@ -65,7 +69,8 @@ newtype List = List
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)) where
+instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+         ) => GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapList")
@@ -94,7 +99,8 @@ newtype Matrix = Matrix
     , F.Storable
     )
 
-instance GHC.Records.HasField "unwrapMatrix" (Ptr.Ptr Matrix) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) where
+instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+         ) => GHC.Records.HasField "unwrapMatrix" (Ptr.Ptr Matrix) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMatrix")
@@ -117,7 +123,8 @@ newtype Tripletlist = Tripletlist
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
 
-instance GHC.Records.HasField "unwrapTripletlist" (Ptr.Ptr Tripletlist) (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) where
+instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+         ) => GHC.Records.HasField "unwrapTripletlist" (Ptr.Ptr Tripletlist) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTripletlist")
@@ -186,7 +193,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Example "example_triple" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "example_triple" (Ptr.Ptr Example) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) where
+instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+         ) => GHC.Records.HasField "example_triple" (Ptr.Ptr Example) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_triple")
@@ -198,7 +206,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Example "example_sudoku" where
 
   offset# = \_ -> \_ -> 12
 
-instance GHC.Records.HasField "example_sudoku" (Ptr.Ptr Example) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) where
+instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+         ) => GHC.Records.HasField "example_sudoku" (Ptr.Ptr Example) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"example_sudoku")
@@ -222,7 +231,8 @@ newtype Sudoku = Sudoku
     , F.Storable
     )
 
-instance GHC.Records.HasField "unwrapSudoku" (Ptr.Ptr Sudoku) (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet)) where
+instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Triplet)
+         ) => GHC.Records.HasField "unwrapSudoku" (Ptr.Ptr Sudoku) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSudoku")

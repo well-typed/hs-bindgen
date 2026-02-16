@@ -52,7 +52,7 @@ instance Read Test
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance HasField "unwrapTest" (Ptr Test) (Ptr CUInt)
+instance TyEq ty CUInt => HasField "unwrapTest" (Ptr Test) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTest")
 instance HasCField Test "unwrapTest"
     where type CFieldType Test "unwrapTest" = CUInt

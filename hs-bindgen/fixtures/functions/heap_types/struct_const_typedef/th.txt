@@ -55,7 +55,7 @@ deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_x"
     where type CFieldType S "s_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "s_x" (Ptr S) (Ptr CInt)
+instance TyEq ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_x")
 {-| __C declaration:__ @T@
 
@@ -73,7 +73,7 @@ newtype T
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapT" (Ptr T) (Ptr S)
+instance TyEq ty S => HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = S

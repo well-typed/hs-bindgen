@@ -248,140 +248,168 @@ deriving via (EquivStorable Primitive) instance Storable Primitive
 instance HasCField Primitive "primitive_c"
     where type CFieldType Primitive "primitive_c" = CChar
           offset# = \_ -> \_ -> 0
-instance HasField "primitive_c" (Ptr Primitive) (Ptr CChar)
+instance TyEq ty CChar =>
+         HasField "primitive_c" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_c")
 instance HasCField Primitive "primitive_sc"
     where type CFieldType Primitive "primitive_sc" = CSChar
           offset# = \_ -> \_ -> 1
-instance HasField "primitive_sc" (Ptr Primitive) (Ptr CSChar)
+instance TyEq ty CSChar =>
+         HasField "primitive_sc" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sc")
 instance HasCField Primitive "primitive_uc"
     where type CFieldType Primitive "primitive_uc" = CUChar
           offset# = \_ -> \_ -> 2
-instance HasField "primitive_uc" (Ptr Primitive) (Ptr CUChar)
+instance TyEq ty CUChar =>
+         HasField "primitive_uc" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_uc")
 instance HasCField Primitive "primitive_s"
     where type CFieldType Primitive "primitive_s" = CShort
           offset# = \_ -> \_ -> 4
-instance HasField "primitive_s" (Ptr Primitive) (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "primitive_s" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_s")
 instance HasCField Primitive "primitive_si"
     where type CFieldType Primitive "primitive_si" = CShort
           offset# = \_ -> \_ -> 6
-instance HasField "primitive_si" (Ptr Primitive) (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "primitive_si" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_si")
 instance HasCField Primitive "primitive_ss"
     where type CFieldType Primitive "primitive_ss" = CShort
           offset# = \_ -> \_ -> 8
-instance HasField "primitive_ss" (Ptr Primitive) (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "primitive_ss" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ss")
 instance HasCField Primitive "primitive_ssi"
     where type CFieldType Primitive "primitive_ssi" = CShort
           offset# = \_ -> \_ -> 10
-instance HasField "primitive_ssi" (Ptr Primitive) (Ptr CShort)
+instance TyEq ty CShort =>
+         HasField "primitive_ssi" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ssi")
 instance HasCField Primitive "primitive_us"
     where type CFieldType Primitive "primitive_us" = CUShort
           offset# = \_ -> \_ -> 12
-instance HasField "primitive_us" (Ptr Primitive) (Ptr CUShort)
+instance TyEq ty CUShort =>
+         HasField "primitive_us" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_us")
 instance HasCField Primitive "primitive_usi"
     where type CFieldType Primitive "primitive_usi" = CUShort
           offset# = \_ -> \_ -> 14
-instance HasField "primitive_usi" (Ptr Primitive) (Ptr CUShort)
+instance TyEq ty CUShort =>
+         HasField "primitive_usi" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_usi")
 instance HasCField Primitive "primitive_i"
     where type CFieldType Primitive "primitive_i" = CInt
           offset# = \_ -> \_ -> 16
-instance HasField "primitive_i" (Ptr Primitive) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "primitive_i" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_i")
 instance HasCField Primitive "primitive_s2"
     where type CFieldType Primitive "primitive_s2" = CInt
           offset# = \_ -> \_ -> 20
-instance HasField "primitive_s2" (Ptr Primitive) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "primitive_s2" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_s2")
 instance HasCField Primitive "primitive_si2"
     where type CFieldType Primitive "primitive_si2" = CInt
           offset# = \_ -> \_ -> 24
-instance HasField "primitive_si2" (Ptr Primitive) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "primitive_si2" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_si2")
 instance HasCField Primitive "primitive_u"
     where type CFieldType Primitive "primitive_u" = CUInt
           offset# = \_ -> \_ -> 28
-instance HasField "primitive_u" (Ptr Primitive) (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "primitive_u" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_u")
 instance HasCField Primitive "primitive_ui"
     where type CFieldType Primitive "primitive_ui" = CUInt
           offset# = \_ -> \_ -> 32
-instance HasField "primitive_ui" (Ptr Primitive) (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "primitive_ui" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ui")
 instance HasCField Primitive "primitive_l"
     where type CFieldType Primitive "primitive_l" = CLong
           offset# = \_ -> \_ -> 40
-instance HasField "primitive_l" (Ptr Primitive) (Ptr CLong)
+instance TyEq ty CLong =>
+         HasField "primitive_l" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_l")
 instance HasCField Primitive "primitive_li"
     where type CFieldType Primitive "primitive_li" = CLong
           offset# = \_ -> \_ -> 48
-instance HasField "primitive_li" (Ptr Primitive) (Ptr CLong)
+instance TyEq ty CLong =>
+         HasField "primitive_li" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_li")
 instance HasCField Primitive "primitive_sl"
     where type CFieldType Primitive "primitive_sl" = CLong
           offset# = \_ -> \_ -> 56
-instance HasField "primitive_sl" (Ptr Primitive) (Ptr CLong)
+instance TyEq ty CLong =>
+         HasField "primitive_sl" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sl")
 instance HasCField Primitive "primitive_sli"
     where type CFieldType Primitive "primitive_sli" = CLong
           offset# = \_ -> \_ -> 64
-instance HasField "primitive_sli" (Ptr Primitive) (Ptr CLong)
+instance TyEq ty CLong =>
+         HasField "primitive_sli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sli")
 instance HasCField Primitive "primitive_ul"
     where type CFieldType Primitive "primitive_ul" = CULong
           offset# = \_ -> \_ -> 72
-instance HasField "primitive_ul" (Ptr Primitive) (Ptr CULong)
+instance TyEq ty CULong =>
+         HasField "primitive_ul" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ul")
 instance HasCField Primitive "primitive_uli"
     where type CFieldType Primitive "primitive_uli" = CULong
           offset# = \_ -> \_ -> 80
-instance HasField "primitive_uli" (Ptr Primitive) (Ptr CULong)
+instance TyEq ty CULong =>
+         HasField "primitive_uli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_uli")
 instance HasCField Primitive "primitive_ll"
     where type CFieldType Primitive "primitive_ll" = CLLong
           offset# = \_ -> \_ -> 88
-instance HasField "primitive_ll" (Ptr Primitive) (Ptr CLLong)
+instance TyEq ty CLLong =>
+         HasField "primitive_ll" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ll")
 instance HasCField Primitive "primitive_lli"
     where type CFieldType Primitive "primitive_lli" = CLLong
           offset# = \_ -> \_ -> 96
-instance HasField "primitive_lli" (Ptr Primitive) (Ptr CLLong)
+instance TyEq ty CLLong =>
+         HasField "primitive_lli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_lli")
 instance HasCField Primitive "primitive_sll"
     where type CFieldType Primitive "primitive_sll" = CLLong
           offset# = \_ -> \_ -> 104
-instance HasField "primitive_sll" (Ptr Primitive) (Ptr CLLong)
+instance TyEq ty CLLong =>
+         HasField "primitive_sll" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_sll")
 instance HasCField Primitive "primitive_slli"
     where type CFieldType Primitive "primitive_slli" = CLLong
           offset# = \_ -> \_ -> 112
-instance HasField "primitive_slli" (Ptr Primitive) (Ptr CLLong)
+instance TyEq ty CLLong =>
+         HasField "primitive_slli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_slli")
 instance HasCField Primitive "primitive_ull"
     where type CFieldType Primitive "primitive_ull" = CULLong
           offset# = \_ -> \_ -> 120
-instance HasField "primitive_ull" (Ptr Primitive) (Ptr CULLong)
+instance TyEq ty CULLong =>
+         HasField "primitive_ull" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ull")
 instance HasCField Primitive "primitive_ulli"
     where type CFieldType Primitive "primitive_ulli" = CULLong
           offset# = \_ -> \_ -> 128
-instance HasField "primitive_ulli" (Ptr Primitive) (Ptr CULLong)
+instance TyEq ty CULLong =>
+         HasField "primitive_ulli" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_ulli")
 instance HasCField Primitive "primitive_f"
     where type CFieldType Primitive "primitive_f" = CFloat
           offset# = \_ -> \_ -> 136
-instance HasField "primitive_f" (Ptr Primitive) (Ptr CFloat)
+instance TyEq ty CFloat =>
+         HasField "primitive_f" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_f")
 instance HasCField Primitive "primitive_d"
     where type CFieldType Primitive "primitive_d" = CDouble
           offset# = \_ -> \_ -> 144
-instance HasField "primitive_d" (Ptr Primitive) (Ptr CDouble)
+instance TyEq ty CDouble =>
+         HasField "primitive_d" (Ptr Primitive) (Ptr ty)
     where getField = fromPtr (Proxy @"primitive_d")

@@ -114,12 +114,14 @@ deriving via (EquivStorable Outside) instance Storable Outside
 instance HasCField Outside "outside_x"
     where type CFieldType Outside "outside_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "outside_x" (Ptr Outside) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "outside_x" (Ptr Outside) (Ptr ty)
     where getField = fromPtr (Proxy @"outside_x")
 instance HasCField Outside "outside_y"
     where type CFieldType Outside "outside_y" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "outside_y" (Ptr Outside) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "outside_y" (Ptr Outside) (Ptr ty)
     where getField = fromPtr (Proxy @"outside_y")
 {-| Error cases
 
@@ -170,12 +172,14 @@ deriving via (EquivStorable Named_struct) instance Storable Named_struct
 instance HasCField Named_struct "named_struct_x"
     where type CFieldType Named_struct "named_struct_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "named_struct_x" (Ptr Named_struct) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "named_struct_x" (Ptr Named_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"named_struct_x")
 instance HasCField Named_struct "named_struct_y"
     where type CFieldType Named_struct "named_struct_y" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "named_struct_y" (Ptr Named_struct) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "named_struct_y" (Ptr Named_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"named_struct_y")
 {-| __C declaration:__ @union named_union@
 
@@ -267,12 +271,14 @@ set_named_union_y = setUnionPayload
 instance HasCField Named_union "named_union_x"
     where type CFieldType Named_union "named_union_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "named_union_x" (Ptr Named_union) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "named_union_x" (Ptr Named_union) (Ptr ty)
     where getField = fromPtr (Proxy @"named_union_x")
 instance HasCField Named_union "named_union_y"
     where type CFieldType Named_union "named_union_y" = CChar
           offset# = \_ -> \_ -> 0
-instance HasField "named_union_y" (Ptr Named_union) (Ptr CChar)
+instance TyEq ty CChar =>
+         HasField "named_union_y" (Ptr Named_union) (Ptr ty)
     where getField = fromPtr (Proxy @"named_union_y")
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
 foreign import ccall safe "hs_bindgen_920e5c20f770432b" hs_bindgen_920e5c20f770432b_base ::

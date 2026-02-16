@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -20,6 +22,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
@@ -79,7 +82,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "foo_sixty_four" (Ptr.Ptr Foo) (Ptr.Ptr HsBindgen.Runtime.LibC.Word64) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word64
+         ) => GHC.Records.HasField "foo_sixty_four" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_sixty_four")
@@ -91,7 +95,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_thirty_two" where
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "foo_thirty_two" (Ptr.Ptr Foo) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word32
+         ) => GHC.Records.HasField "foo_thirty_two" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_thirty_two")

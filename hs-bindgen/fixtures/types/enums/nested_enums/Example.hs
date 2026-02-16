@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -10,6 +11,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -28,6 +30,7 @@ import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import qualified Text.Read
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum enumA@
@@ -110,7 +113,8 @@ instance Read EnumA where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr FC.CUInt) where
+instance ( TyEq ty FC.CUInt
+         ) => GHC.Records.HasField "unwrapEnumA" (Ptr.Ptr EnumA) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapEnumA")
@@ -186,7 +190,8 @@ instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr EnumA) where
+instance ( TyEq ty EnumA
+         ) => GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exA_fieldA1")
@@ -271,7 +276,8 @@ instance Read ExB_fieldB1 where
 
   readListPrec = Text.Read.readListPrecDefault
 
-instance GHC.Records.HasField "unwrapExB_fieldB1" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr FC.CUInt) where
+instance ( TyEq ty FC.CUInt
+         ) => GHC.Records.HasField "unwrapExB_fieldB1" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapExB_fieldB1")
@@ -348,7 +354,8 @@ instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "exB_fieldB1" (Ptr.Ptr ExB) (Ptr.Ptr ExB_fieldB1) where
+instance ( TyEq ty ExB_fieldB1
+         ) => GHC.Records.HasField "exB_fieldB1" (Ptr.Ptr ExB) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exB_fieldB1")

@@ -45,7 +45,8 @@ instance Read EnumA
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance HasField "unwrapEnumA" (Ptr EnumA) (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "unwrapEnumA" (Ptr EnumA) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapEnumA")
 instance HasCField EnumA "unwrapEnumA"
     where type CFieldType EnumA "unwrapEnumA" = CUInt
@@ -111,7 +112,7 @@ deriving via (EquivStorable ExA) instance Storable ExA
 instance HasCField ExA "exA_fieldA1"
     where type CFieldType ExA "exA_fieldA1" = EnumA
           offset# = \_ -> \_ -> 0
-instance HasField "exA_fieldA1" (Ptr ExA) (Ptr EnumA)
+instance TyEq ty EnumA => HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
     where getField = fromPtr (Proxy @"exA_fieldA1")
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
@@ -159,7 +160,8 @@ instance Read ExB_fieldB1
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance HasField "unwrapExB_fieldB1" (Ptr ExB_fieldB1) (Ptr CUInt)
+instance TyEq ty CUInt =>
+         HasField "unwrapExB_fieldB1" (Ptr ExB_fieldB1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapExB_fieldB1")
 instance HasCField ExB_fieldB1 "unwrapExB_fieldB1"
     where type CFieldType ExB_fieldB1 "unwrapExB_fieldB1" = CUInt
@@ -225,5 +227,6 @@ deriving via (EquivStorable ExB) instance Storable ExB
 instance HasCField ExB "exB_fieldB1"
     where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
           offset# = \_ -> \_ -> 0
-instance HasField "exB_fieldB1" (Ptr ExB) (Ptr ExB_fieldB1)
+instance TyEq ty ExB_fieldB1 =>
+         HasField "exB_fieldB1" (Ptr ExB) (Ptr ty)
     where getField = fromPtr (Proxy @"exB_fieldB1")

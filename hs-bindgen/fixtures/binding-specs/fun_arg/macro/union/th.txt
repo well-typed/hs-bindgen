@@ -116,7 +116,8 @@ set_myUnion_x = setUnionPayload
 instance HasCField MyUnion "myUnion_x"
     where type CFieldType MyUnion "myUnion_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "myUnion_x" (Ptr MyUnion) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "myUnion_x" (Ptr MyUnion) (Ptr ty)
     where getField = fromPtr (Proxy @"myUnion_x")
 {-| __C declaration:__ @A@
 
@@ -134,7 +135,7 @@ newtype A
       -}
     deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapA" (Ptr A) (Ptr MyUnion)
+instance TyEq ty MyUnion => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyUnion
@@ -155,7 +156,7 @@ newtype B
       -}
     deriving stock Generic
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapB" (Ptr B) (Ptr A)
+instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

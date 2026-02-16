@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -9,6 +10,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -31,6 +33,7 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Internal.SizedByteArray
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @int_t@
@@ -61,7 +64,8 @@ newtype Int_t = Int_t
     , Real
     )
 
-instance GHC.Records.HasField "unwrapInt_t" (Ptr.Ptr Int_t) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "unwrapInt_t" (Ptr.Ptr Int_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt_t")
@@ -119,7 +123,8 @@ instance HsBindgen.Runtime.HasCField.HasCField X "x_n" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "x_n" (Ptr.Ptr X) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "x_n" (Ptr.Ptr X) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"x_n")
@@ -203,7 +208,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Y "y_m" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "y_m" (Ptr.Ptr Y) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "y_m" (Ptr.Ptr Y) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y_m")
@@ -214,7 +220,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Y "y_o" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "y_o" (Ptr.Ptr Y) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "y_o" (Ptr.Ptr Y) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"y_o")

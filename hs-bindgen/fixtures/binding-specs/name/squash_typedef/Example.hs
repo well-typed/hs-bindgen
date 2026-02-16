@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -20,6 +22,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
@@ -78,7 +81,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Piyo "piyo_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "piyo_x" (Ptr.Ptr Piyo) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "piyo_x" (Ptr.Ptr Piyo) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"piyo_x")
@@ -89,7 +93,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Piyo "piyo_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "piyo_y" (Ptr.Ptr Piyo) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "piyo_y" (Ptr.Ptr Piyo) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"piyo_y")

@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -9,6 +10,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -30,6 +32,7 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @myInt@
@@ -60,7 +63,8 @@ newtype MyInt = MyInt
     , Real
     )
 
-instance GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyInt")
@@ -99,7 +103,8 @@ newtype MyUInt = MyUInt
     , Real
     )
 
-instance GHC.Records.HasField "unwrapMyUInt" (Ptr.Ptr MyUInt) (Ptr.Ptr FC.CUInt) where
+instance ( TyEq ty FC.CUInt
+         ) => GHC.Records.HasField "unwrapMyUInt" (Ptr.Ptr MyUInt) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyUInt")
@@ -138,7 +143,8 @@ newtype MyLong = MyLong
     , Real
     )
 
-instance GHC.Records.HasField "unwrapMyLong" (Ptr.Ptr MyLong) (Ptr.Ptr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "unwrapMyLong" (Ptr.Ptr MyLong) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyLong")
@@ -216,7 +222,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance GHC.Records.HasField "myStruct_x" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr MyInt) where
+instance ( TyEq ty MyInt
+         ) => GHC.Records.HasField "myStruct_x" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_x")
@@ -229,7 +236,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   bitfieldWidth# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "myStruct_y" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr MyUInt) where
+instance ( TyEq ty MyUInt
+         ) => GHC.Records.HasField "myStruct_y" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_y")
@@ -242,7 +250,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance GHC.Records.HasField "myStruct_z" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr MyLong) where
+instance ( TyEq ty MyLong
+         ) => GHC.Records.HasField "myStruct_z" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_z")

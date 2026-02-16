@@ -165,7 +165,8 @@ instance ToFunPtr A_Aux
     where toFunPtr = hs_bindgen_1cabb32c661d9a0e
 instance FromFunPtr A_Aux
     where fromFunPtr = hs_bindgen_cdb12400c6863f15
-instance HasField "unwrapA_Aux" (Ptr A_Aux) (Ptr (CInt -> IO CInt))
+instance TyEq ty (CInt -> IO CInt) =>
+         HasField "unwrapA_Aux" (Ptr A_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA_Aux")
 instance HasCField A_Aux "unwrapA_Aux"
     where type CFieldType A_Aux "unwrapA_Aux" = CInt -> IO CInt
@@ -190,7 +191,8 @@ newtype A
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapA" (Ptr A) (Ptr (FunPtr A_Aux))
+instance TyEq ty (FunPtr A_Aux) =>
+         HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = FunPtr A_Aux
@@ -215,7 +217,7 @@ newtype B
                       WriteRaw,
                       Storable,
                       HasFFIType)
-instance HasField "unwrapB" (Ptr B) (Ptr A)
+instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
@@ -236,7 +238,7 @@ newtype E
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance HasField "unwrapE" (Ptr E) (Ptr M.C)
+instance TyEq ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = M.C

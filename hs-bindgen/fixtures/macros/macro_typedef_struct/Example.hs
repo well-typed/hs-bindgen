@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -9,6 +10,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -28,6 +30,7 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @MY_TYPE@
@@ -58,7 +61,8 @@ newtype MY_TYPE = MY_TYPE
     , Real
     )
 
-instance GHC.Records.HasField "unwrapMY_TYPE" (Ptr.Ptr MY_TYPE) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "unwrapMY_TYPE" (Ptr.Ptr MY_TYPE) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMY_TYPE")
@@ -125,7 +129,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_x" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "bar_x" (Ptr.Ptr Bar) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "bar_x" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_x")
@@ -136,7 +141,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_y" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "bar_y" (Ptr.Ptr Bar) (Ptr.Ptr MY_TYPE) where
+instance ( TyEq ty MY_TYPE
+         ) => GHC.Records.HasField "bar_y" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_y")

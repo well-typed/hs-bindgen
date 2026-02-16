@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -9,6 +10,7 @@
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -28,6 +30,7 @@ import qualified HsBindgen.Runtime.Internal.Bitfield
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @T1@
@@ -58,7 +61,8 @@ newtype T1 = T1
     , Real
     )
 
-instance GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT1")
@@ -97,7 +101,8 @@ newtype T2 = T2
     , Real
     )
 
-instance GHC.Records.HasField "unwrapT2" (Ptr.Ptr T2) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "unwrapT2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT2")
@@ -136,7 +141,8 @@ newtype M1 = M1
     , Real
     )
 
-instance GHC.Records.HasField "unwrapM1" (Ptr.Ptr M1) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "unwrapM1" (Ptr.Ptr M1) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapM1")
@@ -175,7 +181,8 @@ newtype M2 = M2
     , Real
     )
 
-instance GHC.Records.HasField "unwrapM2" (Ptr.Ptr M2) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "unwrapM2" (Ptr.Ptr M2) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapM2")
@@ -204,7 +211,8 @@ newtype M3 = M3
     , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
     )
 
-instance GHC.Records.HasField "unwrapM3" (Ptr.Ptr M3) (Ptr.Ptr (Ptr.Ptr FC.CInt)) where
+instance ( TyEq ty (Ptr.Ptr FC.CInt)
+         ) => GHC.Records.HasField "unwrapM3" (Ptr.Ptr M3) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapM3")
@@ -293,7 +301,8 @@ instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_t1" 
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "exampleStruct_t1" (Ptr.Ptr ExampleStruct) (Ptr.Ptr T1) where
+instance ( TyEq ty T1
+         ) => GHC.Records.HasField "exampleStruct_t1" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exampleStruct_t1")
@@ -304,7 +313,8 @@ instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_t2" 
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "exampleStruct_t2" (Ptr.Ptr ExampleStruct) (Ptr.Ptr T2) where
+instance ( TyEq ty T2
+         ) => GHC.Records.HasField "exampleStruct_t2" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exampleStruct_t2")
@@ -315,7 +325,8 @@ instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_m1" 
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "exampleStruct_m1" (Ptr.Ptr ExampleStruct) (Ptr.Ptr M1) where
+instance ( TyEq ty M1
+         ) => GHC.Records.HasField "exampleStruct_m1" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exampleStruct_m1")
@@ -326,7 +337,8 @@ instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_m2" 
 
   offset# = \_ -> \_ -> 12
 
-instance GHC.Records.HasField "exampleStruct_m2" (Ptr.Ptr ExampleStruct) (Ptr.Ptr M2) where
+instance ( TyEq ty M2
+         ) => GHC.Records.HasField "exampleStruct_m2" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exampleStruct_m2")
@@ -359,7 +371,8 @@ newtype Uint64_t = Uint64_t
     , Real
     )
 
-instance GHC.Records.HasField "unwrapUint64_t" (Ptr.Ptr Uint64_t) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "unwrapUint64_t" (Ptr.Ptr Uint64_t) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapUint64_t")
@@ -417,7 +430,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_a" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "foo_a" (Ptr.Ptr Foo) (Ptr.Ptr (Ptr.Ptr Uint64_t)) where
+instance ( TyEq ty (Ptr.Ptr Uint64_t)
+         ) => GHC.Records.HasField "foo_a" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_a")

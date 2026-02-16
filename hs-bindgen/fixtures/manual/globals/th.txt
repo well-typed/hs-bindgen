@@ -173,16 +173,14 @@ deriving via (EquivStorable GlobalConfig) instance Storable GlobalConfig
 instance HasCField GlobalConfig "globalConfig_numThreads"
     where type CFieldType GlobalConfig "globalConfig_numThreads" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "globalConfig_numThreads"
-                  (Ptr GlobalConfig)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "globalConfig_numThreads" (Ptr GlobalConfig) (Ptr ty)
     where getField = fromPtr (Proxy @"globalConfig_numThreads")
 instance HasCField GlobalConfig "globalConfig_numWorkers"
     where type CFieldType GlobalConfig "globalConfig_numWorkers" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "globalConfig_numWorkers"
-                  (Ptr GlobalConfig)
-                  (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "globalConfig_numWorkers" (Ptr GlobalConfig) (Ptr ty)
     where getField = fromPtr (Proxy @"globalConfig_numWorkers")
 {-| __C declaration:__ @ConstInt@
 
@@ -214,7 +212,8 @@ newtype ConstInt
                       Ix,
                       Num,
                       Real)
-instance HasField "unwrapConstInt" (Ptr ConstInt) (Ptr CInt)
+instance TyEq ty CInt =>
+         HasField "unwrapConstInt" (Ptr ConstInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapConstInt")
 instance HasCField ConstInt "unwrapConstInt"
     where type CFieldType ConstInt "unwrapConstInt" = CInt
@@ -260,12 +259,12 @@ deriving via (EquivStorable Tuple) instance Storable Tuple
 instance HasCField Tuple "tuple_x"
     where type CFieldType Tuple "tuple_x" = CInt
           offset# = \_ -> \_ -> 0
-instance HasField "tuple_x" (Ptr Tuple) (Ptr CInt)
+instance TyEq ty CInt => HasField "tuple_x" (Ptr Tuple) (Ptr ty)
     where getField = fromPtr (Proxy @"tuple_x")
 instance HasCField Tuple "tuple_y"
     where type CFieldType Tuple "tuple_y" = CInt
           offset# = \_ -> \_ -> 4
-instance HasField "tuple_y" (Ptr Tuple) (Ptr CInt)
+instance TyEq ty CInt => HasField "tuple_y" (Ptr Tuple) (Ptr ty)
     where getField = fromPtr (Proxy @"tuple_y")
 {-| __C declaration:__ @triplet@
 
@@ -283,9 +282,8 @@ newtype Triplet
       -}
     deriving stock (Generic, Eq, Show)
     deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance HasField "unwrapTriplet"
-                  (Ptr Triplet)
-                  (Ptr (ConstantArray 3 CInt))
+instance TyEq ty (ConstantArray 3 CInt) =>
+         HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
 instance HasCField Triplet "unwrapTriplet"
     where type CFieldType Triplet "unwrapTriplet" = ConstantArray 3
@@ -306,9 +304,8 @@ newtype List
            __exported by:__ @manual\/globals.h@
       -}
     deriving stock (Generic, Eq, Show)
-instance HasField "unwrapList"
-                  (Ptr List)
-                  (Ptr (IncompleteArray CInt))
+instance TyEq ty (IncompleteArray CInt) =>
+         HasField "unwrapList" (Ptr List) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapList")
 instance HasCField List "unwrapList"
     where type CFieldType List "unwrapList" = IncompleteArray CInt

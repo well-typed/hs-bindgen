@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -21,6 +23,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
 import Data.Void (Void)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
@@ -79,7 +82,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "foo_c" (Ptr.Ptr Foo) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "foo_c" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_c")
@@ -90,7 +94,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "foo_i" (Ptr.Ptr Foo) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "foo_i" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_i")
@@ -151,7 +156,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "bar_c" (Ptr.Ptr Bar) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "bar_c" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_c")
@@ -162,7 +168,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "bar_i" (Ptr.Ptr Bar) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "bar_i" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"bar_i")
@@ -223,7 +230,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Baz "baz_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "baz_c" (Ptr.Ptr Baz) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "baz_c" (Ptr.Ptr Baz) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"baz_c")
@@ -234,7 +242,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Baz "baz_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "baz_i" (Ptr.Ptr Baz) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "baz_i" (Ptr.Ptr Baz) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"baz_i")
@@ -295,7 +304,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Qux "qux_c" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "qux_c" (Ptr.Ptr Qux) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "qux_c" (Ptr.Ptr Qux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"qux_c")
@@ -306,7 +316,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Qux "qux_i" where
 
   offset# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "qux_i" (Ptr.Ptr Qux) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "qux_i" (Ptr.Ptr Qux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"qux_i")
@@ -376,7 +387,8 @@ instance HsBindgen.Runtime.HasCField.HasCField FILE "fILE__r" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "fILE__r" (Ptr.Ptr FILE) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "fILE__r" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fILE__r")
@@ -387,7 +399,8 @@ instance HsBindgen.Runtime.HasCField.HasCField FILE "fILE__w" where
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "fILE__w" (Ptr.Ptr FILE) (Ptr.Ptr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "fILE__w" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fILE__w")
@@ -399,7 +412,8 @@ instance HsBindgen.Runtime.HasCField.HasCField FILE "fILE__close" where
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "fILE__close" (Ptr.Ptr FILE) (Ptr.Ptr (Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt))) where
+instance ( TyEq ty (Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt))
+         ) => GHC.Records.HasField "fILE__close" (Ptr.Ptr FILE) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fILE__close")

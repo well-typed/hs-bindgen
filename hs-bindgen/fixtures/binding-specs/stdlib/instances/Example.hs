@@ -1,12 +1,14 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
@@ -26,6 +28,7 @@ import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @stdlib_CBool@
@@ -56,7 +59,8 @@ newtype Stdlib_CBool = Stdlib_CBool
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CBool" (Ptr.Ptr Stdlib_CBool) (Ptr.Ptr HsBindgen.Runtime.LibC.CBool) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CBool
+         ) => GHC.Records.HasField "unwrapStdlib_CBool" (Ptr.Ptr Stdlib_CBool) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CBool")
@@ -96,7 +100,8 @@ newtype Stdlib_Int8 = Stdlib_Int8
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Int8" (Ptr.Ptr Stdlib_Int8) (Ptr.Ptr HsBindgen.Runtime.LibC.Int8) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int8
+         ) => GHC.Records.HasField "unwrapStdlib_Int8" (Ptr.Ptr Stdlib_Int8) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Int8")
@@ -136,7 +141,8 @@ newtype Stdlib_Int16 = Stdlib_Int16
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Int16" (Ptr.Ptr Stdlib_Int16) (Ptr.Ptr HsBindgen.Runtime.LibC.Int16) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int16
+         ) => GHC.Records.HasField "unwrapStdlib_Int16" (Ptr.Ptr Stdlib_Int16) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Int16")
@@ -176,7 +182,8 @@ newtype Stdlib_Int32 = Stdlib_Int32
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Int32" (Ptr.Ptr Stdlib_Int32) (Ptr.Ptr HsBindgen.Runtime.LibC.Int32) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int32
+         ) => GHC.Records.HasField "unwrapStdlib_Int32" (Ptr.Ptr Stdlib_Int32) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Int32")
@@ -216,7 +223,8 @@ newtype Stdlib_Int64 = Stdlib_Int64
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Int64" (Ptr.Ptr Stdlib_Int64) (Ptr.Ptr HsBindgen.Runtime.LibC.Int64) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Int64
+         ) => GHC.Records.HasField "unwrapStdlib_Int64" (Ptr.Ptr Stdlib_Int64) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Int64")
@@ -256,7 +264,8 @@ newtype Stdlib_Word8 = Stdlib_Word8
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Word8" (Ptr.Ptr Stdlib_Word8) (Ptr.Ptr HsBindgen.Runtime.LibC.Word8) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word8
+         ) => GHC.Records.HasField "unwrapStdlib_Word8" (Ptr.Ptr Stdlib_Word8) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Word8")
@@ -296,7 +305,8 @@ newtype Stdlib_Word16 = Stdlib_Word16
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Word16" (Ptr.Ptr Stdlib_Word16) (Ptr.Ptr HsBindgen.Runtime.LibC.Word16) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word16
+         ) => GHC.Records.HasField "unwrapStdlib_Word16" (Ptr.Ptr Stdlib_Word16) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Word16")
@@ -336,7 +346,8 @@ newtype Stdlib_Word32 = Stdlib_Word32
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Word32" (Ptr.Ptr Stdlib_Word32) (Ptr.Ptr HsBindgen.Runtime.LibC.Word32) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word32
+         ) => GHC.Records.HasField "unwrapStdlib_Word32" (Ptr.Ptr Stdlib_Word32) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Word32")
@@ -376,7 +387,8 @@ newtype Stdlib_Word64 = Stdlib_Word64
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_Word64" (Ptr.Ptr Stdlib_Word64) (Ptr.Ptr HsBindgen.Runtime.LibC.Word64) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.Word64
+         ) => GHC.Records.HasField "unwrapStdlib_Word64" (Ptr.Ptr Stdlib_Word64) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_Word64")
@@ -416,7 +428,8 @@ newtype Stdlib_CIntMax = Stdlib_CIntMax
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CIntMax" (Ptr.Ptr Stdlib_CIntMax) (Ptr.Ptr HsBindgen.Runtime.LibC.CIntMax) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CIntMax
+         ) => GHC.Records.HasField "unwrapStdlib_CIntMax" (Ptr.Ptr Stdlib_CIntMax) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CIntMax")
@@ -456,7 +469,8 @@ newtype Stdlib_CUIntMax = Stdlib_CUIntMax
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CUIntMax" (Ptr.Ptr Stdlib_CUIntMax) (Ptr.Ptr HsBindgen.Runtime.LibC.CUIntMax) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CUIntMax
+         ) => GHC.Records.HasField "unwrapStdlib_CUIntMax" (Ptr.Ptr Stdlib_CUIntMax) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CUIntMax")
@@ -496,7 +510,8 @@ newtype Stdlib_CIntPtr = Stdlib_CIntPtr
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CIntPtr" (Ptr.Ptr Stdlib_CIntPtr) (Ptr.Ptr HsBindgen.Runtime.LibC.CIntPtr) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CIntPtr
+         ) => GHC.Records.HasField "unwrapStdlib_CIntPtr" (Ptr.Ptr Stdlib_CIntPtr) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CIntPtr")
@@ -536,7 +551,8 @@ newtype Stdlib_CUIntPtr = Stdlib_CUIntPtr
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CUIntPtr" (Ptr.Ptr Stdlib_CUIntPtr) (Ptr.Ptr HsBindgen.Runtime.LibC.CUIntPtr) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CUIntPtr
+         ) => GHC.Records.HasField "unwrapStdlib_CUIntPtr" (Ptr.Ptr Stdlib_CUIntPtr) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CUIntPtr")
@@ -559,7 +575,8 @@ newtype Stdlib_CFenvT = Stdlib_CFenvT
   }
   deriving stock (GHC.Generics.Generic)
 
-instance GHC.Records.HasField "unwrapStdlib_CFenvT" (Ptr.Ptr Stdlib_CFenvT) (Ptr.Ptr HsBindgen.Runtime.LibC.CFenvT) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CFenvT
+         ) => GHC.Records.HasField "unwrapStdlib_CFenvT" (Ptr.Ptr Stdlib_CFenvT) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CFenvT")
@@ -582,7 +599,8 @@ newtype Stdlib_CFexceptT = Stdlib_CFexceptT
   }
   deriving stock (GHC.Generics.Generic)
 
-instance GHC.Records.HasField "unwrapStdlib_CFexceptT" (Ptr.Ptr Stdlib_CFexceptT) (Ptr.Ptr HsBindgen.Runtime.LibC.CFexceptT) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CFexceptT
+         ) => GHC.Records.HasField "unwrapStdlib_CFexceptT" (Ptr.Ptr Stdlib_CFexceptT) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CFexceptT")
@@ -622,7 +640,8 @@ newtype Stdlib_CSize = Stdlib_CSize
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CSize" (Ptr.Ptr Stdlib_CSize) (Ptr.Ptr HsBindgen.Runtime.LibC.CSize) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CSize
+         ) => GHC.Records.HasField "unwrapStdlib_CSize" (Ptr.Ptr Stdlib_CSize) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CSize")
@@ -662,7 +681,8 @@ newtype Stdlib_CPtrdiff = Stdlib_CPtrdiff
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CPtrdiff" (Ptr.Ptr Stdlib_CPtrdiff) (Ptr.Ptr HsBindgen.Runtime.LibC.CPtrdiff) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CPtrdiff
+         ) => GHC.Records.HasField "unwrapStdlib_CPtrdiff" (Ptr.Ptr Stdlib_CPtrdiff) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CPtrdiff")
@@ -685,7 +705,8 @@ newtype Stdlib_CJmpBuf = Stdlib_CJmpBuf
   }
   deriving stock (GHC.Generics.Generic)
 
-instance GHC.Records.HasField "unwrapStdlib_CJmpBuf" (Ptr.Ptr Stdlib_CJmpBuf) (Ptr.Ptr HsBindgen.Runtime.LibC.CJmpBuf) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CJmpBuf
+         ) => GHC.Records.HasField "unwrapStdlib_CJmpBuf" (Ptr.Ptr Stdlib_CJmpBuf) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CJmpBuf")
@@ -725,7 +746,8 @@ newtype Stdlib_CWchar = Stdlib_CWchar
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CWchar" (Ptr.Ptr Stdlib_CWchar) (Ptr.Ptr HsBindgen.Runtime.LibC.CWchar) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CWchar
+         ) => GHC.Records.HasField "unwrapStdlib_CWchar" (Ptr.Ptr Stdlib_CWchar) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CWchar")
@@ -765,7 +787,8 @@ newtype Stdlib_CWintT = Stdlib_CWintT
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CWintT" (Ptr.Ptr Stdlib_CWintT) (Ptr.Ptr HsBindgen.Runtime.LibC.CWintT) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CWintT
+         ) => GHC.Records.HasField "unwrapStdlib_CWintT" (Ptr.Ptr Stdlib_CWintT) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CWintT")
@@ -788,7 +811,8 @@ newtype Stdlib_CMbstateT = Stdlib_CMbstateT
   }
   deriving stock (GHC.Generics.Generic)
 
-instance GHC.Records.HasField "unwrapStdlib_CMbstateT" (Ptr.Ptr Stdlib_CMbstateT) (Ptr.Ptr HsBindgen.Runtime.LibC.CMbstateT) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CMbstateT
+         ) => GHC.Records.HasField "unwrapStdlib_CMbstateT" (Ptr.Ptr Stdlib_CMbstateT) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CMbstateT")
@@ -819,7 +843,8 @@ newtype Stdlib_CWctransT = Stdlib_CWctransT
     , Data.Primitive.Types.Prim
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CWctransT" (Ptr.Ptr Stdlib_CWctransT) (Ptr.Ptr HsBindgen.Runtime.LibC.CWctransT) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CWctransT
+         ) => GHC.Records.HasField "unwrapStdlib_CWctransT" (Ptr.Ptr Stdlib_CWctransT) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CWctransT")
@@ -850,7 +875,8 @@ newtype Stdlib_CWctypeT = Stdlib_CWctypeT
     , Data.Primitive.Types.Prim
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CWctypeT" (Ptr.Ptr Stdlib_CWctypeT) (Ptr.Ptr HsBindgen.Runtime.LibC.CWctypeT) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CWctypeT
+         ) => GHC.Records.HasField "unwrapStdlib_CWctypeT" (Ptr.Ptr Stdlib_CWctypeT) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CWctypeT")
@@ -890,7 +916,8 @@ newtype Stdlib_CChar16T = Stdlib_CChar16T
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CChar16T" (Ptr.Ptr Stdlib_CChar16T) (Ptr.Ptr HsBindgen.Runtime.LibC.CChar16T) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CChar16T
+         ) => GHC.Records.HasField "unwrapStdlib_CChar16T" (Ptr.Ptr Stdlib_CChar16T) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CChar16T")
@@ -930,7 +957,8 @@ newtype Stdlib_CChar32T = Stdlib_CChar32T
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CChar32T" (Ptr.Ptr Stdlib_CChar32T) (Ptr.Ptr HsBindgen.Runtime.LibC.CChar32T) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CChar32T
+         ) => GHC.Records.HasField "unwrapStdlib_CChar32T" (Ptr.Ptr Stdlib_CChar32T) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CChar32T")
@@ -963,7 +991,8 @@ newtype Stdlib_CTime = Stdlib_CTime
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CTime" (Ptr.Ptr Stdlib_CTime) (Ptr.Ptr HsBindgen.Runtime.LibC.CTime) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CTime
+         ) => GHC.Records.HasField "unwrapStdlib_CTime" (Ptr.Ptr Stdlib_CTime) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CTime")
@@ -996,7 +1025,8 @@ newtype Stdlib_CClock = Stdlib_CClock
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CClock" (Ptr.Ptr Stdlib_CClock) (Ptr.Ptr HsBindgen.Runtime.LibC.CClock) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CClock
+         ) => GHC.Records.HasField "unwrapStdlib_CClock" (Ptr.Ptr Stdlib_CClock) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CClock")
@@ -1023,7 +1053,8 @@ newtype Stdlib_CTm = Stdlib_CTm
     , HsBindgen.Runtime.Marshal.ReadRaw
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CTm" (Ptr.Ptr Stdlib_CTm) (Ptr.Ptr HsBindgen.Runtime.LibC.CTm) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CTm
+         ) => GHC.Records.HasField "unwrapStdlib_CTm" (Ptr.Ptr Stdlib_CTm) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CTm")
@@ -1046,7 +1077,8 @@ newtype Stdlib_CFile = Stdlib_CFile
   }
   deriving stock (GHC.Generics.Generic)
 
-instance GHC.Records.HasField "unwrapStdlib_CFile" (Ptr.Ptr Stdlib_CFile) (Ptr.Ptr HsBindgen.Runtime.LibC.CFile) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CFile
+         ) => GHC.Records.HasField "unwrapStdlib_CFile" (Ptr.Ptr Stdlib_CFile) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CFile")
@@ -1069,7 +1101,8 @@ newtype Stdlib_CFpos = Stdlib_CFpos
   }
   deriving stock (GHC.Generics.Generic)
 
-instance GHC.Records.HasField "unwrapStdlib_CFpos" (Ptr.Ptr Stdlib_CFpos) (Ptr.Ptr HsBindgen.Runtime.LibC.CFpos) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CFpos
+         ) => GHC.Records.HasField "unwrapStdlib_CFpos" (Ptr.Ptr Stdlib_CFpos) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CFpos")
@@ -1109,7 +1142,8 @@ newtype Stdlib_CSigAtomic = Stdlib_CSigAtomic
     , Real
     )
 
-instance GHC.Records.HasField "unwrapStdlib_CSigAtomic" (Ptr.Ptr Stdlib_CSigAtomic) (Ptr.Ptr HsBindgen.Runtime.LibC.CSigAtomic) where
+instance ( TyEq ty HsBindgen.Runtime.LibC.CSigAtomic
+         ) => GHC.Records.HasField "unwrapStdlib_CSigAtomic" (Ptr.Ptr Stdlib_CSigAtomic) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapStdlib_CSigAtomic")

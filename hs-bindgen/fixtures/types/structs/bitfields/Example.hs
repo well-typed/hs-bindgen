@@ -2,12 +2,14 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -22,6 +24,7 @@ import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Marshal
+import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct flags@
@@ -122,7 +125,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Flags "flags_fieldX" where
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "flags_fieldX" (Ptr.Ptr Flags) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "flags_fieldX" (Ptr.Ptr Flags) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"flags_fieldX")
@@ -135,7 +139,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_flagA" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "flags_flagA" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "flags_flagA" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_flagA")
@@ -148,7 +153,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_flagB" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "flags_flagB" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "flags_flagB" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_flagB")
@@ -161,7 +167,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_flagC" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "flags_flagC" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "flags_flagC" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_flagC")
@@ -172,7 +179,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Flags "flags_fieldY" where
 
   offset# = \_ -> \_ -> 2
 
-instance GHC.Records.HasField "flags_fieldY" (Ptr.Ptr Flags) (Ptr.Ptr FC.CChar) where
+instance ( TyEq ty FC.CChar
+         ) => GHC.Records.HasField "flags_fieldY" (Ptr.Ptr Flags) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"flags_fieldY")
@@ -185,7 +193,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Flags "flags_bits" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance GHC.Records.HasField "flags_bits" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "flags_bits" (Ptr.Ptr Flags) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"flags_bits")
@@ -258,7 +267,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32 "overflow32_x" w
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32_x" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "overflow32_x" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32_x")
@@ -272,7 +282,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32 "overflow32_y" w
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32_y" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "overflow32_y" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32_y")
@@ -286,7 +297,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32 "overflow32_z" w
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32_z" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "overflow32_z" (Ptr.Ptr Overflow32) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32_z")
@@ -359,7 +371,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32b "overflow32b_x"
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32b_x" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "overflow32b_x" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32b_x")
@@ -373,7 +386,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32b "overflow32b_y"
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32b_y" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "overflow32b_y" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32b_y")
@@ -387,7 +401,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32b "overflow32b_z"
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32b_z" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "overflow32b_z" (Ptr.Ptr Overflow32b) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32b_z")
@@ -460,7 +475,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32c "overflow32c_x"
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32c_x" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "overflow32c_x" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32c_x")
@@ -474,7 +490,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32c "overflow32c_y"
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32c_y" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "overflow32c_y" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32c_y")
@@ -488,7 +505,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow32c "overflow32c_z"
 
   bitfieldWidth# = \_ -> \_ -> 17
 
-instance GHC.Records.HasField "overflow32c_z" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "overflow32c_z" (Ptr.Ptr Overflow32c) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow32c_z")
@@ -552,7 +570,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow64 "overflow64_x" w
 
   bitfieldWidth# = \_ -> \_ -> 33
 
-instance GHC.Records.HasField "overflow64_x" (Ptr.Ptr Overflow64) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "overflow64_x" (Ptr.Ptr Overflow64) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow64_x")
@@ -566,7 +585,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield Overflow64 "overflow64_y" w
 
   bitfieldWidth# = \_ -> \_ -> 33
 
-instance GHC.Records.HasField "overflow64_y" (Ptr.Ptr Overflow64) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CLong) where
+instance ( TyEq ty FC.CLong
+         ) => GHC.Records.HasField "overflow64_y" (Ptr.Ptr Overflow64) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"overflow64_y")
@@ -629,7 +649,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignA "alignA_x" where
 
   bitfieldWidth# = \_ -> \_ -> 1
 
-instance GHC.Records.HasField "alignA_x" (Ptr.Ptr AlignA) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUChar) where
+instance ( TyEq ty FC.CUChar
+         ) => GHC.Records.HasField "alignA_x" (Ptr.Ptr AlignA) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignA_x")
@@ -642,7 +663,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignA "alignA_y" where
 
   bitfieldWidth# = \_ -> \_ -> 10
 
-instance GHC.Records.HasField "alignA_y" (Ptr.Ptr AlignA) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "alignA_y" (Ptr.Ptr AlignA) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignA_y")
@@ -705,7 +727,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignB "alignB_x" where
 
   bitfieldWidth# = \_ -> \_ -> 7
 
-instance GHC.Records.HasField "alignB_x" (Ptr.Ptr AlignB) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CUChar) where
+instance ( TyEq ty FC.CUChar
+         ) => GHC.Records.HasField "alignB_x" (Ptr.Ptr AlignB) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignB_x")
@@ -718,7 +741,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield AlignB "alignB_y" where
 
   bitfieldWidth# = \_ -> \_ -> 31
 
-instance GHC.Records.HasField "alignB_y" (Ptr.Ptr AlignB) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr FC.CInt) where
+instance ( TyEq ty FC.CInt
+         ) => GHC.Records.HasField "alignB_y" (Ptr.Ptr AlignB) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
 
   getField =
     HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"alignB_y")

@@ -64,12 +64,14 @@ deriving via (EquivStorable Vector) instance Storable Vector
 instance HasCField Vector "vector_x"
     where type CFieldType Vector "vector_x" = CDouble
           offset# = \_ -> \_ -> 0
-instance HasField "vector_x" (Ptr Vector) (Ptr CDouble)
+instance TyEq ty CDouble =>
+         HasField "vector_x" (Ptr Vector) (Ptr ty)
     where getField = fromPtr (Proxy @"vector_x")
 instance HasCField Vector "vector_y"
     where type CFieldType Vector "vector_y" = CDouble
           offset# = \_ -> \_ -> 8
-instance HasField "vector_y" (Ptr Vector) (Ptr CDouble)
+instance TyEq ty CDouble =>
+         HasField "vector_y" (Ptr Vector) (Ptr ty)
     where getField = fromPtr (Proxy @"vector_y")
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
