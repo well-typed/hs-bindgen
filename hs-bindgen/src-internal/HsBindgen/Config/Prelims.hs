@@ -7,6 +7,12 @@ module HsBindgen.Config.Prelims (
     -- * Field naming strategy
   , FieldNamingStrategy(..)
 
+    -- * Qualified style
+  , QualifiedStyle(..)
+
+    -- * Module render config
+  , ModuleRenderConfig(..)
+
     -- * Unique IDs
   , UniqueId (..)
   , UniqueIdMsg (..)
@@ -77,6 +83,41 @@ data FieldNamingStrategy =
 
 instance Default FieldNamingStrategy where
   def = PrefixedFieldNames
+
+{-------------------------------------------------------------------------------
+  Qualified style
+-------------------------------------------------------------------------------}
+
+-- | Style for qualified imports in generated code.
+--
+-- With 'PreQualified' (the default), imports are prepositive:
+-- @import qualified Data.Proxy@.
+--
+-- With 'PostQualified', imports use the @ImportQualifiedPost@ extension:
+-- @import Data.Proxy qualified@. This avoids warnings from
+-- @-Wprepositive-qualified-module@.
+data QualifiedStyle =
+    PreQualified
+  | PostQualified
+  deriving stock (Show, Eq, Generic)
+
+instance Default QualifiedStyle where
+  def = PreQualified
+
+{-------------------------------------------------------------------------------
+  Module render config
+-------------------------------------------------------------------------------}
+
+-- | Configuration for rendering Haskell modules.
+--
+-- Bundles settings that affect the surface syntax of generated modules but
+-- do not change semantics.
+data ModuleRenderConfig = ModuleRenderConfig {
+      fieldNamingStrategy :: FieldNamingStrategy
+    , qualifiedStyle      :: QualifiedStyle
+    }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (Default)
 
 {-------------------------------------------------------------------------------
   Unique IDs
