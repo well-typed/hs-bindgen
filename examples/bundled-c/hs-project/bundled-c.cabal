@@ -7,6 +7,14 @@ author:        Well-Typed LLP
 maintainer:    info@well-typed.com
 build-type:    Simple
 
+flag rect-3d
+  description:
+    Compile C code with -DRECT_3D, adding a z field to the rect struct. Used
+    to demonstrate CPP flag mismatch bugs (see test-cpp-mismatch.sh).
+
+  default:     False
+  manual:      True
+
 common lang
   build-depends:    base >=4.17 && <5
   default-language: GHC2021
@@ -19,6 +27,10 @@ executable bundled-c-bin
   c-sources:      cbits/rect.c
   include-dirs:   cbits
   build-depends:  hs-bindgen-runtime
+
+  if flag(rect-3d)
+    cc-options: -DRECT_3D
+
   other-modules:
     Rect
     Rect.FunPtr

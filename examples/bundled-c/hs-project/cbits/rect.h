@@ -4,6 +4,9 @@
 typedef struct {
     double x;
     double y;
+#ifdef RECT_3D
+    double z;
+#endif
     double width;
     double height;
 } rect;
