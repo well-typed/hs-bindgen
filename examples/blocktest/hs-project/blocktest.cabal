@@ -10,7 +10,7 @@ build-type:    Simple
 common lang
   build-depends:    base >=4.17 && <5
   default-language: GHC2021
-  ghc-options:      -Wall
+  ghc-options:      -Wall -Wunused-packages
 
 executable blocktest
   import:          lang

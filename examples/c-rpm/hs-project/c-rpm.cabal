@@ -9,7 +9,7 @@ build-type:      Simple
 extra-doc-files: CHANGELOG.md
 
 common warnings
-  ghc-options: -Wall
+  ghc-options: -Wall -Wunused-packages
 
 library
   import:             warnings
@@ -62,7 +62,6 @@ library
 
   build-depends:
     , base
-    , c-expr-runtime
     , hs-bindgen-runtime
 
   hs-source-dirs:     src

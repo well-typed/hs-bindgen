@@ -10,7 +10,7 @@ build-type:    Simple
 synopsis:      Test `hs-bindgen` on the `pcap` library
 
 common common
-  ghc-options:      -Wall
+  ghc-options:      -Wall -Wunused-packages
   build-depends:    base >=4.16 && <4.22
   default-language: GHC2021
 
