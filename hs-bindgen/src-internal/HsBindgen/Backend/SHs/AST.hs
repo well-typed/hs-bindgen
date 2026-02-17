@@ -74,7 +74,9 @@ data SExpr ctx =
   | ELam NameHint (SExpr (S ctx))
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
+  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714.
   | EBoxedOpenTup Natural
+  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714.
   | EBoxedClosedTup [SExpr ctx]
   | EUnboxedTup [SExpr ctx]
   | EList [SExpr ctx]
@@ -102,9 +104,6 @@ data PatExpr
 
 eInt :: Int -> SExpr be
 eInt i = EIntegral (fromIntegral i) (Just $ bindgenGlobalType Int_type)
-
--- TODO D: We perform case splits on infix operators, so I created a new data
--- type.
 
 -- | Supported infix operators.
 data InfixOp =
@@ -177,6 +176,7 @@ data SType ctx =
   | TBound (Idx ctx)
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)
+  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714.
   | TBoxedOpenTup Natural
   | TEq
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')

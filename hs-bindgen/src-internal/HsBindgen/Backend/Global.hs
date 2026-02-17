@@ -577,8 +577,6 @@ cExprToHsImport = \case
       Hs.QualifiedImport "C.Expr.HostPlatform" Nothing
 
 data CExprGlobalType =
-    -- TODO D: Does CharValue belong here? (But definitely should not go into
-    -- @hs-bindgen-runtime@).
     CharValue_type
   | Not_class
   | Logical_class
@@ -606,8 +604,6 @@ data CExprGlobalType =
   | Shift_resTyCon
 
 data CExprGlobalExpr =
-    -- TODO D: Does CharValue belong here? (But definitely should not go into
-    -- @hs-bindgen-runtime@).
     CharValue_constructor
   | CharValue_fromAddr
   | Not_not

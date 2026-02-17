@@ -310,7 +310,8 @@ resolveExprImports = \case
             SAltUnboxedTuple _add _hints body -> resolveExprImports body
         | alt <- alts
         ]
-    -- TODO D: Complicated. Can we do better?
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
+    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
     EBoxedOpenTup n | n<= 1 ->
       ImportAcc{
           requireTypes = False
@@ -345,7 +346,8 @@ resolveTypeImports = \case
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
-    -- TODO D: Complicated. Can we do better?
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
+    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
     TBoxedOpenTup n | n <= 1 ->
       ImportAcc{
           requireTypes = False

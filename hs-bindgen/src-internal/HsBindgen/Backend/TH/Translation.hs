@@ -41,6 +41,9 @@ import HsBindgen.NameHint
   Backend definition
 -------------------------------------------------------------------------------}
 
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
+-- render hack.
+
 -- | A version of 'TH.tupleTypeName' that uses the internal runtime prelude and
 -- always uses @(,,)@ syntax rather than @Tuple3@. This ensures consistency in
 -- TH tests across GHC versions.
@@ -146,7 +149,6 @@ mkExpr env = \case
                                   []
                          | alt <- alts
                          ]
-      -- TODO D: Not sure if the tuple construction works like so.
       EBoxedOpenTup n -> TH.conE $ TH.tupleDataName $ fromIntegral n
       EBoxedClosedTup xs -> TH.tupE $ mkExpr env <$> xs
       EUnboxedTup xs -> TH.unboxedTupE $ mkExpr env <$> xs

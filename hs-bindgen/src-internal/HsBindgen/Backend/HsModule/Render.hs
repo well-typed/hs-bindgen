@@ -510,7 +510,7 @@ prettyType env prec = \case
       prettyType env 1 a <+> "->" <+> prettyType env 0 b
     TBound x -> lookupEnv x env
     TBoxedOpenTup n -> prettyBoxedOpenTuple TupData n
-    -- TODO D: Infix type equality.
+    -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
     TEq -> PP.string "(~)"
     TForall hints add ctxt body ->
       case add of
@@ -884,6 +884,8 @@ mkSolo = \case
   TupData -> "RIP.MkSolo"
   TupType -> "RIP.Solo"
 
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
+-- render hack.
 prettyBoxedOpenTuple :: TupNamespace -> Natural -> CtxDoc
 prettyBoxedOpenTuple ns = PP.string . \case
   0 -> "()"
