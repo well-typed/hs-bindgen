@@ -32,6 +32,7 @@ import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
@@ -1255,7 +1256,8 @@ newtype Filename_t = Filename_t
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
+    ( HsBindgen.Runtime.Array.Class.IsArray
+    , HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable

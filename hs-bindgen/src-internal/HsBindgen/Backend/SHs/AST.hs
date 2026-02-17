@@ -66,8 +66,6 @@ data Global =
   | Foreign_FunPtr
   | Foreign_plusPtr
   | Foreign_StablePtr
-  | ConstantArray
-  | IncompleteArray
   | IO_type
   | CharValue_tycon
   | CharValue_constructor
@@ -77,6 +75,11 @@ data Global =
   | Capi_with
   | Capi_allocaAndPeek
   | Generic_class
+
+    -- Arrays
+  | ConstantArray
+  | IncompleteArray
+  | IsArray_class
 
     -- StaticSize
   | StaticSize_class

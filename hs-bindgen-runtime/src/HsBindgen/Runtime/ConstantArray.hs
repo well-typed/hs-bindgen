@@ -35,6 +35,7 @@ import GHC.Records (HasField (..))
 import GHC.Stack (HasCallStack)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 
+import HsBindgen.Runtime.Array.Class (IsArray (..))
 import HsBindgen.Runtime.Marshal (ReadRaw, StaticSize, WriteRaw)
 
 {-------------------------------------------------------------------------------
@@ -190,6 +191,14 @@ withPtr (coerce -> CA v) k = do
     -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
     VS.MVector _ fptr <- VS.thaw v
     withForeignPtr fptr $ \(ptr :: Ptr a) -> k (toPtr (Proxy @n) ptr)
+
+instance Storable a => IsArray (ConstantArray n a) where
+  type Elem (ConstantArray n a) = a
+  -- | /( O(n) /)
+  withElemPtr (CA v) k = do
+      -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
+      VS.MVector _ fptr <- VS.thaw v
+      withForeignPtr fptr $ \(ptr :: Ptr a) -> k ptr
 
 {-------------------------------------------------------------------------------
   Construction

@@ -30,6 +30,7 @@ import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
@@ -246,6 +247,7 @@ newtype Arr_typedef1 = Arr_typedef1
   { unwrapArr_typedef1 :: HsBindgen.Runtime.IncompleteArray.IncompleteArray A
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving newtype (HsBindgen.Runtime.Array.Class.IsArray)
 
 instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray A)
          ) => GHC.Records.HasField "unwrapArr_typedef1" (Ptr.Ptr Arr_typedef1) (Ptr.Ptr ty) where
@@ -270,6 +272,7 @@ newtype Arr_typedef2 = Arr_typedef2
   { unwrapArr_typedef2 :: HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving newtype (HsBindgen.Runtime.Array.Class.IsArray)
 
 instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A))
          ) => GHC.Records.HasField "unwrapArr_typedef2" (Ptr.Ptr Arr_typedef2) (Ptr.Ptr ty) where
@@ -295,7 +298,8 @@ newtype Arr_typedef3 = Arr_typedef3
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
+    ( HsBindgen.Runtime.Array.Class.IsArray
+    , HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
@@ -325,7 +329,8 @@ newtype Arr_typedef4 = Arr_typedef4
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
+    ( HsBindgen.Runtime.Array.Class.IsArray
+    , HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable

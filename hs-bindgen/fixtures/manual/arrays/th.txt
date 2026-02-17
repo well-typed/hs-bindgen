@@ -94,7 +94,7 @@ newtype Triplet
            __exported by:__ @manual\/arrays.h@
       -}
     deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
+    deriving newtype (IsArray, StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
@@ -117,7 +117,7 @@ newtype Matrix
            __exported by:__ @manual\/arrays.h@
       -}
     deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
+    deriving newtype (IsArray, StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (ConstantArray 3 Triplet) =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")
@@ -145,6 +145,7 @@ newtype Triplet_ptrs
       __exported by:__ @manual\/arrays.h@
       -}
     deriving stock (Generic, Eq, Show)
+    deriving newtype IsArray
 instance TyEq ty (IncompleteArray (Ptr (ConstantArray 3 CInt))) =>
          HasField "unwrapTriplet_ptrs" (Ptr Triplet_ptrs) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet_ptrs")

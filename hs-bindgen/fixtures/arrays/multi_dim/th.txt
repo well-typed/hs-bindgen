@@ -175,7 +175,7 @@ newtype Matrix
            __exported by:__ @arrays\/multi_dim.h@
       -}
     deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
+    deriving newtype (IsArray, StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")
@@ -199,6 +199,7 @@ newtype Triplets
            __exported by:__ @arrays\/multi_dim.h@
       -}
     deriving stock (Generic, Eq, Show)
+    deriving newtype IsArray
 instance TyEq ty (IncompleteArray (ConstantArray 3 CInt)) =>
          HasField "unwrapTriplets" (Ptr Triplets) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplets")

@@ -23,6 +23,7 @@ module HsBindgen.Runtime.Prelude (
     -- * Arrays
   , ConstantArray   -- opaque
   , IncompleteArray -- opaque
+  , IsArray (Elem)
 
     -- * Marshaling and serialization
   , StaticSize(..)
@@ -37,6 +38,7 @@ module HsBindgen.Runtime.Prelude (
   , PtrConst -- type synonym or opaque, depending on version of @base@
   ) where
 
+import HsBindgen.Runtime.Array.Class
 import HsBindgen.Runtime.BitfieldPtr
 import HsBindgen.Runtime.Block
 import HsBindgen.Runtime.CEnum

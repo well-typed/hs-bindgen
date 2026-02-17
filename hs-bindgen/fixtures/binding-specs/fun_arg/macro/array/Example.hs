@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -17,6 +18,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
@@ -32,6 +34,7 @@ newtype MyArray = MyArray
   { unwrapMyArray :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving newtype (HsBindgen.Runtime.Array.Class.IsArray)
 
 instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
          ) => GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
@@ -56,6 +59,7 @@ newtype A = A
   { unwrapA :: MyArray
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving newtype (HsBindgen.Runtime.Array.Class.IsArray)
 
 instance ( TyEq ty MyArray
          ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
@@ -79,6 +83,7 @@ newtype B = B
   { unwrapB :: A
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving newtype (HsBindgen.Runtime.Array.Class.IsArray)
 
 instance ( TyEq ty A
          ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where

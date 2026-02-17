@@ -44,6 +44,7 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
+import HsBindgen.Runtime.Array.Class qualified
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.CEnum qualified
@@ -97,8 +98,6 @@ mkGlobal = \case
       Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
       Foreign_plusPtr       -> 'Foreign.Ptr.plusPtr
       Foreign_StablePtr     -> ''Foreign.StablePtr.StablePtr
-      ConstantArray         -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
-      IncompleteArray       -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
       IO_type               -> ''IO
       CharValue_tycon       -> ''CExpr.Runtime.CharValue
       CharValue_constructor -> 'CExpr.Runtime.CharValue
@@ -106,6 +105,11 @@ mkGlobal = \case
       Capi_with             -> 'Foreign.with
       Capi_allocaAndPeek    -> 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
       Generic_class         -> ''GHC.Generics.Generic
+
+      -- Arrays
+      ConstantArray   -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
+      IncompleteArray -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
+      IsArray_class   -> ''HsBindgen.Runtime.Array.Class.IsArray
 
       -- StaticSize
       StaticSize_class           -> ''HsBindgen.Runtime.Marshal.StaticSize
@@ -383,8 +387,6 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Foreign_FunPtr            -> panicPure "type in expression"
     Foreign_plusPtr           -> TH.varE name
     Foreign_StablePtr         -> panicPure "type in expression"
-    ConstantArray             -> panicPure "type in expression"
-    IncompleteArray           -> panicPure "type in expression"
     IO_type                   -> panicPure "type in expression"
     Flam_Offset_class         -> panicPure "class in expression"
     Flam_Offset_offset        -> TH.varE name
@@ -397,6 +399,11 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Capi_with                 -> TH.varE name
     Capi_allocaAndPeek        -> TH.varE name
     Generic_class             -> panicPure "class in expression"
+
+    -- Arrays
+    ConstantArray   -> panicPure "type in expression"
+    IncompleteArray -> panicPure "type in expression"
+    IsArray_class   -> panicPure "class in expression"
 
     -- StaticSize
     StaticSize_class           -> panicPure "class in expression"

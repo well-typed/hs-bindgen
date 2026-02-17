@@ -210,6 +210,7 @@ translateTypeClass = \case
     Inst.HasField        -> TGlobal HasField_class
     Inst.Flam_Offset     -> TGlobal Flam_Offset_class
     Inst.Integral        -> TGlobal Integral_class
+    Inst.IsArray         -> TGlobal IsArray_class
     Inst.Ix              -> TGlobal Ix_class
     Inst.Num             -> TGlobal Num_class
     Inst.Ord             -> TGlobal Ord_class

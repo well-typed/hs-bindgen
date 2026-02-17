@@ -12,6 +12,7 @@ module HsBindgen.Backend.Hs.Translation.Instances (
   , getDeriveStrat
   , InstanceMap
   , getInstances
+  , hasInstance_IsArray
   ) where
 
 import Data.Map.Strict qualified as Map
@@ -141,11 +142,11 @@ getInstances instanceMap name = aux
       , Inst.Show
       ]
 
-    hsTypeSpecInsts :: HsTypeSpec -> Set Inst.TypeClass
-    hsTypeSpecInsts hsTypeSpec = Set.fromAscList [
-        cls
-      | (cls, Require{}) <- Map.toAscList hsTypeSpec.instances
-      ]
+hsTypeSpecInsts :: HsTypeSpec -> Set Inst.TypeClass
+hsTypeSpecInsts hsTypeSpec = Set.fromAscList [
+    cls
+  | (cls, Require{}) <- Map.toAscList hsTypeSpec.instances
+  ]
 
 getHsPrimTypeInsts :: HsPrimType -> Set Inst.TypeClass
 getHsPrimTypeInsts = \case
@@ -283,3 +284,42 @@ getHsPrimTypeInsts = \case
       , Inst.Read
       , Inst.Show
       ]
+
+--------------------------------------------------------------------------------
+
+-- TODO: incorporate this into 'getInstances'? The trouble is that resolving the
+-- @IsArray@ instance does not fit how 'getInstances' resolves instances,
+-- because we don't have to check *all* dependencies.
+hasInstance_IsArray ::
+     HasCallStack
+  => InstanceMap                   -- ^ Current state
+  -> Maybe (Hs.Name NsTypeConstr)  -- ^ Name of current type (optional)
+  -> HsType
+  -> Bool
+hasInstance_IsArray instanceMap name = aux
+  where
+    aux :: HsType -> Bool
+    aux = \case
+        HsPrimType{} -> False
+        HsTypRef name' _
+          | Just name' == name -> False
+          | otherwise -> case Map.lookup name' instanceMap of
+              Just instances -> Inst.IsArray `Set.member` instances
+              Nothing -> panicPure $ "type not found: " ++ show name'
+        HsConstArray{} -> True
+        HsIncompleteArray{} -> True
+        HsPtr{} -> False
+        HsFunPtr{} -> False
+        HsStablePtr{} -> False
+        HsPtrConst{} -> False
+        HsIO{}  -> False
+        HsFun{} -> False
+        HsExtBinding _ref _cTypeSpec hsTypeSpec _ ->
+          Inst.IsArray `Set.member` hsTypeSpecInsts hsTypeSpec
+        HsByteArray{} -> False
+        HsSizedByteArray{} -> False
+        HsBlock{} -> False
+        HsComplexType{} -> False
+        HsStrLit{} -> False
+        HsWithFlam{} -> False
+        HsEquivStorable{} -> False

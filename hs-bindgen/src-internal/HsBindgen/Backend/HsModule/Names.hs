@@ -41,6 +41,7 @@ import Text.Read qualified
 import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
+import HsBindgen.Runtime.Array.Class qualified
 import HsBindgen.Runtime.BitfieldPtr qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.CEnum qualified
@@ -293,8 +294,6 @@ resolveGlobal = \case
     Foreign_FunPtr        -> importQ ''Foreign.FunPtr
     Foreign_plusPtr       -> importQ 'Foreign.plusPtr
     Foreign_StablePtr     -> importQ ''Foreign.StablePtr
-    ConstantArray         -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
-    IncompleteArray       -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
     IO_type               -> importU ''IO
     CharValue_tycon       -> importQ ''CExpr.Runtime.CharValue
     CharValue_constructor -> importQ 'CExpr.Runtime.CharValue
@@ -302,6 +301,11 @@ resolveGlobal = \case
     Capi_with             -> importQ 'Foreign.with
     Capi_allocaAndPeek    -> importQ 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
     Generic_class         -> importQ ''GHC.Generics.Generic
+
+    -- Arrays
+    ConstantArray   -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
+    IncompleteArray -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
+    IsArray_class   -> importQ ''HsBindgen.Runtime.Array.Class.IsArray
 
     -- StaticSize
     StaticSize_class           -> importQ ''HsBindgen.Runtime.Marshal.StaticSize

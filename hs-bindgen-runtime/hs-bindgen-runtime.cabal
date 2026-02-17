@@ -65,6 +65,7 @@ common lang
 library
   import:             lang
   exposed-modules:
+    HsBindgen.Runtime.Array.Class
     HsBindgen.Runtime.BitfieldPtr
     HsBindgen.Runtime.Block
     HsBindgen.Runtime.CBool

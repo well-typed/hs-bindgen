@@ -1488,7 +1488,7 @@ newtype Filename_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
+    deriving newtype (IsArray, StaticSize, ReadRaw, WriteRaw, Storable)
 instance TyEq ty (ConstantArray 256 CChar) =>
          HasField "unwrapFilename_t" (Ptr Filename_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFilename_t")

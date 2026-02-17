@@ -25,6 +25,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
@@ -236,7 +237,8 @@ newtype Triplet = Triplet
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
+    ( HsBindgen.Runtime.Array.Class.IsArray
+    , HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
@@ -265,6 +267,7 @@ newtype List = List
   { unwrapList :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving newtype (HsBindgen.Runtime.Array.Class.IsArray)
 
 instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
          ) => GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr ty) where

@@ -5,6 +5,7 @@ module HsBindgen.Backend.Hs.Translation.Newtype (
 
 import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -44,7 +45,18 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
           }
       where
         resolvedInsts :: Set Inst.TypeClass
-        resolvedInsts = Hs.getInstances transState.instanceMap (Just name) candidateInsts [field.typ]
+        resolvedInsts = Set.unions [
+              Hs.getInstances transState.instanceMap (Just name) candidateInsts [field.typ]
+            , resolvedIsArrayInst
+            ]
+
+        resolvedIsArrayInst :: Set Inst.TypeClass
+        resolvedIsArrayInst
+          | Inst.IsArray `Set.member` candidateInsts
+          , Hs.hasInstance_IsArray transState.instanceMap (Just name) field.typ
+          = Set.singleton Inst.IsArray
+          | otherwise
+          = Set.empty
 
         insts :: Set Inst.TypeClass
         insts = knownInsts <> resolvedInsts

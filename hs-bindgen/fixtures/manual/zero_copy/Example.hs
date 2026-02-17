@@ -26,6 +26,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Generics
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.BitfieldPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FLAM
@@ -804,7 +805,8 @@ newtype Triplet = Triplet
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
+    ( HsBindgen.Runtime.Array.Class.IsArray
+    , HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
@@ -834,7 +836,8 @@ newtype Matrix = Matrix
   }
   deriving stock (GHC.Generics.Generic, Eq, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
+    ( HsBindgen.Runtime.Array.Class.IsArray
+    , HsBindgen.Runtime.Marshal.StaticSize
     , HsBindgen.Runtime.Marshal.ReadRaw
     , HsBindgen.Runtime.Marshal.WriteRaw
     , F.Storable
