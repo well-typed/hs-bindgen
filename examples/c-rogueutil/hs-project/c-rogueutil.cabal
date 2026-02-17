@@ -20,7 +20,6 @@ library
   build-depends:
     , base
     , hs-bindgen-runtime
-    , primitive
 
 executable c-rogueutil
   import:             warnings

@@ -18,9 +18,7 @@ executable literate-example
   include-dirs:       c-lib
   other-modules:      SimpleBindings
   other-extensions:   ForeignFunctionInterface
-  build-depends:
-    , hs-bindgen-runtime
-    , primitive
+  build-depends:      hs-bindgen-runtime
 
   -- Use hs-bindgen-cli as the literate Haskell preprocessor
   -- The .lhs files contain command-line arguments for hs-bindgen

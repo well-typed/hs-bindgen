@@ -40,7 +40,6 @@ library
     , base
     , c-expr-runtime
     , hs-bindgen-runtime
-    , primitive
     , vector
 
   hs-source-dirs:  src

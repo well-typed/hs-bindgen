@@ -27,7 +27,6 @@ library
   build-depends:
     , c-expr-runtime
     , hs-bindgen-runtime
-    , primitive
 
 executable libpcap-bin
   import:          common
