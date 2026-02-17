@@ -89,6 +89,8 @@ getInstances instanceMap name = aux
               else id) $
             -- constrain by Array item type in next step
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
+          HsPtrArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
+          HsPtrConstArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsStablePtr{} -> aux (acc /\ ptrInsts) hsTypes

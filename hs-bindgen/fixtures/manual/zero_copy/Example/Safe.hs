@@ -6,6 +6,7 @@ module Example.Safe where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
 
@@ -19,11 +20,11 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  return (reverse)(arg1, arg2);"
   , "}"
   , "void hs_bindgen_2ff371c815d92b04 ("
-  , "  matrix const *arg1,"
-  , "  matrix *arg2"
+  , "  triplet const *arg1,"
+  , "  triplet *arg2"
   , ")"
   , "{"
-  , "  (transpose)(*arg1, *arg2);"
+  , "  (transpose)(arg1, arg2);"
   , "}"
   ]))
 
@@ -63,8 +64,8 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 ::
-     PtrConst.PtrConst Matrix
-  -> RIP.Ptr Matrix
+     PtrConst.PtrConst (IsA.Elem Matrix)
+  -> RIP.Ptr (IsA.Elem Matrix)
   -> IO ()
 hs_bindgen_2ff371c815d92b04 =
   RIP.fromFFIType hs_bindgen_2ff371c815d92b04_base
@@ -76,9 +77,9 @@ hs_bindgen_2ff371c815d92b04 =
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose ::
-     PtrConst.PtrConst Matrix
+     PtrConst.PtrConst (IsA.Elem Matrix)
      -- ^ __C declaration:__ @input@
-  -> RIP.Ptr Matrix
+  -> RIP.Ptr (IsA.Elem Matrix)
      -- ^ __C declaration:__ @output@
   -> IO ()
 transpose = hs_bindgen_2ff371c815d92b04

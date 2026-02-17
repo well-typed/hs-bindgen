@@ -4,12 +4,14 @@ module HsBindgen.Frontend.Pass.AdjustTypes (
 
 import Control.Monad.State (MonadState, State, StateT (StateT), modify',
                             runState)
+import Numeric.Natural (Natural)
 
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Pass (IsPass (MacroBody, Msg), NoAnn (NoAnn))
-import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
+import HsBindgen.Frontend.Pass (IsPass (MacroBody, Msg))
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes,
+                                                   AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (CheckedMacro (MacroExpr, MacroType),
                                                     CheckedMacroExpr,
                                                     CheckedMacroType (..))
@@ -29,7 +31,10 @@ import HsBindgen.Imports (Identity (Identity))
 -- we apply are:
 --
 -- > * any parameter of function type is adjusted to the corresponding pointer
--- > type
+-- >  type
+--
+-- > * any parameter of array type is adjusted to the corresponding pointer
+-- >   type
 --
 adjustTypes ::
      C.TranslationUnit Select
@@ -208,9 +213,9 @@ processMacroExpr ::
      CheckedMacroExpr
   -> M CheckedMacroExpr
 processMacroExpr macroExpr = do
-    -- NOTE: currently macro expressions don't support function type parameters,
-    -- if they do in the future, then we might have to recurse into the type of
-    -- the macro expression?
+    -- NOTE: currently macro expressions don't support function/array type
+    -- parameters, if they do in the future, then we might have to recurse into
+    -- the type of the macro expression?
     pure macroExpr
 
 processFunction ::
@@ -291,10 +296,10 @@ processType = \case
 processTypeFunArg :: C.TypeFunArg Select -> M (C.TypeFunArg AdjustTypes)
 processTypeFunArg arg = do
     typ' <- processType arg.typ
-    typ'' <- adjustFunArg typ'
+    (typ'', ann') <- adjustFunArg typ'
     pure C.TypeFunArgF {
         typ = typ''
-      , ann = NoAnn
+      , ann = ann'
       }
 
 -- | This is where the actual adjustments take place.
@@ -305,9 +310,65 @@ processTypeFunArg arg = do
 -- > int foo (char f (float))
 -- > int foo (char (*f)(float))
 --
-adjustFunArg :: C.Type AdjustTypes -> M (C.Type AdjustTypes)
+-- Function arguments of array type are changed to pointer to the array element
+-- type. For example, the former is adjusted to the latter:
+--
+-- > int foo (char xs[])
+-- > int foo (char * xs)
+--
+-- The original type before adjustment is recorded in an an 'Ann'otation.
+--
+adjustFunArg :: C.Type AdjustTypes -> M (C.Type AdjustTypes, AdjustedFrom AdjustTypes)
 adjustFunArg ty
+  | Just cls <- classifyCanonicalTypeArray ty
+  , let elemTy = getArrayElementType cls
+  , let constQual
+          | C.isErasedTypeConstQualified ty
+          , not (C.isErasedTypeConstQualified elemTy)
+          = C.TypeQual C.QualConst
+          | otherwise
+          = id
+  = pure (C.TypePointers 1 $ constQual elemTy, AdjustedFromArray ty)
   | C.isCanonicalTypeFunction ty
-  = pure $ C.TypePointers 1 ty
+  = pure (C.TypePointers 1 ty, AdjustedFromFunction ty)
   | otherwise
-  = pure ty
+  = pure (ty, NotAdjusted)
+
+-- | An array of known size or unknown size
+data ArrayClassification p =
+    -- | Array of known size
+    ConstantArrayClassification
+      Natural     -- ^ Array size
+      (C.Type p)  -- ^ Array element type
+
+    -- | Array of unkown size
+  | IncompleteArrayClassification
+      (C.Type p)  -- ^ Array element type
+
+getArrayElementType :: ArrayClassification p -> C.Type p
+getArrayElementType (ConstantArrayClassification _ ty) = ty
+getArrayElementType (IncompleteArrayClassification ty) = ty
+
+-- | Is the canonical type an array type?
+--
+-- If so, is it an array of known size or unknown size? And what is the /full
+-- type/ of the array elements?
+classifyCanonicalTypeArray :: C.Type p -> Maybe (ArrayClassification p)
+classifyCanonicalTypeArray ty =
+    -- We do not use getCanonicalType here, because we do not want to
+    -- canonicalize the array /element/ type.
+    case ty of
+      C.TypePrim _pt          -> Nothing
+      C.TypeRef _declId       -> Nothing
+      C.TypeEnum _ref         -> Nothing
+      C.TypeMacro ref         -> classifyCanonicalTypeArray ref.underlying
+      C.TypeTypedef ref       -> classifyCanonicalTypeArray ref.underlying
+      C.TypePointers _n _t    -> Nothing
+      C.TypeConstArray n t    -> Just (ConstantArrayClassification n t)
+      C.TypeFun _args _res    -> Nothing
+      C.TypeVoid              -> Nothing
+      C.TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
+      C.TypeBlock _t          -> Nothing
+      C.TypeQual _q t         -> classifyCanonicalTypeArray t
+      C.TypeExtBinding ref    -> classifyCanonicalTypeArray ref.underlying
+      C.TypeComplex _pt       -> Nothing

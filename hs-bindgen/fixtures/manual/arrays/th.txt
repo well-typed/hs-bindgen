@@ -1,36 +1,36 @@
 -- addDependentFile examples/golden/manual/arrays.h
 -- #include <manual/arrays.h>
 -- void hs_bindgen_cba7011c6d25362b (
---   matrix const *arg1,
---   matrix *arg2
+--   triplet const *arg1,
+--   triplet *arg2
 -- )
 -- {
---   (transpose)(*arg1, *arg2);
+--   (transpose)(arg1, arg2);
 -- }
 -- void hs_bindgen_45d15697a99c626a (
---   triplet_ptrs *arg1
+--   signed int (**arg1)[3]
 -- )
 -- {
---   (pretty_print_triplets)(*arg1);
+--   (pretty_print_triplets)(arg1);
 -- }
 -- void hs_bindgen_f9f2776d121db261 (
---   matrix const *arg1,
---   matrix *arg2
+--   triplet const *arg1,
+--   triplet *arg2
 -- )
 -- {
---   (transpose)(*arg1, *arg2);
+--   (transpose)(arg1, arg2);
 -- }
 -- void hs_bindgen_e43b4d44aa0abd14 (
---   triplet_ptrs *arg1
+--   signed int (**arg1)[3]
 -- )
 -- {
---   (pretty_print_triplets)(*arg1);
+--   (pretty_print_triplets)(arg1);
 -- }
 -- /* test_manualarrays_Example_get_transpose */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_c99d8a3b0363a0fa (void)) (
---   matrix const arg1,
---   matrix arg2
+--   triplet const *arg1,
+--   triplet *arg2
 -- )
 -- {
 --   return &transpose;
@@ -38,7 +38,7 @@
 -- /* test_manualarrays_Example_get_pretty_print_triplets */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_923b33cbbfeb5e7d (void)) (
---   triplet_ptrs arg1
+--   signed int (**arg1)[3]
 -- )
 -- {
 --   return &pretty_print_triplets;
@@ -159,8 +159,8 @@ foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d253
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
-hs_bindgen_cba7011c6d25362b :: PtrConst Matrix ->
-                               Ptr Matrix -> IO Unit
+hs_bindgen_cba7011c6d25362b :: PtrConst (Elem Matrix) ->
+                               Ptr (Elem Matrix) -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
 hs_bindgen_cba7011c6d25362b = fromFFIType hs_bindgen_cba7011c6d25362b_base
 {-| __C declaration:__ @transpose@
@@ -169,7 +169,7 @@ hs_bindgen_cba7011c6d25362b = fromFFIType hs_bindgen_cba7011c6d25362b_base
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose :: PtrConst (Elem Matrix) -> Ptr (Elem Matrix) -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
@@ -182,7 +182,7 @@ foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c6
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
-hs_bindgen_45d15697a99c626a :: Ptr Triplet_ptrs -> IO Unit
+hs_bindgen_45d15697a99c626a :: Ptr (Elem Triplet_ptrs) -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 hs_bindgen_45d15697a99c626a = fromFFIType hs_bindgen_45d15697a99c626a_base
 {-| A function that prints the given triplet_ptrs
@@ -193,7 +193,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets :: Ptr Triplet_ptrs -> IO Unit
+pretty_print_triplets :: Ptr (Elem Triplet_ptrs) -> IO Unit
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -209,8 +209,8 @@ foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
-hs_bindgen_f9f2776d121db261 :: PtrConst Matrix ->
-                               Ptr Matrix -> IO Unit
+hs_bindgen_f9f2776d121db261 :: PtrConst (Elem Matrix) ->
+                               Ptr (Elem Matrix) -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 hs_bindgen_f9f2776d121db261 = fromFFIType hs_bindgen_f9f2776d121db261_base
 {-| __C declaration:__ @transpose@
@@ -219,7 +219,7 @@ hs_bindgen_f9f2776d121db261 = fromFFIType hs_bindgen_f9f2776d121db261_base
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose :: PtrConst (Elem Matrix) -> Ptr (Elem Matrix) -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
@@ -232,7 +232,7 @@ foreign import ccall unsafe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
-hs_bindgen_e43b4d44aa0abd14 :: Ptr Triplet_ptrs -> IO Unit
+hs_bindgen_e43b4d44aa0abd14 :: Ptr (Elem Triplet_ptrs) -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
 hs_bindgen_e43b4d44aa0abd14 = fromFFIType hs_bindgen_e43b4d44aa0abd14_base
 {-| A function that prints the given triplet_ptrs
@@ -243,7 +243,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets :: Ptr Triplet_ptrs -> IO Unit
+pretty_print_triplets :: Ptr (Elem Triplet_ptrs) -> IO Unit
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -257,8 +257,8 @@ pretty_print_triplets = hs_bindgen_e43b4d44aa0abd14
 foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b0363a0fa_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_manualarrays_Example_get_transpose@
-hs_bindgen_c99d8a3b0363a0fa :: IO (FunPtr (Matrix ->
-                                           Matrix -> IO Unit))
+hs_bindgen_c99d8a3b0363a0fa :: IO (FunPtr (PtrConst (Elem Matrix) ->
+                                           Ptr (Elem Matrix) -> IO Unit))
 -- __unique:__ @test_manualarrays_Example_get_transpose@
 hs_bindgen_c99d8a3b0363a0fa = fromFFIType hs_bindgen_c99d8a3b0363a0fa_base
 {-# NOINLINE transpose #-}
@@ -268,7 +268,8 @@ hs_bindgen_c99d8a3b0363a0fa = fromFFIType hs_bindgen_c99d8a3b0363a0fa_base
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: FunPtr (Matrix -> Matrix -> IO Unit)
+transpose :: FunPtr (PtrConst (Elem Matrix) ->
+                     Ptr (Elem Matrix) -> IO Unit)
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
@@ -280,7 +281,7 @@ transpose = unsafePerformIO hs_bindgen_c99d8a3b0363a0fa
 foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfeb5e7d_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
-hs_bindgen_923b33cbbfeb5e7d :: IO (FunPtr (Triplet_ptrs ->
+hs_bindgen_923b33cbbfeb5e7d :: IO (FunPtr (Ptr (Elem Triplet_ptrs) ->
                                            IO Unit))
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
 hs_bindgen_923b33cbbfeb5e7d = fromFFIType hs_bindgen_923b33cbbfeb5e7d_base
@@ -293,7 +294,8 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets :: FunPtr (Triplet_ptrs -> IO Unit)
+pretty_print_triplets :: FunPtr (Ptr (Elem Triplet_ptrs) ->
+                                 IO Unit)
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@

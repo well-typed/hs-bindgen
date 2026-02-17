@@ -57,6 +57,8 @@ data HsType =
       (Maybe HsType)
   | HsConstArray Natural HsType
   | HsIncompleteArray HsType
+  | HsPtrArrayElem HsType
+  | HsPtrConstArrayElem HsType
   | HsPtr HsType
   | HsFunPtr HsType
   | HsStablePtr HsType

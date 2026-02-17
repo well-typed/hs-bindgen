@@ -44,6 +44,7 @@ import Foreign.Marshal (alloca, allocaBytes)
 import Foreign.Storable (Storable (peek, poke))
 
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -113,7 +114,7 @@ srp6ServerSessionStep1 ::
   -> RNG
   -> IO B
 srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG rngObj) =
-    IA.withPtr verifier $ \verifierPtr ->
+    IsA.withElemPtr verifier $ \verifierPtr ->
     let verifierLen = fromIntegral $ VS.length $ IA.toVector verifier in
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
@@ -132,7 +133,7 @@ srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG
           bPtr
           bLenPtr
       bLen <- peek bLenPtr
-      B <$> IA.peekArray (fromIntegral bLen) bPtr
+      B <$> IA.peekArray (fromIntegral bLen) (IA.toPtr bPtr)
 
 srp6ServerSessionStep2 ::
      ServerSession
@@ -140,7 +141,7 @@ srp6ServerSessionStep2 ::
   -> A
   -> IO K
 srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
-    IA.withPtr a $ \aPtr ->
+    IsA.withElemPtr a $ \aPtr ->
     let aLen = fromIntegral $ VS.length $ IA.toVector a in
     srp6GroupSize groupId >>= \maxLen ->
     allocaBytes (fromIntegral maxLen) $ \kPtr ->
@@ -154,7 +155,7 @@ srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
           kPtr
           kLenPtr
       kLen <- peek kLenPtr
-      K <$> IA.peekArray (fromIntegral kLen) kPtr
+      K <$> IA.peekArray (fromIntegral kLen) (IA.toPtr kPtr)
 
 srp6GenerateVerifier ::
      Username
@@ -166,7 +167,7 @@ srp6GenerateVerifier ::
 srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
     withCString user $ \userPtr ->
     withCString pw $ \pwPtr ->
-    IA.withPtr salt $ \saltPtr ->
+    IsA.withElemPtr salt $ \saltPtr ->
     let saltLen = fromIntegral $ VS.length $ IA.toVector salt in
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
@@ -185,7 +186,7 @@ srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
           verifierPtr
           verifierLenPtr
       verifierLen <- peek verifierLenPtr
-      Verifier <$> IA.peekArray (fromIntegral verifierLen) verifierPtr
+      Verifier <$> IA.peekArray (fromIntegral verifierLen) (IA.toPtr verifierPtr)
 
 srp6ClientAgree ::
      Username
@@ -201,9 +202,9 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
     withCString pw $ \pwPtr ->
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
-    IA.withPtr salt $ \saltPtr ->
+    IsA.withElemPtr salt $ \saltPtr ->
     let saltLen = fromIntegral $ VS.length $ IA.toVector salt in
-    IA.withPtr b $ \bPtr ->
+    IsA.withElemPtr b $ \bPtr ->
     let bLen = fromIntegral $ VS.length $ IA.toVector b in
     srp6GroupSize groupId >>= \maxLen ->
     allocaBytes (fromIntegral maxLen) $ \aPtr ->
@@ -228,9 +229,9 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
           kPtr
           kLenPtr
       aLen <- peek aLenPtr
-      a <- A <$> IA.peekArray (fromIntegral aLen) aPtr
+      a <- A <$> IA.peekArray (fromIntegral aLen) (IA.toPtr aPtr)
       kLen <- peek kLenPtr
-      k <- K <$> IA.peekArray (fromIntegral kLen) kPtr
+      k <- K <$> IA.peekArray (fromIntegral kLen) (IA.toPtr kPtr)
       pure (a, k)
 
 srp6GroupSize :: GroupId -> IO CSize

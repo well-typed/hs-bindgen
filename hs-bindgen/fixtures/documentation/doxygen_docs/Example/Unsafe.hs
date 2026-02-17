@@ -8,6 +8,7 @@ module Example.Unsafe where
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
@@ -73,11 +74,11 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  return (versioned_function)(arg1);"
   , "}"
   , "signed int hs_bindgen_97c1191917e6eece ("
-  , "  char (*arg1)[64],"
+  , "  char *arg1,"
   , "  size_t arg2"
   , ")"
   , "{"
-  , "  return (process_buffer)(*arg1, arg2);"
+  , "  return (process_buffer)(arg1, arg2);"
   , "}"
   , "void *hs_bindgen_58253bb560dc3eb3 ("
   , "  void *arg1,"
@@ -561,7 +562,7 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece ::
-     RIP.Ptr ((CA.ConstantArray 64) RIP.CChar)
+     RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))
   -> HsBindgen.Runtime.LibC.CSize
   -> IO RIP.CInt
 hs_bindgen_97c1191917e6eece =
@@ -584,7 +585,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer ::
-     RIP.Ptr ((CA.ConstantArray 64) RIP.CChar)
+     RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))
      {- ^
 
         [__@buffer@ /(input)/__]: Buffer with minimum size

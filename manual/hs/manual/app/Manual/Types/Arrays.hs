@@ -7,6 +7,7 @@ import GHC.TypeNats
 
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -71,9 +72,9 @@ reverseIncompleteArrayElems n ptr = do
 
 transposeMatrix :: Arrays.Matrix -> IO Arrays.Matrix
 transposeMatrix inputMatrix =
-    CA.withPtr inputMatrix $ \inputPtr -> do
+    IsA.withElemPtr inputMatrix $ \inputPtr -> do
       F.alloca $ \(outputPtr :: Ptr Arrays.Matrix) -> do
-        Arrays.transpose (PtrConst.unsafeFromPtr inputPtr) outputPtr
+        Arrays.transpose (PtrConst.unsafeFromPtr inputPtr) (snd $ CA.toFirstElemPtr outputPtr)
         peek outputPtr
 
 {-------------------------------------------------------------------------------

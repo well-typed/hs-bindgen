@@ -6,6 +6,7 @@ module Example.FunPtr where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
@@ -13,7 +14,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argmacroar_Example_get_foo */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_fc9d87cbca4127e4 (void)) ("
-  , "  MyArray arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &foo;"
@@ -21,7 +22,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argmacroar_Example_get_fooA */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_0dbc306c53c94679 (void)) ("
-  , "  A arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooA;"
@@ -29,7 +30,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argmacroar_Example_get_fooB */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_db0d885ae35d447f (void)) ("
-  , "  B arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooB;"
@@ -41,7 +42,7 @@ foreign import ccall unsafe "hs_bindgen_fc9d87cbca4127e4" hs_bindgen_fc9d87cbca4
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_foo@
-hs_bindgen_fc9d87cbca4127e4 :: IO (RIP.FunPtr (MyArray -> IO ()))
+hs_bindgen_fc9d87cbca4127e4 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem MyArray)) -> IO ()))
 hs_bindgen_fc9d87cbca4127e4 =
   RIP.fromFFIType hs_bindgen_fc9d87cbca4127e4_base
 
@@ -52,7 +53,7 @@ hs_bindgen_fc9d87cbca4127e4 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-foo :: RIP.FunPtr (MyArray -> IO ())
+foo :: RIP.FunPtr ((RIP.Ptr (IsA.Elem MyArray)) -> IO ())
 foo = RIP.unsafePerformIO hs_bindgen_fc9d87cbca4127e4
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
@@ -60,7 +61,7 @@ foreign import ccall unsafe "hs_bindgen_0dbc306c53c94679" hs_bindgen_0dbc306c53c
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
-hs_bindgen_0dbc306c53c94679 :: IO (RIP.FunPtr (A -> IO ()))
+hs_bindgen_0dbc306c53c94679 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem A)) -> IO ()))
 hs_bindgen_0dbc306c53c94679 =
   RIP.fromFFIType hs_bindgen_0dbc306c53c94679_base
 
@@ -71,7 +72,7 @@ hs_bindgen_0dbc306c53c94679 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooA :: RIP.FunPtr (A -> IO ())
+fooA :: RIP.FunPtr ((RIP.Ptr (IsA.Elem A)) -> IO ())
 fooA =
   RIP.unsafePerformIO hs_bindgen_0dbc306c53c94679
 
@@ -80,7 +81,7 @@ foreign import ccall unsafe "hs_bindgen_db0d885ae35d447f" hs_bindgen_db0d885ae35
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooB@
-hs_bindgen_db0d885ae35d447f :: IO (RIP.FunPtr (B -> IO ()))
+hs_bindgen_db0d885ae35d447f :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem B)) -> IO ()))
 hs_bindgen_db0d885ae35d447f =
   RIP.fromFFIType hs_bindgen_db0d885ae35d447f_base
 
@@ -91,6 +92,6 @@ hs_bindgen_db0d885ae35d447f =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooB :: RIP.FunPtr (B -> IO ())
+fooB :: RIP.FunPtr ((RIP.Ptr (IsA.Elem B)) -> IO ())
 fooB =
   RIP.unsafePerformIO hs_bindgen_db0d885ae35d447f

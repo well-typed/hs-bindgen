@@ -6,27 +6,28 @@ module Example.Unsafe where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/array_known_size.h>"
   , "void hs_bindgen_969f916bf9590709 ("
-  , "  MyArray *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (foo)(*arg1);"
+  , "  (foo)(arg1);"
   , "}"
   , "void hs_bindgen_fb89f30695d9a112 ("
-  , "  A *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (fooA)(*arg1);"
+  , "  (fooA)(arg1);"
   , "}"
   , "void hs_bindgen_6882cd6e82766148 ("
-  , "  B *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (fooB)(*arg1);"
+  , "  (fooB)(arg1);"
   , "}"
   ]))
 
@@ -37,7 +38,7 @@ foreign import ccall unsafe "hs_bindgen_969f916bf9590709" hs_bindgen_969f916bf95
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_foo@
 hs_bindgen_969f916bf9590709 ::
-     RIP.Ptr MyArray
+     RIP.Ptr (IsA.Elem MyArray)
   -> IO ()
 hs_bindgen_969f916bf9590709 =
   RIP.fromFFIType hs_bindgen_969f916bf9590709_base
@@ -49,7 +50,7 @@ hs_bindgen_969f916bf9590709 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 foo ::
-     RIP.Ptr MyArray
+     RIP.Ptr (IsA.Elem MyArray)
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_969f916bf9590709
@@ -61,7 +62,7 @@ foreign import ccall unsafe "hs_bindgen_fb89f30695d9a112" hs_bindgen_fb89f30695d
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooA@
 hs_bindgen_fb89f30695d9a112 ::
-     RIP.Ptr A
+     RIP.Ptr (IsA.Elem A)
   -> IO ()
 hs_bindgen_fb89f30695d9a112 =
   RIP.fromFFIType hs_bindgen_fb89f30695d9a112_base
@@ -73,7 +74,7 @@ hs_bindgen_fb89f30695d9a112 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooA ::
-     RIP.Ptr A
+     RIP.Ptr (IsA.Elem A)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_fb89f30695d9a112
@@ -85,7 +86,7 @@ foreign import ccall unsafe "hs_bindgen_6882cd6e82766148" hs_bindgen_6882cd6e827
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooB@
 hs_bindgen_6882cd6e82766148 ::
-     RIP.Ptr B
+     RIP.Ptr (IsA.Elem B)
   -> IO ()
 hs_bindgen_6882cd6e82766148 =
   RIP.fromFFIType hs_bindgen_6882cd6e82766148_base
@@ -97,7 +98,7 @@ hs_bindgen_6882cd6e82766148 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB ::
-     RIP.Ptr B
+     RIP.Ptr (IsA.Elem B)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_6882cd6e82766148
