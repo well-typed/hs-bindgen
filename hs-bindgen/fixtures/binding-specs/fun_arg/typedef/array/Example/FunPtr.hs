@@ -15,6 +15,7 @@ module Example.FunPtr
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified M
 import Example
 
@@ -23,7 +24,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_foo */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_2020929269c10652 (void)) ("
-  , "  signed int arg1[]"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &foo;"
@@ -31,7 +32,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooA */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_3fbd7681308a7575 (void)) ("
-  , "  A arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooA;"
@@ -39,7 +40,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooB */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_118f9a485493ca2d (void)) ("
-  , "  B arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooB;"
@@ -47,7 +48,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooC */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_dbe89d4787aae78a (void)) ("
-  , "  C arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooC;"
@@ -55,7 +56,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooD */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_cf5702eef5ab2ac4 (void)) ("
-  , "  D arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooD;"
@@ -63,7 +64,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooE */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_dc10cdc4b07670d1 (void)) ("
-  , "  E arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooE;"
@@ -75,7 +76,7 @@ foreign import ccall unsafe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 :: IO (RIP.FunPtr ((IA.IncompleteArray RIP.CInt) -> IO ()))
+hs_bindgen_2020929269c10652 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))) -> IO ()))
 hs_bindgen_2020929269c10652 =
   RIP.fromFFIType hs_bindgen_2020929269c10652_base
 
@@ -86,7 +87,7 @@ hs_bindgen_2020929269c10652 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-foo :: RIP.FunPtr ((IA.IncompleteArray RIP.CInt) -> IO ())
+foo :: RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CInt))) -> IO ())
 foo = RIP.unsafePerformIO hs_bindgen_2020929269c10652
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
@@ -94,7 +95,7 @@ foreign import ccall unsafe "hs_bindgen_3fbd7681308a7575" hs_bindgen_3fbd7681308
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
-hs_bindgen_3fbd7681308a7575 :: IO (RIP.FunPtr (A -> IO ()))
+hs_bindgen_3fbd7681308a7575 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem A)) -> IO ()))
 hs_bindgen_3fbd7681308a7575 =
   RIP.fromFFIType hs_bindgen_3fbd7681308a7575_base
 
@@ -105,7 +106,7 @@ hs_bindgen_3fbd7681308a7575 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooA :: RIP.FunPtr (A -> IO ())
+fooA :: RIP.FunPtr ((RIP.Ptr (IsA.Elem A)) -> IO ())
 fooA =
   RIP.unsafePerformIO hs_bindgen_3fbd7681308a7575
 
@@ -114,7 +115,7 @@ foreign import ccall unsafe "hs_bindgen_118f9a485493ca2d" hs_bindgen_118f9a48549
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
-hs_bindgen_118f9a485493ca2d :: IO (RIP.FunPtr (B -> IO ()))
+hs_bindgen_118f9a485493ca2d :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem B)) -> IO ()))
 hs_bindgen_118f9a485493ca2d =
   RIP.fromFFIType hs_bindgen_118f9a485493ca2d_base
 
@@ -125,7 +126,7 @@ hs_bindgen_118f9a485493ca2d =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooB :: RIP.FunPtr (B -> IO ())
+fooB :: RIP.FunPtr ((RIP.Ptr (IsA.Elem B)) -> IO ())
 fooB =
   RIP.unsafePerformIO hs_bindgen_118f9a485493ca2d
 
@@ -134,7 +135,7 @@ foreign import ccall unsafe "hs_bindgen_dbe89d4787aae78a" hs_bindgen_dbe89d4787a
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
-hs_bindgen_dbe89d4787aae78a :: IO (RIP.FunPtr (M.C -> IO ()))
+hs_bindgen_dbe89d4787aae78a :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem M.C)) -> IO ()))
 hs_bindgen_dbe89d4787aae78a =
   RIP.fromFFIType hs_bindgen_dbe89d4787aae78a_base
 
@@ -145,7 +146,7 @@ hs_bindgen_dbe89d4787aae78a =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooC :: RIP.FunPtr (M.C -> IO ())
+fooC :: RIP.FunPtr ((RIP.Ptr (IsA.Elem M.C)) -> IO ())
 fooC =
   RIP.unsafePerformIO hs_bindgen_dbe89d4787aae78a
 
@@ -154,7 +155,7 @@ foreign import ccall unsafe "hs_bindgen_cf5702eef5ab2ac4" hs_bindgen_cf5702eef5a
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
-hs_bindgen_cf5702eef5ab2ac4 :: IO (RIP.FunPtr (M.D -> IO ()))
+hs_bindgen_cf5702eef5ab2ac4 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem M.D)) -> IO ()))
 hs_bindgen_cf5702eef5ab2ac4 =
   RIP.fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
 
@@ -165,7 +166,7 @@ hs_bindgen_cf5702eef5ab2ac4 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooD :: RIP.FunPtr (M.D -> IO ())
+fooD :: RIP.FunPtr ((RIP.Ptr (IsA.Elem M.D)) -> IO ())
 fooD =
   RIP.unsafePerformIO hs_bindgen_cf5702eef5ab2ac4
 
@@ -174,7 +175,7 @@ foreign import ccall unsafe "hs_bindgen_dc10cdc4b07670d1" hs_bindgen_dc10cdc4b07
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
-hs_bindgen_dc10cdc4b07670d1 :: IO (RIP.FunPtr (E -> IO ()))
+hs_bindgen_dc10cdc4b07670d1 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem E)) -> IO ()))
 hs_bindgen_dc10cdc4b07670d1 =
   RIP.fromFFIType hs_bindgen_dc10cdc4b07670d1_base
 
@@ -185,6 +186,6 @@ hs_bindgen_dc10cdc4b07670d1 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
 -}
-fooE :: RIP.FunPtr (E -> IO ())
+fooE :: RIP.FunPtr ((RIP.Ptr (IsA.Elem E)) -> IO ())
 fooE =
   RIP.unsafePerformIO hs_bindgen_dc10cdc4b07670d1

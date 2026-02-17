@@ -40,6 +40,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
 
@@ -120,22 +121,22 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  return (foo12)(arg1);"
   , "}"
   , "char *hs_bindgen_325eccfd4464f38f ("
-  , "  char (*arg1)[]"
+  , "  char *arg1"
   , ")"
   , "{"
-  , "  return (foo13)(*arg1);"
+  , "  return (foo13)(arg1);"
   , "}"
   , "char *hs_bindgen_e6168413cff5674e ("
-  , "  char (*arg1)[]"
+  , "  char *arg1"
   , ")"
   , "{"
-  , "  return (foo14)(*arg1);"
+  , "  return (foo14)(arg1);"
   , "}"
   , "char *hs_bindgen_0ea84b195eb56e51 ("
-  , "  char (*arg1)[5]"
+  , "  char *arg1"
   , ")"
   , "{"
-  , "  return (foo15)(*arg1);"
+  , "  return (foo15)(arg1);"
   , "}"
   , "char *hs_bindgen_46c499f7b2f29dbb ("
   , "  signed int arg1"
@@ -521,7 +522,7 @@ foreign import ccall unsafe "hs_bindgen_325eccfd4464f38f" hs_bindgen_325eccfd446
 
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo13@
 hs_bindgen_325eccfd4464f38f ::
-     RIP.Ptr (IA.IncompleteArray RIP.CChar)
+     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))
   -> IO (RIP.Ptr RIP.CChar)
 hs_bindgen_325eccfd4464f38f =
   RIP.fromFFIType hs_bindgen_325eccfd4464f38f_base
@@ -533,7 +534,7 @@ hs_bindgen_325eccfd4464f38f =
     __exported by:__ @comprehensive\/smoke.h@
 -}
 foo13 ::
-     RIP.Ptr (IA.IncompleteArray RIP.CChar)
+     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))
   -> IO (RIP.Ptr RIP.CChar)
 foo13 = hs_bindgen_325eccfd4464f38f
 
@@ -544,7 +545,7 @@ foreign import ccall unsafe "hs_bindgen_e6168413cff5674e" hs_bindgen_e6168413cff
 
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo14@
 hs_bindgen_e6168413cff5674e ::
-     RIP.Ptr (IA.IncompleteArray RIP.CChar)
+     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))
   -> IO (RIP.Ptr RIP.CChar)
 hs_bindgen_e6168413cff5674e =
   RIP.fromFFIType hs_bindgen_e6168413cff5674e_base
@@ -556,7 +557,7 @@ hs_bindgen_e6168413cff5674e =
     __exported by:__ @comprehensive\/smoke.h@
 -}
 foo14 ::
-     RIP.Ptr (IA.IncompleteArray RIP.CChar)
+     RIP.Ptr (IsA.Elem (IA.IncompleteArray RIP.CChar))
      -- ^ __C declaration:__ @b@
   -> IO (RIP.Ptr RIP.CChar)
 foo14 = hs_bindgen_e6168413cff5674e
@@ -568,7 +569,7 @@ foreign import ccall unsafe "hs_bindgen_0ea84b195eb56e51" hs_bindgen_0ea84b195eb
 
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo15@
 hs_bindgen_0ea84b195eb56e51 ::
-     RIP.Ptr ((CA.ConstantArray 5) RIP.CChar)
+     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) RIP.CChar))
   -> IO (RIP.Ptr RIP.CChar)
 hs_bindgen_0ea84b195eb56e51 =
   RIP.fromFFIType hs_bindgen_0ea84b195eb56e51_base
@@ -580,7 +581,7 @@ hs_bindgen_0ea84b195eb56e51 =
     __exported by:__ @comprehensive\/smoke.h@
 -}
 foo15 ::
-     RIP.Ptr ((CA.ConstantArray 5) RIP.CChar)
+     RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) RIP.CChar))
      -- ^ __C declaration:__ @b@
   -> IO (RIP.Ptr RIP.CChar)
 foo15 = hs_bindgen_0ea84b195eb56e51

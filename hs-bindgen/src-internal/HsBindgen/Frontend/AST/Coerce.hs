@@ -3,6 +3,7 @@ module HsBindgen.Frontend.AST.Coerce (
   , CoercePassId(..)
   , CoercePassMacroId(..)
   , CoercePassMacroBody(..)
+  , CoercePassAnn(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -44,6 +45,14 @@ class CoercePassMacroId (p :: Pass) (p' :: Pass) where
        (MacroId p ~ MacroId p')
     => Proxy '(p, p') -> MacroId p -> MacroId p'
   coercePassMacroId _ = id
+
+class CoercePassAnn ix p p' where
+  coercePassAnn :: Proxy '(ix, p, p') -> Ann ix p -> Ann ix p'
+
+  default coercePassAnn ::
+       (Ann ix p ~ Ann ix p')
+    => Proxy '(ix, p, p') -> Ann ix p -> Ann ix p'
+  coercePassAnn _ = id
 
 {-------------------------------------------------------------------------------
   Coercing between passes
@@ -255,7 +264,7 @@ instance (
     , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
-    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
+    , CoercePassAnn "TypeFunArg" p p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass C.Function p p' where
   coercePass function = C.Function{
@@ -270,7 +279,7 @@ instance (
     , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
-    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
+    , CoercePassAnn "TypeFunArg" p p'
     ) => CoercePass C.FunctionArg p p' where
   coercePass functionArg = C.FunctionArg{
         name = functionArg.name
@@ -282,7 +291,7 @@ instance (
     , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
-    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
+    , CoercePassAnn "TypeFunArg" p p'
     ) => CoercePass C.Type p p' where
   coercePass = \case
       C.TypePrim prim           -> C.TypePrim prim
@@ -311,9 +320,9 @@ instance (
     , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
-    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
+    , CoercePassAnn "TypeFunArg" p p'
     ) => CoercePass C.TypeFunArg p p' where
   coercePass arg = C.TypeFunArgF {
         typ = coercePass arg.typ
-      , ann = arg.ann
+      , ann = coercePassAnn (Proxy @'("TypeFunArg", p, p')) arg.ann
       }

@@ -127,6 +127,7 @@ data BindgenGlobalType =
   | ConstantArray_type
   | IncompleteArray_type
   | IsArray_class
+  | IsArray_Elem
 
     -- EquivStorable
   | EquivStorable_type
@@ -338,6 +339,7 @@ bindgenGlobalType = globalType . \case
     ConstantArray_type     -> (IRuntimeModule "CA",     ''CA.ConstantArray)
     IncompleteArray_type   -> (IRuntimeModule "IA",     ''IA.IncompleteArray)
     IsArray_class          -> (IRuntimeModule "IsA",    ''IsA.IsArray)
+    IsArray_Elem           -> (IRuntimeModule "IsA",    ''IsA.Elem)
 
     -- EquivStorable
     EquivStorable_type -> (IRuntimeModule "Marshal", ''Marshal.EquivStorable)

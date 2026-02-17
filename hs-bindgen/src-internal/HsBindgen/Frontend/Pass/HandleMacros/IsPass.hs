@@ -150,3 +150,5 @@ instance CoercePassId p p' => CoercePass CheckedMacroExpr p p' where
 instance CoercePassId ConstructTranslationUnit HandleMacros
 instance CoercePassMacroId ConstructTranslationUnit HandleMacros where
   coercePassMacroId _ = absurd
+
+instance CoercePassAnn "TypeFunArg" ConstructTranslationUnit HandleMacros

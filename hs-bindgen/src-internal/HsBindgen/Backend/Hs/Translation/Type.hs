@@ -6,7 +6,7 @@
 module HsBindgen.Backend.Hs.Translation.Type (
     topLevel
   , TypeContext(..)
-  , inContext
+  , InContext(..)
   ) where
 
 import GHC.Stack
@@ -15,6 +15,7 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustedFrom (..))
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Language.C qualified as C
@@ -82,7 +83,14 @@ instance InContext (C.Type Final) where
           Hs.HsComplexType (primType p)
 
 instance InContext (C.TypeFunArg Final) where
-  inContext ctx arg = inContext ctx arg.typ
+  inContext ctx arg = case arg.ann of
+      AdjustedFromArray origTy
+          | C.isErasedTypeConstQualified origTy
+          -> Hs.HsPtrConstArrayElem (inContext Top origTy)
+          | otherwise
+          -> Hs.HsPtrArrayElem (inContext Top origTy)
+      AdjustedFromFunction _origTy -> inContext ctx arg.typ
+      NotAdjusted -> inContext ctx arg.typ
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

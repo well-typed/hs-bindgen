@@ -122,6 +122,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
@@ -576,7 +577,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_Example_get_arr_args1 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_b38b526cf0817bf0 (void)) ("
-  , "  A arg1[]"
+  , "  A *arg1"
   , ")"
   , "{"
   , "  return &arr_args1;"
@@ -584,7 +585,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_Example_get_arr_args2 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_2c0bca39b42ecbec (void)) ("
-  , "  A *arg1[]"
+  , "  A **arg1"
   , ")"
   , "{"
   , "  return &arr_args2;"
@@ -592,7 +593,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_Example_get_arr_args3 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_82a8c15919ae3f33 (void)) ("
-  , "  A arg1[5]"
+  , "  A *arg1"
   , ")"
   , "{"
   , "  return &arr_args3;"
@@ -600,7 +601,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_Example_get_arr_args4 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_db074918e0d38cb5 (void)) ("
-  , "  A *arg1[5]"
+  , "  A **arg1"
   , ")"
   , "{"
   , "  return &arr_args4;"
@@ -952,7 +953,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_Example_get_const_array_elem1 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_ae95c15a81eacd52 (void)) ("
-  , "  A const arg1[]"
+  , "  A const *arg1"
   , ")"
   , "{"
   , "  return &const_array_elem1;"
@@ -960,7 +961,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_Example_get_const_array_elem2 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_9dbbae3758752935 (void)) ("
-  , "  A const *arg1[]"
+  , "  A const **arg1"
   , ")"
   , "{"
   , "  return &const_array_elem2;"
@@ -968,7 +969,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_macrosreparse_Example_get_const_array_elem3 */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_9fdb904f0c0776ed (void)) ("
-  , "  A *const arg1[]"
+  , "  A *const *arg1"
   , ")"
   , "{"
   , "  return &const_array_elem3;"
@@ -2166,7 +2167,7 @@ foreign import ccall unsafe "hs_bindgen_b38b526cf0817bf0" hs_bindgen_b38b526cf08
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args1@
-hs_bindgen_b38b526cf0817bf0 :: IO (RIP.FunPtr ((IA.IncompleteArray A) -> IO ()))
+hs_bindgen_b38b526cf0817bf0 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray A))) -> IO ()))
 hs_bindgen_b38b526cf0817bf0 =
   RIP.fromFFIType hs_bindgen_b38b526cf0817bf0_base
 
@@ -2179,7 +2180,7 @@ __defined at:__ @macros\/reparse.h 104:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-arr_args1 :: RIP.FunPtr ((IA.IncompleteArray A) -> IO ())
+arr_args1 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray A))) -> IO ())
 arr_args1 =
   RIP.unsafePerformIO hs_bindgen_b38b526cf0817bf0
 
@@ -2188,7 +2189,7 @@ foreign import ccall unsafe "hs_bindgen_2c0bca39b42ecbec" hs_bindgen_2c0bca39b42
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args2@
-hs_bindgen_2c0bca39b42ecbec :: IO (RIP.FunPtr ((IA.IncompleteArray (RIP.Ptr A)) -> IO ()))
+hs_bindgen_2c0bca39b42ecbec :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))) -> IO ()))
 hs_bindgen_2c0bca39b42ecbec =
   RIP.fromFFIType hs_bindgen_2c0bca39b42ecbec_base
 
@@ -2199,7 +2200,7 @@ hs_bindgen_2c0bca39b42ecbec =
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args2 :: RIP.FunPtr ((IA.IncompleteArray (RIP.Ptr A)) -> IO ())
+arr_args2 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))) -> IO ())
 arr_args2 =
   RIP.unsafePerformIO hs_bindgen_2c0bca39b42ecbec
 
@@ -2208,7 +2209,7 @@ foreign import ccall unsafe "hs_bindgen_82a8c15919ae3f33" hs_bindgen_82a8c15919a
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args3@
-hs_bindgen_82a8c15919ae3f33 :: IO (RIP.FunPtr (((CA.ConstantArray 5) A) -> IO ()))
+hs_bindgen_82a8c15919ae3f33 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) A))) -> IO ()))
 hs_bindgen_82a8c15919ae3f33 =
   RIP.fromFFIType hs_bindgen_82a8c15919ae3f33_base
 
@@ -2219,7 +2220,7 @@ hs_bindgen_82a8c15919ae3f33 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args3 :: RIP.FunPtr (((CA.ConstantArray 5) A) -> IO ())
+arr_args3 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) A))) -> IO ())
 arr_args3 =
   RIP.unsafePerformIO hs_bindgen_82a8c15919ae3f33
 
@@ -2228,7 +2229,7 @@ foreign import ccall unsafe "hs_bindgen_db074918e0d38cb5" hs_bindgen_db074918e0d
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_Example_get_arr_args4@
-hs_bindgen_db074918e0d38cb5 :: IO (RIP.FunPtr (((CA.ConstantArray 5) (RIP.Ptr A)) -> IO ()))
+hs_bindgen_db074918e0d38cb5 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) (RIP.Ptr A)))) -> IO ()))
 hs_bindgen_db074918e0d38cb5 =
   RIP.fromFFIType hs_bindgen_db074918e0d38cb5_base
 
@@ -2239,7 +2240,7 @@ hs_bindgen_db074918e0d38cb5 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args4 :: RIP.FunPtr (((CA.ConstantArray 5) (RIP.Ptr A)) -> IO ())
+arr_args4 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 5) (RIP.Ptr A)))) -> IO ())
 arr_args4 =
   RIP.unsafePerformIO hs_bindgen_db074918e0d38cb5
 
@@ -3018,7 +3019,7 @@ foreign import ccall unsafe "hs_bindgen_ae95c15a81eacd52" hs_bindgen_ae95c15a81e
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem1@
-hs_bindgen_ae95c15a81eacd52 :: IO (RIP.FunPtr ((IA.IncompleteArray A) -> IO ()))
+hs_bindgen_ae95c15a81eacd52 :: IO (RIP.FunPtr ((PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray A))) -> IO ()))
 hs_bindgen_ae95c15a81eacd52 =
   RIP.fromFFIType hs_bindgen_ae95c15a81eacd52_base
 
@@ -3029,7 +3030,7 @@ hs_bindgen_ae95c15a81eacd52 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1 :: RIP.FunPtr ((IA.IncompleteArray A) -> IO ())
+const_array_elem1 :: RIP.FunPtr ((PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray A))) -> IO ())
 const_array_elem1 =
   RIP.unsafePerformIO hs_bindgen_ae95c15a81eacd52
 
@@ -3038,7 +3039,7 @@ foreign import ccall unsafe "hs_bindgen_9dbbae3758752935" hs_bindgen_9dbbae37587
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem2@
-hs_bindgen_9dbbae3758752935 :: IO (RIP.FunPtr ((IA.IncompleteArray (PtrConst.PtrConst A)) -> IO ()))
+hs_bindgen_9dbbae3758752935 :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray (PtrConst.PtrConst A)))) -> IO ()))
 hs_bindgen_9dbbae3758752935 =
   RIP.fromFFIType hs_bindgen_9dbbae3758752935_base
 
@@ -3049,7 +3050,7 @@ hs_bindgen_9dbbae3758752935 =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem2 :: RIP.FunPtr ((IA.IncompleteArray (PtrConst.PtrConst A)) -> IO ())
+const_array_elem2 :: RIP.FunPtr ((RIP.Ptr (IsA.Elem (IA.IncompleteArray (PtrConst.PtrConst A)))) -> IO ())
 const_array_elem2 =
   RIP.unsafePerformIO hs_bindgen_9dbbae3758752935
 
@@ -3058,7 +3059,7 @@ foreign import ccall unsafe "hs_bindgen_9fdb904f0c0776ed" hs_bindgen_9fdb904f0c0
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem3@
-hs_bindgen_9fdb904f0c0776ed :: IO (RIP.FunPtr ((IA.IncompleteArray (RIP.Ptr A)) -> IO ()))
+hs_bindgen_9fdb904f0c0776ed :: IO (RIP.FunPtr ((PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))) -> IO ()))
 hs_bindgen_9fdb904f0c0776ed =
   RIP.fromFFIType hs_bindgen_9fdb904f0c0776ed_base
 
@@ -3069,7 +3070,7 @@ hs_bindgen_9fdb904f0c0776ed =
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3 :: RIP.FunPtr ((IA.IncompleteArray (RIP.Ptr A)) -> IO ())
+const_array_elem3 :: RIP.FunPtr ((PtrConst.PtrConst (IsA.Elem (IA.IncompleteArray (RIP.Ptr A)))) -> IO ())
 const_array_elem3 =
   RIP.unsafePerformIO hs_bindgen_9fdb904f0c0776ed
 

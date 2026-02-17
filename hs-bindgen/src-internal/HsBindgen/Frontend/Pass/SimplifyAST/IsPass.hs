@@ -6,8 +6,8 @@ module HsBindgen.Frontend.Pass.SimplifyAST.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.AST.Coerce (CoercePassId, CoercePassMacroBody,
-                                      CoercePassMacroId)
+import HsBindgen.Frontend.AST.Coerce (CoercePassAnn, CoercePassId,
+                                      CoercePassMacroBody, CoercePassMacroId)
 import HsBindgen.Frontend.LocationInfo (prelimDeclIdLocationInfo)
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -45,6 +45,7 @@ instance IsPass SimplifyAST where
 instance CoercePassId Parse SimplifyAST where
 instance CoercePassMacroBody Parse SimplifyAST where
 instance CoercePassMacroId Parse SimplifyAST where
+instance CoercePassAnn "TypeFunArg" Parse SimplifyAST
 
 {-------------------------------------------------------------------------------
   Trace messages
