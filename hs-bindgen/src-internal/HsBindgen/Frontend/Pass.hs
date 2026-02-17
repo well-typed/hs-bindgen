@@ -53,6 +53,7 @@ class (
       , Show (Ann "Typedef"          p)
       , Show (Ann "Union"            p)
       , Show (Ann "UnionField"       p)
+      , Show (Ann "TypeFunArg"       p)
 
         -- 'Ord' constraints for identifiers (which we often store in maps)
 
@@ -60,9 +61,11 @@ class (
       , Ord (ScopedName p)
       , Ord (MacroId    p)
 
-        -- 'Ord' constraint' on 'ExtBinding' is necessary for de-dupping types.
+        -- 'Ord' constraint' on 'ExtBinding' and @'Ann' "TypeFunArg"@ is
+        -- necessary for de-dupping types.
 
       , Ord (ExtBinding p)
+      , Ord (Ann "TypeFunArg"       p)
 
         -- 'Eq'
         --
@@ -84,6 +87,7 @@ class (
       , Eq (Ann "Typedef"          p)
       , Eq (Ann "Union"            p)
       , Eq (Ann "UnionField"       p)
+      , Eq (Ann "TypeFunArg"       p)
 
       ) => IsPass (p :: Pass) where
   -- | Declaration identifier

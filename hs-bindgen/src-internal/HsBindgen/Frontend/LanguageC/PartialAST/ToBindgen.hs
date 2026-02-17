@@ -11,6 +11,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
+import HsBindgen.Frontend.Pass (NoAnn (..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 
@@ -54,7 +55,12 @@ fromPartialType = \case
 fromKnownType :: KnownType -> C.Type HandleMacros
 fromKnownType = \case
     KnownType   typ        -> typ
-    TopLevelFun params res -> C.TypeFun (map snd params) res
+    TopLevelFun params res -> C.TypeFun (map (mkTypeFunArg . snd) params) res
+  where
+    mkTypeFunArg typ = C.TypeFunArgF {
+          typ = typ
+        , ann = NoAnn
+        }
 
 fromTopLevelFun ::
      KnownType
