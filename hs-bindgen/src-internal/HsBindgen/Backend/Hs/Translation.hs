@@ -100,8 +100,8 @@ generateDeclarations' uniqueId fns haddockConfig moduleName declIndex sizeofs de
           fFIStubsAndFunPtrInstances =
                    [ WithCategory CType d
                    | C.TypePointers _ (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
-                   , not (any C.hasUnsupportedType (res:args))
-                   , any (isDefinedInCurrentModule declIndex) (res:args)
+                   , not (any C.hasUnsupportedType (res: fmap (.typ) args))
+                   , any (isDefinedInCurrentModule declIndex) (res: fmap (.typ) args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
                    ]
       hsDecls <- concat <$> mapM (generateDecs uniqueId fns haddockConfig moduleName sizeofs) decs
@@ -123,7 +123,7 @@ scanAllFunctionPointerTypes = foldMap $ \decl ->
       C.DeclUnion union   ->
         foldMap (scanTypeForFunctionPointers . (.typ)) union.fields
       C.DeclFunction fn ->
-        foldMap scanTypeForFunctionPointers (fn.res : map (.typ) fn.args)
+        foldMap scanTypeForFunctionPointers (fn.res : map (.argTyp.typ) fn.args)
       _ ->
         Set.empty
   where
@@ -133,7 +133,7 @@ scanAllFunctionPointerTypes = foldMap $ \decl ->
       -- Use TypePointers pattern to safely match N levels of indirection
       fp@(C.TypePointers _n (C.TypeFun args res)) ->
            Set.singleton fp
-        <> foldMap scanTypeForFunctionPointers (res : args)
+        <> foldMap scanTypeForFunctionPointers (res : fmap (.typ) args)
       C.TypePointers _ t        -> scanTypeForFunctionPointers t
       C.TypeIncompleteArray  t  -> scanTypeForFunctionPointers t
       C.TypeConstArray _ t      -> scanTypeForFunctionPointers t
@@ -193,7 +193,7 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
-            funType = C.TypeFun (map (.typ) function.args) function.res
+            funType = C.TypeFun (map (.argTyp) function.args) function.res
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
@@ -760,7 +760,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
         -- See comment in 'newtypeWrapper` below
         mFunPtr :: Maybe ()
         mFunPtr = case typedef.typ of
-          C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
+          C.TypeFun args res | not (any C.hasUnsupportedType (res: fmap (.typ) args)) ->
             Just ()
           _otherwise -> Nothing
 
@@ -804,7 +804,7 @@ typedefDecs supInsts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = d
             -- If we see all the way through the typedef this case will not be
             -- handled correctly.
             --
-            C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
+            C.TypeFun args res | not (any C.hasUnsupportedType (res:fmap (.typ) args)) ->
               ToFromFunPtr.forNewtype sizeofs nt (args, res)
             _ -> []
 
@@ -882,8 +882,8 @@ typedefFunPtrDecs ::
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
-  -> Int                             -- ^ Number of indirections
-  -> ([C.Type Final], C.Type Final)  -- ^ Function arguments and result
+  -> Int                                  -- ^ Number of indirections
+  -> ([C.TypeFunArg Final], C.Type Final) -- ^ Function arguments and result
   -> MangleNames.NewtypeNames
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]

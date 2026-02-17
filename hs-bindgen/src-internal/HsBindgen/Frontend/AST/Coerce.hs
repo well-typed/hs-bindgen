@@ -251,8 +251,11 @@ instance (
       }
 
 instance (
-      CoercePass C.Type p p'
+      CoercePassId p p'
+    , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass C.Function p p' where
   coercePass function = C.Function{
@@ -263,12 +266,15 @@ instance (
       }
 
 instance (
-      CoercePass C.Type p p'
+      CoercePassId p p'
+    , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
     ) => CoercePass C.FunctionArg p p' where
   coercePass functionArg = C.FunctionArg{
         name = functionArg.name
-      , typ = coercePass functionArg.typ
+      , argTyp = coercePass functionArg.argTyp
       }
 
 instance (
@@ -276,6 +282,7 @@ instance (
     , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
+    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
     ) => CoercePass C.Type p p' where
   coercePass = \case
       C.TypePrim prim           -> C.TypePrim prim
@@ -298,3 +305,15 @@ instance (
 
       goMacroId :: MacroId p -> MacroId p'
       goMacroId = coercePassMacroId (Proxy @'(p, p'))
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    , Ann "TypeFunArg" p ~ Ann "TypeFunArg" p'
+    ) => CoercePass C.TypeFunArg p p' where
+  coercePass arg = C.TypeFunArgF {
+        typ = coercePass arg.typ
+      , ann = arg.ann
+      }

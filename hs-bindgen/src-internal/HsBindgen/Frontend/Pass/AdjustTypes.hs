@@ -8,7 +8,7 @@ import Control.Monad.State (MonadState, State, StateT (StateT), modify',
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Pass (IsPass (MacroBody, Msg))
+import HsBindgen.Frontend.Pass (IsPass (MacroBody, Msg), NoAnn (NoAnn))
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (CheckedMacro (MacroExpr, MacroType),
                                                     CheckedMacroExpr,
@@ -230,10 +230,10 @@ processFunctionArg ::
      C.FunctionArg Select
   -> M (C.FunctionArg AdjustTypes)
 processFunctionArg functionArg = do
-    typ' <- processTypeFunArg functionArg.typ
+    argTyp' <- processTypeFunArg functionArg.argTyp
     pure C.FunctionArg {
         name = functionArg.name
-      , typ = typ'
+      , argTyp = argTyp'
       }
 
 processGlobal ::
@@ -288,10 +288,14 @@ processType = \case
           , underlying = underlying'
           }
 
-processTypeFunArg :: C.Type Select -> M (C.Type AdjustTypes)
+processTypeFunArg :: C.TypeFunArg Select -> M (C.TypeFunArg AdjustTypes)
 processTypeFunArg arg = do
-    typ' <- processType arg
-    adjustFunArg typ'
+    typ' <- processType arg.typ
+    typ'' <- adjustFunArg typ'
+    pure C.TypeFunArgF {
+        typ = typ''
+      , ann = NoAnn
+      }
 
 -- | This is where the actual adjustments take place.
 --

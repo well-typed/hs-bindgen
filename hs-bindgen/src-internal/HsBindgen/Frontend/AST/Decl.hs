@@ -227,8 +227,8 @@ data Function p = Function {
   deriving stock (Generic)
 
 data FunctionArg p = FunctionArg {
-      name :: Maybe (ScopedName p)
-    , typ  :: C.Type p
+      name   :: Maybe (ScopedName p)
+    , argTyp :: C.TypeFunArg p
     }
     deriving stock (Generic)
 

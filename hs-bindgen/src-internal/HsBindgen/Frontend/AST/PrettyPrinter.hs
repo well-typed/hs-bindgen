@@ -160,8 +160,8 @@ showsType x (C.TypeFun args res)      =
     -- declarations.
     showsFunctionType (showParen True (x 0)) C.ImpureFunction (zipWith named [1..] args) res
   where
-    named :: Int -> C.Type p -> (ShowS, C.Type p)
-    named i t = (showString "arg" . shows i, t)
+    named :: Int -> C.TypeFunArg p -> (ShowS, C.Type p)
+    named i arg = (showString "arg" . shows i, arg.typ)
 showsType x C.TypeVoid                 = showString "void " . x 0
 showsType x (C.TypeExtBinding ref)     = showsId (Proxy @p) (extBindingId (Proxy @p) ref.name) . showChar ' ' . x 0
 showsType x (C.TypeBlock t)            = showsType (\_d -> showString "^" . x 0) t

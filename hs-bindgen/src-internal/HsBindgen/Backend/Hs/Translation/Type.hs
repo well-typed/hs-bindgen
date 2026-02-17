@@ -33,50 +33,56 @@ data TypeContext =
 topLevel :: HasCallStack => C.Type Final -> Hs.HsType
 topLevel = inContext Top
 
-inContext :: HasCallStack => TypeContext -> C.Type Final -> Hs.HsType
-inContext ctx = go ctx
-  where
-    go :: TypeContext -> C.Type Final -> Hs.HsType
-    go c (C.TypeMacro ref) =
-        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
-    go c (C.TypeTypedef ref) =
-        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
-    go _ (C.TypeRef ref) =
-        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.unsafeHsName) Nothing
-    go c (C.TypeEnum ref) =
-        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
-    go c C.TypeVoid =
-        Hs.HsPrimType (void c)
-    go _ (C.TypePrim p) =
-        Hs.HsPrimType (primType p)
-    go _ (C.TypePointers n t)
-      -- Use a 'FunPtr' if the type is a function type. We inspect the
-      -- /canonical/ type because we want to see through typedefs and type
-      -- qualifiers like @const@.
-      | C.isCanonicalTypeFunction t
-      = foldr ($) (Hs.HsFunPtr (go PtrArg t))
-                  (replicate (n - 1) Hs.HsPtr)
-      | C.isErasedTypeConstQualified t
-      = foldr ($) (Hs.HsPtrConst (go PtrArg t))
-                  (replicate (n - 1) Hs.HsPtr)
-      | otherwise
-      = foldr ($) (go PtrArg t)
-                  (replicate n Hs.HsPtr)
-    go _ (C.TypeConstArray n ty) =
-        Hs.HsConstArray n $ go Top ty
-    go _ (C.TypeIncompleteArray ty) =
-        Hs.HsIncompleteArray $ go Top ty
-    go _ (C.TypeFun xs y) =
-        foldr (\x res -> Hs.HsFun (go FunArg x) res) (Hs.HsIO (go FunRes y)) xs
-    go _ (C.TypeBlock ty) =
-        Hs.HsBlock $ go Top ty
-    go c (C.TypeExtBinding ref) =
-        let ext = ref.name in
-        Hs.HsExtBinding ext.hsName ext.cSpec ext.hsSpec $ go c ref.underlying
-    go c (C.TypeQual C.QualConst ty) =
-        go c ty
-    go _ (C.TypeComplex p) =
-        Hs.HsComplexType (primType p)
+class InContext a where
+  inContext :: HasCallStack => TypeContext -> a -> Hs.HsType
+
+instance InContext (C.Type Final) where
+  inContext ctx = go ctx
+    where
+      go :: TypeContext -> C.Type Final -> Hs.HsType
+      go c (C.TypeMacro ref) =
+          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
+      go c (C.TypeTypedef ref) =
+          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
+      go _ (C.TypeRef ref) =
+          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.unsafeHsName) Nothing
+      go c (C.TypeEnum ref) =
+          Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName) (Just $ go c ref.underlying)
+      go c C.TypeVoid =
+          Hs.HsPrimType (void c)
+      go _ (C.TypePrim p) =
+          Hs.HsPrimType (primType p)
+      go _ (C.TypePointers n t)
+        -- Use a 'FunPtr' if the type is a function type. We inspect the
+        -- /canonical/ type because we want to see through typedefs and type
+        -- qualifiers like @const@.
+        | C.isCanonicalTypeFunction t
+        = foldr ($) (Hs.HsFunPtr (go PtrArg t))
+                    (replicate (n - 1) Hs.HsPtr)
+        | C.isErasedTypeConstQualified t
+        = foldr ($) (Hs.HsPtrConst (go PtrArg t))
+                    (replicate (n - 1) Hs.HsPtr)
+        | otherwise
+        = foldr ($) (go PtrArg t)
+                    (replicate n Hs.HsPtr)
+      go _ (C.TypeConstArray n ty) =
+          Hs.HsConstArray n $ go Top ty
+      go _ (C.TypeIncompleteArray ty) =
+          Hs.HsIncompleteArray $ go Top ty
+      go _ (C.TypeFun xs y) =
+          foldr (\x res -> Hs.HsFun (inContext FunArg x) res) (Hs.HsIO (go FunRes y)) xs
+      go _ (C.TypeBlock ty) =
+          Hs.HsBlock $ go Top ty
+      go c (C.TypeExtBinding ref) =
+          let ext = ref.name in
+          Hs.HsExtBinding ext.hsName ext.cSpec ext.hsSpec $ go c ref.underlying
+      go c (C.TypeQual C.QualConst ty) =
+          go c ty
+      go _ (C.TypeComplex p) =
+          Hs.HsComplexType (primType p)
+
+instance InContext (C.TypeFunArg Final) where
+  inContext ctx arg = inContext ctx arg.typ
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

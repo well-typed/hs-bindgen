@@ -293,15 +293,15 @@ instance UpdateUseSites C.FunctionArg where
   updateUseSites functionArg =
       reconstruct
         <$> pure functionArg.name
-        <*> updateUseSites functionArg.typ
+        <*> updateUseSites functionArg.argTyp
     where
       reconstruct ::
            Maybe C.ScopedName
-        -> C.Type AssignAnonIds
+        -> C.TypeFunArg AssignAnonIds
         -> C.FunctionArg AssignAnonIds
       reconstruct name' typ' = C.FunctionArg {
             name = name'
-          , typ = typ'
+          , argTyp = typ'
           }
 
 instance UpdateUseSites C.Type where
@@ -326,12 +326,20 @@ instance UpdateUseSites C.Type where
           C.TypeIncompleteArray ty -> C.TypeIncompleteArray <$> go ty
           C.TypeBlock           ty -> C.TypeBlock <$> go ty
           C.TypeQual qual       ty -> C.TypeQual qual <$> go ty
-          C.TypeFun args res       -> C.TypeFun <$> mapM go args <*> go res
+          C.TypeFun args res       -> C.TypeFun <$> mapM updateUseSites args <*> go res
 
           -- SimpleCases
           C.TypeVoid           -> return $ C.TypeVoid
           C.TypePrim    pt     -> return $ C.TypePrim    pt
           C.TypeComplex pt     -> return $ C.TypeComplex pt
+
+instance UpdateUseSites C.TypeFunArg where
+  updateUseSites arg = do
+      typ' <- updateUseSites arg.typ
+      pure C.TypeFunArgF {
+          typ = typ'
+        , ann = arg.ann
+        }
 
 updateDeclId :: PrelimDeclId -> M DeclId
 updateDeclId prelimDeclId = WrapM $ do
