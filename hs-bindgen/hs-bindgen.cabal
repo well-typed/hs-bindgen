@@ -158,6 +158,8 @@ library internal
     HsBindgen.Frontend.LocationInfo
     HsBindgen.Frontend.Naming
     HsBindgen.Frontend.Pass
+    HsBindgen.Frontend.Pass.AdjustTypes
+    HsBindgen.Frontend.Pass.AdjustTypes.IsPass
     HsBindgen.Frontend.Pass.AssignAnonIds
     HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
     HsBindgen.Frontend.Pass.AssignAnonIds.IsPass

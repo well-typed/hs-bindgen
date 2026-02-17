@@ -180,7 +180,7 @@ typeTypedef decl = do
         _otherwise              -> panicPure "Invalid underlying type"
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
-function hasProto ty = do
+function hasProto = \ty -> do
     isVariadic <-
       -- Functions without a prototype (that is, without declared arguments)
       -- are technically speaking considered variadic. However, we reinterpret
@@ -195,8 +195,7 @@ function hasProto ty = do
       nargs <- clang_getNumArgTypes ty
       args  <- forM [0 .. nargs - 1] $ \i ->
                  clang_getArgType ty (fromIntegral i) >>= cxtype
-      pure $ C.TypeFun (map adjustFunctionTypesToPointers args)
-                       (adjustFunctionTypesToPointers res)
+      pure $ C.TypeFun args res
 
 constantArray :: CXType -> ParseType (C.Type Parse)
 constantArray ty = do
@@ -225,52 +224,4 @@ addUnderlyingTypeContextHandler :: PrelimDeclId -> SomeException -> ParseType a
 addUnderlyingTypeContextHandler n e
   | Just e' <- (fromException @ParseTypeException e)
   = throwM (UnsupportedUnderlyingType n e')
-  | otherwise
-  = throwM e
-
-{-------------------------------------------------------------------------------
-  Implicit function to pointer conversion
--------------------------------------------------------------------------------}
-
--- | Recursively convert each function type to a pointer-to-function type.
---
--- See the "Functions" section of the manual.
-adjustFunctionTypesToPointers :: C.Type Parse -> C.Type Parse
-adjustFunctionTypesToPointers = go False
-  where
-    go :: Bool -> C.Type Parse -> C.Type Parse
-    go ctx = \case
-        -- Trivial cases
-        C.TypePrim pt       -> C.TypePrim pt
-        C.TypeRef n         -> C.TypeRef n
-        C.TypeEnum ref      -> C.TypeEnum $ C.Ref {
-            name = ref.name
-          , underlying = go ctx ref.underlying
-          }
-        C.TypeVoid          -> C.TypeVoid
-        C.TypeComplex pt    -> C.TypeComplex pt
-
-        -- Interesting cases
-        C.TypeTypedef (C.Ref n uTy) ->
-          if C.isCanonicalTypeFunction uTy && not ctx then
-            C.TypePointers 1 $ C.TypeTypedef (C.Ref n (go True uTy))
-          else
-            C.TypeTypedef (C.Ref n (go True uTy))
-        C.TypeFun args res ->
-          let args' = map (go False) args
-              res'  = go False res
-          in if ctx then
-               C.TypeFun args' res'
-             else
-               C.TypePointers 1 (C.TypeFun args' res')
-
-        -- Recurse underneath pointers
-        --
-        -- NOTE: Blocks are pointers to data, not function pointers.
-        C.TypePointers n t -> C.TypePointers n $ go True t
-        C.TypeBlock      t -> C.TypeBlock      $ go True t
-
-        -- Other recursion
-        C.TypeConstArray n    t -> C.TypeConstArray n    $ go ctx t
-        C.TypeIncompleteArray t -> C.TypeIncompleteArray $ go ctx t
-        C.TypeQual qual       t -> C.TypeQual qual       $ go ctx t
+  | otherwise  = throwM e

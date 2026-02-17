@@ -6,7 +6,6 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
-import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
@@ -23,13 +22,13 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  foo(arg1);"
   , "}"
   , "void hs_bindgen_e13a57fd1d27f6e6 ("
-  , "  A arg1"
+  , "  A *arg1"
   , ")"
   , "{"
   , "  fooA(arg1);"
   , "}"
   , "void hs_bindgen_fd490df5087893ae ("
-  , "  B arg1"
+  , "  B *arg1"
   , ")"
   , "{"
   , "  fooB(arg1);"
@@ -82,12 +81,12 @@ foo = hs_bindgen_40e15e86e5db36ce
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_e13a57fd1d27f6e6" hs_bindgen_e13a57fd1d27f6e6_base ::
-     (GHC.Int.Int32 -> IO GHC.Int.Int32)
+     Ptr.FunPtr Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
 hs_bindgen_e13a57fd1d27f6e6 ::
-     A
+     Ptr.FunPtr A
   -> IO ()
 hs_bindgen_e13a57fd1d27f6e6 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e13a57fd1d27f6e6_base
@@ -99,19 +98,19 @@ hs_bindgen_e13a57fd1d27f6e6 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 fooA ::
-     A
+     Ptr.FunPtr A
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_e13a57fd1d27f6e6
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_fd490df5087893ae" hs_bindgen_fd490df5087893ae_base ::
-     (GHC.Int.Int32 -> IO GHC.Int.Int32)
+     Ptr.FunPtr Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
 hs_bindgen_fd490df5087893ae ::
-     B
+     Ptr.FunPtr B
   -> IO ()
 hs_bindgen_fd490df5087893ae =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fd490df5087893ae_base
@@ -123,7 +122,7 @@ hs_bindgen_fd490df5087893ae =
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 fooB ::
-     B
+     Ptr.FunPtr B
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_fd490df5087893ae

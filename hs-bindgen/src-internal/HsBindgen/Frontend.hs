@@ -24,6 +24,8 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.AdjustTypes (adjustTypes)
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.AssignAnonIds
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
@@ -147,6 +149,18 @@ import HsBindgen.Util.Tracer
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing.  It also emits delayed trace messages for declarations
 -- that are selected.
+--
+-- == 8. "HsBindgen.Frontend.Pass.AdjustTypes"
+--
+-- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
+-- example, if a function argument is a function type, then it is adjusted to a
+-- function *pointer* type.
+--
+-- Constraints:
+--
+-- * Must be after "HsBindgen.Frontend.Pass.HandleMacros", because
+--   "HsBindgen.Frontend.Pass.HandleMacros" parses and inserts macro-defined
+--   types that may have to be adjusted.
 runFrontend ::
      Tracer FrontendMsg
   -> FrontendConfig
@@ -244,10 +258,20 @@ runFrontend tracer config boot = do
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
+    adjustTypesPass <- cache "AdjustTypes" $ do
+      afterSelectPass <- selectPass
+      let (afterAdjustTypes, mnsgsAdjustTypes) =
+            adjustTypes afterSelectPass
+      forM_ mnsgsAdjustTypes $ traceWith tracer . FrontendAdjustTypes
+      pure afterAdjustTypes
+
+    finalPass <- cache "Final" $ do
+      adjustTypesPass
+
     -- Unit.
     getCTranslationUnit <- cache "getCTranslationUnit" $ do
-      afterMangleNames <- selectPass
-      pure $ afterMangleNames
+      afterFinal <- adjustTypesPass
+      pure $ afterFinal
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
@@ -288,7 +312,7 @@ runFrontend tracer config boot = do
     frontendSquashedTypes <- cache "frontendSquashedTypes" $ do
       decls <- frontendCDecls
       let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls
-      declIndex <- view ( #ann % #declIndex ) <$> selectPass
+      declIndex <- view ( #ann % #declIndex ) <$> finalPass
       pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
 
     -- Dependencies.
@@ -369,6 +393,7 @@ data FrontendMsg =
   | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
   | FrontendMangleNames              (Msg MangleNames)
   | FrontendSelect                   (Msg Select)
+  | FrontendAdjustTypes              (Msg AdjustTypes)
   | FrontendCache                    (SafeTrace CacheMsg)
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
