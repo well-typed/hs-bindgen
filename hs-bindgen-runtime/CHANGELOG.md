@@ -4,11 +4,17 @@
 
 ### Breaking changes
 
+* Remove `withPtr` for `IncompleteArray` and `ConstArray`. Use `withElemPtr`
+  from the `IsArray` class instead. See [PR #1712][pr-1712].
+
 ### New features
 
 * Add new `safeCastFunPtr` function to `HsBindgen.Runtime.Prelude`.
 
 * Improve documentation and fix documentation-related warnings.
+
+* Add new `IsArray` class with instances for `IncompleteArray` and
+  `ConstArray`. See [PR #1712][pr-1712].
 
 ### Minor changes
 
@@ -21,6 +27,8 @@
 * Do not export `intVal` from `HsBindgen.Runtime.ConstantArray`.
 
 ### Bug fixes
+
+[pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 
 ## 0.1.0-alpha -- 2026-02-06
 
