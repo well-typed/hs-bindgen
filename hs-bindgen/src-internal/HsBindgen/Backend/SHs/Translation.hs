@@ -19,6 +19,7 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
+import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Backend.SHs.Translation.Common
@@ -106,7 +107,7 @@ translateDefineInstanceDecl defInst =
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( bindgenGlobalExpr Flam_Offset_offset
+          , decs    = [ ( bindgenGlobalTerm Flam_Offset_offset
                         , ELam "_ty" $ EIntegral (toInteger i) Nothing)
                       ]
           }
@@ -125,7 +126,7 @@ translateDefineInstanceDecl defInst =
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( bindgenGlobalExpr ToFunPtr_toFunPtr
+          , decs    = [ ( bindgenGlobalTerm ToFunPtr_toFunPtr
                         , EFree $ Hs.InternalName inst.body
                         )
                       ]
@@ -137,7 +138,7 @@ translateDefineInstanceDecl defInst =
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( bindgenGlobalExpr FromFunPtr_fromFunPtr
+          , decs    = [ ( bindgenGlobalTerm FromFunPtr_fromFunPtr
                         , EFree $ Hs.InternalName inst.body
                         )
                       ]
@@ -316,8 +317,8 @@ translateStaticSizeInstance struct inst mbComment = Instance{
     , types   = []
     , comment = mbComment
     , decs    = [
-          (bindgenGlobalExpr StaticSize_staticSizeOf    , EUnusedLam $ eInt inst.staticSizeOf)
-        , (bindgenGlobalExpr StaticSize_staticAlignment , EUnusedLam $ eInt inst.staticAlignment)
+          (bindgenGlobalTerm StaticSize_staticSizeOf    , EUnusedLam $ eInt inst.staticSizeOf)
+        , (bindgenGlobalTerm StaticSize_staticAlignment , EUnusedLam $ eInt inst.staticAlignment)
         ]
     }
 
@@ -332,7 +333,7 @@ translateReadRawInstance struct inst mbComment = Instance{
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [(bindgenGlobalExpr ReadRaw_readRaw, readRaw)]
+    , decs    = [(bindgenGlobalTerm ReadRaw_readRaw, readRaw)]
     }
   where
     readRaw = lambda (idiom structCon translateReadRawCField) inst.readRaw
@@ -348,7 +349,7 @@ translateWriteRawInstance struct inst mbComment = Instance{
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [(bindgenGlobalExpr WriteRaw_writeRaw, writeRaw)]
+    , decs    = [(bindgenGlobalTerm WriteRaw_writeRaw, writeRaw)]
     }
   where
     writeRaw =
@@ -436,7 +437,7 @@ translateStorableInstance struct inst mbComment = Instance{
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = map (first bindgenGlobalExpr) [
+    , decs    = map (first bindgenGlobalTerm) [
           (Storable_sizeOf    , EUnusedLam $ eInt inst.sizeOf)
         , (Storable_alignment , EUnusedLam $ eInt inst.alignment)
         , (Storable_peek      , peek)
@@ -479,7 +480,7 @@ translateHasCFieldInstance inst mbComment = Instance {
     , types   = [ ( bindgenGlobalType HasCField_CFieldType
                   , [parent, fieldLit], fieldType)
                 ]
-    , decs    = [ ( bindgenGlobalExpr HasCField_offset#
+    , decs    = [ ( bindgenGlobalTerm HasCField_offset#
                   , EUnusedLam $ EUnusedLam $ EIntegral o Nothing
                   )
                 ]
@@ -507,10 +508,10 @@ translateHasCBitfieldInstance inst mbComment = Instance{
                   , [parent, fieldLit], fieldType
                   )
                 ]
-    , decs    = [ ( bindgenGlobalExpr HasCBitfield_bitfieldOffset#
+    , decs    = [ ( bindgenGlobalTerm HasCBitfield_bitfieldOffset#
                   , EUnusedLam $ EUnusedLam $ EIntegral o Nothing
                   )
-                , ( bindgenGlobalExpr HasCBitfield_bitfieldWidth#
+                , ( bindgenGlobalTerm HasCBitfield_bitfieldWidth#
                   , EUnusedLam $ EUnusedLam $ EIntegral w Nothing
                   )
                 ]
@@ -536,7 +537,7 @@ translateHasFieldInstance inst mbComment = Instance{
     , types   = []
     , comment = mbComment
     , super   = [ TApp (TApp TEq tyTypeVar) field ]
-    , decs    = [ ( bindgenGlobalExpr HasField_getField
+    , decs    = [ ( bindgenGlobalTerm HasField_getField
                   , eBindgenGlobal ptrToFieldGlobal `EApp`
                       (eBindgenGlobal Proxy_constructor `ETypeApp` fieldLit)
                   )
@@ -627,7 +628,7 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
     , super   = []
     , types   = [(bindgenGlobalType CEnumZ_type, [tcon], translateType fTyp)]
     , comment = mbComment
-    , decs    = map (first bindgenGlobalExpr) [
+    , decs    = map (first bindgenGlobalTerm) [
           (CEnum_toCEnum            , ECon struct.constr)
         , (CEnum_fromCEnum          , fromCEnumE)
         , (CEnum_declaredValues     , EUnusedLam declaredValuesE)
@@ -672,11 +673,11 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
       | (v, name :| names) <- Map.toList vMap
       ]
 
-    seqDecs :: [(Global GExpr, ClosedExpr)]
+    seqDecs :: [(Global LvlTerm, ClosedExpr)]
     seqDecs
       | isSequential = [
-            (bindgenGlobalExpr CEnum_isDeclared, eBindgenGlobal CEnum_seqIsDeclared)
-          , (bindgenGlobalExpr CEnum_mkDeclared, eBindgenGlobal CEnum_seqMkDeclared)
+            (bindgenGlobalTerm CEnum_isDeclared, eBindgenGlobal CEnum_seqIsDeclared)
+          , (bindgenGlobalTerm CEnum_mkDeclared, eBindgenGlobal CEnum_seqMkDeclared)
           ]
       | otherwise = []
 
@@ -693,8 +694,8 @@ translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
     , types   = []
     , comment = mbComment
     , decs    = [
-          (bindgenGlobalExpr SequentialCEnum_minDeclaredValue, ECon nameMin)
-        , (bindgenGlobalExpr SequentialCEnum_maxDeclaredValue, ECon nameMax)
+          (bindgenGlobalTerm SequentialCEnum_minDeclaredValue, ECon nameMin)
+        , (bindgenGlobalTerm SequentialCEnum_maxDeclaredValue, ECon nameMax)
         ]
     }
   where
@@ -711,7 +712,7 @@ translateCEnumInstanceShow struct mbComment = Instance {
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [(bindgenGlobalExpr Show_showsPrec, eBindgenGlobal CEnum_showsCEnum)]
+    , decs    = [(bindgenGlobalTerm Show_showsPrec, eBindgenGlobal CEnum_showsCEnum)]
     }
   where
     tcon :: ClosedType
@@ -727,7 +728,7 @@ translateCEnumInstanceRead struct mbComment = Instance {
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = map (bimap bindgenGlobalExpr eBindgenGlobal) [
+    , decs    = map (bimap bindgenGlobalTerm eBindgenGlobal) [
           (Read_readPrec     , CEnum_readPrecCEnum)
         , (Read_readList     , Read_readListDefault)
         , (Read_readListPrec , Read_readListPrecDefault)

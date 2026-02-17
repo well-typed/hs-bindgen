@@ -37,7 +37,7 @@ translatePrimInstance struct inst mbComment = Instance{
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = map (first bindgenGlobalExpr) [
+    , decs    = map (first bindgenGlobalTerm) [
           (Prim_sizeOf#         , EUnusedLam $ EUnboxedIntegral (toInteger inst.sizeOf))
         , (Prim_alignment#      , EUnusedLam $ EUnboxedIntegral (toInteger inst.alignment))
         , (Prim_indexByteArray# , indexBA)
@@ -139,7 +139,7 @@ translateReadOffAddrFields struct (Hs.ReadOffAddrFields rd) =
 --
 -- For an empty struct (no fields), generates:
 -- > (# state, EmptyStruct #)
-buildNestedReads :: forall n ctx. Hs.Struct n -> BindgenGlobalExpr -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int)] -> [Idx ctx] -> Int -> SExpr ctx
+buildNestedReads :: forall n ctx. Hs.Struct n -> BindgenGlobalTerm -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int)] -> [Idx ctx] -> Int -> SExpr ctx
 buildNestedReads struct _ _ _ stateIdx [] _ _ =
   -- Empty struct: just return (# state, EmptyStruct #)
   -- No memory reads needed since there's no data to read
@@ -285,7 +285,7 @@ translateWriteOffAddrFields (Hs.WriteOffAddrFields wr) =
 --
 -- For an empty struct (no fields), generates:
 -- > state
-buildSequentialWrites :: forall ctx. BindgenGlobalExpr -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int, Idx ctx)] -> Int -> SExpr ctx
+buildSequentialWrites :: forall ctx. BindgenGlobalTerm -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int, Idx ctx)] -> Int -> SExpr ctx
 buildSequentialWrites _ _ _ stateIdx [] _ =
   -- Empty struct: just return the state unchanged
   -- No memory writes needed since there's no data to write

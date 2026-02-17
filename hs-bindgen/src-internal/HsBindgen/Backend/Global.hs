@@ -5,21 +5,20 @@
 module HsBindgen.Backend.Global (
     -- * Global symbols
     Global(..)
-  , GExpr(..)
-  , GTyp(..)
+  , GlobalCat(..)
 
     -- ** Specific to @hs-bindgen@
   , BindgenGlobalType(..)
   , bindgenGlobalType
   , typeClassGlobal
-  , BindgenGlobalExpr(..)
-  , bindgenGlobalExpr
+  , BindgenGlobalTerm(..)
+  , bindgenGlobalTerm
 
     -- ** Specifc to C expressions
   , CExprGlobalType(..)
   , cExprGlobalType
-  , CExprGlobalExpr(..)
-  , cExprGlobalExpr
+  , CExprGlobalTerm(..)
+  , cExprGlobalTerm
   ) where
 
 import Data.Text qualified as Text
@@ -40,6 +39,7 @@ import HsBindgen.Runtime.Internal.Prelude qualified as RIP
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
+import HsBindgen.Backend.Level
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
@@ -48,15 +48,28 @@ import HsBindgen.Language.Haskell qualified as Hs
   Globals
 -------------------------------------------------------------------------------}
 
-data GExpr = GVar | GCon
-  deriving stock (Eq, Ord, Show)
+-- | We distinguish between globals on the type (@Global LvlType@) and term
+--   (@Global LvlTerm@) level.
+data GlobalCat (lvl :: Level) where
+  GVar :: GlobalCat LvlTerm
+  GCon :: GlobalCat LvlTerm
+  GTyp :: GlobalCat LvlType
 
-data GTyp = GTyp
-  deriving stock (Eq, Ord, Show)
+deriving stock instance Eq   (GlobalCat lvl)
+deriving stock instance Ord  (GlobalCat lvl)
+deriving stock instance Show (GlobalCat lvl)
 
-data Global c = CustomGlobal {
+-- | Global symbol
+--
+-- We use the 'Level' to distinguish between globals on the type and the term
+-- level, see 'GlobalCat'.
+--
+-- The constructor name 'CustomGlobal' highlights that users can create custom
+-- globals. However, we provide a predefined set of globals specific to
+-- @hs-bindgen@ and the standard C expression lanauge @c-expr-runtime@.
+data Global (lvl :: Level) = CustomGlobal {
     name  :: TH.Name
-  , cat   :: c
+  , cat   :: GlobalCat lvl
   , imprt :: Hs.Import
   }
   deriving stock (Eq, Ord, Show)
@@ -96,10 +109,10 @@ bindgenToHsImport n = \case
       Just m  ->
         Hs.ModuleName $ Text.pack m
 
-globalExpr :: (BindgenImport, GExpr, TH.Name) -> Global GExpr
+globalExpr :: (BindgenImport, GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
 globalExpr (i, c, n) = CustomGlobal n c (bindgenToHsImport n i)
 
-globalType :: (BindgenImport, TH.Name) -> Global GTyp
+globalType :: (BindgenImport, TH.Name) -> Global LvlType
 globalType (i, n) = CustomGlobal n GTyp (bindgenToHsImport n i)
 
 data BindgenGlobalType =
@@ -179,7 +192,7 @@ data BindgenGlobalType =
   | CPtrdiff_type
   deriving stock (Eq, Ord, Show)
 
-data BindgenGlobalExpr =
+data BindgenGlobalTerm =
     Applicative_pure
   | Applicative_seq
   | Maybe_just
@@ -309,7 +322,7 @@ data BindgenGlobalExpr =
   | CEnum_seqMkDeclared
   deriving stock (Eq, Ord, Show)
 
-bindgenGlobalType :: BindgenGlobalType -> Global GTyp
+bindgenGlobalType :: BindgenGlobalType -> Global LvlType
 bindgenGlobalType = globalType . \case
     -- Foreign function interface
     Foreign_Ptr_type       -> (IRuntimeInternalPrelude, ''RIP.Ptr)
@@ -386,7 +399,7 @@ bindgenGlobalType = globalType . \case
     CStringLen_type -> (IRuntimeInternalPrelude, ''RIP.CStringLen)
     CPtrdiff_type   -> (IRuntimeInternalPrelude, ''RIP.CPtrdiff)
 
-typeClassGlobal :: Inst.TypeClass -> Global GTyp
+typeClassGlobal :: Inst.TypeClass -> Global LvlType
 typeClassGlobal = globalType . \case
     Inst.Bitfield        -> (IRuntimeInternalPrelude,       ''RIP.Bitfield)
     Inst.Bits            -> (IRuntimeInternalPrelude,       ''RIP.Bits)
@@ -421,8 +434,8 @@ typeClassGlobal = globalType . \case
     Inst.ToFunPtr        -> (IRuntimeInternalPrelude,       ''RIP.ToFunPtr)
     Inst.WriteRaw        -> (IRuntimeModule "Marshal",      ''Marshal.WriteRaw)
 
-bindgenGlobalExpr :: BindgenGlobalExpr -> Global GExpr
-bindgenGlobalExpr = globalExpr . \case
+bindgenGlobalTerm :: BindgenGlobalTerm -> Global LvlTerm
+bindgenGlobalTerm = globalExpr . \case
     -- When adding a new global that resolves to a non-qualified identifier, be
     -- sure to reserve the name in "HsBindgen.Backend.Hs.AST.Name".
     Applicative_pure    -> (IHaskellPrelude, GVar, 'pure)
@@ -603,7 +616,7 @@ data CExprGlobalType =
   | Shift_class
   | Shift_resTyCon
 
-data CExprGlobalExpr =
+data CExprGlobalTerm =
     CharValue_constructor
   | CharValue_fromAddr
   | Not_not
@@ -629,7 +642,7 @@ data CExprGlobalExpr =
   | Shift_shiftL
   | Shift_shiftR
 
-cExprGlobalType :: CExprGlobalType -> Global GTyp
+cExprGlobalType :: CExprGlobalType -> Global LvlType
 cExprGlobalType = aux . \case
     CharValue_type      -> (ICChar,             ''C.Char.CharValue)
     Not_class           -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Not)
@@ -657,11 +670,11 @@ cExprGlobalType = aux . \case
     Shift_class         -> (ICExprHostPlatform, ''C.Expr.HostPlatform.Shift)
     Shift_resTyCon      -> (ICExprHostPlatform, ''C.Expr.HostPlatform.ShiftRes)
   where
-    aux :: (CExprImport, TH.Name) -> Global GTyp
+    aux :: (CExprImport, TH.Name) -> Global LvlType
     aux (i, n) = CustomGlobal n GTyp (cExprToHsImport i)
 
-cExprGlobalExpr :: CExprGlobalExpr -> Global GExpr
-cExprGlobalExpr = aux . \case
+cExprGlobalTerm :: CExprGlobalTerm -> Global LvlTerm
+cExprGlobalTerm = aux . \case
     CharValue_constructor -> (ICChar,             GCon,  'C.Char.CharValue)
     CharValue_fromAddr    -> (ICChar,             GVar,  'C.Char.charValueFromAddr)
     Not_not               -> (ICExprHostPlatform, GVar,  'C.Expr.HostPlatform.not)
@@ -687,6 +700,6 @@ cExprGlobalExpr = aux . \case
     Shift_shiftL          -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.<<))
     Shift_shiftR          -> (ICExprHostPlatform, GVar, '(C.Expr.HostPlatform.>>))
   where
-    aux :: (CExprImport, GExpr, TH.Name) -> Global GExpr
+    aux :: (CExprImport, GlobalCat LvlTerm, TH.Name) -> Global LvlTerm
     aux (i, c, n) =
       CustomGlobal n c (cExprToHsImport i)

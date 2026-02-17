@@ -284,17 +284,17 @@ resolveExprImports = \case
       map (resolveGlobalImports . cExprGlobalType) [
           CharValue_type
         ] ++
-      map (resolveGlobalImports . cExprGlobalExpr) [
+      map (resolveGlobalImports . cExprGlobalTerm) [
           CharValue_constructor
         , CharValue_fromAddr
         ] ++
-      map (resolveGlobalImports . bindgenGlobalExpr) [
+      map (resolveGlobalImports . bindgenGlobalTerm) [
           Maybe_just
         , Maybe_nothing
         ]
     EString {} -> mempty
     ECString {} -> resolveGlobalImports (bindgenGlobalType CStringLen_type)
-                <> resolveGlobalImports (bindgenGlobalExpr Foreign_Ptr_constructor)
+                <> resolveGlobalImports (bindgenGlobalTerm Foreign_Ptr_constructor)
     EFloat _ t -> resolveTypeImports t
     EDouble _ t -> resolveTypeImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x

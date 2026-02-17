@@ -11,8 +11,6 @@ module HsBindgen.Backend.Category (
   , mapWithCategory_
   , lensForCategory
   , lensForTermCategory
-    -- * Binding category levels
-  , CategoryLvl(..)
     -- * Binding category choices
   , RenameTerm(..)
   , Choice(..)
@@ -25,6 +23,7 @@ import Data.Functor.Const (Const (..))
 import Optics.Core (Lens', iso)
 import Optics.Iso (Iso')
 
+import HsBindgen.Backend.Level
 import HsBindgen.Imports hiding (toList)
 
 data TermCategory =
@@ -63,7 +62,7 @@ mapWithCategory f g x = ByCategory {
     }
 
 -- | A strict, total map from 'Category' to 'a'.
-type ByCategory :: (CategoryLvl -> Star) -> Star
+type ByCategory :: (Level -> Star) -> Star
 data ByCategory f = ByCategory {
       cType   :: !(f LvlType)
     , cSafe   :: !(f LvlTerm)
@@ -134,9 +133,6 @@ lensForTermCategory = \case
   CFunPtr -> #cFunPtr
   CGlobal -> #cGlobal
 
--- | A category may contain types or terms.
-data CategoryLvl = LvlType | LvlTerm
-
 newtype RenameTerm = RenameTerm (Text -> Text)
 
 instance Show RenameTerm where
@@ -150,7 +146,7 @@ instance Default RenameTerm where
 -- Possibly rename declarations in categories of 'Level' 'LvlTerm'. We only
 -- allow renaming of 'LvlTerm' because for 'LvlType' we would also need to
 -- rename the use sites, instances etc.
-type Choice :: CategoryLvl -> Star
+type Choice :: Level -> Star
 data Choice lvl where
   ExcludeCategory     :: Choice lvl
   IncludeTypeCategory :: Choice LvlType

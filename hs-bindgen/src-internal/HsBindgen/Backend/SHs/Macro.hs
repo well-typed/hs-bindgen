@@ -313,7 +313,7 @@ mfun = \case
     DSL.MLogicalOr  -> cExpr Logical_or
     DSL.MTuple @n   -> EBoxedOpenTup $ 2 + Fin.reflectToNum @n Proxy
   where
-    cExpr = EGlobal . cExprGlobalExpr
+    cExpr = EGlobal . cExprGlobalTerm
 
 {-------------------------------------------------------------------------------
   Auxiliary: AST construction

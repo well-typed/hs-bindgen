@@ -22,8 +22,9 @@ import Data.Text (Text)
 import GHC.Generics (Generic)
 import Options.Applicative
 
-import HsBindgen.Backend.Category (ByCategory (..), CategoryLvl (..),
-                                   Choice (..), RenameTerm (..))
+import HsBindgen.Backend.Category (ByCategory (..), Choice (..),
+                                   RenameTerm (..))
+import HsBindgen.Backend.Level (Level (..))
 
 {-------------------------------------------------------------------------------
   Output mode

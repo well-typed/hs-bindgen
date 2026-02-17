@@ -7,6 +7,7 @@ import Optics.Core (Lens')
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Name qualified as Hs
+import HsBindgen.Backend.Level
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
 

@@ -108,6 +108,7 @@ library internal
     HsBindgen.Backend.HsModule.Names
     HsBindgen.Backend.HsModule.Render
     HsBindgen.Backend.HsModule.Translation
+    HsBindgen.Backend.Level
     HsBindgen.Backend.SHs.AST
     HsBindgen.Backend.SHs.Macro
     HsBindgen.Backend.SHs.Simplify

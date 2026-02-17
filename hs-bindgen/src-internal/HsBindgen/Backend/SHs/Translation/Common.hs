@@ -42,7 +42,7 @@ eAppMany :: SExpr ctx -> [SExpr ctx] -> SExpr ctx
 eAppMany = foldl' EApp
 
 -- | Apply function to many arguments
-appMany :: BindgenGlobalExpr -> [SExpr ctx] -> SExpr ctx
+appMany :: BindgenGlobalTerm -> [SExpr ctx] -> SExpr ctx
 appMany = appManyExpr . eBindgenGlobal
 
 appManyExpr :: SExpr ctx -> [SExpr ctx] -> SExpr ctx

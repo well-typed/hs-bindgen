@@ -37,6 +37,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.CAPI (renderCapiWrapper)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation (translateType)
 import HsBindgen.Backend.UniqueSymbol
@@ -506,7 +507,7 @@ prettyType env prec = \case
     TFun a b -> PP.parensWhen (prec > 0) $
       prettyType env 1 a <+> "->" <+> prettyType env 0 b
     TBound x -> lookupEnv x env
-    TBoxedOpenTup n -> prettyBoxedOpenTuple TupData n
+    TBoxedOpenTup n -> prettyBoxedOpenTuple LvlType n
     -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
     TEq -> PP.string "(~)"
     TForall hints add ctxt body ->
@@ -516,7 +517,7 @@ prettyType env prec = \case
           "forall" <+> PP.hsep params >< "." <+>
           PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
 
-prettyTypeGlobal :: Global GTyp -> CtxDoc
+prettyTypeGlobal :: Global LvlType -> CtxDoc
 prettyTypeGlobal = prettyType EmptyEnv 0 . TGlobal
 
 {-------------------------------------------------------------------------------
@@ -552,12 +553,12 @@ prettyExpr env prec = \case
     EIntegral i (Just t) ->
       PP.parens $ PP.hcat [PP.show i, " :: ", pretty t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
-      prettyExpr env 0 (EGlobal $ cExprGlobalExpr CharValue_fromAddr)
+      prettyExpr env 0 (EGlobal $ cExprGlobalTerm CharValue_fromAddr)
         <+> PP.string str
         <+> PP.string (show len)
         <+> case mbUnicode of
-            { Nothing -> pretty (resolveBindgenGlobalExpr Maybe_nothing)
-            ; Just c -> PP.parens (pretty (resolveBindgenGlobalExpr Maybe_just) <+> PP.string (show c))
+            { Nothing -> pretty (resolveBindgenGlobalTerm Maybe_nothing)
+            ; Just c -> PP.parens (pretty (resolveBindgenGlobalTerm Maybe_just) <+> PP.string (show c))
             }
       where
         (str, len) = addrLiteral ba
@@ -671,7 +672,7 @@ prettyExpr env prec = \case
             ]
             )
 
-    EBoxedOpenTup n -> prettyBoxedOpenTuple TupType n
+    EBoxedOpenTup n -> prettyBoxedOpenTuple LvlTerm n
     EBoxedClosedTup xs ->
       let ds = prettyExpr env 0 <$> xs
           l  = PP.hlist "(" ")" ds
@@ -869,21 +870,19 @@ escapeAtSigns = Text.pack . concatMap aux . Text.unpack
 resolveTypeClass :: Inst.TypeClass -> ResolvedName
 resolveTypeClass = resolveGlobal . typeClassGlobal
 
-resolveBindgenGlobalExpr :: BindgenGlobalExpr -> ResolvedName
-resolveBindgenGlobalExpr = resolveGlobal . bindgenGlobalExpr
-
-data TupNamespace = TupData | TupType
+resolveBindgenGlobalTerm :: BindgenGlobalTerm -> ResolvedName
+resolveBindgenGlobalTerm = resolveGlobal . bindgenGlobalTerm
 
 -- Careful, requires import of internal runtime prelude, which re-exports
 -- 'Solo' and 'MkSolo'.
-mkSolo :: TupNamespace -> String
+mkSolo :: Level -> String
 mkSolo = \case
-  TupData -> "RIP.MkSolo"
-  TupType -> "RIP.Solo"
+  LvlTerm -> "RIP.MkSolo"
+  LvlType -> "RIP.Solo"
 
 -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
 -- render hack.
-prettyBoxedOpenTuple :: TupNamespace -> Natural -> CtxDoc
+prettyBoxedOpenTuple :: Level -> Natural -> CtxDoc
 prettyBoxedOpenTuple ns = PP.string . \case
   0 -> "()"
   1 -> mkSolo ns

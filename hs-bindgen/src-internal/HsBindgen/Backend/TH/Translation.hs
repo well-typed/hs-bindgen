@@ -28,6 +28,7 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
+import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Guasi
@@ -66,7 +67,7 @@ tupleTypeName = \case
           (TH.mkOccName tup_occ)
           (TH.NameG TH.TcClsName tup_pkg tup_mod)
 
-mkGlobalExpr :: Quote q => Global GExpr -> q TH.Exp
+mkGlobalExpr :: Quote q => Global LvlTerm -> q TH.Exp
 mkGlobalExpr g = case g.cat of
   GVar -> TH.varE g.name
   GCon -> TH.conE g.name
@@ -347,7 +348,7 @@ mkDecl = \case
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
 
-      instTySyn :: (Global GTyp, [ClosedType], ClosedType) -> q TH.Dec
+      instTySyn :: (Global LvlType, [ClosedType], ClosedType) -> q TH.Dec
       instTySyn (g, typArgs, typSyn) =
         TH.TySynInstD
           <$> liftM2

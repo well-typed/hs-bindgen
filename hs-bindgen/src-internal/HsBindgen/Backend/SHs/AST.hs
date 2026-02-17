@@ -42,6 +42,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Level
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -58,7 +59,7 @@ type ClosedExpr = SExpr EmptyCtx
 -- | Simple expressions
 type SExpr :: Ctx -> Star
 data SExpr ctx =
-    EGlobal (Global GExpr)
+    EGlobal (Global LvlTerm)
   | EBound (Idx ctx)
   | EFree (Hs.Name Hs.NsVar)
   | ECon (Hs.Name Hs.NsConstr)
@@ -84,8 +85,8 @@ data SExpr ctx =
   | ETypeApp (SExpr ctx) ClosedType
   deriving stock (Show)
 
-eBindgenGlobal :: BindgenGlobalExpr -> SExpr ctx
-eBindgenGlobal = EGlobal . bindgenGlobalExpr
+eBindgenGlobal :: BindgenGlobalTerm -> SExpr ctx
+eBindgenGlobal = EGlobal . bindgenGlobalTerm
 
 -- | Pattern&Expressions
 --
@@ -112,8 +113,8 @@ data InfixOp =
   | InfixNonEmpty_constructor
   deriving stock (Show, Eq)
 
-infixOpGlobal :: InfixOp -> Global GExpr
-infixOpGlobal = bindgenGlobalExpr . \case
+infixOpGlobal :: InfixOp -> Global LvlTerm
+infixOpGlobal = bindgenGlobalTerm . \case
   InfixApplicative_seq      -> Applicative_seq
   InfixMonad_seq            -> Monad_seq
   InfixNonEmpty_constructor -> NonEmpty_constructor
@@ -167,7 +168,7 @@ type ClosedType = SType EmptyCtx
 -- | Simple types
 type SType :: Ctx -> Star
 data SType ctx =
-    TGlobal (Global GTyp)
+    TGlobal (Global LvlType)
   | TClass Inst.TypeClass
   | TCon (Hs.Name Hs.NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
@@ -204,8 +205,8 @@ data Instance = Instance{
       clss    :: Inst.TypeClass
     , args    :: [ClosedType]
     , super   :: [ClosedType]
-    , types   :: [(Global GTyp, [ClosedType], ClosedType)]
-    , decs    :: [(Global GExpr, ClosedExpr)]
+    , types   :: [(Global LvlType, [ClosedType], ClosedType)]
+    , decs    :: [(Global LvlTerm, ClosedExpr)]
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
