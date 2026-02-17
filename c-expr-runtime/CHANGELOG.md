@@ -1,5 +1,7 @@
 # Revision history for `c-expr`
 
-## 0.1.0 -- YYYY-mm-dd
+## ?.?.? -- YYYY-mm-dd
+
+## 0.1.0-alpha -- 2026-02-06
 
 * First version. Released on an unsuspecting world.
