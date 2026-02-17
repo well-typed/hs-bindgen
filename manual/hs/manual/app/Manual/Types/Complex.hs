@@ -5,6 +5,7 @@ import Data.Complex
 import Foreign as F
 import Foreign.C qualified as FC
 
+import HsBindgen.Runtime.Array.Class qualified as A
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -138,7 +139,7 @@ examples = do
       pure $ sum $ CA.toList $ xs
     doubleArraySum <- do
       array <- F.peek Complex.complex_double_array
-      CA.withPtr array $ \ptr -> Complex.sum_complex_array (PtrConst.unsafeFromPtr ptr)
+      A.withElemPtr array $ \ptr -> Complex.sum_complex_array (PtrConst.unsafeFromPtr ptr)
     putStrLn $ "  Sum of complex_double_array: " <> show doubleArraySum
     putStrLn $ "  Expected: " <> show doubleArrayExpectedSum
     putStrLn $ "  Match: " <> show (complexEq' 1e-12 doubleArraySum doubleArrayExpectedSum)

@@ -8,6 +8,7 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
@@ -25,11 +26,11 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  return reverse(arg1, arg2);"
   , "}"
   , "void hs_bindgen_ea25667627dd5ed2 ("
-  , "  matrix const *arg1,"
-  , "  matrix *arg2"
+  , "  triplet const *arg1,"
+  , "  triplet *arg2"
   , ")"
   , "{"
-  , "  transpose(*arg1, *arg2);"
+  , "  transpose(arg1, arg2);"
   , "}"
   ]))
 
@@ -69,8 +70,8 @@ foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627d
 
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 hs_bindgen_ea25667627dd5ed2 ::
-     HsBindgen.Runtime.PtrConst.PtrConst Matrix
-  -> Ptr.Ptr Matrix
+     HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem Matrix)
+  -> Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Matrix)
   -> IO ()
 hs_bindgen_ea25667627dd5ed2 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ea25667627dd5ed2_base
@@ -82,9 +83,9 @@ hs_bindgen_ea25667627dd5ed2 =
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose ::
-     HsBindgen.Runtime.PtrConst.PtrConst Matrix
+     HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem Matrix)
      -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Matrix
+  -> Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Matrix)
      -- ^ __C declaration:__ @output@
   -> IO ()
 transpose = hs_bindgen_ea25667627dd5ed2

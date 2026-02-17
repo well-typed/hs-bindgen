@@ -12,7 +12,6 @@ module HsBindgen.Runtime.ConstantArray (
     -- $pointers
   , toPtr
   , toFirstElemPtr
-  , withPtr
     -- * Construction
   , repeat
   , fromList
@@ -182,15 +181,6 @@ instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
             copyBytes ptr (castPtr ptr') (size * sizeOfA)
       where
         sizeOfA = sizeOf (undefined :: a)
-
--- | /( O(n) /): Retrieve the underlying pointer
-withPtr ::
-     forall b n a r. (Coercible b (ConstantArray n a), Storable a)
-  => b -> (Ptr b -> IO r) -> IO r
-withPtr (coerce -> CA v) k = do
-    -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
-    VS.MVector _ fptr <- VS.thaw v
-    withForeignPtr fptr $ \(ptr :: Ptr a) -> k (toPtr (Proxy @n) ptr)
 
 instance Storable a => IsArray (ConstantArray n a) where
   type Elem (ConstantArray n a) = a

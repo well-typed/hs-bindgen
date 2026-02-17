@@ -80,6 +80,7 @@ data Global =
   | ConstantArray
   | IncompleteArray
   | IsArray_class
+  | IsArray_Elem
 
     -- StaticSize
   | StaticSize_class

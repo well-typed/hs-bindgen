@@ -346,28 +346,28 @@
 --   return bespoke_ret2(arg1);
 -- }
 -- void hs_bindgen_e20689fe39004225 (
---   A (*arg1)[]
+--   A *arg1
 -- )
 -- {
---   arr_args1(*arg1);
+--   arr_args1(arg1);
 -- }
 -- void hs_bindgen_084796e4bfd3f4cd (
---   A *(*arg1)[]
+--   A **arg1
 -- )
 -- {
---   arr_args2(*arg1);
+--   arr_args2(arg1);
 -- }
 -- void hs_bindgen_a3d1560aaa4352df (
---   A (*arg1)[5]
+--   A *arg1
 -- )
 -- {
---   arr_args3(*arg1);
+--   arr_args3(arg1);
 -- }
 -- void hs_bindgen_88659ccccc6c1f5f (
---   A *(*arg1)[5]
+--   A **arg1
 -- )
 -- {
---   arr_args4(*arg1);
+--   arr_args4(arg1);
 -- }
 -- void hs_bindgen_3448d03cfd41161a (
 --   A arg1,
@@ -638,22 +638,22 @@
 --   return const_pointers_ret5(arg1);
 -- }
 -- void hs_bindgen_678576320923a4d1 (
---   A const (*arg1)[]
+--   A const *arg1
 -- )
 -- {
---   const_array_elem1(*arg1);
+--   const_array_elem1(arg1);
 -- }
 -- void hs_bindgen_b317941dde4eeff2 (
---   A const *(*arg1)[]
+--   A const **arg1
 -- )
 -- {
---   const_array_elem2(*arg1);
+--   const_array_elem2(arg1);
 -- }
 -- void hs_bindgen_707e602e6beb1bb6 (
---   A *const (*arg1)[]
+--   A *const *arg1
 -- )
 -- {
---   const_array_elem3(*arg1);
+--   const_array_elem3(arg1);
 -- }
 -- A hs_bindgen_93fecb4eb766c262 (void)
 -- {
@@ -1097,28 +1097,28 @@
 --   return bespoke_ret2(arg1);
 -- }
 -- void hs_bindgen_4956a52bf5073b9f (
---   A (*arg1)[]
+--   A *arg1
 -- )
 -- {
---   arr_args1(*arg1);
+--   arr_args1(arg1);
 -- }
 -- void hs_bindgen_0fc8b091085a88e9 (
---   A *(*arg1)[]
+--   A **arg1
 -- )
 -- {
---   arr_args2(*arg1);
+--   arr_args2(arg1);
 -- }
 -- void hs_bindgen_ca6f1bc1a29b85f8 (
---   A (*arg1)[5]
+--   A *arg1
 -- )
 -- {
---   arr_args3(*arg1);
+--   arr_args3(arg1);
 -- }
 -- void hs_bindgen_a168ae0de206febe (
---   A *(*arg1)[5]
+--   A **arg1
 -- )
 -- {
---   arr_args4(*arg1);
+--   arr_args4(arg1);
 -- }
 -- void hs_bindgen_8e63f57f1f5d662e (
 --   A arg1,
@@ -1389,22 +1389,22 @@
 --   return const_pointers_ret5(arg1);
 -- }
 -- void hs_bindgen_224608f780bff5bd (
---   A const (*arg1)[]
+--   A const *arg1
 -- )
 -- {
---   const_array_elem1(*arg1);
+--   const_array_elem1(arg1);
 -- }
 -- void hs_bindgen_9aa74ad89f2c1fba (
---   A const *(*arg1)[]
+--   A const **arg1
 -- )
 -- {
---   const_array_elem2(*arg1);
+--   const_array_elem2(arg1);
 -- }
 -- void hs_bindgen_6a328300c5ef0c9e (
---   A *const (*arg1)[]
+--   A *const *arg1
 -- )
 -- {
---   const_array_elem3(*arg1);
+--   const_array_elem3(arg1);
 -- }
 -- A hs_bindgen_13a7d78e11555d58 (void)
 -- {
@@ -1952,7 +1952,7 @@
 -- /* test_macrosreparse_Example_get_arr_args1 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_b38b526cf0817bf0 (void)) (
---   A arg1[]
+--   A *arg1
 -- )
 -- {
 --   return &arr_args1;
@@ -1960,7 +1960,7 @@
 -- /* test_macrosreparse_Example_get_arr_args2 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_2c0bca39b42ecbec (void)) (
---   A *arg1[]
+--   A **arg1
 -- )
 -- {
 --   return &arr_args2;
@@ -1968,7 +1968,7 @@
 -- /* test_macrosreparse_Example_get_arr_args3 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_82a8c15919ae3f33 (void)) (
---   A arg1[5]
+--   A *arg1
 -- )
 -- {
 --   return &arr_args3;
@@ -1976,7 +1976,7 @@
 -- /* test_macrosreparse_Example_get_arr_args4 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_db074918e0d38cb5 (void)) (
---   A *arg1[5]
+--   A **arg1
 -- )
 -- {
 --   return &arr_args4;
@@ -2328,7 +2328,7 @@
 -- /* test_macrosreparse_Example_get_const_array_elem1 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_ae95c15a81eacd52 (void)) (
---   A const arg1[]
+--   A const *arg1
 -- )
 -- {
 --   return &const_array_elem1;
@@ -2336,7 +2336,7 @@
 -- /* test_macrosreparse_Example_get_const_array_elem2 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_9dbbae3758752935 (void)) (
---   A const *arg1[]
+--   A const **arg1
 -- )
 -- {
 --   return &const_array_elem2;
@@ -2344,7 +2344,7 @@
 -- /* test_macrosreparse_Example_get_const_array_elem3 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_9fdb904f0c0776ed (void)) (
---   A *const arg1[]
+--   A *const *arg1
 -- )
 -- {
 --   return &const_array_elem3;
@@ -5512,7 +5512,8 @@ foreign import ccall safe "hs_bindgen_e20689fe39004225" hs_bindgen_e20689fe39004
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
-hs_bindgen_e20689fe39004225 :: Ptr (IncompleteArray A) -> IO Unit
+hs_bindgen_e20689fe39004225 :: Ptr (Elem (IncompleteArray A)) ->
+                               IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
 hs_bindgen_e20689fe39004225 = fromFFIType hs_bindgen_e20689fe39004225_base
 {-| Arrays
@@ -5523,7 +5524,7 @@ __defined at:__ @macros\/reparse.h 104:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-arr_args1 :: Ptr (IncompleteArray A) -> IO Unit
+arr_args1 :: Ptr (Elem (IncompleteArray A)) -> IO Unit
 {-| Arrays
 
 __C declaration:__ @arr_args1@
@@ -5538,7 +5539,7 @@ foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" hs_bindgen_084796e4bfd3f
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
-hs_bindgen_084796e4bfd3f4cd :: Ptr (IncompleteArray (Ptr A)) ->
+hs_bindgen_084796e4bfd3f4cd :: Ptr (Elem (IncompleteArray (Ptr A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
 hs_bindgen_084796e4bfd3f4cd = fromFFIType hs_bindgen_084796e4bfd3f4cd_base
@@ -5548,7 +5549,7 @@ hs_bindgen_084796e4bfd3f4cd = fromFFIType hs_bindgen_084796e4bfd3f4cd_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args2 :: Ptr (IncompleteArray (Ptr A)) -> IO Unit
+arr_args2 :: Ptr (Elem (IncompleteArray (Ptr A))) -> IO Unit
 {-| __C declaration:__ @arr_args2@
 
     __defined at:__ @macros\/reparse.h 105:6@
@@ -5561,7 +5562,8 @@ foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" hs_bindgen_a3d1560aaa435
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
-hs_bindgen_a3d1560aaa4352df :: Ptr (ConstantArray 5 A) -> IO Unit
+hs_bindgen_a3d1560aaa4352df :: Ptr (Elem (ConstantArray 5 A)) ->
+                               IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
 hs_bindgen_a3d1560aaa4352df = fromFFIType hs_bindgen_a3d1560aaa4352df_base
 {-| __C declaration:__ @arr_args3@
@@ -5570,7 +5572,7 @@ hs_bindgen_a3d1560aaa4352df = fromFFIType hs_bindgen_a3d1560aaa4352df_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args3 :: Ptr (ConstantArray 5 A) -> IO Unit
+arr_args3 :: Ptr (Elem (ConstantArray 5 A)) -> IO Unit
 {-| __C declaration:__ @arr_args3@
 
     __defined at:__ @macros\/reparse.h 106:6@
@@ -5583,7 +5585,8 @@ foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" hs_bindgen_88659ccccc6c1
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
-hs_bindgen_88659ccccc6c1f5f :: Ptr (ConstantArray 5 (Ptr A)) ->
+hs_bindgen_88659ccccc6c1f5f :: Ptr (Elem (ConstantArray 5
+                                                        (Ptr A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
 hs_bindgen_88659ccccc6c1f5f = fromFFIType hs_bindgen_88659ccccc6c1f5f_base
@@ -5593,7 +5596,7 @@ hs_bindgen_88659ccccc6c1f5f = fromFFIType hs_bindgen_88659ccccc6c1f5f_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args4 :: Ptr (ConstantArray 5 (Ptr A)) -> IO Unit
+arr_args4 :: Ptr (Elem (ConstantArray 5 (Ptr A))) -> IO Unit
 {-| __C declaration:__ @arr_args4@
 
     __defined at:__ @macros\/reparse.h 107:6@
@@ -6503,7 +6506,7 @@ foreign import ccall safe "hs_bindgen_678576320923a4d1" hs_bindgen_678576320923a
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
-hs_bindgen_678576320923a4d1 :: PtrConst (IncompleteArray A) ->
+hs_bindgen_678576320923a4d1 :: PtrConst (Elem (IncompleteArray A)) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
 hs_bindgen_678576320923a4d1 = fromFFIType hs_bindgen_678576320923a4d1_base
@@ -6513,7 +6516,7 @@ hs_bindgen_678576320923a4d1 = fromFFIType hs_bindgen_678576320923a4d1_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1 :: PtrConst (IncompleteArray A) -> IO Unit
+const_array_elem1 :: PtrConst (Elem (IncompleteArray A)) -> IO Unit
 {-| __C declaration:__ @const_array_elem1@
 
     __defined at:__ @macros\/reparse.h 246:6@
@@ -6526,7 +6529,7 @@ foreign import ccall safe "hs_bindgen_b317941dde4eeff2" hs_bindgen_b317941dde4ee
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
-hs_bindgen_b317941dde4eeff2 :: Ptr (IncompleteArray (PtrConst A)) ->
+hs_bindgen_b317941dde4eeff2 :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
 hs_bindgen_b317941dde4eeff2 = fromFFIType hs_bindgen_b317941dde4eeff2_base
@@ -6536,7 +6539,8 @@ hs_bindgen_b317941dde4eeff2 = fromFFIType hs_bindgen_b317941dde4eeff2_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem2 :: Ptr (IncompleteArray (PtrConst A)) -> IO Unit
+const_array_elem2 :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
+                     IO Unit
 {-| __C declaration:__ @const_array_elem2@
 
     __defined at:__ @macros\/reparse.h 247:6@
@@ -6549,7 +6553,7 @@ foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" hs_bindgen_707e602e6beb1
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
-hs_bindgen_707e602e6beb1bb6 :: PtrConst (IncompleteArray (Ptr A)) ->
+hs_bindgen_707e602e6beb1bb6 :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
 hs_bindgen_707e602e6beb1bb6 = fromFFIType hs_bindgen_707e602e6beb1bb6_base
@@ -6559,7 +6563,8 @@ hs_bindgen_707e602e6beb1bb6 = fromFFIType hs_bindgen_707e602e6beb1bb6_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3 :: PtrConst (IncompleteArray (Ptr A)) -> IO Unit
+const_array_elem3 :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
+                     IO Unit
 {-| __C declaration:__ @const_array_elem3@
 
     __defined at:__ @macros\/reparse.h 248:6@
@@ -8072,7 +8077,8 @@ foreign import ccall unsafe "hs_bindgen_4956a52bf5073b9f" hs_bindgen_4956a52bf50
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args1@
-hs_bindgen_4956a52bf5073b9f :: Ptr (IncompleteArray A) -> IO Unit
+hs_bindgen_4956a52bf5073b9f :: Ptr (Elem (IncompleteArray A)) ->
+                               IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args1@
 hs_bindgen_4956a52bf5073b9f = fromFFIType hs_bindgen_4956a52bf5073b9f_base
 {-| Arrays
@@ -8083,7 +8089,7 @@ __defined at:__ @macros\/reparse.h 104:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-arr_args1 :: Ptr (IncompleteArray A) -> IO Unit
+arr_args1 :: Ptr (Elem (IncompleteArray A)) -> IO Unit
 {-| Arrays
 
 __C declaration:__ @arr_args1@
@@ -8098,7 +8104,7 @@ foreign import ccall unsafe "hs_bindgen_0fc8b091085a88e9" hs_bindgen_0fc8b091085
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args2@
-hs_bindgen_0fc8b091085a88e9 :: Ptr (IncompleteArray (Ptr A)) ->
+hs_bindgen_0fc8b091085a88e9 :: Ptr (Elem (IncompleteArray (Ptr A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args2@
 hs_bindgen_0fc8b091085a88e9 = fromFFIType hs_bindgen_0fc8b091085a88e9_base
@@ -8108,7 +8114,7 @@ hs_bindgen_0fc8b091085a88e9 = fromFFIType hs_bindgen_0fc8b091085a88e9_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args2 :: Ptr (IncompleteArray (Ptr A)) -> IO Unit
+arr_args2 :: Ptr (Elem (IncompleteArray (Ptr A))) -> IO Unit
 {-| __C declaration:__ @arr_args2@
 
     __defined at:__ @macros\/reparse.h 105:6@
@@ -8121,7 +8127,8 @@ foreign import ccall unsafe "hs_bindgen_ca6f1bc1a29b85f8" hs_bindgen_ca6f1bc1a29
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args3@
-hs_bindgen_ca6f1bc1a29b85f8 :: Ptr (ConstantArray 5 A) -> IO Unit
+hs_bindgen_ca6f1bc1a29b85f8 :: Ptr (Elem (ConstantArray 5 A)) ->
+                               IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args3@
 hs_bindgen_ca6f1bc1a29b85f8 = fromFFIType hs_bindgen_ca6f1bc1a29b85f8_base
 {-| __C declaration:__ @arr_args3@
@@ -8130,7 +8137,7 @@ hs_bindgen_ca6f1bc1a29b85f8 = fromFFIType hs_bindgen_ca6f1bc1a29b85f8_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args3 :: Ptr (ConstantArray 5 A) -> IO Unit
+arr_args3 :: Ptr (Elem (ConstantArray 5 A)) -> IO Unit
 {-| __C declaration:__ @arr_args3@
 
     __defined at:__ @macros\/reparse.h 106:6@
@@ -8143,7 +8150,8 @@ foreign import ccall unsafe "hs_bindgen_a168ae0de206febe" hs_bindgen_a168ae0de20
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args4@
-hs_bindgen_a168ae0de206febe :: Ptr (ConstantArray 5 (Ptr A)) ->
+hs_bindgen_a168ae0de206febe :: Ptr (Elem (ConstantArray 5
+                                                        (Ptr A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_arr_args4@
 hs_bindgen_a168ae0de206febe = fromFFIType hs_bindgen_a168ae0de206febe_base
@@ -8153,7 +8161,7 @@ hs_bindgen_a168ae0de206febe = fromFFIType hs_bindgen_a168ae0de206febe_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args4 :: Ptr (ConstantArray 5 (Ptr A)) -> IO Unit
+arr_args4 :: Ptr (Elem (ConstantArray 5 (Ptr A))) -> IO Unit
 {-| __C declaration:__ @arr_args4@
 
     __defined at:__ @macros\/reparse.h 107:6@
@@ -9063,7 +9071,7 @@ foreign import ccall unsafe "hs_bindgen_224608f780bff5bd" hs_bindgen_224608f780b
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem1@
-hs_bindgen_224608f780bff5bd :: PtrConst (IncompleteArray A) ->
+hs_bindgen_224608f780bff5bd :: PtrConst (Elem (IncompleteArray A)) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem1@
 hs_bindgen_224608f780bff5bd = fromFFIType hs_bindgen_224608f780bff5bd_base
@@ -9073,7 +9081,7 @@ hs_bindgen_224608f780bff5bd = fromFFIType hs_bindgen_224608f780bff5bd_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1 :: PtrConst (IncompleteArray A) -> IO Unit
+const_array_elem1 :: PtrConst (Elem (IncompleteArray A)) -> IO Unit
 {-| __C declaration:__ @const_array_elem1@
 
     __defined at:__ @macros\/reparse.h 246:6@
@@ -9086,7 +9094,7 @@ foreign import ccall unsafe "hs_bindgen_9aa74ad89f2c1fba" hs_bindgen_9aa74ad89f2
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem2@
-hs_bindgen_9aa74ad89f2c1fba :: Ptr (IncompleteArray (PtrConst A)) ->
+hs_bindgen_9aa74ad89f2c1fba :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem2@
 hs_bindgen_9aa74ad89f2c1fba = fromFFIType hs_bindgen_9aa74ad89f2c1fba_base
@@ -9096,7 +9104,8 @@ hs_bindgen_9aa74ad89f2c1fba = fromFFIType hs_bindgen_9aa74ad89f2c1fba_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem2 :: Ptr (IncompleteArray (PtrConst A)) -> IO Unit
+const_array_elem2 :: Ptr (Elem (IncompleteArray (PtrConst A))) ->
+                     IO Unit
 {-| __C declaration:__ @const_array_elem2@
 
     __defined at:__ @macros\/reparse.h 247:6@
@@ -9109,7 +9118,7 @@ foreign import ccall unsafe "hs_bindgen_6a328300c5ef0c9e" hs_bindgen_6a328300c5e
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem3@
-hs_bindgen_6a328300c5ef0c9e :: PtrConst (IncompleteArray (Ptr A)) ->
+hs_bindgen_6a328300c5ef0c9e :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
                                IO Unit
 -- __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem3@
 hs_bindgen_6a328300c5ef0c9e = fromFFIType hs_bindgen_6a328300c5ef0c9e_base
@@ -9119,7 +9128,8 @@ hs_bindgen_6a328300c5ef0c9e = fromFFIType hs_bindgen_6a328300c5ef0c9e_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3 :: PtrConst (IncompleteArray (Ptr A)) -> IO Unit
+const_array_elem3 :: PtrConst (Elem (IncompleteArray (Ptr A))) ->
+                     IO Unit
 {-| __C declaration:__ @const_array_elem3@
 
     __defined at:__ @macros\/reparse.h 248:6@
@@ -10617,7 +10627,7 @@ bespoke_ret2 = unsafePerformIO hs_bindgen_384c8ceed3a4ca90
 foreign import ccall unsafe "hs_bindgen_b38b526cf0817bf0" hs_bindgen_b38b526cf0817bf0_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_arr_args1@
-hs_bindgen_b38b526cf0817bf0 :: IO (FunPtr (IncompleteArray A ->
+hs_bindgen_b38b526cf0817bf0 :: IO (FunPtr (Ptr (Elem (IncompleteArray A)) ->
                                            IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_arr_args1@
 hs_bindgen_b38b526cf0817bf0 = fromFFIType hs_bindgen_b38b526cf0817bf0_base
@@ -10630,7 +10640,7 @@ __defined at:__ @macros\/reparse.h 104:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-arr_args1 :: FunPtr (IncompleteArray A -> IO Unit)
+arr_args1 :: FunPtr (Ptr (Elem (IncompleteArray A)) -> IO Unit)
 {-| Arrays
 
 __C declaration:__ @arr_args1@
@@ -10644,7 +10654,7 @@ arr_args1 = unsafePerformIO hs_bindgen_b38b526cf0817bf0
 foreign import ccall unsafe "hs_bindgen_2c0bca39b42ecbec" hs_bindgen_2c0bca39b42ecbec_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_arr_args2@
-hs_bindgen_2c0bca39b42ecbec :: IO (FunPtr (IncompleteArray (Ptr A) ->
+hs_bindgen_2c0bca39b42ecbec :: IO (FunPtr (Ptr (Elem (IncompleteArray (Ptr A))) ->
                                            IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_arr_args2@
 hs_bindgen_2c0bca39b42ecbec = fromFFIType hs_bindgen_2c0bca39b42ecbec_base
@@ -10655,7 +10665,8 @@ hs_bindgen_2c0bca39b42ecbec = fromFFIType hs_bindgen_2c0bca39b42ecbec_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args2 :: FunPtr (IncompleteArray (Ptr A) -> IO Unit)
+arr_args2 :: FunPtr (Ptr (Elem (IncompleteArray (Ptr A))) ->
+                     IO Unit)
 {-| __C declaration:__ @arr_args2@
 
     __defined at:__ @macros\/reparse.h 105:6@
@@ -10667,7 +10678,8 @@ arr_args2 = unsafePerformIO hs_bindgen_2c0bca39b42ecbec
 foreign import ccall unsafe "hs_bindgen_82a8c15919ae3f33" hs_bindgen_82a8c15919ae3f33_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_arr_args3@
-hs_bindgen_82a8c15919ae3f33 :: IO (FunPtr (ConstantArray 5 A ->
+hs_bindgen_82a8c15919ae3f33 :: IO (FunPtr (Ptr (Elem (ConstantArray 5
+                                                                    A)) ->
                                            IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_arr_args3@
 hs_bindgen_82a8c15919ae3f33 = fromFFIType hs_bindgen_82a8c15919ae3f33_base
@@ -10678,7 +10690,7 @@ hs_bindgen_82a8c15919ae3f33 = fromFFIType hs_bindgen_82a8c15919ae3f33_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args3 :: FunPtr (ConstantArray 5 A -> IO Unit)
+arr_args3 :: FunPtr (Ptr (Elem (ConstantArray 5 A)) -> IO Unit)
 {-| __C declaration:__ @arr_args3@
 
     __defined at:__ @macros\/reparse.h 106:6@
@@ -10690,8 +10702,8 @@ arr_args3 = unsafePerformIO hs_bindgen_82a8c15919ae3f33
 foreign import ccall unsafe "hs_bindgen_db074918e0d38cb5" hs_bindgen_db074918e0d38cb5_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_arr_args4@
-hs_bindgen_db074918e0d38cb5 :: IO (FunPtr (ConstantArray 5
-                                                         (Ptr A) ->
+hs_bindgen_db074918e0d38cb5 :: IO (FunPtr (Ptr (Elem (ConstantArray 5
+                                                                    (Ptr A))) ->
                                            IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_arr_args4@
 hs_bindgen_db074918e0d38cb5 = fromFFIType hs_bindgen_db074918e0d38cb5_base
@@ -10702,7 +10714,8 @@ hs_bindgen_db074918e0d38cb5 = fromFFIType hs_bindgen_db074918e0d38cb5_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-arr_args4 :: FunPtr (ConstantArray 5 (Ptr A) -> IO Unit)
+arr_args4 :: FunPtr (Ptr (Elem (ConstantArray 5 (Ptr A))) ->
+                     IO Unit)
 {-| __C declaration:__ @arr_args4@
 
     __defined at:__ @macros\/reparse.h 107:6@
@@ -11598,7 +11611,7 @@ const_pointers_ret5 = unsafePerformIO hs_bindgen_bc3cdc03ae3274bd
 foreign import ccall unsafe "hs_bindgen_ae95c15a81eacd52" hs_bindgen_ae95c15a81eacd52_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem1@
-hs_bindgen_ae95c15a81eacd52 :: IO (FunPtr (IncompleteArray A ->
+hs_bindgen_ae95c15a81eacd52 :: IO (FunPtr (PtrConst (Elem (IncompleteArray A)) ->
                                            IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem1@
 hs_bindgen_ae95c15a81eacd52 = fromFFIType hs_bindgen_ae95c15a81eacd52_base
@@ -11609,7 +11622,8 @@ hs_bindgen_ae95c15a81eacd52 = fromFFIType hs_bindgen_ae95c15a81eacd52_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1 :: FunPtr (IncompleteArray A -> IO Unit)
+const_array_elem1 :: FunPtr (PtrConst (Elem (IncompleteArray A)) ->
+                             IO Unit)
 {-| __C declaration:__ @const_array_elem1@
 
     __defined at:__ @macros\/reparse.h 246:6@
@@ -11621,7 +11635,7 @@ const_array_elem1 = unsafePerformIO hs_bindgen_ae95c15a81eacd52
 foreign import ccall unsafe "hs_bindgen_9dbbae3758752935" hs_bindgen_9dbbae3758752935_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem2@
-hs_bindgen_9dbbae3758752935 :: IO (FunPtr (IncompleteArray (PtrConst A) ->
+hs_bindgen_9dbbae3758752935 :: IO (FunPtr (Ptr (Elem (IncompleteArray (PtrConst A))) ->
                                            IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem2@
 hs_bindgen_9dbbae3758752935 = fromFFIType hs_bindgen_9dbbae3758752935_base
@@ -11632,7 +11646,7 @@ hs_bindgen_9dbbae3758752935 = fromFFIType hs_bindgen_9dbbae3758752935_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem2 :: FunPtr (IncompleteArray (PtrConst A) ->
+const_array_elem2 :: FunPtr (Ptr (Elem (IncompleteArray (PtrConst A))) ->
                              IO Unit)
 {-| __C declaration:__ @const_array_elem2@
 
@@ -11645,7 +11659,7 @@ const_array_elem2 = unsafePerformIO hs_bindgen_9dbbae3758752935
 foreign import ccall unsafe "hs_bindgen_9fdb904f0c0776ed" hs_bindgen_9fdb904f0c0776ed_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem3@
-hs_bindgen_9fdb904f0c0776ed :: IO (FunPtr (IncompleteArray (Ptr A) ->
+hs_bindgen_9fdb904f0c0776ed :: IO (FunPtr (PtrConst (Elem (IncompleteArray (Ptr A))) ->
                                            IO Unit))
 -- __unique:__ @test_macrosreparse_Example_get_const_array_elem3@
 hs_bindgen_9fdb904f0c0776ed = fromFFIType hs_bindgen_9fdb904f0c0776ed_base
@@ -11656,7 +11670,8 @@ hs_bindgen_9fdb904f0c0776ed = fromFFIType hs_bindgen_9fdb904f0c0776ed_base
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3 :: FunPtr (IncompleteArray (Ptr A) -> IO Unit)
+const_array_elem3 :: FunPtr (PtrConst (Elem (IncompleteArray (Ptr A))) ->
+                             IO Unit)
 {-| __C declaration:__ @const_array_elem3@
 
     __defined at:__ @macros\/reparse.h 248:6@

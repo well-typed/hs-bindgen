@@ -7,8 +7,10 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -18,8 +20,8 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_manualarrays_Example_get_transpose */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_c99d8a3b0363a0fa (void)) ("
-  , "  matrix const arg1,"
-  , "  matrix arg2"
+  , "  triplet const *arg1,"
+  , "  triplet *arg2"
   , ")"
   , "{"
   , "  return &transpose;"
@@ -27,7 +29,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_manualarrays_Example_get_pretty_print_triplets */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_923b33cbbfeb5e7d (void)) ("
-  , "  triplet_ptrs arg1"
+  , "  signed int (**arg1)[3]"
   , ")"
   , "{"
   , "  return &pretty_print_triplets;"
@@ -39,7 +41,7 @@ foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b036
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_manualarrays_Example_get_transpose@
-hs_bindgen_c99d8a3b0363a0fa :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_c99d8a3b0363a0fa :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> (Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> IO ()))
 hs_bindgen_c99d8a3b0363a0fa =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c99d8a3b0363a0fa_base
 
@@ -50,7 +52,7 @@ hs_bindgen_c99d8a3b0363a0fa =
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
+transpose :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> (Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> IO ())
 transpose =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c99d8a3b0363a0fa
 
@@ -59,7 +61,7 @@ foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfe
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
-hs_bindgen_923b33cbbfeb5e7d :: IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
+hs_bindgen_923b33cbbfeb5e7d :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Triplet_ptrs)) -> IO ()))
 hs_bindgen_923b33cbbfeb5e7d =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_923b33cbbfeb5e7d_base
 
@@ -72,6 +74,6 @@ __defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets :: Ptr.FunPtr (Triplet_ptrs -> IO ())
+pretty_print_triplets :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Triplet_ptrs)) -> IO ())
 pretty_print_triplets =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_923b33cbbfeb5e7d

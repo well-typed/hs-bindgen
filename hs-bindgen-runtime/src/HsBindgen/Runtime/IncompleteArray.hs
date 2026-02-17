@@ -14,7 +14,6 @@ module HsBindgen.Runtime.IncompleteArray (
   , toFirstElemPtr
   , peekArray
   , pokeArray
-  , withPtr
     -- * Construction
   , repeat
   , fromList
@@ -189,15 +188,6 @@ pokeArrayOff off ptr (coerce -> IA vs) = do
   where
     sizeOfA = sizeOf (undefined :: a)
     offBytes = sizeOfA * off
-
--- | /( O(n) /): Retrieve the underlying pointer
-withPtr ::
-     (Coercible b (IncompleteArray a), Storable a)
-  => b -> (Ptr b -> IO r) -> IO r
-withPtr (coerce -> IA v) k = do
-    -- we copy the data, as e.g. @int fun(int xs[])@ may mutate it.
-    VS.MVector _ fptr <- VS.thaw v
-    withForeignPtr fptr $ \(ptr :: Ptr a) -> k (toPtr ptr)
 
 instance Storable a => IsArray (IncompleteArray a) where
   type Elem (IncompleteArray a) = a

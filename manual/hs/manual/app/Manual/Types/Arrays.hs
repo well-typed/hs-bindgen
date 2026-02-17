@@ -5,6 +5,7 @@ module Manual.Types.Arrays (examples) where
 import Foreign as F
 import GHC.TypeNats
 
+import HsBindgen.Runtime.Array.Class qualified as A
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.Prelude
@@ -71,9 +72,9 @@ reverseIncompleteArrayElems n ptr = do
 
 transposeMatrix :: Arrays.Matrix -> IO Arrays.Matrix
 transposeMatrix inputMatrix =
-    CA.withPtr inputMatrix $ \inputPtr -> do
+    A.withElemPtr inputMatrix $ \inputPtr -> do
       F.alloca $ \(outputPtr :: Ptr Arrays.Matrix) -> do
-        Arrays.transpose (PtrConst.unsafeFromPtr inputPtr) outputPtr
+        Arrays.transpose (PtrConst.unsafeFromPtr inputPtr) (snd $ CA.toFirstElemPtr outputPtr)
         peek outputPtr
 
 {-------------------------------------------------------------------------------

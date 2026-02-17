@@ -78,6 +78,8 @@ getInstances instanceMap name = aux
           HsIncompleteArray hsType' ->
             -- constrain by Array item type in next step
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
+          HsPtrArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
+          HsPtrConstArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsStablePtr{} -> aux (acc /\ ptrInsts) hsTypes
@@ -308,6 +310,8 @@ hasInstance_IsArray instanceMap name = aux
               Nothing -> panicPure $ "type not found: " ++ show name'
         HsConstArray{} -> True
         HsIncompleteArray{} -> True
+        HsPtrArrayElem{} -> False
+        HsPtrConstArrayElem{} -> False
         HsPtr{} -> False
         HsFunPtr{} -> False
         HsStablePtr{} -> False

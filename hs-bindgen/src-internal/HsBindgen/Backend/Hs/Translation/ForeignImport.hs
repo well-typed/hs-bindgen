@@ -270,6 +270,8 @@ toFFIType sizeofs = go
       HsTypRef _ t -> t >>= go
       HsConstArray{} -> no
       HsIncompleteArray{} -> no
+      HsPtrArrayElem {} -> yes $ FFI.Basic FFI.Ptr
+      HsPtrConstArrayElem {} -> yes $ FFI.Basic FFI.Ptr
       HsPtr{} -> yes $ FFI.Basic FFI.Ptr
       HsFunPtr{} -> yes $ FFI.Basic FFI.FunPtr
       HsStablePtr{} -> no

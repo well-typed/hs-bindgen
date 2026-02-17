@@ -10,6 +10,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Word
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
@@ -80,11 +81,11 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  return versioned_function(arg1);"
   , "}"
   , "signed int hs_bindgen_0c0057f1700372a7 ("
-  , "  char (*arg1)[64],"
+  , "  char *arg1,"
   , "  size_t arg2"
   , ")"
   , "{"
-  , "  return process_buffer(*arg1, arg2);"
+  , "  return process_buffer(arg1, arg2);"
   , "}"
   , "void *hs_bindgen_294db77671f95524 ("
   , "  void *arg1,"
@@ -568,7 +569,7 @@ foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f170037
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar))
   -> HsBindgen.Runtime.LibC.CSize
   -> IO FC.CInt
 hs_bindgen_0c0057f1700372a7 =
@@ -591,7 +592,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar))
      {- ^
 
         [__@buffer@ /(input)/__]: Buffer with minimum size

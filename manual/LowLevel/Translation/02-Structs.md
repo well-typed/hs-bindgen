@@ -277,7 +277,7 @@ binding of a structure with FLAM,
     -- We need to allocate an array, we do that using the "IncompleteArray"
     -- module, also available in the `hs-bindgen` runtime.
     let arr = IA.fromList $ fmap FC.castCharToCChar "Rich"
-    bracket (IA.withPtr arr $ \ptr -> surname_alloc (ConstPtr ptr)) surname_free $
+    bracket (IA.withElemPtr arr $ \ptr -> surname_alloc (ConstPtr ptr)) surname_free $
       \ptr -> do
         surname <- readRaw ptr
         putStrLn $ "The length of the surname is: " <> show (FLAM.numElems surname.aux)

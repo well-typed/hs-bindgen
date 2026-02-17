@@ -30,6 +30,7 @@ import qualified GHC.Generics
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasCField
@@ -548,11 +549,44 @@ __defined at:__ @functions\/callbacks.h 32:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull_Aux = SampleBufferFull_Aux
-  { unwrapSampleBufferFull_Aux :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
+  { unwrapSampleBufferFull_Aux :: (Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt))) -> IO ()
   }
   deriving stock (GHC.Generics.Generic)
+  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
 
-instance ( TyEq ty (((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ())
+foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
+     ((Ptr.Ptr Void) -> IO ())
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO ()))
+
+-- __unique:__ @toSampleBufferFull_Aux@
+hs_bindgen_57d9e30494ae4453 ::
+     SampleBufferFull_Aux
+  -> IO (Ptr.FunPtr SampleBufferFull_Aux)
+hs_bindgen_57d9e30494ae4453 =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_57d9e30494ae4453_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_2ab7ac6bb756ba7e_base ::
+     Ptr.FunPtr ((Ptr.Ptr Void) -> IO ())
+  -> (Ptr.Ptr Void) -> IO ()
+
+-- __unique:__ @fromSampleBufferFull_Aux@
+hs_bindgen_2ab7ac6bb756ba7e ::
+     Ptr.FunPtr SampleBufferFull_Aux
+  -> SampleBufferFull_Aux
+hs_bindgen_2ab7ac6bb756ba7e =
+  \funPtr0 ->
+    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_2ab7ac6bb756ba7e_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
+
+instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr SampleBufferFull_Aux where
+
+  toFunPtr = hs_bindgen_57d9e30494ae4453
+
+instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr SampleBufferFull_Aux where
+
+  fromFunPtr = hs_bindgen_2ab7ac6bb756ba7e
+
+instance ( TyEq ty ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt))) -> IO ())
          ) => GHC.Records.HasField "unwrapSampleBufferFull_Aux" (Ptr.Ptr SampleBufferFull_Aux) (Ptr.Ptr ty) where
 
   getField =
@@ -561,7 +595,7 @@ instance ( TyEq ty (((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt)
 instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Aux "unwrapSampleBufferFull_Aux" where
 
   type CFieldType SampleBufferFull_Aux "unwrapSampleBufferFull_Aux" =
-    ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
+    (Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt))) -> IO ()
 
   offset# = \_ -> \_ -> 0
 

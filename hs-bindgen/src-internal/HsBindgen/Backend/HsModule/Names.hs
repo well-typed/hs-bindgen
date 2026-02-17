@@ -306,6 +306,7 @@ resolveGlobal = \case
     ConstantArray   -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
     IncompleteArray -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
     IsArray_class   -> importQ ''HsBindgen.Runtime.Array.Class.IsArray
+    IsArray_Elem    -> importQ ''HsBindgen.Runtime.Array.Class.Elem
 
     -- StaticSize
     StaticSize_class           -> importQ ''HsBindgen.Runtime.Marshal.StaticSize

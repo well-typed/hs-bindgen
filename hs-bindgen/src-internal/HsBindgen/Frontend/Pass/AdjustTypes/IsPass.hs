@@ -1,8 +1,10 @@
 module HsBindgen.Frontend.Pass.AdjustTypes.IsPass (
     AdjustTypes
+  , AdjustedFrom (..)
   ) where
 
 import HsBindgen.Frontend.AST.Coerce
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -29,6 +31,7 @@ type family AnnAdjustTypes ix where
   AnnAdjustTypes "Enum"             = NewtypeNames
   AnnAdjustTypes "Typedef"          = NewtypeNames
   AnnAdjustTypes "CheckedMacroType" = NewtypeNames
+  AnnAdjustTypes "TypeFunArg"       = AdjustedFrom AdjustTypes
   AnnAdjustTypes _                  = NoAnn
 
 instance IsPass AdjustTypes where
@@ -45,6 +48,16 @@ instance IsPass AdjustTypes where
   idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
   extBindingId _ extBinding = extDeclIdPair extBinding
   macroIdId _ = id
+
+{-------------------------------------------------------------------------------
+  Annotations
+-------------------------------------------------------------------------------}
+
+data AdjustedFrom p =
+    AdjustedFromArray (C.Type AdjustTypes)
+  | AdjustedFromFunction (C.Type AdjustTypes)
+  | NotAdjusted
+  deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   Trace messages

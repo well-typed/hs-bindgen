@@ -855,8 +855,8 @@ __defined at:__ @functions\/callbacks.h 32:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull_Aux
-    = SampleBufferFull_Aux {unwrapSampleBufferFull_Aux :: (ConstantArray 10
-                                                                         CInt ->
+    = SampleBufferFull_Aux {unwrapSampleBufferFull_Aux :: (Ptr (Elem (ConstantArray 10
+                                                                                    CInt)) ->
                                                            IO Unit)}
       {- ^ Auxiliary type used by 'SampleBufferFull'
 
@@ -867,7 +867,29 @@ newtype SampleBufferFull_Aux
       __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock Generic
-instance TyEq ty (ConstantArray 10 CInt -> IO Unit) =>
+    deriving newtype HasFFIType
+foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
+    Ptr Void -> IO Unit
+ -> IO (FunPtr (Ptr Void -> IO Unit))
+-- __unique:__ @toSampleBufferFull_Aux@
+hs_bindgen_57d9e30494ae4453 :: SampleBufferFull_Aux ->
+                               IO (FunPtr SampleBufferFull_Aux)
+-- __unique:__ @toSampleBufferFull_Aux@
+hs_bindgen_57d9e30494ae4453 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_57d9e30494ae4453_base (toFFIType fun_0))
+foreign import ccall safe "dynamic" hs_bindgen_2ab7ac6bb756ba7e_base ::
+    FunPtr (Ptr Void -> IO Unit)
+ -> Ptr Void
+ -> IO Unit
+-- __unique:__ @fromSampleBufferFull_Aux@
+hs_bindgen_2ab7ac6bb756ba7e :: FunPtr SampleBufferFull_Aux ->
+                               SampleBufferFull_Aux
+-- __unique:__ @fromSampleBufferFull_Aux@
+hs_bindgen_2ab7ac6bb756ba7e = \funPtr_0 -> fromFFIType (hs_bindgen_2ab7ac6bb756ba7e_base (castFunPtrToFFIType funPtr_0))
+instance ToFunPtr SampleBufferFull_Aux
+    where toFunPtr = hs_bindgen_57d9e30494ae4453
+instance FromFunPtr SampleBufferFull_Aux
+    where fromFunPtr = hs_bindgen_2ab7ac6bb756ba7e
+instance TyEq ty (Ptr (Elem (ConstantArray 10 CInt)) -> IO Unit) =>
          HasField "unwrapSampleBufferFull_Aux"
                   (Ptr SampleBufferFull_Aux)
                   (Ptr ty)
@@ -875,7 +897,9 @@ instance TyEq ty (ConstantArray 10 CInt -> IO Unit) =>
 instance HasCField SampleBufferFull_Aux
                    "unwrapSampleBufferFull_Aux"
     where type CFieldType SampleBufferFull_Aux
-                          "unwrapSampleBufferFull_Aux" = ConstantArray 10 CInt -> IO Unit
+                          "unwrapSampleBufferFull_Aux" = Ptr (Elem (ConstantArray 10
+                                                                                  CInt)) ->
+                                                         IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SampleBufferFull@
 

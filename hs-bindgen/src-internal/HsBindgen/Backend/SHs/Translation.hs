@@ -319,6 +319,8 @@ translateType = \case
     Hs.HsTypRef r _          -> TCon r
     Hs.HsConstArray n t      -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
     Hs.HsIncompleteArray t   -> TGlobal IncompleteArray `TApp` (translateType t)
+    Hs.HsPtrArrayElem t      -> TGlobal Foreign_Ptr `TApp` (TGlobal IsArray_Elem `TApp` translateType t)
+    Hs.HsPtrConstArrayElem t -> TGlobal PtrConst_type `TApp` (TGlobal IsArray_Elem `TApp` translateType t)
     Hs.HsPtr t               -> TApp (TGlobal Foreign_Ptr) (translateType t)
     Hs.HsFunPtr t            -> TApp (TGlobal Foreign_FunPtr) (translateType t)
     Hs.HsStablePtr t         -> TApp (TGlobal Foreign_StablePtr) (translateType t)

@@ -148,8 +148,8 @@ withDrawing shape colour k =
 transpose :: Ptr Gen.Matrix -> Ptr Gen.Matrix -> IO ()
 transpose inputPtr outputPtr =
     Gen.transpose
-      (PtrConst.unsafeFromPtr inputPtr)
-      outputPtr
+      (PtrConst.unsafeFromPtr inputPtr.unwrapMatrix.toFirstElemPtr)
+      outputPtr.unwrapMatrix.toFirstElemPtr
 
 instance FLAM.NumElems CChar Gen.Vector_Aux where
   numElems x = fromIntegral (Gen.vector_len x)

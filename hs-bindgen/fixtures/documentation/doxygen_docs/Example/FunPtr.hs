@@ -9,6 +9,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
@@ -99,7 +100,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_documentationdoxygen_docs_Example_get_process_buffer */"
   , "__attribute__ ((const))"
   , "signed int (*hs_bindgen_f4ccc6d90e8d3ebd (void)) ("
-  , "  char arg1[64],"
+  , "  char *arg1,"
   , "  size_t arg2"
   , ")"
   , "{"
@@ -477,7 +478,7 @@ foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
-hs_bindgen_f4ccc6d90e8d3ebd :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CInt))
+hs_bindgen_f4ccc6d90e8d3ebd :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar))) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CInt))
 hs_bindgen_f4ccc6d90e8d3ebd =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 
@@ -498,7 +499,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CInt)
+process_buffer :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar))) -> HsBindgen.Runtime.LibC.CSize -> IO FC.CInt)
 process_buffer =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f4ccc6d90e8d3ebd
 

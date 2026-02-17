@@ -9,6 +9,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Internal.CAPI
@@ -23,7 +24,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_foo */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_08ac8ef9de29103e (void)) ("
-  , "  signed int const arg1[]"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &foo;"
@@ -31,7 +32,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_fooA */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_54fbf41deabb186a (void)) ("
-  , "  S arg1"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &fooA;"
@@ -39,7 +40,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_fooB */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_639b20c53a422f2a (void)) ("
-  , "  S const arg1"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &fooB;"
@@ -47,7 +48,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_fooC */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_fef335c60d51fed2 (void)) ("
-  , "  T const arg1"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &fooC;"
@@ -55,7 +56,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_bar */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_20a55b314c10f7b0 (void)) ("
-  , "  signed int const arg1[3]"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &bar;"
@@ -63,7 +64,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_barA */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_d75c925bc91f45d8 (void)) ("
-  , "  U arg1"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &barA;"
@@ -71,7 +72,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_barB */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_aecd16e35ff42812 (void)) ("
-  , "  U const arg1"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &barB;"
@@ -79,7 +80,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_arraysconst_qualifier_Example_get_barC */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_7b514bc063bee42a (void)) ("
-  , "  V const arg1"
+  , "  signed int const *arg1"
   , ")"
   , "{"
   , "  return &barC;"
@@ -123,7 +124,7 @@ foreign import ccall unsafe "hs_bindgen_08ac8ef9de29103e" hs_bindgen_08ac8ef9de2
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_foo@
-hs_bindgen_08ac8ef9de29103e :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO ()))
+hs_bindgen_08ac8ef9de29103e :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))) -> IO ()))
 hs_bindgen_08ac8ef9de29103e =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_08ac8ef9de29103e_base
 
@@ -134,7 +135,7 @@ hs_bindgen_08ac8ef9de29103e =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-foo :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO ())
+foo :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))) -> IO ())
 foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_08ac8ef9de29103e
 
@@ -143,7 +144,7 @@ foreign import ccall unsafe "hs_bindgen_54fbf41deabb186a" hs_bindgen_54fbf41deab
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooA@
-hs_bindgen_54fbf41deabb186a :: IO (Ptr.FunPtr (S -> IO ()))
+hs_bindgen_54fbf41deabb186a :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem S)) -> IO ()))
 hs_bindgen_54fbf41deabb186a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_54fbf41deabb186a_base
 
@@ -154,7 +155,7 @@ hs_bindgen_54fbf41deabb186a =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooA :: Ptr.FunPtr (S -> IO ())
+fooA :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem S)) -> IO ())
 fooA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_54fbf41deabb186a
 
@@ -163,7 +164,7 @@ foreign import ccall unsafe "hs_bindgen_639b20c53a422f2a" hs_bindgen_639b20c53a4
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooB@
-hs_bindgen_639b20c53a422f2a :: IO (Ptr.FunPtr (S -> IO ()))
+hs_bindgen_639b20c53a422f2a :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem S)) -> IO ()))
 hs_bindgen_639b20c53a422f2a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_639b20c53a422f2a_base
 
@@ -174,7 +175,7 @@ hs_bindgen_639b20c53a422f2a =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooB :: Ptr.FunPtr (S -> IO ())
+fooB :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem S)) -> IO ())
 fooB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_639b20c53a422f2a
 
@@ -183,7 +184,7 @@ foreign import ccall unsafe "hs_bindgen_fef335c60d51fed2" hs_bindgen_fef335c60d5
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_fooC@
-hs_bindgen_fef335c60d51fed2 :: IO (Ptr.FunPtr (T -> IO ()))
+hs_bindgen_fef335c60d51fed2 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem T)) -> IO ()))
 hs_bindgen_fef335c60d51fed2 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fef335c60d51fed2_base
 
@@ -194,7 +195,7 @@ hs_bindgen_fef335c60d51fed2 =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-fooC :: Ptr.FunPtr (T -> IO ())
+fooC :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem T)) -> IO ())
 fooC =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fef335c60d51fed2
 
@@ -203,7 +204,7 @@ foreign import ccall unsafe "hs_bindgen_20a55b314c10f7b0" hs_bindgen_20a55b314c1
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_bar@
-hs_bindgen_20a55b314c10f7b0 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO ()))
+hs_bindgen_20a55b314c10f7b0 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) -> IO ()))
 hs_bindgen_20a55b314c10f7b0 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_20a55b314c10f7b0_base
 
@@ -214,7 +215,7 @@ hs_bindgen_20a55b314c10f7b0 =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-bar :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO ())
+bar :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) -> IO ())
 bar =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_20a55b314c10f7b0
 
@@ -223,7 +224,7 @@ foreign import ccall unsafe "hs_bindgen_d75c925bc91f45d8" hs_bindgen_d75c925bc91
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barA@
-hs_bindgen_d75c925bc91f45d8 :: IO (Ptr.FunPtr (U -> IO ()))
+hs_bindgen_d75c925bc91f45d8 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem U)) -> IO ()))
 hs_bindgen_d75c925bc91f45d8 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d75c925bc91f45d8_base
 
@@ -234,7 +235,7 @@ hs_bindgen_d75c925bc91f45d8 =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barA :: Ptr.FunPtr (U -> IO ())
+barA :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem U)) -> IO ())
 barA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d75c925bc91f45d8
 
@@ -243,7 +244,7 @@ foreign import ccall unsafe "hs_bindgen_aecd16e35ff42812" hs_bindgen_aecd16e35ff
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barB@
-hs_bindgen_aecd16e35ff42812 :: IO (Ptr.FunPtr (U -> IO ()))
+hs_bindgen_aecd16e35ff42812 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem U)) -> IO ()))
 hs_bindgen_aecd16e35ff42812 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_aecd16e35ff42812_base
 
@@ -254,7 +255,7 @@ hs_bindgen_aecd16e35ff42812 =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barB :: Ptr.FunPtr (U -> IO ())
+barB :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem U)) -> IO ())
 barB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aecd16e35ff42812
 
@@ -263,7 +264,7 @@ foreign import ccall unsafe "hs_bindgen_7b514bc063bee42a" hs_bindgen_7b514bc063b
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_arraysconst_qualifier_Example_get_barC@
-hs_bindgen_7b514bc063bee42a :: IO (Ptr.FunPtr (V -> IO ()))
+hs_bindgen_7b514bc063bee42a :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem V)) -> IO ()))
 hs_bindgen_7b514bc063bee42a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7b514bc063bee42a_base
 
@@ -274,7 +275,7 @@ hs_bindgen_7b514bc063bee42a =
 
     __exported by:__ @arrays\/const_qualifier.h@
 -}
-barC :: Ptr.FunPtr (V -> IO ())
+barC :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem V)) -> IO ())
 barC =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7b514bc063bee42a
 

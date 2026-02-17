@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import Data.Void (Void)
@@ -15,22 +16,22 @@ import Prelude (IO)
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/array_known_size.h>"
   , "void hs_bindgen_2a6ef3a515232132 ("
-  , "  MyArray *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  foo(*arg1);"
+  , "  foo(arg1);"
   , "}"
   , "void hs_bindgen_4449a68917cbc499 ("
-  , "  A *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  fooA(*arg1);"
+  , "  fooA(arg1);"
   , "}"
   , "void hs_bindgen_05766199d1b077bb ("
-  , "  B *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  fooB(*arg1);"
+  , "  fooB(arg1);"
   , "}"
   ]))
 
@@ -41,7 +42,7 @@ foreign import ccall safe "hs_bindgen_2a6ef3a515232132" hs_bindgen_2a6ef3a515232
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 hs_bindgen_2a6ef3a515232132 ::
-     Ptr.Ptr MyArray
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem MyArray)
   -> IO ()
 hs_bindgen_2a6ef3a515232132 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2a6ef3a515232132_base
@@ -53,7 +54,7 @@ hs_bindgen_2a6ef3a515232132 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 foo ::
-     Ptr.Ptr MyArray
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem MyArray)
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_2a6ef3a515232132
@@ -65,7 +66,7 @@ foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 hs_bindgen_4449a68917cbc499 ::
-     Ptr.Ptr A
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem A)
   -> IO ()
 hs_bindgen_4449a68917cbc499 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4449a68917cbc499_base
@@ -77,7 +78,7 @@ hs_bindgen_4449a68917cbc499 =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooA ::
-     Ptr.Ptr A
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem A)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_4449a68917cbc499
@@ -89,7 +90,7 @@ foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b07
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 hs_bindgen_05766199d1b077bb ::
-     Ptr.Ptr B
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem B)
   -> IO ()
 hs_bindgen_05766199d1b077bb =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_05766199d1b077bb_base
@@ -101,7 +102,7 @@ hs_bindgen_05766199d1b077bb =
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 fooB ::
-     Ptr.Ptr B
+     Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem B)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_05766199d1b077bb

@@ -9,6 +9,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
@@ -22,7 +23,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_foo */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_2020929269c10652 (void)) ("
-  , "  signed int arg1[3]"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &foo;"
@@ -30,7 +31,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooA */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_3fbd7681308a7575 (void)) ("
-  , "  A arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooA;"
@@ -38,7 +39,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooB */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_118f9a485493ca2d (void)) ("
-  , "  B arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooB;"
@@ -46,7 +47,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooC */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_dbe89d4787aae78a (void)) ("
-  , "  C arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooC;"
@@ -54,7 +55,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooD */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_cf5702eef5ab2ac4 (void)) ("
-  , "  D arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooD;"
@@ -62,7 +63,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argtypedef_Example_get_fooE */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_dc10cdc4b07670d1 (void)) ("
-  , "  E arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  return &fooE;"
@@ -74,7 +75,7 @@ foreign import ccall unsafe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO ()))
+hs_bindgen_2020929269c10652 :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) -> IO ()))
 hs_bindgen_2020929269c10652 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2020929269c10652_base
 
@@ -85,7 +86,7 @@ hs_bindgen_2020929269c10652 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-foo :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO ())
+foo :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) -> IO ())
 foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2020929269c10652
 
@@ -94,7 +95,7 @@ foreign import ccall unsafe "hs_bindgen_3fbd7681308a7575" hs_bindgen_3fbd7681308
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
-hs_bindgen_3fbd7681308a7575 :: IO (Ptr.FunPtr (A -> IO ()))
+hs_bindgen_3fbd7681308a7575 :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem A)) -> IO ()))
 hs_bindgen_3fbd7681308a7575 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3fbd7681308a7575_base
 
@@ -105,7 +106,7 @@ hs_bindgen_3fbd7681308a7575 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooA :: Ptr.FunPtr (A -> IO ())
+fooA :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem A)) -> IO ())
 fooA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3fbd7681308a7575
 
@@ -114,7 +115,7 @@ foreign import ccall unsafe "hs_bindgen_118f9a485493ca2d" hs_bindgen_118f9a48549
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
-hs_bindgen_118f9a485493ca2d :: IO (Ptr.FunPtr (B -> IO ()))
+hs_bindgen_118f9a485493ca2d :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem B)) -> IO ()))
 hs_bindgen_118f9a485493ca2d =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_118f9a485493ca2d_base
 
@@ -125,7 +126,7 @@ hs_bindgen_118f9a485493ca2d =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooB :: Ptr.FunPtr (B -> IO ())
+fooB :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem B)) -> IO ())
 fooB =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_118f9a485493ca2d
 
@@ -134,7 +135,7 @@ foreign import ccall unsafe "hs_bindgen_dbe89d4787aae78a" hs_bindgen_dbe89d4787a
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
-hs_bindgen_dbe89d4787aae78a :: IO (Ptr.FunPtr (M.C -> IO ()))
+hs_bindgen_dbe89d4787aae78a :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem M.C)) -> IO ()))
 hs_bindgen_dbe89d4787aae78a =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dbe89d4787aae78a_base
 
@@ -145,7 +146,7 @@ hs_bindgen_dbe89d4787aae78a =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooC :: Ptr.FunPtr (M.C -> IO ())
+fooC :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem M.C)) -> IO ())
 fooC =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dbe89d4787aae78a
 
@@ -154,7 +155,7 @@ foreign import ccall unsafe "hs_bindgen_cf5702eef5ab2ac4" hs_bindgen_cf5702eef5a
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
-hs_bindgen_cf5702eef5ab2ac4 :: IO (Ptr.FunPtr (M.D -> IO ()))
+hs_bindgen_cf5702eef5ab2ac4 :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem M.D)) -> IO ()))
 hs_bindgen_cf5702eef5ab2ac4 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
 
@@ -165,7 +166,7 @@ hs_bindgen_cf5702eef5ab2ac4 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooD :: Ptr.FunPtr (M.D -> IO ())
+fooD :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem M.D)) -> IO ())
 fooD =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cf5702eef5ab2ac4
 
@@ -174,7 +175,7 @@ foreign import ccall unsafe "hs_bindgen_dc10cdc4b07670d1" hs_bindgen_dc10cdc4b07
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
-hs_bindgen_dc10cdc4b07670d1 :: IO (Ptr.FunPtr (E -> IO ()))
+hs_bindgen_dc10cdc4b07670d1 :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem E)) -> IO ()))
 hs_bindgen_dc10cdc4b07670d1 =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dc10cdc4b07670d1_base
 
@@ -185,6 +186,6 @@ hs_bindgen_dc10cdc4b07670d1 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
-fooE :: Ptr.FunPtr (E -> IO ())
+fooE :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem E)) -> IO ())
 fooE =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dc10cdc4b07670d1

@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Array.Class
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.HasFFIType
 import qualified HsBindgen.Runtime.PtrConst
@@ -29,8 +30,8 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_manualzero_copy_Example_get_transpose */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_1bf30b28aefee5bf (void)) ("
-  , "  matrix const arg1,"
-  , "  matrix arg2"
+  , "  triplet const *arg1,"
+  , "  triplet *arg2"
   , ")"
   , "{"
   , "  return &transpose;"
@@ -62,7 +63,7 @@ foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aef
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
-hs_bindgen_1bf30b28aefee5bf :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_1bf30b28aefee5bf :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> (Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> IO ()))
 hs_bindgen_1bf30b28aefee5bf =
   HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 
@@ -73,6 +74,6 @@ hs_bindgen_1bf30b28aefee5bf =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
+transpose :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> (Ptr.Ptr (HsBindgen.Runtime.Array.Class.Elem Matrix)) -> IO ())
 transpose =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1bf30b28aefee5bf

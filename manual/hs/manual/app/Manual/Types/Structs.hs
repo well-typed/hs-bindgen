@@ -10,6 +10,7 @@ import Foreign.C (castCCharToChar)
 import Foreign.C qualified as FC
 import System.IO.Unsafe
 
+import HsBindgen.Runtime.Array.Class qualified as A
 import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.Prelude
@@ -50,7 +51,7 @@ examples = do
 
     subsection "Flexible array members"
     let arr = IA.fromList $ fmap FC.castCharToCChar "Rich"
-    bracket (IA.withPtr arr $ \ptr -> surname_alloc (PtrConst.unsafeFromPtr ptr)) surname_free $
+    bracket (A.withElemPtr arr $ \ptr -> surname_alloc (PtrConst.unsafeFromPtr ptr)) surname_free $
       \ptr -> do
         surname <- readRaw ptr
         putStrLn $ "The length of the surname is: " <> show (FLAM.numElems surname.aux)

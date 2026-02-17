@@ -110,6 +110,7 @@ mkGlobal = \case
       ConstantArray   -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
       IncompleteArray -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
       IsArray_class   -> ''HsBindgen.Runtime.Array.Class.IsArray
+      IsArray_Elem    -> ''HsBindgen.Runtime.Array.Class.Elem
 
       -- StaticSize
       StaticSize_class           -> ''HsBindgen.Runtime.Marshal.StaticSize
@@ -404,6 +405,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ConstantArray   -> panicPure "type in expression"
     IncompleteArray -> panicPure "type in expression"
     IsArray_class   -> panicPure "class in expression"
+    IsArray_Elem    -> panicPure "type in expression"
 
     -- StaticSize
     StaticSize_class           -> panicPure "class in expression"
