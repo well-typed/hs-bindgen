@@ -178,7 +178,7 @@ macroName (DSL.Name cName) =
 integerLiteral :: DSL.IntegerLiteral -> SExpr ctx
 integerLiteral lit =
     EIntegral (DSL.integerLiteralValue lit) $
-      Just $ bindgenGlobalType $
+      Just $ tBindgenGlobal $
         runtimeIntegral $ Runtime.IntLike (DSL.integerLiteralType lit)
 
 charLiteral :: DSL.CharLiteral -> SExpr ctx
@@ -193,9 +193,9 @@ floatingLiteral :: DSL.FloatingLiteral -> SExpr ctx
 floatingLiteral lit =
     case DSL.floatingLiteralType lit of
       Runtime.FloatType ->
-        EFloat  (DSL.floatingLiteralFloatValue  lit) (bindgenGlobalType CFloat_type)
+        EFloat  (DSL.floatingLiteralFloatValue  lit) (tBindgenGlobal CFloat_type)
       Runtime.DoubleType ->
-        EDouble (DSL.floatingLiteralDoubleValue lit) (bindgenGlobalType CDouble_type)
+        EDouble (DSL.floatingLiteralDoubleValue lit) (tBindgenGlobal CDouble_type)
 
 {-------------------------------------------------------------------------------
   Primitive types

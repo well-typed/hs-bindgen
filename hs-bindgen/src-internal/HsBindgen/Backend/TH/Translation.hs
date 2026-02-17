@@ -79,7 +79,7 @@ mkExpr env = \case
       ECon n        -> hsConE n
       EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
       EIntegral i Nothing -> TH.litE (TH.IntegerL i)
-      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (TH.conT t.name)
+      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkType EmptyEnv t)
       -- TH doesn't have floating-point literals, because it represents them
       -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
       --
@@ -91,14 +91,14 @@ mkExpr env = \case
               then [| f |]
               else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
           )
-          (TH.conT t.name)
+          (mkType EmptyEnv t)
       EDouble d t ->
         TH.sigE
           ( if CExpr.DSL.canBeRepresentedAsRational d
               then [| d |]
               else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
           )
-          (TH.conT t.name)
+          (mkType EmptyEnv t)
       EChar c -> [| c |]
       EString s -> [| s |]
       ECString ba@(ByteArray ba#) ->

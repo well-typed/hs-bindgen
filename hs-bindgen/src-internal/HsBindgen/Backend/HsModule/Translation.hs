@@ -278,7 +278,7 @@ resolveExprImports = \case
     EBound _x -> mempty
     EFree {} -> mempty
     ECon _n -> mempty
-    EIntegral _ t -> maybe mempty resolveGlobalImports t
+    EIntegral _ t -> maybe mempty resolveTypeImports t
     EUnboxedIntegral _ -> mempty
     EChar {} -> mconcat $
       map (resolveGlobalImports . cExprGlobalType) [
@@ -295,8 +295,8 @@ resolveExprImports = \case
     EString {} -> mempty
     ECString {} -> resolveGlobalImports (bindgenGlobalType CStringLen_type)
                 <> resolveGlobalImports (bindgenGlobalExpr Foreign_Ptr_constructor)
-    EFloat _ t -> resolveGlobalImports t
-    EDouble _ t -> resolveGlobalImports t
+    EFloat _ t -> resolveTypeImports t
+    EDouble _ t -> resolveTypeImports t
     EApp f x -> resolveExprImports f <> resolveExprImports x
     EInfix op x y ->
       resolveGlobalImports (infixOpGlobal op) <> resolveExprImports x <> resolveExprImports y

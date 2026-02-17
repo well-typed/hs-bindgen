@@ -550,7 +550,7 @@ prettyExpr env prec = \case
     EUnboxedIntegral i ->
       PP.parens $ PP.hcat [PP.show i, "#"]
     EIntegral i (Just t) ->
-      PP.parens $ PP.hcat [PP.show i, " :: ", prettyTypeGlobal t]
+      PP.parens $ PP.hcat [PP.show i, " :: ", pretty t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
       prettyExpr env 0 (EGlobal $ cExprGlobalExpr CharValue_fromAddr)
         <+> PP.string str
@@ -579,9 +579,9 @@ prettyExpr env prec = \case
           prettyExpr env prec $
             EApp (eBindgenGlobal CFloat_constructor) $
               EApp (eBindgenGlobal GHC_Float_castWord32ToFloat) $
-                EIntegral (toInteger $ castFloatToWord32 f) (Just $ bindgenGlobalType CUInt_type)
+                EIntegral (toInteger $ castFloatToWord32 f) (Just $ tBindgenGlobal CUInt_type)
       , " :: "
-      , prettyTypeGlobal t
+      , pretty t
       ]
     EDouble f t -> PP.parens $ PP.hcat [
         if CExpr.DSL.canBeRepresentedAsRational f then
@@ -590,9 +590,9 @@ prettyExpr env prec = \case
           prettyExpr env  prec $
             EApp (eBindgenGlobal CDouble_constructor) $
               EApp (eBindgenGlobal GHC_Float_castWord64ToDouble) $
-                EIntegral (toInteger $ castDoubleToWord64 f) (Just $ bindgenGlobalType CULong_type)
+                EIntegral (toInteger $ castDoubleToWord64 f) (Just $ tBindgenGlobal CULong_type)
       , " :: "
-      , prettyTypeGlobal t
+      , pretty t
       ]
 
     EApp f x -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x

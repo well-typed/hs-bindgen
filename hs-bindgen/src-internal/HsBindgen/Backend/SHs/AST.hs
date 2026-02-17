@@ -63,9 +63,9 @@ data SExpr ctx =
   | EFree (Hs.Name Hs.NsVar)
   | ECon (Hs.Name Hs.NsConstr)
   | EUnboxedIntegral Integer
-  | EIntegral Integer (Maybe (Global GTyp))
-  | EFloat Float (Global GTyp)   -- ^ Type annotation to distinguish Float/CFloat
-  | EDouble Double (Global GTyp) -- ^ Type annotation to distinguish Double/CDouble
+  | EIntegral Integer (Maybe ClosedType)
+  | EFloat Float ClosedType   -- ^ Type annotation to distinguish Float/CFloat
+  | EDouble Double ClosedType -- ^ Type annotation to distinguish Double/CDouble
   | EChar CExpr.Runtime.CharValue
   | EString String
   | ECString ByteArray
@@ -103,7 +103,7 @@ data PatExpr
   deriving stock (Show)
 
 eInt :: Int -> SExpr be
-eInt i = EIntegral (fromIntegral i) (Just $ bindgenGlobalType Int_type)
+eInt i = EIntegral (fromIntegral i) (Just $ tBindgenGlobal Int_type)
 
 -- | Supported infix operators.
 data InfixOp =
