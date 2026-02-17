@@ -1,35 +1,23 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
 module HsBindgen.Runtime.Internal.Tuple (
+    -- Zero-tuples
     Unit
+
+    -- One-tuples
   , Solo(MkSolo)
   ) where
 
--- The package @ghc-prim@ is problematic.
---
--- Also interesting, not all package versions are available on Hackage:
--- https://hackage.haskell.org/package/ghc-prim. In particular, version @0.9.1@
--- is missing.
+import Data.Tuple.Solo (Solo(MkSolo))
 
-#define IS_GHC_PRIM_0_9_X  (MIN_VERSION_ghc_prim(0,9,0)  && !MIN_VERSION_ghc_prim(0,10,0))
-#define IS_GHC_PRIM_0_10_X (MIN_VERSION_ghc_prim(0,10,0) && !MIN_VERSION_ghc_prim(0,11,0))
+-- GHC 9.8 ships with @ghc-prim@ version 0.11 which provides the 'Unit' type. We
+-- have to check the GHC version, because the `MIN_VERSION_ghc_prim` is not
+-- defined when `ghc-prim` is not used. (And we must deactivate the package when
+-- we don't use it to avoid unused package warnings).
 
-#if IS_GHC_PRIM_0_9_X
-import GHC.Tuple (Solo (Solo))
-
+#if __GLASGOW_HASKELL__ >=908
+import GHC.Tuple (Unit)
+#else
 type Unit = ()
-
-pattern MkSolo :: a -> Solo a
-pattern MkSolo x = Solo x
-{-# COMPLETE MkSolo #-}
-#endif
-
-#if IS_GHC_PRIM_0_10_X
-import GHC.Tuple (Solo (MkSolo))
-
-type Unit = ()
-#endif
-
-#if MIN_VERSION_ghc_prim(0,11,0)
-import GHC.Tuple (Solo (MkSolo), Unit)
 #endif

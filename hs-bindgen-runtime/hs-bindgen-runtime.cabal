@@ -103,11 +103,14 @@ library
 
   -- External dependencies
   build-depends:
-    , containers        >=0.6  && <0.9
-    , ghc-prim          >=0.9  && <0.14
-    , primitive         >=0.9  && <0.10
-    , template-haskell  >=2.18 && <2.25
-    , vector            >=0.13 && <0.14
+    , containers        >=0.6   && <0.9
+    , OneTuple          >=0.4.2 && <0.5
+    , primitive         >=0.9   && <0.10
+    , template-haskell  >=2.18  && <2.25
+    , vector            >=0.13  && <0.14
+
+  if impl(ghc >=9.8)
+    build-depends: ghc-prim
 
   build-tool-depends: hsc2hs:hsc2hs
 
