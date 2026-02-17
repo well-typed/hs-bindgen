@@ -24,10 +24,10 @@ import HsBindgen.Language.C qualified as C
 --
 showsFunctionType :: forall p.
      (IsPass p, HasCallStack)
-  => ShowS                -- ^ function name
-  -> C.FunctionPurity     -- ^ function purity
-  -> [(ShowS, C.Type p)]  -- ^ arguments, names and types
-  -> C.Type p             -- ^ return type
+  => ShowS               -- ^ function name
+  -> C.FunctionPurity    -- ^ function purity
+  -> [(ShowS, C.Type p)] -- ^ arguments, names and types
+  -> C.Type p            -- ^ return type
   -> ShowS
 showsFunctionType n pur args res  =
       showsFunctionPurity pur
@@ -143,16 +143,17 @@ showsType :: forall p.
   => (CTypePrecedence -> ShowS)  -- ^ variable name, or function name + arguments
   -> C.Type p
   -> ShowS
-showsType x (C.TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
-showsType x (C.TypeRef ref)             = showsId (Proxy @p) ref . showChar ' ' . x 0
-showsType x (C.TypeEnum ref)            = showsId (Proxy @p) ref.name . showChar ' ' . x 0
-showsType x (C.TypeMacro ref)           = showsId (Proxy @p) (macroIdId (Proxy @p) ref.name) . showChar ' ' . x 0
-showsType x (C.TypeTypedef ref)         = showsId (Proxy @p) ref.name . showChar ' ' . x 0
-showsType x (C.TypePointers n t)        = showsType (\d -> showParen (d > arrayPrec)
-                                        $ foldr (.) id (replicate n (showString "*"))
-                                        . x (pointerPrec + 1)) t
-showsType x (C.TypeConstArray n t)      = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
-showsType x (C.TypeFun args res)        =
+showsType x (C.TypePrim p)            = C.showsPrimType p . showChar ' ' . x 0
+showsType x (C.TypeRef ref)           = showsId (Proxy @p) ref . showChar ' ' . x 0
+showsType x (C.TypeEnum ref)          = showsId (Proxy @p) ref.name . showChar ' ' . x 0
+showsType x (C.TypeMacro ref)         = showsId (Proxy @p) (macroIdId (Proxy @p) ref.name) . showChar ' ' . x 0
+showsType x (C.TypeTypedef ref)       = showsId (Proxy @p) ref.name . showChar ' ' . x 0
+showsType x (C.TypePointers n t)      = showsType (\d -> showParen (d > arrayPrec)
+                                      $ foldr (.) id (replicate n (showString "*"))
+                                      . x (pointerPrec + 1)) t
+showsType x (C.TypeConstArray n t)    = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
+showsType x (C.TypeIncompleteArray t) = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
+showsType x (C.TypeFun args res)      =
     -- Note: we pass 'ImpureFunction' to 'showsFunctionType' so that no function
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
@@ -161,10 +162,9 @@ showsType x (C.TypeFun args res)        =
   where
     named :: Int -> C.Type p -> (ShowS, C.Type p)
     named i t = (showString "arg" . shows i, t)
-showsType x C.TypeVoid                  = showString "void " . x 0
-showsType x (C.TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (C.TypeExtBinding ref)      = showsId (Proxy @p) (extBindingId (Proxy @p) ref.name) . showChar ' ' . x 0
-showsType x (C.TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
+showsType x C.TypeVoid                 = showString "void " . x 0
+showsType x (C.TypeExtBinding ref)     = showsId (Proxy @p) (extBindingId (Proxy @p) ref.name) . showChar ' ' . x 0
+showsType x (C.TypeBlock t)            = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
 --
