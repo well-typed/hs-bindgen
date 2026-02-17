@@ -502,6 +502,3 @@ test-suite test-literate
   build-depends:
     , c-expr-runtime
     , hs-bindgen-runtime
-
-  if impl(ghc <9.4)
-    build-depends: data-array-byte

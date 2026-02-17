@@ -109,6 +109,9 @@ library
     , template-haskell  >=2.18  && <2.25
     , vector            >=0.13  && <0.14
 
+  if impl(ghc <9.4)
+    build-depends: data-array-byte >=0.1.0.1 && <0.2
+
   if impl(ghc >=9.8)
     build-depends: ghc-prim
 
