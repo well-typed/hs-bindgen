@@ -50,7 +50,7 @@ requiredExtensions fieldNaming = \case
           , TH.StandaloneDeriving
           ]
       , strategyExtensions deriv.strategy
-      , typeClassExtensions deriv.cls
+      , typeExtensions deriv.typ
       ]
     DForeignImport foreignImport -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
@@ -141,6 +141,7 @@ exprExtensions = \case
 typeExtensions :: SType ctx -> Set TH.Extension
 typeExtensions = \case
     TGlobal{}         -> Set.empty
+    TClass cls        -> typeClassExtensions cls
     TCon _            -> Set.empty
     TFree _           -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
     TFun a b          -> typeExtensions a <> typeExtensions b

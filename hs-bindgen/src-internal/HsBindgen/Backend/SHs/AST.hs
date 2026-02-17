@@ -168,6 +168,7 @@ type ClosedType = SType EmptyCtx
 type SType :: Ctx -> Star
 data SType ctx =
     TGlobal (Global GTyp)
+  | TClass Inst.TypeClass
   | TCon (Hs.Name Hs.NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
@@ -236,8 +237,7 @@ data EmptyData = EmptyData{
 
 data DerivingInstance = DerivingInstance{
       strategy :: Hs.Strategy ClosedType
-    , cls      :: Inst.TypeClass
-    , con      :: Hs.Name Hs.NsTypeConstr
+    , typ      :: ClosedType
     , comment  :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)

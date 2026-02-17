@@ -423,7 +423,7 @@ instance Pretty SDecl where
       prettyTopLevelComment deriv.comment
         $$ "deriving" <+> strategy deriv.strategy
                       <+> "instance"
-                      <+> prettyTypeClassInstance deriv.cls deriv.con
+                      <+> pretty deriv.typ
 
     DPatternSynonym patSyn ->
       PP.vcat [
@@ -456,10 +456,6 @@ strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"
 strategy Hs.DeriveStock    = "stock"
 strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
-
-prettyTypeClassInstance :: Inst.TypeClass -> (Hs.Name Hs.NsTypeConstr) -> CtxDoc
-prettyTypeClassInstance tc con =
-  pretty $ TApp (TGlobal $ typeClassGlobal tc) (TCon con)
 
 prettyPragma :: Hs.Name Hs.NsVar -> Pragma -> CtxDoc
 prettyPragma n = \case
@@ -499,6 +495,7 @@ prettyBindingType params result =
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
 prettyType env prec = \case
     TGlobal g -> pretty $ resolveGlobal g
+    TClass cls -> pretty $ resolveGlobal $ typeClassGlobal cls
     TCon n -> pretty n
     TFree var -> pretty var
     TLit n -> PP.show n

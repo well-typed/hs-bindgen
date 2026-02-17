@@ -220,7 +220,7 @@ resolveDeclImports = \case
       ]
     DDerivingInstance deriv -> mconcat [
         resolveStrategyImports deriv.strategy
-      , resolveTypeClassImports deriv.cls
+      , resolveTypeImports deriv.typ
       ]
     DForeignImport foreignImport -> mconcat [
         foldMap (resolveTypeImports . (.typ)) foreignImport.parameters
@@ -334,6 +334,7 @@ resolvePatExprImports = \case
 resolveTypeImports :: SType ctx -> ImportAcc
 resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
+    TClass cls -> resolveTypeClassImports cls
     TCon _n -> ImportAcc {
         requireTypes = True
       , qualified    = mempty

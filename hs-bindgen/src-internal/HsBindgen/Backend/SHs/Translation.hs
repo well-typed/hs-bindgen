@@ -188,8 +188,7 @@ translateNewtype n = DNewtype Newtype{
 translateDeriveInstance :: Hs.DeriveInstance -> SDecl
 translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
       strategy = fmap translateType deriv.strategy
-    , cls      = deriv.clss
-    , con      = deriv.name
+    , typ      = TApp (TClass deriv.clss) (TCon deriv.name)
     , comment  = deriv.comment
     }
 

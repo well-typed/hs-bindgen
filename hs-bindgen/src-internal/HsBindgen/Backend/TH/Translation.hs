@@ -163,14 +163,15 @@ mkPat = \case
 
 mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
 mkType env = \case
-    TGlobal n -> TH.conT n.name
-    TBound x  -> TH.varT (lookupEnv x env)
-    TCon n    -> hsConT n
-    TFree n   -> hsVarT n
-    TLit n    -> TH.litT (TH.numTyLit (toInteger n))
-    TStrLit s -> TH.litT (TH.strTyLit s)
-    TFun a b  -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
-    TApp f t  -> TH.appT (mkType env f) (mkType env t)
+    TGlobal n  -> TH.conT n.name
+    TClass cls -> TH.conT $ (.name) $ typeClassGlobal cls
+    TBound x   -> TH.varT (lookupEnv x env)
+    TCon n     -> hsConT n
+    TFree n    -> hsVarT n
+    TLit n     -> TH.litT (TH.numTyLit (toInteger n))
+    TStrLit s  -> TH.litT (TH.strTyLit s)
+    TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
+    TApp f t   -> TH.appT (mkType env f) (mkType env t)
     TBoxedOpenTup n -> TH.conT $ tupleTypeName $ fromIntegral n
     TEq -> TH.conT ''(~)
     TForall hints add ctxt body -> do
@@ -272,8 +273,7 @@ mkDecl = \case
         fmap singleton $ TH.standaloneDerivWithStrategyD
           (Just s')
           (TH.cxt [])
-          (mkType EmptyEnv $
-            TApp (TGlobal $ typeClassGlobal deriv.cls) (TCon deriv.con))
+          (mkType EmptyEnv deriv.typ)
 
       DForeignImport foreignImport -> do
         let safety :: TH.Safety
