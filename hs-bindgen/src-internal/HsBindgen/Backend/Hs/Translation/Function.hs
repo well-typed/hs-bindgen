@@ -119,7 +119,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
     primResult = classifyArgPassingMethod origCFun.res
 
     primParams :: [PassBy]
-    primParams = map (classifyArgPassingMethod . (.typ)) origCFun.args
+    primParams = map (classifyArgPassingMethod . (.argTyp.typ)) origCFun.args
 
     foreignImport :: [Hs.Decl]
     foreignImport =
@@ -152,11 +152,11 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
           Hs.ForeignImport.FunParam {
               hsParam =
                 Hs.FunctionParameter{
-                  typ     = Type.inContext Type.FunArg (toPrimitiveType (classifyArgPassingMethod arg.typ))
+                  typ     = Type.inContext Type.FunArg (toPrimitiveType arg)
                 , comment = Nothing
                 }
             }
-        | arg <- origCFun.args ++ toList (C.FunctionArg Nothing <$> foreignImportOptParam)
+        | arg <- primParams ++ toList (classifyArgPassingMethod <$> foreignImportOptParam)
         ]
 
     foreignImportOptParam :: Maybe (C.Type Final)
@@ -206,7 +206,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
       let params :: [(Maybe Text, Hs.FunctionParameter)]
           params = [ ( fmap (.cName.text) arg.name
                      , Hs.FunctionParameter{
-                         typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod arg.typ))
+                         typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod arg.argTyp.typ))
                        , comment = Nothing
                        })
                      | arg <- origCFun.args

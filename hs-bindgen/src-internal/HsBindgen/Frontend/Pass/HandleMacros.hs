@@ -367,7 +367,7 @@ processFunction info function =
       where
         mkFunctionArg name typ = C.FunctionArg {
               name = C.ScopedName <$> name
-            , typ = typ
+            , argTyp = C.TypeFunArgF typ NoAnn
             }
 
 -- | Globals (externs or constants)
