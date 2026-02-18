@@ -60,10 +60,6 @@ data TypeF tag p =
   | TypeComplex C.PrimType
 
     -- | Reference to named type other than an enum, macro type or typedef
-    --
-    -- TODO: enum should get annotations with underlying types just like
-    -- typedefs, so that we can erase the enum types and replace them with
-    -- their underlying type.
   | TypeRef (Id p)
 
     -- | Reference to an enum

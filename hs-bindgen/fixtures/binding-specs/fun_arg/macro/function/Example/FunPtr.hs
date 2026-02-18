@@ -21,7 +21,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argmacrofu_Example_get_fooA */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_5e83648377d8afc6 (void)) ("
-  , "  A arg1"
+  , "  A *arg1"
   , ")"
   , "{"
   , "  return &fooA;"
@@ -29,7 +29,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_bindingspecsfun_argmacrofu_Example_get_fooB */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_d6d79c737e65f7e7 (void)) ("
-  , "  B arg1"
+  , "  B *arg1"
   , ")"
   , "{"
   , "  return &fooB;"
@@ -86,7 +86,7 @@ foreign import ccall unsafe "hs_bindgen_5e83648377d8afc6" hs_bindgen_5e83648377d
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooA@
-hs_bindgen_5e83648377d8afc6 :: IO (RIP.FunPtr (A -> IO ()))
+hs_bindgen_5e83648377d8afc6 :: IO (RIP.FunPtr ((RIP.FunPtr A) -> IO ()))
 hs_bindgen_5e83648377d8afc6 =
   RIP.fromFFIType hs_bindgen_5e83648377d8afc6_base
 
@@ -97,7 +97,7 @@ hs_bindgen_5e83648377d8afc6 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-fooA :: RIP.FunPtr (A -> IO ())
+fooA :: RIP.FunPtr ((RIP.FunPtr A) -> IO ())
 fooA =
   RIP.unsafePerformIO hs_bindgen_5e83648377d8afc6
 
@@ -106,7 +106,7 @@ foreign import ccall unsafe "hs_bindgen_d6d79c737e65f7e7" hs_bindgen_d6d79c737e6
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_get_fooB@
-hs_bindgen_d6d79c737e65f7e7 :: IO (RIP.FunPtr (B -> IO ()))
+hs_bindgen_d6d79c737e65f7e7 :: IO (RIP.FunPtr ((RIP.FunPtr B) -> IO ()))
 hs_bindgen_d6d79c737e65f7e7 =
   RIP.fromFFIType hs_bindgen_d6d79c737e65f7e7_base
 
@@ -117,7 +117,7 @@ hs_bindgen_d6d79c737e65f7e7 =
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
-fooB :: RIP.FunPtr (B -> IO ())
+fooB :: RIP.FunPtr ((RIP.FunPtr B) -> IO ())
 fooB =
   RIP.unsafePerformIO hs_bindgen_d6d79c737e65f7e7
 
