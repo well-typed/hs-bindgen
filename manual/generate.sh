@@ -144,7 +144,7 @@ cabal run hs-bindgen-cli -- \
     -I c \
     --create-output-dirs \
     --overwrite-files \
-    --unique-id com.hs-bindgen.manual.vectorr \
+    --unique-id com.hs-bindgen.manual.vector \
     --hs-output-dir hs/hs-vector/generated \
     --external-binding-spec external/vector.yaml \
     --module Vector.Rotate \

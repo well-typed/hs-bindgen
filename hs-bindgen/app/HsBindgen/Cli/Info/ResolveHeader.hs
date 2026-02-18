@@ -21,6 +21,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.App
 import HsBindgen.Boot
+import HsBindgen.Clang.Macos
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -58,6 +59,7 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
     eErr <- withTracer tracerConfig' $ \tracer -> do
       hashIncludeArgs <- checkInputs tracer opts.inputs
+      checkMacosEnv (contramap (TraceBoot . BootMacos) tracer)
       clangArgs <- (.clangArgs) <$>
         getClangArtefacts (contramap TraceBoot tracer) opts.clangArgsConfig
       includes <-

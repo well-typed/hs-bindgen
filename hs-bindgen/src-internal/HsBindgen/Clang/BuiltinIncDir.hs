@@ -16,12 +16,10 @@ import Control.Monad.Trans.Class (MonadTrans(lift))
 import Control.Monad.Trans.Maybe
 import Data.IORef (IORef)
 import Data.IORef qualified as IORef
-import Data.Maybe (listToMaybe)
 import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.Environment qualified as Env
 import System.FilePath qualified as FilePath
-import System.IO.Error (tryIOError)
 import System.IO.Unsafe (unsafePerformIO)
 import System.Process (readProcess)
 
@@ -34,6 +32,7 @@ import System.FilePath.Windows qualified as Windows
 import Clang.Version (clang_getClangVersion)
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Imports
+import HsBindgen.Util.Process
 import HsBindgen.Util.Tracer
 import Text.SimplePrettyPrint ((<+>), string)
 import Text.SimplePrettyPrint qualified as PP
@@ -367,7 +366,7 @@ getLlvmConfigPrefix ::
      Tracer BuiltinIncDirMsg
   -> FilePath  -- ^ @llvm-config@ path
   -> MaybeT IO FilePath
-getLlvmConfigPrefix tracer exe =
+getLlvmConfigPrefix tracer exe = MaybeT $
     checkOutput
       tracer
       BuiltinIncDirLlvmConfigPrefixUnexpected
@@ -383,7 +382,7 @@ getClangVersion ::
      Tracer BuiltinIncDirMsg
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO Text
-getClangVersion tracer exe =
+getClangVersion tracer exe = MaybeT $
     checkOutput
       tracer
       BuiltinIncDirClangVersionUnexpected
@@ -398,7 +397,7 @@ getClangResourceDir ::
      Tracer BuiltinIncDirMsg
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO FilePath
-getClangResourceDir tracer exe =
+getClangResourceDir tracer exe = MaybeT $
     checkOutput
       tracer
       BuiltinIncDirClangPrintResourceDirUnexpected
@@ -443,35 +442,3 @@ ifM ::
 ifM tracer mkNotFound mkFound p path = MaybeT $ p path >>= \case
     True  -> Just path <$ traceWith tracer (mkFound    path)
     False -> Nothing   <$ traceWith tracer (mkNotFound path)
-
--- | Run a read action and check the output
-checkOutput ::
-     Tracer BuiltinIncDirMsg
-  -> (String -> BuiltinIncDirMsg)   -- ^ Unexpected output constructor
-  -> (IOError -> BuiltinIncDirMsg)  -- ^ Error constructor
-  -> (String -> Maybe a)            -- ^ Output parser
-  -> IO String                      -- ^ Read action
-  -> MaybeT IO a
-checkOutput tracer mkUnexpected mkError parse action = MaybeT $
-    tryIOError action >>= \case
-      Right s -> do
-        let mx = parse s
-        when (isNothing mx) $ traceWith tracer (mkUnexpected (abbr s))
-        return mx
-      Left  e -> Nothing <$ traceWith tracer (mkError e)
-  where
-    -- Abbreviate arbitrarily long strings in trace messages
-    abbr :: String -> String
-    abbr s = case splitAt 60 s of
-      (_, []) -> s
-      (s', _) -> s' ++ " ..."
-
--- | Parse a single line of output
-parseSingleLine :: String -> Maybe String
-parseSingleLine s = case lines s of
-    [s'] -> Just s'
-    _    -> Nothing
-
--- | Parse the first line of output
-parseFirstLine :: String -> Maybe String
-parseFirstLine = listToMaybe . lines
