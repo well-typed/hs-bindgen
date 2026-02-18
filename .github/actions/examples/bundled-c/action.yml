@@ -8,3 +8,8 @@ runs:
       shell: bash
       working-directory: ./examples/bundled-c
       run: ./generate-and-run.sh
+
+    - name: Test CPP flag mismatch detection
+      shell: bash
+      working-directory: ./examples/bundled-c
+      run: ./test-cpp-mismatch.sh
