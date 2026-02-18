@@ -13,7 +13,7 @@ newtype First
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize First
     where staticSizeOf = \_ -> 4 :: Int
@@ -45,7 +45,7 @@ instance Read First
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapFirst" (Ptr First) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFirst")
 instance HasCField First "unwrapFirst"
@@ -93,7 +93,7 @@ newtype Second
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Second
     where staticSizeOf = \_ -> 4 :: Int
@@ -126,7 +126,7 @@ instance Read Second
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "unwrapSecond" (Ptr Second) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSecond")
 instance HasCField Second "unwrapSecond"
@@ -188,7 +188,7 @@ newtype Same
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Same
     where staticSizeOf = \_ -> 4 :: Int
@@ -219,7 +219,7 @@ instance Read Same
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt => HasField "unwrapSame" (Ptr Same) (Ptr ty)
+instance (~) ty CUInt => HasField "unwrapSame" (Ptr Same) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSame")
 instance HasCField Same "unwrapSame"
     where type CFieldType Same "unwrapSame" = CUInt
@@ -266,7 +266,7 @@ newtype Nonseq
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Nonseq
     where staticSizeOf = \_ -> 4 :: Int
@@ -294,7 +294,7 @@ instance Read Nonseq
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapNonseq" (Ptr Nonseq) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapNonseq")
 instance HasCField Nonseq "unwrapNonseq"
@@ -356,7 +356,7 @@ newtype Packed
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Packed
     where staticSizeOf = \_ -> 1 :: Int
@@ -389,7 +389,7 @@ instance Read Packed
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUChar =>
+instance (~) ty CUChar =>
          HasField "unwrapPacked" (Ptr Packed) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPacked")
 instance HasCField Packed "unwrapPacked"
@@ -451,7 +451,7 @@ newtype EnumA
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumA
     where staticSizeOf = \_ -> 4 :: Int
@@ -483,7 +483,7 @@ instance Read EnumA
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapEnumA" (Ptr EnumA) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapEnumA")
 instance HasCField EnumA "unwrapEnumA"
@@ -531,7 +531,7 @@ newtype EnumB
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumB
     where staticSizeOf = \_ -> 4 :: Int
@@ -563,7 +563,7 @@ instance Read EnumB
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapEnumB" (Ptr EnumB) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapEnumB")
 instance HasCField EnumB "unwrapEnumB"
@@ -611,7 +611,7 @@ newtype EnumC
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumC
     where staticSizeOf = \_ -> 4 :: Int
@@ -643,7 +643,7 @@ instance Read EnumC
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapEnumC" (Ptr EnumC) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapEnumC")
 instance HasCField EnumC "unwrapEnumC"
@@ -691,7 +691,7 @@ newtype EnumD_t
 
            __exported by:__ @types\/enums\/enums.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize EnumD_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -723,7 +723,7 @@ instance Read EnumD_t
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapEnumD_t" (Ptr EnumD_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapEnumD_t")
 instance HasCField EnumD_t "unwrapEnumD_t"

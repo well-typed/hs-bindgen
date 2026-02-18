@@ -1,17 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/primitives/bool_c23.h>"
@@ -25,12 +19,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
 foreign import ccall unsafe "hs_bindgen_31e1e443379b061b" hs_bindgen_31e1e443379b061b_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
-hs_bindgen_31e1e443379b061b :: IO (Ptr.Ptr FC.CBool)
+hs_bindgen_31e1e443379b061b :: IO (RIP.Ptr RIP.CBool)
 hs_bindgen_31e1e443379b061b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_31e1e443379b061b_base
+  RIP.fromFFIType hs_bindgen_31e1e443379b061b_base
 
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@
@@ -39,6 +33,5 @@ hs_bindgen_31e1e443379b061b =
 
     __exported by:__ @types\/primitives\/bool_c23.h@
 -}
-b :: Ptr.Ptr FC.CBool
-b =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_31e1e443379b061b
+b :: RIP.Ptr RIP.CBool
+b = RIP.unsafePerformIO hs_bindgen_31e1e443379b061b

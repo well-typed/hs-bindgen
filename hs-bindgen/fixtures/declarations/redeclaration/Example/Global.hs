@@ -1,17 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <declarations/redeclaration.h>"
@@ -25,12 +19,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
-hs_bindgen_6f47e5cbb92690b9 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_6f47e5cbb92690b9 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_6f47e5cbb92690b9 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6f47e5cbb92690b9_base
+  RIP.fromFFIType hs_bindgen_6f47e5cbb92690b9_base
 
 {-# NOINLINE x #-}
 {-| __C declaration:__ @x@
@@ -39,6 +33,5 @@ hs_bindgen_6f47e5cbb92690b9 =
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-x :: Ptr.Ptr FC.CInt
-x =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6f47e5cbb92690b9
+x :: RIP.Ptr RIP.CInt
+x = RIP.unsafePerformIO hs_bindgen_6f47e5cbb92690b9

@@ -15,6 +15,7 @@ import DeBruijn (Add (..), Idx (..), pattern I2)
 import Clang.HighLevel.Documentation qualified as Clang
 
 import HsBindgen.Backend.Category
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -295,7 +296,7 @@ unionDecs fieldNaming haddockConfig info union spec = do
         knownInsts = Set.fromList $ catMaybes [
             Just Inst.Generic
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-          -- Should correctly detect 'Inst.HasCBitField' and 'Inst.HasCField'
+          -- Should correctly detect 'Inst.HasCBitfield' and 'Inst.HasCField'
           -- when bit-fields in unions are supported.
           , if null union.fields then Nothing else Just Inst.HasCField
           , if null union.fields then Nothing else Just Inst.HasField
@@ -1162,8 +1163,8 @@ constGetter ty info pureStubName = singleton getterDecl
 
     getterName = Hs.unsafeHsIdHsName info.id.unsafeHsName
     getterType = SHs.translateType ty
-    getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
-                `SHs.EApp` (SHs.EGlobal SHs.PtrConst_peek
+    getterExpr = SHs.eBindgenGlobal IO_unsafePerformIO
+                `SHs.EApp` (SHs.eBindgenGlobal PtrConst_peek
                 `SHs.EApp` SHs.EFree pureStubName)
 
 data RunnerNameSpec =
@@ -1283,7 +1284,7 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
         GlobalUniqueId -> Hs.InternalName $ uniquify name
 
     runnerType = SHs.translateType (Type.topLevel stubType)
-    runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
+    runnerExpr = SHs.eBindgenGlobal IO_unsafePerformIO
                 `SHs.EApp` SHs.EFree stubName
 
 {-------------------------------------------------------------------------------

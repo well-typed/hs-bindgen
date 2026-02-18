@@ -55,23 +55,23 @@ newtype T
 
            __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = CInt
@@ -90,23 +90,23 @@ newtype U
 
            __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt => HasField "unwrapU" (Ptr U) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
     where type CFieldType U "unwrapU" = CInt

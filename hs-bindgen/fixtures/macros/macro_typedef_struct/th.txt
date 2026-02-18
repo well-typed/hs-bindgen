@@ -13,23 +13,23 @@ newtype MY_TYPE
 
            __exported by:__ @macros\/macro_typedef_struct.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
          HasField "unwrapMY_TYPE" (Ptr MY_TYPE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMY_TYPE")
 instance HasCField MY_TYPE "unwrapMY_TYPE"
@@ -62,7 +62,7 @@ data Bar
 
            __exported by:__ @macros\/macro_typedef_struct.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -76,10 +76,10 @@ deriving via (EquivStorable Bar) instance Storable Bar
 instance HasCField Bar "bar_x"
     where type CFieldType Bar "bar_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "bar_x" (Ptr Bar) (Ptr ty)
+instance (~) ty CInt => HasField "bar_x" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_x")
 instance HasCField Bar "bar_y"
     where type CFieldType Bar "bar_y" = MY_TYPE
           offset# = \_ -> \_ -> 4
-instance TyEq ty MY_TYPE => HasField "bar_y" (Ptr Bar) (Ptr ty)
+instance (~) ty MY_TYPE => HasField "bar_y" (Ptr Bar) (Ptr ty)
     where getField = fromPtr (Proxy @"bar_y")

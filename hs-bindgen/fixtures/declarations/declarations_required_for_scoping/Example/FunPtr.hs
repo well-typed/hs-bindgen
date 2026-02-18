@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <declarations/declarations_required_for_scoping.h>"
@@ -27,12 +22,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_get_f@
 foreign import ccall unsafe "hs_bindgen_0d4da37880af2263" hs_bindgen_0d4da37880af2263_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_get_f@
-hs_bindgen_0d4da37880af2263 :: IO (Ptr.FunPtr (A -> IO ()))
+hs_bindgen_0d4da37880af2263 :: IO (RIP.FunPtr (A -> IO ()))
 hs_bindgen_0d4da37880af2263 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0d4da37880af2263_base
+  RIP.fromFFIType hs_bindgen_0d4da37880af2263_base
 
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
@@ -41,6 +36,5 @@ hs_bindgen_0d4da37880af2263 =
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f :: Ptr.FunPtr (A -> IO ())
-f =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0d4da37880af2263
+f :: RIP.FunPtr (A -> IO ())
+f = RIP.unsafePerformIO hs_bindgen_0d4da37880af2263

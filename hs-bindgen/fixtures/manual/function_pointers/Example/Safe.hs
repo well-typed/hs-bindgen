@@ -1,18 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/function_pointers.h>"
@@ -74,15 +68,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_8c6beff641297a13" hs_bindgen_8c6beff641297a13_base ::
-     GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_square@
 hs_bindgen_8c6beff641297a13 ::
-     FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_8c6beff641297a13 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8c6beff641297a13_base
+  RIP.fromFFIType hs_bindgen_8c6beff641297a13_base
 
 {-| __C declaration:__ @square@
 
@@ -91,23 +85,23 @@ hs_bindgen_8c6beff641297a13 =
     __exported by:__ @manual\/function_pointers.h@
 -}
 square ::
-     FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> IO RIP.CInt
 square = hs_bindgen_8c6beff641297a13
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_plus@
 foreign import ccall safe "hs_bindgen_3dfb239ac098f471" hs_bindgen_3dfb239ac098f471_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_plus@
 hs_bindgen_3dfb239ac098f471 ::
-     FC.CInt
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_3dfb239ac098f471 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3dfb239ac098f471_base
+  RIP.fromFFIType hs_bindgen_3dfb239ac098f471_base
 
 {-| __C declaration:__ @plus@
 
@@ -116,24 +110,24 @@ hs_bindgen_3dfb239ac098f471 =
     __exported by:__ @manual\/function_pointers.h@
 -}
 plus ::
-     FC.CInt
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> RIP.CInt
+  -> IO RIP.CInt
 plus = hs_bindgen_3dfb239ac098f471
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1@
 foreign import ccall safe "hs_bindgen_983beb37938c4d96" hs_bindgen_983beb37938c4d96_base ::
-     Ptr.FunPtr Void
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.FunPtr RIP.Void
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1@
 hs_bindgen_983beb37938c4d96 ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_983beb37938c4d96 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_983beb37938c4d96_base
+  RIP.fromFFIType hs_bindgen_983beb37938c4d96_base
 
 {-| __C declaration:__ @apply1@
 
@@ -142,28 +136,28 @@ hs_bindgen_983beb37938c4d96 =
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply1 ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+     RIP.FunPtr (RIP.CInt -> IO RIP.CInt)
      -- ^ __C declaration:__ @f@
-  -> FC.CInt
+  -> RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 apply1 = hs_bindgen_983beb37938c4d96
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply2@
 foreign import ccall safe "hs_bindgen_8a62074f5475563b" hs_bindgen_8a62074f5475563b_base ::
-     Ptr.FunPtr Void
-  -> GHC.Int.Int32
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.FunPtr RIP.Void
+  -> RIP.Int32
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply2@
 hs_bindgen_8a62074f5475563b ::
-     Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
-  -> FC.CInt
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.FunPtr (RIP.CInt -> RIP.CInt -> IO RIP.CInt)
+  -> RIP.CInt
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_8a62074f5475563b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8a62074f5475563b_base
+  RIP.fromFFIType hs_bindgen_8a62074f5475563b_base
 
 {-| __C declaration:__ @apply2@
 
@@ -172,28 +166,28 @@ hs_bindgen_8a62074f5475563b =
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply2 ::
-     Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
+     RIP.FunPtr (RIP.CInt -> RIP.CInt -> IO RIP.CInt)
      -- ^ __C declaration:__ @f@
-  -> FC.CInt
+  -> RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> FC.CInt
+  -> RIP.CInt
      -- ^ __C declaration:__ @y@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 apply2 = hs_bindgen_8a62074f5475563b
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_pointer_arg@
 foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" hs_bindgen_229d4041a92cd6b6_base ::
-     Ptr.FunPtr Void
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.FunPtr RIP.Void
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_pointer_arg@
 hs_bindgen_229d4041a92cd6b6 ::
-     Ptr.FunPtr Int2int
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.FunPtr Int2int
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_229d4041a92cd6b6 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_229d4041a92cd6b6_base
+  RIP.fromFFIType hs_bindgen_229d4041a92cd6b6_base
 
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
@@ -204,24 +198,24 @@ __defined at:__ @manual\/function_pointers.h 22:12@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_pointer_arg ::
-     Ptr.FunPtr Int2int
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.FunPtr Int2int
+  -> RIP.CInt
+  -> IO RIP.CInt
 apply1_pointer_arg = hs_bindgen_229d4041a92cd6b6
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_arg@
 foreign import ccall safe "hs_bindgen_de9f1109e03648e4" hs_bindgen_de9f1109e03648e4_base ::
-     Ptr.FunPtr Void
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.FunPtr RIP.Void
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_arg@
 hs_bindgen_de9f1109e03648e4 ::
-     Ptr.FunPtr Int2int
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.FunPtr Int2int
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_de9f1109e03648e4 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_de9f1109e03648e4_base
+  RIP.fromFFIType hs_bindgen_de9f1109e03648e4_base
 
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
@@ -232,19 +226,19 @@ __defined at:__ @manual\/function_pointers.h 26:12@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_nopointer_arg ::
-     Ptr.FunPtr Int2int
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.FunPtr Int2int
+  -> RIP.CInt
+  -> IO RIP.CInt
 apply1_nopointer_arg = hs_bindgen_de9f1109e03648e4
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_res@
 foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" hs_bindgen_8bea6b2106c55d5b_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_res@
-hs_bindgen_8bea6b2106c55d5b :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_8bea6b2106c55d5b :: IO (RIP.FunPtr ((RIP.FunPtr Int2int) -> RIP.CInt -> IO RIP.CInt))
 hs_bindgen_8bea6b2106c55d5b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8bea6b2106c55d5b_base
+  RIP.fromFFIType hs_bindgen_8bea6b2106c55d5b_base
 
 {-| A function returning a pointer to a function like apply1_nopointer().
 
@@ -254,5 +248,5 @@ __defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_res :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+apply1_nopointer_res :: IO (RIP.FunPtr ((RIP.FunPtr Int2int) -> RIP.CInt -> IO RIP.CInt))
 apply1_nopointer_res = hs_bindgen_8bea6b2106c55d5b

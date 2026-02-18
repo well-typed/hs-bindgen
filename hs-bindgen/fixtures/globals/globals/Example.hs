@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,17 +13,10 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct config@
 
@@ -33,14 +25,14 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
     __exported by:__ @globals\/globals.h@
 -}
 data Config = Config
-  { config_x :: FC.CInt
+  { config_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/globals.h 13:7@
 
          __exported by:__ @globals\/globals.h@
     -}
-  , config_y :: FC.CInt
+  , config_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/globals.h 14:7@
@@ -48,57 +40,55 @@ data Config = Config
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Config where
+instance Marshal.StaticSize Config where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Config where
+instance Marshal.ReadRaw Config where
 
   readRaw =
     \ptr0 ->
           pure Config
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"config_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"config_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"config_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"config_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Config where
+instance Marshal.WriteRaw Config where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Config config_x2 config_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_x") ptr0 config_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"config_y") ptr0 config_y3
+               HasCField.writeRaw (RIP.Proxy @"config_x") ptr0 config_x2
+            >> HasCField.writeRaw (RIP.Proxy @"config_y") ptr0 config_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Config instance F.Storable Config
+deriving via Marshal.EquivStorable Config instance RIP.Storable Config
 
-instance HsBindgen.Runtime.HasCField.HasCField Config "config_x" where
+instance HasCField.HasCField Config "config_x" where
 
-  type CFieldType Config "config_x" = FC.CInt
+  type CFieldType Config "config_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "config_x" (Ptr.Ptr Config) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "config_x" (RIP.Ptr Config) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"config_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Config "config_y" where
+instance HasCField.HasCField Config "config_y" where
 
-  type CFieldType Config "config_y" = FC.CInt
+  type CFieldType Config "config_y" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "config_y" (Ptr.Ptr Config) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "config_y" (RIP.Ptr Config) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"config_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"config_y")
 
 {-| __C declaration:__ @struct inline_struct@
 
@@ -107,14 +97,14 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @globals\/globals.h@
 -}
 data Inline_struct = Inline_struct
-  { inline_struct_x :: FC.CInt
+  { inline_struct_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @globals\/globals.h 19:35@
 
          __exported by:__ @globals\/globals.h@
     -}
-  , inline_struct_y :: FC.CInt
+  , inline_struct_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/globals.h 19:42@
@@ -122,59 +112,59 @@ data Inline_struct = Inline_struct
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Inline_struct where
+instance Marshal.StaticSize Inline_struct where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Inline_struct where
+instance Marshal.ReadRaw Inline_struct where
 
   readRaw =
     \ptr0 ->
           pure Inline_struct
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"inline_struct_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"inline_struct_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"inline_struct_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"inline_struct_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Inline_struct where
+instance Marshal.WriteRaw Inline_struct where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Inline_struct inline_struct_x2 inline_struct_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"inline_struct_x") ptr0 inline_struct_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"inline_struct_y") ptr0 inline_struct_y3
+               HasCField.writeRaw (RIP.Proxy @"inline_struct_x") ptr0 inline_struct_x2
+            >> HasCField.writeRaw (RIP.Proxy @"inline_struct_y") ptr0 inline_struct_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Inline_struct instance F.Storable Inline_struct
+deriving via Marshal.EquivStorable Inline_struct instance RIP.Storable Inline_struct
 
-instance HsBindgen.Runtime.HasCField.HasCField Inline_struct "inline_struct_x" where
+instance HasCField.HasCField Inline_struct "inline_struct_x" where
 
   type CFieldType Inline_struct "inline_struct_x" =
-    FC.CInt
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "inline_struct_x" (Ptr.Ptr Inline_struct) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "inline_struct_x" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"inline_struct_x")
+    HasCField.fromPtr (RIP.Proxy @"inline_struct_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Inline_struct "inline_struct_y" where
+instance HasCField.HasCField Inline_struct "inline_struct_y" where
 
   type CFieldType Inline_struct "inline_struct_y" =
-    FC.CInt
+    RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "inline_struct_y" (Ptr.Ptr Inline_struct) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "inline_struct_y" (RIP.Ptr Inline_struct) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"inline_struct_y")
+    HasCField.fromPtr (RIP.Proxy @"inline_struct_y")
 
 {-| __C declaration:__ @struct version_t@
 
@@ -205,74 +195,74 @@ data Version_t = Version_t
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Version_t where
+instance Marshal.StaticSize Version_t where
 
   staticSizeOf = \_ -> (6 :: Int)
 
   staticAlignment = \_ -> (2 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Version_t where
+instance Marshal.ReadRaw Version_t where
 
   readRaw =
     \ptr0 ->
           pure Version_t
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"version_t_major") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"version_t_minor") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"version_t_patch") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"version_t_major") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"version_t_minor") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"version_t_patch") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Version_t where
+instance Marshal.WriteRaw Version_t where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Version_t version_t_major2 version_t_minor3 version_t_patch4 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"version_t_major") ptr0 version_t_major2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"version_t_minor") ptr0 version_t_minor3
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"version_t_patch") ptr0 version_t_patch4
+               HasCField.writeRaw (RIP.Proxy @"version_t_major") ptr0 version_t_major2
+            >> HasCField.writeRaw (RIP.Proxy @"version_t_minor") ptr0 version_t_minor3
+            >> HasCField.writeRaw (RIP.Proxy @"version_t_patch") ptr0 version_t_patch4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Version_t instance F.Storable Version_t
+deriving via Marshal.EquivStorable Version_t instance RIP.Storable Version_t
 
-instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_major" where
+instance HasCField.HasCField Version_t "version_t_major" where
 
   type CFieldType Version_t "version_t_major" =
     HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.Word8
-         ) => GHC.Records.HasField "version_t_major" (Ptr.Ptr Version_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.Word8
+         ) => RIP.HasField "version_t_major" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"version_t_major")
+    HasCField.fromPtr (RIP.Proxy @"version_t_major")
 
-instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_minor" where
+instance HasCField.HasCField Version_t "version_t_minor" where
 
   type CFieldType Version_t "version_t_minor" =
     HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 2
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.Word16
-         ) => GHC.Records.HasField "version_t_minor" (Ptr.Ptr Version_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.Word16
+         ) => RIP.HasField "version_t_minor" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"version_t_minor")
+    HasCField.fromPtr (RIP.Proxy @"version_t_minor")
 
-instance HsBindgen.Runtime.HasCField.HasCField Version_t "version_t_patch" where
+instance HasCField.HasCField Version_t "version_t_patch" where
 
   type CFieldType Version_t "version_t_patch" =
     HsBindgen.Runtime.LibC.Word8
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.Word8
-         ) => GHC.Records.HasField "version_t_patch" (Ptr.Ptr Version_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.Word8
+         ) => RIP.HasField "version_t_patch" (RIP.Ptr Version_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"version_t_patch")
+    HasCField.fromPtr (RIP.Proxy @"version_t_patch")
 
 {-| __C declaration:__ @struct struct1_t@
 
@@ -288,7 +278,7 @@ data Struct1_t = Struct1_t
 
          __exported by:__ @globals\/globals.h@
     -}
-  , struct1_t_y :: FC.CBool
+  , struct1_t_y :: RIP.CBool
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @globals\/globals.h 416:13@
@@ -303,73 +293,73 @@ data Struct1_t = Struct1_t
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Struct1_t where
+instance Marshal.StaticSize Struct1_t where
 
   staticSizeOf = \_ -> (10 :: Int)
 
   staticAlignment = \_ -> (2 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Struct1_t where
+instance Marshal.ReadRaw Struct1_t where
 
   readRaw =
     \ptr0 ->
           pure Struct1_t
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct1_t_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct1_t_y") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct1_t_version") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct1_t_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct1_t_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct1_t_version") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Struct1_t where
+instance Marshal.WriteRaw Struct1_t where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct1_t struct1_t_x2 struct1_t_y3 struct1_t_version4 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct1_t_x") ptr0 struct1_t_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct1_t_y") ptr0 struct1_t_y3
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct1_t_version") ptr0 struct1_t_version4
+               HasCField.writeRaw (RIP.Proxy @"struct1_t_x") ptr0 struct1_t_x2
+            >> HasCField.writeRaw (RIP.Proxy @"struct1_t_y") ptr0 struct1_t_y3
+            >> HasCField.writeRaw (RIP.Proxy @"struct1_t_version") ptr0 struct1_t_version4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct1_t instance F.Storable Struct1_t
+deriving via Marshal.EquivStorable Struct1_t instance RIP.Storable Struct1_t
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_x" where
+instance HasCField.HasCField Struct1_t "struct1_t_x" where
 
   type CFieldType Struct1_t "struct1_t_x" =
     HsBindgen.Runtime.LibC.Word16
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.Word16
-         ) => GHC.Records.HasField "struct1_t_x" (Ptr.Ptr Struct1_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.Word16
+         ) => RIP.HasField "struct1_t_x" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_t_x")
+    HasCField.fromPtr (RIP.Proxy @"struct1_t_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_y" where
+instance HasCField.HasCField Struct1_t "struct1_t_y" where
 
-  type CFieldType Struct1_t "struct1_t_y" = FC.CBool
+  type CFieldType Struct1_t "struct1_t_y" = RIP.CBool
 
   offset# = \_ -> \_ -> 2
 
-instance ( TyEq ty FC.CBool
-         ) => GHC.Records.HasField "struct1_t_y" (Ptr.Ptr Struct1_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CBool
+         ) => RIP.HasField "struct1_t_y" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_t_y")
+    HasCField.fromPtr (RIP.Proxy @"struct1_t_y")
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct1_t "struct1_t_version" where
+instance HasCField.HasCField Struct1_t "struct1_t_version" where
 
   type CFieldType Struct1_t "struct1_t_version" =
     Version_t
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty Version_t
-         ) => GHC.Records.HasField "struct1_t_version" (Ptr.Ptr Struct1_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) Version_t
+         ) => RIP.HasField "struct1_t_version" (RIP.Ptr Struct1_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct1_t_version")
+    HasCField.fromPtr (RIP.Proxy @"struct1_t_version")
 
 {-| __C declaration:__ @struct struct2_t@
 
@@ -386,41 +376,41 @@ data Struct2_t = Struct2_t
          __exported by:__ @globals\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Struct2_t where
+instance Marshal.StaticSize Struct2_t where
 
   staticSizeOf = \_ -> (10 :: Int)
 
   staticAlignment = \_ -> (2 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Struct2_t where
+instance Marshal.ReadRaw Struct2_t where
 
   readRaw =
     \ptr0 ->
           pure Struct2_t
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"struct2_t_field1") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"struct2_t_field1") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Struct2_t where
+instance Marshal.WriteRaw Struct2_t where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Struct2_t struct2_t_field12 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"struct2_t_field1") ptr0 struct2_t_field12
+            HasCField.writeRaw (RIP.Proxy @"struct2_t_field1") ptr0 struct2_t_field12
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Struct2_t instance F.Storable Struct2_t
+deriving via Marshal.EquivStorable Struct2_t instance RIP.Storable Struct2_t
 
-instance HsBindgen.Runtime.HasCField.HasCField Struct2_t "struct2_t_field1" where
+instance HasCField.HasCField Struct2_t "struct2_t_field1" where
 
   type CFieldType Struct2_t "struct2_t_field1" =
     Struct1_t
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Struct1_t
-         ) => GHC.Records.HasField "struct2_t_field1" (Ptr.Ptr Struct2_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) Struct1_t
+         ) => RIP.HasField "struct2_t_field1" (RIP.Ptr Struct2_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"struct2_t_field1")
+    HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")

@@ -1,15 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified GHC.Int
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program-slicing/typedef_unselected.h>"
@@ -23,7 +20,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ffec8ae_base ::
-     GHC.Int.Int32
+     RIP.Int32
   -> IO ()
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
@@ -31,7 +28,7 @@ hs_bindgen_401f15168ffec8ae ::
      U
   -> IO ()
 hs_bindgen_401f15168ffec8ae =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_401f15168ffec8ae_base
+  RIP.fromFFIType hs_bindgen_401f15168ffec8ae_base
 
 {-| __C declaration:__ @bar@
 

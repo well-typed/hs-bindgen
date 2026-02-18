@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,16 +13,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct S@
 
@@ -32,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
 data T = T
-  { t_x :: FC.CInt
+  { t_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @functions\/heap_types\/struct_const_member.h 4:13@
@@ -40,40 +32,39 @@ data T = T
          __exported by:__ @functions\/heap_types\/struct_const_member.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize T where
+instance Marshal.StaticSize T where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw T where
+instance Marshal.ReadRaw T where
 
   readRaw =
     \ptr0 ->
           pure T
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"t_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"t_x") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw T where
+instance Marshal.WriteRaw T where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           T t_x2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"t_x") ptr0 t_x2
+            HasCField.writeRaw (RIP.Proxy @"t_x") ptr0 t_x2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable T instance F.Storable T
+deriving via Marshal.EquivStorable T instance RIP.Storable T
 
-instance HsBindgen.Runtime.HasCField.HasCField T "t_x" where
+instance HasCField.HasCField T "t_x" where
 
-  type CFieldType T "t_x" = FC.CInt
+  type CFieldType T "t_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "t_x" (Ptr.Ptr T) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"t_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"t_x")

@@ -102,7 +102,7 @@ instance ToFunPtr MyFunctionPointer_Aux
     where toFunPtr = hs_bindgen_47dfd04698dd2e6f
 instance FromFunPtr MyFunctionPointer_Aux
     where fromFunPtr = hs_bindgen_5738272f94a589e2
-instance TyEq ty (CInt -> IO CInt) =>
+instance (~) ty (CInt -> IO CInt) =>
          HasField "unwrapMyFunctionPointer_Aux"
                   (Ptr MyFunctionPointer_Aux)
                   (Ptr ty)
@@ -126,13 +126,13 @@ newtype MyFunctionPointer
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (FunPtr MyFunctionPointer_Aux) =>
+                      WriteRaw)
+instance (~) ty (FunPtr MyFunctionPointer_Aux) =>
          HasField "unwrapMyFunctionPointer" (Ptr MyFunctionPointer) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyFunctionPointer")
 instance HasCField MyFunctionPointer "unwrapMyFunctionPointer"
@@ -153,13 +153,13 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty MyFunctionPointer =>
+                      WriteRaw)
+instance (~) ty MyFunctionPointer =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
@@ -179,13 +179,13 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
+                      WriteRaw)
+instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

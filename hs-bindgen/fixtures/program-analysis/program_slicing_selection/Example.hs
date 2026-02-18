@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
@@ -17,22 +16,11 @@
 
 module Example where
 
-import qualified Data.List.NonEmpty
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.CEnum as CEnum
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import qualified HsBindgen.Runtime.Marshal
-import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @enum FileOperationStatus@
 
@@ -41,40 +29,40 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 newtype FileOperationStatus = FileOperationStatus
-  { unwrapFileOperationStatus :: FC.CInt
+  { unwrapFileOperationStatus :: RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (Eq, RIP.Generic, Ord)
+  deriving newtype (RIP.HasFFIType)
 
-instance HsBindgen.Runtime.Marshal.StaticSize FileOperationStatus where
+instance Marshal.StaticSize FileOperationStatus where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw FileOperationStatus where
+instance Marshal.ReadRaw FileOperationStatus where
 
   readRaw =
     \ptr0 ->
           pure FileOperationStatus
-      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
+      <*> Marshal.readRawByteOff ptr0 (0 :: Int)
 
-instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationStatus where
+instance Marshal.WriteRaw FileOperationStatus where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           FileOperationStatus unwrapFileOperationStatus2 ->
-            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
+            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFileOperationStatus2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable FileOperationStatus instance F.Storable FileOperationStatus
+deriving via Marshal.EquivStorable FileOperationStatus instance RIP.Storable FileOperationStatus
 
-deriving via FC.CInt instance Data.Primitive.Types.Prim FileOperationStatus
+deriving via RIP.CInt instance RIP.Prim FileOperationStatus
 
-instance HsBindgen.Runtime.CEnum.CEnum FileOperationStatus where
+instance CEnum.CEnum FileOperationStatus where
 
-  type CEnumZ FileOperationStatus = FC.CInt
+  type CEnumZ FileOperationStatus = RIP.CInt
 
   toCEnum = FileOperationStatus
 
@@ -82,42 +70,42 @@ instance HsBindgen.Runtime.CEnum.CEnum FileOperationStatus where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (-1, Data.List.NonEmpty.singleton "CUSTOM_ERROR_OTHER")
-                                                     , (0, Data.List.NonEmpty.singleton "SUCCESS")
-                                                     , (2, Data.List.NonEmpty.singleton "NOT_FOUND")
-                                                     , (12, Data.List.NonEmpty.singleton "OUT_OF_MEMORY")
-                                                     , (13, Data.List.NonEmpty.singleton "PERMISSION_DENIED")
-                                                     , (22, Data.List.NonEmpty.singleton "INVALID_ARGUMENT")
-                                                     ]
+      CEnum.declaredValuesFromList [ (-1, RIP.singleton "CUSTOM_ERROR_OTHER")
+                                   , (0, RIP.singleton "SUCCESS")
+                                   , (2, RIP.singleton "NOT_FOUND")
+                                   , (12, RIP.singleton "OUT_OF_MEMORY")
+                                   , (13, RIP.singleton "PERMISSION_DENIED")
+                                   , (22, RIP.singleton "INVALID_ARGUMENT")
+                                   ]
 
   showsUndeclared =
-    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "FileOperationStatus"
+    CEnum.showsWrappedUndeclared "FileOperationStatus"
 
   readPrecUndeclared =
-    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "FileOperationStatus"
+    CEnum.readPrecWrappedUndeclared "FileOperationStatus"
 
 instance Show FileOperationStatus where
 
-  showsPrec = HsBindgen.Runtime.CEnum.shows
+  showsPrec = CEnum.shows
 
 instance Read FileOperationStatus where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrec
+  readPrec = CEnum.readPrec
 
-  readList = Text.Read.readListDefault
+  readList = RIP.readListDefault
 
-  readListPrec = Text.Read.readListPrecDefault
+  readListPrec = RIP.readListPrecDefault
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unwrapFileOperationStatus" (Ptr.Ptr FileOperationStatus) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapFileOperationStatus" (RIP.Ptr FileOperationStatus) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFileOperationStatus")
+    HasCField.fromPtr (RIP.Proxy @"unwrapFileOperationStatus")
 
-instance HsBindgen.Runtime.HasCField.HasCField FileOperationStatus "unwrapFileOperationStatus" where
+instance HasCField.HasCField FileOperationStatus "unwrapFileOperationStatus" where
 
   type CFieldType FileOperationStatus "unwrapFileOperationStatus" =
-    FC.CInt
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -197,23 +185,23 @@ data FileOperationRecord = FileOperationRecord
          __exported by:__ @program-analysis\/program_slicing_selection.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize FileOperationRecord where
+instance Marshal.StaticSize FileOperationRecord where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw FileOperationRecord where
+instance Marshal.ReadRaw FileOperationRecord where
 
   readRaw =
     \ptr0 ->
           pure FileOperationRecord
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"fileOperationRecord_status") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"fileOperationRecord_bytes_processed") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationRecord where
+instance Marshal.WriteRaw FileOperationRecord where
 
   writeRaw =
     \ptr0 ->
@@ -222,33 +210,33 @@ instance HsBindgen.Runtime.Marshal.WriteRaw FileOperationRecord where
           FileOperationRecord
             fileOperationRecord_status2
             fileOperationRecord_bytes_processed3 ->
-                 HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
-              >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+                 HasCField.writeRaw (RIP.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
+              >> HasCField.writeRaw (RIP.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable FileOperationRecord instance F.Storable FileOperationRecord
+deriving via Marshal.EquivStorable FileOperationRecord instance RIP.Storable FileOperationRecord
 
-instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
+instance HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
 
   type CFieldType FileOperationRecord "fileOperationRecord_status" =
     FileOperationStatus
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FileOperationStatus
-         ) => GHC.Records.HasField "fileOperationRecord_status" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
+instance ( ((~) ty) FileOperationStatus
+         ) => RIP.HasField "fileOperationRecord_status" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fileOperationRecord_status")
+    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_status")
 
-instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
+instance HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
 
   type CFieldType FileOperationRecord "fileOperationRecord_bytes_processed" =
     HsBindgen.Runtime.LibC.CSize
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.CSize
-         ) => GHC.Records.HasField "fileOperationRecord_bytes_processed" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.CSize
+         ) => RIP.HasField "fileOperationRecord_bytes_processed" (RIP.Ptr FileOperationRecord) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed")
+    HasCField.fromPtr (RIP.Proxy @"fileOperationRecord_bytes_processed")

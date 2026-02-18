@@ -6,70 +6,34 @@ module HsBindgen.Backend.TH.Translation (
 ) where
 
 import Control.Monad (liftM2)
-import Data.Bits qualified
-import Data.Complex qualified
-import Data.Int qualified
-import Data.Ix qualified
-import Data.List.NonEmpty qualified as NonEmpty
-import Data.Map.Strict qualified as Map
-import Data.Maybe qualified
-import Data.Primitive.Types qualified as Primitive
-import Data.Proxy qualified
 import Data.Text qualified as Text
-import Data.Void qualified
-import Data.Word qualified
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
-import Foreign qualified
-import Foreign.C.String qualified
 import Foreign.C.Types qualified
-import Foreign.Ptr qualified
-import Foreign.StablePtr qualified
-import Foreign.Storable qualified
 import GHC.Base qualified
 import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32, castWord32ToFloat,
                   castWord64ToDouble)
-import GHC.Generics qualified
 import GHC.Ptr (Ptr (Ptr))
-import GHC.Records qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import System.IO.Unsafe qualified
-import Text.Read qualified
-
-import C.Char qualified as CExpr.Runtime
-import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Runtime.BitfieldPtr qualified
-import HsBindgen.Runtime.Block qualified
-import HsBindgen.Runtime.CEnum qualified
-import HsBindgen.Runtime.ConstantArray qualified
-import HsBindgen.Runtime.FLAM qualified
-import HsBindgen.Runtime.HasCBitfield qualified
-import HsBindgen.Runtime.HasCField qualified
-import HsBindgen.Runtime.IncompleteArray qualified
-import HsBindgen.Runtime.Internal.Bitfield qualified
-import HsBindgen.Runtime.Internal.ByteArray qualified
-import HsBindgen.Runtime.Internal.CAPI qualified
-import HsBindgen.Runtime.Internal.FunPtr qualified
-import HsBindgen.Runtime.Internal.HasFFIType qualified
-import HsBindgen.Runtime.Internal.SizedByteArray qualified
-import HsBindgen.Runtime.Internal.TypeEquality qualified
-import HsBindgen.Runtime.Marshal qualified
-import HsBindgen.Runtime.PtrConst qualified
+import HsBindgen.Runtime.Internal.Prelude qualified as RIP
 
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
+import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Imports
+import HsBindgen.Instances as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -78,560 +42,35 @@ import HsBindgen.NameHint
   Backend definition
 -------------------------------------------------------------------------------}
 
-mkGlobal :: Global -> TH.Name
-mkGlobal = \case
-      Tuple_type i          -> tupleTypeName $ fromIntegral i
-      Tuple_constructor i   -> TH.tupleDataName $ fromIntegral i
-      Applicative_pure      -> 'pure
-      Applicative_seq       -> '(<*>)
-      Maybe_just            -> 'Data.Maybe.Just
-      Maybe_nothing         -> 'Data.Maybe.Nothing
-      Monad_return          -> 'return
-      Monad_seq             -> '(>>)
-      ToFunPtr_class        -> ''HsBindgen.Runtime.Internal.FunPtr.ToFunPtr
-      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.Internal.FunPtr.toFunPtr
-      FromFunPtr_class      -> ''HsBindgen.Runtime.Internal.FunPtr.FromFunPtr
-      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.Internal.FunPtr.fromFunPtr
-      Foreign_Ptr           -> ''Foreign.Ptr.Ptr
-      Ptr_constructor       -> 'GHC.Ptr.Ptr
-      Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
-      Foreign_plusPtr       -> 'Foreign.Ptr.plusPtr
-      Foreign_StablePtr     -> ''Foreign.StablePtr.StablePtr
-      ConstantArray         -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
-      IncompleteArray       -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
-      IO_type               -> ''IO
-      CharValue_tycon       -> ''CExpr.Runtime.CharValue
-      CharValue_constructor -> 'CExpr.Runtime.CharValue
-      CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
-      Capi_with             -> 'Foreign.with
-      Capi_allocaAndPeek    -> 'HsBindgen.Runtime.Internal.CAPI.allocaAndPeek
-      Generic_class         -> ''GHC.Generics.Generic
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
+-- render hack.
 
-      -- StaticSize
-      StaticSize_class           -> ''HsBindgen.Runtime.Marshal.StaticSize
-      StaticSize_staticSizeOf    -> 'HsBindgen.Runtime.Marshal.staticSizeOf
-      StaticSize_staticAlignment -> 'HsBindgen.Runtime.Marshal.staticAlignment
-
-      -- ReadRaw
-      ReadRaw_class          -> ''HsBindgen.Runtime.Marshal.ReadRaw
-      ReadRaw_readRaw        -> 'HsBindgen.Runtime.Marshal.readRaw
-      ReadRaw_readRawByteOff -> 'HsBindgen.Runtime.Marshal.readRawByteOff
-
-      -- WriteRaw
-      WriteRaw_class           -> ''HsBindgen.Runtime.Marshal.WriteRaw
-      WriteRaw_writeRaw        -> 'HsBindgen.Runtime.Marshal.writeRaw
-      WriteRaw_writeRawByteOff -> 'HsBindgen.Runtime.Marshal.writeRawByteOff
-
-      -- EquivStorable
-      EquivStorable_type -> ''HsBindgen.Runtime.Marshal.EquivStorable
-
-      -- Storable
-      Storable_class       -> ''Foreign.Storable.Storable
-      Storable_sizeOf      -> 'Foreign.Storable.sizeOf
-      Storable_alignment   -> 'Foreign.Storable.alignment
-      Storable_peekByteOff -> 'Foreign.Storable.peekByteOff
-      Storable_pokeByteOff -> 'Foreign.Storable.pokeByteOff
-      Storable_peek        -> 'Foreign.Storable.peek
-      Storable_poke        -> 'Foreign.Storable.poke
-
-      -- Flexible array members
-      Flam_Offset_class  -> ''HsBindgen.Runtime.FLAM.Offset
-      Flam_Offset_offset ->  'HsBindgen.Runtime.FLAM.offset
-      WithFlam           -> ''HsBindgen.Runtime.FLAM.WithFlam
-
-      -- HasCField
-      HasCField_class      -> ''HsBindgen.Runtime.HasCField.HasCField
-      HasCField_CFieldType -> ''HsBindgen.Runtime.HasCField.CFieldType
-      HasCField_offset#    -> 'HsBindgen.Runtime.HasCField.offset#
-      HasCField_fromPtr    -> 'HsBindgen.Runtime.HasCField.fromPtr
-      HasCField_peek       -> 'HsBindgen.Runtime.HasCField.peek
-      HasCField_poke       -> 'HsBindgen.Runtime.HasCField.poke
-      HasCField_readRaw    -> 'HsBindgen.Runtime.HasCField.readRaw
-      HasCField_writeRaw   -> 'HsBindgen.Runtime.HasCField.writeRaw
-
-      -- BitfieldPtr
-      HasCBitfield_BitfieldPtr -> ''HsBindgen.Runtime.BitfieldPtr.BitfieldPtr
-
-      -- HasCBitfield
-      HasCBitfield_class           -> ''HsBindgen.Runtime.HasCBitfield.HasCBitfield
-      HasCBitfield_CBitfieldType   -> ''HsBindgen.Runtime.HasCBitfield.CBitfieldType
-      HasCBitfield_bitfieldOffset# -> 'HsBindgen.Runtime.HasCBitfield.bitfieldOffset#
-      HasCBitfield_bitfieldWidth#  -> 'HsBindgen.Runtime.HasCBitfield.bitfieldWidth#
-      HasCBitfield_toPtr           -> 'HsBindgen.Runtime.HasCBitfield.toPtr
-      HasCBitfield_peek            -> 'HsBindgen.Runtime.HasCBitfield.peek
-      HasCBitfield_poke            -> 'HsBindgen.Runtime.HasCBitfield.poke
-
-      -- HasField
-      HasField_class    -> ''GHC.Records.HasField
-      HasField_getField -> 'GHC.Records.getField
-
-      -- Proxy
-      Proxy_type        -> ''Data.Proxy.Proxy
-      Proxy_constructor -> 'Data.Proxy.Proxy
-
-      -- HasFFIType
-      HasFFIType_class                 -> ''HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-      HasFFIType_fromFFIType           -> 'HsBindgen.Runtime.Internal.HasFFIType.fromFFIType
-      HasFFIType_toFFIType             -> 'HsBindgen.Runtime.Internal.HasFFIType.toFFIType
-      HasFFIType_castFunPtrFromFFIType -> 'HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType
-      HasFFIType_castFunPtrToFFIType   -> 'HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType
-
-      -- Functor
-      Functor_fmap -> 'fmap
-
-      -- Unsafe
-      IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
-
-      -- PtrConst
-      PtrConst_type          -> ''HsBindgen.Runtime.PtrConst.PtrConst
-      PtrConst_unsafeFromPtr -> 'HsBindgen.Runtime.PtrConst.unsafeFromPtr
-      PtrConst_unsafeToPtr   -> 'HsBindgen.Runtime.PtrConst.unsafeToPtr
-      PtrConst_peek          -> 'HsBindgen.Runtime.PtrConst.peek
-
-      -- Prim
-      Prim_class           -> ''Primitive.Prim
-      Prim_sizeOf#         -> 'Primitive.sizeOf#
-      Prim_alignment#      -> 'Primitive.alignment#
-      Prim_indexByteArray# -> 'Primitive.indexByteArray#
-      Prim_readByteArray#  -> 'Primitive.readByteArray#
-      Prim_writeByteArray# -> 'Primitive.writeByteArray#
-      Prim_indexOffAddr#   -> 'Primitive.indexOffAddr#
-      Prim_readOffAddr#    -> 'Primitive.readOffAddr#
-      Prim_writeOffAddr#   -> 'Primitive.writeOffAddr#
-      Prim_add#            -> '(GHC.Base.+#)
-      Prim_mul#            -> '(GHC.Base.*#)
-
-      Bitfield_class    -> ''HsBindgen.Runtime.Internal.Bitfield.Bitfield
-      Bits_class        -> ''Data.Bits.Bits
-      Bounded_class     -> ''Bounded
-      Enum_class        -> ''Enum
-      Eq_class          -> ''Eq
-      FiniteBits_class  -> ''Data.Bits.FiniteBits
-      Floating_class    -> ''Floating
-      Fractional_class  -> ''Fractional
-      Integral_class    -> ''Integral
-      Ix_class          -> ''Data.Ix.Ix
-      Num_class         -> ''Num
-      Ord_class         -> ''Ord
-      Read_class        -> ''Read
-      Read_readPrec     -> 'Text.Read.readPrec
-      Read_readList     -> 'Text.Read.readList
-      Read_readListPrec -> 'Text.Read.readListPrec
-
-      Real_class       -> ''Real
-      RealFloat_class  -> ''RealFloat
-      RealFrac_class   -> ''RealFrac
-      Show_class       -> ''Show
-      Show_showsPrec   -> 'showsPrec
-
-      NomEq_class -> ''HsBindgen.Runtime.Internal.TypeEquality.TyEq
-
-      Not_class             -> ''CExpr.Runtime.Not
-      Not_not               ->  'CExpr.Runtime.not
-      Logical_class         -> ''CExpr.Runtime.Logical
-      Logical_and           -> '(CExpr.Runtime.&&)
-      Logical_or            -> '(CExpr.Runtime.||)
-      RelEq_class           -> ''CExpr.Runtime.RelEq
-      RelEq_eq              -> '(CExpr.Runtime.==)
-      RelEq_uneq            -> '(CExpr.Runtime.!=)
-      RelOrd_class          -> ''CExpr.Runtime.RelOrd
-      RelOrd_lt             -> '(CExpr.Runtime.<)
-      RelOrd_le             -> '(CExpr.Runtime.<=)
-      RelOrd_gt             -> '(CExpr.Runtime.>)
-      RelOrd_ge             -> '(CExpr.Runtime.>=)
-      Plus_class            -> ''CExpr.Runtime.Plus
-      Plus_resTyCon         -> ''CExpr.Runtime.PlusRes
-      Plus_plus             ->  'CExpr.Runtime.plus
-      Minus_class           -> ''CExpr.Runtime.Minus
-      Minus_resTyCon        -> ''CExpr.Runtime.MinusRes
-      Minus_negate          ->  'CExpr.Runtime.negate
-      Add_class             -> ''CExpr.Runtime.Add
-      Add_resTyCon          -> ''CExpr.Runtime.AddRes
-      Add_add               -> '(CExpr.Runtime.+)
-      Sub_class             -> ''CExpr.Runtime.Sub
-      Sub_resTyCon          -> ''CExpr.Runtime.SubRes
-      Sub_minus             -> '(CExpr.Runtime.-)
-      Mult_class            -> ''CExpr.Runtime.Mult
-      Mult_resTyCon         -> ''CExpr.Runtime.MultRes
-      Mult_mult             -> '(CExpr.Runtime.*)
-      Div_class             -> ''CExpr.Runtime.Div
-      Div_resTyCon          -> ''CExpr.Runtime.DivRes
-      Div_div               -> '(CExpr.Runtime./)
-      Rem_class             -> ''CExpr.Runtime.Rem
-      Rem_resTyCon          -> ''CExpr.Runtime.RemRes
-      Rem_rem               -> '(CExpr.Runtime.%)
-      Complement_class      -> ''CExpr.Runtime.Complement
-      Complement_resTyCon   -> ''CExpr.Runtime.ComplementRes
-      Complement_complement -> '(CExpr.Runtime..~)
-      Bitwise_class         -> ''CExpr.Runtime.Bitwise
-      Bitwise_resTyCon      -> ''CExpr.Runtime.BitsRes
-      Bitwise_and           -> '(CExpr.Runtime..&.)
-      Bitwise_or            -> '(CExpr.Runtime..|.)
-      Bitwise_xor           -> '(CExpr.Runtime..^.)
-      Shift_class           -> ''CExpr.Runtime.Shift
-      Shift_resTyCon        -> ''CExpr.Runtime.ShiftRes
-      Shift_shiftL          -> '(CExpr.Runtime.<<)
-      Shift_shiftR          -> '(CExpr.Runtime.>>)
-
-      GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
-      GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble
-      CFloat_constructor  -> 'Foreign.C.Types.CFloat
-      CDouble_constructor -> 'Foreign.C.Types.CDouble
-
-      NonEmpty_constructor     -> '(NonEmpty.:|)
-      NonEmpty_singleton       -> 'NonEmpty.singleton
-      Map_fromList             -> 'Map.fromList
-      Read_readListDefault     -> 'Text.Read.readListDefault
-      Read_readListPrecDefault -> 'Text.Read.readListPrecDefault
-
-      CEnum_class                      -> ''HsBindgen.Runtime.CEnum.CEnum
-      CEnumZ_tycon                     -> ''HsBindgen.Runtime.CEnum.CEnumZ
-      CEnum_toCEnum                    -> 'HsBindgen.Runtime.CEnum.toCEnum
-      CEnum_fromCEnum                  -> 'HsBindgen.Runtime.CEnum.fromCEnum
-      CEnum_declaredValues             -> 'HsBindgen.Runtime.CEnum.declaredValues
-      CEnum_showsUndeclared            -> 'HsBindgen.Runtime.CEnum.showsUndeclared
-      CEnum_readPrecUndeclared         -> 'HsBindgen.Runtime.CEnum.readPrecUndeclared
-      CEnum_isDeclared                 -> 'HsBindgen.Runtime.CEnum.isDeclared
-      CEnum_mkDeclared                 -> 'HsBindgen.Runtime.CEnum.mkDeclared
-      SequentialCEnum_class            -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
-      SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
-      SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
-      CEnum_declaredValuesFromList     -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-      CEnum_showsCEnum                 -> 'HsBindgen.Runtime.CEnum.shows
-      CEnum_showsWrappedUndeclared     -> 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
-      CEnum_readPrecCEnum              -> 'HsBindgen.Runtime.CEnum.readPrec
-      CEnum_readPrecWrappedUndeclared  -> 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
-      CEnum_seqIsDeclared              -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
-      CEnum_seqMkDeclared              -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
-      AsCEnum_type                     -> ''HsBindgen.Runtime.CEnum.AsCEnum
-      AsSequentialCEnum_type           -> ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
-
-      ByteArray_type      -> ''ByteArray
-      SizedByteArray_type -> ''HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray
-      Block_type          -> ''HsBindgen.Runtime.Block.Block
-
-      ByteArray_getUnionPayload -> 'HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
-      ByteArray_setUnionPayload -> 'HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
-
-      ComplexType -> ''Data.Complex.Complex
-
-      Void_type       -> ''Data.Void.Void
-      Unit_type       -> ''()
-      CStringLen_type -> ''Foreign.C.String.CStringLen
-      CPtrdiff_type   -> ''Foreign.C.Types.CPtrdiff
-      Char_type       -> ''Char
-      Int_type        -> ''Int
-      Double_type     -> ''Double
-      Float_type      -> ''Float
-      Bool_type       -> ''Bool
-      Int8_type       -> ''Data.Int.Int8
-      Int16_type      -> ''Data.Int.Int16
-      Int32_type      -> ''Data.Int.Int32
-      Int64_type      -> ''Data.Int.Int64
-      Word_type       -> ''Word
-      Word8_type      -> ''Data.Word.Word8
-      Word16_type     -> ''Data.Word.Word16
-      Word32_type     -> ''Data.Word.Word32
-      Word64_type     -> ''Data.Word.Word64
-      CChar_type      -> ''Foreign.C.Types.CChar
-      CSChar_type     -> ''Foreign.C.Types.CSChar
-      CUChar_type     -> ''Foreign.C.Types.CUChar
-      CShort_type     -> ''Foreign.C.Types.CShort
-      CUShort_type    -> ''Foreign.C.Types.CUShort
-      CInt_type       -> ''Foreign.C.Types.CInt
-      CUInt_type      -> ''Foreign.C.Types.CUInt
-      CLong_type      -> ''Foreign.C.Types.CLong
-      CULong_type     -> ''Foreign.C.Types.CULong
-      CLLong_type     -> ''Foreign.C.Types.CLLong
-      CULLong_type    -> ''Foreign.C.Types.CULLong
-      CBool_type      -> ''Foreign.C.Types.CBool
-      CFloat_type     -> ''Foreign.C.Types.CFloat
-      CDouble_type    -> ''Foreign.C.Types.CDouble
-
--- | A version of 'TH.tupleTypeName' that always uses the @(,,)@ syntax rather
--- than @Tuple3@. This ensures consistency in TH tests across GHC versions.
+-- | A version of 'TH.tupleTypeName' that uses the internal runtime prelude and
+-- always uses @(,,)@ syntax rather than @Tuple3@. This ensures consistency in
+-- TH tests across GHC versions.
 tupleTypeName :: Int -> TH.Name
-tupleTypeName n =
-  TH.Name
-    (TH.mkOccName tup_occ)
-    (TH.NameG ns (TH.mkPkgName "ghc-internal") (TH.mkModName "GHC.Tuple"))
-      -- package name doesn't matter, as this is built-in syntax
-  where
-    ns = TH.TcClsName
-    tup_occ
-      | n == 0 = "Unit"
-      | n == 1 = "Solo"
-      | otherwise = "(" ++ replicate (n - 1) ',' ++ ")"
+tupleTypeName = \case
+  0 -> ''RIP.Unit
+  1 -> ''RIP.Solo
+  n ->
+    let -- Fake package name as syntax is built-in.
+        tup_pkg :: TH.PkgName
+        tup_pkg = TH.mkPkgName "ghc-internal"
 
--- | Construct an 'TH.Exp' for a 'Global'
-mkGlobalExpr :: Quote q => Global -> q TH.Exp
-mkGlobalExpr n = case n of -- in definition order, no wildcards
-    Tuple_type{}              -> panicPure "type in expression"
-    Tuple_constructor{}       -> TH.conE name
-    Applicative_pure          -> TH.varE name
-    Applicative_seq           -> TH.varE name
-    Monad_return              -> TH.varE name
-    Monad_seq                 -> TH.varE name
-    Maybe_just                -> TH.varE name
-    Maybe_nothing             -> TH.varE name
-    ToFunPtr_class            -> panicPure "class in expression"
-    ToFunPtr_toFunPtr         -> TH.varE name
-    FromFunPtr_class          -> panicPure "class in expression"
-    FromFunPtr_fromFunPtr     -> TH.varE name
-    Foreign_Ptr               -> panicPure "type in expression"
-    Ptr_constructor           -> TH.conE name
-    Foreign_FunPtr            -> panicPure "type in expression"
-    Foreign_plusPtr           -> TH.varE name
-    Foreign_StablePtr         -> panicPure "type in expression"
-    ConstantArray             -> panicPure "type in expression"
-    IncompleteArray           -> panicPure "type in expression"
-    IO_type                   -> panicPure "type in expression"
-    Flam_Offset_class         -> panicPure "class in expression"
-    Flam_Offset_offset        -> TH.varE name
-    WithFlam                  -> TH.varE name
-    CharValue_tycon           -> panicPure "type in expression"
-    CharValue_constructor     -> TH.conE name
-    CharValue_fromAddr        -> TH.varE name
-    ByteArray_setUnionPayload -> TH.varE name
-    ByteArray_getUnionPayload -> TH.varE name
-    Capi_with                 -> TH.varE name
-    Capi_allocaAndPeek        -> TH.varE name
-    Generic_class             -> panicPure "class in expression"
+        tup_mod :: TH.ModName
+        tup_mod = TH.mkModName "GHC.Tuple"
 
-    -- StaticSize
-    StaticSize_class           -> panicPure "class in expression"
-    StaticSize_staticSizeOf    -> TH.varE name
-    StaticSize_staticAlignment -> TH.varE name
+        tup_occ :: String
+        tup_occ = "(" ++ replicate (n - 1) ',' ++ ")"
 
-    -- ReadRaw
-    ReadRaw_class          -> panicPure "class in expression"
-    ReadRaw_readRaw        -> TH.varE name
-    ReadRaw_readRawByteOff -> TH.varE name
+    in  TH.Name
+          (TH.mkOccName tup_occ)
+          (TH.NameG TH.TcClsName tup_pkg tup_mod)
 
-    -- WriteRaw
-    WriteRaw_class           -> panicPure "class in expression"
-    WriteRaw_writeRaw        -> TH.varE name
-    WriteRaw_writeRawByteOff -> TH.varE name
-
-    -- EquivStorable
-    EquivStorable_type -> panicPure "type in expression"
-
-    -- Storable
-    Storable_class       -> panicPure "class in expression"
-    Storable_sizeOf      -> TH.varE name
-    Storable_alignment   -> TH.varE name
-    Storable_peekByteOff -> TH.varE name
-    Storable_pokeByteOff -> TH.varE name
-    Storable_peek        -> TH.varE name
-    Storable_poke        -> TH.varE name
-
-    -- HasCField
-    HasCField_class      -> panicPure "class in expression"
-    HasCField_CFieldType -> panicPure "type in expression"
-    HasCField_offset#    -> TH.varE name
-    HasCField_fromPtr    -> TH.varE name
-    HasCField_peek       -> TH.varE name
-    HasCField_poke       -> TH.varE name
-    HasCField_readRaw    -> TH.varE name
-    HasCField_writeRaw   -> TH.varE name
-
-    -- BitfieldPtr
-    HasCBitfield_BitfieldPtr -> TH.varE name
-
-    -- HasCBitfield
-    HasCBitfield_class           -> panicPure "class in expression"
-    HasCBitfield_CBitfieldType   -> panicPure "type in expression"
-    HasCBitfield_bitfieldOffset# -> TH.varE name
-    HasCBitfield_bitfieldWidth#  -> TH.varE name
-    HasCBitfield_toPtr           -> TH.varE name
-    HasCBitfield_peek            -> TH.varE name
-    HasCBitfield_poke            -> TH.varE name
-
-    -- HasField
-    HasField_class -> panicPure "class in expression"
-    HasField_getField -> TH.varE name
-
-    -- Proxy
-    Proxy_type -> panicPure "type in expression"
-    Proxy_constructor -> TH.conE name
-
-    -- HasFFIType
-    HasFFIType_class -> panicPure "class in expression"
-    HasFFIType_fromFFIType -> TH.varE name
-    HasFFIType_toFFIType -> TH.varE name
-    HasFFIType_castFunPtrFromFFIType -> TH.varE name
-    HasFFIType_castFunPtrToFFIType -> TH.varE name
-
-    -- Functor
-    Functor_fmap -> TH.varE name
-
-    -- Unsafe
-    IO_unsafePerformIO -> TH.varE name
-
-    -- PtrConst
-    PtrConst_type          -> panicPure "type in expression"
-    PtrConst_unsafeFromPtr -> TH.conE name
-    PtrConst_unsafeToPtr   -> TH.varE name
-    PtrConst_peek          -> TH.varE name
-
-    -- Prim
-    Prim_class           -> panicPure "class in expression"
-    Prim_sizeOf#         -> TH.varE name
-    Prim_alignment#      -> TH.varE name
-    Prim_indexByteArray# -> TH.varE name
-    Prim_readByteArray#  -> TH.varE name
-    Prim_writeByteArray# -> TH.varE name
-    Prim_indexOffAddr#   -> TH.varE name
-    Prim_readOffAddr#    -> TH.varE name
-    Prim_writeOffAddr#   -> TH.varE name
-    Prim_add#            -> TH.varE name
-    Prim_mul#            -> TH.varE name
-
-    -- Other type classes
-    Bitfield_class    -> panicPure "class in expression"
-    Bits_class        -> panicPure "class in expression"
-    Bounded_class     -> panicPure "class in expression"
-    Enum_class        -> panicPure "class in expression"
-    Eq_class          -> panicPure "class in expression"
-    FiniteBits_class  -> panicPure "class in expression"
-    Floating_class    -> panicPure "class in expression"
-    Fractional_class  -> panicPure "class in expression"
-    Integral_class    -> panicPure "class in expression"
-    Ix_class          -> panicPure "class in expression"
-    Num_class         -> panicPure "class in expression"
-    Ord_class         -> panicPure "class in expression"
-    Read_class        -> panicPure "class in expression"
-    Read_readPrec     -> TH.varE name
-    Read_readList     -> TH.varE name
-    Read_readListPrec -> TH.varE name
-    Real_class        -> panicPure "class in expression"
-    RealFloat_class   -> panicPure "class in expression"
-    RealFrac_class    -> panicPure "class in expression"
-    Show_class        -> panicPure "class in expression"
-    Show_showsPrec    -> TH.varE name
-
-    NomEq_class -> panicPure "class in expression"
-
-    Not_class             -> panicPure "class in expression"
-    Not_not               -> TH.varE name
-    Logical_class         -> panicPure "class in expression"
-    Logical_and           -> TH.varE name
-    Logical_or            -> TH.varE name
-    RelEq_class           -> panicPure "class in expression"
-    RelEq_eq              -> TH.varE name
-    RelEq_uneq            -> TH.varE name
-    RelOrd_class          -> panicPure "class in expression"
-    RelOrd_lt             -> TH.varE name
-    RelOrd_le             -> TH.varE name
-    RelOrd_gt             -> TH.varE name
-    RelOrd_ge             -> TH.varE name
-    Plus_class            -> panicPure "class in expression"
-    Plus_resTyCon         -> TH.varE name
-    Plus_plus             -> TH.varE name
-    Minus_class           -> panicPure "class in expression"
-    Minus_resTyCon        -> TH.varE name
-    Minus_negate          -> TH.varE name
-    Add_class             -> panicPure "class in expression"
-    Add_resTyCon          -> TH.varE name
-    Add_add               -> TH.varE name
-    Sub_class             -> panicPure "class in expression"
-    Sub_resTyCon          -> TH.varE name
-    Sub_minus             -> TH.varE name
-    Mult_class            -> panicPure "class in expression"
-    Mult_resTyCon         -> TH.varE name
-    Mult_mult             -> TH.varE name
-    Div_class             -> panicPure "class in expression"
-    Div_div               -> TH.varE name
-    Div_resTyCon          -> TH.varE name
-    Rem_class             -> panicPure "class in expression"
-    Rem_resTyCon          -> TH.varE name
-    Rem_rem               -> TH.varE name
-    Complement_class      -> panicPure "class in expression"
-    Complement_resTyCon   -> TH.varE name
-    Complement_complement -> TH.varE name
-    Bitwise_class         -> panicPure "class in expression"
-    Bitwise_resTyCon      -> TH.varE name
-    Bitwise_and           -> TH.varE name
-    Bitwise_or            -> TH.varE name
-    Bitwise_xor           -> TH.varE name
-    Shift_class           -> panicPure "class in expression"
-    Shift_resTyCon        -> TH.varE name
-    Shift_shiftL          -> TH.varE name
-    Shift_shiftR          -> TH.varE name
-
-    CFloat_constructor           -> TH.conE name
-    CDouble_constructor          -> TH.conE name
-    GHC_Float_castWord32ToFloat  -> TH.varE name
-    GHC_Float_castWord64ToDouble -> TH.varE name
-
-    NonEmpty_constructor     -> TH.conE name
-    NonEmpty_singleton       -> TH.varE name
-    Map_fromList             -> TH.varE name
-    Read_readListDefault     -> TH.varE name
-    Read_readListPrecDefault -> TH.varE name
-
-    CEnum_class                      -> panicPure "class in expression"
-    CEnumZ_tycon                     -> TH.conE name
-    CEnum_toCEnum                    -> TH.varE name
-    CEnum_fromCEnum                  -> TH.varE name
-    CEnum_declaredValues             -> TH.varE name
-    CEnum_showsUndeclared            -> TH.varE name
-    CEnum_readPrecUndeclared         -> TH.varE name
-    CEnum_isDeclared                 -> TH.varE name
-    CEnum_mkDeclared                 -> TH.varE name
-    SequentialCEnum_class            -> panicPure "class in expression"
-    SequentialCEnum_minDeclaredValue -> TH.varE name
-    SequentialCEnum_maxDeclaredValue -> TH.varE name
-    CEnum_declaredValuesFromList     -> TH.varE name
-    CEnum_showsCEnum                 -> TH.varE name
-    CEnum_showsWrappedUndeclared     -> TH.varE name
-    CEnum_readPrecCEnum              -> TH.varE name
-    CEnum_readPrecWrappedUndeclared  -> TH.varE name
-    CEnum_seqIsDeclared              -> TH.varE name
-    CEnum_seqMkDeclared              -> TH.varE name
-    AsCEnum_type                     -> panicPure "type in expression"
-    AsSequentialCEnum_type           -> panicPure "type in expression"
-
-    ByteArray_type      -> panicPure "type in expression"
-    SizedByteArray_type -> panicPure "type in expression"
-    Block_type          -> panicPure "type in expression"
-    ComplexType{}       -> panicPure "type in expression"
-
-    Void_type       -> panicPure "type in expression"
-    Unit_type       -> panicPure "type in expression"
-    CStringLen_type -> panicPure "type in expression"
-    CPtrdiff_type   -> panicPure "type in expression"
-    Char_type       -> panicPure "type in expression"
-    Int_type        -> panicPure "type in expression"
-    Double_type     -> panicPure "type in expression"
-    Float_type      -> panicPure "type in expression"
-    Bool_type       -> panicPure "type in expression"
-    Int8_type       -> panicPure "type in expression"
-    Int16_type      -> panicPure "type in expression"
-    Int32_type      -> panicPure "type in expression"
-    Int64_type      -> panicPure "type in expression"
-    Word_type       -> panicPure "type in expression"
-    Word8_type      -> panicPure "type in expression"
-    Word16_type     -> panicPure "type in expression"
-    Word32_type     -> panicPure "type in expression"
-    Word64_type     -> panicPure "type in expression"
-    CChar_type      -> panicPure "type in expression"
-    CSChar_type     -> panicPure "type in expression"
-    CUChar_type     -> panicPure "type in expression"
-    CShort_type     -> panicPure "type in expression"
-    CUShort_type    -> panicPure "type in expression"
-    CInt_type       -> panicPure "type in expression"
-    CUInt_type      -> panicPure "type in expression"
-    CLong_type      -> panicPure "type in expression"
-    CULong_type     -> panicPure "type in expression"
-    CLLong_type     -> panicPure "type in expression"
-    CULLong_type    -> panicPure "type in expression"
-    CBool_type      -> panicPure "type in expression"
-    CFloat_type     -> panicPure "type in expression"
-    CDouble_type    -> panicPure "type in expression"
-  where
-    name :: TH.Name
-    name = mkGlobal n
+mkGlobalExpr :: Quote q => Global LvlTerm -> q TH.Exp
+mkGlobalExpr g = case g.cat of
+  GVar -> TH.varE g.name
+  GCon -> TH.conE g.name
 
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkExpr env = \case
@@ -641,7 +80,7 @@ mkExpr env = \case
       ECon n        -> hsConE n
       EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
       EIntegral i Nothing -> TH.litE (TH.IntegerL i)
-      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (TH.conT $ mkGlobal t)
+      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkType EmptyEnv t)
       -- TH doesn't have floating-point literals, because it represents them
       -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
       --
@@ -653,14 +92,14 @@ mkExpr env = \case
               then [| f |]
               else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
           )
-          (TH.conT $ mkGlobal t)
+          (mkType EmptyEnv t)
       EDouble d t ->
         TH.sigE
           ( if CExpr.DSL.canBeRepresentedAsRational d
               then [| d |]
               else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
           )
-          (TH.conT $ mkGlobal t)
+          (mkType EmptyEnv t)
       EChar c -> [| c |]
       EString s -> [| s |]
       ECString ba@(ByteArray ba#) ->
@@ -673,11 +112,11 @@ mkExpr env = \case
                       , TH.litE (TH.integerL len)
                       ]
             )
-          (TH.conT $ mkGlobal CStringLen_type)
+          (TH.conT $ (.name) $ bindgenGlobalType CStringLen_type)
       EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
       EInfix op x y -> TH.infixE
                          (Just $ mkExpr env x)
-                         (mkGlobalExpr op)
+                         (mkGlobalExpr $ infixOpGlobal op)
                          (Just $ mkExpr env y)
       ELam (NameHint x) f      -> do
           x' <- TH.newName x
@@ -711,7 +150,8 @@ mkExpr env = \case
                                   []
                          | alt <- alts
                          ]
-      ETup xs -> TH.tupE $ mkExpr env <$> xs
+      EBoxedOpenTup n -> TH.conE $ TH.tupleDataName $ fromIntegral n
+      EBoxedClosedTup xs -> TH.tupE $ mkExpr env <$> xs
       EUnboxedTup xs -> TH.unboxedTupE $ mkExpr env <$> xs
       EList xs -> TH.listE $ mkExpr env <$> xs
 
@@ -724,14 +164,17 @@ mkPat = \case
 
 mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
 mkType env = \case
-    TGlobal n -> TH.conT (mkGlobal n)
-    TBound x  -> TH.varT (lookupEnv x env)
-    TCon n    -> hsConT n
-    TFree n   -> hsVarT n
-    TLit n    -> TH.litT (TH.numTyLit (toInteger n))
-    TStrLit s -> TH.litT (TH.strTyLit s)
-    TFun a b  -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
-    TApp f t  -> TH.appT (mkType env f) (mkType env t)
+    TGlobal n  -> TH.conT n.name
+    TClass cls -> TH.conT $ (.name) $ typeClassGlobal cls
+    TBound x   -> TH.varT (lookupEnv x env)
+    TCon n     -> hsConT n
+    TFree n    -> hsVarT n
+    TLit n     -> TH.litT (TH.numTyLit (toInteger n))
+    TStrLit s  -> TH.litT (TH.strTyLit s)
+    TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
+    TApp f t   -> TH.appT (mkType env f) (mkType env t)
+    TBoxedOpenTup n -> TH.conT $ tupleTypeName $ fromIntegral n
+    TEq -> TH.conT ''(~)
     TForall hints add ctxt body -> do
         let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
         (xs, env') <- newNames env add hints
@@ -757,15 +200,12 @@ mkDecl = \case
             (return [])
             (TH.forallT
               []
-              (sequence [
-                  appsT (TH.conT $ mkGlobal g) (map (mkType EmptyEnv) ts)
-                | (g, ts) <- inst.super
-                ])
-              (appsT (TH.conT $ mkGlobal inst.clss)
+              (mapM (mkType EmptyEnv) inst.super)
+              (appsT (TH.conT $ (.name) $ typeClassGlobal inst.clss)
                 (map (mkType EmptyEnv) inst.args)))
             (concat [
                 map instTySyn inst.types
-              , map (\(x, f) -> simpleDecl (mkGlobal x) f) inst.decs
+              , map (\(x, f) -> simpleDecl x.name f) inst.decs
               ])
 
         -- TODO: Add haddock comment to the class head, see issue #976. We also
@@ -908,7 +348,7 @@ mkDecl = \case
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
 
-      instTySyn :: (Global, [ClosedType], ClosedType) -> q TH.Dec
+      instTySyn :: (Global LvlType, [ClosedType], ClosedType) -> q TH.Dec
       instTySyn (g, typArgs, typSyn) =
         TH.TySynInstD
           <$> liftM2
@@ -924,13 +364,13 @@ mkDecl = \case
 -- | Nested deriving clauses (part of a datatype declaration)
 nestedDeriving :: forall q.
      Quote q
-  => [(Hs.Strategy ClosedType, [Global])] -> [q TH.DerivClause]
+  => [(Hs.Strategy ClosedType, [Inst.TypeClass])] -> [q TH.DerivClause]
 nestedDeriving = map aux
   where
-    aux :: (Hs.Strategy ClosedType, [Global]) -> q TH.DerivClause
+    aux :: (Hs.Strategy ClosedType, [Inst.TypeClass]) -> q TH.DerivClause
     aux (s, clss) = do
         s' <- strategy s
-        TH.derivClause (Just s') (map (TH.conT . mkGlobal) clss)
+        TH.derivClause (Just s') (map (TH.conT . (.name) . typeClassGlobal) clss)
 
 strategy :: Quote q => Hs.Strategy ClosedType -> q TH.DerivStrategy
 strategy Hs.DeriveNewtype  = return TH.NewtypeStrategy

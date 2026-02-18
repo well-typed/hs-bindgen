@@ -145,7 +145,7 @@ data Config
 
            __exported by:__ @globals\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Config
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -159,12 +159,12 @@ deriving via (EquivStorable Config) instance Storable Config
 instance HasCField Config "config_x"
     where type CFieldType Config "config_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "config_x" (Ptr Config) (Ptr ty)
+instance (~) ty CInt => HasField "config_x" (Ptr Config) (Ptr ty)
     where getField = fromPtr (Proxy @"config_x")
 instance HasCField Config "config_y"
     where type CFieldType Config "config_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "config_y" (Ptr Config) (Ptr ty)
+instance (~) ty CInt => HasField "config_y" (Ptr Config) (Ptr ty)
     where getField = fromPtr (Proxy @"config_y")
 {-| __C declaration:__ @struct inline_struct@
 
@@ -193,7 +193,7 @@ data Inline_struct
 
            __exported by:__ @globals\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Inline_struct
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -207,13 +207,13 @@ deriving via (EquivStorable Inline_struct) instance Storable Inline_struct
 instance HasCField Inline_struct "inline_struct_x"
     where type CFieldType Inline_struct "inline_struct_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "inline_struct_x" (Ptr Inline_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"inline_struct_x")
 instance HasCField Inline_struct "inline_struct_y"
     where type CFieldType Inline_struct "inline_struct_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "inline_struct_y" (Ptr Inline_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"inline_struct_y")
 {-| __C declaration:__ @struct version_t@
@@ -250,7 +250,7 @@ data Version_t
 
            __exported by:__ @globals\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Version_t
     where staticSizeOf = \_ -> 6 :: Int
           staticAlignment = \_ -> 2 :: Int
@@ -266,21 +266,21 @@ instance HasCField Version_t "version_t_major"
     where type CFieldType Version_t
                           "version_t_major" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 0
-instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "version_t_major" (Ptr Version_t) (Ptr ty)
     where getField = fromPtr (Proxy @"version_t_major")
 instance HasCField Version_t "version_t_minor"
     where type CFieldType Version_t
                           "version_t_minor" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 2
-instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "version_t_minor" (Ptr Version_t) (Ptr ty)
     where getField = fromPtr (Proxy @"version_t_minor")
 instance HasCField Version_t "version_t_patch"
     where type CFieldType Version_t
                           "version_t_patch" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 4
-instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "version_t_patch" (Ptr Version_t) (Ptr ty)
     where getField = fromPtr (Proxy @"version_t_patch")
 {-| __C declaration:__ @struct struct1_t@
@@ -317,7 +317,7 @@ data Struct1_t
 
            __exported by:__ @globals\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct1_t
     where staticSizeOf = \_ -> 10 :: Int
           staticAlignment = \_ -> 2 :: Int
@@ -333,19 +333,19 @@ instance HasCField Struct1_t "struct1_t_x"
     where type CFieldType Struct1_t
                           "struct1_t_x" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 0
-instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "struct1_t_x" (Ptr Struct1_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_t_x")
 instance HasCField Struct1_t "struct1_t_y"
     where type CFieldType Struct1_t "struct1_t_y" = CBool
           offset# = \_ -> \_ -> 2
-instance TyEq ty CBool =>
+instance (~) ty CBool =>
          HasField "struct1_t_y" (Ptr Struct1_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_t_y")
 instance HasCField Struct1_t "struct1_t_version"
     where type CFieldType Struct1_t "struct1_t_version" = Version_t
           offset# = \_ -> \_ -> 4
-instance TyEq ty Version_t =>
+instance (~) ty Version_t =>
          HasField "struct1_t_version" (Ptr Struct1_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_t_version")
 {-| __C declaration:__ @struct struct2_t@
@@ -368,7 +368,7 @@ data Struct2_t
 
            __exported by:__ @globals\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct2_t
     where staticSizeOf = \_ -> 10 :: Int
           staticAlignment = \_ -> 2 :: Int
@@ -381,7 +381,7 @@ deriving via (EquivStorable Struct2_t) instance Storable Struct2_t
 instance HasCField Struct2_t "struct2_t_field1"
     where type CFieldType Struct2_t "struct2_t_field1" = Struct1_t
           offset# = \_ -> \_ -> 0
-instance TyEq ty Struct1_t =>
+instance (~) ty Struct1_t =>
          HasField "struct2_t_field1" (Ptr Struct2_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct2_t_field1")
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@

@@ -13,7 +13,7 @@ data A
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize A
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -37,7 +37,7 @@ data Struct1
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct1
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -61,7 +61,7 @@ data B_s
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize B_s
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -85,7 +85,7 @@ data Struct2_s
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct2_s
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -109,7 +109,7 @@ data C
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize C
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -133,7 +133,7 @@ data Struct3
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct3
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -157,7 +157,7 @@ data D
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize D
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -181,7 +181,7 @@ data Struct4
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct4
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -205,7 +205,7 @@ data E_s
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize E_s
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -229,7 +229,7 @@ data Struct5_s
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct5_s
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -253,7 +253,7 @@ data F
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize F
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -277,7 +277,7 @@ data Typedef1
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Typedef1
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -301,7 +301,7 @@ data G
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize G
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -325,7 +325,7 @@ data Typedef2
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Typedef2
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -349,7 +349,7 @@ data H
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize H
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -373,7 +373,7 @@ data Typedef3
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Typedef3
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int

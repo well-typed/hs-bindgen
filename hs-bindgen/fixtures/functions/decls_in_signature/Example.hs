@@ -6,7 +6,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -15,19 +14,9 @@
 
 module Example where
 
-import qualified Data.Array.Byte
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.ByteArray
-import qualified HsBindgen.Runtime.Internal.SizedByteArray
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct opaque@
 
@@ -44,14 +33,14 @@ data Opaque
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 data Outside = Outside
-  { outside_x :: FC.CInt
+  { outside_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @functions\/decls_in_signature.h 4:7@
 
          __exported by:__ @functions\/decls_in_signature.h@
     -}
-  , outside_y :: FC.CInt
+  , outside_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @functions\/decls_in_signature.h 5:7@
@@ -59,57 +48,55 @@ data Outside = Outside
          __exported by:__ @functions\/decls_in_signature.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Outside where
+instance Marshal.StaticSize Outside where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Outside where
+instance Marshal.ReadRaw Outside where
 
   readRaw =
     \ptr0 ->
           pure Outside
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"outside_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"outside_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"outside_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"outside_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Outside where
+instance Marshal.WriteRaw Outside where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Outside outside_x2 outside_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"outside_x") ptr0 outside_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"outside_y") ptr0 outside_y3
+               HasCField.writeRaw (RIP.Proxy @"outside_x") ptr0 outside_x2
+            >> HasCField.writeRaw (RIP.Proxy @"outside_y") ptr0 outside_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Outside instance F.Storable Outside
+deriving via Marshal.EquivStorable Outside instance RIP.Storable Outside
 
-instance HsBindgen.Runtime.HasCField.HasCField Outside "outside_x" where
+instance HasCField.HasCField Outside "outside_x" where
 
-  type CFieldType Outside "outside_x" = FC.CInt
+  type CFieldType Outside "outside_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "outside_x" (Ptr.Ptr Outside) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "outside_x" (RIP.Ptr Outside) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"outside_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"outside_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Outside "outside_y" where
+instance HasCField.HasCField Outside "outside_y" where
 
-  type CFieldType Outside "outside_y" = FC.CInt
+  type CFieldType Outside "outside_y" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "outside_y" (Ptr.Ptr Outside) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "outside_y" (RIP.Ptr Outside) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"outside_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"outside_y")
 
 {-| Error cases
 
@@ -122,14 +109,14 @@ __defined at:__ @functions\/decls_in_signature.h 17:16@
 __exported by:__ @functions\/decls_in_signature.h@
 -}
 data Named_struct = Named_struct
-  { named_struct_x :: FC.CInt
+  { named_struct_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @functions\/decls_in_signature.h 17:35@
 
          __exported by:__ @functions\/decls_in_signature.h@
     -}
-  , named_struct_y :: FC.CInt
+  , named_struct_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @functions\/decls_in_signature.h 17:42@
@@ -137,59 +124,59 @@ data Named_struct = Named_struct
          __exported by:__ @functions\/decls_in_signature.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Named_struct where
+instance Marshal.StaticSize Named_struct where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Named_struct where
+instance Marshal.ReadRaw Named_struct where
 
   readRaw =
     \ptr0 ->
           pure Named_struct
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"named_struct_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"named_struct_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"named_struct_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"named_struct_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Named_struct where
+instance Marshal.WriteRaw Named_struct where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Named_struct named_struct_x2 named_struct_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"named_struct_x") ptr0 named_struct_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"named_struct_y") ptr0 named_struct_y3
+               HasCField.writeRaw (RIP.Proxy @"named_struct_x") ptr0 named_struct_x2
+            >> HasCField.writeRaw (RIP.Proxy @"named_struct_y") ptr0 named_struct_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Named_struct instance F.Storable Named_struct
+deriving via Marshal.EquivStorable Named_struct instance RIP.Storable Named_struct
 
-instance HsBindgen.Runtime.HasCField.HasCField Named_struct "named_struct_x" where
+instance HasCField.HasCField Named_struct "named_struct_x" where
 
   type CFieldType Named_struct "named_struct_x" =
-    FC.CInt
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "named_struct_x" (Ptr.Ptr Named_struct) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "named_struct_x" (RIP.Ptr Named_struct) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_struct_x")
+    HasCField.fromPtr (RIP.Proxy @"named_struct_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Named_struct "named_struct_y" where
+instance HasCField.HasCField Named_struct "named_struct_y" where
 
   type CFieldType Named_struct "named_struct_y" =
-    FC.CInt
+    RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "named_struct_y" (Ptr.Ptr Named_struct) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "named_struct_y" (RIP.Ptr Named_struct) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_struct_y")
+    HasCField.fromPtr (RIP.Proxy @"named_struct_y")
 
 {-| __C declaration:__ @union named_union@
 
@@ -198,17 +185,17 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 newtype Named_union = Named_union
-  { unwrapNamed_union :: Data.Array.Byte.ByteArray
+  { unwrapNamed_union :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize Named_union
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize Named_union
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw Named_union
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw Named_union
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw Named_union
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw Named_union
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Named_union instance F.Storable Named_union
+deriving via Marshal.EquivStorable Named_union instance RIP.Storable Named_union
 
 {-|
 
@@ -222,9 +209,8 @@ __exported by:__ @functions\/decls_in_signature.h@
 -}
 get_named_union_x ::
      Named_union
-  -> FC.CInt
-get_named_union_x =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CInt
+get_named_union_x = RIP.getUnionPayload
 
 {-|
 
@@ -232,10 +218,9 @@ get_named_union_x =
 
 -}
 set_named_union_x ::
-     FC.CInt
+     RIP.CInt
   -> Named_union
-set_named_union_x =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_named_union_x = RIP.setUnionPayload
 
 {-|
 
@@ -249,9 +234,8 @@ __exported by:__ @functions\/decls_in_signature.h@
 -}
 get_named_union_y ::
      Named_union
-  -> FC.CChar
-get_named_union_y =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CChar
+get_named_union_y = RIP.getUnionPayload
 
 {-|
 
@@ -259,32 +243,32 @@ get_named_union_y =
 
 -}
 set_named_union_y ::
-     FC.CChar
+     RIP.CChar
   -> Named_union
-set_named_union_y =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_named_union_y = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField Named_union "named_union_x" where
+instance HasCField.HasCField Named_union "named_union_x" where
 
-  type CFieldType Named_union "named_union_x" = FC.CInt
+  type CFieldType Named_union "named_union_x" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "named_union_x" (Ptr.Ptr Named_union) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "named_union_x" (RIP.Ptr Named_union) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_union_x")
+    HasCField.fromPtr (RIP.Proxy @"named_union_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Named_union "named_union_y" where
+instance HasCField.HasCField Named_union "named_union_y" where
 
   type CFieldType Named_union "named_union_y" =
-    FC.CChar
+    RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "named_union_y" (Ptr.Ptr Named_union) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "named_union_y" (RIP.Ptr Named_union) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"named_union_y")
+    HasCField.fromPtr (RIP.Proxy @"named_union_y")

@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,19 +13,9 @@
 
 module Example where
 
-import qualified Data.Array.Byte
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.ByteArray
-import qualified HsBindgen.Runtime.Internal.SizedByteArray
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Int, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @union unionA@
 
@@ -35,17 +24,17 @@ import Prelude ((<*>), Int, pure)
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype UnionA = UnionA
-  { unwrapUnionA :: Data.Array.Byte.ByteArray
+  { unwrapUnionA :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize UnionA
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize UnionA
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw UnionA
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw UnionA
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw UnionA
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw UnionA
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable UnionA instance F.Storable UnionA
+deriving via Marshal.EquivStorable UnionA instance RIP.Storable UnionA
 
 {-|
 
@@ -59,9 +48,8 @@ __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_a ::
      UnionA
-  -> FC.CInt
-get_unionA_a =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CInt
+get_unionA_a = RIP.getUnionPayload
 
 {-|
 
@@ -69,10 +57,9 @@ get_unionA_a =
 
 -}
 set_unionA_a ::
-     FC.CInt
+     RIP.CInt
   -> UnionA
-set_unionA_a =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_unionA_a = RIP.setUnionPayload
 
 {-|
 
@@ -86,9 +73,8 @@ __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_unionA_b ::
      UnionA
-  -> FC.CChar
-get_unionA_b =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CChar
+get_unionA_b = RIP.getUnionPayload
 
 {-|
 
@@ -96,34 +82,31 @@ get_unionA_b =
 
 -}
 set_unionA_b ::
-     FC.CChar
+     RIP.CChar
   -> UnionA
-set_unionA_b =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_unionA_b = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField UnionA "unionA_a" where
+instance HasCField.HasCField UnionA "unionA_a" where
 
-  type CFieldType UnionA "unionA_a" = FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unionA_a" (Ptr.Ptr UnionA) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unionA_a")
-
-instance HsBindgen.Runtime.HasCField.HasCField UnionA "unionA_b" where
-
-  type CFieldType UnionA "unionA_b" = FC.CChar
+  type CFieldType UnionA "unionA_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "unionA_b" (Ptr.Ptr UnionA) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unionA_a" (RIP.Ptr UnionA) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unionA_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"unionA_a")
+
+instance HasCField.HasCField UnionA "unionA_b" where
+
+  type CFieldType UnionA "unionA_b" = RIP.CChar
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "unionA_b" (RIP.Ptr UnionA) (RIP.Ptr ty) where
+
+  getField = HasCField.fromPtr (RIP.Proxy @"unionA_b")
 
 {-| __C declaration:__ @struct exA@
 
@@ -140,43 +123,43 @@ data ExA = ExA
          __exported by:__ @types\/unions\/nested_unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-instance HsBindgen.Runtime.Marshal.StaticSize ExA where
+instance Marshal.StaticSize ExA where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw ExA where
+instance Marshal.ReadRaw ExA where
 
   readRaw =
     \ptr0 ->
           pure ExA
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"exA_fieldA1") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw ExA where
+instance Marshal.WriteRaw ExA where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+            HasCField.writeRaw (RIP.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable ExA instance F.Storable ExA
+deriving via Marshal.EquivStorable ExA instance RIP.Storable ExA
 
-instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
+instance HasCField.HasCField ExA "exA_fieldA1" where
 
   type CFieldType ExA "exA_fieldA1" = UnionA
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty UnionA
-         ) => GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr ty) where
+instance ( ((~) ty) UnionA
+         ) => RIP.HasField "exA_fieldA1" (RIP.Ptr ExA) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exA_fieldA1")
+    HasCField.fromPtr (RIP.Proxy @"exA_fieldA1")
 
 {-| __C declaration:__ @union \@exB_fieldB1@
 
@@ -185,17 +168,17 @@ instance ( TyEq ty UnionA
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype ExB_fieldB1 = ExB_fieldB1
-  { unwrapExB_fieldB1 :: Data.Array.Byte.ByteArray
+  { unwrapExB_fieldB1 :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize ExB_fieldB1
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize ExB_fieldB1
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw ExB_fieldB1
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw ExB_fieldB1
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw ExB_fieldB1
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw ExB_fieldB1
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB_fieldB1 instance F.Storable ExB_fieldB1
+deriving via Marshal.EquivStorable ExB_fieldB1 instance RIP.Storable ExB_fieldB1
 
 {-|
 
@@ -209,9 +192,8 @@ __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_a ::
      ExB_fieldB1
-  -> FC.CInt
-get_exB_fieldB1_a =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CInt
+get_exB_fieldB1_a = RIP.getUnionPayload
 
 {-|
 
@@ -219,10 +201,9 @@ get_exB_fieldB1_a =
 
 -}
 set_exB_fieldB1_a ::
-     FC.CInt
+     RIP.CInt
   -> ExB_fieldB1
-set_exB_fieldB1_a =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_exB_fieldB1_a = RIP.setUnionPayload
 
 {-|
 
@@ -236,9 +217,8 @@ __exported by:__ @types\/unions\/nested_unions.h@
 -}
 get_exB_fieldB1_b ::
      ExB_fieldB1
-  -> FC.CChar
-get_exB_fieldB1_b =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CChar
+get_exB_fieldB1_b = RIP.getUnionPayload
 
 {-|
 
@@ -246,35 +226,35 @@ get_exB_fieldB1_b =
 
 -}
 set_exB_fieldB1_b ::
-     FC.CChar
+     RIP.CChar
   -> ExB_fieldB1
-set_exB_fieldB1_b =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_exB_fieldB1_b = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
+instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_a" where
 
-  type CFieldType ExB_fieldB1 "exB_fieldB1_a" = FC.CInt
+  type CFieldType ExB_fieldB1 "exB_fieldB1_a" =
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "exB_fieldB1_a" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "exB_fieldB1_a" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exB_fieldB1_a")
+    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
+instance HasCField.HasCField ExB_fieldB1 "exB_fieldB1_b" where
 
   type CFieldType ExB_fieldB1 "exB_fieldB1_b" =
-    FC.CChar
+    RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CChar
-         ) => GHC.Records.HasField "exB_fieldB1_b" (Ptr.Ptr ExB_fieldB1) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "exB_fieldB1_b" (RIP.Ptr ExB_fieldB1) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exB_fieldB1_b")
+    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1_b")
 
 {-| __C declaration:__ @struct exB@
 
@@ -291,40 +271,40 @@ data ExB = ExB
          __exported by:__ @types\/unions\/nested_unions.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-instance HsBindgen.Runtime.Marshal.StaticSize ExB where
+instance Marshal.StaticSize ExB where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw ExB where
+instance Marshal.ReadRaw ExB where
 
   readRaw =
     \ptr0 ->
           pure ExB
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"exB_fieldB1") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw ExB where
+instance Marshal.WriteRaw ExB where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+            HasCField.writeRaw (RIP.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable ExB instance F.Storable ExB
+deriving via Marshal.EquivStorable ExB instance RIP.Storable ExB
 
-instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
+instance HasCField.HasCField ExB "exB_fieldB1" where
 
   type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ExB_fieldB1
-         ) => GHC.Records.HasField "exB_fieldB1" (Ptr.Ptr ExB) (Ptr.Ptr ty) where
+instance ( ((~) ty) ExB_fieldB1
+         ) => RIP.HasField "exB_fieldB1" (RIP.Ptr ExB) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"exB_fieldB1")
+    HasCField.fromPtr (RIP.Proxy @"exB_fieldB1")

@@ -7,7 +7,7 @@ maintainer:    info@well-typed.com
 build-type:    Simple
 
 common lang
-  ghc-options:      -Wall
+  ghc-options:      -Wall -Wunused-packages
   default-language: GHC2021
   build-depends:    base >=4.18 && <5
 
@@ -18,9 +18,7 @@ executable literate-example
   include-dirs:       c-lib
   other-modules:      SimpleBindings
   other-extensions:   ForeignFunctionInterface
-  build-depends:
-    , hs-bindgen-runtime
-    , primitive
+  build-depends:      hs-bindgen-runtime
 
   -- Use hs-bindgen-cli as the literate Haskell preprocessor
   -- The .lhs files contain command-line arguments for hs-bindgen

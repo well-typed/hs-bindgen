@@ -1,16 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified GHC.Word
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified M
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/typedef/enum.h>"
@@ -54,7 +51,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_51195acecf6b880e" hs_bindgen_51195acecf6b880e_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
@@ -62,7 +59,7 @@ hs_bindgen_51195acecf6b880e ::
      MyEnum
   -> IO ()
 hs_bindgen_51195acecf6b880e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_51195acecf6b880e_base
+  RIP.fromFFIType hs_bindgen_51195acecf6b880e_base
 
 {-| __C declaration:__ @foo@
 
@@ -78,7 +75,7 @@ foo = hs_bindgen_51195acecf6b880e
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10ca94f9_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
@@ -86,7 +83,7 @@ hs_bindgen_eb4a794c10ca94f9 ::
      A
   -> IO ()
 hs_bindgen_eb4a794c10ca94f9 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_eb4a794c10ca94f9_base
+  RIP.fromFFIType hs_bindgen_eb4a794c10ca94f9_base
 
 {-| __C declaration:__ @fooA@
 
@@ -102,7 +99,7 @@ fooA = hs_bindgen_eb4a794c10ca94f9
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a953b64_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
@@ -110,7 +107,7 @@ hs_bindgen_a11eb4471a953b64 ::
      B
   -> IO ()
 hs_bindgen_a11eb4471a953b64 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a11eb4471a953b64_base
+  RIP.fromFFIType hs_bindgen_a11eb4471a953b64_base
 
 {-| __C declaration:__ @fooB@
 
@@ -126,7 +123,7 @@ fooB = hs_bindgen_a11eb4471a953b64
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
@@ -134,7 +131,7 @@ hs_bindgen_1dea92b3f3346311 ::
      M.C
   -> IO ()
 hs_bindgen_1dea92b3f3346311 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1dea92b3f3346311_base
+  RIP.fromFFIType hs_bindgen_1dea92b3f3346311_base
 
 {-| __C declaration:__ @fooC@
 
@@ -150,7 +147,7 @@ fooC = hs_bindgen_1dea92b3f3346311
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
@@ -158,7 +155,7 @@ hs_bindgen_dba6d56e1a316e2d ::
      M.D
   -> IO ()
 hs_bindgen_dba6d56e1a316e2d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dba6d56e1a316e2d_base
+  RIP.fromFFIType hs_bindgen_dba6d56e1a316e2d_base
 
 {-| __C declaration:__ @fooD@
 
@@ -174,7 +171,7 @@ fooD = hs_bindgen_dba6d56e1a316e2d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
@@ -182,7 +179,7 @@ hs_bindgen_23b6f403a534aeae ::
      E
   -> IO ()
 hs_bindgen_23b6f403a534aeae =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_23b6f403a534aeae_base
+  RIP.fromFFIType hs_bindgen_23b6f403a534aeae_base
 
 {-| __C declaration:__ @fooE@
 

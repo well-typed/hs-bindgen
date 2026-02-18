@@ -1,15 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Prelude (Double, IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <functions/simple_func.h>"
@@ -51,10 +47,10 @@ foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" hs_bindgen_1c811bfb80de8
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
 hs_bindgen_1c811bfb80de8f77 ::
-     FC.CDouble
-  -> FC.CDouble
+     RIP.CDouble
+  -> RIP.CDouble
 hs_bindgen_1c811bfb80de8f77 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1c811bfb80de8f77_base
+  RIP.fromFFIType hs_bindgen_1c811bfb80de8f77_base
 
 {-|
 
@@ -67,9 +63,9 @@ __defined at:__ @functions\/simple_func.h 1:8@
 __exported by:__ @functions\/simple_func.h@
 -}
 erf ::
-     FC.CDouble
+     RIP.CDouble
      -- ^ __C declaration:__ @arg@
-  -> FC.CDouble
+  -> RIP.CDouble
 erf = hs_bindgen_1c811bfb80de8f77
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
@@ -81,12 +77,12 @@ foreign import ccall safe "hs_bindgen_180022d3518c53bd" hs_bindgen_180022d3518c5
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
 hs_bindgen_180022d3518c53bd ::
-     FC.CDouble
-  -> FC.CDouble
-  -> FC.CDouble
-  -> IO FC.CDouble
+     RIP.CDouble
+  -> RIP.CDouble
+  -> RIP.CDouble
+  -> IO RIP.CDouble
 hs_bindgen_180022d3518c53bd =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_180022d3518c53bd_base
+  RIP.fromFFIType hs_bindgen_180022d3518c53bd_base
 
 {-| __C declaration:__ @bad_fma@
 
@@ -95,13 +91,13 @@ hs_bindgen_180022d3518c53bd =
     __exported by:__ @functions\/simple_func.h@
 -}
 bad_fma ::
-     FC.CDouble
+     RIP.CDouble
      -- ^ __C declaration:__ @x@
-  -> FC.CDouble
+  -> RIP.CDouble
      -- ^ __C declaration:__ @y@
-  -> FC.CDouble
+  -> RIP.CDouble
      -- ^ __C declaration:__ @z@
-  -> IO FC.CDouble
+  -> IO RIP.CDouble
 bad_fma = hs_bindgen_180022d3518c53bd
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
@@ -111,7 +107,7 @@ foreign import ccall safe "hs_bindgen_d72558f6f977200c" hs_bindgen_d72558f6f9772
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
 hs_bindgen_d72558f6f977200c :: IO ()
 hs_bindgen_d72558f6f977200c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d72558f6f977200c_base
+  RIP.fromFFIType hs_bindgen_d72558f6f977200c_base
 
 {-| __C declaration:__ @no_args@
 
@@ -129,7 +125,7 @@ foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" hs_bindgen_d8523e2ccea5c
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
 hs_bindgen_d8523e2ccea5c7ba :: IO ()
 hs_bindgen_d8523e2ccea5c7ba =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
+  RIP.fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -142,17 +138,17 @@ no_args_no_void = hs_bindgen_d8523e2ccea5c7ba
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" hs_bindgen_48cbd3cd1c6e874f_base ::
-     GHC.Int.Int8
+     RIP.Int8
   -> Double
-  -> IO GHC.Int.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 hs_bindgen_48cbd3cd1c6e874f ::
-     FC.CChar
-  -> FC.CDouble
-  -> IO FC.CInt
+     RIP.CChar
+  -> RIP.CDouble
+  -> IO RIP.CInt
 hs_bindgen_48cbd3cd1c6e874f =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_48cbd3cd1c6e874f_base
+  RIP.fromFFIType hs_bindgen_48cbd3cd1c6e874f_base
 
 {-| __C declaration:__ @fun@
 
@@ -161,9 +157,9 @@ hs_bindgen_48cbd3cd1c6e874f =
     __exported by:__ @functions\/simple_func.h@
 -}
 fun ::
-     FC.CChar
+     RIP.CChar
      -- ^ __C declaration:__ @x@
-  -> FC.CDouble
+  -> RIP.CDouble
      -- ^ __C declaration:__ @y@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 fun = hs_bindgen_48cbd3cd1c6e874f

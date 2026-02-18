@@ -74,9 +74,9 @@ newtype MyArray
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 CInt) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapMyArray" (Ptr MyArray) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyArray")
 instance HasCField MyArray "unwrapMyArray"
@@ -97,9 +97,9 @@ newtype A
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty MyArray => HasField "unwrapA" (Ptr A) (Ptr ty)
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty MyArray => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyArray
@@ -118,9 +118,9 @@ newtype B
 
            __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A

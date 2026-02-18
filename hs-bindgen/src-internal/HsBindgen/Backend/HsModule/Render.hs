@@ -29,6 +29,7 @@ import C.Expr.Syntax qualified as CExpr.DSL
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
@@ -36,12 +37,14 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.CAPI (renderCapiWrapper)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation (translateType)
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
+import HsBindgen.Instances as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -79,32 +82,27 @@ instance Pretty GhcPragma where
   Import pretty-printing
 -------------------------------------------------------------------------------}
 
-resolve :: Global -> BackendName
-resolve = ResolvedBackendName . resolveGlobal
-
 instance Pretty ImportListItem where
   pretty = \case
-    UnqualifiedImportListItem hsImport Nothing -> PP.hsep
+    UnqualifiedImportListItem name Nothing -> PP.hsep
       [ "import"
-      , PP.string (Hs.moduleNameToString hsImport.name)
+      , PP.string (Hs.moduleNameToString name)
       ]
-    UnqualifiedImportListItem hsImport (Just ns) -> PP.hsep
+    UnqualifiedImportListItem name (Just ns) -> PP.hsep
       [ "import"
-      , PP.string (Hs.moduleNameToString hsImport.name)
+      , PP.string (Hs.moduleNameToString name)
       , PP.parens . PP.hcat . List.intersperse ", " $ map pretty ns
       ]
-    QualifiedImportListItem hsImport -> case hsImport.alias of
-      Just q -> PP.hsep
+    QualifiedImportListItem name Nothing -> PP.hsep
         [ "import qualified"
-        , PP.string (Hs.moduleNameToString hsImport.name)
+        , PP.string (Hs.moduleNameToString name)
+        ]
+    QualifiedImportListItem name (Just q) -> PP.hsep
+        [ "import qualified"
+        , PP.string (Hs.moduleNameToString name)
         , "as"
         , PP.string q
         ]
-      Nothing -> PP.hsep
-        [ "import qualified"
-        , PP.string (Hs.moduleNameToString hsImport.name)
-        ]
-
 
 {-------------------------------------------------------------------------------
   Comment pretty-printing
@@ -310,13 +308,10 @@ instance Pretty SDecl where
            , PP.nest 2 (pretty typSyn.typ)
            ]
     DInst inst ->
-      let constraints =
-            [ PP.hsep (pretty (resolve c) : (map (prettyPrec 1) ts))
-            | (c, ts) <- inst.super
-            ]
+      let constraints = map pretty inst.super
           -- @flist@ should either be @PP.hlist@ or @PP.vlist@
           clsContext flist = flist "(" ")" constraints
-          clsHead = PP.hsep (pretty (resolve inst.clss) : map (prettyPrec 1) inst.args)
+          clsHead = PP.hsep (pretty (resolveTypeClass inst.clss) : map (prettyPrec 1) inst.args)
           cls flist =
                 "instance"
             <+> (if null inst.super
@@ -327,12 +322,12 @@ instance Pretty SDecl where
 
           instanceHead = PP.ifFits (cls PP.hlist) (cls PP.hlist) (cls PP.vlist)
           typs = flip map inst.types $ \(g, typArgs, typSyn) -> PP.nest 2 $ PP.fsep
-            [ "type" <+> ppUnqualBackendName (resolve g) <+> PP.hsep (map (prettyPrec 1) typArgs)
+            [ "type" <+> ppUnqualResolvedName (resolveGlobal g) <+> PP.hsep (map (prettyPrec 1) typArgs)
                 <+> PP.char '='
             , PP.nest 2 (pretty typSyn)
             ]
           decs = flip map inst.decs $ \(name, expr) -> PP.nest 2 $ PP.fsep
-            [ ppUnqualBackendName (resolve name) <+> PP.char '='
+            [ ppUnqualResolvedName (resolveGlobal name) <+> PP.char '='
             , PP.nest 2 (pretty expr)
             ]
 
@@ -439,24 +434,24 @@ instance Pretty SDecl where
         ]
 
 -- | Nested deriving clauses (as part of a datatype declaration)
-nestedDeriving :: [(Hs.Strategy ClosedType, [Global])] -> CtxDoc
+nestedDeriving :: [(Hs.Strategy ClosedType, [Inst.TypeClass])] -> CtxDoc
 nestedDeriving = PP.vcat . map (uncurry aux)
   where
-    aux :: Hs.Strategy ClosedType -> [Global] -> CtxDoc
+    aux :: Hs.Strategy ClosedType -> [Inst.TypeClass] -> CtxDoc
     aux strat insts =
       let l = auxOneLine strat insts
       in  PP.ifFits l l $ auxMultiLines strat insts
 
-    auxOneLine :: Hs.Strategy ClosedType -> [Global] -> CtxDoc
+    auxOneLine :: Hs.Strategy ClosedType -> [Inst.TypeClass] -> CtxDoc
     auxOneLine strat insts = PP.hsep [
         "deriving"
       , strategy strat
-      , PP.hlist "(" ")" (map (pretty . resolve) insts)
+      , PP.hlist "(" ")" (map (pretty . resolveTypeClass) insts)
       ]
 
-    auxMultiLines :: Hs.Strategy ClosedType -> [Global] -> CtxDoc
+    auxMultiLines :: Hs.Strategy ClosedType -> [Inst.TypeClass] -> CtxDoc
     auxMultiLines strat insts = PP.hang ("deriving" <+> strategy strat) 2 $
-      PP.vlist "(" ")" (map (pretty . resolve) insts)
+      PP.vlist "(" ")" (map (pretty . resolveTypeClass) insts)
 
 strategy :: Hs.Strategy ClosedType -> CtxDoc
 strategy Hs.DeriveNewtype  = "newtype"
@@ -500,7 +495,8 @@ prettyBindingType params result =
 
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
 prettyType env prec = \case
-    TGlobal g -> pretty $ resolve g
+    TGlobal g -> pretty $ resolveGlobal g
+    TClass cls -> pretty $ resolveGlobal $ typeClassGlobal cls
     TCon n -> pretty n
     TFree var -> pretty var
     TLit n -> PP.show n
@@ -511,6 +507,9 @@ prettyType env prec = \case
     TFun a b -> PP.parensWhen (prec > 0) $
       prettyType env 1 a <+> "->" <+> prettyType env 0 b
     TBound x -> lookupEnv x env
+    TBoxedOpenTup n -> prettyBoxedOpenTuple LvlType n
+    -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
+    TEq -> PP.string "(~)"
     TForall hints add ctxt body ->
       case add of
         AZ -> PP.hsep (map (\ ct -> prettyType env 0 ct <+> "=> ") ctxt) >< prettyType env 0 body
@@ -518,7 +517,7 @@ prettyType env prec = \case
           "forall" <+> PP.hsep params >< "." <+>
           PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
 
-prettyTypeGlobal :: Global -> CtxDoc
+prettyTypeGlobal :: Global LvlType -> CtxDoc
 prettyTypeGlobal = prettyType EmptyEnv 0 . TGlobal
 
 {-------------------------------------------------------------------------------
@@ -542,7 +541,7 @@ instance ctx ~ EmptyCtx => Pretty (SExpr ctx) where
 
 prettyExpr :: Env ctx CtxDoc -> Int -> SExpr ctx -> CtxDoc
 prettyExpr env prec = \case
-    EGlobal g -> pretty $ resolve g
+    EGlobal g -> pretty $ resolveGlobal g
 
     EBound x -> lookupEnv x env
     EFree x  -> pretty x
@@ -552,14 +551,14 @@ prettyExpr env prec = \case
     EUnboxedIntegral i ->
       PP.parens $ PP.hcat [PP.show i, "#"]
     EIntegral i (Just t) ->
-      PP.parens $ PP.hcat [PP.show i, " :: ", prettyTypeGlobal t]
+      PP.parens $ PP.hcat [PP.show i, " :: ", pretty t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
-      prettyExpr env 0 (EGlobal CharValue_fromAddr)
+      prettyExpr env 0 (EGlobal $ cExprGlobalTerm CharValue_fromAddr)
         <+> PP.string str
         <+> PP.string (show len)
         <+> case mbUnicode of
-            { Nothing -> pretty (resolve Maybe_nothing)
-            ; Just c -> PP.parens (pretty (resolve Maybe_just) <+> PP.string (show c))
+            { Nothing -> pretty (resolveBindgenGlobalTerm Maybe_nothing)
+            ; Just c -> PP.parens (pretty (resolveBindgenGlobalTerm Maybe_just) <+> PP.string (show c))
             }
       where
         (str, len) = addrLiteral ba
@@ -569,9 +568,9 @@ prettyExpr env prec = \case
       -- value of type CStringLen.
       let (str, len) = addrLiteral bs
       in PP.parens $ PP.hcat
-        [ PP.parens $ prettyExpr env 0 (EGlobal Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
+        [ PP.parens $ prettyExpr env 0 (eBindgenGlobal Foreign_Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
         , " :: "
-        , prettyTypeGlobal CStringLen_type
+        , prettyTypeGlobal $ bindgenGlobalType CStringLen_type
         ]
 
     EFloat f t -> PP.parens $ PP.hcat [
@@ -579,22 +578,22 @@ prettyExpr env prec = \case
           PP.show f
         else
           prettyExpr env prec $
-            EApp (EGlobal CFloat_constructor) $
-              EApp (EGlobal GHC_Float_castWord32ToFloat) $
-                EIntegral (toInteger $ castFloatToWord32 f) (Just CUInt_type)
+            EApp (eBindgenGlobal CFloat_constructor) $
+              EApp (eBindgenGlobal GHC_Float_castWord32ToFloat) $
+                EIntegral (toInteger $ castFloatToWord32 f) (Just $ tBindgenGlobal CUInt_type)
       , " :: "
-      , prettyTypeGlobal t
+      , pretty t
       ]
     EDouble f t -> PP.parens $ PP.hcat [
         if CExpr.DSL.canBeRepresentedAsRational f then
           PP.show f
         else
           prettyExpr env  prec $
-            EApp (EGlobal CDouble_constructor) $
-              EApp (EGlobal GHC_Float_castWord64ToDouble) $
-                EIntegral (toInteger $ castDoubleToWord64 f) (Just CULong_type)
+            EApp (eBindgenGlobal CDouble_constructor) $
+              EApp (eBindgenGlobal GHC_Float_castWord64ToDouble) $
+                EIntegral (toInteger $ castDoubleToWord64 f) (Just $ tBindgenGlobal CULong_type)
       , " :: "
-      , prettyTypeGlobal t
+      , pretty t
       ]
 
     EApp f x -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
@@ -607,7 +606,7 @@ prettyExpr env prec = \case
       _otherwise ->
         PP.parens $ PP.hsep
           [ prettyExpr env 1 x
-          , ppInfixBackendName (resolve op)
+          , ppInfixResolvedName (resolveGlobal $ infixOpGlobal op)
           , prettyExpr env 1 y
           ]
 
@@ -673,7 +672,8 @@ prettyExpr env prec = \case
             ]
             )
 
-    ETup xs ->
+    EBoxedOpenTup n -> prettyBoxedOpenTuple LvlTerm n
+    EBoxedClosedTup xs ->
       let ds = prettyExpr env 0 <$> xs
           l  = PP.hlist "(" ")" ds
       in  PP.ifFits l l $ PP.vlist "(" ")" ds
@@ -745,16 +745,17 @@ withFreshNames env (AS a) (NameHint hint ::: hints) kont = PP.withFreshName hint
 getInfixSpecialCase :: forall ctx. Env ctx CtxDoc -> SExpr ctx -> Maybe [CtxDoc]
 getInfixSpecialCase env = \case
     EInfix op x y ->
-      let opDoc = ppInfixBackendName $ resolve op
+      let opGlo = infixOpGlobal op
+          opDoc = ppInfixResolvedName $ resolveGlobal opGlo
       in  case op of
-            Applicative_seq -> auxl op opDoc [opDoc <+> prettyExpr env 1 y] x
-            Monad_seq       -> auxr op opDoc [sp opDoc <+> prettyExpr env 1 x] y
+            InfixApplicative_seq -> auxl op opDoc [opDoc <+> prettyExpr env 1 y] x
+            InfixMonad_seq       -> auxr op opDoc [sp opDoc <+> prettyExpr env 1 x] y
             _otherwise      -> Nothing
     _otherwise -> Nothing
   where
     -- | Handle left-associative special cases
     auxl ::
-         Global   -- ^ operator
+         InfixOp  -- ^ operator
       -> CtxDoc   -- ^ operator document
       -> [CtxDoc] -- ^ accumulated lines
       -> SExpr ctx -- ^ left expression
@@ -767,7 +768,7 @@ getInfixSpecialCase env = \case
 
     -- | Handle right-associative special cases
     auxr ::
-         Global   -- ^ operator
+         InfixOp   -- ^ operator
       -> CtxDoc   -- ^ operator document
       -> [CtxDoc] -- ^ accumulated lines in reverse order
       -> SExpr ctx -- ^ right expression
@@ -809,46 +810,25 @@ instance Pretty ResolvedName where
 ppResolvedName :: ResolvedName -> CtxDoc
 ppResolvedName resolved =
     case resolved.hsImport of
-      Just (QualifiedHsImport hsImport) ->
-        let q = fromMaybe
-                  (Hs.moduleNameToString hsImport.name)
-                  hsImport.alias
+      Hs.QualifiedImport name alias ->
+        let q = fromMaybe (Hs.moduleNameToString name) alias
         in  PP.string $ q ++ '.' : resolved.string
       _otherwise ->
         PP.string resolved.string
 
-{-------------------------------------------------------------------------------
-  BackendName pretty-printing
--------------------------------------------------------------------------------}
-
--- | Pretty-print a 'BackendName' in prefix notation
---
--- Operators are parenthesized.
-instance Pretty BackendName where
-  pretty = \case
-    LocalBackendName nameType s ->
-      PP.parensWhen (nameType == OperatorName) $ PP.string s
-    ResolvedBackendName n -> pretty n
-
--- | Pretty-print a 'BackendName' unqualified
+-- | Pretty-print a 'ResolvedName' unqualified
 --
 -- This is needed in instance declarations.
-ppUnqualBackendName :: BackendName -> CtxDoc
-ppUnqualBackendName = \case
-    LocalBackendName nameType s ->
-      PP.parensWhen (nameType == OperatorName) $ PP.string s
-    ResolvedBackendName resolved ->
-      PP.parensWhen (resolved.typ == OperatorName) $ PP.string resolved.string
+ppUnqualResolvedName :: ResolvedName -> CtxDoc
+ppUnqualResolvedName resolved =
+    PP.parensWhen (resolved.typ == OperatorName) $ PP.string resolved.string
 
--- | Pretty-print a 'BackendName' in infix notation
+-- | Pretty-print a 'ResolvedName' in infix notation
 --
 -- Identifiers are surrounded by backticks.
-ppInfixBackendName :: BackendName -> CtxDoc
-ppInfixBackendName = \case
-    LocalBackendName nameType s ->
-      bticksWhen (nameType == IdentifierName) $ PP.string s
-    ResolvedBackendName resolved ->
-      bticksWhen (resolved.typ == IdentifierName) $ ppResolvedName resolved
+ppInfixResolvedName :: ResolvedName -> CtxDoc
+ppInfixResolvedName resolved =
+    bticksWhen (resolved.typ == IdentifierName) $ ppResolvedName resolved
   where
     bticksWhen :: Bool -> CtxDoc -> CtxDoc
     bticksWhen False d = d
@@ -887,3 +867,23 @@ escapeAtSigns = Text.pack . concatMap aux . Text.unpack
     aux '@' = "\\@"
     aux c   = [c]
 
+resolveTypeClass :: Inst.TypeClass -> ResolvedName
+resolveTypeClass = resolveGlobal . typeClassGlobal
+
+resolveBindgenGlobalTerm :: BindgenGlobalTerm -> ResolvedName
+resolveBindgenGlobalTerm = resolveGlobal . bindgenGlobalTerm
+
+-- Careful, requires import of internal runtime prelude, which re-exports
+-- 'Solo' and 'MkSolo'.
+mkSolo :: Level -> String
+mkSolo = \case
+  LvlTerm -> "RIP.MkSolo"
+  LvlType -> "RIP.Solo"
+
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
+-- render hack.
+prettyBoxedOpenTuple :: Level -> Natural -> CtxDoc
+prettyBoxedOpenTuple ns = PP.string . \case
+  0 -> "()"
+  1 -> mkSolo ns
+  n -> "(" ++ replicate (fromIntegral (n - 1)) ',' ++ ")"

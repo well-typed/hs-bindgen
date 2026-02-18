@@ -7,7 +7,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -17,23 +16,10 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
+import qualified HsBindgen.Runtime.ConstantArray as CA
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Examples from the initial specification
 
@@ -44,36 +30,36 @@ __defined at:__ @edge-cases\/spec_examples.h 10:15@
 __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int16_T = Int16_T
-  { unwrapInt16_T :: FC.CShort
+  { unwrapInt16_T :: RIP.CShort
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CShort
-         ) => GHC.Records.HasField "unwrapInt16_T" (Ptr.Ptr Int16_T) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CShort
+         ) => RIP.HasField "unwrapInt16_T" (RIP.Ptr Int16_T) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt16_T")
+    HasCField.fromPtr (RIP.Proxy @"unwrapInt16_T")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int16_T "unwrapInt16_T" where
+instance HasCField.HasCField Int16_T "unwrapInt16_T" where
 
-  type CFieldType Int16_T "unwrapInt16_T" = FC.CShort
+  type CFieldType Int16_T "unwrapInt16_T" = RIP.CShort
 
   offset# = \_ -> \_ -> 0
 
@@ -84,36 +70,36 @@ instance HsBindgen.Runtime.HasCField.HasCField Int16_T "unwrapInt16_T" where
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int32_T = Int32_T
-  { unwrapInt32_T :: FC.CInt
+  { unwrapInt32_T :: RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unwrapInt32_T" (Ptr.Ptr Int32_T) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapInt32_T" (RIP.Ptr Int32_T) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt32_T")
+    HasCField.fromPtr (RIP.Proxy @"unwrapInt32_T")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int32_T "unwrapInt32_T" where
+instance HasCField.HasCField Int32_T "unwrapInt32_T" where
 
-  type CFieldType Int32_T "unwrapInt32_T" = FC.CInt
+  type CFieldType Int32_T "unwrapInt32_T" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -124,36 +110,36 @@ instance HsBindgen.Runtime.HasCField.HasCField Int32_T "unwrapInt32_T" where
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 newtype Int64_T = Int64_T
-  { unwrapInt64_T :: FC.CLLong
+  { unwrapInt64_T :: RIP.CLLong
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CLLong
-         ) => GHC.Records.HasField "unwrapInt64_T" (Ptr.Ptr Int64_T) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "unwrapInt64_T" (RIP.Ptr Int64_T) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapInt64_T")
+    HasCField.fromPtr (RIP.Proxy @"unwrapInt64_T")
 
-instance HsBindgen.Runtime.HasCField.HasCField Int64_T "unwrapInt64_T" where
+instance HasCField.HasCField Int64_T "unwrapInt64_T" where
 
-  type CFieldType Int64_T "unwrapInt64_T" = FC.CLLong
+  type CFieldType Int64_T "unwrapInt64_T" = RIP.CLLong
 
   offset# = \_ -> \_ -> 0
 
@@ -179,57 +165,57 @@ data Cint16_T = Cint16_T
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Cint16_T where
+instance Marshal.StaticSize Cint16_T where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (2 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Cint16_T where
+instance Marshal.ReadRaw Cint16_T where
 
   readRaw =
     \ptr0 ->
           pure Cint16_T
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"cint16_T_re") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"cint16_T_im") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"cint16_T_re") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"cint16_T_im") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Cint16_T where
+instance Marshal.WriteRaw Cint16_T where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Cint16_T cint16_T_re2 cint16_T_im3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"cint16_T_re") ptr0 cint16_T_re2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"cint16_T_im") ptr0 cint16_T_im3
+               HasCField.writeRaw (RIP.Proxy @"cint16_T_re") ptr0 cint16_T_re2
+            >> HasCField.writeRaw (RIP.Proxy @"cint16_T_im") ptr0 cint16_T_im3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Cint16_T instance F.Storable Cint16_T
+deriving via Marshal.EquivStorable Cint16_T instance RIP.Storable Cint16_T
 
-instance HsBindgen.Runtime.HasCField.HasCField Cint16_T "cint16_T_re" where
+instance HasCField.HasCField Cint16_T "cint16_T_re" where
 
   type CFieldType Cint16_T "cint16_T_re" = Int16_T
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Int16_T
-         ) => GHC.Records.HasField "cint16_T_re" (Ptr.Ptr Cint16_T) (Ptr.Ptr ty) where
+instance ( ((~) ty) Int16_T
+         ) => RIP.HasField "cint16_T_re" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"cint16_T_re")
+    HasCField.fromPtr (RIP.Proxy @"cint16_T_re")
 
-instance HsBindgen.Runtime.HasCField.HasCField Cint16_T "cint16_T_im" where
+instance HasCField.HasCField Cint16_T "cint16_T_im" where
 
   type CFieldType Cint16_T "cint16_T_im" = Int16_T
 
   offset# = \_ -> \_ -> 2
 
-instance ( TyEq ty Int16_T
-         ) => GHC.Records.HasField "cint16_T_im" (Ptr.Ptr Cint16_T) (Ptr.Ptr ty) where
+instance ( ((~) ty) Int16_T
+         ) => RIP.HasField "cint16_T_im" (RIP.Ptr Cint16_T) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"cint16_T_im")
+    HasCField.fromPtr (RIP.Proxy @"cint16_T_im")
 
 {-| __C declaration:__ @struct B@
 
@@ -239,19 +225,19 @@ instance ( TyEq ty Int16_T
 -}
 data B = B
   {}
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize B where
+instance Marshal.StaticSize B where
 
   staticSizeOf = \_ -> (0 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw B where
+instance Marshal.ReadRaw B where
 
   readRaw = \ptr0 -> pure B
 
-instance HsBindgen.Runtime.Marshal.WriteRaw B where
+instance Marshal.WriteRaw B where
 
   writeRaw =
     \ptr0 ->
@@ -259,7 +245,7 @@ instance HsBindgen.Runtime.Marshal.WriteRaw B where
         case s1 of
           B -> return ()
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable B instance F.Storable B
+deriving via Marshal.EquivStorable B instance RIP.Storable B
 
 {-| __C declaration:__ @struct A@
 
@@ -268,21 +254,21 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable B instance F.Storable B
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 data A = A
-  { a_x :: FC.CDouble
+  { a_x :: RIP.CDouble
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @edge-cases\/spec_examples.h 24:10@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
-  , a_label :: Ptr.Ptr FC.CChar
+  , a_label :: RIP.Ptr RIP.CChar
     {- ^ __C declaration:__ @label@
 
          __defined at:__ @edge-cases\/spec_examples.h 25:9@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
-  , a_samples :: (HsBindgen.Runtime.ConstantArray.ConstantArray 128) FC.CChar
+  , a_samples :: (CA.ConstantArray 128) RIP.CChar
     {- ^ __C declaration:__ @samples@
 
          __defined at:__ @edge-cases\/spec_examples.h 26:8@
@@ -296,7 +282,7 @@ data A = A
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
-  , a_c :: Ptr.Ptr C
+  , a_c :: RIP.Ptr C
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @edge-cases\/spec_examples.h 28:13@
@@ -304,100 +290,94 @@ data A = A
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize A where
+instance Marshal.StaticSize A where
 
   staticSizeOf = \_ -> (152 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw A where
+instance Marshal.ReadRaw A where
 
   readRaw =
     \ptr0 ->
           pure A
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_label") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_samples") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_b") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_c") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"a_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"a_label") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"a_samples") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"a_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"a_c") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw A where
+instance Marshal.WriteRaw A where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           A a_x2 a_label3 a_samples4 a_b5 a_c6 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_x") ptr0 a_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_label") ptr0 a_label3
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_samples") ptr0 a_samples4
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_b") ptr0 a_b5
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_c") ptr0 a_c6
+               HasCField.writeRaw (RIP.Proxy @"a_x") ptr0 a_x2
+            >> HasCField.writeRaw (RIP.Proxy @"a_label") ptr0 a_label3
+            >> HasCField.writeRaw (RIP.Proxy @"a_samples") ptr0 a_samples4
+            >> HasCField.writeRaw (RIP.Proxy @"a_b") ptr0 a_b5
+            >> HasCField.writeRaw (RIP.Proxy @"a_c") ptr0 a_c6
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable A instance F.Storable A
+deriving via Marshal.EquivStorable A instance RIP.Storable A
 
-instance HsBindgen.Runtime.HasCField.HasCField A "a_x" where
+instance HasCField.HasCField A "a_x" where
 
-  type CFieldType A "a_x" = FC.CDouble
+  type CFieldType A "a_x" = RIP.CDouble
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CDouble
-         ) => GHC.Records.HasField "a_x" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CDouble
+         ) => RIP.HasField "a_x" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"a_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "a_label" where
+instance HasCField.HasCField A "a_label" where
 
-  type CFieldType A "a_label" = Ptr.Ptr FC.CChar
+  type CFieldType A "a_label" = RIP.Ptr RIP.CChar
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty (Ptr.Ptr FC.CChar)
-         ) => GHC.Records.HasField "a_label" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.Ptr RIP.CChar)
+         ) => RIP.HasField "a_label" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_label")
+  getField = HasCField.fromPtr (RIP.Proxy @"a_label")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "a_samples" where
+instance HasCField.HasCField A "a_samples" where
 
   type CFieldType A "a_samples" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 128) FC.CChar
+    (CA.ConstantArray 128) RIP.CChar
 
   offset# = \_ -> \_ -> 16
 
-instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 128) FC.CChar)
-         ) => GHC.Records.HasField "a_samples" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) ((CA.ConstantArray 128) RIP.CChar)
+         ) => RIP.HasField "a_samples" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_samples")
+  getField = HasCField.fromPtr (RIP.Proxy @"a_samples")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "a_b" where
+instance HasCField.HasCField A "a_b" where
 
   type CFieldType A "a_b" = B
 
   offset# = \_ -> \_ -> 144
 
-instance ( TyEq ty B
-         ) => GHC.Records.HasField "a_b" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance (((~) ty) B) => RIP.HasField "a_b" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"a_b")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "a_c" where
+instance HasCField.HasCField A "a_c" where
 
-  type CFieldType A "a_c" = Ptr.Ptr C
+  type CFieldType A "a_c" = RIP.Ptr C
 
   offset# = \_ -> \_ -> 144
 
-instance ( TyEq ty (Ptr.Ptr C)
-         ) => GHC.Records.HasField "a_c" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.Ptr C)
+         ) => RIP.HasField "a_c" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_c")
+  getField = HasCField.fromPtr (RIP.Proxy @"a_c")
 
 {-| __C declaration:__ @struct C@
 

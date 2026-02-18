@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
@@ -17,21 +16,11 @@
 
 module Example where
 
-import qualified Data.List.NonEmpty
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.CEnum
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.CEnum as CEnum
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import qualified HsBindgen.Runtime.Marshal
-import qualified Text.Read
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @enum foo_enum@
 
@@ -42,36 +31,36 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 newtype Foo_enum = Foo_enum
   { unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (Eq, RIP.Generic, Ord)
+  deriving newtype (RIP.HasFFIType)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Foo_enum where
+instance Marshal.StaticSize Foo_enum where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Foo_enum where
+instance Marshal.ReadRaw Foo_enum where
 
   readRaw =
     \ptr0 ->
           pure Foo_enum
-      <*> HsBindgen.Runtime.Marshal.readRawByteOff ptr0 (0 :: Int)
+      <*> Marshal.readRawByteOff ptr0 (0 :: Int)
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Foo_enum where
+instance Marshal.WriteRaw Foo_enum where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo_enum unwrapFoo_enum2 ->
-            HsBindgen.Runtime.Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFoo_enum2
+            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapFoo_enum2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Foo_enum instance F.Storable Foo_enum
+deriving via Marshal.EquivStorable Foo_enum instance RIP.Storable Foo_enum
 
-deriving via HsBindgen.Runtime.LibC.Word32 instance Data.Primitive.Types.Prim Foo_enum
+deriving via HsBindgen.Runtime.LibC.Word32 instance RIP.Prim Foo_enum
 
-instance HsBindgen.Runtime.CEnum.CEnum Foo_enum where
+instance CEnum.CEnum Foo_enum where
 
   type CEnumZ Foo_enum = HsBindgen.Runtime.LibC.Word32
 
@@ -81,22 +70,19 @@ instance HsBindgen.Runtime.CEnum.CEnum Foo_enum where
 
   declaredValues =
     \_ ->
-      HsBindgen.Runtime.CEnum.declaredValuesFromList [ (0, Data.List.NonEmpty.singleton "A")
-                                                     , (1, Data.List.NonEmpty.singleton "B")
-                                                     , (2, Data.List.NonEmpty.singleton "C")
-                                                     ]
+      CEnum.declaredValuesFromList [(0, RIP.singleton "A"), (1, RIP.singleton "B"), (2, RIP.singleton "C")]
 
   showsUndeclared =
-    HsBindgen.Runtime.CEnum.showsWrappedUndeclared "Foo_enum"
+    CEnum.showsWrappedUndeclared "Foo_enum"
 
   readPrecUndeclared =
-    HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared "Foo_enum"
+    CEnum.readPrecWrappedUndeclared "Foo_enum"
 
-  isDeclared = HsBindgen.Runtime.CEnum.seqIsDeclared
+  isDeclared = CEnum.seqIsDeclared
 
-  mkDeclared = HsBindgen.Runtime.CEnum.seqMkDeclared
+  mkDeclared = CEnum.seqMkDeclared
 
-instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo_enum where
+instance CEnum.SequentialCEnum Foo_enum where
 
   minDeclaredValue = A
 
@@ -104,23 +90,23 @@ instance HsBindgen.Runtime.CEnum.SequentialCEnum Foo_enum where
 
 instance Show Foo_enum where
 
-  showsPrec = HsBindgen.Runtime.CEnum.shows
+  showsPrec = CEnum.shows
 
 instance Read Foo_enum where
 
-  readPrec = HsBindgen.Runtime.CEnum.readPrec
+  readPrec = CEnum.readPrec
 
-  readList = Text.Read.readListDefault
+  readList = RIP.readListDefault
 
-  readListPrec = Text.Read.readListPrecDefault
+  readListPrec = RIP.readListPrecDefault
 
-instance ( TyEq ty HsBindgen.Runtime.LibC.Word32
-         ) => GHC.Records.HasField "unwrapFoo_enum" (Ptr.Ptr Foo_enum) (Ptr.Ptr ty) where
+instance ( ((~) ty) HsBindgen.Runtime.LibC.Word32
+         ) => RIP.HasField "unwrapFoo_enum" (RIP.Ptr Foo_enum) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapFoo_enum")
+    HasCField.fromPtr (RIP.Proxy @"unwrapFoo_enum")
 
-instance HsBindgen.Runtime.HasCField.HasCField Foo_enum "unwrapFoo_enum" where
+instance HasCField.HasCField Foo_enum "unwrapFoo_enum" where
 
   type CFieldType Foo_enum "unwrapFoo_enum" =
     HsBindgen.Runtime.LibC.Word32

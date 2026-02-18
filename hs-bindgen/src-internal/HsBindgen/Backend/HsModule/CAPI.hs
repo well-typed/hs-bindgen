@@ -3,7 +3,7 @@
 -- - in types names:    CapiFoo, FooCapiBar
 -- - in variable names: capiFoo, fooCapiBar
 module HsBindgen.Backend.HsModule.CAPI (
-    capiImport
+    capiModule
   , renderCapiWrapper
   )
 where
@@ -11,15 +11,12 @@ where
 import Text.SimplePrettyPrint (CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
--- | The CAPI `addCSource` import.
---
--- See also "HsBindgen.Runtime.Internal.CAPI".
-capiImport :: HsImportModule
-capiImport = HsImportModule hsbCapiModule Nothing
+-- Qualified import string for @hs-bindgen-runtime@ prelude.
+capiModule :: Hs.ModuleName
+capiModule = "HsBindgen.Runtime.Internal.CAPI"
 
 -- | Render the CAPI `addCSource` code fragment.
 --
@@ -43,11 +40,7 @@ renderCapiWrapper src = PP.vcat [
 
     withCapiModule :: String -> CtxDoc
     withCapiModule x = PP.hcat [
-        PP.string (Hs.moduleNameToString hsbCapiModule)
+        PP.string (Hs.moduleNameToString capiModule)
       , "."
       , PP.string x
       ]
-
--- Qualified import string for @hs-bindgen-runtime@ prelude.
-hsbCapiModule :: Hs.ModuleName
-hsbCapiModule = "HsBindgen.Runtime.Internal.CAPI"

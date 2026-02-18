@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -15,17 +14,10 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified M
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct MyStruct@
 
@@ -34,7 +26,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
 data MyStruct = MyStruct
-  { myStruct_x :: FC.CInt
+  { myStruct_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 4:23@
@@ -42,43 +34,43 @@ data MyStruct = MyStruct
          __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize MyStruct where
+instance Marshal.StaticSize MyStruct where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw MyStruct where
+instance Marshal.ReadRaw MyStruct where
 
   readRaw =
     \ptr0 ->
           pure MyStruct
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"myStruct_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"myStruct_x") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw MyStruct where
+instance Marshal.WriteRaw MyStruct where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           MyStruct myStruct_x2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"myStruct_x") ptr0 myStruct_x2
+            HasCField.writeRaw (RIP.Proxy @"myStruct_x") ptr0 myStruct_x2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable MyStruct instance F.Storable MyStruct
+deriving via Marshal.EquivStorable MyStruct instance RIP.Storable MyStruct
 
-instance HsBindgen.Runtime.HasCField.HasCField MyStruct "myStruct_x" where
+instance HasCField.HasCField MyStruct "myStruct_x" where
 
-  type CFieldType MyStruct "myStruct_x" = FC.CInt
+  type CFieldType MyStruct "myStruct_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "myStruct_x" (Ptr.Ptr MyStruct) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"myStruct_x")
+    HasCField.fromPtr (RIP.Proxy @"myStruct_x")
 
 {-| __C declaration:__ @A@
 
@@ -89,21 +81,20 @@ instance ( TyEq ty FC.CInt
 newtype A = A
   { unwrapA :: MyStruct
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty MyStruct
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) MyStruct
+         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+instance HasCField.HasCField A "unwrapA" where
 
   type CFieldType A "unwrapA" = MyStruct
 
@@ -118,21 +109,19 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty A
-         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
-instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
 
@@ -147,15 +136,13 @@ instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
 newtype E = E
   { unwrapE :: M.C
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-instance ( TyEq ty M.C
-         ) => GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr ty) where
+instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapE")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 
-instance HsBindgen.Runtime.HasCField.HasCField E "unwrapE" where
+instance HasCField.HasCField E "unwrapE" where
 
   type CFieldType E "unwrapE" = M.C
 

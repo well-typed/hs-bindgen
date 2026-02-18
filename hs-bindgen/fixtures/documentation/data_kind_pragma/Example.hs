@@ -5,7 +5,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -13,17 +12,10 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (Eq, Show)
+import qualified HsBindgen.Runtime.ConstantArray as CA
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @triplet@
 
@@ -32,25 +24,25 @@ import Prelude (Eq, Show)
     __exported by:__ @documentation\/data_kind_pragma.h@
 -}
 newtype Triplet = Triplet
-  { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapTriplet :: (CA.ConstantArray 3) RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+         ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
+    HasCField.fromPtr (RIP.Proxy @"unwrapTriplet")
 
-instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
+instance HasCField.HasCField Triplet "unwrapTriplet" where
 
   type CFieldType Triplet "unwrapTriplet" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (CA.ConstantArray 3) RIP.CInt
 
   offset# = \_ -> \_ -> 0

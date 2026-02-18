@@ -1,13 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <attributes/visibility_attributes.h>"
@@ -140,7 +138,7 @@ foreign import ccall unsafe "hs_bindgen_df56d82c9186c794" hs_bindgen_df56d82c918
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f0@
 hs_bindgen_df56d82c9186c794 :: IO ()
 hs_bindgen_df56d82c9186c794 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_df56d82c9186c794_base
+  RIP.fromFFIType hs_bindgen_df56d82c9186c794_base
 
 {-| __C declaration:__ @f0@
 
@@ -158,7 +156,7 @@ foreign import ccall unsafe "hs_bindgen_2e25b1147da3cdee" hs_bindgen_2e25b1147da
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f1@
 hs_bindgen_2e25b1147da3cdee :: IO ()
 hs_bindgen_2e25b1147da3cdee =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2e25b1147da3cdee_base
+  RIP.fromFFIType hs_bindgen_2e25b1147da3cdee_base
 
 {-| __C declaration:__ @f1@
 
@@ -176,7 +174,7 @@ foreign import ccall unsafe "hs_bindgen_c57341dd645988f6" hs_bindgen_c57341dd645
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f2@
 hs_bindgen_c57341dd645988f6 :: IO ()
 hs_bindgen_c57341dd645988f6 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c57341dd645988f6_base
+  RIP.fromFFIType hs_bindgen_c57341dd645988f6_base
 
 {-| __C declaration:__ @f2@
 
@@ -194,7 +192,7 @@ foreign import ccall unsafe "hs_bindgen_5858f33f5b12f541" hs_bindgen_5858f33f5b1
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f3@
 hs_bindgen_5858f33f5b12f541 :: IO ()
 hs_bindgen_5858f33f5b12f541 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_5858f33f5b12f541_base
+  RIP.fromFFIType hs_bindgen_5858f33f5b12f541_base
 
 {-| __C declaration:__ @f3@
 
@@ -212,7 +210,7 @@ foreign import ccall unsafe "hs_bindgen_d57b75423078a644" hs_bindgen_d57b7542307
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f4@
 hs_bindgen_d57b75423078a644 :: IO ()
 hs_bindgen_d57b75423078a644 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d57b75423078a644_base
+  RIP.fromFFIType hs_bindgen_d57b75423078a644_base
 
 {-| __C declaration:__ @f4@
 
@@ -230,7 +228,7 @@ foreign import ccall unsafe "hs_bindgen_d7e35ffb8ef15009" hs_bindgen_d7e35ffb8ef
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f5@
 hs_bindgen_d7e35ffb8ef15009 :: IO ()
 hs_bindgen_d7e35ffb8ef15009 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d7e35ffb8ef15009_base
+  RIP.fromFFIType hs_bindgen_d7e35ffb8ef15009_base
 
 {-| __C declaration:__ @f5@
 
@@ -248,7 +246,7 @@ foreign import ccall unsafe "hs_bindgen_de345dceb6694e2e" hs_bindgen_de345dceb66
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f6@
 hs_bindgen_de345dceb6694e2e :: IO ()
 hs_bindgen_de345dceb6694e2e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_de345dceb6694e2e_base
+  RIP.fromFFIType hs_bindgen_de345dceb6694e2e_base
 
 {-| __C declaration:__ @f6@
 
@@ -266,7 +264,7 @@ foreign import ccall unsafe "hs_bindgen_df2fd4ea47789bb8" hs_bindgen_df2fd4ea477
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f7@
 hs_bindgen_df2fd4ea47789bb8 :: IO ()
 hs_bindgen_df2fd4ea47789bb8 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_df2fd4ea47789bb8_base
+  RIP.fromFFIType hs_bindgen_df2fd4ea47789bb8_base
 
 {-| __C declaration:__ @f7@
 
@@ -284,7 +282,7 @@ foreign import ccall unsafe "hs_bindgen_a49e6066d8dd0628" hs_bindgen_a49e6066d8d
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f8@
 hs_bindgen_a49e6066d8dd0628 :: IO ()
 hs_bindgen_a49e6066d8dd0628 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a49e6066d8dd0628_base
+  RIP.fromFFIType hs_bindgen_a49e6066d8dd0628_base
 
 {-| __C declaration:__ @f8@
 
@@ -302,7 +300,7 @@ foreign import ccall unsafe "hs_bindgen_e94ceb5e10d07a59" hs_bindgen_e94ceb5e10d
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f9@
 hs_bindgen_e94ceb5e10d07a59 :: IO ()
 hs_bindgen_e94ceb5e10d07a59 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e94ceb5e10d07a59_base
+  RIP.fromFFIType hs_bindgen_e94ceb5e10d07a59_base
 
 {-| __C declaration:__ @f9@
 
@@ -320,7 +318,7 @@ foreign import ccall unsafe "hs_bindgen_d329fc979eb3d29e" hs_bindgen_d329fc979eb
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f10@
 hs_bindgen_d329fc979eb3d29e :: IO ()
 hs_bindgen_d329fc979eb3d29e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d329fc979eb3d29e_base
+  RIP.fromFFIType hs_bindgen_d329fc979eb3d29e_base
 
 {-| __C declaration:__ @f10@
 
@@ -338,7 +336,7 @@ foreign import ccall unsafe "hs_bindgen_9f7176bfdf1871cf" hs_bindgen_9f7176bfdf1
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f11@
 hs_bindgen_9f7176bfdf1871cf :: IO ()
 hs_bindgen_9f7176bfdf1871cf =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9f7176bfdf1871cf_base
+  RIP.fromFFIType hs_bindgen_9f7176bfdf1871cf_base
 
 {-| __C declaration:__ @f11@
 
@@ -356,7 +354,7 @@ foreign import ccall unsafe "hs_bindgen_d06a71df91d678f1" hs_bindgen_d06a71df91d
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f12@
 hs_bindgen_d06a71df91d678f1 :: IO ()
 hs_bindgen_d06a71df91d678f1 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d06a71df91d678f1_base
+  RIP.fromFFIType hs_bindgen_d06a71df91d678f1_base
 
 {-| __C declaration:__ @f12@
 
@@ -374,7 +372,7 @@ foreign import ccall unsafe "hs_bindgen_32916e0b4775516d" hs_bindgen_32916e0b477
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f13@
 hs_bindgen_32916e0b4775516d :: IO ()
 hs_bindgen_32916e0b4775516d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_32916e0b4775516d_base
+  RIP.fromFFIType hs_bindgen_32916e0b4775516d_base
 
 {-| __C declaration:__ @f13@
 
@@ -392,7 +390,7 @@ foreign import ccall unsafe "hs_bindgen_56f26ce5de7906a8" hs_bindgen_56f26ce5de7
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f14@
 hs_bindgen_56f26ce5de7906a8 :: IO ()
 hs_bindgen_56f26ce5de7906a8 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_56f26ce5de7906a8_base
+  RIP.fromFFIType hs_bindgen_56f26ce5de7906a8_base
 
 {-| __C declaration:__ @f14@
 
@@ -410,7 +408,7 @@ foreign import ccall unsafe "hs_bindgen_fd2972764f48a143" hs_bindgen_fd2972764f4
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f15@
 hs_bindgen_fd2972764f48a143 :: IO ()
 hs_bindgen_fd2972764f48a143 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fd2972764f48a143_base
+  RIP.fromFFIType hs_bindgen_fd2972764f48a143_base
 
 {-| __C declaration:__ @f15@
 
@@ -428,7 +426,7 @@ foreign import ccall unsafe "hs_bindgen_f63a042e539ff8b6" hs_bindgen_f63a042e539
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f16@
 hs_bindgen_f63a042e539ff8b6 :: IO ()
 hs_bindgen_f63a042e539ff8b6 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f63a042e539ff8b6_base
+  RIP.fromFFIType hs_bindgen_f63a042e539ff8b6_base
 
 {-| __C declaration:__ @f16@
 
@@ -446,7 +444,7 @@ foreign import ccall unsafe "hs_bindgen_1ae5adf1961e06f6" hs_bindgen_1ae5adf1961
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f17@
 hs_bindgen_1ae5adf1961e06f6 :: IO ()
 hs_bindgen_1ae5adf1961e06f6 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1ae5adf1961e06f6_base
+  RIP.fromFFIType hs_bindgen_1ae5adf1961e06f6_base
 
 {-| __C declaration:__ @f17@
 
@@ -464,7 +462,7 @@ foreign import ccall unsafe "hs_bindgen_cf7978ab53dc8140" hs_bindgen_cf7978ab53d
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f18@
 hs_bindgen_cf7978ab53dc8140 :: IO ()
 hs_bindgen_cf7978ab53dc8140 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cf7978ab53dc8140_base
+  RIP.fromFFIType hs_bindgen_cf7978ab53dc8140_base
 
 {-| __C declaration:__ @f18@
 
@@ -482,7 +480,7 @@ foreign import ccall unsafe "hs_bindgen_f81ec562e6b7dc0f" hs_bindgen_f81ec562e6b
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f19@
 hs_bindgen_f81ec562e6b7dc0f :: IO ()
 hs_bindgen_f81ec562e6b7dc0f =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f81ec562e6b7dc0f_base
+  RIP.fromFFIType hs_bindgen_f81ec562e6b7dc0f_base
 
 {-| __C declaration:__ @f19@
 
@@ -500,7 +498,7 @@ foreign import ccall unsafe "hs_bindgen_95b4b9ea66f61551" hs_bindgen_95b4b9ea66f
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f20@
 hs_bindgen_95b4b9ea66f61551 :: IO ()
 hs_bindgen_95b4b9ea66f61551 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_95b4b9ea66f61551_base
+  RIP.fromFFIType hs_bindgen_95b4b9ea66f61551_base
 
 {-| __C declaration:__ @f20@
 
@@ -518,7 +516,7 @@ foreign import ccall unsafe "hs_bindgen_c64dd47543cb7378" hs_bindgen_c64dd47543c
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f21@
 hs_bindgen_c64dd47543cb7378 :: IO ()
 hs_bindgen_c64dd47543cb7378 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c64dd47543cb7378_base
+  RIP.fromFFIType hs_bindgen_c64dd47543cb7378_base
 
 {-| __C declaration:__ @f21@
 
@@ -536,7 +534,7 @@ foreign import ccall unsafe "hs_bindgen_ce27e3f019c9d235" hs_bindgen_ce27e3f019c
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f22@
 hs_bindgen_ce27e3f019c9d235 :: IO ()
 hs_bindgen_ce27e3f019c9d235 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ce27e3f019c9d235_base
+  RIP.fromFFIType hs_bindgen_ce27e3f019c9d235_base
 
 {-| __C declaration:__ @f22@
 
@@ -554,7 +552,7 @@ foreign import ccall unsafe "hs_bindgen_ae8f854ac4a07381" hs_bindgen_ae8f854ac4a
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f23@
 hs_bindgen_ae8f854ac4a07381 :: IO ()
 hs_bindgen_ae8f854ac4a07381 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ae8f854ac4a07381_base
+  RIP.fromFFIType hs_bindgen_ae8f854ac4a07381_base
 
 {-| __C declaration:__ @f23@
 
@@ -572,7 +570,7 @@ foreign import ccall unsafe "hs_bindgen_d4585a283ed9fc36" hs_bindgen_d4585a283ed
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f24@
 hs_bindgen_d4585a283ed9fc36 :: IO ()
 hs_bindgen_d4585a283ed9fc36 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d4585a283ed9fc36_base
+  RIP.fromFFIType hs_bindgen_d4585a283ed9fc36_base
 
 {-| __C declaration:__ @f24@
 
@@ -590,7 +588,7 @@ foreign import ccall unsafe "hs_bindgen_f600df85706a5312" hs_bindgen_f600df85706
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f25@
 hs_bindgen_f600df85706a5312 :: IO ()
 hs_bindgen_f600df85706a5312 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f600df85706a5312_base
+  RIP.fromFFIType hs_bindgen_f600df85706a5312_base
 
 {-| __C declaration:__ @f25@
 
@@ -608,7 +606,7 @@ foreign import ccall unsafe "hs_bindgen_92731c80b3281e1c" hs_bindgen_92731c80b32
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f26@
 hs_bindgen_92731c80b3281e1c :: IO ()
 hs_bindgen_92731c80b3281e1c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_92731c80b3281e1c_base
+  RIP.fromFFIType hs_bindgen_92731c80b3281e1c_base
 
 {-| __C declaration:__ @f26@
 
@@ -626,7 +624,7 @@ foreign import ccall unsafe "hs_bindgen_930247d3730559af" hs_bindgen_930247d3730
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f27@
 hs_bindgen_930247d3730559af :: IO ()
 hs_bindgen_930247d3730559af =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_930247d3730559af_base
+  RIP.fromFFIType hs_bindgen_930247d3730559af_base
 
 {-| __C declaration:__ @f27@
 
@@ -644,7 +642,7 @@ foreign import ccall unsafe "hs_bindgen_2d1ce37b69d8d467" hs_bindgen_2d1ce37b69d
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f28@
 hs_bindgen_2d1ce37b69d8d467 :: IO ()
 hs_bindgen_2d1ce37b69d8d467 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2d1ce37b69d8d467_base
+  RIP.fromFFIType hs_bindgen_2d1ce37b69d8d467_base
 
 {-| __C declaration:__ @f28@
 
@@ -662,7 +660,7 @@ foreign import ccall unsafe "hs_bindgen_3f89a86cfcdf475d" hs_bindgen_3f89a86cfcd
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f29@
 hs_bindgen_3f89a86cfcdf475d :: IO ()
 hs_bindgen_3f89a86cfcdf475d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3f89a86cfcdf475d_base
+  RIP.fromFFIType hs_bindgen_3f89a86cfcdf475d_base
 
 {-| __C declaration:__ @f29@
 

@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -16,24 +15,11 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.BitfieldPtr
-import qualified HsBindgen.Runtime.HasCBitfield
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
+import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @myInt@
 
@@ -42,36 +28,36 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyInt = MyInt
-  { unwrapMyInt :: FC.CInt
+  { unwrapMyInt :: RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unwrapMyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapMyInt" (RIP.Ptr MyInt) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyInt")
+    HasCField.fromPtr (RIP.Proxy @"unwrapMyInt")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyInt "unwrapMyInt" where
+instance HasCField.HasCField MyInt "unwrapMyInt" where
 
-  type CFieldType MyInt "unwrapMyInt" = FC.CInt
+  type CFieldType MyInt "unwrapMyInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -82,36 +68,36 @@ instance HsBindgen.Runtime.HasCField.HasCField MyInt "unwrapMyInt" where
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyUInt = MyUInt
-  { unwrapMyUInt :: FC.CUInt
+  { unwrapMyUInt :: RIP.CUInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CUInt
-         ) => GHC.Records.HasField "unwrapMyUInt" (Ptr.Ptr MyUInt) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CUInt
+         ) => RIP.HasField "unwrapMyUInt" (RIP.Ptr MyUInt) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyUInt")
+    HasCField.fromPtr (RIP.Proxy @"unwrapMyUInt")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyUInt "unwrapMyUInt" where
+instance HasCField.HasCField MyUInt "unwrapMyUInt" where
 
-  type CFieldType MyUInt "unwrapMyUInt" = FC.CUInt
+  type CFieldType MyUInt "unwrapMyUInt" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -122,36 +108,36 @@ instance HsBindgen.Runtime.HasCField.HasCField MyUInt "unwrapMyUInt" where
     __exported by:__ @edge-cases\/typedef_bitfield.h@
 -}
 newtype MyLong = MyLong
-  { unwrapMyLong :: FC.CLong
+  { unwrapMyLong :: RIP.CLong
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CLong
-         ) => GHC.Records.HasField "unwrapMyLong" (Ptr.Ptr MyLong) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "unwrapMyLong" (RIP.Ptr MyLong) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyLong")
+    HasCField.fromPtr (RIP.Proxy @"unwrapMyLong")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyLong "unwrapMyLong" where
+instance HasCField.HasCField MyLong "unwrapMyLong" where
 
-  type CFieldType MyLong "unwrapMyLong" = FC.CLong
+  type CFieldType MyLong "unwrapMyLong" = RIP.CLong
 
   offset# = \_ -> \_ -> 0
 
@@ -184,37 +170,37 @@ data MyStruct = MyStruct
          __exported by:__ @edge-cases\/typedef_bitfield.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize MyStruct where
+instance Marshal.StaticSize MyStruct where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw MyStruct where
+instance Marshal.ReadRaw MyStruct where
 
   readRaw =
     \ptr0 ->
           pure MyStruct
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_x") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_y") ptr0
-      <*> HsBindgen.Runtime.HasCBitfield.peek (Data.Proxy.Proxy @"myStruct_z") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"myStruct_x") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"myStruct_y") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"myStruct_z") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw MyStruct where
+instance Marshal.WriteRaw MyStruct where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           MyStruct myStruct_x2 myStruct_y3 myStruct_z4 ->
-               HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_x") ptr0 myStruct_x2
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_y") ptr0 myStruct_y3
-            >> HsBindgen.Runtime.HasCBitfield.poke (Data.Proxy.Proxy @"myStruct_z") ptr0 myStruct_z4
+               HasCBitfield.poke (RIP.Proxy @"myStruct_x") ptr0 myStruct_x2
+            >> HasCBitfield.poke (RIP.Proxy @"myStruct_y") ptr0 myStruct_y3
+            >> HasCBitfield.poke (RIP.Proxy @"myStruct_z") ptr0 myStruct_z4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable MyStruct instance F.Storable MyStruct
+deriving via Marshal.EquivStorable MyStruct instance RIP.Storable MyStruct
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
+instance HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
   type CBitfieldType MyStruct "myStruct_x" = MyInt
 
@@ -222,13 +208,13 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_x" where
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( TyEq ty MyInt
-         ) => GHC.Records.HasField "myStruct_x" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) MyInt
+         ) => RIP.HasField "myStruct_x" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_x")
+    HasCBitfield.toPtr (RIP.Proxy @"myStruct_x")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
+instance HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   type CBitfieldType MyStruct "myStruct_y" = MyUInt
 
@@ -236,13 +222,13 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_y" where
 
   bitfieldWidth# = \_ -> \_ -> 4
 
-instance ( TyEq ty MyUInt
-         ) => GHC.Records.HasField "myStruct_y" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) MyUInt
+         ) => RIP.HasField "myStruct_y" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_y")
+    HasCBitfield.toPtr (RIP.Proxy @"myStruct_y")
 
-instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
+instance HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 
   type CBitfieldType MyStruct "myStruct_z" = MyLong
 
@@ -250,8 +236,8 @@ instance HsBindgen.Runtime.HasCBitfield.HasCBitfield MyStruct "myStruct_z" where
 
   bitfieldWidth# = \_ -> \_ -> 3
 
-instance ( TyEq ty MyLong
-         ) => GHC.Records.HasField "myStruct_z" (Ptr.Ptr MyStruct) (HsBindgen.Runtime.BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) MyLong
+         ) => RIP.HasField "myStruct_z" (RIP.Ptr MyStruct) (BitfieldPtr.BitfieldPtr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCBitfield.toPtr (Data.Proxy.Proxy @"myStruct_z")
+    HasCBitfield.toPtr (RIP.Proxy @"myStruct_z")

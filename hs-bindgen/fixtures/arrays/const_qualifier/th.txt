@@ -254,8 +254,8 @@ newtype S
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock (Generic, Eq, Show)
-instance TyEq ty (IncompleteArray CInt) =>
+    deriving stock (Eq, Generic, Show)
+instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapS" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapS")
 instance HasCField S "unwrapS"
@@ -275,8 +275,8 @@ newtype T
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock (Generic, Eq, Show)
-instance TyEq ty (IncompleteArray CInt) =>
+    deriving stock (Eq, Generic, Show)
+instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
@@ -296,9 +296,9 @@ newtype U
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 CInt) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapU" (Ptr U) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapU")
 instance HasCField U "unwrapU"
@@ -318,9 +318,9 @@ newtype V
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 CInt) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapV" (Ptr V) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapV")
 instance HasCField V "unwrapV"
@@ -340,9 +340,9 @@ newtype W
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 CInt) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapW" (Ptr W) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapW")
 instance HasCField W "unwrapW"
@@ -362,9 +362,9 @@ newtype X
 
            __exported by:__ @arrays\/const_qualifier.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 CInt) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapX" (Ptr X) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapX")
 instance HasCField X "unwrapX"

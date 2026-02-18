@@ -15,6 +15,7 @@ import Text.Printf (printf)
 
 import HsBindgen.Runtime.Internal.FFIType qualified as FFI
 
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -88,7 +89,7 @@ foreignImportDec sizeofs name params res origName callConv origin safety =
         { name       = fName
         , parameters = fParameters
         , result     = res.hsType
-        , body       = EGlobal HasFFIType_fromFFIType `EApp` EFree fiName
+        , body       = eBindgenGlobal HasFFIType_fromFFIType `EApp` EFree fiName
         , origin     = origin
         , pragmas    = []
         , comment    = fComment
@@ -159,10 +160,10 @@ foreignImportWrapperDec sizeofs name hsType origin =
     fResult = Hs.HsIO $ Hs.HsFunPtr hsType
     fBody =
         ELam "fun" $
-        EGlobal Functor_fmap `EApp`
-        EGlobal HasFFIType_castFunPtrFromFFIType `EApp`
+        eBindgenGlobal Functor_fmap `EApp`
+        eBindgenGlobal HasFFIType_castFunPtrFromFFIType `EApp`
         (EFree fiName `EApp`
-        (EGlobal HasFFIType_toFFIType `EApp`
+        (eBindgenGlobal HasFFIType_toFFIType `EApp`
         EBound IZ
         ))
     fComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
@@ -227,9 +228,9 @@ foreignImportDynamicDec sizeofs name hsType origin =
     fResult = hsType
     fBody =
         ELam "funPtr" $
-        EGlobal HasFFIType_fromFFIType `EApp`
+        eBindgenGlobal HasFFIType_fromFFIType `EApp`
         (EFree fiName `EApp`
-        (EGlobal HasFFIType_castFunPtrToFFIType `EApp`
+        (eBindgenGlobal HasFFIType_castFunPtrToFFIType `EApp`
         EBound IZ
         ))
     fComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol

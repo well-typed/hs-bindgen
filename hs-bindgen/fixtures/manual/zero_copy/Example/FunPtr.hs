@@ -1,19 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/zero_copy.h>"
@@ -39,12 +33,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
 foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
-hs_bindgen_44cb8687c63f0086 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
+hs_bindgen_44cb8687c63f0086 :: IO (RIP.FunPtr ((PtrConst.PtrConst Vector) -> (RIP.Ptr Vector) -> IO RIP.CInt))
 hs_bindgen_44cb8687c63f0086 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_44cb8687c63f0086_base
+  RIP.fromFFIType hs_bindgen_44cb8687c63f0086_base
 
 {-# NOINLINE reverse #-}
 {-| __C declaration:__ @reverse@
@@ -53,18 +47,18 @@ hs_bindgen_44cb8687c63f0086 =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
+reverse :: RIP.FunPtr ((PtrConst.PtrConst Vector) -> (RIP.Ptr Vector) -> IO RIP.CInt)
 reverse =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_44cb8687c63f0086
+  RIP.unsafePerformIO hs_bindgen_44cb8687c63f0086
 
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
 foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee5bf_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
-hs_bindgen_1bf30b28aefee5bf :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_1bf30b28aefee5bf :: IO (RIP.FunPtr (Matrix -> Matrix -> IO ()))
 hs_bindgen_1bf30b28aefee5bf =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1bf30b28aefee5bf_base
+  RIP.fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
@@ -73,6 +67,6 @@ hs_bindgen_1bf30b28aefee5bf =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
+transpose :: RIP.FunPtr (Matrix -> Matrix -> IO ())
 transpose =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1bf30b28aefee5bf
+  RIP.unsafePerformIO hs_bindgen_1bf30b28aefee5bf

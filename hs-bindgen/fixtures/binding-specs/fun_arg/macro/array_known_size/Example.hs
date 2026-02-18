@@ -5,7 +5,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -13,17 +12,10 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (Eq, Show)
+import qualified HsBindgen.Runtime.ConstantArray as CA
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @MyArray@
 
@@ -32,26 +24,26 @@ import Prelude (Eq, Show)
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
 newtype MyArray = MyArray
-  { unwrapMyArray :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapMyArray :: (CA.ConstantArray 3) RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-         ) => GHC.Records.HasField "unwrapMyArray" (Ptr.Ptr MyArray) (Ptr.Ptr ty) where
+instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+         ) => RIP.HasField "unwrapMyArray" (RIP.Ptr MyArray) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapMyArray")
+    HasCField.fromPtr (RIP.Proxy @"unwrapMyArray")
 
-instance HsBindgen.Runtime.HasCField.HasCField MyArray "unwrapMyArray" where
+instance HasCField.HasCField MyArray "unwrapMyArray" where
 
   type CFieldType MyArray "unwrapMyArray" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (CA.ConstantArray 3) RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -64,21 +56,20 @@ instance HsBindgen.Runtime.HasCField.HasCField MyArray "unwrapMyArray" where
 newtype A = A
   { unwrapA :: MyArray
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty MyArray
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) MyArray
+         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+instance HasCField.HasCField A "unwrapA" where
 
   type CFieldType A "unwrapA" = MyArray
 
@@ -93,21 +84,19 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty A
-         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
-instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
 

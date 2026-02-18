@@ -5,7 +5,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -13,16 +12,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.Block
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Block as Block
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 {-| __C declaration:__ @Toggle@
 
@@ -31,21 +23,21 @@ import Prelude (IO)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype Toggle = Toggle
-  { unwrapToggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
+  { unwrapToggle :: Block.Block (IO RIP.CBool)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
 
-instance ( TyEq ty (HsBindgen.Runtime.Block.Block (IO FC.CBool))
-         ) => GHC.Records.HasField "unwrapToggle" (Ptr.Ptr Toggle) (Ptr.Ptr ty) where
+instance ( ((~) ty) (Block.Block (IO RIP.CBool))
+         ) => RIP.HasField "unwrapToggle" (RIP.Ptr Toggle) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapToggle")
+    HasCField.fromPtr (RIP.Proxy @"unwrapToggle")
 
-instance HsBindgen.Runtime.HasCField.HasCField Toggle "unwrapToggle" where
+instance HasCField.HasCField Toggle "unwrapToggle" where
 
   type CFieldType Toggle "unwrapToggle" =
-    HsBindgen.Runtime.Block.Block (IO FC.CBool)
+    Block.Block (IO RIP.CBool)
 
   offset# = \_ -> \_ -> 0
 
@@ -56,21 +48,21 @@ instance HsBindgen.Runtime.HasCField.HasCField Toggle "unwrapToggle" where
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype Counter = Counter
-  { unwrapCounter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
+  { unwrapCounter :: Block.Block (IO RIP.CInt)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
 
-instance ( TyEq ty (HsBindgen.Runtime.Block.Block (IO FC.CInt))
-         ) => GHC.Records.HasField "unwrapCounter" (Ptr.Ptr Counter) (Ptr.Ptr ty) where
+instance ( ((~) ty) (Block.Block (IO RIP.CInt))
+         ) => RIP.HasField "unwrapCounter" (RIP.Ptr Counter) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapCounter")
+    HasCField.fromPtr (RIP.Proxy @"unwrapCounter")
 
-instance HsBindgen.Runtime.HasCField.HasCField Counter "unwrapCounter" where
+instance HasCField.HasCField Counter "unwrapCounter" where
 
   type CFieldType Counter "unwrapCounter" =
-    HsBindgen.Runtime.Block.Block (IO FC.CInt)
+    Block.Block (IO RIP.CInt)
 
   offset# = \_ -> \_ -> 0
 
@@ -81,20 +73,20 @@ instance HsBindgen.Runtime.HasCField.HasCField Counter "unwrapCounter" where
     __exported by:__ @edge-cases\/iterator.h@
 -}
 newtype VarCounter = VarCounter
-  { unwrapVarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
+  { unwrapVarCounter :: Block.Block (RIP.CInt -> IO RIP.CInt)
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
 
-instance ( TyEq ty (HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt))
-         ) => GHC.Records.HasField "unwrapVarCounter" (Ptr.Ptr VarCounter) (Ptr.Ptr ty) where
+instance ( ((~) ty) (Block.Block (RIP.CInt -> IO RIP.CInt))
+         ) => RIP.HasField "unwrapVarCounter" (RIP.Ptr VarCounter) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapVarCounter")
+    HasCField.fromPtr (RIP.Proxy @"unwrapVarCounter")
 
-instance HsBindgen.Runtime.HasCField.HasCField VarCounter "unwrapVarCounter" where
+instance HasCField.HasCField VarCounter "unwrapVarCounter" where
 
   type CFieldType VarCounter "unwrapVarCounter" =
-    HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
+    Block.Block (RIP.CInt -> IO RIP.CInt)
 
   offset# = \_ -> \_ -> 0

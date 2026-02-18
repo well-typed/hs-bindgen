@@ -19,7 +19,7 @@ data S
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -32,7 +32,7 @@ deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_f"
     where type CFieldType S "s_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
-instance TyEq ty (ConstantArray 3 CShort) =>
+instance (~) ty (ConstantArray 3 CShort) =>
          HasField "s_f" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_f")
 {-| __C declaration:__ @more_aligned_int@
@@ -49,23 +49,23 @@ newtype More_aligned_int
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
          HasField "unwrapMore_aligned_int" (Ptr More_aligned_int) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMore_aligned_int")
 instance HasCField More_aligned_int "unwrapMore_aligned_int"
@@ -92,7 +92,7 @@ data S2
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S2
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 16 :: Int
@@ -105,7 +105,7 @@ deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_f"
     where type CFieldType S2 "s2_f" = ConstantArray 3 CShort
           offset# = \_ -> \_ -> 0
-instance TyEq ty (ConstantArray 3 CShort) =>
+instance (~) ty (ConstantArray 3 CShort) =>
          HasField "s2_f" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_f")
 {-| __C declaration:__ @struct my_unpacked_struct@
@@ -135,7 +135,7 @@ data My_unpacked_struct
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize My_unpacked_struct
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -150,14 +150,14 @@ instance HasCField My_unpacked_struct "my_unpacked_struct_c"
     where type CFieldType My_unpacked_struct
                           "my_unpacked_struct_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar =>
+instance (~) ty CChar =>
          HasField "my_unpacked_struct_c" (Ptr My_unpacked_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_unpacked_struct_c")
 instance HasCField My_unpacked_struct "my_unpacked_struct_i"
     where type CFieldType My_unpacked_struct
                           "my_unpacked_struct_i" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "my_unpacked_struct_i" (Ptr My_unpacked_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_unpacked_struct_i")
 {-| __C declaration:__ @struct my_packed_struct@
@@ -194,7 +194,7 @@ data My_packed_struct
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize My_packed_struct
     where staticSizeOf = \_ -> 13 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -209,20 +209,20 @@ deriving via (EquivStorable My_packed_struct) instance Storable My_packed_struct
 instance HasCField My_packed_struct "my_packed_struct_c"
     where type CFieldType My_packed_struct "my_packed_struct_c" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar =>
+instance (~) ty CChar =>
          HasField "my_packed_struct_c" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_c")
 instance HasCField My_packed_struct "my_packed_struct_i"
     where type CFieldType My_packed_struct "my_packed_struct_i" = CInt
           offset# = \_ -> \_ -> 1
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "my_packed_struct_i" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_i")
 instance HasCField My_packed_struct "my_packed_struct_s"
     where type CFieldType My_packed_struct
                           "my_packed_struct_s" = My_unpacked_struct
           offset# = \_ -> \_ -> 5
-instance TyEq ty My_unpacked_struct =>
+instance (~) ty My_unpacked_struct =>
          HasField "my_packed_struct_s" (Ptr My_packed_struct) (Ptr ty)
     where getField = fromPtr (Proxy @"my_packed_struct_s")
 {-| __C declaration:__ @union wait_status_ptr_t@
@@ -319,14 +319,14 @@ instance HasCField Wait_status_ptr_t "wait_status_ptr_t___ip"
     where type CFieldType Wait_status_ptr_t
                           "wait_status_ptr_t___ip" = Ptr CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (Ptr CInt) =>
+instance (~) ty (Ptr CInt) =>
          HasField "wait_status_ptr_t___ip" (Ptr Wait_status_ptr_t) (Ptr ty)
     where getField = fromPtr (Proxy @"wait_status_ptr_t___ip")
 instance HasCField Wait_status_ptr_t "wait_status_ptr_t___up"
     where type CFieldType Wait_status_ptr_t
                           "wait_status_ptr_t___up" = Ptr Wait
           offset# = \_ -> \_ -> 0
-instance TyEq ty (Ptr Wait) =>
+instance (~) ty (Ptr Wait) =>
          HasField "wait_status_ptr_t___up" (Ptr Wait_status_ptr_t) (Ptr ty)
     where getField = fromPtr (Proxy @"wait_status_ptr_t___up")
 {-| __C declaration:__ @union wait@
@@ -350,23 +350,23 @@ newtype T1
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapT1" (Ptr T1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT1")
 instance HasCField T1 "unwrapT1"
     where type CFieldType T1 "unwrapT1" = CInt
@@ -385,23 +385,23 @@ newtype Short_a
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CShort =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort =>
          HasField "unwrapShort_a" (Ptr Short_a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapShort_a")
 instance HasCField Short_a "unwrapShort_a"

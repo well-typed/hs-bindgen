@@ -1,15 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified GHC.Word
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <declarations/declarations_required_for_scoping.h>"
@@ -23,7 +20,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf6b0_base ::
-     GHC.Word.Word64
+     RIP.Word64
   -> IO ()
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
@@ -31,7 +28,7 @@ hs_bindgen_93ed1628a0edf6b0 ::
      A
   -> IO ()
 hs_bindgen_93ed1628a0edf6b0 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_93ed1628a0edf6b0_base
+  RIP.fromFFIType hs_bindgen_93ed1628a0edf6b0_base
 
 {-| __C declaration:__ @f@
 

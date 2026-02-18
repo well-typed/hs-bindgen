@@ -1,15 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified GHC.Word
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/enum.h>"
@@ -35,7 +32,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
@@ -43,7 +40,7 @@ hs_bindgen_d49a011eb7da5969 ::
      MyEnum
   -> IO ()
 hs_bindgen_d49a011eb7da5969 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d49a011eb7da5969_base
+  RIP.fromFFIType hs_bindgen_d49a011eb7da5969_base
 
 {-| __C declaration:__ @foo@
 
@@ -59,7 +56,7 @@ foo = hs_bindgen_d49a011eb7da5969
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
@@ -67,7 +64,7 @@ hs_bindgen_32c6f6f9bb440690 ::
      A
   -> IO ()
 hs_bindgen_32c6f6f9bb440690 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_32c6f6f9bb440690_base
+  RIP.fromFFIType hs_bindgen_32c6f6f9bb440690_base
 
 {-| __C declaration:__ @fooA@
 
@@ -83,7 +80,7 @@ fooA = hs_bindgen_32c6f6f9bb440690
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71_base ::
-     GHC.Word.Word32
+     RIP.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
@@ -91,7 +88,7 @@ hs_bindgen_16e7856908d06f71 ::
      B
   -> IO ()
 hs_bindgen_16e7856908d06f71 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_16e7856908d06f71_base
+  RIP.fromFFIType hs_bindgen_16e7856908d06f71_base
 
 {-| __C declaration:__ @fooB@
 

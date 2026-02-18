@@ -5,7 +5,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -14,22 +13,9 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @T1@
 
@@ -38,36 +24,35 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
 newtype T1 = T1
-  { unwrapT1 :: FC.CInt
+  { unwrapT1 :: RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unwrapT1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapT1" (RIP.Ptr T1) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT1")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT1")
 
-instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
+instance HasCField.HasCField T1 "unwrapT1" where
 
-  type CFieldType T1 "unwrapT1" = FC.CInt
+  type CFieldType T1 "unwrapT1" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -80,32 +65,31 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "unwrapT1" where
 newtype T2 = T2
   { unwrapT2 :: T1
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty T1
-         ) => GHC.Records.HasField "unwrapT2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
+instance ( ((~) ty) T1
+         ) => RIP.HasField "unwrapT2" (RIP.Ptr T2) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT2")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT2")
 
-instance HsBindgen.Runtime.HasCField.HasCField T2 "unwrapT2" where
+instance HasCField.HasCField T2 "unwrapT2" where
 
   type CFieldType T2 "unwrapT2" = T1
 
@@ -120,32 +104,31 @@ instance HsBindgen.Runtime.HasCField.HasCField T2 "unwrapT2" where
 newtype T3 = T3
   { unwrapT3 :: T2
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty T2
-         ) => GHC.Records.HasField "unwrapT3" (Ptr.Ptr T3) (Ptr.Ptr ty) where
+instance ( ((~) ty) T2
+         ) => RIP.HasField "unwrapT3" (RIP.Ptr T3) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT3")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT3")
 
-instance HsBindgen.Runtime.HasCField.HasCField T3 "unwrapT3" where
+instance HasCField.HasCField T3 "unwrapT3" where
 
   type CFieldType T3 "unwrapT3" = T2
 
@@ -160,32 +143,31 @@ instance HsBindgen.Runtime.HasCField.HasCField T3 "unwrapT3" where
 newtype T4 = T4
   { unwrapT4 :: T3
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty T3
-         ) => GHC.Records.HasField "unwrapT4" (Ptr.Ptr T4) (Ptr.Ptr ty) where
+instance ( ((~) ty) T3
+         ) => RIP.HasField "unwrapT4" (RIP.Ptr T4) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT4")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT4")
 
-instance HsBindgen.Runtime.HasCField.HasCField T4 "unwrapT4" where
+instance HasCField.HasCField T4 "unwrapT4" where
 
   type CFieldType T4 "unwrapT4" = T3
 

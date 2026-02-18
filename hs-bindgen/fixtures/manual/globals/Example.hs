@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -16,24 +15,11 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.IncompleteArray
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import qualified HsBindgen.Runtime.ConstantArray as CA
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.IncompleteArray as IA
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct globalConfig@
 
@@ -42,14 +28,14 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @manual\/globals.h@
 -}
 data GlobalConfig = GlobalConfig
-  { globalConfig_numThreads :: FC.CInt
+  { globalConfig_numThreads :: RIP.CInt
     {- ^ __C declaration:__ @numThreads@
 
          __defined at:__ @manual\/globals.h 8:7@
 
          __exported by:__ @manual\/globals.h@
     -}
-  , globalConfig_numWorkers :: FC.CInt
+  , globalConfig_numWorkers :: RIP.CInt
     {- ^ __C declaration:__ @numWorkers@
 
          __defined at:__ @manual\/globals.h 9:7@
@@ -57,59 +43,59 @@ data GlobalConfig = GlobalConfig
          __exported by:__ @manual\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize GlobalConfig where
+instance Marshal.StaticSize GlobalConfig where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw GlobalConfig where
+instance Marshal.ReadRaw GlobalConfig where
 
   readRaw =
     \ptr0 ->
           pure GlobalConfig
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"globalConfig_numThreads") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"globalConfig_numWorkers") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw GlobalConfig where
+instance Marshal.WriteRaw GlobalConfig where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           GlobalConfig globalConfig_numThreads2 globalConfig_numWorkers3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"globalConfig_numThreads") ptr0 globalConfig_numThreads2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"globalConfig_numWorkers") ptr0 globalConfig_numWorkers3
+               HasCField.writeRaw (RIP.Proxy @"globalConfig_numThreads") ptr0 globalConfig_numThreads2
+            >> HasCField.writeRaw (RIP.Proxy @"globalConfig_numWorkers") ptr0 globalConfig_numWorkers3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable GlobalConfig instance F.Storable GlobalConfig
+deriving via Marshal.EquivStorable GlobalConfig instance RIP.Storable GlobalConfig
 
-instance HsBindgen.Runtime.HasCField.HasCField GlobalConfig "globalConfig_numThreads" where
+instance HasCField.HasCField GlobalConfig "globalConfig_numThreads" where
 
   type CFieldType GlobalConfig "globalConfig_numThreads" =
-    FC.CInt
+    RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "globalConfig_numThreads" (Ptr.Ptr GlobalConfig) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "globalConfig_numThreads" (RIP.Ptr GlobalConfig) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"globalConfig_numThreads")
+    HasCField.fromPtr (RIP.Proxy @"globalConfig_numThreads")
 
-instance HsBindgen.Runtime.HasCField.HasCField GlobalConfig "globalConfig_numWorkers" where
+instance HasCField.HasCField GlobalConfig "globalConfig_numWorkers" where
 
   type CFieldType GlobalConfig "globalConfig_numWorkers" =
-    FC.CInt
+    RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "globalConfig_numWorkers" (Ptr.Ptr GlobalConfig) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "globalConfig_numWorkers" (RIP.Ptr GlobalConfig) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"globalConfig_numWorkers")
+    HasCField.fromPtr (RIP.Proxy @"globalConfig_numWorkers")
 
 {-| __C declaration:__ @ConstInt@
 
@@ -118,36 +104,36 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @manual\/globals.h@
 -}
 newtype ConstInt = ConstInt
-  { unwrapConstInt :: FC.CInt
+  { unwrapConstInt :: RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unwrapConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapConstInt" (RIP.Ptr ConstInt) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapConstInt")
+    HasCField.fromPtr (RIP.Proxy @"unwrapConstInt")
 
-instance HsBindgen.Runtime.HasCField.HasCField ConstInt "unwrapConstInt" where
+instance HasCField.HasCField ConstInt "unwrapConstInt" where
 
-  type CFieldType ConstInt "unwrapConstInt" = FC.CInt
+  type CFieldType ConstInt "unwrapConstInt" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -158,14 +144,14 @@ instance HsBindgen.Runtime.HasCField.HasCField ConstInt "unwrapConstInt" where
     __exported by:__ @manual\/globals.h@
 -}
 data Tuple = Tuple
-  { tuple_x :: FC.CInt
+  { tuple_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @manual\/globals.h 52:20@
 
          __exported by:__ @manual\/globals.h@
     -}
-  , tuple_y :: FC.CInt
+  , tuple_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @manual\/globals.h 52:33@
@@ -173,57 +159,55 @@ data Tuple = Tuple
          __exported by:__ @manual\/globals.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Tuple where
+instance Marshal.StaticSize Tuple where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Tuple where
+instance Marshal.ReadRaw Tuple where
 
   readRaw =
     \ptr0 ->
           pure Tuple
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"tuple_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"tuple_y") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"tuple_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"tuple_y") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Tuple where
+instance Marshal.WriteRaw Tuple where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Tuple tuple_x2 tuple_y3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"tuple_x") ptr0 tuple_x2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"tuple_y") ptr0 tuple_y3
+               HasCField.writeRaw (RIP.Proxy @"tuple_x") ptr0 tuple_x2
+            >> HasCField.writeRaw (RIP.Proxy @"tuple_y") ptr0 tuple_y3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Tuple instance F.Storable Tuple
+deriving via Marshal.EquivStorable Tuple instance RIP.Storable Tuple
 
-instance HsBindgen.Runtime.HasCField.HasCField Tuple "tuple_x" where
+instance HasCField.HasCField Tuple "tuple_x" where
 
-  type CFieldType Tuple "tuple_x" = FC.CInt
+  type CFieldType Tuple "tuple_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "tuple_x" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "tuple_x" (RIP.Ptr Tuple) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tuple_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"tuple_x")
 
-instance HsBindgen.Runtime.HasCField.HasCField Tuple "tuple_y" where
+instance HasCField.HasCField Tuple "tuple_y" where
 
-  type CFieldType Tuple "tuple_y" = FC.CInt
+  type CFieldType Tuple "tuple_y" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "tuple_y" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "tuple_y" (RIP.Ptr Tuple) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"tuple_y")
+  getField = HasCField.fromPtr (RIP.Proxy @"tuple_y")
 
 {-| __C declaration:__ @triplet@
 
@@ -232,26 +216,26 @@ instance ( TyEq ty FC.CInt
     __exported by:__ @manual\/globals.h@
 -}
 newtype Triplet = Triplet
-  { unwrapTriplet :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+  { unwrapTriplet :: (CA.ConstantArray 3) RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-         ) => GHC.Records.HasField "unwrapTriplet" (Ptr.Ptr Triplet) (Ptr.Ptr ty) where
+instance ( ((~) ty) ((CA.ConstantArray 3) RIP.CInt)
+         ) => RIP.HasField "unwrapTriplet" (RIP.Ptr Triplet) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapTriplet")
+    HasCField.fromPtr (RIP.Proxy @"unwrapTriplet")
 
-instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
+instance HasCField.HasCField Triplet "unwrapTriplet" where
 
   type CFieldType Triplet "unwrapTriplet" =
-    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+    (CA.ConstantArray 3) RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -262,19 +246,19 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "unwrapTriplet" where
     __exported by:__ @manual\/globals.h@
 -}
 newtype List = List
-  { unwrapList :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
+  { unwrapList :: IA.IncompleteArray RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance ( TyEq ty (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
-         ) => GHC.Records.HasField "unwrapList" (Ptr.Ptr List) (Ptr.Ptr ty) where
+instance ( ((~) ty) (IA.IncompleteArray RIP.CInt)
+         ) => RIP.HasField "unwrapList" (RIP.Ptr List) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapList")
+    HasCField.fromPtr (RIP.Proxy @"unwrapList")
 
-instance HsBindgen.Runtime.HasCField.HasCField List "unwrapList" where
+instance HasCField.HasCField List "unwrapList" where
 
   type CFieldType List "unwrapList" =
-    HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
+    IA.IncompleteArray RIP.CInt
 
   offset# = \_ -> \_ -> 0

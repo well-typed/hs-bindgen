@@ -1,5 +1,4 @@
 {-# LANGUAGE EmptyDataDecls #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 
 module Example where
 

@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,16 +13,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct OkBefore@
 
@@ -32,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
     __exported by:__ @program-analysis\/selection_fail.h@
 -}
 data OkBefore = OkBefore
-  { okBefore_x :: FC.CInt
+  { okBefore_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @program-analysis\/selection_fail.h 2:7@
@@ -40,40 +32,40 @@ data OkBefore = OkBefore
          __exported by:__ @program-analysis\/selection_fail.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize OkBefore where
+instance Marshal.StaticSize OkBefore where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw OkBefore where
+instance Marshal.ReadRaw OkBefore where
 
   readRaw =
     \ptr0 ->
           pure OkBefore
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"okBefore_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"okBefore_x") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw OkBefore where
+instance Marshal.WriteRaw OkBefore where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           OkBefore okBefore_x2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"okBefore_x") ptr0 okBefore_x2
+            HasCField.writeRaw (RIP.Proxy @"okBefore_x") ptr0 okBefore_x2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable OkBefore instance F.Storable OkBefore
+deriving via Marshal.EquivStorable OkBefore instance RIP.Storable OkBefore
 
-instance HsBindgen.Runtime.HasCField.HasCField OkBefore "okBefore_x" where
+instance HasCField.HasCField OkBefore "okBefore_x" where
 
-  type CFieldType OkBefore "okBefore_x" = FC.CInt
+  type CFieldType OkBefore "okBefore_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "okBefore_x" (Ptr.Ptr OkBefore) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "okBefore_x" (RIP.Ptr OkBefore) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"okBefore_x")
+    HasCField.fromPtr (RIP.Proxy @"okBefore_x")

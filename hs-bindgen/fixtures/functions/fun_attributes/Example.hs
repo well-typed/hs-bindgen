@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -16,22 +15,9 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Attributes on functions
 
@@ -45,19 +31,19 @@ __exported by:__ @functions\/fun_attributes.h@
 -}
 data FILE = FILE
   {}
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize FILE where
+instance Marshal.StaticSize FILE where
 
   staticSizeOf = \_ -> (0 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw FILE where
+instance Marshal.ReadRaw FILE where
 
   readRaw = \ptr0 -> pure FILE
 
-instance HsBindgen.Runtime.Marshal.WriteRaw FILE where
+instance Marshal.WriteRaw FILE where
 
   writeRaw =
     \ptr0 ->
@@ -65,7 +51,7 @@ instance HsBindgen.Runtime.Marshal.WriteRaw FILE where
         case s1 of
           FILE -> return ()
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable FILE instance F.Storable FILE
+deriving via Marshal.EquivStorable FILE instance RIP.Storable FILE
 
 {-| __C declaration:__ @size_t@
 
@@ -74,35 +60,35 @@ deriving via HsBindgen.Runtime.Marshal.EquivStorable FILE instance F.Storable FI
     __exported by:__ @functions\/fun_attributes.h@
 -}
 newtype Size_t = Size_t
-  { unwrapSize_t :: FC.CInt
+  { unwrapSize_t :: RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "unwrapSize_t" (Ptr.Ptr Size_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "unwrapSize_t" (RIP.Ptr Size_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapSize_t")
+    HasCField.fromPtr (RIP.Proxy @"unwrapSize_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Size_t "unwrapSize_t" where
+instance HasCField.HasCField Size_t "unwrapSize_t" where
 
-  type CFieldType Size_t "unwrapSize_t" = FC.CInt
+  type CFieldType Size_t "unwrapSize_t" = RIP.CInt
 
   offset# = \_ -> \_ -> 0

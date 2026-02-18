@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,16 +13,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct Omitted@
 
@@ -32,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
     __exported by:__ @program-analysis\/selection_omit_external_b.h@
 -}
 data Omitted = Omitted
-  { omitted_n :: FC.CInt
+  { omitted_n :: RIP.CInt
     {- ^ __C declaration:__ @n@
 
          __defined at:__ @selection_omit_external_root.h 2:7@
@@ -40,43 +32,42 @@ data Omitted = Omitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize Omitted where
+instance Marshal.StaticSize Omitted where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw Omitted where
+instance Marshal.ReadRaw Omitted where
 
   readRaw =
     \ptr0 ->
           pure Omitted
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"omitted_n") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"omitted_n") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw Omitted where
+instance Marshal.WriteRaw Omitted where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           Omitted omitted_n2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"omitted_n") ptr0 omitted_n2
+            HasCField.writeRaw (RIP.Proxy @"omitted_n") ptr0 omitted_n2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable Omitted instance F.Storable Omitted
+deriving via Marshal.EquivStorable Omitted instance RIP.Storable Omitted
 
-instance HsBindgen.Runtime.HasCField.HasCField Omitted "omitted_n" where
+instance HasCField.HasCField Omitted "omitted_n" where
 
-  type CFieldType Omitted "omitted_n" = FC.CInt
+  type CFieldType Omitted "omitted_n" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "omitted_n" (Ptr.Ptr Omitted) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "omitted_n" (RIP.Ptr Omitted) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"omitted_n")
+  getField = HasCField.fromPtr (RIP.Proxy @"omitted_n")
 
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
@@ -93,44 +84,44 @@ data DirectlyDependsOnOmitted = DirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize DirectlyDependsOnOmitted where
+instance Marshal.StaticSize DirectlyDependsOnOmitted where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw DirectlyDependsOnOmitted where
+instance Marshal.ReadRaw DirectlyDependsOnOmitted where
 
   readRaw =
     \ptr0 ->
           pure DirectlyDependsOnOmitted
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"directlyDependsOnOmitted_o") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw DirectlyDependsOnOmitted where
+instance Marshal.WriteRaw DirectlyDependsOnOmitted where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           DirectlyDependsOnOmitted directlyDependsOnOmitted_o2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
+            HasCField.writeRaw (RIP.Proxy @"directlyDependsOnOmitted_o") ptr0 directlyDependsOnOmitted_o2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable DirectlyDependsOnOmitted instance F.Storable DirectlyDependsOnOmitted
+deriving via Marshal.EquivStorable DirectlyDependsOnOmitted instance RIP.Storable DirectlyDependsOnOmitted
 
-instance HsBindgen.Runtime.HasCField.HasCField DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" where
+instance HasCField.HasCField DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" where
 
   type CFieldType DirectlyDependsOnOmitted "directlyDependsOnOmitted_o" =
     Omitted
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Omitted
-         ) => GHC.Records.HasField "directlyDependsOnOmitted_o" (Ptr.Ptr DirectlyDependsOnOmitted) (Ptr.Ptr ty) where
+instance ( ((~) ty) Omitted
+         ) => RIP.HasField "directlyDependsOnOmitted_o" (RIP.Ptr DirectlyDependsOnOmitted) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"directlyDependsOnOmitted_o")
+    HasCField.fromPtr (RIP.Proxy @"directlyDependsOnOmitted_o")
 
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
@@ -147,41 +138,41 @@ data IndirectlyDependsOnOmitted = IndirectlyDependsOnOmitted
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize IndirectlyDependsOnOmitted where
+instance Marshal.StaticSize IndirectlyDependsOnOmitted where
 
   staticSizeOf = \_ -> (4 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw IndirectlyDependsOnOmitted where
+instance Marshal.ReadRaw IndirectlyDependsOnOmitted where
 
   readRaw =
     \ptr0 ->
           pure IndirectlyDependsOnOmitted
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"indirectlyDependsOnOmitted_d") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw IndirectlyDependsOnOmitted where
+instance Marshal.WriteRaw IndirectlyDependsOnOmitted where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
+            HasCField.writeRaw (RIP.Proxy @"indirectlyDependsOnOmitted_d") ptr0 indirectlyDependsOnOmitted_d2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable IndirectlyDependsOnOmitted instance F.Storable IndirectlyDependsOnOmitted
+deriving via Marshal.EquivStorable IndirectlyDependsOnOmitted instance RIP.Storable IndirectlyDependsOnOmitted
 
-instance HsBindgen.Runtime.HasCField.HasCField IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" where
+instance HasCField.HasCField IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" where
 
   type CFieldType IndirectlyDependsOnOmitted "indirectlyDependsOnOmitted_d" =
     DirectlyDependsOnOmitted
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty DirectlyDependsOnOmitted
-         ) => GHC.Records.HasField "indirectlyDependsOnOmitted_d" (Ptr.Ptr IndirectlyDependsOnOmitted) (Ptr.Ptr ty) where
+instance ( ((~) ty) DirectlyDependsOnOmitted
+         ) => RIP.HasField "indirectlyDependsOnOmitted_d" (RIP.Ptr IndirectlyDependsOnOmitted) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"indirectlyDependsOnOmitted_d")
+    HasCField.fromPtr (RIP.Proxy @"indirectlyDependsOnOmitted_d")

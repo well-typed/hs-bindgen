@@ -10,17 +10,14 @@ build-type:    Simple
 common lang
   build-depends:    base >=4.17 && <5
   default-language: GHC2021
-  ghc-options:      -Wall
+  ghc-options:      -Wall -Wunused-packages
 
 executable constructor-import-issue-bin
   import:          lang
   main-is:         Main.hs
   hs-source-dirs:  app generated
   extra-libraries: constructor_import_issue
-  build-depends:
-    , hs-bindgen-runtime
-    , primitive
-
+  build-depends:   hs-bindgen-runtime
   other-modules:
     Generated
     Generated.A

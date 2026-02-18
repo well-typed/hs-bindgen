@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,18 +13,9 @@
 
 module Example where
 
-import qualified Data.Array.Byte
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.ByteArray
-import qualified HsBindgen.Runtime.Internal.SizedByteArray
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @union U@
 
@@ -34,17 +24,17 @@ import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
     __exported by:__ @functions\/heap_types\/union_const_member.h@
 -}
 newtype T = T
-  { unwrapT :: Data.Array.Byte.ByteArray
+  { unwrapT :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize T
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize T
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw T
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw T
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw T
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw T
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable T instance F.Storable T
+deriving via Marshal.EquivStorable T instance RIP.Storable T
 
 {-|
 
@@ -58,9 +48,8 @@ __exported by:__ @functions\/heap_types\/union_const_member.h@
 -}
 get_t_x ::
      T
-  -> FC.CInt
-get_t_x =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CInt
+get_t_x = RIP.getUnionPayload
 
 {-|
 
@@ -68,19 +57,17 @@ get_t_x =
 
 -}
 set_t_x ::
-     FC.CInt
+     RIP.CInt
   -> T
-set_t_x =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_t_x = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField T "t_x" where
+instance HasCField.HasCField T "t_x" where
 
-  type CFieldType T "t_x" = FC.CInt
+  type CFieldType T "t_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "t_x" (Ptr.Ptr T) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "t_x" (RIP.Ptr T) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"t_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"t_x")

@@ -202,7 +202,7 @@ newtype Toggle
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance TyEq ty (Block (IO CBool)) =>
+instance (~) ty (Block (IO CBool)) =>
          HasField "unwrapToggle" (Ptr Toggle) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapToggle")
 instance HasCField Toggle "unwrapToggle"
@@ -224,7 +224,7 @@ newtype Counter
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance TyEq ty (Block (IO CInt)) =>
+instance (~) ty (Block (IO CInt)) =>
          HasField "unwrapCounter" (Ptr Counter) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapCounter")
 instance HasCField Counter "unwrapCounter"
@@ -246,7 +246,7 @@ newtype VarCounter
       -}
     deriving stock Generic
     deriving newtype HasFFIType
-instance TyEq ty (Block (CInt -> IO CInt)) =>
+instance (~) ty (Block (CInt -> IO CInt)) =>
          HasField "unwrapVarCounter" (Ptr VarCounter) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapVarCounter")
 instance HasCField VarCounter "unwrapVarCounter"

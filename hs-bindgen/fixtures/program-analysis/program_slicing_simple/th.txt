@@ -40,23 +40,23 @@ newtype Uint32_t
 
            __exported by:__ @program-analysis\/program_slicing_simple.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CUInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CUInt =>
          HasField "unwrapUint32_t" (Ptr Uint32_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapUint32_t")
 instance HasCField Uint32_t "unwrapUint32_t"
@@ -89,7 +89,7 @@ data Foo
 
            __exported by:__ @program-analysis\/program_slicing_simple.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance Storable Foo
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
@@ -100,13 +100,13 @@ instance Storable Foo
 instance HasCField Foo "foo_sixty_four"
     where type CFieldType Foo "foo_sixty_four" = Foreign.Word64
           offset# = \_ -> \_ -> 0
-instance TyEq ty Foreign.Word64 =>
+instance (~) ty Foreign.Word64 =>
          HasField "foo_sixty_four" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_sixty_four")
 instance HasCField Foo "foo_thirty_two"
     where type CFieldType Foo "foo_thirty_two" = Uint32_t
           offset# = \_ -> \_ -> 8
-instance TyEq ty Uint32_t =>
+instance (~) ty Uint32_t =>
          HasField "foo_thirty_two" (Ptr Foo) (Ptr ty)
     where getField = fromPtr (Proxy @"foo_thirty_two")
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@

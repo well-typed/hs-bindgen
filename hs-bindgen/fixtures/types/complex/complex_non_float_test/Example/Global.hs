@@ -1,18 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global where
 
-import qualified Data.Complex
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/complex/complex_non_float_test.h>"
@@ -50,12 +43,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short@
 foreign import ccall unsafe "hs_bindgen_f3018b1e87470bdd" hs_bindgen_f3018b1e87470bdd_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short@
-hs_bindgen_f3018b1e87470bdd :: IO (Ptr.Ptr (Data.Complex.Complex FC.CUShort))
+hs_bindgen_f3018b1e87470bdd :: IO (RIP.Ptr (RIP.Complex RIP.CUShort))
 hs_bindgen_f3018b1e87470bdd =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f3018b1e87470bdd_base
+  RIP.fromFFIType hs_bindgen_f3018b1e87470bdd_base
 
 {-# NOINLINE global_complex_unsigned_short #-}
 {-| __C declaration:__ @global_complex_unsigned_short@
@@ -64,18 +57,18 @@ hs_bindgen_f3018b1e87470bdd =
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
-global_complex_unsigned_short :: Ptr.Ptr (Data.Complex.Complex FC.CUShort)
+global_complex_unsigned_short :: RIP.Ptr (RIP.Complex RIP.CUShort)
 global_complex_unsigned_short =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f3018b1e87470bdd
+  RIP.unsafePerformIO hs_bindgen_f3018b1e87470bdd
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short@
 foreign import ccall unsafe "hs_bindgen_a553be84170a3efa" hs_bindgen_a553be84170a3efa_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short@
-hs_bindgen_a553be84170a3efa :: IO (Ptr.Ptr (Data.Complex.Complex FC.CShort))
+hs_bindgen_a553be84170a3efa :: IO (RIP.Ptr (RIP.Complex RIP.CShort))
 hs_bindgen_a553be84170a3efa =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a553be84170a3efa_base
+  RIP.fromFFIType hs_bindgen_a553be84170a3efa_base
 
 {-# NOINLINE global_complex_short #-}
 {-| __C declaration:__ @global_complex_short@
@@ -84,18 +77,18 @@ hs_bindgen_a553be84170a3efa =
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
-global_complex_short :: Ptr.Ptr (Data.Complex.Complex FC.CShort)
+global_complex_short :: RIP.Ptr (RIP.Complex RIP.CShort)
 global_complex_short =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a553be84170a3efa
+  RIP.unsafePerformIO hs_bindgen_a553be84170a3efa
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int@
 foreign import ccall unsafe "hs_bindgen_072fc08ef6d9395a" hs_bindgen_072fc08ef6d9395a_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int@
-hs_bindgen_072fc08ef6d9395a :: IO (Ptr.Ptr (Data.Complex.Complex FC.CUInt))
+hs_bindgen_072fc08ef6d9395a :: IO (RIP.Ptr (RIP.Complex RIP.CUInt))
 hs_bindgen_072fc08ef6d9395a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_072fc08ef6d9395a_base
+  RIP.fromFFIType hs_bindgen_072fc08ef6d9395a_base
 
 {-# NOINLINE global_complex_unsigned_int #-}
 {-| __C declaration:__ @global_complex_unsigned_int@
@@ -104,18 +97,18 @@ hs_bindgen_072fc08ef6d9395a =
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
-global_complex_unsigned_int :: Ptr.Ptr (Data.Complex.Complex FC.CUInt)
+global_complex_unsigned_int :: RIP.Ptr (RIP.Complex RIP.CUInt)
 global_complex_unsigned_int =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_072fc08ef6d9395a
+  RIP.unsafePerformIO hs_bindgen_072fc08ef6d9395a
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int@
 foreign import ccall unsafe "hs_bindgen_1199a9d54fe334cb" hs_bindgen_1199a9d54fe334cb_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int@
-hs_bindgen_1199a9d54fe334cb :: IO (Ptr.Ptr (Data.Complex.Complex FC.CInt))
+hs_bindgen_1199a9d54fe334cb :: IO (RIP.Ptr (RIP.Complex RIP.CInt))
 hs_bindgen_1199a9d54fe334cb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1199a9d54fe334cb_base
+  RIP.fromFFIType hs_bindgen_1199a9d54fe334cb_base
 
 {-# NOINLINE global_complex_int #-}
 {-| __C declaration:__ @global_complex_int@
@@ -124,18 +117,18 @@ hs_bindgen_1199a9d54fe334cb =
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
-global_complex_int :: Ptr.Ptr (Data.Complex.Complex FC.CInt)
+global_complex_int :: RIP.Ptr (RIP.Complex RIP.CInt)
 global_complex_int =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1199a9d54fe334cb
+  RIP.unsafePerformIO hs_bindgen_1199a9d54fe334cb
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char@
 foreign import ccall unsafe "hs_bindgen_7c8cb41a7febc6fc" hs_bindgen_7c8cb41a7febc6fc_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char@
-hs_bindgen_7c8cb41a7febc6fc :: IO (Ptr.Ptr (Data.Complex.Complex FC.CChar))
+hs_bindgen_7c8cb41a7febc6fc :: IO (RIP.Ptr (RIP.Complex RIP.CChar))
 hs_bindgen_7c8cb41a7febc6fc =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7c8cb41a7febc6fc_base
+  RIP.fromFFIType hs_bindgen_7c8cb41a7febc6fc_base
 
 {-# NOINLINE global_complex_char #-}
 {-| __C declaration:__ @global_complex_char@
@@ -144,6 +137,6 @@ hs_bindgen_7c8cb41a7febc6fc =
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
-global_complex_char :: Ptr.Ptr (Data.Complex.Complex FC.CChar)
+global_complex_char :: RIP.Ptr (RIP.Complex RIP.CChar)
 global_complex_char =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7c8cb41a7febc6fc
+  RIP.unsafePerformIO hs_bindgen_7c8cb41a7febc6fc

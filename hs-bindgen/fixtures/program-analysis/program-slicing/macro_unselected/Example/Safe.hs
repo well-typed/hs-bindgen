@@ -1,15 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified GHC.Int
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program-slicing/macro_unselected.h>"
@@ -29,7 +26,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_27fdf7030b0bb40d" hs_bindgen_27fdf7030b0bb40d_base ::
-     GHC.Int.Int32
+     RIP.Int32
   -> IO ()
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
@@ -37,7 +34,7 @@ hs_bindgen_27fdf7030b0bb40d ::
      T
   -> IO ()
 hs_bindgen_27fdf7030b0bb40d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_27fdf7030b0bb40d_base
+  RIP.fromFFIType hs_bindgen_27fdf7030b0bb40d_base
 
 {-| __C declaration:__ @foo@
 
@@ -53,7 +50,7 @@ foo = hs_bindgen_27fdf7030b0bb40d
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_ef8f97cf27661c20" hs_bindgen_ef8f97cf27661c20_base ::
-     GHC.Int.Int32
+     RIP.Int32
   -> IO ()
 
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
@@ -61,7 +58,7 @@ hs_bindgen_ef8f97cf27661c20 ::
      U
   -> IO ()
 hs_bindgen_ef8f97cf27661c20 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ef8f97cf27661c20_base
+  RIP.fromFFIType hs_bindgen_ef8f97cf27661c20_base
 
 {-| __C declaration:__ @bar@
 

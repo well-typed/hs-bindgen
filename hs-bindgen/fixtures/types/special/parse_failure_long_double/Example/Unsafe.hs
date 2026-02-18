@@ -1,15 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
@@ -23,15 +19,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa44e36b_base ::
-     GHC.Int.Int32
+     RIP.Int32
   -> IO ()
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 hs_bindgen_61793546aa44e36b ::
-     FC.CInt
+     RIP.CInt
   -> IO ()
 hs_bindgen_61793546aa44e36b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_61793546aa44e36b_base
+  RIP.fromFFIType hs_bindgen_61793546aa44e36b_base
 
 {-| __C declaration:__ @fun2@
 
@@ -40,6 +36,6 @@ hs_bindgen_61793546aa44e36b =
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
 fun2 ::
-     FC.CInt
+     RIP.CInt
   -> IO ()
 fun2 = hs_bindgen_61793546aa44e36b

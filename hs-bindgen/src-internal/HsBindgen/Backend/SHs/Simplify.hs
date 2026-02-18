@@ -11,6 +11,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -45,7 +46,7 @@ reconstruct simpleInstances = map aux
 
     instancesFor ::
          Hs.Name 'Hs.NsTypeConstr
-      -> [(Strategy ClosedType, [Global])]
+      -> [(Strategy ClosedType, [Inst.TypeClass])]
     instancesFor =
           maybe [] fromSimpleInstances
         . flip Map.lookup simpleInstances
@@ -58,12 +59,12 @@ reconstruct simpleInstances = map aux
 --
 -- We group these per strategy, so that we can generate the most readable code.
 data SimpleInstances = SimpleInstances{
-      strategyStock   :: Set Global
-    , strategyNewtype :: Set Global
+      strategyStock   :: Set Inst.TypeClass
+    , strategyNewtype :: Set Inst.TypeClass
     }
   deriving stock (Show)
 
-fromSimpleInstances :: SimpleInstances -> [(Strategy ClosedType, [Global])]
+fromSimpleInstances :: SimpleInstances -> [(Strategy ClosedType, [Inst.TypeClass])]
 fromSimpleInstances instances =
     filter (not . null . snd) $ [
         (DeriveStock   , Set.toList instances.strategyStock)
@@ -87,9 +88,9 @@ instance Monoid SimpleInstances where
 
 toSimpleInstances :: SDecl -> Maybe (Hs.Name Hs.NsTypeConstr, SimpleInstances)
 toSimpleInstances = \case
-    DDerivingInstance (DerivingInstance DeriveStock (TApp (TGlobal cls) (TCon name)) _) ->
+    DDerivingInstance (DerivingInstance DeriveStock (TApp (TClass cls) (TCon name)) _) ->
       Just (name, mempty{strategyStock = Set.singleton cls})
-    DDerivingInstance (DerivingInstance DeriveNewtype (TApp (TGlobal cls) (TCon name)) _)->
+    DDerivingInstance (DerivingInstance DeriveNewtype (TApp (TClass cls) (TCon name)) _)->
       Just (name, mempty{strategyNewtype = Set.singleton cls})
     _otherwise
       -> Nothing

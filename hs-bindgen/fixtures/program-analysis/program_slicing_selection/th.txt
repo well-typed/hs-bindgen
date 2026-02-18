@@ -49,7 +49,7 @@ newtype FileOperationStatus
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize FileOperationStatus
     where staticSizeOf = \_ -> 4 :: Int
@@ -80,7 +80,7 @@ instance Read FileOperationStatus
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "unwrapFileOperationStatus"
                   (Ptr FileOperationStatus)
                   (Ptr ty)
@@ -200,7 +200,7 @@ data FileOperationRecord
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize FileOperationRecord
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -215,7 +215,7 @@ instance HasCField FileOperationRecord "fileOperationRecord_status"
     where type CFieldType FileOperationRecord
                           "fileOperationRecord_status" = FileOperationStatus
           offset# = \_ -> \_ -> 0
-instance TyEq ty FileOperationStatus =>
+instance (~) ty FileOperationStatus =>
          HasField "fileOperationRecord_status"
                   (Ptr FileOperationRecord)
                   (Ptr ty)
@@ -225,7 +225,7 @@ instance HasCField FileOperationRecord
     where type CFieldType FileOperationRecord
                           "fileOperationRecord_bytes_processed" = HsBindgen.Runtime.LibC.CSize
           offset# = \_ -> \_ -> 8
-instance TyEq ty HsBindgen.Runtime.LibC.CSize =>
+instance (~) ty HsBindgen.Runtime.LibC.CSize =>
          HasField "fileOperationRecord_bytes_processed"
                   (Ptr FileOperationRecord)
                   (Ptr ty)

@@ -1,9 +1,8 @@
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 
 module Example where
 
-import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 {-| __C declaration:__ @TOPLEVEL_ANON_A@
 
@@ -11,7 +10,7 @@ import qualified Foreign.C as FC
 
     __exported by:__ @types\/enums\/anon_enum_toplevel.h@
 -}
-pattern TOPLEVEL_ANON_A :: FC.CUInt
+pattern TOPLEVEL_ANON_A :: RIP.CUInt
 pattern TOPLEVEL_ANON_A = 0
 
 {-| __C declaration:__ @TOPLEVEL_ANON_B@
@@ -20,7 +19,7 @@ pattern TOPLEVEL_ANON_A = 0
 
     __exported by:__ @types\/enums\/anon_enum_toplevel.h@
 -}
-pattern TOPLEVEL_ANON_B :: FC.CUInt
+pattern TOPLEVEL_ANON_B :: RIP.CUInt
 pattern TOPLEVEL_ANON_B = 1
 
 {-| __C declaration:__ @TOPLEVEL_ANON_C@
@@ -29,5 +28,5 @@ pattern TOPLEVEL_ANON_B = 1
 
     __exported by:__ @types\/enums\/anon_enum_toplevel.h@
 -}
-pattern TOPLEVEL_ANON_C :: FC.CUInt
+pattern TOPLEVEL_ANON_C :: RIP.CUInt
 pattern TOPLEVEL_ANON_C = 100

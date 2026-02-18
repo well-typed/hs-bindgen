@@ -1,19 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Word
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/iterator.h>"
@@ -77,15 +70,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66206_base ::
-     GHC.Word.Word8
-  -> IO (Ptr.Ptr Void)
+     RIP.Word8
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 hs_bindgen_9d01035006b66206 ::
-     FC.CBool
+     RIP.CBool
   -> IO Toggle
 hs_bindgen_9d01035006b66206 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9d01035006b66206_base
+  RIP.fromFFIType hs_bindgen_9d01035006b66206_base
 
 {-| __C declaration:__ @makeToggle@
 
@@ -94,22 +87,22 @@ hs_bindgen_9d01035006b66206 =
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeToggle ::
-     FC.CBool
+     RIP.CBool
      -- ^ __C declaration:__ @start@
   -> IO Toggle
 makeToggle = hs_bindgen_9d01035006b66206
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" hs_bindgen_ccd3ba727d0c0cf4_base ::
-     Ptr.Ptr Void
-  -> IO GHC.Word.Word8
+     RIP.Ptr RIP.Void
+  -> IO RIP.Word8
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 hs_bindgen_ccd3ba727d0c0cf4 ::
      Toggle
-  -> IO FC.CBool
+  -> IO RIP.CBool
 hs_bindgen_ccd3ba727d0c0cf4 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ccd3ba727d0c0cf4_base
+  RIP.fromFFIType hs_bindgen_ccd3ba727d0c0cf4_base
 
 {-| __C declaration:__ @toggleNext@
 
@@ -120,12 +113,12 @@ hs_bindgen_ccd3ba727d0c0cf4 =
 toggleNext ::
      Toggle
      -- ^ __C declaration:__ @block@
-  -> IO FC.CBool
+  -> IO RIP.CBool
 toggleNext = hs_bindgen_ccd3ba727d0c0cf4
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseToggle@
 foreign import ccall safe "hs_bindgen_602b40e971b06c72" hs_bindgen_602b40e971b06c72_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseToggle@
@@ -133,7 +126,7 @@ hs_bindgen_602b40e971b06c72 ::
      Toggle
   -> IO ()
 hs_bindgen_602b40e971b06c72 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_602b40e971b06c72_base
+  RIP.fromFFIType hs_bindgen_602b40e971b06c72_base
 
 {-| __C declaration:__ @releaseToggle@
 
@@ -149,17 +142,17 @@ releaseToggle = hs_bindgen_602b40e971b06c72
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
 foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" hs_bindgen_234fa6f1fb089e1d_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
-  -> IO (Ptr.Ptr Void)
+     RIP.Int32
+  -> RIP.Int32
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
 hs_bindgen_234fa6f1fb089e1d ::
-     FC.CInt
-  -> FC.CInt
+     RIP.CInt
+  -> RIP.CInt
   -> IO Counter
 hs_bindgen_234fa6f1fb089e1d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_234fa6f1fb089e1d_base
+  RIP.fromFFIType hs_bindgen_234fa6f1fb089e1d_base
 
 {-| __C declaration:__ @makeCounter@
 
@@ -168,24 +161,24 @@ hs_bindgen_234fa6f1fb089e1d =
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeCounter ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @start@
-  -> FC.CInt
+  -> RIP.CInt
      -- ^ __C declaration:__ @increment@
   -> IO Counter
 makeCounter = hs_bindgen_234fa6f1fb089e1d
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" hs_bindgen_f0fca62d78f225c3_base ::
-     Ptr.Ptr Void
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> IO RIP.Int32
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 hs_bindgen_f0fca62d78f225c3 ::
      Counter
-  -> IO FC.CInt
+  -> IO RIP.CInt
 hs_bindgen_f0fca62d78f225c3 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f0fca62d78f225c3_base
+  RIP.fromFFIType hs_bindgen_f0fca62d78f225c3_base
 
 {-| __C declaration:__ @counterNext@
 
@@ -196,12 +189,12 @@ hs_bindgen_f0fca62d78f225c3 =
 counterNext ::
      Counter
      -- ^ __C declaration:__ @block@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 counterNext = hs_bindgen_f0fca62d78f225c3
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseCounter@
 foreign import ccall safe "hs_bindgen_e42dcbee8a114957" hs_bindgen_e42dcbee8a114957_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseCounter@
@@ -209,7 +202,7 @@ hs_bindgen_e42dcbee8a114957 ::
      Counter
   -> IO ()
 hs_bindgen_e42dcbee8a114957 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e42dcbee8a114957_base
+  RIP.fromFFIType hs_bindgen_e42dcbee8a114957_base
 
 {-| __C declaration:__ @releaseCounter@
 
@@ -225,15 +218,15 @@ releaseCounter = hs_bindgen_e42dcbee8a114957
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
 foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" hs_bindgen_2bee4eb5b4d895c1_base ::
-     GHC.Int.Int32
-  -> IO (Ptr.Ptr Void)
+     RIP.Int32
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
 hs_bindgen_2bee4eb5b4d895c1 ::
-     FC.CInt
+     RIP.CInt
   -> IO VarCounter
 hs_bindgen_2bee4eb5b4d895c1 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2bee4eb5b4d895c1_base
+  RIP.fromFFIType hs_bindgen_2bee4eb5b4d895c1_base
 
 {-| __C declaration:__ @makeVarCounter@
 
@@ -242,24 +235,24 @@ hs_bindgen_2bee4eb5b4d895c1 =
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeVarCounter ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @start@
   -> IO VarCounter
 makeVarCounter = hs_bindgen_2bee4eb5b4d895c1
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 foreign import ccall safe "hs_bindgen_276b9cb5320fec37" hs_bindgen_276b9cb5320fec37_base ::
-     Ptr.Ptr Void
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 hs_bindgen_276b9cb5320fec37 ::
      VarCounter
-  -> FC.CInt
-  -> IO FC.CInt
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_276b9cb5320fec37 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_276b9cb5320fec37_base
+  RIP.fromFFIType hs_bindgen_276b9cb5320fec37_base
 
 {-| __C declaration:__ @varCounterNext@
 
@@ -270,14 +263,14 @@ hs_bindgen_276b9cb5320fec37 =
 varCounterNext ::
      VarCounter
      -- ^ __C declaration:__ @block@
-  -> FC.CInt
+  -> RIP.CInt
      -- ^ __C declaration:__ @increment@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 varCounterNext = hs_bindgen_276b9cb5320fec37
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseVarCounter@
 foreign import ccall safe "hs_bindgen_8423b076f7c9df21" hs_bindgen_8423b076f7c9df21_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_releaseVarCounter@
@@ -285,7 +278,7 @@ hs_bindgen_8423b076f7c9df21 ::
      VarCounter
   -> IO ()
 hs_bindgen_8423b076f7c9df21 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8423b076f7c9df21_base
+  RIP.fromFFIType hs_bindgen_8423b076f7c9df21_base
 
 {-| __C declaration:__ @releaseVarCounter@
 

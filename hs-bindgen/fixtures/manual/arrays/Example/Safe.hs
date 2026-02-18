@@ -1,17 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/arrays.h>"
@@ -32,17 +28,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d25362b_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
 hs_bindgen_cba7011c6d25362b ::
-     HsBindgen.Runtime.PtrConst.PtrConst Matrix
-  -> Ptr.Ptr Matrix
+     PtrConst.PtrConst Matrix
+  -> RIP.Ptr Matrix
   -> IO ()
 hs_bindgen_cba7011c6d25362b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cba7011c6d25362b_base
+  RIP.fromFFIType hs_bindgen_cba7011c6d25362b_base
 
 {-| __C declaration:__ @transpose@
 
@@ -51,24 +47,24 @@ hs_bindgen_cba7011c6d25362b =
     __exported by:__ @manual\/arrays.h@
 -}
 transpose ::
-     HsBindgen.Runtime.PtrConst.PtrConst Matrix
+     PtrConst.PtrConst Matrix
      -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Matrix
+  -> RIP.Ptr Matrix
      -- ^ __C declaration:__ @output@
   -> IO ()
 transpose = hs_bindgen_cba7011c6d25362b
 
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c626a_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 hs_bindgen_45d15697a99c626a ::
-     Ptr.Ptr Triplet_ptrs
+     RIP.Ptr Triplet_ptrs
   -> IO ()
 hs_bindgen_45d15697a99c626a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_45d15697a99c626a_base
+  RIP.fromFFIType hs_bindgen_45d15697a99c626a_base
 
 {-| A function that prints the given triplet_ptrs
 
@@ -79,7 +75,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 __exported by:__ @manual\/arrays.h@
 -}
 pretty_print_triplets ::
-     Ptr.Ptr Triplet_ptrs
+     RIP.Ptr Triplet_ptrs
      -- ^ __C declaration:__ @x@
   -> IO ()
 pretty_print_triplets = hs_bindgen_45d15697a99c626a

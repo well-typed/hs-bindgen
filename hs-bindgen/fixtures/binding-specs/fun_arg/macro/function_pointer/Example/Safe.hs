@@ -1,16 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/macro/function_pointer.h>"
@@ -36,7 +32,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_40e15e86e5db36ce" hs_bindgen_40e15e86e5db36ce_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_foo@
@@ -44,7 +40,7 @@ hs_bindgen_40e15e86e5db36ce ::
      MyFunctionPointer
   -> IO ()
 hs_bindgen_40e15e86e5db36ce =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_40e15e86e5db36ce_base
+  RIP.fromFFIType hs_bindgen_40e15e86e5db36ce_base
 
 {-| __C declaration:__ @foo@
 
@@ -60,7 +56,7 @@ foo = hs_bindgen_40e15e86e5db36ce
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_e13a57fd1d27f6e6" hs_bindgen_e13a57fd1d27f6e6_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
@@ -68,7 +64,7 @@ hs_bindgen_e13a57fd1d27f6e6 ::
      A
   -> IO ()
 hs_bindgen_e13a57fd1d27f6e6 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e13a57fd1d27f6e6_base
+  RIP.fromFFIType hs_bindgen_e13a57fd1d27f6e6_base
 
 {-| __C declaration:__ @fooA@
 
@@ -84,7 +80,7 @@ fooA = hs_bindgen_e13a57fd1d27f6e6
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_fd490df5087893ae" hs_bindgen_fd490df5087893ae_base ::
-     Ptr.FunPtr Void
+     RIP.FunPtr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
@@ -92,7 +88,7 @@ hs_bindgen_fd490df5087893ae ::
      B
   -> IO ()
 hs_bindgen_fd490df5087893ae =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fd490df5087893ae_base
+  RIP.fromFFIType hs_bindgen_fd490df5087893ae_base
 
 {-| __C declaration:__ @fooB@
 

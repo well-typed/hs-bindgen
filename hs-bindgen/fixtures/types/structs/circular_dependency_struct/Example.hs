@@ -5,7 +5,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -14,15 +13,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), Eq, Int, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct b@
 
@@ -31,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
     __exported by:__ @types\/structs\/circular_dependency_struct.h@
 -}
 data B = B
-  { b_toA :: Ptr.Ptr A
+  { b_toA :: RIP.Ptr A
     {- ^ __C declaration:__ @toA@
 
          __defined at:__ @types\/structs\/circular_dependency_struct.h 4:13@
@@ -39,43 +32,42 @@ data B = B
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize B where
+instance Marshal.StaticSize B where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw B where
+instance Marshal.ReadRaw B where
 
   readRaw =
     \ptr0 ->
           pure B
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"b_toA") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"b_toA") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw B where
+instance Marshal.WriteRaw B where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           B b_toA2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"b_toA") ptr0 b_toA2
+            HasCField.writeRaw (RIP.Proxy @"b_toA") ptr0 b_toA2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable B instance F.Storable B
+deriving via Marshal.EquivStorable B instance RIP.Storable B
 
-instance HsBindgen.Runtime.HasCField.HasCField B "b_toA" where
+instance HasCField.HasCField B "b_toA" where
 
-  type CFieldType B "b_toA" = Ptr.Ptr A
+  type CFieldType B "b_toA" = RIP.Ptr A
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty (Ptr.Ptr A)
-         ) => GHC.Records.HasField "b_toA" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.Ptr A)
+         ) => RIP.HasField "b_toA" (RIP.Ptr B) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"b_toA")
+  getField = HasCField.fromPtr (RIP.Proxy @"b_toA")
 
 {-| __C declaration:__ @struct a@
 
@@ -92,40 +84,38 @@ data A = A
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize A where
+instance Marshal.StaticSize A where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw A where
+instance Marshal.ReadRaw A where
 
   readRaw =
     \ptr0 ->
           pure A
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"a_toB") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"a_toB") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw A where
+instance Marshal.WriteRaw A where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           A a_toB2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"a_toB") ptr0 a_toB2
+            HasCField.writeRaw (RIP.Proxy @"a_toB") ptr0 a_toB2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable A instance F.Storable A
+deriving via Marshal.EquivStorable A instance RIP.Storable A
 
-instance HsBindgen.Runtime.HasCField.HasCField A "a_toB" where
+instance HasCField.HasCField A "a_toB" where
 
   type CFieldType A "a_toB" = B
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty B
-         ) => GHC.Records.HasField "a_toB" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance (((~) ty) B) => RIP.HasField "a_toB" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"a_toB")
+  getField = HasCField.fromPtr (RIP.Proxy @"a_toB")

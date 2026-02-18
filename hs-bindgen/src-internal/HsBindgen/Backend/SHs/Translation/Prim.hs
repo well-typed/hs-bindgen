@@ -6,16 +6,19 @@ module HsBindgen.Backend.SHs.Translation.Prim (
     translatePrimInstance
   ) where
 
+import Data.Bifunctor (Bifunctor (..))
 import Data.Vec.Lazy (Vec (..))
 import DeBruijn (S, Weaken (..), Wk (..), wk1)
 import DeBruijn.Add (Add (..))
 import DeBruijn.Idx
 
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation.Common
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
@@ -29,12 +32,12 @@ translatePrimInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translatePrimInstance struct inst mbComment = Instance{
-      clss    = Prim_class
+      clss    = Inst.Prim
     , args    = [TCon struct.name]
     , super   = []
     , types   = []
     , comment = mbComment
-    , decs    = [
+    , decs    = map (first bindgenGlobalTerm) [
           (Prim_sizeOf#         , EUnusedLam $ EUnboxedIntegral (toInteger inst.sizeOf))
         , (Prim_alignment#      , EUnusedLam $ EUnboxedIntegral (toInteger inst.alignment))
         , (Prim_indexByteArray# , indexBA)
@@ -136,7 +139,7 @@ translateReadOffAddrFields struct (Hs.ReadOffAddrFields rd) =
 --
 -- For an empty struct (no fields), generates:
 -- > (# state, EmptyStruct #)
-buildNestedReads :: forall n ctx. Hs.Struct n -> Global -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int)] -> [Idx ctx] -> Int -> SExpr ctx
+buildNestedReads :: forall n ctx. Hs.Struct n -> BindgenGlobalTerm -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int)] -> [Idx ctx] -> Int -> SExpr ctx
 buildNestedReads struct _ _ _ stateIdx [] _ _ =
   -- Empty struct: just return (# state, EmptyStruct #)
   -- No memory reads needed since there's no data to read
@@ -282,7 +285,7 @@ translateWriteOffAddrFields (Hs.WriteOffAddrFields wr) =
 --
 -- For an empty struct (no fields), generates:
 -- > state
-buildSequentialWrites :: forall ctx. Global -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int, Idx ctx)] -> Int -> SExpr ctx
+buildSequentialWrites :: forall ctx. BindgenGlobalTerm -> Idx ctx -> Idx ctx -> Idx ctx -> [(HsType, Int, Idx ctx)] -> Int -> SExpr ctx
 buildSequentialWrites _ _ _ stateIdx [] _ =
   -- Empty struct: just return the state unchanged
   -- No memory writes needed since there's no data to write
@@ -363,6 +366,8 @@ computeIndex elemIdx fieldPos numFields =
     let numFieldsExpr = EUnboxedIntegral (toInteger numFields)
         fieldPosExpr  = EUnboxedIntegral (toInteger fieldPos)
         elemIdxExpr   = EBound elemIdx
-    in if numFields == 1
-       then elemIdxExpr  -- Optimization: if single field, just use element index
-       else appMany Prim_add# [appMany Prim_mul# [numFieldsExpr, elemIdxExpr], fieldPosExpr]
+    in if numFields == 1 then
+         elemIdxExpr  -- Optimization: if single field, just use element index
+       else
+         appMany Prim_add#
+           [appMany Prim_mul# [numFieldsExpr, elemIdxExpr], fieldPosExpr]

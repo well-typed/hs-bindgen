@@ -42,7 +42,7 @@ data S
 
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -55,7 +55,7 @@ deriving via (EquivStorable S) instance Storable S
 instance HasCField S "s_x"
     where type CFieldType S "s_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
+instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"s_x")
 {-| __C declaration:__ @T@
 
@@ -71,9 +71,9 @@ newtype T
 
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty S => HasField "unwrapT" (Ptr T) (Ptr ty)
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty S => HasField "unwrapT" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapT")
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = S

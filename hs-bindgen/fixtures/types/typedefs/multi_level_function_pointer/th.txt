@@ -39,7 +39,7 @@ instance ToFunPtr F1_Aux
     where toFunPtr = hs_bindgen_00d16e666202ed6c
 instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
-instance TyEq ty (CInt -> CInt -> IO Unit) =>
+instance (~) ty (CInt -> CInt -> IO Unit) =>
          HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF1_Aux")
 instance HasCField F1_Aux "unwrapF1_Aux"
@@ -60,13 +60,13 @@ newtype F1
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (FunPtr F1_Aux) =>
+                      WriteRaw)
+instance (~) ty (FunPtr F1_Aux) =>
          HasField "unwrapF1" (Ptr F1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF1")
 instance HasCField F1 "unwrapF1"
@@ -112,7 +112,7 @@ instance ToFunPtr F2_Aux
     where toFunPtr = hs_bindgen_c39d7524b75b54e8
 instance FromFunPtr F2_Aux
     where fromFunPtr = hs_bindgen_e15bcd26f1ed1df7
-instance TyEq ty (CInt -> CInt -> IO Unit) =>
+instance (~) ty (CInt -> CInt -> IO Unit) =>
          HasField "unwrapF2_Aux" (Ptr F2_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF2_Aux")
 instance HasCField F2_Aux "unwrapF2_Aux"
@@ -133,13 +133,13 @@ newtype F2
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr (FunPtr F2_Aux)) =>
+                      WriteRaw)
+instance (~) ty (Ptr (FunPtr F2_Aux)) =>
          HasField "unwrapF2" (Ptr F2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF2")
 instance HasCField F2 "unwrapF2"
@@ -185,7 +185,7 @@ instance ToFunPtr F3_Aux
     where toFunPtr = hs_bindgen_4a960721e7d1dcef
 instance FromFunPtr F3_Aux
     where fromFunPtr = hs_bindgen_66460422a7197535
-instance TyEq ty (CInt -> CInt -> IO Unit) =>
+instance (~) ty (CInt -> CInt -> IO Unit) =>
          HasField "unwrapF3_Aux" (Ptr F3_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF3_Aux")
 instance HasCField F3_Aux "unwrapF3_Aux"
@@ -206,13 +206,13 @@ newtype F3
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr (Ptr (FunPtr F3_Aux))) =>
+                      WriteRaw)
+instance (~) ty (Ptr (Ptr (FunPtr F3_Aux))) =>
          HasField "unwrapF3" (Ptr F3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF3")
 instance HasCField F3 "unwrapF3"
@@ -256,7 +256,7 @@ instance ToFunPtr F4_Aux
     where toFunPtr = hs_bindgen_83bcff023b3bc648
 instance FromFunPtr F4_Aux
     where fromFunPtr = hs_bindgen_40f9a8d432b9eb97
-instance TyEq ty (IO CInt) =>
+instance (~) ty (IO CInt) =>
          HasField "unwrapF4_Aux" (Ptr F4_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF4_Aux")
 instance HasCField F4_Aux "unwrapF4_Aux"
@@ -276,13 +276,13 @@ newtype F4
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr (FunPtr F4_Aux)) =>
+                      WriteRaw)
+instance (~) ty (Ptr (FunPtr F4_Aux)) =>
          HasField "unwrapF4" (Ptr F4) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF4")
 instance HasCField F4 "unwrapF4"
@@ -326,7 +326,7 @@ instance ToFunPtr F5_Aux
     where toFunPtr = hs_bindgen_6891cbd81d6f42b9
 instance FromFunPtr F5_Aux
     where fromFunPtr = hs_bindgen_586f6635c057975f
-instance TyEq ty (IO Unit) =>
+instance (~) ty (IO Unit) =>
          HasField "unwrapF5_Aux" (Ptr F5_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF5_Aux")
 instance HasCField F5_Aux "unwrapF5_Aux"
@@ -346,13 +346,13 @@ newtype F5
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr (FunPtr F5_Aux)) =>
+                      WriteRaw)
+instance (~) ty (Ptr (FunPtr F5_Aux)) =>
          HasField "unwrapF5" (Ptr F5) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF5")
 instance HasCField F5 "unwrapF5"
@@ -372,24 +372,23 @@ newtype MyInt
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
-         HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -433,7 +432,7 @@ instance ToFunPtr F6_Aux
     where toFunPtr = hs_bindgen_c1baf73f98614f45
 instance FromFunPtr F6_Aux
     where fromFunPtr = hs_bindgen_a887947b26e58f0c
-instance TyEq ty (MyInt -> IO Unit) =>
+instance (~) ty (MyInt -> IO Unit) =>
          HasField "unwrapF6_Aux" (Ptr F6_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF6_Aux")
 instance HasCField F6_Aux "unwrapF6_Aux"
@@ -453,13 +452,13 @@ newtype F6
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr (FunPtr F6_Aux)) =>
+                      WriteRaw)
+instance (~) ty (Ptr (FunPtr F6_Aux)) =>
          HasField "unwrapF6" (Ptr F6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF6")
 instance HasCField F6 "unwrapF6"

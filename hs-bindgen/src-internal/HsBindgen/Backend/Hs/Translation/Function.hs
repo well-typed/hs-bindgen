@@ -11,6 +11,7 @@ import DeBruijn (Ctx, Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
 import DeBruijn.Add (Add, lzeroAdd, swapAdd, unrzeroAdd)
 import GHC.Records
 
+import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -551,7 +552,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
           -> SHs.SExpr ctx
         go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
         go (xs :> x) (ys :> y) zs = case x.typ of
-            PassByAddress ty' ->  SHs.eAppMany (SHs.EGlobal SHs.Capi_with) $
+            PassByAddress ty' ->  SHs.eAppMany (SHs.eBindgenGlobal Capi_with) $
               let wrapPtrConst = C.isErasedTypeConstQualified ty' in
               [ SHs.EBound y
               , SHs.ELam x.ptrNameHint $
@@ -582,7 +583,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
       | requiresRestore primResult
       = let zs' = fmap succVar zs ++ [Var IZ False] in
         SHs.EApp
-          (SHs.EGlobal SHs.Capi_allocaAndPeek)
+          (SHs.eBindgenGlobal Capi_allocaAndPeek)
           (SHs.ELam "res" $ kont zs')
       | otherwise
       = kont zs
@@ -648,7 +649,7 @@ succVar var = Var {
 exprVar :: Var ctx -> SHs.SExpr ctx
 exprVar var
   | var.wrapPtrConst
-  = SHs.EApp (SHs.EGlobal SHs.PtrConst_unsafeFromPtr) (SHs.EBound var.name)
+  = SHs.EApp (SHs.eBindgenGlobal PtrConst_unsafeFromPtr) (SHs.EBound var.name)
   | otherwise
   = SHs.EBound var.name
 

@@ -1,17 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <attributes/asm.h>"
@@ -25,12 +19,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_variable@
 foreign import ccall unsafe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af1313f88_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_variable@
-hs_bindgen_e637e98af1313f88 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_e637e98af1313f88 :: IO (RIP.Ptr RIP.CInt)
 hs_bindgen_e637e98af1313f88 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e637e98af1313f88_base
+  RIP.fromFFIType hs_bindgen_e637e98af1313f88_base
 
 {-# NOINLINE asm_labeled_variable #-}
 {-| __C declaration:__ @asm_labeled_variable@
@@ -39,6 +33,6 @@ hs_bindgen_e637e98af1313f88 =
 
     __exported by:__ @attributes\/asm.h@
 -}
-asm_labeled_variable :: Ptr.Ptr FC.CInt
+asm_labeled_variable :: RIP.Ptr RIP.CInt
 asm_labeled_variable =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e637e98af1313f88
+  RIP.unsafePerformIO hs_bindgen_e637e98af1313f88

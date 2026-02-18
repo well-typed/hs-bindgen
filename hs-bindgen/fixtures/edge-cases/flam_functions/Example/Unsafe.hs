@@ -1,18 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/flam_functions.h>"
@@ -38,15 +32,15 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
 foreign import ccall unsafe "hs_bindgen_66fe57793f0712c2" hs_bindgen_66fe57793f0712c2_base ::
-     GHC.Int.Int32
-  -> IO (Ptr.Ptr Void)
+     RIP.Int32
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
 hs_bindgen_66fe57793f0712c2 ::
-     FC.CInt
-  -> IO (Ptr.Ptr Vector)
+     RIP.CInt
+  -> IO (RIP.Ptr Vector)
 hs_bindgen_66fe57793f0712c2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_66fe57793f0712c2_base
+  RIP.fromFFIType hs_bindgen_66fe57793f0712c2_base
 
 {-| __C declaration:__ @vector_alloc@
 
@@ -55,22 +49,22 @@ hs_bindgen_66fe57793f0712c2 =
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
 vector_alloc ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @n@
-  -> IO (Ptr.Ptr Vector)
+  -> IO (RIP.Ptr Vector)
 vector_alloc = hs_bindgen_66fe57793f0712c2
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_free@
 foreign import ccall unsafe "hs_bindgen_2fb197c3fb9a75a3" hs_bindgen_2fb197c3fb9a75a3_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_free@
 hs_bindgen_2fb197c3fb9a75a3 ::
-     Ptr.Ptr Vector
+     RIP.Ptr Vector
   -> IO ()
 hs_bindgen_2fb197c3fb9a75a3 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2fb197c3fb9a75a3_base
+  RIP.fromFFIType hs_bindgen_2fb197c3fb9a75a3_base
 
 {-| __C declaration:__ @vector_free@
 
@@ -79,22 +73,22 @@ hs_bindgen_2fb197c3fb9a75a3 =
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
 vector_free ::
-     Ptr.Ptr Vector
+     RIP.Ptr Vector
      -- ^ __C declaration:__ @v@
   -> IO ()
 vector_free = hs_bindgen_2fb197c3fb9a75a3
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_reverse@
 foreign import ccall unsafe "hs_bindgen_c3965610d4826d1a" hs_bindgen_c3965610d4826d1a_base ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
   -> IO ()
 
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_reverse@
 hs_bindgen_c3965610d4826d1a ::
-     Ptr.Ptr Vector
+     RIP.Ptr Vector
   -> IO ()
 hs_bindgen_c3965610d4826d1a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c3965610d4826d1a_base
+  RIP.fromFFIType hs_bindgen_c3965610d4826d1a_base
 
 {-| __C declaration:__ @vector_reverse@
 
@@ -103,7 +97,7 @@ hs_bindgen_c3965610d4826d1a =
     __exported by:__ @edge-cases\/flam_functions.h@
 -}
 vector_reverse ::
-     Ptr.Ptr Vector
+     RIP.Ptr Vector
      -- ^ __C declaration:__ @v@
   -> IO ()
 vector_reverse = hs_bindgen_c3965610d4826d1a

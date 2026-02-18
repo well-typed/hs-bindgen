@@ -42,7 +42,7 @@ data T
 
            __exported by:__ @functions\/heap_types\/struct_const_member.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize T
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -55,7 +55,7 @@ deriving via (EquivStorable T) instance Storable T
 instance HasCField T "t_x"
     where type CFieldType T "t_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
+instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
     where getField = fromPtr (Proxy @"t_x")
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc_base ::

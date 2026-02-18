@@ -17,7 +17,7 @@ data Struct1_t
 
       __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct1_t
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -41,7 +41,7 @@ data Struct2_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct2_t
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -79,7 +79,7 @@ data Struct5
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct5
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -103,13 +103,13 @@ newtype Struct5_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr Struct5) =>
+                      WriteRaw)
+instance (~) ty (Ptr Struct5) =>
          HasField "unwrapStruct5_t" (Ptr Struct5_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct5_t")
 instance HasCField Struct5_t "unwrapStruct5_t"
@@ -129,7 +129,7 @@ data Struct6_Aux
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct6_Aux
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -153,13 +153,13 @@ newtype Struct6
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (Ptr Struct6_Aux) =>
+                      WriteRaw)
+instance (~) ty (Ptr Struct6_Aux) =>
          HasField "unwrapStruct6" (Ptr Struct6) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct6")
 instance HasCField Struct6 "unwrapStruct6"
@@ -179,7 +179,7 @@ data Struct7
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct7
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -203,9 +203,9 @@ newtype Struct7a
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty Struct7 =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct7 =>
          HasField "unwrapStruct7a" (Ptr Struct7a) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7a")
 instance HasCField Struct7a "unwrapStruct7a"
@@ -225,9 +225,9 @@ newtype Struct7b
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty Struct7 =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct7 =>
          HasField "unwrapStruct7b" (Ptr Struct7b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct7b")
 instance HasCField Struct7b "unwrapStruct7b"
@@ -247,7 +247,7 @@ data Struct8
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct8
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -271,9 +271,9 @@ newtype Struct8b
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty Struct8 =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct8 =>
          HasField "unwrapStruct8b" (Ptr Struct8b) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct8b")
 instance HasCField Struct8b "unwrapStruct8b"
@@ -293,7 +293,7 @@ data Struct9
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct9
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -317,9 +317,9 @@ newtype Struct9_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty Struct9 =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct9 =>
          HasField "unwrapStruct9_t" (Ptr Struct9_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct9_t")
 instance HasCField Struct9_t "unwrapStruct9_t"
@@ -339,7 +339,7 @@ data Struct10_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct10_t
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -363,9 +363,9 @@ newtype Struct10_t_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty Struct10_t =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct10_t =>
          HasField "unwrapStruct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct10_t_t")
 instance HasCField Struct10_t_t "unwrapStruct10_t_t"
@@ -399,7 +399,7 @@ data Struct11_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct11_t
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -413,13 +413,13 @@ deriving via (EquivStorable Struct11_t) instance Storable Struct11_t
 instance HasCField Struct11_t "struct11_t_x"
     where type CFieldType Struct11_t "struct11_t_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "struct11_t_x" (Ptr Struct11_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct11_t_x")
 instance HasCField Struct11_t "struct11_t_self"
     where type CFieldType Struct11_t "struct11_t_self" = Ptr Struct11_t
           offset# = \_ -> \_ -> 8
-instance TyEq ty (Ptr Struct11_t) =>
+instance (~) ty (Ptr Struct11_t) =>
          HasField "struct11_t_self" (Ptr Struct11_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct11_t_self")
 {-| __C declaration:__ @struct struct12@
@@ -449,7 +449,7 @@ data Struct12_t
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct12_t
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -463,13 +463,13 @@ deriving via (EquivStorable Struct12_t) instance Storable Struct12_t
 instance HasCField Struct12_t "struct12_t_x"
     where type CFieldType Struct12_t "struct12_t_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "struct12_t_x" (Ptr Struct12_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct12_t_x")
 instance HasCField Struct12_t "struct12_t_self"
     where type CFieldType Struct12_t "struct12_t_self" = Ptr Struct12_t
           offset# = \_ -> \_ -> 8
-instance TyEq ty (Ptr Struct12_t) =>
+instance (~) ty (Ptr Struct12_t) =>
          HasField "struct12_t_self" (Ptr Struct12_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct12_t_self")
 {-| __C declaration:__ @struct use_sites@
@@ -611,7 +611,7 @@ data Use_sites
 
            __exported by:__ @program-analysis\/typedef_analysis.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Use_sites
     where staticSizeOf = \_ -> 64 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -642,112 +642,112 @@ instance HasCField Use_sites "use_sites_useTypedef_struct1_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct1_t" = Struct1_t
           offset# = \_ -> \_ -> 0
-instance TyEq ty Struct1_t =>
+instance (~) ty Struct1_t =>
          HasField "use_sites_useTypedef_struct1_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct1_t")
 instance HasCField Use_sites "use_sites_useTypedef_struct2_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct2_t" = Struct2_t
           offset# = \_ -> \_ -> 0
-instance TyEq ty Struct2_t =>
+instance (~) ty Struct2_t =>
          HasField "use_sites_useTypedef_struct2_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct2_t")
 instance HasCField Use_sites "use_sites_useTypedef_struct3_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct3_t" = Ptr Struct3_t
           offset# = \_ -> \_ -> 0
-instance TyEq ty (Ptr Struct3_t) =>
+instance (~) ty (Ptr Struct3_t) =>
          HasField "use_sites_useTypedef_struct3_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct3_t")
 instance HasCField Use_sites "use_sites_useTypedef_struct4_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct4_t" = Ptr Struct4_t
           offset# = \_ -> \_ -> 8
-instance TyEq ty (Ptr Struct4_t) =>
+instance (~) ty (Ptr Struct4_t) =>
          HasField "use_sites_useTypedef_struct4_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct4_t")
 instance HasCField Use_sites "use_sites_useStruct_struct5"
     where type CFieldType Use_sites
                           "use_sites_useStruct_struct5" = Struct5
           offset# = \_ -> \_ -> 16
-instance TyEq ty Struct5 =>
+instance (~) ty Struct5 =>
          HasField "use_sites_useStruct_struct5" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useStruct_struct5")
 instance HasCField Use_sites "use_sites_useTypedef_struct5_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct5_t" = Struct5_t
           offset# = \_ -> \_ -> 16
-instance TyEq ty Struct5_t =>
+instance (~) ty Struct5_t =>
          HasField "use_sites_useTypedef_struct5_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct5_t")
 instance HasCField Use_sites "use_sites_useStruct_struct6"
     where type CFieldType Use_sites
                           "use_sites_useStruct_struct6" = Struct6_Aux
           offset# = \_ -> \_ -> 24
-instance TyEq ty Struct6_Aux =>
+instance (~) ty Struct6_Aux =>
          HasField "use_sites_useStruct_struct6" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useStruct_struct6")
 instance HasCField Use_sites "use_sites_useTypedef_struct6"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct6" = Struct6
           offset# = \_ -> \_ -> 24
-instance TyEq ty Struct6 =>
+instance (~) ty Struct6 =>
          HasField "use_sites_useTypedef_struct6" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct6")
 instance HasCField Use_sites "use_sites_useTypedef_struct7a"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct7a" = Struct7a
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct7a =>
+instance (~) ty Struct7a =>
          HasField "use_sites_useTypedef_struct7a" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct7a")
 instance HasCField Use_sites "use_sites_useTypedef_struct7b"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct7b" = Struct7b
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct7b =>
+instance (~) ty Struct7b =>
          HasField "use_sites_useTypedef_struct7b" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct7b")
 instance HasCField Use_sites "use_sites_useTypedef_struct8"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct8" = Struct8
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct8 =>
+instance (~) ty Struct8 =>
          HasField "use_sites_useTypedef_struct8" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct8")
 instance HasCField Use_sites "use_sites_useTypedef_struct8b"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct8b" = Struct8b
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct8b =>
+instance (~) ty Struct8b =>
          HasField "use_sites_useTypedef_struct8b" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct8b")
 instance HasCField Use_sites "use_sites_useTypedef_struct9"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct9" = Struct9
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct9 =>
+instance (~) ty Struct9 =>
          HasField "use_sites_useTypedef_struct9" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct9")
 instance HasCField Use_sites "use_sites_useTypedef_struct9_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct9_t" = Struct9_t
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct9_t =>
+instance (~) ty Struct9_t =>
          HasField "use_sites_useTypedef_struct9_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct9_t")
 instance HasCField Use_sites "use_sites_useTypedef_struct10_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct10_t" = Struct10_t
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct10_t =>
+instance (~) ty Struct10_t =>
          HasField "use_sites_useTypedef_struct10_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct10_t")
 instance HasCField Use_sites "use_sites_useTypedef_struct10_t_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct10_t_t" = Struct10_t_t
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct10_t_t =>
+instance (~) ty Struct10_t_t =>
          HasField "use_sites_useTypedef_struct10_t_t"
                   (Ptr Use_sites)
                   (Ptr ty)
@@ -756,13 +756,13 @@ instance HasCField Use_sites "use_sites_useTypedef_struct11_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct11_t" = Struct11_t
           offset# = \_ -> \_ -> 32
-instance TyEq ty Struct11_t =>
+instance (~) ty Struct11_t =>
          HasField "use_sites_useTypedef_struct11_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct11_t")
 instance HasCField Use_sites "use_sites_useTypedef_struct12_t"
     where type CFieldType Use_sites
                           "use_sites_useTypedef_struct12_t" = Struct12_t
           offset# = \_ -> \_ -> 48
-instance TyEq ty Struct12_t =>
+instance (~) ty Struct12_t =>
          HasField "use_sites_useTypedef_struct12_t" (Ptr Use_sites) (Ptr ty)
     where getField = fromPtr (Proxy @"use_sites_useTypedef_struct12_t")

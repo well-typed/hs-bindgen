@@ -1,19 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Word
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
@@ -28,17 +22,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676ee72_base ::
-     Ptr.Ptr Void
-  -> GHC.Word.Word64
-  -> IO GHC.Word.Word8
+     RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO RIP.Word8
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 hs_bindgen_32187cc02676ee72 ::
-     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
+     RIP.Ptr (PtrConst.PtrConst RIP.CChar)
   -> HsBindgen.Runtime.LibC.CSize
-  -> IO FC.CBool
+  -> IO RIP.CBool
 hs_bindgen_32187cc02676ee72 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_32187cc02676ee72_base
+  RIP.fromFFIType hs_bindgen_32187cc02676ee72_base
 
 {-| __C declaration:__ @list_example@
 
@@ -47,9 +41,9 @@ hs_bindgen_32187cc02676ee72 =
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 list_example ::
-     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
+     RIP.Ptr (PtrConst.PtrConst RIP.CChar)
      -- ^ __C declaration:__ @items@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @count@
-  -> IO FC.CBool
+  -> IO RIP.CBool
 list_example = hs_bindgen_32187cc02676ee72

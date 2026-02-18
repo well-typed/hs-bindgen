@@ -1,18 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
 import qualified Foreign
-import qualified Foreign.C as FC
-import qualified GHC.Int
-import qualified GHC.Word
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program_slicing_simple.h>"
@@ -27,17 +22,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
-     GHC.Word.Word64
-  -> GHC.Word.Word32
-  -> IO GHC.Int.Int32
+     RIP.Word64
+  -> RIP.Word32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 hs_bindgen_fe855d53295ba8ab ::
      Foreign.Word64
   -> Uint32_t
-  -> IO FC.CInt
+  -> IO RIP.CInt
 hs_bindgen_fe855d53295ba8ab =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fe855d53295ba8ab_base
+  RIP.fromFFIType hs_bindgen_fe855d53295ba8ab_base
 
 {-| __C declaration:__ @bar@
 
@@ -50,5 +45,5 @@ bar ::
      -- ^ __C declaration:__ @x@
   -> Uint32_t
      -- ^ __C declaration:__ @y@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 bar = hs_bindgen_fe855d53295ba8ab

@@ -86,23 +86,23 @@ newtype I
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapI")
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
@@ -121,7 +121,7 @@ data S
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -164,7 +164,7 @@ newtype E
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
     where staticSizeOf = \_ -> 4 :: Int
@@ -195,7 +195,7 @@ instance Read E
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt => HasField "unwrapE" (Ptr E) (Ptr ty)
+instance (~) ty CUInt => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
     where type CFieldType E "unwrapE" = CUInt
@@ -228,23 +228,23 @@ newtype TI
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty I => HasField "unwrapTI" (Ptr TI) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty I => HasField "unwrapTI" (Ptr TI) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTI")
 instance HasCField TI "unwrapTI"
     where type CFieldType TI "unwrapTI" = I
@@ -263,9 +263,9 @@ newtype TS
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty S => HasField "unwrapTS" (Ptr TS) (Ptr ty)
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty S => HasField "unwrapTS" (Ptr TS) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTS")
 instance HasCField TS "unwrapTS"
     where type CFieldType TS "unwrapTS" = S
@@ -285,8 +285,8 @@ newtype TU
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock Generic
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty U => HasField "unwrapTU" (Ptr TU) (Ptr ty)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty U => HasField "unwrapTU" (Ptr TU) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTU")
 instance HasCField TU "unwrapTU"
     where type CFieldType TU "unwrapTU" = U
@@ -305,14 +305,14 @@ newtype TE
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (HasFFIType,
+                      Prim,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType,
-                      Prim)
-instance TyEq ty E => HasField "unwrapTE" (Ptr TE) (Ptr ty)
+                      WriteRaw)
+instance (~) ty E => HasField "unwrapTE" (Ptr TE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTE")
 instance HasCField TE "unwrapTE"
     where type CFieldType TE "unwrapTE" = E
@@ -331,23 +331,23 @@ newtype TTI
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty TI => HasField "unwrapTTI" (Ptr TTI) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty TI => HasField "unwrapTTI" (Ptr TTI) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTI")
 instance HasCField TTI "unwrapTTI"
     where type CFieldType TTI "unwrapTTI" = TI
@@ -366,9 +366,9 @@ newtype TTS
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty TS => HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty TS => HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTS")
 instance HasCField TTS "unwrapTTS"
     where type CFieldType TTS "unwrapTTS" = TS
@@ -388,8 +388,8 @@ newtype TTU
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
     deriving stock Generic
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty TU => HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty TU => HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTU")
 instance HasCField TTU "unwrapTTU"
     where type CFieldType TTU "unwrapTTU" = TU
@@ -408,14 +408,14 @@ newtype TTE
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (HasFFIType,
+                      Prim,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType,
-                      Prim)
-instance TyEq ty TE => HasField "unwrapTTE" (Ptr TTE) (Ptr ty)
+                      WriteRaw)
+instance (~) ty TE => HasField "unwrapTTE" (Ptr TTE) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTTE")
 instance HasCField TTE "unwrapTTE"
     where type CFieldType TTE "unwrapTTE" = TE

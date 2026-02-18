@@ -1,18 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import Data.Void (Void)
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
@@ -30,12 +25,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
 foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890a10_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
-hs_bindgen_6e12e70d71890a10 :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.LibC.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
+hs_bindgen_6e12e70d71890a10 :: IO (RIP.FunPtr ((RIP.Ptr HsBindgen.Runtime.LibC.CFile) -> (RIP.Ptr RIP.Void) -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus))
 hs_bindgen_6e12e70d71890a10 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6e12e70d71890a10_base
+  RIP.fromFFIType hs_bindgen_6e12e70d71890a10_base
 
 {-# NOINLINE read_file_chunk #-}
 {-| __C declaration:__ @read_file_chunk@
@@ -44,6 +39,6 @@ hs_bindgen_6e12e70d71890a10 =
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk :: Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.LibC.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus)
+read_file_chunk :: RIP.FunPtr ((RIP.Ptr HsBindgen.Runtime.LibC.CFile) -> (RIP.Ptr RIP.Void) -> HsBindgen.Runtime.LibC.CSize -> IO FileOperationStatus)
 read_file_chunk =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6e12e70d71890a10
+  RIP.unsafePerformIO hs_bindgen_6e12e70d71890a10

@@ -76,7 +76,7 @@ data Point
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -90,12 +90,12 @@ deriving via (EquivStorable Point) instance Storable Point
 instance HasCField Point "point_x"
     where type CFieldType Point "point_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "point_x" (Ptr Point) (Ptr ty)
+instance (~) ty CInt => HasField "point_x" (Ptr Point) (Ptr ty)
     where getField = fromPtr (Proxy @"point_x")
 instance HasCField Point "point_y"
     where type CFieldType Point "point_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "point_y" (Ptr Point) (Ptr ty)
+instance (~) ty CInt => HasField "point_y" (Ptr Point) (Ptr ty)
     where getField = fromPtr (Proxy @"point_y")
 {-| __C declaration:__ @struct rectangle@
 
@@ -124,7 +124,7 @@ data Rectangle
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Rectangle
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -138,13 +138,13 @@ deriving via (EquivStorable Rectangle) instance Storable Rectangle
 instance HasCField Rectangle "rectangle_topleft"
     where type CFieldType Rectangle "rectangle_topleft" = Point
           offset# = \_ -> \_ -> 0
-instance TyEq ty Point =>
+instance (~) ty Point =>
          HasField "rectangle_topleft" (Ptr Rectangle) (Ptr ty)
     where getField = fromPtr (Proxy @"rectangle_topleft")
 instance HasCField Rectangle "rectangle_bottomright"
     where type CFieldType Rectangle "rectangle_bottomright" = Point
           offset# = \_ -> \_ -> 8
-instance TyEq ty Point =>
+instance (~) ty Point =>
          HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr ty)
     where getField = fromPtr (Proxy @"rectangle_bottomright")
 {-| __C declaration:__ @struct circle@
@@ -174,7 +174,7 @@ data Circle
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Circle
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -188,13 +188,13 @@ deriving via (EquivStorable Circle) instance Storable Circle
 instance HasCField Circle "circle_midpoint"
     where type CFieldType Circle "circle_midpoint" = Point
           offset# = \_ -> \_ -> 0
-instance TyEq ty Point =>
+instance (~) ty Point =>
          HasField "circle_midpoint" (Ptr Circle) (Ptr ty)
     where getField = fromPtr (Proxy @"circle_midpoint")
 instance HasCField Circle "circle_radius"
     where type CFieldType Circle "circle_radius" = CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "circle_radius" (Ptr Circle) (Ptr ty)
     where getField = fromPtr (Proxy @"circle_radius")
 {-| __C declaration:__ @union shape@
@@ -287,13 +287,13 @@ set_shape_circle = setUnionPayload
 instance HasCField Shape "shape_rectangle"
     where type CFieldType Shape "shape_rectangle" = Rectangle
           offset# = \_ -> \_ -> 0
-instance TyEq ty Rectangle =>
+instance (~) ty Rectangle =>
          HasField "shape_rectangle" (Ptr Shape) (Ptr ty)
     where getField = fromPtr (Proxy @"shape_rectangle")
 instance HasCField Shape "shape_circle"
     where type CFieldType Shape "shape_circle" = Circle
           offset# = \_ -> \_ -> 0
-instance TyEq ty Circle =>
+instance (~) ty Circle =>
          HasField "shape_circle" (Ptr Shape) (Ptr ty)
     where getField = fromPtr (Proxy @"shape_circle")
 {-| __C declaration:__ @struct colour@
@@ -344,7 +344,7 @@ data Colour
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Colour
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -362,35 +362,35 @@ instance HasCBitfield Colour "colour_opacity"
     where type CBitfieldType Colour "colour_opacity" = CUInt
           bitfieldOffset# = \_ -> \_ -> 0
           bitfieldWidth# = \_ -> \_ -> 2
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "colour_opacity" (Ptr Colour) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"colour_opacity")
 instance HasCBitfield Colour "colour_brightness"
     where type CBitfieldType Colour "colour_brightness" = CUInt
           bitfieldOffset# = \_ -> \_ -> 2
           bitfieldWidth# = \_ -> \_ -> 3
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "colour_brightness" (Ptr Colour) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"colour_brightness")
 instance HasCBitfield Colour "colour_red"
     where type CBitfieldType Colour "colour_red" = CUInt
           bitfieldOffset# = \_ -> \_ -> 5
           bitfieldWidth# = \_ -> \_ -> 8
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "colour_red" (Ptr Colour) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"colour_red")
 instance HasCBitfield Colour "colour_green"
     where type CBitfieldType Colour "colour_green" = CUInt
           bitfieldOffset# = \_ -> \_ -> 13
           bitfieldWidth# = \_ -> \_ -> 8
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "colour_green" (Ptr Colour) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"colour_green")
 instance HasCBitfield Colour "colour_blue"
     where type CBitfieldType Colour "colour_blue" = CUInt
           bitfieldOffset# = \_ -> \_ -> 21
           bitfieldWidth# = \_ -> \_ -> 8
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "colour_blue" (Ptr Colour) (BitfieldPtr ty)
     where getField = toPtr (Proxy @"colour_blue")
 {-| __C declaration:__ @myInt@
@@ -407,24 +407,23 @@ newtype MyInt
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
-         HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapMyInt" (Ptr MyInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyInt")
 instance HasCField MyInt "unwrapMyInt"
     where type CFieldType MyInt "unwrapMyInt" = CInt
@@ -456,7 +455,7 @@ data Drawing
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Drawing
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -470,13 +469,13 @@ deriving via (EquivStorable Drawing) instance Storable Drawing
 instance HasCField Drawing "drawing_shape"
     where type CFieldType Drawing "drawing_shape" = Ptr Shape
           offset# = \_ -> \_ -> 0
-instance TyEq ty (Ptr Shape) =>
+instance (~) ty (Ptr Shape) =>
          HasField "drawing_shape" (Ptr Drawing) (Ptr ty)
     where getField = fromPtr (Proxy @"drawing_shape")
 instance HasCField Drawing "drawing_colour"
     where type CFieldType Drawing "drawing_colour" = Ptr Colour
           offset# = \_ -> \_ -> 8
-instance TyEq ty (Ptr Colour) =>
+instance (~) ty (Ptr Colour) =>
          HasField "drawing_colour" (Ptr Drawing) (Ptr ty)
     where getField = fromPtr (Proxy @"drawing_colour")
 {-| __C declaration:__ @struct tic_tac_toe@
@@ -513,7 +512,7 @@ data Tic_tac_toe
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Tic_tac_toe
     where staticSizeOf = \_ -> 36 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -529,21 +528,21 @@ instance HasCField Tic_tac_toe "tic_tac_toe_row1"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row1" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (ConstantArray 3 CInt) =>
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "tic_tac_toe_row1" (Ptr Tic_tac_toe) (Ptr ty)
     where getField = fromPtr (Proxy @"tic_tac_toe_row1")
 instance HasCField Tic_tac_toe "tic_tac_toe_row2"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row2" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 12
-instance TyEq ty (ConstantArray 3 CInt) =>
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "tic_tac_toe_row2" (Ptr Tic_tac_toe) (Ptr ty)
     where getField = fromPtr (Proxy @"tic_tac_toe_row2")
 instance HasCField Tic_tac_toe "tic_tac_toe_row3"
     where type CFieldType Tic_tac_toe
                           "tic_tac_toe_row3" = ConstantArray 3 CInt
           offset# = \_ -> \_ -> 24
-instance TyEq ty (ConstantArray 3 CInt) =>
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "tic_tac_toe_row3" (Ptr Tic_tac_toe) (Ptr ty)
     where getField = fromPtr (Proxy @"tic_tac_toe_row3")
 {-| __C declaration:__ @struct vector@
@@ -560,7 +559,7 @@ data Vector_Aux
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Vector_Aux
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -573,7 +572,7 @@ deriving via (EquivStorable Vector_Aux) instance Storable Vector_Aux
 instance HasCField Vector_Aux "vector_len"
     where type CFieldType Vector_Aux "vector_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "vector_len" (Ptr Vector_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"vector_len")
 instance Offset CChar Vector_Aux
@@ -593,9 +592,9 @@ newtype Triplet
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 CInt) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
 instance HasCField Triplet "unwrapTriplet"
@@ -616,9 +615,9 @@ newtype Matrix
 
            __exported by:__ @manual\/zero_copy.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 Triplet) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 Triplet) =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")
 instance HasCField Matrix "unwrapMatrix"

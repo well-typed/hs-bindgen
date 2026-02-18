@@ -26,7 +26,7 @@ data S1_c
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S1_c
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -40,12 +40,12 @@ deriving via (EquivStorable S1_c) instance Storable S1_c
 instance HasCField S1_c "s1_c_a"
     where type CFieldType S1_c "s1_c_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "s1_c_a" (Ptr S1_c) (Ptr ty)
+instance (~) ty CInt => HasField "s1_c_a" (Ptr S1_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c_a")
 instance HasCField S1_c "s1_c_b"
     where type CFieldType S1_c "s1_c_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "s1_c_b" (Ptr S1_c) (Ptr ty)
+instance (~) ty CInt => HasField "s1_c_b" (Ptr S1_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c_b")
 {-| __C declaration:__ @struct S1@
 
@@ -74,7 +74,7 @@ data S1
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S1
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -88,12 +88,12 @@ deriving via (EquivStorable S1) instance Storable S1
 instance HasCField S1 "s1_c"
     where type CFieldType S1 "s1_c" = S1_c
           offset# = \_ -> \_ -> 0
-instance TyEq ty S1_c => HasField "s1_c" (Ptr S1) (Ptr ty)
+instance (~) ty S1_c => HasField "s1_c" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_c")
 instance HasCField S1 "s1_d"
     where type CFieldType S1 "s1_d" = CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty CInt => HasField "s1_d" (Ptr S1) (Ptr ty)
+instance (~) ty CInt => HasField "s1_d" (Ptr S1) (Ptr ty)
     where getField = fromPtr (Proxy @"s1_d")
 {-| __C declaration:__ @struct \@S2_inner_deep@
 
@@ -115,7 +115,7 @@ data S2_inner_deep
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S2_inner_deep
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -128,7 +128,7 @@ deriving via (EquivStorable S2_inner_deep) instance Storable S2_inner_deep
 instance HasCField S2_inner_deep "s2_inner_deep_b"
     where type CFieldType S2_inner_deep "s2_inner_deep_b" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "s2_inner_deep_b" (Ptr S2_inner_deep) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_deep_b")
 {-| __C declaration:__ @struct \@S2_inner@
@@ -158,7 +158,7 @@ data S2_inner
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S2_inner
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -172,13 +172,13 @@ deriving via (EquivStorable S2_inner) instance Storable S2_inner
 instance HasCField S2_inner "s2_inner_a"
     where type CFieldType S2_inner "s2_inner_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "s2_inner_a" (Ptr S2_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_a")
 instance HasCField S2_inner "s2_inner_deep"
     where type CFieldType S2_inner "s2_inner_deep" = S2_inner_deep
           offset# = \_ -> \_ -> 4
-instance TyEq ty S2_inner_deep =>
+instance (~) ty S2_inner_deep =>
          HasField "s2_inner_deep" (Ptr S2_inner) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner_deep")
 {-| __C declaration:__ @struct S2@
@@ -208,7 +208,7 @@ data S2
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S2
     where staticSizeOf = \_ -> 12 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -222,12 +222,12 @@ deriving via (EquivStorable S2) instance Storable S2
 instance HasCField S2 "s2_inner"
     where type CFieldType S2 "s2_inner" = S2_inner
           offset# = \_ -> \_ -> 0
-instance TyEq ty S2_inner => HasField "s2_inner" (Ptr S2) (Ptr ty)
+instance (~) ty S2_inner => HasField "s2_inner" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_inner")
 instance HasCField S2 "s2_d"
     where type CFieldType S2 "s2_d" = CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty CInt => HasField "s2_d" (Ptr S2) (Ptr ty)
+instance (~) ty CInt => HasField "s2_d" (Ptr S2) (Ptr ty)
     where getField = fromPtr (Proxy @"s2_d")
 {-| __C declaration:__ @struct S3@
 
@@ -256,7 +256,7 @@ data S3
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S3
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -270,13 +270,13 @@ deriving via (EquivStorable S3) instance Storable S3
 instance HasCField S3 "s3_c"
     where type CFieldType S3 "s3_c" = Ptr (Ptr S3_c)
           offset# = \_ -> \_ -> 0
-instance TyEq ty (Ptr (Ptr S3_c)) =>
+instance (~) ty (Ptr (Ptr S3_c)) =>
          HasField "s3_c" (Ptr S3) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c")
 instance HasCField S3 "s3_d"
     where type CFieldType S3 "s3_d" = CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty CInt => HasField "s3_d" (Ptr S3) (Ptr ty)
+instance (~) ty CInt => HasField "s3_d" (Ptr S3) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_d")
 {-| __C declaration:__ @struct \@S3_c@
 
@@ -305,7 +305,7 @@ data S3_c
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize S3_c
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -319,10 +319,10 @@ deriving via (EquivStorable S3_c) instance Storable S3_c
 instance HasCField S3_c "s3_c_a"
     where type CFieldType S3_c "s3_c_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "s3_c_a" (Ptr S3_c) (Ptr ty)
+instance (~) ty CInt => HasField "s3_c_a" (Ptr S3_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c_a")
 instance HasCField S3_c "s3_c_b"
     where type CFieldType S3_c "s3_c_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "s3_c_b" (Ptr S3_c) (Ptr ty)
+instance (~) ty CInt => HasField "s3_c_b" (Ptr S3_c) (Ptr ty)
     where getField = fromPtr (Proxy @"s3_c_b")

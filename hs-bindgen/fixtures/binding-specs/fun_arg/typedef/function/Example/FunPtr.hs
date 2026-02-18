@@ -1,19 +1,13 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified M
-import Data.Void (Void)
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/typedef/function.h>"
@@ -121,12 +115,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c10652_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ()))
+hs_bindgen_2020929269c10652 :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ()))
 hs_bindgen_2020929269c10652 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_2020929269c10652_base
+  RIP.fromFFIType hs_bindgen_2020929269c10652_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -135,18 +129,17 @@ hs_bindgen_2020929269c10652 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-foo :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ())
-foo =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2020929269c10652
+foo :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ())
+foo = RIP.unsafePerformIO hs_bindgen_2020929269c10652
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
 foreign import ccall unsafe "hs_bindgen_3fbd7681308a7575" hs_bindgen_3fbd7681308a7575_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
-hs_bindgen_3fbd7681308a7575 :: IO (Ptr.FunPtr ((Ptr.FunPtr A) -> IO ()))
+hs_bindgen_3fbd7681308a7575 :: IO (RIP.FunPtr ((RIP.FunPtr A) -> IO ()))
 hs_bindgen_3fbd7681308a7575 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3fbd7681308a7575_base
+  RIP.fromFFIType hs_bindgen_3fbd7681308a7575_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -155,18 +148,18 @@ hs_bindgen_3fbd7681308a7575 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooA :: Ptr.FunPtr ((Ptr.FunPtr A) -> IO ())
+fooA :: RIP.FunPtr ((RIP.FunPtr A) -> IO ())
 fooA =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3fbd7681308a7575
+  RIP.unsafePerformIO hs_bindgen_3fbd7681308a7575
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
 foreign import ccall unsafe "hs_bindgen_118f9a485493ca2d" hs_bindgen_118f9a485493ca2d_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
-hs_bindgen_118f9a485493ca2d :: IO (Ptr.FunPtr ((Ptr.FunPtr B) -> IO ()))
+hs_bindgen_118f9a485493ca2d :: IO (RIP.FunPtr ((RIP.FunPtr B) -> IO ()))
 hs_bindgen_118f9a485493ca2d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_118f9a485493ca2d_base
+  RIP.fromFFIType hs_bindgen_118f9a485493ca2d_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
@@ -175,18 +168,18 @@ hs_bindgen_118f9a485493ca2d =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooB :: Ptr.FunPtr ((Ptr.FunPtr B) -> IO ())
+fooB :: RIP.FunPtr ((RIP.FunPtr B) -> IO ())
 fooB =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_118f9a485493ca2d
+  RIP.unsafePerformIO hs_bindgen_118f9a485493ca2d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
 foreign import ccall unsafe "hs_bindgen_dbe89d4787aae78a" hs_bindgen_dbe89d4787aae78a_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
-hs_bindgen_dbe89d4787aae78a :: IO (Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ()))
+hs_bindgen_dbe89d4787aae78a :: IO (RIP.FunPtr ((RIP.FunPtr M.C) -> IO ()))
 hs_bindgen_dbe89d4787aae78a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dbe89d4787aae78a_base
+  RIP.fromFFIType hs_bindgen_dbe89d4787aae78a_base
 
 {-# NOINLINE fooC #-}
 {-| __C declaration:__ @fooC@
@@ -195,18 +188,18 @@ hs_bindgen_dbe89d4787aae78a =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooC :: Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ())
+fooC :: RIP.FunPtr ((RIP.FunPtr M.C) -> IO ())
 fooC =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dbe89d4787aae78a
+  RIP.unsafePerformIO hs_bindgen_dbe89d4787aae78a
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
 foreign import ccall unsafe "hs_bindgen_cf5702eef5ab2ac4" hs_bindgen_cf5702eef5ab2ac4_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
-hs_bindgen_cf5702eef5ab2ac4 :: IO (Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ()))
+hs_bindgen_cf5702eef5ab2ac4 :: IO (RIP.FunPtr ((RIP.FunPtr M.D) -> IO ()))
 hs_bindgen_cf5702eef5ab2ac4 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
+  RIP.fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
 
 {-# NOINLINE fooD #-}
 {-| __C declaration:__ @fooD@
@@ -215,18 +208,18 @@ hs_bindgen_cf5702eef5ab2ac4 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooD :: Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ())
+fooD :: RIP.FunPtr ((RIP.FunPtr M.D) -> IO ())
 fooD =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cf5702eef5ab2ac4
+  RIP.unsafePerformIO hs_bindgen_cf5702eef5ab2ac4
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
 foreign import ccall unsafe "hs_bindgen_dc10cdc4b07670d1" hs_bindgen_dc10cdc4b07670d1_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
-hs_bindgen_dc10cdc4b07670d1 :: IO (Ptr.FunPtr ((Ptr.FunPtr E) -> IO ()))
+hs_bindgen_dc10cdc4b07670d1 :: IO (RIP.FunPtr ((RIP.FunPtr E) -> IO ()))
 hs_bindgen_dc10cdc4b07670d1 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_dc10cdc4b07670d1_base
+  RIP.fromFFIType hs_bindgen_dc10cdc4b07670d1_base
 
 {-# NOINLINE fooE #-}
 {-| __C declaration:__ @fooE@
@@ -235,18 +228,18 @@ hs_bindgen_dc10cdc4b07670d1 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-fooE :: Ptr.FunPtr ((Ptr.FunPtr E) -> IO ())
+fooE :: RIP.FunPtr ((RIP.FunPtr E) -> IO ())
 fooE =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dc10cdc4b07670d1
+  RIP.unsafePerformIO hs_bindgen_dc10cdc4b07670d1
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_d07fcdceb06f5a2c" hs_bindgen_d07fcdceb06f5a2c_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_bar@
-hs_bindgen_d07fcdceb06f5a2c :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ()))
+hs_bindgen_d07fcdceb06f5a2c :: IO (RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ()))
 hs_bindgen_d07fcdceb06f5a2c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d07fcdceb06f5a2c_base
+  RIP.fromFFIType hs_bindgen_d07fcdceb06f5a2c_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -255,18 +248,17 @@ hs_bindgen_d07fcdceb06f5a2c =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-bar :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO ())
-bar =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d07fcdceb06f5a2c
+bar :: RIP.FunPtr ((RIP.FunPtr (RIP.CInt -> IO RIP.CInt)) -> IO ())
+bar = RIP.unsafePerformIO hs_bindgen_d07fcdceb06f5a2c
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barA@
 foreign import ccall unsafe "hs_bindgen_807763d49e9b12a2" hs_bindgen_807763d49e9b12a2_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barA@
-hs_bindgen_807763d49e9b12a2 :: IO (Ptr.FunPtr ((Ptr.FunPtr A) -> IO ()))
+hs_bindgen_807763d49e9b12a2 :: IO (RIP.FunPtr ((RIP.FunPtr A) -> IO ()))
 hs_bindgen_807763d49e9b12a2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_807763d49e9b12a2_base
+  RIP.fromFFIType hs_bindgen_807763d49e9b12a2_base
 
 {-# NOINLINE barA #-}
 {-| __C declaration:__ @barA@
@@ -275,18 +267,18 @@ hs_bindgen_807763d49e9b12a2 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barA :: Ptr.FunPtr ((Ptr.FunPtr A) -> IO ())
+barA :: RIP.FunPtr ((RIP.FunPtr A) -> IO ())
 barA =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_807763d49e9b12a2
+  RIP.unsafePerformIO hs_bindgen_807763d49e9b12a2
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barB@
 foreign import ccall unsafe "hs_bindgen_978114a8cf46bc2b" hs_bindgen_978114a8cf46bc2b_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barB@
-hs_bindgen_978114a8cf46bc2b :: IO (Ptr.FunPtr ((Ptr.FunPtr B) -> IO ()))
+hs_bindgen_978114a8cf46bc2b :: IO (RIP.FunPtr ((RIP.FunPtr B) -> IO ()))
 hs_bindgen_978114a8cf46bc2b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_978114a8cf46bc2b_base
+  RIP.fromFFIType hs_bindgen_978114a8cf46bc2b_base
 
 {-# NOINLINE barB #-}
 {-| __C declaration:__ @barB@
@@ -295,18 +287,18 @@ hs_bindgen_978114a8cf46bc2b =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barB :: Ptr.FunPtr ((Ptr.FunPtr B) -> IO ())
+barB :: RIP.FunPtr ((RIP.FunPtr B) -> IO ())
 barB =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_978114a8cf46bc2b
+  RIP.unsafePerformIO hs_bindgen_978114a8cf46bc2b
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barC@
 foreign import ccall unsafe "hs_bindgen_8db1266f28c7b15e" hs_bindgen_8db1266f28c7b15e_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barC@
-hs_bindgen_8db1266f28c7b15e :: IO (Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ()))
+hs_bindgen_8db1266f28c7b15e :: IO (RIP.FunPtr ((RIP.FunPtr M.C) -> IO ()))
 hs_bindgen_8db1266f28c7b15e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_8db1266f28c7b15e_base
+  RIP.fromFFIType hs_bindgen_8db1266f28c7b15e_base
 
 {-# NOINLINE barC #-}
 {-| __C declaration:__ @barC@
@@ -315,18 +307,18 @@ hs_bindgen_8db1266f28c7b15e =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barC :: Ptr.FunPtr ((Ptr.FunPtr M.C) -> IO ())
+barC :: RIP.FunPtr ((RIP.FunPtr M.C) -> IO ())
 barC =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8db1266f28c7b15e
+  RIP.unsafePerformIO hs_bindgen_8db1266f28c7b15e
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barD@
 foreign import ccall unsafe "hs_bindgen_643d72e5cfddafd7" hs_bindgen_643d72e5cfddafd7_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barD@
-hs_bindgen_643d72e5cfddafd7 :: IO (Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ()))
+hs_bindgen_643d72e5cfddafd7 :: IO (RIP.FunPtr ((RIP.FunPtr M.D) -> IO ()))
 hs_bindgen_643d72e5cfddafd7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_643d72e5cfddafd7_base
+  RIP.fromFFIType hs_bindgen_643d72e5cfddafd7_base
 
 {-# NOINLINE barD #-}
 {-| __C declaration:__ @barD@
@@ -335,18 +327,18 @@ hs_bindgen_643d72e5cfddafd7 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barD :: Ptr.FunPtr ((Ptr.FunPtr M.D) -> IO ())
+barD :: RIP.FunPtr ((RIP.FunPtr M.D) -> IO ())
 barD =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_643d72e5cfddafd7
+  RIP.unsafePerformIO hs_bindgen_643d72e5cfddafd7
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barE@
 foreign import ccall unsafe "hs_bindgen_659e6f20e0c4f384" hs_bindgen_659e6f20e0c4f384_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_barE@
-hs_bindgen_659e6f20e0c4f384 :: IO (Ptr.FunPtr ((Ptr.FunPtr E) -> IO ()))
+hs_bindgen_659e6f20e0c4f384 :: IO (RIP.FunPtr ((RIP.FunPtr E) -> IO ()))
 hs_bindgen_659e6f20e0c4f384 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_659e6f20e0c4f384_base
+  RIP.fromFFIType hs_bindgen_659e6f20e0c4f384_base
 
 {-# NOINLINE barE #-}
 {-| __C declaration:__ @barE@
@@ -355,6 +347,6 @@ hs_bindgen_659e6f20e0c4f384 =
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-barE :: Ptr.FunPtr ((Ptr.FunPtr E) -> IO ())
+barE :: RIP.FunPtr ((RIP.FunPtr E) -> IO ())
 barE =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_659e6f20e0c4f384
+  RIP.unsafePerformIO hs_bindgen_659e6f20e0c4f384

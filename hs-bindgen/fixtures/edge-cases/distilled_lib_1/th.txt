@@ -63,7 +63,7 @@ data Another_typedef_struct_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Another_typedef_struct_t
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -79,7 +79,7 @@ instance HasCField Another_typedef_struct_t
     where type CFieldType Another_typedef_struct_t
                           "another_typedef_struct_t_foo" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "another_typedef_struct_t_foo"
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
@@ -89,7 +89,7 @@ instance HasCField Another_typedef_struct_t
     where type CFieldType Another_typedef_struct_t
                           "another_typedef_struct_t_bar" = CChar
           offset# = \_ -> \_ -> 4
-instance TyEq ty CChar =>
+instance (~) ty CChar =>
          HasField "another_typedef_struct_t_bar"
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
@@ -108,7 +108,7 @@ newtype Another_typedef_enum_e
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Another_typedef_enum_e
     where staticSizeOf = \_ -> 4 :: Int
@@ -140,7 +140,7 @@ instance Read Another_typedef_enum_e
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt =>
+instance (~) ty CUInt =>
          HasField "unwrapAnother_typedef_enum_e"
                   (Ptr Another_typedef_enum_e)
                   (Ptr ty)
@@ -234,23 +234,23 @@ newtype A_type_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
          HasField "unwrapA_type_t" (Ptr A_type_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA_type_t")
 instance HasCField A_type_t "unwrapA_type_t"
@@ -270,24 +270,23 @@ newtype Var_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
-         HasField "unwrapVar_t" (Ptr Var_t) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapVar_t" (Ptr Var_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapVar_t")
 instance HasCField Var_t "unwrapVar_t"
     where type CFieldType Var_t "unwrapVar_t" = CInt
@@ -386,7 +385,7 @@ data A_typedef_struct_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize A_typedef_struct_t
     where staticSizeOf = \_ -> 140 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -410,7 +409,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_0"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_0" = CBool
           offset# = \_ -> \_ -> 0
-instance TyEq ty CBool =>
+instance (~) ty CBool =>
          HasField "a_typedef_struct_t_field_0"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -419,7 +418,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_1"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_1" = HsBindgen.Runtime.LibC.Word8
           offset# = \_ -> \_ -> 1
-instance TyEq ty HsBindgen.Runtime.LibC.Word8 =>
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
          HasField "a_typedef_struct_t_field_1"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -428,7 +427,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_2"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_2" = HsBindgen.Runtime.LibC.Word16
           offset# = \_ -> \_ -> 2
-instance TyEq ty HsBindgen.Runtime.LibC.Word16 =>
+instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "a_typedef_struct_t_field_2"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -437,7 +436,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_3"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_3" = HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 4
-instance TyEq ty HsBindgen.Runtime.LibC.Word32 =>
+instance (~) ty HsBindgen.Runtime.LibC.Word32 =>
          HasField "a_typedef_struct_t_field_3"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -446,7 +445,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_4"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_4" = Another_typedef_struct_t
           offset# = \_ -> \_ -> 8
-instance TyEq ty Another_typedef_struct_t =>
+instance (~) ty Another_typedef_struct_t =>
          HasField "a_typedef_struct_t_field_4"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -455,7 +454,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_5"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_5" = Ptr Another_typedef_struct_t
           offset# = \_ -> \_ -> 16
-instance TyEq ty (Ptr Another_typedef_struct_t) =>
+instance (~) ty (Ptr Another_typedef_struct_t) =>
          HasField "a_typedef_struct_t_field_5"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -464,7 +463,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_6"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_6" = Ptr Void
           offset# = \_ -> \_ -> 24
-instance TyEq ty (Ptr Void) =>
+instance (~) ty (Ptr Void) =>
          HasField "a_typedef_struct_t_field_6"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -474,7 +473,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_7"
                           "a_typedef_struct_t_field_7" = ConstantArray 7
                                                                        HsBindgen.Runtime.LibC.Word32
           offset# = \_ -> \_ -> 32
-instance TyEq ty (ConstantArray 7 HsBindgen.Runtime.LibC.Word32) =>
+instance (~) ty (ConstantArray 7 HsBindgen.Runtime.LibC.Word32) =>
          HasField "a_typedef_struct_t_field_7"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -483,7 +482,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_8"
     where type CFieldType A_typedef_struct_t
                           "a_typedef_struct_t_field_8" = Another_typedef_enum_e
           offset# = \_ -> \_ -> 60
-instance TyEq ty Another_typedef_enum_e =>
+instance (~) ty Another_typedef_enum_e =>
          HasField "a_typedef_struct_t_field_8"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -493,7 +492,7 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_9"
                           "a_typedef_struct_t_field_9" = ConstantArray 4
                                                                        Another_typedef_enum_e
           offset# = \_ -> \_ -> 64
-instance TyEq ty (ConstantArray 4 Another_typedef_enum_e) =>
+instance (~) ty (ConstantArray 4 Another_typedef_enum_e) =>
          HasField "a_typedef_struct_t_field_9"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -504,8 +503,8 @@ instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_10"
                                                                         (ConstantArray 3
                                                                                        Another_typedef_enum_e)
           offset# = \_ -> \_ -> 80
-instance TyEq ty
-              (ConstantArray 5 (ConstantArray 3 Another_typedef_enum_e)) =>
+instance (~) ty
+             (ConstantArray 5 (ConstantArray 3 Another_typedef_enum_e)) =>
          HasField "a_typedef_struct_t_field_10"
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
@@ -580,7 +579,7 @@ newtype A_typedef_enum_e
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize A_typedef_enum_e
     where staticSizeOf = \_ -> 1 :: Int
@@ -614,7 +613,7 @@ instance Read A_typedef_enum_e
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUChar =>
+instance (~) ty CUChar =>
          HasField "unwrapA_typedef_enum_e" (Ptr A_typedef_enum_e) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA_typedef_enum_e")
 instance HasCField A_typedef_enum_e "unwrapA_typedef_enum_e"
@@ -721,10 +720,10 @@ instance ToFunPtr Callback_t_Aux
     where toFunPtr = hs_bindgen_b6b6922e35047658
 instance FromFunPtr Callback_t_Aux
     where fromFunPtr = hs_bindgen_d6debb4b8d5bb869
-instance TyEq ty
-              (Ptr Void ->
-               HsBindgen.Runtime.LibC.Word32 ->
-               IO HsBindgen.Runtime.LibC.Word32) =>
+instance (~) ty
+             (Ptr Void ->
+              HsBindgen.Runtime.LibC.Word32 ->
+              IO HsBindgen.Runtime.LibC.Word32) =>
          HasField "unwrapCallback_t_Aux" (Ptr Callback_t_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapCallback_t_Aux")
 instance HasCField Callback_t_Aux "unwrapCallback_t_Aux"
@@ -747,13 +746,13 @@ newtype Callback_t
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (FunPtr Callback_t_Aux) =>
+                      WriteRaw)
+instance (~) ty (FunPtr Callback_t_Aux) =>
          HasField "unwrapCallback_t" (Ptr Callback_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapCallback_t")
 instance HasCField Callback_t "unwrapCallback_t"

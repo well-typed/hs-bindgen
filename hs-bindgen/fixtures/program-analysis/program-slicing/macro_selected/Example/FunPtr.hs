@@ -1,17 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/program-slicing/macro_selected.h>"
@@ -35,12 +30,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_7fa7d51da57eb497" hs_bindgen_7fa7d51da57eb497_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
-hs_bindgen_7fa7d51da57eb497 :: IO (Ptr.FunPtr (T -> IO ()))
+hs_bindgen_7fa7d51da57eb497 :: IO (RIP.FunPtr (T -> IO ()))
 hs_bindgen_7fa7d51da57eb497 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7fa7d51da57eb497_base
+  RIP.fromFFIType hs_bindgen_7fa7d51da57eb497_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -49,18 +44,17 @@ hs_bindgen_7fa7d51da57eb497 =
 
     __exported by:__ @program-analysis\/program-slicing\/macro_selected.h@
 -}
-foo :: Ptr.FunPtr (T -> IO ())
-foo =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7fa7d51da57eb497
+foo :: RIP.FunPtr (T -> IO ())
+foo = RIP.unsafePerformIO hs_bindgen_7fa7d51da57eb497
 
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e09cca_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
-hs_bindgen_e57577b970e09cca :: IO (Ptr.FunPtr (U -> IO ()))
+hs_bindgen_e57577b970e09cca :: IO (RIP.FunPtr (U -> IO ()))
 hs_bindgen_e57577b970e09cca =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e57577b970e09cca_base
+  RIP.fromFFIType hs_bindgen_e57577b970e09cca_base
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -69,6 +63,5 @@ hs_bindgen_e57577b970e09cca =
 
     __exported by:__ @program-analysis\/program-slicing\/macro_selected.h@
 -}
-bar :: Ptr.FunPtr (U -> IO ())
-bar =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e57577b970e09cca
+bar :: RIP.FunPtr (U -> IO ())
+bar = RIP.unsafePerformIO hs_bindgen_e57577b970e09cca

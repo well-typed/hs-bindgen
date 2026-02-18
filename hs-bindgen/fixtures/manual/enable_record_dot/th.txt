@@ -26,7 +26,7 @@ data Point
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -40,12 +40,12 @@ deriving via (EquivStorable Point) instance Storable Point
 instance HasCField Point "x"
     where type CFieldType Point "x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "x" (Ptr Point) (Ptr ty)
+instance (~) ty CInt => HasField "x" (Ptr Point) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
 instance HasCField Point "y"
     where type CFieldType Point "y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "y" (Ptr Point) (Ptr ty)
+instance (~) ty CInt => HasField "y" (Ptr Point) (Ptr ty)
     where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @struct Size@
 
@@ -74,7 +74,7 @@ data Size
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Size
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -88,12 +88,12 @@ deriving via (EquivStorable Size) instance Storable Size
 instance HasCField Size "width"
     where type CFieldType Size "width" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "width" (Ptr Size) (Ptr ty)
+instance (~) ty CInt => HasField "width" (Ptr Size) (Ptr ty)
     where getField = fromPtr (Proxy @"width")
 instance HasCField Size "height"
     where type CFieldType Size "height" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "height" (Ptr Size) (Ptr ty)
+instance (~) ty CInt => HasField "height" (Ptr Size) (Ptr ty)
     where getField = fromPtr (Proxy @"height")
 {-| __C declaration:__ @struct Rect@
 
@@ -136,7 +136,7 @@ data Rect
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Rect
     where staticSizeOf = \_ -> 16 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -152,22 +152,22 @@ deriving via (EquivStorable Rect) instance Storable Rect
 instance HasCField Rect "x"
     where type CFieldType Rect "x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "x" (Ptr Rect) (Ptr ty)
+instance (~) ty CInt => HasField "x" (Ptr Rect) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
 instance HasCField Rect "y"
     where type CFieldType Rect "y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "y" (Ptr Rect) (Ptr ty)
+instance (~) ty CInt => HasField "y" (Ptr Rect) (Ptr ty)
     where getField = fromPtr (Proxy @"y")
 instance HasCField Rect "width"
     where type CFieldType Rect "width" = CInt
           offset# = \_ -> \_ -> 8
-instance TyEq ty CInt => HasField "width" (Ptr Rect) (Ptr ty)
+instance (~) ty CInt => HasField "width" (Ptr Rect) (Ptr ty)
     where getField = fromPtr (Proxy @"width")
 instance HasCField Rect "height"
     where type CFieldType Rect "height" = CInt
           offset# = \_ -> \_ -> 12
-instance TyEq ty CInt => HasField "height" (Ptr Rect) (Ptr ty)
+instance (~) ty CInt => HasField "height" (Ptr Rect) (Ptr ty)
     where getField = fromPtr (Proxy @"height")
 {-| __C declaration:__ @enum E@
 
@@ -183,7 +183,7 @@ newtype E
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock (Generic, Eq, Ord)
+    deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
     where staticSizeOf = \_ -> 4 :: Int
@@ -214,7 +214,7 @@ instance Read E
     where readPrec = readPrec
           readList = readListDefault
           readListPrec = readListPrecDefault
-instance TyEq ty CUInt => HasField "unwrap" (Ptr E) (Ptr ty)
+instance (~) ty CUInt => HasField "unwrap" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField E "unwrap"
     where type CFieldType E "unwrap" = CUInt
@@ -261,23 +261,23 @@ newtype Value
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt => HasField "unwrap" (Ptr Value) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrap" (Ptr Value) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField Value "unwrap"
     where type CFieldType Value "unwrap" = CInt
@@ -372,12 +372,12 @@ set_u1_y = setUnionPayload
 instance HasCField U1 "x"
     where type CFieldType U1 "x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "x" (Ptr U1) (Ptr ty)
+instance (~) ty CInt => HasField "x" (Ptr U1) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
 instance HasCField U1 "y"
     where type CFieldType U1 "y" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "y" (Ptr U1) (Ptr ty)
+instance (~) ty CInt => HasField "y" (Ptr U1) (Ptr ty)
     where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @union U2@
 
@@ -469,12 +469,12 @@ set_u2_t_b = setUnionPayload
 instance HasCField U2_t "a"
     where type CFieldType U2_t "a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty CChar => HasField "a" (Ptr U2_t) (Ptr ty)
+instance (~) ty CChar => HasField "a" (Ptr U2_t) (Ptr ty)
     where getField = fromPtr (Proxy @"a")
 instance HasCField U2_t "b"
     where type CFieldType U2_t "b" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "b" (Ptr U2_t) (Ptr ty)
+instance (~) ty CInt => HasField "b" (Ptr U2_t) (Ptr ty)
     where getField = fromPtr (Proxy @"b")
 {-| __C declaration:__ @union U3@
 
@@ -566,12 +566,12 @@ set_u3_s = setUnionPayload
 instance HasCField U3 "p"
     where type CFieldType U3 "p" = Point
           offset# = \_ -> \_ -> 0
-instance TyEq ty Point => HasField "p" (Ptr U3) (Ptr ty)
+instance (~) ty Point => HasField "p" (Ptr U3) (Ptr ty)
     where getField = fromPtr (Proxy @"p")
 instance HasCField U3 "s"
     where type CFieldType U3 "s" = Size
           offset# = \_ -> \_ -> 0
-instance TyEq ty Size => HasField "s" (Ptr U3) (Ptr ty)
+instance (~) ty Size => HasField "s" (Ptr U3) (Ptr ty)
     where getField = fromPtr (Proxy @"s")
 {-| __C declaration:__ @union U4@
 
@@ -663,12 +663,12 @@ set_u4_y = setUnionPayload
 instance HasCField U4 "x"
     where type CFieldType U4 "x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "x" (Ptr U4) (Ptr ty)
+instance (~) ty CInt => HasField "x" (Ptr U4) (Ptr ty)
     where getField = fromPtr (Proxy @"x")
 instance HasCField U4 "y"
     where type CFieldType U4 "y" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "y" (Ptr U4) (Ptr ty)
+instance (~) ty CInt => HasField "y" (Ptr U4) (Ptr ty)
     where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @struct Driver@
 
@@ -718,7 +718,7 @@ instance ToFunPtr RunDriver_Aux
     where toFunPtr = hs_bindgen_d86ecf261d7044c6
 instance FromFunPtr RunDriver_Aux
     where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
-instance TyEq ty (Ptr Driver -> IO CInt) =>
+instance (~) ty (Ptr Driver -> IO CInt) =>
          HasField "unwrap" (Ptr RunDriver_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField RunDriver_Aux "unwrap"
@@ -739,13 +739,13 @@ newtype RunDriver
 
            __exported by:__ @manual\/enable_record_dot.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (FunPtr RunDriver_Aux) =>
+                      WriteRaw)
+instance (~) ty (FunPtr RunDriver_Aux) =>
          HasField "unwrap" (Ptr RunDriver) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")
 instance HasCField RunDriver "unwrap"

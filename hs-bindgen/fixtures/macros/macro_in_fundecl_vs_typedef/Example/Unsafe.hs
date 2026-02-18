@@ -1,18 +1,12 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import Example
-import Prelude (Float, IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <macros/macro_in_fundecl_vs_typedef.h>"
@@ -90,17 +84,17 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" hs_bindgen_df7e2b8e86de411a_base ::
-     GHC.Int.Int8
-  -> GHC.Int.Int8
-  -> IO GHC.Int.Int8
+     RIP.Int8
+  -> RIP.Int8
+  -> IO RIP.Int8
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 hs_bindgen_df7e2b8e86de411a ::
      MC
   -> TC
-  -> IO FC.CChar
+  -> IO RIP.CChar
 hs_bindgen_df7e2b8e86de411a =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_df7e2b8e86de411a_base
+  RIP.fromFFIType hs_bindgen_df7e2b8e86de411a_base
 
 {-| __C declaration:__ @quux1@
 
@@ -113,22 +107,22 @@ quux1 ::
      -- ^ __C declaration:__ @x@
   -> TC
      -- ^ __C declaration:__ @y@
-  -> IO FC.CChar
+  -> IO RIP.CChar
 quux1 = hs_bindgen_df7e2b8e86de411a
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" hs_bindgen_6f0b13ed02b696df_base ::
-     GHC.Int.Int8
-  -> GHC.Int.Int8
-  -> IO GHC.Int.Int8
+     RIP.Int8
+  -> RIP.Int8
+  -> IO RIP.Int8
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 hs_bindgen_6f0b13ed02b696df ::
      MC
-  -> FC.CChar
+  -> RIP.CChar
   -> IO TC
 hs_bindgen_6f0b13ed02b696df =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_6f0b13ed02b696df_base
+  RIP.fromFFIType hs_bindgen_6f0b13ed02b696df_base
 
 {-| __C declaration:__ @quux2@
 
@@ -139,7 +133,7 @@ hs_bindgen_6f0b13ed02b696df =
 quux2 ::
      MC
      -- ^ __C declaration:__ @x@
-  -> FC.CChar
+  -> RIP.CChar
      -- ^ __C declaration:__ @y@
   -> IO TC
 quux2 = hs_bindgen_6f0b13ed02b696df
@@ -147,16 +141,16 @@ quux2 = hs_bindgen_6f0b13ed02b696df
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
 foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" hs_bindgen_f92059cc98dde342_base ::
      Float
-  -> Ptr.Ptr Void
-  -> IO (Ptr.Ptr Void)
+  -> RIP.Ptr RIP.Void
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
 hs_bindgen_f92059cc98dde342 ::
-     FC.CFloat
-  -> Ptr.Ptr TC
-  -> IO (Ptr.Ptr MC)
+     RIP.CFloat
+  -> RIP.Ptr TC
+  -> IO (RIP.Ptr MC)
 hs_bindgen_f92059cc98dde342 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f92059cc98dde342_base
+  RIP.fromFFIType hs_bindgen_f92059cc98dde342_base
 
 {-| __C declaration:__ @wam1@
 
@@ -165,26 +159,26 @@ hs_bindgen_f92059cc98dde342 =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam1 ::
-     FC.CFloat
+     RIP.CFloat
      -- ^ __C declaration:__ @x@
-  -> Ptr.Ptr TC
+  -> RIP.Ptr TC
      -- ^ __C declaration:__ @y@
-  -> IO (Ptr.Ptr MC)
+  -> IO (RIP.Ptr MC)
 wam1 = hs_bindgen_f92059cc98dde342
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
 foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" hs_bindgen_3e6ecd1b2cc616bc_base ::
      Float
-  -> Ptr.Ptr Void
-  -> IO (Ptr.Ptr Void)
+  -> RIP.Ptr RIP.Void
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
 hs_bindgen_3e6ecd1b2cc616bc ::
-     FC.CFloat
-  -> Ptr.Ptr MC
-  -> IO (Ptr.Ptr TC)
+     RIP.CFloat
+  -> RIP.Ptr MC
+  -> IO (RIP.Ptr TC)
 hs_bindgen_3e6ecd1b2cc616bc =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3e6ecd1b2cc616bc_base
+  RIP.fromFFIType hs_bindgen_3e6ecd1b2cc616bc_base
 
 {-| __C declaration:__ @wam2@
 
@@ -193,26 +187,26 @@ hs_bindgen_3e6ecd1b2cc616bc =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam2 ::
-     FC.CFloat
+     RIP.CFloat
      -- ^ __C declaration:__ @x@
-  -> Ptr.Ptr MC
+  -> RIP.Ptr MC
      -- ^ __C declaration:__ @y@
-  -> IO (Ptr.Ptr TC)
+  -> IO (RIP.Ptr TC)
 wam2 = hs_bindgen_3e6ecd1b2cc616bc
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
 foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" hs_bindgen_ffa9d5a3e8f0f221_base ::
-     Ptr.Ptr Void
-  -> GHC.Int.Int8
+     RIP.Ptr RIP.Void
+  -> RIP.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
 hs_bindgen_ffa9d5a3e8f0f221 ::
-     Ptr.Ptr Struct2
+     RIP.Ptr Struct2
   -> MC
   -> IO ()
 hs_bindgen_ffa9d5a3e8f0f221 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_ffa9d5a3e8f0f221_base
+  RIP.fromFFIType hs_bindgen_ffa9d5a3e8f0f221_base
 
 {-| __C declaration:__ @struct_typedef1@
 
@@ -221,7 +215,7 @@ hs_bindgen_ffa9d5a3e8f0f221 =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef1 ::
-     Ptr.Ptr Struct2
+     RIP.Ptr Struct2
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
@@ -230,17 +224,17 @@ struct_typedef1 = hs_bindgen_ffa9d5a3e8f0f221
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
 foreign import ccall unsafe "hs_bindgen_4801667560542114" hs_bindgen_4801667560542114_base ::
-     Ptr.Ptr Void
-  -> GHC.Int.Int8
+     RIP.Ptr RIP.Void
+  -> RIP.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
 hs_bindgen_4801667560542114 ::
-     Ptr.Ptr Struct3_t
+     RIP.Ptr Struct3_t
   -> MC
   -> IO ()
 hs_bindgen_4801667560542114 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_4801667560542114_base
+  RIP.fromFFIType hs_bindgen_4801667560542114_base
 
 {-| __C declaration:__ @struct_typedef2@
 
@@ -249,7 +243,7 @@ hs_bindgen_4801667560542114 =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef2 ::
-     Ptr.Ptr Struct3_t
+     RIP.Ptr Struct3_t
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
@@ -258,17 +252,17 @@ struct_typedef2 = hs_bindgen_4801667560542114
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
 foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" hs_bindgen_04fa5bbd479146eb_base ::
-     Ptr.Ptr Void
-  -> GHC.Int.Int8
+     RIP.Ptr RIP.Void
+  -> RIP.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
 hs_bindgen_04fa5bbd479146eb ::
-     Ptr.Ptr Struct4
+     RIP.Ptr Struct4
   -> MC
   -> IO ()
 hs_bindgen_04fa5bbd479146eb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_04fa5bbd479146eb_base
+  RIP.fromFFIType hs_bindgen_04fa5bbd479146eb_base
 
 {-| __C declaration:__ @struct_typedef3@
 
@@ -277,7 +271,7 @@ hs_bindgen_04fa5bbd479146eb =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef3 ::
-     Ptr.Ptr Struct4
+     RIP.Ptr Struct4
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
@@ -286,17 +280,17 @@ struct_typedef3 = hs_bindgen_04fa5bbd479146eb
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
 foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" hs_bindgen_08025fd0bd589ac2_base ::
-     Ptr.Ptr Void
-  -> GHC.Int.Int8
+     RIP.Ptr RIP.Void
+  -> RIP.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
 hs_bindgen_08025fd0bd589ac2 ::
-     Ptr.Ptr Struct1
+     RIP.Ptr Struct1
   -> MC
   -> IO ()
 hs_bindgen_08025fd0bd589ac2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_08025fd0bd589ac2_base
+  RIP.fromFFIType hs_bindgen_08025fd0bd589ac2_base
 
 {-| __C declaration:__ @struct_name1@
 
@@ -305,7 +299,7 @@ hs_bindgen_08025fd0bd589ac2 =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name1 ::
-     Ptr.Ptr Struct1
+     RIP.Ptr Struct1
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
@@ -314,17 +308,17 @@ struct_name1 = hs_bindgen_08025fd0bd589ac2
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
 foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" hs_bindgen_9de286608f952fc7_base ::
-     Ptr.Ptr Void
-  -> GHC.Int.Int8
+     RIP.Ptr RIP.Void
+  -> RIP.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
 hs_bindgen_9de286608f952fc7 ::
-     Ptr.Ptr Struct3
+     RIP.Ptr Struct3
   -> MC
   -> IO ()
 hs_bindgen_9de286608f952fc7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9de286608f952fc7_base
+  RIP.fromFFIType hs_bindgen_9de286608f952fc7_base
 
 {-| __C declaration:__ @struct_name2@
 
@@ -333,7 +327,7 @@ hs_bindgen_9de286608f952fc7 =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name2 ::
-     Ptr.Ptr Struct3
+     RIP.Ptr Struct3
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
@@ -342,17 +336,17 @@ struct_name2 = hs_bindgen_9de286608f952fc7
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
 foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" hs_bindgen_38cce6bb1ac71578_base ::
-     Ptr.Ptr Void
-  -> GHC.Int.Int8
+     RIP.Ptr RIP.Void
+  -> RIP.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
 hs_bindgen_38cce6bb1ac71578 ::
-     Ptr.Ptr Struct4
+     RIP.Ptr Struct4
   -> MC
   -> IO ()
 hs_bindgen_38cce6bb1ac71578 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_38cce6bb1ac71578_base
+  RIP.fromFFIType hs_bindgen_38cce6bb1ac71578_base
 
 {-| __C declaration:__ @struct_name3@
 
@@ -361,7 +355,7 @@ hs_bindgen_38cce6bb1ac71578 =
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name3 ::
-     Ptr.Ptr Struct4
+     RIP.Ptr Struct4
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@

@@ -325,23 +325,23 @@ newtype I
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapI")
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
@@ -360,23 +360,23 @@ newtype C
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CChar => HasField "unwrapC" (Ptr C) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CChar => HasField "unwrapC" (Ptr C) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapC")
 instance HasCField C "unwrapC"
     where type CFieldType C "unwrapC" = CChar
@@ -395,21 +395,21 @@ newtype F
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Enum,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Enum,
                       Floating,
                       Fractional,
+                      HasFFIType,
                       Num,
+                      Prim,
+                      ReadRaw,
                       Real,
                       RealFloat,
-                      RealFrac)
-instance TyEq ty CFloat => HasField "unwrapF" (Ptr F) (Ptr ty)
+                      RealFrac,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CFloat => HasField "unwrapF" (Ptr F) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF")
 instance HasCField F "unwrapF"
     where type CFieldType F "unwrapF" = CFloat
@@ -428,23 +428,23 @@ newtype L
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CLong => HasField "unwrapL" (Ptr L) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CLong => HasField "unwrapL" (Ptr L) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapL")
 instance HasCField L "unwrapL"
     where type CFieldType L "unwrapL" = CLong
@@ -463,69 +463,69 @@ newtype S
 
            __exported by:__ @macros\/macro_in_fundecl.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CShort => HasField "unwrapS" (Ptr S) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapS")
 instance HasCField S "unwrapS"
     where type CFieldType S "unwrapS" = CShort
           offset# = \_ -> \_ -> 0
-foreign import ccall safe "wrapper" hs_bindgen_074b9de694d8f359_base ::
+foreign import ccall safe "wrapper" hs_bindgen_25a28556cfbbf031_base ::
     Int16 -> IO Int32
  -> IO (FunPtr (Int16 -> IO Int32))
--- __unique:__ @instance ToFunPtr (FC.CShort -> IO I)@
-hs_bindgen_074b9de694d8f359 :: (CShort -> IO I) ->
+-- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
+hs_bindgen_25a28556cfbbf031 :: (CShort -> IO I) ->
                                IO (FunPtr (CShort -> IO I))
--- __unique:__ @instance ToFunPtr (FC.CShort -> IO I)@
-hs_bindgen_074b9de694d8f359 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_074b9de694d8f359_base (toFFIType fun_0))
-foreign import ccall safe "dynamic" hs_bindgen_c7a8adce35e64925_base ::
+-- __unique:__ @instance ToFunPtr (RIP.CShort -> IO I)@
+hs_bindgen_25a28556cfbbf031 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_25a28556cfbbf031_base (toFFIType fun_0))
+foreign import ccall safe "dynamic" hs_bindgen_255a05599df0464e_base ::
     FunPtr (Int16 -> IO Int32)
  -> Int16
  -> IO Int32
--- __unique:__ @instance FromFunPtr (FC.CShort -> IO I)@
-hs_bindgen_c7a8adce35e64925 :: FunPtr (CShort -> IO I) ->
+-- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
+hs_bindgen_255a05599df0464e :: FunPtr (CShort -> IO I) ->
                                CShort -> IO I
--- __unique:__ @instance FromFunPtr (FC.CShort -> IO I)@
-hs_bindgen_c7a8adce35e64925 = \funPtr_0 -> fromFFIType (hs_bindgen_c7a8adce35e64925_base (castFunPtrToFFIType funPtr_0))
+-- __unique:__ @instance FromFunPtr (RIP.CShort -> IO I)@
+hs_bindgen_255a05599df0464e = \funPtr_0 -> fromFFIType (hs_bindgen_255a05599df0464e_base (castFunPtrToFFIType funPtr_0))
 instance ToFunPtr (CShort -> IO I)
-    where toFunPtr = hs_bindgen_074b9de694d8f359
+    where toFunPtr = hs_bindgen_25a28556cfbbf031
 instance FromFunPtr (CShort -> IO I)
-    where fromFunPtr = hs_bindgen_c7a8adce35e64925
-foreign import ccall safe "wrapper" hs_bindgen_ffdbafa239adf14e_base ::
+    where fromFunPtr = hs_bindgen_255a05599df0464e
+foreign import ccall safe "wrapper" hs_bindgen_016f1407db09bd2f_base ::
     Int16 -> IO Int32
  -> IO (FunPtr (Int16 -> IO Int32))
--- __unique:__ @instance ToFunPtr (S -> IO FC.CInt)@
-hs_bindgen_ffdbafa239adf14e :: (S -> IO CInt) ->
+-- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
+hs_bindgen_016f1407db09bd2f :: (S -> IO CInt) ->
                                IO (FunPtr (S -> IO CInt))
--- __unique:__ @instance ToFunPtr (S -> IO FC.CInt)@
-hs_bindgen_ffdbafa239adf14e = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_ffdbafa239adf14e_base (toFFIType fun_0))
-foreign import ccall safe "dynamic" hs_bindgen_9c8a77fe3560cebd_base ::
+-- __unique:__ @instance ToFunPtr (S -> IO RIP.CInt)@
+hs_bindgen_016f1407db09bd2f = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_016f1407db09bd2f_base (toFFIType fun_0))
+foreign import ccall safe "dynamic" hs_bindgen_1c14ce64db2e04d0_base ::
     FunPtr (Int16 -> IO Int32)
  -> Int16
  -> IO Int32
--- __unique:__ @instance FromFunPtr (S -> IO FC.CInt)@
-hs_bindgen_9c8a77fe3560cebd :: FunPtr (S -> IO CInt) ->
+-- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
+hs_bindgen_1c14ce64db2e04d0 :: FunPtr (S -> IO CInt) ->
                                S -> IO CInt
--- __unique:__ @instance FromFunPtr (S -> IO FC.CInt)@
-hs_bindgen_9c8a77fe3560cebd = \funPtr_0 -> fromFFIType (hs_bindgen_9c8a77fe3560cebd_base (castFunPtrToFFIType funPtr_0))
+-- __unique:__ @instance FromFunPtr (S -> IO RIP.CInt)@
+hs_bindgen_1c14ce64db2e04d0 = \funPtr_0 -> fromFFIType (hs_bindgen_1c14ce64db2e04d0_base (castFunPtrToFFIType funPtr_0))
 instance ToFunPtr (S -> IO CInt)
-    where toFunPtr = hs_bindgen_ffdbafa239adf14e
+    where toFunPtr = hs_bindgen_016f1407db09bd2f
 instance FromFunPtr (S -> IO CInt)
-    where fromFunPtr = hs_bindgen_9c8a77fe3560cebd
+    where fromFunPtr = hs_bindgen_1c14ce64db2e04d0
 -- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_d345c332b6547629" hs_bindgen_d345c332b6547629_base ::
     Float

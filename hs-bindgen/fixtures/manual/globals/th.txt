@@ -159,7 +159,7 @@ data GlobalConfig
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize GlobalConfig
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -173,13 +173,13 @@ deriving via (EquivStorable GlobalConfig) instance Storable GlobalConfig
 instance HasCField GlobalConfig "globalConfig_numThreads"
     where type CFieldType GlobalConfig "globalConfig_numThreads" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "globalConfig_numThreads" (Ptr GlobalConfig) (Ptr ty)
     where getField = fromPtr (Proxy @"globalConfig_numThreads")
 instance HasCField GlobalConfig "globalConfig_numWorkers"
     where type CFieldType GlobalConfig "globalConfig_numWorkers" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt =>
+instance (~) ty CInt =>
          HasField "globalConfig_numWorkers" (Ptr GlobalConfig) (Ptr ty)
     where getField = fromPtr (Proxy @"globalConfig_numWorkers")
 {-| __C declaration:__ @ConstInt@
@@ -196,23 +196,23 @@ newtype ConstInt
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CInt =>
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt =>
          HasField "unwrapConstInt" (Ptr ConstInt) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapConstInt")
 instance HasCField ConstInt "unwrapConstInt"
@@ -245,7 +245,7 @@ data Tuple
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Tuple
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -259,12 +259,12 @@ deriving via (EquivStorable Tuple) instance Storable Tuple
 instance HasCField Tuple "tuple_x"
     where type CFieldType Tuple "tuple_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "tuple_x" (Ptr Tuple) (Ptr ty)
+instance (~) ty CInt => HasField "tuple_x" (Ptr Tuple) (Ptr ty)
     where getField = fromPtr (Proxy @"tuple_x")
 instance HasCField Tuple "tuple_y"
     where type CFieldType Tuple "tuple_y" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty CInt => HasField "tuple_y" (Ptr Tuple) (Ptr ty)
+instance (~) ty CInt => HasField "tuple_y" (Ptr Tuple) (Ptr ty)
     where getField = fromPtr (Proxy @"tuple_y")
 {-| __C declaration:__ @triplet@
 
@@ -280,9 +280,9 @@ newtype Triplet
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty (ConstantArray 3 CInt) =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
 instance HasCField Triplet "unwrapTriplet"
@@ -303,8 +303,8 @@ newtype List
 
            __exported by:__ @manual\/globals.h@
       -}
-    deriving stock (Generic, Eq, Show)
-instance TyEq ty (IncompleteArray CInt) =>
+    deriving stock (Eq, Generic, Show)
+instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapList" (Ptr List) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapList")
 instance HasCField List "unwrapList"

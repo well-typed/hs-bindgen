@@ -5,7 +5,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -14,23 +13,10 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
-import qualified Data.Primitive.Types
-import qualified Data.Proxy
 import qualified Foreign
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.Bitfield
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.Marshal
-import Data.Bits (FiniteBits)
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @uint32_t@
 
@@ -39,36 +25,36 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 newtype Uint32_t = Uint32_t
-  { unwrapUint32_t :: FC.CUInt
+  { unwrapUint32_t :: RIP.CUInt
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Read, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
-    , Data.Primitive.Types.Prim
-    , HsBindgen.Runtime.Internal.Bitfield.Bitfield
-    , Bits.Bits
+    ( RIP.Bitfield
+    , RIP.Bits
     , Bounded
     , Enum
-    , FiniteBits
+    , RIP.FiniteBits
+    , RIP.HasFFIType
     , Integral
-    , Ix.Ix
+    , RIP.Ix
     , Num
+    , RIP.Prim
+    , Marshal.ReadRaw
     , Real
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty FC.CUInt
-         ) => GHC.Records.HasField "unwrapUint32_t" (Ptr.Ptr Uint32_t) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CUInt
+         ) => RIP.HasField "unwrapUint32_t" (RIP.Ptr Uint32_t) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapUint32_t")
+    HasCField.fromPtr (RIP.Proxy @"unwrapUint32_t")
 
-instance HsBindgen.Runtime.HasCField.HasCField Uint32_t "unwrapUint32_t" where
+instance HasCField.HasCField Uint32_t "unwrapUint32_t" where
 
-  type CFieldType Uint32_t "unwrapUint32_t" = FC.CUInt
+  type CFieldType Uint32_t "unwrapUint32_t" = RIP.CUInt
 
   offset# = \_ -> \_ -> 0
 
@@ -94,9 +80,9 @@ data Foo = Foo
          __exported by:__ @program-analysis\/program_slicing_simple.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance F.Storable Foo where
+instance RIP.Storable Foo where
 
   sizeOf = \_ -> (16 :: Int)
 
@@ -105,37 +91,37 @@ instance F.Storable Foo where
   peek =
     \ptr0 ->
           pure Foo
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_sixty_four") ptr0
-      <*> HsBindgen.Runtime.HasCField.peek (Data.Proxy.Proxy @"foo_thirty_two") ptr0
+      <*> HasCField.peek (RIP.Proxy @"foo_sixty_four") ptr0
+      <*> HasCField.peek (RIP.Proxy @"foo_thirty_two") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_sixty_four2 foo_thirty_two3 ->
-               HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
-            >> HsBindgen.Runtime.HasCField.poke (Data.Proxy.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+               HasCField.poke (RIP.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
+            >> HasCField.poke (RIP.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
 
-instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
+instance HasCField.HasCField Foo "foo_sixty_four" where
 
   type CFieldType Foo "foo_sixty_four" = Foreign.Word64
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty Foreign.Word64
-         ) => GHC.Records.HasField "foo_sixty_four" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance ( ((~) ty) Foreign.Word64
+         ) => RIP.HasField "foo_sixty_four" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_sixty_four")
+    HasCField.fromPtr (RIP.Proxy @"foo_sixty_four")
 
-instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_thirty_two" where
+instance HasCField.HasCField Foo "foo_thirty_two" where
 
   type CFieldType Foo "foo_thirty_two" = Uint32_t
 
   offset# = \_ -> \_ -> 8
 
-instance ( TyEq ty Uint32_t
-         ) => GHC.Records.HasField "foo_thirty_two" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+instance ( ((~) ty) Uint32_t
+         ) => RIP.HasField "foo_thirty_two" (RIP.Ptr Foo) (RIP.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"foo_thirty_two")
+    HasCField.fromPtr (RIP.Proxy @"foo_thirty_two")

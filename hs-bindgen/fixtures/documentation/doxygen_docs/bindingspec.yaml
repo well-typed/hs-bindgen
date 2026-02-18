@@ -70,7 +70,7 @@ hstypes:
   instances:
   - Eq
   - Generic
-  - HasCBitField
+  - HasCBitfield
   - HasField
   - ReadRaw
   - Show

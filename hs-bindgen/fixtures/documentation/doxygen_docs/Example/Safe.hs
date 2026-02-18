@@ -1,23 +1,16 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Word
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
-import Prelude (IO)
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <documentation/doxygen_docs.h>"
@@ -124,19 +117,19 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
-  -> Ptr.Ptr Void
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 hs_bindgen_7eada9f65d982412 ::
-     HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
-  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
-  -> Ptr.Ptr HsBindgen.Runtime.LibC.CSize
-  -> IO FC.CInt
+     PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
+  -> RIP.Ptr HsBindgen.Runtime.LibC.Word8
+  -> RIP.Ptr HsBindgen.Runtime.LibC.CSize
+  -> IO RIP.CInt
 hs_bindgen_7eada9f65d982412 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7eada9f65d982412_base
+  RIP.fromFFIType hs_bindgen_7eada9f65d982412_base
 
 {-|
 
@@ -159,41 +152,41 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_data ::
-     HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
+     PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
      {- ^
 
         [__@input_data@ /(input)/__]: Input data buffer
 
      __C declaration:__ @input_data@
      -}
-  -> Ptr.Ptr HsBindgen.Runtime.LibC.Word8
+  -> RIP.Ptr HsBindgen.Runtime.LibC.Word8
      {- ^
 
         [__@output_data@ /(output)/__]: Output data buffer
 
      __C declaration:__ @output_data@
      -}
-  -> Ptr.Ptr HsBindgen.Runtime.LibC.CSize
+  -> RIP.Ptr HsBindgen.Runtime.LibC.CSize
      {- ^
 
         [__@size@ /(input,output)/__]: Size of data, updated on return
 
      __C declaration:__ @size@
      -}
-  -> IO FC.CInt
+  -> IO RIP.CInt
 process_data = hs_bindgen_7eada9f65d982412
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da1a7_base ::
-     Ptr.Ptr Void
-  -> IO GHC.Word.Word8
+     RIP.Ptr RIP.Void
+  -> IO RIP.Word8
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 hs_bindgen_fb85499c501da1a7 ::
-     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
-  -> IO FC.CBool
+     PtrConst.PtrConst RIP.CChar
+  -> IO RIP.CBool
 hs_bindgen_fb85499c501da1a7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fb85499c501da1a7_base
+  RIP.fromFFIType hs_bindgen_fb85499c501da1a7_base
 
 {-|
 
@@ -212,29 +205,29 @@ __defined at:__ @documentation\/doxygen_docs.h 116:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_file ::
-     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
+     PtrConst.PtrConst RIP.CChar
      {- ^
 
         [__@filename@ /(input)/__]: The @char*@ filename to process
 
      __C declaration:__ @filename@
      -}
-  -> IO FC.CBool
+  -> IO RIP.CBool
 process_file = hs_bindgen_fb85499c501da1a7
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" hs_bindgen_a73fc7b108035c5c_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 hs_bindgen_a73fc7b108035c5c ::
-     FC.CInt
-  -> FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_a73fc7b108035c5c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a73fc7b108035c5c_base
+  RIP.fromFFIType hs_bindgen_a73fc7b108035c5c_base
 
 {-|
 
@@ -260,34 +253,34 @@ __defined at:__ @documentation\/doxygen_docs.h 131:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 calculate_value ::
-     FC.CInt
+     RIP.CInt
      {- ^
 
         [__@base@ /(input)/__]: Base value
 
      __C declaration:__ @base@
      -}
-  -> FC.CInt
+  -> RIP.CInt
      {- ^
 
         [__@multiplier@ /(input)/__]: Multiplier value
 
      __C declaration:__ @multiplier@
      -}
-  -> IO FC.CInt
+  -> IO RIP.CInt
 calculate_value = hs_bindgen_a73fc7b108035c5c
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 foreign import ccall safe "hs_bindgen_9b7f6745401b4652" hs_bindgen_9b7f6745401b4652_base ::
-     GHC.Int.Int32
-  -> IO GHC.Word.Word8
+     RIP.Int32
+  -> IO RIP.Word8
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 hs_bindgen_9b7f6745401b4652 ::
-     FC.CInt
-  -> IO FC.CBool
+     RIP.CInt
+  -> IO RIP.CBool
 hs_bindgen_9b7f6745401b4652 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_9b7f6745401b4652_base
+  RIP.fromFFIType hs_bindgen_9b7f6745401b4652_base
 
 {-|
 
@@ -308,29 +301,29 @@ __defined at:__ @documentation\/doxygen_docs.h 148:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 html_example ::
-     FC.CInt
+     RIP.CInt
      {- ^
 
         [__@value@ /(input)/__]: Input value
 
      __C declaration:__ @value@
      -}
-  -> IO FC.CBool
+  -> IO RIP.CBool
 html_example = hs_bindgen_9b7f6745401b4652
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e599b_base ::
-     Ptr.Ptr Void
-  -> GHC.Word.Word64
-  -> IO GHC.Word.Word8
+     RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO RIP.Word8
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 hs_bindgen_825411dc114e599b ::
-     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
+     RIP.Ptr (PtrConst.PtrConst RIP.CChar)
   -> HsBindgen.Runtime.LibC.CSize
-  -> IO FC.CBool
+  -> IO RIP.CBool
 hs_bindgen_825411dc114e599b =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_825411dc114e599b_base
+  RIP.fromFFIType hs_bindgen_825411dc114e599b_base
 
 {-|
 
@@ -379,7 +372,7 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 list_example ::
-     Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)
+     RIP.Ptr (PtrConst.PtrConst RIP.CChar)
      {- ^
 
         [__@items@ /(input)/__]: Array of items
@@ -393,20 +386,20 @@ list_example ::
 
      __C declaration:__ @count@
      -}
-  -> IO FC.CBool
+  -> IO RIP.CBool
 list_example = hs_bindgen_825411dc114e599b
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_dangerous_function@
 foreign import ccall safe "hs_bindgen_17264dcff7e9b698" hs_bindgen_17264dcff7e9b698_base ::
-     Ptr.Ptr Void
-  -> IO (Ptr.Ptr Void)
+     RIP.Ptr RIP.Void
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_dangerous_function@
 hs_bindgen_17264dcff7e9b698 ::
-     Ptr.Ptr Void
-  -> IO (Ptr.Ptr Void)
+     RIP.Ptr RIP.Void
+  -> IO (RIP.Ptr RIP.Void)
 hs_bindgen_17264dcff7e9b698 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_17264dcff7e9b698_base
+  RIP.fromFFIType hs_bindgen_17264dcff7e9b698_base
 
 {-|
 
@@ -429,27 +422,27 @@ __defined at:__ @documentation\/doxygen_docs.h 186:7@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 dangerous_function ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
      {- ^
 
         [__@ptr@ /(input)/__]: Pointer to data
 
      __C declaration:__ @ptr@
      -}
-  -> IO (Ptr.Ptr Void)
+  -> IO (RIP.Ptr RIP.Void)
 dangerous_function = hs_bindgen_17264dcff7e9b698
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70d8d_base ::
-     Ptr.Ptr Void
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 hs_bindgen_c8ca619ec2e70d8d ::
-     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
-  -> IO FC.CInt
+     PtrConst.PtrConst RIP.CChar
+  -> IO RIP.CInt
 hs_bindgen_c8ca619ec2e70d8d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c8ca619ec2e70d8d_base
+  RIP.fromFFIType hs_bindgen_c8ca619ec2e70d8d_base
 
 {-|
 
@@ -472,27 +465,27 @@ __defined at:__ @documentation\/doxygen_docs.h 197:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 detailed_return_codes ::
-     HsBindgen.Runtime.PtrConst.PtrConst FC.CChar
+     PtrConst.PtrConst RIP.CChar
      {- ^
 
         [__@input@ /(input)/__]: Input string
 
      __C declaration:__ @input@
      -}
-  -> IO FC.CInt
+  -> IO RIP.CInt
 detailed_return_codes = hs_bindgen_c8ca619ec2e70d8d
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 foreign import ccall safe "hs_bindgen_25e1070e2ce10048" hs_bindgen_25e1070e2ce10048_base ::
-     GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 hs_bindgen_25e1070e2ce10048 ::
-     FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_25e1070e2ce10048 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_25e1070e2ce10048_base
+  RIP.fromFFIType hs_bindgen_25e1070e2ce10048_base
 
 {-|
 
@@ -511,27 +504,27 @@ __defined at:__ @documentation\/doxygen_docs.h 206:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 old_function ::
-     FC.CInt
+     RIP.CInt
      {- ^
 
         [__@old_param@ /(input)/__]: Legacy parameter
 
      __C declaration:__ @old_param@
      -}
-  -> IO FC.CInt
+  -> IO RIP.CInt
 old_function = hs_bindgen_25e1070e2ce10048
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" hs_bindgen_a9eeeb09808e71cc_base ::
-     GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 hs_bindgen_a9eeeb09808e71cc ::
-     FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_a9eeeb09808e71cc =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a9eeeb09808e71cc_base
+  RIP.fromFFIType hs_bindgen_a9eeeb09808e71cc_base
 
 {-|
 
@@ -550,29 +543,29 @@ __defined at:__ @documentation\/doxygen_docs.h 216:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function ::
-     FC.CInt
+     RIP.CInt
      {- ^
 
         [__@data@ /(input)/__]: Input data
 
      __C declaration:__ @data@
      -}
-  -> IO FC.CInt
+  -> IO RIP.CInt
 versioned_function = hs_bindgen_a9eeeb09808e71cc
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f1700372a7_base ::
-     Ptr.Ptr Void
-  -> GHC.Word.Word64
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar)
+     RIP.Ptr ((CA.ConstantArray 64) RIP.CChar)
   -> HsBindgen.Runtime.LibC.CSize
-  -> IO FC.CInt
+  -> IO RIP.CInt
 hs_bindgen_0c0057f1700372a7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_0c0057f1700372a7_base
+  RIP.fromFFIType hs_bindgen_0c0057f1700372a7_base
 
 {-|
 
@@ -591,7 +584,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 process_buffer ::
-     Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar)
+     RIP.Ptr ((CA.ConstantArray 64) RIP.CChar)
      {- ^
 
         [__@buffer@ /(input)/__]: Buffer with minimum size
@@ -605,24 +598,24 @@ process_buffer ::
 
      __C declaration:__ @size@
      -}
-  -> IO FC.CInt
+  -> IO RIP.CInt
 process_buffer = hs_bindgen_0c0057f1700372a7
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95524_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
-  -> GHC.Word.Word64
-  -> IO (Ptr.Ptr Void)
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 hs_bindgen_294db77671f95524 ::
-     Ptr.Ptr Void
-  -> HsBindgen.Runtime.PtrConst.PtrConst Void
+     RIP.Ptr RIP.Void
+  -> PtrConst.PtrConst RIP.Void
   -> HsBindgen.Runtime.LibC.CSize
-  -> IO (Ptr.Ptr Void)
+  -> IO (RIP.Ptr RIP.Void)
 hs_bindgen_294db77671f95524 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_294db77671f95524_base
+  RIP.fromFFIType hs_bindgen_294db77671f95524_base
 
 {-|
 
@@ -643,14 +636,14 @@ __defined at:__ @documentation\/doxygen_docs.h 342:7@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 my_memcpy ::
-     Ptr.Ptr Void
+     RIP.Ptr RIP.Void
      {- ^
 
         [__@dest@ /(input)/__]: Destination buffer (restrict)
 
      __C declaration:__ @dest@
      -}
-  -> HsBindgen.Runtime.PtrConst.PtrConst Void
+  -> PtrConst.PtrConst RIP.Void
      {- ^
 
         [__@src@ /(input)/__]: Source buffer (restrict)
@@ -664,20 +657,20 @@ my_memcpy ::
 
      __C declaration:__ @n@
      -}
-  -> IO (Ptr.Ptr Void)
+  -> IO (RIP.Ptr RIP.Void)
 my_memcpy = hs_bindgen_294db77671f95524
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" hs_bindgen_f5bc63a9952c2618_base ::
-     GHC.Int.Int32
-  -> IO GHC.Int.Int32
+     RIP.Int32
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 hs_bindgen_f5bc63a9952c2618 ::
-     FC.CInt
-  -> IO FC.CInt
+     RIP.CInt
+  -> IO RIP.CInt
 hs_bindgen_f5bc63a9952c2618 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f5bc63a9952c2618_base
+  RIP.fromFFIType hs_bindgen_f5bc63a9952c2618_base
 
 {-|
 
@@ -694,31 +687,31 @@ __defined at:__ @documentation\/doxygen_docs.h 350:19@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 double_value ::
-     FC.CInt
+     RIP.CInt
      {- ^
 
         [__@x@ /(input)/__]: Input value
 
      __C declaration:__ @x@
      -}
-  -> IO FC.CInt
+  -> IO RIP.CInt
 double_value = hs_bindgen_f5bc63a9952c2618
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba20204d_base ::
-     Ptr.Ptr Void
-  -> Ptr.Ptr Void
-  -> GHC.Word.Word64
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> RIP.Ptr RIP.Void
+  -> RIP.Word64
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 hs_bindgen_c4e7e99dba20204d ::
-     Ptr.Ptr Config_t
-  -> HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
+     RIP.Ptr Config_t
+  -> PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
   -> HsBindgen.Runtime.LibC.CSize
   -> IO Status_code_t
 hs_bindgen_c4e7e99dba20204d =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_c4e7e99dba20204d_base
+  RIP.fromFFIType hs_bindgen_c4e7e99dba20204d_base
 
 {-|
 
@@ -792,14 +785,14 @@ __defined at:__ @documentation\/doxygen_docs.h 423:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 complex_function ::
-     Ptr.Ptr Config_t
+     RIP.Ptr Config_t
      {- ^
 
         [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
 
      __C declaration:__ @config@
      -}
-  -> HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
+  -> PtrConst.PtrConst HsBindgen.Runtime.LibC.Word8
      {- ^
 
         [__@data@ /(input)/__]: Input data buffer
@@ -818,15 +811,15 @@ complex_function = hs_bindgen_c4e7e99dba20204d
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hs_bindgen_935f2aead358d9ef_base ::
-     Ptr.Ptr Void
-  -> IO GHC.Int.Int32
+     RIP.Ptr RIP.Void
+  -> IO RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 hs_bindgen_935f2aead358d9ef ::
-     Ptr.Ptr FC.CChar
-  -> IO FC.CInt
+     RIP.Ptr RIP.CChar
+  -> IO RIP.CInt
 hs_bindgen_935f2aead358d9ef =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_935f2aead358d9ef_base
+  RIP.fromFFIType hs_bindgen_935f2aead358d9ef_base
 
 {-|
 
@@ -839,22 +832,22 @@ __defined at:__ @documentation\/doxygen_docs.h 427:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash ::
-     Ptr.Ptr FC.CChar
+     RIP.Ptr RIP.CChar
      -- ^ __C declaration:__ @s@
-  -> IO FC.CInt
+  -> IO RIP.CInt
 hash = hs_bindgen_935f2aead358d9ef
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" hs_bindgen_39fef54c23d4e1ee_base ::
-     GHC.Int.Int32
-  -> GHC.Int.Int32
+     RIP.Int32
+  -> RIP.Int32
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 hs_bindgen_39fef54c23d4e1ee ::
-     FC.CInt
-  -> FC.CInt
+     RIP.CInt
+  -> RIP.CInt
 hs_bindgen_39fef54c23d4e1ee =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_39fef54c23d4e1ee_base
+  RIP.fromFFIType hs_bindgen_39fef54c23d4e1ee_base
 
 {-|
 
@@ -867,7 +860,7 @@ __defined at:__ @documentation\/doxygen_docs.h 429:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square ::
-     FC.CInt
+     RIP.CInt
      -- ^ __C declaration:__ @x@
-  -> FC.CInt
+  -> RIP.CInt
 square = hs_bindgen_39fef54c23d4e1ee

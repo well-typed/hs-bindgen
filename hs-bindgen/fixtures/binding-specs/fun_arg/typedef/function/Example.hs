@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -14,19 +13,9 @@
 
 module Example where
 
-import qualified Data.Proxy
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Int
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.FunPtr
-import qualified HsBindgen.Runtime.Internal.HasFFIType
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified M
-import qualified Prelude as P
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
-import Prelude (IO)
 
 {-| __C declaration:__ @A@
 
@@ -35,52 +24,51 @@ import Prelude (IO)
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
 newtype A = A
-  { unwrapA :: FC.CInt -> IO FC.CInt
+  { unwrapA :: RIP.CInt -> IO RIP.CInt
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
 
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
-     (GHC.Int.Int32 -> IO GHC.Int.Int32)
-  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32))
+     (RIP.Int32 -> IO RIP.Int32)
+  -> IO (RIP.FunPtr (RIP.Int32 -> IO RIP.Int32))
 
 -- __unique:__ @toA@
 hs_bindgen_0c7d4776a632d026 ::
      A
-  -> IO (Ptr.FunPtr A)
+  -> IO (RIP.FunPtr A)
 hs_bindgen_0c7d4776a632d026 =
   \fun0 ->
-    P.fmap HsBindgen.Runtime.Internal.HasFFIType.castFunPtrFromFFIType (hs_bindgen_0c7d4776a632d026_base (HsBindgen.Runtime.Internal.HasFFIType.toFFIType fun0))
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_0c7d4776a632d026_base (RIP.toFFIType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_0cf9a6d50f563441_base ::
-     Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
-  -> GHC.Int.Int32 -> IO GHC.Int.Int32
+     RIP.FunPtr (RIP.Int32 -> IO RIP.Int32)
+  -> RIP.Int32 -> IO RIP.Int32
 
 -- __unique:__ @fromA@
 hs_bindgen_0cf9a6d50f563441 ::
-     Ptr.FunPtr A
+     RIP.FunPtr A
   -> A
 hs_bindgen_0cf9a6d50f563441 =
   \funPtr0 ->
-    HsBindgen.Runtime.Internal.HasFFIType.fromFFIType (hs_bindgen_0cf9a6d50f563441_base (HsBindgen.Runtime.Internal.HasFFIType.castFunPtrToFFIType funPtr0))
+    RIP.fromFFIType (hs_bindgen_0cf9a6d50f563441_base (RIP.castFunPtrToFFIType funPtr0))
 
-instance HsBindgen.Runtime.Internal.FunPtr.ToFunPtr A where
+instance RIP.ToFunPtr A where
 
   toFunPtr = hs_bindgen_0c7d4776a632d026
 
-instance HsBindgen.Runtime.Internal.FunPtr.FromFunPtr A where
+instance RIP.FromFunPtr A where
 
   fromFunPtr = hs_bindgen_0cf9a6d50f563441
 
-instance ( TyEq ty (FC.CInt -> IO FC.CInt)
-         ) => GHC.Records.HasField "unwrapA" (Ptr.Ptr A) (Ptr.Ptr ty) where
+instance ( ((~) ty) (RIP.CInt -> IO RIP.CInt)
+         ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapA")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapA")
 
-instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
+instance HasCField.HasCField A "unwrapA" where
 
-  type CFieldType A "unwrapA" = FC.CInt -> IO FC.CInt
+  type CFieldType A "unwrapA" = RIP.CInt -> IO RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
@@ -93,16 +81,14 @@ instance HsBindgen.Runtime.HasCField.HasCField A "unwrapA" where
 newtype B = B
   { unwrapB :: A
   }
-  deriving stock (GHC.Generics.Generic)
-  deriving newtype (HsBindgen.Runtime.Internal.HasFFIType.HasFFIType)
+  deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
 
-instance ( TyEq ty A
-         ) => GHC.Records.HasField "unwrapB" (Ptr.Ptr B) (Ptr.Ptr ty) where
+instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapB")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapB")
 
-instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
+instance HasCField.HasCField B "unwrapB" where
 
   type CFieldType B "unwrapB" = A
 
@@ -117,15 +103,13 @@ instance HsBindgen.Runtime.HasCField.HasCField B "unwrapB" where
 newtype E = E
   { unwrapE :: M.C
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-instance ( TyEq ty M.C
-         ) => GHC.Records.HasField "unwrapE" (Ptr.Ptr E) (Ptr.Ptr ty) where
+instance (((~) ty) M.C) => RIP.HasField "unwrapE" (RIP.Ptr E) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapE")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapE")
 
-instance HsBindgen.Runtime.HasCField.HasCField E "unwrapE" where
+instance HasCField.HasCField E "unwrapE" where
 
   type CFieldType E "unwrapE" = M.C
 

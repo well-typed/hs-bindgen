@@ -1,20 +1,14 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.Global where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import qualified HsBindgen.Runtime.PtrConst
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/enum_as_array_size.h>"
@@ -28,12 +22,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
 foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817_base ::
-     IO (Ptr.Ptr Void)
+     IO (RIP.Ptr RIP.Void)
 
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
-hs_bindgen_30b94bcf7e387817 :: IO (HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar))
+hs_bindgen_30b94bcf7e387817 :: IO (PtrConst.PtrConst ((CA.ConstantArray 1) RIP.CChar))
 hs_bindgen_30b94bcf7e387817 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_30b94bcf7e387817_base
+  RIP.fromFFIType hs_bindgen_30b94bcf7e387817_base
 
 {-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 {-| __C declaration:__ @test_array@
@@ -44,11 +38,11 @@ hs_bindgen_30b94bcf7e387817 =
 
     __unique:__ @test_edgecasesenum_as_array_size_Example_test_array@
 -}
-hs_bindgen_e30c033f156164cc :: HsBindgen.Runtime.PtrConst.PtrConst ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar)
+hs_bindgen_e30c033f156164cc :: PtrConst.PtrConst ((CA.ConstantArray 1) RIP.CChar)
 hs_bindgen_e30c033f156164cc =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_30b94bcf7e387817
+  RIP.unsafePerformIO hs_bindgen_30b94bcf7e387817
 
 {-# NOINLINE test_array #-}
-test_array :: (HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar
+test_array :: (CA.ConstantArray 1) RIP.CChar
 test_array =
-  GHC.IO.Unsafe.unsafePerformIO (HsBindgen.Runtime.PtrConst.peek hs_bindgen_e30c033f156164cc)
+  RIP.unsafePerformIO (PtrConst.peek hs_bindgen_e30c033f156164cc)

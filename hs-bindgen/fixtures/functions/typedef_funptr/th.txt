@@ -40,7 +40,7 @@ instance ToFunPtr RunDriver_Aux
     where toFunPtr = hs_bindgen_d86ecf261d7044c6
 instance FromFunPtr RunDriver_Aux
     where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
-instance TyEq ty (Ptr Driver -> IO CInt) =>
+instance (~) ty (Ptr Driver -> IO CInt) =>
          HasField "unwrapRunDriver_Aux" (Ptr RunDriver_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapRunDriver_Aux")
 instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
@@ -61,13 +61,13 @@ newtype RunDriver
 
            __exported by:__ @functions\/typedef_funptr.h@
       -}
-    deriving stock (Generic, Eq, Ord, Show)
-    deriving newtype (StaticSize,
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
                       ReadRaw,
-                      WriteRaw,
+                      StaticSize,
                       Storable,
-                      HasFFIType)
-instance TyEq ty (FunPtr RunDriver_Aux) =>
+                      WriteRaw)
+instance (~) ty (FunPtr RunDriver_Aux) =>
          HasField "unwrapRunDriver" (Ptr RunDriver) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapRunDriver")
 instance HasCField RunDriver "unwrapRunDriver"
@@ -94,7 +94,7 @@ data Driver
 
            __exported by:__ @functions\/typedef_funptr.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Driver
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -107,7 +107,7 @@ deriving via (EquivStorable Driver) instance Storable Driver
 instance HasCField Driver "driver_run"
     where type CFieldType Driver "driver_run" = RunDriver
           offset# = \_ -> \_ -> 0
-instance TyEq ty RunDriver =>
+instance (~) ty RunDriver =>
          HasField "driver_run" (Ptr Driver) (Ptr ty)
     where getField = fromPtr (Proxy @"driver_run")
 {-| __C declaration:__ @struct Bare@
@@ -130,7 +130,7 @@ data Bare
 
            __exported by:__ @functions\/typedef_funptr.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Bare
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 8 :: Int
@@ -144,6 +144,6 @@ instance HasCField Bare "bare_callback"
     where type CFieldType Bare "bare_callback" = FunPtr (CInt ->
                                                          IO Unit)
           offset# = \_ -> \_ -> 0
-instance TyEq ty (FunPtr (CInt -> IO Unit)) =>
+instance (~) ty (FunPtr (CInt -> IO Unit)) =>
          HasField "bare_callback" (Ptr Bare) (Ptr ty)
     where getField = fromPtr (Proxy @"bare_callback")

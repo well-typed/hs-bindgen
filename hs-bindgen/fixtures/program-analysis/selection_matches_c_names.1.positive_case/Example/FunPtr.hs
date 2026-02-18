@@ -1,17 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified Foreign.C as FC
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <program-analysis/selection_matches_c_names.h>"
@@ -25,12 +19,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
 foreign import ccall unsafe "hs_bindgen_1ccc97a484f823b2" hs_bindgen_1ccc97a484f823b2_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler@
-hs_bindgen_1ccc97a484f823b2 :: IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_1ccc97a484f823b2 :: IO (RIP.FunPtr (IO RIP.CInt))
 hs_bindgen_1ccc97a484f823b2 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_1ccc97a484f823b2_base
+  RIP.fromFFIType hs_bindgen_1ccc97a484f823b2_base
 
 {-# NOINLINE functionWithAssignedHaskellNameByNameMangler #-}
 {-| __C declaration:__ @FunctionWithAssignedHaskellNameByNameMangler@
@@ -39,6 +33,6 @@ hs_bindgen_1ccc97a484f823b2 =
 
     __exported by:__ @program-analysis\/selection_matches_c_names.h@
 -}
-functionWithAssignedHaskellNameByNameMangler :: Ptr.FunPtr (IO FC.CInt)
+functionWithAssignedHaskellNameByNameMangler :: RIP.FunPtr (IO RIP.CInt)
 functionWithAssignedHaskellNameByNameMangler =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1ccc97a484f823b2
+  RIP.unsafePerformIO hs_bindgen_1ccc97a484f823b2

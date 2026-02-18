@@ -244,23 +244,23 @@ newtype MC
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CChar => HasField "unwrapMC" (Ptr MC) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CChar => HasField "unwrapMC" (Ptr MC) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMC")
 instance HasCField MC "unwrapMC"
     where type CFieldType MC "unwrapMC" = CChar
@@ -279,23 +279,23 @@ newtype TC
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock (Generic, Eq, Ord, Read, Show)
-    deriving newtype (StaticSize,
-                      ReadRaw,
-                      WriteRaw,
-                      Storable,
-                      HasFFIType,
-                      Prim,
-                      Bitfield,
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
                       Bits,
                       Bounded,
                       Enum,
                       FiniteBits,
+                      HasFFIType,
                       Integral,
                       Ix,
                       Num,
-                      Real)
-instance TyEq ty CChar => HasField "unwrapTC" (Ptr TC) (Ptr ty)
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CChar => HasField "unwrapTC" (Ptr TC) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTC")
 instance HasCField TC "unwrapTC"
     where type CFieldType TC "unwrapTC" = CChar
@@ -320,7 +320,7 @@ data Struct1
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct1
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -333,8 +333,7 @@ deriving via (EquivStorable Struct1) instance Storable Struct1
 instance HasCField Struct1 "struct1_a"
     where type CFieldType Struct1 "struct1_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
-         HasField "struct1_a" (Ptr Struct1) (Ptr ty)
+instance (~) ty CInt => HasField "struct1_a" (Ptr Struct1) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_a")
 {-| __C declaration:__ @struct struct2@
 
@@ -356,7 +355,7 @@ data Struct2
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct2
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -369,8 +368,7 @@ deriving via (EquivStorable Struct2) instance Storable Struct2
 instance HasCField Struct2 "struct2_a"
     where type CFieldType Struct2 "struct2_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
-         HasField "struct2_a" (Ptr Struct2) (Ptr ty)
+instance (~) ty CInt => HasField "struct2_a" (Ptr Struct2) (Ptr ty)
     where getField = fromPtr (Proxy @"struct2_a")
 {-| __C declaration:__ @struct struct3@
 
@@ -392,7 +390,7 @@ data Struct3
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct3
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -405,8 +403,7 @@ deriving via (EquivStorable Struct3) instance Storable Struct3
 instance HasCField Struct3 "struct3_a"
     where type CFieldType Struct3 "struct3_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
-         HasField "struct3_a" (Ptr Struct3) (Ptr ty)
+instance (~) ty CInt => HasField "struct3_a" (Ptr Struct3) (Ptr ty)
     where getField = fromPtr (Proxy @"struct3_a")
 {-| __C declaration:__ @struct3_t@
 
@@ -422,9 +419,9 @@ newtype Struct3_t
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock (Generic, Eq, Show)
-    deriving newtype (StaticSize, ReadRaw, WriteRaw, Storable)
-instance TyEq ty Struct3 =>
+    deriving stock (Eq, Generic, Show)
+    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+instance (~) ty Struct3 =>
          HasField "unwrapStruct3_t" (Ptr Struct3_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapStruct3_t")
 instance HasCField Struct3_t "unwrapStruct3_t"
@@ -450,7 +447,7 @@ data Struct4
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Struct4
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -463,8 +460,7 @@ deriving via (EquivStorable Struct4) instance Storable Struct4
 instance HasCField Struct4 "struct4_a"
     where type CFieldType Struct4 "struct4_a" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt =>
-         HasField "struct4_a" (Ptr Struct4) (Ptr ty)
+instance (~) ty CInt => HasField "struct4_a" (Ptr Struct4) (Ptr ty)
     where getField = fromPtr (Proxy @"struct4_a")
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
 foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470fd4_base ::

@@ -116,7 +116,7 @@ data Thing
 
            __exported by:__ @types\/structs\/struct_arg.h@
       -}
-    deriving stock (Generic, Eq, Show)
+    deriving stock (Eq, Generic, Show)
 instance StaticSize Thing
     where staticSizeOf = \_ -> 4 :: Int
           staticAlignment = \_ -> 4 :: Int
@@ -129,7 +129,7 @@ deriving via (EquivStorable Thing) instance Storable Thing
 instance HasCField Thing "thing_x"
     where type CFieldType Thing "thing_x" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty CInt => HasField "thing_x" (Ptr Thing) (Ptr ty)
+instance (~) ty CInt => HasField "thing_x" (Ptr Thing) (Ptr ty)
     where getField = fromPtr (Proxy @"thing_x")
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b_base ::

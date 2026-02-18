@@ -6,7 +6,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -15,18 +14,9 @@
 
 module Example where
 
-import qualified Data.Array.Byte
-import qualified Data.Proxy
-import qualified Foreign as F
-import qualified Foreign.C as FC
-import qualified GHC.Generics
-import qualified GHC.Ptr as Ptr
-import qualified GHC.Records
-import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.Internal.ByteArray
-import qualified HsBindgen.Runtime.Internal.SizedByteArray
-import qualified HsBindgen.Runtime.Marshal
-import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
+import qualified HsBindgen.Runtime.HasCField as HasCField
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @union U@
 
@@ -35,17 +25,17 @@ import HsBindgen.Runtime.Internal.TypeEquality (TyEq)
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
 newtype U = U
-  { unwrapU :: Data.Array.Byte.ByteArray
+  { unwrapU :: RIP.ByteArray
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.StaticSize U
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.StaticSize U
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.ReadRaw U
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.ReadRaw U
 
-deriving via (HsBindgen.Runtime.Internal.SizedByteArray.SizedByteArray 4) 4 instance HsBindgen.Runtime.Marshal.WriteRaw U
+deriving via (RIP.SizedByteArray 4) 4 instance Marshal.WriteRaw U
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable U instance F.Storable U
+deriving via Marshal.EquivStorable U instance RIP.Storable U
 
 {-|
 
@@ -59,9 +49,8 @@ __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
 get_u_x ::
      U
-  -> FC.CInt
-get_u_x =
-  HsBindgen.Runtime.Internal.ByteArray.getUnionPayload
+  -> RIP.CInt
+get_u_x = RIP.getUnionPayload
 
 {-|
 
@@ -69,22 +58,20 @@ get_u_x =
 
 -}
 set_u_x ::
-     FC.CInt
+     RIP.CInt
   -> U
-set_u_x =
-  HsBindgen.Runtime.Internal.ByteArray.setUnionPayload
+set_u_x = RIP.setUnionPayload
 
-instance HsBindgen.Runtime.HasCField.HasCField U "u_x" where
+instance HasCField.HasCField U "u_x" where
 
-  type CFieldType U "u_x" = FC.CInt
+  type CFieldType U "u_x" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty FC.CInt
-         ) => GHC.Records.HasField "u_x" (Ptr.Ptr U) (Ptr.Ptr ty) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "u_x" (RIP.Ptr U) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"u_x")
+  getField = HasCField.fromPtr (RIP.Proxy @"u_x")
 
 {-| __C declaration:__ @T@
 
@@ -95,21 +82,19 @@ instance ( TyEq ty FC.CInt
 newtype T = T
   { unwrapT :: U
   }
-  deriving stock (GHC.Generics.Generic)
+  deriving stock (RIP.Generic)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
+    ( Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance ( TyEq ty U
-         ) => GHC.Records.HasField "unwrapT" (Ptr.Ptr T) (Ptr.Ptr ty) where
+instance (((~) ty) U) => RIP.HasField "unwrapT" (RIP.Ptr T) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapT")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapT")
 
-instance HsBindgen.Runtime.HasCField.HasCField T "unwrapT" where
+instance HasCField.HasCField T "unwrapT" where
 
   type CFieldType T "unwrapT" = U
 

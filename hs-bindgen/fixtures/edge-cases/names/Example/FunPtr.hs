@@ -1,16 +1,11 @@
 {-# LANGUAGE CApiFFI #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
 module Example.FunPtr where
 
-import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Internal.CAPI
-import qualified HsBindgen.Runtime.Internal.HasFFIType
-import Data.Void (Void)
-import Prelude (IO)
+import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <edge-cases/names.h>"
@@ -168,12 +163,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
 
 -- __unique:__ @test_edgecasesnames_Example_get_by@
 foreign import ccall unsafe "hs_bindgen_d50b20f504174dd5" hs_bindgen_d50b20f504174dd5_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_by@
-hs_bindgen_d50b20f504174dd5 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_d50b20f504174dd5 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_d50b20f504174dd5 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d50b20f504174dd5_base
+  RIP.fromFFIType hs_bindgen_d50b20f504174dd5_base
 
 {-# NOINLINE by' #-}
 {-| __C declaration:__ @by@
@@ -182,18 +177,17 @@ hs_bindgen_d50b20f504174dd5 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-by' :: Ptr.FunPtr (IO ())
-by' =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d50b20f504174dd5
+by' :: RIP.FunPtr (IO ())
+by' = RIP.unsafePerformIO hs_bindgen_d50b20f504174dd5
 
 -- __unique:__ @test_edgecasesnames_Example_get_forall@
 foreign import ccall unsafe "hs_bindgen_f7e660ea9223a909" hs_bindgen_f7e660ea9223a909_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_forall@
-hs_bindgen_f7e660ea9223a909 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_f7e660ea9223a909 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_f7e660ea9223a909 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f7e660ea9223a909_base
+  RIP.fromFFIType hs_bindgen_f7e660ea9223a909_base
 
 {-# NOINLINE forall' #-}
 {-| __C declaration:__ @forall@
@@ -202,18 +196,18 @@ hs_bindgen_f7e660ea9223a909 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-forall' :: Ptr.FunPtr (IO ())
+forall' :: RIP.FunPtr (IO ())
 forall' =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f7e660ea9223a909
+  RIP.unsafePerformIO hs_bindgen_f7e660ea9223a909
 
 -- __unique:__ @test_edgecasesnames_Example_get_mdo@
 foreign import ccall unsafe "hs_bindgen_15319d1b8d2ca927" hs_bindgen_15319d1b8d2ca927_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_mdo@
-hs_bindgen_15319d1b8d2ca927 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_15319d1b8d2ca927 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_15319d1b8d2ca927 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_15319d1b8d2ca927_base
+  RIP.fromFFIType hs_bindgen_15319d1b8d2ca927_base
 
 {-# NOINLINE mdo' #-}
 {-| __C declaration:__ @mdo@
@@ -222,18 +216,18 @@ hs_bindgen_15319d1b8d2ca927 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-mdo' :: Ptr.FunPtr (IO ())
+mdo' :: RIP.FunPtr (IO ())
 mdo' =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_15319d1b8d2ca927
+  RIP.unsafePerformIO hs_bindgen_15319d1b8d2ca927
 
 -- __unique:__ @test_edgecasesnames_Example_get_pattern@
 foreign import ccall unsafe "hs_bindgen_e5a1961c11d641ed" hs_bindgen_e5a1961c11d641ed_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_pattern@
-hs_bindgen_e5a1961c11d641ed :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_e5a1961c11d641ed :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_e5a1961c11d641ed =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_e5a1961c11d641ed_base
+  RIP.fromFFIType hs_bindgen_e5a1961c11d641ed_base
 
 {-# NOINLINE pattern' #-}
 {-| __C declaration:__ @pattern@
@@ -242,18 +236,18 @@ hs_bindgen_e5a1961c11d641ed =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-pattern' :: Ptr.FunPtr (IO ())
+pattern' :: RIP.FunPtr (IO ())
 pattern' =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e5a1961c11d641ed
+  RIP.unsafePerformIO hs_bindgen_e5a1961c11d641ed
 
 -- __unique:__ @test_edgecasesnames_Example_get_proc@
 foreign import ccall unsafe "hs_bindgen_d2dd74adbb4a606c" hs_bindgen_d2dd74adbb4a606c_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_proc@
-hs_bindgen_d2dd74adbb4a606c :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_d2dd74adbb4a606c :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_d2dd74adbb4a606c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d2dd74adbb4a606c_base
+  RIP.fromFFIType hs_bindgen_d2dd74adbb4a606c_base
 
 {-# NOINLINE proc' #-}
 {-| __C declaration:__ @proc@
@@ -262,18 +256,18 @@ hs_bindgen_d2dd74adbb4a606c =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-proc' :: Ptr.FunPtr (IO ())
+proc' :: RIP.FunPtr (IO ())
 proc' =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d2dd74adbb4a606c
+  RIP.unsafePerformIO hs_bindgen_d2dd74adbb4a606c
 
 -- __unique:__ @test_edgecasesnames_Example_get_rec@
 foreign import ccall unsafe "hs_bindgen_bab6d9c9540c9d58" hs_bindgen_bab6d9c9540c9d58_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_rec@
-hs_bindgen_bab6d9c9540c9d58 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_bab6d9c9540c9d58 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_bab6d9c9540c9d58 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_bab6d9c9540c9d58_base
+  RIP.fromFFIType hs_bindgen_bab6d9c9540c9d58_base
 
 {-# NOINLINE rec' #-}
 {-| __C declaration:__ @rec@
@@ -282,18 +276,18 @@ hs_bindgen_bab6d9c9540c9d58 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-rec' :: Ptr.FunPtr (IO ())
+rec' :: RIP.FunPtr (IO ())
 rec' =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bab6d9c9540c9d58
+  RIP.unsafePerformIO hs_bindgen_bab6d9c9540c9d58
 
 -- __unique:__ @test_edgecasesnames_Example_get_using@
 foreign import ccall unsafe "hs_bindgen_447fa7223c86f5c7" hs_bindgen_447fa7223c86f5c7_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_using@
-hs_bindgen_447fa7223c86f5c7 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_447fa7223c86f5c7 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_447fa7223c86f5c7 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_447fa7223c86f5c7_base
+  RIP.fromFFIType hs_bindgen_447fa7223c86f5c7_base
 
 {-# NOINLINE using' #-}
 {-| __C declaration:__ @using@
@@ -302,18 +296,18 @@ hs_bindgen_447fa7223c86f5c7 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-using' :: Ptr.FunPtr (IO ())
+using' :: RIP.FunPtr (IO ())
 using' =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_447fa7223c86f5c7
+  RIP.unsafePerformIO hs_bindgen_447fa7223c86f5c7
 
 -- __unique:__ @test_edgecasesnames_Example_get_anyclass@
 foreign import ccall unsafe "hs_bindgen_f2292c17facdbcde" hs_bindgen_f2292c17facdbcde_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_anyclass@
-hs_bindgen_f2292c17facdbcde :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_f2292c17facdbcde :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_f2292c17facdbcde =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_f2292c17facdbcde_base
+  RIP.fromFFIType hs_bindgen_f2292c17facdbcde_base
 
 {-# NOINLINE anyclass #-}
 {-| __C declaration:__ @anyclass@
@@ -322,18 +316,18 @@ hs_bindgen_f2292c17facdbcde =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-anyclass :: Ptr.FunPtr (IO ())
+anyclass :: RIP.FunPtr (IO ())
 anyclass =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f2292c17facdbcde
+  RIP.unsafePerformIO hs_bindgen_f2292c17facdbcde
 
 -- __unique:__ @test_edgecasesnames_Example_get_capi@
 foreign import ccall unsafe "hs_bindgen_393b62c1a821de61" hs_bindgen_393b62c1a821de61_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_capi@
-hs_bindgen_393b62c1a821de61 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_393b62c1a821de61 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_393b62c1a821de61 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_393b62c1a821de61_base
+  RIP.fromFFIType hs_bindgen_393b62c1a821de61_base
 
 {-# NOINLINE capi #-}
 {-| __C declaration:__ @capi@
@@ -342,18 +336,18 @@ hs_bindgen_393b62c1a821de61 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-capi :: Ptr.FunPtr (IO ())
+capi :: RIP.FunPtr (IO ())
 capi =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_393b62c1a821de61
+  RIP.unsafePerformIO hs_bindgen_393b62c1a821de61
 
 -- __unique:__ @test_edgecasesnames_Example_get_cases@
 foreign import ccall unsafe "hs_bindgen_962b5bf9813ea6dd" hs_bindgen_962b5bf9813ea6dd_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_cases@
-hs_bindgen_962b5bf9813ea6dd :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_962b5bf9813ea6dd :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_962b5bf9813ea6dd =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_962b5bf9813ea6dd_base
+  RIP.fromFFIType hs_bindgen_962b5bf9813ea6dd_base
 
 {-# NOINLINE cases #-}
 {-| __C declaration:__ @cases@
@@ -362,18 +356,18 @@ hs_bindgen_962b5bf9813ea6dd =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-cases :: Ptr.FunPtr (IO ())
+cases :: RIP.FunPtr (IO ())
 cases =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_962b5bf9813ea6dd
+  RIP.unsafePerformIO hs_bindgen_962b5bf9813ea6dd
 
 -- __unique:__ @test_edgecasesnames_Example_get_ccall@
 foreign import ccall unsafe "hs_bindgen_599948844183b4ea" hs_bindgen_599948844183b4ea_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_ccall@
-hs_bindgen_599948844183b4ea :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_599948844183b4ea :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_599948844183b4ea =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_599948844183b4ea_base
+  RIP.fromFFIType hs_bindgen_599948844183b4ea_base
 
 {-# NOINLINE ccall #-}
 {-| __C declaration:__ @ccall@
@@ -382,18 +376,18 @@ hs_bindgen_599948844183b4ea =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-ccall :: Ptr.FunPtr (IO ())
+ccall :: RIP.FunPtr (IO ())
 ccall =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_599948844183b4ea
+  RIP.unsafePerformIO hs_bindgen_599948844183b4ea
 
 -- __unique:__ @test_edgecasesnames_Example_get_dynamic@
 foreign import ccall unsafe "hs_bindgen_aa442ea764d9d93c" hs_bindgen_aa442ea764d9d93c_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_dynamic@
-hs_bindgen_aa442ea764d9d93c :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_aa442ea764d9d93c :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_aa442ea764d9d93c =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_aa442ea764d9d93c_base
+  RIP.fromFFIType hs_bindgen_aa442ea764d9d93c_base
 
 {-# NOINLINE dynamic #-}
 {-| __C declaration:__ @dynamic@
@@ -402,18 +396,18 @@ hs_bindgen_aa442ea764d9d93c =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-dynamic :: Ptr.FunPtr (IO ())
+dynamic :: RIP.FunPtr (IO ())
 dynamic =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aa442ea764d9d93c
+  RIP.unsafePerformIO hs_bindgen_aa442ea764d9d93c
 
 -- __unique:__ @test_edgecasesnames_Example_get_export@
 foreign import ccall unsafe "hs_bindgen_98dfb21e9f7b6857" hs_bindgen_98dfb21e9f7b6857_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_export@
-hs_bindgen_98dfb21e9f7b6857 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_98dfb21e9f7b6857 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_98dfb21e9f7b6857 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_98dfb21e9f7b6857_base
+  RIP.fromFFIType hs_bindgen_98dfb21e9f7b6857_base
 
 {-# NOINLINE export #-}
 {-| __C declaration:__ @export@
@@ -422,18 +416,18 @@ hs_bindgen_98dfb21e9f7b6857 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-export :: Ptr.FunPtr (IO ())
+export :: RIP.FunPtr (IO ())
 export =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_98dfb21e9f7b6857
+  RIP.unsafePerformIO hs_bindgen_98dfb21e9f7b6857
 
 -- __unique:__ @test_edgecasesnames_Example_get_family@
 foreign import ccall unsafe "hs_bindgen_b96b9fd3fa689c75" hs_bindgen_b96b9fd3fa689c75_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_family@
-hs_bindgen_b96b9fd3fa689c75 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_b96b9fd3fa689c75 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_b96b9fd3fa689c75 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_b96b9fd3fa689c75_base
+  RIP.fromFFIType hs_bindgen_b96b9fd3fa689c75_base
 
 {-# NOINLINE family #-}
 {-| __C declaration:__ @family@
@@ -442,18 +436,18 @@ hs_bindgen_b96b9fd3fa689c75 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-family :: Ptr.FunPtr (IO ())
+family :: RIP.FunPtr (IO ())
 family =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b96b9fd3fa689c75
+  RIP.unsafePerformIO hs_bindgen_b96b9fd3fa689c75
 
 -- __unique:__ @test_edgecasesnames_Example_get_group@
 foreign import ccall unsafe "hs_bindgen_a4413aed06e03d16" hs_bindgen_a4413aed06e03d16_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_group@
-hs_bindgen_a4413aed06e03d16 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_a4413aed06e03d16 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_a4413aed06e03d16 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_a4413aed06e03d16_base
+  RIP.fromFFIType hs_bindgen_a4413aed06e03d16_base
 
 {-# NOINLINE group #-}
 {-| __C declaration:__ @group@
@@ -462,18 +456,18 @@ hs_bindgen_a4413aed06e03d16 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-group :: Ptr.FunPtr (IO ())
+group :: RIP.FunPtr (IO ())
 group =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a4413aed06e03d16
+  RIP.unsafePerformIO hs_bindgen_a4413aed06e03d16
 
 -- __unique:__ @test_edgecasesnames_Example_get_interruptible@
 foreign import ccall unsafe "hs_bindgen_52223789a2752bbe" hs_bindgen_52223789a2752bbe_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_interruptible@
-hs_bindgen_52223789a2752bbe :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_52223789a2752bbe :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_52223789a2752bbe =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_52223789a2752bbe_base
+  RIP.fromFFIType hs_bindgen_52223789a2752bbe_base
 
 {-# NOINLINE interruptible #-}
 {-| __C declaration:__ @interruptible@
@@ -482,18 +476,18 @@ hs_bindgen_52223789a2752bbe =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-interruptible :: Ptr.FunPtr (IO ())
+interruptible :: RIP.FunPtr (IO ())
 interruptible =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_52223789a2752bbe
+  RIP.unsafePerformIO hs_bindgen_52223789a2752bbe
 
 -- __unique:__ @test_edgecasesnames_Example_get_javascript@
 foreign import ccall unsafe "hs_bindgen_3d349ab20e55d3d5" hs_bindgen_3d349ab20e55d3d5_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_javascript@
-hs_bindgen_3d349ab20e55d3d5 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_3d349ab20e55d3d5 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_3d349ab20e55d3d5 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_3d349ab20e55d3d5_base
+  RIP.fromFFIType hs_bindgen_3d349ab20e55d3d5_base
 
 {-# NOINLINE javascript #-}
 {-| __C declaration:__ @javascript@
@@ -502,18 +496,18 @@ hs_bindgen_3d349ab20e55d3d5 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-javascript :: Ptr.FunPtr (IO ())
+javascript :: RIP.FunPtr (IO ())
 javascript =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3d349ab20e55d3d5
+  RIP.unsafePerformIO hs_bindgen_3d349ab20e55d3d5
 
 -- __unique:__ @test_edgecasesnames_Example_get_label@
 foreign import ccall unsafe "hs_bindgen_7ab78b24e63738f5" hs_bindgen_7ab78b24e63738f5_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_label@
-hs_bindgen_7ab78b24e63738f5 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_7ab78b24e63738f5 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_7ab78b24e63738f5 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7ab78b24e63738f5_base
+  RIP.fromFFIType hs_bindgen_7ab78b24e63738f5_base
 
 {-# NOINLINE label #-}
 {-| __C declaration:__ @label@
@@ -522,18 +516,18 @@ hs_bindgen_7ab78b24e63738f5 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-label :: Ptr.FunPtr (IO ())
+label :: RIP.FunPtr (IO ())
 label =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7ab78b24e63738f5
+  RIP.unsafePerformIO hs_bindgen_7ab78b24e63738f5
 
 -- __unique:__ @test_edgecasesnames_Example_get_prim@
 foreign import ccall unsafe "hs_bindgen_13caa66b81eebdfb" hs_bindgen_13caa66b81eebdfb_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_prim@
-hs_bindgen_13caa66b81eebdfb :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_13caa66b81eebdfb :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_13caa66b81eebdfb =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_13caa66b81eebdfb_base
+  RIP.fromFFIType hs_bindgen_13caa66b81eebdfb_base
 
 {-# NOINLINE prim #-}
 {-| __C declaration:__ @prim@
@@ -542,18 +536,18 @@ hs_bindgen_13caa66b81eebdfb =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-prim :: Ptr.FunPtr (IO ())
+prim :: RIP.FunPtr (IO ())
 prim =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_13caa66b81eebdfb
+  RIP.unsafePerformIO hs_bindgen_13caa66b81eebdfb
 
 -- __unique:__ @test_edgecasesnames_Example_get_role@
 foreign import ccall unsafe "hs_bindgen_99189a38ba22fdad" hs_bindgen_99189a38ba22fdad_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_role@
-hs_bindgen_99189a38ba22fdad :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_99189a38ba22fdad :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_99189a38ba22fdad =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_99189a38ba22fdad_base
+  RIP.fromFFIType hs_bindgen_99189a38ba22fdad_base
 
 {-# NOINLINE role #-}
 {-| __C declaration:__ @role@
@@ -562,18 +556,18 @@ hs_bindgen_99189a38ba22fdad =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-role :: Ptr.FunPtr (IO ())
+role :: RIP.FunPtr (IO ())
 role =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_99189a38ba22fdad
+  RIP.unsafePerformIO hs_bindgen_99189a38ba22fdad
 
 -- __unique:__ @test_edgecasesnames_Example_get_safe@
 foreign import ccall unsafe "hs_bindgen_fe3819b9444e41b6" hs_bindgen_fe3819b9444e41b6_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_safe@
-hs_bindgen_fe3819b9444e41b6 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_fe3819b9444e41b6 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_fe3819b9444e41b6 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_fe3819b9444e41b6_base
+  RIP.fromFFIType hs_bindgen_fe3819b9444e41b6_base
 
 {-# NOINLINE safe #-}
 {-| __C declaration:__ @safe@
@@ -582,18 +576,18 @@ hs_bindgen_fe3819b9444e41b6 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-safe :: Ptr.FunPtr (IO ())
+safe :: RIP.FunPtr (IO ())
 safe =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fe3819b9444e41b6
+  RIP.unsafePerformIO hs_bindgen_fe3819b9444e41b6
 
 -- __unique:__ @test_edgecasesnames_Example_get_stdcall@
 foreign import ccall unsafe "hs_bindgen_7d4e52bd26694f13" hs_bindgen_7d4e52bd26694f13_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_stdcall@
-hs_bindgen_7d4e52bd26694f13 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_7d4e52bd26694f13 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_7d4e52bd26694f13 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_7d4e52bd26694f13_base
+  RIP.fromFFIType hs_bindgen_7d4e52bd26694f13_base
 
 {-# NOINLINE stdcall #-}
 {-| __C declaration:__ @stdcall@
@@ -602,18 +596,18 @@ hs_bindgen_7d4e52bd26694f13 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-stdcall :: Ptr.FunPtr (IO ())
+stdcall :: RIP.FunPtr (IO ())
 stdcall =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7d4e52bd26694f13
+  RIP.unsafePerformIO hs_bindgen_7d4e52bd26694f13
 
 -- __unique:__ @test_edgecasesnames_Example_get_stock@
 foreign import ccall unsafe "hs_bindgen_be2fd8368b1f85bc" hs_bindgen_be2fd8368b1f85bc_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_stock@
-hs_bindgen_be2fd8368b1f85bc :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_be2fd8368b1f85bc :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_be2fd8368b1f85bc =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_be2fd8368b1f85bc_base
+  RIP.fromFFIType hs_bindgen_be2fd8368b1f85bc_base
 
 {-# NOINLINE stock #-}
 {-| __C declaration:__ @stock@
@@ -622,18 +616,18 @@ hs_bindgen_be2fd8368b1f85bc =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-stock :: Ptr.FunPtr (IO ())
+stock :: RIP.FunPtr (IO ())
 stock =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_be2fd8368b1f85bc
+  RIP.unsafePerformIO hs_bindgen_be2fd8368b1f85bc
 
 -- __unique:__ @test_edgecasesnames_Example_get_unsafe@
 foreign import ccall unsafe "hs_bindgen_d0faf7702a235ae1" hs_bindgen_d0faf7702a235ae1_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_unsafe@
-hs_bindgen_d0faf7702a235ae1 :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_d0faf7702a235ae1 :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_d0faf7702a235ae1 =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_d0faf7702a235ae1_base
+  RIP.fromFFIType hs_bindgen_d0faf7702a235ae1_base
 
 {-# NOINLINE unsafe #-}
 {-| __C declaration:__ @unsafe@
@@ -642,18 +636,18 @@ hs_bindgen_d0faf7702a235ae1 =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-unsafe :: Ptr.FunPtr (IO ())
+unsafe :: RIP.FunPtr (IO ())
 unsafe =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d0faf7702a235ae1
+  RIP.unsafePerformIO hs_bindgen_d0faf7702a235ae1
 
 -- __unique:__ @test_edgecasesnames_Example_get_via@
 foreign import ccall unsafe "hs_bindgen_56fc690ff4bc7c4e" hs_bindgen_56fc690ff4bc7c4e_base ::
-     IO (Ptr.FunPtr Void)
+     IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_edgecasesnames_Example_get_via@
-hs_bindgen_56fc690ff4bc7c4e :: IO (Ptr.FunPtr (IO ()))
+hs_bindgen_56fc690ff4bc7c4e :: IO (RIP.FunPtr (IO ()))
 hs_bindgen_56fc690ff4bc7c4e =
-  HsBindgen.Runtime.Internal.HasFFIType.fromFFIType hs_bindgen_56fc690ff4bc7c4e_base
+  RIP.fromFFIType hs_bindgen_56fc690ff4bc7c4e_base
 
 {-# NOINLINE via #-}
 {-| __C declaration:__ @via@
@@ -662,6 +656,5 @@ hs_bindgen_56fc690ff4bc7c4e =
 
     __exported by:__ @edge-cases\/names.h@
 -}
-via :: Ptr.FunPtr (IO ())
-via =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_56fc690ff4bc7c4e
+via :: RIP.FunPtr (IO ())
+via = RIP.unsafePerformIO hs_bindgen_56fc690ff4bc7c4e
