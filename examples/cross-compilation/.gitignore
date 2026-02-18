@@ -19,6 +19,9 @@ hs-project/cabal.project.local
 hs-project/iserv-wrapper-*.sh
 hs-project/iserv-build-*/
 
+# Core dumps (from QEMU/iserv crashes during debugging)
+*.core
+
 # Nix
 result
 result-*

@@ -24,6 +24,20 @@
         pkgsAarch64 = pkgs.pkgsCross.aarch64-multiplatform;
         pkgsArm32 = pkgs.pkgsCross.armv7l-hf-multiplatform;
 
+        # GHC's runtime linker has a Thumb interworking bug on ARM32
+        # (ghc#21991): when resolving symbols via dlsym (e.g. glibc's
+        # strlen), it only checks the Thumb bit for STT_FUNC symbols in
+        # ELF objects, missing imported symbols with type STT_NOTYPE.
+        # This causes SIGILL when Template Haskell evaluation triggers
+        # ARM BL calls to Thumb functions (should be BLX).
+        # We patch rts/linker/Elf.c to also detect the Thumb bit from
+        # the resolved address itself, which dlsym preserves on ARM.
+        patchedGhcArm32 = pkgsArm32.buildPackages.ghc.overrideAttrs (old: {
+          patches = (old.patches or []) ++ [
+            ./ghc-arm-thumb-interworking.patch
+          ];
+        });
+
         # Target sysroots (glibc headers for cross-compilation)
         aarch64Sysroot = pkgsAarch64.glibc.dev;
         arm32Sysroot = pkgsArm32.glibc.dev;
@@ -38,7 +52,7 @@
         ghcAarch64 = pkgsAarch64.buildPackages.ghc;
         cabalAarch64 = pkgsAarch64.buildPackages.cabal-install;
 
-        ghcArm32 = pkgsArm32.buildPackages.ghc;
+        ghcArm32 = patchedGhcArm32;
         cabalArm32 = pkgsArm32.buildPackages.cabal-install;
 
         # Common tools needed by all shells

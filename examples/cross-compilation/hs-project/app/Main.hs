@@ -6,9 +6,9 @@ import ArchTypes.Generated
 
 main :: IO ()
 main = do
-    putStrLn "═══════════════════════════════════════════════════════════"
+    putStrLn "==========================================================="
     putStrLn "  Struct Sizes from Generated Bindings"
-    putStrLn "═══════════════════════════════════════════════════════════"
+    putStrLn "==========================================================="
     putStrLn ""
 
     putStrLn "ArchInfo:"
@@ -26,7 +26,7 @@ main = do
     putStrLn $ "  alignment = " ++ show (alignment (undefined :: NestedStruct))
     putStrLn ""
 
-    putStrLn "═══════════════════════════════════════════════════════════"
+    putStrLn "==========================================================="
     putStrLn "  These values are determined at binding generation time,"
     putStrLn "  based on the target architecture specified to hs-bindgen."
-    putStrLn "═══════════════════════════════════════════════════════════"
+    putStrLn "==========================================================="
