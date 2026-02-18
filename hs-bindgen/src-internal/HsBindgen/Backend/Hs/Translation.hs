@@ -105,7 +105,8 @@ generateDeclarations' uniqueId fns haddockConfig moduleName declIndex sizeofs de
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
                    ]
-      hsDecls <- concat <$> mapM (generateDecs uniqueId fns haddockConfig moduleName sizeofs) decs
+      hsDeclsAction <- mapM (generateDecs uniqueId fns haddockConfig moduleName sizeofs) decs
+      hsDecls <- State.runAction $ fmap concat $ sequence hsDeclsAction
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
@@ -171,26 +172,26 @@ generateDecs ::
   -> BaseModuleName
   -> C.Sizeofs
   -> C.Decl Final
-  -> HsM [WithCategory Hs.Decl]
+  -> HsM (State.Action [WithCategory Hs.Decl])
 generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
-        structDecs supInsts.struct haddockConfig info struct spec
+        State.immediateM $ structDecs supInsts.struct haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
-        unionDecs fns haddockConfig info union spec
+        State.immediateM $ unionDecs fns haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
-        enumDecs supInsts.enum fns haddockConfig info enum spec
+        State.immediateM $ enumDecs supInsts.enum fns haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
-        pure $ anonEnumConstantDecs haddockConfig info anonEnumConst
+        pure $ State.immediate $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         -- Deal with typedefs around function pointers (#1380)
         case typedef.typ of
           C.TypePointers n (C.TypeFun args res) ->
             typedefFunPtrDecs supInsts.typedef fns haddockConfig sizeofs info n (args, res) typedef.names spec
           _otherwise ->
-            typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
+            State.immediateM $ typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
       C.DeclOpaque -> withCategoryM CType $
-        opaqueDecs haddockConfig info spec
+        State.immediateM $ opaqueDecs haddockConfig info spec
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
@@ -199,20 +200,29 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
               addressStubDecs uniqueId haddockConfig moduleName sizeofs info funType HaskellId spec
-        pure $ withCategory (CTerm CSafe)   (funDeclsWith SHs.Safe)
-            ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
-            ++ withCategory (CTerm CFunPtr)  funPtrDecls
+        pure $ do
+          safes   <- withCategory (CTerm CSafe)   (State.immediate $ funDeclsWith SHs.Safe)
+          unsafes <- withCategory (CTerm CUnsafe) (State.immediate $ funDeclsWith SHs.Unsafe)
+          funPtrs <- withCategory (CTerm CFunPtr) (State.immediate $ funPtrDecls)
+          pure (safes ++ unsafes ++ funPtrs)
       C.DeclMacro macro -> withCategoryM CType $
-        macroDecs supInsts.typedef haddockConfig info macro spec
+        State.immediateM $ macroDecs supInsts.typedef haddockConfig info macro spec
       C.DeclGlobal ty -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
-          global uniqueId haddockConfig moduleName transState sizeofs info ty spec
+          State.immediate $ global uniqueId haddockConfig moduleName transState sizeofs info ty spec
   where
-    withCategory :: Category -> [a] -> [WithCategory a]
-    withCategory c = map (WithCategory c)
+    withCategory ::
+         Category
+      -> State.Action [a]
+      -> State.Action [WithCategory a]
+    withCategory c = fmap (map (WithCategory c))
 
-    withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
+    withCategoryM ::
+         Functor m
+      => Category
+      -> m (State.Action [a])
+      -> m (State.Action [WithCategory a])
     withCategoryM c = fmap (withCategory c)
 
     supInsts :: Inst.SupportedInstances
@@ -705,7 +715,8 @@ enumDecs supInsts fns haddockConfig info enum spec = aux <$> newtypeDec
 -------------------------------------------------------------------------------}
 
 typedefDecs ::
-     Map Inst.TypeClass Inst.SupportedStrategies
+     HasCallStack
+  => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
@@ -887,13 +898,16 @@ typedefFunPtrDecs ::
   -> ([C.Type Final], C.Type Final)  -- ^ Function arguments and result
   -> MangleNames.NewtypeNames
   -> PrescriptiveDeclSpec
-  -> HsM [Hs.Decl]
+  -> HsM (State.Action [Hs.Decl])
 typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
-    fmap concat $ sequence [
-        typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
-      , typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
+    fmap concActions $ sequence [
+        State.delayM     $ typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
+      , State.immediateM $ typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
       ]
   where
+    concActions :: [State.Action [Hs.Decl]] -> State.Action [Hs.Decl]
+    concActions = fmap concat . sequence
+
     -- TODO: For historical reasons we currently implement this by making a
     -- "fake" C declaration, and then translating that immediately to Haskell.
     -- We should fuse this, and just generate the Haskell declarations directly.

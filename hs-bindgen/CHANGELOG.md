@@ -22,6 +22,11 @@
   instead of `erf(x)`) to prevent function-like macro expansion when a macro
   shadows the function name.
 * Include `FunPtr` for macro-defined newtypes.
+* Fix a panic that occurred in some cases when generating `_Aux` newtypes for
+  function pointers. See [issue #1694][issue-1694] and [PR #1724][pr-1724].
+
+[issue-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
+[pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 
 ## 0.1.0-alpha -- 2026-02-06
 

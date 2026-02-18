@@ -1,0 +1,101 @@
+-- addDependentFile examples/golden/edge-cases/aux_funptr_newtypes.h
+{-| Auxiliary type used by 'FunPtr'
+
+__C declaration:__ @FunPtr@
+
+__defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
+
+__exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+-}
+newtype FunPtr_Aux
+    = FunPtr_Aux {unwrapFunPtr_Aux :: (Foo -> IO Unit)}
+      {- ^ Auxiliary type used by 'FunPtr'
+
+      __C declaration:__ @FunPtr@
+
+      __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
+
+      __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+      -}
+    deriving stock Generic
+instance (~) ty (Foo -> IO Unit) =>
+         HasField "unwrapFunPtr_Aux" (Ptr FunPtr_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFunPtr_Aux")
+instance HasCField FunPtr_Aux "unwrapFunPtr_Aux"
+    where type CFieldType FunPtr_Aux "unwrapFunPtr_Aux" = Foo ->
+                                                          IO Unit
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @FunPtr@
+
+    __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
+
+    __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+-}
+newtype FunPtr
+    = FunPtr {unwrapFunPtr :: (FunPtr FunPtr_Aux)}
+      {- ^ __C declaration:__ @FunPtr@
+
+           __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
+
+           __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+      -}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (FunPtr FunPtr_Aux) =>
+         HasField "unwrapFunPtr" (Ptr FunPtr) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapFunPtr")
+instance HasCField FunPtr "unwrapFunPtr"
+    where type CFieldType FunPtr "unwrapFunPtr" = FunPtr FunPtr_Aux
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct foo@
+
+    __defined at:__ @edge-cases\/aux_funptr_newtypes.h 8:8@
+
+    __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+-}
+data Foo
+    = Foo {foo_x :: CInt
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @edge-cases\/aux_funptr_newtypes.h 9:7@
+
+                __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+           -},
+           foo_y :: CInt
+           {- ^ __C declaration:__ @y@
+
+                __defined at:__ @edge-cases\/aux_funptr_newtypes.h 10:7@
+
+                __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+           -}}
+      {- ^ __C declaration:__ @struct foo@
+
+           __defined at:__ @edge-cases\/aux_funptr_newtypes.h 8:8@
+
+           __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
+      -}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Foo
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Foo
+    where readRaw = \ptr_0 -> (pure Foo <*> readRaw (Proxy @"foo_x") ptr_0) <*> readRaw (Proxy @"foo_y") ptr_0
+instance WriteRaw Foo
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Foo foo_x_2
+                                           foo_y_3 -> writeRaw (Proxy @"foo_x") ptr_0 foo_x_2 >> writeRaw (Proxy @"foo_y") ptr_0 foo_y_3
+deriving via (EquivStorable Foo) instance Storable Foo
+instance HasCField Foo "foo_x"
+    where type CFieldType Foo "foo_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "foo_x" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_x")
+instance HasCField Foo "foo_y"
+    where type CFieldType Foo "foo_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt => HasField "foo_y" (Ptr Foo) (Ptr ty)
+    where getField = fromPtr (Proxy @"foo_y")
