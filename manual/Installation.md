@@ -136,6 +136,11 @@ using Unicode-specific characters in C function definitions.
 
 ### Environment variables
 
+* `SDKROOT`: This environment variable must be set to instruct LLVM/Clang which
+  SDK to use.  The default can generally be determined using
+  `xcrun --sdk macosx --show-sdk-path`.  If `SDKROOT` is not set, `hs-bindgen`
+  attempts to run this command and automatically set it to the default.
+
 * `DYLD_LIBRARY_PATH`: This is the macOS equivalent of `LD_LIBRARY_PATH`. It
   tells the dynamic linker where to find dynamic libraries (`.dylib` files).
 
