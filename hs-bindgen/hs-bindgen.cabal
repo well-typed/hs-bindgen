@@ -128,6 +128,7 @@ library internal
     HsBindgen.Clang.CompareVersions
     HsBindgen.Clang.CStandard
     HsBindgen.Clang.ExtraClangArgs
+    HsBindgen.Clang.Macos
     HsBindgen.Clang.Sizeof
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.FixCandidate
@@ -206,6 +207,7 @@ library internal
     HsBindgen.TH.Internal
     HsBindgen.TraceMsg
     HsBindgen.Util.Monad
+    HsBindgen.Util.Process
     HsBindgen.Util.TH
     HsBindgen.Util.Tracer
     Text.SimplePrettyPrint

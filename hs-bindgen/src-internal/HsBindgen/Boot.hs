@@ -21,6 +21,7 @@ import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
                                         compareClangVersions)
 import HsBindgen.Clang.CStandard
 import HsBindgen.Clang.ExtraClangArgs
+import HsBindgen.Clang.Macos
 import HsBindgen.Clang.Sizeof (getSizeofs)
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
@@ -46,6 +47,8 @@ runBoot tracer config uncheckedHashIncludeArgs = do
     traceStatus $ BootStatusStart config
 
     checkBackendConfig (contramap BootBackendConfig tracer) config.backend
+
+    checkMacosEnv (contramap BootMacos tracer)
 
     getHashIncludeArgs <- cache "hashIncludeArgs" $ Cached $ do
       let tracer' = contramap BootHashIncludeArg tracer
@@ -231,6 +234,7 @@ instance IsTrace Level BootCStandardMsg where
 -- | Boot trace messages
 data BootMsg =
     BootBackendConfig        BackendConfigMsg
+  | BootMacos                MacosMsg
   | BootBindingSpec          BindingSpecMsg
   | BootBuiltinIncDir        BuiltinIncDirMsg
   | BootClang                ClangMsg

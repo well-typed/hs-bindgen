@@ -31,10 +31,6 @@ runs:
     run: |
       echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
       echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
-      # https://stackoverflow.com/questions/63342521/clang-on-macos-having-problems-with-its-includes
-      export SDKROOT=$(xcrun --show-sdk-path --sdk macosx)
-      echo $SDKROOT
-      echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
 
   - name: Remove tarballs from temporary directory (Linux)
     shell: bash
