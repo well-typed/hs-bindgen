@@ -1,0 +1,16 @@
+cabal-version: 3.0
+name:          repro
+version:       0.1.0.0
+build-type:    Simple
+
+library
+  exposed-modules:  Lib
+  build-depends:    base, template-haskell
+  hs-source-dirs:   src
+  default-language: Haskell2010
+
+executable repro
+  main-is:          Main.hs
+  build-depends:    base, repro
+  hs-source-dirs:   app
+  default-language: Haskell2010
