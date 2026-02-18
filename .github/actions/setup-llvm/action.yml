@@ -29,8 +29,12 @@ runs:
     shell: bash
     if: ${{ runner.os == 'MacOS' }}
     run: |
-      echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
-      echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
+      echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" | tee -a "$GITHUB_ENV"
+      echo "LIBCLANG_PATH=$LLVM_PATH/lib" | tee -a "$GITHUB_ENV"
+      # hs-bindgen automatically sets SDKROOT, but we still need to to build
+      # shared libraries with Clang.
+      SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+      echo "SDKROOT=$SDKROOT" | tee -a "$GITHUB_ENV"
 
   - name: Remove tarballs from temporary directory (Linux)
     shell: bash
