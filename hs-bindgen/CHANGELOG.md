@@ -18,6 +18,10 @@
 * Add `--post-qualified-imports` flag to generate post-qualified imports
   (`import Data.Proxy qualified`) instead of pre-qualified imports. This adds
   the `ImportQualifiedPost` language extension to generated modules.
+* Support top-level anonymous structs and enums as global variables
+  (e.g., `struct { int x; int y; } point;`). The anonymous type is named
+  after the global variable. Extern anonymous declarations
+  (e.g., `extern struct { .. } config;`) are rejected as unusable.
 
 ### Minor changes
 
