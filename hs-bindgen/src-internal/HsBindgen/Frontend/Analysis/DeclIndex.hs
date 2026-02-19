@@ -19,7 +19,6 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , filter
     -- * Query parse successes
   , lookup
-  , (!)
   , getDecls
     -- * Other queries
   , lookupEntry
@@ -352,12 +351,6 @@ lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
   Just (UsableE (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
-
--- | Unsafe! Get parse success.
-(!) :: HasCallStack => DeclIndex -> DeclId -> C.Decl AssignAnonIds
-(!) index declId =
-    fromMaybe (panicPure $ "Unknown key: " ++ show declId) $
-       lookup declId index
 
 -- | Get all parse successes.
 getDecls :: DeclIndex -> [C.Decl AssignAnonIds]
