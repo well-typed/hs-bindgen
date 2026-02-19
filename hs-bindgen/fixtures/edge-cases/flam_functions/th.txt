@@ -4,37 +4,37 @@
 --   signed int arg1
 -- )
 -- {
---   return vector_alloc(arg1);
+--   return (vector_alloc)(arg1);
 -- }
 -- void hs_bindgen_d3aecc79bd3c1993 (
 --   struct Vector *arg1
 -- )
 -- {
---   vector_free(arg1);
+--   (vector_free)(arg1);
 -- }
 -- void hs_bindgen_bfc48cbf5e4cc2ca (
 --   struct Vector *arg1
 -- )
 -- {
---   vector_reverse(arg1);
+--   (vector_reverse)(arg1);
 -- }
 -- struct Vector *hs_bindgen_66fe57793f0712c2 (
 --   signed int arg1
 -- )
 -- {
---   return vector_alloc(arg1);
+--   return (vector_alloc)(arg1);
 -- }
 -- void hs_bindgen_2fb197c3fb9a75a3 (
 --   struct Vector *arg1
 -- )
 -- {
---   vector_free(arg1);
+--   (vector_free)(arg1);
 -- }
 -- void hs_bindgen_c3965610d4826d1a (
 --   struct Vector *arg1
 -- )
 -- {
---   vector_reverse(arg1);
+--   (vector_reverse)(arg1);
 -- }
 -- /* test_edgecasesflam_functions_Example_get_vector_alloc */
 -- __attribute__ ((const))

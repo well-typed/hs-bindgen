@@ -8,28 +8,28 @@
 --   struct vector *arg2
 -- )
 -- {
---   return reverse(arg1, arg2);
+--   return (reverse)(arg1, arg2);
 -- }
 -- void hs_bindgen_2ff371c815d92b04 (
 --   matrix const *arg1,
 --   matrix *arg2
 -- )
 -- {
---   transpose(*arg1, *arg2);
+--   (transpose)(*arg1, *arg2);
 -- }
 -- signed int hs_bindgen_f9655173d51bbaac (
 --   struct vector const *arg1,
 --   struct vector *arg2
 -- )
 -- {
---   return reverse(arg1, arg2);
+--   return (reverse)(arg1, arg2);
 -- }
 -- void hs_bindgen_ea25667627dd5ed2 (
 --   matrix const *arg1,
 --   matrix *arg2
 -- )
 -- {
---   transpose(*arg1, *arg2);
+--   (transpose)(*arg1, *arg2);
 -- }
 -- /* test_manualzero_copy_Example_get_reverse */
 -- __attribute__ ((const))

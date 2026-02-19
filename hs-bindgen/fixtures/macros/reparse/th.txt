@@ -7,381 +7,381 @@
 --   char arg2
 -- )
 -- {
---   args_char1(arg1, arg2);
+--   (args_char1)(arg1, arg2);
 -- }
 -- void hs_bindgen_087f45ca0a284a03 (
 --   A arg1,
 --   signed char arg2
 -- )
 -- {
---   args_char2(arg1, arg2);
+--   (args_char2)(arg1, arg2);
 -- }
 -- void hs_bindgen_f6cb5c5a728c2404 (
 --   A arg1,
 --   unsigned char arg2
 -- )
 -- {
---   args_char3(arg1, arg2);
+--   (args_char3)(arg1, arg2);
 -- }
 -- void hs_bindgen_d485767e0caa1f7c (
 --   A arg1,
 --   signed short arg2
 -- )
 -- {
---   args_short1(arg1, arg2);
+--   (args_short1)(arg1, arg2);
 -- }
 -- void hs_bindgen_833c96c437533e02 (
 --   A arg1,
 --   signed short arg2
 -- )
 -- {
---   args_short2(arg1, arg2);
+--   (args_short2)(arg1, arg2);
 -- }
 -- void hs_bindgen_0e1eedc3fcbcea7a (
 --   A arg1,
 --   unsigned short arg2
 -- )
 -- {
---   args_short3(arg1, arg2);
+--   (args_short3)(arg1, arg2);
 -- }
 -- void hs_bindgen_906f0ac7dfd36ab8 (
 --   A arg1,
 --   signed int arg2
 -- )
 -- {
---   args_int1(arg1, arg2);
+--   (args_int1)(arg1, arg2);
 -- }
 -- void hs_bindgen_0edbc9b995b2a589 (
 --   A arg1,
 --   signed int arg2
 -- )
 -- {
---   args_int2(arg1, arg2);
+--   (args_int2)(arg1, arg2);
 -- }
 -- void hs_bindgen_a5c223f58a255115 (
 --   A arg1,
 --   unsigned int arg2
 -- )
 -- {
---   args_int3(arg1, arg2);
+--   (args_int3)(arg1, arg2);
 -- }
 -- void hs_bindgen_41d1229384b9a529 (
 --   A arg1,
 --   signed long arg2
 -- )
 -- {
---   args_long1(arg1, arg2);
+--   (args_long1)(arg1, arg2);
 -- }
 -- void hs_bindgen_a9a4b09fd3bd83db (
 --   A arg1,
 --   signed long arg2
 -- )
 -- {
---   args_long2(arg1, arg2);
+--   (args_long2)(arg1, arg2);
 -- }
 -- void hs_bindgen_31dc2e680b3f3eff (
 --   A arg1,
 --   unsigned long arg2
 -- )
 -- {
---   args_long3(arg1, arg2);
+--   (args_long3)(arg1, arg2);
 -- }
 -- void hs_bindgen_3d400757b5cbf4b7 (
 --   A arg1,
 --   float arg2
 -- )
 -- {
---   args_float(arg1, arg2);
+--   (args_float)(arg1, arg2);
 -- }
 -- void hs_bindgen_70df07e39900487e (
 --   A arg1,
 --   double arg2
 -- )
 -- {
---   args_double(arg1, arg2);
+--   (args_double)(arg1, arg2);
 -- }
 -- void hs_bindgen_0b7c534fe683f843 (
 --   A arg1,
 --   _Bool arg2
 -- )
 -- {
---   args_bool1(arg1, arg2);
+--   (args_bool1)(arg1, arg2);
 -- }
 -- void hs_bindgen_b20e084f7b7941b5 (
 --   A arg1,
 --   struct some_struct *arg2
 -- )
 -- {
---   args_struct(arg1, *arg2);
+--   (args_struct)(arg1, *arg2);
 -- }
 -- void hs_bindgen_23aff33f33b6bdd1 (
 --   A arg1,
 --   union some_union *arg2
 -- )
 -- {
---   args_union(arg1, *arg2);
+--   (args_union)(arg1, *arg2);
 -- }
 -- void hs_bindgen_fdd58ae14ce15ed5 (
 --   A arg1,
 --   enum some_enum arg2
 -- )
 -- {
---   args_enum(arg1, arg2);
+--   (args_enum)(arg1, arg2);
 -- }
 -- void hs_bindgen_42ce2ec4fd2eda72 (
 --   A arg1,
 --   signed int *arg2
 -- )
 -- {
---   args_pointer1(arg1, arg2);
+--   (args_pointer1)(arg1, arg2);
 -- }
 -- void hs_bindgen_01b2f6502d340abe (
 --   A arg1,
 --   signed int **arg2
 -- )
 -- {
---   args_pointer2(arg1, arg2);
+--   (args_pointer2)(arg1, arg2);
 -- }
 -- void hs_bindgen_3e64133f9aaebbf1 (
 --   A arg1,
 --   void *arg2
 -- )
 -- {
---   args_pointer3(arg1, arg2);
+--   (args_pointer3)(arg1, arg2);
 -- }
 -- A hs_bindgen_c830401b459192fb (void)
 -- {
---   return ret_A();
+--   return (ret_A)();
 -- }
 -- char hs_bindgen_18b24c6e67a5412e (
 --   A arg1
 -- )
 -- {
---   return ret_char1(arg1);
+--   return (ret_char1)(arg1);
 -- }
 -- signed char hs_bindgen_2da1160aeef9ff64 (
 --   A arg1
 -- )
 -- {
---   return ret_char2(arg1);
+--   return (ret_char2)(arg1);
 -- }
 -- unsigned char hs_bindgen_e3183f9de1b9f231 (
 --   A arg1
 -- )
 -- {
---   return ret_char3(arg1);
+--   return (ret_char3)(arg1);
 -- }
 -- signed short hs_bindgen_c313966d4478e3f4 (
 --   A arg1
 -- )
 -- {
---   return ret_short1(arg1);
+--   return (ret_short1)(arg1);
 -- }
 -- signed short hs_bindgen_737fbec310eb0719 (
 --   A arg1
 -- )
 -- {
---   return ret_short2(arg1);
+--   return (ret_short2)(arg1);
 -- }
 -- unsigned short hs_bindgen_b5bd9e111020db4e (
 --   A arg1
 -- )
 -- {
---   return ret_short3(arg1);
+--   return (ret_short3)(arg1);
 -- }
 -- signed int hs_bindgen_a30224259287f5f8 (
 --   A arg1
 -- )
 -- {
---   return ret_int1(arg1);
+--   return (ret_int1)(arg1);
 -- }
 -- signed int hs_bindgen_b5be09caf8cf5750 (
 --   A arg1
 -- )
 -- {
---   return ret_int2(arg1);
+--   return (ret_int2)(arg1);
 -- }
 -- unsigned int hs_bindgen_698e3f97470d83be (
 --   A arg1
 -- )
 -- {
---   return ret_int3(arg1);
+--   return (ret_int3)(arg1);
 -- }
 -- signed long hs_bindgen_c7e0705dd09be530 (
 --   A arg1
 -- )
 -- {
---   return ret_long1(arg1);
+--   return (ret_long1)(arg1);
 -- }
 -- signed long hs_bindgen_74b1f5b8c56ff22c (
 --   A arg1
 -- )
 -- {
---   return ret_long2(arg1);
+--   return (ret_long2)(arg1);
 -- }
 -- unsigned long hs_bindgen_c2d07eaaab82d408 (
 --   A arg1
 -- )
 -- {
---   return ret_long3(arg1);
+--   return (ret_long3)(arg1);
 -- }
 -- float hs_bindgen_0edfbc7067faa1f7 (
 --   A arg1
 -- )
 -- {
---   return ret_float(arg1);
+--   return (ret_float)(arg1);
 -- }
 -- double hs_bindgen_786ca672396b33be (
 --   A arg1
 -- )
 -- {
---   return ret_double(arg1);
+--   return (ret_double)(arg1);
 -- }
 -- _Bool hs_bindgen_2e99f19b59650996 (
 --   A arg1
 -- )
 -- {
---   return ret_bool1(arg1);
+--   return (ret_bool1)(arg1);
 -- }
 -- void hs_bindgen_6c999121eed8178f (
 --   A arg1,
 --   struct some_struct *arg2
 -- )
 -- {
---   *arg2 = ret_struct(arg1);
+--   *arg2 = (ret_struct)(arg1);
 -- }
 -- void hs_bindgen_481ee5d2d9bd34db (
 --   A arg1,
 --   union some_union *arg2
 -- )
 -- {
---   *arg2 = ret_union(arg1);
+--   *arg2 = (ret_union)(arg1);
 -- }
 -- enum some_enum hs_bindgen_8bb240ba453b700d (
 --   A arg1
 -- )
 -- {
---   return ret_enum(arg1);
+--   return (ret_enum)(arg1);
 -- }
 -- signed int *hs_bindgen_c346ed2cd20b9af1 (
 --   A arg1
 -- )
 -- {
---   return ret_pointer1(arg1);
+--   return (ret_pointer1)(arg1);
 -- }
 -- signed int **hs_bindgen_a21f618658151728 (
 --   A arg1
 -- )
 -- {
---   return ret_pointer2(arg1);
+--   return (ret_pointer2)(arg1);
 -- }
 -- void *hs_bindgen_2d8c6e2d2f395342 (
 --   A arg1
 -- )
 -- {
---   return ret_pointer3(arg1);
+--   return (ret_pointer3)(arg1);
 -- }
 -- signed int hs_bindgen_b030d02030ed80bc (
 --   A arg1
 -- )
 -- {
---   return body1(arg1);
+--   return (body1)(arg1);
 -- }
 -- A hs_bindgen_be50427e6a63df54 (void)
 -- {
---   return body2();
+--   return (body2)();
 -- }
 -- void hs_bindgen_627a52a5c7617083 (
 --   A arg1,
 --   float _Complex *arg2
 -- )
 -- {
---   args_complex_float(arg1, *arg2);
+--   (args_complex_float)(arg1, *arg2);
 -- }
 -- void hs_bindgen_392babebc1d83503 (
 --   A arg1,
 --   double _Complex *arg2
 -- )
 -- {
---   args_complex_double(arg1, *arg2);
+--   (args_complex_double)(arg1, *arg2);
 -- }
 -- void hs_bindgen_8958183ede73dea8 (
 --   A arg1,
 --   float _Complex *arg2
 -- )
 -- {
---   *arg2 = ret_complex_float(arg1);
+--   *arg2 = (ret_complex_float)(arg1);
 -- }
 -- void hs_bindgen_a95fabfd391a99aa (
 --   A arg1,
 --   double _Complex *arg2
 -- )
 -- {
---   *arg2 = ret_complex_double(arg1);
+--   *arg2 = (ret_complex_double)(arg1);
 -- }
 -- void hs_bindgen_ad9f8630dd04a203 (
 --   A arg1,
 --   _Bool arg2
 -- )
 -- {
---   bespoke_args1(arg1, arg2);
+--   (bespoke_args1)(arg1, arg2);
 -- }
 -- void hs_bindgen_4b34178a505131e2 (
 --   A arg1,
 --   size_t arg2
 -- )
 -- {
---   bespoke_args2(arg1, arg2);
+--   (bespoke_args2)(arg1, arg2);
 -- }
 -- _Bool hs_bindgen_94b225a6394496c1 (
 --   A arg1
 -- )
 -- {
---   return bespoke_ret1(arg1);
+--   return (bespoke_ret1)(arg1);
 -- }
 -- size_t hs_bindgen_7c9a1792426b84a1 (
 --   A arg1
 -- )
 -- {
---   return bespoke_ret2(arg1);
+--   return (bespoke_ret2)(arg1);
 -- }
 -- void hs_bindgen_e20689fe39004225 (
 --   A (*arg1)[]
 -- )
 -- {
---   arr_args1(*arg1);
+--   (arr_args1)(*arg1);
 -- }
 -- void hs_bindgen_084796e4bfd3f4cd (
 --   A *(*arg1)[]
 -- )
 -- {
---   arr_args2(*arg1);
+--   (arr_args2)(*arg1);
 -- }
 -- void hs_bindgen_a3d1560aaa4352df (
 --   A (*arg1)[5]
 -- )
 -- {
---   arr_args3(*arg1);
+--   (arr_args3)(*arg1);
 -- }
 -- void hs_bindgen_88659ccccc6c1f5f (
 --   A *(*arg1)[5]
 -- )
 -- {
---   arr_args4(*arg1);
+--   (arr_args4)(*arg1);
 -- }
 -- void hs_bindgen_3448d03cfd41161a (
 --   A arg1,
 --   void (*arg2) (void)
 -- )
 -- {
---   funptr_args1(arg1, arg2);
+--   (funptr_args1)(arg1, arg2);
 -- }
 -- void hs_bindgen_92d7386f0a327d25 (
 --   A arg1,
 --   signed int (*arg2) (void)
 -- )
 -- {
---   funptr_args2(arg1, arg2);
+--   (funptr_args2)(arg1, arg2);
 -- }
 -- void hs_bindgen_2881f594f98043e6 (
 --   A arg1,
@@ -390,7 +390,7 @@
 -- )
 -- )
 -- {
---   funptr_args3(arg1, arg2);
+--   (funptr_args3)(arg1, arg2);
 -- }
 -- void hs_bindgen_1e85a05df4251f62 (
 --   A arg1,
@@ -400,7 +400,7 @@
 -- )
 -- )
 -- {
---   funptr_args4(arg1, arg2);
+--   (funptr_args4)(arg1, arg2);
 -- }
 -- void hs_bindgen_ccf4db7511f0d6d6 (
 --   A arg1,
@@ -410,277 +410,277 @@
 -- )
 -- )
 -- {
---   funptr_args5(arg1, arg2);
+--   (funptr_args5)(arg1, arg2);
 -- }
 -- void hs_bindgen_4c756db60673d221 (
 --   A arg1
 -- )
 -- {
---   comments1(arg1);
+--   (comments1)(arg1);
 -- }
 -- void hs_bindgen_278568d7a2a3a4b6 (
 --   A arg1,
 --   char const arg2
 -- )
 -- {
---   const_prim_before1(arg1, arg2);
+--   (const_prim_before1)(arg1, arg2);
 -- }
 -- void hs_bindgen_87ee56525e5ea20c (
 --   A arg1,
 --   signed char const arg2
 -- )
 -- {
---   const_prim_before2(arg1, arg2);
+--   (const_prim_before2)(arg1, arg2);
 -- }
 -- void hs_bindgen_c0b99594235bd99e (
 --   A arg1,
 --   unsigned char const arg2
 -- )
 -- {
---   const_prim_before3(arg1, arg2);
+--   (const_prim_before3)(arg1, arg2);
 -- }
 -- void hs_bindgen_d718b682f157fc18 (
 --   A arg1,
 --   char const arg2
 -- )
 -- {
---   const_prim_after1(arg1, arg2);
+--   (const_prim_after1)(arg1, arg2);
 -- }
 -- void hs_bindgen_f2c5b3d5eca68433 (
 --   A arg1,
 --   signed char const arg2
 -- )
 -- {
---   const_prim_after2(arg1, arg2);
+--   (const_prim_after2)(arg1, arg2);
 -- }
 -- void hs_bindgen_ae2d994e06667b23 (
 --   A arg1,
 --   unsigned char const arg2
 -- )
 -- {
---   const_prim_after3(arg1, arg2);
+--   (const_prim_after3)(arg1, arg2);
 -- }
 -- void hs_bindgen_6940b58e7f4397a7 (
 --   A arg1,
 --   float const arg2
 -- )
 -- {
---   const_withoutSign_before1(arg1, arg2);
+--   (const_withoutSign_before1)(arg1, arg2);
 -- }
 -- void hs_bindgen_00b6fe2282e779b1 (
 --   A arg1,
 --   double const arg2
 -- )
 -- {
---   const_withoutSign_before2(arg1, arg2);
+--   (const_withoutSign_before2)(arg1, arg2);
 -- }
 -- void hs_bindgen_6517cc8d39aead93 (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_before3(arg1, arg2);
+--   (const_withoutSign_before3)(arg1, arg2);
 -- }
 -- void hs_bindgen_68c7661e95060488 (
 --   A arg1,
 --   struct some_struct const *arg2
 -- )
 -- {
---   const_withoutSign_before4(arg1, *arg2);
+--   (const_withoutSign_before4)(arg1, *arg2);
 -- }
 -- void hs_bindgen_42b3b0bf73a7a51a (
 --   A arg1,
 --   union some_union const *arg2
 -- )
 -- {
---   const_withoutSign_before5(arg1, *arg2);
+--   (const_withoutSign_before5)(arg1, *arg2);
 -- }
 -- void hs_bindgen_c4aabe9834aac12f (
 --   A arg1,
 --   enum some_enum const arg2
 -- )
 -- {
---   const_withoutSign_before6(arg1, arg2);
+--   (const_withoutSign_before6)(arg1, arg2);
 -- }
 -- void hs_bindgen_486090a7fb4e34d4 (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_before7(arg1, arg2);
+--   (const_withoutSign_before7)(arg1, arg2);
 -- }
 -- void hs_bindgen_23fa742b614176dd (
 --   A arg1,
 --   size_t const arg2
 -- )
 -- {
---   const_withoutSign_before8(arg1, arg2);
+--   (const_withoutSign_before8)(arg1, arg2);
 -- }
 -- void hs_bindgen_0aacd8a5d48f296d (
 --   A arg1,
 --   float const arg2
 -- )
 -- {
---   const_withoutSign_after1(arg1, arg2);
+--   (const_withoutSign_after1)(arg1, arg2);
 -- }
 -- void hs_bindgen_16ec2102221485b7 (
 --   A arg1,
 --   double const arg2
 -- )
 -- {
---   const_withoutSign_after2(arg1, arg2);
+--   (const_withoutSign_after2)(arg1, arg2);
 -- }
 -- void hs_bindgen_9aa934d44ec3790c (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_after3(arg1, arg2);
+--   (const_withoutSign_after3)(arg1, arg2);
 -- }
 -- void hs_bindgen_043d2869e29bedcf (
 --   A arg1,
 --   struct some_struct const *arg2
 -- )
 -- {
---   const_withoutSign_after4(arg1, *arg2);
+--   (const_withoutSign_after4)(arg1, *arg2);
 -- }
 -- void hs_bindgen_b5f9bca1de9d69de (
 --   A arg1,
 --   union some_union const *arg2
 -- )
 -- {
---   const_withoutSign_after5(arg1, *arg2);
+--   (const_withoutSign_after5)(arg1, *arg2);
 -- }
 -- void hs_bindgen_77d641d518b2504f (
 --   A arg1,
 --   enum some_enum const arg2
 -- )
 -- {
---   const_withoutSign_after6(arg1, arg2);
+--   (const_withoutSign_after6)(arg1, arg2);
 -- }
 -- void hs_bindgen_691b4f2909140b49 (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_after7(arg1, arg2);
+--   (const_withoutSign_after7)(arg1, arg2);
 -- }
 -- void hs_bindgen_ae74c8dcdc2ec9eb (
 --   A arg1,
 --   size_t const arg2
 -- )
 -- {
---   const_withoutSign_after8(arg1, arg2);
+--   (const_withoutSign_after8)(arg1, arg2);
 -- }
 -- void hs_bindgen_07606c41eadf9146 (
 --   A arg1,
 --   signed int const *arg2
 -- )
 -- {
---   const_pointers_args1(arg1, arg2);
+--   (const_pointers_args1)(arg1, arg2);
 -- }
 -- void hs_bindgen_3836769f3a3416ac (
 --   A arg1,
 --   signed int const *arg2
 -- )
 -- {
---   const_pointers_args2(arg1, arg2);
+--   (const_pointers_args2)(arg1, arg2);
 -- }
 -- void hs_bindgen_12f19ea593aefd3f (
 --   A arg1,
 --   signed int *const arg2
 -- )
 -- {
---   const_pointers_args3(arg1, arg2);
+--   (const_pointers_args3)(arg1, arg2);
 -- }
 -- void hs_bindgen_5a50e98897696d57 (
 --   A arg1,
 --   signed int const *const arg2
 -- )
 -- {
---   const_pointers_args4(arg1, arg2);
+--   (const_pointers_args4)(arg1, arg2);
 -- }
 -- void hs_bindgen_666701f7cb61bd15 (
 --   A arg1,
 --   signed int const *const arg2
 -- )
 -- {
---   const_pointers_args5(arg1, arg2);
+--   (const_pointers_args5)(arg1, arg2);
 -- }
 -- signed int const *hs_bindgen_b94fbc3dfd285563 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret1(arg1);
+--   return (const_pointers_ret1)(arg1);
 -- }
 -- signed int const *hs_bindgen_33e2960e26b79450 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret2(arg1);
+--   return (const_pointers_ret2)(arg1);
 -- }
 -- signed int *const hs_bindgen_50c6e2fe4f3fb777 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret3(arg1);
+--   return (const_pointers_ret3)(arg1);
 -- }
 -- signed int const *const hs_bindgen_edc014695d896c8d (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret4(arg1);
+--   return (const_pointers_ret4)(arg1);
 -- }
 -- signed int const *const hs_bindgen_6d3308cc5847f033 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret5(arg1);
+--   return (const_pointers_ret5)(arg1);
 -- }
 -- void hs_bindgen_678576320923a4d1 (
 --   A const (*arg1)[]
 -- )
 -- {
---   const_array_elem1(*arg1);
+--   (const_array_elem1)(*arg1);
 -- }
 -- void hs_bindgen_b317941dde4eeff2 (
 --   A const *(*arg1)[]
 -- )
 -- {
---   const_array_elem2(*arg1);
+--   (const_array_elem2)(*arg1);
 -- }
 -- void hs_bindgen_707e602e6beb1bb6 (
 --   A *const (*arg1)[]
 -- )
 -- {
---   const_array_elem3(*arg1);
+--   (const_array_elem3)(*arg1);
 -- }
 -- A hs_bindgen_93fecb4eb766c262 (void)
 -- {
---   return noParams1();
+--   return (noParams1)();
 -- }
 -- A hs_bindgen_4350965157c891f5 (void)
 -- {
---   return noParams2();
+--   return (noParams2)();
 -- }
 -- void hs_bindgen_c4f59272a2b1c3b5 (
 --   A arg1,
 --   signed int (*arg2) (void)
 -- )
 -- {
---   noParams3(arg1, arg2);
+--   (noParams3)(arg1, arg2);
 -- }
 -- void (*hs_bindgen_387a04c01e23c320 (
 --   A arg1
 -- )) (void)
 -- {
---   return funptr_ret1(arg1);
+--   return (funptr_ret1)(arg1);
 -- }
 -- signed int (*hs_bindgen_6f0c14cd3478dc19 (
 --   A arg1
 -- )) (void)
 -- {
---   return funptr_ret2(arg1);
+--   return (funptr_ret2)(arg1);
 -- }
 -- void (*hs_bindgen_08e8661d277cf7be (
 --   A arg1
@@ -688,7 +688,7 @@
 --   signed int arg1
 -- )
 -- {
---   return funptr_ret3(arg1);
+--   return (funptr_ret3)(arg1);
 -- }
 -- char (*hs_bindgen_609b5d953b68da92 (
 --   A arg1
@@ -697,7 +697,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret4(arg1);
+--   return (funptr_ret4)(arg1);
 -- }
 -- signed int *(*hs_bindgen_13e6ae43abf40aee (
 --   A arg1
@@ -706,7 +706,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret5(arg1);
+--   return (funptr_ret5)(arg1);
 -- }
 -- signed int const *(*hs_bindgen_a4a3a86f28ca6299 (
 --   A arg1
@@ -715,7 +715,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret6(arg1);
+--   return (funptr_ret6)(arg1);
 -- }
 -- signed int const *(*hs_bindgen_eae9dff04c88d00b (
 --   A arg1
@@ -724,7 +724,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret7(arg1);
+--   return (funptr_ret7)(arg1);
 -- }
 -- signed int *const (*hs_bindgen_894457d90a2fc8db (
 --   A arg1
@@ -733,7 +733,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret8(arg1);
+--   return (funptr_ret8)(arg1);
 -- }
 -- signed int const *const (*hs_bindgen_c893eb15ad9bc68c (
 --   A arg1
@@ -742,7 +742,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret9(arg1);
+--   return (funptr_ret9)(arg1);
 -- }
 -- signed int const *const (*hs_bindgen_d96c258298a44b28 (
 --   A arg1
@@ -751,388 +751,388 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret10(arg1);
+--   return (funptr_ret10)(arg1);
 -- }
 -- void hs_bindgen_c1716e300ba327c7 (
 --   A arg1,
 --   char arg2
 -- )
 -- {
---   args_char1(arg1, arg2);
+--   (args_char1)(arg1, arg2);
 -- }
 -- void hs_bindgen_3ef14607a6187aaa (
 --   A arg1,
 --   signed char arg2
 -- )
 -- {
---   args_char2(arg1, arg2);
+--   (args_char2)(arg1, arg2);
 -- }
 -- void hs_bindgen_5b0a626f64912f9d (
 --   A arg1,
 --   unsigned char arg2
 -- )
 -- {
---   args_char3(arg1, arg2);
+--   (args_char3)(arg1, arg2);
 -- }
 -- void hs_bindgen_36e4501239085bc1 (
 --   A arg1,
 --   signed short arg2
 -- )
 -- {
---   args_short1(arg1, arg2);
+--   (args_short1)(arg1, arg2);
 -- }
 -- void hs_bindgen_a187e0233daeb237 (
 --   A arg1,
 --   signed short arg2
 -- )
 -- {
---   args_short2(arg1, arg2);
+--   (args_short2)(arg1, arg2);
 -- }
 -- void hs_bindgen_2460adeff61561ce (
 --   A arg1,
 --   unsigned short arg2
 -- )
 -- {
---   args_short3(arg1, arg2);
+--   (args_short3)(arg1, arg2);
 -- }
 -- void hs_bindgen_4f13ab06db79b7f2 (
 --   A arg1,
 --   signed int arg2
 -- )
 -- {
---   args_int1(arg1, arg2);
+--   (args_int1)(arg1, arg2);
 -- }
 -- void hs_bindgen_f1657d18f6f8a1ed (
 --   A arg1,
 --   signed int arg2
 -- )
 -- {
---   args_int2(arg1, arg2);
+--   (args_int2)(arg1, arg2);
 -- }
 -- void hs_bindgen_9ac58b8eb806be42 (
 --   A arg1,
 --   unsigned int arg2
 -- )
 -- {
---   args_int3(arg1, arg2);
+--   (args_int3)(arg1, arg2);
 -- }
 -- void hs_bindgen_f73c59fe22a9870e (
 --   A arg1,
 --   signed long arg2
 -- )
 -- {
---   args_long1(arg1, arg2);
+--   (args_long1)(arg1, arg2);
 -- }
 -- void hs_bindgen_84a824853fc83077 (
 --   A arg1,
 --   signed long arg2
 -- )
 -- {
---   args_long2(arg1, arg2);
+--   (args_long2)(arg1, arg2);
 -- }
 -- void hs_bindgen_c4c1a08ddf9cd5bc (
 --   A arg1,
 --   unsigned long arg2
 -- )
 -- {
---   args_long3(arg1, arg2);
+--   (args_long3)(arg1, arg2);
 -- }
 -- void hs_bindgen_58a6b5f118525c6c (
 --   A arg1,
 --   float arg2
 -- )
 -- {
---   args_float(arg1, arg2);
+--   (args_float)(arg1, arg2);
 -- }
 -- void hs_bindgen_ffc58625c3a51d8f (
 --   A arg1,
 --   double arg2
 -- )
 -- {
---   args_double(arg1, arg2);
+--   (args_double)(arg1, arg2);
 -- }
 -- void hs_bindgen_51fb2da1d100c9a7 (
 --   A arg1,
 --   _Bool arg2
 -- )
 -- {
---   args_bool1(arg1, arg2);
+--   (args_bool1)(arg1, arg2);
 -- }
 -- void hs_bindgen_b2d19f91a7b9f7d3 (
 --   A arg1,
 --   struct some_struct *arg2
 -- )
 -- {
---   args_struct(arg1, *arg2);
+--   (args_struct)(arg1, *arg2);
 -- }
 -- void hs_bindgen_bc74164a05d282c7 (
 --   A arg1,
 --   union some_union *arg2
 -- )
 -- {
---   args_union(arg1, *arg2);
+--   (args_union)(arg1, *arg2);
 -- }
 -- void hs_bindgen_69f08c1d9f5e590e (
 --   A arg1,
 --   enum some_enum arg2
 -- )
 -- {
---   args_enum(arg1, arg2);
+--   (args_enum)(arg1, arg2);
 -- }
 -- void hs_bindgen_785b005f35d4d7ec (
 --   A arg1,
 --   signed int *arg2
 -- )
 -- {
---   args_pointer1(arg1, arg2);
+--   (args_pointer1)(arg1, arg2);
 -- }
 -- void hs_bindgen_edc45a1b9750dcd3 (
 --   A arg1,
 --   signed int **arg2
 -- )
 -- {
---   args_pointer2(arg1, arg2);
+--   (args_pointer2)(arg1, arg2);
 -- }
 -- void hs_bindgen_102895862f35ca35 (
 --   A arg1,
 --   void *arg2
 -- )
 -- {
---   args_pointer3(arg1, arg2);
+--   (args_pointer3)(arg1, arg2);
 -- }
 -- A hs_bindgen_78f9ea765accb501 (void)
 -- {
---   return ret_A();
+--   return (ret_A)();
 -- }
 -- char hs_bindgen_e1e99ef9fc54a288 (
 --   A arg1
 -- )
 -- {
---   return ret_char1(arg1);
+--   return (ret_char1)(arg1);
 -- }
 -- signed char hs_bindgen_f6217639a7e142d3 (
 --   A arg1
 -- )
 -- {
---   return ret_char2(arg1);
+--   return (ret_char2)(arg1);
 -- }
 -- unsigned char hs_bindgen_759b6cec946323f4 (
 --   A arg1
 -- )
 -- {
---   return ret_char3(arg1);
+--   return (ret_char3)(arg1);
 -- }
 -- signed short hs_bindgen_bf062c8332405f82 (
 --   A arg1
 -- )
 -- {
---   return ret_short1(arg1);
+--   return (ret_short1)(arg1);
 -- }
 -- signed short hs_bindgen_3d9d5e4b8135169a (
 --   A arg1
 -- )
 -- {
---   return ret_short2(arg1);
+--   return (ret_short2)(arg1);
 -- }
 -- unsigned short hs_bindgen_63b44610868e424f (
 --   A arg1
 -- )
 -- {
---   return ret_short3(arg1);
+--   return (ret_short3)(arg1);
 -- }
 -- signed int hs_bindgen_1a8d68c887085fbf (
 --   A arg1
 -- )
 -- {
---   return ret_int1(arg1);
+--   return (ret_int1)(arg1);
 -- }
 -- signed int hs_bindgen_f64653c7b4576075 (
 --   A arg1
 -- )
 -- {
---   return ret_int2(arg1);
+--   return (ret_int2)(arg1);
 -- }
 -- unsigned int hs_bindgen_d2030910b711f1d8 (
 --   A arg1
 -- )
 -- {
---   return ret_int3(arg1);
+--   return (ret_int3)(arg1);
 -- }
 -- signed long hs_bindgen_2d6a30810e6b27e3 (
 --   A arg1
 -- )
 -- {
---   return ret_long1(arg1);
+--   return (ret_long1)(arg1);
 -- }
 -- signed long hs_bindgen_02885fe1cf2771da (
 --   A arg1
 -- )
 -- {
---   return ret_long2(arg1);
+--   return (ret_long2)(arg1);
 -- }
 -- unsigned long hs_bindgen_888c9704132541d5 (
 --   A arg1
 -- )
 -- {
---   return ret_long3(arg1);
+--   return (ret_long3)(arg1);
 -- }
 -- float hs_bindgen_2d2ce0d386f26293 (
 --   A arg1
 -- )
 -- {
---   return ret_float(arg1);
+--   return (ret_float)(arg1);
 -- }
 -- double hs_bindgen_de353a737de53428 (
 --   A arg1
 -- )
 -- {
---   return ret_double(arg1);
+--   return (ret_double)(arg1);
 -- }
 -- _Bool hs_bindgen_91e2ab77e68f0288 (
 --   A arg1
 -- )
 -- {
---   return ret_bool1(arg1);
+--   return (ret_bool1)(arg1);
 -- }
 -- void hs_bindgen_9f29c7eee02f6d53 (
 --   A arg1,
 --   struct some_struct *arg2
 -- )
 -- {
---   *arg2 = ret_struct(arg1);
+--   *arg2 = (ret_struct)(arg1);
 -- }
 -- void hs_bindgen_6844bf5f5a5f6681 (
 --   A arg1,
 --   union some_union *arg2
 -- )
 -- {
---   *arg2 = ret_union(arg1);
+--   *arg2 = (ret_union)(arg1);
 -- }
 -- enum some_enum hs_bindgen_f96c4bc30b6b17e8 (
 --   A arg1
 -- )
 -- {
---   return ret_enum(arg1);
+--   return (ret_enum)(arg1);
 -- }
 -- signed int *hs_bindgen_bfb6069e1423e7a5 (
 --   A arg1
 -- )
 -- {
---   return ret_pointer1(arg1);
+--   return (ret_pointer1)(arg1);
 -- }
 -- signed int **hs_bindgen_ffae633548386d89 (
 --   A arg1
 -- )
 -- {
---   return ret_pointer2(arg1);
+--   return (ret_pointer2)(arg1);
 -- }
 -- void *hs_bindgen_550cb4a23c6ab2ff (
 --   A arg1
 -- )
 -- {
---   return ret_pointer3(arg1);
+--   return (ret_pointer3)(arg1);
 -- }
 -- signed int hs_bindgen_f7a7a45a80ae39f7 (
 --   A arg1
 -- )
 -- {
---   return body1(arg1);
+--   return (body1)(arg1);
 -- }
 -- A hs_bindgen_364e73b014d7d4df (void)
 -- {
---   return body2();
+--   return (body2)();
 -- }
 -- void hs_bindgen_88b4cd11afc4f6c1 (
 --   A arg1,
 --   float _Complex *arg2
 -- )
 -- {
---   args_complex_float(arg1, *arg2);
+--   (args_complex_float)(arg1, *arg2);
 -- }
 -- void hs_bindgen_0ddc53d8e91cb32a (
 --   A arg1,
 --   double _Complex *arg2
 -- )
 -- {
---   args_complex_double(arg1, *arg2);
+--   (args_complex_double)(arg1, *arg2);
 -- }
 -- void hs_bindgen_eb82eb840e288900 (
 --   A arg1,
 --   float _Complex *arg2
 -- )
 -- {
---   *arg2 = ret_complex_float(arg1);
+--   *arg2 = (ret_complex_float)(arg1);
 -- }
 -- void hs_bindgen_cbc25ea9cbdd2365 (
 --   A arg1,
 --   double _Complex *arg2
 -- )
 -- {
---   *arg2 = ret_complex_double(arg1);
+--   *arg2 = (ret_complex_double)(arg1);
 -- }
 -- void hs_bindgen_3258de4ffd2c08af (
 --   A arg1,
 --   _Bool arg2
 -- )
 -- {
---   bespoke_args1(arg1, arg2);
+--   (bespoke_args1)(arg1, arg2);
 -- }
 -- void hs_bindgen_74b2cd1defdd5609 (
 --   A arg1,
 --   size_t arg2
 -- )
 -- {
---   bespoke_args2(arg1, arg2);
+--   (bespoke_args2)(arg1, arg2);
 -- }
 -- _Bool hs_bindgen_5405c1e037d1e115 (
 --   A arg1
 -- )
 -- {
---   return bespoke_ret1(arg1);
+--   return (bespoke_ret1)(arg1);
 -- }
 -- size_t hs_bindgen_a6a3e5a828532360 (
 --   A arg1
 -- )
 -- {
---   return bespoke_ret2(arg1);
+--   return (bespoke_ret2)(arg1);
 -- }
 -- void hs_bindgen_4956a52bf5073b9f (
 --   A (*arg1)[]
 -- )
 -- {
---   arr_args1(*arg1);
+--   (arr_args1)(*arg1);
 -- }
 -- void hs_bindgen_0fc8b091085a88e9 (
 --   A *(*arg1)[]
 -- )
 -- {
---   arr_args2(*arg1);
+--   (arr_args2)(*arg1);
 -- }
 -- void hs_bindgen_ca6f1bc1a29b85f8 (
 --   A (*arg1)[5]
 -- )
 -- {
---   arr_args3(*arg1);
+--   (arr_args3)(*arg1);
 -- }
 -- void hs_bindgen_a168ae0de206febe (
 --   A *(*arg1)[5]
 -- )
 -- {
---   arr_args4(*arg1);
+--   (arr_args4)(*arg1);
 -- }
 -- void hs_bindgen_8e63f57f1f5d662e (
 --   A arg1,
 --   void (*arg2) (void)
 -- )
 -- {
---   funptr_args1(arg1, arg2);
+--   (funptr_args1)(arg1, arg2);
 -- }
 -- void hs_bindgen_927bd07f48d05d21 (
 --   A arg1,
 --   signed int (*arg2) (void)
 -- )
 -- {
---   funptr_args2(arg1, arg2);
+--   (funptr_args2)(arg1, arg2);
 -- }
 -- void hs_bindgen_c82e078d3c54a6bc (
 --   A arg1,
@@ -1141,7 +1141,7 @@
 -- )
 -- )
 -- {
---   funptr_args3(arg1, arg2);
+--   (funptr_args3)(arg1, arg2);
 -- }
 -- void hs_bindgen_211ad1ac5399caec (
 --   A arg1,
@@ -1151,7 +1151,7 @@
 -- )
 -- )
 -- {
---   funptr_args4(arg1, arg2);
+--   (funptr_args4)(arg1, arg2);
 -- }
 -- void hs_bindgen_9057c59d70e815d7 (
 --   A arg1,
@@ -1161,277 +1161,277 @@
 -- )
 -- )
 -- {
---   funptr_args5(arg1, arg2);
+--   (funptr_args5)(arg1, arg2);
 -- }
 -- void hs_bindgen_153515e0ff74574f (
 --   A arg1
 -- )
 -- {
---   comments1(arg1);
+--   (comments1)(arg1);
 -- }
 -- void hs_bindgen_8cc833db463cc95c (
 --   A arg1,
 --   char const arg2
 -- )
 -- {
---   const_prim_before1(arg1, arg2);
+--   (const_prim_before1)(arg1, arg2);
 -- }
 -- void hs_bindgen_d767bbef00031d57 (
 --   A arg1,
 --   signed char const arg2
 -- )
 -- {
---   const_prim_before2(arg1, arg2);
+--   (const_prim_before2)(arg1, arg2);
 -- }
 -- void hs_bindgen_a36dfeb811993297 (
 --   A arg1,
 --   unsigned char const arg2
 -- )
 -- {
---   const_prim_before3(arg1, arg2);
+--   (const_prim_before3)(arg1, arg2);
 -- }
 -- void hs_bindgen_d7fa2440be24e954 (
 --   A arg1,
 --   char const arg2
 -- )
 -- {
---   const_prim_after1(arg1, arg2);
+--   (const_prim_after1)(arg1, arg2);
 -- }
 -- void hs_bindgen_c169229f24baf752 (
 --   A arg1,
 --   signed char const arg2
 -- )
 -- {
---   const_prim_after2(arg1, arg2);
+--   (const_prim_after2)(arg1, arg2);
 -- }
 -- void hs_bindgen_c0780f7624ed1d3e (
 --   A arg1,
 --   unsigned char const arg2
 -- )
 -- {
---   const_prim_after3(arg1, arg2);
+--   (const_prim_after3)(arg1, arg2);
 -- }
 -- void hs_bindgen_fda903bc1139b1d6 (
 --   A arg1,
 --   float const arg2
 -- )
 -- {
---   const_withoutSign_before1(arg1, arg2);
+--   (const_withoutSign_before1)(arg1, arg2);
 -- }
 -- void hs_bindgen_a5a70f3be654ea00 (
 --   A arg1,
 --   double const arg2
 -- )
 -- {
---   const_withoutSign_before2(arg1, arg2);
+--   (const_withoutSign_before2)(arg1, arg2);
 -- }
 -- void hs_bindgen_b813910f6a632ce2 (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_before3(arg1, arg2);
+--   (const_withoutSign_before3)(arg1, arg2);
 -- }
 -- void hs_bindgen_dc22b02b2f53aa5b (
 --   A arg1,
 --   struct some_struct const *arg2
 -- )
 -- {
---   const_withoutSign_before4(arg1, *arg2);
+--   (const_withoutSign_before4)(arg1, *arg2);
 -- }
 -- void hs_bindgen_503736261279760d (
 --   A arg1,
 --   union some_union const *arg2
 -- )
 -- {
---   const_withoutSign_before5(arg1, *arg2);
+--   (const_withoutSign_before5)(arg1, *arg2);
 -- }
 -- void hs_bindgen_ed0a8c0e15f5d2ce (
 --   A arg1,
 --   enum some_enum const arg2
 -- )
 -- {
---   const_withoutSign_before6(arg1, arg2);
+--   (const_withoutSign_before6)(arg1, arg2);
 -- }
 -- void hs_bindgen_4659c22d39cc1bb3 (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_before7(arg1, arg2);
+--   (const_withoutSign_before7)(arg1, arg2);
 -- }
 -- void hs_bindgen_530245b77093b08c (
 --   A arg1,
 --   size_t const arg2
 -- )
 -- {
---   const_withoutSign_before8(arg1, arg2);
+--   (const_withoutSign_before8)(arg1, arg2);
 -- }
 -- void hs_bindgen_c31a804bd742193e (
 --   A arg1,
 --   float const arg2
 -- )
 -- {
---   const_withoutSign_after1(arg1, arg2);
+--   (const_withoutSign_after1)(arg1, arg2);
 -- }
 -- void hs_bindgen_53756fa3a68ab067 (
 --   A arg1,
 --   double const arg2
 -- )
 -- {
---   const_withoutSign_after2(arg1, arg2);
+--   (const_withoutSign_after2)(arg1, arg2);
 -- }
 -- void hs_bindgen_4134ad71149d6139 (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_after3(arg1, arg2);
+--   (const_withoutSign_after3)(arg1, arg2);
 -- }
 -- void hs_bindgen_3de6157427334101 (
 --   A arg1,
 --   struct some_struct const *arg2
 -- )
 -- {
---   const_withoutSign_after4(arg1, *arg2);
+--   (const_withoutSign_after4)(arg1, *arg2);
 -- }
 -- void hs_bindgen_fc4ef8c9107c1ae6 (
 --   A arg1,
 --   union some_union const *arg2
 -- )
 -- {
---   const_withoutSign_after5(arg1, *arg2);
+--   (const_withoutSign_after5)(arg1, *arg2);
 -- }
 -- void hs_bindgen_5e20c60b725ae606 (
 --   A arg1,
 --   enum some_enum const arg2
 -- )
 -- {
---   const_withoutSign_after6(arg1, arg2);
+--   (const_withoutSign_after6)(arg1, arg2);
 -- }
 -- void hs_bindgen_a0f20d4b9a07ff5b (
 --   A arg1,
 --   _Bool const arg2
 -- )
 -- {
---   const_withoutSign_after7(arg1, arg2);
+--   (const_withoutSign_after7)(arg1, arg2);
 -- }
 -- void hs_bindgen_3a020035eb2fe7f8 (
 --   A arg1,
 --   size_t const arg2
 -- )
 -- {
---   const_withoutSign_after8(arg1, arg2);
+--   (const_withoutSign_after8)(arg1, arg2);
 -- }
 -- void hs_bindgen_17623ba5065bf95d (
 --   A arg1,
 --   signed int const *arg2
 -- )
 -- {
---   const_pointers_args1(arg1, arg2);
+--   (const_pointers_args1)(arg1, arg2);
 -- }
 -- void hs_bindgen_02d08ccd5df88a98 (
 --   A arg1,
 --   signed int const *arg2
 -- )
 -- {
---   const_pointers_args2(arg1, arg2);
+--   (const_pointers_args2)(arg1, arg2);
 -- }
 -- void hs_bindgen_50c423f2237cb6b5 (
 --   A arg1,
 --   signed int *const arg2
 -- )
 -- {
---   const_pointers_args3(arg1, arg2);
+--   (const_pointers_args3)(arg1, arg2);
 -- }
 -- void hs_bindgen_99c29c45d78348e9 (
 --   A arg1,
 --   signed int const *const arg2
 -- )
 -- {
---   const_pointers_args4(arg1, arg2);
+--   (const_pointers_args4)(arg1, arg2);
 -- }
 -- void hs_bindgen_6a92dbfae24b1bcd (
 --   A arg1,
 --   signed int const *const arg2
 -- )
 -- {
---   const_pointers_args5(arg1, arg2);
+--   (const_pointers_args5)(arg1, arg2);
 -- }
 -- signed int const *hs_bindgen_0c07f1e0256fd705 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret1(arg1);
+--   return (const_pointers_ret1)(arg1);
 -- }
 -- signed int const *hs_bindgen_d12c8210ff3c3711 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret2(arg1);
+--   return (const_pointers_ret2)(arg1);
 -- }
 -- signed int *const hs_bindgen_a58bc0be6f564801 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret3(arg1);
+--   return (const_pointers_ret3)(arg1);
 -- }
 -- signed int const *const hs_bindgen_622bb8150470138b (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret4(arg1);
+--   return (const_pointers_ret4)(arg1);
 -- }
 -- signed int const *const hs_bindgen_d49bd331ad2077e5 (
 --   A arg1
 -- )
 -- {
---   return const_pointers_ret5(arg1);
+--   return (const_pointers_ret5)(arg1);
 -- }
 -- void hs_bindgen_224608f780bff5bd (
 --   A const (*arg1)[]
 -- )
 -- {
---   const_array_elem1(*arg1);
+--   (const_array_elem1)(*arg1);
 -- }
 -- void hs_bindgen_9aa74ad89f2c1fba (
 --   A const *(*arg1)[]
 -- )
 -- {
---   const_array_elem2(*arg1);
+--   (const_array_elem2)(*arg1);
 -- }
 -- void hs_bindgen_6a328300c5ef0c9e (
 --   A *const (*arg1)[]
 -- )
 -- {
---   const_array_elem3(*arg1);
+--   (const_array_elem3)(*arg1);
 -- }
 -- A hs_bindgen_13a7d78e11555d58 (void)
 -- {
---   return noParams1();
+--   return (noParams1)();
 -- }
 -- A hs_bindgen_672f4691ee7a367c (void)
 -- {
---   return noParams2();
+--   return (noParams2)();
 -- }
 -- void hs_bindgen_591f84e2163a5d18 (
 --   A arg1,
 --   signed int (*arg2) (void)
 -- )
 -- {
---   noParams3(arg1, arg2);
+--   (noParams3)(arg1, arg2);
 -- }
 -- void (*hs_bindgen_8cdf7774adb0f0b4 (
 --   A arg1
 -- )) (void)
 -- {
---   return funptr_ret1(arg1);
+--   return (funptr_ret1)(arg1);
 -- }
 -- signed int (*hs_bindgen_a4e08267a9070ede (
 --   A arg1
 -- )) (void)
 -- {
---   return funptr_ret2(arg1);
+--   return (funptr_ret2)(arg1);
 -- }
 -- void (*hs_bindgen_65fa30510d244cbf (
 --   A arg1
@@ -1439,7 +1439,7 @@
 --   signed int arg1
 -- )
 -- {
---   return funptr_ret3(arg1);
+--   return (funptr_ret3)(arg1);
 -- }
 -- char (*hs_bindgen_da12eaec295883aa (
 --   A arg1
@@ -1448,7 +1448,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret4(arg1);
+--   return (funptr_ret4)(arg1);
 -- }
 -- signed int *(*hs_bindgen_281c53214b1cdcb4 (
 --   A arg1
@@ -1457,7 +1457,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret5(arg1);
+--   return (funptr_ret5)(arg1);
 -- }
 -- signed int const *(*hs_bindgen_16628c257aa64a76 (
 --   A arg1
@@ -1466,7 +1466,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret6(arg1);
+--   return (funptr_ret6)(arg1);
 -- }
 -- signed int const *(*hs_bindgen_79fb0c30f546a547 (
 --   A arg1
@@ -1475,7 +1475,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret7(arg1);
+--   return (funptr_ret7)(arg1);
 -- }
 -- signed int *const (*hs_bindgen_4668d2ff9d5bfc40 (
 --   A arg1
@@ -1484,7 +1484,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret8(arg1);
+--   return (funptr_ret8)(arg1);
 -- }
 -- signed int const *const (*hs_bindgen_c044d7074789febc (
 --   A arg1
@@ -1493,7 +1493,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret9(arg1);
+--   return (funptr_ret9)(arg1);
 -- }
 -- signed int const *const (*hs_bindgen_628ced6eccc7783a (
 --   A arg1
@@ -1502,7 +1502,7 @@
 --   double arg2
 -- )
 -- {
---   return funptr_ret10(arg1);
+--   return (funptr_ret10)(arg1);
 -- }
 -- /* test_macrosreparse_Example_get_args_char1 */
 -- __attribute__ ((const))

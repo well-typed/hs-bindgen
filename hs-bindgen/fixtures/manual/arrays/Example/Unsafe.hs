@@ -16,13 +16,13 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  matrix *arg2"
   , ")"
   , "{"
-  , "  transpose(*arg1, *arg2);"
+  , "  (transpose)(*arg1, *arg2);"
   , "}"
   , "void hs_bindgen_e43b4d44aa0abd14 ("
   , "  triplet_ptrs *arg1"
   , ")"
   , "{"
-  , "  pretty_print_triplets(*arg1);"
+  , "  (pretty_print_triplets)(*arg1);"
   , "}"
   ]))
 

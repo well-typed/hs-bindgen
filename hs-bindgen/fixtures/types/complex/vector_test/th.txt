@@ -5,14 +5,14 @@
 --   double arg2
 -- )
 -- {
---   return new_vector(arg1, arg2);
+--   return (new_vector)(arg1, arg2);
 -- }
 -- vector *hs_bindgen_1af353788955c7a2 (
 --   double arg1,
 --   double arg2
 -- )
 -- {
---   return new_vector(arg1, arg2);
+--   return (new_vector)(arg1, arg2);
 -- }
 -- /* test_typescomplexvector_test_Example_get_new_vector */
 -- __attribute__ ((const))

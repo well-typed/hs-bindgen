@@ -13,7 +13,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  double arg1"
   , ")"
   , "{"
-  , "  return foo(arg1);"
+  , "  return (foo)(arg1);"
   , "}"
   ]))
 

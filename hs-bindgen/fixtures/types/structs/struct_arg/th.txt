@@ -4,14 +4,14 @@
 --   struct thing *arg1
 -- )
 -- {
---   return thing_fun_1(*arg1);
+--   return (thing_fun_1)(*arg1);
 -- }
 -- void hs_bindgen_04a435522bf64978 (
 --   signed int arg1,
 --   struct thing *arg2
 -- )
 -- {
---   *arg2 = thing_fun_2(arg1);
+--   *arg2 = (thing_fun_2)(arg1);
 -- }
 -- void hs_bindgen_5e3271324df7ced2 (
 --   signed int arg1,
@@ -20,7 +20,7 @@
 --   struct thing *arg4
 -- )
 -- {
---   *arg4 = thing_fun_3a(arg1, *arg2, arg3);
+--   *arg4 = (thing_fun_3a)(arg1, *arg2, arg3);
 -- }
 -- char hs_bindgen_3525c7d1c72f2fae (
 --   signed int arg1,
@@ -28,20 +28,20 @@
 --   double arg3
 -- )
 -- {
---   return thing_fun_3b(arg1, *arg2, arg3);
+--   return (thing_fun_3b)(arg1, *arg2, arg3);
 -- }
 -- signed int hs_bindgen_0bdddf60550fc97b (
 --   struct thing *arg1
 -- )
 -- {
---   return thing_fun_1(*arg1);
+--   return (thing_fun_1)(*arg1);
 -- }
 -- void hs_bindgen_c293d866e22be6fc (
 --   signed int arg1,
 --   struct thing *arg2
 -- )
 -- {
---   *arg2 = thing_fun_2(arg1);
+--   *arg2 = (thing_fun_2)(arg1);
 -- }
 -- void hs_bindgen_cfd51a9e490a997c (
 --   signed int arg1,
@@ -50,7 +50,7 @@
 --   struct thing *arg4
 -- )
 -- {
---   *arg4 = thing_fun_3a(arg1, *arg2, arg3);
+--   *arg4 = (thing_fun_3a)(arg1, *arg2, arg3);
 -- }
 -- char hs_bindgen_23fac8ee5044da6e (
 --   signed int arg1,
@@ -58,7 +58,7 @@
 --   double arg3
 -- )
 -- {
---   return thing_fun_3b(arg1, *arg2, arg3);
+--   return (thing_fun_3b)(arg1, *arg2, arg3);
 -- }
 -- /* test_typesstructsstruct_arg_Example_get_thing_fun_1 */
 -- __attribute__ ((const))

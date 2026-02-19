@@ -4,97 +4,97 @@
 --   signed int (*arg1)[3][4]
 -- )
 -- {
---   return foo(*arg1);
+--   return (foo)(*arg1);
 -- }
 -- signed int hs_bindgen_b75122693c32e26c (
 --   signed int const (*arg1)[3][4]
 -- )
 -- {
---   return foo_const(*arg1);
+--   return (foo_const)(*arg1);
 -- }
 -- signed int hs_bindgen_595b7d50222e502a (
 --   signed int (*arg1)[][2]
 -- )
 -- {
---   return bar(*arg1);
+--   return (bar)(*arg1);
 -- }
 -- signed int hs_bindgen_1e0c14a0ed027681 (
 --   signed int const (*arg1)[][2]
 -- )
 -- {
---   return bar_const(*arg1);
+--   return (bar_const)(*arg1);
 -- }
 -- signed int hs_bindgen_39849d83dadd53d9 (
 --   matrix *arg1
 -- )
 -- {
---   return baz(*arg1);
+--   return (baz)(*arg1);
 -- }
 -- signed int hs_bindgen_0c873d371c129e78 (
 --   matrix const *arg1
 -- )
 -- {
---   return baz_const(*arg1);
+--   return (baz_const)(*arg1);
 -- }
 -- signed int hs_bindgen_a364da5adecafb37 (
 --   triplets *arg1
 -- )
 -- {
---   return quuz(*arg1);
+--   return (quuz)(*arg1);
 -- }
 -- signed int hs_bindgen_e39fa59aeb1fef3d (
 --   triplets const *arg1
 -- )
 -- {
---   return quuz_const(*arg1);
+--   return (quuz_const)(*arg1);
 -- }
 -- signed int hs_bindgen_3389520bc7419af4 (
 --   signed int (*arg1)[3][4]
 -- )
 -- {
---   return foo(*arg1);
+--   return (foo)(*arg1);
 -- }
 -- signed int hs_bindgen_73e2db5ad5d807f7 (
 --   signed int const (*arg1)[3][4]
 -- )
 -- {
---   return foo_const(*arg1);
+--   return (foo_const)(*arg1);
 -- }
 -- signed int hs_bindgen_a28b81f0afc23eed (
 --   signed int (*arg1)[][2]
 -- )
 -- {
---   return bar(*arg1);
+--   return (bar)(*arg1);
 -- }
 -- signed int hs_bindgen_58337c492b64ae2c (
 --   signed int const (*arg1)[][2]
 -- )
 -- {
---   return bar_const(*arg1);
+--   return (bar_const)(*arg1);
 -- }
 -- signed int hs_bindgen_48876e6767cb5923 (
 --   matrix *arg1
 -- )
 -- {
---   return baz(*arg1);
+--   return (baz)(*arg1);
 -- }
 -- signed int hs_bindgen_13ce150055e8aa41 (
 --   matrix const *arg1
 -- )
 -- {
---   return baz_const(*arg1);
+--   return (baz_const)(*arg1);
 -- }
 -- signed int hs_bindgen_da5c432144bd5546 (
 --   triplets *arg1
 -- )
 -- {
---   return quuz(*arg1);
+--   return (quuz)(*arg1);
 -- }
 -- signed int hs_bindgen_70be94a6fb59f547 (
 --   triplets const *arg1
 -- )
 -- {
---   return quuz_const(*arg1);
+--   return (quuz_const)(*arg1);
 -- }
 -- /* test_arraysmulti_dim_Example_get_foo */
 -- __attribute__ ((const))

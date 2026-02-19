@@ -5,14 +5,14 @@
 --   point2b arg2
 -- )
 -- {
---   test(*arg1, arg2);
+--   (test)(*arg1, arg2);
 -- }
 -- void hs_bindgen_f90e97b8d269be4e (
 --   point2a *arg1,
 --   point2b arg2
 -- )
 -- {
---   test(*arg1, arg2);
+--   (test)(*arg1, arg2);
 -- }
 -- /* test_edgecasesanon_multiple_typed_Example_get_test */
 -- __attribute__ ((const))

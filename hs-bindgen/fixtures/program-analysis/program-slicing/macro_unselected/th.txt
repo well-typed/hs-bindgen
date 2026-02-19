@@ -5,25 +5,25 @@
 --   T arg1
 -- )
 -- {
---   foo(arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_ef8f97cf27661c20 (
 --   U arg1
 -- )
 -- {
---   bar(arg1);
+--   (bar)(arg1);
 -- }
 -- void hs_bindgen_72197c1a408e40ac (
 --   T arg1
 -- )
 -- {
---   foo(arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_401f15168ffec8ae (
 --   U arg1
 -- )
 -- {
---   bar(arg1);
+--   (bar)(arg1);
 -- }
 -- /* test_programanalysisprogramslici_Example_get_foo */
 -- __attribute__ ((const))

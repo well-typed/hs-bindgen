@@ -15,7 +15,7 @@
 --   size_t arg3
 -- )
 -- {
---   return read_file_chunk(arg1, arg2, arg3);
+--   return (read_file_chunk)(arg1, arg2, arg3);
 -- }
 -- enum FileOperationStatus hs_bindgen_654858ed6a5db417 (
 --   FILE *arg1,
@@ -23,7 +23,7 @@
 --   size_t arg3
 -- )
 -- {
---   return read_file_chunk(arg1, arg2, arg3);
+--   return (read_file_chunk)(arg1, arg2, arg3);
 -- }
 -- /* test_programanalysisprogram_slici_Example_get_read_file_chunk */
 -- __attribute__ ((const))

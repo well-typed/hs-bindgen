@@ -15,7 +15,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  float _Complex *arg3"
   , ")"
   , "{"
-  , "  *arg3 = multiply_complex_f(*arg1, *arg2);"
+  , "  *arg3 = (multiply_complex_f)(*arg1, *arg2);"
   , "}"
   , "void hs_bindgen_28f2705e917973ab ("
   , "  double _Complex *arg1,"
@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  double _Complex *arg3"
   , ")"
   , "{"
-  , "  *arg3 = add_complex(*arg1, *arg2);"
+  , "  *arg3 = (add_complex)(*arg1, *arg2);"
   , "}"
   ]))
 

@@ -4,37 +4,37 @@
 --   enum MyEnum arg1
 -- )
 -- {
---   foo(arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_32c6f6f9bb440690 (
 --   A arg1
 -- )
 -- {
---   fooA(arg1);
+--   (fooA)(arg1);
 -- }
 -- void hs_bindgen_16e7856908d06f71 (
 --   B arg1
 -- )
 -- {
---   fooB(arg1);
+--   (fooB)(arg1);
 -- }
 -- void hs_bindgen_0e6b98e93cad73ef (
 --   enum MyEnum arg1
 -- )
 -- {
---   foo(arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_1c6de1b89014dc52 (
 --   A arg1
 -- )
 -- {
---   fooA(arg1);
+--   (fooA)(arg1);
 -- }
 -- void hs_bindgen_a8e579f3b5035c03 (
 --   B arg1
 -- )
 -- {
---   fooB(arg1);
+--   (fooB)(arg1);
 -- }
 -- /* test_bindingspecsfun_argmacroen_Example_get_foo */
 -- __attribute__ ((const))

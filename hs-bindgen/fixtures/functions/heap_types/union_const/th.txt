@@ -5,14 +5,14 @@
 --   T const *arg2
 -- )
 -- {
---   *arg2 = fun(*arg1);
+--   *arg2 = (fun)(*arg1);
 -- }
 -- void hs_bindgen_4e22c71ca196dc5e (
 --   T const *arg1,
 --   T const *arg2
 -- )
 -- {
---   *arg2 = fun(*arg1);
+--   *arg2 = (fun)(*arg1);
 -- }
 -- /* test_functionsheap_typesunion_con_Example_get_fun */
 -- __attribute__ ((const))

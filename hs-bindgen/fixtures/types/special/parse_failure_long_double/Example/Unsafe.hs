@@ -13,7 +13,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  signed int arg1"
   , ")"
   , "{"
-  , "  fun2(arg1);"
+  , "  (fun2)(arg1);"
   , "}"
   ]))
 

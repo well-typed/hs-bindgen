@@ -10,7 +10,7 @@
 --   uint8_t (*arg3)[]
 -- )
 -- {
---   return some_fun(arg1, arg2, *arg3);
+--   return (some_fun)(arg1, arg2, *arg3);
 -- }
 -- int32_t hs_bindgen_2a91c367a9380a63 (
 --   a_type_t *arg1,
@@ -18,7 +18,7 @@
 --   uint8_t (*arg3)[]
 -- )
 -- {
---   return some_fun(arg1, arg2, *arg3);
+--   return (some_fun)(arg1, arg2, *arg3);
 -- }
 -- /* test_edgecasesdistilled_lib_1_Example_get_some_fun */
 -- __attribute__ ((const))

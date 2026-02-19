@@ -4,37 +4,37 @@
 --   union MyUnion *arg1
 -- )
 -- {
---   foo(*arg1);
+--   (foo)(*arg1);
 -- }
 -- void hs_bindgen_f70ba8b74da026b3 (
 --   A *arg1
 -- )
 -- {
---   fooA(*arg1);
+--   (fooA)(*arg1);
 -- }
 -- void hs_bindgen_89e946b10b5189a6 (
 --   B *arg1
 -- )
 -- {
---   fooB(*arg1);
+--   (fooB)(*arg1);
 -- }
 -- void hs_bindgen_f784f3292d76f05c (
 --   union MyUnion *arg1
 -- )
 -- {
---   foo(*arg1);
+--   (foo)(*arg1);
 -- }
 -- void hs_bindgen_317131bf91a541b2 (
 --   A *arg1
 -- )
 -- {
---   fooA(*arg1);
+--   (fooA)(*arg1);
 -- }
 -- void hs_bindgen_d2ce062db2e5b039 (
 --   B *arg1
 -- )
 -- {
---   fooB(*arg1);
+--   (fooB)(*arg1);
 -- }
 -- /* test_bindingspecsfun_argmacroun_Example_get_foo */
 -- __attribute__ ((const))

@@ -16,14 +16,14 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  struct vector *arg2"
   , ")"
   , "{"
-  , "  return reverse(arg1, arg2);"
+  , "  return (reverse)(arg1, arg2);"
   , "}"
   , "void hs_bindgen_ea25667627dd5ed2 ("
   , "  matrix const *arg1,"
   , "  matrix *arg2"
   , ")"
   , "{"
-  , "  transpose(*arg1, *arg2);"
+  , "  (transpose)(*arg1, *arg2);"
   , "}"
   ]))
 

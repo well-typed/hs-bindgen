@@ -11,7 +11,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   [ "#include <program-analysis/selection_matches_c_names.h>"
   , "signed int hs_bindgen_c9b1dc5577fd8ced (void)"
   , "{"
-  , "  return FunctionWithAssignedHaskellNameByNameMangler();"
+  , "  return (FunctionWithAssignedHaskellNameByNameMangler)();"
   , "}"
   ]))
 

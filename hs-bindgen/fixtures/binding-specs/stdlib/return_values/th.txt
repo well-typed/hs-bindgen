@@ -19,235 +19,235 @@
 -- #include <binding-specs/stdlib/return_values.h>
 -- bool hs_bindgen_4cd199ba56c14547 (void)
 -- {
---   return bool_fun();
+--   return (bool_fun)();
 -- }
 -- int8_t hs_bindgen_73c8e1f452482878 (void)
 -- {
---   return int8_t_fun();
+--   return (int8_t_fun)();
 -- }
 -- int16_t hs_bindgen_da3259b2446eb9bf (void)
 -- {
---   return int16_t_fun();
+--   return (int16_t_fun)();
 -- }
 -- int32_t hs_bindgen_7dd577f0c34f0ff7 (void)
 -- {
---   return int32_t_fun();
+--   return (int32_t_fun)();
 -- }
 -- int64_t hs_bindgen_7a2709fa911a350e (void)
 -- {
---   return int64_t_fun();
+--   return (int64_t_fun)();
 -- }
 -- uint8_t hs_bindgen_1b2e687eaa715924 (void)
 -- {
---   return uint8_t_fun();
+--   return (uint8_t_fun)();
 -- }
 -- uint16_t hs_bindgen_6da73658633b176e (void)
 -- {
---   return uint16_t_fun();
+--   return (uint16_t_fun)();
 -- }
 -- uint32_t hs_bindgen_c6cd0ee414c746de (void)
 -- {
---   return uint32_t_fun();
+--   return (uint32_t_fun)();
 -- }
 -- uint64_t hs_bindgen_cbb9017c67ce7652 (void)
 -- {
---   return uint64_t_fun();
+--   return (uint64_t_fun)();
 -- }
 -- intmax_t hs_bindgen_844bf55e16de43a0 (void)
 -- {
---   return intmax_t_fun();
+--   return (intmax_t_fun)();
 -- }
 -- uintmax_t hs_bindgen_56900c9a548480d5 (void)
 -- {
---   return uintmax_t_fun();
+--   return (uintmax_t_fun)();
 -- }
 -- intptr_t hs_bindgen_d656827fe2704de3 (void)
 -- {
---   return intptr_t_fun();
+--   return (intptr_t_fun)();
 -- }
 -- uintptr_t hs_bindgen_401c738c79c5e4ef (void)
 -- {
---   return uintptr_t_fun();
+--   return (uintptr_t_fun)();
 -- }
 -- fenv_t *hs_bindgen_eb417aeaae001cd4 (void)
 -- {
---   return fenv_t_fun();
+--   return (fenv_t_fun)();
 -- }
 -- fexcept_t *hs_bindgen_42f9ee7a2fa5ed3b (void)
 -- {
---   return fexcept_t_fun();
+--   return (fexcept_t_fun)();
 -- }
 -- size_t hs_bindgen_66f735fc270b795a (void)
 -- {
---   return size_t_fun();
+--   return (size_t_fun)();
 -- }
 -- ptrdiff_t hs_bindgen_2f5574764965bb49 (void)
 -- {
---   return ptrdiff_t_fun();
+--   return (ptrdiff_t_fun)();
 -- }
 -- wchar_t hs_bindgen_57ff329a6c1ab247 (void)
 -- {
---   return wchar_t_fun();
+--   return (wchar_t_fun)();
 -- }
 -- wint_t hs_bindgen_fef1399636729a64 (void)
 -- {
---   return wint_t_fun();
+--   return (wint_t_fun)();
 -- }
 -- mbstate_t *hs_bindgen_ec1c0b9428114ec6 (void)
 -- {
---   return mbstate_t_fun();
+--   return (mbstate_t_fun)();
 -- }
 -- wctrans_t hs_bindgen_2d9b204c006f0667 (void)
 -- {
---   return wctrans_t_fun();
+--   return (wctrans_t_fun)();
 -- }
 -- wctype_t hs_bindgen_977cddf620e22ba0 (void)
 -- {
---   return wctype_t_fun();
+--   return (wctype_t_fun)();
 -- }
 -- char16_t hs_bindgen_4780a15ae4e392fd (void)
 -- {
---   return char16_t_fun();
+--   return (char16_t_fun)();
 -- }
 -- char32_t hs_bindgen_d258f4d9903b4e39 (void)
 -- {
---   return char32_t_fun();
+--   return (char32_t_fun)();
 -- }
 -- time_t hs_bindgen_82c178bd7c4d08b0 (void)
 -- {
---   return time_t_fun();
+--   return (time_t_fun)();
 -- }
 -- clock_t hs_bindgen_b472ecf9ffec8045 (void)
 -- {
---   return clock_t_fun();
+--   return (clock_t_fun)();
 -- }
 -- FILE *hs_bindgen_0caa7d72a7701f1f (void)
 -- {
---   return FILE_fun();
+--   return (FILE_fun)();
 -- }
 -- fpos_t *hs_bindgen_47b37de28902f506 (void)
 -- {
---   return fpos_t_fun();
+--   return (fpos_t_fun)();
 -- }
 -- sig_atomic_t hs_bindgen_222eab426c700a03 (void)
 -- {
---   return sig_atomic_t_fun();
+--   return (sig_atomic_t_fun)();
 -- }
 -- bool hs_bindgen_6b68851ce9c1f36f (void)
 -- {
---   return bool_fun();
+--   return (bool_fun)();
 -- }
 -- int8_t hs_bindgen_a408da1bfa030a51 (void)
 -- {
---   return int8_t_fun();
+--   return (int8_t_fun)();
 -- }
 -- int16_t hs_bindgen_6785058f9844b9b5 (void)
 -- {
---   return int16_t_fun();
+--   return (int16_t_fun)();
 -- }
 -- int32_t hs_bindgen_191a7b2b445fb350 (void)
 -- {
---   return int32_t_fun();
+--   return (int32_t_fun)();
 -- }
 -- int64_t hs_bindgen_0a523ac71d31b35c (void)
 -- {
---   return int64_t_fun();
+--   return (int64_t_fun)();
 -- }
 -- uint8_t hs_bindgen_f4245406bfdade75 (void)
 -- {
---   return uint8_t_fun();
+--   return (uint8_t_fun)();
 -- }
 -- uint16_t hs_bindgen_f7a0d726d7268b30 (void)
 -- {
---   return uint16_t_fun();
+--   return (uint16_t_fun)();
 -- }
 -- uint32_t hs_bindgen_432f65d5f6e3c062 (void)
 -- {
---   return uint32_t_fun();
+--   return (uint32_t_fun)();
 -- }
 -- uint64_t hs_bindgen_af91a28f07360676 (void)
 -- {
---   return uint64_t_fun();
+--   return (uint64_t_fun)();
 -- }
 -- intmax_t hs_bindgen_34ebd7f9b1c9877f (void)
 -- {
---   return intmax_t_fun();
+--   return (intmax_t_fun)();
 -- }
 -- uintmax_t hs_bindgen_f147b22f36663ba2 (void)
 -- {
---   return uintmax_t_fun();
+--   return (uintmax_t_fun)();
 -- }
 -- intptr_t hs_bindgen_42bfd915930be089 (void)
 -- {
---   return intptr_t_fun();
+--   return (intptr_t_fun)();
 -- }
 -- uintptr_t hs_bindgen_3d4e032e4f99ccdf (void)
 -- {
---   return uintptr_t_fun();
+--   return (uintptr_t_fun)();
 -- }
 -- fenv_t *hs_bindgen_d12ec6bea98f91aa (void)
 -- {
---   return fenv_t_fun();
+--   return (fenv_t_fun)();
 -- }
 -- fexcept_t *hs_bindgen_bfb6abdc4397c064 (void)
 -- {
---   return fexcept_t_fun();
+--   return (fexcept_t_fun)();
 -- }
 -- size_t hs_bindgen_3030e3c8a5de2e7e (void)
 -- {
---   return size_t_fun();
+--   return (size_t_fun)();
 -- }
 -- ptrdiff_t hs_bindgen_7033a7ddfdfe770f (void)
 -- {
---   return ptrdiff_t_fun();
+--   return (ptrdiff_t_fun)();
 -- }
 -- wchar_t hs_bindgen_ebae7f4d5db1ecd0 (void)
 -- {
---   return wchar_t_fun();
+--   return (wchar_t_fun)();
 -- }
 -- wint_t hs_bindgen_623e42289a1c3dc3 (void)
 -- {
---   return wint_t_fun();
+--   return (wint_t_fun)();
 -- }
 -- mbstate_t *hs_bindgen_bc84314eca8f2a7c (void)
 -- {
---   return mbstate_t_fun();
+--   return (mbstate_t_fun)();
 -- }
 -- wctrans_t hs_bindgen_5524c9adc3841732 (void)
 -- {
---   return wctrans_t_fun();
+--   return (wctrans_t_fun)();
 -- }
 -- wctype_t hs_bindgen_72885cbcc8213893 (void)
 -- {
---   return wctype_t_fun();
+--   return (wctype_t_fun)();
 -- }
 -- char16_t hs_bindgen_4284e8eb72d43965 (void)
 -- {
---   return char16_t_fun();
+--   return (char16_t_fun)();
 -- }
 -- char32_t hs_bindgen_74e1167907c5de0e (void)
 -- {
---   return char32_t_fun();
+--   return (char32_t_fun)();
 -- }
 -- time_t hs_bindgen_a0c949d46b12627a (void)
 -- {
---   return time_t_fun();
+--   return (time_t_fun)();
 -- }
 -- clock_t hs_bindgen_ac7afd479db138db (void)
 -- {
---   return clock_t_fun();
+--   return (clock_t_fun)();
 -- }
 -- FILE *hs_bindgen_51b6e01d56713f95 (void)
 -- {
---   return FILE_fun();
+--   return (FILE_fun)();
 -- }
 -- fpos_t *hs_bindgen_e9ed5e9a298e9a7e (void)
 -- {
---   return fpos_t_fun();
+--   return (fpos_t_fun)();
 -- }
 -- sig_atomic_t hs_bindgen_1aecb4fb9faabcf5 (void)
 -- {
---   return sig_atomic_t_fun();
+--   return (sig_atomic_t_fun)();
 -- }
 -- /* test_bindingspecsstdlibreturn_va_Example_get_bool_fun */
 -- __attribute__ ((const))

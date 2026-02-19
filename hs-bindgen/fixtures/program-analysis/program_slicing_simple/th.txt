@@ -8,14 +8,14 @@
 --   uint32_t arg2
 -- )
 -- {
---   return bar(arg1, arg2);
+--   return (bar)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_fe855d53295ba8ab (
 --   uint64_t arg1,
 --   uint32_t arg2
 -- )
 -- {
---   return bar(arg1, arg2);
+--   return (bar)(arg1, arg2);
 -- }
 -- /* test_programanalysisprogram_slici_Example_get_bar */
 -- __attribute__ ((const))
