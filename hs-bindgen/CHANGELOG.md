@@ -25,6 +25,10 @@
 * Wrap function names in parentheses in generated C wrappers (`(erf)(x)`
   instead of `erf(x)`) to prevent function-like macro expansion when a macro
   shadows the function name.
+* Fix incorrect enum constant values for enums with unsigned underlying types
+  (e.g. `enum : uint8_t`). Values above the signed range (such as 128 or 255
+  for `uint8_t`) were incorrectly stored as negative numbers because
+  `hs-bindgen` used the signed libclang API.
 * Include `FunPtr` for macro-defined newtypes.
 * Fix a panic that occurred in some cases when generating `_Aux` newtypes for
   function pointers. See [issue #1694][issue-1694] and [PR #1724][pr-1724].
