@@ -404,7 +404,7 @@ unionDecs fieldNaming haddockConfig info union spec = do
 
                     exportedName :: Hs.ExportedName Hs.NsVar
                     exportedName =
-                       fromMaybe (panicPure $ "could not construct name for " ++ show candidate) $
+                       fromMaybe (panicPure $ "Could not construct name for " ++ show candidate) $
                          FixCandidate.fixCandidate
                            FixCandidate.fixCandidateDefault
                            candidate

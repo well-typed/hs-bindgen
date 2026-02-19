@@ -322,4 +322,4 @@ regexPatterns = map fromString
   ]
 
 unused :: HasCallStack => a
-unused = panicPure "unexpected use"
+unused = panicPure "Unexpected use"

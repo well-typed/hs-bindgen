@@ -70,7 +70,7 @@ getInstances instanceMap name = aux
             | Just name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
                 Just instances -> aux (acc /\ instances) hsTypes
-                Nothing -> panicPure $ "type not found: " ++ show name'
+                Nothing -> panicPure $ "Type not found: " ++ show name'
           HsConstArray _n hsType' ->
             -- constrain by ConstantArray item type in next step
             aux (acc /\ cArrayInsts) $ hsType' : hsTypes

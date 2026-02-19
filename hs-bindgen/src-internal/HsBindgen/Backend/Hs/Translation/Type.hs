@@ -100,7 +100,7 @@ primChar (C.PrimSignExplicit C.Unsigned) = Hs.HsPrimCUChar
 void :: HasCallStack => TypeContext -> Hs.HsPrimType
 void FunRes = Hs.HsPrimUnit
 void PtrArg = Hs.HsPrimVoid
-void c      = panicPure $ "unexpected type void in context " ++ show c
+void c      = panicPure $ "Unexpected type void in context " ++ show c
 
 integralType :: C.PrimIntType -> C.PrimSign -> Hs.HsPrimType
 integralType C.PrimInt      C.Signed   = Hs.HsPrimCInt
