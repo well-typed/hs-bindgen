@@ -451,7 +451,7 @@ compareByOrder xs x y =
   in  compare ix iy
   where
     lookupUnsafe z = case Map.lookup z xs of
-      Nothing -> panicPure $ "unknown source path: " <> show z
+      Nothing -> panicPure $ "Unknown source path: " <> show z
       Just v  -> v
 
 compareSingleLocs :: Map SourcePath Int -> SingleLoc -> SingleLoc -> Ordering
@@ -508,7 +508,7 @@ selectDeclIndex declUseGraph p declIndex =
     matchDeclId declId =
         case DeclIndex.lookupEntry declId declIndex of
           Just entry -> matchEntry declId entry
-          Nothing    -> panicPure $ "unknown " ++ show declId
+          Nothing    -> panicPure $ "Unknown declaration ID: " ++ show declId
 
     -- Extract info from 'Entry' needed to match against the selection predicate
     --

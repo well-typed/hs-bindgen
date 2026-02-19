@@ -432,7 +432,7 @@ parseMacro ::
      C.DeclName
   -> [Token TokenSpelling]
   -> M (Either HandleMacrosError (CheckedMacro HandleMacros))
-parseMacro name []      = panicPure $ "macro " <> show name <> ": unexpected empty list of tokens"
+parseMacro name []      = panicPure $ "Macro " <> show name <> ": unexpected empty list of tokens"
 parseMacro name [_]     = pure      $ Left $ HandleMacrosErrorEmpty name
 parseMacro name tokens  = state     $ \st ->
     -- In the case that the same macro could be interpreted both as a type or

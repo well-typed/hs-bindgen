@@ -28,24 +28,24 @@ applyTerms = \case
   where
     renameHsDeclWith :: (Text -> Text) -> Hs.Decl -> Hs.Decl
     renameHsDeclWith f d = case d of
-        Hs.DeclTypSyn{}                   -> p "TypSyn"
-        Hs.DeclData{}                     -> p "Data"
-        Hs.DeclEmpty{}                    -> p "Empty"
-        Hs.DeclNewtype{}                  -> p "Newtype"
-        Hs.DeclPatSyn{}                   -> p "PatSyn"
-        Hs.DeclDefineInstance{}           -> p "DefineInstance"
-        Hs.DeclDeriveInstance{}           -> p "DeriveInstance"
+        Hs.DeclTypSyn{}                   -> p
+        Hs.DeclData{}                     -> p
+        Hs.DeclEmpty{}                    -> p
+        Hs.DeclNewtype{}                  -> p
+        Hs.DeclPatSyn{}                   -> p
+        Hs.DeclDefineInstance{}           -> p
+        Hs.DeclDeriveInstance{}           -> p
         fi@Hs.DeclForeignImport{}         -> fi
         fiw@Hs.DeclForeignImportWrapper{} -> fiw
         fid@Hs.DeclForeignImportDynamic{} -> fid
         Hs.DeclFunction fn                -> Hs.DeclFunction $ overN #name fn
-        Hs.DeclMacroExpr{}                -> p "MacroExpr"
-        Hs.DeclUnionGetter{}              -> p "UnionGetter"
-        Hs.DeclUnionSetter{}              -> p "UnionSetter"
+        Hs.DeclMacroExpr{}                -> p
+        Hs.DeclUnionGetter{}              -> p
+        Hs.DeclUnionSetter{}              -> p
         Hs.DeclVar x                      -> Hs.DeclVar $ overN #name x
       where
-        p :: String -> a
-        p e = panicPure $ "applyTerms.renameHsDeclWith (" <> show d <> "): unexpected " <> e
+        p :: a
+        p = panicPure $ "Must not rename type-level declaration " <> show d
 
         -- Don't rename internal names
         fN :: Hs.Name n -> Hs.Name n

@@ -139,7 +139,7 @@ fromCDeclExt = \case
 -------------------------------------------------------------------------------}
 
 getLocation :: [Clang.Token a] -> Clang.MultiLoc
-getLocation []    = panicPure "unexpected empty list of tokens"
+getLocation []    = panicPure "Unexpected empty list of tokens"
 getLocation (t:_) = Clang.rangeStart $ Clang.tokenExtent t
 
 multiLocToLanC :: Clang.MultiLoc -> LanC.Position
@@ -192,7 +192,7 @@ flattenFunDecl allTokens =
           _otherwise -> prependToken t $ go ts
 
 flattenMacroTypeDef :: [Clang.Token Clang.TokenSpelling] -> String
-flattenMacroTypeDef []         = panicPure "unexpected empty list of tokens"
+flattenMacroTypeDef []         = panicPure "Unexpected empty list of tokens"
 flattenMacroTypeDef (name:def) = "typedef " ++ defaultFlatten (def ++ [name])
 
 prependToken :: Clang.Token Clang.TokenSpelling -> String -> String
@@ -248,7 +248,7 @@ getUniqueName = WrapWithNameSupply $ State.state aux
   where
     aux :: [LanC.Name] -> (LanC.Name, [LanC.Name])
     aux (n:ns) = (n,ns)
-    aux []     = panicPure "impossible: no more unique names"
+    aux []     = panicPure "No more unique names"
 
 declarePredefined :: CName -> WithNameSupply LanC.Ident
 declarePredefined name =

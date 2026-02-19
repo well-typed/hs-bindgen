@@ -137,14 +137,14 @@ mkExpr env = \case
                                (xs, env') <- newNames env (AS AZ) hints
                                case xs of
                                  []    ->
-                                   panicPure "expected one name hint, but SAltNoConstr had none"
+                                   panicPure "Expected one name hint, but SAltNoConstr had none"
                                  [v]   ->
                                    TH.match
                                      (TH.varP v)
                                      (TH.normalB $ mkExpr env' b)
                                      []
                                  vs ->
-                                   panicPure $ "expected one name hint, but SAltNoConstr had more: " <> show vs
+                                   panicPure $ "Expected one name hint, but SAltNoConstr had more: " <> show vs
                              SAltUnboxedTuple add hints b -> do
                                (xs, env') <- newNames env add hints
                                TH.match

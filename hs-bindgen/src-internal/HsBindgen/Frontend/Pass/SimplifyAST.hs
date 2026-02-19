@@ -96,6 +96,6 @@ simplifyAST usage parseResults = (results, msgs)
 extractPrimType :: C.Type Parse -> PrimType
 extractPrimType (C.TypePrim pt) = pt
 extractPrimType ty = panicPure $ concat [
-    "extractPrimType: expected TypePrim but got "
+    "Expected TypePrim but got "
   , show ty
   ]

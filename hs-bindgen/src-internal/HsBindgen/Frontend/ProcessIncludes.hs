@@ -230,7 +230,7 @@ getInclude :: CXTranslationUnit -> CXCursor -> IO Include
 getInclude unit curr = do
     tokens <- HighLevel.clang_tokenize unit . fmap multiLocExpansion
       =<< HighLevel.clang_getCursorExtent curr
-    let err = "unable to parse #include: " ++ show tokens
+    let err = "Unable to parse #include: " ++ show tokens
     maybe (panicIO err) return $ parseInclude tokens
 
 parseInclude :: [Token TokenSpelling] -> Maybe Include
