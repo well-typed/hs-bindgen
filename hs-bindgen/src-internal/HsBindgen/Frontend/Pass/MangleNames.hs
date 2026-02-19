@@ -415,6 +415,17 @@ mangleFieldName info fieldCName = do
     ScopedNamePair fieldCName <$>
       mkIdentifier info (Proxy @Hs.NsVar) candidate
 
+mangleAccessorName ::
+     C.DeclInfo MangleNames
+  -> C.ScopedName
+  -> M Hs.Identifier
+mangleAccessorName info fieldCName =
+    mkIdentifier info (Proxy @Hs.NsVar) candidate
+  where
+    candidate :: Text
+    candidate =
+      info.id.unsafeHsName.text <> "_" <> fieldCName.text
+
 -- | Mangle enum constant name
 --
 -- Since these live in the global namespace, we do not prepend the name of
@@ -452,19 +463,22 @@ mkStructNames info = RecordNames{
       constr = Hs.unsafeHsIdHsName info.id.unsafeHsName
     }
 
--- | Generic construction of newtype names, given only the type name
---
-mkNewtypeNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
-mkNewtypeNames strategy info = NewtypeNames{
-      constr = Hs.unsafeHsIdHsName $                     info.id.unsafeHsName
-    , field  = Hs.unsafeHsIdHsName $ unwrapName strategy info.id.unsafeHsName
-    }
+mkFieldName :: FieldNamingStrategy -> C.DeclInfo MangleNames -> Hs.Name Hs.NsVar
+mkFieldName strategy info = Hs.unsafeHsIdHsName $ unwrapName strategy info.id.unsafeHsName
   where
     unwrapName :: FieldNamingStrategy -> Hs.Identifier -> Hs.Identifier
     unwrapName fns typeName  = Hs.Identifier $
       case fns of
         PrefixedFieldNames   -> "unwrap" <> typeName.text
         EnableRecordDot      -> "unwrap"
+
+-- | Generic construction of newtype names, given only the type name
+--
+mkNewtypeNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
+mkNewtypeNames strategy info = NewtypeNames{
+      constr = Hs.unsafeHsIdHsName  info.id.unsafeHsName
+    , field  = mkFieldName strategy info
+    }
 
 -- | Union names
 --
@@ -564,25 +578,26 @@ instance MangleInDecl C.Union where
 
 instance MangleInDecl C.UnionField where
   mangleInDecl info field = do
-      reconstruct
-        <$> mangleFieldName info field.info.name
-        <*> mangle field.typ
-        <*> mapM mangle field.info.comment
-    where
-      reconstruct ::
-           ScopedNamePair
-        -> C.Type MangleNames
-        -> Maybe (C.Comment MangleNames)
-        -> C.UnionField MangleNames
-      reconstruct unionFieldName' unionFieldType' unionFieldComment' =
+      fieldName    <- mangleFieldName info field.info.name
+      fieldType    <- mangle field.typ
+      fieldComment <- mapM mangle field.info.comment
+      accessorName <- mangleAccessorName info field.info.name
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1752.
+      let getterName, setterName :: (Hs.Name Hs.NsVar)
+          getterName = Hs.unsafeHsIdHsName $ "get_" <> accessorName
+          setterName = Hs.unsafeHsIdHsName $ "set_" <> accessorName
+      pure $
         C.UnionField {
             info = C.FieldInfo {
                        loc     = field.info.loc
-                     , name    = unionFieldName'
-                     , comment = unionFieldComment'
+                     , name    = fieldName
+                     , comment = fieldComment
                      }
-          , typ  = unionFieldType'
-          , ann  = field.ann
+          , typ  = fieldType
+          , ann  = UnionFieldNames {
+              getter = getterName
+            , setter = setterName
+            }
           }
 
 instance MangleInDecl C.Enum where
