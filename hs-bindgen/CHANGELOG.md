@@ -18,6 +18,11 @@
 
 ### Bug fixes
 
+* Fix incorrect enum constant values for enums with unsigned underlying types
+  (e.g. `enum : uint8_t`). Values above the signed range (such as 128 or 255
+  for `uint8_t`) were incorrectly stored as negative numbers because
+  `hs-bindgen` used the signed libclang API.
+
 * Include `FunPtr` for macro-defined newtypes.
 
 ## 0.1.0-alpha -- 2026-02-06

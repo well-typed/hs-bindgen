@@ -1,0 +1,33 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/enums/enum_unsigned_values.h
+  cname: enum uint8_enum
+  hsname: Uint8_enum
+- headers: types/enums/enum_unsigned_values.h
+  cname: uint8_enum
+  hsname: Uint8_enum
+hstypes:
+- hsname: Uint8_enum
+  representation:
+    newtype:
+      constructor: Uint8_enum
+      fields:
+      - unwrapUint8_enum
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

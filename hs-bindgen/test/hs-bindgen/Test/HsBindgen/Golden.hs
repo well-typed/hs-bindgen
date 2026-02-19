@@ -152,6 +152,7 @@ testCases_default = [
     , defaultTest "types/enums/anon_enum_toplevel"
     , defaultTest "types/enums/enum_cpp_syntax"
     , defaultTest "types/enums/enums"
+    , defaultTest "types/enums/enum_unsigned_values"
     , defaultTest "types/enums/nested_enums"
     , defaultTest "types/nested/nested_types"
     , defaultTest "types/primitives/bool"
