@@ -28,11 +28,15 @@ jobs:
         shell: bash
 
     steps:
+
+    # NOTE: For caching purposes, the matrix combinations that we test on pull
+    # requests (PR) should be a subset of the matrix combinations we run on the
+    # merge queue and main (MQ, push to main).
     - name: 🛠️ Setup matrix (PR)
       if: ${{ github.event_name == 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          echo '{"runner": "ubuntu-latest", "ghc": "9.4", "llvm": "15"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "15"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
           echo '{"runner": "windows-latest", "ghc": "9.4", "llvm": "14"},'
           echo EOF
@@ -42,6 +46,7 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "15"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
           echo '{"runner": "windows-latest", "ghc": "9.4", "llvm": "14"},'
           # Vary LLVM version from 14 to 20.
