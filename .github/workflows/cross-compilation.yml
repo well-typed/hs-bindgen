@@ -36,8 +36,8 @@ jobs:
           - target: native
             dev-shell: cross-native
 
-          - target: arm32
-            dev-shell: cross-arm32
+          - target: aarch64
+            dev-shell: cross-aarch64
 
     steps:
     - name: Checkout repository

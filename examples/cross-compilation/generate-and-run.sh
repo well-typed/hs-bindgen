@@ -14,7 +14,6 @@
 #   ./generate-and-run.sh         # Run all targets
 #   ./generate-and-run.sh native  # Run only native
 #   ./generate-and-run.sh aarch64 # Run only aarch64
-#   ./generate-and-run.sh arm32   # Run only 32-bit ARM
 #
 
 set -e
@@ -28,10 +27,10 @@ HS_PROJECT_DIR="$SCRIPT_DIR/hs-project"
 TARGET="${1:-all}"
 
 case "$TARGET" in
-    all|native|aarch64|arm32)
+    all|native|aarch64)
         ;;
     *)
-        echo "Usage: $0 [all|native|aarch64|arm32]"
+        echo "Usage: $0 [all|native|aarch64]"
         exit 1
         ;;
 esac
@@ -43,7 +42,7 @@ echo "==> hs-bindgen Cross-Compilation: $TARGET"
 # ============================================================================
 
 # Check that we're inside nix develop (cross-GHC env vars are set)
-if [ "$TARGET" != "native" ] && [ -z "$GHC_AARCH64_PATH" ] && [ -z "$GHC_ARM32_PATH" ]; then
+if [ "$TARGET" != "native" ] && [ -z "$GHC_AARCH64_PATH" ]; then
     echo "# Error: Not inside nix develop environment."
     echo "#"
     echo "#   cd examples/cross-compilation"
@@ -88,17 +87,6 @@ configure_target() {
             BUILDDIR="dist-newstyle-aarch64"
             CC_CMD="${AARCH64_CC:-aarch64-linux-gnu-gcc}"
             ;;
-        arm32)
-            TARGET_TRIPLE="arm-linux-gnueabihf"
-            GHC_PATH="$GHC_ARM32_PATH"
-            CABAL_PATH="$CABAL_ARM32_PATH"
-            QEMU_CMD="qemu-arm"
-            QEMU_LD_PREFIX="${QEMU_ARM_LD_PREFIX:-}"
-            LIB_DIR="$C_SRC_DIR/lib-arm32"
-            EXE_NAME="cross-compilation-arm32"
-            BUILDDIR="dist-newstyle-arm32"
-            CC_CMD="${ARM32_CC:-armv7l-unknown-linux-gnueabihf-gcc}"
-            ;;
         *)
             echo "# Error: Unknown target: $target"
             return 1
@@ -115,7 +103,7 @@ echo "==> Phase 1: Building C libraries"
 cd "$C_SRC_DIR"
 make clean >/dev/null 2>&1 || true
 
-for target in native aarch64 arm32; do
+for target in native aarch64; do
     if [ "$TARGET" = "all" ] || [ "$TARGET" = "$target" ]; then
         configure_target "$target"
 
@@ -163,7 +151,7 @@ generate_bindings() {
         "$C_SRC_DIR/arch_types.h"
 }
 
-for target in native aarch64 arm32; do
+for target in native aarch64; do
     if [ "$TARGET" = "all" ] || [ "$TARGET" = "$target" ]; then
         configure_target "$target"
         src_dir="$HS_PROJECT_DIR/src-$target"
@@ -188,7 +176,6 @@ package cross-compilation-example
   extra-lib-dirs:
     $C_SRC_DIR/lib-native/
     $C_SRC_DIR/lib-aarch64/
-    $C_SRC_DIR/lib-arm32/
 EOF
 
 if [ "$TARGET" = "all" ] || [ "$TARGET" = "native" ]; then
@@ -433,7 +420,7 @@ run_cross_target() {
 }
 
 # Run cross-compilation for each requested target
-for arch in aarch64 arm32; do
+for arch in aarch64; do
     if [ "$TARGET" = "all" ] || [ "$TARGET" = "$arch" ]; then
         configure_target "$arch"
         if [ -d "$LIB_DIR" ]; then
