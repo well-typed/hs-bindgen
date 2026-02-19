@@ -113,8 +113,7 @@ instance Default QualifiedStyle where
 -- Bundles settings that affect the surface syntax of generated modules but
 -- do not change semantics.
 data ModuleRenderConfig = ModuleRenderConfig {
-      fieldNamingStrategy :: FieldNamingStrategy
-    , qualifiedStyle      :: QualifiedStyle
+      qualifiedStyle :: QualifiedStyle
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Default)

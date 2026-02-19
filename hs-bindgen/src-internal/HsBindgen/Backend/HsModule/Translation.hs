@@ -69,33 +69,36 @@ data HsModule = HsModule {
 -------------------------------------------------------------------------------}
 
 translateModuleMultiple ::
-     ModuleRenderConfig
+     FieldNamingStrategy
+  -> ModuleRenderConfig
   -> BaseModuleName
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe HsModule)
-translateModuleMultiple mrc moduleBaseName declsByCat =
+translateModuleMultiple fns mrc moduleBaseName declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
     go _ ([], []) = Nothing
-    go cat xs     = Just $ translateModule' mrc (Just cat) moduleBaseName xs
+    go cat xs     = Just $ translateModule' fns mrc (Just cat) moduleBaseName xs
 
 translateModuleSingle ::
-     ModuleRenderConfig
+     FieldNamingStrategy
+  -> ModuleRenderConfig
   -> BaseModuleName
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
-translateModuleSingle mrc name declsByCat =
-    translateModule' mrc Nothing name $ Foldable.fold declsByCat
+translateModuleSingle fns mrc name declsByCat =
+    translateModule' fns mrc Nothing name $ Foldable.fold declsByCat
 
 translateModule' ::
-     ModuleRenderConfig
+     FieldNamingStrategy
+  -> ModuleRenderConfig
   -> Maybe Category
   -> BaseModuleName
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' mrc mcat moduleBaseName (cWrappers, decs) = HsModule{
-      pragmas        = resolvePragmas mrc.fieldNamingStrategy mrc.qualifiedStyle cWrappers decs
+translateModule' fns mrc mcat moduleBaseName (cWrappers, decs) = HsModule{
+      pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
     , imports        = resolveImports moduleBaseName mcat cWrappers decs
     , name           = fromBaseModuleName moduleBaseName mcat
     , qualifiedStyle = mrc.qualifiedStyle

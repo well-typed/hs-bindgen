@@ -147,18 +147,18 @@ writeUseDeclGraph pol mPath = do
       Just path -> write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
-getBindings :: ModuleRenderConfig -> Artefact String
-getBindings mrc = do
+getBindings :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact String
+getBindings fns mrc = do
     name  <- FinalModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsSingleModule name
-    pure $ render $ translateModuleSingle mrc name decls
+    pure $ render $ translateModuleSingle fns mrc name decls
 
 -- | Write bindings to file.
-writeBindings :: ModuleRenderConfig -> FileOverwritePolicy -> FilePath -> Artefact ()
-writeBindings mrc fileOverwritePolicy path = do
-    bindings <- getBindings mrc
+writeBindings :: FieldNamingStrategy -> ModuleRenderConfig -> FileOverwritePolicy -> FilePath -> Artefact ()
+writeBindings fns mrc fileOverwritePolicy path = do
+    bindings <- getBindings fns mrc
     write fileOverwritePolicy "bindings" (UserSpecified path) bindings
 
 -- | Write bindings to a directory (single module combining all categories).
@@ -167,14 +167,15 @@ writeBindings mrc fileOverwritePolicy path = do
 -- constructs the file path from the module name, similar to
 -- 'writeBindingsMultiple' but generating only one file.
 writeBindingsSingleToDir ::
-     ModuleRenderConfig
+     FieldNamingStrategy
+  -> ModuleRenderConfig
   -> FileOverwritePolicy
   -> OutputDirPolicy
   -> FilePath
   -> Artefact ()
-writeBindingsSingleToDir mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
+writeBindingsSingleToDir fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
     moduleBaseName <- FinalModuleBaseName
-    bindings       <- getBindings mrc
+    bindings       <- getBindings fns mrc
     let localPath :: FilePath
         localPath = Hs.moduleNamePath $
             fromBaseModuleName moduleBaseName Nothing
@@ -194,25 +195,26 @@ writeBindingsSingleToDir mrc fileOverwritePolicy outputDirPolicy hsOutputDir = d
 -- all selected categories)
 -- - If no categories were selected: multi-module mode (one file per category)
 writeBindingsToDir ::
-     ModuleRenderConfig
+     FieldNamingStrategy
+  -> ModuleRenderConfig
   -> FileOverwritePolicy
   -> OutputDirPolicy
   -> FilePath
   -> Bool  -- ^ True if categories were explicitly selected
   -> Artefact ()
-writeBindingsToDir mrc filePolicy dirPolicy hsOutputDir categoriesSelected =
+writeBindingsToDir fns mrc filePolicy dirPolicy hsOutputDir categoriesSelected =
     if categoriesSelected
-      then writeBindingsSingleToDir mrc filePolicy dirPolicy hsOutputDir
-      else writeBindingsMultiple mrc filePolicy dirPolicy hsOutputDir
+      then writeBindingsSingleToDir fns mrc filePolicy dirPolicy hsOutputDir
+      else writeBindingsMultiple fns mrc filePolicy dirPolicy hsOutputDir
 
 -- | Get bindings (one module per binding category).
-getBindingsMultiple :: ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String))
-getBindingsMultiple mrc = do
+getBindingsMultiple :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String))
+getBindingsMultiple fns mrc = do
     name  <- FinalModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
-    pure $ fmap render <$> translateModuleMultiple mrc name decls
+    pure $ fmap render <$> translateModuleMultiple fns mrc name decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -220,14 +222,15 @@ getBindingsMultiple mrc = do
 --
 -- If no file is given, print to standard output.
 writeBindingsMultiple ::
-     ModuleRenderConfig
+     FieldNamingStrategy
+  -> ModuleRenderConfig
   -> FileOverwritePolicy
   -> OutputDirPolicy
   -> FilePath
   -> Artefact ()
-writeBindingsMultiple mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
+writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
     moduleBaseName     <- FinalModuleBaseName
-    bindingsByCategory <- getBindingsMultiple mrc
+    bindingsByCategory <- getBindingsMultiple fns mrc
     writeByCategory
       fileOverwritePolicy
       outputDirPolicy

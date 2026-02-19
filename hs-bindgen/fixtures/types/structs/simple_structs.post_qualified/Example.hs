@@ -2,28 +2,22 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
-import Data.Proxy qualified
-import Foreign qualified as F
-import Foreign.C qualified as FC
-import GHC.Generics qualified
-import GHC.Ptr qualified as Ptr
-import GHC.Records qualified
-import HsBindgen.Runtime.HasCField qualified
-import HsBindgen.Runtime.Internal.HasFFIType qualified
-import HsBindgen.Runtime.Marshal qualified
-import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
+import HsBindgen.Runtime.HasCField qualified as HasCField
+import HsBindgen.Runtime.Internal.Prelude qualified as RIP
+import HsBindgen.Runtime.Marshal qualified as Marshal
 
 {-| __C declaration:__ @struct S1@
 
@@ -32,14 +26,14 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S1 = S1
-  { s1_a :: FC.CInt
+  { s1_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 3:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s1_b :: FC.CChar
+  , s1_b :: RIP.CChar
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 4:10@
@@ -47,55 +41,55 @@ data S1 = S1
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S1 where
+instance Marshal.StaticSize S1 where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S1 where
+instance Marshal.ReadRaw S1 where
 
   readRaw =
     \ptr0 ->
           pure S1
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s1_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s1_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s1_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s1_b") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S1 where
+instance Marshal.WriteRaw S1 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S1 s1_a2 s1_b3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s1_a") ptr0 s1_a2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s1_b") ptr0 s1_b3
+               HasCField.writeRaw (RIP.Proxy @"s1_a") ptr0 s1_a2
+            >> HasCField.writeRaw (RIP.Proxy @"s1_b") ptr0 s1_b3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S1 instance F.Storable S1
+deriving via Marshal.EquivStorable S1 instance RIP.Storable S1
 
-instance HsBindgen.Runtime.HasCField.HasCField S1 "s1_a" where
+instance HasCField.HasCField S1 "s1_a" where
 
-  type CFieldType S1 "s1_a" = FC.CInt
+  type CFieldType S1 "s1_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s1_a" (Ptr.Ptr S1) (Ptr.Ptr FC.CInt) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "s1_a" (RIP.Ptr S1) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s1_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S1 "s1_b" where
+instance HasCField.HasCField S1 "s1_b" where
 
-  type CFieldType S1 "s1_b" = FC.CChar
+  type CFieldType S1 "s1_b" = RIP.CChar
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "s1_b" (Ptr.Ptr S1) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s1_b" (RIP.Ptr S1) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s1_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s1_b")
 
 {-| __C declaration:__ @struct S2@
 
@@ -104,21 +98,21 @@ instance GHC.Records.HasField "s1_b" (Ptr.Ptr S1) (Ptr.Ptr FC.CChar) where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S2_t = S2_t
-  { s2_t_a :: FC.CChar
+  { s2_t_a :: RIP.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 9:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s2_t_b :: FC.CInt
+  , s2_t_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 10:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s2_t_c :: FC.CFloat
+  , s2_t_c :: RIP.CFloat
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @types\/structs\/simple_structs.h 11:11@
@@ -126,68 +120,68 @@ data S2_t = S2_t
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S2_t where
+instance Marshal.StaticSize S2_t where
 
   staticSizeOf = \_ -> (12 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S2_t where
+instance Marshal.ReadRaw S2_t where
 
   readRaw =
     \ptr0 ->
           pure S2_t
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s2_t_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s2_t_b") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s2_t_c") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s2_t_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s2_t_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s2_t_c") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S2_t where
+instance Marshal.WriteRaw S2_t where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S2_t s2_t_a2 s2_t_b3 s2_t_c4 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s2_t_a") ptr0 s2_t_a2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s2_t_b") ptr0 s2_t_b3
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s2_t_c") ptr0 s2_t_c4
+               HasCField.writeRaw (RIP.Proxy @"s2_t_a") ptr0 s2_t_a2
+            >> HasCField.writeRaw (RIP.Proxy @"s2_t_b") ptr0 s2_t_b3
+            >> HasCField.writeRaw (RIP.Proxy @"s2_t_c") ptr0 s2_t_c4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S2_t instance F.Storable S2_t
+deriving via Marshal.EquivStorable S2_t instance RIP.Storable S2_t
 
-instance HsBindgen.Runtime.HasCField.HasCField S2_t "s2_t_a" where
+instance HasCField.HasCField S2_t "s2_t_a" where
 
-  type CFieldType S2_t "s2_t_a" = FC.CChar
+  type CFieldType S2_t "s2_t_a" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s2_t_a" (Ptr.Ptr S2_t) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s2_t_a" (RIP.Ptr S2_t) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s2_t_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s2_t_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S2_t "s2_t_b" where
+instance HasCField.HasCField S2_t "s2_t_b" where
 
-  type CFieldType S2_t "s2_t_b" = FC.CInt
+  type CFieldType S2_t "s2_t_b" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "s2_t_b" (Ptr.Ptr S2_t) (Ptr.Ptr FC.CInt) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "s2_t_b" (RIP.Ptr S2_t) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s2_t_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s2_t_b")
 
-instance HsBindgen.Runtime.HasCField.HasCField S2_t "s2_t_c" where
+instance HasCField.HasCField S2_t "s2_t_c" where
 
-  type CFieldType S2_t "s2_t_c" = FC.CFloat
+  type CFieldType S2_t "s2_t_c" = RIP.CFloat
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "s2_t_c" (Ptr.Ptr S2_t) (Ptr.Ptr FC.CFloat) where
+instance ( ((~) ty) RIP.CFloat
+         ) => RIP.HasField "s2_t_c" (RIP.Ptr S2_t) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s2_t_c")
+  getField = HasCField.fromPtr (RIP.Proxy @"s2_t_c")
 
 {-| __C declaration:__ @struct S3_t@
 
@@ -196,7 +190,7 @@ instance GHC.Records.HasField "s2_t_c" (Ptr.Ptr S2_t) (Ptr.Ptr FC.CFloat) where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S3_t = S3_t
-  { s3_t_a :: FC.CChar
+  { s3_t_a :: RIP.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 16:10@
@@ -204,42 +198,42 @@ data S3_t = S3_t
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S3_t where
+instance Marshal.StaticSize S3_t where
 
   staticSizeOf = \_ -> (1 :: Int)
 
   staticAlignment = \_ -> (1 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S3_t where
+instance Marshal.ReadRaw S3_t where
 
   readRaw =
     \ptr0 ->
           pure S3_t
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s3_t_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s3_t_a") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S3_t where
+instance Marshal.WriteRaw S3_t where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S3_t s3_t_a2 ->
-            HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s3_t_a") ptr0 s3_t_a2
+            HasCField.writeRaw (RIP.Proxy @"s3_t_a") ptr0 s3_t_a2
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S3_t instance F.Storable S3_t
+deriving via Marshal.EquivStorable S3_t instance RIP.Storable S3_t
 
-instance HsBindgen.Runtime.HasCField.HasCField S3_t "s3_t_a" where
+instance HasCField.HasCField S3_t "s3_t_a" where
 
-  type CFieldType S3_t "s3_t_a" = FC.CChar
+  type CFieldType S3_t "s3_t_a" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s3_t_a" (Ptr.Ptr S3_t) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s3_t_a" (RIP.Ptr S3_t) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s3_t_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s3_t_a")
 
 {-| __C declaration:__ @struct S4@
 
@@ -248,21 +242,21 @@ instance GHC.Records.HasField "s3_t_a" (Ptr.Ptr S3_t) (Ptr.Ptr FC.CChar) where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S4 = S4
-  { s4_b :: FC.CChar
+  { s4_b :: RIP.CChar
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 20:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s4_a :: FC.CInt
+  , s4_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 21:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s4_c :: Ptr.Ptr FC.CInt
+  , s4_c :: RIP.Ptr RIP.CInt
     {- ^ __C declaration:__ @c@
 
          __defined at:__ @types\/structs\/simple_structs.h 22:10@
@@ -270,68 +264,68 @@ data S4 = S4
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S4 where
+instance Marshal.StaticSize S4 where
 
   staticSizeOf = \_ -> (16 :: Int)
 
   staticAlignment = \_ -> (8 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S4 where
+instance Marshal.ReadRaw S4 where
 
   readRaw =
     \ptr0 ->
           pure S4
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s4_b") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s4_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s4_c") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s4_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s4_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s4_c") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S4 where
+instance Marshal.WriteRaw S4 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S4 s4_b2 s4_a3 s4_c4 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s4_b") ptr0 s4_b2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s4_a") ptr0 s4_a3
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s4_c") ptr0 s4_c4
+               HasCField.writeRaw (RIP.Proxy @"s4_b") ptr0 s4_b2
+            >> HasCField.writeRaw (RIP.Proxy @"s4_a") ptr0 s4_a3
+            >> HasCField.writeRaw (RIP.Proxy @"s4_c") ptr0 s4_c4
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S4 instance F.Storable S4
+deriving via Marshal.EquivStorable S4 instance RIP.Storable S4
 
-instance HsBindgen.Runtime.HasCField.HasCField S4 "s4_b" where
+instance HasCField.HasCField S4 "s4_b" where
 
-  type CFieldType S4 "s4_b" = FC.CChar
+  type CFieldType S4 "s4_b" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s4_b" (Ptr.Ptr S4) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s4_b" (RIP.Ptr S4) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s4_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s4_b")
 
-instance HsBindgen.Runtime.HasCField.HasCField S4 "s4_a" where
+instance HasCField.HasCField S4 "s4_a" where
 
-  type CFieldType S4 "s4_a" = FC.CInt
+  type CFieldType S4 "s4_a" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "s4_a" (Ptr.Ptr S4) (Ptr.Ptr FC.CInt) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "s4_a" (RIP.Ptr S4) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s4_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s4_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S4 "s4_c" where
+instance HasCField.HasCField S4 "s4_c" where
 
-  type CFieldType S4 "s4_c" = Ptr.Ptr FC.CInt
+  type CFieldType S4 "s4_c" = RIP.Ptr RIP.CInt
 
   offset# = \_ -> \_ -> 8
 
-instance GHC.Records.HasField "s4_c" (Ptr.Ptr S4) (Ptr.Ptr (Ptr.Ptr FC.CInt)) where
+instance ( ((~) ty) (RIP.Ptr RIP.CInt)
+         ) => RIP.HasField "s4_c" (RIP.Ptr S4) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s4_c")
+  getField = HasCField.fromPtr (RIP.Proxy @"s4_c")
 
 {-| __C declaration:__ @struct S5@
 
@@ -340,14 +334,14 @@ instance GHC.Records.HasField "s4_c" (Ptr.Ptr S4) (Ptr.Ptr (Ptr.Ptr FC.CInt)) wh
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S5 = S5
-  { s5_a :: FC.CChar
+  { s5_a :: RIP.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 27:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s5_b :: FC.CInt
+  , s5_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 28:9@
@@ -355,55 +349,55 @@ data S5 = S5
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S5 where
+instance Marshal.StaticSize S5 where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S5 where
+instance Marshal.ReadRaw S5 where
 
   readRaw =
     \ptr0 ->
           pure S5
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s5_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s5_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s5_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s5_b") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S5 where
+instance Marshal.WriteRaw S5 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S5 s5_a2 s5_b3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s5_a") ptr0 s5_a2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s5_b") ptr0 s5_b3
+               HasCField.writeRaw (RIP.Proxy @"s5_a") ptr0 s5_a2
+            >> HasCField.writeRaw (RIP.Proxy @"s5_b") ptr0 s5_b3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S5 instance F.Storable S5
+deriving via Marshal.EquivStorable S5 instance RIP.Storable S5
 
-instance HsBindgen.Runtime.HasCField.HasCField S5 "s5_a" where
+instance HasCField.HasCField S5 "s5_a" where
 
-  type CFieldType S5 "s5_a" = FC.CChar
+  type CFieldType S5 "s5_a" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s5_a" (Ptr.Ptr S5) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s5_a" (RIP.Ptr S5) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s5_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s5_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S5 "s5_b" where
+instance HasCField.HasCField S5 "s5_b" where
 
-  type CFieldType S5 "s5_b" = FC.CInt
+  type CFieldType S5 "s5_b" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "s5_b" (Ptr.Ptr S5) (Ptr.Ptr FC.CInt) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "s5_b" (RIP.Ptr S5) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s5_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s5_b")
 
 {-| __C declaration:__ @struct S6@
 
@@ -412,14 +406,14 @@ instance GHC.Records.HasField "s5_b" (Ptr.Ptr S5) (Ptr.Ptr FC.CInt) where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S6 = S6
-  { s6_a :: FC.CChar
+  { s6_a :: RIP.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 31:18@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s6_b :: FC.CInt
+  , s6_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 31:25@
@@ -427,55 +421,55 @@ data S6 = S6
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S6 where
+instance Marshal.StaticSize S6 where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S6 where
+instance Marshal.ReadRaw S6 where
 
   readRaw =
     \ptr0 ->
           pure S6
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s6_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s6_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s6_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s6_b") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S6 where
+instance Marshal.WriteRaw S6 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S6 s6_a2 s6_b3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s6_a") ptr0 s6_a2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s6_b") ptr0 s6_b3
+               HasCField.writeRaw (RIP.Proxy @"s6_a") ptr0 s6_a2
+            >> HasCField.writeRaw (RIP.Proxy @"s6_b") ptr0 s6_b3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S6 instance F.Storable S6
+deriving via Marshal.EquivStorable S6 instance RIP.Storable S6
 
-instance HsBindgen.Runtime.HasCField.HasCField S6 "s6_a" where
+instance HasCField.HasCField S6 "s6_a" where
 
-  type CFieldType S6 "s6_a" = FC.CChar
+  type CFieldType S6 "s6_a" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s6_a" (Ptr.Ptr S6) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s6_a" (RIP.Ptr S6) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s6_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s6_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S6 "s6_b" where
+instance HasCField.HasCField S6 "s6_b" where
 
-  type CFieldType S6 "s6_b" = FC.CInt
+  type CFieldType S6 "s6_b" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "s6_b" (Ptr.Ptr S6) (Ptr.Ptr FC.CInt) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "s6_b" (RIP.Ptr S6) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s6_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s6_b")
 
 {-| __C declaration:__ @struct \@S7a_Aux@
 
@@ -484,14 +478,14 @@ instance GHC.Records.HasField "s6_b" (Ptr.Ptr S6) (Ptr.Ptr FC.CInt) where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S7a_Aux = S7a_Aux
-  { s7a_Aux_a :: FC.CChar
+  { s7a_Aux_a :: RIP.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 34:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s7a_Aux_b :: FC.CInt
+  , s7a_Aux_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 34:30@
@@ -499,55 +493,55 @@ data S7a_Aux = S7a_Aux
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S7a_Aux where
+instance Marshal.StaticSize S7a_Aux where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S7a_Aux where
+instance Marshal.ReadRaw S7a_Aux where
 
   readRaw =
     \ptr0 ->
           pure S7a_Aux
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7a_Aux_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7a_Aux_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s7a_Aux_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s7a_Aux_b") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S7a_Aux where
+instance Marshal.WriteRaw S7a_Aux where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S7a_Aux s7a_Aux_a2 s7a_Aux_b3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7a_Aux_a") ptr0 s7a_Aux_a2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7a_Aux_b") ptr0 s7a_Aux_b3
+               HasCField.writeRaw (RIP.Proxy @"s7a_Aux_a") ptr0 s7a_Aux_a2
+            >> HasCField.writeRaw (RIP.Proxy @"s7a_Aux_b") ptr0 s7a_Aux_b3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S7a_Aux instance F.Storable S7a_Aux
+deriving via Marshal.EquivStorable S7a_Aux instance RIP.Storable S7a_Aux
 
-instance HsBindgen.Runtime.HasCField.HasCField S7a_Aux "s7a_Aux_a" where
+instance HasCField.HasCField S7a_Aux "s7a_Aux_a" where
 
-  type CFieldType S7a_Aux "s7a_Aux_a" = FC.CChar
+  type CFieldType S7a_Aux "s7a_Aux_a" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s7a_Aux_a" (Ptr.Ptr S7a_Aux) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s7a_Aux_a" (RIP.Ptr S7a_Aux) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s7a_Aux_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s7a_Aux_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7a_Aux "s7a_Aux_b" where
+instance HasCField.HasCField S7a_Aux "s7a_Aux_b" where
 
-  type CFieldType S7a_Aux "s7a_Aux_b" = FC.CInt
+  type CFieldType S7a_Aux "s7a_Aux_b" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "s7a_Aux_b" (Ptr.Ptr S7a_Aux) (Ptr.Ptr FC.CInt) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "s7a_Aux_b" (RIP.Ptr S7a_Aux) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s7a_Aux_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s7a_Aux_b")
 
 {-| __C declaration:__ @S7a@
 
@@ -556,25 +550,25 @@ instance GHC.Records.HasField "s7a_Aux_b" (Ptr.Ptr S7a_Aux) (Ptr.Ptr FC.CInt) wh
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7a = S7a
-  { unwrapS7a :: Ptr.Ptr S7a_Aux
+  { unwrapS7a :: RIP.Ptr S7a_Aux
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance GHC.Records.HasField "unwrapS7a" (Ptr.Ptr S7a) (Ptr.Ptr (Ptr.Ptr S7a_Aux)) where
+instance ( ((~) ty) (RIP.Ptr S7a_Aux)
+         ) => RIP.HasField "unwrapS7a" (RIP.Ptr S7a) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS7a")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapS7a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7a "unwrapS7a" where
+instance HasCField.HasCField S7a "unwrapS7a" where
 
-  type CFieldType S7a "unwrapS7a" = Ptr.Ptr S7a_Aux
+  type CFieldType S7a "unwrapS7a" = RIP.Ptr S7a_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -585,14 +579,14 @@ instance HsBindgen.Runtime.HasCField.HasCField S7a "unwrapS7a" where
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 data S7b_Aux = S7b_Aux
-  { s7b_Aux_a :: FC.CChar
+  { s7b_Aux_a :: RIP.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h 35:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s7b_Aux_b :: FC.CInt
+  , s7b_Aux_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h 35:30@
@@ -600,55 +594,55 @@ data S7b_Aux = S7b_Aux
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   }
-  deriving stock (GHC.Generics.Generic, Eq, Show)
+  deriving stock (Eq, RIP.Generic, Show)
 
-instance HsBindgen.Runtime.Marshal.StaticSize S7b_Aux where
+instance Marshal.StaticSize S7b_Aux where
 
   staticSizeOf = \_ -> (8 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance HsBindgen.Runtime.Marshal.ReadRaw S7b_Aux where
+instance Marshal.ReadRaw S7b_Aux where
 
   readRaw =
     \ptr0 ->
           pure S7b_Aux
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7b_Aux_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.readRaw (Data.Proxy.Proxy @"s7b_Aux_b") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s7b_Aux_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"s7b_Aux_b") ptr0
 
-instance HsBindgen.Runtime.Marshal.WriteRaw S7b_Aux where
+instance Marshal.WriteRaw S7b_Aux where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
           S7b_Aux s7b_Aux_a2 s7b_Aux_b3 ->
-               HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7b_Aux_a") ptr0 s7b_Aux_a2
-            >> HsBindgen.Runtime.HasCField.writeRaw (Data.Proxy.Proxy @"s7b_Aux_b") ptr0 s7b_Aux_b3
+               HasCField.writeRaw (RIP.Proxy @"s7b_Aux_a") ptr0 s7b_Aux_a2
+            >> HasCField.writeRaw (RIP.Proxy @"s7b_Aux_b") ptr0 s7b_Aux_b3
 
-deriving via HsBindgen.Runtime.Marshal.EquivStorable S7b_Aux instance F.Storable S7b_Aux
+deriving via Marshal.EquivStorable S7b_Aux instance RIP.Storable S7b_Aux
 
-instance HsBindgen.Runtime.HasCField.HasCField S7b_Aux "s7b_Aux_a" where
+instance HasCField.HasCField S7b_Aux "s7b_Aux_a" where
 
-  type CFieldType S7b_Aux "s7b_Aux_a" = FC.CChar
+  type CFieldType S7b_Aux "s7b_Aux_a" = RIP.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance GHC.Records.HasField "s7b_Aux_a" (Ptr.Ptr S7b_Aux) (Ptr.Ptr FC.CChar) where
+instance ( ((~) ty) RIP.CChar
+         ) => RIP.HasField "s7b_Aux_a" (RIP.Ptr S7b_Aux) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s7b_Aux_a")
+  getField = HasCField.fromPtr (RIP.Proxy @"s7b_Aux_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7b_Aux "s7b_Aux_b" where
+instance HasCField.HasCField S7b_Aux "s7b_Aux_b" where
 
-  type CFieldType S7b_Aux "s7b_Aux_b" = FC.CInt
+  type CFieldType S7b_Aux "s7b_Aux_b" = RIP.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance GHC.Records.HasField "s7b_Aux_b" (Ptr.Ptr S7b_Aux) (Ptr.Ptr FC.CInt) where
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "s7b_Aux_b" (RIP.Ptr S7b_Aux) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"s7b_Aux_b")
+  getField = HasCField.fromPtr (RIP.Proxy @"s7b_Aux_b")
 
 {-| __C declaration:__ @S7b@
 
@@ -657,25 +651,25 @@ instance GHC.Records.HasField "s7b_Aux_b" (Ptr.Ptr S7b_Aux) (Ptr.Ptr FC.CInt) wh
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7b = S7b
-  { unwrapS7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
+  { unwrapS7b :: RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
   }
-  deriving stock (GHC.Generics.Generic, Eq, Ord, Show)
+  deriving stock (Eq, RIP.Generic, Ord, Show)
   deriving newtype
-    ( HsBindgen.Runtime.Marshal.StaticSize
-    , HsBindgen.Runtime.Marshal.ReadRaw
-    , HsBindgen.Runtime.Marshal.WriteRaw
-    , F.Storable
-    , HsBindgen.Runtime.Internal.HasFFIType.HasFFIType
+    ( RIP.HasFFIType
+    , Marshal.ReadRaw
+    , Marshal.StaticSize
+    , RIP.Storable
+    , Marshal.WriteRaw
     )
 
-instance GHC.Records.HasField "unwrapS7b" (Ptr.Ptr S7b) (Ptr.Ptr (Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux)))) where
+instance ( ((~) ty) (RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux)))
+         ) => RIP.HasField "unwrapS7b" (RIP.Ptr S7b) (RIP.Ptr ty) where
 
-  getField =
-    HsBindgen.Runtime.HasCField.fromPtr (Data.Proxy.Proxy @"unwrapS7b")
+  getField = HasCField.fromPtr (RIP.Proxy @"unwrapS7b")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7b "unwrapS7b" where
+instance HasCField.HasCField S7b "unwrapS7b" where
 
   type CFieldType S7b "unwrapS7b" =
-    Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
+    RIP.Ptr (RIP.Ptr (RIP.Ptr S7b_Aux))
 
   offset# = \_ -> \_ -> 0

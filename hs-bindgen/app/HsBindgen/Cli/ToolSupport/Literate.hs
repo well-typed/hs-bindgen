@@ -123,12 +123,11 @@ exec opts = do
 
         mrc :: ModuleRenderConfig
         mrc = ModuleRenderConfig {
-            fieldNamingStrategy = lit.config.fieldNamingStrategy
-          , qualifiedStyle      = lit.config.qualifiedStyle
+            qualifiedStyle = lit.config.qualifiedStyle
           }
 
         artefact :: Artefact ()
-        artefact = writeBindings mrc overwriteFiles opts.output
+        artefact = writeBindings lit.config.fieldNamingStrategy mrc overwriteFiles opts.output
 
     hsBindgen
       lit.globalOpts.unsafe

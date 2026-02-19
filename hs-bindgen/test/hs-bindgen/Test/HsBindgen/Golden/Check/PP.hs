@@ -36,12 +36,11 @@ check testResources test =
           -- in practice.
           let backendCfg = getTestBackendConfig test
               mrc = ModuleRenderConfig {
-                  fieldNamingStrategy = view #fieldNamingStrategy backendCfg
-                , qualifiedStyle      = view #qualifiedStyle backendCfg
+                  qualifiedStyle = view #qualifiedStyle backendCfg
                 }
               artefacts = (,)
                         <$> FinalModuleBaseName
-                        <*> getBindingsMultiple mrc
+                        <*> getBindingsMultiple (view #fieldNamingStrategy backendCfg) mrc
           (baseName, output)
             <- runTestHsBindgenSuccess report testResources test artefacts
 
