@@ -135,6 +135,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 HS_BINDGEN_DIR="$REPO_ROOT/hs-bindgen"
 FIXTURES_DIR="$HS_BINDGEN_DIR/fixtures"
 EXAMPLES_DIR="$HS_BINDGEN_DIR/examples"
+MUSL_INCLUDE_DIR="$HS_BINDGEN_DIR/musl-include/x86_64"
 
 # Verify directories exist
 if [[ ! -d "$FIXTURES_DIR" ]]; then
@@ -252,6 +253,7 @@ compile_fixture() {
         -package c-expr-runtime \
         -optc -I"$EXAMPLES_DIR" \
         -optc -I"$EXAMPLES_DIR/golden" \
+        -optc -I"$MUSL_INCLUDE_DIR" \
         -optc -std=gnu2x \
         -optc -Wno-deprecated-declarations \
         -optc -Wno-attributes \
@@ -285,6 +287,7 @@ export WERROR_ALL
 export KNOWN_FIXTURES_COUNT
 export HS_BINDGEN_DIR
 export EXAMPLES_DIR
+export MUSL_INCLUDE_DIR
 export FIXTURES_DIR
 
 # Collect fixtures to compile

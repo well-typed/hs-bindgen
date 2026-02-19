@@ -46,18 +46,16 @@ compileFile
   -> FilePath -- ^ Path to the Haskell file to compile
   -> IO (Either String ())
 compileFile pkgRoot outputDir modulePath = do
-  let examplesDir = pkgRoot </> "examples"
-      goldenDir   = pkgRoot </> "examples" </> "golden"
+  let examplesDir    = pkgRoot </> "examples"
+      goldenDir      = pkgRoot </> "examples" </> "golden"
+      muslIncludeDir = pkgRoot </> "musl-include" </> "x86_64"
 
   -- Build cabal exec arguments
   -- We need to pass GHC arguments as arguments to cabal exec -- ghc
   --
-  -- NOTE: We do NOT pass @-optc -I<musl-include>@ here. The musl include
-  -- directory is only used by libclang (via the TH config in Generate.hs)
-  -- to parse C headers with the musl target. GHC's host C compiler must use
-  -- its own system headers to compile the @addCSource@ stubs, because the
-  -- musl headers would conflict with the native platform's headers
-  -- (e.g. typedef redefinitions on Windows).
+  -- NOTE: We pass @-optc -I<musl-include>@ so that GHC's C compiler uses the
+  -- same musl headers that libclang used (via Generate.hs) when parsing the C
+  -- sources.
   let cabalArgs =
         [ "exec", "--", "ghc"
         , "-c"
@@ -80,6 +78,7 @@ compileFile pkgRoot outputDir modulePath = do
         , "-package", "optics"
         , "-optc", "-I" ++ examplesDir
         , "-optc", "-I" ++ goldenDir
+        , "-optc", "-I" ++ muslIncludeDir
         , "-optc", "-std=gnu2x"
         , "-optc", "-Wno-deprecated-declarations"
         , "-optc", "-Wno-attributes"
