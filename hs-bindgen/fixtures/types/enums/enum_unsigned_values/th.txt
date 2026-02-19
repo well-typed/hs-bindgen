@@ -1,0 +1,110 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile examples/golden/types/enums/enum_unsigned_values.h
+{-| __C declaration:__ @enum uint8_enum@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 4:9@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+newtype Uint8_enum
+    = Uint8_enum {unwrapUint8_enum :: HsBindgen.Runtime.LibC.Word8}
+      {- ^ __C declaration:__ @enum uint8_enum@
+
+           __defined at:__ @types\/enums\/enum_unsigned_values.h 4:9@
+
+           __exported by:__ @types\/enums\/enum_unsigned_values.h@
+      -}
+    deriving stock (Eq, Generic, Ord)
+    deriving newtype HasFFIType
+instance StaticSize Uint8_enum
+    where staticSizeOf = \_ -> 1 :: Int
+          staticAlignment = \_ -> 1 :: Int
+instance ReadRaw Uint8_enum
+    where readRaw = \ptr_0 -> pure Uint8_enum <*> readRawByteOff ptr_0 (0 :: Int)
+instance WriteRaw Uint8_enum
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Uint8_enum unwrapUint8_enum_2 -> writeRawByteOff ptr_0 (0 :: Int) unwrapUint8_enum_2
+deriving via (EquivStorable Uint8_enum) instance Storable Uint8_enum
+deriving via HsBindgen.Runtime.LibC.Word8 instance Prim Uint8_enum
+instance CEnum Uint8_enum
+    where type CEnumZ Uint8_enum = HsBindgen.Runtime.LibC.Word8
+          toCEnum = Uint8_enum
+          fromCEnum = unwrapUint8_enum
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "U8_ZERO"),
+                                                         (127, singleton "U8_127"),
+                                                         (128, singleton "U8_128"),
+                                                         (255, singleton "U8_255")]
+          showsUndeclared = showsWrappedUndeclared "Uint8_enum"
+          readPrecUndeclared = readPrecWrappedUndeclared "Uint8_enum"
+instance Show Uint8_enum
+    where showsPrec = shows
+instance Read Uint8_enum
+    where readPrec = readPrec
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+instance (~) ty HsBindgen.Runtime.LibC.Word8 =>
+         HasField "unwrapUint8_enum" (Ptr Uint8_enum) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapUint8_enum")
+instance HasCField Uint8_enum "unwrapUint8_enum"
+    where type CFieldType Uint8_enum
+                          "unwrapUint8_enum" = HsBindgen.Runtime.LibC.Word8
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @U8_ZERO@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 5:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_ZERO :: Uint8_enum
+{-| __C declaration:__ @U8_ZERO@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 5:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_ZERO = Uint8_enum 0
+{-| __C declaration:__ @U8_127@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 6:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_127 :: Uint8_enum
+{-| __C declaration:__ @U8_127@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 6:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_127 = Uint8_enum 127
+{-| __C declaration:__ @U8_128@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 7:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_128 :: Uint8_enum
+{-| __C declaration:__ @U8_128@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 7:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_128 = Uint8_enum 128
+{-| __C declaration:__ @U8_255@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 8:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_255 :: Uint8_enum
+{-| __C declaration:__ @U8_255@
+
+    __defined at:__ @types\/enums\/enum_unsigned_values.h 8:3@
+
+    __exported by:__ @types\/enums\/enum_unsigned_values.h@
+-}
+pattern U8_255 = Uint8_enum 255

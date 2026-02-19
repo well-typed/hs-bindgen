@@ -10,6 +10,8 @@ module HsBindgen.Language.C (
   , PrimFloatType(..)
   , PrimSign(..)
   , PrimSignChar(..)
+    -- ** Sign
+  , primTypeSign
     -- ** Pretty-printing
   , showsPrimType
     -- * @sizeof@
@@ -139,6 +141,21 @@ showsPrimFloatType PrimDouble = showString "double"
 showsPrimSign :: PrimSign -> ShowS
 showsPrimSign Signed = showString "signed"
 showsPrimSign Unsigned = showString "unsigned"
+
+{-------------------------------------------------------------------------------
+  Sign
+-------------------------------------------------------------------------------}
+
+-- | Determine the sign of a primitive type
+--
+primTypeSign :: PrimType -> PrimSign
+primTypeSign = \case
+  PrimChar (PrimSignExplicit sign)        -> sign
+  PrimChar (PrimSignImplicit (Just sign)) -> sign
+  PrimChar (PrimSignImplicit Nothing)     -> Signed
+  PrimIntegral _ sign                     -> sign
+  PrimFloating _                          -> Signed
+  PrimBool                                -> Unsigned
 
 {-------------------------------------------------------------------------------
   @sizeof@
