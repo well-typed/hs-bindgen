@@ -1,7 +1,6 @@
 # Generated binding directories
 hs-project/src-native/
 hs-project/src-aarch64/
-hs-project/src-arm32/
 
 # Built C library artifacts
 c-src/*.o
@@ -9,12 +8,10 @@ c-src/*.a
 c-src/*.so
 c-src/lib-native/
 c-src/lib-aarch64/
-c-src/lib-arm32/
 
 # Haskell build artifacts
 hs-project/dist-newstyle/
 hs-project/dist-newstyle-aarch64/
-hs-project/dist-newstyle-arm32/
 hs-project/cabal.project.local
 hs-project/iserv-wrapper-*.sh
 hs-project/iserv-build-*/
