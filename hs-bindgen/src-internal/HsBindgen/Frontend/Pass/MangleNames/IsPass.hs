@@ -55,7 +55,7 @@ instance IsPass MangleNames where
   macroIdId _ = id
 
 {-------------------------------------------------------------------------------
-  Additional names required for Haskell code gen
+  Additional names required for Haskell code generation
 -------------------------------------------------------------------------------}
 
 -- | Names for a Haskell record type
