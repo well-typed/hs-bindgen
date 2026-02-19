@@ -179,6 +179,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - ReadRaw
   - Show
   - StaticSize

@@ -32,6 +32,8 @@ import Foreign.Ptr (Ptr, castPtr, plusPtr)
 import Foreign.Storable (Storable (..))
 import GHC.Records (HasField (..))
 
+import HsBindgen.Runtime.IsArray (IsArray (..))
+
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
@@ -196,6 +198,14 @@ withPtr (coerce -> IA v) k = do
     -- we copy the data, as e.g. @int fun(int xs[])@ may mutate it.
     VS.MVector _ fptr <- VS.thaw v
     withForeignPtr fptr $ \(ptr :: Ptr a) -> k (toPtr ptr)
+
+instance IsArray (IncompleteArray a) where
+  type Elem (IncompleteArray a) = a
+  -- | /( O(n) /)
+  withElemPtr (IA v) k = do
+    -- we copy the data, as e.g. @int fun(int xs[])@ may mutate it.
+    VS.MVector _ fptr <- VS.thaw v
+    withForeignPtr fptr $ \(ptr :: Ptr a) -> k ptr
 
 {-------------------------------------------------------------------------------
   Construction

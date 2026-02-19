@@ -666,7 +666,7 @@ newtype Triplet
            __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
@@ -689,6 +689,7 @@ newtype List
            __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapList" (Ptr List) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapList")
@@ -710,7 +711,7 @@ newtype Matrix
            __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")
@@ -734,6 +735,7 @@ newtype Tripletlist
            __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>
          HasField "unwrapTripletlist" (Ptr Tripletlist) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTripletlist")
@@ -812,7 +814,7 @@ newtype Sudoku
       __exported by:__ @arrays\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 Triplet) =>
          HasField "unwrapSudoku" (Ptr Sudoku) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapSudoku")

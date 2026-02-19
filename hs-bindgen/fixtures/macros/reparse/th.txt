@@ -2631,6 +2631,7 @@ newtype Arr_typedef1
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty (IncompleteArray A) =>
          HasField "unwrapArr_typedef1" (Ptr Arr_typedef1) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapArr_typedef1")
@@ -2653,6 +2654,7 @@ newtype Arr_typedef2
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty (IncompleteArray (Ptr A)) =>
          HasField "unwrapArr_typedef2" (Ptr Arr_typedef2) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapArr_typedef2")
@@ -2675,7 +2677,7 @@ newtype Arr_typedef3
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 5 A) =>
          HasField "unwrapArr_typedef3" (Ptr Arr_typedef3) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapArr_typedef3")
@@ -2698,7 +2700,7 @@ newtype Arr_typedef4
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 5 (Ptr A)) =>
          HasField "unwrapArr_typedef4" (Ptr Arr_typedef4) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapArr_typedef4")

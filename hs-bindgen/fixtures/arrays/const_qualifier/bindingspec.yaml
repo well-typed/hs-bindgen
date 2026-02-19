@@ -33,6 +33,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - Show
 - hsname: T
   representation:
@@ -45,6 +46,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - Show
 - hsname: U
   representation:
@@ -57,6 +59,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - ReadRaw
   - Show
   - StaticSize
@@ -73,6 +76,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - ReadRaw
   - Show
   - StaticSize
@@ -89,6 +93,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - ReadRaw
   - Show
   - StaticSize
@@ -105,6 +110,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - ReadRaw
   - Show
   - StaticSize

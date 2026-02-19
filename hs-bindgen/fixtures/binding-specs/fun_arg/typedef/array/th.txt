@@ -135,6 +135,7 @@ newtype A
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
@@ -156,6 +157,7 @@ newtype B
            __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
