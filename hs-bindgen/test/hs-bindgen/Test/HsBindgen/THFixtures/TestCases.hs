@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 
 -- | Test case definitions for TH fixture compilation
@@ -67,12 +68,25 @@ determineTHStatus tc
   -- @scripts/ci/compile-fixtures.sh@ KNOWN_EMPTY.
   | tc.name `elem` emptyOutputFixtures
       = THSkip "Empty fixture (no bindings generated)"
+  -- Windows-specific failures
+  | tc.name `elem` windowsSpecificFailures
+      = THSkip "Windows-specific failure"
   -- Variant tests (name contains a period followed by a number)
   | isVariantTest tc.name
       = THSkip "Variant test (only base test compiled)"
   | otherwise
       = THCompile
   where
+    -- Non-NFC Unicode cannot be encoded in temp file paths on Windows
+    windowsSpecificFailures :: [String]
+#ifdef mingw32_HOST_OS
+    windowsSpecificFailures = [
+        "edge-cases/adios"
+      ]
+#else
+    windowsSpecificFailures = []
+#endif
+
     issue1490 :: [String]
     issue1490 = [
         "functions/heap_types/struct_const_member"
