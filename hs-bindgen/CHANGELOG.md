@@ -18,6 +18,9 @@
 
 ### Bug fixes
 
+* Wrap function names in parentheses in generated C wrappers (`(erf)(x)`
+  instead of `erf(x)`) to prevent function-like macro expansion when a macro
+  shadows the function name.
 * Include `FunPtr` for macro-defined newtypes.
 
 ## 0.1.0-alpha -- 2026-02-06
