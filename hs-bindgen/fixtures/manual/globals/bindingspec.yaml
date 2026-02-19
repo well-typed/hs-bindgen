@@ -76,6 +76,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - Show
 - hsname: Triplet
   representation:
@@ -88,6 +89,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - ReadRaw
   - Show
   - StaticSize

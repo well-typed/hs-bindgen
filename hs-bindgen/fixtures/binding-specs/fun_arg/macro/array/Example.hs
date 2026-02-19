@@ -2,6 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
@@ -19,6 +20,7 @@ module Example
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 
 {-| __C declaration:__ @MyArray@
 
@@ -30,6 +32,7 @@ newtype MyArray = MyArray
   { unwrapMyArray :: IA.IncompleteArray RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
+  deriving newtype (IsA.IsArray)
 
 instance ( ((~) ty) (IA.IncompleteArray RIP.CInt)
          ) => RIP.HasField "unwrapMyArray" (RIP.Ptr MyArray) (RIP.Ptr ty) where
@@ -54,6 +57,7 @@ newtype A = A
   { unwrapA :: MyArray
   }
   deriving stock (Eq, RIP.Generic, Show)
+  deriving newtype (IsA.IsArray)
 
 instance ( ((~) ty) MyArray
          ) => RIP.HasField "unwrapA" (RIP.Ptr A) (RIP.Ptr ty) where
@@ -76,6 +80,7 @@ newtype B = B
   { unwrapB :: A
   }
   deriving stock (Eq, RIP.Generic, Show)
+  deriving newtype (IsA.IsArray)
 
 instance (((~) ty) A) => RIP.HasField "unwrapB" (RIP.Ptr B) (RIP.Ptr ty) where
 

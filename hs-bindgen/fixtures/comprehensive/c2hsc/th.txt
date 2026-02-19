@@ -4221,7 +4221,7 @@ newtype MyArray_27
            __exported by:__ @comprehensive\/c2hsc.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 20 CInt) =>
          HasField "unwrap" (Ptr MyArray_27) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrap")

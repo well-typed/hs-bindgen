@@ -281,7 +281,7 @@ newtype Triplet
            __exported by:__ @manual\/globals.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
@@ -304,6 +304,7 @@ newtype List
            __exported by:__ @manual\/globals.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapList" (Ptr List) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapList")
