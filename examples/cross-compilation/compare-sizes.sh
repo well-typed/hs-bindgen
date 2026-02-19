@@ -76,19 +76,14 @@ print_subheader() {
 # Check if bindings have been generated
 NATIVE_FILE="$SCRIPT_DIR/hs-project/src-native/ArchTypes/Generated.hs"
 AARCH64_FILE="$SCRIPT_DIR/hs-project/src-aarch64/ArchTypes/Generated.hs"
-ARM32_FILE="$SCRIPT_DIR/hs-project/src-arm32/ArchTypes/Generated.hs"
 
 MISSING_FILES=0
 if [ ! -f "$NATIVE_FILE" ]; then
-    echo -e "${YELLOW}Warning: Native bindings not found. Run ./generate-all.sh first.${NC}"
+    echo -e "${YELLOW}Warning: Native bindings not found. Run ./generate-and-run.sh first.${NC}"
     MISSING_FILES=1
 fi
 if [ ! -f "$AARCH64_FILE" ]; then
-    echo -e "${YELLOW}Warning: aarch64 bindings not found. Run ./generate-all.sh first.${NC}"
-    MISSING_FILES=1
-fi
-if [ ! -f "$ARM32_FILE" ]; then
-    echo -e "${YELLOW}Warning: arm32 bindings not found. Run ./generate-all.sh first.${NC}"
+    echo -e "${YELLOW}Warning: aarch64 bindings not found. Run ./generate-and-run.sh first.${NC}"
     MISSING_FILES=1
 fi
 
@@ -117,11 +112,6 @@ AARCH64_SIZE=$(echo "$AARCH64_INFO" | cut -d'|' -f1)
 AARCH64_ALIGN=$(echo "$AARCH64_INFO" | cut -d'|' -f2)
 printf "%-20s %10s %10s %10s\n" "aarch64-linux-gnu" "$AARCH64_SIZE" "$AARCH64_ALIGN" "LP64"
 
-ARM32_INFO=$(extract_sizes "$ARM32_FILE" "ArchInfo")
-ARM32_SIZE=$(echo "$ARM32_INFO" | cut -d'|' -f1)
-ARM32_ALIGN=$(echo "$ARM32_INFO" | cut -d'|' -f2)
-printf "%-20s %10s %10s %10s\n" "arm-linux-gnueabihf" "$ARM32_SIZE" "$ARM32_ALIGN" "ILP32"
-
 echo ""
 echo "Field offsets in ArchInfo:"
 printf "%-20s %8s %8s %8s %8s\n" "Platform" "value" "data" "count" "flags"
@@ -139,12 +129,6 @@ printf "%-20s %8s %8s %8s %8s\n" "aarch64-linux-gnu" \
     "$(extract_offset "$AARCH64_FILE" "archInfo_count")" \
     "$(extract_offset "$AARCH64_FILE" "archInfo_flags")"
 
-printf "%-20s %8s %8s %8s %8s\n" "arm-linux-gnueabihf" \
-    "$(extract_offset "$ARM32_FILE" "archInfo_value")" \
-    "$(extract_offset "$ARM32_FILE" "archInfo_data")" \
-    "$(extract_offset "$ARM32_FILE" "archInfo_count")" \
-    "$(extract_offset "$ARM32_FILE" "archInfo_flags")"
-
 # Compare PointerArray struct
 print_subheader "struct PointerArray"
 
@@ -158,9 +142,6 @@ printf "%-20s %10s %10s\n" "Native (x86_64)" $(echo "$NATIVE_INFO" | tr '|' ' ')
 AARCH64_INFO=$(extract_sizes "$AARCH64_FILE" "PointerArray")
 printf "%-20s %10s %10s\n" "aarch64-linux-gnu" $(echo "$AARCH64_INFO" | tr '|' ' ')
 
-ARM32_INFO=$(extract_sizes "$ARM32_FILE" "PointerArray")
-printf "%-20s %10s %10s\n" "arm-linux-gnueabihf" $(echo "$ARM32_INFO" | tr '|' ' ')
-
 # Compare NestedStruct
 print_subheader "struct NestedStruct"
 
@@ -173,6 +154,3 @@ printf "%-20s %10s %10s\n" "Native (x86_64)" $(echo "$NATIVE_INFO" | tr '|' ' ')
 
 AARCH64_INFO=$(extract_sizes "$AARCH64_FILE" "NestedStruct")
 printf "%-20s %10s %10s\n" "aarch64-linux-gnu" $(echo "$AARCH64_INFO" | tr '|' ' ')
-
-ARM32_INFO=$(extract_sizes "$ARM32_FILE" "NestedStruct")
-printf "%-20s %10s %10s\n" "arm-linux-gnueabihf" $(echo "$ARM32_INFO" | tr '|' ' ')
