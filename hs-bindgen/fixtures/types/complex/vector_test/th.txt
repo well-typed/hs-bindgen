@@ -89,14 +89,14 @@ hs_bindgen_cd5f566bc96dcba0 = fromFFIType hs_bindgen_cd5f566bc96dcba0_base
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
+new_vector_safe :: CDouble -> CDouble -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector = hs_bindgen_cd5f566bc96dcba0
+new_vector_safe = hs_bindgen_cd5f566bc96dcba0
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2_base ::
     Double
@@ -113,14 +113,14 @@ hs_bindgen_1af353788955c7a2 = fromFFIType hs_bindgen_1af353788955c7a2_base
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
+new_vector_unsafe :: CDouble -> CDouble -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector = hs_bindgen_1af353788955c7a2
+new_vector_unsafe = hs_bindgen_1af353788955c7a2
 -- __unique:__ @test_typescomplexvector_test_Example_get_new_vector@
 foreign import ccall unsafe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf0957839e33_base ::
     IO (FunPtr Void)
@@ -129,18 +129,18 @@ hs_bindgen_cb36cf0957839e33 :: IO (FunPtr (CDouble ->
                                            CDouble -> IO (Ptr Vector)))
 -- __unique:__ @test_typescomplexvector_test_Example_get_new_vector@
 hs_bindgen_cb36cf0957839e33 = fromFFIType hs_bindgen_cb36cf0957839e33_base
-{-# NOINLINE new_vector #-}
+{-# NOINLINE new_vector_funptr #-}
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector :: FunPtr (CDouble -> CDouble -> IO (Ptr Vector))
+new_vector_funptr :: FunPtr (CDouble -> CDouble -> IO (Ptr Vector))
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector = unsafePerformIO hs_bindgen_cb36cf0957839e33
+new_vector_funptr = unsafePerformIO hs_bindgen_cb36cf0957839e33

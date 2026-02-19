@@ -17,7 +17,7 @@ typedef int var_t;
 #ifdef __GNUC__
 #define PACK_START     _Pragma("pack(1)")
 #define PACK_FINISH    _Pragma("pack()")
-#elif
+#else
 #define PACK_START
 #define PACK_FINISH
 #endif

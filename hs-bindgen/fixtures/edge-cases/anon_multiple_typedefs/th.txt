@@ -284,14 +284,14 @@ hs_bindgen_c97a0d4458699ad7 = fromFFIType hs_bindgen_c97a0d4458699ad7_base
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test :: Point2a -> Point2b -> IO Unit
+test_safe :: Point2a -> Point2b -> IO Unit
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_c97a0d4458699ad7 x_2 y_1)
+test_safe = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_c97a0d4458699ad7 x_2 y_1)
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
 foreign import ccall unsafe "hs_bindgen_f90e97b8d269be4e" hs_bindgen_f90e97b8d269be4e_base ::
     Ptr Void
@@ -307,14 +307,14 @@ hs_bindgen_f90e97b8d269be4e = fromFFIType hs_bindgen_f90e97b8d269be4e_base
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test :: Point2a -> Point2b -> IO Unit
+test_unsafe :: Point2a -> Point2b -> IO Unit
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_f90e97b8d269be4e x_2 y_1)
+test_unsafe = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_f90e97b8d269be4e x_2 y_1)
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
 foreign import ccall unsafe "hs_bindgen_8361517d92bfbc76" hs_bindgen_8361517d92bfbc76_base ::
     IO (FunPtr Void)
@@ -323,18 +323,18 @@ hs_bindgen_8361517d92bfbc76 :: IO (FunPtr (Point2a ->
                                            Point2b -> IO Unit))
 -- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
 hs_bindgen_8361517d92bfbc76 = fromFFIType hs_bindgen_8361517d92bfbc76_base
-{-# NOINLINE test #-}
+{-# NOINLINE test_funptr #-}
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test :: FunPtr (Point2a -> Point2b -> IO Unit)
+test_funptr :: FunPtr (Point2a -> Point2b -> IO Unit)
 {-| __C declaration:__ @test@
 
     __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
 
     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
 -}
-test = unsafePerformIO hs_bindgen_8361517d92bfbc76
+test_funptr = unsafePerformIO hs_bindgen_8361517d92bfbc76

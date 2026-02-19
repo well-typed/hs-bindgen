@@ -198,7 +198,7 @@ deriving via CUInt instance Prim E
 instance CEnum E
     where type CEnumZ E = CUInt
           toCEnum = E
-          fromCEnum = getField @"unwrap"
+          fromCEnum = unwrap
           declaredValues = \_ -> declaredValuesFromList [(0, singleton "X"),
                                                          (1, singleton "Y")]
           showsUndeclared = showsWrappedUndeclared "E"
@@ -303,72 +303,72 @@ deriving via (SizedByteArray 4 4) instance WriteRaw U1
 deriving via (EquivStorable U1) instance Storable U1
 {-|
 
-  __See:__ 'set_u1_x'
+  __See:__ 'set_x'
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 42:7@
+__defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u1_x :: U1 -> CInt
+get_x :: U1 -> CInt
 {-|
 
-  __See:__ 'set_u1_x'
+  __See:__ 'set_x'
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 42:7@
+__defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u1_x = getUnionPayload
+get_x = getUnionPayload
 {-|
 
-  __See:__ 'get_u1_x'
+  __See:__ 'get_x'
 
 -}
-set_u1_x :: CInt -> U1
+set_x :: CInt -> U1
 {-|
 
-  __See:__ 'get_u1_x'
+  __See:__ 'get_x'
 
 -}
-set_u1_x = setUnionPayload
+set_x = setUnionPayload
 {-|
 
-  __See:__ 'set_u1_y'
+  __See:__ 'set_y'
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 43:7@
+__defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u1_y :: U1 -> CInt
+get_y :: U1 -> CInt
 {-|
 
-  __See:__ 'set_u1_y'
+  __See:__ 'set_y'
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 43:7@
+__defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u1_y = getUnionPayload
+get_y = getUnionPayload
 {-|
 
-  __See:__ 'get_u1_y'
+  __See:__ 'get_y'
 
 -}
-set_u1_y :: CInt -> U1
+set_y :: CInt -> U1
 {-|
 
-  __See:__ 'get_u1_y'
+  __See:__ 'get_y'
 
 -}
-set_u1_y = setUnionPayload
+set_y = setUnionPayload
 instance HasCField U1 "x"
     where type CFieldType U1 "x" = CInt
           offset# = \_ -> \_ -> 0
@@ -400,7 +400,7 @@ deriving via (SizedByteArray 4 4) instance WriteRaw U2_t
 deriving via (EquivStorable U2_t) instance Storable U2_t
 {-|
 
-  __See:__ 'set_u2_t_a'
+  __See:__ 'set_a'
 
 __C declaration:__ @a@
 
@@ -408,10 +408,10 @@ __defined at:__ @manual\/enable_record_dot.h 48:8@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u2_t_a :: U2_t -> CChar
+get_a :: U2_t -> CChar
 {-|
 
-  __See:__ 'set_u2_t_a'
+  __See:__ 'set_a'
 
 __C declaration:__ @a@
 
@@ -419,22 +419,22 @@ __defined at:__ @manual\/enable_record_dot.h 48:8@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u2_t_a = getUnionPayload
+get_a = getUnionPayload
 {-|
 
-  __See:__ 'get_u2_t_a'
+  __See:__ 'get_a'
 
 -}
-set_u2_t_a :: CChar -> U2_t
+set_a :: CChar -> U2_t
 {-|
 
-  __See:__ 'get_u2_t_a'
+  __See:__ 'get_a'
 
 -}
-set_u2_t_a = setUnionPayload
+set_a = setUnionPayload
 {-|
 
-  __See:__ 'set_u2_t_b'
+  __See:__ 'set_b'
 
 __C declaration:__ @b@
 
@@ -442,10 +442,10 @@ __defined at:__ @manual\/enable_record_dot.h 49:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u2_t_b :: U2_t -> CInt
+get_b :: U2_t -> CInt
 {-|
 
-  __See:__ 'set_u2_t_b'
+  __See:__ 'set_b'
 
 __C declaration:__ @b@
 
@@ -453,19 +453,19 @@ __defined at:__ @manual\/enable_record_dot.h 49:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u2_t_b = getUnionPayload
+get_b = getUnionPayload
 {-|
 
-  __See:__ 'get_u2_t_b'
+  __See:__ 'get_b'
 
 -}
-set_u2_t_b :: CInt -> U2_t
+set_b :: CInt -> U2_t
 {-|
 
-  __See:__ 'get_u2_t_b'
+  __See:__ 'get_b'
 
 -}
-set_u2_t_b = setUnionPayload
+set_b = setUnionPayload
 instance HasCField U2_t "a"
     where type CFieldType U2_t "a" = CChar
           offset# = \_ -> \_ -> 0
@@ -497,7 +497,7 @@ deriving via (SizedByteArray 8 4) instance WriteRaw U3
 deriving via (EquivStorable U3) instance Storable U3
 {-|
 
-  __See:__ 'set_u3_p'
+  __See:__ 'set_p'
 
 __C declaration:__ @p@
 
@@ -505,10 +505,10 @@ __defined at:__ @manual\/enable_record_dot.h 54:16@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u3_p :: U3 -> Point
+get_p :: U3 -> Point
 {-|
 
-  __See:__ 'set_u3_p'
+  __See:__ 'set_p'
 
 __C declaration:__ @p@
 
@@ -516,22 +516,22 @@ __defined at:__ @manual\/enable_record_dot.h 54:16@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u3_p = getUnionPayload
+get_p = getUnionPayload
 {-|
 
-  __See:__ 'get_u3_p'
+  __See:__ 'get_p'
 
 -}
-set_u3_p :: Point -> U3
+set_p :: Point -> U3
 {-|
 
-  __See:__ 'get_u3_p'
+  __See:__ 'get_p'
 
 -}
-set_u3_p = setUnionPayload
+set_p = setUnionPayload
 {-|
 
-  __See:__ 'set_u3_s'
+  __See:__ 'set_s'
 
 __C declaration:__ @s@
 
@@ -539,10 +539,10 @@ __defined at:__ @manual\/enable_record_dot.h 55:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u3_s :: U3 -> Size
+get_s :: U3 -> Size
 {-|
 
-  __See:__ 'set_u3_s'
+  __See:__ 'set_s'
 
 __C declaration:__ @s@
 
@@ -550,19 +550,19 @@ __defined at:__ @manual\/enable_record_dot.h 55:15@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u3_s = getUnionPayload
+get_s = getUnionPayload
 {-|
 
-  __See:__ 'get_u3_s'
+  __See:__ 'get_s'
 
 -}
-set_u3_s :: Size -> U3
+set_s :: Size -> U3
 {-|
 
-  __See:__ 'get_u3_s'
+  __See:__ 'get_s'
 
 -}
-set_u3_s = setUnionPayload
+set_s = setUnionPayload
 instance HasCField U3 "p"
     where type CFieldType U3 "p" = Point
           offset# = \_ -> \_ -> 0
@@ -594,7 +594,7 @@ deriving via (SizedByteArray 4 4) instance WriteRaw U4
 deriving via (EquivStorable U4) instance Storable U4
 {-|
 
-  __See:__ 'set_u4_x'
+  __See:__ 'set_x'
 
 __C declaration:__ @x@
 
@@ -602,10 +602,10 @@ __defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u4_x :: U4 -> CInt
+get_x :: U4 -> CInt
 {-|
 
-  __See:__ 'set_u4_x'
+  __See:__ 'set_x'
 
 __C declaration:__ @x@
 
@@ -613,22 +613,22 @@ __defined at:__ @manual\/enable_record_dot.h 60:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u4_x = getUnionPayload
+get_x = getUnionPayload
 {-|
 
-  __See:__ 'get_u4_x'
+  __See:__ 'get_x'
 
 -}
-set_u4_x :: CInt -> U4
+set_x :: CInt -> U4
 {-|
 
-  __See:__ 'get_u4_x'
+  __See:__ 'get_x'
 
 -}
-set_u4_x = setUnionPayload
+set_x = setUnionPayload
 {-|
 
-  __See:__ 'set_u4_y'
+  __See:__ 'set_y'
 
 __C declaration:__ @y@
 
@@ -636,10 +636,10 @@ __defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u4_y :: U4 -> CInt
+get_y :: U4 -> CInt
 {-|
 
-  __See:__ 'set_u4_y'
+  __See:__ 'set_y'
 
 __C declaration:__ @y@
 
@@ -647,19 +647,19 @@ __defined at:__ @manual\/enable_record_dot.h 61:7@
 
 __exported by:__ @manual\/enable_record_dot.h@
 -}
-get_u4_y = getUnionPayload
+get_y = getUnionPayload
 {-|
 
-  __See:__ 'get_u4_y'
+  __See:__ 'get_y'
 
 -}
-set_u4_y :: CInt -> U4
+set_y :: CInt -> U4
 {-|
 
-  __See:__ 'get_u4_y'
+  __See:__ 'get_y'
 
 -}
-set_u4_y = setUnionPayload
+set_y = setUnionPayload
 instance HasCField U4 "x"
     where type CFieldType U4 "x" = CInt
           offset# = \_ -> \_ -> 0
@@ -686,7 +686,7 @@ __defined at:__ @manual\/enable_record_dot.h 66:15@
 __exported by:__ @manual\/enable_record_dot.h@
 -}
 newtype RunDriver_Aux
-    = RunDriver_Aux {unwrap :: (Ptr Driver -> IO CInt)}
+    = RunDriver_Aux {unwrapRunDriver_Aux :: (Ptr Driver -> IO CInt)}
       {- ^ Auxiliary type used by 'RunDriver'
 
       __C declaration:__ @RunDriver@
@@ -719,11 +719,11 @@ instance ToFunPtr RunDriver_Aux
 instance FromFunPtr RunDriver_Aux
     where fromFunPtr = hs_bindgen_6520ae39b50ffb4e
 instance (~) ty (Ptr Driver -> IO CInt) =>
-         HasField "unwrap" (Ptr RunDriver_Aux) (Ptr ty)
-    where getField = fromPtr (Proxy @"unwrap")
-instance HasCField RunDriver_Aux "unwrap"
-    where type CFieldType RunDriver_Aux "unwrap" = Ptr Driver ->
-                                                   IO CInt
+         HasField "unwrapRunDriver_Aux" (Ptr RunDriver_Aux) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapRunDriver_Aux")
+instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
+    where type CFieldType RunDriver_Aux
+                          "unwrapRunDriver_Aux" = Ptr Driver -> IO CInt
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @RunDriver@
 
