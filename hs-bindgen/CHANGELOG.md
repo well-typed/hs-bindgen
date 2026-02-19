@@ -9,6 +9,11 @@
 
 ### New features
 
+* Support top-level anonymous structs and enums as global variables
+  (e.g., `struct { int x; int y; } point;`). The anonymous type is named
+  after the global variable. Extern anonymous declarations
+  (e.g., `extern struct { .. } config;`) are rejected as unusable.
+
 ### Minor changes
 
 * Re-export all global definitions used by `hs-bindgen` generated code from
