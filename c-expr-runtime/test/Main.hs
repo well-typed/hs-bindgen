@@ -15,11 +15,9 @@ import Data.List
   ( isPrefixOf )
 import Data.String
   ( IsString(fromString) )
-import Control.Monad
-  ( when )
 
 import Data.Maybe
-  ( catMaybes, isNothing )
+  ( catMaybes )
 import Data.Traversable
   ( for )
 import System.Exit
@@ -97,25 +95,20 @@ findPackageDirectory root pkgname = do
 
 main :: IO ()
 main = do
-
-  cwd <- getCurrentDirectory
-  mbHsBindgenDir <- findPackageDirectory cwd "hs-bindgen"
-  when (isNothing mbHsBindgenDir) $
-    putStrLn $ unlines
-      [ "WARNING: unable to find 'hs-bindgen' directory"
-      , "The test-suite will use whichever C header files it finds on your system."
-      ]
-
   let stdClangArg = "-std=c17"  -- C23 arg depends on libclang version
-      platform = hostPlatform
-      clangArgs = Clang.ClangArgs $ stdClangArg :
-        case platformOS hostPlatform of
-          Windows -> ["-target", "x86_64-pc-windows"]
-          Posix   -> ["-target", "x86_64-pc-linux"] ++
-            case mbHsBindgenDir of
-              Just hsBindgenDir ->
-                ["-I", fromString (hsBindgenDir </> "musl-include/x86_64")]
-              Nothing -> []
+  clangArgs <- fmap (Clang.ClangArgs . (stdClangArg :)) $
+    case platformOS hostPlatform of
+      Windows -> return ["-target", "x86_64-unknown-mingw32"]  -- GHC target
+      Posix -> do
+        cwd <- getCurrentDirectory
+        includeArgs <- findPackageDirectory cwd "hs-bindgen" >>= \case
+          Just hsBindgenDir ->
+            return ["-I", fromString (hsBindgenDir </> "musl-include/x86_64")]
+          Nothing -> do
+            putStrLn "WARNING: unable to find 'hs-bindgen' directory"
+            putStrLn "The test suite will use whichever C header files it finds on your system."
+            return []
+        return $ "-target" : "x86_64-pc-linux" : includeArgs
 
   let extendedInts = [ PtrDiff ]
   canonTys <-
@@ -134,7 +127,7 @@ main = do
 -}
 
   putStrLn "Unary operators"
-  unaries <- unaryTests platform clangArgs canonTys
+  unaries <- unaryTests hostPlatform clangArgs canonTys
   badUnary <-
     fmap catMaybes <$> for unaries $ \ ( op, tests ) -> do
       putStrLn $ pprOp ( UnaryOp op )
@@ -149,7 +142,7 @@ main = do
           : map ( showFailure . first show ) bad
         return $ Just bad
   putStrLn "Binary operators"
-  binaries <- binaryTests platform clangArgs canonTys
+  binaries <- binaryTests hostPlatform clangArgs canonTys
   badBinary <-
     fmap catMaybes <$> for binaries $ \ ( op, tests ) -> do
       putStrLn $ pprOp ( BinaryOp op )

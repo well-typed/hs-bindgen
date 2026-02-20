@@ -156,69 +156,94 @@ using Unicode-specific characters in C function definitions.
 
 ## Windows
 
-Setup on Windows involves handling of Dynamic-Link Libraries (DLLs) and the
-configuration of the compiler environment.
+MSVC, the default Windows toolchain, is currently not supported by GHC.  GHC is
+therefore distributed with a MinGW environment, which includes a GNU standard
+library.
 
-### Built-in Clang with GHC installation
+### LLVM/Clang
 
-When you install GHC on Windows using GHCup, for example, it comes with a MinGW
-environment that includes LLVM and Clang. Windows' assembler does not support
-Unicode, so avoid using Unicode-specific characters in C function definitions.
+Official distributions of GHC 9.4 and later use Clang as the C compiler.  The
+easiest way to use `hs-bindgen` on Windows is to use the LLVM/Clang installation
+that is distributed with GHC.
 
-### Explicit handling of `PATH` for DLLs
-
-At runtime, Windows primarily finds DLLs by searching the directories listed in
-the `PATH` environment variable. This is a crucial difference from Linux and
-MacOS.
-
-* To ensure your application can find the required DLLs, add the corresponding
-  directories to the `PATH`:
-
-  ```powershell
-  $env:PATH = "C:\path\to\your\c\libs;" + $env:PATH
-  ```
+Since GHC does not support MSVC, LLVM/Clang installed by Visual Studio or from
+the LLVM project releases should not be used.
 
 ### Environment Variables
 
-* `LLVM_PATH`, `LLVM_CONFIG`, `LIBCLANG_PATH`: You need to point `hs-bindgen`
-  to the LLVM/Clang installation that comes with GHC.
+* `LLVM_PATH`, `LLVM_CONFIG`, `LIBCLANG_PATH`: These environment variables
+  configure which LLVM/Clang installation is used by `hs-bindgen`.  For example,
+  configuration like the following instruct `hs-bindgen` to use a version of GHC
+  installed by GHCup.
 
-  ```powershell
-  $env:LLVM_PATH = "C:\ghcup\ghc\<your-ghc-version>\mingw"
-  $env:LLVM_CONFIG = "$env:LLVM_PATH\bin\llvm-config.exe"
-  $env:LIBCLANG_PATH = "$env:LLVM_PATH\lib"
-  ```
+    ```powershell
+    $env:LLVM_PATH = "C:\ghcup\ghc\<your-ghc-version>\mingw"
+    $env:LLVM_CONFIG = "$env:LLVM_PATH\bin\llvm-config.exe"
+    $env:LIBCLANG_PATH = "$env:LLVM_PATH\lib"
+    ```
 
+* `BINDGEN_EXTRA_CLANG_ARGS`: This environment variable works the same on
+  Windows as it does on Linux.
 
-* `BINDGEN_EXTRA_CLANG_ARGS`: On Windows, setting the include paths like we
-  suggest for Linux is not required. If you need to, see the corresponding
-  section for Linux.
+### DLLs
+
+Windows shared libraries are called "dynamic-link libraries" (DLLs).  All DLLs
+needed by an executable as well as any libraries it loads must be loaded when
+the executable is run.  Unlike Linux and macOS, Windows uses the `PATH`
+environment variable to search for DLLs (in addition to searching for
+executables).
+
+When building `hs-bindgen`, the `libclang-bindings` library is built.  It is
+linked to `libclang` and `LLVM` DLLs as determined using the environment
+variables described above.  When you run `hs-bindgen`, the `libclang.dll`
+library is loaded by searching for that file in the directories listed in the
+`PATH` environment variable.  The `PATH` environment variable should be
+configured so that it loads the same installation of LLVM/Clang that
+`hs-bindgen` and `libclang-bindings` was built with.  Note that the
+`libclang.dll` filename is not versioned, and `hs-bindgen` can warn you when
+the versions do not match.
+
+```powershell
+$env:Path = "$env:LLVM_PATH\bin;" + $env:Path
+```
+
+Similarly, when you create bindings that use a shared library, the directory
+where that DLL can be found should be in your `PATH` environment variable at
+runtime.
+
+```powershell
+$env:Path = "C:\path\to\your\c\libs;" + $env:Path
+```
 
 ### Common Errors and Solutions
 
-* Dynamic-link library loading order: If your application fails silently or with
-  an `ExitFailure` and a cryptic error code like `(-1073741515)`, it is very
-  likely a DLL loading issue. Try adding the directory containing the C DLLs of
-  your library to the system `PATH`.
+* LLVM/Clang version mismatch: If the version of the LLVM/Clang DLL that is
+  loaded at runtime does not match the version used to build `hs-bindgen` and
+  `libclang-bindings`, a warning it emitted.  The version does not change when
+  using the installation of LLVM/Clang that is distributed with GHC, so this
+  generally indicates that your `PATH` environment variable is incorrect.  Be
+  sure that the `bin` directory for that LLVM/Clang installation is listed
+  before any other LLVM/Clang installation directories.
+
+  Use the `ldd` in a MinGW shell to debug DLL loading.
+
+* DLL loading failure: If a linked library is not found, Windows applications
+  generally fail silently with a negative exit code.  Use `ldd` in a MinGW shell
+  to determine if a DLL is not found.  Resolve such issues by adding directories
+  to your `PATH` environment variable.
+
+  In GitHub CI, be sure to always use Windows-style paths (such as
+  `C:\ghcup\ghc\9.14.1\mingw\bin`), *not* POSIX-style paths (such as
+  `/c/ghcup/ghc/9.14.1/mingw/bin`), in the `PATH` environment variable.
+
+* Unicode issues: The Windows assembler does not support Unicode, so avoid using
+  Unicode-specific characters in C function definitions.
 
 * Resolving issues with underlying type mismatches (`FC.CInt` vs.
   `FC.CUInt`): You might encounter Haskell type errors where, for example, a C
   `int` is being interpreted as a `CUInt` instead of a `CInt`. This is often
   due to how different compilers and platforms define basic types. Carefully
   check your C and Haskell type definitions to ensure they match.
-
-  Bindings generated by `hs-bindgen` are not portable. In order to create a
-  portable API, one must do so at a higher level, using CPP to create an
-  abstraction layer over the low-level, platform-specific bindings.
-
-  Given that `hs-bindgen` only supports generating bindings for a subset of
-  targets people use Hackage with, perhaps all generated bindings uploaded to
-  Hackage should include appropriate gates. Minimal example:
-
-  ```cabal
-  if !(os(linux) && arch(x86_64))
-    buildable: false
-  ```
 
 ## Nix
 
