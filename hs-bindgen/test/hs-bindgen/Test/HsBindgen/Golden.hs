@@ -199,10 +199,10 @@ test_manual_globals =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
-        -- unexpected anon in extern
-        "unusableAnon"
         -- potential duplicate symbols
-      , "nonExternGlobalInt"
+        "nonExternGlobalInt"
+        -- unexpected anonymous declaration in extern
+      , "unusableAnon"
       ]
 
 {-------------------------------------------------------------------------------
@@ -1179,8 +1179,6 @@ test_globals_globals =
     testTraceMulti "globals/globals" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
-      MatchDelayed name ParseUnexpectedAnonInExtern{} ->
-        Just $ Expected name
       _otherwise ->
         Nothing
   where
@@ -1203,6 +1201,10 @@ test_globals_globals =
         , "streamBinary"
         , "streamBinary_len"
         , "some_global_struct"
+        , "anonPoint"
+        , "anonPair"
+        , "anonEnum"
+        , "anonEnumCoords"
         ]
 
 {-------------------------------------------------------------------------------

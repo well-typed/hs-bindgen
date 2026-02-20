@@ -27,7 +27,96 @@ ctypes:
 - headers: globals/globals.h
   cname: struct2_t
   hsname: Struct2_t
+- headers: globals/globals.h
+  cname: struct @anonPoint
+  hsname: AnonPoint
+- headers: globals/globals.h
+  cname: struct @anonPair
+  hsname: AnonPair
+- headers: globals/globals.h
+  cname: enum @anonEnum
+  hsname: AnonEnum
+- headers: globals/globals.h
+  cname: enum @anonEnumCoords
+  hsname: AnonEnumCoords
 hstypes:
+- hsname: AnonEnum
+  representation:
+    newtype:
+      constructor: AnonEnum
+      fields:
+      - unwrapAnonEnum
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonEnumCoords
+  representation:
+    newtype:
+      constructor: AnonEnumCoords
+      fields:
+      - unwrapAnonEnumCoords
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonPair
+  representation:
+    record:
+      constructor: AnonPair
+      fields:
+      - anonPair_a
+      - anonPair_b
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: AnonPoint
+  representation:
+    record:
+      constructor: AnonPoint
+      fields:
+      - anonPoint_x
+      - anonPoint_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Config
   representation:
     record:

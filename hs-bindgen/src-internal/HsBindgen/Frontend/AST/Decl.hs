@@ -25,6 +25,8 @@ module HsBindgen.Frontend.AST.Decl (
   , FunctionAttributes(..)
   , FunctionPurity(..)
   , decideFunctionPurity
+    -- ** Storage class
+  , IsExtern(..)
     -- ** Comments
   , Comment(..)
   , CommentRef(..)
@@ -151,7 +153,7 @@ data DeclKind p =
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
-  | DeclGlobal (C.Type p)
+  | DeclGlobal IsExtern (C.Type p)
 
 data Struct p = Struct {
       sizeof    :: Int
@@ -326,6 +328,14 @@ decideFunctionPurity = foldr prefer ImpureFunction
       ImpureFunction -> ()
       HaskellPureFunction -> ()
       CPureFunction -> ()
+
+{-------------------------------------------------------------------------------
+  Storage class
+-------------------------------------------------------------------------------}
+
+-- | Whether a global variable has @extern@ storage class
+data IsExtern = IsExtern | IsNotExtern
+  deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   Comments

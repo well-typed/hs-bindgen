@@ -72,7 +72,7 @@ processDecl decl =
       C.DeclAnonEnumConstant anonEnumConst -> Right <$> processAnonEnumConstant info' anonEnumConst
       C.DeclOpaque                         -> Right <$> processOpaque C.DeclOpaque info'
       C.DeclFunction fun                   -> Right <$> processFunction info' fun
-      C.DeclGlobal ty                      -> Right <$> processGlobal info' C.DeclGlobal ty
+      C.DeclGlobal ext ty                  -> Right <$> processGlobal info' (C.DeclGlobal ext) ty
   where
     info' :: C.DeclInfo HandleMacros
     info' = coercePass decl.info

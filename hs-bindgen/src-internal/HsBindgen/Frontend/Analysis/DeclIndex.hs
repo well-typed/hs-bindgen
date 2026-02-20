@@ -329,6 +329,11 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         case (a, b) of
           (C.DeclMacro macroA, C.DeclMacro macroB) ->
             sameMacro macroA macroB
+          -- Two globals with the same type are the same definition regardless
+          -- of whether one is @extern@ and the other is not (e.g. a tentative
+          -- definition followed by an @extern@ declaration of the same name).
+          (C.DeclGlobal _extA tyA, C.DeclGlobal _extB tyB) ->
+            tyA == tyB
           _otherwise ->
             a == b
 

@@ -176,7 +176,7 @@ instance UpdateUseSites C.DeclKind where
       C.DeclEnum     x         -> C.DeclEnum     <$> updateUseSites x
       C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> updateUseSites x
       C.DeclFunction x         -> C.DeclFunction <$> updateUseSites x
-      C.DeclGlobal   x         -> C.DeclGlobal   <$> updateUseSites x
+      C.DeclGlobal   ext x     -> C.DeclGlobal ext <$> updateUseSites x
       C.DeclMacro    x         -> return $ C.DeclMacro x
       C.DeclOpaque             -> return $ C.DeclOpaque
 
@@ -188,7 +188,7 @@ instance UpdateUseSites C.Struct where
     where
       reconstruct ::
            [C.StructField AssignAnonIds]
-        -> (Maybe (C.StructField AssignAnonIds))
+        -> Maybe (C.StructField AssignAnonIds)
         -> C.Struct AssignAnonIds
       reconstruct structFields' structFlam' = C.Struct {
             fields    = structFields'

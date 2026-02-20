@@ -91,7 +91,7 @@ processDeclKind kind =
       C.DeclOpaque                         -> pure C.DeclOpaque
       C.DeclMacro macro                    -> C.DeclMacro <$> processMacro macro
       C.DeclFunction function              -> C.DeclFunction <$> processFunction function
-      C.DeclGlobal global                  -> C.DeclGlobal <$> processGlobal global
+      C.DeclGlobal ext global              -> C.DeclGlobal ext <$> processGlobal global
 
 processStruct ::
      C.Struct Select

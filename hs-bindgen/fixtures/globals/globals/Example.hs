@@ -3,16 +3,20 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
@@ -414,3 +418,367 @@ instance ( ((~) ty) Struct1_t
 
   getField =
     HasCField.fromPtr (RIP.Proxy @"struct2_t_field1")
+
+{-| __C declaration:__ @struct \@anonPoint@
+
+    __defined at:__ @globals\/globals.h 438:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+data AnonPoint = AnonPoint
+  { anonPoint_x :: RIP.CInt
+    {- ^ __C declaration:__ @x@
+
+         __defined at:__ @globals\/globals.h 438:14@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  , anonPoint_y :: RIP.CInt
+    {- ^ __C declaration:__ @y@
+
+         __defined at:__ @globals\/globals.h 438:21@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize AnonPoint where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw AnonPoint where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonPoint
+      <*> HasCField.readRaw (RIP.Proxy @"anonPoint_x") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonPoint_y") ptr0
+
+instance Marshal.WriteRaw AnonPoint where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonPoint anonPoint_x2 anonPoint_y3 ->
+               HasCField.writeRaw (RIP.Proxy @"anonPoint_x") ptr0 anonPoint_x2
+            >> HasCField.writeRaw (RIP.Proxy @"anonPoint_y") ptr0 anonPoint_y3
+
+deriving via Marshal.EquivStorable AnonPoint instance RIP.Storable AnonPoint
+
+instance HasCField.HasCField AnonPoint "anonPoint_x" where
+
+  type CFieldType AnonPoint "anonPoint_x" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPoint_x" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPoint_x")
+
+instance HasCField.HasCField AnonPoint "anonPoint_y" where
+
+  type CFieldType AnonPoint "anonPoint_y" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPoint_y" (RIP.Ptr AnonPoint) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPoint_y")
+
+{-| __C declaration:__ @struct \@anonPair@
+
+    __defined at:__ @globals\/globals.h 441:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+data AnonPair = AnonPair
+  { anonPair_a :: RIP.CInt
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @globals\/globals.h 441:14@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  , anonPair_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @globals\/globals.h 441:21@
+
+         __exported by:__ @globals\/globals.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize AnonPair where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw AnonPair where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonPair
+      <*> HasCField.readRaw (RIP.Proxy @"anonPair_a") ptr0
+      <*> HasCField.readRaw (RIP.Proxy @"anonPair_b") ptr0
+
+instance Marshal.WriteRaw AnonPair where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonPair anonPair_a2 anonPair_b3 ->
+               HasCField.writeRaw (RIP.Proxy @"anonPair_a") ptr0 anonPair_a2
+            >> HasCField.writeRaw (RIP.Proxy @"anonPair_b") ptr0 anonPair_b3
+
+deriving via Marshal.EquivStorable AnonPair instance RIP.Storable AnonPair
+
+instance HasCField.HasCField AnonPair "anonPair_a" where
+
+  type CFieldType AnonPair "anonPair_a" = RIP.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPair_a" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPair_a")
+
+instance HasCField.HasCField AnonPair "anonPair_b" where
+
+  type CFieldType AnonPair "anonPair_b" = RIP.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "anonPair_b" (RIP.Ptr AnonPair) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"anonPair_b")
+
+{-| __C declaration:__ @enum \@anonEnum@
+
+    __defined at:__ @globals\/globals.h 444:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnum = AnonEnum
+  { unwrapAnonEnum :: RIP.CUInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord)
+  deriving newtype (RIP.HasFFIType)
+
+instance Marshal.StaticSize AnonEnum where
+
+  staticSizeOf = \_ -> (4 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw AnonEnum where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonEnum
+      <*> Marshal.readRawByteOff ptr0 (0 :: Int)
+
+instance Marshal.WriteRaw AnonEnum where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonEnum unwrapAnonEnum2 ->
+            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnum2
+
+deriving via Marshal.EquivStorable AnonEnum instance RIP.Storable AnonEnum
+
+deriving via RIP.CUInt instance RIP.Prim AnonEnum
+
+instance CEnum.CEnum AnonEnum where
+
+  type CEnumZ AnonEnum = RIP.CUInt
+
+  toCEnum = AnonEnum
+
+  fromCEnum = unwrapAnonEnum
+
+  declaredValues =
+    \_ ->
+      CEnum.declaredValuesFromList [(0, RIP.singleton "VAL_A"), (1, RIP.singleton "VAL_B")]
+
+  showsUndeclared =
+    CEnum.showsWrappedUndeclared "AnonEnum"
+
+  readPrecUndeclared =
+    CEnum.readPrecWrappedUndeclared "AnonEnum"
+
+  isDeclared = CEnum.seqIsDeclared
+
+  mkDeclared = CEnum.seqMkDeclared
+
+instance CEnum.SequentialCEnum AnonEnum where
+
+  minDeclaredValue = VAL_A
+
+  maxDeclaredValue = VAL_B
+
+instance Show AnonEnum where
+
+  showsPrec = CEnum.shows
+
+instance Read AnonEnum where
+
+  readPrec = CEnum.readPrec
+
+  readList = RIP.readListDefault
+
+  readListPrec = RIP.readListPrecDefault
+
+instance ( ((~) ty) RIP.CUInt
+         ) => RIP.HasField "unwrapAnonEnum" (RIP.Ptr AnonEnum) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unwrapAnonEnum")
+
+instance HasCField.HasCField AnonEnum "unwrapAnonEnum" where
+
+  type CFieldType AnonEnum "unwrapAnonEnum" = RIP.CUInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @VAL_A@
+
+    __defined at:__ @globals\/globals.h 444:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_A :: AnonEnum
+pattern VAL_A = AnonEnum 0
+
+{-| __C declaration:__ @VAL_B@
+
+    __defined at:__ @globals\/globals.h 444:19@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern VAL_B :: AnonEnum
+pattern VAL_B = AnonEnum 1
+
+{-| __C declaration:__ @enum \@anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 447:1@
+
+    __exported by:__ @globals\/globals.h@
+-}
+newtype AnonEnumCoords = AnonEnumCoords
+  { unwrapAnonEnumCoords :: RIP.CUInt
+  }
+  deriving stock (Eq, RIP.Generic, Ord)
+  deriving newtype (RIP.HasFFIType)
+
+instance Marshal.StaticSize AnonEnumCoords where
+
+  staticSizeOf = \_ -> (4 :: Int)
+
+  staticAlignment = \_ -> (4 :: Int)
+
+instance Marshal.ReadRaw AnonEnumCoords where
+
+  readRaw =
+    \ptr0 ->
+          pure AnonEnumCoords
+      <*> Marshal.readRawByteOff ptr0 (0 :: Int)
+
+instance Marshal.WriteRaw AnonEnumCoords where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          AnonEnumCoords unwrapAnonEnumCoords2 ->
+            Marshal.writeRawByteOff ptr0 (0 :: Int) unwrapAnonEnumCoords2
+
+deriving via Marshal.EquivStorable AnonEnumCoords instance RIP.Storable AnonEnumCoords
+
+deriving via RIP.CUInt instance RIP.Prim AnonEnumCoords
+
+instance CEnum.CEnum AnonEnumCoords where
+
+  type CEnumZ AnonEnumCoords = RIP.CUInt
+
+  toCEnum = AnonEnumCoords
+
+  fromCEnum = unwrapAnonEnumCoords
+
+  declaredValues =
+    \_ ->
+      CEnum.declaredValuesFromList [(10, RIP.singleton "X"), (20, RIP.singleton "Y"), (30, RIP.singleton "Z")]
+
+  showsUndeclared =
+    CEnum.showsWrappedUndeclared "AnonEnumCoords"
+
+  readPrecUndeclared =
+    CEnum.readPrecWrappedUndeclared "AnonEnumCoords"
+
+instance Show AnonEnumCoords where
+
+  showsPrec = CEnum.shows
+
+instance Read AnonEnumCoords where
+
+  readPrec = CEnum.readPrec
+
+  readList = RIP.readListDefault
+
+  readListPrec = RIP.readListPrecDefault
+
+instance ( ((~) ty) RIP.CUInt
+         ) => RIP.HasField "unwrapAnonEnumCoords" (RIP.Ptr AnonEnumCoords) (RIP.Ptr ty) where
+
+  getField =
+    HasCField.fromPtr (RIP.Proxy @"unwrapAnonEnumCoords")
+
+instance HasCField.HasCField AnonEnumCoords "unwrapAnonEnumCoords" where
+
+  type CFieldType AnonEnumCoords "unwrapAnonEnumCoords" =
+    RIP.CUInt
+
+  offset# = \_ -> \_ -> 0
+
+{-| __C declaration:__ @X@
+
+    __defined at:__ @globals\/globals.h 447:8@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern X :: AnonEnumCoords
+pattern X = AnonEnumCoords 10
+
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @globals\/globals.h 447:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Y :: AnonEnumCoords
+pattern Y = AnonEnumCoords 20
+
+{-| __C declaration:__ @Z@
+
+    __defined at:__ @globals\/globals.h 447:24@
+
+    __exported by:__ @globals\/globals.h@
+-}
+pattern Z :: AnonEnumCoords
+pattern Z = AnonEnumCoords 30
