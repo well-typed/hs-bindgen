@@ -19,7 +19,9 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Smart constructor for creating a 'Hs.Newtype'
 newtypeDec ::
-     State.MonadState TranslationState m
+     ( HasCallStack
+     , State.MonadState TranslationState m
+     )
   => Hs.Name Hs.NsTypeConstr
   -> Hs.Name Hs.NsConstr
   -> Hs.Field
