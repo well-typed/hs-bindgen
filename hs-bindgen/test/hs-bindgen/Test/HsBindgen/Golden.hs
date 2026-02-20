@@ -1700,6 +1700,7 @@ testCases_bespoke_types = [
     , test_types_special_parse_failure_long_double
     , test_types_structs_named_vs_anon
     , test_types_structs_enable_record_dot
+    , test_types_structs_post_qualified
     , test_types_structs_unnamed_struct
     , test_types_typedefs_typedefs
     , test_types_typedefs_typenames
@@ -1760,6 +1761,11 @@ test_types_structs_enable_record_dot =
     testVariant "types/structs/simple_structs" "enable_record_dot"
       & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
       & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+
+test_types_structs_post_qualified :: TestCase
+test_types_structs_post_qualified =
+    testVariant "types/structs/simple_structs" "post_qualified"
+      & #onBackend .~ ( #qualifiedStyle .~ PostQualified )
 
 test_types_structs_unnamed_struct :: TestCase
 test_types_structs_unnamed_struct =

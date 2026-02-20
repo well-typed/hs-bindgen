@@ -96,7 +96,7 @@ set_known_werror_unclean
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=159
+KNOWN_FIXTURES_COUNT=160
 
 # Default options
 JOBS=4

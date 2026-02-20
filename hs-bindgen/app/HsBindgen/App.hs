@@ -173,6 +173,7 @@ parseConfig = Config
     <*> parseProgramSlicing
     <*> parseFieldNamingStrategy
     <*> parsePathStyle
+    <*> parseQualifiedStyle
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -421,6 +422,17 @@ parseFieldNamingStrategy =
             "Use unprefixed field names (e.g. 'x' instead of 'structName_x')."
           , " All newtype unwrap functions are called 'unwrap'."
           , " Requires DuplicateRecordFields extension."
+          ]
+      ]
+
+parseQualifiedStyle :: Parser QualifiedStyle
+parseQualifiedStyle =
+    flag PreQualified PostQualified $ mconcat [
+        long "post-qualified-imports"
+      , help $ concat [
+            "Use post-qualified imports (e.g. 'import Data.Proxy qualified')"
+          , " instead of pre-qualified imports."
+          , " Adds ImportQualifiedPost extension."
           ]
       ]
 
