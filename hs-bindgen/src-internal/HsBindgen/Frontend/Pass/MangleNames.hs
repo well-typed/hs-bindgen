@@ -668,10 +668,10 @@ instance MangleInDecl C.Function where
         -> M (C.FunctionArg MangleNames)
       mangleFunctionArg functionArg = do
           name' <- mapM (mangleArgumentName info) functionArg.name
-          typ' <- mangle functionArg.typ
+          argTyp' <- mangle functionArg.argTyp
           pure C.FunctionArg {
               name = name'
-            , typ = typ'
+            , argTyp = argTyp'
             }
 
       reconstruct ::
@@ -731,6 +731,9 @@ instance Mangle C.Type where
       C.TypePrim prim                  -> return $ C.TypePrim prim
       C.TypeVoid                       -> return $ C.TypeVoid
       C.TypeComplex prim               -> return $ C.TypeComplex prim
+
+instance Mangle C.TypeFunArg where
+  mangle arg = C.TypeFunArgF <$> mangle arg.typ <*> pure arg.ann
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

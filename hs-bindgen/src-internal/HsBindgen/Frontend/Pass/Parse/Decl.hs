@@ -610,7 +610,7 @@ functionDecl info = \curr -> do
 
               return C.FunctionArg {
                   name = mbArgName
-                , typ = argCType
+                , argTyp = argCType
                 }
             pure $ Right (args', res)
           C.TypeTypedef{} ->

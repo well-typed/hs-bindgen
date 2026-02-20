@@ -21,6 +21,7 @@ import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| Auxiliary type used by 'FileOpenedNotification'
@@ -525,11 +526,44 @@ __defined at:__ @functions\/callbacks.h 32:16@
 __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull_Aux = SampleBufferFull_Aux
-  { unwrapSampleBufferFull_Aux :: ((CA.ConstantArray 10) RIP.CInt) -> IO ()
+  { unwrapSampleBufferFull_Aux :: (RIP.Ptr (IsA.Elem ((CA.ConstantArray 10) RIP.CInt))) -> IO ()
   }
   deriving stock (RIP.Generic)
+  deriving newtype (RIP.HasFFIType)
 
-instance ( ((~) ty) (((CA.ConstantArray 10) RIP.CInt) -> IO ())
+foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
+     ((RIP.Ptr RIP.Void) -> IO ())
+  -> IO (RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO ()))
+
+-- __unique:__ @toSampleBufferFull_Aux@
+hs_bindgen_57d9e30494ae4453 ::
+     SampleBufferFull_Aux
+  -> IO (RIP.FunPtr SampleBufferFull_Aux)
+hs_bindgen_57d9e30494ae4453 =
+  \fun0 ->
+    fmap RIP.castFunPtrFromFFIType (hs_bindgen_57d9e30494ae4453_base (RIP.toFFIType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_2ab7ac6bb756ba7e_base ::
+     RIP.FunPtr ((RIP.Ptr RIP.Void) -> IO ())
+  -> (RIP.Ptr RIP.Void) -> IO ()
+
+-- __unique:__ @fromSampleBufferFull_Aux@
+hs_bindgen_2ab7ac6bb756ba7e ::
+     RIP.FunPtr SampleBufferFull_Aux
+  -> SampleBufferFull_Aux
+hs_bindgen_2ab7ac6bb756ba7e =
+  \funPtr0 ->
+    RIP.fromFFIType (hs_bindgen_2ab7ac6bb756ba7e_base (RIP.castFunPtrToFFIType funPtr0))
+
+instance RIP.ToFunPtr SampleBufferFull_Aux where
+
+  toFunPtr = hs_bindgen_57d9e30494ae4453
+
+instance RIP.FromFunPtr SampleBufferFull_Aux where
+
+  fromFunPtr = hs_bindgen_2ab7ac6bb756ba7e
+
+instance ( ((~) ty) ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 10) RIP.CInt))) -> IO ())
          ) => RIP.HasField "unwrapSampleBufferFull_Aux" (RIP.Ptr SampleBufferFull_Aux) (RIP.Ptr ty) where
 
   getField =
@@ -538,7 +572,7 @@ instance ( ((~) ty) (((CA.ConstantArray 10) RIP.CInt) -> IO ())
 instance HasCField.HasCField SampleBufferFull_Aux "unwrapSampleBufferFull_Aux" where
 
   type CFieldType SampleBufferFull_Aux "unwrapSampleBufferFull_Aux" =
-    ((CA.ConstantArray 10) RIP.CInt) -> IO ()
+    (RIP.Ptr (IsA.Elem ((CA.ConstantArray 10) RIP.CInt))) -> IO ()
 
   offset# = \_ -> \_ -> 0
 

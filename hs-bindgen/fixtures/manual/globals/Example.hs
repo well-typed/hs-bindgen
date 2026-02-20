@@ -19,6 +19,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct globalConfig@
@@ -220,7 +221,8 @@ newtype Triplet = Triplet
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw
@@ -249,6 +251,7 @@ newtype List = List
   { unwrapList :: IA.IncompleteArray RIP.CInt
   }
   deriving stock (Eq, RIP.Generic, Show)
+  deriving newtype (IsA.IsArray)
 
 instance ( ((~) ty) (IA.IncompleteArray RIP.CInt)
          ) => RIP.HasField "unwrapList" (RIP.Ptr List) (RIP.Ptr ty) where

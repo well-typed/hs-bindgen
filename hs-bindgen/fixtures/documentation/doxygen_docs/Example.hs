@@ -26,6 +26,7 @@ import qualified HsBindgen.Runtime.FLAM as FLAM
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
@@ -1224,7 +1225,8 @@ newtype Filename_t = Filename_t
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw

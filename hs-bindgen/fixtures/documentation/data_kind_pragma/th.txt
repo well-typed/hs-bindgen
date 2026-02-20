@@ -14,7 +14,7 @@ newtype Triplet
            __exported by:__ @documentation\/data_kind_pragma.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")

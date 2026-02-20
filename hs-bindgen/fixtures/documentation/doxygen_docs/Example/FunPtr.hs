@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
@@ -93,7 +94,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_documentationdoxygen_docs_Example_get_process_buffer */"
   , "__attribute__ ((const))"
   , "signed int (*hs_bindgen_f4ccc6d90e8d3ebd (void)) ("
-  , "  char arg1[64],"
+  , "  char *arg1,"
   , "  size_t arg2"
   , ")"
   , "{"
@@ -471,7 +472,7 @@ foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
-hs_bindgen_f4ccc6d90e8d3ebd :: IO (RIP.FunPtr (((CA.ConstantArray 64) RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt))
+hs_bindgen_f4ccc6d90e8d3ebd :: IO (RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt))
 hs_bindgen_f4ccc6d90e8d3ebd =
   RIP.fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
 
@@ -492,7 +493,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: RIP.FunPtr (((CA.ConstantArray 64) RIP.CChar) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt)
+process_buffer :: RIP.FunPtr ((RIP.Ptr (IsA.Elem ((CA.ConstantArray 64) RIP.CChar))) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CInt)
 process_buffer =
   RIP.unsafePerformIO hs_bindgen_f4ccc6d90e8d3ebd
 

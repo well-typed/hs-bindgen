@@ -224,7 +224,7 @@ analyseType = go
         C.TypeConstArray _sz  ty -> indirect ty
         C.TypeIncompleteArray ty -> indirect ty
         C.TypeBlock           ty -> indirect ty
-        C.TypeFun args res       -> concatMap indirect args ++ indirect res
+        C.TypeFun args res       -> concatMap analyseTypeFunArg args ++ indirect res
 
         -- Trivial cases
         C.TypeComplex{}    -> []
@@ -237,3 +237,6 @@ analyseType = go
            case ctxt of
              TypedefDirect declInfo -> go (TypedefIndirect declInfo)
              _otherwise             -> go ctxt
+
+        analyseTypeFunArg :: C.TypeFunArg Parse -> [(AnonId, Context)]
+        analyseTypeFunArg arg = indirect arg.typ

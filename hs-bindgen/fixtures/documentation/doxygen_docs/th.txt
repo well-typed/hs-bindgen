@@ -64,11 +64,11 @@
 --   return (versioned_function)(arg1);
 -- }
 -- signed int hs_bindgen_0c0057f1700372a7 (
---   char (*arg1)[64],
+--   char *arg1,
 --   size_t arg2
 -- )
 -- {
---   return (process_buffer)(*arg1, arg2);
+--   return (process_buffer)(arg1, arg2);
 -- }
 -- void *hs_bindgen_294db77671f95524 (
 --   void *arg1,
@@ -163,11 +163,11 @@
 --   return (versioned_function)(arg1);
 -- }
 -- signed int hs_bindgen_97c1191917e6eece (
---   char (*arg1)[64],
+--   char *arg1,
 --   size_t arg2
 -- )
 -- {
---   return (process_buffer)(*arg1, arg2);
+--   return (process_buffer)(arg1, arg2);
 -- }
 -- void *hs_bindgen_58253bb560dc3eb3 (
 --   void *arg1,
@@ -282,7 +282,7 @@
 -- /* test_documentationdoxygen_docs_Example_get_process_buffer */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_f4ccc6d90e8d3ebd (void)) (
---   char arg1[64],
+--   char *arg1,
 --   size_t arg2
 -- )
 -- {
@@ -1488,7 +1488,7 @@ newtype Filename_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 256 CChar) =>
          HasField "unwrapFilename_t" (Ptr Filename_t) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFilename_t")
@@ -2038,7 +2038,8 @@ foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f170037
  -> Word64
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
-hs_bindgen_0c0057f1700372a7 :: Ptr (ConstantArray 64 CChar) ->
+hs_bindgen_0c0057f1700372a7 :: Ptr (Elem (ConstantArray 64
+                                                        CChar)) ->
                                HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 hs_bindgen_0c0057f1700372a7 = fromFFIType hs_bindgen_0c0057f1700372a7_base
@@ -2058,7 +2059,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: Ptr (ConstantArray 64 CChar) ->
+process_buffer :: Ptr (Elem (ConstantArray 64 CChar)) ->
                   HsBindgen.Runtime.LibC.CSize -> IO CInt
 {-|
 
@@ -2863,7 +2864,8 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
  -> Word64
  -> IO Int32
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
-hs_bindgen_97c1191917e6eece :: Ptr (ConstantArray 64 CChar) ->
+hs_bindgen_97c1191917e6eece :: Ptr (Elem (ConstantArray 64
+                                                        CChar)) ->
                                HsBindgen.Runtime.LibC.CSize -> IO CInt
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 hs_bindgen_97c1191917e6eece = fromFFIType hs_bindgen_97c1191917e6eece_base
@@ -2883,7 +2885,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: Ptr (ConstantArray 64 CChar) ->
+process_buffer :: Ptr (Elem (ConstantArray 64 CChar)) ->
                   HsBindgen.Runtime.LibC.CSize -> IO CInt
 {-|
 
@@ -3686,8 +3688,8 @@ versioned_function = unsafePerformIO hs_bindgen_180cd7537e40ce99
 foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8d3ebd_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
-hs_bindgen_f4ccc6d90e8d3ebd :: IO (FunPtr (ConstantArray 64
-                                                         CChar ->
+hs_bindgen_f4ccc6d90e8d3ebd :: IO (FunPtr (Ptr (Elem (ConstantArray 64
+                                                                    CChar)) ->
                                            HsBindgen.Runtime.LibC.CSize -> IO CInt))
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
 hs_bindgen_f4ccc6d90e8d3ebd = fromFFIType hs_bindgen_f4ccc6d90e8d3ebd_base
@@ -3708,7 +3710,7 @@ __defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer :: FunPtr (ConstantArray 64 CChar ->
+process_buffer :: FunPtr (Ptr (Elem (ConstantArray 64 CChar)) ->
                           HsBindgen.Runtime.LibC.CSize -> IO CInt)
 {-|
 

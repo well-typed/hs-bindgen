@@ -22,6 +22,8 @@ module HsBindgen.Frontend.AST.Type (
      , TypeComplex
      , TypePointers
      )
+  , TypeFunArg
+  , TypeFunArgF (..)
   , TypeQual(..)
   , Ref (..)
 
@@ -31,6 +33,7 @@ module HsBindgen.Frontend.AST.Type (
     -- * Queries
   , ValOrRef(..)
   , depsOfType
+  , depsOfTypeFunArg
   , hasUnsupportedType
 
     -- * Classification
@@ -105,7 +108,7 @@ data TypeF tag p =
   | TypeIncompleteArray (TypeF tag p)
 
     -- | Functions
-  | TypeFun [TypeF tag p] (TypeF tag p)
+  | TypeFun [TypeFunArgF tag p] (TypeF tag p)
 
     -- | Void
     --
@@ -136,6 +139,17 @@ deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)
 deriving stock instance ValidTypeTag tag p => Eq   (TypeF tag p)
 deriving stock instance ValidTypeTag tag p => Ord  (TypeF tag p)
 
+-- | C types in function argument positions
+data TypeFunArgF tag p = TypeFunArgF {
+    typ :: TypeF tag p
+  , ann :: Ann "TypeFunArg" p
+  }
+  deriving stock Generic
+
+deriving stock instance ValidTypeTag tag p => Show (TypeFunArgF tag p)
+deriving stock instance ValidTypeTag tag p => Eq   (TypeFunArgF tag p)
+deriving stock instance ValidTypeTag tag p => Ord  (TypeFunArgF tag p)
+
 -- | Map 'TypeF's from one tag to another
 mapTypeF :: forall tag tag' p.
      -- | What to do when encountering a typedef reference.
@@ -161,13 +175,19 @@ mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef = go
       TypeTypedef ref       -> fTypedefRef ref
       TypePointers n t      -> TypePointers n $ go t
       TypeConstArray n t    -> TypeConstArray n $ go t
-      TypeFun args res      -> TypeFun (go <$> args) (go res)
-      TypeVoid              -> TypeVoid
       TypeIncompleteArray t -> TypeIncompleteArray (go t)
+      TypeFun args res      -> TypeFun (fmap goTypeFunArg args) (go res)
+      TypeVoid              -> TypeVoid
       TypeBlock t           -> TypeBlock (go t)
       TypeQual q t          -> fQual q t
       TypeExtBinding ref    -> fExtBindingRef ref
       TypeComplex pt        -> TypeComplex pt
+
+    goTypeFunArg :: TypeFunArgF tag p -> TypeFunArgF tag' p
+    goTypeFunArg arg = TypeFunArgF {
+          typ = go arg.typ
+        , ann = arg.ann
+        }
 
 {-------------------------------------------------------------------------------
   Qualifiers
@@ -294,6 +314,10 @@ class ( IsPass p
       , Show (TypeEnumRefF tag p)
       , Eq   (TypeEnumRefF tag p)
       , Ord  (TypeEnumRefF tag p)
+
+      , Show (Ann "TypeFunArg" p)
+      , Eq   (Ann "TypeFunArg" p)
+      , Ord  (Ann "TypeFunArg" p)
       ) => ValidTypeTag (tag :: TypeTag) (p :: Pass) where
   type family TypedefRefF     tag p :: Star
   type family TypeQualifierF  tag p :: Star
@@ -326,6 +350,8 @@ type Type          = FullType
 type FullType      = TypeF Full
 type ErasedType    = TypeF Erased
 type CanonicalType = TypeF Canonical
+
+type TypeFunArg    = TypeFunArgF Full
 
 {-------------------------------------------------------------------------------
   Pattern synonyms for safe pointer handling
@@ -482,7 +508,10 @@ depsOfType = \case
     TypeIncompleteArray t -> depsOfType t
     TypeBlock           t -> depsOfType t
     TypeQual _          t -> depsOfType t
-    TypeFun args res      -> concatMap depsOfType args <> depsOfType res
+    TypeFun args res      -> concatMap depsOfTypeFunArg args <> depsOfType res
+
+depsOfTypeFunArg :: IsPass p => TypeFunArgF Full p -> [(ValOrRef, Id p)]
+depsOfTypeFunArg arg = depsOfType arg.typ
 
 -- | Checks if a type is unsupported by Haskell's FFI
 hasUnsupportedType :: forall tag p.

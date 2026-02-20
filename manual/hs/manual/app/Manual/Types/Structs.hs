@@ -12,6 +12,7 @@ import System.IO.Unsafe
 
 import HsBindgen.Runtime.FLAM qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -50,7 +51,7 @@ examples = do
 
     subsection "Flexible array members"
     let arr = IA.fromList $ fmap FC.castCharToCChar "Rich"
-    bracket (IA.withPtr arr $ \ptr -> surname_alloc (PtrConst.unsafeFromPtr ptr)) surname_free $
+    bracket (IsA.withElemPtr arr $ \ptr -> surname_alloc (PtrConst.unsafeFromPtr ptr)) surname_free $
       \ptr -> do
         surname <- readRaw ptr
         putStrLn $ "The length of the surname is: " <> show (FLAM.numElems surname.aux)

@@ -6,23 +6,24 @@ module Example.Unsafe where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <manual/arrays.h>"
   , "void hs_bindgen_f9f2776d121db261 ("
-  , "  matrix const *arg1,"
-  , "  matrix *arg2"
+  , "  triplet const *arg1,"
+  , "  triplet *arg2"
   , ")"
   , "{"
-  , "  (transpose)(*arg1, *arg2);"
+  , "  (transpose)(arg1, arg2);"
   , "}"
   , "void hs_bindgen_e43b4d44aa0abd14 ("
-  , "  triplet_ptrs *arg1"
+  , "  signed int (**arg1)[3]"
   , ")"
   , "{"
-  , "  (pretty_print_triplets)(*arg1);"
+  , "  (pretty_print_triplets)(arg1);"
   , "}"
   ]))
 
@@ -34,8 +35,8 @@ foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121
 
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 hs_bindgen_f9f2776d121db261 ::
-     PtrConst.PtrConst Matrix
-  -> RIP.Ptr Matrix
+     PtrConst.PtrConst (IsA.Elem Matrix)
+  -> RIP.Ptr (IsA.Elem Matrix)
   -> IO ()
 hs_bindgen_f9f2776d121db261 =
   RIP.fromFFIType hs_bindgen_f9f2776d121db261_base
@@ -47,9 +48,9 @@ hs_bindgen_f9f2776d121db261 =
     __exported by:__ @manual\/arrays.h@
 -}
 transpose ::
-     PtrConst.PtrConst Matrix
+     PtrConst.PtrConst (IsA.Elem Matrix)
      -- ^ __C declaration:__ @input@
-  -> RIP.Ptr Matrix
+  -> RIP.Ptr (IsA.Elem Matrix)
      -- ^ __C declaration:__ @output@
   -> IO ()
 transpose = hs_bindgen_f9f2776d121db261
@@ -61,7 +62,7 @@ foreign import ccall unsafe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0
 
 -- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
 hs_bindgen_e43b4d44aa0abd14 ::
-     RIP.Ptr Triplet_ptrs
+     RIP.Ptr (IsA.Elem Triplet_ptrs)
   -> IO ()
 hs_bindgen_e43b4d44aa0abd14 =
   RIP.fromFFIType hs_bindgen_e43b4d44aa0abd14_base
@@ -75,7 +76,7 @@ __defined at:__ @manual\/arrays.h 50:13@
 __exported by:__ @manual\/arrays.h@
 -}
 pretty_print_triplets ::
-     RIP.Ptr Triplet_ptrs
+     RIP.Ptr (IsA.Elem Triplet_ptrs)
      -- ^ __C declaration:__ @x@
   -> IO ()
 pretty_print_triplets = hs_bindgen_e43b4d44aa0abd14

@@ -10,6 +10,7 @@ import Foreign qualified as F
 import Foreign.C qualified as F
 
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -38,13 +39,13 @@ fromPtr len p = IA.peekArray len p'
 -- }
 printQr :: IncompleteArray Word8 -> IO ()
 printQr qrCode = do
-  size <- IA.withPtr qrCode $ \ptr -> QR.qrcodegen_getSize (PtrConst.unsafeFromPtr ptr)
+  size <- IsA.withElemPtr qrCode $ \ptr -> QR.qrcodegen_getSize (PtrConst.unsafeFromPtr ptr)
   let border = 4
       range  = [-border .. size + border - 1]
   for_ range $ \y -> do
     for_ range $ \x -> do
       str <- bool "  " "██" . F.toBool <$>
-        (IA.withPtr qrCode $ \ptr -> QR.qrcodegen_getModule (PtrConst.unsafeFromPtr ptr) x y)
+        (IsA.withElemPtr qrCode $ \ptr -> QR.qrcodegen_getModule (PtrConst.unsafeFromPtr ptr) x y)
       putStr str
     putStr "\n"
   putStr "\n"
@@ -66,7 +67,7 @@ basicDemo = do
   F.withCAString "Hello, world!" $ \text ->
     F.allocaArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) $ \tempBuffer -> do
       F.allocaArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) $ \qrCode -> do
-        b <- QR.qrcodegen_encodeText (PtrConst.unsafeFromPtr text) (IA.toPtr tempBuffer) (IA.toPtr qrCode) QR.Qrcodegen_Ecc_LOW
+        b <- QR.qrcodegen_encodeText (PtrConst.unsafeFromPtr text) tempBuffer qrCode QR.Qrcodegen_Ecc_LOW
                                      QR.qrcodegen_VERSION_MIN QR.qrcodegen_VERSION_MAX
                                      QR.Qrcodegen_Mask_AUTO (F.fromBool True)
         qrCodeIA <- IA.peekArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) (IA.toPtr qrCode)

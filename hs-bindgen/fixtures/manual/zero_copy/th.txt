@@ -11,11 +11,11 @@
 --   return (reverse)(arg1, arg2);
 -- }
 -- void hs_bindgen_2ff371c815d92b04 (
---   matrix const *arg1,
---   matrix *arg2
+--   triplet const *arg1,
+--   triplet *arg2
 -- )
 -- {
---   (transpose)(*arg1, *arg2);
+--   (transpose)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_f9655173d51bbaac (
 --   struct vector const *arg1,
@@ -25,11 +25,11 @@
 --   return (reverse)(arg1, arg2);
 -- }
 -- void hs_bindgen_ea25667627dd5ed2 (
---   matrix const *arg1,
---   matrix *arg2
+--   triplet const *arg1,
+--   triplet *arg2
 -- )
 -- {
---   (transpose)(*arg1, *arg2);
+--   (transpose)(arg1, arg2);
 -- }
 -- /* test_manualzero_copy_Example_get_reverse */
 -- __attribute__ ((const))
@@ -43,8 +43,8 @@
 -- /* test_manualzero_copy_Example_get_transpose */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_1bf30b28aefee5bf (void)) (
---   matrix const arg1,
---   matrix arg2
+--   triplet const *arg1,
+--   triplet *arg2
 -- )
 -- {
 --   return &transpose;
@@ -593,7 +593,7 @@ newtype Triplet
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
          HasField "unwrapTriplet" (Ptr Triplet) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapTriplet")
@@ -616,7 +616,7 @@ newtype Matrix
            __exported by:__ @manual\/zero_copy.h@
       -}
     deriving stock (Eq, Generic, Show)
-    deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
+    deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 Triplet) =>
          HasField "unwrapMatrix" (Ptr Matrix) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMatrix")
@@ -654,8 +654,8 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
-hs_bindgen_2ff371c815d92b04 :: PtrConst Matrix ->
-                               Ptr Matrix -> IO Unit
+hs_bindgen_2ff371c815d92b04 :: PtrConst (Elem Matrix) ->
+                               Ptr (Elem Matrix) -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 {-| __C declaration:__ @transpose@
@@ -664,7 +664,7 @@ hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose :: PtrConst (Elem Matrix) -> Ptr (Elem Matrix) -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -702,8 +702,8 @@ foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627d
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
-hs_bindgen_ea25667627dd5ed2 :: PtrConst Matrix ->
-                               Ptr Matrix -> IO Unit
+hs_bindgen_ea25667627dd5ed2 :: PtrConst (Elem Matrix) ->
+                               Ptr (Elem Matrix) -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 {-| __C declaration:__ @transpose@
@@ -712,7 +712,7 @@ hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose :: PtrConst (Elem Matrix) -> Ptr (Elem Matrix) -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -747,8 +747,8 @@ reverse = unsafePerformIO hs_bindgen_44cb8687c63f0086
 foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee5bf_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
-hs_bindgen_1bf30b28aefee5bf :: IO (FunPtr (Matrix ->
-                                           Matrix -> IO Unit))
+hs_bindgen_1bf30b28aefee5bf :: IO (FunPtr (PtrConst (Elem Matrix) ->
+                                           Ptr (Elem Matrix) -> IO Unit))
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
 hs_bindgen_1bf30b28aefee5bf = fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 {-# NOINLINE transpose #-}
@@ -758,7 +758,8 @@ hs_bindgen_1bf30b28aefee5bf = fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: FunPtr (Matrix -> Matrix -> IO Unit)
+transpose :: FunPtr (PtrConst (Elem Matrix) ->
+                     Ptr (Elem Matrix) -> IO Unit)
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@

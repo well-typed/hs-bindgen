@@ -7,6 +7,7 @@ module Example.Safe where
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.LibC
 import Example
 
@@ -15,10 +16,10 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "int32_t hs_bindgen_57cb99ed92c001ad ("
   , "  a_type_t *arg1,"
   , "  uint32_t arg2,"
-  , "  uint8_t (*arg3)[]"
+  , "  uint8_t *arg3"
   , ")"
   , "{"
-  , "  return (some_fun)(arg1, arg2, *arg3);"
+  , "  return (some_fun)(arg1, arg2, arg3);"
   , "}"
   ]))
 
@@ -33,7 +34,7 @@ foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c00
 hs_bindgen_57cb99ed92c001ad ::
      RIP.Ptr A_type_t
   -> HsBindgen.Runtime.LibC.Word32
-  -> RIP.Ptr (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)
+  -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
   -> IO HsBindgen.Runtime.LibC.Int32
 hs_bindgen_57cb99ed92c001ad =
   RIP.fromFFIType hs_bindgen_57cb99ed92c001ad_base
@@ -49,7 +50,7 @@ some_fun ::
      -- ^ __C declaration:__ @i@
   -> HsBindgen.Runtime.LibC.Word32
      -- ^ __C declaration:__ @j@
-  -> RIP.Ptr (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8)
+  -> RIP.Ptr (IsA.Elem (IA.IncompleteArray HsBindgen.Runtime.LibC.Word8))
      -- ^ __C declaration:__ @k@
   -> IO HsBindgen.Runtime.LibC.Int32
 some_fun = hs_bindgen_57cb99ed92c001ad

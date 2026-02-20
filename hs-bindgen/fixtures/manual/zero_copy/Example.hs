@@ -21,6 +21,7 @@ import qualified HsBindgen.Runtime.FLAM as FLAM
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct point@
@@ -781,7 +782,8 @@ newtype Triplet = Triplet
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw
@@ -811,7 +813,8 @@ newtype Matrix = Matrix
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw

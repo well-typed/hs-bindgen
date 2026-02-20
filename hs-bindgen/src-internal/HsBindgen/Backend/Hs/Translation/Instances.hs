@@ -72,11 +72,25 @@ getInstances instanceMap name = aux
                 Just instances -> aux (acc /\ instances) hsTypes
                 Nothing -> panicPure $ "type not found: " ++ show name'
           HsConstArray _n hsType' ->
+            -- TODO: instance resolution for 'IsArray' is currently
+            -- special-cased because for 'IsArray' instances we don't have to
+            -- check all dependencies. See issue #1739.
+            (if Inst.IsArray `Set.member` acc
+              then Set.insert Inst.IsArray
+              else id) $
             -- constrain by ConstantArray item type in next step
             aux (acc /\ cArrayInsts) $ hsType' : hsTypes
           HsIncompleteArray hsType' ->
+            -- TODO: instance resolution for 'IsArray' is currently
+            -- special-cased because for 'IsArray' instances we don't have to
+            -- check all dependencies. See issue #1739.
+            (if Inst.IsArray `Set.member` acc
+              then Set.insert Inst.IsArray
+              else id) $
             -- constrain by Array item type in next step
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
+          HsPtrArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
+          HsPtrConstArrayElem{} -> aux (acc /\ ptrInsts) hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsStablePtr{} -> aux (acc /\ ptrInsts) hsTypes

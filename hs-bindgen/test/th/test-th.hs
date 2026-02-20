@@ -18,6 +18,7 @@ import Test.Tasty.HUnit
 
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FLAM qualified as FLAM
+import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -164,15 +165,15 @@ test01 = testGroup "test_01"
 
     , testCase "fixed-size-array" $ do
         let v = CA.repeat 4 :: ConstantArray 3 CInt
-        res <- CA.withPtr v (\ptr -> Test01.sum3 5 (PtrConst.unsafeFromPtr ptr))
+        res <- IsA.withElemPtr v (\ptr -> Test01.sum3 5 (PtrConst.unsafeFromPtr ptr))
         21 @?= res
         [4,4,4] @?= CA.toList v -- modification in sum3 aren't visible in original array.
 
-        res' <- CA.withPtr v (\ptr -> Test01.sum3 7 (PtrConst.unsafeFromPtr ptr))
+        res' <- IsA.withElemPtr v (\ptr -> Test01.sum3 7 (PtrConst.unsafeFromPtr ptr))
         23 @?= res'
 
         let t = Test01.Triple v
-        res'' <- CA.withPtr t (\ptr -> Test01.sum3b 9 (PtrConst.unsafeFromPtr ptr))
+        res'' <- IsA.withElemPtr t (\ptr -> Test01.sum3b 9 (PtrConst.unsafeFromPtr ptr))
         29 @?= res''
     ]
 

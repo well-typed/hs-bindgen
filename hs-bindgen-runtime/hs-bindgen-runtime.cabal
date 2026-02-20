@@ -86,6 +86,7 @@ library
     HsBindgen.Runtime.Internal.Ptr
     HsBindgen.Runtime.Internal.SizedByteArray
     HsBindgen.Runtime.Internal.Tuple
+    HsBindgen.Runtime.IsArray
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude

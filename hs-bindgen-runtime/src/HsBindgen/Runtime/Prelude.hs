@@ -23,6 +23,7 @@ module HsBindgen.Runtime.Prelude (
     -- * Arrays
   , ConstantArray   -- opaque
   , IncompleteArray -- opaque
+  , IsArray (Elem)
 
     -- * Marshaling and serialization
   , StaticSize(..)
@@ -46,5 +47,6 @@ import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.Internal.FunPtr
 import HsBindgen.Runtime.Internal.Ptr
+import HsBindgen.Runtime.IsArray
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.PtrConst

@@ -12,7 +12,6 @@ module HsBindgen.Runtime.ConstantArray (
     -- $pointers
   , toPtr
   , toFirstElemPtr
-  , withPtr
     -- * Construction
   , repeat
   , fromList
@@ -35,6 +34,7 @@ import GHC.Records (HasField (..))
 import GHC.Stack (HasCallStack)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 
+import HsBindgen.Runtime.IsArray (IsArray (..))
 import HsBindgen.Runtime.Marshal (ReadRaw, StaticSize, WriteRaw)
 
 {-------------------------------------------------------------------------------
@@ -182,14 +182,13 @@ instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
       where
         sizeOfA = sizeOf (undefined :: a)
 
--- | /( O(n) /): Retrieve the underlying pointer
-withPtr ::
-     forall b n a r. (Coercible b (ConstantArray n a), Storable a)
-  => b -> (Ptr b -> IO r) -> IO r
-withPtr (coerce -> CA v) k = do
-    -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
-    VS.MVector _ fptr <- VS.thaw v
-    withForeignPtr fptr $ \(ptr :: Ptr a) -> k (toPtr (Proxy @n) ptr)
+instance IsArray (ConstantArray n a) where
+  type Elem (ConstantArray n a) = a
+  -- | /( O(n) /)
+  withElemPtr (CA v) k = do
+      -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
+      VS.MVector _ fptr <- VS.thaw v
+      withForeignPtr fptr $ \(ptr :: Ptr a) -> k ptr
 
 {-------------------------------------------------------------------------------
   Construction

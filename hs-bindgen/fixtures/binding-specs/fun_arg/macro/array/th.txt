@@ -1,45 +1,45 @@
 -- addDependentFile examples/golden/binding-specs/fun_arg/macro/array.h
 -- #include <binding-specs/fun_arg/macro/array.h>
 -- void hs_bindgen_2a6ef3a515232132 (
---   MyArray *arg1
+--   signed int *arg1
 -- )
 -- {
---   (foo)(*arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_4449a68917cbc499 (
---   A *arg1
+--   signed int *arg1
 -- )
 -- {
---   (fooA)(*arg1);
+--   (fooA)(arg1);
 -- }
 -- void hs_bindgen_05766199d1b077bb (
---   B *arg1
+--   signed int *arg1
 -- )
 -- {
---   (fooB)(*arg1);
+--   (fooB)(arg1);
 -- }
 -- void hs_bindgen_969f916bf9590709 (
---   MyArray *arg1
+--   signed int *arg1
 -- )
 -- {
---   (foo)(*arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_fb89f30695d9a112 (
---   A *arg1
+--   signed int *arg1
 -- )
 -- {
---   (fooA)(*arg1);
+--   (fooA)(arg1);
 -- }
 -- void hs_bindgen_6882cd6e82766148 (
---   B *arg1
+--   signed int *arg1
 -- )
 -- {
---   (fooB)(*arg1);
+--   (fooB)(arg1);
 -- }
 -- /* test_bindingspecsfun_argmacroar_Example_get_foo */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_fc9d87cbca4127e4 (void)) (
---   MyArray arg1
+--   signed int *arg1
 -- )
 -- {
 --   return &foo;
@@ -47,7 +47,7 @@
 -- /* test_bindingspecsfun_argmacroar_Example_get_fooA */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_0dbc306c53c94679 (void)) (
---   A arg1
+--   signed int *arg1
 -- )
 -- {
 --   return &fooA;
@@ -55,7 +55,7 @@
 -- /* test_bindingspecsfun_argmacroar_Example_get_fooB */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_db0d885ae35d447f (void)) (
---   B arg1
+--   signed int *arg1
 -- )
 -- {
 --   return &fooB;
@@ -75,6 +75,7 @@ newtype MyArray
            __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>
          HasField "unwrapMyArray" (Ptr MyArray) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapMyArray")
@@ -97,6 +98,7 @@ newtype A
            __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty MyArray => HasField "unwrapA" (Ptr A) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapA")
 instance HasCField A "unwrapA"
@@ -117,6 +119,7 @@ newtype B
            __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
       -}
     deriving stock (Eq, Generic, Show)
+    deriving newtype IsArray
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapB")
 instance HasCField B "unwrapB"
@@ -127,7 +130,7 @@ foreign import ccall safe "hs_bindgen_2a6ef3a515232132" hs_bindgen_2a6ef3a515232
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
-hs_bindgen_2a6ef3a515232132 :: Ptr MyArray -> IO Unit
+hs_bindgen_2a6ef3a515232132 :: Ptr (Elem MyArray) -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_foo@
 hs_bindgen_2a6ef3a515232132 = fromFFIType hs_bindgen_2a6ef3a515232132_base
 {-| __C declaration:__ @foo@
@@ -136,7 +139,7 @@ hs_bindgen_2a6ef3a515232132 = fromFFIType hs_bindgen_2a6ef3a515232132_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-foo :: Ptr MyArray -> IO Unit
+foo :: Ptr (Elem MyArray) -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 5:6@
@@ -149,7 +152,7 @@ foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
-hs_bindgen_4449a68917cbc499 :: Ptr A -> IO Unit
+hs_bindgen_4449a68917cbc499 :: Ptr (Elem A) -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 hs_bindgen_4449a68917cbc499 = fromFFIType hs_bindgen_4449a68917cbc499_base
 {-| __C declaration:__ @fooA@
@@ -158,7 +161,7 @@ hs_bindgen_4449a68917cbc499 = fromFFIType hs_bindgen_4449a68917cbc499_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-fooA :: Ptr A -> IO Unit
+fooA :: Ptr (Elem A) -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 10:6@
@@ -171,7 +174,7 @@ foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b07
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
-hs_bindgen_05766199d1b077bb :: Ptr B -> IO Unit
+hs_bindgen_05766199d1b077bb :: Ptr (Elem B) -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 hs_bindgen_05766199d1b077bb = fromFFIType hs_bindgen_05766199d1b077bb_base
 {-| __C declaration:__ @fooB@
@@ -180,7 +183,7 @@ hs_bindgen_05766199d1b077bb = fromFFIType hs_bindgen_05766199d1b077bb_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-fooB :: Ptr B -> IO Unit
+fooB :: Ptr (Elem B) -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 11:6@
@@ -193,7 +196,7 @@ foreign import ccall unsafe "hs_bindgen_969f916bf9590709" hs_bindgen_969f916bf95
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_foo@
-hs_bindgen_969f916bf9590709 :: Ptr MyArray -> IO Unit
+hs_bindgen_969f916bf9590709 :: Ptr (Elem MyArray) -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_foo@
 hs_bindgen_969f916bf9590709 = fromFFIType hs_bindgen_969f916bf9590709_base
 {-| __C declaration:__ @foo@
@@ -202,7 +205,7 @@ hs_bindgen_969f916bf9590709 = fromFFIType hs_bindgen_969f916bf9590709_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-foo :: Ptr MyArray -> IO Unit
+foo :: Ptr (Elem MyArray) -> IO Unit
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 5:6@
@@ -215,7 +218,7 @@ foreign import ccall unsafe "hs_bindgen_fb89f30695d9a112" hs_bindgen_fb89f30695d
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooA@
-hs_bindgen_fb89f30695d9a112 :: Ptr A -> IO Unit
+hs_bindgen_fb89f30695d9a112 :: Ptr (Elem A) -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooA@
 hs_bindgen_fb89f30695d9a112 = fromFFIType hs_bindgen_fb89f30695d9a112_base
 {-| __C declaration:__ @fooA@
@@ -224,7 +227,7 @@ hs_bindgen_fb89f30695d9a112 = fromFFIType hs_bindgen_fb89f30695d9a112_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-fooA :: Ptr A -> IO Unit
+fooA :: Ptr (Elem A) -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 10:6@
@@ -237,7 +240,7 @@ foreign import ccall unsafe "hs_bindgen_6882cd6e82766148" hs_bindgen_6882cd6e827
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooB@
-hs_bindgen_6882cd6e82766148 :: Ptr B -> IO Unit
+hs_bindgen_6882cd6e82766148 :: Ptr (Elem B) -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooB@
 hs_bindgen_6882cd6e82766148 = fromFFIType hs_bindgen_6882cd6e82766148_base
 {-| __C declaration:__ @fooB@
@@ -246,7 +249,7 @@ hs_bindgen_6882cd6e82766148 = fromFFIType hs_bindgen_6882cd6e82766148_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-fooB :: Ptr B -> IO Unit
+fooB :: Ptr (Elem B) -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 11:6@
@@ -258,7 +261,8 @@ fooB = hs_bindgen_6882cd6e82766148
 foreign import ccall unsafe "hs_bindgen_fc9d87cbca4127e4" hs_bindgen_fc9d87cbca4127e4_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_foo@
-hs_bindgen_fc9d87cbca4127e4 :: IO (FunPtr (MyArray -> IO Unit))
+hs_bindgen_fc9d87cbca4127e4 :: IO (FunPtr (Ptr (Elem MyArray) ->
+                                           IO Unit))
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_foo@
 hs_bindgen_fc9d87cbca4127e4 = fromFFIType hs_bindgen_fc9d87cbca4127e4_base
 {-# NOINLINE foo #-}
@@ -268,7 +272,7 @@ hs_bindgen_fc9d87cbca4127e4 = fromFFIType hs_bindgen_fc9d87cbca4127e4_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-foo :: FunPtr (MyArray -> IO Unit)
+foo :: FunPtr (Ptr (Elem MyArray) -> IO Unit)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 5:6@
@@ -280,7 +284,8 @@ foo = unsafePerformIO hs_bindgen_fc9d87cbca4127e4
 foreign import ccall unsafe "hs_bindgen_0dbc306c53c94679" hs_bindgen_0dbc306c53c94679_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
-hs_bindgen_0dbc306c53c94679 :: IO (FunPtr (A -> IO Unit))
+hs_bindgen_0dbc306c53c94679 :: IO (FunPtr (Ptr (Elem A) ->
+                                           IO Unit))
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
 hs_bindgen_0dbc306c53c94679 = fromFFIType hs_bindgen_0dbc306c53c94679_base
 {-# NOINLINE fooA #-}
@@ -290,7 +295,7 @@ hs_bindgen_0dbc306c53c94679 = fromFFIType hs_bindgen_0dbc306c53c94679_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-fooA :: FunPtr (A -> IO Unit)
+fooA :: FunPtr (Ptr (Elem A) -> IO Unit)
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 10:6@
@@ -302,7 +307,8 @@ fooA = unsafePerformIO hs_bindgen_0dbc306c53c94679
 foreign import ccall unsafe "hs_bindgen_db0d885ae35d447f" hs_bindgen_db0d885ae35d447f_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooB@
-hs_bindgen_db0d885ae35d447f :: IO (FunPtr (B -> IO Unit))
+hs_bindgen_db0d885ae35d447f :: IO (FunPtr (Ptr (Elem B) ->
+                                           IO Unit))
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooB@
 hs_bindgen_db0d885ae35d447f = fromFFIType hs_bindgen_db0d885ae35d447f_base
 {-# NOINLINE fooB #-}
@@ -312,7 +318,7 @@ hs_bindgen_db0d885ae35d447f = fromFFIType hs_bindgen_db0d885ae35d447f_base
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
-fooB :: FunPtr (B -> IO Unit)
+fooB :: FunPtr (Ptr (Elem B) -> IO Unit)
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 11:6@

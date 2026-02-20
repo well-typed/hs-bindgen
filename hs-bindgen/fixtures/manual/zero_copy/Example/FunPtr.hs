@@ -6,6 +6,7 @@ module Example.FunPtr where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 import Example
 
@@ -23,8 +24,8 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "/* test_manualzero_copy_Example_get_transpose */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_1bf30b28aefee5bf (void)) ("
-  , "  matrix const arg1,"
-  , "  matrix arg2"
+  , "  triplet const *arg1,"
+  , "  triplet *arg2"
   , ")"
   , "{"
   , "  return &transpose;"
@@ -56,7 +57,7 @@ foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aef
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
-hs_bindgen_1bf30b28aefee5bf :: IO (RIP.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_1bf30b28aefee5bf :: IO (RIP.FunPtr ((PtrConst.PtrConst (IsA.Elem Matrix)) -> (RIP.Ptr (IsA.Elem Matrix)) -> IO ()))
 hs_bindgen_1bf30b28aefee5bf =
   RIP.fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 
@@ -67,6 +68,6 @@ hs_bindgen_1bf30b28aefee5bf =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: RIP.FunPtr (Matrix -> Matrix -> IO ())
+transpose :: RIP.FunPtr ((PtrConst.PtrConst (IsA.Elem Matrix)) -> (RIP.Ptr (IsA.Elem Matrix)) -> IO ())
 transpose =
   RIP.unsafePerformIO hs_bindgen_1bf30b28aefee5bf
