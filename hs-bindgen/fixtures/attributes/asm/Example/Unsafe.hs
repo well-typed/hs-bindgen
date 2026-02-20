@@ -14,7 +14,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  signed int arg2"
   , ")"
   , "{"
-  , "  return asm_labeled_function(arg1, arg2);"
+  , "  return (asm_labeled_function)(arg1, arg2);"
   , "}"
   ]))
 

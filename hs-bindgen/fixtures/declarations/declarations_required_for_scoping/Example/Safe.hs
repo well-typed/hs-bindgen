@@ -14,7 +14,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  A arg1"
   , ")"
   , "{"
-  , "  f(arg1);"
+  , "  (f)(arg1);"
   , "}"
   ]))
 

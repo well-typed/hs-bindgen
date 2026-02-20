@@ -5,13 +5,13 @@
 --   double arg1
 -- )
 -- {
---   return _acos(arg1);
+--   return (_acos)(arg1);
 -- }
 -- double hs_bindgen_dca60678b5047ee4 (
 --   double arg1
 -- )
 -- {
---   return _acos(arg1);
+--   return (_acos)(arg1);
 -- }
 -- /* test_edgecasesordinary_anon_paren_Example_get__acos */
 -- __attribute__ ((const))

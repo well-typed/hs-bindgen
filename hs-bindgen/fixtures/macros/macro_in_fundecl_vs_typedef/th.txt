@@ -5,140 +5,140 @@
 --   TC arg2
 -- )
 -- {
---   return quux1(arg1, arg2);
+--   return (quux1)(arg1, arg2);
 -- }
 -- TC hs_bindgen_bb79188c8775e2e4 (
 --   MC arg1,
 --   char arg2
 -- )
 -- {
---   return quux2(arg1, arg2);
+--   return (quux2)(arg1, arg2);
 -- }
 -- MC *hs_bindgen_a398fb73645271c5 (
 --   float arg1,
 --   TC *arg2
 -- )
 -- {
---   return wam1(arg1, arg2);
+--   return (wam1)(arg1, arg2);
 -- }
 -- TC *hs_bindgen_ad904da072e0711e (
 --   float arg1,
 --   MC *arg2
 -- )
 -- {
---   return wam2(arg1, arg2);
+--   return (wam2)(arg1, arg2);
 -- }
 -- void hs_bindgen_88e976dc10571000 (
 --   struct2 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_typedef1(arg1, arg2);
+--   (struct_typedef1)(arg1, arg2);
 -- }
 -- void hs_bindgen_edb3806d45d7605b (
 --   struct3_t *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_typedef2(arg1, arg2);
+--   (struct_typedef2)(arg1, arg2);
 -- }
 -- void hs_bindgen_7c7f3ab0dd790fe8 (
 --   struct4 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_typedef3(arg1, arg2);
+--   (struct_typedef3)(arg1, arg2);
 -- }
 -- void hs_bindgen_2cfbb4f5834d4bcb (
 --   struct struct1 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_name1(arg1, arg2);
+--   (struct_name1)(arg1, arg2);
 -- }
 -- void hs_bindgen_c8b765fa70f95167 (
 --   struct struct3 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_name2(arg1, arg2);
+--   (struct_name2)(arg1, arg2);
 -- }
 -- void hs_bindgen_0ff3632971f092bb (
 --   struct struct4 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_name3(arg1, arg2);
+--   (struct_name3)(arg1, arg2);
 -- }
 -- char hs_bindgen_df7e2b8e86de411a (
 --   MC arg1,
 --   TC arg2
 -- )
 -- {
---   return quux1(arg1, arg2);
+--   return (quux1)(arg1, arg2);
 -- }
 -- TC hs_bindgen_6f0b13ed02b696df (
 --   MC arg1,
 --   char arg2
 -- )
 -- {
---   return quux2(arg1, arg2);
+--   return (quux2)(arg1, arg2);
 -- }
 -- MC *hs_bindgen_f92059cc98dde342 (
 --   float arg1,
 --   TC *arg2
 -- )
 -- {
---   return wam1(arg1, arg2);
+--   return (wam1)(arg1, arg2);
 -- }
 -- TC *hs_bindgen_3e6ecd1b2cc616bc (
 --   float arg1,
 --   MC *arg2
 -- )
 -- {
---   return wam2(arg1, arg2);
+--   return (wam2)(arg1, arg2);
 -- }
 -- void hs_bindgen_ffa9d5a3e8f0f221 (
 --   struct2 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_typedef1(arg1, arg2);
+--   (struct_typedef1)(arg1, arg2);
 -- }
 -- void hs_bindgen_4801667560542114 (
 --   struct3_t *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_typedef2(arg1, arg2);
+--   (struct_typedef2)(arg1, arg2);
 -- }
 -- void hs_bindgen_04fa5bbd479146eb (
 --   struct4 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_typedef3(arg1, arg2);
+--   (struct_typedef3)(arg1, arg2);
 -- }
 -- void hs_bindgen_08025fd0bd589ac2 (
 --   struct struct1 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_name1(arg1, arg2);
+--   (struct_name1)(arg1, arg2);
 -- }
 -- void hs_bindgen_9de286608f952fc7 (
 --   struct struct3 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_name2(arg1, arg2);
+--   (struct_name2)(arg1, arg2);
 -- }
 -- void hs_bindgen_38cce6bb1ac71578 (
 --   struct struct4 *arg1,
 --   MC arg2
 -- )
 -- {
---   struct_name3(arg1, arg2);
+--   (struct_name3)(arg1, arg2);
 -- }
 -- /* test_macrosmacro_in_fundecl_vs_typ_Example_get_quux1 */
 -- __attribute__ ((const))

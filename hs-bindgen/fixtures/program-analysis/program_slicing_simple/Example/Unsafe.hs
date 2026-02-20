@@ -16,7 +16,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  uint32_t arg2"
   , ")"
   , "{"
-  , "  return bar(arg1, arg2);"
+  , "  return (bar)(arg1, arg2);"
   , "}"
   ]))
 

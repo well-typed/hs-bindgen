@@ -2,35 +2,35 @@
 -- #include <edge-cases/adios.h>
 -- signed int hs_bindgen_2f6d4be143076044 (void)
 -- {
---   return adiós_fun();
+--   return (adiós_fun)();
 -- }
 -- void hs_bindgen_2010521804ef9a6e (void)
 -- {
---   ϒ();
+--   (ϒ)();
 -- }
 -- void hs_bindgen_3bc3e53cc82c9580 (void)
 -- {
---   拜拜();
+--   (拜拜)();
 -- }
 -- void hs_bindgen_ad8eb47027b2d49d (void)
 -- {
---   Say拜拜();
+--   (Say拜拜)();
 -- }
 -- signed int hs_bindgen_2a3071850c230aa3 (void)
 -- {
---   return adiós_fun();
+--   return (adiós_fun)();
 -- }
 -- void hs_bindgen_1814d14d59d9daf7 (void)
 -- {
---   ϒ();
+--   (ϒ)();
 -- }
 -- void hs_bindgen_c1ab9527e537714b (void)
 -- {
---   拜拜();
+--   (拜拜)();
 -- }
 -- void hs_bindgen_d532055af9051fad (void)
 -- {
---   Say拜拜();
+--   (Say拜拜)();
 -- }
 -- /* test_edgecasesadios_Example_get_adiós_fun */
 -- __attribute__ ((const))

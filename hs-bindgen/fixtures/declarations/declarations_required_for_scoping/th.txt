@@ -6,13 +6,13 @@
 --   A arg1
 -- )
 -- {
---   f(arg1);
+--   (f)(arg1);
 -- }
 -- void hs_bindgen_93ed1628a0edf6b0 (
 --   A arg1
 -- )
 -- {
---   f(arg1);
+--   (f)(arg1);
 -- }
 -- /* test_declarationsdeclarations_requ_Example_get_f */
 -- __attribute__ ((const))

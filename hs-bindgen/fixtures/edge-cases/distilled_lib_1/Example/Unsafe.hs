@@ -18,7 +18,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  uint8_t (*arg3)[]"
   , ")"
   , "{"
-  , "  return some_fun(arg1, arg2, *arg3);"
+  , "  return (some_fun)(arg1, arg2, *arg3);"
   , "}"
   ]))
 

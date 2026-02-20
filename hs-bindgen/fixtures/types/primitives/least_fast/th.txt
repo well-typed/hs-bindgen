@@ -5,131 +5,131 @@
 -- #include <types/primitives/least_fast.h>
 -- int_least8_t hs_bindgen_ad6572fbf5eadb77 (void)
 -- {
---   return int_least8_t_fun();
+--   return (int_least8_t_fun)();
 -- }
 -- int_least16_t hs_bindgen_1b76f016106283f9 (void)
 -- {
---   return int_least16_t_fun();
+--   return (int_least16_t_fun)();
 -- }
 -- int_least32_t hs_bindgen_6ed0daff627b4e5c (void)
 -- {
---   return int_least32_t_fun();
+--   return (int_least32_t_fun)();
 -- }
 -- int_least64_t hs_bindgen_3973a552158e924e (void)
 -- {
---   return int_least64_t_fun();
+--   return (int_least64_t_fun)();
 -- }
 -- uint_least8_t hs_bindgen_8444813dd4e79f7f (void)
 -- {
---   return uint_least8_t_fun();
+--   return (uint_least8_t_fun)();
 -- }
 -- uint_least16_t hs_bindgen_1b71c9bb2bf1881f (void)
 -- {
---   return uint_least16_t_fun();
+--   return (uint_least16_t_fun)();
 -- }
 -- uint_least32_t hs_bindgen_24abaf3275c0126f (void)
 -- {
---   return uint_least32_t_fun();
+--   return (uint_least32_t_fun)();
 -- }
 -- uint_least64_t hs_bindgen_45be86cc87258955 (void)
 -- {
---   return uint_least64_t_fun();
+--   return (uint_least64_t_fun)();
 -- }
 -- int_fast8_t hs_bindgen_223fd78a0ee18a9d (void)
 -- {
---   return int_fast8_t_fun();
+--   return (int_fast8_t_fun)();
 -- }
 -- int_fast16_t hs_bindgen_097db32b72dabc72 (void)
 -- {
---   return int_fast16_t_fun();
+--   return (int_fast16_t_fun)();
 -- }
 -- int_fast32_t hs_bindgen_a406174bb602d355 (void)
 -- {
---   return int_fast32_t_fun();
+--   return (int_fast32_t_fun)();
 -- }
 -- int_fast64_t hs_bindgen_eeb2cb113fbc86ce (void)
 -- {
---   return int_fast64_t_fun();
+--   return (int_fast64_t_fun)();
 -- }
 -- uint_fast8_t hs_bindgen_32aa304dae0c8a3d (void)
 -- {
---   return uint_fast8_t_fun();
+--   return (uint_fast8_t_fun)();
 -- }
 -- uint_fast16_t hs_bindgen_81ec605d32f0724d (void)
 -- {
---   return uint_fast16_t_fun();
+--   return (uint_fast16_t_fun)();
 -- }
 -- uint_fast32_t hs_bindgen_f20ac50dff139544 (void)
 -- {
---   return uint_fast32_t_fun();
+--   return (uint_fast32_t_fun)();
 -- }
 -- uint_fast64_t hs_bindgen_9d5a9bc3a5b3b294 (void)
 -- {
---   return uint_fast64_t_fun();
+--   return (uint_fast64_t_fun)();
 -- }
 -- int_least8_t hs_bindgen_57bd94cbb0575f53 (void)
 -- {
---   return int_least8_t_fun();
+--   return (int_least8_t_fun)();
 -- }
 -- int_least16_t hs_bindgen_f02c70143a88af90 (void)
 -- {
---   return int_least16_t_fun();
+--   return (int_least16_t_fun)();
 -- }
 -- int_least32_t hs_bindgen_f5bbad7b8ac35f06 (void)
 -- {
---   return int_least32_t_fun();
+--   return (int_least32_t_fun)();
 -- }
 -- int_least64_t hs_bindgen_b2036b95960e2751 (void)
 -- {
---   return int_least64_t_fun();
+--   return (int_least64_t_fun)();
 -- }
 -- uint_least8_t hs_bindgen_d893fc1d41730120 (void)
 -- {
---   return uint_least8_t_fun();
+--   return (uint_least8_t_fun)();
 -- }
 -- uint_least16_t hs_bindgen_eaf2d3e09a41513e (void)
 -- {
---   return uint_least16_t_fun();
+--   return (uint_least16_t_fun)();
 -- }
 -- uint_least32_t hs_bindgen_dfdb9c77b9f2e16d (void)
 -- {
---   return uint_least32_t_fun();
+--   return (uint_least32_t_fun)();
 -- }
 -- uint_least64_t hs_bindgen_35c7ddf6def5281e (void)
 -- {
---   return uint_least64_t_fun();
+--   return (uint_least64_t_fun)();
 -- }
 -- int_fast8_t hs_bindgen_5144ac530f23abd8 (void)
 -- {
---   return int_fast8_t_fun();
+--   return (int_fast8_t_fun)();
 -- }
 -- int_fast16_t hs_bindgen_a102db8605e0b669 (void)
 -- {
---   return int_fast16_t_fun();
+--   return (int_fast16_t_fun)();
 -- }
 -- int_fast32_t hs_bindgen_97faff4568d5bc6a (void)
 -- {
---   return int_fast32_t_fun();
+--   return (int_fast32_t_fun)();
 -- }
 -- int_fast64_t hs_bindgen_ce1a64e61a9f9432 (void)
 -- {
---   return int_fast64_t_fun();
+--   return (int_fast64_t_fun)();
 -- }
 -- uint_fast8_t hs_bindgen_653d74ee9fd982e2 (void)
 -- {
---   return uint_fast8_t_fun();
+--   return (uint_fast8_t_fun)();
 -- }
 -- uint_fast16_t hs_bindgen_31bf7eba8a098bae (void)
 -- {
---   return uint_fast16_t_fun();
+--   return (uint_fast16_t_fun)();
 -- }
 -- uint_fast32_t hs_bindgen_fb324d72364e5685 (void)
 -- {
---   return uint_fast32_t_fun();
+--   return (uint_fast32_t_fun)();
 -- }
 -- uint_fast64_t hs_bindgen_a2995f3603c68c65 (void)
 -- {
---   return uint_fast64_t_fun();
+--   return (uint_fast64_t_fun)();
 -- }
 -- /* test_typesprimitivesleast_fast_Example_get_int_least8_t_fun */
 -- __attribute__ ((const))

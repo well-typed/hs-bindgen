@@ -5,14 +5,14 @@
 --   char arg2
 -- )
 -- {
---   return quux(arg1, arg2);
+--   return (quux)(arg1, arg2);
 -- }
 -- C *hs_bindgen_195036c94aad554b (
 --   float arg1,
 --   C *arg2
 -- )
 -- {
---   return wam(arg1, arg2);
+--   return (wam)(arg1, arg2);
 -- }
 -- char *hs_bindgen_a40b504a8f7c1d11 (
 --   float arg1,
@@ -21,7 +21,7 @@
 -- )
 -- )
 -- {
---   return foo1(arg1, arg2);
+--   return (foo1)(arg1, arg2);
 -- }
 -- char *hs_bindgen_83392129a2035c99 (
 --   F arg1,
@@ -30,7 +30,7 @@
 -- )
 -- )
 -- {
---   return foo2(arg1, arg2);
+--   return (foo2)(arg1, arg2);
 -- }
 -- C *hs_bindgen_0c7f4bce7905d355 (
 --   float arg1,
@@ -39,7 +39,7 @@
 -- )
 -- )
 -- {
---   return foo3(arg1, arg2);
+--   return (foo3)(arg1, arg2);
 -- }
 -- signed int (*hs_bindgen_3471ca0525deb2c0 (
 --   signed long arg1
@@ -47,7 +47,7 @@
 --   signed short arg1
 -- )
 -- {
---   return bar1(arg1);
+--   return (bar1)(arg1);
 -- }
 -- signed int (*hs_bindgen_d5a4af88f772ff72 (
 --   L arg1
@@ -55,7 +55,7 @@
 --   signed short arg1
 -- )
 -- {
---   return bar2(arg1);
+--   return (bar2)(arg1);
 -- }
 -- signed int (*hs_bindgen_b289d62136acab77 (
 --   signed long arg1
@@ -63,7 +63,7 @@
 --   S arg1
 -- )
 -- {
---   return bar3(arg1);
+--   return (bar3)(arg1);
 -- }
 -- I (*hs_bindgen_2b5b36cf49f0e40e (
 --   signed long arg1
@@ -71,43 +71,43 @@
 --   signed short arg1
 -- )
 -- {
---   return bar4(arg1);
+--   return (bar4)(arg1);
 -- }
 -- signed int (*hs_bindgen_b56f5f3515f3cc33 (
 --   signed int const arg1
 -- ))[2][3]
 -- {
---   return baz1(arg1);
+--   return (baz1)(arg1);
 -- }
 -- signed int (*hs_bindgen_0b9b2e4d1699b6f3 (
 --   I const arg1
 -- ))[2][3]
 -- {
---   return baz2(arg1);
+--   return (baz2)(arg1);
 -- }
 -- I (*hs_bindgen_459eabcbd019687c (
 --   signed int const arg1
 -- ))[2][3]
 -- {
---   return baz3(arg1);
+--   return (baz3)(arg1);
 -- }
 -- I hs_bindgen_7ae4ab0ad4fb8cad (void)
 -- {
---   return no_args_no_void();
+--   return (no_args_no_void)();
 -- }
 -- char hs_bindgen_ab9081efcd629826 (
 --   F arg1,
 --   char arg2
 -- )
 -- {
---   return quux(arg1, arg2);
+--   return (quux)(arg1, arg2);
 -- }
 -- C *hs_bindgen_7db4d5f10d9904d8 (
 --   float arg1,
 --   C *arg2
 -- )
 -- {
---   return wam(arg1, arg2);
+--   return (wam)(arg1, arg2);
 -- }
 -- char *hs_bindgen_18401e906d384fd5 (
 --   float arg1,
@@ -116,7 +116,7 @@
 -- )
 -- )
 -- {
---   return foo1(arg1, arg2);
+--   return (foo1)(arg1, arg2);
 -- }
 -- char *hs_bindgen_1e16ebe63a290ff6 (
 --   F arg1,
@@ -125,7 +125,7 @@
 -- )
 -- )
 -- {
---   return foo2(arg1, arg2);
+--   return (foo2)(arg1, arg2);
 -- }
 -- C *hs_bindgen_091043692da958ac (
 --   float arg1,
@@ -134,7 +134,7 @@
 -- )
 -- )
 -- {
---   return foo3(arg1, arg2);
+--   return (foo3)(arg1, arg2);
 -- }
 -- signed int (*hs_bindgen_cf4fa39c5b4ef431 (
 --   signed long arg1
@@ -142,7 +142,7 @@
 --   signed short arg1
 -- )
 -- {
---   return bar1(arg1);
+--   return (bar1)(arg1);
 -- }
 -- signed int (*hs_bindgen_9092ebfb46f7f31b (
 --   L arg1
@@ -150,7 +150,7 @@
 --   signed short arg1
 -- )
 -- {
---   return bar2(arg1);
+--   return (bar2)(arg1);
 -- }
 -- signed int (*hs_bindgen_a5e6607b472003eb (
 --   signed long arg1
@@ -158,7 +158,7 @@
 --   S arg1
 -- )
 -- {
---   return bar3(arg1);
+--   return (bar3)(arg1);
 -- }
 -- I (*hs_bindgen_050bd8903c7b13dd (
 --   signed long arg1
@@ -166,29 +166,29 @@
 --   signed short arg1
 -- )
 -- {
---   return bar4(arg1);
+--   return (bar4)(arg1);
 -- }
 -- signed int (*hs_bindgen_f378b374e8c8c095 (
 --   signed int const arg1
 -- ))[2][3]
 -- {
---   return baz1(arg1);
+--   return (baz1)(arg1);
 -- }
 -- signed int (*hs_bindgen_27cf571d08ac8c04 (
 --   I const arg1
 -- ))[2][3]
 -- {
---   return baz2(arg1);
+--   return (baz2)(arg1);
 -- }
 -- I (*hs_bindgen_c4035ef23b908e27 (
 --   signed int const arg1
 -- ))[2][3]
 -- {
---   return baz3(arg1);
+--   return (baz3)(arg1);
 -- }
 -- I hs_bindgen_77a9149f03b2767f (void)
 -- {
---   return no_args_no_void();
+--   return (no_args_no_void)();
 -- }
 -- /* test_macrosmacro_in_fundecl_Example_get_quux */
 -- __attribute__ ((const))

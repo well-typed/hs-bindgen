@@ -11,7 +11,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   [ "#include <functions/varargs.h>"
   , "void hs_bindgen_32ebae80cc3543e1 (void)"
   , "{"
-  , "  h();"
+  , "  (h)();"
   , "}"
   ]))
 

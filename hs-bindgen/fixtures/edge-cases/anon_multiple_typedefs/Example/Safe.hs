@@ -15,7 +15,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  point2b arg2"
   , ")"
   , "{"
-  , "  test(*arg1, arg2);"
+  , "  (test)(*arg1, arg2);"
   , "}"
   ]))
 

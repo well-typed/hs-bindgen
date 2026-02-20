@@ -229,7 +229,7 @@ prettyExpr env  (Var s)      = lookupEnv s env
 prettyExpr _env (NamedVar n) = showString n
 prettyExpr env  (DeRef e)    = showChar '*' . prettyExpr env e
 prettyExpr env  (Address e)  = showChar '&' . prettyExpr env e
-prettyExpr env  (Call f xs)  = showString f . showParen True (foldMapSepShowS (showString ", ") (prettyExpr env) xs)
+prettyExpr env  (Call f xs)  = showParen True (showString f) . showParen True (foldMapSepShowS (showString ", ") (prettyExpr env) xs)
 prettyExpr env  (Return e)   = showString "return " . prettyExpr env e
 prettyExpr env  (Assign x e) = prettyLVal env x . showString " = " . prettyExpr env e
 

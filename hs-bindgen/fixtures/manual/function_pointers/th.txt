@@ -4,14 +4,14 @@
 --   signed int arg1
 -- )
 -- {
---   return square(arg1);
+--   return (square)(arg1);
 -- }
 -- signed int hs_bindgen_3dfb239ac098f471 (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
---   return plus(arg1, arg2);
+--   return (plus)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_983beb37938c4d96 (
 --   signed int (*arg1) (
@@ -20,7 +20,7 @@
 --   signed int arg2
 -- )
 -- {
---   return apply1(arg1, arg2);
+--   return (apply1)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_8a62074f5475563b (
 --   signed int (*arg1) (
@@ -31,41 +31,41 @@
 --   signed int arg3
 -- )
 -- {
---   return apply2(arg1, arg2, arg3);
+--   return (apply2)(arg1, arg2, arg3);
 -- }
 -- signed int hs_bindgen_229d4041a92cd6b6 (
 --   int2int *arg1,
 --   signed int arg2
 -- )
 -- {
---   return apply1_pointer_arg(arg1, arg2);
+--   return (apply1_pointer_arg)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_de9f1109e03648e4 (
 --   int2int *arg1,
 --   signed int arg2
 -- )
 -- {
---   return apply1_nopointer_arg(arg1, arg2);
+--   return (apply1_nopointer_arg)(arg1, arg2);
 -- }
 -- signed int (*const hs_bindgen_8bea6b2106c55d5b (void)) (
 --   int2int *arg1,
 --   signed int arg2
 -- )
 -- {
---   return apply1_nopointer_res();
+--   return (apply1_nopointer_res)();
 -- }
 -- signed int hs_bindgen_db669c022bc12e81 (
 --   signed int arg1
 -- )
 -- {
---   return square(arg1);
+--   return (square)(arg1);
 -- }
 -- signed int hs_bindgen_0bb46b9dde136391 (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
---   return plus(arg1, arg2);
+--   return (plus)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_3ff551d60859d359 (
 --   signed int (*arg1) (
@@ -74,7 +74,7 @@
 --   signed int arg2
 -- )
 -- {
---   return apply1(arg1, arg2);
+--   return (apply1)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_4c92d113161d27cf (
 --   signed int (*arg1) (
@@ -85,28 +85,28 @@
 --   signed int arg3
 -- )
 -- {
---   return apply2(arg1, arg2, arg3);
+--   return (apply2)(arg1, arg2, arg3);
 -- }
 -- signed int hs_bindgen_2f904bf3ce7a5f06 (
 --   int2int *arg1,
 --   signed int arg2
 -- )
 -- {
---   return apply1_pointer_arg(arg1, arg2);
+--   return (apply1_pointer_arg)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_966092b638965558 (
 --   int2int *arg1,
 --   signed int arg2
 -- )
 -- {
---   return apply1_nopointer_arg(arg1, arg2);
+--   return (apply1_nopointer_arg)(arg1, arg2);
 -- }
 -- signed int (*const hs_bindgen_99a8340e6e6029c5 (void)) (
 --   int2int *arg1,
 --   signed int arg2
 -- )
 -- {
---   return apply1_nopointer_res();
+--   return (apply1_nopointer_res)();
 -- }
 -- /* test_manualfunction_pointers_Example_get_square */
 -- __attribute__ ((const))
