@@ -257,10 +257,10 @@ instance IsTrace l a => WrongCountMsg a GotExpectedTrace where
   wrongCount _ 1 n _ =
       case compare n 1 of
         LT -> "Expected a single trace but no trace was emitted"
-        EQ -> panicPure "error: received correct count"
+        EQ -> panicPure "Received correct count"
         GT -> "Expected a single trace but more traces were emitted"
   wrongCount _ i _ _ =
-      panicPure $ "unexpected \"expected count\": " ++ show i
+      panicPure $ "Unexpected \"expected count\": " ++ show i
 
 -- | The general case, with user-defined labels as documents
 instance (IsTrace l a, Show a, RenderLabel b)

@@ -104,6 +104,7 @@ library internal
     HsBindgen.Backend.Hs.Translation.Structure
     HsBindgen.Backend.Hs.Translation.ToFromFunPtr
     HsBindgen.Backend.Hs.Translation.Type
+    HsBindgen.Backend.Hs.Translation.Union
     HsBindgen.Backend.HsModule.CAPI
     HsBindgen.Backend.HsModule.Names
     HsBindgen.Backend.HsModule.Render

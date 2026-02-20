@@ -130,9 +130,9 @@ data ArtefactMsg =
 instance PrettyForTrace ArtefactMsg where
   prettyForTrace = \case
     NoBindingsSingleModule md ->
-      "Module" <+> PP.show md <+> "does not contain any bindings"
+      "No output generated (module " <+> PP.show md <+> " is empty)"
     NoBindingsMultipleModules md ->
-      "All binding categories with base module name" <+> PP.show md <+> "are empty"
+      "No output generated (all binding categories with base module name " <+> PP.show md <+> " are empty)"
     SkipWriteToFileNoBindings fp ->
       "Skipping 'write file' operation (" >< PP.show fp >< "): file is empty"
 

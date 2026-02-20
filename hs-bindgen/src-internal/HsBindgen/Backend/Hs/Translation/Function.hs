@@ -164,7 +164,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
         -- A type that is not supported by the Haskell FFI as a function result.
         -- We pass it as a function parameter instead.
         PassByAddress {} -> Just $ toPrimitiveType primResult
-        PassByAddressArray{} -> panicPure "an array can not be a function result"
+        PassByAddressArray{} -> panicPure "An array can not be a function result"
         -- A "normal" result type that is supported by the Haskell FFI.
         PassByValue {} -> Nothing
 
@@ -179,7 +179,7 @@ functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spe
         -- A type that is not supported by the Haskell FFI as a function result.
         -- We pass it as a function parameter instead.
         PassByAddress {} -> mkFunRes C.TypeVoid
-        PassByAddressArray{} -> panicPure "an array can not be a function result"
+        PassByAddressArray{} -> panicPure "An array can not be a function result"
         -- A "normal" result type that is supported by the Haskell FFI.
         PassByValue {} -> mkFunRes $ toPrimitiveType primResult
       where

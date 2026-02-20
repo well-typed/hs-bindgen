@@ -113,9 +113,6 @@ updateDeclMeta td nm fs declMeta = declMeta{
 
 {-------------------------------------------------------------------------------
   Pass 1: Choose names
-
-  When this fails, we construct a placeholder name; this allows us to proceed
-  even if there are errors.
 -------------------------------------------------------------------------------}
 
 type NameMap = Map DeclId Hs.Identifier
@@ -258,7 +255,10 @@ fixCandidate :: forall ns.
 fixCandidate fc _ cName =
     case FixCandidate.fixCandidate fc cName :: Maybe (Hs.ExportedName ns) of
       Just hsName -> (Hs.Identifier hsName.text, [])
-      Nothing -> (Hs.Identifier "", [MangleNamesCouldNotMangle cName])
+      -- Use placeholder name.
+      Nothing ->
+        let placeholder = "CouldNotMangleCName_" <> cName
+        in (Hs.Identifier placeholder, [MangleNamesCouldNotMangle cName])
 
 fromDeclId :: forall ns.
      Hs.SingNamespace ns
@@ -346,7 +346,7 @@ searchNameMap name = WrapM $ do
                           may
 
 {-------------------------------------------------------------------------------
-  Pass 2: apply NameMap
+  Pass 2: Apply NameMap
 -------------------------------------------------------------------------------}
 
 class Mangle a where
@@ -415,6 +415,25 @@ mangleFieldName info fieldCName = do
     ScopedNamePair fieldCName <$>
       mkIdentifier info (Proxy @Hs.NsVar) candidate
 
+mkAccessorName ::
+     Text
+  -> C.DeclInfo MangleNames
+  -> C.ScopedName
+  -> M (Hs.Name Hs.NsVar)
+mkAccessorName prefix info fieldCName =
+    Hs.unsafeHsIdHsName <$> mkIdentifier info (Proxy @Hs.NsVar) candidate
+  where
+    candidate :: Text
+    candidate =
+      prefix <> "_" <> info.id.unsafeHsName.text <> "_" <> fieldCName.text
+
+mkGetterName, mkSetterName ::
+     C.DeclInfo MangleNames
+  -> C.ScopedName
+  -> M (Hs.Name Hs.NsVar)
+mkGetterName = mkAccessorName "get"
+mkSetterName = mkAccessorName "set"
+
 -- | Mangle enum constant name
 --
 -- Since these live in the global namespace, we do not prepend the name of
@@ -452,19 +471,22 @@ mkStructNames info = RecordNames{
       constr = Hs.unsafeHsIdHsName info.id.unsafeHsName
     }
 
--- | Generic construction of newtype names, given only the type name
---
-mkNewtypeNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
-mkNewtypeNames strategy info = NewtypeNames{
-      constr = Hs.unsafeHsIdHsName $                     info.id.unsafeHsName
-    , field  = Hs.unsafeHsIdHsName $ unwrapName strategy info.id.unsafeHsName
-    }
+mkFieldName :: FieldNamingStrategy -> C.DeclInfo MangleNames -> Hs.Name Hs.NsVar
+mkFieldName strategy info = Hs.unsafeHsIdHsName $ unwrapName strategy info.id.unsafeHsName
   where
     unwrapName :: FieldNamingStrategy -> Hs.Identifier -> Hs.Identifier
     unwrapName fns typeName  = Hs.Identifier $
       case fns of
         PrefixedFieldNames   -> "unwrap" <> typeName.text
         EnableRecordDot      -> "unwrap"
+
+-- | Generic construction of newtype names, given only the type name
+--
+mkNewtypeNames :: FieldNamingStrategy -> C.DeclInfo MangleNames -> NewtypeNames
+mkNewtypeNames strategy info = NewtypeNames{
+      constr = Hs.unsafeHsIdHsName  info.id.unsafeHsName
+    , field  = mkFieldName strategy info
+    }
 
 -- | Union names
 --
@@ -564,25 +586,23 @@ instance MangleInDecl C.Union where
 
 instance MangleInDecl C.UnionField where
   mangleInDecl info field = do
-      reconstruct
-        <$> mangleFieldName info field.info.name
-        <*> mangle field.typ
-        <*> mapM mangle field.info.comment
-    where
-      reconstruct ::
-           ScopedNamePair
-        -> C.Type MangleNames
-        -> Maybe (C.Comment MangleNames)
-        -> C.UnionField MangleNames
-      reconstruct unionFieldName' unionFieldType' unionFieldComment' =
+      fieldName    <- mangleFieldName info field.info.name
+      fieldType    <- mangle field.typ
+      fieldComment <- mapM mangle field.info.comment
+      getterName   <- mkGetterName info field.info.name
+      setterName   <- mkSetterName info field.info.name
+      pure $
         C.UnionField {
             info = C.FieldInfo {
                        loc     = field.info.loc
-                     , name    = unionFieldName'
-                     , comment = unionFieldComment'
+                     , name    = fieldName
+                     , comment = fieldComment
                      }
-          , typ  = unionFieldType'
-          , ann  = field.ann
+          , typ  = fieldType
+          , ann  = UnionFieldNames {
+              getter = getterName
+            , setter = setterName
+          }
           }
 
 instance MangleInDecl C.Enum where
@@ -777,7 +797,6 @@ invert = Map.foldlWithKey' aux Map.empty
 getDuplicates :: forall k v. (Ord v) => Map k v -> Map v [k]
 getDuplicates = Map.filter isDup . invert
   where
-
     isDup :: [a] -> Bool
     isDup (_:_:_) = True
     isDup _       = False

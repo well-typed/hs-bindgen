@@ -246,21 +246,21 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 -- | Top-level declaration
 type Decl :: Star
 data Decl where
-    DeclTypSyn               :: TypSyn              -> Decl
-    DeclData                 :: SNatI n => Struct n -> Decl
-    DeclEmpty                :: EmptyData           -> Decl
-    DeclNewtype              :: Newtype             -> Decl
-    DeclPatSyn               :: PatSyn              -> Decl
-    DeclDefineInstance       :: DefineInstance      -> Decl
-    DeclDeriveInstance       :: DeriveInstance      -> Decl
-    DeclForeignImport        :: ForeignImportDecl   -> Decl
+    DeclTypSyn               :: TypSyn               -> Decl
+    DeclData                 :: SNatI n => Struct n  -> Decl
+    DeclEmpty                :: EmptyData            -> Decl
+    DeclNewtype              :: Newtype              -> Decl
+    DeclPatSyn               :: PatSyn               -> Decl
+    DeclDefineInstance       :: DefineInstance       -> Decl
+    DeclDeriveInstance       :: DeriveInstance       -> Decl
+    DeclForeignImport        :: ForeignImportDecl    -> Decl
     DeclForeignImportDynamic :: ForeignImportDynamic -> Decl
     DeclForeignImportWrapper :: ForeignImportWrapper -> Decl
-    DeclFunction             :: FunctionDecl        -> Decl
-    DeclMacroExpr            :: MacroExpr           -> Decl
-    DeclUnionGetter          :: UnionGetter         -> Decl
-    DeclUnionSetter          :: UnionSetter         -> Decl
-    DeclVar                  :: Var                 -> Decl
+    DeclFunction             :: FunctionDecl         -> Decl
+    DeclMacroExpr            :: MacroExpr            -> Decl
+    DeclUnionGetter          :: UnionGetter          -> Decl
+    DeclUnionSetter          :: UnionSetter          -> Decl
+    DeclVar                  :: Var                  -> Decl
 deriving instance Show Decl
 
 data DefineInstance = DefineInstance{
