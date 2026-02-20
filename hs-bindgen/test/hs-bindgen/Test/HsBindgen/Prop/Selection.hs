@@ -15,8 +15,8 @@ import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Language.C qualified as C
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Prop.Selection" [
@@ -116,17 +116,17 @@ prop_parseHeaderPathMatchesNeedle (SourcePath pathT) =
   Select pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectTrue :: SourcePath -> C.DeclName -> C.Availability -> Bool
+prop_selectTrue :: SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectTrue path name availability =
   matchSelect (const True) (const True) path name availability BTrue
 
-prop_selectFalse :: SourcePath -> C.DeclName -> C.Availability -> Bool
+prop_selectFalse :: SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectFalse path name availability =
     not $ matchSelect (const True) (const True) path name availability BFalse
 
 prop_selectAnd
   :: Fun SourcePath Bool -> Fun SourcePath Bool
-  -> SourcePath -> C.DeclName -> C.Availability
+  -> SourcePath -> CDeclName -> C.Availability
   -> Boolean SelectPredicate -> Boolean SelectPredicate -> Bool
 prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
     let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
@@ -137,7 +137,7 @@ prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p
 
 prop_selectOr
   :: Fun SourcePath Bool -> Fun SourcePath Bool
-  -> SourcePath -> C.DeclName -> C.Availability
+  -> SourcePath -> CDeclName -> C.Availability
   -> Boolean SelectPredicate -> Boolean SelectPredicate -> Bool
 prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1 p2 =
     let p1Res = matchSelect isMainHeader isInMainHeaderDir path name availability p1
@@ -148,54 +148,54 @@ prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p1
 
 prop_selectNot
   :: Fun SourcePath Bool -> Fun SourcePath Bool
-  -> SourcePath -> C.DeclName -> C.Availability
+  -> SourcePath -> CDeclName -> C.Availability
   -> Boolean SelectPredicate -> Property
 prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path name availability p =
       matchSelect isMainHeader isInMainHeaderDir path name availability p
   =/= matchSelect isMainHeader isInMainHeaderDir path name availability (BNot p)
 
 prop_selectFromMainHeaders
-  :: Fun SourcePath Bool -> SourcePath -> C.DeclName -> C.Availability -> Bool
+  :: Fun SourcePath Bool -> SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectFromMainHeaders (Fn isMainHeader) path name availability =
   let p = BIf $ SelectHeader FromMainHeaders
    in matchSelect isMainHeader unused path name availability p == isMainHeader path
 
 prop_selectFromMainHeaderDirs
-  :: Fun SourcePath Bool -> SourcePath -> C.DeclName -> C.Availability -> Bool
+  :: Fun SourcePath Bool -> SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) path name availability =
   let p = BIf $ SelectHeader FromMainHeaderDirs
    in matchSelect unused isInMainHeaderDir path name availability p
         == isInMainHeaderDir path
 
 prop_selectHeaderPathMatchesAll ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectHeaderPathMatchesAll path name availability =
   let p = BIf $ SelectHeader (HeaderPathMatches ".*")
    in matchSelect unused unused path name availability p
 
 prop_selectHeaderPathMatchesNeedle ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectHeaderPathMatchesNeedle (SourcePath pathT) name availability =
   let path = SourcePath $ pathT <> "NEEDLE" <> pathT
       p = BIf $ SelectHeader (HeaderPathMatches "NEEDLE")
    in matchSelect unused unused path name availability p
 
 prop_selectDeclNameMatchesAll ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectDeclNameMatchesAll path name availability =
   let p = BIf $ SelectDecl (DeclNameMatches ".*")
    in matchSelect unused unused path name availability p
 
 prop_selectDeclNameMatchesNeedle ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectDeclNameMatchesNeedle path declName availability =
   let name  = declName.text
-      name' = C.DeclName (name <> "NEEDLE" <> name) declName.kind
+      name' = CDeclName (name <> "NEEDLE" <> name) declName.kind
       p     = BIf $ SelectDecl (DeclNameMatches "NEEDLE")
    in matchSelect unused unused path name' availability p
 
 prop_selectDeclMatchDeprecated ::
-  SourcePath -> C.DeclName -> C.Availability -> Bool
+  SourcePath -> CDeclName -> C.Availability -> Bool
 prop_selectDeclMatchDeprecated path name availability =
   let p = BIf $ SelectDecl DeclDeprecated
    in matchSelect unused unused path name availability p
@@ -252,11 +252,11 @@ instance Function SourcePath where
 instance CoArbitrary SourcePath where
   coarbitrary = coarbitraryShow
 
-instance Arbitrary C.NameKind where
+instance Arbitrary CNameKind where
   arbitrary = elements [minBound .. maxBound]
 
-instance Arbitrary C.DeclName where
-  arbitrary = C.DeclName <$> (Text.pack <$> arbitrary) <*> arbitrary
+instance Arbitrary CDeclName where
+  arbitrary = CDeclName <$> (Text.pack <$> arbitrary) <*> arbitrary
 
 instance Arbitrary C.Availability where
   arbitrary = elements [minBound .. maxBound]

@@ -29,8 +29,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 {-------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 -- | Anonymous declaration identifier
 data AnonId = AnonId{
       loc  :: SingleLoc
-    , kind :: C.NameKind
+    , kind :: CNameKind
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -51,7 +51,7 @@ data AnonId = AnonId{
 -- proper names in the 'AssignAnonIds' pass.
 data PrelimDeclId =
     -- | Named declaration
-    Named C.DeclName
+    Named CDeclName
 
     -- | Anonymous declaration
     --
@@ -63,12 +63,12 @@ data PrelimDeclId =
   Query
 -------------------------------------------------------------------------------}
 
-sourceName :: PrelimDeclId -> Maybe C.DeclName
+sourceName :: PrelimDeclId -> Maybe CDeclName
 sourceName = \case
     Named  name   -> Just name
     Anon  _anonId -> Nothing
 
-nameKind :: PrelimDeclId -> C.NameKind
+nameKind :: PrelimDeclId -> CNameKind
 nameKind = \case
     Named name -> name.kind
     Anon  anon -> anon.kind
@@ -80,7 +80,7 @@ nameKind = \case
 atCursor :: forall m.
      MonadIO m
   => CXCursor
-  -> C.NameKind
+  -> CNameKind
   -> m PrelimDeclId
 atCursor curr kind = do
     text <- clang_getCursorSpelling curr
@@ -105,7 +105,7 @@ atCursor curr kind = do
            -- (see "HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames").
            markAsAnon
        | otherwise ->
-           return $ Named C.DeclName{text = text, kind = kind}
+           return $ Named CDeclName{text = text, kind = kind}
   where
     markAsAnon :: m PrelimDeclId
     markAsAnon = do
@@ -133,9 +133,9 @@ instance PrettyForTrace AnonId where
   prettyForTrace anonId = PP.singleQuotes $ PP.hsep [
       "unnamed"
     , case anonId.kind of
-        C.NameKindTagged tagKind ->
-          PP.text (C.tagKindPrefix tagKind)
-        C.NameKindOrdinary ->
+        CNameKindTagged tagKind ->
+          PP.text (cTagKindPrefix tagKind)
+        CNameKindOrdinary ->
           PP.empty
     , "at"
     , PP.string $ HighLevel.prettySingleLoc ShowFile anonId.loc

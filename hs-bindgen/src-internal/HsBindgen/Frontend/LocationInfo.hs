@@ -18,7 +18,6 @@ import Clang.HighLevel.Types
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -46,12 +45,12 @@ data LocationInfo =
     --
     -- Usually we expect the list of locations to be a singleton: the location
     -- of the declaration.
-    LocationDeclNamed C.DeclName [SingleLoc]
+    LocationDeclNamed CDeclName [SingleLoc]
 
     -- | Message about an anonymous declaration
     --
     -- We record the /assigned/ name, /if/ it is available.
-  | LocationDeclAnon (Maybe C.DeclName) [SingleLoc]
+  | LocationDeclAnon (Maybe CDeclName) [SingleLoc]
 
     -- | No location information
   | LocationUnavailable
@@ -77,7 +76,7 @@ declIdLocationInfo declId knownLocs =
   Query 'LocationInfo'
 -------------------------------------------------------------------------------}
 
-locationInfoName :: LocationInfo -> Maybe C.DeclName
+locationInfoName :: LocationInfo -> Maybe CDeclName
 locationInfoName = \case
     LocationDeclNamed name _ -> Just name
     LocationDeclAnon mName _ -> mName

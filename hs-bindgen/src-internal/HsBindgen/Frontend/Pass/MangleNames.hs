@@ -32,7 +32,6 @@ import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -337,7 +336,7 @@ searchNameMap name = WrapM $ do
             Nothing -> Nothing
             Just _ -> Just $ DeclIdPair declId (mkAssignedId may)
        | kind <- [minBound .. maxBound]
-       , let declId = DeclId{name = C.DeclName name kind, isAnon = False}
+       , let declId = DeclId{name = CDeclName name kind, isAnon = False}
        , let may = Map.lookup declId nm
        ]
   where
@@ -402,7 +401,7 @@ mkIdentifier info ns candidate = do
 
 mangleFieldName ::
      C.DeclInfo MangleNames
-  -> C.ScopedName
+  -> CScopedName
   -> M ScopedNamePair
 mangleFieldName info fieldCName = do
     strategy <- WrapM $ asks (.fieldNamingStrategy)
@@ -417,7 +416,7 @@ mangleFieldName info fieldCName = do
 
 mangleAccessorName ::
      C.DeclInfo MangleNames
-  -> C.ScopedName
+  -> CScopedName
   -> M Hs.Identifier
 mangleAccessorName info fieldCName =
     mkIdentifier info (Proxy @Hs.NsVar) candidate
@@ -432,7 +431,7 @@ mangleAccessorName info fieldCName =
 -- the enclosing enum.
 mangleEnumConstant ::
      C.DeclInfo MangleNames
-  -> C.ScopedName
+  -> CScopedName
   -> M ScopedNamePair
 mangleEnumConstant info cName =
     ScopedNamePair cName <$>
@@ -445,7 +444,7 @@ mangleEnumConstant info cName =
 -- mangling.
 mangleArgumentName ::
      C.DeclInfo MangleNames
-  -> C.ScopedName
+  -> CScopedName
   -> M ScopedNamePair
 mangleArgumentName info argName =
     ScopedNamePair argName <$>

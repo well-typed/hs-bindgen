@@ -35,9 +35,9 @@ import HsBindgen.App
 import HsBindgen.Boot
 import HsBindgen.Clang
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -158,7 +158,7 @@ getMacros tracer clangArgs names =
 
     visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr -> do
-      PrelimDeclId.atCursor curr C.NameKindOrdinary >>= \case
+      PrelimDeclId.atCursor curr CNameKindOrdinary >>= \case
         PrelimDeclId.Anon{}     -> foldContinue
         PrelimDeclId.Named name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
@@ -208,7 +208,7 @@ getParamMacros tracer clangArgs names =
 
     visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr ->
-      PrelimDeclId.atCursor curr C.NameKindOrdinary >>= \case
+      PrelimDeclId.atCursor curr CNameKindOrdinary >>= \case
         PrelimDeclId.Anon{}     -> foldContinue
         PrelimDeclId.Named name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case

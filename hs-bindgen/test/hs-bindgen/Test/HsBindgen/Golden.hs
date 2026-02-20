@@ -24,7 +24,6 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 
@@ -221,7 +220,7 @@ test_manual_globals =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
         -- potential duplicate symbols
         "nonExternGlobalInt"
@@ -265,7 +264,7 @@ test_arrays_array =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           -- Duplicate symbols
           "arr0"
@@ -434,7 +433,7 @@ test_attributes_visibility_attributes =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           -- *** Functions ***
           -- Problematic non-public visibility
@@ -526,7 +525,7 @@ test_bindingSpecs_macro_trans_dep_missing =
           ]
       & #onFrontend .~
           #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
-      & #tracePredicate .~ multiTracePredicate ["foo" :: C.DeclName] (\case
+      & #tracePredicate .~ multiTracePredicate ["foo" :: CDeclName] (\case
             -- no macros should fail to parse
             MatchHandleMacros _ ->
               Just Unexpected
@@ -949,7 +948,7 @@ test_declarations_declaration_unselected_b =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["f"]
 
 test_declarations_definitions :: TestCase
@@ -960,7 +959,7 @@ test_declarations_definitions =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["foo", "n"]
 
 test_declarations_failing_tentative_definitions_linkage :: TestCase
@@ -982,7 +981,7 @@ test_declarations_name_collision =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["union y", "union Y"]
 
 test_declarations_redeclaration :: TestCase
@@ -995,7 +994,7 @@ test_declarations_redeclaration =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["x", "n"]
 
 test_declarations_redeclaration_different :: TestCase
@@ -1026,7 +1025,7 @@ test_declarations_select_scoping =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "ParsedAndSelected2"
         , "ParsedAndSelected3"
@@ -1047,7 +1046,7 @@ test_declarations_tentative_definitions =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["i1", "i2", "i3"]
 
 {-------------------------------------------------------------------------------
@@ -1093,7 +1092,7 @@ test_edgeCases_clang_generated_collision =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["struct foo"]
 
 test_edgeCases_duplicate :: TestCase
@@ -1114,7 +1113,7 @@ test_edgeCases_duplicate =
                Nothing
           )
   where
-    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs :: [(CDeclName, String)]
     declsWithMsgs = [
           ("duplicate", "conflict")
         , ("function", "transitive conflict")
@@ -1171,7 +1170,7 @@ test_edgeCases_unsupported_builtin =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["va_list"]
 
 {-------------------------------------------------------------------------------
@@ -1197,7 +1196,7 @@ test_functions_decls_in_signature =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["f3", "f4", "f5"]
 
 test_functions_fun_attributes :: TestCase
@@ -1219,7 +1218,7 @@ test_functions_fun_attributes =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "my_printf"
         , "i"
@@ -1236,7 +1235,7 @@ test_functions_fun_attributes_conflict =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = []
 
 test_functions_simple_func_rename :: TestCase
@@ -1258,7 +1257,7 @@ test_functions_varargs =
       MatchDelayed name (
           ParseUnsupportedType (
             UnsupportedUnderlyingType
-              (PrelimDeclId.Named (C.DeclName "va_list" C.NameKindOrdinary))
+              (PrelimDeclId.Named (CDeclName "va_list" CNameKindOrdinary))
               (UnsupportedBuiltin "__builtin_va_list")
           )
         ) ->
@@ -1266,7 +1265,7 @@ test_functions_varargs =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["f", "g"]
 
 {-------------------------------------------------------------------------------
@@ -1286,7 +1285,7 @@ test_globals_globals =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           -- non-extern non-static globals
           "nesBinary"
@@ -1332,7 +1331,7 @@ test_macros_macro_in_fundecl =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           -- Duplicate symbols
           "bar1", "bar2", "bar3", "bar4"
@@ -1350,7 +1349,7 @@ test_macros_macro_in_fundecl_vs_typedef =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["quux1", "quux2", "wam1", "wam2"]
 
 test_macros_macro_redefines_global :: TestCase
@@ -1361,7 +1360,7 @@ test_macros_macro_redefines_global =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["stdin", "stdout", "stderr"]
 
 test_macros_reparse :: TestCase
@@ -1423,7 +1422,7 @@ test_programAnalysis_delay_traces =
                Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "long_double_function"
         , "var_arg_function"
@@ -1456,7 +1455,7 @@ test_programAnalysis_program_slicing_macro_unselected =
   where
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1679>
     -- We should get a message about @foo@ missing.
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = []
 
 test_programAnalysis_program_slicing_typedef_selected :: TestCase
@@ -1479,7 +1478,7 @@ test_programAnalysis_program_slicing_typedef_unselected =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["foo"]
 
 test_programAnalysis_program_slicing_selection :: TestCase
@@ -1501,7 +1500,7 @@ test_programAnalysis_program_slicing_selection =
               Nothing
           )
   where
-    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs :: [(CDeclName, String)]
     declsWithMsgs = [
           ("struct FileOperationRecord" , "root")
         , ("read_file_chunk"            , "root")
@@ -1529,7 +1528,7 @@ test_programAnalysis_program_slicing_simple =
               Nothing
           )
   where
-    declsWithMsgs :: [(C.DeclName, String)]
+    declsWithMsgs :: [(CDeclName, String)]
     declsWithMsgs = [
           ("struct foo" , "root")
         , ("bar"        , "root")
@@ -1549,7 +1548,7 @@ test_programAnalysis_selection_bad =
         Nothing
   where
     -- @f@ depends on user-defined @size_t@, which is not selected
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["f"]
 
 test_programAnalysis_selection_fail :: TestCase
@@ -1564,7 +1563,7 @@ test_programAnalysis_selection_fail =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "struct Fail"
         , "struct Fail"
@@ -1590,7 +1589,7 @@ test_programAnalysis_selection_fail_variant_1 =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
         , "struct DependOnFailByReference"
@@ -1616,7 +1615,7 @@ test_programAnalysis_selection_fail_variant_2 =
              Nothing
          )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "struct DependOnFailByValue"
         , "struct DependOnFailByReference"
@@ -1640,7 +1639,7 @@ test_programAnalysis_selection_fail_variant_3 =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["struct OkBefore"]
 
 test_programAnalysis_selection_foo :: TestCase
@@ -1651,7 +1650,7 @@ test_programAnalysis_selection_foo =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["f"]
 
 test_programAnalysis_selection_matches_c_names_1 :: TestCase
@@ -1702,7 +1701,7 @@ test_programAnalysis_selection_merge_traces =
               (BNot (BIf (SelectDecl $ DeclNameMatches "struct X")))
               (BNot (BIf (SelectDecl $ DeclNameMatches "struct Y")))
 
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["dependsOnXAndY"]
 
 test_programAnalysis_selection_omit_external_a :: TestCase
@@ -1717,7 +1716,7 @@ test_programAnalysis_selection_omit_external_a =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["struct Omitted"]
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1361>
@@ -1740,7 +1739,7 @@ test_programAnalysis_selection_omit_prescriptive =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = [
           "struct DirectlyDependsOnOmitted"
         , "struct IndirectlyDependsOnOmitted"
@@ -1756,7 +1755,7 @@ test_programAnalysis_selection_squash =
               Nothing
           )
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["typedef_to_struct_a"]
 
 {-------------------------------------------------------------------------------
@@ -1773,7 +1772,7 @@ test_programAnalysis_typedef_analysis =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [(C.DeclName, Maybe Hs.Identifier)]
+    declsWithMsgs :: [(CDeclName, Maybe Hs.Identifier)]
     declsWithMsgs = [
           ("struct struct1"  , Just "Struct1_t")
         , ("struct1_t"       , Nothing)
@@ -1858,7 +1857,7 @@ test_types_special_parse_failure_long_double =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["fun1", "struct struct1"]
 
 test_types_structs_named_vs_anon :: TestCase
@@ -1895,7 +1894,7 @@ test_types_typedefs_typedefs =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["foo"]
 
 -- This tests https://github.com/well-typed/hs-bindgen/issues/1389.
@@ -1907,5 +1906,5 @@ test_types_typedefs_typenames =
       _otherwise ->
         Nothing
   where
-    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["enum foo", "foo"]

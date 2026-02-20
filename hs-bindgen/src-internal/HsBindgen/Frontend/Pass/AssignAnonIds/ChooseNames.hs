@@ -14,7 +14,6 @@ import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -55,7 +54,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
 
     declName :: PrelimDeclId -> Memoize (Maybe DeclId)
     declName = \case
-        PrelimDeclId.Named name@C.DeclName{} ->
+        PrelimDeclId.Named name@CDeclName{} ->
           return $ Just DeclId{name = name, isAnon = False}
         PrelimDeclId.Anon anonId ->
           nameFor anonId
@@ -63,7 +62,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     nameForField :: AnonId -> C.FieldInfo Parse -> DeclId -> DeclId
     nameForField anonId field outerStruct = DeclId{
           isAnon = True
-        , name   = C.DeclName{
+        , name   = CDeclName{
               text = outerStruct.name.text <> "_" <> field.name.text
             , kind = anonId.kind
             }
@@ -82,7 +81,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     nameForTypedefDirect :: AnonId -> DeclId -> DeclId
     nameForTypedefDirect anonId typedef = DeclId{
           isAnon = False -- 'False' instead of 'True'!
-        , name   = C.DeclName{
+        , name   = CDeclName{
               text = typedef.name.text
             , kind = anonId.kind
             }
@@ -96,7 +95,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     nameForTypedefIndirect :: AnonId -> DeclId -> DeclId
     nameForTypedefIndirect anonId typedef = DeclId{
           isAnon = True
-        , name   = C.DeclName{
+        , name   = CDeclName{
               text = typedef.name.text <> "_Aux"
             , kind = anonId.kind
             }
@@ -118,7 +117,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     nameForGlobalVar :: AnonId -> DeclId -> DeclId
     nameForGlobalVar anonId globalVar = DeclId{
           isAnon = True
-        , name   = C.DeclName{
+        , name   = CDeclName{
               text = globalVar.name.text
             , kind = anonId.kind
             }

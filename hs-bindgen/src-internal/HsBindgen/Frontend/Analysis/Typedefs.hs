@@ -23,7 +23,6 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -231,5 +230,5 @@ taggedPayload = go True
 
     typeRef :: Bool -> DeclId -> Maybe TaggedPayload
     typeRef isDirect declId = do
-        void $ C.checkIsTagged declId.name.kind
+        void $ checkIsTagged declId.name.kind
         return TaggedPayload{isDirect = isDirect, id = declId}

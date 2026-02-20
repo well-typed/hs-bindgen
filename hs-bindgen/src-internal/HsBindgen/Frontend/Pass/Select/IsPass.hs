@@ -31,7 +31,6 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------

@@ -25,6 +25,7 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Language.C qualified as C
 
 -- | Info about a function name
@@ -51,7 +52,7 @@ foreignImportDec ::
   -> FunName
   -> [FunParam]
   -> FunRes
-  -> C.DeclName
+  -> CDeclName
   -> CallConv
   -> Origin.ForeignImport
   -> Safety

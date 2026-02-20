@@ -30,10 +30,10 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.TraceMsg
 
 {-------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ matchDiagnosticSpelling text = \case
   Parse
 -------------------------------------------------------------------------------}
 
-pattern MatchParse :: C.DeclName -> ImmediateParseMsg -> TraceMsg
+pattern MatchParse :: CDeclName -> ImmediateParseMsg -> TraceMsg
 pattern MatchParse name x <- TraceFrontend (
       FrontendParse WithLocationInfo{
           loc = locationInfoName -> Just name
@@ -79,7 +79,7 @@ pattern MatchParse name x <- TraceFrontend (
         }
     )
 
-pattern MatchDelayed :: C.DeclName -> DelayedParseMsg -> TraceMsg
+pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
 pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
 
 pattern MatchUnknownStorageClass :: CX_StorageClass -> DelayedParseMsg
@@ -121,7 +121,7 @@ pattern MatchNoDeclarations <- TraceFrontend (
         }
     )
 
-pattern MatchSelect :: C.DeclName -> SelectMsg -> TraceMsg
+pattern MatchSelect :: CDeclName -> SelectMsg -> TraceMsg
 pattern MatchSelect name x <- TraceFrontend (
       FrontendSelect WithLocationInfo{
           loc = locationInfoName -> Just name
@@ -145,7 +145,7 @@ pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x _
   MangleNames
 -------------------------------------------------------------------------------}
 
-pattern MatchMangle :: C.DeclName -> MangleNamesMsg -> TraceMsg
+pattern MatchMangle :: CDeclName -> MangleNamesMsg -> TraceMsg
 pattern MatchMangle name x <- TraceFrontend (
       FrontendMangleNames WithLocationInfo{
            loc = locationInfoName -> Just name

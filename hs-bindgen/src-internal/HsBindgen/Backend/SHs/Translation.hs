@@ -26,9 +26,9 @@ import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Backend.SHs.Translation.Prim qualified as SHsPrim
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Errors
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -225,7 +225,7 @@ translateForeignImportWrapper importWrapper = DForeignImport ForeignImport{
           (tBindgenGlobal Foreign_FunPtr_type `TApp`
           translateType importWrapper.funType)
     , name       = importWrapper.name
-    , origName   = C.DeclName "wrapper" C.NameKindOrdinary
+    , origName   = CDeclName "wrapper" CNameKindOrdinary
     , callConv   = CallConvGhcCCall ImportAsValue
     , origin     = importWrapper.origin
     , comment    = importWrapper.comment
@@ -244,7 +244,7 @@ translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
           ]
     , result     = Result (translateType importDyn.funType) Nothing
     , name       = importDyn.name
-    , origName   = C.DeclName "dynamic" C.NameKindOrdinary
+    , origName   = CDeclName "dynamic" CNameKindOrdinary
     , callConv   = CallConvGhcCCall ImportAsValue
     , origin     = importDyn.origin
     , comment    = importDyn.comment
