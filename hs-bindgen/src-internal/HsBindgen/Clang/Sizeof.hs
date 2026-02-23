@@ -56,7 +56,7 @@ parseSizeof typ = do
         -- Word64/Int64, not Word128/Int128 or larger.
         panicPure $
         printf
-          "parseSizeof: unexpected sizeof(%s) = %d" spelling (fromIntegral sizeof :: Int)
+          "Unexpected sizeof(%s) = %d" spelling (fromIntegral sizeof :: Int)
 
 mkSizeofs :: [(Text, NumBytes)] -> Sizeofs
 mkSizeofs xs = Sizeofs {

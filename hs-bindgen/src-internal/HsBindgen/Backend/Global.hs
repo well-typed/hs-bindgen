@@ -105,7 +105,7 @@ bindgenToHsImport n = \case
     unsafeModuleName :: Hs.ModuleName
     unsafeModuleName = case TH.nameModule n of
       Nothing ->
-        panicPure $ "unsafeModuleName: expected name with module: " ++ show n
+        panicPure $ "Expected name with module: " ++ show n
       Just m  ->
         Hs.ModuleName $ Text.pack m
 

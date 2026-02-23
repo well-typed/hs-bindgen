@@ -4,13 +4,13 @@
 --   signed int arg1
 -- )
 -- {
---   fun2(arg1);
+--   (fun2)(arg1);
 -- }
 -- void hs_bindgen_61793546aa44e36b (
 --   signed int arg1
 -- )
 -- {
---   fun2(arg1);
+--   (fun2)(arg1);
 -- }
 -- /* test_typesspecialparse_failure_lo_Example_get_fun2 */
 -- __attribute__ ((const))

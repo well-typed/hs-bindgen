@@ -1,0 +1,47 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/aux_funptr_newtypes.h
+  cname: FunPtr
+  hsname: FunPtr
+- headers: edge-cases/aux_funptr_newtypes.h
+  cname: struct foo
+  hsname: Foo
+hstypes:
+- hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_x
+      - foo_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: FunPtr
+  representation:
+    newtype:
+      constructor: FunPtr
+      fields:
+      - unwrapFunPtr
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -16,7 +16,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  size_t arg2"
   , ")"
   , "{"
-  , "  return list_example(arg1, arg2);"
+  , "  return (list_example)(arg1, arg2);"
   , "}"
   ]))
 

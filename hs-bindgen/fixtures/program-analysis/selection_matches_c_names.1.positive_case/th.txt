@@ -2,11 +2,11 @@
 -- #include <program-analysis/selection_matches_c_names.h>
 -- signed int hs_bindgen_c9b1dc5577fd8ced (void)
 -- {
---   return FunctionWithAssignedHaskellNameByNameMangler();
+--   return (FunctionWithAssignedHaskellNameByNameMangler)();
 -- }
 -- signed int hs_bindgen_9a13a53e6a2f2416 (void)
 -- {
---   return FunctionWithAssignedHaskellNameByNameMangler();
+--   return (FunctionWithAssignedHaskellNameByNameMangler)();
 -- }
 -- /* test_programanalysisselection_mat_Example_get_FunctionWithAssignedHaskellNameByNameMangler */
 -- __attribute__ ((const))

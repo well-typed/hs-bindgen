@@ -11,64 +11,64 @@
 --   size_t *arg3
 -- )
 -- {
---   return process_data(arg1, arg2, arg3);
+--   return (process_data)(arg1, arg2, arg3);
 -- }
 -- _Bool hs_bindgen_fb85499c501da1a7 (
 --   char const *arg1
 -- )
 -- {
---   return process_file(arg1);
+--   return (process_file)(arg1);
 -- }
 -- signed int hs_bindgen_a73fc7b108035c5c (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
---   return calculate_value(arg1, arg2);
+--   return (calculate_value)(arg1, arg2);
 -- }
 -- _Bool hs_bindgen_9b7f6745401b4652 (
 --   signed int arg1
 -- )
 -- {
---   return html_example(arg1);
+--   return (html_example)(arg1);
 -- }
 -- _Bool hs_bindgen_825411dc114e599b (
 --   char const **arg1,
 --   size_t arg2
 -- )
 -- {
---   return list_example(arg1, arg2);
+--   return (list_example)(arg1, arg2);
 -- }
 -- void *hs_bindgen_17264dcff7e9b698 (
 --   void *arg1
 -- )
 -- {
---   return dangerous_function(arg1);
+--   return (dangerous_function)(arg1);
 -- }
 -- signed int hs_bindgen_c8ca619ec2e70d8d (
 --   char const *arg1
 -- )
 -- {
---   return detailed_return_codes(arg1);
+--   return (detailed_return_codes)(arg1);
 -- }
 -- signed int hs_bindgen_25e1070e2ce10048 (
 --   signed int arg1
 -- )
 -- {
---   return old_function(arg1);
+--   return (old_function)(arg1);
 -- }
 -- signed int hs_bindgen_a9eeeb09808e71cc (
 --   signed int arg1
 -- )
 -- {
---   return versioned_function(arg1);
+--   return (versioned_function)(arg1);
 -- }
 -- signed int hs_bindgen_0c0057f1700372a7 (
 --   char (*arg1)[64],
 --   size_t arg2
 -- )
 -- {
---   return process_buffer(*arg1, arg2);
+--   return (process_buffer)(*arg1, arg2);
 -- }
 -- void *hs_bindgen_294db77671f95524 (
 --   void *arg1,
@@ -76,13 +76,13 @@
 --   size_t arg3
 -- )
 -- {
---   return my_memcpy(arg1, arg2, arg3);
+--   return (my_memcpy)(arg1, arg2, arg3);
 -- }
 -- signed int hs_bindgen_f5bc63a9952c2618 (
 --   signed int arg1
 -- )
 -- {
---   return double_value(arg1);
+--   return (double_value)(arg1);
 -- }
 -- status_code_t hs_bindgen_c4e7e99dba20204d (
 --   config_t *arg1,
@@ -90,19 +90,19 @@
 --   size_t arg3
 -- )
 -- {
---   return complex_function(arg1, arg2, arg3);
+--   return (complex_function)(arg1, arg2, arg3);
 -- }
 -- signed int hs_bindgen_935f2aead358d9ef (
 --   char *arg1
 -- )
 -- {
---   return hash(arg1);
+--   return (hash)(arg1);
 -- }
 -- signed int hs_bindgen_39fef54c23d4e1ee (
 --   signed int arg1
 -- )
 -- {
---   return square(arg1);
+--   return (square)(arg1);
 -- }
 -- signed int hs_bindgen_e6085a910ba41ecb (
 --   uint8_t const *arg1,
@@ -110,64 +110,64 @@
 --   size_t *arg3
 -- )
 -- {
---   return process_data(arg1, arg2, arg3);
+--   return (process_data)(arg1, arg2, arg3);
 -- }
 -- _Bool hs_bindgen_c27e893aea0b0a77 (
 --   char const *arg1
 -- )
 -- {
---   return process_file(arg1);
+--   return (process_file)(arg1);
 -- }
 -- signed int hs_bindgen_bc1b0e25a72f4ec0 (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
---   return calculate_value(arg1, arg2);
+--   return (calculate_value)(arg1, arg2);
 -- }
 -- _Bool hs_bindgen_09abc3cb74562964 (
 --   signed int arg1
 -- )
 -- {
---   return html_example(arg1);
+--   return (html_example)(arg1);
 -- }
 -- _Bool hs_bindgen_47cba1a95d265f84 (
 --   char const **arg1,
 --   size_t arg2
 -- )
 -- {
---   return list_example(arg1, arg2);
+--   return (list_example)(arg1, arg2);
 -- }
 -- void *hs_bindgen_e065fc013e4eccd6 (
 --   void *arg1
 -- )
 -- {
---   return dangerous_function(arg1);
+--   return (dangerous_function)(arg1);
 -- }
 -- signed int hs_bindgen_bc4f7e24b2ad4ace (
 --   char const *arg1
 -- )
 -- {
---   return detailed_return_codes(arg1);
+--   return (detailed_return_codes)(arg1);
 -- }
 -- signed int hs_bindgen_8deec146389ae8b3 (
 --   signed int arg1
 -- )
 -- {
---   return old_function(arg1);
+--   return (old_function)(arg1);
 -- }
 -- signed int hs_bindgen_da2dcc1473935665 (
 --   signed int arg1
 -- )
 -- {
---   return versioned_function(arg1);
+--   return (versioned_function)(arg1);
 -- }
 -- signed int hs_bindgen_97c1191917e6eece (
 --   char (*arg1)[64],
 --   size_t arg2
 -- )
 -- {
---   return process_buffer(*arg1, arg2);
+--   return (process_buffer)(*arg1, arg2);
 -- }
 -- void *hs_bindgen_58253bb560dc3eb3 (
 --   void *arg1,
@@ -175,13 +175,13 @@
 --   size_t arg3
 -- )
 -- {
---   return my_memcpy(arg1, arg2, arg3);
+--   return (my_memcpy)(arg1, arg2, arg3);
 -- }
 -- signed int hs_bindgen_44dd19b16ee38e5b (
 --   signed int arg1
 -- )
 -- {
---   return double_value(arg1);
+--   return (double_value)(arg1);
 -- }
 -- status_code_t hs_bindgen_fd6fce7c8d8b2f79 (
 --   config_t *arg1,
@@ -189,19 +189,19 @@
 --   size_t arg3
 -- )
 -- {
---   return complex_function(arg1, arg2, arg3);
+--   return (complex_function)(arg1, arg2, arg3);
 -- }
 -- signed int hs_bindgen_dd36c8b317ccfcc4 (
 --   char *arg1
 -- )
 -- {
---   return hash(arg1);
+--   return (hash)(arg1);
 -- }
 -- signed int hs_bindgen_6875e30a7fe8d30a (
 --   signed int arg1
 -- )
 -- {
---   return square(arg1);
+--   return (square)(arg1);
 -- }
 -- /* test_documentationdoxygen_docs_Example_get_process_data */
 -- __attribute__ ((const))

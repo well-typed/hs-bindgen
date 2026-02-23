@@ -5,13 +5,13 @@
 --   U arg1
 -- )
 -- {
---   bar(arg1);
+--   (bar)(arg1);
 -- }
 -- void hs_bindgen_401f15168ffec8ae (
 --   U arg1
 -- )
 -- {
---   bar(arg1);
+--   (bar)(arg1);
 -- }
 -- /* test_programanalysisprogramslici_Example_get_bar */
 -- __attribute__ ((const))

@@ -6,19 +6,19 @@
 --   struct outside *arg3
 -- )
 -- {
---   normal(arg1, arg2, *arg3);
+--   (normal)(arg1, arg2, *arg3);
 -- }
 -- void hs_bindgen_baea2c7a0c8b9965 (
 --   struct named_struct *arg1
 -- )
 -- {
---   f1(*arg1);
+--   (f1)(*arg1);
 -- }
 -- void hs_bindgen_990d7be722ad5414 (
 --   union named_union *arg1
 -- )
 -- {
---   f2(*arg1);
+--   (f2)(*arg1);
 -- }
 -- void hs_bindgen_247ee31a29b7e5a8 (
 --   struct opaque *arg1,
@@ -26,19 +26,19 @@
 --   struct outside *arg3
 -- )
 -- {
---   normal(arg1, arg2, *arg3);
+--   (normal)(arg1, arg2, *arg3);
 -- }
 -- void hs_bindgen_dad6e1aa83dec458 (
 --   struct named_struct *arg1
 -- )
 -- {
---   f1(*arg1);
+--   (f1)(*arg1);
 -- }
 -- void hs_bindgen_e6bb0f3956383df9 (
 --   union named_union *arg1
 -- )
 -- {
---   f2(*arg1);
+--   (f2)(*arg1);
 -- }
 -- /* test_functionsdecls_in_signature_Example_get_normal */
 -- __attribute__ ((const))

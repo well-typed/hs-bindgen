@@ -4,145 +4,145 @@
 --   signed int const (*arg1)[]
 -- )
 -- {
---   foo(*arg1);
+--   (foo)(*arg1);
 -- }
 -- void hs_bindgen_ef925a32def7d5e9 (
 --   S *arg1
 -- )
 -- {
---   fooA(*arg1);
+--   (fooA)(*arg1);
 -- }
 -- void hs_bindgen_4237cee8985eb7fc (
 --   S const *arg1
 -- )
 -- {
---   fooB(*arg1);
+--   (fooB)(*arg1);
 -- }
 -- void hs_bindgen_dc3d2325cbc25f6e (
 --   T const *arg1
 -- )
 -- {
---   fooC(*arg1);
+--   (fooC)(*arg1);
 -- }
 -- void hs_bindgen_0820d6c6e877663d (
 --   signed int const (*arg1)[3]
 -- )
 -- {
---   bar(*arg1);
+--   (bar)(*arg1);
 -- }
 -- void hs_bindgen_bb3ba1c8635c0008 (
 --   U *arg1
 -- )
 -- {
---   barA(*arg1);
+--   (barA)(*arg1);
 -- }
 -- void hs_bindgen_63794b19284a8cd9 (
 --   U const *arg1
 -- )
 -- {
---   barB(*arg1);
+--   (barB)(*arg1);
 -- }
 -- void hs_bindgen_e936f5907d7bdf9b (
 --   V const *arg1
 -- )
 -- {
---   barC(*arg1);
+--   (barC)(*arg1);
 -- }
 -- void hs_bindgen_e4f32da8a7d205db (
 --   signed int const (*arg1)[3]
 -- )
 -- {
---   baz(arg1);
+--   (baz)(arg1);
 -- }
 -- void hs_bindgen_abced453716ffe1c (
 --   W *arg1
 -- )
 -- {
---   bazA(arg1);
+--   (bazA)(arg1);
 -- }
 -- void hs_bindgen_4602d92b6dafcfa7 (
 --   W const *arg1
 -- )
 -- {
---   bazB(arg1);
+--   (bazB)(arg1);
 -- }
 -- void hs_bindgen_b49b704068741c9c (
 --   X const *arg1
 -- )
 -- {
---   bazC(arg1);
+--   (bazC)(arg1);
 -- }
 -- void hs_bindgen_7eb8358d30ebb28b (
 --   signed int const (*arg1)[]
 -- )
 -- {
---   foo(*arg1);
+--   (foo)(*arg1);
 -- }
 -- void hs_bindgen_2fc1970fe11a3461 (
 --   S *arg1
 -- )
 -- {
---   fooA(*arg1);
+--   (fooA)(*arg1);
 -- }
 -- void hs_bindgen_58689a7e4b1d44f6 (
 --   S const *arg1
 -- )
 -- {
---   fooB(*arg1);
+--   (fooB)(*arg1);
 -- }
 -- void hs_bindgen_f88b417ee6e28c0c (
 --   T const *arg1
 -- )
 -- {
---   fooC(*arg1);
+--   (fooC)(*arg1);
 -- }
 -- void hs_bindgen_78493aa01e9cc5da (
 --   signed int const (*arg1)[3]
 -- )
 -- {
---   bar(*arg1);
+--   (bar)(*arg1);
 -- }
 -- void hs_bindgen_bee2c20f290d25d6 (
 --   U *arg1
 -- )
 -- {
---   barA(*arg1);
+--   (barA)(*arg1);
 -- }
 -- void hs_bindgen_71f805899a96d9f1 (
 --   U const *arg1
 -- )
 -- {
---   barB(*arg1);
+--   (barB)(*arg1);
 -- }
 -- void hs_bindgen_89af56a24c359834 (
 --   V const *arg1
 -- )
 -- {
---   barC(*arg1);
+--   (barC)(*arg1);
 -- }
 -- void hs_bindgen_71d7d347923cf6e5 (
 --   signed int const (*arg1)[3]
 -- )
 -- {
---   baz(arg1);
+--   (baz)(arg1);
 -- }
 -- void hs_bindgen_25cc50be574bcc6c (
 --   W *arg1
 -- )
 -- {
---   bazA(arg1);
+--   (bazA)(arg1);
 -- }
 -- void hs_bindgen_3fd3913cc13f61be (
 --   W const *arg1
 -- )
 -- {
---   bazB(arg1);
+--   (bazB)(arg1);
 -- }
 -- void hs_bindgen_a91ac27216749da9 (
 --   X const *arg1
 -- )
 -- {
---   bazC(arg1);
+--   (bazC)(arg1);
 -- }
 -- /* test_arraysconst_qualifier_Example_get_foo */
 -- __attribute__ ((const))

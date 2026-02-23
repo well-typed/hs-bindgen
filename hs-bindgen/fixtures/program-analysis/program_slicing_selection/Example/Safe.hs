@@ -17,7 +17,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  size_t arg3"
   , ")"
   , "{"
-  , "  return read_file_chunk(arg1, arg2, arg3);"
+  , "  return (read_file_chunk)(arg1, arg2, arg3);"
   , "}"
   ]))
 

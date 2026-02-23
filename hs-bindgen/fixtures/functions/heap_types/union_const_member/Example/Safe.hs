@@ -15,7 +15,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  T *arg2"
   , ")"
   , "{"
-  , "  *arg2 = fun(*arg1);"
+  , "  *arg2 = (fun)(*arg1);"
   , "}"
   ]))
 

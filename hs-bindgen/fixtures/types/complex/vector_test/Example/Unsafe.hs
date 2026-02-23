@@ -15,7 +15,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  double arg2"
   , ")"
   , "{"
-  , "  return new_vector(arg1, arg2);"
+  , "  return (new_vector)(arg1, arg2);"
   , "}"
   ]))
 

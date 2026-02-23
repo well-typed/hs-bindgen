@@ -4,37 +4,37 @@
 --   MyArray *arg1
 -- )
 -- {
---   foo(*arg1);
+--   (foo)(*arg1);
 -- }
 -- void hs_bindgen_4449a68917cbc499 (
 --   A *arg1
 -- )
 -- {
---   fooA(*arg1);
+--   (fooA)(*arg1);
 -- }
 -- void hs_bindgen_05766199d1b077bb (
 --   B *arg1
 -- )
 -- {
---   fooB(*arg1);
+--   (fooB)(*arg1);
 -- }
 -- void hs_bindgen_969f916bf9590709 (
 --   MyArray *arg1
 -- )
 -- {
---   foo(*arg1);
+--   (foo)(*arg1);
 -- }
 -- void hs_bindgen_fb89f30695d9a112 (
 --   A *arg1
 -- )
 -- {
---   fooA(*arg1);
+--   (fooA)(*arg1);
 -- }
 -- void hs_bindgen_6882cd6e82766148 (
 --   B *arg1
 -- )
 -- {
---   fooB(*arg1);
+--   (fooB)(*arg1);
 -- }
 -- /* test_bindingspecsfun_argmacroar_Example_get_foo */
 -- __attribute__ ((const))

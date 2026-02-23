@@ -38,7 +38,6 @@ jobs:
         { echo 'MATRIX_COMBINATIONS<<EOF'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "15"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "windows-latest", "ghc": "9.4", "llvm": "14"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -48,7 +47,6 @@ jobs:
         { echo 'MATRIX_COMBINATIONS<<EOF'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "15"},'
           echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
-          echo '{"runner": "windows-latest", "ghc": "9.4", "llvm": "14"},'
           # Vary LLVM version from 14 to 20.
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
           echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "16"},'
@@ -228,17 +226,6 @@ jobs:
     - name: 🧪 Build manual (Ubuntu)
       if: runner.os == 'Linux'
       uses: ./.github/actions/build-manual-ubuntu
-
-    - name: 🛠️ Windows quirks - Manual requires Clang version coming with GHC
-      if: ${{ startsWith(matrix.runner, 'windows') }}
-      run: |
-          echo '### ls "C:\tools\ghc-${{ steps.setup-haskell.outputs.ghc-version }}\mingw\bin"'
-          ls "C:\tools\ghc-${{ steps.setup-haskell.outputs.ghc-version }}\mingw\bin"
-          echo "C:\tools\ghc-${{ steps.setup-haskell.outputs.ghc-version }}\mingw\bin" >> "$GITHUB_PATH"
-
-    - name: 🧪 Build manual (Windows)
-      if: runner.os == 'Windows'
-      uses: ./.github/actions/build-manual-windows
 
     # Save the cache after building the project AND the manual.
     - name: 💾 Save cache

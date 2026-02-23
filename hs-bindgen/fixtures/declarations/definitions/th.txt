@@ -4,13 +4,13 @@
 --   double arg1
 -- )
 -- {
---   return foo(arg1);
+--   return (foo)(arg1);
 -- }
 -- signed int hs_bindgen_07fd5b433f381094 (
 --   double arg1
 -- )
 -- {
---   return foo(arg1);
+--   return (foo)(arg1);
 -- }
 -- /* test_declarationsdefinitions_Example_get_foo */
 -- __attribute__ ((const))

@@ -4,11 +4,11 @@
 -- #include <functions/varargs.h>
 -- void hs_bindgen_77a4bac5bbe80f62 (void)
 -- {
---   h();
+--   (h)();
 -- }
 -- void hs_bindgen_32ebae80cc3543e1 (void)
 -- {
---   h();
+--   (h)();
 -- }
 -- /* test_functionsvarargs_Example_get_h */
 -- __attribute__ ((const))

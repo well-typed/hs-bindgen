@@ -2,203 +2,203 @@
 -- #include <edge-cases/names.h>
 -- void hs_bindgen_601290db9e101424 (void)
 -- {
---   by();
+--   (by)();
 -- }
 -- void hs_bindgen_f03dbed5eebb711a (void)
 -- {
---   forall();
+--   (forall)();
 -- }
 -- void hs_bindgen_d1e3196c869f9fa1 (void)
 -- {
---   mdo();
+--   (mdo)();
 -- }
 -- void hs_bindgen_d3dcd898c88fb2e0 (void)
 -- {
---   pattern();
+--   (pattern)();
 -- }
 -- void hs_bindgen_7f08456473f564e3 (void)
 -- {
---   proc();
+--   (proc)();
 -- }
 -- void hs_bindgen_5df814c22f546599 (void)
 -- {
---   rec();
+--   (rec)();
 -- }
 -- void hs_bindgen_3877b6deb653b5a4 (void)
 -- {
---   using();
+--   (using)();
 -- }
 -- void hs_bindgen_7b8790d04357731b (void)
 -- {
---   anyclass();
+--   (anyclass)();
 -- }
 -- void hs_bindgen_0bf4ab515f3279b9 (void)
 -- {
---   capi();
+--   (capi)();
 -- }
 -- void hs_bindgen_fa8166b2793e4236 (void)
 -- {
---   cases();
+--   (cases)();
 -- }
 -- void hs_bindgen_decc2d43a62d063d (void)
 -- {
---   ccall();
+--   (ccall)();
 -- }
 -- void hs_bindgen_b5a75e2b6434134b (void)
 -- {
---   dynamic();
+--   (dynamic)();
 -- }
 -- void hs_bindgen_406f7b014573b3d3 (void)
 -- {
---   export();
+--   (export)();
 -- }
 -- void hs_bindgen_14aab2af04efc222 (void)
 -- {
---   family();
+--   (family)();
 -- }
 -- void hs_bindgen_ee9285b26b11b393 (void)
 -- {
---   group();
+--   (group)();
 -- }
 -- void hs_bindgen_b2463d5c1d51883e (void)
 -- {
---   interruptible();
+--   (interruptible)();
 -- }
 -- void hs_bindgen_55a55462d9cd296c (void)
 -- {
---   javascript();
+--   (javascript)();
 -- }
 -- void hs_bindgen_227f34efb176d1fb (void)
 -- {
---   label();
+--   (label)();
 -- }
 -- void hs_bindgen_51c6e0d18dce403a (void)
 -- {
---   prim();
+--   (prim)();
 -- }
 -- void hs_bindgen_f85f2418d208e6a0 (void)
 -- {
---   role();
+--   (role)();
 -- }
 -- void hs_bindgen_0855ecbc4b53ebbb (void)
 -- {
---   safe();
+--   (safe)();
 -- }
 -- void hs_bindgen_e5238d13788a6df9 (void)
 -- {
---   stdcall();
+--   (stdcall)();
 -- }
 -- void hs_bindgen_cf38d8bd096a7a42 (void)
 -- {
---   stock();
+--   (stock)();
 -- }
 -- void hs_bindgen_fda9b083b24404f0 (void)
 -- {
---   unsafe();
+--   (unsafe)();
 -- }
 -- void hs_bindgen_1d2a76a3a595be25 (void)
 -- {
---   via();
+--   (via)();
 -- }
 -- void hs_bindgen_28b998af1f39a743 (void)
 -- {
---   by();
+--   (by)();
 -- }
 -- void hs_bindgen_5d7ea7c4d11a5fc8 (void)
 -- {
---   forall();
+--   (forall)();
 -- }
 -- void hs_bindgen_2d65448c684c09d5 (void)
 -- {
---   mdo();
+--   (mdo)();
 -- }
 -- void hs_bindgen_13fe653d670d3712 (void)
 -- {
---   pattern();
+--   (pattern)();
 -- }
 -- void hs_bindgen_e9cc2037d33041aa (void)
 -- {
---   proc();
+--   (proc)();
 -- }
 -- void hs_bindgen_4a1e741f9ef596ff (void)
 -- {
---   rec();
+--   (rec)();
 -- }
 -- void hs_bindgen_ef6f3f22c615db58 (void)
 -- {
---   using();
+--   (using)();
 -- }
 -- void hs_bindgen_3c7afeaaf3ff040b (void)
 -- {
---   anyclass();
+--   (anyclass)();
 -- }
 -- void hs_bindgen_0518740d4c3caa1d (void)
 -- {
---   capi();
+--   (capi)();
 -- }
 -- void hs_bindgen_61f14ad7bb2e3d54 (void)
 -- {
---   cases();
+--   (cases)();
 -- }
 -- void hs_bindgen_ace8c96ed6673c3b (void)
 -- {
---   ccall();
+--   (ccall)();
 -- }
 -- void hs_bindgen_8865833b99552d03 (void)
 -- {
---   dynamic();
+--   (dynamic)();
 -- }
 -- void hs_bindgen_15729ba251f5ec57 (void)
 -- {
---   export();
+--   (export)();
 -- }
 -- void hs_bindgen_e6a4f7e833da2687 (void)
 -- {
---   family();
+--   (family)();
 -- }
 -- void hs_bindgen_d4dd1bb5e95de858 (void)
 -- {
---   group();
+--   (group)();
 -- }
 -- void hs_bindgen_516f1ad5aba6de29 (void)
 -- {
---   interruptible();
+--   (interruptible)();
 -- }
 -- void hs_bindgen_214230db174dc3e6 (void)
 -- {
---   javascript();
+--   (javascript)();
 -- }
 -- void hs_bindgen_88f1f0cf9c0f080e (void)
 -- {
---   label();
+--   (label)();
 -- }
 -- void hs_bindgen_93a4c73f587dcf3c (void)
 -- {
---   prim();
+--   (prim)();
 -- }
 -- void hs_bindgen_a267fe5585862ecc (void)
 -- {
---   role();
+--   (role)();
 -- }
 -- void hs_bindgen_ddac4cdf91c756a8 (void)
 -- {
---   safe();
+--   (safe)();
 -- }
 -- void hs_bindgen_8dd57b02f322a7ae (void)
 -- {
---   stdcall();
+--   (stdcall)();
 -- }
 -- void hs_bindgen_3b69e1860d72507c (void)
 -- {
---   stock();
+--   (stock)();
 -- }
 -- void hs_bindgen_b9d80fa39d7ebb06 (void)
 -- {
---   unsafe();
+--   (unsafe)();
 -- }
 -- void hs_bindgen_708f6397f5e5ac73 (void)
 -- {
---   via();
+--   (via)();
 -- }
 -- /* test_edgecasesnames_Example_get_by */
 -- __attribute__ ((const))

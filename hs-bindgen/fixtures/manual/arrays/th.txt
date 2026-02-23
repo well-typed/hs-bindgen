@@ -5,26 +5,26 @@
 --   matrix *arg2
 -- )
 -- {
---   transpose(*arg1, *arg2);
+--   (transpose)(*arg1, *arg2);
 -- }
 -- void hs_bindgen_45d15697a99c626a (
 --   triplet_ptrs *arg1
 -- )
 -- {
---   pretty_print_triplets(*arg1);
+--   (pretty_print_triplets)(*arg1);
 -- }
 -- void hs_bindgen_f9f2776d121db261 (
 --   matrix const *arg1,
 --   matrix *arg2
 -- )
 -- {
---   transpose(*arg1, *arg2);
+--   (transpose)(*arg1, *arg2);
 -- }
 -- void hs_bindgen_e43b4d44aa0abd14 (
 --   triplet_ptrs *arg1
 -- )
 -- {
---   pretty_print_triplets(*arg1);
+--   (pretty_print_triplets)(*arg1);
 -- }
 -- /* test_manualarrays_Example_get_transpose */
 -- __attribute__ ((const))

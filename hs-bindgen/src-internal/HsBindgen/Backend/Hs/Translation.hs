@@ -33,12 +33,11 @@ import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.Structure
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
+import HsBindgen.Backend.Hs.Translation.Union
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Config.Internal
-import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -105,7 +104,8 @@ generateDeclarations' uniqueId fns haddockConfig moduleName declIndex sizeofs de
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
                    ]
-      hsDecls <- concat <$> mapM (generateDecs uniqueId fns haddockConfig moduleName sizeofs) decs
+      hsDeclsAction <- mapM (generateDecs uniqueId fns haddockConfig moduleName sizeofs) decs
+      hsDecls <- State.runAction $ fmap concat $ sequence hsDeclsAction
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
@@ -171,26 +171,26 @@ generateDecs ::
   -> BaseModuleName
   -> C.Sizeofs
   -> C.Decl Final
-  -> HsM [WithCategory Hs.Decl]
+  -> HsM (State.Action [WithCategory Hs.Decl])
 generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
-        structDecs supInsts.struct haddockConfig info struct spec
+        State.immediateM $ structDecs supInsts.struct haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
-        unionDecs fns haddockConfig info union spec
+        State.immediateM $ unionDecs haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
-        enumDecs supInsts.enum fns haddockConfig info enum spec
+        State.immediateM $ enumDecs supInsts.enum fns haddockConfig info enum spec
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
-        pure $ anonEnumConstantDecs haddockConfig info anonEnumConst
+        pure $ State.immediate $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         -- Deal with typedefs around function pointers (#1380)
         case typedef.typ of
           C.TypePointers n (C.TypeFun args res) ->
             typedefFunPtrDecs supInsts.typedef fns haddockConfig sizeofs info n (args, res) typedef.names spec
           _otherwise ->
-            typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
+            State.immediateM $ typedefDecs supInsts.typedef haddockConfig sizeofs info Origin.Typedef typedef spec
       C.DeclOpaque -> withCategoryM CType $
-        opaqueDecs haddockConfig info spec
+        State.immediateM $ opaqueDecs haddockConfig info spec
       C.DeclFunction function -> do
         let funDeclsWith safety =
               functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
@@ -199,20 +199,29 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
               addressStubDecs uniqueId haddockConfig moduleName sizeofs info funType HaskellId spec
-        pure $ withCategory (CTerm CSafe)   (funDeclsWith SHs.Safe)
-            ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
-            ++ withCategory (CTerm CFunPtr)  funPtrDecls
+        pure $ do
+          safes   <- withCategory (CTerm CSafe)   (State.immediate $ funDeclsWith SHs.Safe)
+          unsafes <- withCategory (CTerm CUnsafe) (State.immediate $ funDeclsWith SHs.Unsafe)
+          funPtrs <- withCategory (CTerm CFunPtr) (State.immediate $ funPtrDecls)
+          pure (safes ++ unsafes ++ funPtrs)
       C.DeclMacro macro -> withCategoryM CType $
-        macroDecs supInsts.typedef haddockConfig info macro spec
+        State.immediateM $ macroDecs supInsts.typedef haddockConfig info macro spec
       C.DeclGlobal ty -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
-          global uniqueId haddockConfig moduleName transState sizeofs info ty spec
+          State.immediate $ global uniqueId haddockConfig moduleName transState sizeofs info ty spec
   where
-    withCategory :: Category -> [a] -> [WithCategory a]
-    withCategory c = map (WithCategory c)
+    withCategory ::
+         Category
+      -> State.Action [a]
+      -> State.Action [WithCategory a]
+    withCategory c = fmap (map (WithCategory c))
 
-    withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
+    withCategoryM ::
+         Functor m
+      => Category
+      -> m (State.Action [a])
+      -> m (State.Action [WithCategory a])
     withCategoryM c = fmap (withCategory c)
 
     supInsts :: Inst.SupportedInstances
@@ -243,262 +252,6 @@ opaqueDecs haddockConfig info spec = do
             , kind = Origin.Opaque info.id.cName.name.kind
             , spec = spec
             }
-        }
-
-{-------------------------------------------------------------------------------
-  Unions
--------------------------------------------------------------------------------}
-
-unionDecs ::
-     FieldNamingStrategy
-  -> HaddockConfig
-  -> C.DeclInfo Final
-  -> C.Union Final
-  -> PrescriptiveDeclSpec
-  -> HsM [Hs.Decl]
-unionDecs fieldNaming haddockConfig info union spec = do
-    nt <- newtypeDec
-    flip aux nt <$> State.get
-  where
-    newtypeDec :: HsM Hs.Newtype
-    newtypeDec =
-        Hs.newtypeDec newtypeName newtypeConstr newtypeField
-          newtypeOrigin newtypeComment candidateInsts knownInsts
-      where
-        newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeHsIdHsName info.id.unsafeHsName
-
-        newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = union.names.constr
-
-        newtypeField :: Hs.Field
-        newtypeField = Hs.Field {
-              name    = union.names.field
-            , typ     = Hs.HsByteArray
-            , origin  = Origin.GeneratedField
-            , comment = Nothing
-            }
-
-        newtypeOrigin :: Origin.Decl Origin.Newtype
-        newtypeOrigin =  Origin.Decl {
-              info = info
-            , kind = Origin.Union union
-            , spec = spec
-            }
-
-        newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = mkHaddocks haddockConfig info newtypeName
-
-        candidateInsts :: Set Inst.TypeClass
-        candidateInsts = Set.empty
-
-        knownInsts :: Set Inst.TypeClass
-        knownInsts = Set.fromList $ catMaybes [
-            Just Inst.Generic
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-          -- Should correctly detect 'Inst.HasCBitfield' and 'Inst.HasCField'
-          -- when bit-fields in unions are supported.
-          , if null union.fields then Nothing else Just Inst.HasCField
-          , if null union.fields then Nothing else Just Inst.HasField
-          , Just Inst.ReadRaw
-          , Just Inst.StaticSize
-          , Just Inst.Storable
-          , Just Inst.WriteRaw
-          ]
-
-    -- everything in aux is state-dependent
-    aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
-    aux transState nt =
-        Hs.DeclNewtype nt : marshalDecls ++ accessorDecls ++
-        concatMap (unionFieldDecls nt.name) union.fields
-      where
-        marshalDecls :: [Hs.Decl]
-        marshalDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveStock
-              , clss     = Inst.Generic
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia sba
-              , clss     = Inst.StaticSize
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia sba
-              , clss     = Inst.ReadRaw
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia sba
-              , clss     = Inst.WriteRaw
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          , Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = Hs.DeriveVia (HsEquivStorable (Hs.HsTypRef nt.name Nothing))
-              , clss     = Inst.Storable
-              , name     = nt.name
-              , comment  = Nothing
-              }
-          ]
-
-        sba :: Hs.HsType
-        sba =
-            HsSizedByteArray
-              (fromIntegral union.sizeof)
-              (fromIntegral union.alignment)
-
-        accessorDecls :: [Hs.Decl]
-        accessorDecls = concatMap getAccessorDecls union.fields
-
-        getAccessorDecls :: C.UnionField Final -> [Hs.Decl]
-        getAccessorDecls field =
-            if Inst.Storable `Set.notMember` fInsts
-              then []
-              else [
-                  Hs.DeclUnionGetter Hs.UnionGetter{
-                      name    = getterName
-                    , typ     = hsType
-                    , constr  = nt.name
-                    , comment = mkHaddocksFieldInfo haddockConfig info field.info
-                             <> commentRefName (Hs.getName setterName)
-                    }
-                , Hs.DeclUnionSetter Hs.UnionSetter{
-                      name    = setterName
-                    , typ     = hsType
-                    , constr  = nt.name
-                    , comment = commentRefName (Hs.getName getterName)
-                    }
-                ]
-          where
-            hsType     = Type.topLevel field.typ
-            fInsts     = Hs.getInstances
-                            transState.instanceMap
-                            (Just nt.name)
-                            (Set.singleton Inst.Storable)
-                            [hsType]
-
-            -- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
-            -- This should happen in the name mangler, so that we can deal with
-            -- collisions, errors thrown by 'fixCandidate', etc.
-            --
-            -- With PrefixedFieldNames: field.info.name.hsName already contains the
-            -- type prefix (e.g., "dimPayload_dim2"), so we use it directly.
-            -- With EnableRecordDot: field.info.name.hsName is just the C field name
-            -- (e.g., "dim2"), so we need to add the type name for uniqueness.
-            getterName = Hs.unsafeHsIdHsName $ "get_" <> fieldNameWithPrefix
-            setterName = Hs.unsafeHsIdHsName $ "set_" <> fieldNameWithPrefix
-
-            -- We ensure that we generate the /same/ getter and setter name
-            -- independent of whether record dot syntax is enabled or not.
-            fieldNameWithPrefix :: Hs.Identifier
-            fieldNameWithPrefix = case fieldNaming of
-              PrefixedFieldNames -> field.info.name.hsName
-              EnableRecordDot    ->
-                let candidate :: Text
-                    candidate = Hs.getName nt.name <> "_" <> field.info.name.hsName.text
-
-                    exportedName :: Hs.ExportedName Hs.NsVar
-                    exportedName =
-                       fromMaybe (panicPure $ "could not construct name for " ++ show candidate) $
-                         FixCandidate.fixCandidate
-                           FixCandidate.fixCandidateDefault
-                           candidate
-
-                in Hs.Identifier exportedName.text
-
-            commentRefName :: Text -> Maybe HsDoc.Comment
-            commentRefName name = Just $ HsDoc.paragraph [
-                HsDoc.Bold [HsDoc.TextContent "See:"]
-              , HsDoc.Identifier name
-              ]
-
--- | 'HasCField' and 'HasField' instances for a field of a
--- union declaration
---
--- Given a union:
---
--- > union myUnion { int option1; char option2 };
---
--- We generate roughly this newtype:
---
--- > newtype MyUnion = MyUnion { unwrapMyUnion :: ByteArray }
---
--- Then, 'unionFieldDecls' will generate roughly the following class instances
--- for the fields @option1@ and @option@ respectively:
---
--- > instance HasCField "myUnion_option1" MyUnion where
--- >   type CFieldType "myUnion_option1" MyUnion = CInt
--- > instance HasField "myUnion_option1" (Ptr MyUnion) (Ptr CInt)
---
--- > instance HasCField "myUnion_option2" MyUnion where
--- >   type CFieldType "myUnion_option2" MyUnion = CChar
--- > instance HasField "myUnion_option2" (Ptr MyUnion) (Ptr CChar)
---
--- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
--- instead of a 'HasCField' instance.
-unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField Final -> [Hs.Decl]
-unionFieldDecls unionName field = [
-      Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl =
-              case unionFieldWidth field of
-                Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
-                Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
-          }
-    , Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceHasField hasFieldDecl
-          }
-    ]
-  where
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
-    -- Should be changed to @C.unionFieldWidth f@ when bit-fields in unions are
-    -- supported.
-    unionFieldWidth :: C.UnionField Final -> Maybe Int
-    unionFieldWidth _f = Nothing
-
-    parentType :: HsType
-    parentType = Hs.HsTypRef unionName Nothing
-
-    fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.unsafeHsIdHsName field.info.name.hsName
-
-    fieldType :: HsType
-    fieldType = Type.topLevel field.typ
-
-    hasFieldDecl :: Hs.HasFieldInstance
-    hasFieldDecl = Hs.HasFieldInstance {
-          parentType = parentType
-        , fieldName  = fieldName
-        , fieldType  = fieldType
-        , deriveVia  =
-            case unionFieldWidth field of
-              Nothing -> Hs.ViaHasCField
-              Just _  -> Hs.ViaHasCBitfield
-        }
-
-    hasCFieldDecl :: Hs.HasCFieldInstance
-    hasCFieldDecl = Hs.HasCFieldInstance {
-          parentType  = parentType
-        , fieldName   = fieldName
-        , cFieldType  = fieldType
-        , fieldOffset = 0
-        }
-
-    hasCBitfieldDecl :: Int -> Hs.HasCBitfieldInstance
-    hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
-          parentType    = parentType
-        , fieldName     = fieldName
-        , cBitfieldType = fieldType
-        , bitOffset     = 0
-        , bitWidth      = w
         }
 
 {-------------------------------------------------------------------------------
@@ -705,7 +458,8 @@ enumDecs supInsts fns haddockConfig info enum spec = aux <$> newtypeDec
 -------------------------------------------------------------------------------}
 
 typedefDecs ::
-     Map Inst.TypeClass Inst.SupportedStrategies
+     HasCallStack
+  => Map Inst.TypeClass Inst.SupportedStrategies
   -> HaddockConfig
   -> C.Sizeofs
   -> C.DeclInfo Final
@@ -887,13 +641,16 @@ typedefFunPtrDecs ::
   -> ([C.Type Final], C.Type Final)  -- ^ Function arguments and result
   -> MangleNames.NewtypeNames
   -> PrescriptiveDeclSpec
-  -> HsM [Hs.Decl]
+  -> HsM (State.Action [Hs.Decl])
 typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) origNames origSpec =
-    fmap concat $ sequence [
-        typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
-      , typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
+    fmap concActions $ sequence [
+        State.delayM     $ typedefDecs supInsts haddockConfig sizeofs auxInfo  Origin.Aux     auxTypedef  auxSpec
+      , State.immediateM $ typedefDecs supInsts haddockConfig sizeofs origInfo Origin.Typedef mainTypedef origSpec
       ]
   where
+    concActions :: [State.Action [Hs.Decl]] -> State.Action [Hs.Decl]
+    concActions = fmap concat . sequence
+
     -- TODO: For historical reasons we currently implement this by making a
     -- "fake" C declaration, and then translating that immediately to Haskell.
     -- We should fuse this, and just generate the Haskell declarations directly.

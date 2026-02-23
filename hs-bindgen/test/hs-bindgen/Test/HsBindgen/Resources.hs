@@ -84,7 +84,7 @@ mkTestClangArgsConfig packageRoot = def {
         | version < (9, 0, 0)  -> panicPure "C23 requires clang-9 or later"
         | version < (18, 0, 0) -> "c2x"
         | otherwise            -> "c23"
-      ClangVersionUnknown v -> panicPure $ "unknown clang version: " ++ show v
+      ClangVersionUnknown v -> panicPure $ "Unknown clang version: " ++ show v
 
 getTestDefaultClangArgsConfig ::
      IO TestResources

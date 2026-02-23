@@ -20,7 +20,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  cint16_T (*arg5)[30720000]"
   , ")"
   , "{"
-  , "  resample(arg1, *arg2, arg3, arg4, *arg5);"
+  , "  (resample)(arg1, *arg2, arg3, arg4, *arg5);"
   , "}"
   ]))
 

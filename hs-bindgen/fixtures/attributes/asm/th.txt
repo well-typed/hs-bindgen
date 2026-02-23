@@ -5,14 +5,14 @@
 --   signed int arg2
 -- )
 -- {
---   return asm_labeled_function(arg1, arg2);
+--   return (asm_labeled_function)(arg1, arg2);
 -- }
 -- signed int hs_bindgen_3ad6c287a2386382 (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
---   return asm_labeled_function(arg1, arg2);
+--   return (asm_labeled_function)(arg1, arg2);
 -- }
 -- /* test_attributesasm_Example_get_asm_labeled_function */
 -- __attribute__ ((const))

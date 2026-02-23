@@ -619,7 +619,7 @@ functionDecl info = \curr -> do
                   ParseFunctionOfTypeTypedef
               ]
           otherType ->
-            panicIO $ "expected function type, but got " <> show otherType
+            panicIO $ "Expected function type, but got " <> show otherType
 
     -- Look for (unsupported) declarations inside function parameters, and for
     -- function attributes. Function attributes are returned separately, so that

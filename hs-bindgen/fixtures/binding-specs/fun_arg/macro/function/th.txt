@@ -4,19 +4,19 @@
 --   MyFunction *arg1
 -- )
 -- {
---   foo(arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_e13a57fd1d27f6e6 (
 --   A *arg1
 -- )
 -- {
---   fooA(arg1);
+--   (fooA)(arg1);
 -- }
 -- void hs_bindgen_fd490df5087893ae (
 --   B *arg1
 -- )
 -- {
---   fooB(arg1);
+--   (fooB)(arg1);
 -- }
 -- void hs_bindgen_a708e95f35bff290 (
 --   signed int (*arg1) (
@@ -24,37 +24,37 @@
 -- )
 -- )
 -- {
---   bar(arg1);
+--   (bar)(arg1);
 -- }
 -- void hs_bindgen_2991dd76f4337b78 (
 --   A *arg1
 -- )
 -- {
---   barA(arg1);
+--   (barA)(arg1);
 -- }
 -- void hs_bindgen_104de3f97206bd1d (
 --   B *arg1
 -- )
 -- {
---   barB(arg1);
+--   (barB)(arg1);
 -- }
 -- void hs_bindgen_fbc2ec26cd297034 (
 --   MyFunction *arg1
 -- )
 -- {
---   foo(arg1);
+--   (foo)(arg1);
 -- }
 -- void hs_bindgen_cf67e2fc00fd28d8 (
 --   A *arg1
 -- )
 -- {
---   fooA(arg1);
+--   (fooA)(arg1);
 -- }
 -- void hs_bindgen_269a46f9680e33ed (
 --   B *arg1
 -- )
 -- {
---   fooB(arg1);
+--   (fooB)(arg1);
 -- }
 -- void hs_bindgen_0fdddb4fac9b77d1 (
 --   signed int (*arg1) (
@@ -62,19 +62,19 @@
 -- )
 -- )
 -- {
---   bar(arg1);
+--   (bar)(arg1);
 -- }
 -- void hs_bindgen_bd59a5d308c55504 (
 --   A *arg1
 -- )
 -- {
---   barA(arg1);
+--   (barA)(arg1);
 -- }
 -- void hs_bindgen_b016bfc7a4cc0734 (
 --   B *arg1
 -- )
 -- {
---   barB(arg1);
+--   (barB)(arg1);
 -- }
 -- /* test_bindingspecsfun_argmacrofu_Example_get_foo */
 -- __attribute__ ((const))

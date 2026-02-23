@@ -14,13 +14,13 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "  T arg1"
   , ")"
   , "{"
-  , "  foo(arg1);"
+  , "  (foo)(arg1);"
   , "}"
   , "void hs_bindgen_401f15168ffec8ae ("
   , "  U arg1"
   , ")"
   , "{"
-  , "  bar(arg1);"
+  , "  (bar)(arg1);"
   , "}"
   ]))
 
