@@ -61,9 +61,9 @@ instance HasCField A "unwrapA"
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e326_base ::
     Word64
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
-hs_bindgen_0d1c75136a36e326 :: A -> IO Unit
+hs_bindgen_0d1c75136a36e326 :: A -> IO ()
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 hs_bindgen_0d1c75136a36e326 = fromFFIType hs_bindgen_0d1c75136a36e326_base
 {-| __C declaration:__ @f@
@@ -72,7 +72,7 @@ hs_bindgen_0d1c75136a36e326 = fromFFIType hs_bindgen_0d1c75136a36e326_base
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f :: A -> IO Unit
+f :: A -> IO ()
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
@@ -83,9 +83,9 @@ f = hs_bindgen_0d1c75136a36e326
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 foreign import ccall unsafe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf6b0_base ::
     Word64
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
-hs_bindgen_93ed1628a0edf6b0 :: A -> IO Unit
+hs_bindgen_93ed1628a0edf6b0 :: A -> IO ()
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 hs_bindgen_93ed1628a0edf6b0 = fromFFIType hs_bindgen_93ed1628a0edf6b0_base
 {-| __C declaration:__ @f@
@@ -94,7 +94,7 @@ hs_bindgen_93ed1628a0edf6b0 = fromFFIType hs_bindgen_93ed1628a0edf6b0_base
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f :: A -> IO Unit
+f :: A -> IO ()
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
@@ -106,7 +106,7 @@ f = hs_bindgen_93ed1628a0edf6b0
 foreign import ccall unsafe "hs_bindgen_0d4da37880af2263" hs_bindgen_0d4da37880af2263_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_declarationsdeclarations_requ_Example_get_f@
-hs_bindgen_0d4da37880af2263 :: IO (FunPtr (A -> IO Unit))
+hs_bindgen_0d4da37880af2263 :: IO (FunPtr (A -> IO ()))
 -- __unique:__ @test_declarationsdeclarations_requ_Example_get_f@
 hs_bindgen_0d4da37880af2263 = fromFFIType hs_bindgen_0d4da37880af2263_base
 {-# NOINLINE f #-}
@@ -116,7 +116,7 @@ hs_bindgen_0d4da37880af2263 = fromFFIType hs_bindgen_0d4da37880af2263_base
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f :: FunPtr (A -> IO Unit)
+f :: FunPtr (A -> IO ())
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@

@@ -9,7 +9,7 @@ __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr_Aux
     = Fun_ptr_Aux {unwrapFun_ptr_Aux :: (Ptr Forward_declaration ->
-                                         IO Unit)}
+                                         IO ())}
       {- ^ Auxiliary type used by 'Fun_ptr'
 
       __C declaration:__ @fun_ptr@
@@ -21,17 +21,17 @@ newtype Fun_ptr_Aux
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a_base ::
-    Ptr Void -> IO Unit
- -> IO (FunPtr (Ptr Void -> IO Unit))
+    Ptr Void -> IO ()
+ -> IO (FunPtr (Ptr Void -> IO ()))
 -- __unique:__ @toFun_ptr_Aux@
 hs_bindgen_5964bbadb359ee4a :: Fun_ptr_Aux ->
                                IO (FunPtr Fun_ptr_Aux)
 -- __unique:__ @toFun_ptr_Aux@
 hs_bindgen_5964bbadb359ee4a = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_5964bbadb359ee4a_base (toFFIType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6_base ::
-    FunPtr (Ptr Void -> IO Unit)
+    FunPtr (Ptr Void -> IO ())
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @fromFun_ptr_Aux@
 hs_bindgen_f8391e85af67fcb6 :: FunPtr Fun_ptr_Aux -> Fun_ptr_Aux
 -- __unique:__ @fromFun_ptr_Aux@
@@ -40,12 +40,12 @@ instance ToFunPtr Fun_ptr_Aux
     where toFunPtr = hs_bindgen_5964bbadb359ee4a
 instance FromFunPtr Fun_ptr_Aux
     where fromFunPtr = hs_bindgen_f8391e85af67fcb6
-instance (~) ty (Ptr Forward_declaration -> IO Unit) =>
+instance (~) ty (Ptr Forward_declaration -> IO ()) =>
          HasField "unwrapFun_ptr_Aux" (Ptr Fun_ptr_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFun_ptr_Aux")
 instance HasCField Fun_ptr_Aux "unwrapFun_ptr_Aux"
     where type CFieldType Fun_ptr_Aux
-                          "unwrapFun_ptr_Aux" = Ptr Forward_declaration -> IO Unit
+                          "unwrapFun_ptr_Aux" = Ptr Forward_declaration -> IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @fun_ptr@
 

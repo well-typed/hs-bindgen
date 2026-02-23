@@ -542,9 +542,9 @@
 -- }
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f0@
 foreign import ccall safe "hs_bindgen_e64a83c5f7f51679" hs_bindgen_e64a83c5f7f51679_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f0@
-hs_bindgen_e64a83c5f7f51679 :: IO Unit
+hs_bindgen_e64a83c5f7f51679 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f0@
 hs_bindgen_e64a83c5f7f51679 = fromFFIType hs_bindgen_e64a83c5f7f51679_base
 {-| __C declaration:__ @f0@
@@ -553,7 +553,7 @@ hs_bindgen_e64a83c5f7f51679 = fromFFIType hs_bindgen_e64a83c5f7f51679_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f0 :: IO Unit
+f0 :: IO ()
 {-| __C declaration:__ @f0@
 
     __defined at:__ @attributes\/visibility_attributes.h 17:56@
@@ -563,9 +563,9 @@ f0 :: IO Unit
 f0 = hs_bindgen_e64a83c5f7f51679
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f1@
 foreign import ccall safe "hs_bindgen_8881b0f4ce94e440" hs_bindgen_8881b0f4ce94e440_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f1@
-hs_bindgen_8881b0f4ce94e440 :: IO Unit
+hs_bindgen_8881b0f4ce94e440 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f1@
 hs_bindgen_8881b0f4ce94e440 = fromFFIType hs_bindgen_8881b0f4ce94e440_base
 {-| __C declaration:__ @f1@
@@ -574,7 +574,7 @@ hs_bindgen_8881b0f4ce94e440 = fromFFIType hs_bindgen_8881b0f4ce94e440_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f1 :: IO Unit
+f1 :: IO ()
 {-| __C declaration:__ @f1@
 
     __defined at:__ @attributes\/visibility_attributes.h 18:56@
@@ -584,9 +584,9 @@ f1 :: IO Unit
 f1 = hs_bindgen_8881b0f4ce94e440
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f2@
 foreign import ccall safe "hs_bindgen_4ede7f4c96b4d1b5" hs_bindgen_4ede7f4c96b4d1b5_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f2@
-hs_bindgen_4ede7f4c96b4d1b5 :: IO Unit
+hs_bindgen_4ede7f4c96b4d1b5 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f2@
 hs_bindgen_4ede7f4c96b4d1b5 = fromFFIType hs_bindgen_4ede7f4c96b4d1b5_base
 {-| __C declaration:__ @f2@
@@ -595,7 +595,7 @@ hs_bindgen_4ede7f4c96b4d1b5 = fromFFIType hs_bindgen_4ede7f4c96b4d1b5_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f2 :: IO Unit
+f2 :: IO ()
 {-| __C declaration:__ @f2@
 
     __defined at:__ @attributes\/visibility_attributes.h 19:56@
@@ -605,9 +605,9 @@ f2 :: IO Unit
 f2 = hs_bindgen_4ede7f4c96b4d1b5
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f3@
 foreign import ccall safe "hs_bindgen_018f1e15132ff973" hs_bindgen_018f1e15132ff973_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f3@
-hs_bindgen_018f1e15132ff973 :: IO Unit
+hs_bindgen_018f1e15132ff973 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f3@
 hs_bindgen_018f1e15132ff973 = fromFFIType hs_bindgen_018f1e15132ff973_base
 {-| __C declaration:__ @f3@
@@ -616,7 +616,7 @@ hs_bindgen_018f1e15132ff973 = fromFFIType hs_bindgen_018f1e15132ff973_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f3 :: IO Unit
+f3 :: IO ()
 {-| __C declaration:__ @f3@
 
     __defined at:__ @attributes\/visibility_attributes.h 20:56@
@@ -626,9 +626,9 @@ f3 :: IO Unit
 f3 = hs_bindgen_018f1e15132ff973
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f4@
 foreign import ccall safe "hs_bindgen_9d93cf33b1a833d1" hs_bindgen_9d93cf33b1a833d1_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f4@
-hs_bindgen_9d93cf33b1a833d1 :: IO Unit
+hs_bindgen_9d93cf33b1a833d1 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f4@
 hs_bindgen_9d93cf33b1a833d1 = fromFFIType hs_bindgen_9d93cf33b1a833d1_base
 {-| __C declaration:__ @f4@
@@ -637,7 +637,7 @@ hs_bindgen_9d93cf33b1a833d1 = fromFFIType hs_bindgen_9d93cf33b1a833d1_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f4 :: IO Unit
+f4 :: IO ()
 {-| __C declaration:__ @f4@
 
     __defined at:__ @attributes\/visibility_attributes.h 21:56@
@@ -647,9 +647,9 @@ f4 :: IO Unit
 f4 = hs_bindgen_9d93cf33b1a833d1
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f5@
 foreign import ccall safe "hs_bindgen_959298c4e5cb061a" hs_bindgen_959298c4e5cb061a_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f5@
-hs_bindgen_959298c4e5cb061a :: IO Unit
+hs_bindgen_959298c4e5cb061a :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f5@
 hs_bindgen_959298c4e5cb061a = fromFFIType hs_bindgen_959298c4e5cb061a_base
 {-| __C declaration:__ @f5@
@@ -658,7 +658,7 @@ hs_bindgen_959298c4e5cb061a = fromFFIType hs_bindgen_959298c4e5cb061a_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f5 :: IO Unit
+f5 :: IO ()
 {-| __C declaration:__ @f5@
 
     __defined at:__ @attributes\/visibility_attributes.h 24:56@
@@ -668,9 +668,9 @@ f5 :: IO Unit
 f5 = hs_bindgen_959298c4e5cb061a
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f6@
 foreign import ccall safe "hs_bindgen_218297218a4953d6" hs_bindgen_218297218a4953d6_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f6@
-hs_bindgen_218297218a4953d6 :: IO Unit
+hs_bindgen_218297218a4953d6 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f6@
 hs_bindgen_218297218a4953d6 = fromFFIType hs_bindgen_218297218a4953d6_base
 {-| __C declaration:__ @f6@
@@ -679,7 +679,7 @@ hs_bindgen_218297218a4953d6 = fromFFIType hs_bindgen_218297218a4953d6_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f6 :: IO Unit
+f6 :: IO ()
 {-| __C declaration:__ @f6@
 
     __defined at:__ @attributes\/visibility_attributes.h 25:56@
@@ -689,9 +689,9 @@ f6 :: IO Unit
 f6 = hs_bindgen_218297218a4953d6
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f7@
 foreign import ccall safe "hs_bindgen_df320fe3d4683ff9" hs_bindgen_df320fe3d4683ff9_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f7@
-hs_bindgen_df320fe3d4683ff9 :: IO Unit
+hs_bindgen_df320fe3d4683ff9 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f7@
 hs_bindgen_df320fe3d4683ff9 = fromFFIType hs_bindgen_df320fe3d4683ff9_base
 {-| __C declaration:__ @f7@
@@ -700,7 +700,7 @@ hs_bindgen_df320fe3d4683ff9 = fromFFIType hs_bindgen_df320fe3d4683ff9_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f7 :: IO Unit
+f7 :: IO ()
 {-| __C declaration:__ @f7@
 
     __defined at:__ @attributes\/visibility_attributes.h 26:56@
@@ -710,9 +710,9 @@ f7 :: IO Unit
 f7 = hs_bindgen_df320fe3d4683ff9
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f8@
 foreign import ccall safe "hs_bindgen_cd613f46d2e06e18" hs_bindgen_cd613f46d2e06e18_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f8@
-hs_bindgen_cd613f46d2e06e18 :: IO Unit
+hs_bindgen_cd613f46d2e06e18 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f8@
 hs_bindgen_cd613f46d2e06e18 = fromFFIType hs_bindgen_cd613f46d2e06e18_base
 {-| __C declaration:__ @f8@
@@ -721,7 +721,7 @@ hs_bindgen_cd613f46d2e06e18 = fromFFIType hs_bindgen_cd613f46d2e06e18_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f8 :: IO Unit
+f8 :: IO ()
 {-| __C declaration:__ @f8@
 
     __defined at:__ @attributes\/visibility_attributes.h 27:56@
@@ -731,9 +731,9 @@ f8 :: IO Unit
 f8 = hs_bindgen_cd613f46d2e06e18
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f9@
 foreign import ccall safe "hs_bindgen_67774b3f22bd7286" hs_bindgen_67774b3f22bd7286_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f9@
-hs_bindgen_67774b3f22bd7286 :: IO Unit
+hs_bindgen_67774b3f22bd7286 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f9@
 hs_bindgen_67774b3f22bd7286 = fromFFIType hs_bindgen_67774b3f22bd7286_base
 {-| __C declaration:__ @f9@
@@ -742,7 +742,7 @@ hs_bindgen_67774b3f22bd7286 = fromFFIType hs_bindgen_67774b3f22bd7286_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f9 :: IO Unit
+f9 :: IO ()
 {-| __C declaration:__ @f9@
 
     __defined at:__ @attributes\/visibility_attributes.h 28:56@
@@ -752,9 +752,9 @@ f9 :: IO Unit
 f9 = hs_bindgen_67774b3f22bd7286
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f10@
 foreign import ccall safe "hs_bindgen_dbbd2e0417380ce9" hs_bindgen_dbbd2e0417380ce9_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f10@
-hs_bindgen_dbbd2e0417380ce9 :: IO Unit
+hs_bindgen_dbbd2e0417380ce9 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f10@
 hs_bindgen_dbbd2e0417380ce9 = fromFFIType hs_bindgen_dbbd2e0417380ce9_base
 {-| __C declaration:__ @f10@
@@ -763,7 +763,7 @@ hs_bindgen_dbbd2e0417380ce9 = fromFFIType hs_bindgen_dbbd2e0417380ce9_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f10 :: IO Unit
+f10 :: IO ()
 {-| __C declaration:__ @f10@
 
     __defined at:__ @attributes\/visibility_attributes.h 31:56@
@@ -773,9 +773,9 @@ f10 :: IO Unit
 f10 = hs_bindgen_dbbd2e0417380ce9
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f11@
 foreign import ccall safe "hs_bindgen_9d8fadad3f85e1fc" hs_bindgen_9d8fadad3f85e1fc_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f11@
-hs_bindgen_9d8fadad3f85e1fc :: IO Unit
+hs_bindgen_9d8fadad3f85e1fc :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f11@
 hs_bindgen_9d8fadad3f85e1fc = fromFFIType hs_bindgen_9d8fadad3f85e1fc_base
 {-| __C declaration:__ @f11@
@@ -784,7 +784,7 @@ hs_bindgen_9d8fadad3f85e1fc = fromFFIType hs_bindgen_9d8fadad3f85e1fc_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f11 :: IO Unit
+f11 :: IO ()
 {-| __C declaration:__ @f11@
 
     __defined at:__ @attributes\/visibility_attributes.h 32:56@
@@ -794,9 +794,9 @@ f11 :: IO Unit
 f11 = hs_bindgen_9d8fadad3f85e1fc
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f12@
 foreign import ccall safe "hs_bindgen_558a7ef50878f4b2" hs_bindgen_558a7ef50878f4b2_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f12@
-hs_bindgen_558a7ef50878f4b2 :: IO Unit
+hs_bindgen_558a7ef50878f4b2 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f12@
 hs_bindgen_558a7ef50878f4b2 = fromFFIType hs_bindgen_558a7ef50878f4b2_base
 {-| __C declaration:__ @f12@
@@ -805,7 +805,7 @@ hs_bindgen_558a7ef50878f4b2 = fromFFIType hs_bindgen_558a7ef50878f4b2_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f12 :: IO Unit
+f12 :: IO ()
 {-| __C declaration:__ @f12@
 
     __defined at:__ @attributes\/visibility_attributes.h 33:56@
@@ -815,9 +815,9 @@ f12 :: IO Unit
 f12 = hs_bindgen_558a7ef50878f4b2
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f13@
 foreign import ccall safe "hs_bindgen_30add751959aac79" hs_bindgen_30add751959aac79_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f13@
-hs_bindgen_30add751959aac79 :: IO Unit
+hs_bindgen_30add751959aac79 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f13@
 hs_bindgen_30add751959aac79 = fromFFIType hs_bindgen_30add751959aac79_base
 {-| __C declaration:__ @f13@
@@ -826,7 +826,7 @@ hs_bindgen_30add751959aac79 = fromFFIType hs_bindgen_30add751959aac79_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f13 :: IO Unit
+f13 :: IO ()
 {-| __C declaration:__ @f13@
 
     __defined at:__ @attributes\/visibility_attributes.h 34:56@
@@ -836,9 +836,9 @@ f13 :: IO Unit
 f13 = hs_bindgen_30add751959aac79
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f14@
 foreign import ccall safe "hs_bindgen_06b989df2d3622ad" hs_bindgen_06b989df2d3622ad_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f14@
-hs_bindgen_06b989df2d3622ad :: IO Unit
+hs_bindgen_06b989df2d3622ad :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f14@
 hs_bindgen_06b989df2d3622ad = fromFFIType hs_bindgen_06b989df2d3622ad_base
 {-| __C declaration:__ @f14@
@@ -847,7 +847,7 @@ hs_bindgen_06b989df2d3622ad = fromFFIType hs_bindgen_06b989df2d3622ad_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f14 :: IO Unit
+f14 :: IO ()
 {-| __C declaration:__ @f14@
 
     __defined at:__ @attributes\/visibility_attributes.h 35:56@
@@ -857,9 +857,9 @@ f14 :: IO Unit
 f14 = hs_bindgen_06b989df2d3622ad
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f15@
 foreign import ccall safe "hs_bindgen_11627343b78e6e76" hs_bindgen_11627343b78e6e76_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f15@
-hs_bindgen_11627343b78e6e76 :: IO Unit
+hs_bindgen_11627343b78e6e76 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f15@
 hs_bindgen_11627343b78e6e76 = fromFFIType hs_bindgen_11627343b78e6e76_base
 {-| __C declaration:__ @f15@
@@ -868,7 +868,7 @@ hs_bindgen_11627343b78e6e76 = fromFFIType hs_bindgen_11627343b78e6e76_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f15 :: IO Unit
+f15 :: IO ()
 {-| __C declaration:__ @f15@
 
     __defined at:__ @attributes\/visibility_attributes.h 38:56@
@@ -878,9 +878,9 @@ f15 :: IO Unit
 f15 = hs_bindgen_11627343b78e6e76
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f16@
 foreign import ccall safe "hs_bindgen_5d3aa9a924674163" hs_bindgen_5d3aa9a924674163_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f16@
-hs_bindgen_5d3aa9a924674163 :: IO Unit
+hs_bindgen_5d3aa9a924674163 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f16@
 hs_bindgen_5d3aa9a924674163 = fromFFIType hs_bindgen_5d3aa9a924674163_base
 {-| __C declaration:__ @f16@
@@ -889,7 +889,7 @@ hs_bindgen_5d3aa9a924674163 = fromFFIType hs_bindgen_5d3aa9a924674163_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f16 :: IO Unit
+f16 :: IO ()
 {-| __C declaration:__ @f16@
 
     __defined at:__ @attributes\/visibility_attributes.h 39:56@
@@ -899,9 +899,9 @@ f16 :: IO Unit
 f16 = hs_bindgen_5d3aa9a924674163
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f17@
 foreign import ccall safe "hs_bindgen_65abad67aeb6b955" hs_bindgen_65abad67aeb6b955_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f17@
-hs_bindgen_65abad67aeb6b955 :: IO Unit
+hs_bindgen_65abad67aeb6b955 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f17@
 hs_bindgen_65abad67aeb6b955 = fromFFIType hs_bindgen_65abad67aeb6b955_base
 {-| __C declaration:__ @f17@
@@ -910,7 +910,7 @@ hs_bindgen_65abad67aeb6b955 = fromFFIType hs_bindgen_65abad67aeb6b955_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f17 :: IO Unit
+f17 :: IO ()
 {-| __C declaration:__ @f17@
 
     __defined at:__ @attributes\/visibility_attributes.h 40:56@
@@ -920,9 +920,9 @@ f17 :: IO Unit
 f17 = hs_bindgen_65abad67aeb6b955
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f18@
 foreign import ccall safe "hs_bindgen_0350778b298751b2" hs_bindgen_0350778b298751b2_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f18@
-hs_bindgen_0350778b298751b2 :: IO Unit
+hs_bindgen_0350778b298751b2 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f18@
 hs_bindgen_0350778b298751b2 = fromFFIType hs_bindgen_0350778b298751b2_base
 {-| __C declaration:__ @f18@
@@ -931,7 +931,7 @@ hs_bindgen_0350778b298751b2 = fromFFIType hs_bindgen_0350778b298751b2_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f18 :: IO Unit
+f18 :: IO ()
 {-| __C declaration:__ @f18@
 
     __defined at:__ @attributes\/visibility_attributes.h 41:56@
@@ -941,9 +941,9 @@ f18 :: IO Unit
 f18 = hs_bindgen_0350778b298751b2
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f19@
 foreign import ccall safe "hs_bindgen_aacba18c2fb3dae1" hs_bindgen_aacba18c2fb3dae1_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f19@
-hs_bindgen_aacba18c2fb3dae1 :: IO Unit
+hs_bindgen_aacba18c2fb3dae1 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f19@
 hs_bindgen_aacba18c2fb3dae1 = fromFFIType hs_bindgen_aacba18c2fb3dae1_base
 {-| __C declaration:__ @f19@
@@ -952,7 +952,7 @@ hs_bindgen_aacba18c2fb3dae1 = fromFFIType hs_bindgen_aacba18c2fb3dae1_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f19 :: IO Unit
+f19 :: IO ()
 {-| __C declaration:__ @f19@
 
     __defined at:__ @attributes\/visibility_attributes.h 42:56@
@@ -962,9 +962,9 @@ f19 :: IO Unit
 f19 = hs_bindgen_aacba18c2fb3dae1
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f20@
 foreign import ccall safe "hs_bindgen_023f4d5d2a56d2e9" hs_bindgen_023f4d5d2a56d2e9_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f20@
-hs_bindgen_023f4d5d2a56d2e9 :: IO Unit
+hs_bindgen_023f4d5d2a56d2e9 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f20@
 hs_bindgen_023f4d5d2a56d2e9 = fromFFIType hs_bindgen_023f4d5d2a56d2e9_base
 {-| __C declaration:__ @f20@
@@ -973,7 +973,7 @@ hs_bindgen_023f4d5d2a56d2e9 = fromFFIType hs_bindgen_023f4d5d2a56d2e9_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f20 :: IO Unit
+f20 :: IO ()
 {-| __C declaration:__ @f20@
 
     __defined at:__ @attributes\/visibility_attributes.h 45:56@
@@ -983,9 +983,9 @@ f20 :: IO Unit
 f20 = hs_bindgen_023f4d5d2a56d2e9
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f21@
 foreign import ccall safe "hs_bindgen_3a70db9f9e280b85" hs_bindgen_3a70db9f9e280b85_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f21@
-hs_bindgen_3a70db9f9e280b85 :: IO Unit
+hs_bindgen_3a70db9f9e280b85 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f21@
 hs_bindgen_3a70db9f9e280b85 = fromFFIType hs_bindgen_3a70db9f9e280b85_base
 {-| __C declaration:__ @f21@
@@ -994,7 +994,7 @@ hs_bindgen_3a70db9f9e280b85 = fromFFIType hs_bindgen_3a70db9f9e280b85_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f21 :: IO Unit
+f21 :: IO ()
 {-| __C declaration:__ @f21@
 
     __defined at:__ @attributes\/visibility_attributes.h 46:56@
@@ -1004,9 +1004,9 @@ f21 :: IO Unit
 f21 = hs_bindgen_3a70db9f9e280b85
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f22@
 foreign import ccall safe "hs_bindgen_a4fc9586b7510ea6" hs_bindgen_a4fc9586b7510ea6_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f22@
-hs_bindgen_a4fc9586b7510ea6 :: IO Unit
+hs_bindgen_a4fc9586b7510ea6 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f22@
 hs_bindgen_a4fc9586b7510ea6 = fromFFIType hs_bindgen_a4fc9586b7510ea6_base
 {-| __C declaration:__ @f22@
@@ -1015,7 +1015,7 @@ hs_bindgen_a4fc9586b7510ea6 = fromFFIType hs_bindgen_a4fc9586b7510ea6_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f22 :: IO Unit
+f22 :: IO ()
 {-| __C declaration:__ @f22@
 
     __defined at:__ @attributes\/visibility_attributes.h 47:56@
@@ -1025,9 +1025,9 @@ f22 :: IO Unit
 f22 = hs_bindgen_a4fc9586b7510ea6
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f23@
 foreign import ccall safe "hs_bindgen_c25df69a5f23a9b9" hs_bindgen_c25df69a5f23a9b9_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f23@
-hs_bindgen_c25df69a5f23a9b9 :: IO Unit
+hs_bindgen_c25df69a5f23a9b9 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f23@
 hs_bindgen_c25df69a5f23a9b9 = fromFFIType hs_bindgen_c25df69a5f23a9b9_base
 {-| __C declaration:__ @f23@
@@ -1036,7 +1036,7 @@ hs_bindgen_c25df69a5f23a9b9 = fromFFIType hs_bindgen_c25df69a5f23a9b9_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f23 :: IO Unit
+f23 :: IO ()
 {-| __C declaration:__ @f23@
 
     __defined at:__ @attributes\/visibility_attributes.h 48:56@
@@ -1046,9 +1046,9 @@ f23 :: IO Unit
 f23 = hs_bindgen_c25df69a5f23a9b9
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f24@
 foreign import ccall safe "hs_bindgen_909c5201154b4617" hs_bindgen_909c5201154b4617_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f24@
-hs_bindgen_909c5201154b4617 :: IO Unit
+hs_bindgen_909c5201154b4617 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f24@
 hs_bindgen_909c5201154b4617 = fromFFIType hs_bindgen_909c5201154b4617_base
 {-| __C declaration:__ @f24@
@@ -1057,7 +1057,7 @@ hs_bindgen_909c5201154b4617 = fromFFIType hs_bindgen_909c5201154b4617_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f24 :: IO Unit
+f24 :: IO ()
 {-| __C declaration:__ @f24@
 
     __defined at:__ @attributes\/visibility_attributes.h 49:56@
@@ -1067,9 +1067,9 @@ f24 :: IO Unit
 f24 = hs_bindgen_909c5201154b4617
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f25@
 foreign import ccall safe "hs_bindgen_dfbd362260cd0fba" hs_bindgen_dfbd362260cd0fba_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f25@
-hs_bindgen_dfbd362260cd0fba :: IO Unit
+hs_bindgen_dfbd362260cd0fba :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f25@
 hs_bindgen_dfbd362260cd0fba = fromFFIType hs_bindgen_dfbd362260cd0fba_base
 {-| __C declaration:__ @f25@
@@ -1078,7 +1078,7 @@ hs_bindgen_dfbd362260cd0fba = fromFFIType hs_bindgen_dfbd362260cd0fba_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f25 :: IO Unit
+f25 :: IO ()
 {-| __C declaration:__ @f25@
 
     __defined at:__ @attributes\/visibility_attributes.h 52:56@
@@ -1088,9 +1088,9 @@ f25 :: IO Unit
 f25 = hs_bindgen_dfbd362260cd0fba
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f26@
 foreign import ccall safe "hs_bindgen_d9c4d8bc1b7d8a59" hs_bindgen_d9c4d8bc1b7d8a59_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f26@
-hs_bindgen_d9c4d8bc1b7d8a59 :: IO Unit
+hs_bindgen_d9c4d8bc1b7d8a59 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f26@
 hs_bindgen_d9c4d8bc1b7d8a59 = fromFFIType hs_bindgen_d9c4d8bc1b7d8a59_base
 {-| __C declaration:__ @f26@
@@ -1099,7 +1099,7 @@ hs_bindgen_d9c4d8bc1b7d8a59 = fromFFIType hs_bindgen_d9c4d8bc1b7d8a59_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f26 :: IO Unit
+f26 :: IO ()
 {-| __C declaration:__ @f26@
 
     __defined at:__ @attributes\/visibility_attributes.h 53:56@
@@ -1109,9 +1109,9 @@ f26 :: IO Unit
 f26 = hs_bindgen_d9c4d8bc1b7d8a59
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f27@
 foreign import ccall safe "hs_bindgen_71a726a6d6e62f14" hs_bindgen_71a726a6d6e62f14_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f27@
-hs_bindgen_71a726a6d6e62f14 :: IO Unit
+hs_bindgen_71a726a6d6e62f14 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f27@
 hs_bindgen_71a726a6d6e62f14 = fromFFIType hs_bindgen_71a726a6d6e62f14_base
 {-| __C declaration:__ @f27@
@@ -1120,7 +1120,7 @@ hs_bindgen_71a726a6d6e62f14 = fromFFIType hs_bindgen_71a726a6d6e62f14_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f27 :: IO Unit
+f27 :: IO ()
 {-| __C declaration:__ @f27@
 
     __defined at:__ @attributes\/visibility_attributes.h 54:56@
@@ -1130,9 +1130,9 @@ f27 :: IO Unit
 f27 = hs_bindgen_71a726a6d6e62f14
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f28@
 foreign import ccall safe "hs_bindgen_70f35808778a1423" hs_bindgen_70f35808778a1423_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f28@
-hs_bindgen_70f35808778a1423 :: IO Unit
+hs_bindgen_70f35808778a1423 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f28@
 hs_bindgen_70f35808778a1423 = fromFFIType hs_bindgen_70f35808778a1423_base
 {-| __C declaration:__ @f28@
@@ -1141,7 +1141,7 @@ hs_bindgen_70f35808778a1423 = fromFFIType hs_bindgen_70f35808778a1423_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f28 :: IO Unit
+f28 :: IO ()
 {-| __C declaration:__ @f28@
 
     __defined at:__ @attributes\/visibility_attributes.h 55:56@
@@ -1151,9 +1151,9 @@ f28 :: IO Unit
 f28 = hs_bindgen_70f35808778a1423
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f29@
 foreign import ccall safe "hs_bindgen_7ba7293cedb52447" hs_bindgen_7ba7293cedb52447_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f29@
-hs_bindgen_7ba7293cedb52447 :: IO Unit
+hs_bindgen_7ba7293cedb52447 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Safe_f29@
 hs_bindgen_7ba7293cedb52447 = fromFFIType hs_bindgen_7ba7293cedb52447_base
 {-| __C declaration:__ @f29@
@@ -1162,7 +1162,7 @@ hs_bindgen_7ba7293cedb52447 = fromFFIType hs_bindgen_7ba7293cedb52447_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f29 :: IO Unit
+f29 :: IO ()
 {-| __C declaration:__ @f29@
 
     __defined at:__ @attributes\/visibility_attributes.h 56:56@
@@ -1172,9 +1172,9 @@ f29 :: IO Unit
 f29 = hs_bindgen_7ba7293cedb52447
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f0@
 foreign import ccall unsafe "hs_bindgen_df56d82c9186c794" hs_bindgen_df56d82c9186c794_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f0@
-hs_bindgen_df56d82c9186c794 :: IO Unit
+hs_bindgen_df56d82c9186c794 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f0@
 hs_bindgen_df56d82c9186c794 = fromFFIType hs_bindgen_df56d82c9186c794_base
 {-| __C declaration:__ @f0@
@@ -1183,7 +1183,7 @@ hs_bindgen_df56d82c9186c794 = fromFFIType hs_bindgen_df56d82c9186c794_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f0 :: IO Unit
+f0 :: IO ()
 {-| __C declaration:__ @f0@
 
     __defined at:__ @attributes\/visibility_attributes.h 17:56@
@@ -1193,9 +1193,9 @@ f0 :: IO Unit
 f0 = hs_bindgen_df56d82c9186c794
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f1@
 foreign import ccall unsafe "hs_bindgen_2e25b1147da3cdee" hs_bindgen_2e25b1147da3cdee_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f1@
-hs_bindgen_2e25b1147da3cdee :: IO Unit
+hs_bindgen_2e25b1147da3cdee :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f1@
 hs_bindgen_2e25b1147da3cdee = fromFFIType hs_bindgen_2e25b1147da3cdee_base
 {-| __C declaration:__ @f1@
@@ -1204,7 +1204,7 @@ hs_bindgen_2e25b1147da3cdee = fromFFIType hs_bindgen_2e25b1147da3cdee_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f1 :: IO Unit
+f1 :: IO ()
 {-| __C declaration:__ @f1@
 
     __defined at:__ @attributes\/visibility_attributes.h 18:56@
@@ -1214,9 +1214,9 @@ f1 :: IO Unit
 f1 = hs_bindgen_2e25b1147da3cdee
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f2@
 foreign import ccall unsafe "hs_bindgen_c57341dd645988f6" hs_bindgen_c57341dd645988f6_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f2@
-hs_bindgen_c57341dd645988f6 :: IO Unit
+hs_bindgen_c57341dd645988f6 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f2@
 hs_bindgen_c57341dd645988f6 = fromFFIType hs_bindgen_c57341dd645988f6_base
 {-| __C declaration:__ @f2@
@@ -1225,7 +1225,7 @@ hs_bindgen_c57341dd645988f6 = fromFFIType hs_bindgen_c57341dd645988f6_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f2 :: IO Unit
+f2 :: IO ()
 {-| __C declaration:__ @f2@
 
     __defined at:__ @attributes\/visibility_attributes.h 19:56@
@@ -1235,9 +1235,9 @@ f2 :: IO Unit
 f2 = hs_bindgen_c57341dd645988f6
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f3@
 foreign import ccall unsafe "hs_bindgen_5858f33f5b12f541" hs_bindgen_5858f33f5b12f541_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f3@
-hs_bindgen_5858f33f5b12f541 :: IO Unit
+hs_bindgen_5858f33f5b12f541 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f3@
 hs_bindgen_5858f33f5b12f541 = fromFFIType hs_bindgen_5858f33f5b12f541_base
 {-| __C declaration:__ @f3@
@@ -1246,7 +1246,7 @@ hs_bindgen_5858f33f5b12f541 = fromFFIType hs_bindgen_5858f33f5b12f541_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f3 :: IO Unit
+f3 :: IO ()
 {-| __C declaration:__ @f3@
 
     __defined at:__ @attributes\/visibility_attributes.h 20:56@
@@ -1256,9 +1256,9 @@ f3 :: IO Unit
 f3 = hs_bindgen_5858f33f5b12f541
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f4@
 foreign import ccall unsafe "hs_bindgen_d57b75423078a644" hs_bindgen_d57b75423078a644_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f4@
-hs_bindgen_d57b75423078a644 :: IO Unit
+hs_bindgen_d57b75423078a644 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f4@
 hs_bindgen_d57b75423078a644 = fromFFIType hs_bindgen_d57b75423078a644_base
 {-| __C declaration:__ @f4@
@@ -1267,7 +1267,7 @@ hs_bindgen_d57b75423078a644 = fromFFIType hs_bindgen_d57b75423078a644_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f4 :: IO Unit
+f4 :: IO ()
 {-| __C declaration:__ @f4@
 
     __defined at:__ @attributes\/visibility_attributes.h 21:56@
@@ -1277,9 +1277,9 @@ f4 :: IO Unit
 f4 = hs_bindgen_d57b75423078a644
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f5@
 foreign import ccall unsafe "hs_bindgen_d7e35ffb8ef15009" hs_bindgen_d7e35ffb8ef15009_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f5@
-hs_bindgen_d7e35ffb8ef15009 :: IO Unit
+hs_bindgen_d7e35ffb8ef15009 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f5@
 hs_bindgen_d7e35ffb8ef15009 = fromFFIType hs_bindgen_d7e35ffb8ef15009_base
 {-| __C declaration:__ @f5@
@@ -1288,7 +1288,7 @@ hs_bindgen_d7e35ffb8ef15009 = fromFFIType hs_bindgen_d7e35ffb8ef15009_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f5 :: IO Unit
+f5 :: IO ()
 {-| __C declaration:__ @f5@
 
     __defined at:__ @attributes\/visibility_attributes.h 24:56@
@@ -1298,9 +1298,9 @@ f5 :: IO Unit
 f5 = hs_bindgen_d7e35ffb8ef15009
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f6@
 foreign import ccall unsafe "hs_bindgen_de345dceb6694e2e" hs_bindgen_de345dceb6694e2e_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f6@
-hs_bindgen_de345dceb6694e2e :: IO Unit
+hs_bindgen_de345dceb6694e2e :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f6@
 hs_bindgen_de345dceb6694e2e = fromFFIType hs_bindgen_de345dceb6694e2e_base
 {-| __C declaration:__ @f6@
@@ -1309,7 +1309,7 @@ hs_bindgen_de345dceb6694e2e = fromFFIType hs_bindgen_de345dceb6694e2e_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f6 :: IO Unit
+f6 :: IO ()
 {-| __C declaration:__ @f6@
 
     __defined at:__ @attributes\/visibility_attributes.h 25:56@
@@ -1319,9 +1319,9 @@ f6 :: IO Unit
 f6 = hs_bindgen_de345dceb6694e2e
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f7@
 foreign import ccall unsafe "hs_bindgen_df2fd4ea47789bb8" hs_bindgen_df2fd4ea47789bb8_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f7@
-hs_bindgen_df2fd4ea47789bb8 :: IO Unit
+hs_bindgen_df2fd4ea47789bb8 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f7@
 hs_bindgen_df2fd4ea47789bb8 = fromFFIType hs_bindgen_df2fd4ea47789bb8_base
 {-| __C declaration:__ @f7@
@@ -1330,7 +1330,7 @@ hs_bindgen_df2fd4ea47789bb8 = fromFFIType hs_bindgen_df2fd4ea47789bb8_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f7 :: IO Unit
+f7 :: IO ()
 {-| __C declaration:__ @f7@
 
     __defined at:__ @attributes\/visibility_attributes.h 26:56@
@@ -1340,9 +1340,9 @@ f7 :: IO Unit
 f7 = hs_bindgen_df2fd4ea47789bb8
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f8@
 foreign import ccall unsafe "hs_bindgen_a49e6066d8dd0628" hs_bindgen_a49e6066d8dd0628_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f8@
-hs_bindgen_a49e6066d8dd0628 :: IO Unit
+hs_bindgen_a49e6066d8dd0628 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f8@
 hs_bindgen_a49e6066d8dd0628 = fromFFIType hs_bindgen_a49e6066d8dd0628_base
 {-| __C declaration:__ @f8@
@@ -1351,7 +1351,7 @@ hs_bindgen_a49e6066d8dd0628 = fromFFIType hs_bindgen_a49e6066d8dd0628_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f8 :: IO Unit
+f8 :: IO ()
 {-| __C declaration:__ @f8@
 
     __defined at:__ @attributes\/visibility_attributes.h 27:56@
@@ -1361,9 +1361,9 @@ f8 :: IO Unit
 f8 = hs_bindgen_a49e6066d8dd0628
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f9@
 foreign import ccall unsafe "hs_bindgen_e94ceb5e10d07a59" hs_bindgen_e94ceb5e10d07a59_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f9@
-hs_bindgen_e94ceb5e10d07a59 :: IO Unit
+hs_bindgen_e94ceb5e10d07a59 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f9@
 hs_bindgen_e94ceb5e10d07a59 = fromFFIType hs_bindgen_e94ceb5e10d07a59_base
 {-| __C declaration:__ @f9@
@@ -1372,7 +1372,7 @@ hs_bindgen_e94ceb5e10d07a59 = fromFFIType hs_bindgen_e94ceb5e10d07a59_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f9 :: IO Unit
+f9 :: IO ()
 {-| __C declaration:__ @f9@
 
     __defined at:__ @attributes\/visibility_attributes.h 28:56@
@@ -1382,9 +1382,9 @@ f9 :: IO Unit
 f9 = hs_bindgen_e94ceb5e10d07a59
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f10@
 foreign import ccall unsafe "hs_bindgen_d329fc979eb3d29e" hs_bindgen_d329fc979eb3d29e_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f10@
-hs_bindgen_d329fc979eb3d29e :: IO Unit
+hs_bindgen_d329fc979eb3d29e :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f10@
 hs_bindgen_d329fc979eb3d29e = fromFFIType hs_bindgen_d329fc979eb3d29e_base
 {-| __C declaration:__ @f10@
@@ -1393,7 +1393,7 @@ hs_bindgen_d329fc979eb3d29e = fromFFIType hs_bindgen_d329fc979eb3d29e_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f10 :: IO Unit
+f10 :: IO ()
 {-| __C declaration:__ @f10@
 
     __defined at:__ @attributes\/visibility_attributes.h 31:56@
@@ -1403,9 +1403,9 @@ f10 :: IO Unit
 f10 = hs_bindgen_d329fc979eb3d29e
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f11@
 foreign import ccall unsafe "hs_bindgen_9f7176bfdf1871cf" hs_bindgen_9f7176bfdf1871cf_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f11@
-hs_bindgen_9f7176bfdf1871cf :: IO Unit
+hs_bindgen_9f7176bfdf1871cf :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f11@
 hs_bindgen_9f7176bfdf1871cf = fromFFIType hs_bindgen_9f7176bfdf1871cf_base
 {-| __C declaration:__ @f11@
@@ -1414,7 +1414,7 @@ hs_bindgen_9f7176bfdf1871cf = fromFFIType hs_bindgen_9f7176bfdf1871cf_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f11 :: IO Unit
+f11 :: IO ()
 {-| __C declaration:__ @f11@
 
     __defined at:__ @attributes\/visibility_attributes.h 32:56@
@@ -1424,9 +1424,9 @@ f11 :: IO Unit
 f11 = hs_bindgen_9f7176bfdf1871cf
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f12@
 foreign import ccall unsafe "hs_bindgen_d06a71df91d678f1" hs_bindgen_d06a71df91d678f1_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f12@
-hs_bindgen_d06a71df91d678f1 :: IO Unit
+hs_bindgen_d06a71df91d678f1 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f12@
 hs_bindgen_d06a71df91d678f1 = fromFFIType hs_bindgen_d06a71df91d678f1_base
 {-| __C declaration:__ @f12@
@@ -1435,7 +1435,7 @@ hs_bindgen_d06a71df91d678f1 = fromFFIType hs_bindgen_d06a71df91d678f1_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f12 :: IO Unit
+f12 :: IO ()
 {-| __C declaration:__ @f12@
 
     __defined at:__ @attributes\/visibility_attributes.h 33:56@
@@ -1445,9 +1445,9 @@ f12 :: IO Unit
 f12 = hs_bindgen_d06a71df91d678f1
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f13@
 foreign import ccall unsafe "hs_bindgen_32916e0b4775516d" hs_bindgen_32916e0b4775516d_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f13@
-hs_bindgen_32916e0b4775516d :: IO Unit
+hs_bindgen_32916e0b4775516d :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f13@
 hs_bindgen_32916e0b4775516d = fromFFIType hs_bindgen_32916e0b4775516d_base
 {-| __C declaration:__ @f13@
@@ -1456,7 +1456,7 @@ hs_bindgen_32916e0b4775516d = fromFFIType hs_bindgen_32916e0b4775516d_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f13 :: IO Unit
+f13 :: IO ()
 {-| __C declaration:__ @f13@
 
     __defined at:__ @attributes\/visibility_attributes.h 34:56@
@@ -1466,9 +1466,9 @@ f13 :: IO Unit
 f13 = hs_bindgen_32916e0b4775516d
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f14@
 foreign import ccall unsafe "hs_bindgen_56f26ce5de7906a8" hs_bindgen_56f26ce5de7906a8_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f14@
-hs_bindgen_56f26ce5de7906a8 :: IO Unit
+hs_bindgen_56f26ce5de7906a8 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f14@
 hs_bindgen_56f26ce5de7906a8 = fromFFIType hs_bindgen_56f26ce5de7906a8_base
 {-| __C declaration:__ @f14@
@@ -1477,7 +1477,7 @@ hs_bindgen_56f26ce5de7906a8 = fromFFIType hs_bindgen_56f26ce5de7906a8_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f14 :: IO Unit
+f14 :: IO ()
 {-| __C declaration:__ @f14@
 
     __defined at:__ @attributes\/visibility_attributes.h 35:56@
@@ -1487,9 +1487,9 @@ f14 :: IO Unit
 f14 = hs_bindgen_56f26ce5de7906a8
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f15@
 foreign import ccall unsafe "hs_bindgen_fd2972764f48a143" hs_bindgen_fd2972764f48a143_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f15@
-hs_bindgen_fd2972764f48a143 :: IO Unit
+hs_bindgen_fd2972764f48a143 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f15@
 hs_bindgen_fd2972764f48a143 = fromFFIType hs_bindgen_fd2972764f48a143_base
 {-| __C declaration:__ @f15@
@@ -1498,7 +1498,7 @@ hs_bindgen_fd2972764f48a143 = fromFFIType hs_bindgen_fd2972764f48a143_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f15 :: IO Unit
+f15 :: IO ()
 {-| __C declaration:__ @f15@
 
     __defined at:__ @attributes\/visibility_attributes.h 38:56@
@@ -1508,9 +1508,9 @@ f15 :: IO Unit
 f15 = hs_bindgen_fd2972764f48a143
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f16@
 foreign import ccall unsafe "hs_bindgen_f63a042e539ff8b6" hs_bindgen_f63a042e539ff8b6_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f16@
-hs_bindgen_f63a042e539ff8b6 :: IO Unit
+hs_bindgen_f63a042e539ff8b6 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f16@
 hs_bindgen_f63a042e539ff8b6 = fromFFIType hs_bindgen_f63a042e539ff8b6_base
 {-| __C declaration:__ @f16@
@@ -1519,7 +1519,7 @@ hs_bindgen_f63a042e539ff8b6 = fromFFIType hs_bindgen_f63a042e539ff8b6_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f16 :: IO Unit
+f16 :: IO ()
 {-| __C declaration:__ @f16@
 
     __defined at:__ @attributes\/visibility_attributes.h 39:56@
@@ -1529,9 +1529,9 @@ f16 :: IO Unit
 f16 = hs_bindgen_f63a042e539ff8b6
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f17@
 foreign import ccall unsafe "hs_bindgen_1ae5adf1961e06f6" hs_bindgen_1ae5adf1961e06f6_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f17@
-hs_bindgen_1ae5adf1961e06f6 :: IO Unit
+hs_bindgen_1ae5adf1961e06f6 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f17@
 hs_bindgen_1ae5adf1961e06f6 = fromFFIType hs_bindgen_1ae5adf1961e06f6_base
 {-| __C declaration:__ @f17@
@@ -1540,7 +1540,7 @@ hs_bindgen_1ae5adf1961e06f6 = fromFFIType hs_bindgen_1ae5adf1961e06f6_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f17 :: IO Unit
+f17 :: IO ()
 {-| __C declaration:__ @f17@
 
     __defined at:__ @attributes\/visibility_attributes.h 40:56@
@@ -1550,9 +1550,9 @@ f17 :: IO Unit
 f17 = hs_bindgen_1ae5adf1961e06f6
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f18@
 foreign import ccall unsafe "hs_bindgen_cf7978ab53dc8140" hs_bindgen_cf7978ab53dc8140_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f18@
-hs_bindgen_cf7978ab53dc8140 :: IO Unit
+hs_bindgen_cf7978ab53dc8140 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f18@
 hs_bindgen_cf7978ab53dc8140 = fromFFIType hs_bindgen_cf7978ab53dc8140_base
 {-| __C declaration:__ @f18@
@@ -1561,7 +1561,7 @@ hs_bindgen_cf7978ab53dc8140 = fromFFIType hs_bindgen_cf7978ab53dc8140_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f18 :: IO Unit
+f18 :: IO ()
 {-| __C declaration:__ @f18@
 
     __defined at:__ @attributes\/visibility_attributes.h 41:56@
@@ -1571,9 +1571,9 @@ f18 :: IO Unit
 f18 = hs_bindgen_cf7978ab53dc8140
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f19@
 foreign import ccall unsafe "hs_bindgen_f81ec562e6b7dc0f" hs_bindgen_f81ec562e6b7dc0f_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f19@
-hs_bindgen_f81ec562e6b7dc0f :: IO Unit
+hs_bindgen_f81ec562e6b7dc0f :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f19@
 hs_bindgen_f81ec562e6b7dc0f = fromFFIType hs_bindgen_f81ec562e6b7dc0f_base
 {-| __C declaration:__ @f19@
@@ -1582,7 +1582,7 @@ hs_bindgen_f81ec562e6b7dc0f = fromFFIType hs_bindgen_f81ec562e6b7dc0f_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f19 :: IO Unit
+f19 :: IO ()
 {-| __C declaration:__ @f19@
 
     __defined at:__ @attributes\/visibility_attributes.h 42:56@
@@ -1592,9 +1592,9 @@ f19 :: IO Unit
 f19 = hs_bindgen_f81ec562e6b7dc0f
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f20@
 foreign import ccall unsafe "hs_bindgen_95b4b9ea66f61551" hs_bindgen_95b4b9ea66f61551_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f20@
-hs_bindgen_95b4b9ea66f61551 :: IO Unit
+hs_bindgen_95b4b9ea66f61551 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f20@
 hs_bindgen_95b4b9ea66f61551 = fromFFIType hs_bindgen_95b4b9ea66f61551_base
 {-| __C declaration:__ @f20@
@@ -1603,7 +1603,7 @@ hs_bindgen_95b4b9ea66f61551 = fromFFIType hs_bindgen_95b4b9ea66f61551_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f20 :: IO Unit
+f20 :: IO ()
 {-| __C declaration:__ @f20@
 
     __defined at:__ @attributes\/visibility_attributes.h 45:56@
@@ -1613,9 +1613,9 @@ f20 :: IO Unit
 f20 = hs_bindgen_95b4b9ea66f61551
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f21@
 foreign import ccall unsafe "hs_bindgen_c64dd47543cb7378" hs_bindgen_c64dd47543cb7378_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f21@
-hs_bindgen_c64dd47543cb7378 :: IO Unit
+hs_bindgen_c64dd47543cb7378 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f21@
 hs_bindgen_c64dd47543cb7378 = fromFFIType hs_bindgen_c64dd47543cb7378_base
 {-| __C declaration:__ @f21@
@@ -1624,7 +1624,7 @@ hs_bindgen_c64dd47543cb7378 = fromFFIType hs_bindgen_c64dd47543cb7378_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f21 :: IO Unit
+f21 :: IO ()
 {-| __C declaration:__ @f21@
 
     __defined at:__ @attributes\/visibility_attributes.h 46:56@
@@ -1634,9 +1634,9 @@ f21 :: IO Unit
 f21 = hs_bindgen_c64dd47543cb7378
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f22@
 foreign import ccall unsafe "hs_bindgen_ce27e3f019c9d235" hs_bindgen_ce27e3f019c9d235_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f22@
-hs_bindgen_ce27e3f019c9d235 :: IO Unit
+hs_bindgen_ce27e3f019c9d235 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f22@
 hs_bindgen_ce27e3f019c9d235 = fromFFIType hs_bindgen_ce27e3f019c9d235_base
 {-| __C declaration:__ @f22@
@@ -1645,7 +1645,7 @@ hs_bindgen_ce27e3f019c9d235 = fromFFIType hs_bindgen_ce27e3f019c9d235_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f22 :: IO Unit
+f22 :: IO ()
 {-| __C declaration:__ @f22@
 
     __defined at:__ @attributes\/visibility_attributes.h 47:56@
@@ -1655,9 +1655,9 @@ f22 :: IO Unit
 f22 = hs_bindgen_ce27e3f019c9d235
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f23@
 foreign import ccall unsafe "hs_bindgen_ae8f854ac4a07381" hs_bindgen_ae8f854ac4a07381_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f23@
-hs_bindgen_ae8f854ac4a07381 :: IO Unit
+hs_bindgen_ae8f854ac4a07381 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f23@
 hs_bindgen_ae8f854ac4a07381 = fromFFIType hs_bindgen_ae8f854ac4a07381_base
 {-| __C declaration:__ @f23@
@@ -1666,7 +1666,7 @@ hs_bindgen_ae8f854ac4a07381 = fromFFIType hs_bindgen_ae8f854ac4a07381_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f23 :: IO Unit
+f23 :: IO ()
 {-| __C declaration:__ @f23@
 
     __defined at:__ @attributes\/visibility_attributes.h 48:56@
@@ -1676,9 +1676,9 @@ f23 :: IO Unit
 f23 = hs_bindgen_ae8f854ac4a07381
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f24@
 foreign import ccall unsafe "hs_bindgen_d4585a283ed9fc36" hs_bindgen_d4585a283ed9fc36_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f24@
-hs_bindgen_d4585a283ed9fc36 :: IO Unit
+hs_bindgen_d4585a283ed9fc36 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f24@
 hs_bindgen_d4585a283ed9fc36 = fromFFIType hs_bindgen_d4585a283ed9fc36_base
 {-| __C declaration:__ @f24@
@@ -1687,7 +1687,7 @@ hs_bindgen_d4585a283ed9fc36 = fromFFIType hs_bindgen_d4585a283ed9fc36_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f24 :: IO Unit
+f24 :: IO ()
 {-| __C declaration:__ @f24@
 
     __defined at:__ @attributes\/visibility_attributes.h 49:56@
@@ -1697,9 +1697,9 @@ f24 :: IO Unit
 f24 = hs_bindgen_d4585a283ed9fc36
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f25@
 foreign import ccall unsafe "hs_bindgen_f600df85706a5312" hs_bindgen_f600df85706a5312_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f25@
-hs_bindgen_f600df85706a5312 :: IO Unit
+hs_bindgen_f600df85706a5312 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f25@
 hs_bindgen_f600df85706a5312 = fromFFIType hs_bindgen_f600df85706a5312_base
 {-| __C declaration:__ @f25@
@@ -1708,7 +1708,7 @@ hs_bindgen_f600df85706a5312 = fromFFIType hs_bindgen_f600df85706a5312_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f25 :: IO Unit
+f25 :: IO ()
 {-| __C declaration:__ @f25@
 
     __defined at:__ @attributes\/visibility_attributes.h 52:56@
@@ -1718,9 +1718,9 @@ f25 :: IO Unit
 f25 = hs_bindgen_f600df85706a5312
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f26@
 foreign import ccall unsafe "hs_bindgen_92731c80b3281e1c" hs_bindgen_92731c80b3281e1c_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f26@
-hs_bindgen_92731c80b3281e1c :: IO Unit
+hs_bindgen_92731c80b3281e1c :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f26@
 hs_bindgen_92731c80b3281e1c = fromFFIType hs_bindgen_92731c80b3281e1c_base
 {-| __C declaration:__ @f26@
@@ -1729,7 +1729,7 @@ hs_bindgen_92731c80b3281e1c = fromFFIType hs_bindgen_92731c80b3281e1c_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f26 :: IO Unit
+f26 :: IO ()
 {-| __C declaration:__ @f26@
 
     __defined at:__ @attributes\/visibility_attributes.h 53:56@
@@ -1739,9 +1739,9 @@ f26 :: IO Unit
 f26 = hs_bindgen_92731c80b3281e1c
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f27@
 foreign import ccall unsafe "hs_bindgen_930247d3730559af" hs_bindgen_930247d3730559af_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f27@
-hs_bindgen_930247d3730559af :: IO Unit
+hs_bindgen_930247d3730559af :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f27@
 hs_bindgen_930247d3730559af = fromFFIType hs_bindgen_930247d3730559af_base
 {-| __C declaration:__ @f27@
@@ -1750,7 +1750,7 @@ hs_bindgen_930247d3730559af = fromFFIType hs_bindgen_930247d3730559af_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f27 :: IO Unit
+f27 :: IO ()
 {-| __C declaration:__ @f27@
 
     __defined at:__ @attributes\/visibility_attributes.h 54:56@
@@ -1760,9 +1760,9 @@ f27 :: IO Unit
 f27 = hs_bindgen_930247d3730559af
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f28@
 foreign import ccall unsafe "hs_bindgen_2d1ce37b69d8d467" hs_bindgen_2d1ce37b69d8d467_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f28@
-hs_bindgen_2d1ce37b69d8d467 :: IO Unit
+hs_bindgen_2d1ce37b69d8d467 :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f28@
 hs_bindgen_2d1ce37b69d8d467 = fromFFIType hs_bindgen_2d1ce37b69d8d467_base
 {-| __C declaration:__ @f28@
@@ -1771,7 +1771,7 @@ hs_bindgen_2d1ce37b69d8d467 = fromFFIType hs_bindgen_2d1ce37b69d8d467_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f28 :: IO Unit
+f28 :: IO ()
 {-| __C declaration:__ @f28@
 
     __defined at:__ @attributes\/visibility_attributes.h 55:56@
@@ -1781,9 +1781,9 @@ f28 :: IO Unit
 f28 = hs_bindgen_2d1ce37b69d8d467
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f29@
 foreign import ccall unsafe "hs_bindgen_3f89a86cfcdf475d" hs_bindgen_3f89a86cfcdf475d_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f29@
-hs_bindgen_3f89a86cfcdf475d :: IO Unit
+hs_bindgen_3f89a86cfcdf475d :: IO ()
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f29@
 hs_bindgen_3f89a86cfcdf475d = fromFFIType hs_bindgen_3f89a86cfcdf475d_base
 {-| __C declaration:__ @f29@
@@ -1792,7 +1792,7 @@ hs_bindgen_3f89a86cfcdf475d = fromFFIType hs_bindgen_3f89a86cfcdf475d_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f29 :: IO Unit
+f29 :: IO ()
 {-| __C declaration:__ @f29@
 
     __defined at:__ @attributes\/visibility_attributes.h 56:56@
@@ -1804,7 +1804,7 @@ f29 = hs_bindgen_3f89a86cfcdf475d
 foreign import ccall unsafe "hs_bindgen_f786cd0ff4765546" hs_bindgen_f786cd0ff4765546_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f0@
-hs_bindgen_f786cd0ff4765546 :: IO (FunPtr (IO Unit))
+hs_bindgen_f786cd0ff4765546 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f0@
 hs_bindgen_f786cd0ff4765546 = fromFFIType hs_bindgen_f786cd0ff4765546_base
 {-# NOINLINE f0 #-}
@@ -1814,7 +1814,7 @@ hs_bindgen_f786cd0ff4765546 = fromFFIType hs_bindgen_f786cd0ff4765546_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f0 :: FunPtr (IO Unit)
+f0 :: FunPtr (IO ())
 {-| __C declaration:__ @f0@
 
     __defined at:__ @attributes\/visibility_attributes.h 17:56@
@@ -1826,7 +1826,7 @@ f0 = unsafePerformIO hs_bindgen_f786cd0ff4765546
 foreign import ccall unsafe "hs_bindgen_e52f358f2c001dee" hs_bindgen_e52f358f2c001dee_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f1@
-hs_bindgen_e52f358f2c001dee :: IO (FunPtr (IO Unit))
+hs_bindgen_e52f358f2c001dee :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f1@
 hs_bindgen_e52f358f2c001dee = fromFFIType hs_bindgen_e52f358f2c001dee_base
 {-# NOINLINE f1 #-}
@@ -1836,7 +1836,7 @@ hs_bindgen_e52f358f2c001dee = fromFFIType hs_bindgen_e52f358f2c001dee_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f1 :: FunPtr (IO Unit)
+f1 :: FunPtr (IO ())
 {-| __C declaration:__ @f1@
 
     __defined at:__ @attributes\/visibility_attributes.h 18:56@
@@ -1848,7 +1848,7 @@ f1 = unsafePerformIO hs_bindgen_e52f358f2c001dee
 foreign import ccall unsafe "hs_bindgen_56d04acba6cd0980" hs_bindgen_56d04acba6cd0980_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f2@
-hs_bindgen_56d04acba6cd0980 :: IO (FunPtr (IO Unit))
+hs_bindgen_56d04acba6cd0980 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f2@
 hs_bindgen_56d04acba6cd0980 = fromFFIType hs_bindgen_56d04acba6cd0980_base
 {-# NOINLINE f2 #-}
@@ -1858,7 +1858,7 @@ hs_bindgen_56d04acba6cd0980 = fromFFIType hs_bindgen_56d04acba6cd0980_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f2 :: FunPtr (IO Unit)
+f2 :: FunPtr (IO ())
 {-| __C declaration:__ @f2@
 
     __defined at:__ @attributes\/visibility_attributes.h 19:56@
@@ -1870,7 +1870,7 @@ f2 = unsafePerformIO hs_bindgen_56d04acba6cd0980
 foreign import ccall unsafe "hs_bindgen_f31a184d805499cf" hs_bindgen_f31a184d805499cf_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f3@
-hs_bindgen_f31a184d805499cf :: IO (FunPtr (IO Unit))
+hs_bindgen_f31a184d805499cf :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f3@
 hs_bindgen_f31a184d805499cf = fromFFIType hs_bindgen_f31a184d805499cf_base
 {-# NOINLINE f3 #-}
@@ -1880,7 +1880,7 @@ hs_bindgen_f31a184d805499cf = fromFFIType hs_bindgen_f31a184d805499cf_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f3 :: FunPtr (IO Unit)
+f3 :: FunPtr (IO ())
 {-| __C declaration:__ @f3@
 
     __defined at:__ @attributes\/visibility_attributes.h 20:56@
@@ -1892,7 +1892,7 @@ f3 = unsafePerformIO hs_bindgen_f31a184d805499cf
 foreign import ccall unsafe "hs_bindgen_5f7194191ffe8481" hs_bindgen_5f7194191ffe8481_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f4@
-hs_bindgen_5f7194191ffe8481 :: IO (FunPtr (IO Unit))
+hs_bindgen_5f7194191ffe8481 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f4@
 hs_bindgen_5f7194191ffe8481 = fromFFIType hs_bindgen_5f7194191ffe8481_base
 {-# NOINLINE f4 #-}
@@ -1902,7 +1902,7 @@ hs_bindgen_5f7194191ffe8481 = fromFFIType hs_bindgen_5f7194191ffe8481_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f4 :: FunPtr (IO Unit)
+f4 :: FunPtr (IO ())
 {-| __C declaration:__ @f4@
 
     __defined at:__ @attributes\/visibility_attributes.h 21:56@
@@ -1914,7 +1914,7 @@ f4 = unsafePerformIO hs_bindgen_5f7194191ffe8481
 foreign import ccall unsafe "hs_bindgen_85bc4e11ab8b8648" hs_bindgen_85bc4e11ab8b8648_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f5@
-hs_bindgen_85bc4e11ab8b8648 :: IO (FunPtr (IO Unit))
+hs_bindgen_85bc4e11ab8b8648 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f5@
 hs_bindgen_85bc4e11ab8b8648 = fromFFIType hs_bindgen_85bc4e11ab8b8648_base
 {-# NOINLINE f5 #-}
@@ -1924,7 +1924,7 @@ hs_bindgen_85bc4e11ab8b8648 = fromFFIType hs_bindgen_85bc4e11ab8b8648_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f5 :: FunPtr (IO Unit)
+f5 :: FunPtr (IO ())
 {-| __C declaration:__ @f5@
 
     __defined at:__ @attributes\/visibility_attributes.h 24:56@
@@ -1936,7 +1936,7 @@ f5 = unsafePerformIO hs_bindgen_85bc4e11ab8b8648
 foreign import ccall unsafe "hs_bindgen_9996f6b2a5f115e0" hs_bindgen_9996f6b2a5f115e0_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f6@
-hs_bindgen_9996f6b2a5f115e0 :: IO (FunPtr (IO Unit))
+hs_bindgen_9996f6b2a5f115e0 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f6@
 hs_bindgen_9996f6b2a5f115e0 = fromFFIType hs_bindgen_9996f6b2a5f115e0_base
 {-# NOINLINE f6 #-}
@@ -1946,7 +1946,7 @@ hs_bindgen_9996f6b2a5f115e0 = fromFFIType hs_bindgen_9996f6b2a5f115e0_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f6 :: FunPtr (IO Unit)
+f6 :: FunPtr (IO ())
 {-| __C declaration:__ @f6@
 
     __defined at:__ @attributes\/visibility_attributes.h 25:56@
@@ -1958,7 +1958,7 @@ f6 = unsafePerformIO hs_bindgen_9996f6b2a5f115e0
 foreign import ccall unsafe "hs_bindgen_e492e14719d8bce9" hs_bindgen_e492e14719d8bce9_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f7@
-hs_bindgen_e492e14719d8bce9 :: IO (FunPtr (IO Unit))
+hs_bindgen_e492e14719d8bce9 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f7@
 hs_bindgen_e492e14719d8bce9 = fromFFIType hs_bindgen_e492e14719d8bce9_base
 {-# NOINLINE f7 #-}
@@ -1968,7 +1968,7 @@ hs_bindgen_e492e14719d8bce9 = fromFFIType hs_bindgen_e492e14719d8bce9_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f7 :: FunPtr (IO Unit)
+f7 :: FunPtr (IO ())
 {-| __C declaration:__ @f7@
 
     __defined at:__ @attributes\/visibility_attributes.h 26:56@
@@ -1980,7 +1980,7 @@ f7 = unsafePerformIO hs_bindgen_e492e14719d8bce9
 foreign import ccall unsafe "hs_bindgen_dc46d9b5b58c3cec" hs_bindgen_dc46d9b5b58c3cec_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f8@
-hs_bindgen_dc46d9b5b58c3cec :: IO (FunPtr (IO Unit))
+hs_bindgen_dc46d9b5b58c3cec :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f8@
 hs_bindgen_dc46d9b5b58c3cec = fromFFIType hs_bindgen_dc46d9b5b58c3cec_base
 {-# NOINLINE f8 #-}
@@ -1990,7 +1990,7 @@ hs_bindgen_dc46d9b5b58c3cec = fromFFIType hs_bindgen_dc46d9b5b58c3cec_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f8 :: FunPtr (IO Unit)
+f8 :: FunPtr (IO ())
 {-| __C declaration:__ @f8@
 
     __defined at:__ @attributes\/visibility_attributes.h 27:56@
@@ -2002,7 +2002,7 @@ f8 = unsafePerformIO hs_bindgen_dc46d9b5b58c3cec
 foreign import ccall unsafe "hs_bindgen_d447735bb0d90bf0" hs_bindgen_d447735bb0d90bf0_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f9@
-hs_bindgen_d447735bb0d90bf0 :: IO (FunPtr (IO Unit))
+hs_bindgen_d447735bb0d90bf0 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f9@
 hs_bindgen_d447735bb0d90bf0 = fromFFIType hs_bindgen_d447735bb0d90bf0_base
 {-# NOINLINE f9 #-}
@@ -2012,7 +2012,7 @@ hs_bindgen_d447735bb0d90bf0 = fromFFIType hs_bindgen_d447735bb0d90bf0_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f9 :: FunPtr (IO Unit)
+f9 :: FunPtr (IO ())
 {-| __C declaration:__ @f9@
 
     __defined at:__ @attributes\/visibility_attributes.h 28:56@
@@ -2024,7 +2024,7 @@ f9 = unsafePerformIO hs_bindgen_d447735bb0d90bf0
 foreign import ccall unsafe "hs_bindgen_038431a45380fdcb" hs_bindgen_038431a45380fdcb_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f10@
-hs_bindgen_038431a45380fdcb :: IO (FunPtr (IO Unit))
+hs_bindgen_038431a45380fdcb :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f10@
 hs_bindgen_038431a45380fdcb = fromFFIType hs_bindgen_038431a45380fdcb_base
 {-# NOINLINE f10 #-}
@@ -2034,7 +2034,7 @@ hs_bindgen_038431a45380fdcb = fromFFIType hs_bindgen_038431a45380fdcb_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f10 :: FunPtr (IO Unit)
+f10 :: FunPtr (IO ())
 {-| __C declaration:__ @f10@
 
     __defined at:__ @attributes\/visibility_attributes.h 31:56@
@@ -2046,7 +2046,7 @@ f10 = unsafePerformIO hs_bindgen_038431a45380fdcb
 foreign import ccall unsafe "hs_bindgen_7e591cbd13064a7e" hs_bindgen_7e591cbd13064a7e_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f11@
-hs_bindgen_7e591cbd13064a7e :: IO (FunPtr (IO Unit))
+hs_bindgen_7e591cbd13064a7e :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f11@
 hs_bindgen_7e591cbd13064a7e = fromFFIType hs_bindgen_7e591cbd13064a7e_base
 {-# NOINLINE f11 #-}
@@ -2056,7 +2056,7 @@ hs_bindgen_7e591cbd13064a7e = fromFFIType hs_bindgen_7e591cbd13064a7e_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f11 :: FunPtr (IO Unit)
+f11 :: FunPtr (IO ())
 {-| __C declaration:__ @f11@
 
     __defined at:__ @attributes\/visibility_attributes.h 32:56@
@@ -2068,7 +2068,7 @@ f11 = unsafePerformIO hs_bindgen_7e591cbd13064a7e
 foreign import ccall unsafe "hs_bindgen_b5295bfee1c2918d" hs_bindgen_b5295bfee1c2918d_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f12@
-hs_bindgen_b5295bfee1c2918d :: IO (FunPtr (IO Unit))
+hs_bindgen_b5295bfee1c2918d :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f12@
 hs_bindgen_b5295bfee1c2918d = fromFFIType hs_bindgen_b5295bfee1c2918d_base
 {-# NOINLINE f12 #-}
@@ -2078,7 +2078,7 @@ hs_bindgen_b5295bfee1c2918d = fromFFIType hs_bindgen_b5295bfee1c2918d_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f12 :: FunPtr (IO Unit)
+f12 :: FunPtr (IO ())
 {-| __C declaration:__ @f12@
 
     __defined at:__ @attributes\/visibility_attributes.h 33:56@
@@ -2090,7 +2090,7 @@ f12 = unsafePerformIO hs_bindgen_b5295bfee1c2918d
 foreign import ccall unsafe "hs_bindgen_64f5e3ad765f7112" hs_bindgen_64f5e3ad765f7112_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f13@
-hs_bindgen_64f5e3ad765f7112 :: IO (FunPtr (IO Unit))
+hs_bindgen_64f5e3ad765f7112 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f13@
 hs_bindgen_64f5e3ad765f7112 = fromFFIType hs_bindgen_64f5e3ad765f7112_base
 {-# NOINLINE f13 #-}
@@ -2100,7 +2100,7 @@ hs_bindgen_64f5e3ad765f7112 = fromFFIType hs_bindgen_64f5e3ad765f7112_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f13 :: FunPtr (IO Unit)
+f13 :: FunPtr (IO ())
 {-| __C declaration:__ @f13@
 
     __defined at:__ @attributes\/visibility_attributes.h 34:56@
@@ -2112,7 +2112,7 @@ f13 = unsafePerformIO hs_bindgen_64f5e3ad765f7112
 foreign import ccall unsafe "hs_bindgen_6b5ac9f59213d283" hs_bindgen_6b5ac9f59213d283_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f14@
-hs_bindgen_6b5ac9f59213d283 :: IO (FunPtr (IO Unit))
+hs_bindgen_6b5ac9f59213d283 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f14@
 hs_bindgen_6b5ac9f59213d283 = fromFFIType hs_bindgen_6b5ac9f59213d283_base
 {-# NOINLINE f14 #-}
@@ -2122,7 +2122,7 @@ hs_bindgen_6b5ac9f59213d283 = fromFFIType hs_bindgen_6b5ac9f59213d283_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f14 :: FunPtr (IO Unit)
+f14 :: FunPtr (IO ())
 {-| __C declaration:__ @f14@
 
     __defined at:__ @attributes\/visibility_attributes.h 35:56@
@@ -2134,7 +2134,7 @@ f14 = unsafePerformIO hs_bindgen_6b5ac9f59213d283
 foreign import ccall unsafe "hs_bindgen_41661225569065f2" hs_bindgen_41661225569065f2_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f15@
-hs_bindgen_41661225569065f2 :: IO (FunPtr (IO Unit))
+hs_bindgen_41661225569065f2 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f15@
 hs_bindgen_41661225569065f2 = fromFFIType hs_bindgen_41661225569065f2_base
 {-# NOINLINE f15 #-}
@@ -2144,7 +2144,7 @@ hs_bindgen_41661225569065f2 = fromFFIType hs_bindgen_41661225569065f2_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f15 :: FunPtr (IO Unit)
+f15 :: FunPtr (IO ())
 {-| __C declaration:__ @f15@
 
     __defined at:__ @attributes\/visibility_attributes.h 38:56@
@@ -2156,7 +2156,7 @@ f15 = unsafePerformIO hs_bindgen_41661225569065f2
 foreign import ccall unsafe "hs_bindgen_cb3fb392b3793519" hs_bindgen_cb3fb392b3793519_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f16@
-hs_bindgen_cb3fb392b3793519 :: IO (FunPtr (IO Unit))
+hs_bindgen_cb3fb392b3793519 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f16@
 hs_bindgen_cb3fb392b3793519 = fromFFIType hs_bindgen_cb3fb392b3793519_base
 {-# NOINLINE f16 #-}
@@ -2166,7 +2166,7 @@ hs_bindgen_cb3fb392b3793519 = fromFFIType hs_bindgen_cb3fb392b3793519_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f16 :: FunPtr (IO Unit)
+f16 :: FunPtr (IO ())
 {-| __C declaration:__ @f16@
 
     __defined at:__ @attributes\/visibility_attributes.h 39:56@
@@ -2178,7 +2178,7 @@ f16 = unsafePerformIO hs_bindgen_cb3fb392b3793519
 foreign import ccall unsafe "hs_bindgen_7ec364e12fc11702" hs_bindgen_7ec364e12fc11702_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f17@
-hs_bindgen_7ec364e12fc11702 :: IO (FunPtr (IO Unit))
+hs_bindgen_7ec364e12fc11702 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f17@
 hs_bindgen_7ec364e12fc11702 = fromFFIType hs_bindgen_7ec364e12fc11702_base
 {-# NOINLINE f17 #-}
@@ -2188,7 +2188,7 @@ hs_bindgen_7ec364e12fc11702 = fromFFIType hs_bindgen_7ec364e12fc11702_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f17 :: FunPtr (IO Unit)
+f17 :: FunPtr (IO ())
 {-| __C declaration:__ @f17@
 
     __defined at:__ @attributes\/visibility_attributes.h 40:56@
@@ -2200,7 +2200,7 @@ f17 = unsafePerformIO hs_bindgen_7ec364e12fc11702
 foreign import ccall unsafe "hs_bindgen_026a0814b5f6b1e9" hs_bindgen_026a0814b5f6b1e9_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f18@
-hs_bindgen_026a0814b5f6b1e9 :: IO (FunPtr (IO Unit))
+hs_bindgen_026a0814b5f6b1e9 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f18@
 hs_bindgen_026a0814b5f6b1e9 = fromFFIType hs_bindgen_026a0814b5f6b1e9_base
 {-# NOINLINE f18 #-}
@@ -2210,7 +2210,7 @@ hs_bindgen_026a0814b5f6b1e9 = fromFFIType hs_bindgen_026a0814b5f6b1e9_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f18 :: FunPtr (IO Unit)
+f18 :: FunPtr (IO ())
 {-| __C declaration:__ @f18@
 
     __defined at:__ @attributes\/visibility_attributes.h 41:56@
@@ -2222,7 +2222,7 @@ f18 = unsafePerformIO hs_bindgen_026a0814b5f6b1e9
 foreign import ccall unsafe "hs_bindgen_505d79f059ad6189" hs_bindgen_505d79f059ad6189_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f19@
-hs_bindgen_505d79f059ad6189 :: IO (FunPtr (IO Unit))
+hs_bindgen_505d79f059ad6189 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f19@
 hs_bindgen_505d79f059ad6189 = fromFFIType hs_bindgen_505d79f059ad6189_base
 {-# NOINLINE f19 #-}
@@ -2232,7 +2232,7 @@ hs_bindgen_505d79f059ad6189 = fromFFIType hs_bindgen_505d79f059ad6189_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f19 :: FunPtr (IO Unit)
+f19 :: FunPtr (IO ())
 {-| __C declaration:__ @f19@
 
     __defined at:__ @attributes\/visibility_attributes.h 42:56@
@@ -2244,7 +2244,7 @@ f19 = unsafePerformIO hs_bindgen_505d79f059ad6189
 foreign import ccall unsafe "hs_bindgen_a939d9a54db20e26" hs_bindgen_a939d9a54db20e26_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f20@
-hs_bindgen_a939d9a54db20e26 :: IO (FunPtr (IO Unit))
+hs_bindgen_a939d9a54db20e26 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f20@
 hs_bindgen_a939d9a54db20e26 = fromFFIType hs_bindgen_a939d9a54db20e26_base
 {-# NOINLINE f20 #-}
@@ -2254,7 +2254,7 @@ hs_bindgen_a939d9a54db20e26 = fromFFIType hs_bindgen_a939d9a54db20e26_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f20 :: FunPtr (IO Unit)
+f20 :: FunPtr (IO ())
 {-| __C declaration:__ @f20@
 
     __defined at:__ @attributes\/visibility_attributes.h 45:56@
@@ -2266,7 +2266,7 @@ f20 = unsafePerformIO hs_bindgen_a939d9a54db20e26
 foreign import ccall unsafe "hs_bindgen_970806e1a858d637" hs_bindgen_970806e1a858d637_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f21@
-hs_bindgen_970806e1a858d637 :: IO (FunPtr (IO Unit))
+hs_bindgen_970806e1a858d637 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f21@
 hs_bindgen_970806e1a858d637 = fromFFIType hs_bindgen_970806e1a858d637_base
 {-# NOINLINE f21 #-}
@@ -2276,7 +2276,7 @@ hs_bindgen_970806e1a858d637 = fromFFIType hs_bindgen_970806e1a858d637_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f21 :: FunPtr (IO Unit)
+f21 :: FunPtr (IO ())
 {-| __C declaration:__ @f21@
 
     __defined at:__ @attributes\/visibility_attributes.h 46:56@
@@ -2288,7 +2288,7 @@ f21 = unsafePerformIO hs_bindgen_970806e1a858d637
 foreign import ccall unsafe "hs_bindgen_da0c0173778e44e3" hs_bindgen_da0c0173778e44e3_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f22@
-hs_bindgen_da0c0173778e44e3 :: IO (FunPtr (IO Unit))
+hs_bindgen_da0c0173778e44e3 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f22@
 hs_bindgen_da0c0173778e44e3 = fromFFIType hs_bindgen_da0c0173778e44e3_base
 {-# NOINLINE f22 #-}
@@ -2298,7 +2298,7 @@ hs_bindgen_da0c0173778e44e3 = fromFFIType hs_bindgen_da0c0173778e44e3_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f22 :: FunPtr (IO Unit)
+f22 :: FunPtr (IO ())
 {-| __C declaration:__ @f22@
 
     __defined at:__ @attributes\/visibility_attributes.h 47:56@
@@ -2310,7 +2310,7 @@ f22 = unsafePerformIO hs_bindgen_da0c0173778e44e3
 foreign import ccall unsafe "hs_bindgen_ebb72e65cbbf7f2c" hs_bindgen_ebb72e65cbbf7f2c_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f23@
-hs_bindgen_ebb72e65cbbf7f2c :: IO (FunPtr (IO Unit))
+hs_bindgen_ebb72e65cbbf7f2c :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f23@
 hs_bindgen_ebb72e65cbbf7f2c = fromFFIType hs_bindgen_ebb72e65cbbf7f2c_base
 {-# NOINLINE f23 #-}
@@ -2320,7 +2320,7 @@ hs_bindgen_ebb72e65cbbf7f2c = fromFFIType hs_bindgen_ebb72e65cbbf7f2c_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f23 :: FunPtr (IO Unit)
+f23 :: FunPtr (IO ())
 {-| __C declaration:__ @f23@
 
     __defined at:__ @attributes\/visibility_attributes.h 48:56@
@@ -2332,7 +2332,7 @@ f23 = unsafePerformIO hs_bindgen_ebb72e65cbbf7f2c
 foreign import ccall unsafe "hs_bindgen_8615cd6d2c1b5c26" hs_bindgen_8615cd6d2c1b5c26_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f24@
-hs_bindgen_8615cd6d2c1b5c26 :: IO (FunPtr (IO Unit))
+hs_bindgen_8615cd6d2c1b5c26 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f24@
 hs_bindgen_8615cd6d2c1b5c26 = fromFFIType hs_bindgen_8615cd6d2c1b5c26_base
 {-# NOINLINE f24 #-}
@@ -2342,7 +2342,7 @@ hs_bindgen_8615cd6d2c1b5c26 = fromFFIType hs_bindgen_8615cd6d2c1b5c26_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f24 :: FunPtr (IO Unit)
+f24 :: FunPtr (IO ())
 {-| __C declaration:__ @f24@
 
     __defined at:__ @attributes\/visibility_attributes.h 49:56@
@@ -2354,7 +2354,7 @@ f24 = unsafePerformIO hs_bindgen_8615cd6d2c1b5c26
 foreign import ccall unsafe "hs_bindgen_3546f015679f9021" hs_bindgen_3546f015679f9021_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f25@
-hs_bindgen_3546f015679f9021 :: IO (FunPtr (IO Unit))
+hs_bindgen_3546f015679f9021 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f25@
 hs_bindgen_3546f015679f9021 = fromFFIType hs_bindgen_3546f015679f9021_base
 {-# NOINLINE f25 #-}
@@ -2364,7 +2364,7 @@ hs_bindgen_3546f015679f9021 = fromFFIType hs_bindgen_3546f015679f9021_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f25 :: FunPtr (IO Unit)
+f25 :: FunPtr (IO ())
 {-| __C declaration:__ @f25@
 
     __defined at:__ @attributes\/visibility_attributes.h 52:56@
@@ -2376,7 +2376,7 @@ f25 = unsafePerformIO hs_bindgen_3546f015679f9021
 foreign import ccall unsafe "hs_bindgen_98a7f744d6dfd7ed" hs_bindgen_98a7f744d6dfd7ed_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f26@
-hs_bindgen_98a7f744d6dfd7ed :: IO (FunPtr (IO Unit))
+hs_bindgen_98a7f744d6dfd7ed :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f26@
 hs_bindgen_98a7f744d6dfd7ed = fromFFIType hs_bindgen_98a7f744d6dfd7ed_base
 {-# NOINLINE f26 #-}
@@ -2386,7 +2386,7 @@ hs_bindgen_98a7f744d6dfd7ed = fromFFIType hs_bindgen_98a7f744d6dfd7ed_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f26 :: FunPtr (IO Unit)
+f26 :: FunPtr (IO ())
 {-| __C declaration:__ @f26@
 
     __defined at:__ @attributes\/visibility_attributes.h 53:56@
@@ -2398,7 +2398,7 @@ f26 = unsafePerformIO hs_bindgen_98a7f744d6dfd7ed
 foreign import ccall unsafe "hs_bindgen_b5c5959f7fb7f0ce" hs_bindgen_b5c5959f7fb7f0ce_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f27@
-hs_bindgen_b5c5959f7fb7f0ce :: IO (FunPtr (IO Unit))
+hs_bindgen_b5c5959f7fb7f0ce :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f27@
 hs_bindgen_b5c5959f7fb7f0ce = fromFFIType hs_bindgen_b5c5959f7fb7f0ce_base
 {-# NOINLINE f27 #-}
@@ -2408,7 +2408,7 @@ hs_bindgen_b5c5959f7fb7f0ce = fromFFIType hs_bindgen_b5c5959f7fb7f0ce_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f27 :: FunPtr (IO Unit)
+f27 :: FunPtr (IO ())
 {-| __C declaration:__ @f27@
 
     __defined at:__ @attributes\/visibility_attributes.h 54:56@
@@ -2420,7 +2420,7 @@ f27 = unsafePerformIO hs_bindgen_b5c5959f7fb7f0ce
 foreign import ccall unsafe "hs_bindgen_19fb69eb83bce767" hs_bindgen_19fb69eb83bce767_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f28@
-hs_bindgen_19fb69eb83bce767 :: IO (FunPtr (IO Unit))
+hs_bindgen_19fb69eb83bce767 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f28@
 hs_bindgen_19fb69eb83bce767 = fromFFIType hs_bindgen_19fb69eb83bce767_base
 {-# NOINLINE f28 #-}
@@ -2430,7 +2430,7 @@ hs_bindgen_19fb69eb83bce767 = fromFFIType hs_bindgen_19fb69eb83bce767_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f28 :: FunPtr (IO Unit)
+f28 :: FunPtr (IO ())
 {-| __C declaration:__ @f28@
 
     __defined at:__ @attributes\/visibility_attributes.h 55:56@
@@ -2442,7 +2442,7 @@ f28 = unsafePerformIO hs_bindgen_19fb69eb83bce767
 foreign import ccall unsafe "hs_bindgen_b10ef2e4d50e78fe" hs_bindgen_b10ef2e4d50e78fe_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f29@
-hs_bindgen_b10ef2e4d50e78fe :: IO (FunPtr (IO Unit))
+hs_bindgen_b10ef2e4d50e78fe :: IO (FunPtr (IO ()))
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_f29@
 hs_bindgen_b10ef2e4d50e78fe = fromFFIType hs_bindgen_b10ef2e4d50e78fe_base
 {-# NOINLINE f29 #-}
@@ -2452,7 +2452,7 @@ hs_bindgen_b10ef2e4d50e78fe = fromFFIType hs_bindgen_b10ef2e4d50e78fe_base
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-f29 :: FunPtr (IO Unit)
+f29 :: FunPtr (IO ())
 {-| __C declaration:__ @f29@
 
     __defined at:__ @attributes\/visibility_attributes.h 56:56@

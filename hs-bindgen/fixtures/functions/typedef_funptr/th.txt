@@ -117,7 +117,7 @@ instance (~) ty RunDriver =>
     __exported by:__ @functions\/typedef_funptr.h@
 -}
 data Bare
-    = Bare {bare_callback :: (FunPtr (CInt -> IO Unit))
+    = Bare {bare_callback :: (FunPtr (CInt -> IO ()))
             {- ^ __C declaration:__ @callback@
 
                  __defined at:__ @functions\/typedef_funptr.h 21:10@
@@ -141,9 +141,8 @@ instance WriteRaw Bare
                                        Bare bare_callback_2 -> writeRaw (Proxy @"bare_callback") ptr_0 bare_callback_2
 deriving via (EquivStorable Bare) instance Storable Bare
 instance HasCField Bare "bare_callback"
-    where type CFieldType Bare "bare_callback" = FunPtr (CInt ->
-                                                         IO Unit)
+    where type CFieldType Bare "bare_callback" = FunPtr (CInt -> IO ())
           offset# = \_ -> \_ -> 0
-instance (~) ty (FunPtr (CInt -> IO Unit)) =>
+instance (~) ty (FunPtr (CInt -> IO ())) =>
          HasField "bare_callback" (Ptr Bare) (Ptr ty)
     where getField = fromPtr (Proxy @"bare_callback")

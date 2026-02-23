@@ -8,7 +8,7 @@ __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F1_Aux
-    = F1_Aux {unwrapF1_Aux :: (CInt -> CInt -> IO Unit)}
+    = F1_Aux {unwrapF1_Aux :: (CInt -> CInt -> IO ())}
       {- ^ Auxiliary type used by 'F1'
 
       __C declaration:__ @f1@
@@ -20,17 +20,17 @@ newtype F1_Aux
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
-    Int32 -> Int32 -> IO Unit
- -> IO (FunPtr (Int32 -> Int32 -> IO Unit))
+    Int32 -> Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> Int32 -> IO ()))
 -- __unique:__ @toF1_Aux@
 hs_bindgen_00d16e666202ed6c :: F1_Aux -> IO (FunPtr F1_Aux)
 -- __unique:__ @toF1_Aux@
 hs_bindgen_00d16e666202ed6c = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_00d16e666202ed6c_base (toFFIType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425_base ::
-    FunPtr (Int32 -> Int32 -> IO Unit)
+    FunPtr (Int32 -> Int32 -> IO ())
  -> Int32
  -> Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @fromF1_Aux@
 hs_bindgen_ddeb5206e8192425 :: FunPtr F1_Aux -> F1_Aux
 -- __unique:__ @fromF1_Aux@
@@ -39,12 +39,11 @@ instance ToFunPtr F1_Aux
     where toFunPtr = hs_bindgen_00d16e666202ed6c
 instance FromFunPtr F1_Aux
     where fromFunPtr = hs_bindgen_ddeb5206e8192425
-instance (~) ty (CInt -> CInt -> IO Unit) =>
+instance (~) ty (CInt -> CInt -> IO ()) =>
          HasField "unwrapF1_Aux" (Ptr F1_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF1_Aux")
 instance HasCField F1_Aux "unwrapF1_Aux"
-    where type CFieldType F1_Aux "unwrapF1_Aux" = CInt ->
-                                                  CInt -> IO Unit
+    where type CFieldType F1_Aux "unwrapF1_Aux" = CInt -> CInt -> IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f1@
 
@@ -81,7 +80,7 @@ __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F2_Aux
-    = F2_Aux {unwrapF2_Aux :: (CInt -> CInt -> IO Unit)}
+    = F2_Aux {unwrapF2_Aux :: (CInt -> CInt -> IO ())}
       {- ^ Auxiliary type used by 'F2'
 
       __C declaration:__ @f2@
@@ -93,17 +92,17 @@ newtype F2_Aux
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8_base ::
-    Int32 -> Int32 -> IO Unit
- -> IO (FunPtr (Int32 -> Int32 -> IO Unit))
+    Int32 -> Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> Int32 -> IO ()))
 -- __unique:__ @toF2_Aux@
 hs_bindgen_c39d7524b75b54e8 :: F2_Aux -> IO (FunPtr F2_Aux)
 -- __unique:__ @toF2_Aux@
 hs_bindgen_c39d7524b75b54e8 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_c39d7524b75b54e8_base (toFFIType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_e15bcd26f1ed1df7_base ::
-    FunPtr (Int32 -> Int32 -> IO Unit)
+    FunPtr (Int32 -> Int32 -> IO ())
  -> Int32
  -> Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @fromF2_Aux@
 hs_bindgen_e15bcd26f1ed1df7 :: FunPtr F2_Aux -> F2_Aux
 -- __unique:__ @fromF2_Aux@
@@ -112,12 +111,11 @@ instance ToFunPtr F2_Aux
     where toFunPtr = hs_bindgen_c39d7524b75b54e8
 instance FromFunPtr F2_Aux
     where fromFunPtr = hs_bindgen_e15bcd26f1ed1df7
-instance (~) ty (CInt -> CInt -> IO Unit) =>
+instance (~) ty (CInt -> CInt -> IO ()) =>
          HasField "unwrapF2_Aux" (Ptr F2_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF2_Aux")
 instance HasCField F2_Aux "unwrapF2_Aux"
-    where type CFieldType F2_Aux "unwrapF2_Aux" = CInt ->
-                                                  CInt -> IO Unit
+    where type CFieldType F2_Aux "unwrapF2_Aux" = CInt -> CInt -> IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f2@
 
@@ -154,7 +152,7 @@ __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F3_Aux
-    = F3_Aux {unwrapF3_Aux :: (CInt -> CInt -> IO Unit)}
+    = F3_Aux {unwrapF3_Aux :: (CInt -> CInt -> IO ())}
       {- ^ Auxiliary type used by 'F3'
 
       __C declaration:__ @f3@
@@ -166,17 +164,17 @@ newtype F3_Aux
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef_base ::
-    Int32 -> Int32 -> IO Unit
- -> IO (FunPtr (Int32 -> Int32 -> IO Unit))
+    Int32 -> Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> Int32 -> IO ()))
 -- __unique:__ @toF3_Aux@
 hs_bindgen_4a960721e7d1dcef :: F3_Aux -> IO (FunPtr F3_Aux)
 -- __unique:__ @toF3_Aux@
 hs_bindgen_4a960721e7d1dcef = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_4a960721e7d1dcef_base (toFFIType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_66460422a7197535_base ::
-    FunPtr (Int32 -> Int32 -> IO Unit)
+    FunPtr (Int32 -> Int32 -> IO ())
  -> Int32
  -> Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @fromF3_Aux@
 hs_bindgen_66460422a7197535 :: FunPtr F3_Aux -> F3_Aux
 -- __unique:__ @fromF3_Aux@
@@ -185,12 +183,11 @@ instance ToFunPtr F3_Aux
     where toFunPtr = hs_bindgen_4a960721e7d1dcef
 instance FromFunPtr F3_Aux
     where fromFunPtr = hs_bindgen_66460422a7197535
-instance (~) ty (CInt -> CInt -> IO Unit) =>
+instance (~) ty (CInt -> CInt -> IO ()) =>
          HasField "unwrapF3_Aux" (Ptr F3_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF3_Aux")
 instance HasCField F3_Aux "unwrapF3_Aux"
-    where type CFieldType F3_Aux "unwrapF3_Aux" = CInt ->
-                                                  CInt -> IO Unit
+    where type CFieldType F3_Aux "unwrapF3_Aux" = CInt -> CInt -> IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f3@
 
@@ -297,7 +294,7 @@ __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F5_Aux
-    = F5_Aux {unwrapF5_Aux :: (IO Unit)}
+    = F5_Aux {unwrapF5_Aux :: (IO ())}
       {- ^ Auxiliary type used by 'F5'
 
       __C declaration:__ @f5@
@@ -309,15 +306,15 @@ newtype F5_Aux
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_6891cbd81d6f42b9_base ::
-    IO Unit
- -> IO (FunPtr (IO Unit))
+    IO ()
+ -> IO (FunPtr (IO ()))
 -- __unique:__ @toF5_Aux@
 hs_bindgen_6891cbd81d6f42b9 :: F5_Aux -> IO (FunPtr F5_Aux)
 -- __unique:__ @toF5_Aux@
 hs_bindgen_6891cbd81d6f42b9 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_6891cbd81d6f42b9_base (toFFIType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_586f6635c057975f_base ::
-    FunPtr (IO Unit)
- -> IO Unit
+    FunPtr (IO ())
+ -> IO ()
 -- __unique:__ @fromF5_Aux@
 hs_bindgen_586f6635c057975f :: FunPtr F5_Aux -> F5_Aux
 -- __unique:__ @fromF5_Aux@
@@ -326,11 +323,11 @@ instance ToFunPtr F5_Aux
     where toFunPtr = hs_bindgen_6891cbd81d6f42b9
 instance FromFunPtr F5_Aux
     where fromFunPtr = hs_bindgen_586f6635c057975f
-instance (~) ty (IO Unit) =>
+instance (~) ty (IO ()) =>
          HasField "unwrapF5_Aux" (Ptr F5_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF5_Aux")
 instance HasCField F5_Aux "unwrapF5_Aux"
-    where type CFieldType F5_Aux "unwrapF5_Aux" = IO Unit
+    where type CFieldType F5_Aux "unwrapF5_Aux" = IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f5@
 
@@ -402,7 +399,7 @@ __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
 newtype F6_Aux
-    = F6_Aux {unwrapF6_Aux :: (MyInt -> IO Unit)}
+    = F6_Aux {unwrapF6_Aux :: (MyInt -> IO ())}
       {- ^ Auxiliary type used by 'F6'
 
       __C declaration:__ @f6@
@@ -414,16 +411,16 @@ newtype F6_Aux
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45_base ::
-    Int32 -> IO Unit
- -> IO (FunPtr (Int32 -> IO Unit))
+    Int32 -> IO ()
+ -> IO (FunPtr (Int32 -> IO ()))
 -- __unique:__ @toF6_Aux@
 hs_bindgen_c1baf73f98614f45 :: F6_Aux -> IO (FunPtr F6_Aux)
 -- __unique:__ @toF6_Aux@
 hs_bindgen_c1baf73f98614f45 = \fun_0 -> fmap castFunPtrFromFFIType (hs_bindgen_c1baf73f98614f45_base (toFFIType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_a887947b26e58f0c_base ::
-    FunPtr (Int32 -> IO Unit)
+    FunPtr (Int32 -> IO ())
  -> Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @fromF6_Aux@
 hs_bindgen_a887947b26e58f0c :: FunPtr F6_Aux -> F6_Aux
 -- __unique:__ @fromF6_Aux@
@@ -432,11 +429,11 @@ instance ToFunPtr F6_Aux
     where toFunPtr = hs_bindgen_c1baf73f98614f45
 instance FromFunPtr F6_Aux
     where fromFunPtr = hs_bindgen_a887947b26e58f0c
-instance (~) ty (MyInt -> IO Unit) =>
+instance (~) ty (MyInt -> IO ()) =>
          HasField "unwrapF6_Aux" (Ptr F6_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapF6_Aux")
 instance HasCField F6_Aux "unwrapF6_Aux"
-    where type CFieldType F6_Aux "unwrapF6_Aux" = MyInt -> IO Unit
+    where type CFieldType F6_Aux "unwrapF6_Aux" = MyInt -> IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f6@
 

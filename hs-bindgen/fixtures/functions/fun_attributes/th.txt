@@ -499,9 +499,9 @@ instance HasCField Size_t "unwrapSize_t"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsfun_attributes_Example_Safe___f1@
 foreign import ccall safe "hs_bindgen_0560fe42a40f777f" hs_bindgen_0560fe42a40f777f_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe___f1@
-hs_bindgen_0560fe42a40f777f :: IO Unit
+hs_bindgen_0560fe42a40f777f :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe___f1@
 hs_bindgen_0560fe42a40f777f = fromFFIType hs_bindgen_0560fe42a40f777f_base
 {-| __C declaration:__ @__f1@
@@ -510,7 +510,7 @@ hs_bindgen_0560fe42a40f777f = fromFFIType hs_bindgen_0560fe42a40f777f_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-__f1 :: IO Unit
+__f1 :: IO ()
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h 16:13@
@@ -520,9 +520,9 @@ __f1 :: IO Unit
 __f1 = hs_bindgen_0560fe42a40f777f
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f1@
 foreign import ccall safe "hs_bindgen_1a4676387075dc40" hs_bindgen_1a4676387075dc40_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f1@
-hs_bindgen_1a4676387075dc40 :: IO Unit
+hs_bindgen_1a4676387075dc40 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f1@
 hs_bindgen_1a4676387075dc40 = fromFFIType hs_bindgen_1a4676387075dc40_base
 {-| __C declaration:__ @f1@
@@ -531,7 +531,7 @@ hs_bindgen_1a4676387075dc40 = fromFFIType hs_bindgen_1a4676387075dc40_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f1 :: IO Unit
+f1 :: IO ()
 {-| __C declaration:__ @f1@
 
     __defined at:__ @functions\/fun_attributes.h 19:6@
@@ -745,9 +745,9 @@ fdopen :: CInt -> PtrConst CChar -> IO (Ptr FILE)
 fdopen = hs_bindgen_30143e337a327ef0
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f2@
 foreign import ccall safe "hs_bindgen_7b2c420d0febf062" hs_bindgen_7b2c420d0febf062_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f2@
-hs_bindgen_7b2c420d0febf062 :: IO Unit
+hs_bindgen_7b2c420d0febf062 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f2@
 hs_bindgen_7b2c420d0febf062 = fromFFIType hs_bindgen_7b2c420d0febf062_base
 {-| __C declaration:__ @f2@
@@ -756,7 +756,7 @@ hs_bindgen_7b2c420d0febf062 = fromFFIType hs_bindgen_7b2c420d0febf062_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f2 :: IO Unit
+f2 :: IO ()
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h 79:65@
@@ -791,9 +791,9 @@ my_memcpy :: Ptr Void -> PtrConst Void -> Size_t -> IO (Ptr Void)
 my_memcpy = hs_bindgen_af1f131d9e98a2ff
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fatal@
 foreign import ccall safe "hs_bindgen_0afa6ff8226517c8" hs_bindgen_0afa6ff8226517c8_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fatal@
-hs_bindgen_0afa6ff8226517c8 :: IO Unit
+hs_bindgen_0afa6ff8226517c8 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_fatal@
 hs_bindgen_0afa6ff8226517c8 = fromFFIType hs_bindgen_0afa6ff8226517c8_base
 {-| __C declaration:__ @fatal@
@@ -802,7 +802,7 @@ hs_bindgen_0afa6ff8226517c8 = fromFFIType hs_bindgen_0afa6ff8226517c8_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fatal :: IO Unit
+fatal :: IO ()
 {-| __C declaration:__ @fatal@
 
     __defined at:__ @functions\/fun_attributes.h 102:6@
@@ -856,9 +856,9 @@ mymalloc :: Size_t -> IO (Ptr Void)
 mymalloc = hs_bindgen_60517fb6ae2517ff
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_foobar@
 foreign import ccall safe "hs_bindgen_f1451b46f1bd3813" hs_bindgen_f1451b46f1bd3813_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_foobar@
-hs_bindgen_f1451b46f1bd3813 :: IO Unit
+hs_bindgen_f1451b46f1bd3813 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_foobar@
 hs_bindgen_f1451b46f1bd3813 = fromFFIType hs_bindgen_f1451b46f1bd3813_base
 {-| __C declaration:__ @foobar@
@@ -867,7 +867,7 @@ hs_bindgen_f1451b46f1bd3813 = fromFFIType hs_bindgen_f1451b46f1bd3813_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foobar :: IO Unit
+foobar :: IO ()
 {-| __C declaration:__ @foobar@
 
     __defined at:__ @functions\/fun_attributes.h 119:13@
@@ -919,9 +919,9 @@ sse3_func :: IO CInt
 sse3_func = hs_bindgen_2c7c9e9a45042696
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f3@
 foreign import ccall safe "hs_bindgen_4ff2d7abd6099082" hs_bindgen_4ff2d7abd6099082_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f3@
-hs_bindgen_4ff2d7abd6099082 :: IO Unit
+hs_bindgen_4ff2d7abd6099082 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Safe_f3@
 hs_bindgen_4ff2d7abd6099082 = fromFFIType hs_bindgen_4ff2d7abd6099082_base
 {-| __C declaration:__ @f3@
@@ -930,7 +930,7 @@ hs_bindgen_4ff2d7abd6099082 = fromFFIType hs_bindgen_4ff2d7abd6099082_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f3 :: IO Unit
+f3 :: IO ()
 {-| __C declaration:__ @f3@
 
     __defined at:__ @functions\/fun_attributes.h 131:49@
@@ -1024,9 +1024,9 @@ x2 :: IO CInt
 x2 = hs_bindgen_2c3e8d78049741c3
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe___f1@
 foreign import ccall unsafe "hs_bindgen_52759f125bf2b140" hs_bindgen_52759f125bf2b140_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe___f1@
-hs_bindgen_52759f125bf2b140 :: IO Unit
+hs_bindgen_52759f125bf2b140 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe___f1@
 hs_bindgen_52759f125bf2b140 = fromFFIType hs_bindgen_52759f125bf2b140_base
 {-| __C declaration:__ @__f1@
@@ -1035,7 +1035,7 @@ hs_bindgen_52759f125bf2b140 = fromFFIType hs_bindgen_52759f125bf2b140_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-__f1 :: IO Unit
+__f1 :: IO ()
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h 16:13@
@@ -1045,9 +1045,9 @@ __f1 :: IO Unit
 __f1 = hs_bindgen_52759f125bf2b140
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f1@
 foreign import ccall unsafe "hs_bindgen_80bb9d1445e894ca" hs_bindgen_80bb9d1445e894ca_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f1@
-hs_bindgen_80bb9d1445e894ca :: IO Unit
+hs_bindgen_80bb9d1445e894ca :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f1@
 hs_bindgen_80bb9d1445e894ca = fromFFIType hs_bindgen_80bb9d1445e894ca_base
 {-| __C declaration:__ @f1@
@@ -1056,7 +1056,7 @@ hs_bindgen_80bb9d1445e894ca = fromFFIType hs_bindgen_80bb9d1445e894ca_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f1 :: IO Unit
+f1 :: IO ()
 {-| __C declaration:__ @f1@
 
     __defined at:__ @functions\/fun_attributes.h 19:6@
@@ -1270,9 +1270,9 @@ fdopen :: CInt -> PtrConst CChar -> IO (Ptr FILE)
 fdopen = hs_bindgen_830629dc11c2fdfc
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f2@
 foreign import ccall unsafe "hs_bindgen_a5f34f5beb1c74f1" hs_bindgen_a5f34f5beb1c74f1_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f2@
-hs_bindgen_a5f34f5beb1c74f1 :: IO Unit
+hs_bindgen_a5f34f5beb1c74f1 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f2@
 hs_bindgen_a5f34f5beb1c74f1 = fromFFIType hs_bindgen_a5f34f5beb1c74f1_base
 {-| __C declaration:__ @f2@
@@ -1281,7 +1281,7 @@ hs_bindgen_a5f34f5beb1c74f1 = fromFFIType hs_bindgen_a5f34f5beb1c74f1_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f2 :: IO Unit
+f2 :: IO ()
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h 79:65@
@@ -1316,9 +1316,9 @@ my_memcpy :: Ptr Void -> PtrConst Void -> Size_t -> IO (Ptr Void)
 my_memcpy = hs_bindgen_0f3586df383dffea
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fatal@
 foreign import ccall unsafe "hs_bindgen_667d3280d945cd0c" hs_bindgen_667d3280d945cd0c_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fatal@
-hs_bindgen_667d3280d945cd0c :: IO Unit
+hs_bindgen_667d3280d945cd0c :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fatal@
 hs_bindgen_667d3280d945cd0c = fromFFIType hs_bindgen_667d3280d945cd0c_base
 {-| __C declaration:__ @fatal@
@@ -1327,7 +1327,7 @@ hs_bindgen_667d3280d945cd0c = fromFFIType hs_bindgen_667d3280d945cd0c_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fatal :: IO Unit
+fatal :: IO ()
 {-| __C declaration:__ @fatal@
 
     __defined at:__ @functions\/fun_attributes.h 102:6@
@@ -1381,9 +1381,9 @@ mymalloc :: Size_t -> IO (Ptr Void)
 mymalloc = hs_bindgen_5594a84fb65782e1
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_foobar@
 foreign import ccall unsafe "hs_bindgen_1f19397195b32853" hs_bindgen_1f19397195b32853_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_foobar@
-hs_bindgen_1f19397195b32853 :: IO Unit
+hs_bindgen_1f19397195b32853 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_foobar@
 hs_bindgen_1f19397195b32853 = fromFFIType hs_bindgen_1f19397195b32853_base
 {-| __C declaration:__ @foobar@
@@ -1392,7 +1392,7 @@ hs_bindgen_1f19397195b32853 = fromFFIType hs_bindgen_1f19397195b32853_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foobar :: IO Unit
+foobar :: IO ()
 {-| __C declaration:__ @foobar@
 
     __defined at:__ @functions\/fun_attributes.h 119:13@
@@ -1444,9 +1444,9 @@ sse3_func :: IO CInt
 sse3_func = hs_bindgen_6a951361c18a91a0
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f3@
 foreign import ccall unsafe "hs_bindgen_1d7f2cdf95b3bfa3" hs_bindgen_1d7f2cdf95b3bfa3_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f3@
-hs_bindgen_1d7f2cdf95b3bfa3 :: IO Unit
+hs_bindgen_1d7f2cdf95b3bfa3 :: IO ()
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f3@
 hs_bindgen_1d7f2cdf95b3bfa3 = fromFFIType hs_bindgen_1d7f2cdf95b3bfa3_base
 {-| __C declaration:__ @f3@
@@ -1455,7 +1455,7 @@ hs_bindgen_1d7f2cdf95b3bfa3 = fromFFIType hs_bindgen_1d7f2cdf95b3bfa3_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f3 :: IO Unit
+f3 :: IO ()
 {-| __C declaration:__ @f3@
 
     __defined at:__ @functions\/fun_attributes.h 131:49@
@@ -1551,7 +1551,7 @@ x2 = hs_bindgen_150a79fec58eaf56
 foreign import ccall unsafe "hs_bindgen_99da7108788a2cf4" hs_bindgen_99da7108788a2cf4_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get___f1@
-hs_bindgen_99da7108788a2cf4 :: IO (FunPtr (IO Unit))
+hs_bindgen_99da7108788a2cf4 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get___f1@
 hs_bindgen_99da7108788a2cf4 = fromFFIType hs_bindgen_99da7108788a2cf4_base
 {-# NOINLINE __f1 #-}
@@ -1561,7 +1561,7 @@ hs_bindgen_99da7108788a2cf4 = fromFFIType hs_bindgen_99da7108788a2cf4_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-__f1 :: FunPtr (IO Unit)
+__f1 :: FunPtr (IO ())
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h 16:13@
@@ -1573,7 +1573,7 @@ __f1 = unsafePerformIO hs_bindgen_99da7108788a2cf4
 foreign import ccall unsafe "hs_bindgen_a0d2ec6ffc23fc5a" hs_bindgen_a0d2ec6ffc23fc5a_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get_f1@
-hs_bindgen_a0d2ec6ffc23fc5a :: IO (FunPtr (IO Unit))
+hs_bindgen_a0d2ec6ffc23fc5a :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_f1@
 hs_bindgen_a0d2ec6ffc23fc5a = fromFFIType hs_bindgen_a0d2ec6ffc23fc5a_base
 {-# NOINLINE f1 #-}
@@ -1583,7 +1583,7 @@ hs_bindgen_a0d2ec6ffc23fc5a = fromFFIType hs_bindgen_a0d2ec6ffc23fc5a_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f1 :: FunPtr (IO Unit)
+f1 :: FunPtr (IO ())
 {-| __C declaration:__ @f1@
 
     __defined at:__ @functions\/fun_attributes.h 19:6@
@@ -1801,7 +1801,7 @@ fdopen = unsafePerformIO hs_bindgen_986260288574592d
 foreign import ccall unsafe "hs_bindgen_fa90d405c15977a2" hs_bindgen_fa90d405c15977a2_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get_f2@
-hs_bindgen_fa90d405c15977a2 :: IO (FunPtr (IO Unit))
+hs_bindgen_fa90d405c15977a2 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_f2@
 hs_bindgen_fa90d405c15977a2 = fromFFIType hs_bindgen_fa90d405c15977a2_base
 {-# NOINLINE f2 #-}
@@ -1811,7 +1811,7 @@ hs_bindgen_fa90d405c15977a2 = fromFFIType hs_bindgen_fa90d405c15977a2_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f2 :: FunPtr (IO Unit)
+f2 :: FunPtr (IO ())
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h 79:65@
@@ -1847,7 +1847,7 @@ my_memcpy = unsafePerformIO hs_bindgen_481e3a75205c85f2
 foreign import ccall unsafe "hs_bindgen_99cc62837ebec657" hs_bindgen_99cc62837ebec657_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get_fatal@
-hs_bindgen_99cc62837ebec657 :: IO (FunPtr (IO Unit))
+hs_bindgen_99cc62837ebec657 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_fatal@
 hs_bindgen_99cc62837ebec657 = fromFFIType hs_bindgen_99cc62837ebec657_base
 {-# NOINLINE fatal #-}
@@ -1857,7 +1857,7 @@ hs_bindgen_99cc62837ebec657 = fromFFIType hs_bindgen_99cc62837ebec657_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fatal :: FunPtr (IO Unit)
+fatal :: FunPtr (IO ())
 {-| __C declaration:__ @fatal@
 
     __defined at:__ @functions\/fun_attributes.h 102:6@
@@ -1914,7 +1914,7 @@ mymalloc = unsafePerformIO hs_bindgen_ae6b503283507bd2
 foreign import ccall unsafe "hs_bindgen_ad3e5c88477c9e92" hs_bindgen_ad3e5c88477c9e92_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get_foobar@
-hs_bindgen_ad3e5c88477c9e92 :: IO (FunPtr (IO Unit))
+hs_bindgen_ad3e5c88477c9e92 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_foobar@
 hs_bindgen_ad3e5c88477c9e92 = fromFFIType hs_bindgen_ad3e5c88477c9e92_base
 {-# NOINLINE foobar #-}
@@ -1924,7 +1924,7 @@ hs_bindgen_ad3e5c88477c9e92 = fromFFIType hs_bindgen_ad3e5c88477c9e92_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foobar :: FunPtr (IO Unit)
+foobar :: FunPtr (IO ())
 {-| __C declaration:__ @foobar@
 
     __defined at:__ @functions\/fun_attributes.h 119:13@
@@ -1980,7 +1980,7 @@ sse3_func = unsafePerformIO hs_bindgen_6e4f5b53b36a3ecb
 foreign import ccall unsafe "hs_bindgen_e39d5186f5da6c3f" hs_bindgen_e39d5186f5da6c3f_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsfun_attributes_Example_get_f3@
-hs_bindgen_e39d5186f5da6c3f :: IO (FunPtr (IO Unit))
+hs_bindgen_e39d5186f5da6c3f :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsfun_attributes_Example_get_f3@
 hs_bindgen_e39d5186f5da6c3f = fromFFIType hs_bindgen_e39d5186f5da6c3f_base
 {-# NOINLINE f3 #-}
@@ -1990,7 +1990,7 @@ hs_bindgen_e39d5186f5da6c3f = fromFFIType hs_bindgen_e39d5186f5da6c3f_base
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f3 :: FunPtr (IO Unit)
+f3 :: FunPtr (IO ())
 {-| __C declaration:__ @f3@
 
     __defined at:__ @functions\/fun_attributes.h 131:49@

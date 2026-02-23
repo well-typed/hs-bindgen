@@ -114,9 +114,9 @@ instance HasCField U "unwrapU"
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_27fdf7030b0bb40d" hs_bindgen_27fdf7030b0bb40d_base ::
     Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
-hs_bindgen_27fdf7030b0bb40d :: T -> IO Unit
+hs_bindgen_27fdf7030b0bb40d :: T -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_foo@
 hs_bindgen_27fdf7030b0bb40d = fromFFIType hs_bindgen_27fdf7030b0bb40d_base
 {-| __C declaration:__ @foo@
@@ -125,7 +125,7 @@ hs_bindgen_27fdf7030b0bb40d = fromFFIType hs_bindgen_27fdf7030b0bb40d_base
 
     __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
 -}
-foo :: T -> IO Unit
+foo :: T -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 5:6@
@@ -136,9 +136,9 @@ foo = hs_bindgen_27fdf7030b0bb40d
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_ef8f97cf27661c20" hs_bindgen_ef8f97cf27661c20_base ::
     Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
-hs_bindgen_ef8f97cf27661c20 :: U -> IO Unit
+hs_bindgen_ef8f97cf27661c20 :: U -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Safe_bar@
 hs_bindgen_ef8f97cf27661c20 = fromFFIType hs_bindgen_ef8f97cf27661c20_base
 {-| __C declaration:__ @bar@
@@ -147,7 +147,7 @@ hs_bindgen_ef8f97cf27661c20 = fromFFIType hs_bindgen_ef8f97cf27661c20_base
 
     __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
 -}
-bar :: U -> IO Unit
+bar :: U -> IO ()
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 10:6@
@@ -158,9 +158,9 @@ bar = hs_bindgen_ef8f97cf27661c20
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_72197c1a408e40ac" hs_bindgen_72197c1a408e40ac_base ::
     Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
-hs_bindgen_72197c1a408e40ac :: T -> IO Unit
+hs_bindgen_72197c1a408e40ac :: T -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_foo@
 hs_bindgen_72197c1a408e40ac = fromFFIType hs_bindgen_72197c1a408e40ac_base
 {-| __C declaration:__ @foo@
@@ -169,7 +169,7 @@ hs_bindgen_72197c1a408e40ac = fromFFIType hs_bindgen_72197c1a408e40ac_base
 
     __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
 -}
-foo :: T -> IO Unit
+foo :: T -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 5:6@
@@ -180,9 +180,9 @@ foo = hs_bindgen_72197c1a408e40ac
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_401f15168ffec8ae" hs_bindgen_401f15168ffec8ae_base ::
     Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
-hs_bindgen_401f15168ffec8ae :: U -> IO Unit
+hs_bindgen_401f15168ffec8ae :: U -> IO ()
 -- __unique:__ @test_programanalysisprogramslici_Example_Unsafe_bar@
 hs_bindgen_401f15168ffec8ae = fromFFIType hs_bindgen_401f15168ffec8ae_base
 {-| __C declaration:__ @bar@
@@ -191,7 +191,7 @@ hs_bindgen_401f15168ffec8ae = fromFFIType hs_bindgen_401f15168ffec8ae_base
 
     __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
 -}
-bar :: U -> IO Unit
+bar :: U -> IO ()
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 10:6@
@@ -203,7 +203,7 @@ bar = hs_bindgen_401f15168ffec8ae
 foreign import ccall unsafe "hs_bindgen_7fa7d51da57eb497" hs_bindgen_7fa7d51da57eb497_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
-hs_bindgen_7fa7d51da57eb497 :: IO (FunPtr (T -> IO Unit))
+hs_bindgen_7fa7d51da57eb497 :: IO (FunPtr (T -> IO ()))
 -- __unique:__ @test_programanalysisprogramslici_Example_get_foo@
 hs_bindgen_7fa7d51da57eb497 = fromFFIType hs_bindgen_7fa7d51da57eb497_base
 {-# NOINLINE foo #-}
@@ -213,7 +213,7 @@ hs_bindgen_7fa7d51da57eb497 = fromFFIType hs_bindgen_7fa7d51da57eb497_base
 
     __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
 -}
-foo :: FunPtr (T -> IO Unit)
+foo :: FunPtr (T -> IO ())
 {-| __C declaration:__ @foo@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 5:6@
@@ -225,7 +225,7 @@ foo = unsafePerformIO hs_bindgen_7fa7d51da57eb497
 foreign import ccall unsafe "hs_bindgen_e57577b970e09cca" hs_bindgen_e57577b970e09cca_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
-hs_bindgen_e57577b970e09cca :: IO (FunPtr (U -> IO Unit))
+hs_bindgen_e57577b970e09cca :: IO (FunPtr (U -> IO ()))
 -- __unique:__ @test_programanalysisprogramslici_Example_get_bar@
 hs_bindgen_e57577b970e09cca = fromFFIType hs_bindgen_e57577b970e09cca_base
 {-# NOINLINE bar #-}
@@ -235,7 +235,7 @@ hs_bindgen_e57577b970e09cca = fromFFIType hs_bindgen_e57577b970e09cca_base
 
     __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
 -}
-bar :: FunPtr (U -> IO Unit)
+bar :: FunPtr (U -> IO ())
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 10:6@

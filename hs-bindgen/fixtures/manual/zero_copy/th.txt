@@ -652,10 +652,10 @@ reverse = hs_bindgen_350cceac1101d344
 foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
     Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 :: PtrConst Matrix ->
-                               Ptr Matrix -> IO Unit
+                               Ptr Matrix -> IO ()
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 {-| __C declaration:__ @transpose@
@@ -664,7 +664,7 @@ hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose :: PtrConst Matrix -> Ptr Matrix -> IO ()
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -700,10 +700,10 @@ reverse = hs_bindgen_f9655173d51bbaac
 foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2_base ::
     Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 hs_bindgen_ea25667627dd5ed2 :: PtrConst Matrix ->
-                               Ptr Matrix -> IO Unit
+                               Ptr Matrix -> IO ()
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 {-| __C declaration:__ @transpose@
@@ -712,7 +712,7 @@ hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: PtrConst Matrix -> Ptr Matrix -> IO Unit
+transpose :: PtrConst Matrix -> Ptr Matrix -> IO ()
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -748,7 +748,7 @@ foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aef
     IO (FunPtr Void)
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
 hs_bindgen_1bf30b28aefee5bf :: IO (FunPtr (Matrix ->
-                                           Matrix -> IO Unit))
+                                           Matrix -> IO ()))
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
 hs_bindgen_1bf30b28aefee5bf = fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 {-# NOINLINE transpose #-}
@@ -758,7 +758,7 @@ hs_bindgen_1bf30b28aefee5bf = fromFFIType hs_bindgen_1bf30b28aefee5bf_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: FunPtr (Matrix -> Matrix -> IO Unit)
+transpose :: FunPtr (Matrix -> Matrix -> IO ())
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
