@@ -98,10 +98,6 @@ module HsBindgen.Runtime.Internal.Prelude (
   , CDouble(CDouble)
   , CStringLen
   , CPtrdiff
-
-    -- Tuples
-  , Unit
-  , Solo(MkSolo)
   ) where
 
 import Data.Array.Byte (ByteArray)
@@ -138,4 +134,3 @@ import HsBindgen.Runtime.Internal.HasFFIType (HasFFIType (fromFFIType, toFFIType
                                               castFunPtrFromFFIType,
                                               castFunPtrToFFIType)
 import HsBindgen.Runtime.Internal.SizedByteArray (SizedByteArray (SizedByteArray))
-import HsBindgen.Runtime.Internal.Tuple (Solo (MkSolo), Unit)
