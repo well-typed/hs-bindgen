@@ -483,6 +483,25 @@ enumDecl info = \curr -> do
           in  fromCXType' ctx
             =<< clang_getEnumDeclIntegerType curr
 
+        -- The underlying type of a C enum is always an integer type, so
+        -- clang_getEnumDeclIntegerType only returns TypePrim (e.g. unsigned
+        -- int) or TypeTypedef wrapping one (e.g. uint8_t). The fallback to
+        -- Signed is conservative and should be unreachable in practice.
+        --
+        let enumSign :: C.PrimSign
+            enumSign = go ety
+              where
+                go (C.TypePrim pt)      = C.primTypeSign pt
+                go (C.TypeTypedef ref)  = go ref.underlying
+                go _                    = C.Signed
+
+        let parseConstant :: Fold ParseDecl (C.EnumConstant Parse)
+            parseConstant = simpleFold $ \curr' ->
+                dispatch curr' $ \case
+                  CXCursor_EnumConstantDecl -> enumConstantDecl enumSign curr'
+                  CXCursor_PackedAttr       -> foldContinue
+                  kind                      -> unknownCursorKind kind curr'
+
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
             mkEnum constants = C.Decl{
                 info = info
@@ -507,18 +526,16 @@ enumDecl info = \curr -> do
         foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
         foldContinue
-  where
-    parseConstant :: Fold ParseDecl (C.EnumConstant Parse)
-    parseConstant = simpleFold $ \curr ->
-        dispatch curr $ \case
-          CXCursor_EnumConstantDecl -> enumConstantDecl curr
-          CXCursor_PackedAttr       -> foldContinue
-          kind                      -> unknownCursorKind kind curr
 
-enumConstantDecl :: CXCursor -> ParseDecl (Next ParseDecl (C.EnumConstant Parse))
-enumConstantDecl = \curr -> do
+enumConstantDecl ::
+     C.PrimSign
+  -> CXCursor
+  -> ParseDecl (Next ParseDecl (C.EnumConstant Parse))
+enumConstantDecl sign = \curr -> do
     enumConstantInfo  <- getFieldInfo curr
-    enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
+    enumConstantValue <- case sign of
+      C.Unsigned -> toInteger <$> clang_getEnumConstantDeclUnsignedValue curr
+      C.Signed   -> toInteger <$> clang_getEnumConstantDeclValue curr
     foldContinueWith C.EnumConstant {
         info  = enumConstantInfo
       , value = enumConstantValue
