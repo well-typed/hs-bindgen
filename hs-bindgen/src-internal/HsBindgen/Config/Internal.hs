@@ -90,6 +90,7 @@ data BackendConfig = BackendConfig {
     , haddock             :: HaddockConfig
     , categoryChoice      :: ByCategory Choice
     , fieldNamingStrategy :: FieldNamingStrategy
+    , qualifiedStyle      :: QualifiedStyle
     }
   deriving stock (Show, Generic)
   deriving anyclass Default

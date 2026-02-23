@@ -121,8 +121,13 @@ exec opts = do
         overwriteFiles :: FileOverwritePolicy
         overwriteFiles = AllowFileOverwrite
 
+        mrc :: ModuleRenderConfig
+        mrc = ModuleRenderConfig {
+            qualifiedStyle = lit.config.qualifiedStyle
+          }
+
         artefact :: Artefact ()
-        artefact = writeBindings lit.config.fieldNamingStrategy overwriteFiles opts.output
+        artefact = writeBindings lit.config.fieldNamingStrategy mrc overwriteFiles opts.output
 
     hsBindgen
       lit.globalOpts.unsafe

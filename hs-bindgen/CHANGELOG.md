@@ -9,6 +9,10 @@
 
 ### New features
 
+* Add `--post-qualified-imports` flag to generate post-qualified imports
+  (`import Data.Proxy qualified`) instead of pre-qualified imports. This adds
+  the `ImportQualifiedPost` language extension to generated modules.
+
 ### Minor changes
 
 * Re-export all global definitions used by `hs-bindgen` generated code from

@@ -34,10 +34,13 @@ check testResources test =
           -- slightly unfortunate to invoke @hs-bindgen@ multiple times even if
           -- it can render all modules at the same time, but it's cheap to do so
           -- in practice.
-          let artefacts = (,)
+          let backendCfg = getTestBackendConfig test
+              mrc = ModuleRenderConfig {
+                  qualifiedStyle = view #qualifiedStyle backendCfg
+                }
+              artefacts = (,)
                         <$> FinalModuleBaseName
-                        <*> getBindingsMultiple
-                              (view #fieldNamingStrategy $ getTestBackendConfig test)
+                        <*> getBindingsMultiple (view #fieldNamingStrategy backendCfg) mrc
           (baseName, output)
             <- runTestHsBindgenSuccess report testResources test artefacts
 

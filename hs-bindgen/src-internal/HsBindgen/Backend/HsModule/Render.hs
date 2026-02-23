@@ -41,6 +41,7 @@ import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation (translateType)
 import HsBindgen.Backend.UniqueSymbol
+import HsBindgen.Config.Prelims (QualifiedStyle (..))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
@@ -67,7 +68,7 @@ instance Pretty HsModule where
   pretty hsModule = PP.vsep $
       PP.vcat (map pretty hsModule.pragmas)
     : PP.hsep ["module", PP.string (Hs.moduleNameToString hsModule.name), "where"]
-    : PP.vcat (map pretty hsModule.imports)
+    : PP.vcat (map (prettyImport hsModule.qualifiedStyle) hsModule.imports)
     : (renderWrappers hsModule.cWrappers)
     : map pretty hsModule.decls
 
@@ -82,8 +83,9 @@ instance Pretty GhcPragma where
   Import pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty ImportListItem where
-  pretty = \case
+-- | Pretty-print an import statement, respecting 'QualifiedStyle'
+prettyImport :: QualifiedStyle -> ImportListItem -> CtxDoc
+prettyImport qualStyle = \case
     UnqualifiedImportListItem name Nothing -> PP.hsep
       [ "import"
       , PP.string (Hs.moduleNameToString name)
@@ -93,16 +95,33 @@ instance Pretty ImportListItem where
       , PP.string (Hs.moduleNameToString name)
       , PP.parens . PP.hcat . List.intersperse ", " $ map pretty ns
       ]
-    QualifiedImportListItem name Nothing -> PP.hsep
-        [ "import qualified"
-        , PP.string (Hs.moduleNameToString name)
-        ]
-    QualifiedImportListItem name (Just q) -> PP.hsep
-        [ "import qualified"
-        , PP.string (Hs.moduleNameToString name)
-        , "as"
-        , PP.string q
-        ]
+    QualifiedImportListItem name alias -> case qualStyle of
+      PreQualified ->
+        case alias of
+          Just q -> PP.hsep
+            [ "import qualified"
+            , PP.string (Hs.moduleNameToString name)
+            , "as"
+            , PP.string q
+            ]
+          Nothing -> PP.hsep
+            [ "import qualified"
+            , PP.string (Hs.moduleNameToString name)
+            ]
+      PostQualified ->
+        case alias of
+          Just q -> PP.hsep
+            [ "import"
+            , PP.string (Hs.moduleNameToString name)
+            , "qualified"
+            , "as"
+            , PP.string q
+            ]
+          Nothing -> PP.hsep
+            [ "import"
+            , PP.string (Hs.moduleNameToString name)
+            , "qualified"
+            ]
 
 {-------------------------------------------------------------------------------
   Comment pretty-printing

@@ -84,18 +84,25 @@ exec global opts = do
           opts.baseModuleName
           (buildCategoryChoice opts.outputOptions)
 
+    mrc :: ModuleRenderConfig
+    mrc = ModuleRenderConfig {
+        qualifiedStyle = opts.config.qualifiedStyle
+      }
+
     artefact :: Artefact ()
     artefact = do
       case opts.outputOptions of
         OutputOptions (SingleFile _) ->
           writeBindingsSingleToDir
             opts.config.fieldNamingStrategy
+            mrc
             opts.fileOverwritePolicy
             opts.outputDirPolicy
             opts.hsOutputDir
         _                            ->
           writeBindingsMultiple
             opts.config.fieldNamingStrategy
+            mrc
             opts.fileOverwritePolicy
             opts.outputDirPolicy
             opts.hsOutputDir

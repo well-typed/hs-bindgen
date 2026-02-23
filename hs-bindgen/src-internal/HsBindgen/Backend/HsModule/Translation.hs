@@ -56,11 +56,12 @@ data ImportListItem =
 
 -- | Haskell module
 data HsModule = HsModule {
-      pragmas   :: [GhcPragma]
-    , name      ::  Hs.ModuleName
-    , imports   :: [ImportListItem]
-    , cWrappers :: [CWrapper]
-    , decls     :: [SDecl]
+      pragmas        :: [GhcPragma]
+    , name           ::  Hs.ModuleName
+    , imports        :: [ImportListItem]
+    , qualifiedStyle :: QualifiedStyle
+    , cWrappers      :: [CWrapper]
+    , decls          :: [SDecl]
     }
 
 {-------------------------------------------------------------------------------
@@ -69,46 +70,52 @@ data HsModule = HsModule {
 
 translateModuleMultiple ::
      FieldNamingStrategy
+  -> ModuleRenderConfig
   -> BaseModuleName
   -> ByCategory_ ([CWrapper], [SDecl])
   -> ByCategory_ (Maybe HsModule)
-translateModuleMultiple fieldNaming moduleBaseName declsByCat =
+translateModuleMultiple fns mrc moduleBaseName declsByCat =
     mapWithCategory_ go declsByCat
   where
     go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
     go _ ([], []) = Nothing
-    go cat xs     = Just $ translateModule' fieldNaming (Just cat) moduleBaseName xs
+    go cat xs     = Just $ translateModule' fns mrc (Just cat) moduleBaseName xs
 
 translateModuleSingle ::
      FieldNamingStrategy
+  -> ModuleRenderConfig
   -> BaseModuleName
   -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
-translateModuleSingle fieldNaming name declsByCat =
-    translateModule' fieldNaming Nothing name $ Foldable.fold declsByCat
+translateModuleSingle fns mrc name declsByCat =
+    translateModule' fns mrc Nothing name $ Foldable.fold declsByCat
 
 translateModule' ::
      FieldNamingStrategy
+  -> ModuleRenderConfig
   -> Maybe Category
   -> BaseModuleName
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' fieldNaming mcat moduleBaseName (cWrappers, decs) = HsModule{
-      pragmas   = resolvePragmas fieldNaming cWrappers decs
-    , imports   = resolveImports moduleBaseName mcat cWrappers decs
-    , name      = fromBaseModuleName moduleBaseName mcat
-    , cWrappers = cWrappers
-    , decls     = decs
+translateModule' fns mrc mcat moduleBaseName (cWrappers, decs) = HsModule{
+      pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
+    , imports        = resolveImports moduleBaseName mcat cWrappers decs
+    , name           = fromBaseModuleName moduleBaseName mcat
+    , qualifiedStyle = mrc.qualifiedStyle
+    , cWrappers      = cWrappers
+    , decls          = decs
     }
 
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
 -------------------------------------------------------------------------------}
 
-resolvePragmas :: FieldNamingStrategy -> [CWrapper] -> [SDecl] -> [GhcPragma]
-resolvePragmas fieldNaming wrappers ds =
+resolvePragmas :: FieldNamingStrategy -> QualifiedStyle -> [CWrapper] -> [SDecl] -> [GhcPragma]
+resolvePragmas fieldNaming qualStyle wrappers ds =
     Set.toAscList . mconcat $
-      haddockPrunePragmas : userlandCapiPragmas
+      haddockPrunePragmas
+        : userlandCapiPragmas
+        : qualifiedPostPragma
         : map (resolveDeclPragmas fieldNaming) ds
   where
     userlandCapiPragmas :: Set GhcPragma
@@ -120,6 +127,11 @@ resolvePragmas fieldNaming wrappers ds =
     haddockPrunePragmas = case wrappers of
       []  -> Set.empty
       _xs -> Set.singleton "OPTIONS_HADDOCK prune"
+
+    qualifiedPostPragma :: Set GhcPragma
+    qualifiedPostPragma = case qualStyle of
+      PreQualified  -> Set.empty
+      PostQualified -> Set.singleton "LANGUAGE ImportQualifiedPost"
 
 resolveDeclPragmas :: FieldNamingStrategy -> SDecl -> Set GhcPragma
 resolveDeclPragmas fieldNaming decl =

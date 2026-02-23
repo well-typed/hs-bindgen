@@ -5,6 +5,8 @@ module HsBindgen.Config (
   , BaseModuleName(..)
   , BackendConfig(..)
   , FieldNamingStrategy(..)
+  , QualifiedStyle(..)
+  , ModuleRenderConfig(..)
   , toBindgenConfig
     -- * Template Haskell
   , ConfigTH(..)
@@ -43,6 +45,7 @@ data Config_ path = Config {
 
     -- * Backend
   , haddockPathStyle :: PathStyle
+  , qualifiedStyle   :: QualifiedStyle
   }
   deriving stock (Eq, Show, Generic)
   deriving stock (Functor, Foldable, Traversable)
@@ -71,6 +74,7 @@ toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
        , haddock        = def & #pathStyle .~ config.haddockPathStyle
        , categoryChoice = choice
        , fieldNamingStrategy = config.fieldNamingStrategy
+       , qualifiedStyle      = config.qualifiedStyle
        }
     }
 
