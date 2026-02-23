@@ -526,7 +526,8 @@ prettyType env prec = \case
     TFun a b -> PP.parensWhen (prec > 0) $
       prettyType env 1 a <+> "->" <+> prettyType env 0 b
     TBound x -> lookupEnv x env
-    TBoxedOpenTup n -> prettyBoxedOpenTuple LvlType n
+    TUnit -> PP.string "()"
+    TBoxedOpenNp2Tup n -> prettyBoxedOpenNp2Tuple n
     -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
     TEq -> PP.string "(~)"
     TForall hints add ctxt body ->
@@ -691,15 +692,21 @@ prettyExpr env prec = \case
             ]
             )
 
-    EBoxedOpenTup n -> prettyBoxedOpenTuple LvlTerm n
-    EBoxedClosedTup xs ->
-      let ds = prettyExpr env 0 <$> xs
+    EUnit -> PP.string "()"
+
+    EBoxedOpenNp2Tup n -> prettyBoxedOpenNp2Tuple n
+
+    EBoxedClosedTup (x, y, zs) ->
+      let xs = x : y: zs
+          ds = prettyExpr env 0 <$> xs
           l  = PP.hlist "(" ")" ds
       in  PP.ifFits l l $ PP.vlist "(" ")" ds
+
     EUnboxedTup xs ->
       let ds = prettyExpr env 0 <$> xs
           l  = PP.hlist "(# " " #)" ds
       in  PP.ifFits l l $ PP.vlist "(# " " #)" ds
+
     EList xs ->
       let ds = prettyExpr env 0 <$> xs
           l  = PP.hlist "[" "]" ds
@@ -892,17 +899,8 @@ resolveTypeClass = resolveGlobal . typeClassGlobal
 resolveBindgenGlobalTerm :: BindgenGlobalTerm -> ResolvedName
 resolveBindgenGlobalTerm = resolveGlobal . bindgenGlobalTerm
 
--- Careful, requires import of internal runtime prelude, which re-exports
--- 'Solo' and 'MkSolo'.
-mkSolo :: Level -> String
-mkSolo = \case
-  LvlTerm -> "RIP.MkSolo"
-  LvlType -> "RIP.Solo"
-
--- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
--- render hack.
-prettyBoxedOpenTuple :: Level -> Natural -> CtxDoc
-prettyBoxedOpenTuple ns = PP.string . \case
-  0 -> "()"
-  1 -> mkSolo ns
-  n -> "(" ++ replicate (fromIntegral (n - 1)) ',' ++ ")"
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this open
+-- tuple render hack and use closed tuples.
+prettyBoxedOpenNp2Tuple :: Natural -> CtxDoc
+prettyBoxedOpenNp2Tuple = PP.string . \case
+  n -> "(" ++ replicate (fromIntegral (n + 1)) ',' ++ ")"

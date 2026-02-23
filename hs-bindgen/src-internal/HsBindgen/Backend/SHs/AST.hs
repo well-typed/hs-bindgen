@@ -75,10 +75,13 @@ data SExpr ctx =
   | ELam NameHint (SExpr (S ctx))
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
-  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714.
-  | EBoxedOpenTup Natural
-  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714.
-  | EBoxedClosedTup [SExpr ctx]
+  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Fix
+  -- tuple-related constructors.
+  | EUnit
+  -- (N+2)-tuples with N>=0.
+  -- TODO D: Need a better name.
+  | EBoxedOpenNp2Tup Natural
+  | EBoxedClosedTup (SExpr ctx, SExpr ctx, [SExpr ctx])
   | EUnboxedTup [SExpr ctx]
   | EList [SExpr ctx]
     -- | Type application using \@
@@ -178,8 +181,12 @@ data SType ctx =
   | TBound (Idx ctx)
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)
-  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714.
-  | TBoxedOpenTup Natural
+  -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Fix
+  -- tuple-related constructors.
+  | TUnit
+  -- (N+2)-tuples with N>=0.
+  -- TODO D: Need a better name.
+  | TBoxedOpenNp2Tup Natural
   | TEq
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
 

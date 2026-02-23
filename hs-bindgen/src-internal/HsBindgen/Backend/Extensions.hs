@@ -129,8 +129,10 @@ exprExtensions = \case
               Set.fromList [TH.UnboxedTuples, TH.MagicHash] <> exprExtensions body
         | alt <- alts
         ]
-    EBoxedOpenTup{} -> mempty
-    EBoxedClosedTup xs -> foldMap exprExtensions xs
+    EUnit -> mempty
+    EBoxedOpenNp2Tup{} -> mempty
+    EBoxedClosedTup (x, y, xs) ->
+      exprExtensions x <> exprExtensions y <> foldMap exprExtensions xs
     EUnboxedTup xs -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
                    <> foldMap exprExtensions xs
     EList xs -> foldMap exprExtensions xs
@@ -140,18 +142,19 @@ exprExtensions = \case
 -- We probably don't generate such types
 typeExtensions :: SType ctx -> Set TH.Extension
 typeExtensions = \case
-    TGlobal{}         -> Set.empty
-    TClass cls        -> typeClassExtensions cls
-    TCon _            -> Set.empty
-    TFree _           -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
-    TFun a b          -> typeExtensions a <> typeExtensions b
-    TLit _            -> Set.singleton TH.DataKinds
-    TStrLit _         -> Set.singleton TH.DataKinds
-    TExt{}            -> Set.empty
-    TBound _          -> Set.empty
-    TApp f b          -> typeExtensions f <> typeExtensions b
-    TBoxedOpenTup{}   -> Set.empty
-    TEq               -> Set.singleton TH.TypeOperators
+    TGlobal{}          -> Set.empty
+    TClass cls         -> typeClassExtensions cls
+    TCon _             -> Set.empty
+    TFree _            -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
+    TFun a b           -> typeExtensions a <> typeExtensions b
+    TLit _             -> Set.singleton TH.DataKinds
+    TStrLit _          -> Set.singleton TH.DataKinds
+    TExt{}             -> Set.empty
+    TBound _           -> Set.empty
+    TApp f b           -> typeExtensions f <> typeExtensions b
+    TUnit              -> Set.empty
+    TBoxedOpenNp2Tup{} -> Set.empty
+    TEq                -> Set.singleton TH.TypeOperators
     TForall _names _add preds b ->
         -- Note: GHC doesn't require ExplicitForAll for type signatures
         Set.singleton TH.ExplicitForAll <>

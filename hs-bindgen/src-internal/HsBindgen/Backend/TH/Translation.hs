@@ -21,8 +21,6 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Runtime.Internal.Prelude qualified as RIP
-
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
@@ -48,24 +46,21 @@ import HsBindgen.NameHint
 -- | A version of 'TH.tupleTypeName' that uses the internal runtime prelude and
 -- always uses @(,,)@ syntax rather than @Tuple3@. This ensures consistency in
 -- TH tests across GHC versions.
-tupleTypeName :: Int -> TH.Name
-tupleTypeName = \case
-  0 -> ''RIP.Unit
-  1 -> ''RIP.Solo
-  n ->
-    let -- Fake package name as syntax is built-in.
-        tup_pkg :: TH.PkgName
-        tup_pkg = TH.mkPkgName "ghc-internal"
+np2TupleTypeName :: Natural -> TH.Name
+np2TupleTypeName n =
+    TH.Name
+      (TH.mkOccName tup_occ)
+      (TH.NameG TH.TcClsName tup_pkg tup_mod)
+  where
+    -- Fake package name as syntax is built-in.
+    tup_pkg :: TH.PkgName
+    tup_pkg = TH.mkPkgName "ghc-internal"
 
-        tup_mod :: TH.ModName
-        tup_mod = TH.mkModName "GHC.Tuple"
+    tup_mod :: TH.ModName
+    tup_mod = TH.mkModName "GHC.Tuple"
 
-        tup_occ :: String
-        tup_occ = "(" ++ replicate (n - 1) ',' ++ ")"
-
-    in  TH.Name
-          (TH.mkOccName tup_occ)
-          (TH.NameG TH.TcClsName tup_pkg tup_mod)
+    tup_occ :: String
+    tup_occ = "(" ++ replicate (fromIntegral n + 1) ',' ++ ")"
 
 mkGlobalExpr :: Quote q => Global LvlTerm -> q TH.Exp
 mkGlobalExpr g = case g.cat of
@@ -153,8 +148,9 @@ mkExpr env = \case
                                   []
                          | alt <- alts
                          ]
-      EBoxedOpenTup n -> TH.conE $ TH.tupleDataName $ fromIntegral n
-      EBoxedClosedTup xs -> TH.tupE $ mkExpr env <$> xs
+      EUnit -> TH.tupE []
+      EBoxedOpenNp2Tup n -> TH.conE $ TH.tupleDataName $ fromIntegral (n+2)
+      EBoxedClosedTup (x, y, zs) -> TH.tupE $ mkExpr env <$> x : y : zs
       EUnboxedTup xs -> TH.unboxedTupE $ mkExpr env <$> xs
       EList xs -> TH.listE $ mkExpr env <$> xs
 
@@ -176,7 +172,8 @@ mkType env = \case
     TStrLit s  -> TH.litT (TH.strTyLit s)
     TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
     TApp f t   -> TH.appT (mkType env f) (mkType env t)
-    TBoxedOpenTup n -> TH.conT $ tupleTypeName $ fromIntegral n
+    TUnit -> pure $ TH.TupleT 0
+    TBoxedOpenNp2Tup n -> TH.conT $ np2TupleTypeName n
     TEq -> TH.conT ''(~)
     TForall hints add ctxt body -> do
         let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
