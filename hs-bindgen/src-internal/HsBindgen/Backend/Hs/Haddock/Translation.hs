@@ -213,7 +213,7 @@ addFunctionParameterComment mbName fp =
   case mbName of
     Nothing -> fp
     Just name
-      | Text.null name -> panicPure "function parameter name is null"
+      | Text.null name -> panicPure "Function parameter name is null"
       | otherwise ->
         case fp.comment of
           Just{}  -> fp

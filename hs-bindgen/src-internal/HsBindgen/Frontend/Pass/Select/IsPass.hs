@@ -45,6 +45,7 @@ type family AnnSelect ix where
   AnnSelect "Decl"             = PrescriptiveDeclSpec
   AnnSelect "Struct"           = RecordNames
   AnnSelect "Union"            = NewtypeNames
+  AnnSelect "UnionField"       = UnionFieldNames
   AnnSelect "Enum"             = NewtypeNames
   AnnSelect "Typedef"          = NewtypeNames
   AnnSelect "CheckedMacroType" = NewtypeNames

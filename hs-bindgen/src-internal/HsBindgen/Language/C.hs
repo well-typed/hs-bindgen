@@ -252,7 +252,7 @@ instance Enum NameKind where
     1 -> NameKindTagged TagKindStruct
     2 -> NameKindTagged TagKindUnion
     3 -> NameKindTagged TagKindEnum
-    _ -> panicPure "invalid NameKind toEnum"
+    _ -> panicPure "Invalid NameKind toEnum"
 
   fromEnum = \case
     NameKindOrdinary             -> 0
@@ -289,7 +289,7 @@ instance IsString DeclName where
   fromString str =
       case parseDeclName (Text.pack str) of
         Just name -> name
-        Nothing   -> panicPure $ "invalid DeclName: " ++ show str
+        Nothing   -> panicPure $ "Invalid DeclName: " ++ show str
 
 mapDeclNameText :: (Text -> Text) -> DeclName -> DeclName
 mapDeclNameText f name = DeclName{text = f name.text, kind = name.kind}

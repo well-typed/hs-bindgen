@@ -116,7 +116,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
     getMainHeaders' :: SourcePath -> Set HashIncludeArg
     getMainHeaders' =
         either
-          (\s -> panicPure ("auxStruct: getMainHeaders: " ++ s))
+          (\s -> panicPure ("Could not get main headers: " ++ s))
           (Set.fromList . NonEmpty.toList)
       . getMainHeaders
 
@@ -183,7 +183,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxStruct hsStruct = case hsStruct.origin of
-      Nothing -> panicPure "auxStruct: structOrigin is Nothing"
+      Nothing -> panicPure "Origin of structure unavailable"
       Just originDecl ->
         let hsIdentifier = Hs.Identifier $ Hs.getName hsStruct.name
             cTypeSpec = BindingSpec.CTypeSpec {

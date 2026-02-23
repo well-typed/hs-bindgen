@@ -75,7 +75,7 @@ typeTy env = go
     go (DSL.TyVarTy tv) =
         case Map.lookup (DSL.tyVarName tv) env of
           Just n  -> TBound n
-          Nothing -> panicPure $ "typeT: unbound type variable " ++ show tv
+          Nothing -> panicPure $ "Unbound type variable " ++ show tv
     go (DSL.FunTy as r) =
         foldr (TFun . go) (go r) as
     go (DSL.TyConAppTy tc as) =
@@ -254,8 +254,8 @@ dataTyCon = \case
     DSL.CharLitTyCon          -> TGlobal $ cExprGlobalType CharValue_type
 
     -- Handled by 'simpleTyConApp'
-    DSL.IntLikeTyCon   -> panicPure "dataTyCon IntLikeTyCon"
-    DSL.FloatLikeTyCon -> panicPure "dataTyCon FloatLikeTyCon"
+    DSL.IntLikeTyCon   -> panicPure "Should have been handled by simpleTyConApp: IntLikeTyCon"
+    DSL.FloatLikeTyCon -> panicPure "Should have been handled by simpleTyConApp: FloatLikeTyCon"
 
 classTyCon :: DSL.ClassTyCon args -> CExprGlobalType
 classTyCon = \case

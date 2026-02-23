@@ -133,7 +133,7 @@ resolveHeaders tracer args headers =
         guard . (== Right CXCursor_InclusionDirective) . fromSimpleEnum
           =<< clang_getCursorKind curr
         -- Process inclusion directive
-        header <- maybe (panicIO "resolveHeaders unknown include") return $
+        header <- maybe (panicIO "Unknown include") return $
           headerList !? (singleLocLine sloc - 1)
         path <- clang_getFileName =<< clang_getIncludedFile curr
         return $

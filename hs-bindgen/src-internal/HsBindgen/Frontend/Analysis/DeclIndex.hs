@@ -19,7 +19,6 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , filter
     -- * Query parse successes
   , lookup
-  , (!)
   , getDecls
     -- * Other queries
   , lookupEntry
@@ -285,9 +284,9 @@ fromParseResults results = flip execState empty $ mapM_ aux results
             ParseResultNotAttempted _ -> old
             ParseResultFailure _      -> parseResultToEntry new
           UsableExternal ->
-            panicPure "handleParseResult: usable external"
+            panicPure "Unexpected UsableExternal"
           UsableSquashed{} ->
-            panicPure "handleParseResult: squashed"
+            panicPure "Unexpected Squashed"
         UnusableE oldUnusable -> case oldUnusable of
           (UnusableParseNotAttempted loc nasOld)
             | ParseResultNotAttempted naNew <- new.classification ->
@@ -299,11 +298,11 @@ fromParseResults results = flip execState empty $ mapM_ aux results
           UnusableConflict c ->
             addConflicts c
           UnusableMangleNamesFailure _ x ->
-            panicPure $ "handleParseResult: unusable mangle names failure " <> show x
+            panicPure $ "Unexpected UnusableMangleNamesFailure " <> show x
           UnusableFailedMacro x ->
-            panicPure $ "handleParseResult: unusable failed macro" <> show x
+            panicPure $ "Unexpected UnusableFailedMacro " <> show x
           UnusableOmitted x ->
-            panicPure $ "handelParseResult: unusable omitted" <> show x
+            panicPure $ "Unexpected UnusableOmitted" <> show x
       where
         addConflicts :: Conflict  -> Entry
         addConflicts c =
@@ -352,12 +351,6 @@ lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
   Just (UsableE (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
-
--- | Unsafe! Get parse success.
-(!) :: HasCallStack => DeclIndex -> DeclId -> C.Decl AssignAnonIds
-(!) index declId =
-    fromMaybe (panicPure $ "Unknown key: " ++ show declId) $
-       lookup declId index
 
 -- | Get all parse successes.
 getDecls :: DeclIndex -> [C.Decl AssignAnonIds]

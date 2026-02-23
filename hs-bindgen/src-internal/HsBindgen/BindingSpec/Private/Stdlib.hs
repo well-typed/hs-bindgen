@@ -251,7 +251,7 @@ mkType t hsIdentifier hsTypeRep insts headers' =
         ( (cDeclId, [(headers, Require cTypeSpec)])
         , (hsIdentifier, hsTypeSpec)
         )
-      Nothing -> panicPure $ "invalid declaration ID: " ++ show t
+      Nothing -> panicPure $ "Invalid declaration ID: " ++ show t
   where
     headers :: Set HashIncludeArg
     headers = Set.fromList $ map HashIncludeArg headers'
