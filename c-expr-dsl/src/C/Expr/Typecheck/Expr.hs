@@ -866,7 +866,7 @@ inferMFun fun = case fun of
   MTuple @n -> Quant @( S ( S n ) ) \ as ->
     QuantTyBody []
       ( let arity :: Int
-            arity = 2 + Nat.reflectToNum @n Proxy
+            arity = 2 + n
             tupNm = "Tuple" <> Text.pack ( show arity )
         in
           -- NB: we don't support evaluation of tuples currently, because:
@@ -876,8 +876,11 @@ inferMFun fun = case fun of
           --     considerations).
           --  2. We would need to add tuples to the value type system ('ValType').
           FunValue @( S ( S n ) ) tupNm $ const NoValue
-      , mkFunTy as $ Tuple ( fromIntegral $ length as ) as
-      )  where
+      , mkFunTy as $ Tuple (fromIntegral n) as
+      )
+      where
+        n :: Int
+        n = Nat.reflectToNum @n Proxy
 
 
   -- Logical operators

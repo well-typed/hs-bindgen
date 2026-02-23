@@ -316,7 +316,7 @@ data DataTyCon nbArgs where
 
   -- | Tuple type constructors
   TupleTyCon     :: !Word -> DataTyCon ( S ( S n ) )
-    -- Invariant: the stored 'Word' matches the arity of the tuple
+    -- Invariant: the stored 'Word' + 2 matches the arity of the tuple
 
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
@@ -411,7 +411,7 @@ instance Show ( DataTyCon n ) where
     FloatLikeTyCon            -> showString "FloatLike"
     PrimIntInfoTyCon   inty   -> showsPrec p inty
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
-    TupleTyCon i              -> showString $ "Tuple" ++ show i
+    TupleTyCon i              -> showString $ "Tuple" ++ show (i+2)
 instance Show ( FamilyTyCon n ) where
   show = \case
     PlusResTyCon       -> "PlusRes"
@@ -652,7 +652,7 @@ pattern IntLike intLike = Data IntLikeTyCon (intLike ::: VNil)
 pattern FloatLike :: Type Ty -> Type Ty
 pattern FloatLike floatLike = Data FloatLikeTyCon (floatLike ::: VNil)
 pattern String :: Type Ty
-pattern String = Tuple 2 (Ptr CharTy ::: HsIntTy ::: VNil)
+pattern String = Tuple 0 (Ptr CharTy ::: HsIntTy ::: VNil)
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 

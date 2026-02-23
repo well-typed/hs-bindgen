@@ -322,15 +322,8 @@ resolveExprImports = \case
             SAltUnboxedTuple _add _hints body -> resolveExprImports body
         | alt <- alts
         ]
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
-    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
-    EBoxedOpenTup n | n<= 1 ->
-      ImportAcc{
-          requireTypes = False
-        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
-        , unqualified = mempty
-        }
-    EBoxedOpenTup{} -> mempty
+    EUnit -> mempty
+    EBoxedOpenNp2Tup{} -> mempty
     EBoxedClosedTup{} -> mempty
     EUnboxedTup xs -> foldMap resolveExprImports xs
     EList xs -> foldMap resolveExprImports xs
@@ -359,15 +352,8 @@ resolveTypeImports = \case
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
-    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
-    TBoxedOpenTup n | n <= 1 ->
-      ImportAcc{
-          requireTypes = False
-        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
-        , unqualified = mempty
-        }
-    TBoxedOpenTup{} -> mempty
+    TUnit -> mempty
+    TBoxedOpenNp2Tup{} -> mempty
     TEq{} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)
