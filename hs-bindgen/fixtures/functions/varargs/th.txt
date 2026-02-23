@@ -18,9 +18,9 @@
 -- }
 -- __unique:__ @test_functionsvarargs_Example_Safe_h@
 foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80f62_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsvarargs_Example_Safe_h@
-hs_bindgen_77a4bac5bbe80f62 :: IO Unit
+hs_bindgen_77a4bac5bbe80f62 :: IO ()
 -- __unique:__ @test_functionsvarargs_Example_Safe_h@
 hs_bindgen_77a4bac5bbe80f62 = fromFFIType hs_bindgen_77a4bac5bbe80f62_base
 {-| __C declaration:__ @h@
@@ -29,7 +29,7 @@ hs_bindgen_77a4bac5bbe80f62 = fromFFIType hs_bindgen_77a4bac5bbe80f62_base
 
     __exported by:__ @functions\/varargs.h@
 -}
-h :: IO Unit
+h :: IO ()
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h 8:6@
@@ -39,9 +39,9 @@ h :: IO Unit
 h = hs_bindgen_77a4bac5bbe80f62
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3543e1_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
-hs_bindgen_32ebae80cc3543e1 :: IO Unit
+hs_bindgen_32ebae80cc3543e1 :: IO ()
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 hs_bindgen_32ebae80cc3543e1 = fromFFIType hs_bindgen_32ebae80cc3543e1_base
 {-| __C declaration:__ @h@
@@ -50,7 +50,7 @@ hs_bindgen_32ebae80cc3543e1 = fromFFIType hs_bindgen_32ebae80cc3543e1_base
 
     __exported by:__ @functions\/varargs.h@
 -}
-h :: IO Unit
+h :: IO ()
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h 8:6@
@@ -62,7 +62,7 @@ h = hs_bindgen_32ebae80cc3543e1
 foreign import ccall unsafe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsvarargs_Example_get_h@
-hs_bindgen_d7b5ad93f4d7fa04 :: IO (FunPtr (IO Unit))
+hs_bindgen_d7b5ad93f4d7fa04 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionsvarargs_Example_get_h@
 hs_bindgen_d7b5ad93f4d7fa04 = fromFFIType hs_bindgen_d7b5ad93f4d7fa04_base
 {-# NOINLINE h #-}
@@ -72,7 +72,7 @@ hs_bindgen_d7b5ad93f4d7fa04 = fromFFIType hs_bindgen_d7b5ad93f4d7fa04_base
 
     __exported by:__ @functions\/varargs.h@
 -}
-h :: FunPtr (IO Unit)
+h :: FunPtr (IO ())
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h 8:6@

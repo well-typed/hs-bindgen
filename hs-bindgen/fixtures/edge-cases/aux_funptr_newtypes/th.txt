@@ -8,7 +8,7 @@ __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
 __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
 -}
 newtype FunPtr_Aux
-    = FunPtr_Aux {unwrapFunPtr_Aux :: (Foo -> IO Unit)}
+    = FunPtr_Aux {unwrapFunPtr_Aux :: (Foo -> IO ())}
       {- ^ Auxiliary type used by 'FunPtr'
 
       __C declaration:__ @FunPtr@
@@ -18,12 +18,11 @@ newtype FunPtr_Aux
       __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
       -}
     deriving stock Generic
-instance (~) ty (Foo -> IO Unit) =>
+instance (~) ty (Foo -> IO ()) =>
          HasField "unwrapFunPtr_Aux" (Ptr FunPtr_Aux) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapFunPtr_Aux")
 instance HasCField FunPtr_Aux "unwrapFunPtr_Aux"
-    where type CFieldType FunPtr_Aux "unwrapFunPtr_Aux" = Foo ->
-                                                          IO Unit
+    where type CFieldType FunPtr_Aux "unwrapFunPtr_Aux" = Foo -> IO ()
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FunPtr@
 
