@@ -228,7 +228,7 @@ static inline void reverse(struct StructFLAM *s) {
  *
  * Size: @c sizeof(double) or @c sizeof(long long), whichever is larger
  */
-union longDouble {
+union longLongOrDouble {
     long long l; /**< Value interpreted as long long (typically 64 bits) */
     double d;    /**< Value interpreted as double (IEEE 754 double precision) */
 };
