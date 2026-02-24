@@ -130,8 +130,8 @@ exprExtensions = \case
         | alt <- alts
         ]
     EUnit -> mempty
-    EBoxedNp2Tup{} -> mempty
-    EUnboxedNp2Tup{} -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
+    EBoxedTup{} -> mempty
+    EUnboxedTup{} -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
     EList xs -> foldMap exprExtensions xs
     ETypeApp f t -> Set.singleton TH.TypeApplications <> exprExtensions f <> typeExtensions t
 
@@ -139,19 +139,19 @@ exprExtensions = \case
 -- We probably don't generate such types
 typeExtensions :: SType ctx -> Set TH.Extension
 typeExtensions = \case
-    TGlobal{}      -> Set.empty
-    TClass cls     -> typeClassExtensions cls
-    TCon _         -> Set.empty
-    TFree _        -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
-    TFun a b       -> typeExtensions a <> typeExtensions b
-    TLit _         -> Set.singleton TH.DataKinds
-    TStrLit _      -> Set.singleton TH.DataKinds
-    TExt{}         -> Set.empty
-    TBound _       -> Set.empty
-    TApp f b       -> typeExtensions f <> typeExtensions b
-    TUnit          -> Set.empty
-    TBoxedNp2Tup{} -> Set.empty
-    TEq            -> Set.singleton TH.TypeOperators
+    TGlobal{}   -> Set.empty
+    TClass cls  -> typeClassExtensions cls
+    TCon _      -> Set.empty
+    TFree _     -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
+    TFun a b    -> typeExtensions a <> typeExtensions b
+    TLit _      -> Set.singleton TH.DataKinds
+    TStrLit _   -> Set.singleton TH.DataKinds
+    TExt{}      -> Set.empty
+    TBound _    -> Set.empty
+    TApp f b    -> typeExtensions f <> typeExtensions b
+    TUnit       -> Set.empty
+    TBoxedTup{} -> Set.empty
+    TEq         -> Set.singleton TH.TypeOperators
     TForall _names _add preds b ->
         -- Note: GHC doesn't require ExplicitForAll for type signatures
         Set.singleton TH.ExplicitForAll <>

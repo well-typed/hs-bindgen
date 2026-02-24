@@ -4,6 +4,7 @@ module HsBindgen.Backend.SHs.Macro (
 
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
+import Data.Type.Nat (pattern SS')
 import Data.Type.Nat qualified as Fin
 import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 
@@ -246,12 +247,12 @@ tyCon (DSL.FamilyTyCon tc)                      = TGlobal $ cExprGlobalType $ fa
 
 dataTyCon :: DSL.DataTyCon n -> SType ctx
 dataTyCon = \case
-    DSL.TupleTyCon n          -> TBoxedNp2Tup $ fromIntegral n
-    DSL.VoidTyCon             -> tBindgenGlobal Void_type
-    DSL.PrimIntInfoTyCon tc   -> tBindgenGlobal $ dslIntegral tc
-    DSL.PrimFloatInfoTyCon tc -> tBindgenGlobal $ runtimeFloating tc
-    DSL.PtrTyCon              -> tBindgenGlobal Foreign_Ptr_type
-    DSL.CharLitTyCon          -> TGlobal $ cExprGlobalType CharValue_type
+    DSL.TupleTyCon (SS' (SS' n)) -> TBoxedTup $ Plus2 $ Fin.snatToNatural n
+    DSL.VoidTyCon                -> tBindgenGlobal Void_type
+    DSL.PrimIntInfoTyCon tc      -> tBindgenGlobal $ dslIntegral tc
+    DSL.PrimFloatInfoTyCon tc    -> tBindgenGlobal $ runtimeFloating tc
+    DSL.PtrTyCon                 -> tBindgenGlobal Foreign_Ptr_type
+    DSL.CharLitTyCon             -> TGlobal $ cExprGlobalType CharValue_type
 
     -- Handled by 'simpleTyConApp'
     DSL.IntLikeTyCon   -> panicPure "Should have been handled by simpleTyConApp: IntLikeTyCon"
@@ -311,7 +312,7 @@ mfun = \case
     DSL.MBitwiseOr  -> cExpr Bitwise_or
     DSL.MLogicalAnd -> cExpr Logical_and
     DSL.MLogicalOr  -> cExpr Logical_or
-    DSL.MTuple @n   -> EBoxedNp2Tup $ Fin.reflectToNum @n Proxy
+    DSL.MTuple @n   -> EBoxedTup $ Plus2 $ Fin.reflectToNum @n Proxy
   where
     cExpr = EGlobal . cExprGlobalTerm
 

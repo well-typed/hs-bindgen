@@ -660,7 +660,7 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [
-        appManyExpr (EBoxedNp2Tup 0) [
+        appManyExpr (EBoxedTup $ Plus2 0) [
             EIntegral v Nothing
           , if null names
               then EApp (eBindgenGlobal NonEmpty_singleton) (EString name)

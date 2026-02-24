@@ -86,7 +86,7 @@ module HsBindgen.Backend.Hs.AST (
   ) where
 
 import Data.Type.Nat (SNat, SNatI, snat)
-import Data.Type.Nat qualified as Nat
+import Data.Type.Nat qualified as Fin
 import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
 import C.Char qualified as CExpr.Runtime
@@ -798,6 +798,6 @@ makeElimStruct' :: forall m ctx t.
          -> ElimStruct t ctx
      )
   -> ElimStruct t ctx
-makeElimStruct' Nat.SZ      kont = kont AZ IdWk VNil
-makeElimStruct' (Nat.SS' n) kont = makeElimStruct' n $ \add wk xs ->
+makeElimStruct' Fin.SZ      kont = kont AZ IdWk VNil
+makeElimStruct' (Fin.SS' n) kont = makeElimStruct' n $ \add wk xs ->
     kont (AS add) (SkipWk wk) (IZ ::: fmap IS xs)

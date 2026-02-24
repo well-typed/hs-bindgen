@@ -3,32 +3,34 @@
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
     ClosedExpr
-  , SExpr (..)
+  , Plus2(..)
+  , applyPlus2
+  , SExpr(..)
   , eBindgenGlobal
   , eInt
   , InfixOp(..)
   , infixOpGlobal
-  , SAlt (..)
-  , PatExpr (..)
+  , SAlt(..)
+  , PatExpr(..)
     -- TODO: drop S prefix?
-  , SDecl (..)
-  , TypeSynonym (..)
-  , Pragma (..)
+  , SDecl(..)
+  , TypeSynonym(..)
+  , Pragma(..)
   , ClosedType
-  , SType (..)
+  , SType(..)
   , tBindgenGlobal
-  , Binding (..)
-  , Instance (..)
-  , Field (..)
-  , Record (..)
-  , EmptyData (..)
-  , DerivingInstance (..)
-  , Newtype (..)
-  , ForeignImport (..)
-  , Safety (..)
-  , Parameter (..)
-  , Result (..)
-  , PatternSynonym (..)
+  , Binding(..)
+  , Instance(..)
+  , Field(..)
+  , Record(..)
+  , EmptyData(..)
+  , DerivingInstance(..)
+  , Newtype(..)
+  , ForeignImport(..)
+  , Safety(..)
+  , Parameter(..)
+  , Result(..)
+  , PatternSynonym(..)
   ) where
 
 import Data.Type.Nat (Nat1)
@@ -56,6 +58,13 @@ import HsBindgen.NameHint
 
 type ClosedExpr = SExpr EmptyCtx
 
+-- | Natural number larger equal 2.
+newtype Plus2 = Plus2 Natural
+  deriving stock (Show, Eq, Ord)
+
+applyPlus2 :: Plus2 -> Natural
+applyPlus2 (Plus2 n) = n+2
+
 -- | Simple expressions
 type SExpr :: Ctx -> Star
 data SExpr ctx =
@@ -76,10 +85,8 @@ data SExpr ctx =
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
   | EUnit
-  -- (N+2)-tuples with N>=0.
-  -- TODO-D: Need a better name.
-  | EBoxedNp2Tup Natural
-  | EUnboxedNp2Tup Natural
+  | EBoxedTup Plus2
+  | EUnboxedTup Plus2
   | EList [SExpr ctx]
     -- | Type application using \@
   | ETypeApp (SExpr ctx) ClosedType
@@ -179,9 +186,7 @@ data SType ctx =
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)
   | TUnit
-  -- (N+2)-tuples with N>=0.
-  -- TODO-D: Need a better name.
-  | TBoxedNp2Tup Natural
+  | TBoxedTup Plus2
   | TEq
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
 

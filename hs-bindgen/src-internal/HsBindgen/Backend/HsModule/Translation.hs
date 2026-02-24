@@ -323,8 +323,8 @@ resolveExprImports = \case
         | alt <- alts
         ]
     EUnit -> mempty
-    EBoxedNp2Tup{} -> mempty
-    EUnboxedNp2Tup{} -> mempty
+    EBoxedTup{} -> mempty
+    EUnboxedTup{} -> mempty
     EList xs -> foldMap resolveExprImports xs
     ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
 
@@ -352,7 +352,7 @@ resolveTypeImports = \case
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
     TUnit -> mempty
-    TBoxedNp2Tup{} -> mempty
+    TBoxedTup{} -> mempty
     TEq{} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)

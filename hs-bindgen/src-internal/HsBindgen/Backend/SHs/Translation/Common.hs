@@ -8,8 +8,8 @@ module HsBindgen.Backend.SHs.Translation.Common (
   , idiom
   , lambda
   , doAll
-  , unrollExpr
-  , unrollType
+  , asNaryEApp
+  , asNaryTApp
   ) where
 
 import Data.Text qualified as T
@@ -70,18 +70,20 @@ doAll :: (t ctx -> SExpr ctx) -> Hs.Seq t ctx -> SExpr ctx
 doAll _ (Hs.Seq []) = eBindgenGlobal Monad_return `EApp` EUnit
 doAll f (Hs.Seq ss) = foldr1 (EInfix InfixMonad_seq) (map f ss)
 
--- Flatten type applications
--- TODO-D: We could do better here by only continuing when unrolling a tuple.
-unrollExpr :: SExpr ctx -> (SExpr ctx, [SExpr ctx])
-unrollExpr = go []
+-- Recognize n-ary function applications
+--
+-- Arguments are returned from left to right.
+asNaryEApp :: SExpr ctx -> (SExpr ctx, [SExpr ctx])
+asNaryEApp = go []
   where
     go acc (EApp f x) = go (x : acc) f
     go acc e          = (e, acc)
 
--- Flatten type applications
--- TODO-D: We could do better here by only continuing when unrolling a tuple.
-unrollType :: SType ctx -> (SType ctx, [SType ctx])
-unrollType = go []
+-- Recognize n-ary type applications
+--
+-- Arguments are returned from left to right.
+asNaryTApp :: SType ctx -> (SType ctx, [SType ctx])
+asNaryTApp = go []
   where
     go acc (TApp f x) = go (x : acc) f
     go acc t          = (t, acc)

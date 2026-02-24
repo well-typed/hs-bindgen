@@ -143,14 +143,14 @@ buildNestedReads :: forall n ctx. Hs.Struct n -> BindgenGlobalTerm -> Idx ctx ->
 buildNestedReads struct _ _ _ stateIdx [] _ _ =
   -- Empty struct: just return (# state, EmptyStruct #)
   -- No memory reads needed since there's no data to read
-  EApp (EApp (EUnboxedNp2Tup 2) (EBound stateIdx))
+  EApp (EApp (EUnboxedTup (Plus2 0)) (EBound stateIdx))
        (ECon struct.constr) -- Empty constructor
 buildNestedReads struct readOp arrIdx elemIdx stateIdx [(_, fieldPos)] valueVariables numFields =
   -- Last field: read it and construct the final unboxed tuple (# state, Struct ... #)
   let readCall = mkPrimRead arrIdx elemIdx stateIdx fieldPos
   in ECase readCall
       [ mkUnboxedTupleAlt $
-          appManyExpr (EUnboxedNp2Tup 0) [
+          appManyExpr (EUnboxedTup (Plus2 0)) [
               EBound stateIdxInTuple  -- Final state
             , mkStructValue (map EBound (weakenAllValues valueVariables) ++ [EBound valueIdxInTuple])
             ]

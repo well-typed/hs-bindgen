@@ -516,12 +516,20 @@ prettyBindingType params result =
 
 
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
-prettyType env prec ty = case unrollType ty of
-    (TBoxedNp2Tup n, args) ->
+prettyType env prec ty = case asNaryTApp ty of
+    (TBoxedTup n, args) ->
       let decls = prettyType env 0 <$> args
-      in  prettyBoxedTuple prec n decls
-    (TApp{}, _) -> panicWith "Didn't expect type application TApp after unrolling type application"
-    _ -> case ty of
+      in  prettyBoxedTuple n decls
+    (TApp{}, _) ->
+      panicWith
+        "Unexpected type application after unrolling type applications"
+        ty
+    _otherwise ->
+      prettyRolledType env prec ty
+
+-- See 'prettyType' but do not unroll/recognize type application.
+prettyRolledType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
+prettyRolledType env prec ty = case ty of
       TGlobal g -> pretty $ resolveGlobal g
       TClass cls -> pretty $ resolveGlobal $ typeClassGlobal cls
       TCon n -> pretty n
@@ -535,8 +543,11 @@ prettyType env prec ty = case unrollType ty of
         prettyType env 1 a <+> "->" <+> prettyType env 0 b
       TBound x -> lookupEnv x env
       TUnit -> PP.string "()"
-      -- TODO-D: OK to panic here?
-      TBoxedNp2Tup{} -> panicWith "Didn't expect open tuple after unrolling type application"
+      -- Handled in 'prettyType'.
+      TBoxedTup{} ->
+        panicWith
+        "Unexpected unsaturated tuple after unrolling type application"
+        ty
       -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
       TEq -> PP.string "(~)"
       TForall hints add ctxt body ->
@@ -545,9 +556,6 @@ prettyType env prec ty = case unrollType ty of
           _  -> withFreshNames env add hints $ \env' params ->
             "forall" <+> PP.hsep params >< "." <+>
             PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
-  where
-    panicWith :: String -> a
-    panicWith msg = panicPure $ msg ++ "; " ++ show ty
 
 prettyTypeGlobal :: Global LvlType -> CtxDoc
 prettyTypeGlobal = prettyType EmptyEnv 0 . TGlobal
@@ -572,15 +580,22 @@ instance ctx ~ EmptyCtx => Pretty (SExpr ctx) where
   prettyPrec = prettyExpr EmptyEnv
 
 prettyExpr :: Env ctx CtxDoc -> Int -> SExpr ctx -> CtxDoc
-prettyExpr env prec expr = case unrollExpr expr of
-    (EBoxedNp2Tup n, args) ->
+prettyExpr env prec expr = case asNaryEApp expr of
+    (EBoxedTup n, args) ->
       let decls = prettyExpr env 0 <$> args
-      in  prettyBoxedTuple prec n decls
-    (EUnboxedNp2Tup n, args) ->
+      in  prettyBoxedTuple n decls
+    (EUnboxedTup n, args) ->
       let decls = prettyExpr env 0 <$> args
-      in  prettyUnboxedTuple prec n decls
-    (EApp{} , _) -> panicWith "Didn't expect function application after unrolling function application"
-    _ -> case expr of
+      in  prettyUnboxedTuple n decls
+    (EApp{} , _) ->
+      panicWith
+        "Unexpected function application after unrolling function application"
+        expr
+    _otherwise -> prettyRolledExpr env prec expr
+
+-- See 'prettyExpr' but do not unroll/recognize function application.
+prettyRolledExpr :: Env ctx CtxDoc -> Int -> SExpr ctx -> CtxDoc
+prettyRolledExpr env prec expr = case expr of
       EGlobal g -> pretty $ resolveGlobal g
 
       EBound x -> lookupEnv x env
@@ -714,9 +729,17 @@ prettyExpr env prec expr = case unrollExpr expr of
 
       EUnit -> PP.string "()"
 
-      EBoxedNp2Tup{} -> panicWith "Didn't expect boxed open tuple after unrolling function application"
+      -- Handled in 'prettyExpr'.
+      EBoxedTup{} ->
+        panicWith
+          "Unexpected boxed unsaturated tuple after unrolling function application"
+          expr
 
-      EUnboxedNp2Tup{} -> panicWith "Didn't expect unboxed open tuple after unrolling function application"
+      -- Handled in 'prettyExpr'.
+      EUnboxedTup{} ->
+        panicWith
+          "Unexpected unboxed unsaturated tuple after unrolling function application"
+          expr
 
       EList xs ->
         let ds = prettyExpr env 0 <$> xs
@@ -725,10 +748,6 @@ prettyExpr env prec expr = case unrollExpr expr of
 
       -- NOTE: the precedence is copied from the @EApp@ case above
       ETypeApp f t -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> "@" >< prettyPrec 4 t
-
-  where
-    panicWith :: String -> a
-    panicWith msg = panicPure $ msg ++ "; " ++ show expr
 
 -- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
 -- with its length.
@@ -914,21 +933,27 @@ resolveTypeClass = resolveGlobal . typeClassGlobal
 resolveBindgenGlobalTerm :: BindgenGlobalTerm -> ResolvedName
 resolveBindgenGlobalTerm = resolveGlobal . bindgenGlobalTerm
 
--- TODO-D: Precedence?
-prettyTupleWith :: String -> String -> Int -> Natural -> [CtxDoc] -> CtxDoc
-prettyTupleWith pre pos _prec arityMinus2 decls
+prettyTupleWith :: String -> String -> Plus2 -> [CtxDoc] -> CtxDoc
+prettyTupleWith pre pos n decls
     | length decls == arity =
       let lsOneLn = PP.hlist pre pos decls
           lsMulLn = PP.vlist pre pos decls
       in  PP.ifFits lsOneLn lsOneLn lsMulLn
-    | otherwise = prettyBoxedOpenNp2Tuple >< PP.hsep decls
+    | otherwise = prettyUnsaturatedTuple >< PP.hsep decls
   where
     arity :: Int
-    arity = fromIntegral (arityMinus2 + 2)
+    arity = fromIntegral $ applyPlus2 n
 
-    prettyBoxedOpenNp2Tuple :: CtxDoc
-    prettyBoxedOpenNp2Tuple = PP.string $ pre ++ replicate (arity - 1) ',' ++ pos
+    prettyUnsaturatedTuple :: CtxDoc
+    prettyUnsaturatedTuple = PP.string $ pre ++ replicate (arity - 1) ',' ++ pos
 
-prettyBoxedTuple, prettyUnboxedTuple :: Int -> Natural -> [CtxDoc] -> CtxDoc
+prettyBoxedTuple, prettyUnboxedTuple :: Plus2 -> [CtxDoc] -> CtxDoc
 prettyBoxedTuple   = prettyTupleWith "(" ")"
 prettyUnboxedTuple = prettyTupleWith "(#" "#)"
+
+-- TODO-D: Partially saturated tuple sections.
+-- x = (1, 3, , , )
+-- foo = decls ++ repeat ""
+
+panicWith :: Show a => String -> a -> b
+panicWith msg x = panicPure $ msg ++ "; " ++ show x
