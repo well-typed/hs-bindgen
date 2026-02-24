@@ -1,7 +1,36 @@
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE MagicHash #-}
 
-module Example where
+module Example
+    ( Example.c1
+    , Example.c2
+    , Example.c3
+    , Example.c4
+    , Example.c5
+    , Example.c6
+    , Example.c7
+    , Example.c8
+    , Example.d
+    , Example.j1
+    , Example.j2
+    , Example.j3
+    , Example.s1
+    , Example.s2
+    , Example.s3
+    , Example.s4
+    , Example.s5
+    , Example.s6
+    , Example.s7
+    , Example.s8
+    , Example.t1
+    , Example.t2
+    , Example.t3
+    , Example.u
+    , Example.v
+    , Example.w1
+    , Example.w2
+    )
+  where
 
 import qualified C.Char
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

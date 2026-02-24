@@ -12,7 +12,17 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Opaque
+    , Example.Outside(..)
+    , Example.Named_struct(..)
+    , Example.Named_union(..)
+    , Example.get_named_union_x
+    , Example.set_named_union_x
+    , Example.get_named_union_y
+    , Example.set_named_union_y
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

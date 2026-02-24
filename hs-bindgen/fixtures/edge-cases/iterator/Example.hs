@@ -10,7 +10,12 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Toggle(..)
+    , Example.Counter(..)
+    , Example.VarCounter(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.Block as Block
 import qualified HsBindgen.Runtime.HasCField as HasCField

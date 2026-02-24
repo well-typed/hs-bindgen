@@ -14,7 +14,14 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Uint8_enum(..)
+    , pattern Example.U8_ZERO
+    , pattern Example.U8_127
+    , pattern Example.U8_128
+    , pattern Example.U8_255
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField

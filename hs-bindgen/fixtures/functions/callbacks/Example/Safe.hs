@@ -2,7 +2,25 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.readFileWithProcessor
+    , Example.Safe.watchTemperature
+    , Example.Safe.onFileOpened
+    , Example.Safe.onProgressChanged
+    , Example.Safe.validateInput
+    , Example.Safe.onNewMeasurement
+    , Example.Safe.onNewMeasurement2
+    , Example.Safe.onBufferReady
+    , Example.Safe.transformMeasurement
+    , Example.Safe.processWithCallbacks
+    , Example.Safe.registerHandler
+    , Example.Safe.executePipeline
+    , Example.Safe.runProcessor
+    , Example.Safe.processMeasurementWithValidation
+    , Example.Safe.f
+    , Example.Safe.f2
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

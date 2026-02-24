@@ -3,7 +3,23 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Global where
+module Example.Global
+    ( Example.Global.global_complex_float
+    , Example.Global.global_complex_double
+    , Example.Global.global_complex_float_flipped
+    , Example.Global.global_complex_double_flipped
+    , Example.Global.global_Complex_float
+    , Example.Global.global_Complex_double
+    , Example.Global.global_Complex_float_flipped
+    , Example.Global.global_Complex_double_flipped
+    , Example.Global.const_complex_float
+    , Example.Global.const_complex_double
+    , Example.Global.volatile_complex_float
+    , Example.Global.volatile_complex_double
+    , Example.Global.complex_float_array
+    , Example.Global.complex_double_array
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI

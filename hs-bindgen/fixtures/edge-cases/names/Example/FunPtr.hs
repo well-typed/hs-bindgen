@@ -2,7 +2,34 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.by'
+    , Example.FunPtr.forall'
+    , Example.FunPtr.mdo'
+    , Example.FunPtr.pattern'
+    , Example.FunPtr.proc'
+    , Example.FunPtr.rec'
+    , Example.FunPtr.using'
+    , Example.FunPtr.anyclass
+    , Example.FunPtr.capi
+    , Example.FunPtr.cases
+    , Example.FunPtr.ccall
+    , Example.FunPtr.dynamic
+    , Example.FunPtr.export
+    , Example.FunPtr.family
+    , Example.FunPtr.group
+    , Example.FunPtr.interruptible
+    , Example.FunPtr.javascript
+    , Example.FunPtr.label
+    , Example.FunPtr.prim
+    , Example.FunPtr.role
+    , Example.FunPtr.safe
+    , Example.FunPtr.stdcall
+    , Example.FunPtr.stock
+    , Example.FunPtr.unsafe
+    , Example.FunPtr.via
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

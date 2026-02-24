@@ -2,7 +2,25 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.int_least8_t_fun
+    , Example.Unsafe.int_least16_t_fun
+    , Example.Unsafe.int_least32_t_fun
+    , Example.Unsafe.int_least64_t_fun
+    , Example.Unsafe.uint_least8_t_fun
+    , Example.Unsafe.uint_least16_t_fun
+    , Example.Unsafe.uint_least32_t_fun
+    , Example.Unsafe.uint_least64_t_fun
+    , Example.Unsafe.int_fast8_t_fun
+    , Example.Unsafe.int_fast16_t_fun
+    , Example.Unsafe.int_fast32_t_fun
+    , Example.Unsafe.int_fast64_t_fun
+    , Example.Unsafe.uint_fast8_t_fun
+    , Example.Unsafe.uint_fast16_t_fun
+    , Example.Unsafe.uint_fast32_t_fun
+    , Example.Unsafe.uint_fast64_t_fun
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

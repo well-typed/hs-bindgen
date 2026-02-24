@@ -14,7 +14,12 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.MyEnum(..)
+    , pattern Example.Say你好
+    , pattern Example.Say拜拜
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField

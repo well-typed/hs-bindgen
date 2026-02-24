@@ -2,7 +2,21 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.foo
+    , Example.Safe.fooA
+    , Example.Safe.fooB
+    , Example.Safe.fooC
+    , Example.Safe.fooD
+    , Example.Safe.fooE
+    , Example.Safe.bar
+    , Example.Safe.barA
+    , Example.Safe.barB
+    , Example.Safe.barC
+    , Example.Safe.barD
+    , Example.Safe.barE
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -3,7 +3,24 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.process_data
+    , Example.FunPtr.process_file
+    , Example.FunPtr.calculate_value
+    , Example.FunPtr.html_example
+    , Example.FunPtr.list_example
+    , Example.FunPtr.dangerous_function
+    , Example.FunPtr.detailed_return_codes
+    , Example.FunPtr.old_function
+    , Example.FunPtr.versioned_function
+    , Example.FunPtr.process_buffer
+    , Example.FunPtr.my_memcpy
+    , Example.FunPtr.double_value
+    , Example.FunPtr.complex_function
+    , Example.FunPtr.hash
+    , Example.FunPtr.square
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI

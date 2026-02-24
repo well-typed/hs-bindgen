@@ -2,7 +2,25 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.readFileWithProcessor
+    , Example.FunPtr.watchTemperature
+    , Example.FunPtr.onFileOpened
+    , Example.FunPtr.onProgressChanged
+    , Example.FunPtr.validateInput
+    , Example.FunPtr.onNewMeasurement
+    , Example.FunPtr.onNewMeasurement2
+    , Example.FunPtr.onBufferReady
+    , Example.FunPtr.transformMeasurement
+    , Example.FunPtr.processWithCallbacks
+    , Example.FunPtr.registerHandler
+    , Example.FunPtr.executePipeline
+    , Example.FunPtr.runProcessor
+    , Example.FunPtr.processMeasurementWithValidation
+    , Example.FunPtr.f
+    , Example.FunPtr.f2
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

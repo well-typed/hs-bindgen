@@ -13,7 +13,13 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.MyInt(..)
+    , Example.MyUInt(..)
+    , Example.MyLong(..)
+    , Example.MyStruct(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield

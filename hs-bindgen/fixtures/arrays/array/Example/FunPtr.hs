@@ -3,7 +3,36 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.fun_1
+    , Example.FunPtr.fun_2
+    , Example.FunPtr.fun_3
+    , Example.FunPtr.fun_4
+    , Example.FunPtr.fun_5
+    , Example.FunPtr.fun_6
+    , Example.FunPtr.fun_7
+    , Example.FunPtr.fun_8
+    , Example.FunPtr.isSolved
+    , Example.FunPtr.fun_1_const
+    , Example.FunPtr.fun_2_const
+    , Example.FunPtr.fun_3_const
+    , Example.FunPtr.fun_4_const
+    , Example.FunPtr.fun_5_const
+    , Example.FunPtr.fun_6_const
+    , Example.FunPtr.fun_7_const
+    , Example.FunPtr.fun_8_const
+    , Example.FunPtr.isSolved_const
+    , Example.FunPtr.fun_9
+    , Example.FunPtr.fun_10
+    , Example.FunPtr.fun_11
+    , Example.FunPtr.fun_12
+    , Example.FunPtr.fun_13
+    , Example.FunPtr.fun_14
+    , Example.FunPtr.fun_15
+    , Example.FunPtr.fun_16
+    , Example.FunPtr.solve
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA

@@ -12,7 +12,16 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Point1a(..)
+    , Example.Point1b(..)
+    , Example.Point2a(..)
+    , Example.Point2b(..)
+    , Example.Point3a_Aux(..)
+    , Example.Point3a(..)
+    , Example.Point3b(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

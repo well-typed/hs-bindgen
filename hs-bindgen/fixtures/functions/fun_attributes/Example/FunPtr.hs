@@ -2,7 +2,33 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.__f1
+    , Example.FunPtr.f1
+    , Example.FunPtr.my_memalign
+    , Example.FunPtr.my_calloc
+    , Example.FunPtr.my_realloc
+    , Example.FunPtr.my_alloc1
+    , Example.FunPtr.my_alloc2
+    , Example.FunPtr.square
+    , Example.FunPtr.old_fn_deprecated
+    , Example.FunPtr.my_dgettext
+    , Example.FunPtr.fdopen
+    , Example.FunPtr.f2
+    , Example.FunPtr.my_memcpy
+    , Example.FunPtr.fatal
+    , Example.FunPtr.hash
+    , Example.FunPtr.mymalloc
+    , Example.FunPtr.foobar
+    , Example.FunPtr.core2_func
+    , Example.FunPtr.sse3_func
+    , Example.FunPtr.f3
+    , Example.FunPtr.fn
+    , Example.FunPtr.y
+    , Example.FunPtr.x1
+    , Example.FunPtr.x2
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

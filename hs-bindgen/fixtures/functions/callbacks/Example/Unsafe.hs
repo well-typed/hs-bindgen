@@ -2,7 +2,25 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.readFileWithProcessor
+    , Example.Unsafe.watchTemperature
+    , Example.Unsafe.onFileOpened
+    , Example.Unsafe.onProgressChanged
+    , Example.Unsafe.validateInput
+    , Example.Unsafe.onNewMeasurement
+    , Example.Unsafe.onNewMeasurement2
+    , Example.Unsafe.onBufferReady
+    , Example.Unsafe.transformMeasurement
+    , Example.Unsafe.processWithCallbacks
+    , Example.Unsafe.registerHandler
+    , Example.Unsafe.executePipeline
+    , Example.Unsafe.runProcessor
+    , Example.Unsafe.processMeasurementWithValidation
+    , Example.Unsafe.f
+    , Example.Unsafe.f2
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

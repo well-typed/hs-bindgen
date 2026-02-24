@@ -3,7 +3,10 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.resample
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI

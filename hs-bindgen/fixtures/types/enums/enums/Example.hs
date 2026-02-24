@@ -14,7 +14,39 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.First(..)
+    , pattern Example.FIRST1
+    , pattern Example.FIRST2
+    , Example.Second(..)
+    , pattern Example.SECOND_A
+    , pattern Example.SECOND_B
+    , pattern Example.SECOND_C
+    , Example.Same(..)
+    , pattern Example.SAME_A
+    , pattern Example.SAME_B
+    , Example.Nonseq(..)
+    , pattern Example.NONSEQ_A
+    , pattern Example.NONSEQ_B
+    , pattern Example.NONSEQ_C
+    , Example.Packed(..)
+    , pattern Example.PACKED_A
+    , pattern Example.PACKED_B
+    , pattern Example.PACKED_C
+    , Example.EnumA(..)
+    , pattern Example.A_FOO
+    , pattern Example.A_BAR
+    , Example.EnumB(..)
+    , pattern Example.B_FOO
+    , pattern Example.B_BAR
+    , Example.EnumC(..)
+    , pattern Example.C_FOO
+    , pattern Example.C_BAR
+    , Example.EnumD_t(..)
+    , pattern Example.D_FOO
+    , pattern Example.D_BAR
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField

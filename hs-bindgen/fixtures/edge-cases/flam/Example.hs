@@ -11,7 +11,18 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Pascal_Aux(..)
+    , Example.Pascal
+    , Example.Foo_bar(..)
+    , Example.Foo_Aux(..)
+    , Example.Foo
+    , Example.Diff_Aux(..)
+    , Example.Diff
+    , Example.Triplets_Aux(..)
+    , Example.Triplets
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.FLAM as FLAM

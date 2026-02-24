@@ -11,7 +11,14 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Config(..)
+    , Example.Inline_struct(..)
+    , Example.Version_t(..)
+    , Example.Struct1_t(..)
+    , Example.Struct2_t(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

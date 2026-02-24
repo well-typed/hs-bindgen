@@ -2,7 +2,18 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.makeToggle
+    , Example.FunPtr.toggleNext
+    , Example.FunPtr.releaseToggle
+    , Example.FunPtr.makeCounter
+    , Example.FunPtr.counterNext
+    , Example.FunPtr.releaseCounter
+    , Example.FunPtr.makeVarCounter
+    , Example.FunPtr.varCounterNext
+    , Example.FunPtr.releaseVarCounter
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -13,7 +13,13 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Bools1(..)
+    , Example.Bools2(..)
+    , Example.BOOL(..)
+    , Example.Bools3(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

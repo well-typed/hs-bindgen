@@ -15,7 +15,38 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.FileOpenedNotification_Aux(..)
+    , Example.FileOpenedNotification(..)
+    , Example.ProgressUpdate_Aux(..)
+    , Example.ProgressUpdate(..)
+    , Example.DataValidator_Aux(..)
+    , Example.DataValidator(..)
+    , Example.Measurement(..)
+    , Example.MeasurementReceived_Aux(..)
+    , Example.MeasurementReceived(..)
+    , Example.MeasurementReceived2_Aux(..)
+    , Example.MeasurementReceived2(..)
+    , Example.SampleBufferFull_Aux(..)
+    , Example.SampleBufferFull(..)
+    , Example.MeasurementHandler(..)
+    , Example.DataPipeline(..)
+    , Example.ProcessorCallback(..)
+    , Example.get_processorCallback_simple
+    , Example.set_processorCallback_simple
+    , Example.get_processorCallback_withValidator
+    , Example.set_processorCallback_withValidator
+    , Example.get_processorCallback_withProgress
+    , Example.set_processorCallback_withProgress
+    , Example.Processor_mode(..)
+    , pattern Example.MODE_SIMPLE
+    , pattern Example.MODE_VALIDATED
+    , pattern Example.MODE_PROGRESS
+    , Example.Processor(..)
+    , Example.Foo(..)
+    , Example.Foo2(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA

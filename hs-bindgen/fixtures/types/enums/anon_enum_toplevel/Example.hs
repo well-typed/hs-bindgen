@@ -1,6 +1,11 @@
 {-# LANGUAGE PatternSynonyms #-}
 
-module Example where
+module Example
+    ( pattern Example.TOPLEVEL_ANON_A
+    , pattern Example.TOPLEVEL_ANON_B
+    , pattern Example.TOPLEVEL_ANON_C
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 

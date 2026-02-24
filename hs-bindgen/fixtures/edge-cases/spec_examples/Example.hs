@@ -14,7 +14,16 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Int16_T(..)
+    , Example.Int32_T(..)
+    , Example.Int64_T(..)
+    , Example.Cint16_T(..)
+    , Example.B(..)
+    , Example.A(..)
+    , Example.C
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField

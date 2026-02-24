@@ -2,7 +2,10 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.some_fun
+    )
+  where
 
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.CAPI

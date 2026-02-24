@@ -2,7 +2,13 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.adio'0301s_fun
+    , Example.Safe.cϒ
+    , Example.Safe.拜拜
+    , Example.Safe.say拜拜
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

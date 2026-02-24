@@ -11,7 +11,21 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.UnionA(..)
+    , Example.get_unionA_a
+    , Example.set_unionA_a
+    , Example.get_unionA_b
+    , Example.set_unionA_b
+    , Example.ExA(..)
+    , Example.ExB_fieldB1(..)
+    , Example.get_exB_fieldB1_a
+    , Example.set_exB_fieldB1_a
+    , Example.get_exB_fieldB1_b
+    , Example.set_exB_fieldB1_b
+    , Example.ExB(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -2,7 +2,15 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.foo
+    , Example.FunPtr.fooA
+    , Example.FunPtr.fooB
+    , Example.FunPtr.fooC
+    , Example.FunPtr.fooD
+    , Example.FunPtr.fooE
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

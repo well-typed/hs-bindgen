@@ -13,7 +13,14 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.GlobalConfig(..)
+    , Example.ConstInt(..)
+    , Example.Tuple(..)
+    , Example.Triplet(..)
+    , Example.List(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField

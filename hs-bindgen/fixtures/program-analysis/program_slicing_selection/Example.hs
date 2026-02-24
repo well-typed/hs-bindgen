@@ -14,7 +14,17 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.FileOperationStatus(..)
+    , pattern Example.SUCCESS
+    , pattern Example.NOT_FOUND
+    , pattern Example.PERMISSION_DENIED
+    , pattern Example.INVALID_ARGUMENT
+    , pattern Example.OUT_OF_MEMORY
+    , pattern Example.CUSTOM_ERROR_OTHER
+    , Example.FileOperationRecord(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField
