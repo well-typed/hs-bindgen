@@ -30,6 +30,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
+import HsBindgen.FrontendDump
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -42,6 +43,8 @@ import HsBindgen.Util.Tracer
 data Artefact (a :: Star) where
   -- * Boot
   HashIncludeArgs     :: Artefact [HashIncludeArg]
+  -- * Frontend dumps
+  RunFrontendDump     :: FrontendDump result -> Artefact result
   -- * Frontend
   IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
   GetMainHeaders      :: Artefact ProcessIncludes.GetMainHeaders
@@ -98,6 +101,8 @@ runArtefacts tracer boot frontend backend artefact =
     runArtefact = \case
         --Boot.
         HashIncludeArgs     -> runCached boot.hashIncludeArgs
+        -- Frontend dumps.
+        RunFrontendDump p   -> runFrontendDump frontend p
         -- Frontend.
         IncludeGraph        -> runCached frontend.includeGraph
         GetMainHeaders      -> runCached frontend.getMainHeaders
@@ -116,6 +121,19 @@ runArtefacts tracer boot frontend backend artefact =
         (EmitTrace x)       -> emitTrace tracer x
         (Lift   f)          -> f
         (Bind x f)          -> runArtefact x >>= runArtefact . f
+
+-- | Run a frontend dump by dispatching on the 'FrontendDump' GADT.
+runFrontendDump :: FrontendArtefact -> FrontendDump result -> DelayedIOM result
+runFrontendDump fe = \case
+    DumpParse                    -> runCached fe.dumpParse
+    DumpSimplifyAST              -> runCached fe.dumpSimplifyAST
+    DumpAssignAnonIds            -> runCached fe.dumpAssignAnonIds
+    DumpConstructTranslationUnit -> runCached fe.dumpConstructTranslationUnit
+    DumpHandleMacros             -> runCached fe.dumpHandleMacros
+    DumpResolveBindingSpecs      -> runCached fe.dumpResolveBindingSpecs
+    DumpMangleNames              -> runCached fe.dumpMangleNames
+    DumpSelect                   -> runCached fe.dumpSelect
+    DumpAdjustTypes              -> runCached fe.dumpAdjustTypes
 
 {-------------------------------------------------------------------------------
   Traces

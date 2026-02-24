@@ -22,13 +22,14 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.FrontendDump
 
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}
 
 info :: InfoMod a
-info = progDesc "Parse C headers (all Frontend passes)"
+info = progDesc "Dump the result of a frontend pass"
 
 {-------------------------------------------------------------------------------
   Options
@@ -55,8 +56,8 @@ parseOpts =
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: GlobalOpts -> Opts -> IO ()
-exec global opts =
+exec :: Show result => GlobalOpts -> Opts -> FrontendDump result -> IO ()
+exec global opts pass =
     hsBindgen
       global.unsafe
       global.safe
@@ -66,8 +67,8 @@ exec global opts =
   where
     artefact :: Artefact ()
     artefact = do
-        cDecls <- ReifiedC
-        Lift $ delay . WriteToStdOut . StringContent $ show cDecls
+        result <- RunFrontendDump pass
+        Lift $ delay . WriteToStdOut . StringContent $ show result
 
     bindgenConfig :: BindgenConfig
     bindgenConfig =
