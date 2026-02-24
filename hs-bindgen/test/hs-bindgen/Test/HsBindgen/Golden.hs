@@ -398,7 +398,7 @@ test_attributes_asm :: TestCase
 test_attributes_asm =
     defaultTest "attributes/asm"
       & #clangVersion .~ Just (>= (18, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore %~ (<> ["-std=c2x"]) )
+      & #onBoot       .~ ( #clangArgs % #argsBefore %~ (<> ["-std=gnu2x"]) )
 
 test_attributes_attributes :: TestCase
 test_attributes_attributes =
