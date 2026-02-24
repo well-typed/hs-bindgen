@@ -637,9 +637,8 @@ a_DEFINE_2 = (2 :: RIP.CInt)
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-tWO_ARGS :: ((,) RIP.CInt) RIP.CInt
-tWO_ARGS =
-  (,) (13398 :: RIP.CInt) (30874 :: RIP.CInt)
+tWO_ARGS :: (RIP.CInt, RIP.CInt)
+tWO_ARGS = ((13398 :: RIP.CInt), (30874 :: RIP.CInt))
 
 {-| __C declaration:__ @enum a_typedef_enum_e@
 
