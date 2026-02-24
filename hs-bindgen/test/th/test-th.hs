@@ -162,6 +162,22 @@ test01 = testGroup "test_01"
         res' <- Test01.thing_fun_3 (Test01.Thing 6)
         Test01.Thing 12 @?= res'
 
+    , testCase "union" $ do
+        let x :: Test01.LongLongOrDouble
+            x = zeroUnionValue
+            l :: CLLong
+            l = Test01.get_longLongOrDouble_l x
+            d :: CDouble
+            d = Test01.get_longLongOrDouble_d x
+        l @?= 0
+        d @?= 0
+        let d' :: CDouble
+            d' = Test01.get_longLongOrDouble_d $ Test01.set_longLongOrDouble_d 3.5
+            l' :: CLLong
+            l' = Test01.get_longLongOrDouble_l $ Test01.set_longLongOrDouble_l 10
+        l' @?= 10
+        d' @?= 3.5
+
     , testCase "fixed-size-array" $ do
         let v = CA.repeat 4 :: ConstantArray 3 CInt
         res <- CA.withPtr v (\ptr -> Test01.sum3 5 (PtrConst.unsafeFromPtr ptr))
