@@ -430,54 +430,49 @@ putLocalDocM nm = traverse_ (putLocalDoc nm)
   Tuples
 -------------------------------------------------------------------------------}
 
--- | A version of 'TH.tupleTypeName' that uses the internal runtime prelude and
--- always uses @(,,)@ syntax rather than @Tuple3@. This ensures consistency in
--- TH tests across GHC versions.
-np2TupleTypeName :: Int -> TH.Name
-np2TupleTypeName n =
-    TH.Name
-      (TH.mkOccName tup_occ)
-      (TH.NameG TH.TcClsName tup_pkg tup_mod)
-  where
-    -- Fake package name as syntax is built-in.
-    tup_pkg :: TH.PkgName
-    tup_pkg = TH.mkPkgName "ghc-internal"
-
-    tup_mod :: TH.ModName
-    tup_mod = TH.mkModName "GHC.Tuple"
-
-    tup_occ :: String
-    tup_occ = "(" ++ replicate (n + 1) ',' ++ ")"
-
 data TupleType = Boxed | Unboxed
 
 prettyTupleExpr :: Quote q => TupleType -> Env ctx TH.Name -> Plus2 -> [SExpr ctx] -> q TH.Exp
-prettyTupleExpr ty env n decls
-  | length decls == arity = thClosedTupleCon $ mkExpr env <$> decls
-  | otherwise             = thOpenTupleCon arity
+prettyTupleExpr ty env n decls = case compare arity nDecls of
+  LT ->
+    panicPure $ mconcat [
+        "Too many declarations ("
+      , show nDecls
+      , ") for "
+      , show arity ++ "-tuple"
+      ]
+  _otherwise -> do
+    declExprs <- mapM (mkExpr env) decls
+    let nMissing :: Int
+        nMissing = arity - nDecls
+
+        fakeDecls :: [Maybe TH.Exp]
+        fakeDecls = map Just declExprs ++ replicate nMissing Nothing
+    pure $ thTupleCon fakeDecls
   where
-    arity :: Int
-    arity = fromIntegral (applyPlus2 n)
+    arity, nDecls :: Int
+    arity  = fromIntegral (applyPlus2 n)
+    nDecls = length decls
 
-    -- TODO-D: Partially saturated tuple sections.
-    -- TODO-D: Nomenclature (if still necessary).
-    thClosedTupleCon :: Quote q => [q TH.Exp] -> q TH.Exp
-    thClosedTupleCon = case ty of
-      Boxed   -> TH.tupE
-      Unboxed -> TH.unboxedTupE
-
-    thOpenTupleCon :: Quote q => Int -> q TH.Exp
-    thOpenTupleCon = TH.conE . case ty of
-      Boxed   -> TH.tupleDataName
-      Unboxed -> TH.unboxedTupleDataName
+    thTupleCon :: [Maybe TH.Exp] -> TH.Exp
+    thTupleCon = case ty of
+      Boxed   -> TH.TupE
+      Unboxed -> TH.UnboxedTupE
 
 prettyTupleType :: Quote q => Env ctx TH.Name -> Plus2 -> [SType ctx] -> q TH.Type
-prettyTupleType env n decls
-  | length decls == arity = foldl' TH.appT (TH.tupleT arity) $ mkType env <$> decls
-  | otherwise             = TH.conT $ np2TupleTypeName arity
+prettyTupleType env n decls = case compare arity nDecls of
+  LT ->
+    panicPure $ mconcat [
+        "Too many declarations ("
+      , show nDecls
+      , ") for "
+      , show arity ++ "-tuple"
+      ]
+  _otherwise -> foldl' TH.appT (TH.tupleT arity) $ mkType env <$> decls
   where
-    arity :: Int
-    arity = fromIntegral (applyPlus2 n)
+    arity, nDecls :: Int
+    arity  = fromIntegral (applyPlus2 n)
+    nDecls = length decls
 
 {-------------------------------------------------------------------------------
   Helpers

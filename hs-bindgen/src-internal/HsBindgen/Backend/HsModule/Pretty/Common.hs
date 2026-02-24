@@ -84,16 +84,18 @@ prettyTupleWith pre pos n decls = case compare arity nDecls of
         , show arity ++ "-tuple"
         ]
     _otherwise ->
-      let nMissing  = arity - nDecls
+      let nMissing :: Int
+          nMissing = arity - nDecls
+
+          fakeDecls :: [CtxDoc]
           fakeDecls = decls ++ replicate nMissing ""
+
           lsOneLn   = PP.hlist pre pos fakeDecls
           lsMulLn   = PP.vlist pre pos fakeDecls
       in  PP.ifFits lsOneLn lsOneLn lsMulLn
   where
-    arity :: Int
-    arity = fromIntegral $ applyPlus2 n
-
-    nDecls :: Int
+    arity, nDecls :: Int
+    arity  = fromIntegral $ applyPlus2 n
     nDecls = length decls
 
 prettyBoxedTuple, prettyUnboxedTuple :: Plus2 -> [CtxDoc] -> CtxDoc
