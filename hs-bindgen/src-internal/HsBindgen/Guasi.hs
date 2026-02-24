@@ -9,7 +9,7 @@ import Text.SimplePrettyPrint (pretty)
 
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Backend.HsModule.Render (CommentKind (..))
+import HsBindgen.Backend.HsModule.Pretty.Comment (CommentKind (..))
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
 -- which doesn't provide reification functionality of 'TH.Quasi',

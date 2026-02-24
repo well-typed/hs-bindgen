@@ -6,11 +6,13 @@ module HsBindgen.Backend.Hs.CallConv (
   , getCWrappersSource
   , CallConv(..)
   , ImportStyle(..)
+  , capiModule
   ) where
 
 import GHC.Generics (Generic)
 
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Language.Haskell qualified as Hs
 
 import Witherable (ordNub)
 
@@ -71,3 +73,7 @@ data ImportStyle =
     -- | @foreign import capi safe "header.h &foo" foo :: Ptr ..
   | ImportAsPtr
   deriving stock (Generic, Show)
+
+-- | Qualified import string for @hs-bindgen-runtime@ prelude.
+capiModule :: Hs.ModuleName
+capiModule = "HsBindgen.Runtime.Internal.CAPI"

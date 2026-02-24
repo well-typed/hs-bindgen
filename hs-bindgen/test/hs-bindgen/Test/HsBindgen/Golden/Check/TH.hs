@@ -23,7 +23,7 @@ import Clang.Version
 import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Backend.HsModule.Render
+import HsBindgen.Backend.HsModule.Pretty.Comment
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.TH.Internal

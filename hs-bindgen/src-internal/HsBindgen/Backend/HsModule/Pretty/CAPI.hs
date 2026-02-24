@@ -2,27 +2,29 @@
 --
 -- - in types names:    CapiFoo, FooCapiBar
 -- - in variable names: capiFoo, fooCapiBar
-module HsBindgen.Backend.HsModule.CAPI (
-    capiModule
-  , renderCapiWrapper
+module HsBindgen.Backend.HsModule.Pretty.CAPI (
+    prettyCapiWrappers
   )
 where
 
 import Text.SimplePrettyPrint (CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
--- Qualified import string for @hs-bindgen-runtime@ prelude.
-capiModule :: Hs.ModuleName
-capiModule = "HsBindgen.Runtime.Internal.CAPI"
+-- | Pretty print the CAPI `addCSource` code fragment.
+prettyCapiWrappers :: [CWrapper] -> CtxDoc
+prettyCapiWrappers wrappers
+  | null src  = PP.empty
+  | otherwise = prettyCapiWrappers' src
+  where
+    src :: String
+    src = getCWrappersSource wrappers
 
--- | Render the CAPI `addCSource` code fragment.
---
--- See 'capiImport'.
-renderCapiWrapper :: String -> CtxDoc
-renderCapiWrapper src = PP.vcat [
+prettyCapiWrappers' :: String -> CtxDoc
+prettyCapiWrappers' src = PP.vcat [
      PP.hcat [
          "$("
        , withCapiModule "addCSource"
