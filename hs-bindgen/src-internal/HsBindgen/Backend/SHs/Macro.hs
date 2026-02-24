@@ -246,9 +246,7 @@ tyCon (DSL.FamilyTyCon tc)                      = TGlobal $ cExprGlobalType $ fa
 
 dataTyCon :: DSL.DataTyCon n -> SType ctx
 dataTyCon = \case
-    -- TODO D: I don't know why we add 2 when handling expressions (DSL.MTuple),
-    -- but not for types (DSL.TupleTyCon).
-    DSL.TupleTyCon n          -> TBoxedOpenNp2Tup $ fromIntegral n
+    DSL.TupleTyCon n          -> TBoxedNp2Tup $ fromIntegral n
     DSL.VoidTyCon             -> tBindgenGlobal Void_type
     DSL.PrimIntInfoTyCon tc   -> tBindgenGlobal $ dslIntegral tc
     DSL.PrimFloatInfoTyCon tc -> tBindgenGlobal $ runtimeFloating tc
@@ -313,7 +311,7 @@ mfun = \case
     DSL.MBitwiseOr  -> cExpr Bitwise_or
     DSL.MLogicalAnd -> cExpr Logical_and
     DSL.MLogicalOr  -> cExpr Logical_or
-    DSL.MTuple @n   -> EBoxedOpenNp2Tup $ Fin.reflectToNum @n Proxy
+    DSL.MTuple @n   -> EBoxedNp2Tup $ Fin.reflectToNum @n Proxy
   where
     cExpr = EGlobal . cExprGlobalTerm
 

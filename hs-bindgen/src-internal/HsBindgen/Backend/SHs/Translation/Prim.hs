@@ -143,17 +143,15 @@ buildNestedReads :: forall n ctx. Hs.Struct n -> BindgenGlobalTerm -> Idx ctx ->
 buildNestedReads struct _ _ _ stateIdx [] _ _ =
   -- Empty struct: just return (# state, EmptyStruct #)
   -- No memory reads needed since there's no data to read
-  EUnboxedTup
-    [ EBound stateIdx
-    , ECon struct.constr  -- Empty constructor
-    ]
+  EApp (EApp (EUnboxedNp2Tup 2) (EBound stateIdx))
+       (ECon struct.constr) -- Empty constructor
 buildNestedReads struct readOp arrIdx elemIdx stateIdx [(_, fieldPos)] valueVariables numFields =
   -- Last field: read it and construct the final unboxed tuple (# state, Struct ... #)
   let readCall = mkPrimRead arrIdx elemIdx stateIdx fieldPos
   in ECase readCall
       [ mkUnboxedTupleAlt $
-          mkUnboxedTuple
-            [ EBound stateIdxInTuple  -- Final state
+          appManyExpr (EUnboxedNp2Tup 0) [
+              EBound stateIdxInTuple  -- Final state
             , mkStructValue (map EBound (weakenAllValues valueVariables) ++ [EBound valueIdxInTuple])
             ]
       ]
@@ -168,10 +166,6 @@ buildNestedReads struct readOp arrIdx elemIdx stateIdx [(_, fieldPos)] valueVari
                      , computeIndexAt eIdx fPos numFields
                      , EBound sIdx
                      ]
-
-    -- Construct an unboxed tuple expression: (# e1, e2 #)
-    mkUnboxedTuple :: [SExpr (S (S ctx))] -> SExpr (S (S ctx))
-    mkUnboxedTuple exprs = EUnboxedTup exprs
 
     -- Construct struct value by applying constructor to field expressions
     mkStructValue :: [SExpr (S (S ctx))] -> SExpr (S (S ctx))

@@ -40,8 +40,10 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation (translateType)
+import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims (QualifiedStyle (..))
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
@@ -512,30 +514,40 @@ prettyBindingType params result =
          prettyParam p
       $$ PP.nest (-3) ("->" <+> prettyParams ps)
 
+
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
-prettyType env prec = \case
-    TGlobal g -> pretty $ resolveGlobal g
-    TClass cls -> pretty $ resolveGlobal $ typeClassGlobal cls
-    TCon n -> pretty n
-    TFree var -> pretty var
-    TLit n -> PP.show n
-    TStrLit s -> PP.string (show s)
-    TExt i _cTypeSpec _hsTypeSpec -> pretty i
-    TApp c x -> PP.parensWhen (prec > 0) $
-      prettyType env 1 c <+> prettyType env 1 x
-    TFun a b -> PP.parensWhen (prec > 0) $
-      prettyType env 1 a <+> "->" <+> prettyType env 0 b
-    TBound x -> lookupEnv x env
-    TUnit -> PP.string "()"
-    TBoxedOpenNp2Tup n -> prettyBoxedOpenNp2Tuple n
-    -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
-    TEq -> PP.string "(~)"
-    TForall hints add ctxt body ->
-      case add of
-        AZ -> PP.hsep (map (\ ct -> prettyType env 0 ct <+> "=> ") ctxt) >< prettyType env 0 body
-        _  -> withFreshNames env add hints $ \env' params ->
-          "forall" <+> PP.hsep params >< "." <+>
-          PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
+prettyType env prec ty = case unrollType ty of
+    (TBoxedNp2Tup n, args) ->
+      let decls = prettyType env 0 <$> args
+      in  prettyBoxedTuple prec n decls
+    (TApp{}, _) -> panicWith "Didn't expect type application TApp after unrolling type application"
+    _ -> case ty of
+      TGlobal g -> pretty $ resolveGlobal g
+      TClass cls -> pretty $ resolveGlobal $ typeClassGlobal cls
+      TCon n -> pretty n
+      TFree var -> pretty var
+      TLit n -> PP.show n
+      TStrLit s -> PP.string (show s)
+      TExt i _cTypeSpec _hsTypeSpec -> pretty i
+      TApp c x -> PP.parensWhen (prec > 0) $
+        prettyType env 1 c <+> prettyType env 1 x
+      TFun a b -> PP.parensWhen (prec > 0) $
+        prettyType env 1 a <+> "->" <+> prettyType env 0 b
+      TBound x -> lookupEnv x env
+      TUnit -> PP.string "()"
+      -- TODO-D: OK to panic here?
+      TBoxedNp2Tup{} -> panicWith "Didn't expect open tuple after unrolling type application"
+      -- TODO: https://github.com/well-typed/hs-bindgen/issues/1715.
+      TEq -> PP.string "(~)"
+      TForall hints add ctxt body ->
+        case add of
+          AZ -> PP.hsep (map (\ ct -> prettyType env 0 ct <+> "=> ") ctxt) >< prettyType env 0 body
+          _  -> withFreshNames env add hints $ \env' params ->
+            "forall" <+> PP.hsep params >< "." <+>
+            PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
+  where
+    panicWith :: String -> a
+    panicWith msg = panicPure $ msg ++ "; " ++ show ty
 
 prettyTypeGlobal :: Global LvlType -> CtxDoc
 prettyTypeGlobal = prettyType EmptyEnv 0 . TGlobal
@@ -560,160 +572,163 @@ instance ctx ~ EmptyCtx => Pretty (SExpr ctx) where
   prettyPrec = prettyExpr EmptyEnv
 
 prettyExpr :: Env ctx CtxDoc -> Int -> SExpr ctx -> CtxDoc
-prettyExpr env prec = \case
-    EGlobal g -> pretty $ resolveGlobal g
+prettyExpr env prec expr = case unrollExpr expr of
+    (EBoxedNp2Tup n, args) ->
+      let decls = prettyExpr env 0 <$> args
+      in  prettyBoxedTuple prec n decls
+    (EUnboxedNp2Tup n, args) ->
+      let decls = prettyExpr env 0 <$> args
+      in  prettyUnboxedTuple prec n decls
+    (EApp{} , _) -> panicWith "Didn't expect function application after unrolling function application"
+    _ -> case expr of
+      EGlobal g -> pretty $ resolveGlobal g
 
-    EBound x -> lookupEnv x env
-    EFree x  -> pretty x
-    ECon n   -> pretty n
+      EBound x -> lookupEnv x env
+      EFree x  -> pretty x
+      ECon n   -> pretty n
 
-    EIntegral i Nothing -> PP.parensWhen (prec > 0 && i < 0) (PP.show i)
-    EUnboxedIntegral i ->
-      PP.parens $ PP.hcat [PP.show i, "#"]
-    EIntegral i (Just t) ->
-      PP.parens $ PP.hcat [PP.show i, " :: ", pretty t]
-    EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
-      prettyExpr env 0 (EGlobal $ cExprGlobalTerm CharValue_fromAddr)
-        <+> PP.string str
-        <+> PP.string (show len)
-        <+> case mbUnicode of
-            { Nothing -> pretty (resolveBindgenGlobalTerm Maybe_nothing)
-            ; Just c -> PP.parens (pretty (resolveBindgenGlobalTerm Maybe_just) <+> PP.string (show c))
-            }
-      where
-        (str, len) = addrLiteral ba
-    EString s -> PP.show s
-    ECString bs ->
-      -- Use unboxed Addr# literals to turn a PP.string literal into a
-      -- value of type CStringLen.
-      let (str, len) = addrLiteral bs
-      in PP.parens $ PP.hcat
-        [ PP.parens $ prettyExpr env 0 (eBindgenGlobal Foreign_Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
-        , " :: "
-        , prettyTypeGlobal $ bindgenGlobalType CStringLen_type
-        ]
-
-    EFloat f t -> PP.parens $ PP.hcat [
-        if CExpr.DSL.canBeRepresentedAsRational f then
-          PP.show f
-        else
-          prettyExpr env prec $
-            EApp (eBindgenGlobal CFloat_constructor) $
-              EApp (eBindgenGlobal GHC_Float_castWord32ToFloat) $
-                EIntegral (toInteger $ castFloatToWord32 f) (Just $ tBindgenGlobal CUInt_type)
-      , " :: "
-      , pretty t
-      ]
-    EDouble f t -> PP.parens $ PP.hcat [
-        if CExpr.DSL.canBeRepresentedAsRational f then
-          PP.show f
-        else
-          prettyExpr env  prec $
-            EApp (eBindgenGlobal CDouble_constructor) $
-              EApp (eBindgenGlobal GHC_Float_castWord64ToDouble) $
-                EIntegral (toInteger $ castDoubleToWord64 f) (Just $ tBindgenGlobal CULong_type)
-      , " :: "
-      , pretty t
-      ]
-
-    EApp f x -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
-
-    e@(EInfix op x y) -> case (prec, getInfixSpecialCase env e) of
-      -- Handle special cases only at precedence 0.
-      (0, Just ds) -> PP.vcat ds
-      -- Sub-expressions are aggresively parenthesized so that we do not have to
-      -- worry about operator fixity/precedence.
-      _otherwise ->
-        PP.parens $ PP.hsep
-          [ prettyExpr env 1 x
-          , ppInfixResolvedName (resolveGlobal $ infixOpGlobal op)
-          , prettyExpr env 1 y
+      EIntegral i Nothing -> PP.parensWhen (prec > 0 && i < 0) (PP.show i)
+      EUnboxedIntegral i ->
+        PP.parens $ PP.hcat [PP.show i, "#"]
+      EIntegral i (Just t) ->
+        PP.parens $ PP.hcat [PP.show i, " :: ", pretty t]
+      EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
+        prettyExpr env 0 (EGlobal $ cExprGlobalTerm CharValue_fromAddr)
+          <+> PP.string str
+          <+> PP.string (show len)
+          <+> case mbUnicode of
+              { Nothing -> pretty (resolveBindgenGlobalTerm Maybe_nothing)
+              ; Just c -> PP.parens (pretty (resolveBindgenGlobalTerm Maybe_just) <+> PP.string (show c))
+              }
+        where
+          (str, len) = addrLiteral ba
+      EString s -> PP.show s
+      ECString bs ->
+        -- Use unboxed Addr# literals to turn a PP.string literal into a
+        -- value of type CStringLen.
+        let (str, len) = addrLiteral bs
+        in PP.parens $ PP.hcat
+          [ PP.parens $ prettyExpr env 0 (eBindgenGlobal Foreign_Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
+          , " :: "
+          , prettyTypeGlobal $ bindgenGlobalType CStringLen_type
           ]
 
-    ELam (NameHint hint) body -> PP.withFreshName hint $ \x -> PP.parensWhen (prec > 1) $ PP.fsep
-      [ PP.char '\\' >< x <+> "->"
-      , PP.nest 2 $ prettyExpr (env :> x) 0 body
-      ]
+      EFloat f t -> PP.parens $ PP.hcat [
+          if CExpr.DSL.canBeRepresentedAsRational f then
+            PP.show f
+          else
+            prettyExpr env prec $
+              EApp (eBindgenGlobal CFloat_constructor) $
+                EApp (eBindgenGlobal GHC_Float_castWord32ToFloat) $
+                  EIntegral (toInteger $ castFloatToWord32 f) (Just $ tBindgenGlobal CUInt_type)
+        , " :: "
+        , pretty t
+        ]
+      EDouble f t -> PP.parens $ PP.hcat [
+          if CExpr.DSL.canBeRepresentedAsRational f then
+            PP.show f
+          else
+            prettyExpr env  prec $
+              EApp (eBindgenGlobal CDouble_constructor) $
+                EApp (eBindgenGlobal GHC_Float_castWord64ToDouble) $
+                  EIntegral (toInteger $ castDoubleToWord64 f) (Just $ tBindgenGlobal CULong_type)
+        , " :: "
+        , pretty t
+        ]
 
-    EUnusedLam body -> PP.parensWhen (prec > 1) $ PP.fsep
-      [ PP.char '\\' >< "_" <+> "->"
-      , PP.nest 2 $ prettyExpr env 0 body
-      ]
+      EApp f x -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
 
-    ECase x alts -> PP.vparensWhen (prec > 1) $
-      if null alts
-        then PP.hsep ["case", prettyExpr env 0 x, "of", "{}"]
-        else PP.hang (PP.hsep ["case", prettyExpr env 0 x, "of"]) 2 $ PP.vcat
-            ([ withFreshNames env add hints $ \env' params ->
-
-                let l = PP.hsep $ pretty cnst : params ++ ["->"]
-                in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
-                    case unsnoc params of
-                      Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
-                      Just (lParams, rParam) -> PP.vcat $
-                          pretty cnst
-                        : [ PP.nest 2 param
-                          | param <- lParams
-                          ]
-                        ++ [PP.nest 2 (rParam <+> "->")]
-                        ++ [PP.nest 4 (prettyExpr env' 0 body)]
-
-            | SAlt cnst add hints body <- alts
+      e@(EInfix op x y) -> case (prec, getInfixSpecialCase env e) of
+        -- Handle special cases only at precedence 0.
+        (0, Just ds) -> PP.vcat ds
+        -- Sub-expressions are aggresively parenthesized so that we do not have to
+        -- worry about operator fixity/precedence.
+        _otherwise ->
+          PP.parens $ PP.hsep
+            [ prettyExpr env 1 x
+            , ppInfixResolvedName (resolveGlobal $ infixOpGlobal op)
+            , prettyExpr env 1 y
             ]
-            ++
-            [ withFreshNames env (AS AZ) hints $ \env' params ->
-                let l = PP.hsep $ params ++ ["->"]
-                in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
-                    case unsnoc params of
-                      Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
-                      Just (lParams, rParam) -> PP.vcat $
-                          [ PP.nest 2 param
-                          | param <- lParams
-                          ]
-                        ++ [PP.nest 2 (rParam <+> "->")]
-                        ++ [PP.nest 4 (prettyExpr env' 0 body)]
 
-            | SAltNoConstr hints body <- alts
-            ]
-            ++
-            [ withFreshNames env add hints $ \env' params ->
-                let l  = PP.hlist "(# " " #)" params <+> "->"
-                in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
-                    case unsnoc params of
-                      Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
-                      Just (lParams, rParam) -> PP.vcat $
-                          [ PP.nest 2 param
-                          | param <- lParams
-                          ]
-                        ++ [PP.nest 2 (rParam <+> "->")]
-                        ++ [PP.nest 4 (prettyExpr env' 0 body)]
+      ELam (NameHint hint) body -> PP.withFreshName hint $ \x -> PP.parensWhen (prec > 1) $ PP.fsep
+        [ PP.char '\\' >< x <+> "->"
+        , PP.nest 2 $ prettyExpr (env :> x) 0 body
+        ]
 
-            | SAltUnboxedTuple add hints body <- alts
-            ]
-            )
+      EUnusedLam body -> PP.parensWhen (prec > 1) $ PP.fsep
+        [ PP.char '\\' >< "_" <+> "->"
+        , PP.nest 2 $ prettyExpr env 0 body
+        ]
 
-    EUnit -> PP.string "()"
+      ECase x alts -> PP.vparensWhen (prec > 1) $
+        if null alts
+          then PP.hsep ["case", prettyExpr env 0 x, "of", "{}"]
+          else PP.hang (PP.hsep ["case", prettyExpr env 0 x, "of"]) 2 $ PP.vcat
+              ([ withFreshNames env add hints $ \env' params ->
 
-    EBoxedOpenNp2Tup n -> prettyBoxedOpenNp2Tuple n
+                  let l = PP.hsep $ pretty cnst : params ++ ["->"]
+                  in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
+                      case unsnoc params of
+                        Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
+                        Just (lParams, rParam) -> PP.vcat $
+                            pretty cnst
+                          : [ PP.nest 2 param
+                            | param <- lParams
+                            ]
+                          ++ [PP.nest 2 (rParam <+> "->")]
+                          ++ [PP.nest 4 (prettyExpr env' 0 body)]
 
-    EBoxedClosedTup (x, y, zs) ->
-      let xs = x : y: zs
-          ds = prettyExpr env 0 <$> xs
-          l  = PP.hlist "(" ")" ds
-      in  PP.ifFits l l $ PP.vlist "(" ")" ds
+              | SAlt cnst add hints body <- alts
+              ]
+              ++
+              [ withFreshNames env (AS AZ) hints $ \env' params ->
+                  let l = PP.hsep $ params ++ ["->"]
+                  in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
+                      case unsnoc params of
+                        Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
+                        Just (lParams, rParam) -> PP.vcat $
+                            [ PP.nest 2 param
+                            | param <- lParams
+                            ]
+                          ++ [PP.nest 2 (rParam <+> "->")]
+                          ++ [PP.nest 4 (prettyExpr env' 0 body)]
 
-    EUnboxedTup xs ->
-      let ds = prettyExpr env 0 <$> xs
-          l  = PP.hlist "(# " " #)" ds
-      in  PP.ifFits l l $ PP.vlist "(# " " #)" ds
+              | SAltNoConstr hints body <- alts
+              ]
+              ++
+              [ withFreshNames env add hints $ \env' params ->
+                  let l  = PP.hlist "(# " " #)" params <+> "->"
+                  in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
+                      case unsnoc params of
+                        Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
+                        Just (lParams, rParam) -> PP.vcat $
+                            [ PP.nest 2 param
+                            | param <- lParams
+                            ]
+                          ++ [PP.nest 2 (rParam <+> "->")]
+                          ++ [PP.nest 4 (prettyExpr env' 0 body)]
 
-    EList xs ->
-      let ds = prettyExpr env 0 <$> xs
-          l  = PP.hlist "[" "]" ds
-      in  PP.ifFits l l $ PP.vlist "[" "]" ds
+              | SAltUnboxedTuple add hints body <- alts
+              ]
+              )
 
-    -- NOTE: the precedence is copied from the @EApp@ case above
-    ETypeApp f t -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> "@" >< prettyPrec 4 t
+      EUnit -> PP.string "()"
+
+      EBoxedNp2Tup{} -> panicWith "Didn't expect boxed open tuple after unrolling function application"
+
+      EUnboxedNp2Tup{} -> panicWith "Didn't expect unboxed open tuple after unrolling function application"
+
+      EList xs ->
+        let ds = prettyExpr env 0 <$> xs
+            l  = PP.hlist "[" "]" ds
+        in  PP.ifFits l l $ PP.vlist "[" "]" ds
+
+      -- NOTE: the precedence is copied from the @EApp@ case above
+      ETypeApp f t -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> "@" >< prettyPrec 4 t
+
+  where
+    panicWith :: String -> a
+    panicWith msg = panicPure $ msg ++ "; " ++ show expr
 
 -- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
 -- with its length.
@@ -899,8 +914,21 @@ resolveTypeClass = resolveGlobal . typeClassGlobal
 resolveBindgenGlobalTerm :: BindgenGlobalTerm -> ResolvedName
 resolveBindgenGlobalTerm = resolveGlobal . bindgenGlobalTerm
 
--- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this open
--- tuple render hack and use closed tuples.
-prettyBoxedOpenNp2Tuple :: Natural -> CtxDoc
-prettyBoxedOpenNp2Tuple = PP.string . \case
-  n -> "(" ++ replicate (fromIntegral (n + 1)) ',' ++ ")"
+-- TODO-D: Precedence?
+prettyTupleWith :: String -> String -> Int -> Natural -> [CtxDoc] -> CtxDoc
+prettyTupleWith pre pos _prec arityMinus2 decls
+    | length decls == arity =
+      let lsOneLn = PP.hlist pre pos decls
+          lsMulLn = PP.vlist pre pos decls
+      in  PP.ifFits lsOneLn lsOneLn lsMulLn
+    | otherwise = prettyBoxedOpenNp2Tuple >< PP.hsep decls
+  where
+    arity :: Int
+    arity = fromIntegral (arityMinus2 + 2)
+
+    prettyBoxedOpenNp2Tuple :: CtxDoc
+    prettyBoxedOpenNp2Tuple = PP.string $ pre ++ replicate (arity - 1) ',' ++ pos
+
+prettyBoxedTuple, prettyUnboxedTuple :: Int -> Natural -> [CtxDoc] -> CtxDoc
+prettyBoxedTuple   = prettyTupleWith "(" ")"
+prettyUnboxedTuple = prettyTupleWith "(#" "#)"

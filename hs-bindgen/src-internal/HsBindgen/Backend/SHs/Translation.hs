@@ -660,7 +660,7 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [
-        EBoxedClosedTup (
+        appManyExpr (EBoxedNp2Tup 0) [
             EIntegral v Nothing
           , if null names
               then EApp (eBindgenGlobal NonEmpty_singleton) (EString name)
@@ -669,8 +669,7 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
                   InfixNonEmpty_constructor
                   (EString name)
                   (EList (EString <$> names))
-          , []
-          )
+          ]
       | (v, name :| names) <- Map.toList vMap
       ]
 

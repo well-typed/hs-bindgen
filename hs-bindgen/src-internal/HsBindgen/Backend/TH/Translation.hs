@@ -28,6 +28,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -40,35 +41,18 @@ import HsBindgen.NameHint
   Backend definition
 -------------------------------------------------------------------------------}
 
--- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
--- render hack.
-
--- | A version of 'TH.tupleTypeName' that uses the internal runtime prelude and
--- always uses @(,,)@ syntax rather than @Tuple3@. This ensures consistency in
--- TH tests across GHC versions.
-np2TupleTypeName :: Natural -> TH.Name
-np2TupleTypeName n =
-    TH.Name
-      (TH.mkOccName tup_occ)
-      (TH.NameG TH.TcClsName tup_pkg tup_mod)
-  where
-    -- Fake package name as syntax is built-in.
-    tup_pkg :: TH.PkgName
-    tup_pkg = TH.mkPkgName "ghc-internal"
-
-    tup_mod :: TH.ModName
-    tup_mod = TH.mkModName "GHC.Tuple"
-
-    tup_occ :: String
-    tup_occ = "(" ++ replicate (fromIntegral n + 1) ',' ++ ")"
-
 mkGlobalExpr :: Quote q => Global LvlTerm -> q TH.Exp
 mkGlobalExpr g = case g.cat of
   GVar -> TH.varE g.name
   GCon -> TH.conE g.name
 
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
-mkExpr env = \case
+mkExpr env expr = case unrollExpr expr of
+    (EBoxedNp2Tup n, args) -> prettyTupleExpr Boxed env n args
+    (EUnboxedNp2Tup n, args) -> prettyTupleExpr Unboxed env n args
+    (EApp{} , _) ->
+      panicWith "Didn't expect function application after unrolling function application"
+    _ -> case expr of
       EGlobal n     -> mkGlobalExpr n
       EFree n       -> hsVarE n
       EBound x      -> TH.varE (lookupEnv x env)
@@ -149,12 +133,16 @@ mkExpr env = \case
                          | alt <- alts
                          ]
       EUnit -> TH.tupE []
-      EBoxedOpenNp2Tup n -> TH.conE $ TH.tupleDataName $ fromIntegral (n+2)
-      EBoxedClosedTup (x, y, zs) -> TH.tupE $ mkExpr env <$> x : y : zs
-      EUnboxedTup xs -> TH.unboxedTupE $ mkExpr env <$> xs
+      -- TODO-D: OK to panic here?
+      EBoxedNp2Tup{} -> panicWith "Didn't expect boxed, open tuple after unrolling function application"
+      -- TODO-D: OK to panic here?
+      EUnboxedNp2Tup{} -> panicWith "Didn't expect unboxed, open tuple after unrolling function application"
       EList xs -> TH.listE $ mkExpr env <$> xs
 
       ETypeApp f t -> TH.appTypeE (mkExpr env f) (mkType EmptyEnv t)
+  where
+    panicWith :: String -> a
+    panicWith msg = panicPure $ msg ++ "; " ++ show expr
 
 mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case
@@ -162,32 +150,39 @@ mkPat = \case
     PELit i -> TH.litP (TH.IntegerL i)
 
 mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
-mkType env = \case
-    TGlobal n  -> TH.conT n.name
-    TClass cls -> TH.conT $ (.name) $ typeClassGlobal cls
-    TBound x   -> TH.varT (lookupEnv x env)
-    TCon n     -> hsConT n
-    TFree n    -> hsVarT n
-    TLit n     -> TH.litT (TH.numTyLit (toInteger n))
-    TStrLit s  -> TH.litT (TH.strTyLit s)
-    TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
-    TApp f t   -> TH.appT (mkType env f) (mkType env t)
-    TUnit -> pure $ TH.TupleT 0
-    TBoxedOpenNp2Tup n -> TH.conT $ np2TupleTypeName n
-    TEq -> TH.conT ''(~)
-    TForall hints add ctxt body -> do
-        let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
-        (xs, env') <- newNames env add hints
-        TH.forallT
-            (map bndr xs)
-            (traverse (mkType env') ctxt)
-            (mkType env' body)
-    TExt extRef _cTypeSpec _hsTypeSpec ->
-        TH.conT . TH.mkName $ concat [
-              Hs.moduleNameToString extRef.moduleName
-            , "."
-            , Text.unpack extRef.ident.text
-            ]
+mkType env ty = case unrollType ty of
+    (TBoxedNp2Tup n, args) -> prettyTupleType env n args
+    (TApp{}, _) -> panicWith "Didn't expect type application TApp after unrolling type application"
+    _ -> case ty of
+      TGlobal n  -> TH.conT n.name
+      TClass cls -> TH.conT $ (.name) $ typeClassGlobal cls
+      TBound x   -> TH.varT (lookupEnv x env)
+      TCon n     -> hsConT n
+      TFree n    -> hsVarT n
+      TLit n     -> TH.litT (TH.numTyLit (toInteger n))
+      TStrLit s  -> TH.litT (TH.strTyLit s)
+      TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
+      TApp f t   -> TH.appT (mkType env f) (mkType env t)
+      TUnit -> pure $ TH.TupleT 0
+    -- TODO-D: OK to panic here?
+      TBoxedNp2Tup{} -> panicWith "Didn't expect open tuple after unrolling type application"
+      TEq -> TH.conT ''(~)
+      TForall hints add ctxt body -> do
+          let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
+          (xs, env') <- newNames env add hints
+          TH.forallT
+              (map bndr xs)
+              (traverse (mkType env') ctxt)
+              (mkType env' body)
+      TExt extRef _cTypeSpec _hsTypeSpec ->
+          TH.conT . TH.mkName $ concat [
+                Hs.moduleNameToString extRef.moduleName
+              , "."
+              , Text.unpack extRef.ident.text
+              ]
+  where
+    panicWith :: String -> a
+    panicWith msg = panicPure $ msg ++ "; " ++ show ty
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
@@ -411,3 +406,54 @@ newNames env (AS n) (NameHint hint ::: hints) = do
 
 putLocalDocM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
 putLocalDocM nm = traverse_ (putLocalDoc nm)
+
+{-------------------------------------------------------------------------------
+  Tuples
+-------------------------------------------------------------------------------}
+
+-- | A version of 'TH.tupleTypeName' that uses the internal runtime prelude and
+-- always uses @(,,)@ syntax rather than @Tuple3@. This ensures consistency in
+-- TH tests across GHC versions.
+np2TupleTypeName :: Int -> TH.Name
+np2TupleTypeName n =
+    TH.Name
+      (TH.mkOccName tup_occ)
+      (TH.NameG TH.TcClsName tup_pkg tup_mod)
+  where
+    -- Fake package name as syntax is built-in.
+    tup_pkg :: TH.PkgName
+    tup_pkg = TH.mkPkgName "ghc-internal"
+
+    tup_mod :: TH.ModName
+    tup_mod = TH.mkModName "GHC.Tuple"
+
+    tup_occ :: String
+    tup_occ = "(" ++ replicate (n + 1) ',' ++ ")"
+
+data TupleType = Boxed | Unboxed
+
+prettyTupleExpr :: Quote q => TupleType -> Env ctx TH.Name -> Natural -> [SExpr ctx] -> q TH.Exp
+prettyTupleExpr ty env arityMinus2 decls
+  | length decls == arity = thClosedTupleCon $ mkExpr env <$> decls
+  | otherwise             = thOpenTupleCon arity
+  where
+    arity :: Int
+    arity = fromIntegral (arityMinus2 + 2)
+
+    thClosedTupleCon :: Quote q => [q TH.Exp] -> q TH.Exp
+    thClosedTupleCon = case ty of
+      Boxed   -> TH.tupE
+      Unboxed -> TH.unboxedTupE
+
+    thOpenTupleCon :: Quote q => Int -> q TH.Exp
+    thOpenTupleCon = TH.conE . case ty of
+      Boxed   -> TH.tupleDataName
+      Unboxed -> TH.unboxedTupleDataName
+
+prettyTupleType :: Quote q => Env ctx TH.Name -> Natural -> [SType ctx] -> q TH.Type
+prettyTupleType env arityMinus2 decls
+  | length decls == arity = foldl' TH.appT (TH.tupleT arity) $ mkType env <$> decls
+  | otherwise             = TH.conT $ np2TupleTypeName arity
+  where
+    arity :: Int
+    arity = fromIntegral (arityMinus2 + 2)
