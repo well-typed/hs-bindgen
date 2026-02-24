@@ -8,6 +8,8 @@ module HsBindgen.Backend.SHs.Translation.Common (
   , idiom
   , lambda
   , doAll
+  , asNaryEApp
+  , asNaryTApp
   ) where
 
 import Data.Text qualified as T
@@ -65,5 +67,23 @@ lambda f (Hs.Lambda hint t) = ELam hint (f t)
 
 -- | Monad sequencing
 doAll :: (t ctx -> SExpr ctx) -> Hs.Seq t ctx -> SExpr ctx
-doAll _ (Hs.Seq []) = eBindgenGlobal Monad_return `EApp` EBoxedClosedTup []
+doAll _ (Hs.Seq []) = eBindgenGlobal Monad_return `EApp` EUnit
 doAll f (Hs.Seq ss) = foldr1 (EInfix InfixMonad_seq) (map f ss)
+
+-- Recognize n-ary function applications
+--
+-- Arguments are returned from left to right.
+asNaryEApp :: SExpr ctx -> (SExpr ctx, [SExpr ctx])
+asNaryEApp = go []
+  where
+    go acc (EApp f x) = go (x : acc) f
+    go acc e          = (e, acc)
+
+-- Recognize n-ary type applications
+--
+-- Arguments are returned from left to right.
+asNaryTApp :: SType ctx -> (SType ctx, [SType ctx])
+asNaryTApp = go []
+  where
+    go acc (TApp f x) = go (x : acc) f
+    go acc t          = (t, acc)

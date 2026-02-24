@@ -557,14 +557,14 @@ a_DEFINE_2 = 2 :: CInt
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-tWO_ARGS :: (,) CInt CInt
+tWO_ARGS :: (CInt, CInt)
 {-| __C declaration:__ @TWO_ARGS@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 56:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
+tWO_ARGS = (13398 :: CInt, 30874 :: CInt)
 {-| __C declaration:__ @enum a_typedef_enum_e@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 61:9@

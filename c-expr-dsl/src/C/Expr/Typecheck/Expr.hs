@@ -50,7 +50,7 @@ import Control.Monad.Writer qualified as Writer
 import Data.Bifunctor
 import Data.Either (partitionEithers)
 import Data.Fin (Fin)
-import Data.Fin qualified as Fin (toNatural)
+import Data.Fin qualified as Fin
 import Data.Foldable qualified as Foldable
 import Data.Functor ((<&>))
 import Data.IntMap (IntMap)
@@ -71,7 +71,7 @@ import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.Traversable (for)
 import Data.Type.Equality (type (:~:) (..))
-import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum)
+import Data.Type.Nat qualified as Nat
 import Data.Typeable (Typeable, eqT)
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
@@ -866,7 +866,7 @@ inferMFun fun = case fun of
   MTuple @n -> Quant @( S ( S n ) ) \ as ->
     QuantTyBody []
       ( let arity :: Int
-            arity = 2 + Nat.reflectToNum @n Proxy
+            arity = 2 + n
             tupNm = "Tuple" <> Text.pack ( show arity )
         in
           -- NB: we don't support evaluation of tuples currently, because:
@@ -876,8 +876,11 @@ inferMFun fun = case fun of
           --     considerations).
           --  2. We would need to add tuples to the value type system ('ValType').
           FunValue @( S ( S n ) ) tupNm $ const NoValue
-      , mkFunTy as $ Tuple ( fromIntegral $ length as ) as
-      )  where
+      , mkFunTy as $ Tuple (Nat.snat @(S (S n))) as
+      )
+      where
+        n :: Int
+        n = Nat.reflectToNum @n Proxy
 
 
   -- Logical operators

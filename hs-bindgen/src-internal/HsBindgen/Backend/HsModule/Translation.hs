@@ -19,7 +19,6 @@ import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.HsModule.CAPI (capiModule)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.Prelims
@@ -322,17 +321,9 @@ resolveExprImports = \case
             SAltUnboxedTuple _add _hints body -> resolveExprImports body
         | alt <- alts
         ]
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
-    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
-    EBoxedOpenTup n | n<= 1 ->
-      ImportAcc{
-          requireTypes = False
-        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
-        , unqualified = mempty
-        }
-    EBoxedOpenTup{} -> mempty
-    EBoxedClosedTup{} -> mempty
-    EUnboxedTup xs -> foldMap resolveExprImports xs
+    EUnit -> mempty
+    EBoxedTup{} -> mempty
+    EUnboxedTup{} -> mempty
     EList xs -> foldMap resolveExprImports xs
     ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
 
@@ -359,15 +350,8 @@ resolveTypeImports = \case
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
-    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
-    TBoxedOpenTup n | n <= 1 ->
-      ImportAcc{
-          requireTypes = False
-        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
-        , unqualified = mempty
-        }
-    TBoxedOpenTup{} -> mempty
+    TUnit -> mempty
+    TBoxedTup{} -> mempty
     TEq{} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)

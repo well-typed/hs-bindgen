@@ -173,7 +173,7 @@ j3 = CharValue (addrToByteArray 3 "<binary data>") Nothing
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s1 :: (,) (Ptr CChar) Int
+s1 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S1@
 
     __defined at:__ @macros\/macro_strings.h 20:9@
@@ -187,7 +187,7 @@ s1 = (Ptr "a"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s2 :: (,) (Ptr CChar) Int
+s2 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S2@
 
     __defined at:__ @macros\/macro_strings.h 21:9@
@@ -201,7 +201,7 @@ s2 = (Ptr "'"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s3 :: (,) (Ptr CChar) Int
+s3 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S3@
 
     __defined at:__ @macros\/macro_strings.h 22:9@
@@ -215,7 +215,7 @@ s3 = (Ptr "\t"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s4 :: (,) (Ptr CChar) Int
+s4 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S4@
 
     __defined at:__ @macros\/macro_strings.h 23:9@
@@ -229,7 +229,7 @@ s4 = (Ptr "\NUL"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s5 :: (,) (Ptr CChar) Int
+s5 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S5@
 
     __defined at:__ @macros\/macro_strings.h 24:9@
@@ -243,7 +243,7 @@ s5 = (Ptr "'"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s6 :: (,) (Ptr CChar) Int
+s6 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S6@
 
     __defined at:__ @macros\/macro_strings.h 25:9@
@@ -257,7 +257,7 @@ s6 = (Ptr "?"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s7 :: (,) (Ptr CChar) Int
+s7 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S7@
 
     __defined at:__ @macros\/macro_strings.h 26:9@
@@ -271,7 +271,7 @@ s7 = (Ptr "S"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s8 :: (,) (Ptr CChar) Int
+s8 :: (Ptr CChar, Int)
 {-| __C declaration:__ @S8@
 
     __defined at:__ @macros\/macro_strings.h 27:9@
@@ -285,7 +285,7 @@ s8 = (Ptr "S"#, 1) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t1 :: (,) (Ptr CChar) Int
+t1 :: (Ptr CChar, Int)
 {-| __C declaration:__ @T1@
 
     __defined at:__ @macros\/macro_strings.h 29:9@
@@ -299,7 +299,7 @@ t1 = (Ptr "\227\129\130"#, 3) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t2 :: (,) (Ptr CChar) Int
+t2 :: (Ptr CChar, Int)
 {-| __C declaration:__ @T2@
 
     __defined at:__ @macros\/macro_strings.h 30:9@
@@ -313,7 +313,7 @@ t2 = (Ptr "\227\129\130"#, 3) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t3 :: (,) (Ptr CChar) Int
+t3 :: (Ptr CChar, Int)
 {-| __C declaration:__ @T3@
 
     __defined at:__ @macros\/macro_strings.h 31:9@
@@ -327,7 +327,7 @@ t3 = (Ptr "\227\129\130"#, 3) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-u :: (,) (Ptr CChar) Int
+u :: (Ptr CChar, Int)
 {-| __C declaration:__ @U@
 
     __defined at:__ @macros\/macro_strings.h 33:9@
@@ -341,7 +341,7 @@ u = (Ptr "\SOH\255\SOH\255\SOH\255\SOH\255"#, 8) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-v :: (,) (Ptr CChar) Int
+v :: (Ptr CChar, Int)
 {-| __C declaration:__ @V@
 
     __defined at:__ @macros\/macro_strings.h 34:9@
@@ -355,7 +355,7 @@ v = (Ptr "\SOH\STX\ETX\EOT\ENQ\ACK"#, 6) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w1 :: (,) (Ptr CChar) Int
+w1 :: (Ptr CChar, Int)
 {-| __C declaration:__ @W1@
 
     __defined at:__ @macros\/macro_strings.h 36:9@
@@ -369,7 +369,7 @@ w1 = (Ptr "hij\NUL"#, 4) :: CStringLen
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w2 :: (,) (Ptr CChar) Int
+w2 :: (Ptr CChar, Int)
 {-| __C declaration:__ @W2@
 
     __defined at:__ @macros\/macro_strings.h 37:9@

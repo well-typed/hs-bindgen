@@ -392,7 +392,7 @@ translateWriteRawCField = \case
 translatePrimType :: Hs.HsPrimType -> SType ctx
 translatePrimType = \case
     HsPrimVoid    -> tBindgenGlobal Void_type
-    HsPrimUnit    -> TBoxedOpenTup 0
+    HsPrimUnit    -> TUnit
     HsPrimChar    -> tBindgenGlobal Char_type
     HsPrimInt     -> tBindgenGlobal Int_type
     HsPrimDouble  -> tBindgenGlobal Double_type
@@ -660,7 +660,7 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [
-        EBoxedClosedTup [
+        appManyExpr (EBoxedTup $ Plus2 0) [
             EIntegral v Nothing
           , if null names
               then EApp (eBindgenGlobal NonEmpty_singleton) (EString name)

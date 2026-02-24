@@ -134,8 +134,8 @@ lONG_INT_TOKEN4 =
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE1 :: ((,) RIP.CInt) RIP.CInt
-tUPLE1 = (,) (1 :: RIP.CInt) (2 :: RIP.CInt)
+tUPLE1 :: (RIP.CInt, RIP.CInt)
+tUPLE1 = ((1 :: RIP.CInt), (2 :: RIP.CInt))
 
 {-| __C declaration:__ @TUPLE2@
 
@@ -143,8 +143,8 @@ tUPLE1 = (,) (1 :: RIP.CInt) (2 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE2 :: ((,) RIP.CInt) RIP.CInt
-tUPLE2 = (,) (3 :: RIP.CInt) (4 :: RIP.CInt)
+tUPLE2 :: (RIP.CInt, RIP.CInt)
+tUPLE2 = ((3 :: RIP.CInt), (4 :: RIP.CInt))
 
 {-| __C declaration:__ @TUPLE3@
 
@@ -152,8 +152,8 @@ tUPLE2 = (,) (3 :: RIP.CInt) (4 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE3 :: ((,) RIP.CInt) RIP.CInt
-tUPLE3 = (,) (5 :: RIP.CInt) (6 :: RIP.CInt)
+tUPLE3 :: (RIP.CInt, RIP.CInt)
+tUPLE3 = ((5 :: RIP.CInt), (6 :: RIP.CInt))
 
 {-| __C declaration:__ @FLT1_1@
 

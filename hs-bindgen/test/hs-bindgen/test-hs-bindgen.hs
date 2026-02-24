@@ -8,6 +8,7 @@ import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.Overw
 import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
 import Test.HsBindgen.Resources
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
+import Test.HsBindgen.Unit.Pretty qualified as Unit.Pretty
 import Test.HsBindgen.Unit.Tracer qualified as Unit.Tracer
 
 {-------------------------------------------------------------------------------
@@ -18,8 +19,9 @@ main :: IO ()
 main = defaultMain $ withTestResources $ \testResources ->
     testGroup "test-hs-bindgen" [
         testGroup "unit tests" [
-            Unit.Tracer.tests
-          , Unit.ClangArgs.tests testResources
+            Unit.ClangArgs.tests testResources
+          , Unit.Tracer.tests
+          , Unit.Pretty.tests
           ]
       , testGroup "integration tests" [
             Integration.ExitCode.tests testResources

@@ -157,9 +157,9 @@ thing_fun_1 = \x_0 -> with x_0 (\x_1 -> hs_bindgen_4ad25504590fdd2b x_1)
 foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978_base ::
     Int32
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
-hs_bindgen_04a435522bf64978 :: CInt -> Ptr Thing -> IO Unit
+hs_bindgen_04a435522bf64978 :: CInt -> Ptr Thing -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 hs_bindgen_04a435522bf64978 = fromFFIType hs_bindgen_04a435522bf64978_base
 {-| __C declaration:__ @thing_fun_2@
@@ -182,10 +182,10 @@ foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7c
  -> Ptr Void
  -> Double
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 hs_bindgen_5e3271324df7ced2 :: CInt ->
-                               Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
+                               Ptr Thing -> CDouble -> Ptr Thing -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 hs_bindgen_5e3271324df7ced2 = fromFFIType hs_bindgen_5e3271324df7ced2_base
 {-| __C declaration:__ @thing_fun_3a@
@@ -253,9 +253,9 @@ thing_fun_1 = \x_0 -> with x_0 (\x_1 -> hs_bindgen_0bdddf60550fc97b x_1)
 foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc_base ::
     Int32
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
-hs_bindgen_c293d866e22be6fc :: CInt -> Ptr Thing -> IO Unit
+hs_bindgen_c293d866e22be6fc :: CInt -> Ptr Thing -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
 hs_bindgen_c293d866e22be6fc = fromFFIType hs_bindgen_c293d866e22be6fc_base
 {-| __C declaration:__ @thing_fun_2@
@@ -278,10 +278,10 @@ foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490
  -> Ptr Void
  -> Double
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
 hs_bindgen_cfd51a9e490a997c :: CInt ->
-                               Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
+                               Ptr Thing -> CDouble -> Ptr Thing -> IO ()
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
 hs_bindgen_cfd51a9e490a997c = fromFFIType hs_bindgen_cfd51a9e490a997c_base
 {-| __C declaration:__ @thing_fun_3a@

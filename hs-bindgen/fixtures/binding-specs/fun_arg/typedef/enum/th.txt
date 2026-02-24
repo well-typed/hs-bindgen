@@ -260,9 +260,9 @@ instance HasCField E "unwrapE"
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
-hs_bindgen_99bb90e6d7637d2c :: MyEnum -> IO Unit
+hs_bindgen_99bb90e6d7637d2c :: MyEnum -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 hs_bindgen_99bb90e6d7637d2c = fromFFIType hs_bindgen_99bb90e6d7637d2c_base
 {-| __C declaration:__ @foo@
@@ -271,7 +271,7 @@ hs_bindgen_99bb90e6d7637d2c = fromFFIType hs_bindgen_99bb90e6d7637d2c_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-foo :: MyEnum -> IO Unit
+foo :: MyEnum -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 5:6@
@@ -282,9 +282,9 @@ foo = hs_bindgen_99bb90e6d7637d2c
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681c13_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
-hs_bindgen_392e3092a2681c13 :: A -> IO Unit
+hs_bindgen_392e3092a2681c13 :: A -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 hs_bindgen_392e3092a2681c13 = fromFFIType hs_bindgen_392e3092a2681c13_base
 {-| __C declaration:__ @fooA@
@@ -293,7 +293,7 @@ hs_bindgen_392e3092a2681c13 = fromFFIType hs_bindgen_392e3092a2681c13_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooA :: A -> IO Unit
+fooA :: A -> IO ()
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 10:6@
@@ -304,9 +304,9 @@ fooA = hs_bindgen_392e3092a2681c13
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be4fa_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
-hs_bindgen_6011faf8531be4fa :: B -> IO Unit
+hs_bindgen_6011faf8531be4fa :: B -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 hs_bindgen_6011faf8531be4fa = fromFFIType hs_bindgen_6011faf8531be4fa_base
 {-| __C declaration:__ @fooB@
@@ -315,7 +315,7 @@ hs_bindgen_6011faf8531be4fa = fromFFIType hs_bindgen_6011faf8531be4fa_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooB :: B -> IO Unit
+fooB :: B -> IO ()
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 11:6@
@@ -326,9 +326,9 @@ fooB = hs_bindgen_6011faf8531be4fa
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
-hs_bindgen_40a50b8e6ac3b09d :: M.C -> IO Unit
+hs_bindgen_40a50b8e6ac3b09d :: M.C -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 hs_bindgen_40a50b8e6ac3b09d = fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
 {-| __C declaration:__ @fooC@
@@ -337,7 +337,7 @@ hs_bindgen_40a50b8e6ac3b09d = fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooC :: M.C -> IO Unit
+fooC :: M.C -> IO ()
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 23:6@
@@ -348,9 +348,9 @@ fooC = hs_bindgen_40a50b8e6ac3b09d
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
-hs_bindgen_32b4f35bf27a4bf8 :: M.D -> IO Unit
+hs_bindgen_32b4f35bf27a4bf8 :: M.D -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 hs_bindgen_32b4f35bf27a4bf8 = fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
 {-| __C declaration:__ @fooD@
@@ -359,7 +359,7 @@ hs_bindgen_32b4f35bf27a4bf8 = fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooD :: M.D -> IO Unit
+fooD :: M.D -> IO ()
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 24:6@
@@ -370,9 +370,9 @@ fooD = hs_bindgen_32b4f35bf27a4bf8
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
-hs_bindgen_6e59183c0a861d01 :: E -> IO Unit
+hs_bindgen_6e59183c0a861d01 :: E -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 hs_bindgen_6e59183c0a861d01 = fromFFIType hs_bindgen_6e59183c0a861d01_base
 {-| __C declaration:__ @fooE@
@@ -381,7 +381,7 @@ hs_bindgen_6e59183c0a861d01 = fromFFIType hs_bindgen_6e59183c0a861d01_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooE :: E -> IO Unit
+fooE :: E -> IO ()
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 25:6@
@@ -392,9 +392,9 @@ fooE = hs_bindgen_6e59183c0a861d01
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_51195acecf6b880e" hs_bindgen_51195acecf6b880e_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
-hs_bindgen_51195acecf6b880e :: MyEnum -> IO Unit
+hs_bindgen_51195acecf6b880e :: MyEnum -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 hs_bindgen_51195acecf6b880e = fromFFIType hs_bindgen_51195acecf6b880e_base
 {-| __C declaration:__ @foo@
@@ -403,7 +403,7 @@ hs_bindgen_51195acecf6b880e = fromFFIType hs_bindgen_51195acecf6b880e_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-foo :: MyEnum -> IO Unit
+foo :: MyEnum -> IO ()
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 5:6@
@@ -414,9 +414,9 @@ foo = hs_bindgen_51195acecf6b880e
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10ca94f9_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
-hs_bindgen_eb4a794c10ca94f9 :: A -> IO Unit
+hs_bindgen_eb4a794c10ca94f9 :: A -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 hs_bindgen_eb4a794c10ca94f9 = fromFFIType hs_bindgen_eb4a794c10ca94f9_base
 {-| __C declaration:__ @fooA@
@@ -425,7 +425,7 @@ hs_bindgen_eb4a794c10ca94f9 = fromFFIType hs_bindgen_eb4a794c10ca94f9_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooA :: A -> IO Unit
+fooA :: A -> IO ()
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 10:6@
@@ -436,9 +436,9 @@ fooA = hs_bindgen_eb4a794c10ca94f9
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a953b64_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
-hs_bindgen_a11eb4471a953b64 :: B -> IO Unit
+hs_bindgen_a11eb4471a953b64 :: B -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 hs_bindgen_a11eb4471a953b64 = fromFFIType hs_bindgen_a11eb4471a953b64_base
 {-| __C declaration:__ @fooB@
@@ -447,7 +447,7 @@ hs_bindgen_a11eb4471a953b64 = fromFFIType hs_bindgen_a11eb4471a953b64_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooB :: B -> IO Unit
+fooB :: B -> IO ()
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 11:6@
@@ -458,9 +458,9 @@ fooB = hs_bindgen_a11eb4471a953b64
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
-hs_bindgen_1dea92b3f3346311 :: M.C -> IO Unit
+hs_bindgen_1dea92b3f3346311 :: M.C -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 hs_bindgen_1dea92b3f3346311 = fromFFIType hs_bindgen_1dea92b3f3346311_base
 {-| __C declaration:__ @fooC@
@@ -469,7 +469,7 @@ hs_bindgen_1dea92b3f3346311 = fromFFIType hs_bindgen_1dea92b3f3346311_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooC :: M.C -> IO Unit
+fooC :: M.C -> IO ()
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 23:6@
@@ -480,9 +480,9 @@ fooC = hs_bindgen_1dea92b3f3346311
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
-hs_bindgen_dba6d56e1a316e2d :: M.D -> IO Unit
+hs_bindgen_dba6d56e1a316e2d :: M.D -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 hs_bindgen_dba6d56e1a316e2d = fromFFIType hs_bindgen_dba6d56e1a316e2d_base
 {-| __C declaration:__ @fooD@
@@ -491,7 +491,7 @@ hs_bindgen_dba6d56e1a316e2d = fromFFIType hs_bindgen_dba6d56e1a316e2d_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooD :: M.D -> IO Unit
+fooD :: M.D -> IO ()
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 24:6@
@@ -502,9 +502,9 @@ fooD = hs_bindgen_dba6d56e1a316e2d
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae_base ::
     Word32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
-hs_bindgen_23b6f403a534aeae :: E -> IO Unit
+hs_bindgen_23b6f403a534aeae :: E -> IO ()
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 hs_bindgen_23b6f403a534aeae = fromFFIType hs_bindgen_23b6f403a534aeae_base
 {-| __C declaration:__ @fooE@
@@ -513,7 +513,7 @@ hs_bindgen_23b6f403a534aeae = fromFFIType hs_bindgen_23b6f403a534aeae_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooE :: E -> IO Unit
+fooE :: E -> IO ()
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 25:6@
@@ -525,7 +525,7 @@ fooE = hs_bindgen_23b6f403a534aeae
 foreign import ccall unsafe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c10652_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
-hs_bindgen_2020929269c10652 :: IO (FunPtr (MyEnum -> IO Unit))
+hs_bindgen_2020929269c10652 :: IO (FunPtr (MyEnum -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
 hs_bindgen_2020929269c10652 = fromFFIType hs_bindgen_2020929269c10652_base
 {-# NOINLINE foo #-}
@@ -535,7 +535,7 @@ hs_bindgen_2020929269c10652 = fromFFIType hs_bindgen_2020929269c10652_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-foo :: FunPtr (MyEnum -> IO Unit)
+foo :: FunPtr (MyEnum -> IO ())
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 5:6@
@@ -547,7 +547,7 @@ foo = unsafePerformIO hs_bindgen_2020929269c10652
 foreign import ccall unsafe "hs_bindgen_3fbd7681308a7575" hs_bindgen_3fbd7681308a7575_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
-hs_bindgen_3fbd7681308a7575 :: IO (FunPtr (A -> IO Unit))
+hs_bindgen_3fbd7681308a7575 :: IO (FunPtr (A -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
 hs_bindgen_3fbd7681308a7575 = fromFFIType hs_bindgen_3fbd7681308a7575_base
 {-# NOINLINE fooA #-}
@@ -557,7 +557,7 @@ hs_bindgen_3fbd7681308a7575 = fromFFIType hs_bindgen_3fbd7681308a7575_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooA :: FunPtr (A -> IO Unit)
+fooA :: FunPtr (A -> IO ())
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 10:6@
@@ -569,7 +569,7 @@ fooA = unsafePerformIO hs_bindgen_3fbd7681308a7575
 foreign import ccall unsafe "hs_bindgen_118f9a485493ca2d" hs_bindgen_118f9a485493ca2d_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
-hs_bindgen_118f9a485493ca2d :: IO (FunPtr (B -> IO Unit))
+hs_bindgen_118f9a485493ca2d :: IO (FunPtr (B -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
 hs_bindgen_118f9a485493ca2d = fromFFIType hs_bindgen_118f9a485493ca2d_base
 {-# NOINLINE fooB #-}
@@ -579,7 +579,7 @@ hs_bindgen_118f9a485493ca2d = fromFFIType hs_bindgen_118f9a485493ca2d_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooB :: FunPtr (B -> IO Unit)
+fooB :: FunPtr (B -> IO ())
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 11:6@
@@ -591,7 +591,7 @@ fooB = unsafePerformIO hs_bindgen_118f9a485493ca2d
 foreign import ccall unsafe "hs_bindgen_dbe89d4787aae78a" hs_bindgen_dbe89d4787aae78a_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
-hs_bindgen_dbe89d4787aae78a :: IO (FunPtr (M.C -> IO Unit))
+hs_bindgen_dbe89d4787aae78a :: IO (FunPtr (M.C -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
 hs_bindgen_dbe89d4787aae78a = fromFFIType hs_bindgen_dbe89d4787aae78a_base
 {-# NOINLINE fooC #-}
@@ -601,7 +601,7 @@ hs_bindgen_dbe89d4787aae78a = fromFFIType hs_bindgen_dbe89d4787aae78a_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooC :: FunPtr (M.C -> IO Unit)
+fooC :: FunPtr (M.C -> IO ())
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 23:6@
@@ -613,7 +613,7 @@ fooC = unsafePerformIO hs_bindgen_dbe89d4787aae78a
 foreign import ccall unsafe "hs_bindgen_cf5702eef5ab2ac4" hs_bindgen_cf5702eef5ab2ac4_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
-hs_bindgen_cf5702eef5ab2ac4 :: IO (FunPtr (M.D -> IO Unit))
+hs_bindgen_cf5702eef5ab2ac4 :: IO (FunPtr (M.D -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
 hs_bindgen_cf5702eef5ab2ac4 = fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
 {-# NOINLINE fooD #-}
@@ -623,7 +623,7 @@ hs_bindgen_cf5702eef5ab2ac4 = fromFFIType hs_bindgen_cf5702eef5ab2ac4_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooD :: FunPtr (M.D -> IO Unit)
+fooD :: FunPtr (M.D -> IO ())
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 24:6@
@@ -635,7 +635,7 @@ fooD = unsafePerformIO hs_bindgen_cf5702eef5ab2ac4
 foreign import ccall unsafe "hs_bindgen_dc10cdc4b07670d1" hs_bindgen_dc10cdc4b07670d1_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
-hs_bindgen_dc10cdc4b07670d1 :: IO (FunPtr (E -> IO Unit))
+hs_bindgen_dc10cdc4b07670d1 :: IO (FunPtr (E -> IO ()))
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
 hs_bindgen_dc10cdc4b07670d1 = fromFFIType hs_bindgen_dc10cdc4b07670d1_base
 {-# NOINLINE fooE #-}
@@ -645,7 +645,7 @@ hs_bindgen_dc10cdc4b07670d1 = fromFFIType hs_bindgen_dc10cdc4b07670d1_base
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/enum.h@
 -}
-fooE :: FunPtr (E -> IO Unit)
+fooE :: FunPtr (E -> IO ())
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/enum.h 25:6@

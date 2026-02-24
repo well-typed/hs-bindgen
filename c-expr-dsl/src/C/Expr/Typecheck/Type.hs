@@ -106,7 +106,7 @@ import Data.Proxy
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.Type.Equality
-import Data.Type.Nat (SNatI)
+import Data.Type.Nat (SNatI, SNat (..))
 import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
@@ -315,8 +315,8 @@ data DataTyCon nbArgs where
   PtrTyCon       :: DataTyCon ( S Z )
 
   -- | Tuple type constructors
-  TupleTyCon     :: !Word -> DataTyCon ( S ( S n ) )
-    -- Invariant: the stored 'Word' matches the arity of the tuple
+  TupleTyCon     :: !(SNat (S (S n))) -> DataTyCon ( S ( S n ) )
+    -- Invariant: the stored 'SNat' matches the arity of the tuple
 
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
@@ -411,7 +411,7 @@ instance Show ( DataTyCon n ) where
     FloatLikeTyCon            -> showString "FloatLike"
     PrimIntInfoTyCon   inty   -> showsPrec p inty
     PrimFloatInfoTyCon floaty -> showsPrec p floaty
-    TupleTyCon i              -> showString $ "Tuple" ++ show i
+    TupleTyCon i              -> showString $ "Tuple" ++ show (Nat.snatToNatural i)
 instance Show ( FamilyTyCon n ) where
   show = \case
     PlusResTyCon       -> "PlusRes"
@@ -652,11 +652,11 @@ pattern IntLike intLike = Data IntLikeTyCon (intLike ::: VNil)
 pattern FloatLike :: Type Ty -> Type Ty
 pattern FloatLike floatLike = Data FloatLikeTyCon (floatLike ::: VNil)
 pattern String :: Type Ty
-pattern String = Tuple 2 (Ptr CharTy ::: HsIntTy ::: VNil)
+pattern String = Tuple (SS' (SS' SZ)) (Ptr CharTy ::: HsIntTy ::: VNil)
 pattern Ptr :: Type Ty -> Type Ty
 pattern Ptr ty = Data PtrTyCon (ty ::: VNil)
 
-pattern Tuple :: () => ( nbArgs ~ S (S n) ) => Word -> Vec nbArgs (Type Ty) -> Type Ty
+pattern Tuple :: () => ( nbArgs ~ S (S n) ) => (SNat (S (S n))) -> Vec nbArgs (Type Ty) -> Type Ty
 pattern Tuple l as = Data ( TupleTyCon l ) as
 
 pattern PlusRes :: Type Ty -> Type Ty
