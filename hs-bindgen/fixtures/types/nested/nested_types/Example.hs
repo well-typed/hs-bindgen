@@ -11,7 +11,15 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Foo(..)
+    , Example.Bar(..)
+    , Example.Ex3_ex3_struct(..)
+    , Example.Ex3(..)
+    , Example.Ex4_odd(..)
+    , Example.Ex4_even(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -11,7 +11,40 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Stdlib_CBool(..)
+    , Example.Stdlib_Int8(..)
+    , Example.Stdlib_Int16(..)
+    , Example.Stdlib_Int32(..)
+    , Example.Stdlib_Int64(..)
+    , Example.Stdlib_Word8(..)
+    , Example.Stdlib_Word16(..)
+    , Example.Stdlib_Word32(..)
+    , Example.Stdlib_Word64(..)
+    , Example.Stdlib_CIntMax(..)
+    , Example.Stdlib_CUIntMax(..)
+    , Example.Stdlib_CIntPtr(..)
+    , Example.Stdlib_CUIntPtr(..)
+    , Example.Stdlib_CFenvT(..)
+    , Example.Stdlib_CFexceptT(..)
+    , Example.Stdlib_CSize(..)
+    , Example.Stdlib_CPtrdiff(..)
+    , Example.Stdlib_CJmpBuf(..)
+    , Example.Stdlib_CWchar(..)
+    , Example.Stdlib_CWintT(..)
+    , Example.Stdlib_CMbstateT(..)
+    , Example.Stdlib_CWctransT(..)
+    , Example.Stdlib_CWctypeT(..)
+    , Example.Stdlib_CChar16T(..)
+    , Example.Stdlib_CChar32T(..)
+    , Example.Stdlib_CTime(..)
+    , Example.Stdlib_CClock(..)
+    , Example.Stdlib_CTm(..)
+    , Example.Stdlib_CFile(..)
+    , Example.Stdlib_CFpos(..)
+    , Example.Stdlib_CSigAtomic(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

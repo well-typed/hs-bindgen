@@ -13,7 +13,29 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Struct1_t(..)
+    , Example.Struct2_t(..)
+    , Example.Struct3_t
+    , Example.Struct4_t
+    , Example.Struct5(..)
+    , Example.Struct5_t(..)
+    , Example.Struct6_Aux(..)
+    , Example.Struct6(..)
+    , Example.Struct7(..)
+    , Example.Struct7a(..)
+    , Example.Struct7b(..)
+    , Example.Struct8(..)
+    , Example.Struct8b(..)
+    , Example.Struct9(..)
+    , Example.Struct9_t(..)
+    , Example.Struct10_t(..)
+    , Example.Struct10_t_t(..)
+    , Example.Struct11_t(..)
+    , Example.Struct12_t(..)
+    , Example.Use_sites(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

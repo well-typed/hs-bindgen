@@ -2,7 +2,34 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.by'
+    , Example.Unsafe.forall'
+    , Example.Unsafe.mdo'
+    , Example.Unsafe.pattern'
+    , Example.Unsafe.proc'
+    , Example.Unsafe.rec'
+    , Example.Unsafe.using'
+    , Example.Unsafe.anyclass
+    , Example.Unsafe.capi
+    , Example.Unsafe.cases
+    , Example.Unsafe.ccall
+    , Example.Unsafe.dynamic
+    , Example.Unsafe.export
+    , Example.Unsafe.family
+    , Example.Unsafe.group
+    , Example.Unsafe.interruptible
+    , Example.Unsafe.javascript
+    , Example.Unsafe.label
+    , Example.Unsafe.prim
+    , Example.Unsafe.role
+    , Example.Unsafe.safe
+    , Example.Unsafe.stdcall
+    , Example.Unsafe.stock
+    , Example.Unsafe.unsafe
+    , Example.Unsafe.via
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -10,6 +10,11 @@
 
 ### New features
 
+* Generate explicit export lists in preprocessor-generated modules, hiding
+  internal `hs_bindgen_` helper bindings from the public API and documentation
+  ([#76](https://github.com/well-typed/hs-bindgen/issues/76)). Export items
+  are module-qualified (e.g. `Example.myFunc`) to avoid ambiguity with
+  Prelude names.
 * Add `--post-qualified-imports` flag to generate post-qualified imports
   (`import Data.Proxy qualified`) instead of pre-qualified imports. This adds
   the `ImportQualifiedPost` language extension to generated modules.

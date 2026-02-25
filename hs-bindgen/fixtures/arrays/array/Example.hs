@@ -12,7 +12,15 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Triplet(..)
+    , Example.List(..)
+    , Example.Matrix(..)
+    , Example.Tripletlist(..)
+    , Example.Example(..)
+    , Example.Sudoku(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField

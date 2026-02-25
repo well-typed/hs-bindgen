@@ -13,7 +13,14 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Int2int(..)
+    , Example.Apply1Struct(..)
+    , Example.Apply1Union(..)
+    , Example.get_apply1Union_apply1_nopointer_union_field
+    , Example.set_apply1Union_apply1_nopointer_union_field
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -3,7 +3,29 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Global where
+module Example.Global
+    ( Example.Global.simpleGlobal
+    , Example.Global.compoundGlobal1
+    , Example.Global.compoundGlobal2
+    , Example.Global.nesInteger
+    , Example.Global.nesFloating
+    , Example.Global.nesImaginary
+    , Example.Global.nesString1
+    , Example.Global.nesString2
+    , Example.Global.nesCharacter
+    , Example.Global.nesParen
+    , Example.Global.nesUnary
+    , Example.Global.nesBinary
+    , Example.Global.nesConditional
+    , Example.Global.nesCast
+    , Example.Global.nesCompound
+    , Example.Global.nesInitList
+    , Example.Global.nesBool
+    , Example.Global.streamBinary
+    , Example.Global.streamBinary_len
+    , Example.Global.some_global_struct
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI

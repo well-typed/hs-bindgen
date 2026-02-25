@@ -11,7 +11,25 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Int_fast16_t(..)
+    , Example.Int_fast32_t(..)
+    , Example.Uint_fast16_t(..)
+    , Example.Uint_fast32_t(..)
+    , Example.Int_fast8_t(..)
+    , Example.Int_fast64_t(..)
+    , Example.Int_least8_t(..)
+    , Example.Int_least16_t(..)
+    , Example.Int_least32_t(..)
+    , Example.Int_least64_t(..)
+    , Example.Uint_fast8_t(..)
+    , Example.Uint_fast64_t(..)
+    , Example.Uint_least8_t(..)
+    , Example.Uint_least16_t(..)
+    , Example.Uint_least32_t(..)
+    , Example.Uint_least64_t(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

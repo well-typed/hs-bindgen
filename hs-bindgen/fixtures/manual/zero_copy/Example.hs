@@ -13,7 +13,25 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Point(..)
+    , Example.Rectangle(..)
+    , Example.Circle(..)
+    , Example.Shape(..)
+    , Example.get_shape_rectangle
+    , Example.set_shape_rectangle
+    , Example.get_shape_circle
+    , Example.set_shape_circle
+    , Example.Colour(..)
+    , Example.MyInt(..)
+    , Example.Drawing(..)
+    , Example.Tic_tac_toe(..)
+    , Example.Vector_Aux(..)
+    , Example.Vector
+    , Example.Triplet(..)
+    , Example.Matrix(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.ConstantArray as CA

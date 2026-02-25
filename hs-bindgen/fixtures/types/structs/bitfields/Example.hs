@@ -11,7 +11,16 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Flags(..)
+    , Example.Overflow32(..)
+    , Example.Overflow32b(..)
+    , Example.Overflow32c(..)
+    , Example.Overflow64(..)
+    , Example.AlignA(..)
+    , Example.AlignB(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield

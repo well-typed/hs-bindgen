@@ -3,7 +3,21 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.foo
+    , Example.Safe.fooA
+    , Example.Safe.fooB
+    , Example.Safe.fooC
+    , Example.Safe.bar
+    , Example.Safe.barA
+    , Example.Safe.barB
+    , Example.Safe.barC
+    , Example.Safe.baz
+    , Example.Safe.bazA
+    , Example.Safe.bazB
+    , Example.Safe.bazC
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA

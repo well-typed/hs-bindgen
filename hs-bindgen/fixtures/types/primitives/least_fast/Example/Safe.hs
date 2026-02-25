@@ -2,7 +2,25 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.int_least8_t_fun
+    , Example.Safe.int_least16_t_fun
+    , Example.Safe.int_least32_t_fun
+    , Example.Safe.int_least64_t_fun
+    , Example.Safe.uint_least8_t_fun
+    , Example.Safe.uint_least16_t_fun
+    , Example.Safe.uint_least32_t_fun
+    , Example.Safe.uint_least64_t_fun
+    , Example.Safe.int_fast8_t_fun
+    , Example.Safe.int_fast16_t_fun
+    , Example.Safe.int_fast32_t_fun
+    , Example.Safe.int_fast64_t_fun
+    , Example.Safe.uint_fast8_t_fun
+    , Example.Safe.uint_fast16_t_fun
+    , Example.Safe.uint_fast32_t_fun
+    , Example.Safe.uint_fast64_t_fun
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

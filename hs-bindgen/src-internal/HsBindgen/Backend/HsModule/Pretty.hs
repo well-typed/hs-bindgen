@@ -7,7 +7,7 @@ module HsBindgen.Backend.HsModule.Pretty (
   ) where
 
 import Data.List qualified as List
-import Text.SimplePrettyPrint (CtxDoc, Pretty (..))
+import Text.SimplePrettyPrint (CtxDoc, Pretty (..), ($$), (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.HsModule.Pretty.CAPI
@@ -23,10 +23,39 @@ import HsBindgen.Language.Haskell qualified as Hs
 instance Pretty HsModule where
   pretty hsModule = PP.vsep $
       PP.vcat (map pretty hsModule.pragmas)
-    : PP.hsep ["module", PP.string (Hs.moduleNameToString hsModule.name), "where"]
+    : prettyModuleHeader hsModule.name hsModule.exports
     : PP.vcat (map (prettyImport hsModule.qualifiedStyle) hsModule.imports)
     : (prettyCapiWrappers hsModule.cWrappers)
     : map pretty hsModule.decls
+
+-- | Render the module header with an explicit export list
+--
+-- When the export list is empty, we render @module M where@ (no export list).
+-- When there are exports, we render them in the standard style with leading
+-- commas. Export items are qualified with the module name to avoid ambiguity
+-- with names from the implicit Prelude (e.g. @Example.reverse@ instead of
+-- @reverse@).
+--
+prettyModuleHeader :: Hs.ModuleName -> [ExportItem] -> CtxDoc
+prettyModuleHeader name [] =
+    PP.hsep ["module", PP.string (Hs.moduleNameToString name), "where"]
+prettyModuleHeader name exports =
+    PP.vcat [
+        PP.hsep ["module", PP.string (Hs.moduleNameToString name)] $$ PP.nest 4 (
+          PP.vlist "(" ")" (map (prettyExportItem qualPrefix) exports)
+        )
+      , PP.nest 2 "where"
+      ]
+  where
+    qualPrefix :: String
+    qualPrefix = Hs.moduleNameToString name ++ "."
+
+-- | Pretty-print a single export item, qualified with the module name
+prettyExportItem :: String -> ExportItem -> CtxDoc
+prettyExportItem q = \case
+    ExportTypeAll s -> PP.string q >< PP.text s >< "(..)"
+    ExportName s    -> PP.string q >< PP.text s
+    ExportPattern s -> "pattern" <+> (PP.string q >< PP.text s)
 
 {-------------------------------------------------------------------------------
   GhcPragma pretty-printing

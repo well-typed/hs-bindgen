@@ -2,7 +2,33 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.__f1
+    , Example.Unsafe.f1
+    , Example.Unsafe.my_memalign
+    , Example.Unsafe.my_calloc
+    , Example.Unsafe.my_realloc
+    , Example.Unsafe.my_alloc1
+    , Example.Unsafe.my_alloc2
+    , Example.Unsafe.square
+    , Example.Unsafe.old_fn_deprecated
+    , Example.Unsafe.my_dgettext
+    , Example.Unsafe.fdopen
+    , Example.Unsafe.f2
+    , Example.Unsafe.my_memcpy
+    , Example.Unsafe.fatal
+    , Example.Unsafe.hash
+    , Example.Unsafe.mymalloc
+    , Example.Unsafe.foobar
+    , Example.Unsafe.core2_func
+    , Example.Unsafe.sse3_func
+    , Example.Unsafe.f3
+    , Example.Unsafe.fn
+    , Example.Unsafe.y
+    , Example.Unsafe.x1
+    , Example.Unsafe.x2
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -2,7 +2,38 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.bool_fun
+    , Example.Unsafe.int8_t_fun
+    , Example.Unsafe.int16_t_fun
+    , Example.Unsafe.int32_t_fun
+    , Example.Unsafe.int64_t_fun
+    , Example.Unsafe.uint8_t_fun
+    , Example.Unsafe.uint16_t_fun
+    , Example.Unsafe.uint32_t_fun
+    , Example.Unsafe.uint64_t_fun
+    , Example.Unsafe.intmax_t_fun
+    , Example.Unsafe.uintmax_t_fun
+    , Example.Unsafe.intptr_t_fun
+    , Example.Unsafe.uintptr_t_fun
+    , Example.Unsafe.fenv_t_fun
+    , Example.Unsafe.fexcept_t_fun
+    , Example.Unsafe.size_t_fun
+    , Example.Unsafe.ptrdiff_t_fun
+    , Example.Unsafe.wchar_t_fun
+    , Example.Unsafe.wint_t_fun
+    , Example.Unsafe.mbstate_t_fun
+    , Example.Unsafe.wctrans_t_fun
+    , Example.Unsafe.wctype_t_fun
+    , Example.Unsafe.char16_t_fun
+    , Example.Unsafe.char32_t_fun
+    , Example.Unsafe.time_t_fun
+    , Example.Unsafe.clock_t_fun
+    , Example.Unsafe.fILE_fun
+    , Example.Unsafe.fpos_t_fun
+    , Example.Unsafe.sig_atomic_t_fun
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

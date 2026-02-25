@@ -3,7 +3,24 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.process_data
+    , Example.Safe.process_file
+    , Example.Safe.calculate_value
+    , Example.Safe.html_example
+    , Example.Safe.list_example
+    , Example.Safe.dangerous_function
+    , Example.Safe.detailed_return_codes
+    , Example.Safe.old_function
+    , Example.Safe.versioned_function
+    , Example.Safe.process_buffer
+    , Example.Safe.my_memcpy
+    , Example.Safe.double_value
+    , Example.Safe.complex_function
+    , Example.Safe.hash
+    , Example.Safe.square
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI

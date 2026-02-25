@@ -2,7 +2,15 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.foo
+    , Example.Safe.fooA
+    , Example.Safe.fooB
+    , Example.Safe.fooC
+    , Example.Safe.fooD
+    , Example.Safe.fooE
+    )
+  where
 
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.CAPI

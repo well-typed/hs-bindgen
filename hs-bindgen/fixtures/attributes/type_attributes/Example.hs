@@ -14,7 +14,22 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.S(..)
+    , Example.More_aligned_int(..)
+    , Example.S2(..)
+    , Example.My_unpacked_struct(..)
+    , Example.My_packed_struct(..)
+    , Example.Wait_status_ptr_t(..)
+    , Example.get_wait_status_ptr_t___ip
+    , Example.set_wait_status_ptr_t___ip
+    , Example.get_wait_status_ptr_t___up
+    , Example.set_wait_status_ptr_t___up
+    , Example.Wait
+    , Example.T1(..)
+    , Example.Short_a(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField

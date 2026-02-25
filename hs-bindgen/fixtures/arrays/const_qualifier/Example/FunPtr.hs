@@ -3,7 +3,21 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.foo
+    , Example.FunPtr.fooA
+    , Example.FunPtr.fooB
+    , Example.FunPtr.fooC
+    , Example.FunPtr.bar
+    , Example.FunPtr.barA
+    , Example.FunPtr.barB
+    , Example.FunPtr.barC
+    , Example.FunPtr.baz
+    , Example.FunPtr.bazA
+    , Example.FunPtr.bazB
+    , Example.FunPtr.bazC
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA

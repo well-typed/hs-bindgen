@@ -10,7 +10,15 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.S(..)
+    , Example.T(..)
+    , Example.U(..)
+    , Example.V(..)
+    , Example.W(..)
+    , Example.X(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField

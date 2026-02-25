@@ -1,6 +1,9 @@
 {-# LANGUAGE ExplicitForAll #-}
 
-module Example where
+module Example
+    ( Example.a
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 

@@ -16,7 +16,30 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Another_typedef_struct_t(..)
+    , Example.Another_typedef_enum_e(..)
+    , pattern Example.FOO
+    , pattern Example.BAR
+    , Example.a
+    , Example.b
+    , Example.sOME_DEFINED_CONSTANT
+    , Example.A_type_t(..)
+    , Example.Var_t(..)
+    , Example.A_typedef_struct_t(..)
+    , Example.a_DEFINE_0
+    , Example.a_DEFINE_1
+    , Example.a_DEFINE_2
+    , Example.tWO_ARGS
+    , Example.A_typedef_enum_e(..)
+    , pattern Example.ENUM_CASE_0
+    , pattern Example.ENUM_CASE_1
+    , pattern Example.ENUM_CASE_2
+    , pattern Example.ENUM_CASE_3
+    , Example.Callback_t_Aux(..)
+    , Example.Callback_t(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.ConstantArray as CA

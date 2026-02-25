@@ -2,7 +2,38 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.bool_fun
+    , Example.FunPtr.int8_t_fun
+    , Example.FunPtr.int16_t_fun
+    , Example.FunPtr.int32_t_fun
+    , Example.FunPtr.int64_t_fun
+    , Example.FunPtr.uint8_t_fun
+    , Example.FunPtr.uint16_t_fun
+    , Example.FunPtr.uint32_t_fun
+    , Example.FunPtr.uint64_t_fun
+    , Example.FunPtr.intmax_t_fun
+    , Example.FunPtr.uintmax_t_fun
+    , Example.FunPtr.intptr_t_fun
+    , Example.FunPtr.uintptr_t_fun
+    , Example.FunPtr.fenv_t_fun
+    , Example.FunPtr.fexcept_t_fun
+    , Example.FunPtr.size_t_fun
+    , Example.FunPtr.ptrdiff_t_fun
+    , Example.FunPtr.wchar_t_fun
+    , Example.FunPtr.wint_t_fun
+    , Example.FunPtr.mbstate_t_fun
+    , Example.FunPtr.wctrans_t_fun
+    , Example.FunPtr.wctype_t_fun
+    , Example.FunPtr.char16_t_fun
+    , Example.FunPtr.char32_t_fun
+    , Example.FunPtr.time_t_fun
+    , Example.FunPtr.clock_t_fun
+    , Example.FunPtr.fILE_fun
+    , Example.FunPtr.fpos_t_fun
+    , Example.FunPtr.sig_atomic_t_fun
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

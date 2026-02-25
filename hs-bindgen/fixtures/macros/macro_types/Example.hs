@@ -11,7 +11,19 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.PtrInt(..)
+    , Example.ShortInt(..)
+    , Example.SignedShortInt(..)
+    , Example.UnsignedShortInt(..)
+    , Example.PtrPtrChar(..)
+    , Example.MTy(..)
+    , Example.Tty(..)
+    , Example.UINT8_T(..)
+    , Example.BOOLEAN_T(..)
+    , Example.Boolean_T(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

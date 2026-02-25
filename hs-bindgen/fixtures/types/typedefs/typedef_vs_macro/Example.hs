@@ -13,7 +13,17 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.T1(..)
+    , Example.T2(..)
+    , Example.M1(..)
+    , Example.M2(..)
+    , Example.M3(..)
+    , Example.ExampleStruct(..)
+    , Example.Uint64_t(..)
+    , Example.Foo(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

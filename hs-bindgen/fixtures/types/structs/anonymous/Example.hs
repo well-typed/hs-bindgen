@@ -11,7 +11,16 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.S1_c(..)
+    , Example.S1(..)
+    , Example.S2_inner_deep(..)
+    , Example.S2_inner(..)
+    , Example.S2(..)
+    , Example.S3(..)
+    , Example.S3_c(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
