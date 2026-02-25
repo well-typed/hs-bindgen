@@ -14,15 +14,50 @@ module HsBindgen.Cli.Internal.Frontend (
   ) where
 
 import Data.Default (Default (..))
+import Data.List (intercalate)
 import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Artefact
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.FrontendDump
+
+{-------------------------------------------------------------------------------
+  Existential wrapper
+-------------------------------------------------------------------------------}
+
+-- | Existential wrapper pairing 'FrontendPass' with a 'Show' constraint.
+data SomeFrontendPass where
+  SomeFrontendPass :: Show result => FrontendPass result -> SomeFrontendPass
+
+-- | Parse a frontend pass name (inverse of 'frontendPassName').
+--
+-- Returns 'Left' with an error message listing valid names on failure.
+parseFrontendPassName :: String -> Either String SomeFrontendPass
+parseFrontendPassName s = case lookup s knownPasses of
+    Just d  -> Right d
+    Nothing -> Left $
+      "unknown pass " ++ show s ++ "; valid passes: "
+        ++ intercalate ", " (map fst knownPasses)
+  where
+    knownPasses :: [(String, SomeFrontendPass)]
+    knownPasses = [
+          mk DumpParse
+        , mk DumpSimplifyAST
+        , mk DumpAssignAnonIds
+        , mk DumpConstructTranslationUnit
+        , mk DumpHandleMacros
+        , mk DumpResolveBindingSpecs
+        , mk DumpMangleNames
+        , mk DumpSelect
+        , mk DumpAdjustTypes
+        ]
+
+    mk :: Show result => FrontendPass result -> (String, SomeFrontendPass)
+    mk d = (frontendPassName d, SomeFrontendPass d)
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -36,7 +71,7 @@ info = progDesc "Dump the result of a frontend pass"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      dump                :: SomeFrontendDump
+      dump                :: SomeFrontendPass
     , config              :: Config
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
@@ -54,11 +89,11 @@ parseOpts =
       <*> parseInputs
       <*> parseFileOverwritePolicy
 
-parseDump :: Parser SomeFrontendDump
-parseDump = option (eitherReader parseFrontendDumpName) $ mconcat [
+parseDump :: Parser SomeFrontendPass
+parseDump = option (eitherReader parseFrontendPassName) $ mconcat [
       long "pass"
-    , value (SomeFrontendDump DumpAdjustTypes)
-    , showDefaultWith (\(SomeFrontendDump d) -> frontendDumpName d)
+    , value (SomeFrontendPass DumpAdjustTypes)
+    , showDefaultWith (\(SomeFrontendPass d) -> frontendPassName d)
     , help "Frontend pass to dump"
     , metavar "PASS"
     ]
@@ -69,7 +104,7 @@ parseDump = option (eitherReader parseFrontendDumpName) $ mconcat [
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = case opts.dump of
-    SomeFrontendDump pass ->
+    SomeFrontendPass pass ->
       hsBindgen
         global.unsafe
         global.safe
@@ -79,7 +114,7 @@ exec global opts = case opts.dump of
       where
         artefact :: Artefact ()
         artefact = do
-            result <- RunFrontendDump pass
+            result <- RunFrontendPass pass
             Lift $ delay . WriteToStdOut . StringContent $ show result
 
         bindgenConfig :: BindgenConfig

@@ -201,7 +201,6 @@ library internal
     HsBindgen.Frontend.Predicate
     HsBindgen.Frontend.ProcessIncludes
     HsBindgen.Frontend.RootHeader
-    HsBindgen.FrontendDump
     HsBindgen.Guasi
     HsBindgen.Imports
     HsBindgen.Instances
