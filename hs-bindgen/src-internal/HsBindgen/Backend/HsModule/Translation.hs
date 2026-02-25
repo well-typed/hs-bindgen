@@ -409,7 +409,7 @@ resolveDeclExports = \case
     DEmptyData empty             -> exportTypeConstr empty.name ExportName
     DForeignImport foreignImport -> exportVar foreignImport.name
     DBinding binding             -> exportVar binding.name
-    DPatternSynonym patSyn       -> exportConstr patSyn.name
+    DPatternSynonym patSyn       -> exportPattern patSyn.name
     -- Instances are automatically exported by GHC
     DInst _                      -> []
     DDerivingInstance _          -> []
@@ -424,7 +424,7 @@ resolveDeclExports = \case
       Hs.ExportedName _ -> [ExportName (Hs.getName name)]
       Hs.InternalName _ -> []
 
-    exportConstr :: Hs.Name Hs.NsConstr -> [ExportItem]
-    exportConstr name = case name of
+    exportPattern :: Hs.Name Hs.NsConstr -> [ExportItem]
+    exportPattern name = case name of
       Hs.ExportedName _ -> [ExportPattern (Hs.getName name)]
       Hs.InternalName _ -> []
