@@ -60,7 +60,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     boolTypes :: [(CTypeKV, HsTypeKV)]
     boolTypes = [
-        mkTypeN "bool" "CBool" intI ["stdbool.h"]
+        mkTypeN "macro bool" "CBool" intI ["stdbool.h"]
       ]
 
     -- Note that the \"least\" and \"fast\" types (such as @int_least32_t@)

@@ -137,6 +137,8 @@ instance PrettyForTrace AnonId where
           PP.text (cTagKindPrefix tagKind)
         CNameKindOrdinary ->
           PP.empty
+        CNameKindMacro ->
+          "macro"
     , "at"
     , PP.string $ HighLevel.prettySingleLoc ShowFile anonId.loc
     ]

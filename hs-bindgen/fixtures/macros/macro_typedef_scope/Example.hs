@@ -23,7 +23,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @T1@
+{-| __C declaration:__ @macro T1@
 
     __defined at:__ @macros\/macro_typedef_scope.h 4:9@
 
@@ -101,7 +101,7 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @T3@
+{-| __C declaration:__ @macro T3@
 
     __defined at:__ @macros\/macro_typedef_scope.h 6:9@
 

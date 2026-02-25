@@ -7,7 +7,7 @@ module Example
 
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @declarations\/redeclaration_identical.h 3:9@
 

@@ -504,10 +504,11 @@ hasUnsupportedType = aux . getCanonicalType
 
     auxRef :: CNameKind -> Bool
     auxRef = \case
-          CNameKindOrdinary              -> False
-          CNameKindTagged CTagKindStruct -> True
-          CNameKindTagged CTagKindUnion  -> True
-          CNameKindTagged CTagKindEnum   -> False
+      CNameKindOrdinary              -> False
+      CNameKindTagged CTagKindStruct -> True
+      CNameKindTagged CTagKindUnion  -> True
+      CNameKindTagged CTagKindEnum   -> False
+      CNameKindMacro                 -> False
 
 {-------------------------------------------------------------------------------
   Classification: simple classifiers

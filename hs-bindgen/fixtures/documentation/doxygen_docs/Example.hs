@@ -64,7 +64,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @MAX_NAME_LENGTH@
+{-| __C declaration:__ @macro MAX_NAME_LENGTH@
 
     __defined at:__ @documentation\/doxygen_docs.h 39:9@
 

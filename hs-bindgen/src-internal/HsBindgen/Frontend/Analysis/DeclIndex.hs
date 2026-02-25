@@ -237,99 +237,112 @@ entryToAvailability = \case
 empty :: DeclIndex
 empty = DeclIndex Map.empty
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1777>
+-- Cross-namespace conflicts should be identified in the @MangleNames@ pass, and
+-- conflicting declarations should only be thrown out in the @Select@ pass when
+-- more than one are selected.
+--
+-- Currently, we check for conflicts between ordinary declarations and macro
+-- declarations here.  This must be done specially because they are in separate
+-- namespaces.  Since macros are not parsed yet, conflicts are detected
+-- regardless of if we can parse the macro or not.  We cannot yet check for such
+-- conflicts in @MangleNames@ because macros that we cannot parse are thrown out
+-- in the @HandleMacros@ pass, so we would then always select the ordinary
+-- declaration.  This is problematic because it means that we (may) generate
+-- invalid C code.
+--
+-- See golden test: @macros/macro_redefines_global@
+--
+-- When the above issue is resolved, this function should be changed to just
+-- check for same-namespace conflicts.  Travis has already implemented this and
+-- has it stashed.
 fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
 fromParseResults results = flip execState empty $ mapM_ aux results
   where
     aux :: ParseResult AssignAnonIds -> State DeclIndex ()
     aux new = modify' $ \index -> DeclIndex $
-        Map.alter (Just . handleParseResult new) new.id index.map
+      let mConflict :: Maybe (Either Entry ((DeclId, DeclId), Entry))
+          mConflict = Foldable.asum [
+              Left <$> Map.lookup new.id index.map
+            , fmap Right $ case new.id.name.kind of
+                CNameKindOrdinary ->
+                  let altDeclId = DeclId{
+                          name   = new.id.name{ kind = CNameKindMacro }
+                        , isAnon = False
+                        }
+                  in  ((new.id, altDeclId),) <$> Map.lookup altDeclId index.map
+                CNameKindTagged{} -> Nothing
+                CNameKindMacro    ->
+                  let altDeclId = DeclId{
+                          name   = new.id.name{ kind = CNameKindOrdinary }
+                        , isAnon = False
+                        }
+                  in  ((altDeclId, new.id),) <$> Map.lookup altDeclId index.map
+            ]
+      in  case mConflict of
+            -- No conflict
+            Nothing ->
+              Map.insert new.id (parseResultToEntry new) index.map
+            -- Conflict in same namespace
+            Just (Left entry) ->
+              handleConflict new.id new entry index.map
+            -- Conflict between ordinary and macro
+            Just (Right ((ordinaryDeclId, macroDeclId), entry)) ->
+              handleConflict ordinaryDeclId new entry $
+                Map.delete macroDeclId index.map
 
-    handleParseResult :: ParseResult AssignAnonIds -> Maybe Entry -> Entry
-    handleParseResult new = \case
-      Nothing -> parseResultToEntry new
-      -- We remove duplicates with /different/ values and store them as
-      -- 'Conflict'. We could detect and handle some but not all
-      -- of these duplicates; for now, we remove them all.
-      --
-      -- Duplicates may arise, for example, if a declaration is redefined by a
-      -- macro; for other kinds of declarations, clang will have reported an
-      -- error already.
-      --
-      -- There are cases where one declaration is an actual C construct like a
-      -- variable declaration, but the new declaration is a macro of the same
-      -- name that simply defers to the C construct. This is apparently a valid
-      -- pattern, which for example occurs in @stdio.h@:
-      --
-      -- > typedef int FILE;
-      -- > extern FILE *const stdin;
-      -- > #define stdin (stdin)
-      --
-      -- Note that in examples like this, we will always "succeed" in parsing
-      -- the macro, because proper macro handling does not happen until after
-      -- the @DeclIndex@ has been built (at this point the macro is merely a
-      -- list of tokens). So whether the macro is something we can handle or not
-      -- is irrelevant at this point.
-      Just old -> case old of
-        UsableE oldUsable -> case oldUsable of
-          UsableSuccess oldParseSuccess -> case new.classification of
-            ParseResultSuccess newParseSuccess
-              -- Redeclaration but with the same definition. This can happen, for
-              -- example for opaque structs. We stick with the first declaration.
-              | sameDefinition
-                    oldParseSuccess.decl.kind
-                    newParseSuccess.decl.kind ->
-                  old
-              | otherwise ->
-                  newConflict oldParseSuccess.decl.info.loc
-            ParseResultNotAttempted _ -> old
-            ParseResultFailure _      -> parseResultToEntry new
-          UsableExternal ->
-            panicPure "Unexpected UsableExternal"
-          UsableSquashed{} ->
-            panicPure "Unexpected Squashed"
-        UnusableE oldUnusable -> case oldUnusable of
-          (UnusableParseNotAttempted loc nasOld)
-            | ParseResultNotAttempted naNew <- new.classification ->
-                UnusableE $ UnusableParseNotAttempted loc $ naNew <| nasOld
-            | otherwise ->
-                parseResultToEntry new
-          UnusableParseFailure _ _ ->
-            old
-          UnusableConflict c ->
-            addConflicts c
-          UnusableMangleNamesFailure _ x ->
-            panicPure $ "Unexpected UnusableMangleNamesFailure " <> show x
-          UnusableFailedMacro x ->
-            panicPure $ "Unexpected UnusableFailedMacro " <> show x
-          UnusableOmitted x ->
-            panicPure $ "Unexpected UnusableOmitted" <> show x
-      where
-        addConflicts :: Conflict  -> Entry
-        addConflicts c =
-            UnusableE $ UnusableConflict $
-              Conflict.insert c new.loc
+    handleConflict ::
+         DeclId
+      -> ParseResult AssignAnonIds
+      -> Entry
+      -> Map DeclId Entry
+      -> Map DeclId Entry
+    handleConflict declId new = \case
+      UsableE oldUsable -> case oldUsable of
+        UsableSuccess oldSuccess -> case new.classification of
+          ParseResultSuccess newSuccess
+            -- Redeclaration with the same definition can happen with opaque
+            -- structs, for example.  We stick with the first declaration.
+            | sameDefinition oldSuccess.decl.kind newSuccess.decl.kind -> id
+            -- Redeclaration of macros cannot be supported.
+            | otherwise -> Map.insert declId . UnusableE . UnusableConflict $
+                Conflict.between oldSuccess.decl.info.loc new.loc
+          ParseResultNotAttempted{} -> id
+          ParseResultFailure{} -> Map.insert declId (parseResultToEntry new)
+        UsableExternal   -> panicPure "Unexpected UsableExternal"
+        UsableSquashed{} -> panicPure "Unexpected Squashed"
+      UnusableE oldUnusable -> case oldUnusable of
+        UnusableParseNotAttempted loc nasOld
+          | ParseResultNotAttempted naNew <- new.classification ->
+              Map.insert declId $
+                UnusableE (UnusableParseNotAttempted loc (naNew <| nasOld))
+          | otherwise -> Map.insert declId $ parseResultToEntry new
+        UnusableParseFailure{} -> id
+        UnusableConflict c -> Map.insert declId . UnusableE . UnusableConflict $
+          Conflict.insert c new.loc
+        UnusableMangleNamesFailure _ x ->
+          panicPure $ "Unexpected UnusableMangleNamesFailure " <> show x
+        UnusableFailedMacro x ->
+          panicPure $ "Unexpected UnusableFailedMacro " <> show x
+        UnusableOmitted x ->
+          panicPure $ "Unexpected UnusableOmitted" <> show x
 
-        newConflict :: SingleLoc -> Entry
-        newConflict oldLoc =
-            UnusableE $ UnusableConflict $
-              Conflict.between oldLoc new.loc
+    parseResultToEntry :: ParseResult AssignAnonIds -> Entry
+    parseResultToEntry result = case result.classification of
+      ParseResultSuccess r ->
+        UsableE $ UsableSuccess r
+      ParseResultNotAttempted r ->
+        UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
+      ParseResultFailure r ->
+        UnusableE $ UnusableParseFailure result.loc r
 
-        parseResultToEntry :: ParseResult AssignAnonIds -> Entry
-        parseResultToEntry result = case result.classification of
-            ParseResultSuccess r ->
-              UsableE $ UsableSuccess r
-            ParseResultNotAttempted r ->
-              UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
-            ParseResultFailure r ->
-              UnusableE $ UnusableParseFailure result.loc r
-
-    sameDefinition :: C.DeclKind AssignAnonIds -> C.DeclKind AssignAnonIds -> Bool
-    sameDefinition a b =
-        case (a, b) of
-          (C.DeclMacro macroA, C.DeclMacro macroB) ->
-            sameMacro macroA macroB
-          _otherwise ->
-            a == b
+    sameDefinition ::
+         C.DeclKind AssignAnonIds
+      -> C.DeclKind AssignAnonIds
+      -> Bool
+    sameDefinition a b = case (a, b) of
+      (C.DeclMacro macroA, C.DeclMacro macroB) -> sameMacro macroA macroB
+      _otherwise                               -> a == b
 
     sameMacro :: UnparsedMacro -> UnparsedMacro -> Bool
     sameMacro = (==) `on` (map tokenSpelling . (.tokens))

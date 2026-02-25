@@ -146,7 +146,7 @@ parseDecl curr = dispatchWithArg curr $ \case
       CXCursor_FunctionDecl    -> parseDeclWith functionDecl    NotRequiredForScoping CNameKindOrdinary
       CXCursor_VarDecl         -> parseDeclWith varDecl         NotRequiredForScoping CNameKindOrdinary
       CXCursor_TypedefDecl     -> parseDeclWith typedefDecl     RequiredForScoping    CNameKindOrdinary
-      CXCursor_MacroDefinition -> parseDeclWith macroDefinition NotRequiredForScoping CNameKindOrdinary
+      CXCursor_MacroDefinition -> parseDeclWith macroDefinition NotRequiredForScoping CNameKindMacro
 
       -- Tagged kinds that we parse
       CXCursor_StructDecl -> parseDeclWith structDecl NotRequiredForScoping (CNameKindTagged CTagKindStruct)

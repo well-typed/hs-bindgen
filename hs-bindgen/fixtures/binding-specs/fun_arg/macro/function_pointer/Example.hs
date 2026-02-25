@@ -113,7 +113,7 @@ instance HasCField.HasCField MyFunctionPointer "unwrapMyFunctionPointer" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 7:9@
 
@@ -142,7 +142,7 @@ instance HasCField.HasCField A "unwrapA" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 8:9@
 

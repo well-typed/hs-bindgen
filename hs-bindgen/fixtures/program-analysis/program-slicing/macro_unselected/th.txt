@@ -41,7 +41,7 @@
 -- {
 --   return &bar;
 -- }
-{-| __C declaration:__ @U@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_unselected.h 11:9@
 
@@ -49,7 +49,7 @@
 -}
 newtype U
     = U {unwrapU :: CInt}
-      {- ^ __C declaration:__ @U@
+      {- ^ __C declaration:__ @macro U@
 
            __defined at:__ @program-analysis\/program-slicing\/macro_unselected.h 11:9@
 

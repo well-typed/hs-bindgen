@@ -168,7 +168,7 @@ instance HasCField MyFunction "unwrapMyFunction"
     where type CFieldType MyFunction "unwrapMyFunction" = CInt ->
                                                           IO CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 7:9@
 
@@ -176,7 +176,7 @@ instance HasCField MyFunction "unwrapMyFunction"
 -}
 newtype A
     = A {unwrapA :: MyFunction}
-      {- ^ __C declaration:__ @A@
+      {- ^ __C declaration:__ @macro A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 7:9@
 
@@ -189,7 +189,7 @@ instance (~) ty MyFunction => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyFunction
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 8:9@
 
@@ -197,7 +197,7 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @B@
+      {- ^ __C declaration:__ @macro B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 8:9@
 

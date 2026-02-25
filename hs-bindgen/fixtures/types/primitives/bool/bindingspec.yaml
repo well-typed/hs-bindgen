@@ -10,7 +10,7 @@ ctypes:
   cname: struct bools2
   hsname: Bools2
 - headers: types/primitives/bool.h
-  cname: BOOL
+  cname: macro BOOL
   hsname: BOOL
 - headers: types/primitives/bool.h
   cname: struct bools3

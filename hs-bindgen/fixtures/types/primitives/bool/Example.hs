@@ -169,7 +169,7 @@ instance ( ((~) ty) RIP.CBool
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")
 
-{-| __C declaration:__ @BOOL@
+{-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @types\/primitives\/bool.h 13:9@
 

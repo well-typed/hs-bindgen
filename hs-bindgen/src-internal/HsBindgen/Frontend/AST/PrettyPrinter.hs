@@ -254,7 +254,7 @@ showsId p declId =
       Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
 
 showsDeclName :: CDeclName -> ShowS
-showsDeclName = showsText . renderCDeclName
+showsDeclName = showsText . renderCDeclNameC
 
 showsText :: Text -> ShowS
 showsText = showString . Text.unpack

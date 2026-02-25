@@ -344,14 +344,14 @@
 -- {
 --   return &version_string;
 -- }
-{-| __C declaration:__ @MAX_NAME_LENGTH@
+{-| __C declaration:__ @macro MAX_NAME_LENGTH@
 
     __defined at:__ @documentation\/doxygen_docs.h 39:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 mAX_NAME_LENGTH :: CInt
-{-| __C declaration:__ @MAX_NAME_LENGTH@
+{-| __C declaration:__ @macro MAX_NAME_LENGTH@
 
     __defined at:__ @documentation\/doxygen_docs.h 39:9@
 

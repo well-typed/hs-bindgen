@@ -7,10 +7,10 @@ ctypes:
   cname: union MyUnion
   hsname: MyUnion
 - headers: binding-specs/fun_arg/macro/union.h
-  cname: A
+  cname: macro A
   hsname: A
 - headers: binding-specs/fun_arg/macro/union.h
-  cname: B
+  cname: macro B
   hsname: B
 hstypes:
 - hsname: A

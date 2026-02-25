@@ -1,6 +1,6 @@
 -- addDependentFile examples/golden/program-analysis/selection_bad_size_t.h
 -- addDependentFile examples/golden/program-analysis/selection_bad.h
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @program-analysis\/selection_bad.h 3:9@
 
@@ -8,7 +8,7 @@
 -}
 newtype A
     = A {unwrapA :: CInt}
-      {- ^ __C declaration:__ @A@
+      {- ^ __C declaration:__ @macro A@
 
            __defined at:__ @program-analysis\/selection_bad.h 3:9@
 

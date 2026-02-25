@@ -35,7 +35,7 @@ module Example
 import qualified C.Char
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
-{-| __C declaration:__ @C1@
+{-| __C declaration:__ @macro C1@
 
     __defined at:__ @macros\/macro_strings.h 4:9@
 
@@ -44,7 +44,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 c1 :: C.Char.CharValue
 c1 = C.Char.charValueFromAddr "a"# 1 (Just 'a')
 
-{-| __C declaration:__ @C2@
+{-| __C declaration:__ @macro C2@
 
     __defined at:__ @macros\/macro_strings.h 5:9@
 
@@ -53,7 +53,7 @@ c1 = C.Char.charValueFromAddr "a"# 1 (Just 'a')
 c2 :: C.Char.CharValue
 c2 = C.Char.charValueFromAddr "\""# 1 (Just '"')
 
-{-| __C declaration:__ @C3@
+{-| __C declaration:__ @macro C3@
 
     __defined at:__ @macros\/macro_strings.h 6:9@
 
@@ -62,7 +62,7 @@ c2 = C.Char.charValueFromAddr "\""# 1 (Just '"')
 c3 :: C.Char.CharValue
 c3 = C.Char.charValueFromAddr "\t"# 1 (Just '\t')
 
-{-| __C declaration:__ @C4@
+{-| __C declaration:__ @macro C4@
 
     __defined at:__ @macros\/macro_strings.h 7:9@
 
@@ -71,7 +71,7 @@ c3 = C.Char.charValueFromAddr "\t"# 1 (Just '\t')
 c4 :: C.Char.CharValue
 c4 = C.Char.charValueFromAddr "\0"# 1 (Just '\NUL')
 
-{-| __C declaration:__ @C5@
+{-| __C declaration:__ @macro C5@
 
     __defined at:__ @macros\/macro_strings.h 8:9@
 
@@ -80,7 +80,7 @@ c4 = C.Char.charValueFromAddr "\0"# 1 (Just '\NUL')
 c5 :: C.Char.CharValue
 c5 = C.Char.charValueFromAddr "\'"# 1 (Just '\'')
 
-{-| __C declaration:__ @C6@
+{-| __C declaration:__ @macro C6@
 
     __defined at:__ @macros\/macro_strings.h 9:9@
 
@@ -89,7 +89,7 @@ c5 = C.Char.charValueFromAddr "\'"# 1 (Just '\'')
 c6 :: C.Char.CharValue
 c6 = C.Char.charValueFromAddr "?"# 1 (Just '?')
 
-{-| __C declaration:__ @C7@
+{-| __C declaration:__ @macro C7@
 
     __defined at:__ @macros\/macro_strings.h 10:9@
 
@@ -98,7 +98,7 @@ c6 = C.Char.charValueFromAddr "?"# 1 (Just '?')
 c7 :: C.Char.CharValue
 c7 = C.Char.charValueFromAddr "S"# 1 Nothing
 
-{-| __C declaration:__ @C8@
+{-| __C declaration:__ @macro C8@
 
     __defined at:__ @macros\/macro_strings.h 11:9@
 
@@ -107,7 +107,7 @@ c7 = C.Char.charValueFromAddr "S"# 1 Nothing
 c8 :: C.Char.CharValue
 c8 = C.Char.charValueFromAddr "S"# 1 Nothing
 
-{-| __C declaration:__ @D@
+{-| __C declaration:__ @macro D@
 
     __defined at:__ @macros\/macro_strings.h 13:9@
 
@@ -116,7 +116,7 @@ c8 = C.Char.charValueFromAddr "S"# 1 Nothing
 d :: C.Char.CharValue
 d = C.Char.charValueFromAddr "\x1\xFF"# 2 Nothing
 
-{-| __C declaration:__ @J1@
+{-| __C declaration:__ @macro J1@
 
     __defined at:__ @macros\/macro_strings.h 15:9@
 
@@ -126,7 +126,7 @@ j1 :: C.Char.CharValue
 j1 =
   C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
 
-{-| __C declaration:__ @J2@
+{-| __C declaration:__ @macro J2@
 
     __defined at:__ @macros\/macro_strings.h 16:9@
 
@@ -136,7 +136,7 @@ j2 :: C.Char.CharValue
 j2 =
   C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
 
-{-| __C declaration:__ @J3@
+{-| __C declaration:__ @macro J3@
 
     __defined at:__ @macros\/macro_strings.h 17:9@
 
@@ -146,7 +146,7 @@ j3 :: C.Char.CharValue
 j3 =
   C.Char.charValueFromAddr "\xE3\x81\x82"# 3 Nothing
 
-{-| __C declaration:__ @S1@
+{-| __C declaration:__ @macro S1@
 
     __defined at:__ @macros\/macro_strings.h 20:9@
 
@@ -155,7 +155,7 @@ j3 =
 s1 :: (RIP.Ptr RIP.CChar, Int)
 s1 = ((RIP.Ptr "a"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @S2@
+{-| __C declaration:__ @macro S2@
 
     __defined at:__ @macros\/macro_strings.h 21:9@
 
@@ -164,7 +164,7 @@ s1 = ((RIP.Ptr "a"#, 1) :: RIP.CStringLen)
 s2 :: (RIP.Ptr RIP.CChar, Int)
 s2 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @S3@
+{-| __C declaration:__ @macro S3@
 
     __defined at:__ @macros\/macro_strings.h 22:9@
 
@@ -173,7 +173,7 @@ s2 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 s3 :: (RIP.Ptr RIP.CChar, Int)
 s3 = ((RIP.Ptr "\t"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @S4@
+{-| __C declaration:__ @macro S4@
 
     __defined at:__ @macros\/macro_strings.h 23:9@
 
@@ -182,7 +182,7 @@ s3 = ((RIP.Ptr "\t"#, 1) :: RIP.CStringLen)
 s4 :: (RIP.Ptr RIP.CChar, Int)
 s4 = ((RIP.Ptr "\0"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @S5@
+{-| __C declaration:__ @macro S5@
 
     __defined at:__ @macros\/macro_strings.h 24:9@
 
@@ -191,7 +191,7 @@ s4 = ((RIP.Ptr "\0"#, 1) :: RIP.CStringLen)
 s5 :: (RIP.Ptr RIP.CChar, Int)
 s5 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @S6@
+{-| __C declaration:__ @macro S6@
 
     __defined at:__ @macros\/macro_strings.h 25:9@
 
@@ -200,7 +200,7 @@ s5 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 s6 :: (RIP.Ptr RIP.CChar, Int)
 s6 = ((RIP.Ptr "?"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @S7@
+{-| __C declaration:__ @macro S7@
 
     __defined at:__ @macros\/macro_strings.h 26:9@
 
@@ -209,7 +209,7 @@ s6 = ((RIP.Ptr "?"#, 1) :: RIP.CStringLen)
 s7 :: (RIP.Ptr RIP.CChar, Int)
 s7 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @S8@
+{-| __C declaration:__ @macro S8@
 
     __defined at:__ @macros\/macro_strings.h 27:9@
 
@@ -218,7 +218,7 @@ s7 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 s8 :: (RIP.Ptr RIP.CChar, Int)
 s8 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 
-{-| __C declaration:__ @T1@
+{-| __C declaration:__ @macro T1@
 
     __defined at:__ @macros\/macro_strings.h 29:9@
 
@@ -227,7 +227,7 @@ s8 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 t1 :: (RIP.Ptr RIP.CChar, Int)
 t1 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
-{-| __C declaration:__ @T2@
+{-| __C declaration:__ @macro T2@
 
     __defined at:__ @macros\/macro_strings.h 30:9@
 
@@ -236,7 +236,7 @@ t1 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 t2 :: (RIP.Ptr RIP.CChar, Int)
 t2 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
-{-| __C declaration:__ @T3@
+{-| __C declaration:__ @macro T3@
 
     __defined at:__ @macros\/macro_strings.h 31:9@
 
@@ -245,7 +245,7 @@ t2 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 t3 :: (RIP.Ptr RIP.CChar, Int)
 t3 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
-{-| __C declaration:__ @U@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @macros\/macro_strings.h 33:9@
 
@@ -255,7 +255,7 @@ u :: (RIP.Ptr RIP.CChar, Int)
 u =
   ((RIP.Ptr "\x1\xFF\x1\xFF\x1\xFF\x1\xFF"#, 8) :: RIP.CStringLen)
 
-{-| __C declaration:__ @V@
+{-| __C declaration:__ @macro V@
 
     __defined at:__ @macros\/macro_strings.h 34:9@
 
@@ -265,7 +265,7 @@ v :: (RIP.Ptr RIP.CChar, Int)
 v =
   ((RIP.Ptr "\x1\x2\x3\x4\x5\x6"#, 6) :: RIP.CStringLen)
 
-{-| __C declaration:__ @W1@
+{-| __C declaration:__ @macro W1@
 
     __defined at:__ @macros\/macro_strings.h 36:9@
 
@@ -274,7 +274,7 @@ v =
 w1 :: (RIP.Ptr RIP.CChar, Int)
 w1 = ((RIP.Ptr "hij\0"#, 4) :: RIP.CStringLen)
 
-{-| __C declaration:__ @W2@
+{-| __C declaration:__ @macro W2@
 
     __defined at:__ @macros\/macro_strings.h 37:9@
 

@@ -60,7 +60,7 @@ instance HasCField.HasCField T "unwrapT" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @U@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 9:9@
 

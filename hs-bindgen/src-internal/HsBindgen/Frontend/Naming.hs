@@ -15,10 +15,10 @@ module HsBindgen.Frontend.Naming (
     -- ** Name kind
   , CNameKind(..)
   , checkIsTagged
-  , cNameKindPrefix
     -- ** Declaration names
   , CDeclName(..)
   , renderCDeclName
+  , renderCDeclNameC
   , parseCDeclName
     -- * Scoped names
   , CScopedName(..)
@@ -95,11 +95,16 @@ data CNameKind =
     --
     -- A tagged name is written with a prefix that specifies the tag kind.
   | CNameKindTagged CTagKind
+
+    -- | Macro kind
+    --
+    -- We distinguish a macro name with a @macro@ prefix.  Example: @macro foo@
+  | CNameKindMacro
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Bounded CNameKind where
   minBound = CNameKindOrdinary
-  maxBound = CNameKindTagged CTagKindEnum
+  maxBound = CNameKindMacro
 
 instance Enum CNameKind where
   toEnum = \case
@@ -107,13 +112,15 @@ instance Enum CNameKind where
     1 -> CNameKindTagged CTagKindStruct
     2 -> CNameKindTagged CTagKindUnion
     3 -> CNameKindTagged CTagKindEnum
+    4 -> CNameKindMacro
     _ -> panicPure "invalid CNameKind toEnum"
 
   fromEnum = \case
-    CNameKindOrdinary             -> 0
+    CNameKindOrdinary              -> 0
     CNameKindTagged CTagKindStruct -> 1
     CNameKindTagged CTagKindUnion  -> 2
     CNameKindTagged CTagKindEnum   -> 3
+    CNameKindMacro                 -> 4
 
 instance PrettyForTrace CNameKind where
   prettyForTrace = PP.show
@@ -122,11 +129,7 @@ checkIsTagged :: CNameKind -> Maybe CTagKind
 checkIsTagged = \case
     CNameKindOrdinary        -> Nothing
     CNameKindTagged cTagKind -> Just cTagKind
-
-cNameKindPrefix :: CNameKind -> Maybe Text
-cNameKindPrefix = \case
-    CNameKindOrdinary        -> Nothing
-    CNameKindTagged cTagKind -> Just (cTagKindPrefix cTagKind)
+    CNameKindMacro           -> Nothing
 
 --------------------------------------------------------------------------------
 
@@ -151,10 +154,17 @@ mapCDeclNameText f name = CDeclName{text = f name.text, kind = name.kind}
 
 -- | User-facing syntax for 'CDeclName'
 renderCDeclName :: CDeclName -> Text
-renderCDeclName cDeclName =
-    case cNameKindPrefix cDeclName.kind of
-      Nothing     -> cDeclName.text
-      Just prefix -> prefix <> " " <> cDeclName.text
+renderCDeclName cDeclName = case cDeclName.kind of
+    CNameKindOrdinary        -> cDeclName.text
+    CNameKindTagged cTagKind -> cTagKindPrefix cTagKind <> " " <> cDeclName.text
+    CNameKindMacro           -> "macro " <> cDeclName.text
+
+-- | C source syntax for 'CDeclName'
+renderCDeclNameC :: CDeclName -> Text
+renderCDeclNameC cDeclName = case cDeclName.kind of
+    CNameKindOrdinary        -> cDeclName.text
+    CNameKindTagged cTagKind -> cTagKindPrefix cTagKind <> " " <> cDeclName.text
+    CNameKindMacro           -> cDeclName.text
 
 -- | Parse a 'CDeclName' from 'Text'
 parseCDeclName :: Text -> Maybe CDeclName
@@ -163,6 +173,7 @@ parseCDeclName t = case Text.words t of
     ["struct", n] -> Just $ CDeclName n (CNameKindTagged CTagKindStruct)
     ["union",  n] -> Just $ CDeclName n (CNameKindTagged CTagKindUnion)
     ["enum",   n] -> Just $ CDeclName n (CNameKindTagged CTagKindEnum)
+    ["macro",  n] -> Just $ CDeclName n CNameKindMacro
     _otherwise    -> Nothing
 
 --------------------------------------------------------------------------------

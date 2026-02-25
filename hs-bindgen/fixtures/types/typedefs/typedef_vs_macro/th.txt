@@ -69,7 +69,7 @@ instance (~) ty CChar => HasField "unwrapT2" (Ptr T2) (Ptr ty)
 instance HasCField T2 "unwrapT2"
     where type CFieldType T2 "unwrapT2" = CChar
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @M1@
+{-| __C declaration:__ @macro M1@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 4:9@
 
@@ -77,7 +77,7 @@ instance HasCField T2 "unwrapT2"
 -}
 newtype M1
     = M1 {unwrapM1 :: CInt}
-      {- ^ __C declaration:__ @M1@
+      {- ^ __C declaration:__ @macro M1@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 4:9@
 
@@ -104,7 +104,7 @@ instance (~) ty CInt => HasField "unwrapM1" (Ptr M1) (Ptr ty)
 instance HasCField M1 "unwrapM1"
     where type CFieldType M1 "unwrapM1" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @M2@
+{-| __C declaration:__ @macro M2@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
 
@@ -112,7 +112,7 @@ instance HasCField M1 "unwrapM1"
 -}
 newtype M2
     = M2 {unwrapM2 :: CChar}
-      {- ^ __C declaration:__ @M2@
+      {- ^ __C declaration:__ @macro M2@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
 
@@ -139,7 +139,7 @@ instance (~) ty CChar => HasField "unwrapM2" (Ptr M2) (Ptr ty)
 instance HasCField M2 "unwrapM2"
     where type CFieldType M2 "unwrapM2" = CChar
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @M3@
+{-| __C declaration:__ @macro M3@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
 
@@ -147,7 +147,7 @@ instance HasCField M2 "unwrapM2"
 -}
 newtype M3
     = M3 {unwrapM3 :: (Ptr CInt)}
-      {- ^ __C declaration:__ @M3@
+      {- ^ __C declaration:__ @macro M3@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
 
@@ -242,7 +242,7 @@ instance HasCField ExampleStruct "exampleStruct_m2"
 instance (~) ty M2 =>
          HasField "exampleStruct_m2" (Ptr ExampleStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"exampleStruct_m2")
-{-| __C declaration:__ @uint64_t@
+{-| __C declaration:__ @macro uint64_t@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@
 
@@ -250,7 +250,7 @@ instance (~) ty M2 =>
 -}
 newtype Uint64_t
     = Uint64_t {unwrapUint64_t :: CInt}
-      {- ^ __C declaration:__ @uint64_t@
+      {- ^ __C declaration:__ @macro uint64_t@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@
 

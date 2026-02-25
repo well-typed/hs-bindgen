@@ -20,7 +20,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @U@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @program-analysis\/program-slicing\/macro_unselected.h 11:9@
 

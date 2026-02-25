@@ -4,31 +4,31 @@ version:
 hsmodule: Example
 ctypes:
 - headers: macros/macro_types.h
-  cname: PtrInt
+  cname: macro PtrInt
   hsname: PtrInt
 - headers: macros/macro_types.h
-  cname: ShortInt
+  cname: macro ShortInt
   hsname: ShortInt
 - headers: macros/macro_types.h
-  cname: SignedShortInt
+  cname: macro SignedShortInt
   hsname: SignedShortInt
 - headers: macros/macro_types.h
-  cname: UnsignedShortInt
+  cname: macro UnsignedShortInt
   hsname: UnsignedShortInt
 - headers: macros/macro_types.h
-  cname: PtrPtrChar
+  cname: macro PtrPtrChar
   hsname: PtrPtrChar
 - headers: macros/macro_types.h
-  cname: MTy
+  cname: macro MTy
   hsname: MTy
 - headers: macros/macro_types.h
   cname: tty
   hsname: Tty
 - headers: macros/macro_types.h
-  cname: UINT8_T
+  cname: macro UINT8_T
   hsname: UINT8_T
 - headers: macros/macro_types.h
-  cname: BOOLEAN_T
+  cname: macro BOOLEAN_T
   hsname: BOOLEAN_T
 - headers: macros/macro_types.h
   cname: boolean_T

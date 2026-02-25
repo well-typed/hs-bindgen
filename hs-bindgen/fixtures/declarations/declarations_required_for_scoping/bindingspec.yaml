@@ -4,7 +4,7 @@ version:
 hsmodule: Example
 ctypes:
 - headers: declarations/declarations_required_for_scoping.h
-  cname: A
+  cname: macro A
   hsname: A
 hstypes:
 - hsname: A

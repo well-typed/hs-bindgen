@@ -82,7 +82,7 @@ instance HasCField MyArray "unwrapMyArray"
     where type CFieldType MyArray
                           "unwrapMyArray" = IncompleteArray CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 7:9@
 
@@ -90,7 +90,7 @@ instance HasCField MyArray "unwrapMyArray"
 -}
 newtype A
     = A {unwrapA :: MyArray}
-      {- ^ __C declaration:__ @A@
+      {- ^ __C declaration:__ @macro A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 7:9@
 
@@ -102,7 +102,7 @@ instance (~) ty MyArray => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyArray
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 8:9@
 
@@ -110,7 +110,7 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @B@
+      {- ^ __C declaration:__ @macro B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 8:9@
 

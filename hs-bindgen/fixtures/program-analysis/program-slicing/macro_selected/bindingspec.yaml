@@ -4,7 +4,7 @@ version:
 hsmodule: Example
 ctypes:
 - headers: program-analysis/program-slicing/macro_selected.h
-  cname: U
+  cname: macro U
   hsname: U
 hstypes:
 - hsname: U

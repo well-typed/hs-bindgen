@@ -80,7 +80,7 @@ instance ( ((~) ty) RIP.CInt
 
   getField = HasCField.fromPtr (RIP.Proxy @"myUnion_x")
 
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 7:9@
 
@@ -108,7 +108,7 @@ instance HasCField.HasCField A "unwrapA" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 8:9@
 

@@ -4,7 +4,7 @@ version:
 hsmodule: Example
 ctypes:
 - headers: binding-specs/rep/emptydata/macro_type.h
-  cname: foo
+  cname: macro foo
   hsname: Foo
 hstypes:
 - hsname: Foo

@@ -20,7 +20,7 @@ module Example
 import qualified C.Expr.HostPlatform
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 
-{-| __C declaration:__ @INCR@
+{-| __C declaration:__ @macro INCR@
 
     __defined at:__ @macros\/macro_functions.h 1:9@
 
@@ -30,7 +30,7 @@ iNCR :: forall a0. (C.Expr.HostPlatform.Add a0) RIP.CInt => a0 -> (C.Expr.HostPl
 iNCR =
   \x0 -> (C.Expr.HostPlatform.+) x0 (1 :: RIP.CInt)
 
-{-| __C declaration:__ @ADD@
+{-| __C declaration:__ @macro ADD@
 
     __defined at:__ @macros\/macro_functions.h 2:9@
 
@@ -39,7 +39,7 @@ iNCR =
 aDD :: forall a0 b1. (C.Expr.HostPlatform.Add a0) b1 => a0 -> b1 -> (C.Expr.HostPlatform.AddRes a0) b1
 aDD = \x0 -> \y1 -> (C.Expr.HostPlatform.+) x0 y1
 
-{-| __C declaration:__ @ID@
+{-| __C declaration:__ @macro ID@
 
     __defined at:__ @macros\/macro_functions.h 4:9@
 
@@ -48,7 +48,7 @@ aDD = \x0 -> \y1 -> (C.Expr.HostPlatform.+) x0 y1
 iD :: forall a0. a0 -> a0
 iD = \x0 -> x0
 
-{-| __C declaration:__ @CONST@
+{-| __C declaration:__ @macro CONST@
 
     __defined at:__ @macros\/macro_functions.h 5:9@
 
@@ -57,7 +57,7 @@ iD = \x0 -> x0
 cONST :: forall a0 b1. a0 -> b1 -> a0
 cONST = \x0 -> \y1 -> x0
 
-{-| __C declaration:__ @CMP@
+{-| __C declaration:__ @macro CMP@
 
     __defined at:__ @macros\/macro_functions.h 7:9@
 
@@ -66,7 +66,7 @@ cONST = \x0 -> \y1 -> x0
 cMP :: forall a0 b1. (C.Expr.HostPlatform.RelOrd a0) b1 => a0 -> b1 -> RIP.CInt
 cMP = \x0 -> \y1 -> (C.Expr.HostPlatform.<) x0 y1
 
-{-| __C declaration:__ @FUN1@
+{-| __C declaration:__ @macro FUN1@
 
     __defined at:__ @macros\/macro_functions.h 8:9@
 
@@ -78,7 +78,7 @@ fUN1 =
     \y1 ->
       (C.Expr.HostPlatform.+) x0 ((C.Expr.HostPlatform.*) (12 :: RIP.CULLong) y1)
 
-{-| __C declaration:__ @FUN2@
+{-| __C declaration:__ @macro FUN2@
 
     __defined at:__ @macros\/macro_functions.h 9:9@
 
@@ -90,7 +90,7 @@ fUN2 =
     \y1 ->
       (C.Expr.HostPlatform.<<) x0 ((C.Expr.HostPlatform.*) (3 :: RIP.CULLong) y1)
 
-{-| __C declaration:__ @G@
+{-| __C declaration:__ @macro G@
 
     __defined at:__ @macros\/macro_functions.h 11:9@
 
@@ -99,7 +99,7 @@ fUN2 =
 g :: forall a0 b1. (C.Expr.HostPlatform.Add a0) RIP.CInt => b1 -> a0 -> (C.Expr.HostPlatform.AddRes a0) RIP.CInt
 g = \x0 -> \y1 -> cONST (iNCR y1) (iD x0)
 
-{-| __C declaration:__ @DIV1@
+{-| __C declaration:__ @macro DIV1@
 
     __defined at:__ @macros\/macro_functions.h 13:9@
 
@@ -111,7 +111,7 @@ dIV1 =
     \y1 ->
       (C.Expr.HostPlatform./) x0 ((C.Expr.HostPlatform.+) y1 (12 :: RIP.CUInt))
 
-{-| __C declaration:__ @DIV2@
+{-| __C declaration:__ @macro DIV2@
 
     __defined at:__ @macros\/macro_functions.h 14:9@
 
@@ -123,7 +123,7 @@ dIV2 =
     \y1 ->
       (C.Expr.HostPlatform./) ((C.Expr.HostPlatform.*) (10.0 :: RIP.CFloat) x0) y1
 
-{-| __C declaration:__ @SWAP32@
+{-| __C declaration:__ @macro SWAP32@
 
     __defined at:__ @macros\/macro_functions.h 18:9@
 
@@ -134,7 +134,7 @@ sWAP32 =
   \w0 ->
     (C.Expr.HostPlatform..|.) ((C.Expr.HostPlatform..&.) ((C.Expr.HostPlatform.>>) w0 (24 :: RIP.CInt)) (255 :: RIP.CInt)) ((C.Expr.HostPlatform..&.) ((C.Expr.HostPlatform.<<) w0 (8 :: RIP.CInt)) (16711680 :: RIP.CInt))
 
-{-| __C declaration:__ @AV_VERSION_INT@
+{-| __C declaration:__ @macro AV_VERSION_INT@
 
     __defined at:__ @macros\/macro_functions.h 19:9@
 

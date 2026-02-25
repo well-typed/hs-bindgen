@@ -4,7 +4,7 @@ version:
 hsmodule: Example
 ctypes:
 - headers: macros/macro_in_fundecl_vs_typedef.h
-  cname: MC
+  cname: macro MC
   hsname: MC
 - headers: macros/macro_in_fundecl_vs_typedef.h
   cname: TC
