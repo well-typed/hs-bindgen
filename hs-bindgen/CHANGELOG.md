@@ -7,6 +7,9 @@
 * Occurrences of the `CFieldType`/`CBitfieldType` type families in
   class instance heads are now replaced by their definition.
 * `--enable-blocks` CLI option renamed to `-fblocks`, matching `clang`
+* Macro declarations are now handled internally using a separate namespace.
+  Binding specifications and selection predicates now refer to macros using
+  `macro`.  For example, a macro named `foo` is referred to as `macro foo`.
 
 ### New features
 
