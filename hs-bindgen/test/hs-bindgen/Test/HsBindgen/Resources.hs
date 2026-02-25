@@ -9,6 +9,7 @@ module Test.HsBindgen.Resources (
   , getTestDefaultClangArgsConfig
   , getTestDefaultBackendConfig
   , getTestThBackendConfig
+  , applyTestThCategoryChoice
   , testThCategoryChoice
   ) where
 
@@ -131,6 +132,11 @@ getTestThBackendConfig testName pathStyle =
     (getTestDefaultBackendConfig testName pathStyle) {
         categoryChoice = testThCategoryChoice
       }
+
+-- | Apply TH-specific category choice to an existing 'BackendConfig',
+-- preserving all other settings (e.g. 'fieldNamingStrategy').
+applyTestThCategoryChoice :: BackendConfig -> BackendConfig
+applyTestThCategoryChoice cfg = cfg { categoryChoice = testThCategoryChoice }
 
 testThCategoryChoice :: ByCategory Choice
 testThCategoryChoice = ByCategory {

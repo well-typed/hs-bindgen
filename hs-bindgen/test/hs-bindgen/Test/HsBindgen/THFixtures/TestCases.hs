@@ -103,6 +103,9 @@ determineTHStatus tc
       , "program-analysis/program-slicing/macro_unselected"
       ]
 
+    -- NOTE: These are /not/ mirrored in @scripts/ci/compile-fixtures.sh@
+    -- KNOWN_FAILURES because that script uses @--category@ flags which
+    -- avoids the multi-module / complex configuration issues.
     complexConfig :: [String]
     complexConfig = [
         "globals/globals"

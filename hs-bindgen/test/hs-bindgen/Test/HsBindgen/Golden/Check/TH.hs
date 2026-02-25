@@ -43,7 +43,7 @@ check testResources test =
       if ghcAtLeast904 then do
         let testTh =
               test
-                & #onBackend .~ const (getTestThBackendConfig test.name test.pathStyle)
+                & #onBackend %~ (. applyTestThCategoryChoice)
         pkgroot <- getTestPackageRoot testResources
         let artefacts = (,) <$> Dependencies <*> FinalDecls
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
