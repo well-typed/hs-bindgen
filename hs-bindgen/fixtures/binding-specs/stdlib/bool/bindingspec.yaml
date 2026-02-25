@@ -1,0 +1,38 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: binding-specs/stdlib/bool.h
+  cname: stdlib_CBool
+  hsname: Stdlib_CBool
+hstypes:
+- hsname: Stdlib_CBool
+  representation:
+    newtype:
+      constructor: Stdlib_CBool
+      fields:
+      - unwrapStdlib_CBool
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
