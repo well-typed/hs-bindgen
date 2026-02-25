@@ -10,7 +10,6 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
 
@@ -66,5 +65,5 @@ instance IsTrace Level AdjustTypesMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId Select AdjustTypes
-instance CoercePassMacroId Select AdjustTypes
+instance CoercePassId MangleNames AdjustTypes
+instance CoercePassMacroId MangleNames AdjustTypes
