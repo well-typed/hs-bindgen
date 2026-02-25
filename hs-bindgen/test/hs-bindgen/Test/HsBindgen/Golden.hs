@@ -867,6 +867,7 @@ test_bindingSpecs_stdlib_instances_c11_parse_all =
 test_bindingSpecs_stdlib_instances_c23_parse_def :: TestCase
 test_bindingSpecs_stdlib_instances_c23_parse_def =
     testVariant "binding-specs/stdlib/instances" "1.c23-parse-def"
+      & #clangVersion .~ Just (>= (18, 0, 0))
       & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
 
 -- **Case 4: C23; parse @stdbool.h@**
@@ -878,6 +879,7 @@ test_bindingSpecs_stdlib_instances_c23_parse_def =
 test_bindingSpecs_stdlib_instances_c23_parse_all :: TestCase
 test_bindingSpecs_stdlib_instances_c23_parse_all =
     testVariant "binding-specs/stdlib/instances" "1.c23-parse-all"
+      & #clangVersion .~ Just (>= (18, 0, 0))
       & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
       & #onFrontend .~ (\cfg -> cfg
           & #parsePredicate .~ BTrue
@@ -888,6 +890,8 @@ test_bindingSpecs_stdlib_instances_c23_parse_all =
 test_bindingSpecs_stdlib_bool_c23 :: TestCase
 test_bindingSpecs_stdlib_bool_c23 =
     defaultTest "binding-specs/stdlib/bool"
+      & #clangVersion .~ Just (>= (18, 0, 0))
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
 
 test_bindingSpecs_stdlib_return_values :: TestCase
 test_bindingSpecs_stdlib_return_values =
