@@ -473,7 +473,11 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_struct
     , test_bindingSpecs_fun_arg_macro_union
       -- * Standard library
-    , test_bindingSpecs_stdlib_instances
+    , test_bindingSpecs_stdlib_instances_c11_parse_def
+    , test_bindingSpecs_stdlib_instances_c11_parse_all
+    , test_bindingSpecs_stdlib_instances_c23_parse_def
+    , test_bindingSpecs_stdlib_instances_c23_parse_all
+    , test_bindingSpecs_stdlib_bool_c23
     , test_bindingSpecs_stdlib_return_values
     ]
 
@@ -796,27 +800,102 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
   Bespoke tests: binding specs: standard library
 -------------------------------------------------------------------------------}
 
--- This test sets the parse predicate to parse all declarations, which results
--- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
--- setting the parse predicate, but it results in use of 'FC.CBool' instead.
--- This configuration should be removed when
--- https://github.com/well-typed/hs-bindgen/issues/1627 is resolved.
-test_bindingSpecs_stdlib_instances :: TestCase
-test_bindingSpecs_stdlib_instances =
-    defaultTest "binding-specs/stdlib/instances"
+-- The following tests and test variants examine "expectations" about how we
+-- handle @bool@.
+--
+-- In partiuclar, we translate @bool@ to
+--
+-- - 'HsBindgen.Runtime.LibC.CBool' if we parse all declarations, and
+--
+-- - 'RIP.CBool' if we use the default parse predicate (and do not parse the
+--   standard library header files).
+--
+-- The reasons are convoluted, yet appear unique to @bool@. As a primitive type,
+-- it was historically defined as a macro in @stdbool.h@ and transitioned to a
+-- keyword in C23.
+--
+-- Given the C header file
+--
+-- @
+-- #include <stdbool.h>
+-- typedef bool Foo;
+-- @
+--
+-- and @stdbool.h@
+--
+-- @
+-- #define bool _Bool
+-- @
+--
+-- Since @bool@ is a macro, @libclang@ will always inform us about a macro
+-- expansion in the definition of @Foo@, irrespective about whether we parse, or
+-- do not parse @stdbool.h@. That is, we always reparse the @bool@ macro in
+-- @Foo@.
+--
+-- The reparse environment depends on the C standard (in C23 we translate @bool@
+-- directly to the primitive boolean type).
+--
+-- **Case 1: C11; do not parse @stdbool.h@**
+--
+-- @bool@ is missing in the reparse environment, and we fail to reparse the
+-- @typedef@ of @Foo@. Hence, we use the expanded version of the macro provided
+-- by @libclang@, which we recognize as @TypePrim TypeBool@. We translate to
+-- 'RIP.CBool'.
+test_bindingSpecs_stdlib_instances_c11_parse_def :: TestCase
+test_bindingSpecs_stdlib_instances_c11_parse_def =
+    testVariant "binding-specs/stdlib/instances" "1.c11-parse-def"
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c11"] )
+
+-- **Case 2: C11; parse @stdbool.h@**
+--
+-- The definition of @bool@ is added to the reparse environment; reparsing
+-- correctly recognizes @bool@ as an external reference, which gets matched
+-- against the external binding spec. We translate to
+-- 'HsBindgen.Runtime.LibC.CBool'.
+test_bindingSpecs_stdlib_instances_c11_parse_all :: TestCase
+test_bindingSpecs_stdlib_instances_c11_parse_all =
+    testVariant "binding-specs/stdlib/instances" "1.c11-parse-all"
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c11"] )
       & #onFrontend .~ (\cfg -> cfg
           & #parsePredicate .~ BTrue
           )
 
--- This test sets the parse predicate to parse all declarations, which results
--- in use of 'HsBindgen.Runtime.LibC.CBool'.  This test also works without
--- setting the parse predicate, but it results in use of 'FC.CBool' instead.
--- This configuration should be removed when
--- https://github.com/well-typed/hs-bindgen/issues/1627 is resolved.
+-- **Case 3: C23; do not parse @stdbool.h@**
+--
+-- @bool@ is a keyword, and as such, part of the initial reparse environment.
+-- Reparsing maps @bool@ to @TypePrim TypeBool@. We translate to 'RIP.CBool'.
+test_bindingSpecs_stdlib_instances_c23_parse_def :: TestCase
+test_bindingSpecs_stdlib_instances_c23_parse_def =
+    testVariant "binding-specs/stdlib/instances" "1.c23-parse-def"
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
+
+-- **Case 4: C23; parse @stdbool.h@**
+--
+-- The definition of @bool@ replaces the original keyword entry of the reparse
+-- environment; reparsing correctly recognizes @bool@ as an external reference,
+-- which gets matched against the external binding spec. We translate to
+-- 'HsBindgen.Runtime.LibC.CBool'.
+test_bindingSpecs_stdlib_instances_c23_parse_all :: TestCase
+test_bindingSpecs_stdlib_instances_c23_parse_all =
+    testVariant "binding-specs/stdlib/instances" "1.c23-parse-all"
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate .~ BTrue
+          )
+
+-- Version of test using C23, without including @stdbool.h@. The primitive is
+-- used and the parse predicate does not matter.
+test_bindingSpecs_stdlib_bool_c23 :: TestCase
+test_bindingSpecs_stdlib_bool_c23 =
+    defaultTest "binding-specs/stdlib/bool"
+
 test_bindingSpecs_stdlib_return_values :: TestCase
 test_bindingSpecs_stdlib_return_values =
     defaultTest "binding-specs/stdlib/return_values"
       & #onFrontend .~ (\cfg -> cfg
+          -- We parse all standard library headers to force application of the
+          -- standard library external binding specification for @bool@; see
+          -- discussion above.
           & #parsePredicate .~ BTrue
           )
 
