@@ -43,6 +43,7 @@ module HsBindgen.Frontend.AST.Type (
   , isErasedTypeConstQualified
   ) where
 
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
@@ -504,11 +505,11 @@ hasUnsupportedType = aux . getCanonicalType
 
     auxRef :: CNameKind -> Bool
     auxRef = \case
-      CNameKindOrdinary              -> False
+      CNameKindOrdinary              -> panicPure "Unexpected CNameKindOrdinary"
       CNameKindTagged CTagKindStruct -> True
       CNameKindTagged CTagKindUnion  -> True
-      CNameKindTagged CTagKindEnum   -> False
-      CNameKindMacro                 -> False
+      CNameKindTagged CTagKindEnum   -> panicPure "Unexpected CTagKindEnum"
+      CNameKindMacro                 -> panicPure "Unexpected CNameKindMacro"
 
 {-------------------------------------------------------------------------------
   Classification: simple classifiers
