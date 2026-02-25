@@ -148,7 +148,7 @@ import HsBindgen.Util.Tracer
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
--- function *pointer* type.
+-- function /pointer/ type.
 --
 -- Constraints:
 --
@@ -164,9 +164,12 @@ import HsBindgen.Util.Tracer
 --
 -- Constraints:
 --
--- * The 'Select' pass comes last because it needs to know if a declaration, or
---   one of its transitive dependencies is
---   'HsBindgen.Frontend.Analysis.DeclIndex.Unusable'.
+-- * The 'Select' pass must come last so that if a declaration is
+--   'HsBindgen.Frontend.Analysis.DeclIndex.Unusable' for whatever reason (e.g.,
+--   it contains unsupported types such as @long double@, or the name mangler
+--   was unable to find a suitable name, etc.), the 'Select' pass can make sure
+--   that the unusable declaration /and all of its dependencies/ will not be
+--   selected.
 runFrontend ::
      Tracer FrontendMsg
   -> FrontendConfig
@@ -252,31 +255,31 @@ runFrontend tracer config boot = do
       forM_ msgsMangleNames $ traceWith tracer . FrontendMangleNames
       pure afterMangleNames
 
+    adjustTypesPass <- cache "AdjustTypes" $ do
+      afterMangleNamesPass <- mangleNamesPass
+      let (afterAdjustTypes, msgsAdjustTypes) =
+            adjustTypes afterMangleNamesPass
+      forM_ msgsAdjustTypes $ traceWith tracer . FrontendAdjustTypes
+      pure afterAdjustTypes
+
     selectPass <- cache "select" $ do
       (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
-      afterMangleNamesPass <- mangleNamesPass
+      afterAdjustTypesPass <- adjustTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
               selectConfig
-              afterMangleNamesPass
+              afterAdjustTypesPass
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
-    adjustTypesPass <- cache "AdjustTypes" $ do
-      afterSelectPass <- selectPass
-      let (afterAdjustTypes, mnsgsAdjustTypes) =
-            adjustTypes afterSelectPass
-      forM_ mnsgsAdjustTypes $ traceWith tracer . FrontendAdjustTypes
-      pure afterAdjustTypes
-
     finalPass <- cache "Final" $ do
-      adjustTypesPass
+      selectPass
 
     -- Unit.
     getCTranslationUnit <- cache "getCTranslationUnit" $ do
-      afterFinal <- adjustTypesPass
+      afterFinal <- finalPass
       pure $ afterFinal
 
     -- Include graph predicate.

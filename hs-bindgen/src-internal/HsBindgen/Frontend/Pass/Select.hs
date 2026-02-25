@@ -29,10 +29,10 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
-import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -92,7 +92,7 @@ selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SelectConfig
-  -> C.TranslationUnit MangleNames
+  -> C.TranslationUnit AdjustTypes
   -> (C.TranslationUnit Select, [Msg Select])
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining

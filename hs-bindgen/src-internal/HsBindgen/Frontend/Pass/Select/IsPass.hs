@@ -21,6 +21,7 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -239,8 +240,8 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId MangleNames Select
-instance CoercePassMacroId MangleNames Select
+instance CoercePassId AdjustTypes Select
+instance CoercePassMacroId AdjustTypes Select
 
-instance CoercePassMacroBody MangleNames Select where
+instance CoercePassMacroBody AdjustTypes Select where
   coercePassMacroBody _ = coercePass
