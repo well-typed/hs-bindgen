@@ -144,12 +144,6 @@ import HsBindgen.Util.Tracer
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 8. "HsBindgen.Frontend.Pass.Select"
---
--- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
--- and program slicing.  It also emits delayed trace messages for declarations
--- that are selected.
---
 -- == 8. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
@@ -161,6 +155,18 @@ import HsBindgen.Util.Tracer
 -- * Must be after "HsBindgen.Frontend.Pass.HandleMacros", because
 --   "HsBindgen.Frontend.Pass.HandleMacros" parses and inserts macro-defined
 --   types that may have to be adjusted.
+--
+-- == 9. "HsBindgen.Frontend.Pass.Select"
+--
+-- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
+-- and program slicing. It also emits delayed trace messages for declarations
+-- that are selected.
+--
+-- Constraints:
+--
+-- * The 'Select' pass comes last because it needs to know if a declaration, or
+--   one of its transitive dependencies is
+--   'HsBindgen.Frontend.Analysis.DeclIndex.Unusable'.
 runFrontend ::
      Tracer FrontendMsg
   -> FrontendConfig
