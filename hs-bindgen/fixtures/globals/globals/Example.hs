@@ -428,7 +428,7 @@ instance ( ((~) ty) Struct1_t
 
 {-| __C declaration:__ @struct \@anonPoint@
 
-    __defined at:__ @globals\/globals.h 438:1@
+    __defined at:__ @globals\/globals.h 439:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -436,14 +436,14 @@ data AnonPoint = AnonPoint
   { anonPoint_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @globals\/globals.h 438:14@
+         __defined at:__ @globals\/globals.h 439:14@
 
          __exported by:__ @globals\/globals.h@
     -}
   , anonPoint_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @globals\/globals.h 438:21@
+         __defined at:__ @globals\/globals.h 439:21@
 
          __exported by:__ @globals\/globals.h@
     -}
@@ -502,7 +502,7 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct \@anonPair@
 
-    __defined at:__ @globals\/globals.h 441:1@
+    __defined at:__ @globals\/globals.h 442:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -510,14 +510,14 @@ data AnonPair = AnonPair
   { anonPair_a :: RIP.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @globals\/globals.h 441:14@
+         __defined at:__ @globals\/globals.h 442:14@
 
          __exported by:__ @globals\/globals.h@
     -}
   , anonPair_b :: RIP.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @globals\/globals.h 441:21@
+         __defined at:__ @globals\/globals.h 442:21@
 
          __exported by:__ @globals\/globals.h@
     -}
@@ -576,7 +576,7 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @enum \@anonEnum@
 
-    __defined at:__ @globals\/globals.h 444:1@
+    __defined at:__ @globals\/globals.h 445:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -666,7 +666,7 @@ instance HasCField.HasCField AnonEnum "unwrapAnonEnum" where
 
 {-| __C declaration:__ @VAL_A@
 
-    __defined at:__ @globals\/globals.h 444:8@
+    __defined at:__ @globals\/globals.h 445:8@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -675,7 +675,7 @@ pattern VAL_A = AnonEnum 0
 
 {-| __C declaration:__ @VAL_B@
 
-    __defined at:__ @globals\/globals.h 444:19@
+    __defined at:__ @globals\/globals.h 445:19@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -684,7 +684,7 @@ pattern VAL_B = AnonEnum 1
 
 {-| __C declaration:__ @enum \@anonEnumCoords@
 
-    __defined at:__ @globals\/globals.h 447:1@
+    __defined at:__ @globals\/globals.h 448:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -765,7 +765,7 @@ instance HasCField.HasCField AnonEnumCoords "unwrapAnonEnumCoords" where
 
 {-| __C declaration:__ @X@
 
-    __defined at:__ @globals\/globals.h 447:8@
+    __defined at:__ @globals\/globals.h 448:8@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -774,7 +774,7 @@ pattern X = AnonEnumCoords 10
 
 {-| __C declaration:__ @Y@
 
-    __defined at:__ @globals\/globals.h 447:16@
+    __defined at:__ @globals\/globals.h 448:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -783,7 +783,7 @@ pattern Y = AnonEnumCoords 20
 
 {-| __C declaration:__ @Z@
 
-    __defined at:__ @globals\/globals.h 447:24@
+    __defined at:__ @globals\/globals.h 448:24@
 
     __exported by:__ @globals\/globals.h@
 -}

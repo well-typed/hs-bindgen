@@ -609,7 +609,7 @@ hs_bindgen_6a74c096c69eaf13 =
 {-# NOINLINE anonPoint #-}
 {-| __C declaration:__ @anonPoint@
 
-    __defined at:__ @globals\/globals.h 438:26@
+    __defined at:__ @globals\/globals.h 439:26@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -629,7 +629,7 @@ hs_bindgen_2ee54a93dbbed801 =
 {-# NOINLINE anonPair #-}
 {-| __C declaration:__ @anonPair@
 
-    __defined at:__ @globals\/globals.h 441:26@
+    __defined at:__ @globals\/globals.h 442:26@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -649,7 +649,7 @@ hs_bindgen_1c28cee33967e767 =
 {-# NOINLINE anonEnum #-}
 {-| __C declaration:__ @anonEnum@
 
-    __defined at:__ @globals\/globals.h 444:31@
+    __defined at:__ @globals\/globals.h 445:31@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -669,7 +669,7 @@ hs_bindgen_0e0ec9b1d935fbb6 =
 {-# NOINLINE anonEnumCoords #-}
 {-| __C declaration:__ @anonEnumCoords@
 
-    __defined at:__ @globals\/globals.h 447:33@
+    __defined at:__ @globals\/globals.h 448:33@
 
     __exported by:__ @globals\/globals.h@
 -}

@@ -328,8 +328,6 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         case (a, b) of
           (C.DeclMacro macroA, C.DeclMacro macroB) ->
             sameMacro macroA macroB
-          (C.DeclGlobal tyA, C.DeclGlobal tyB) ->
-            tyA == tyB
           _otherwise ->
             a == b
 

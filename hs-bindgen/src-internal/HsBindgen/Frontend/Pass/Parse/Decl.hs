@@ -740,18 +740,10 @@ varDecl info = \curr -> do
                 VarGlobal _ ->
                   (map parseSucceed (anonDecls ++ otherDecls) ++) $
                     singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
-                VarConst IsExtern
-                  | not (null anonDecls) ->
-                    [ parseFail info.id info.loc ParseUnexpectedAnonInExtern ]
-                VarConst _ ->
-                  (map parseSucceed (anonDecls ++ otherDecls) ++) $
-                    singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
                 VarThreadLocal ->
-                  map parseSucceed (anonDecls ++ otherDecls)
-                  ++ [ parseFail info.id info.loc ParseUnsupportedTLS ]
+                  [ parseFail info.id info.loc ParseUnsupportedTLS ]
                 VarUnsupported storage ->
-                  map parseSucceed (anonDecls ++ otherDecls)
-                  ++ [ parseFail info.id info.loc $ ParseUnknownStorageClass storage ]
+                  [ parseFail info.id info.loc $ ParseUnknownStorageClass storage ]
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult Parse]
@@ -941,13 +933,9 @@ data IsExtern = IsExtern | IsNotExtern
   deriving stock (Show)
 
 data VarClassification =
-    -- | The simplest case: a simple global variable
+    -- | Global variable (mutable or const)
     --
     -- > extern int simpleGlobal;
-    VarGlobal IsExtern
-
-    -- | Global constants
-    --
     -- > extern const int globalConstant;
     -- > static const int staticConst = 123;
     --
@@ -959,7 +947,7 @@ data VarClassification =
     --
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/829>
     -- We could in principle expose the /value/ of the constant, if we know it.
-  | VarConst IsExtern
+    VarGlobal IsExtern
 
     -- | Thread local variables
     --
@@ -983,11 +971,9 @@ classifyVarDecl = \curr -> do
         canonical <- clang_getCanonicalType typ
         isConst   <- clang_isConstQualifiedType canonical
         case (fromSimpleEnum storage, isConst) of
-          (Right CX_SC_Extern , False) -> return $ VarGlobal IsExtern
-          (Right CX_SC_None   , False) -> return $ VarGlobal IsNotExtern
-          (Right CX_SC_Extern , True ) -> return $ VarConst  IsExtern
-          (Right CX_SC_Static , True ) -> return $ VarConst  IsNotExtern
-          (Right CX_SC_None   , True)  -> return $ VarConst  IsNotExtern
+          (Right CX_SC_Extern , _    ) -> return $ VarGlobal IsExtern
+          (Right CX_SC_None   , _    ) -> return $ VarGlobal IsNotExtern
+          (Right CX_SC_Static , True ) -> return $ VarGlobal IsNotExtern
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal

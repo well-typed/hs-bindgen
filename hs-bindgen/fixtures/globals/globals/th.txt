@@ -417,7 +417,7 @@ instance (~) ty Struct1_t =>
     where getField = fromPtr (Proxy @"struct2_t_field1")
 {-| __C declaration:__ @struct \@anonPoint@
 
-    __defined at:__ @globals\/globals.h 438:1@
+    __defined at:__ @globals\/globals.h 439:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -425,20 +425,20 @@ data AnonPoint
     = AnonPoint {anonPoint_x :: CInt
                  {- ^ __C declaration:__ @x@
 
-                      __defined at:__ @globals\/globals.h 438:14@
+                      __defined at:__ @globals\/globals.h 439:14@
 
                       __exported by:__ @globals\/globals.h@
                  -},
                  anonPoint_y :: CInt
                  {- ^ __C declaration:__ @y@
 
-                      __defined at:__ @globals\/globals.h 438:21@
+                      __defined at:__ @globals\/globals.h 439:21@
 
                       __exported by:__ @globals\/globals.h@
                  -}}
       {- ^ __C declaration:__ @struct \@anonPoint@
 
-           __defined at:__ @globals\/globals.h 438:1@
+           __defined at:__ @globals\/globals.h 439:1@
 
            __exported by:__ @globals\/globals.h@
       -}
@@ -467,7 +467,7 @@ instance (~) ty CInt =>
     where getField = fromPtr (Proxy @"anonPoint_y")
 {-| __C declaration:__ @struct \@anonPair@
 
-    __defined at:__ @globals\/globals.h 441:1@
+    __defined at:__ @globals\/globals.h 442:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -475,20 +475,20 @@ data AnonPair
     = AnonPair {anonPair_a :: CInt
                 {- ^ __C declaration:__ @a@
 
-                     __defined at:__ @globals\/globals.h 441:14@
+                     __defined at:__ @globals\/globals.h 442:14@
 
                      __exported by:__ @globals\/globals.h@
                 -},
                 anonPair_b :: CInt
                 {- ^ __C declaration:__ @b@
 
-                     __defined at:__ @globals\/globals.h 441:21@
+                     __defined at:__ @globals\/globals.h 442:21@
 
                      __exported by:__ @globals\/globals.h@
                 -}}
       {- ^ __C declaration:__ @struct \@anonPair@
 
-           __defined at:__ @globals\/globals.h 441:1@
+           __defined at:__ @globals\/globals.h 442:1@
 
            __exported by:__ @globals\/globals.h@
       -}
@@ -517,7 +517,7 @@ instance (~) ty CInt =>
     where getField = fromPtr (Proxy @"anonPair_b")
 {-| __C declaration:__ @enum \@anonEnum@
 
-    __defined at:__ @globals\/globals.h 444:1@
+    __defined at:__ @globals\/globals.h 445:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -525,7 +525,7 @@ newtype AnonEnum
     = AnonEnum {unwrapAnonEnum :: CUInt}
       {- ^ __C declaration:__ @enum \@anonEnum@
 
-           __defined at:__ @globals\/globals.h 444:1@
+           __defined at:__ @globals\/globals.h 445:1@
 
            __exported by:__ @globals\/globals.h@
       -}
@@ -569,35 +569,35 @@ instance HasCField AnonEnum "unwrapAnonEnum"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @VAL_A@
 
-    __defined at:__ @globals\/globals.h 444:8@
+    __defined at:__ @globals\/globals.h 445:8@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern VAL_A :: AnonEnum
 {-| __C declaration:__ @VAL_A@
 
-    __defined at:__ @globals\/globals.h 444:8@
+    __defined at:__ @globals\/globals.h 445:8@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern VAL_A = AnonEnum 0
 {-| __C declaration:__ @VAL_B@
 
-    __defined at:__ @globals\/globals.h 444:19@
+    __defined at:__ @globals\/globals.h 445:19@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern VAL_B :: AnonEnum
 {-| __C declaration:__ @VAL_B@
 
-    __defined at:__ @globals\/globals.h 444:19@
+    __defined at:__ @globals\/globals.h 445:19@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern VAL_B = AnonEnum 1
 {-| __C declaration:__ @enum \@anonEnumCoords@
 
-    __defined at:__ @globals\/globals.h 447:1@
+    __defined at:__ @globals\/globals.h 448:1@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -605,7 +605,7 @@ newtype AnonEnumCoords
     = AnonEnumCoords {unwrapAnonEnumCoords :: CUInt}
       {- ^ __C declaration:__ @enum \@anonEnumCoords@
 
-           __defined at:__ @globals\/globals.h 447:1@
+           __defined at:__ @globals\/globals.h 448:1@
 
            __exported by:__ @globals\/globals.h@
       -}
@@ -644,42 +644,42 @@ instance HasCField AnonEnumCoords "unwrapAnonEnumCoords"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @X@
 
-    __defined at:__ @globals\/globals.h 447:8@
+    __defined at:__ @globals\/globals.h 448:8@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern X :: AnonEnumCoords
 {-| __C declaration:__ @X@
 
-    __defined at:__ @globals\/globals.h 447:8@
+    __defined at:__ @globals\/globals.h 448:8@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern X = AnonEnumCoords 10
 {-| __C declaration:__ @Y@
 
-    __defined at:__ @globals\/globals.h 447:16@
+    __defined at:__ @globals\/globals.h 448:16@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern Y :: AnonEnumCoords
 {-| __C declaration:__ @Y@
 
-    __defined at:__ @globals\/globals.h 447:16@
+    __defined at:__ @globals\/globals.h 448:16@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern Y = AnonEnumCoords 20
 {-| __C declaration:__ @Z@
 
-    __defined at:__ @globals\/globals.h 447:24@
+    __defined at:__ @globals\/globals.h 448:24@
 
     __exported by:__ @globals\/globals.h@
 -}
 pattern Z :: AnonEnumCoords
 {-| __C declaration:__ @Z@
 
-    __defined at:__ @globals\/globals.h 447:24@
+    __defined at:__ @globals\/globals.h 448:24@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -1169,14 +1169,14 @@ hs_bindgen_6a74c096c69eaf13 = fromFFIType hs_bindgen_6a74c096c69eaf13_base
 {-# NOINLINE anonPoint #-}
 {-| __C declaration:__ @anonPoint@
 
-    __defined at:__ @globals\/globals.h 438:26@
+    __defined at:__ @globals\/globals.h 439:26@
 
     __exported by:__ @globals\/globals.h@
 -}
 anonPoint :: Ptr AnonPoint
 {-| __C declaration:__ @anonPoint@
 
-    __defined at:__ @globals\/globals.h 438:26@
+    __defined at:__ @globals\/globals.h 439:26@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -1191,14 +1191,14 @@ hs_bindgen_2ee54a93dbbed801 = fromFFIType hs_bindgen_2ee54a93dbbed801_base
 {-# NOINLINE anonPair #-}
 {-| __C declaration:__ @anonPair@
 
-    __defined at:__ @globals\/globals.h 441:26@
+    __defined at:__ @globals\/globals.h 442:26@
 
     __exported by:__ @globals\/globals.h@
 -}
 anonPair :: Ptr AnonPair
 {-| __C declaration:__ @anonPair@
 
-    __defined at:__ @globals\/globals.h 441:26@
+    __defined at:__ @globals\/globals.h 442:26@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -1213,14 +1213,14 @@ hs_bindgen_1c28cee33967e767 = fromFFIType hs_bindgen_1c28cee33967e767_base
 {-# NOINLINE anonEnum #-}
 {-| __C declaration:__ @anonEnum@
 
-    __defined at:__ @globals\/globals.h 444:31@
+    __defined at:__ @globals\/globals.h 445:31@
 
     __exported by:__ @globals\/globals.h@
 -}
 anonEnum :: Ptr AnonEnum
 {-| __C declaration:__ @anonEnum@
 
-    __defined at:__ @globals\/globals.h 444:31@
+    __defined at:__ @globals\/globals.h 445:31@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -1235,14 +1235,14 @@ hs_bindgen_0e0ec9b1d935fbb6 = fromFFIType hs_bindgen_0e0ec9b1d935fbb6_base
 {-# NOINLINE anonEnumCoords #-}
 {-| __C declaration:__ @anonEnumCoords@
 
-    __defined at:__ @globals\/globals.h 447:33@
+    __defined at:__ @globals\/globals.h 448:33@
 
     __exported by:__ @globals\/globals.h@
 -}
 anonEnumCoords :: Ptr AnonEnumCoords
 {-| __C declaration:__ @anonEnumCoords@
 
-    __defined at:__ @globals\/globals.h 447:33@
+    __defined at:__ @globals\/globals.h 448:33@
 
     __exported by:__ @globals\/globals.h@
 -}
