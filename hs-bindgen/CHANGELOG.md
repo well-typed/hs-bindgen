@@ -6,6 +6,7 @@
 
 * Occurrences of the `CFieldType`/`CBitfieldType` type families in
   class instance heads are now replaced by their definition.
+* `--enable-blocks` CLI option renamed to `-fblocks`, matching `clang`
 
 ### New features
 

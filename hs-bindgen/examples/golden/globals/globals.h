@@ -1,3 +1,4 @@
+#include <complex.h>
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -32,20 +33,20 @@ extern struct inline_struct { int x; int y; } compoundGlobal2;
  * [1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
  */
 
-int     nesInteger     = 1;
-float   nesFloating    = 1.2f;
-// TODO: CXCursor_ImaginaryLiteral
-char*   nesString1     = "hi";
-char    nesString2[]   = "hi";
-char    nesCharacter   = 'a';
-int     nesParen       = (1);
-int     nesUnary       = +5;
-int     nesBinary      = 1 + 2;
-int     nesConditional = 1 ? 2 : 3;
-float   nesCast        = (float) 1;
-int*    nesCompound    = (int []){2, 4, 6};
-uint8_t nesInitList[]  = {0x00, 0x01, 0x02, 0x04};
-bool    nesBool        = true;
+int            nesInteger     = 1;
+float          nesFloating    = 1.2f;
+double complex nesImaginary   = 1.0i;
+char*          nesString1     = "hi";
+char           nesString2[]   = "hi";
+char           nesCharacter   = 'a';
+int            nesParen       = (1);
+int            nesUnary       = +5;
+int            nesBinary      = 1 + 2;
+int            nesConditional = 1 ? 2 : 3;
+float          nesCast        = (float) 1;
+int*           nesCompound    = (int []){2, 4, 6};
+uint8_t        nesInitList[]  = {0x00, 0x01, 0x02, 0x04};
+bool           nesBool        = true;
 
 /**
  * Additional examples of global variables, abstracted from real examples

@@ -87,7 +87,9 @@ genBindingSpec
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
--- TODO aliases
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1436>
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
+-- Once squashing is configurable (#1436), we should deal with aliases (#1549).
 genBindingSpec' ::
      Hs.ModuleName
   -> GetMainHeaders
@@ -255,8 +257,11 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
     getHeaders :: C.DeclInfo Final -> Set HashIncludeArg
     getHeaders info = getMainHeaders' $ singleLocPath info.loc
 
--- TODO strategy
--- TODO constraints
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1766>
+-- We should allow users to specify strategies for instance deriving.
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/648>
+-- It should be possible to generate instances with constraints.
 mkInstSpecs ::
      Map Inst.TypeClass (Omittable BindingSpec.InstanceSpec)
   -> Set Inst.TypeClass

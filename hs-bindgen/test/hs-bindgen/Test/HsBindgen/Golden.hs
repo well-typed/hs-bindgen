@@ -490,7 +490,8 @@ test_bindingSpecs_omit_type =
 -- | External binding specifications for macro types cause incorrect
 -- TransitiveDependenciesMissing warnings
 --
--- TODO: fix the 'TransitiveDependenciesMissing' warning. See issue #1513.
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1513>
+-- We currently report the wrong declaration as missing.
 test_bindingSpecs_macro_trans_dep_missing :: TestCase
 test_bindingSpecs_macro_trans_dep_missing =
     defaultTest "binding-specs/macro_trans_dep_missing"
@@ -503,9 +504,8 @@ test_bindingSpecs_macro_trans_dep_missing =
             -- no macros should fail to parse
             MatchHandleMacros _ ->
               Just Unexpected
-            -- TODO: Remove this case to see the 'TransitiveDependenciesMissing'
-            -- warning. See issue #1513. Once the warning is fixed, this case
-            -- can be removed indefinitely.
+            -- TODO <https://github.com/well-typed/hs-bindgen/issues/1513>
+            -- Once the warning is fixed, this case can be removed.
             MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
               Just (Expected name)
             _otherwise ->
@@ -975,9 +975,6 @@ testCases_bespoke_edgeCases = [
     , test_edgeCases_unsupported_builtin
     ]
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1389>
--- For now we report a collision between the two @struct foo@
--- declarations, but no collision between those and the typedef.
 test_edgeCases_clang_generated_collision :: TestCase
 test_edgeCases_clang_generated_collision =
     defaultTest "edge-cases/clang_generated_collision"
@@ -1189,22 +1186,23 @@ test_globals_globals =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           -- non-extern non-static globals
-          "nesInteger"
+          "nesBinary"
+        , "nesBool"
+        , "nesCast"
+        , "nesCharacter"
+        , "nesCompound"
+        , "nesConditional"
         , "nesFloating"
+        , "nesImaginary"
+        , "nesInitList"
+        , "nesInteger"
+        , "nesParen"
         , "nesString1"
         , "nesString2"
-        , "nesCharacter"
-        , "nesParen"
         , "nesUnary"
-        , "nesBinary"
-        , "nesConditional"
-        , "nesCast"
-        , "nesCompound"
-        , "nesInitList"
-        , "nesBool"
-        , "streamBinary"
-        , "streamBinary_len"
         , "some_global_struct"
+        , "streamBinary_len"
+        , "streamBinary"
         ]
 
 {-------------------------------------------------------------------------------
@@ -1348,8 +1346,9 @@ test_programAnalysis_program_slicing_macro_unselected =
               Nothing
           )
   where
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1679>
+    -- We should get a message about @foo@ missing.
     declsWithMsgs :: [C.DeclName]
-    -- TODO: set to ["foo"] once issue #1679 is fixed
     declsWithMsgs = []
 
 test_programAnalysis_program_slicing_typedef_selected :: TestCase

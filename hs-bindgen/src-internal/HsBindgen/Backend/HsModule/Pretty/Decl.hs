@@ -101,9 +101,7 @@ instance Pretty SDecl where
     DForeignImport foreignImport ->
       -- Variable names here refer to the syntax of foreign declarations at
       -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
-      let -- TODO: We should escape special characters inside these import
-          -- strings (at the very least quotes in filenames?)
-          callconv, impent :: CtxDoc
+      let callconv, impent :: CtxDoc
           (callconv, impent) =
             case foreignImport.callConv of
               CallConvUserlandCapi _ -> ("ccall",

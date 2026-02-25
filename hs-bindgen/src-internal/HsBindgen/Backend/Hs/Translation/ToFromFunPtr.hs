@@ -134,7 +134,6 @@ instancesFor sizeofs nameTo nameFrom funC funHs = concat [
       ]
     ]
 
--- TODO: Ideally this would live elsewhere
 prettyHsType :: HsType -> String
 prettyHsType =
       PP.renderCtxDoc PP.defaultContext

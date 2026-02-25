@@ -107,8 +107,8 @@ getDeclsFieldVecFlam flam supInsts hCfg spec info struct fieldsVec = do
                 (flam.offset `div` 8)
           }
 
-    -- TODO: generate zero-copy bindings for the FLAM field. See issue
-    -- #1286.
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1760>
+    -- We generate zero-copy bindings for the FLAM field.
     flamDecl :: Hs.Decl
     flamDecl =
       Hs.DeclTypSyn
@@ -149,9 +149,9 @@ getDecls :: forall n.
   -> Hs.Name Hs.NsTypeConstr
   -> C.DeclInfo Final
   -> C.Struct Final
-     -- TODO https://github.com/well-typed/hs-bindgen/issues/1576: The field
-     -- vector contains information about the number of fields on the type
-     -- level. Tracking this information here may not be necessary.
+     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1576>
+     -- The field vector contains information about the number of fields on the
+     -- type level. Tracking this information here may not be necessary.
   -> Vec n (C.StructField Final)
   -> Set Inst.TypeClass
   -> (Hs.Struct n, [Hs.Decl])

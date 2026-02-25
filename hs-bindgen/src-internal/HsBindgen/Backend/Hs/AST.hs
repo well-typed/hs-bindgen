@@ -124,7 +124,8 @@ data Field = Field{
 
 -- | Struct
 --
--- TODO: for enums we generate /both/ a newtype /and/ a struct, and then define
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1757>
+-- For enums we generate /both/ a newtype /and/ a struct, and then define
 -- instances only for the struct. We should get rid of this nasty hack.
 data Struct (n :: Nat) = Struct{
       name      :: Hs.Name Hs.NsTypeConstr
@@ -314,7 +315,8 @@ data MacroExpr = MacroExpr {
 
 -- | RHS of a variable or function declaration.
 --
--- TODO: Do we need this, or could we just use SExpr instead?
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1757>
+-- Do we need this, or could we just use SExpr instead?
 type VarDeclRHS :: Ctx -> Star
 data VarDeclRHS ctx
   = VarDeclIntegral Integer HsPrimType
@@ -747,8 +749,8 @@ newtype Seq t ctx = Seq [t ctx]
 data TypSyn = TypSyn{
       name    :: Hs.Name Hs.NsTypeConstr
     , typ     :: HsType
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1448: Temporary
-      -- origin; will be gone.
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1448>
+      -- Temporary: origin will be gone.
     , origin  :: Origin.Decl Origin.EmptyData
     , comment :: Maybe HsDoc.Comment
     }
@@ -787,8 +789,9 @@ makeElimStruct :: forall n ctx t.
 makeElimStruct s struct kont = makeElimStruct' (snat :: SNat n) $ \add wk xs ->
     ElimStruct s struct add (kont wk xs)
 
--- TODO: use Data.Type.Nat.induction instead of explicit recursion.
--- TODO: verify that we bind fields in right order.
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1757>
+-- - Use Data.Type.Nat.induction instead of explicit recursion.
+-- - Verify that we bind fields in right order.
 makeElimStruct' :: forall m ctx t.
      SNat m
   -> ( forall ctx'.

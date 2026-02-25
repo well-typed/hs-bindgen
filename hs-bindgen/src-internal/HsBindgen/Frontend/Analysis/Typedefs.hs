@@ -120,7 +120,7 @@ data Conclusion =
     -- /different/ types. We must therefore instruct the name mangler to use
     -- a different name for one of these two types; we add a suffix.
     --
-    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1432>
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1432>
     -- These suffixes could result in name clashes.
   | AddSuffix Hs.Identifier
 
@@ -219,7 +219,7 @@ taggedPayload = go True
         C.TypeEnum ref       -> typeRef direct ref.name
         C.TypePointers _n ty -> go False ty
         _otherwise ->
-          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1445>
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1445>
           -- This is wrong. This deals with
           --
           -- > typedef struct {..} * foo;

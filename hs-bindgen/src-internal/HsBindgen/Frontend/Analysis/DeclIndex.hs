@@ -402,9 +402,8 @@ getOmitted index = Map.mapMaybe toOmitted index.map
 
 -- | Get squashed entries.
 --
--- TODO https://github.com/well-typed/hs-bindgen/issues/1549: `getSquashed`
--- should probably be changed or removed (or at least not used when generating
--- binding specifications).
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
+-- We may no longer need `getSquashed` once we properly record lists of aliases.
 getSquashed :: DeclIndex -> Set DeclId -> Map DeclId (SourcePath, Hs.Identifier)
 getSquashed index targets = Map.mapMaybe onlySquashedTargettingSet index.map
   where

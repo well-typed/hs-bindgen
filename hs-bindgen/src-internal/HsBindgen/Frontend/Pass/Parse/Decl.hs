@@ -47,8 +47,9 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
     handleTypeException curr err = do
         declId  <- PrelimDeclId.atCursor curr err.context.nameKind
         declLoc <- HighLevel.clang_getCursorLocation' curr
-        -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
-        -- the trace when we use the declaration that we fail to parse.
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1249>
+        -- Ideally we'd only emit the trace when we /use/ the declaration that
+        -- we fail to parse.
         when (err.context.requiredForScoping == RequiredForScoping) $
           recordImmediateTrace declId declLoc $
             ParseOfDeclarationRequiredForScopingFailed err.exception
@@ -94,7 +95,6 @@ getDeclInfo = \curr nameKind -> do
       recordImmediateTrace declId declLoc $
         ParseUnknownCursorAvailability sAvailability
 
-    -- TODO: We might want a NameOriginBuiltin.
     pure info
   where
     fromSimple :: IsSimpleEnum a => SimpleEnum a -> Maybe a
@@ -701,8 +701,8 @@ varDecl info = \curr -> do
           , ann  = NoAnn
           }
 
-    -- TODO: https://github.com/well-typed/hs-bindgen/issues/831
-    -- Call 'getReparseInfo' to support macro types in globals.
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/831>
+    -- We should support macro types in globals.
 
     case declCls of
       -- The header contains a definition elsewhere, but it is not the
@@ -774,7 +774,7 @@ varDecl info = \curr -> do
           -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013>
           Right CXCursor_IntegerLiteral      -> foldContinue
           Right CXCursor_FloatingLiteral     -> foldContinue
-          -- TODO: CXCursor_ImaginaryLiteral
+          Right CXCursor_ImaginaryLiteral    -> foldContinue
           Right CXCursor_StringLiteral       -> foldContinue
           Right CXCursor_ParenExpr           -> foldContinue
           Right CXCursor_UnaryOperator       -> foldContinue
@@ -949,7 +949,7 @@ data VarClassification =
     -- mutable variable, but it would be local to any C file that included the
     -- header; it would be invisible to the C API.
     --
-    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/829>
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/829>
     -- We could in principle expose the /value/ of the constant, if we know it.
   | VarConst
 

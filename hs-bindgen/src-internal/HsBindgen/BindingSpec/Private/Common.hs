@@ -108,7 +108,6 @@ instance PrettyForTrace BindingSpecReadMsg where
       ]
     BindingSpecReadYamlError path msg ->
       -- 'lines' is used because the error includes newlines
-      -- TODO: Should this use PP.renderedLines instead?
       PP.hangs' ("error parsing YAML: " >< PP.string path) 2 $
         map PP.string $ lines msg
     BindingSpecReadYamlWarning path msg -> PP.hcat [

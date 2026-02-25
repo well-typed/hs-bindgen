@@ -30,7 +30,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --unique-id blocksdemo.well-typed.com \
     --module Iterator \
     --clang-option '-std=c2x' \
-    --enable-blocks \
+    --fblocks \
     iterator.h
 
 echo "# "

@@ -252,7 +252,8 @@ applyPrescriptive ::
 applyPrescriptive decl cTypeSpec = \case
     Nothing         -> return $ Just (decl, (Just cTypeSpec, Nothing))
     Just hsTypeSpec -> do
-      -- TODO validate instances only set for supported kinds
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
+      -- We should validate instances only set for supported kinds
       -- (instances themselves are to be resolved in a separate pass)
       (decl', hsRep) <- case hsTypeSpec.hsRep of
         Nothing    -> return (decl, Nothing)
@@ -268,15 +269,16 @@ applyPrescriptive decl cTypeSpec = \case
          BindingSpec.HsRecordRep
       -> M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
     auxRecord recordRep =
-      -- TODO validate record type
-      -- TODO validate number of fields
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
+      -- We should validate the record type and number of fields.
       return (decl, Just (BindingSpec.HsTypeRepRecord recordRep))
 
     auxNewtype ::
          BindingSpec.HsNewtypeRep
       -> M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
     auxNewtype newtypeRep =
-      -- TODO validate enum, typedef, or macro type
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
+      -- We should validate enum, typedef, or macro type
       return (decl, Just (BindingSpec.HsTypeRepNewtype newtypeRep))
 
     auxEmptyData :: M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
@@ -310,8 +312,9 @@ applyPrescriptive decl cTypeSpec = \case
 
     auxTypeAlias :: M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
     auxTypeAlias =
-      -- TODO validate types
-      -- TODO return different decl?
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
+      -- We should validate types.
+      -- Return different decl?
       return (decl, Just BindingSpec.HsTypeRepTypeAlias)
 
 -- Pass two: deep

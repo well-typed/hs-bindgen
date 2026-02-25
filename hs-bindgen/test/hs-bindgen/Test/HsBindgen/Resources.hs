@@ -77,7 +77,8 @@ mkTestClangArgsConfig packageRoot = def {
     targetArgs :: [String]
     targetArgs = ["-target", "x86_64-pc-linux-musl"]
 
-    -- TODO per-test configuration: better default?
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1516>
+    -- We should use the minimum standard required for each test.
     cStandardArg :: String
     cStandardArg = "-std=" ++ case clangVersion of
       ClangVersion version

@@ -96,7 +96,7 @@ getInstances instanceMap name = aux
             aux (blockInsts /\ acc) (t:hsTypes)
           HsComplexType primType -> aux (acc /\ getHsPrimTypeInsts primType) hsTypes
           HsStrLit{} -> Set.empty
-          -- TODO https://github.com/well-typed/hs-bindgen/issues/1572:
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1572>
           -- Instances for 'WithFlam'.
           HsWithFlam{} -> Set.empty
           HsEquivStorable{} -> Set.empty

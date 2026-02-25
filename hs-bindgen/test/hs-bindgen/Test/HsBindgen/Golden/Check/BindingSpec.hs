@@ -42,8 +42,6 @@ check testResources test =
                 getMainHeaders
                 omitTypes
                 squashedTypes
-                -- TODO https://github.com/well-typed/hs-bindgen/issues/1089:
-                -- Test all binding categories.
                 (concat hsDecls)
 
       return $ ActualValue output

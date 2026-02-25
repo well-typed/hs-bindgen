@@ -79,9 +79,6 @@ fromDecls decls = AnonUsageAnalysis{
 -- | Resolve conflicts
 --
 -- Anonymous declarations can in rare circumstances have multiple use sites.
---
--- TODO: <https://github.com/well-typed/hs-bindgen/issues/1430>
--- There is (at least) one other example we should take care of.
 resolveConflicts :: AnonId -> Context -> Context -> Context
 resolveConflicts anonId new old =
     case (old, new) of

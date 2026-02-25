@@ -53,8 +53,6 @@ import Data.Tree qualified as Tree
 
 {-------------------------------------------------------------------------------
   Type
-
-  TODO: We should make sure that DynGraph is (spine) strict
 -------------------------------------------------------------------------------}
 
 -- | Directed graph that supports dynamic insertion
@@ -66,9 +64,9 @@ import Data.Tree qualified as Tree
 -- NOTE: We use @(Int, l)@ rather than @(l, Int)@ for the 'edges', so that
 -- we preserve vertex-based ordering as much as possible.
 data DynGraph l a = DynGraph {
-      vtxMap :: Map a Int
-    , idxMap :: IntMap a
-    , edges  :: IntMap (Set (Int, l))
+      vtxMap :: !(Map a Int)
+    , idxMap :: !(IntMap a)
+    , edges  :: !(IntMap (Set (Int, l)))
     }
 
 deriving instance (Show a, Show l) => Show (DynGraph l a)

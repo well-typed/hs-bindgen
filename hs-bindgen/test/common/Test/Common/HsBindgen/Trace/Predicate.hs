@@ -19,7 +19,7 @@ module Test.Common.HsBindgen.Trace.Predicate (
   , withTraceConfigPredicate
   ) where
 
-import Control.Exception (Exception, finally, throwIO)
+import Control.Exception (Exception, throwIO)
 import Control.Monad.Except (Except, runExcept, throwError)
 import Data.Foldable qualified as Foldable
 import Data.IORef (modifyIORef', newIORef, readIORef)
@@ -158,8 +158,8 @@ withTracePredicate ::
   -> (Tracer a -> IO b)
   -> IO b
 withTracePredicate report predicate action =
-  withTraceConfigPredicate report predicate $ \traceConfig ->
-    withTracerUnsafe traceConfig (\t _ -> action t)
+    withTraceConfigPredicate report predicate $ \traceConfig ->
+      withTracerUnsafe traceConfig (\t _ -> action t)
 
 -- | Run an action with a tracer configuration that collects all trace messages.
 --
@@ -171,23 +171,29 @@ withTraceConfigPredicate ::
   -> (TracerConfig l a -> IO b)
   -> IO b
 withTraceConfigPredicate report (TracePredicate predicate) action = do
-  tracesRef <- newIORef []
-  let writer :: Report a
-      writer _ trace _ = modifyIORef' tracesRef ((:) trace)
-      tracerConfig :: TracerConfig l a
-      tracerConfig = def {
-          verbosity    = Verbosity Info
-        , outputConfig = OutputConfigCustom OutputCustom{
-              report    = writer
-            , ansiColor = DisableAnsiColor
-            }
-        }
-  (action tracerConfig) `finally` do
-      traces <- readIORef tracesRef
-      mapM_ (report . show . prettyForTrace) traces
-      case runExcept (predicate traces) of
-        Left  e -> throwIO e
-        Right _ -> pure ()
+    tracesRef <- newIORef []
+
+    let writer :: Report a
+        writer _ trace _ = modifyIORef' tracesRef ((:) trace)
+
+        tracerConfig :: TracerConfig l a
+        tracerConfig = def {
+            verbosity    = Verbosity Info
+          , outputConfig = OutputConfigCustom OutputCustom{
+                report    = writer
+              , ansiColor = DisableAnsiColor
+              }
+          }
+
+        checkTraces :: IO ()
+        checkTraces = do
+          traces <- readIORef tracesRef
+          mapM_ (report . show . prettyForTrace) traces
+          case runExcept (predicate traces) of
+            Left  e -> throwIO e
+            Right _ -> pure ()
+
+    action tracerConfig <* checkTraces
 
 {-------------------------------------------------------------------------------
   Trace exception
@@ -276,8 +282,6 @@ instance (IsTrace l a, Show a, RenderLabel b)
 
 {-------------------------------------------------------------------------------
   Auxiliary to 'GotTraceLabelled': render labels
-
-  TODO: Could we just use 'PrettyForTrace' here?
 -------------------------------------------------------------------------------}
 
 class RenderLabel b where
