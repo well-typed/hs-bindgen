@@ -9,9 +9,9 @@
 
 ### New features
 
-* `internal frontend` command takes a pass name as a sub-command
-   (e.g. `internal frontend select`) to dump the result of a specific
-   frontend pass.
+* `internal frontend` command takes a `--pass` option
+  (e.g. `internal frontend --pass select`) to dump the result of a specific
+  frontend pass. Defaults to `adjust-types` (the final pass) when omitted.
 * Add `--post-qualified-imports` flag to generate post-qualified imports
   (`import Data.Proxy qualified`) instead of pre-qualified imports. This adds
   the `ImportQualifiedPost` language extension to generated modules.

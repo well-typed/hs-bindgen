@@ -5,7 +5,12 @@
 module HsBindgen.FrontendDump (
     FrontendDump(..)
   , frontendDumpName
+    -- * Existential wrapper
+  , SomeFrontendDump(..)
+  , parseFrontendDumpName
   ) where
+
+import Data.List (intercalate)
 
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
@@ -60,3 +65,37 @@ frontendDumpName = \case
   DumpMangleNames              -> "mangle-names"
   DumpSelect                   -> "select"
   DumpAdjustTypes              -> "adjust-types"
+
+{-------------------------------------------------------------------------------
+  Existential wrapper
+-------------------------------------------------------------------------------}
+
+-- | Existential wrapper pairing 'FrontendDump' with a 'Show' constraint.
+data SomeFrontendDump where
+  SomeFrontendDump :: Show result => FrontendDump result -> SomeFrontendDump
+
+-- | Parse a frontend dump name (inverse of 'frontendDumpName').
+--
+-- Returns 'Left' with an error message listing valid names on failure.
+parseFrontendDumpName :: String -> Either String SomeFrontendDump
+parseFrontendDumpName s = case lookup s knownPasses of
+    Just d  -> Right d
+    Nothing -> Left $
+      "unknown pass " ++ show s ++ "; valid passes: "
+        ++ intercalate ", " (map fst knownPasses)
+  where
+    knownPasses :: [(String, SomeFrontendDump)]
+    knownPasses = [
+          mk DumpParse
+        , mk DumpSimplifyAST
+        , mk DumpAssignAnonIds
+        , mk DumpConstructTranslationUnit
+        , mk DumpHandleMacros
+        , mk DumpResolveBindingSpecs
+        , mk DumpMangleNames
+        , mk DumpSelect
+        , mk DumpAdjustTypes
+        ]
+
+    mk :: Show result => FrontendDump result -> (String, SomeFrontendDump)
+    mk d = (frontendDumpName d, SomeFrontendDump d)
