@@ -36,7 +36,8 @@ info = progDesc "Dump the result of a frontend pass"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config              :: Config
+      dump                :: SomeFrontendDump
+    , config              :: Config
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
     , inputs              :: [UncheckedHashIncludeArg]
@@ -46,34 +47,45 @@ data Opts = Opts {
 parseOpts :: Parser Opts
 parseOpts =
     Opts
-      <$> parseConfig
+      <$> parseDump
+      <*> parseConfig
       <*> parseUniqueId
       <*> parseBaseModuleName
       <*> parseInputs
       <*> parseFileOverwritePolicy
 
+parseDump :: Parser SomeFrontendDump
+parseDump = option (eitherReader parseFrontendDumpName) $ mconcat [
+      long "pass"
+    , value (SomeFrontendDump DumpAdjustTypes)
+    , showDefaultWith (\(SomeFrontendDump d) -> frontendDumpName d)
+    , help "Frontend pass to dump"
+    , metavar "PASS"
+    ]
+
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
-exec :: Show result => GlobalOpts -> Opts -> FrontendDump result -> IO ()
-exec global opts pass =
-    hsBindgen
-      global.unsafe
-      global.safe
-      bindgenConfig
-      opts.inputs
-      artefact
-  where
-    artefact :: Artefact ()
-    artefact = do
-        result <- RunFrontendDump pass
-        Lift $ delay . WriteToStdOut . StringContent $ show result
+exec :: GlobalOpts -> Opts -> IO ()
+exec global opts = case opts.dump of
+    SomeFrontendDump pass ->
+      hsBindgen
+        global.unsafe
+        global.safe
+        bindgenConfig
+        opts.inputs
+        artefact
+      where
+        artefact :: Artefact ()
+        artefact = do
+            result <- RunFrontendDump pass
+            Lift $ delay . WriteToStdOut . StringContent $ show result
 
-    bindgenConfig :: BindgenConfig
-    bindgenConfig =
-        toBindgenConfig
-          opts.config
-          opts.uniqueId
-          opts.baseModuleName
-          def
+        bindgenConfig :: BindgenConfig
+        bindgenConfig =
+            toBindgenConfig
+              opts.config
+              opts.uniqueId
+              opts.baseModuleName
+              def

@@ -27,8 +27,9 @@
   are module-qualified (e.g. `Example.myFunc`) to avoid ambiguity with
   Prelude names.
 * The command line client has a new `internal frontend` sub-command. It takes a
-  frontend pass name (e.g. `internal frontend select`), dumping the result of
-  the provided frontend pass.
+  `--pass` option (e.g. `internal frontend --pass select`), dumping the result
+  of the provided frontend pass. Defaults to `adjust-types` (the final pass)
+  when omitted.
 * Add `--post-qualified-imports` flag to generate post-qualified imports
   (`import Data.Proxy qualified`) instead of pre-qualified imports. This adds
   the `ImportQualifiedPost` language extension to generated modules.

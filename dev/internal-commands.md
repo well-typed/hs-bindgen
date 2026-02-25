@@ -9,15 +9,16 @@ Dumps the result of a single frontend pass to stdout (via `Show`).
 ### Usage
 
 ```bash
-hs-bindgen-cli internal frontend <PASS> [OPTIONS] HEADER...
+hs-bindgen-cli internal frontend [--pass PASS] [OPTIONS] HEADER...
 ```
 
-Accepts the same options as `preprocess`.
+Accepts the same options as `preprocess`. The `--pass` option selects which
+frontend pass to dump (defaults to `adjust-types`, the final pass).
 
 ### Available passes
 
-| # | Subcommand | Description |
-|---|------------|-------------|
+| # | `--pass` value | Description |
+|---|----------------|-------------|
 | 1 | `parse` | Traverse libclang AST into Haskell C AST |
 | 2 | `simplify-ast` | Convert anonymous enums to pattern synonyms |
 | 3 | `assign-anon-ids` | Assign names to anonymous declarations |
@@ -35,21 +36,21 @@ constraints.
 ### Examples
 
 ```bash
-# After final pass
-cabal run hs-bindgen-cli -- internal frontend adjust-types myheader.h
+# After final pass (default)
+cabal run hs-bindgen-cli -- internal frontend myheader.h
 
 # After parse only
-cabal run hs-bindgen-cli -- internal frontend parse myheader.h
+cabal run hs-bindgen-cli -- internal frontend --pass parse myheader.h
 
 # With verbose tracing
-cabal run hs-bindgen-cli -- -v3 internal frontend select myheader.h
+cabal run hs-bindgen-cli -- -v3 internal frontend --pass select myheader.h
 
 # Restrict to main header
-cabal run hs-bindgen-cli -- internal frontend adjust-types \
+cabal run hs-bindgen-cli -- internal frontend --pass adjust-types \
   --parse-from-main-headers /usr/include/time.h
 
 # With an external binding spec
-cabal run hs-bindgen-cli -- internal frontend resolve-binding-specs \
+cabal run hs-bindgen-cli -- internal frontend --pass resolve-binding-specs \
   --external-binding-spec spec.yaml myheader.h
 ```
 
