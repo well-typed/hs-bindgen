@@ -223,10 +223,9 @@ addFunctionParameterComment mbName fp =
 
 -- | Convert Clang block content to Haddock block content
 --
---
--- TODO: We should make a bigger effort to detect references to identifiers,
--- URLs, paths, so that we can return valid Haddock syntax for those (See
--- issue #947):
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/947>
+-- We should make a bigger effort to detect references to identifiers,
+-- URLs, paths, so that we can return valid Haddock syntax for those:
 --
 -- - 'identifier' syntax
 -- - "Module" syntax
@@ -334,8 +333,9 @@ convertBlockContent = \case
   -- Here we have access to param information which can be useful to create
   -- high level bindings.
   --
-  -- TODO: Take advantage of these annotations to create high-level
-  -- binding (See issue #113)
+  -- TODO <https://github.com/well-typed/hs-bindgen/issues/113>
+  -- We should take advantage of these annotations to create high-level
+  -- bindings.
   CDoc.ParamCommand{..} ->
     let direction = case paramCommandDirection of
           Nothing                                     -> HsDoc.TextContent ""
@@ -394,7 +394,7 @@ convertInlineContent = \case
 
   -- HTML is not currently supported
   --
-  -- TODO: See issue #948
+  -- TODO <https://github.com/well-typed/hs-bindgen/issues/948>
   CDoc.HtmlStartTag{} -> []
   CDoc.HtmlEndTag{}   -> []
 
@@ -430,9 +430,9 @@ extractTextLines = filter (not . Text.null)
 -- This limitation is due to the how clang parses the comments so we can only
 -- do a best effort in trying to detect these lists.
 --
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/949>
 -- Another known limitation is nested lists, which in principle we can detect
--- since we have information about whitespaces and indentation. TODO: See issue
--- #949.
+-- since we have information about whitespaces and indentation.
 --
 formatParagraphContent ::
      [CDoc.CommentInlineContent (C.CommentRef Final)]

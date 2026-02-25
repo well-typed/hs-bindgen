@@ -315,9 +315,8 @@ runFrontend tracer config boot = do
 
     -- Squashed types
     --
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1549: `getSquashed`
-    -- should probably be changed or removed (or at least not used when
-    -- generating binding specifications).
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
+    -- When we properly record aliases, we may not need this anymore.
     frontendSquashedTypes <- cache "frontendSquashedTypes" $ do
       decls <- frontendCDecls
       let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls

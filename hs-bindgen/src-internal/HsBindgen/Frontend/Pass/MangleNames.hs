@@ -188,8 +188,8 @@ nameForDecl td fc specifiedNames decl =
         -- Binding spec specified a name for this declaration.
         -- In this case, this overrides any naming decisions we might make here.
         --
-        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1436> When
-        -- squashing becomes configurable, we need to update the logic for
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1436>
+        -- When squashing becomes configurable, we need to update the logic for
         -- `isSquashed` here.
         let isSquashed = case Map.lookup declId td.map of
               Just TypedefAnalysis.Squash{} -> True
@@ -582,7 +582,8 @@ instance MangleInDecl C.UnionField where
       fieldType    <- mangle field.typ
       fieldComment <- mapM mangle field.info.comment
       accessorName <- mangleAccessorName info field.info.name
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1752.
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1752>
+      -- We lost the fact that we constructed a name in a specific namespace.
       let getterName, setterName :: (Hs.Name Hs.NsVar)
           getterName = Hs.unsafeHsIdHsName $ "get_" <> accessorName
           setterName = Hs.unsafeHsIdHsName $ "set_" <> accessorName

@@ -1,6 +1,10 @@
 {-# LANGUAGE MagicHash #-}
 
 -- | Simplified HS abstract syntax tree
+--
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1761>
+-- We should mark this module as intended for qualified import and avoid
+-- unnecessarily prefixes.
 module HsBindgen.Backend.SHs.AST (
     ClosedExpr
   , Plus2(..)
@@ -12,7 +16,6 @@ module HsBindgen.Backend.SHs.AST (
   , infixOpGlobal
   , SAlt(..)
   , PatExpr(..)
-    -- TODO: drop S prefix?
   , SDecl(..)
   , TypeSynonym(..)
   , Pragma(..)

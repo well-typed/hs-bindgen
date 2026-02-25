@@ -512,7 +512,6 @@ hasUnsupportedType = aux . getCanonicalType
   Classification: simple classifiers
 -------------------------------------------------------------------------------}
 
--- TODO: Should this be replaced by @isCanonicalTypeVoid@?
 isVoid :: Type p -> Bool
 isVoid TypeVoid = True
 isVoid _        = False

@@ -161,7 +161,8 @@ cnameToHint (DSL.Name t) = fromString (T.unpack t)
 
 -- | Construct Haskell name for macro
 --
--- TODO: This should be done as part of the NameMangler frontend pass.
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
+-- This should be done as part of the NameMangler frontend pass.
 macroName :: DSL.Name -> Hs.Name Hs.NsVar
 macroName (DSL.Name cName) =
     case FixCandidate.fixCandidate fix cName of
@@ -318,8 +319,6 @@ mfun = \case
 
 {-------------------------------------------------------------------------------
   Auxiliary: AST construction
-
-  TODO: Should this live somewhere more general?
 -------------------------------------------------------------------------------}
 
 -- | Construct n-ary application

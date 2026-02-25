@@ -20,7 +20,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct config@
 
-    __defined at:__ @globals\/globals.h 12:8@
+    __defined at:__ @globals\/globals.h 13:8@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -28,14 +28,14 @@ data Config = Config
   { config_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @globals\/globals.h 13:7@
+         __defined at:__ @globals\/globals.h 14:7@
 
          __exported by:__ @globals\/globals.h@
     -}
   , config_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @globals\/globals.h 14:7@
+         __defined at:__ @globals\/globals.h 15:7@
 
          __exported by:__ @globals\/globals.h@
     -}
@@ -92,7 +92,7 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct inline_struct@
 
-    __defined at:__ @globals\/globals.h 19:15@
+    __defined at:__ @globals\/globals.h 20:15@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -100,14 +100,14 @@ data Inline_struct = Inline_struct
   { inline_struct_x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @globals\/globals.h 19:35@
+         __defined at:__ @globals\/globals.h 20:35@
 
          __exported by:__ @globals\/globals.h@
     -}
   , inline_struct_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @globals\/globals.h 19:42@
+         __defined at:__ @globals\/globals.h 20:42@
 
          __exported by:__ @globals\/globals.h@
     -}
@@ -168,7 +168,7 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct version_t@
 
-    __defined at:__ @globals\/globals.h 406:9@
+    __defined at:__ @globals\/globals.h 407:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -176,21 +176,21 @@ data Version_t = Version_t
   { version_t_major :: HsBindgen.Runtime.LibC.Word8
     {- ^ __C declaration:__ @major@
 
-         __defined at:__ @globals\/globals.h 408:12@
+         __defined at:__ @globals\/globals.h 409:12@
 
          __exported by:__ @globals\/globals.h@
     -}
   , version_t_minor :: HsBindgen.Runtime.LibC.Word16
     {- ^ __C declaration:__ @minor@
 
-         __defined at:__ @globals\/globals.h 409:12@
+         __defined at:__ @globals\/globals.h 410:12@
 
          __exported by:__ @globals\/globals.h@
     -}
   , version_t_patch :: HsBindgen.Runtime.LibC.Word8
     {- ^ __C declaration:__ @patch@
 
-         __defined at:__ @globals\/globals.h 410:12@
+         __defined at:__ @globals\/globals.h 411:12@
 
          __exported by:__ @globals\/globals.h@
     -}
@@ -266,7 +266,7 @@ instance ( ((~) ty) HsBindgen.Runtime.LibC.Word8
 
 {-| __C declaration:__ @struct struct1_t@
 
-    __defined at:__ @globals\/globals.h 413:9@
+    __defined at:__ @globals\/globals.h 414:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -274,21 +274,21 @@ data Struct1_t = Struct1_t
   { struct1_t_x :: HsBindgen.Runtime.LibC.Word16
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @globals\/globals.h 415:13@
+         __defined at:__ @globals\/globals.h 416:13@
 
          __exported by:__ @globals\/globals.h@
     -}
   , struct1_t_y :: RIP.CBool
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @globals\/globals.h 416:13@
+         __defined at:__ @globals\/globals.h 417:13@
 
          __exported by:__ @globals\/globals.h@
     -}
   , struct1_t_version :: Version_t
     {- ^ __C declaration:__ @version@
 
-         __defined at:__ @globals\/globals.h 417:13@
+         __defined at:__ @globals\/globals.h 418:13@
 
          __exported by:__ @globals\/globals.h@
     -}
@@ -363,7 +363,7 @@ instance ( ((~) ty) Version_t
 
 {-| __C declaration:__ @struct struct2_t@
 
-    __defined at:__ @globals\/globals.h 420:9@
+    __defined at:__ @globals\/globals.h 421:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -371,7 +371,7 @@ data Struct2_t = Struct2_t
   { struct2_t_field1 :: Struct1_t
     {- ^ __C declaration:__ @field1@
 
-         __defined at:__ @globals\/globals.h 422:13@
+         __defined at:__ @globals\/globals.h 423:13@
 
          __exported by:__ @globals\/globals.h@
     -}

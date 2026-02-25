@@ -559,7 +559,9 @@ translateHasFieldInstance inst mbComment = Instance{
     parentPtr = tBindgenGlobal Foreign_Ptr_type `TApp` parent
     field     = translateType inst.fieldType
     fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
-    -- TODO: this is not actually a free type variable. See issue #1287.
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
+    -- This is not actually a free type variable.
     tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------

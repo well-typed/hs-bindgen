@@ -257,7 +257,8 @@ toFFI sizeofs ty =
       fmap fromFFIType
     $ toFFIType sizeofs ty
 
--- TODO: after issue #1599 is resolved, we should reconsider whether we want to
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1599>
+-- After issue #1599 is resolved, we should reconsider whether we want to
 -- use @HsType@ as an input here, or @C.Type Final@, or something else.
 toFFIType :: C.Sizeofs -> HsType -> Maybe FFI.FFIType
 toFFIType sizeofs = go

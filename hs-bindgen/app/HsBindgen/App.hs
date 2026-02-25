@@ -265,10 +265,9 @@ parseClangArgsConfig = do
       , argsAfter        = argsAfter
       }
 
--- TODO: Perhaps we should mimick Clang's @-f@ parameter?
 parseEnableBlocks :: Parser Bool
 parseEnableBlocks = switch $ mconcat [
-      long "enable-blocks"
+      long "fblocks"
     , help "Enable the 'blocks' language feature"
     ]
 

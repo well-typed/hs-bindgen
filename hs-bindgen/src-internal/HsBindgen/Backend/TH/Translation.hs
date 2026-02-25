@@ -222,9 +222,10 @@ mkDecl = \case
               , map (\(x, f) -> simpleDecl x.name f) inst.decs
               ])
 
-        -- TODO: Add haddock comment to the class head, see issue #976. We also
-        -- don't put the comments on any of the class members (type synonyms /
-        -- functions) because that leads to similar bugs as described in #976.
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/976>
+        -- We should add haddock comment to the class head, but we cannot due to
+        -- a GHC bug. We also don't put the comments on any of the class members
+        -- (type synonyms / functions) because that leads to similar bugs.
         --
         -- putDocTypeM _type_ inst.comment
         pure [instanceDec]

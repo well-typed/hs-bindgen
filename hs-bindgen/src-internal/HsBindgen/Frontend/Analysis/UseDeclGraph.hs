@@ -114,8 +114,6 @@ fromSortedDecls decls = UseDeclGraph{
 -- (if one exists).
 toDecls :: DeclIndex -> UseDeclGraph -> [Decl]
 toDecls index useDeclGraph =
-    -- TODO: Should this just be DynGraph.topSort?
-    -- Not sure why that has an additional reverse.
     -- NOTE: There might be dependencies in 'useDeclGraph' on declarations
     -- without a corresponding entry in 'useDeclIndex': for example, this can
     -- happen when we areusing external binding specifications.

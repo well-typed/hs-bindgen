@@ -56,11 +56,11 @@ instance IsPass ResolveBindingSpecs where
 -- name mangling, we leave the /full/ binding specification in the AST, because
 -- we need it when we  /generate/ the output binding specification.
 --
--- TODO: This is not quite right: we should distinguish between binding
--- specifications for different classes of things (declarations of types,
--- functions, etc.). When we do, we should not associate them with the top-level
--- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
--- have consequences for "HsBindgen.Language.Haskell.Origin" also.
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1770>
+-- If we have binding specs for different kinds of things (types, functions, ..)
+-- we may want to have different types for those kinds of specs, and then
+-- associate the appropriate type with specific 'DeclKind's (rather than this
+-- "catch all" type with the top-level 'Decl').
 data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
       cSpec  :: Maybe BindingSpec.CTypeSpec
     , hsSpec :: Maybe BindingSpec.HsTypeSpec

@@ -52,8 +52,9 @@ data CheckedMacroType p = CheckedMacroType{
 
 -- | Checked expression (function) macro
 --
--- TODO: This is wrong, it does not allow name mangling to do its job. To fix
--- that we'd have to change 'CExpr.DSL.MExpr'.
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1269>
+-- This is wrong, as it does not allow name mangling to do its job. To fix that
+-- we'd have to change 'CExpr.DSL.MExpr'.
 data CheckedMacroExpr = CheckedMacroExpr{
       args :: [CExpr.DSL.Name]
     , body :: CExpr.DSL.MExpr CExpr.DSL.Ps
