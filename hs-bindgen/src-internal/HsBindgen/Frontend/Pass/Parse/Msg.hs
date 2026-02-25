@@ -6,7 +6,7 @@ module HsBindgen.Frontend.Pass.Parse.Msg (
 
 import Control.Exception
 import Foreign.C
-import Text.SimplePrettyPrint (CtxDoc, (><))
+import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
@@ -231,18 +231,18 @@ instance PrettyForTrace ParseTypeException where
 
 instance PrettyForTrace DelayedParseMsg where
   prettyForTrace = \case
-      ParseUnsupportedType err -> noBindingsGenerated $
+      ParseUnsupportedType err ->
         prettyForTrace err
-      ParseUnsupportedImplicitFields -> noBindingsGenerated $
-        "unsupported implicit fields"
-      ParseUnexpectedAnonInSignature -> noBindingsGenerated $
-        "unexpected anonymous declaration in function signature"
-      ParseUnexpectedAnonInExtern -> noBindingsGenerated $
-        "unexpected anonymous declaration in global variable"
-      ParseUnsupportedTLS -> noBindingsGenerated $
-        "unsupported thread-local variable"
-      ParseUnknownStorageClass storage -> noBindingsGenerated $ PP.hsep [
-          "unsupported storage class"
+      ParseUnsupportedImplicitFields ->
+        "Unsupported implicit fields"
+      ParseUnexpectedAnonInSignature ->
+        "Unexpected anonymous declaration in function signature"
+      ParseUnexpectedAnonInExtern ->
+        "Unexpected anonymous declaration in global variable"
+      ParseUnsupportedTLS ->
+        "Unsupported thread-local variable"
+      ParseUnknownStorageClass storage -> PP.hsep [
+          "Unsupported storage class"
         , PP.show storage
         ]
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
@@ -260,15 +260,12 @@ instance PrettyForTrace DelayedParseMsg where
           "Bindings may result in linker errors"
         , "because the symbol has non-public visibility"
         ]
-      ParseFunctionOfTypeTypedef -> noBindingsGenerated $
-        "unsupported function declared with a typedef type"
-      ParseUnusableAnonDecl anonId -> noBindingsGenerated $ PP.hsep [
-          "unusable anonymous declaration "
+      ParseFunctionOfTypeTypedef ->
+        "Unsupported function declared with a typedef type"
+      ParseUnusableAnonDecl anonId -> PP.hsep [
+          "Unusable anonymous declaration "
         , prettyForTrace anonId
         ]
-    where
-      noBindingsGenerated :: CtxDoc -> CtxDoc
-      noBindingsGenerated reason = PP.hsep ["No bindings generated:", reason]
 
 {-------------------------------------------------------------------------------
   Severity

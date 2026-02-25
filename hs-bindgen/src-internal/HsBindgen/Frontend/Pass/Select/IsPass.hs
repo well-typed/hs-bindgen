@@ -186,7 +186,7 @@ instance PrettyForTrace SelectMsg where
       SelectParseFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectConflict ->
-        couldNotSelect $ "conflicting declarations"
+        couldNotSelect $ "Conflicting declarations"
       SelectMangleNamesFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectMangleNamesSquashed x -> PP.hsep [
