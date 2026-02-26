@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 import Control.Monad
 import Control.Monad.Catch
 import Control.Monad.Error.Class
-import Data.Data (Typeable)
 import GHC.Stack
 
 import Clang.Enum.Simple
@@ -15,6 +14,7 @@ import HsBindgen.Frontend.AST.Decl qualified as C ()
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass (NoAnn (..))
+import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
@@ -28,17 +28,14 @@ import HsBindgen.Language.C qualified as C
   Top-level
 -------------------------------------------------------------------------------}
 
-fromCXType :: forall ctx m.
-  (MonadIO m, Show ctx, Typeable ctx, HasCallStack)
-  => ctx -> CXType -> m (C.Type Parse)
-fromCXType context =
-    liftIO . handle addContextHandler . ParseType.run . cxtype
+fromCXType :: forall m.
+  (MonadIO m, HasCallStack)
+  => ParseCtx -> CXType -> m (C.Type Parse)
+fromCXType ctx =
+    liftIO . handle h . ParseType.run . cxtype
   where
-    addContextHandler :: SomeException -> IO a
-    addContextHandler e
-      | Just e' <- (fromException @ParseTypeException e) =
-          throwIO (ParseType.ParseTypeExceptionInContext context e')
-      | otherwise = throwIO e
+    h :: SomeException -> IO a
+    h = addCtxHandler (Proxy :: Proxy ParseTypeException) ctx.outer
 
 {-------------------------------------------------------------------------------
   Dispatch

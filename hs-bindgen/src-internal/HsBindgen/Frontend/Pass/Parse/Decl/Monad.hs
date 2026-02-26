@@ -43,9 +43,10 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.ProcessIncludes (GetMainHeadersAndInclude)
+import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -95,9 +96,13 @@ getTranslationUnit = wrapEff $ \support -> return support.env.unit
 
 evalGetMainHeadersAndInclude ::
      SourcePath
-  -> ParseDecl (NonEmpty HashIncludeArg, IncludeGraph.Include)
+  -> ParseDecl
+      (Either ParseDeclException
+        (NonEmpty HashIncludeArg, IncludeGraph.Include))
 evalGetMainHeadersAndInclude path = wrapEff $ \support ->
-    either panicIO return $ support.env.getMainHeadersAndInclude path
+    pure $
+      first (\err -> ParseNoMainHeadersException err path) $
+      support.env.getMainHeadersAndInclude path
 
 evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
 evalPredicate info = wrapEff $ \support -> pure $

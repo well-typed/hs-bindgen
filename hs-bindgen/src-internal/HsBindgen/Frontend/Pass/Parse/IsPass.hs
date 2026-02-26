@@ -70,15 +70,25 @@ data ReparseInfo =
   Trace messages
 -------------------------------------------------------------------------------}
 
+
 -- | We always need to parse declarations required for scoping
-data RequiredForScoping = RequiredForScoping | NotRequiredForScoping
-  deriving stock (Show, Eq)
+data RequiredForScoping =
+    RequiredForScoping
+  | NotRequiredForScoping
+  -- TODO-D: UnknownRequiredForScoping may not be required.
+  | UnknownRequiredForScoping
+  deriving stock (Show, Eq, Ord)
 
 -- | Parse messages that we emit immediately
 --
--- For example, if we can not attach messages to declarations, we emit them
--- directly while parsing.
+-- Reason for reporting immediately:
+--
+-- - The user may not care (they might not even select the declaration), but we
+--   care (i.e., a bug or an unsupported feature)
+--
+-- - The declarations may affect other declarations
 data ImmediateParseMsg =
+    -- TODO-D: Move to ParseMsg.
     -- | Declaration availability can not be determined.
     --
     -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
