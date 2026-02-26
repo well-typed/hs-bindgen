@@ -24,6 +24,10 @@ module Example.Global
     , Example.Global.streamBinary
     , Example.Global.streamBinary_len
     , Example.Global.some_global_struct
+    , Example.Global.anonPoint
+    , Example.Global.anonPair
+    , Example.Global.anonEnum
+    , Example.Global.anonEnumCoords
     )
   where
 
@@ -154,6 +158,30 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "struct2_t *hs_bindgen_fe50ca9a4fea641c (void)"
   , "{"
   , "  return &some_global_struct;"
+  , "}"
+  , "/* test_globalsglobals_Example_get_anonPoint */"
+  , "__attribute__ ((const))"
+  , "void *hs_bindgen_6a74c096c69eaf13 (void)"
+  , "{"
+  , "  return &anonPoint;"
+  , "}"
+  , "/* test_globalsglobals_Example_get_anonPair */"
+  , "__attribute__ ((const))"
+  , "void *hs_bindgen_2ee54a93dbbed801 (void)"
+  , "{"
+  , "  return &anonPair;"
+  , "}"
+  , "/* test_globalsglobals_Example_get_anonEnum */"
+  , "__attribute__ ((const))"
+  , "unsigned int *hs_bindgen_1c28cee33967e767 (void)"
+  , "{"
+  , "  return &anonEnum;"
+  , "}"
+  , "/* test_globalsglobals_Example_get_anonEnumCoords */"
+  , "__attribute__ ((const))"
+  , "unsigned int *hs_bindgen_0e0ec9b1d935fbb6 (void)"
+  , "{"
+  , "  return &anonEnumCoords;"
   , "}"
   ]))
 
@@ -572,3 +600,83 @@ hs_bindgen_fe50ca9a4fea641c =
 some_global_struct :: RIP.Ptr Struct2_t
 some_global_struct =
   RIP.unsafePerformIO hs_bindgen_fe50ca9a4fea641c
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPoint@
+foreign import ccall unsafe "hs_bindgen_6a74c096c69eaf13" hs_bindgen_6a74c096c69eaf13_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPoint@
+hs_bindgen_6a74c096c69eaf13 :: IO (RIP.Ptr AnonPoint)
+hs_bindgen_6a74c096c69eaf13 =
+  RIP.fromFFIType hs_bindgen_6a74c096c69eaf13_base
+
+{-# NOINLINE anonPoint #-}
+{-| __C declaration:__ @anonPoint@
+
+    __defined at:__ @globals\/globals.h 439:26@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonPoint :: RIP.Ptr AnonPoint
+anonPoint =
+  RIP.unsafePerformIO hs_bindgen_6a74c096c69eaf13
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPair@
+foreign import ccall unsafe "hs_bindgen_2ee54a93dbbed801" hs_bindgen_2ee54a93dbbed801_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonPair@
+hs_bindgen_2ee54a93dbbed801 :: IO (RIP.Ptr AnonPair)
+hs_bindgen_2ee54a93dbbed801 =
+  RIP.fromFFIType hs_bindgen_2ee54a93dbbed801_base
+
+{-# NOINLINE anonPair #-}
+{-| __C declaration:__ @anonPair@
+
+    __defined at:__ @globals\/globals.h 442:26@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonPair :: RIP.Ptr AnonPair
+anonPair =
+  RIP.unsafePerformIO hs_bindgen_2ee54a93dbbed801
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+foreign import ccall unsafe "hs_bindgen_1c28cee33967e767" hs_bindgen_1c28cee33967e767_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnum@
+hs_bindgen_1c28cee33967e767 :: IO (RIP.Ptr AnonEnum)
+hs_bindgen_1c28cee33967e767 =
+  RIP.fromFFIType hs_bindgen_1c28cee33967e767_base
+
+{-# NOINLINE anonEnum #-}
+{-| __C declaration:__ @anonEnum@
+
+    __defined at:__ @globals\/globals.h 445:31@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnum :: RIP.Ptr AnonEnum
+anonEnum =
+  RIP.unsafePerformIO hs_bindgen_1c28cee33967e767
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+foreign import ccall unsafe "hs_bindgen_0e0ec9b1d935fbb6" hs_bindgen_0e0ec9b1d935fbb6_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_anonEnumCoords@
+hs_bindgen_0e0ec9b1d935fbb6 :: IO (RIP.Ptr AnonEnumCoords)
+hs_bindgen_0e0ec9b1d935fbb6 =
+  RIP.fromFFIType hs_bindgen_0e0ec9b1d935fbb6_base
+
+{-# NOINLINE anonEnumCoords #-}
+{-| __C declaration:__ @anonEnumCoords@
+
+    __defined at:__ @globals\/globals.h 448:33@
+
+    __exported by:__ @globals\/globals.h@
+-}
+anonEnumCoords :: RIP.Ptr AnonEnumCoords
+anonEnumCoords =
+  RIP.unsafePerformIO hs_bindgen_0e0ec9b1d935fbb6
