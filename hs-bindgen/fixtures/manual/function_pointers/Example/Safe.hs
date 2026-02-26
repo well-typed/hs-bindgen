@@ -2,7 +2,16 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.square
+    , Example.Safe.plus
+    , Example.Safe.apply1
+    , Example.Safe.apply2
+    , Example.Safe.apply1_pointer_arg
+    , Example.Safe.apply1_nopointer_arg
+    , Example.Safe.apply1_nopointer_res
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -11,7 +11,32 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Prim_HsPrimCPtrdiff(..)
+    , Example.Prim_HsPrimInt8(..)
+    , Example.Prim_HsPrimInt16(..)
+    , Example.Prim_HsPrimInt32(..)
+    , Example.Prim_HsPrimInt64(..)
+    , Example.Prim_HsPrimWord8(..)
+    , Example.Prim_HsPrimWord16(..)
+    , Example.Prim_HsPrimWord32(..)
+    , Example.Prim_HsPrimWord64(..)
+    , Example.Prim_HsPrimCChar(..)
+    , Example.Prim_HsPrimCSChar(..)
+    , Example.Prim_HsPrimCUChar(..)
+    , Example.Prim_HsPrimCShort(..)
+    , Example.Prim_HsPrimCUShort(..)
+    , Example.Prim_HsPrimCInt(..)
+    , Example.Prim_HsPrimCUInt(..)
+    , Example.Prim_HsPrimCLong(..)
+    , Example.Prim_HsPrimCULong(..)
+    , Example.Prim_HsPrimCLLong(..)
+    , Example.Prim_HsPrimCULLong(..)
+    , Example.Prim_HsPrimCBool(..)
+    , Example.Prim_HsPrimCFloat(..)
+    , Example.Prim_HsPrimCDouble(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

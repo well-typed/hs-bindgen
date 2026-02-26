@@ -17,7 +17,39 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Point(..)
+    , Example.Size(..)
+    , Example.Rect(..)
+    , Example.E(..)
+    , pattern Example.X
+    , pattern Example.Y
+    , Example.Value(..)
+    , Example.U1(..)
+    , Example.get_u1_x
+    , Example.set_u1_x
+    , Example.get_u1_y
+    , Example.set_u1_y
+    , Example.U2_t(..)
+    , Example.get_u2_t_a
+    , Example.set_u2_t_a
+    , Example.get_u2_t_b
+    , Example.set_u2_t_b
+    , Example.U3(..)
+    , Example.get_u3_p
+    , Example.set_u3_p
+    , Example.get_u3_s
+    , Example.set_u3_s
+    , Example.U4(..)
+    , Example.get_u4_x
+    , Example.set_u4_x
+    , Example.get_u4_y
+    , Example.set_u4_y
+    , Example.Driver
+    , Example.RunDriver_Aux(..)
+    , Example.RunDriver(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField

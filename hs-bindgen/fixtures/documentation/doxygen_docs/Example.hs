@@ -17,7 +17,42 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.mAX_NAME_LENGTH
+    , Example.Size_type(..)
+    , Example.Forward_declared_struct
+    , Example.Forward_declared_union
+    , Example.Color_enum(..)
+    , pattern Example.COLOR_RED
+    , pattern Example.COLOR_GREEN
+    , pattern Example.COLOR_BLUE
+    , Example.Event_callback_t_Aux(..)
+    , Example.Event_callback_t(..)
+    , Example.Config_t(..)
+    , Example.Status_code_t(..)
+    , pattern Example.STATUS_OK
+    , pattern Example.STATUS_INVALID_PARAM
+    , pattern Example.STATUS_NO_MEMORY
+    , pattern Example.STATUS_TIMEOUT
+    , pattern Example.STATUS_ERROR
+    , Example.Data_union_t_as_parts(..)
+    , Example.Data_union_t(..)
+    , Example.get_data_union_t_as_int
+    , Example.set_data_union_t_as_int
+    , Example.get_data_union_t_as_float
+    , Example.set_data_union_t_as_float
+    , Example.get_data_union_t_as_bytes
+    , Example.set_data_union_t_as_bytes
+    , Example.get_data_union_t_as_parts
+    , Example.set_data_union_t_as_parts
+    , Example.Bitfield_t(..)
+    , Example.Processor_fn_t_Aux(..)
+    , Example.Processor_fn_t(..)
+    , Example.Filename_t(..)
+    , Example.Flexible_array_Aux(..)
+    , Example.Flexible_array
+    )
+  where
 
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.CEnum as CEnum

@@ -2,7 +2,21 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Global where
+module Example.Global
+    ( Example.Global.i
+    , Example.Global.s
+    , Example.Global.u
+    , Example.Global.e
+    , Example.Global.ti
+    , Example.Global.ts
+    , Example.Global.tu
+    , Example.Global.te
+    , Example.Global.tti
+    , Example.Global.tts
+    , Example.Global.ttu
+    , Example.Global.tte
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -105,8 +105,14 @@ library internal
     HsBindgen.Backend.Hs.Translation.ToFromFunPtr
     HsBindgen.Backend.Hs.Translation.Type
     HsBindgen.Backend.Hs.Translation.Union
-    HsBindgen.Backend.HsModule.CAPI
     HsBindgen.Backend.HsModule.Names
+    HsBindgen.Backend.HsModule.Pretty
+    HsBindgen.Backend.HsModule.Pretty.CAPI
+    HsBindgen.Backend.HsModule.Pretty.Comment
+    HsBindgen.Backend.HsModule.Pretty.Common
+    HsBindgen.Backend.HsModule.Pretty.Decl
+    HsBindgen.Backend.HsModule.Pretty.Expr
+    HsBindgen.Backend.HsModule.Pretty.Type
     HsBindgen.Backend.HsModule.Render
     HsBindgen.Backend.HsModule.Translation
     HsBindgen.Backend.Level
@@ -408,6 +414,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
     Test.HsBindgen.Unit.ClangArgs
+    Test.HsBindgen.Unit.Pretty
     Test.HsBindgen.Unit.Tracer
 
   -- Internal dependencies

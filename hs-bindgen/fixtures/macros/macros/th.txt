@@ -187,42 +187,42 @@ lONG_INT_TOKEN4 = 18446744073709550592 :: CULLong
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE1 :: (,) CInt CInt
+tUPLE1 :: (CInt, CInt)
 {-| __C declaration:__ @TUPLE1@
 
     __defined at:__ @macros\/macros.h 17:9@
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE1 = (,) (1 :: CInt) (2 :: CInt)
+tUPLE1 = (1 :: CInt, 2 :: CInt)
 {-| __C declaration:__ @TUPLE2@
 
     __defined at:__ @macros\/macros.h 18:9@
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE2 :: (,) CInt CInt
+tUPLE2 :: (CInt, CInt)
 {-| __C declaration:__ @TUPLE2@
 
     __defined at:__ @macros\/macros.h 18:9@
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE2 = (,) (3 :: CInt) (4 :: CInt)
+tUPLE2 = (3 :: CInt, 4 :: CInt)
 {-| __C declaration:__ @TUPLE3@
 
     __defined at:__ @macros\/macros.h 19:9@
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE3 :: (,) CInt CInt
+tUPLE3 :: (CInt, CInt)
 {-| __C declaration:__ @TUPLE3@
 
     __defined at:__ @macros\/macros.h 19:9@
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE3 = (,) (5 :: CInt) (6 :: CInt)
+tUPLE3 = (5 :: CInt, 6 :: CInt)
 {-| __C declaration:__ @FLT1_1@
 
     __defined at:__ @macros\/macros.h 24:9@

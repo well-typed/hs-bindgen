@@ -58,9 +58,9 @@ instance (~) ty CInt => HasField "struct2_x" (Ptr Struct2) (Ptr ty)
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef09a6_base ::
     Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
-hs_bindgen_a1252a3becef09a6 :: CInt -> IO Unit
+hs_bindgen_a1252a3becef09a6 :: CInt -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 hs_bindgen_a1252a3becef09a6 = fromFFIType hs_bindgen_a1252a3becef09a6_base
 {-| __C declaration:__ @fun2@
@@ -69,7 +69,7 @@ hs_bindgen_a1252a3becef09a6 = fromFFIType hs_bindgen_a1252a3becef09a6_base
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2 :: CInt -> IO Unit
+fun2 :: CInt -> IO ()
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
@@ -80,9 +80,9 @@ fun2 = hs_bindgen_a1252a3becef09a6
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa44e36b_base ::
     Int32
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
-hs_bindgen_61793546aa44e36b :: CInt -> IO Unit
+hs_bindgen_61793546aa44e36b :: CInt -> IO ()
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 hs_bindgen_61793546aa44e36b = fromFFIType hs_bindgen_61793546aa44e36b_base
 {-| __C declaration:__ @fun2@
@@ -91,7 +91,7 @@ hs_bindgen_61793546aa44e36b = fromFFIType hs_bindgen_61793546aa44e36b_base
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2 :: CInt -> IO Unit
+fun2 :: CInt -> IO ()
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
@@ -103,7 +103,7 @@ fun2 = hs_bindgen_61793546aa44e36b
 foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29260ed_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
-hs_bindgen_d61a16f2d29260ed :: IO (FunPtr (CInt -> IO Unit))
+hs_bindgen_d61a16f2d29260ed :: IO (FunPtr (CInt -> IO ()))
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
 hs_bindgen_d61a16f2d29260ed = fromFFIType hs_bindgen_d61a16f2d29260ed_base
 {-# NOINLINE fun2 #-}
@@ -113,7 +113,7 @@ hs_bindgen_d61a16f2d29260ed = fromFFIType hs_bindgen_d61a16f2d29260ed_base
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2 :: FunPtr (CInt -> IO Unit)
+fun2 :: FunPtr (CInt -> IO ())
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@

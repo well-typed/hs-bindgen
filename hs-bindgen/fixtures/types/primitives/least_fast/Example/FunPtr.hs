@@ -2,7 +2,25 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.int_least8_t_fun
+    , Example.FunPtr.int_least16_t_fun
+    , Example.FunPtr.int_least32_t_fun
+    , Example.FunPtr.int_least64_t_fun
+    , Example.FunPtr.uint_least8_t_fun
+    , Example.FunPtr.uint_least16_t_fun
+    , Example.FunPtr.uint_least32_t_fun
+    , Example.FunPtr.uint_least64_t_fun
+    , Example.FunPtr.int_fast8_t_fun
+    , Example.FunPtr.int_fast16_t_fun
+    , Example.FunPtr.int_fast32_t_fun
+    , Example.FunPtr.int_fast64_t_fun
+    , Example.FunPtr.uint_fast8_t_fun
+    , Example.FunPtr.uint_fast16_t_fun
+    , Example.FunPtr.uint_fast32_t_fun
+    , Example.FunPtr.uint_fast64_t_fun
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -1,7 +1,14 @@
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE FlexibleContexts #-}
 
-module Example where
+module Example
+    ( Example.a
+    , Example.b
+    , Example.c
+    , Example.d
+    , Example.e
+    )
+  where
 
 import qualified C.Expr.HostPlatform
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -2,7 +2,33 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.__f1
+    , Example.Safe.f1
+    , Example.Safe.my_memalign
+    , Example.Safe.my_calloc
+    , Example.Safe.my_realloc
+    , Example.Safe.my_alloc1
+    , Example.Safe.my_alloc2
+    , Example.Safe.square
+    , Example.Safe.old_fn_deprecated
+    , Example.Safe.my_dgettext
+    , Example.Safe.fdopen
+    , Example.Safe.f2
+    , Example.Safe.my_memcpy
+    , Example.Safe.fatal
+    , Example.Safe.hash
+    , Example.Safe.mymalloc
+    , Example.Safe.foobar
+    , Example.Safe.core2_func
+    , Example.Safe.sse3_func
+    , Example.Safe.f3
+    , Example.Safe.fn
+    , Example.Safe.y
+    , Example.Safe.x1
+    , Example.Safe.x2
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -25,28 +25,28 @@ EOF
 
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
-    binding-specs/fun_arg/typedef/array            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/array_known_size # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/enum             # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/function         # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/function_pointer # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/struct           # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/union            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/array              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/array_known_size   # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/enum               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/function           # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/function_pointer   # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/struct             # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/union              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    edge-cases/iterator                            # Makes use of Apple block extension which would require clang (see #913)
-    functions/decls_in_signature                   # Unusable struct (see #1128)
-    functions/heap_types/struct_const_member       # Issue #1490
-    functions/heap_types/struct_const_typedef      # Issue #1490
-    functions/heap_types/struct_const              # Issue #1490
-    functions/heap_types/union_const_member        # Issue #1490
-    functions/heap_types/union_const_typedef       # Issue #1490
-    functions/heap_types/union_const               # Issue #1490
+    binding-specs/fun_arg/typedef/array               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/array_known_size    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/enum                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/function            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/function_pointer    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/struct              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/union               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/array                 # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/array_known_size      # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/enum                  # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/function              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/function_pointer      # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/struct                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/union                 # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    edge-cases/iterator                               # Makes use of Apple block extension which would require clang (see #913)
+    functions/decls_in_signature                      # Unusable struct (see #1128)
+    functions/heap_types/struct_const_member          # Issue #1490
+    functions/heap_types/struct_const_typedef         # Issue #1490
+    functions/heap_types/struct_const                 # Issue #1490
+    functions/heap_types/union_const_member           # Issue #1490
+    functions/heap_types/union_const_typedef          # Issue #1490
+    functions/heap_types/union_const                  # Issue #1490
     program-analysis/program-slicing/macro_selected   # TODO: see issue #1679
     program-analysis/program-slicing/macro_unselected # TODO: see issue #1679
 )
@@ -80,14 +80,14 @@ KNOWN_EMPTY=(
 # Array variables can not be exported, so instead we export a function that sets
 # the array variable, and that function can be used in subshells
 set_known_werror_unclean() {
-  # Known fixtures that compile, but not cleanly, so they should be run without
-  # -Werror
-  KNOWN_WERROR_UNLCEAN=(
-      arrays/array
-      edge-cases/adios
-      attributes/visibility_attributes
-      declarations/tentative_definitions
-  )
+    # Known fixtures that compile, but not cleanly, so they should be run without
+    # -Werror
+    KNOWN_WERROR_UNLCEAN=(
+        arrays/array
+        edge-cases/adios
+        attributes/visibility_attributes
+        declarations/tentative_definitions
+    )
 }
 export -f set_known_werror_unclean
 set_known_werror_unclean
@@ -96,7 +96,7 @@ set_known_werror_unclean
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=162
+KNOWN_FIXTURES_COUNT=166
 
 # Default options
 JOBS=4
@@ -215,7 +215,7 @@ compile_fixture() {
     local opts
     set_known_werror_unclean
     if [[ "$WERROR_ALL" == "true" ]]; then
-      opts="-optc -Werror"
+        opts="-optc -Werror"
     elif is_known_werror_unclean "$fixture_name"; then
         opts=""
     else

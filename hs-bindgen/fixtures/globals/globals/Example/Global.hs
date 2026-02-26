@@ -3,7 +3,29 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Global where
+module Example.Global
+    ( Example.Global.simpleGlobal
+    , Example.Global.compoundGlobal1
+    , Example.Global.compoundGlobal2
+    , Example.Global.nesInteger
+    , Example.Global.nesFloating
+    , Example.Global.nesImaginary
+    , Example.Global.nesString1
+    , Example.Global.nesString2
+    , Example.Global.nesCharacter
+    , Example.Global.nesParen
+    , Example.Global.nesUnary
+    , Example.Global.nesBinary
+    , Example.Global.nesConditional
+    , Example.Global.nesCast
+    , Example.Global.nesCompound
+    , Example.Global.nesInitList
+    , Example.Global.nesBool
+    , Example.Global.streamBinary
+    , Example.Global.streamBinary_len
+    , Example.Global.some_global_struct
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI
@@ -42,6 +64,12 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "float *hs_bindgen_e3497c0a80a77750 (void)"
   , "{"
   , "  return &nesFloating;"
+  , "}"
+  , "/* test_globalsglobals_Example_get_nesImaginary */"
+  , "__attribute__ ((const))"
+  , "double _Complex *hs_bindgen_e958634c96270349 (void)"
+  , "{"
+  , "  return &nesImaginary;"
   , "}"
   , "/* test_globalsglobals_Example_get_nesString1 */"
   , "__attribute__ ((const))"
@@ -143,7 +171,7 @@ hs_bindgen_4f8e7b3d91414aa8 =
 
 __C declaration:__ @simpleGlobal@
 
-__defined at:__ @globals\/globals.h 9:12@
+__defined at:__ @globals\/globals.h 10:12@
 
 __exported by:__ @globals\/globals.h@
 -}
@@ -163,7 +191,7 @@ hs_bindgen_7f4cd619c55119dd =
 {-# NOINLINE compoundGlobal1 #-}
 {-| __C declaration:__ @compoundGlobal1@
 
-    __defined at:__ @globals\/globals.h 16:22@
+    __defined at:__ @globals\/globals.h 17:22@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -183,7 +211,7 @@ hs_bindgen_ed5c7196c3291592 =
 {-# NOINLINE compoundGlobal2 #-}
 {-| __C declaration:__ @compoundGlobal2@
 
-    __defined at:__ @globals\/globals.h 19:47@
+    __defined at:__ @globals\/globals.h 20:47@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -211,7 +239,7 @@ hs_bindgen_0be07820afb78239 =
 
 __C declaration:__ @nesInteger@
 
-__defined at:__ @globals\/globals.h 35:9@
+__defined at:__ @globals\/globals.h 36:16@
 
 __exported by:__ @globals\/globals.h@
 -}
@@ -231,13 +259,33 @@ hs_bindgen_e3497c0a80a77750 =
 {-# NOINLINE nesFloating #-}
 {-| __C declaration:__ @nesFloating@
 
-    __defined at:__ @globals\/globals.h 36:9@
+    __defined at:__ @globals\/globals.h 37:16@
 
     __exported by:__ @globals\/globals.h@
 -}
 nesFloating :: RIP.Ptr RIP.CFloat
 nesFloating =
   RIP.unsafePerformIO hs_bindgen_e3497c0a80a77750
+
+-- __unique:__ @test_globalsglobals_Example_get_nesImaginary@
+foreign import ccall unsafe "hs_bindgen_e958634c96270349" hs_bindgen_e958634c96270349_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_globalsglobals_Example_get_nesImaginary@
+hs_bindgen_e958634c96270349 :: IO (RIP.Ptr (RIP.Complex RIP.CDouble))
+hs_bindgen_e958634c96270349 =
+  RIP.fromFFIType hs_bindgen_e958634c96270349_base
+
+{-# NOINLINE nesImaginary #-}
+{-| __C declaration:__ @nesImaginary@
+
+    __defined at:__ @globals\/globals.h 38:16@
+
+    __exported by:__ @globals\/globals.h@
+-}
+nesImaginary :: RIP.Ptr (RIP.Complex RIP.CDouble)
+nesImaginary =
+  RIP.unsafePerformIO hs_bindgen_e958634c96270349
 
 -- __unique:__ @test_globalsglobals_Example_get_nesString1@
 foreign import ccall unsafe "hs_bindgen_78918168bc760476" hs_bindgen_78918168bc760476_base ::
@@ -251,7 +299,7 @@ hs_bindgen_78918168bc760476 =
 {-# NOINLINE nesString1 #-}
 {-| __C declaration:__ @nesString1@
 
-    __defined at:__ @globals\/globals.h 38:9@
+    __defined at:__ @globals\/globals.h 39:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -271,7 +319,7 @@ hs_bindgen_c6c52463f890e752 =
 {-# NOINLINE nesString2 #-}
 {-| __C declaration:__ @nesString2@
 
-    __defined at:__ @globals\/globals.h 39:9@
+    __defined at:__ @globals\/globals.h 40:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -291,7 +339,7 @@ hs_bindgen_9b33d990c25069a0 =
 {-# NOINLINE nesCharacter #-}
 {-| __C declaration:__ @nesCharacter@
 
-    __defined at:__ @globals\/globals.h 40:9@
+    __defined at:__ @globals\/globals.h 41:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -311,7 +359,7 @@ hs_bindgen_561a1d5a05307329 =
 {-# NOINLINE nesParen #-}
 {-| __C declaration:__ @nesParen@
 
-    __defined at:__ @globals\/globals.h 41:9@
+    __defined at:__ @globals\/globals.h 42:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -331,7 +379,7 @@ hs_bindgen_4d3d64def4cf943f =
 {-# NOINLINE nesUnary #-}
 {-| __C declaration:__ @nesUnary@
 
-    __defined at:__ @globals\/globals.h 42:9@
+    __defined at:__ @globals\/globals.h 43:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -351,7 +399,7 @@ hs_bindgen_dcb8301e1cb444b7 =
 {-# NOINLINE nesBinary #-}
 {-| __C declaration:__ @nesBinary@
 
-    __defined at:__ @globals\/globals.h 43:9@
+    __defined at:__ @globals\/globals.h 44:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -371,7 +419,7 @@ hs_bindgen_798d6b9c7136a5d0 =
 {-# NOINLINE nesConditional #-}
 {-| __C declaration:__ @nesConditional@
 
-    __defined at:__ @globals\/globals.h 44:9@
+    __defined at:__ @globals\/globals.h 45:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -391,7 +439,7 @@ hs_bindgen_9c15dc9805f8abb8 =
 {-# NOINLINE nesCast #-}
 {-| __C declaration:__ @nesCast@
 
-    __defined at:__ @globals\/globals.h 45:9@
+    __defined at:__ @globals\/globals.h 46:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -411,7 +459,7 @@ hs_bindgen_089dfddcc6667ac2 =
 {-# NOINLINE nesCompound #-}
 {-| __C declaration:__ @nesCompound@
 
-    __defined at:__ @globals\/globals.h 46:9@
+    __defined at:__ @globals\/globals.h 47:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -431,7 +479,7 @@ hs_bindgen_798af9a98bfc3030 =
 {-# NOINLINE nesInitList #-}
 {-| __C declaration:__ @nesInitList@
 
-    __defined at:__ @globals\/globals.h 47:9@
+    __defined at:__ @globals\/globals.h 48:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -451,7 +499,7 @@ hs_bindgen_846b0fde4d102012 =
 {-# NOINLINE nesBool #-}
 {-| __C declaration:__ @nesBool@
 
-    __defined at:__ @globals\/globals.h 48:9@
+    __defined at:__ @globals\/globals.h 49:16@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -477,7 +525,7 @@ hs_bindgen_b243f9b292f8b883 =
 
 __C declaration:__ @streamBinary@
 
-__defined at:__ @globals\/globals.h 60:9@
+__defined at:__ @globals\/globals.h 61:9@
 
 __exported by:__ @globals\/globals.h@
 -}
@@ -497,7 +545,7 @@ hs_bindgen_60adad2a6178e6cc =
 {-# NOINLINE streamBinary_len #-}
 {-| __C declaration:__ @streamBinary_len@
 
-    __defined at:__ @globals\/globals.h 404:10@
+    __defined at:__ @globals\/globals.h 405:10@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -517,7 +565,7 @@ hs_bindgen_fe50ca9a4fea641c =
 {-# NOINLINE some_global_struct #-}
 {-| __C declaration:__ @some_global_struct@
 
-    __defined at:__ @globals\/globals.h 425:11@
+    __defined at:__ @globals\/globals.h 426:11@
 
     __exported by:__ @globals\/globals.h@
 -}

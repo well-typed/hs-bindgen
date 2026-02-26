@@ -13,7 +13,7 @@ import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (CheckedMacro (MacroExpr, MacroType),
                                                     CheckedMacroExpr,
                                                     CheckedMacroType (..))
-import HsBindgen.Frontend.Pass.Select.IsPass (Select)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
 import HsBindgen.Imports (Identity (Identity))
 
 -- | Adjust function argument types
@@ -32,7 +32,7 @@ import HsBindgen.Imports (Identity (Identity))
 -- > type
 --
 adjustTypes ::
-     C.TranslationUnit Select
+     C.TranslationUnit MangleNames
   -> (C.TranslationUnit AdjustTypes, [Msg AdjustTypes])
 adjustTypes unit =
       let
@@ -68,7 +68,7 @@ _emitMsg msg = modify' (msg :)
 -------------------------------------------------------------------------------}
 
 processDecl ::
-     C.Decl Select
+     C.Decl MangleNames
   -> M (C.Decl AdjustTypes)
 processDecl decl = do
     kind' <- processDeclKind decl.kind
@@ -79,7 +79,7 @@ processDecl decl = do
       }
 
 processDeclKind ::
-     C.DeclKind Select
+     C.DeclKind MangleNames
   -> M (C.DeclKind AdjustTypes)
 processDeclKind kind =
     case kind of
@@ -94,7 +94,7 @@ processDeclKind kind =
       C.DeclGlobal global                  -> C.DeclGlobal <$> processGlobal global
 
 processStruct ::
-     C.Struct Select
+     C.Struct MangleNames
   -> M (C.Struct AdjustTypes)
 processStruct struct = do
     fields' <- mapM processStructField struct.fields
@@ -108,7 +108,7 @@ processStruct struct = do
       }
 
 processStructField ::
-     C.StructField Select
+     C.StructField MangleNames
   -> M (C.StructField AdjustTypes)
 processStructField field = do
     typ' <- processType field.typ
@@ -121,7 +121,7 @@ processStructField field = do
       }
 
 processUnion ::
-     C.Union Select
+     C.Union MangleNames
   -> M (C.Union AdjustTypes)
 processUnion union = do
     fields' <- mapM processUnionField union.fields
@@ -133,7 +133,7 @@ processUnion union = do
       }
 
 processUnionField ::
-     C.UnionField Select
+     C.UnionField MangleNames
   -> M (C.UnionField AdjustTypes)
 processUnionField field = do
     typ' <- processType field.typ
@@ -144,7 +144,7 @@ processUnionField field = do
       }
 
 processTypedef ::
-     C.Typedef Select
+     C.Typedef MangleNames
   -> M (C.Typedef AdjustTypes)
 processTypedef typedef = do
     typ' <- processType typedef.typ
@@ -154,7 +154,7 @@ processTypedef typedef = do
       }
 
 processEnum ::
-     C.Enum Select
+     C.Enum MangleNames
   -> M (C.Enum AdjustTypes)
 processEnum enum = do
     typ' <- processType enum.typ
@@ -168,7 +168,7 @@ processEnum enum = do
       }
 
 processEnumConstant ::
-     C.EnumConstant Select
+     C.EnumConstant MangleNames
   -> M (C.EnumConstant AdjustTypes)
 processEnumConstant enumConstant = do
     pure C.EnumConstant {
@@ -177,7 +177,7 @@ processEnumConstant enumConstant = do
       }
 
 processAnonEnumConstant ::
-     C.AnonEnumConstant Select
+     C.AnonEnumConstant MangleNames
   -> M (C.AnonEnumConstant AdjustTypes)
 processAnonEnumConstant anonEnumConstant = do
     constant' <- processEnumConstant anonEnumConstant.constant
@@ -187,7 +187,7 @@ processAnonEnumConstant anonEnumConstant = do
       }
 
 processMacro ::
-     MacroBody Select
+     MacroBody MangleNames
   -> M (MacroBody AdjustTypes)
 processMacro macro = do
     case macro of
@@ -195,7 +195,7 @@ processMacro macro = do
       MacroExpr expr -> MacroExpr <$> processMacroExpr expr
 
 processMacroType ::
-     CheckedMacroType Select
+     CheckedMacroType MangleNames
   -> M (CheckedMacroType AdjustTypes)
 processMacroType macroType = do
     typ' <- processType macroType.typ
@@ -214,7 +214,7 @@ processMacroExpr macroExpr = do
     pure macroExpr
 
 processFunction ::
-     C.Function Select
+     C.Function MangleNames
   -> M (C.Function AdjustTypes)
 processFunction function = do
     args' <- mapM processFunctionArg function.args
@@ -227,7 +227,7 @@ processFunction function = do
       }
 
 processFunctionArg ::
-     C.FunctionArg Select
+     C.FunctionArg MangleNames
   -> M (C.FunctionArg AdjustTypes)
 processFunctionArg functionArg = do
     typ' <- processTypeFunArg functionArg.typ
@@ -237,7 +237,7 @@ processFunctionArg functionArg = do
       }
 
 processGlobal ::
-     C.Type Select
+     C.Type MangleNames
   -> M (C.Type AdjustTypes)
 processGlobal global = do
     processType global
@@ -247,7 +247,7 @@ processGlobal global = do
 -------------------------------------------------------------------------------}
 
 processType ::
-     C.Type Select
+     C.Type MangleNames
   -> M (C.Type AdjustTypes)
 processType = \case
     C.TypePrim primTy        -> pure $ C.TypePrim primTy
@@ -288,7 +288,7 @@ processType = \case
           , underlying = underlying'
           }
 
-processTypeFunArg :: C.Type Select -> M (C.Type AdjustTypes)
+processTypeFunArg :: C.Type MangleNames -> M (C.Type AdjustTypes)
 processTypeFunArg arg = do
     typ' <- processType arg
     adjustFunArg typ'

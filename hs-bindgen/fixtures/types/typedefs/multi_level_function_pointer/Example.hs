@@ -12,7 +12,22 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.F1_Aux(..)
+    , Example.F1(..)
+    , Example.F2_Aux(..)
+    , Example.F2(..)
+    , Example.F3_Aux(..)
+    , Example.F3(..)
+    , Example.F4_Aux(..)
+    , Example.F4(..)
+    , Example.F5_Aux(..)
+    , Example.F5(..)
+    , Example.MyInt(..)
+    , Example.F6_Aux(..)
+    , Example.F6(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

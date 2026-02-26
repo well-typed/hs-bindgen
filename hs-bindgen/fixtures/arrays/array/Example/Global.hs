@@ -3,7 +3,31 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Global where
+module Example.Global
+    ( Example.Global.arr0
+    , Example.Global.arr1
+    , Example.Global.arr2
+    , Example.Global.arr3
+    , Example.Global.arr6
+    , Example.Global.arr7
+    , Example.Global.arr_1
+    , Example.Global.arr_2
+    , Example.Global.arr_3
+    , Example.Global.arr_4
+    , Example.Global.arr_5
+    , Example.Global.arr_6
+    , Example.Global.arr_7
+    , Example.Global.arr_8
+    , Example.Global.arr_1_const
+    , Example.Global.arr_2_const
+    , Example.Global.arr_3_const
+    , Example.Global.arr_4_const
+    , Example.Global.arr_5_const
+    , Example.Global.arr_6_const
+    , Example.Global.arr_7_const
+    , Example.Global.arr_8_const
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA

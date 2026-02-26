@@ -1,7 +1,36 @@
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE MagicHash #-}
 
-module Example where
+module Example
+    ( Example.c1
+    , Example.c2
+    , Example.c3
+    , Example.c4
+    , Example.c5
+    , Example.c6
+    , Example.c7
+    , Example.c8
+    , Example.d
+    , Example.j1
+    , Example.j2
+    , Example.j3
+    , Example.s1
+    , Example.s2
+    , Example.s3
+    , Example.s4
+    , Example.s5
+    , Example.s6
+    , Example.s7
+    , Example.s8
+    , Example.t1
+    , Example.t2
+    , Example.t3
+    , Example.u
+    , Example.v
+    , Example.w1
+    , Example.w2
+    )
+  where
 
 import qualified C.Char
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
@@ -123,7 +152,7 @@ j3 =
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s1 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s1 :: (RIP.Ptr RIP.CChar, Int)
 s1 = ((RIP.Ptr "a"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @S2@
@@ -132,7 +161,7 @@ s1 = ((RIP.Ptr "a"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s2 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s2 :: (RIP.Ptr RIP.CChar, Int)
 s2 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @S3@
@@ -141,7 +170,7 @@ s2 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s3 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s3 :: (RIP.Ptr RIP.CChar, Int)
 s3 = ((RIP.Ptr "\t"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @S4@
@@ -150,7 +179,7 @@ s3 = ((RIP.Ptr "\t"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s4 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s4 :: (RIP.Ptr RIP.CChar, Int)
 s4 = ((RIP.Ptr "\0"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @S5@
@@ -159,7 +188,7 @@ s4 = ((RIP.Ptr "\0"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s5 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s5 :: (RIP.Ptr RIP.CChar, Int)
 s5 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @S6@
@@ -168,7 +197,7 @@ s5 = ((RIP.Ptr "\'"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s6 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s6 :: (RIP.Ptr RIP.CChar, Int)
 s6 = ((RIP.Ptr "?"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @S7@
@@ -177,7 +206,7 @@ s6 = ((RIP.Ptr "?"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s7 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s7 :: (RIP.Ptr RIP.CChar, Int)
 s7 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @S8@
@@ -186,7 +215,7 @@ s7 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-s8 :: ((,) (RIP.Ptr RIP.CChar)) Int
+s8 :: (RIP.Ptr RIP.CChar, Int)
 s8 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 
 {-| __C declaration:__ @T1@
@@ -195,7 +224,7 @@ s8 = ((RIP.Ptr "S"#, 1) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t1 :: ((,) (RIP.Ptr RIP.CChar)) Int
+t1 :: (RIP.Ptr RIP.CChar, Int)
 t1 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
 {-| __C declaration:__ @T2@
@@ -204,7 +233,7 @@ t1 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t2 :: ((,) (RIP.Ptr RIP.CChar)) Int
+t2 :: (RIP.Ptr RIP.CChar, Int)
 t2 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
 {-| __C declaration:__ @T3@
@@ -213,7 +242,7 @@ t2 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-t3 :: ((,) (RIP.Ptr RIP.CChar)) Int
+t3 :: (RIP.Ptr RIP.CChar, Int)
 t3 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
 {-| __C declaration:__ @U@
@@ -222,7 +251,7 @@ t3 = ((RIP.Ptr "\xE3\x81\x82"#, 3) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-u :: ((,) (RIP.Ptr RIP.CChar)) Int
+u :: (RIP.Ptr RIP.CChar, Int)
 u =
   ((RIP.Ptr "\x1\xFF\x1\xFF\x1\xFF\x1\xFF"#, 8) :: RIP.CStringLen)
 
@@ -232,7 +261,7 @@ u =
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-v :: ((,) (RIP.Ptr RIP.CChar)) Int
+v :: (RIP.Ptr RIP.CChar, Int)
 v =
   ((RIP.Ptr "\x1\x2\x3\x4\x5\x6"#, 6) :: RIP.CStringLen)
 
@@ -242,7 +271,7 @@ v =
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w1 :: ((,) (RIP.Ptr RIP.CChar)) Int
+w1 :: (RIP.Ptr RIP.CChar, Int)
 w1 = ((RIP.Ptr "hij\0"#, 4) :: RIP.CStringLen)
 
 {-| __C declaration:__ @W2@
@@ -251,5 +280,5 @@ w1 = ((RIP.Ptr "hij\0"#, 4) :: RIP.CStringLen)
 
     __exported by:__ @macros\/macro_strings.h@
 -}
-w2 :: ((,) (RIP.Ptr RIP.CChar)) Int
+w2 :: (RIP.Ptr RIP.CChar, Int)
 w2 = ((RIP.Ptr "abc\0def\0g"#, 9) :: RIP.CStringLen)

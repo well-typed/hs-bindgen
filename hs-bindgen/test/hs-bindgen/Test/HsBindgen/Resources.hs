@@ -68,16 +68,13 @@ getTestPackageRoot = fmap (.packageRoot)
 
 mkTestClangArgsConfig :: FilePath -> ClangArgsConfig FilePath
 mkTestClangArgsConfig packageRoot = def {
-      extraIncludeDirs = [
-          packageRoot </> "musl-include/x86_64"
-        ]
-    , argsBefore = cStandardArg : targetArgs
+      extraIncludeDirs = [packageRoot </> "musl-include/x86_64"]
+    , argsBefore       = [cStandardArg]
+    , argsAfter        = targetArgs
     }
   where
-    targetArgs :: [String]
-    targetArgs = ["-target", "x86_64-pc-linux-musl"]
-
-    -- TODO per-test configuration: better default?
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1516>
+    -- We should use the minimum standard required for each test.
     cStandardArg :: String
     cStandardArg = "-std=" ++ case clangVersion of
       ClangVersion version
@@ -85,6 +82,9 @@ mkTestClangArgsConfig packageRoot = def {
         | version < (18, 0, 0) -> "c2x"
         | otherwise            -> "c23"
       ClangVersionUnknown v -> panicPure $ "Unknown clang version: " ++ show v
+
+    targetArgs :: [String]
+    targetArgs = ["-target", "x86_64-pc-linux-musl"]
 
 getTestDefaultClangArgsConfig ::
      IO TestResources

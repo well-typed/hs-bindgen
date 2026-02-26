@@ -1,0 +1,37 @@
+-- addDependentFile examples/golden/binding-specs/stdlib/bool.h
+{-| __C declaration:__ @stdlib_CBool@
+
+    __defined at:__ @binding-specs\/stdlib\/bool.h 1:14@
+
+    __exported by:__ @binding-specs\/stdlib\/bool.h@
+-}
+newtype Stdlib_CBool
+    = Stdlib_CBool {unwrapStdlib_CBool :: CBool}
+      {- ^ __C declaration:__ @stdlib_CBool@
+
+           __defined at:__ @binding-specs\/stdlib\/bool.h 1:14@
+
+           __exported by:__ @binding-specs\/stdlib\/bool.h@
+      -}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CBool =>
+         HasField "unwrapStdlib_CBool" (Ptr Stdlib_CBool) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapStdlib_CBool")
+instance HasCField Stdlib_CBool "unwrapStdlib_CBool"
+    where type CFieldType Stdlib_CBool "unwrapStdlib_CBool" = CBool
+          offset# = \_ -> \_ -> 0

@@ -149,9 +149,10 @@ multiLocToLanC mloc =
       (Clang.getSourcePath $ Clang.singleLocPath sloc)
       (Clang.singleLocLine   sloc)
       (Clang.singleLocColumn sloc)
-      Nothing -- TODO: parent?
+      Nothing -- @posParentFile@ in @language-c@: "including file, if any"
   where
-    -- TODO: Should this use 'multiLocPresumed' instead?
+    -- NOTE: It might make sense to use 'multiLocPresumed' instead, but these
+    -- don't provide file offsets (see 'Clang.PresumedLoc').
     sloc :: Clang.SingleLoc
     sloc = Clang.multiLocExpansion mloc
 

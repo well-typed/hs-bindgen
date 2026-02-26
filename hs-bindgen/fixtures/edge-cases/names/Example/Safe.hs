@@ -2,7 +2,34 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.by'
+    , Example.Safe.forall'
+    , Example.Safe.mdo'
+    , Example.Safe.pattern'
+    , Example.Safe.proc'
+    , Example.Safe.rec'
+    , Example.Safe.using'
+    , Example.Safe.anyclass
+    , Example.Safe.capi
+    , Example.Safe.cases
+    , Example.Safe.ccall
+    , Example.Safe.dynamic
+    , Example.Safe.export
+    , Example.Safe.family
+    , Example.Safe.group
+    , Example.Safe.interruptible
+    , Example.Safe.javascript
+    , Example.Safe.label
+    , Example.Safe.prim
+    , Example.Safe.role
+    , Example.Safe.safe
+    , Example.Safe.stdcall
+    , Example.Safe.stock
+    , Example.Safe.unsafe
+    , Example.Safe.via
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

@@ -1,6 +1,9 @@
 {-# LANGUAGE EmptyDataDecls #-}
 
-module Example where
+module Example
+    ( Example.Origin
+    )
+  where
 
 {-| __C declaration:__ @origin@
 

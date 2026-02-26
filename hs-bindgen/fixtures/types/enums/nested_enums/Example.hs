@@ -14,7 +14,17 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.EnumA(..)
+    , pattern Example.VALA_1
+    , pattern Example.VALA_2
+    , Example.ExA(..)
+    , Example.ExB_fieldB1(..)
+    , pattern Example.VALB_1
+    , pattern Example.VALB_2
+    , Example.ExB(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField

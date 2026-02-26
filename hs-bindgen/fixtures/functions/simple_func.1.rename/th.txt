@@ -89,7 +89,7 @@ bad_fma_random_user_specified_suffix = unsafePerformIO hs_bindgen_d8b56ce4d948e9
 foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb304fc_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
-hs_bindgen_b07b517c1cb304fc :: IO (FunPtr (IO Unit))
+hs_bindgen_b07b517c1cb304fc :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
 hs_bindgen_b07b517c1cb304fc = fromFFIType hs_bindgen_b07b517c1cb304fc_base
 {-# NOINLINE no_args_random_user_specified_suffix #-}
@@ -99,7 +99,7 @@ hs_bindgen_b07b517c1cb304fc = fromFFIType hs_bindgen_b07b517c1cb304fc_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_random_user_specified_suffix :: FunPtr (IO Unit)
+no_args_random_user_specified_suffix :: FunPtr (IO ())
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
@@ -111,7 +111,7 @@ no_args_random_user_specified_suffix = unsafePerformIO hs_bindgen_b07b517c1cb304
 foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff8560009309_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
-hs_bindgen_cc43ff8560009309 :: IO (FunPtr (IO Unit))
+hs_bindgen_cc43ff8560009309 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
 hs_bindgen_cc43ff8560009309 = fromFFIType hs_bindgen_cc43ff8560009309_base
 {-# NOINLINE no_args_no_void_random_user_specified_suffix #-}
@@ -121,7 +121,7 @@ hs_bindgen_cc43ff8560009309 = fromFFIType hs_bindgen_cc43ff8560009309_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void_random_user_specified_suffix :: FunPtr (IO Unit)
+no_args_no_void_random_user_specified_suffix :: FunPtr (IO ())
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@

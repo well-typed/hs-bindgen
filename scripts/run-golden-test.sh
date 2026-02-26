@@ -24,6 +24,7 @@ echo "Temporary output directory: ${TMP}"
 
 cabal run -- \
     hs-bindgen-cli preprocess \
+    --unique-id "$(basename "${TMP}")" \
     -I ./hs-bindgen/examples/golden \
     -I ./hs-bindgen/musl-include/x86_64 \
     --module Example \

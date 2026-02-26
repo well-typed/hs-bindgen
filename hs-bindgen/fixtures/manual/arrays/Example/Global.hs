@@ -3,7 +3,15 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Global where
+module Example.Global
+    ( Example.Global.arr1
+    , Example.Global.arr2
+    , Example.Global.arr3
+    , Example.Global.sudoku
+    , Example.Global.triplets
+    , Example.Global.global_triplet_ptrs
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA

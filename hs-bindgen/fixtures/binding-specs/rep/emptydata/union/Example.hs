@@ -1,6 +1,9 @@
 {-# LANGUAGE EmptyDataDecls #-}
 
-module Example where
+module Example
+    ( Example.Dual
+    )
+  where
 
 {-| __C declaration:__ @union dual@
 

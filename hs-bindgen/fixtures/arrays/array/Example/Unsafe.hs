@@ -3,7 +3,36 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.fun_1
+    , Example.Unsafe.fun_2
+    , Example.Unsafe.fun_3
+    , Example.Unsafe.fun_4
+    , Example.Unsafe.fun_5
+    , Example.Unsafe.fun_6
+    , Example.Unsafe.fun_7
+    , Example.Unsafe.fun_8
+    , Example.Unsafe.isSolved
+    , Example.Unsafe.fun_1_const
+    , Example.Unsafe.fun_2_const
+    , Example.Unsafe.fun_3_const
+    , Example.Unsafe.fun_4_const
+    , Example.Unsafe.fun_5_const
+    , Example.Unsafe.fun_6_const
+    , Example.Unsafe.fun_7_const
+    , Example.Unsafe.fun_8_const
+    , Example.Unsafe.isSolved_const
+    , Example.Unsafe.fun_9
+    , Example.Unsafe.fun_10
+    , Example.Unsafe.fun_11
+    , Example.Unsafe.fun_12
+    , Example.Unsafe.fun_13
+    , Example.Unsafe.fun_14
+    , Example.Unsafe.fun_15
+    , Example.Unsafe.fun_16
+    , Example.Unsafe.solve
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA

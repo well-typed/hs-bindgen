@@ -4,6 +4,7 @@ module HsBindgen.Backend.SHs.Macro (
 
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
+import Data.Type.Nat (pattern SS')
 import Data.Type.Nat qualified as Fin
 import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 
@@ -160,7 +161,8 @@ cnameToHint (DSL.Name t) = fromString (T.unpack t)
 
 -- | Construct Haskell name for macro
 --
--- TODO: This should be done as part of the NameMangler frontend pass.
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
+-- This should be done as part of the NameMangler frontend pass.
 macroName :: DSL.Name -> Hs.Name Hs.NsVar
 macroName (DSL.Name cName) =
     case FixCandidate.fixCandidate fix cName of
@@ -246,12 +248,12 @@ tyCon (DSL.FamilyTyCon tc)                      = TGlobal $ cExprGlobalType $ fa
 
 dataTyCon :: DSL.DataTyCon n -> SType ctx
 dataTyCon = \case
-    DSL.TupleTyCon n          -> TBoxedOpenTup $ fromIntegral n
-    DSL.VoidTyCon             -> tBindgenGlobal Void_type
-    DSL.PrimIntInfoTyCon tc   -> tBindgenGlobal $ dslIntegral tc
-    DSL.PrimFloatInfoTyCon tc -> tBindgenGlobal $ runtimeFloating tc
-    DSL.PtrTyCon              -> tBindgenGlobal Foreign_Ptr_type
-    DSL.CharLitTyCon          -> TGlobal $ cExprGlobalType CharValue_type
+    DSL.TupleTyCon (SS' (SS' n)) -> TBoxedTup $ Plus2 $ Fin.snatToNatural n
+    DSL.VoidTyCon                -> tBindgenGlobal Void_type
+    DSL.PrimIntInfoTyCon tc      -> tBindgenGlobal $ dslIntegral tc
+    DSL.PrimFloatInfoTyCon tc    -> tBindgenGlobal $ runtimeFloating tc
+    DSL.PtrTyCon                 -> tBindgenGlobal Foreign_Ptr_type
+    DSL.CharLitTyCon             -> TGlobal $ cExprGlobalType CharValue_type
 
     -- Handled by 'simpleTyConApp'
     DSL.IntLikeTyCon   -> panicPure "Should have been handled by simpleTyConApp: IntLikeTyCon"
@@ -311,14 +313,12 @@ mfun = \case
     DSL.MBitwiseOr  -> cExpr Bitwise_or
     DSL.MLogicalAnd -> cExpr Logical_and
     DSL.MLogicalOr  -> cExpr Logical_or
-    DSL.MTuple @n   -> EBoxedOpenTup $ 2 + Fin.reflectToNum @n Proxy
+    DSL.MTuple @n   -> EBoxedTup $ Plus2 $ Fin.reflectToNum @n Proxy
   where
     cExpr = EGlobal . cExprGlobalTerm
 
 {-------------------------------------------------------------------------------
   Auxiliary: AST construction
-
-  TODO: Should this live somewhere more general?
 -------------------------------------------------------------------------------}
 
 -- | Construct n-ary application

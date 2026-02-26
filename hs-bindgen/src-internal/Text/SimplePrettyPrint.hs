@@ -356,7 +356,6 @@ hangs' dA n dBs = dA $$ vcat (nest n <$> dBs)
 -- maximum line length
 ifFits :: CtxDoc -> CtxDoc -> CtxDoc -> CtxDoc
 ifFits condD thenD elseD = CtxDoc $ \ctx ->
-    -- TODO compute column width, do not just count chars with length
     if length (renderCtxDoc ctx condD) <= ctx.maxLineCols
       then runCtxDoc ctx thenD
       else runCtxDoc ctx elseD

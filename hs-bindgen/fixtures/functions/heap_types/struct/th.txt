@@ -61,9 +61,9 @@ instance (~) ty CInt => HasField "t_x" (Ptr T) (Ptr ty)
 foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b1fc_base ::
     Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
-hs_bindgen_a5d53f538e59b1fc :: Ptr T -> Ptr T -> IO Unit
+hs_bindgen_a5d53f538e59b1fc :: Ptr T -> Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
 hs_bindgen_a5d53f538e59b1fc = fromFFIType hs_bindgen_a5d53f538e59b1fc_base
 {-| __C declaration:__ @fun@
@@ -84,9 +84,9 @@ fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_a5d53f538e59
 foreign import ccall unsafe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb824712c6a_base ::
     Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
-hs_bindgen_c4af6bb824712c6a :: Ptr T -> Ptr T -> IO Unit
+hs_bindgen_c4af6bb824712c6a :: Ptr T -> Ptr T -> IO ()
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
 hs_bindgen_c4af6bb824712c6a = fromFFIType hs_bindgen_c4af6bb824712c6a_base
 {-| __C declaration:__ @fun@

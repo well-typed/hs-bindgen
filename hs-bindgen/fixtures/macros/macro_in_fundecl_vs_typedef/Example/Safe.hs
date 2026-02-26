@@ -2,7 +2,19 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.quux1
+    , Example.Safe.quux2
+    , Example.Safe.wam1
+    , Example.Safe.wam2
+    , Example.Safe.struct_typedef1
+    , Example.Safe.struct_typedef2
+    , Example.Safe.struct_typedef3
+    , Example.Safe.struct_name1
+    , Example.Safe.struct_name2
+    , Example.Safe.struct_name3
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

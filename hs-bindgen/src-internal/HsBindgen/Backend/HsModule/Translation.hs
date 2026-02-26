@@ -3,6 +3,8 @@ module HsBindgen.Backend.HsModule.Translation (
     GhcPragma (..)
     -- * ImportListItem
   , ImportListItem(..)
+    -- * ExportItem
+  , ExportItem(..)
     -- * HsModule
   , HsModule(..)
     -- * Translation
@@ -19,7 +21,7 @@ import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.HsModule.CAPI (capiModule)
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.Prelims
@@ -51,6 +53,19 @@ data ImportListItem =
   deriving stock (Eq, Ord)
 
 {-------------------------------------------------------------------------------
+  ExportItem
+-------------------------------------------------------------------------------}
+
+-- | An item in the module export list
+data ExportItem =
+    -- | Export a type with all its constructors and fields: @TypeName(..)@
+    ExportTypeAll Text
+    -- | Export a plain name (type without constructors, or term-level binding)
+  | ExportName Text
+    -- | Export a pattern synonym: @pattern PatName@
+  | ExportPattern Text
+
+{-------------------------------------------------------------------------------
   HsModule
 -------------------------------------------------------------------------------}
 
@@ -58,6 +73,7 @@ data ImportListItem =
 data HsModule = HsModule {
       pragmas        :: [GhcPragma]
     , name           ::  Hs.ModuleName
+    , exports        :: [ExportItem]
     , imports        :: [ImportListItem]
     , qualifiedStyle :: QualifiedStyle
     , cWrappers      :: [CWrapper]
@@ -99,6 +115,7 @@ translateModule' ::
   -> HsModule
 translateModule' fns mrc mcat moduleBaseName (cWrappers, decs) = HsModule{
       pragmas        = resolvePragmas fns mrc.qualifiedStyle cWrappers decs
+    , exports        = resolveExports decs
     , imports        = resolveImports moduleBaseName mcat cWrappers decs
     , name           = fromBaseModuleName moduleBaseName mcat
     , qualifiedStyle = mrc.qualifiedStyle
@@ -322,17 +339,9 @@ resolveExprImports = \case
             SAltUnboxedTuple _add _hints body -> resolveExprImports body
         | alt <- alts
         ]
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
-    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
-    EBoxedOpenTup n | n<= 1 ->
-      ImportAcc{
-          requireTypes = False
-        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
-        , unqualified = mempty
-        }
-    EBoxedOpenTup{} -> mempty
-    EBoxedClosedTup{} -> mempty
-    EUnboxedTup xs -> foldMap resolveExprImports xs
+    EUnit -> mempty
+    EBoxedTup{} -> mempty
+    EUnboxedTup{} -> mempty
     EList xs -> foldMap resolveExprImports xs
     ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
 
@@ -359,15 +368,8 @@ resolveTypeImports = \case
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b
     TBound{} -> mempty
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Tuples should
-    -- probably not use 'Solo'/'MkSolo'. Then we do not need this import.
-    TBoxedOpenTup n | n <= 1 ->
-      ImportAcc{
-          requireTypes = False
-        , qualified = Set.singleton ("HsBindgen.Runtime.Internal.Prelude", Just "RIP")
-        , unqualified = mempty
-        }
-    TBoxedOpenTup{} -> mempty
+    TUnit -> mempty
+    TBoxedTup{} -> mempty
     TEq{} -> mempty
     TForall _hints _qtvs ctxt body ->
       foldMap resolveTypeImports (body:ctxt)
@@ -384,3 +386,45 @@ resolveExtHsRefImports extRef = ImportAcc{
     , qualified    = Set.singleton (extRef.moduleName, Nothing)
     , unqualified  = mempty
     }
+
+{-------------------------------------------------------------------------------
+  Auxiliary: Export resolution
+-------------------------------------------------------------------------------}
+
+-- | Resolve exports from a list of declarations
+--
+-- Only declarations with exported (user-facing) names are included.
+-- Internal names (e.g. @hs_bindgen_...@ helper bindings) are excluded.
+-- Instances and deriving instances are never exported explicitly (GHC exports
+-- them automatically).
+resolveExports :: [SDecl] -> [ExportItem]
+resolveExports = concatMap resolveDeclExports
+
+-- | Resolve exports from a single declaration
+resolveDeclExports :: SDecl -> [ExportItem]
+resolveDeclExports = \case
+    DTypSyn typSyn               -> exportTypeConstr typSyn.name ExportName
+    DRecord record               -> exportTypeConstr record.typ ExportTypeAll
+    DNewtype newtyp              -> exportTypeConstr newtyp.name ExportTypeAll
+    DEmptyData empty             -> exportTypeConstr empty.name ExportName
+    DForeignImport foreignImport -> exportVar foreignImport.name
+    DBinding binding             -> exportVar binding.name
+    DPatternSynonym patSyn       -> exportPattern patSyn.name
+    -- Instances are automatically exported by GHC
+    DInst _                      -> []
+    DDerivingInstance _          -> []
+  where
+    exportTypeConstr :: Hs.Name Hs.NsTypeConstr -> (Text -> ExportItem) -> [ExportItem]
+    exportTypeConstr name mkItem = case name of
+      Hs.ExportedName _ -> [mkItem (Hs.getName name)]
+      Hs.InternalName _ -> []
+
+    exportVar :: Hs.Name Hs.NsVar -> [ExportItem]
+    exportVar name = case name of
+      Hs.ExportedName _ -> [ExportName (Hs.getName name)]
+      Hs.InternalName _ -> []
+
+    exportPattern :: Hs.Name Hs.NsConstr -> [ExportItem]
+    exportPattern name = case name of
+      Hs.ExportedName _ -> [ExportPattern (Hs.getName name)]
+      Hs.InternalName _ -> []

@@ -392,7 +392,7 @@ translateWriteRawCField = \case
 translatePrimType :: Hs.HsPrimType -> SType ctx
 translatePrimType = \case
     HsPrimVoid    -> tBindgenGlobal Void_type
-    HsPrimUnit    -> TBoxedOpenTup 0
+    HsPrimUnit    -> TUnit
     HsPrimChar    -> tBindgenGlobal Char_type
     HsPrimInt     -> tBindgenGlobal Int_type
     HsPrimDouble  -> tBindgenGlobal Double_type
@@ -559,7 +559,9 @@ translateHasFieldInstance inst mbComment = Instance{
     parentPtr = tBindgenGlobal Foreign_Ptr_type `TApp` parent
     field     = translateType inst.fieldType
     fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
-    -- TODO: this is not actually a free type variable. See issue #1287.
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1287>
+    -- This is not actually a free type variable.
     tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------
@@ -660,7 +662,7 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (eBindgenGlobal CEnum_declaredValuesFromList) $ EList [
-        EBoxedClosedTup [
+        appManyExpr (EBoxedTup $ Plus2 0) [
             EIntegral v Nothing
           , if null names
               then EApp (eBindgenGlobal NonEmpty_singleton) (EString name)

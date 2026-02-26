@@ -75,9 +75,9 @@ main = handle exceptionHandler $ do
 -------------------------------------------------------------------------------}
 
 exceptionHandler :: SomeException -> IO ()
-exceptionHandler e@(SomeException e')
+exceptionHandler e
     | Just _ <- fromException e :: Maybe ExitCode
-    = throwIO e'
+    = throwIO e
 
     | Just (HsBindgenException e'') <- fromException e = do
       putStrLn $ displayException e''
@@ -85,14 +85,9 @@ exceptionHandler e@(SomeException e')
 
     -- truly unexpected exceptions
     | otherwise = do
-      -- Note: displayException of internal exception; this will ensure uniform
-      -- behavior while `base`/GHC figures out the ending of exceptions and
-      -- backtrace story
-      putStrLn $ "Uncaught exception: " ++ displayException e'
+      putStrLn $ "Uncaught exception: " ++ displayException e
       putStrLn
         "Please report this at https://github.com/well-typed/hs-bindgen/issues"
-      -- TODO: we could print exception context here, but it seems to be empty
-      -- for IOExceptions anyway.
       exitFailure
 
 {-------------------------------------------------------------------------------

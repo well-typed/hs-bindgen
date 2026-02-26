@@ -2,7 +2,39 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.f0
+    , Example.Safe.f1
+    , Example.Safe.f2
+    , Example.Safe.f3
+    , Example.Safe.f4
+    , Example.Safe.f5
+    , Example.Safe.f6
+    , Example.Safe.f7
+    , Example.Safe.f8
+    , Example.Safe.f9
+    , Example.Safe.f10
+    , Example.Safe.f11
+    , Example.Safe.f12
+    , Example.Safe.f13
+    , Example.Safe.f14
+    , Example.Safe.f15
+    , Example.Safe.f16
+    , Example.Safe.f17
+    , Example.Safe.f18
+    , Example.Safe.f19
+    , Example.Safe.f20
+    , Example.Safe.f21
+    , Example.Safe.f22
+    , Example.Safe.f23
+    , Example.Safe.f24
+    , Example.Safe.f25
+    , Example.Safe.f26
+    , Example.Safe.f27
+    , Example.Safe.f28
+    , Example.Safe.f29
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

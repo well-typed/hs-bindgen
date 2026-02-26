@@ -6,12 +6,18 @@
 
 * Occurrences of the `CFieldType`/`CBitfieldType` type families in
   class instance heads are now replaced by their definition.
+* `--enable-blocks` CLI option renamed to `-fblocks`, matching `clang`
 
 ### New features
 
 * `internal frontend` command takes a `--pass` option
   (e.g. `internal frontend --pass select`) to dump the result of a specific
   frontend pass. Defaults to `adjust-types` (the final pass) when omitted.
+* Generate explicit export lists in preprocessor-generated modules, hiding
+  internal `hs_bindgen_` helper bindings from the public API and documentation
+  ([#76](https://github.com/well-typed/hs-bindgen/issues/76)). Export items
+  are module-qualified (e.g. `Example.myFunc`) to avoid ambiguity with
+  Prelude names.
 * Add `--post-qualified-imports` flag to generate post-qualified imports
   (`import Data.Proxy qualified`) instead of pre-qualified imports. This adds
   the `ImportQualifiedPost` language extension to generated modules.
@@ -22,6 +28,7 @@
   `hs-bindgen-runtime`. This may affect required packages when using
   `hs-bindgen` generated code. In particular, the packages `ghc-prim` and
   `primitive` are not required by `hs-bindgen` generated code anymore.
+* Improve and disambiguate delayed parse trace messages.
 
 ### Bug fixes
 

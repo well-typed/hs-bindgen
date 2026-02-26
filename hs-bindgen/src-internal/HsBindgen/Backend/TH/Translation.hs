@@ -21,8 +21,6 @@ import Language.Haskell.TH.Syntax qualified as TH
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Runtime.Internal.Prelude qualified as RIP
-
 import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
@@ -30,6 +28,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -42,123 +41,118 @@ import HsBindgen.NameHint
   Backend definition
 -------------------------------------------------------------------------------}
 
--- TODO https://github.com/well-typed/hs-bindgen/issues/1714: Remove this tuple
--- render hack.
-
--- | A version of 'TH.tupleTypeName' that uses the internal runtime prelude and
--- always uses @(,,)@ syntax rather than @Tuple3@. This ensures consistency in
--- TH tests across GHC versions.
-tupleTypeName :: Int -> TH.Name
-tupleTypeName = \case
-  0 -> ''RIP.Unit
-  1 -> ''RIP.Solo
-  n ->
-    let -- Fake package name as syntax is built-in.
-        tup_pkg :: TH.PkgName
-        tup_pkg = TH.mkPkgName "ghc-internal"
-
-        tup_mod :: TH.ModName
-        tup_mod = TH.mkModName "GHC.Tuple"
-
-        tup_occ :: String
-        tup_occ = "(" ++ replicate (n - 1) ',' ++ ")"
-
-    in  TH.Name
-          (TH.mkOccName tup_occ)
-          (TH.NameG TH.TcClsName tup_pkg tup_mod)
-
 mkGlobalExpr :: Quote q => Global LvlTerm -> q TH.Exp
 mkGlobalExpr g = case g.cat of
   GVar -> TH.varE g.name
   GCon -> TH.conE g.name
 
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
-mkExpr env = \case
-      EGlobal n     -> mkGlobalExpr n
-      EFree n       -> hsVarE n
-      EBound x      -> TH.varE (lookupEnv x env)
-      ECon n        -> hsConE n
-      EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
-      EIntegral i Nothing -> TH.litE (TH.IntegerL i)
-      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkType EmptyEnv t)
-      -- TH doesn't have floating-point literals, because it represents them
-      -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
-      --
-      -- To work around this problem, we cast floating-point numbers to
-      -- Word32/Word64 and then cast back.
-      EFloat f t ->
-        TH.sigE
-          ( if CExpr.DSL.canBeRepresentedAsRational f
-              then [| f |]
-              else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
-          )
-          (mkType EmptyEnv t)
-      EDouble d t ->
-        TH.sigE
-          ( if CExpr.DSL.canBeRepresentedAsRational d
-              then [| d |]
-              else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
-          )
-          (mkType EmptyEnv t)
-      EChar c -> [| c |]
-      EString s -> [| s |]
-      ECString ba@(ByteArray ba#) ->
-        let
-          len :: Integer
-          len = fromIntegral (I# (sizeofByteArray# ba#))
-        in
-          TH.sigE
-            ( TH.tupE [ TH.conE 'GHC.Ptr.Ptr `TH.appE` TH.litE (TH.StringPrimL $ IsList.toList ba)
-                      , TH.litE (TH.integerL len)
-                      ]
-            )
-          (TH.conT $ (.name) $ bindgenGlobalType CStringLen_type)
-      EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
-      EInfix op x y -> TH.infixE
-                         (Just $ mkExpr env x)
-                         (mkGlobalExpr $ infixOpGlobal op)
-                         (Just $ mkExpr env y)
-      ELam (NameHint x) f      -> do
-          x' <- TH.newName x
-          TH.lamE [TH.varP x'] (mkExpr (env :> x') f)
-      EUnusedLam f ->
-          TH.lamE [TH.wildP] (mkExpr env f)
-      ECase x alts  -> TH.caseE (mkExpr env x)
-                         [ case alt of
-                             SAlt c add hints b -> do
-                               (xs, env') <- newNames env add hints
-                               TH.match
-                                  (hsConP c $ map TH.varP xs)
-                                  (TH.normalB $ mkExpr env' b)
-                                  []
-                             SAltNoConstr hints b -> do
-                               -- SAltNoConstr has one name hint only
-                               -- guaranteed by the type.
-                               (xs, env') <- newNames env (AS AZ) hints
-                               case xs of
-                                 []    ->
-                                   panicPure "Expected one name hint, but SAltNoConstr had none"
-                                 [v]   ->
-                                   TH.match
-                                     (TH.varP v)
-                                     (TH.normalB $ mkExpr env' b)
-                                     []
-                                 vs ->
-                                   panicPure $ "Expected one name hint, but SAltNoConstr had more: " <> show vs
-                             SAltUnboxedTuple add hints b -> do
-                               (xs, env') <- newNames env add hints
-                               TH.match
-                                  (TH.unboxedTupP $ map TH.varP xs)
-                                  (TH.normalB $ mkExpr env' b)
-                                  []
-                         | alt <- alts
-                         ]
-      EBoxedOpenTup n -> TH.conE $ TH.tupleDataName $ fromIntegral n
-      EBoxedClosedTup xs -> TH.tupE $ mkExpr env <$> xs
-      EUnboxedTup xs -> TH.unboxedTupE $ mkExpr env <$> xs
-      EList xs -> TH.listE $ mkExpr env <$> xs
+mkExpr env expr = case asNaryEApp expr of
+    (EBoxedTup n, args) ->
+      prettyTupleExpr Boxed env n args
+    (EUnboxedTup n, args) ->
+      prettyTupleExpr Unboxed env n args
+    (EApp{} , _) ->
+      panicWith
+        "Unexpected function application after unrolling function applications"
+        expr
+    _otherwise -> mkRolledExpr env expr
 
-      ETypeApp f t -> TH.appTypeE (mkExpr env f) (mkType EmptyEnv t)
+-- See 'mkExpr' but do not unroll/recognize function applications.
+mkRolledExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
+mkRolledExpr env expr = case expr of
+    EGlobal n     -> mkGlobalExpr n
+    EFree n       -> hsVarE n
+    EBound x      -> TH.varE (lookupEnv x env)
+    ECon n        -> hsConE n
+    EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
+    EIntegral i Nothing -> TH.litE (TH.IntegerL i)
+    EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkType EmptyEnv t)
+    -- TH doesn't have floating-point literals, because it represents them
+    -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
+    --
+    -- To work around this problem, we cast floating-point numbers to
+    -- Word32/Word64 and then cast back.
+    EFloat f t ->
+      TH.sigE
+        ( if CExpr.DSL.canBeRepresentedAsRational f
+            then [| f |]
+            else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
+        )
+        (mkType EmptyEnv t)
+    EDouble d t ->
+      TH.sigE
+        ( if CExpr.DSL.canBeRepresentedAsRational d
+            then [| d |]
+            else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
+        )
+        (mkType EmptyEnv t)
+    EChar c -> [| c |]
+    EString s -> [| s |]
+    ECString ba@(ByteArray ba#) ->
+      let
+        len :: Integer
+        len = fromIntegral (I# (sizeofByteArray# ba#))
+      in
+        TH.sigE
+          ( TH.tupE [ TH.conE 'GHC.Ptr.Ptr `TH.appE` TH.litE (TH.StringPrimL $ IsList.toList ba)
+                    , TH.litE (TH.integerL len)
+                    ]
+          )
+        (TH.conT $ (.name) $ bindgenGlobalType CStringLen_type)
+    EApp f x      -> TH.appE (mkExpr env f) (mkExpr env x)
+    EInfix op x y -> TH.infixE
+                       (Just $ mkExpr env x)
+                       (mkGlobalExpr $ infixOpGlobal op)
+                       (Just $ mkExpr env y)
+    ELam (NameHint x) f      -> do
+        x' <- TH.newName x
+        TH.lamE [TH.varP x'] (mkExpr (env :> x') f)
+    EUnusedLam f ->
+        TH.lamE [TH.wildP] (mkExpr env f)
+    ECase x alts  -> TH.caseE (mkExpr env x)
+                       [ case alt of
+                           SAlt c add hints b -> do
+                             (xs, env') <- newNames env add hints
+                             TH.match
+                                (hsConP c $ map TH.varP xs)
+                                (TH.normalB $ mkExpr env' b)
+                                []
+                           SAltNoConstr hints b -> do
+                             -- SAltNoConstr has one name hint only
+                             -- guaranteed by the type.
+                             (xs, env') <- newNames env (AS AZ) hints
+                             case xs of
+                               []    ->
+                                 panicPure "Expected one name hint, but SAltNoConstr had none"
+                               [v]   ->
+                                 TH.match
+                                   (TH.varP v)
+                                   (TH.normalB $ mkExpr env' b)
+                                   []
+                               vs ->
+                                 panicPure $ "Expected one name hint, but SAltNoConstr had more: " <> show vs
+                           SAltUnboxedTuple add hints b -> do
+                             (xs, env') <- newNames env add hints
+                             TH.match
+                                (TH.unboxedTupP $ map TH.varP xs)
+                                (TH.normalB $ mkExpr env' b)
+                                []
+                       | alt <- alts
+                       ]
+    EUnit -> TH.tupE []
+    -- Handled in 'mkExpr'.
+    EBoxedTup{} ->
+      panicWith
+        "Unexpected boxed, unsaturated tuple after unrolling function applications"
+        expr
+    -- Handled in 'mkExpr'.
+    EUnboxedTup{} ->
+      panicWith
+        "Unexpected unboxed, unsaturated tuple after unrolling function applications"
+        expr
+    EList xs -> TH.listE $ mkExpr env <$> xs
+    ETypeApp f t -> TH.appTypeE (mkExpr env f) (mkType EmptyEnv t)
 
 mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case
@@ -166,7 +160,19 @@ mkPat = \case
     PELit i -> TH.litP (TH.IntegerL i)
 
 mkType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
-mkType env = \case
+mkType env ty = case asNaryTApp ty of
+    (TBoxedTup n, args) ->
+      prettyTupleType env n args
+    (TApp{}, _) ->
+      panicWith
+        "Unexpected type application after unrolling type applications"
+        ty
+    _otherwise ->
+      mkRolledType env ty
+
+-- See 'mkType' but do not unroll/recognize type applications.
+mkRolledType :: Quote q => Env ctx TH.Name -> SType ctx -> q TH.Type
+mkRolledType env ty = case ty of
     TGlobal n  -> TH.conT n.name
     TClass cls -> TH.conT $ (.name) $ typeClassGlobal cls
     TBound x   -> TH.varT (lookupEnv x env)
@@ -176,7 +182,12 @@ mkType env = \case
     TStrLit s  -> TH.litT (TH.strTyLit s)
     TFun a b   -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
     TApp f t   -> TH.appT (mkType env f) (mkType env t)
-    TBoxedOpenTup n -> TH.conT $ tupleTypeName $ fromIntegral n
+    TUnit -> pure $ TH.TupleT 0
+    -- Handled in 'mkType'.
+    TBoxedTup{} ->
+      panicWith
+        "Unexpected unsaturated tuple after unrolling type application"
+        ty
     TEq -> TH.conT ''(~)
     TForall hints add ctxt body -> do
         let bndr tv = TH.PlainTV tv TH.SpecifiedSpec
@@ -211,9 +222,10 @@ mkDecl = \case
               , map (\(x, f) -> simpleDecl x.name f) inst.decs
               ])
 
-        -- TODO: Add haddock comment to the class head, see issue #976. We also
-        -- don't put the comments on any of the class members (type synonyms /
-        -- functions) because that leads to similar bugs as described in #976.
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/976>
+        -- We should add haddock comment to the class head, but we cannot due to
+        -- a GHC bug. We also don't put the comments on any of the class members
+        -- (type synonyms / functions) because that leads to similar bugs.
         --
         -- putDocTypeM _type_ inst.comment
         pure [instanceDec]
@@ -414,3 +426,58 @@ newNames env (AS n) (NameHint hint ::: hints) = do
 
 putLocalDocM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
 putLocalDocM nm = traverse_ (putLocalDoc nm)
+
+{-------------------------------------------------------------------------------
+  Tuples
+-------------------------------------------------------------------------------}
+
+data TupleType = Boxed | Unboxed
+
+prettyTupleExpr :: Quote q => TupleType -> Env ctx TH.Name -> Plus2 -> [SExpr ctx] -> q TH.Exp
+prettyTupleExpr ty env n decls = case compare arity nDecls of
+  LT ->
+    panicPure $ mconcat [
+        "Too many declarations ("
+      , show nDecls
+      , ") for "
+      , show arity ++ "-tuple"
+      ]
+  _otherwise -> do
+    declExprs <- mapM (mkExpr env) decls
+    let nMissing :: Int
+        nMissing = arity - nDecls
+
+        fakeDecls :: [Maybe TH.Exp]
+        fakeDecls = map Just declExprs ++ replicate nMissing Nothing
+    pure $ thTupleCon fakeDecls
+  where
+    arity, nDecls :: Int
+    arity  = fromIntegral (applyPlus2 n)
+    nDecls = length decls
+
+    thTupleCon :: [Maybe TH.Exp] -> TH.Exp
+    thTupleCon = case ty of
+      Boxed   -> TH.TupE
+      Unboxed -> TH.UnboxedTupE
+
+prettyTupleType :: Quote q => Env ctx TH.Name -> Plus2 -> [SType ctx] -> q TH.Type
+prettyTupleType env n decls = case compare arity nDecls of
+  LT ->
+    panicPure $ mconcat [
+        "Too many declarations ("
+      , show nDecls
+      , ") for "
+      , show arity ++ "-tuple"
+      ]
+  _otherwise -> foldl' TH.appT (TH.tupleT arity) $ mkType env <$> decls
+  where
+    arity, nDecls :: Int
+    arity  = fromIntegral (applyPlus2 n)
+    nDecls = length decls
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
+
+panicWith :: Show a => String -> a -> b
+panicWith msg x = panicPure $ msg ++ ": " ++ show x

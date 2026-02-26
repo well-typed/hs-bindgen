@@ -67,7 +67,8 @@ instance Apply (LanC.CDeclarationSpecifier a) PartialDecl where
          -- potential bugs, at the cost of some increased code complexity).
           LanC.CTypedef _a -> return
 
-          -- TODO: other storage specifiers?
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1768>
+          -- We could deal other storage specifiers (auto, static, extern, ..).
           other -> \_ -> unexpectedF other
 
       other -> \_ -> unexpectedF other
@@ -281,12 +282,12 @@ instance Apply (LanC.CDerivedDeclarator a) (C.Type HandleMacros) where
           then \_ -> unexpected "complete array without size"
           else repeatedly apply quals . C.TypeIncompleteArray
       LanC.CArrDeclr quals (LanC.CArrSize _isStatic expr) _a -> \typ -> do
+        -- For arrays of known size, we only support constant sizes
         sz <- case expr of
                 LanC.CConst (LanC.CIntConst n _a') ->
                   return $ fromIntegral $ LanC.getCInteger n
                 other ->
                   unsupported $ show (nodeOmitted other)
-        -- TODO: Should we do something with _isStatic?
         repeatedly apply quals $ C.TypeConstArray sz typ
       other -> \_ ->
         unexpectedF other

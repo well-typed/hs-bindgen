@@ -11,7 +11,11 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Uint32_t(..)
+    , Example.Foo(..)
+    )
+  where
 
 import qualified Foreign
 import qualified HsBindgen.Runtime.HasCField as HasCField

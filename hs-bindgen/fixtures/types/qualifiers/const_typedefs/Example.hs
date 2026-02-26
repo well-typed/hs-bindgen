@@ -14,7 +14,22 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.I(..)
+    , Example.S(..)
+    , Example.U(..)
+    , Example.E(..)
+    , pattern Example.Foo
+    , Example.TI(..)
+    , Example.TS(..)
+    , Example.TU(..)
+    , Example.TE(..)
+    , Example.TTI(..)
+    , Example.TTS(..)
+    , Example.TTU(..)
+    , Example.TTE(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.CEnum as CEnum
 import qualified HsBindgen.Runtime.HasCField as HasCField

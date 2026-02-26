@@ -146,9 +146,9 @@ bad_fma :: CDouble -> CDouble -> CDouble -> IO CDouble
 bad_fma = hs_bindgen_180022d3518c53bd
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
 foreign import ccall safe "hs_bindgen_d72558f6f977200c" hs_bindgen_d72558f6f977200c_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
-hs_bindgen_d72558f6f977200c :: IO Unit
+hs_bindgen_d72558f6f977200c :: IO ()
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args@
 hs_bindgen_d72558f6f977200c = fromFFIType hs_bindgen_d72558f6f977200c_base
 {-| __C declaration:__ @no_args@
@@ -157,7 +157,7 @@ hs_bindgen_d72558f6f977200c = fromFFIType hs_bindgen_d72558f6f977200c_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args :: IO Unit
+no_args :: IO ()
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
@@ -167,9 +167,9 @@ no_args :: IO Unit
 no_args = hs_bindgen_d72558f6f977200c
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
 foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" hs_bindgen_d8523e2ccea5c7ba_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
-hs_bindgen_d8523e2ccea5c7ba :: IO Unit
+hs_bindgen_d8523e2ccea5c7ba :: IO ()
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
 hs_bindgen_d8523e2ccea5c7ba = fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
 {-| __C declaration:__ @no_args_no_void@
@@ -178,7 +178,7 @@ hs_bindgen_d8523e2ccea5c7ba = fromFFIType hs_bindgen_d8523e2ccea5c7ba_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void :: IO Unit
+no_args_no_void :: IO ()
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@
@@ -258,9 +258,9 @@ bad_fma :: CDouble -> CDouble -> CDouble -> IO CDouble
 bad_fma = hs_bindgen_d02f37accebc0cb3
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" hs_bindgen_9ea56ae4fab9a418_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
-hs_bindgen_9ea56ae4fab9a418 :: IO Unit
+hs_bindgen_9ea56ae4fab9a418 :: IO ()
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 hs_bindgen_9ea56ae4fab9a418 = fromFFIType hs_bindgen_9ea56ae4fab9a418_base
 {-| __C declaration:__ @no_args@
@@ -269,7 +269,7 @@ hs_bindgen_9ea56ae4fab9a418 = fromFFIType hs_bindgen_9ea56ae4fab9a418_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args :: IO Unit
+no_args :: IO ()
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
@@ -279,9 +279,9 @@ no_args :: IO Unit
 no_args = hs_bindgen_9ea56ae4fab9a418
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" hs_bindgen_a3d1783059ec7820_base ::
-    IO Unit
+    IO ()
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
-hs_bindgen_a3d1783059ec7820 :: IO Unit
+hs_bindgen_a3d1783059ec7820 :: IO ()
 -- __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 hs_bindgen_a3d1783059ec7820 = fromFFIType hs_bindgen_a3d1783059ec7820_base
 {-| __C declaration:__ @no_args_no_void@
@@ -290,7 +290,7 @@ hs_bindgen_a3d1783059ec7820 = fromFFIType hs_bindgen_a3d1783059ec7820_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void :: IO Unit
+no_args_no_void :: IO ()
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@
@@ -370,7 +370,7 @@ bad_fma = unsafePerformIO hs_bindgen_4c8418e152e9ddbc
 foreign import ccall unsafe "hs_bindgen_a271856b1fcc9477" hs_bindgen_a271856b1fcc9477_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_Example_get_no_args@
-hs_bindgen_a271856b1fcc9477 :: IO (FunPtr (IO Unit))
+hs_bindgen_a271856b1fcc9477 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionssimple_func_Example_get_no_args@
 hs_bindgen_a271856b1fcc9477 = fromFFIType hs_bindgen_a271856b1fcc9477_base
 {-# NOINLINE no_args #-}
@@ -380,7 +380,7 @@ hs_bindgen_a271856b1fcc9477 = fromFFIType hs_bindgen_a271856b1fcc9477_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args :: FunPtr (IO Unit)
+no_args :: FunPtr (IO ())
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h 7:6@
@@ -392,7 +392,7 @@ no_args = unsafePerformIO hs_bindgen_a271856b1fcc9477
 foreign import ccall unsafe "hs_bindgen_73f2a4bbf4a49702" hs_bindgen_73f2a4bbf4a49702_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
-hs_bindgen_73f2a4bbf4a49702 :: IO (FunPtr (IO Unit))
+hs_bindgen_73f2a4bbf4a49702 :: IO (FunPtr (IO ()))
 -- __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
 hs_bindgen_73f2a4bbf4a49702 = fromFFIType hs_bindgen_73f2a4bbf4a49702_base
 {-# NOINLINE no_args_no_void #-}
@@ -402,7 +402,7 @@ hs_bindgen_73f2a4bbf4a49702 = fromFFIType hs_bindgen_73f2a4bbf4a49702_base
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void :: FunPtr (IO Unit)
+no_args_no_void :: FunPtr (IO ())
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h 9:6@

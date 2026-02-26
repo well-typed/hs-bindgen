@@ -11,7 +11,30 @@
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Example where
+module Example
+    ( Example.Dim2(..)
+    , Example.Dim3(..)
+    , Example.DimPayload(..)
+    , Example.get_dimPayload_dim2
+    , Example.set_dimPayload_dim2
+    , Example.get_dimPayload_dim3
+    , Example.set_dimPayload_dim3
+    , Example.Dim(..)
+    , Example.DimPayloadB(..)
+    , Example.get_dimPayloadB_dim2
+    , Example.set_dimPayloadB_dim2
+    , Example.get_dimPayloadB_dim3
+    , Example.set_dimPayloadB_dim3
+    , Example.DimB(..)
+    , Example.AnonA_xy(..)
+    , Example.AnonA_polar(..)
+    , Example.AnonA(..)
+    , Example.get_anonA_xy
+    , Example.set_anonA_xy
+    , Example.get_anonA_polar
+    , Example.set_anonA_polar
+    )
+  where
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

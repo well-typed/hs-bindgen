@@ -163,7 +163,8 @@ isDefinedInCurrentModule declIndex =
   Declarations
 ------------------------------------------------------------------------------}
 
--- TODO: Take DeclSpec into account
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1758>
+-- Take the 'PrescriptiveDeclSpec' into account.
 generateDecs ::
      UniqueId
   -> FieldNamingStrategy
@@ -183,7 +184,6 @@ generateDecs uniqueId fns haddockConfig moduleName sizeofs (C.Decl info kind spe
       C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
         pure $ State.immediate $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
-        -- Deal with typedefs around function pointers (#1380)
         case typedef.typ of
           C.TypePointers n (C.TypeFun args res) ->
             typedefFunPtrDecs supInsts.typedef fns haddockConfig sizeofs info n (args, res) typedef.names spec
@@ -651,9 +651,10 @@ typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) orig
     concActions :: [State.Action [Hs.Decl]] -> State.Action [Hs.Decl]
     concActions = fmap concat . sequence
 
-    -- TODO: For historical reasons we currently implement this by making a
-    -- "fake" C declaration, and then translating that immediately to Haskell.
-    -- We should fuse this, and just generate the Haskell declarations directly.
+    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1759>
+    -- For historical reasons we currently implement this by making a "fake" C
+    -- declaration, and then translating that immediately to Haskell. We should
+    -- fuse this, and just generate the Haskell declarations directly.
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- The name of this auxiliary type should be configurable.
@@ -682,7 +683,8 @@ typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) orig
             ]
         ]
 
-    -- TODO: This duplicates logic from 'mkNewtypeNames' in the name mangler.
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
+    -- This duplicates logic from 'mkNewtypeNames' in the name mangler.
     auxTypedef :: C.Typedef Final
     auxTypedef = C.Typedef{
           typ = C.TypeFun args res
@@ -696,7 +698,8 @@ typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) orig
             }
         }
 
-    -- TODO: Is this right..?
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
+    -- We should think about prescriptive binding specs for _Aux types.
     auxSpec :: PrescriptiveDeclSpec
     auxSpec = PrescriptiveDeclSpec{
           cSpec  = Nothing
@@ -867,8 +870,8 @@ global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
     -- as a constraint to the type of the global, but this would then turn the
     -- global into a function instead.
     --
-    -- TODO: we don't yet check whether the Storable instance has no
-    -- superclass constraints. See issue #993.
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/993>
+    -- We should check that the Storable instance has no superclass constraints.
     | C.isErasedTypeConstQualified ty && Inst.Storable `elem` insts =
       let stubDecs     :: [Hs.Decl]
           pureStubName :: Hs.Name Hs.NsVar
@@ -1097,7 +1100,7 @@ anonEnumConstantDecs haddockConfig info anonEnumConstant =
   Internal helpers
 -------------------------------------------------------------------------------}
 
--- TODO https://github.com/well-typed/hs-bindgen/issues/1504:
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
 -- Incorporate all name mangling into the name mangler.
 renameHsName :: (Hs.Identifier -> Hs.Identifier) -> DeclIdPair -> DeclIdPair
 renameHsName f dip = DeclIdPair {

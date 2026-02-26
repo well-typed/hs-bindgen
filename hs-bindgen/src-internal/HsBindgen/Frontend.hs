@@ -144,23 +144,32 @@ import HsBindgen.Util.Tracer
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 8. "HsBindgen.Frontend.Pass.Select"
---
--- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
--- and program slicing.  It also emits delayed trace messages for declarations
--- that are selected.
---
 -- == 8. "HsBindgen.Frontend.Pass.AdjustTypes"
 --
 -- "HsBindgen.Frontend.Pass.AdjustTypes" adjusts types in declarations. For
 -- example, if a function argument is a function type, then it is adjusted to a
--- function *pointer* type.
+-- function /pointer/ type.
 --
 -- Constraints:
 --
 -- * Must be after "HsBindgen.Frontend.Pass.HandleMacros", because
 --   "HsBindgen.Frontend.Pass.HandleMacros" parses and inserts macro-defined
 --   types that may have to be adjusted.
+--
+-- == 9. "HsBindgen.Frontend.Pass.Select"
+--
+-- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
+-- and program slicing. It also emits delayed trace messages for declarations
+-- that are selected.
+--
+-- Constraints:
+--
+-- * The 'Select' pass must come last so that if a declaration is
+--   'HsBindgen.Frontend.Analysis.DeclIndex.Unusable' for whatever reason (e.g.,
+--   it contains unsupported types such as @long double@, or the name mangler
+--   was unable to find a suitable name, etc.), the 'Select' pass can make sure
+--   that the unusable declaration /and all of its dependencies/ will not be
+--   selected.
 runFrontend ::
      Tracer FrontendMsg
   -> FrontendConfig
@@ -246,31 +255,31 @@ runFrontend tracer config boot = do
       forM_ msgsMangleNames $ traceWith tracer . FrontendMangleNames
       pure afterMangleNames
 
+    adjustTypesPass <- cache "AdjustTypes" $ do
+      afterMangleNamesPass <- mangleNamesPass
+      let (afterAdjustTypes, msgsAdjustTypes) =
+            adjustTypes afterMangleNamesPass
+      forM_ msgsAdjustTypes $ traceWith tracer . FrontendAdjustTypes
+      pure afterAdjustTypes
+
     selectPass <- cache "select" $ do
       (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
-      afterMangleNamesPass <- mangleNamesPass
+      afterAdjustTypesPass <- adjustTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
               selectConfig
-              afterMangleNamesPass
+              afterAdjustTypesPass
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
-    adjustTypesPass <- cache "AdjustTypes" $ do
-      afterSelectPass <- selectPass
-      let (afterAdjustTypes, mnsgsAdjustTypes) =
-            adjustTypes afterSelectPass
-      forM_ mnsgsAdjustTypes $ traceWith tracer . FrontendAdjustTypes
-      pure afterAdjustTypes
-
     finalPass <- cache "Final" $ do
-      adjustTypesPass
+      selectPass
 
     -- Unit.
     getCTranslationUnit <- cache "getCTranslationUnit" $ do
-      afterFinal <- adjustTypesPass
+      afterFinal <- finalPass
       pure $ afterFinal
 
     -- Include graph predicate.
@@ -306,9 +315,8 @@ runFrontend tracer config boot = do
 
     -- Squashed types
     --
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1549: `getSquashed`
-    -- should probably be changed or removed (or at least not used when
-    -- generating binding specifications).
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
+    -- When we properly record aliases, we may not need this anymore.
     frontendSquashedTypes <- cache "frontendSquashedTypes" $ do
       decls <- frontendCDecls
       let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls

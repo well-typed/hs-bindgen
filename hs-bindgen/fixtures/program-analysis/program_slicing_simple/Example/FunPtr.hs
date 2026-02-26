@@ -2,7 +2,10 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.FunPtr where
+module Example.FunPtr
+    ( Example.FunPtr.bar
+    )
+  where
 
 import qualified Foreign
 import qualified HsBindgen.Runtime.Internal.CAPI

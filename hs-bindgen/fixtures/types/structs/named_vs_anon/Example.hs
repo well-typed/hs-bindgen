@@ -3,7 +3,25 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE StandaloneDeriving #-}
 
-module Example where
+module Example
+    ( Example.A(..)
+    , Example.Struct1(..)
+    , Example.B_s(..)
+    , Example.Struct2_s(..)
+    , Example.C(..)
+    , Example.Struct3(..)
+    , Example.D(..)
+    , Example.Struct4(..)
+    , Example.E_s(..)
+    , Example.Struct5_s(..)
+    , Example.F(..)
+    , Example.Typedef1(..)
+    , Example.G(..)
+    , Example.Typedef2(..)
+    , Example.H(..)
+    , Example.Typedef3(..)
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal

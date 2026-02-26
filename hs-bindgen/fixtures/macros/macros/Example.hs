@@ -1,6 +1,44 @@
 {-# LANGUAGE ExplicitForAll #-}
 
-module Example where
+module Example
+    ( Example.oBJECTLIKE1
+    , Example.oBJECTLIKE2
+    , Example.oBJECTLIKE3
+    , Example.oBJECTLIKE4
+    , Example.mEANING_OF_LIFE1
+    , Example.mEANING_OF_LIFE2
+    , Example.mEANING_OF_LIFE3
+    , Example.mEANING_OF_LIFE4
+    , Example.mEANING_OF_LIFE5
+    , Example.lONG_INT_TOKEN1
+    , Example.lONG_INT_TOKEN2
+    , Example.lONG_INT_TOKEN3
+    , Example.lONG_INT_TOKEN4
+    , Example.tUPLE1
+    , Example.tUPLE2
+    , Example.tUPLE3
+    , Example.fLT1_1
+    , Example.fLT1_2
+    , Example.fLT1_3
+    , Example.fLT2_1
+    , Example.fLT2_2
+    , Example.fLT2_3
+    , Example.fLT3_1
+    , Example.fLT3_2
+    , Example.fLT3_3
+    , Example.fLT3_4
+    , Example.fLT4_1
+    , Example.fLT4_2
+    , Example.fLT4_3
+    , Example.fLT5_1
+    , Example.fLT5_2
+    , Example.fLT6_1
+    , Example.fLT6_2
+    , Example.fLT6_3
+    , Example.bAD1
+    , Example.bAD2
+    )
+  where
 
 import qualified C.Expr.HostPlatform
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
@@ -134,8 +172,8 @@ lONG_INT_TOKEN4 =
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE1 :: ((,) RIP.CInt) RIP.CInt
-tUPLE1 = (,) (1 :: RIP.CInt) (2 :: RIP.CInt)
+tUPLE1 :: (RIP.CInt, RIP.CInt)
+tUPLE1 = ((1 :: RIP.CInt), (2 :: RIP.CInt))
 
 {-| __C declaration:__ @TUPLE2@
 
@@ -143,8 +181,8 @@ tUPLE1 = (,) (1 :: RIP.CInt) (2 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE2 :: ((,) RIP.CInt) RIP.CInt
-tUPLE2 = (,) (3 :: RIP.CInt) (4 :: RIP.CInt)
+tUPLE2 :: (RIP.CInt, RIP.CInt)
+tUPLE2 = ((3 :: RIP.CInt), (4 :: RIP.CInt))
 
 {-| __C declaration:__ @TUPLE3@
 
@@ -152,8 +190,8 @@ tUPLE2 = (,) (3 :: RIP.CInt) (4 :: RIP.CInt)
 
     __exported by:__ @macros\/macros.h@
 -}
-tUPLE3 :: ((,) RIP.CInt) RIP.CInt
-tUPLE3 = (,) (5 :: RIP.CInt) (6 :: RIP.CInt)
+tUPLE3 :: (RIP.CInt, RIP.CInt)
+tUPLE3 = ((5 :: RIP.CInt), (6 :: RIP.CInt))
 
 {-| __C declaration:__ @FLT1_1@
 

@@ -210,10 +210,10 @@ foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fb
     Ptr Void
  -> Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
 hs_bindgen_687af703c95fba0e :: Ptr (Complex CFloat) ->
-                               Ptr (Complex CFloat) -> Ptr (Complex CFloat) -> IO Unit
+                               Ptr (Complex CFloat) -> Ptr (Complex CFloat) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
 hs_bindgen_687af703c95fba0e = fromFFIType hs_bindgen_687af703c95fba0e_base
 {-| __C declaration:__ @multiply_complex_f@
@@ -236,10 +236,10 @@ foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" hs_bindgen_3ff14ee8c5914
     Ptr Void
  -> Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
 hs_bindgen_3ff14ee8c5914fc6 :: Ptr (Complex CDouble) ->
-                               Ptr (Complex CDouble) -> Ptr (Complex CDouble) -> IO Unit
+                               Ptr (Complex CDouble) -> Ptr (Complex CDouble) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
 hs_bindgen_3ff14ee8c5914fc6 = fromFFIType hs_bindgen_3ff14ee8c5914fc6_base
 {-| __C declaration:__ @add_complex@
@@ -262,10 +262,10 @@ foreign import ccall unsafe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c216
     Ptr Void
  -> Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 hs_bindgen_e5e3172c2163672b :: Ptr (Complex CFloat) ->
-                               Ptr (Complex CFloat) -> Ptr (Complex CFloat) -> IO Unit
+                               Ptr (Complex CFloat) -> Ptr (Complex CFloat) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 hs_bindgen_e5e3172c2163672b = fromFFIType hs_bindgen_e5e3172c2163672b_base
 {-| __C declaration:__ @multiply_complex_f@
@@ -288,10 +288,10 @@ foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917
     Ptr Void
  -> Ptr Void
  -> Ptr Void
- -> IO Unit
+ -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 hs_bindgen_28f2705e917973ab :: Ptr (Complex CDouble) ->
-                               Ptr (Complex CDouble) -> Ptr (Complex CDouble) -> IO Unit
+                               Ptr (Complex CDouble) -> Ptr (Complex CDouble) -> IO ()
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 hs_bindgen_28f2705e917973ab = fromFFIType hs_bindgen_28f2705e917973ab_base
 {-| __C declaration:__ @add_complex@

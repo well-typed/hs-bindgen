@@ -2,7 +2,15 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.foo
+    , Example.Unsafe.fooA
+    , Example.Unsafe.fooB
+    , Example.Unsafe.bar
+    , Example.Unsafe.barA
+    , Example.Unsafe.barB
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP

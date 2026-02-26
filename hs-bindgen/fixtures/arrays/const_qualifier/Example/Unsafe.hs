@@ -3,7 +3,21 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Unsafe where
+module Example.Unsafe
+    ( Example.Unsafe.foo
+    , Example.Unsafe.fooA
+    , Example.Unsafe.fooB
+    , Example.Unsafe.fooC
+    , Example.Unsafe.bar
+    , Example.Unsafe.barA
+    , Example.Unsafe.barB
+    , Example.Unsafe.barC
+    , Example.Unsafe.baz
+    , Example.Unsafe.bazA
+    , Example.Unsafe.bazB
+    , Example.Unsafe.bazC
+    )
+  where
 
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.IncompleteArray as IA

@@ -2,7 +2,18 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_HADDOCK prune #-}
 
-module Example.Safe where
+module Example.Safe
+    ( Example.Safe.makeToggle
+    , Example.Safe.toggleNext
+    , Example.Safe.releaseToggle
+    , Example.Safe.makeCounter
+    , Example.Safe.counterNext
+    , Example.Safe.releaseCounter
+    , Example.Safe.makeVarCounter
+    , Example.Safe.varCounterNext
+    , Example.Safe.releaseVarCounter
+    )
+  where
 
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
