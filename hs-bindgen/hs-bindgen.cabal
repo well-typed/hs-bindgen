@@ -183,6 +183,7 @@ library internal
     HsBindgen.Frontend.Pass.MangleNames.Error
     HsBindgen.Frontend.Pass.MangleNames.IsPass
     HsBindgen.Frontend.Pass.Parse
+    HsBindgen.Frontend.Pass.Parse.Context
     HsBindgen.Frontend.Pass.Parse.Decl
     HsBindgen.Frontend.Pass.Parse.Decl.Monad
     HsBindgen.Frontend.Pass.Parse.IsPass

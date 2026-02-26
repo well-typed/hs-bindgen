@@ -12,8 +12,6 @@ module HsBindgen.Frontend.Pass.Parse.Type.Monad (
   , insertCache
   , cached
   , cachedMaybe
-    -- * Errors
-  , ParseTypeExceptionInContext(..)
     -- * Utility: dispatching
   , dispatch
   , dispatchWithArg
@@ -24,7 +22,6 @@ import Control.Monad.Catch
 import Control.Monad.Error.Class
 import Control.Monad.IO.Class
 import Control.Monad.State.Strict
-import Data.Data (Typeable)
 import Data.Map.Strict qualified as Map
 
 import Clang.Enum.Simple
@@ -108,33 +105,6 @@ cachedMaybe mName k =
     case mName of
       Nothing -> k
       Just name -> cached name k
-
-{-------------------------------------------------------------------------------
-  Errors
-
-  Dealing with errors while parsing types is a bit tricky:
-
-  * The clang API does not make it very easy to associate a type with a source
-    location, so it's hard to produce a useful error message.
-
-  * Parsing a type always happens whilst processing some enclosing declaration.
-    When we encounter something unsupported (or unexpected) whilst parsing the
-    type, we'll want to register a parse failure and avoid generating bindings
-    for that declaration, but we do not have sufficient context here to do so.
-
-  For both of these reasons we simply throw an exception here, and then /catch/
-  that exception in 'foldDec'. This allows us to address both of these issues:
-  a declaration has a clear source location, so we can generate a helpful error
-  message, and we can skip the declaration we're currently processing.
--------------------------------------------------------------------------------}
-
-data ParseTypeExceptionInContext ctx = ParseTypeExceptionInContext {
-      context   :: ctx
-    , exception :: ParseTypeException
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance (Show ctx, Typeable ctx) => Exception (ParseTypeExceptionInContext ctx)
 
 {-------------------------------------------------------------------------------
   Utility: dispatching based on the cursor kind

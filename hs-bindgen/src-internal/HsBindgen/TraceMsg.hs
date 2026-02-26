@@ -16,6 +16,8 @@ module HsBindgen.TraceMsg (
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
   , ParseTypeException(..)
+  , ParseDeclException(..)
+  , ParseMsg(..)
   , CExpr.DSL.MacroParseError(..)
   , ResolveBindingSpecsMsg(..)
   , ResolveHeaderMsg(..)
@@ -42,6 +44,8 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosReparseMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass (ImmediateParseMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..),
+                                          ParseDeclException (..),
+                                          ParseMsg (..),
                                           ParseTypeException (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecsMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))

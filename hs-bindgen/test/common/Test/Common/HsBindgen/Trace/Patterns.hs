@@ -6,7 +6,9 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , matchDiagnosticSpelling
     -- * Parse
   , pattern MatchParse
-  , pattern MatchDelayed
+  , pattern MatchParseTypeException
+  , pattern MatchParseDeclException
+  , pattern MatchParseMsg
   , pattern MatchUnknownStorageClass
     -- * HandleMacros
   , pattern MatchHandleMacros
@@ -79,10 +81,18 @@ pattern MatchParse name x <- TraceFrontend (
         }
     )
 
-pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
-pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
+pattern MatchParseTypeException :: CDeclName -> ParseTypeException -> TraceMsg
+pattern MatchParseTypeException name x <-
+  MatchSelect name (matchParseTypeException -> Just x)
 
-pattern MatchUnknownStorageClass :: CX_StorageClass -> DelayedParseMsg
+pattern MatchParseDeclException :: CDeclName -> ParseDeclException -> TraceMsg
+pattern MatchParseDeclException name x <-
+  MatchSelect name (matchParseDeclException -> Just x)
+
+pattern MatchParseMsg :: CDeclName -> ParseMsg -> TraceMsg
+pattern MatchParseMsg name x <- MatchSelect name (matchParseMsg -> Just x)
+
+pattern MatchUnknownStorageClass :: CX_StorageClass -> ParseMsg
 pattern MatchUnknownStorageClass x <- ParseUnknownStorageClass (
       fromSimpleEnum -> Right x
     )
@@ -162,3 +172,18 @@ matchDelayed = \case
     SelectParseSuccess x -> Just x
     SelectParseFailure (ParseFailure x) -> Just x
     _otherwise -> Nothing
+
+matchParseTypeException :: SelectMsg -> Maybe ParseTypeException
+matchParseTypeException x =  case matchDelayed x of
+  Just (ParseTypeException m) -> Just m
+  _otherwise        -> Nothing
+
+matchParseDeclException :: SelectMsg -> Maybe ParseDeclException
+matchParseDeclException x =  case matchDelayed x of
+  Just (ParseDeclException m) -> Just m
+  _otherwise        -> Nothing
+
+matchParseMsg :: SelectMsg -> Maybe ParseMsg
+matchParseMsg x = case matchDelayed x of
+  Just (ParseMsg m) -> Just m
+  _otherwise        -> Nothing

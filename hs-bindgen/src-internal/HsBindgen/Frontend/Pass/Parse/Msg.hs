@@ -1,6 +1,8 @@
 -- | Parse messages
 module HsBindgen.Frontend.Pass.Parse.Msg (
     ParseTypeException(..)
+  , ParseDeclException(..)
+  , ParseMsg(..)
   , DelayedParseMsg(..)
   ) where
 
@@ -11,6 +13,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
+import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
@@ -18,9 +21,12 @@ import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
-  Definition
+  Type-level exceptions
 -------------------------------------------------------------------------------}
 
+-- TODO-D: Unexpected should move into immediate.
+
+-- | Unexpected exceptions that are caught and reported when parsing types
 data ParseTypeException =
     -- | We encountered an unexpected type kind
     --
@@ -55,23 +61,93 @@ data ParseTypeException =
 instance Exception ParseTypeException where
   displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
 
--- | Delayed parse messages
+instance PrettyForTrace ParseTypeException where
+  prettyForTrace = \case
+      UnexpectedTypeKind (Right kind) ->
+          unexpected $ "type kind " >< PP.show kind
+      UnexpectedTypeKind (Left i) ->
+          unexpected $ "type kind " >< PP.show i
+      UnexpectedTypeDecl (Right kind) ->
+          unexpected $ "type declaration " >< PP.show kind
+      UnexpectedTypeDecl (Left i) ->
+          unexpected $ "type declaration " >< PP.show i
+      UnsupportedVariadicFunction ->
+          "Unsupported variadic (varargs) function"
+      UnsupportedLongDouble ->
+          "Unsupported long double"
+      UnsupportedBuiltin name ->
+          "Unsupported built-in " >< PP.show name
+      UnexpectedComplexType ty ->
+          "Unexpected complex type " >< PP.show ty
+      UnsupportedUnderlyingType name err -> PP.hcat [
+            "Unsupported underlying type of typedef "
+          , PP.show name
+          , ": "
+          , prettyForTrace err
+          ]
+    where
+      unexpected :: PP.CtxDoc -> PP.CtxDoc
+      unexpected msg = PP.vcat [
+            "Unexpected " >< msg
+          , PP.string pleaseReport
+          ]
+
+-- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
 --
--- We emit these parse messages only when we attempt to select the attached
+-- This ensures that for declarations that use known-to-be-unsupported types, we
+-- can just register a parse failure and avoid generating bindings for that
 -- declaration.
+instance IsTrace Level ParseTypeException where
+  getDefaultLogLevel = \case
+    UnexpectedTypeKind{}          -> Error
+    UnexpectedTypeDecl{}          -> Error
+    UnsupportedVariadicFunction   -> Warning
+    UnsupportedLongDouble         -> Warning
+    UnsupportedBuiltin{}          -> Warning
+    UnexpectedComplexType{}       -> Error
+    UnsupportedUnderlyingType _ x -> getDefaultLogLevel x
+  getSource  = const HsBindgen
+  getTraceId = const "parse-type-exception"
+
+{-------------------------------------------------------------------------------
+  Term-level exceptions
+-------------------------------------------------------------------------------}
+
+-- | Unexpected exceptions that are caught and reported when parsing terms
+data ParseDeclException =
+    ParseNoMainHeadersException String SourcePath
+  deriving stock (Show, Eq, Ord)
+
+instance Exception ParseDeclException where
+  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
+
+instance PrettyForTrace ParseDeclException where
+  prettyForTrace = \case
+    ParseNoMainHeadersException why whr -> PP.hsep [
+        "Could not determine main headers:"
+      , PP.string why
+      , "at"
+      , PP.string $ getSourcePath whr
+      ]
+
+instance IsTrace Level ParseDeclException where
+  getDefaultLogLevel = const Error
+  getSource          = const HsBindgen
+  getTraceId = \case
+    ParseNoMainHeadersException{} -> "parse-no-main-headers"
+
+{-------------------------------------------------------------------------------
+  Messages
+-------------------------------------------------------------------------------}
+
+-- | Parse messages
 --
 -- We distinguish between \"unsupported\", which refers to C features that one
 -- could reasonably expect to be supported eventually, and \"unexpected\", for
 -- strange C input.
-data DelayedParseMsg =
-    -- | Unsupported type
-    --
-    -- Since types don't necessarily have associated source locations, we
-    -- instead record information about the enclosing declaration.
-    ParseUnsupportedType ParseTypeException
-
+data ParseMsg =
     -- | Struct with implicit fields
-  | ParseUnsupportedImplicitFields
+    ParseUnsupportedImplicitFields
 
     -- | Unexpected anonymous declaration inside function signature
     --
@@ -195,45 +271,8 @@ data DelayedParseMsg =
   | ParseUnusableAnonDecl AnonId
   deriving stock (Show, Eq, Ord, Generic)
 
-{-------------------------------------------------------------------------------
-  Pretty-printing
--------------------------------------------------------------------------------}
-
-instance PrettyForTrace ParseTypeException where
+instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
-      UnexpectedTypeKind (Right kind) ->
-          unexpected $ "type kind " >< PP.show kind
-      UnexpectedTypeKind (Left i) ->
-          unexpected $ "type kind " >< PP.show i
-      UnexpectedTypeDecl (Right kind) ->
-          unexpected $ "type declaration " >< PP.show kind
-      UnexpectedTypeDecl (Left i) ->
-          unexpected $ "type declaration " >< PP.show i
-      UnsupportedVariadicFunction ->
-          "Unsupported variadic (varargs) function"
-      UnsupportedLongDouble ->
-          "Unsupported long double"
-      UnsupportedBuiltin name ->
-          "Unsupported built-in " >< PP.show name
-      UnexpectedComplexType ty ->
-          "Unexpected complex type " >< PP.show ty
-      UnsupportedUnderlyingType name err -> PP.hcat [
-            "Unsupported underlying type of typedef "
-          , PP.show name
-          , ": "
-          , prettyForTrace err
-          ]
-    where
-      unexpected :: PP.CtxDoc -> PP.CtxDoc
-      unexpected msg = PP.vcat [
-            "Unexpected " >< msg
-          , PP.string pleaseReport
-          ]
-
-instance PrettyForTrace DelayedParseMsg where
-  prettyForTrace = \case
-      ParseUnsupportedType err ->
-        prettyForTrace err
       ParseUnsupportedImplicitFields ->
         "Unsupported implicit fields"
       ParseUnexpectedAnonInSignature ->
@@ -268,31 +307,9 @@ instance PrettyForTrace DelayedParseMsg where
         , prettyForTrace anonId
         ]
 
-{-------------------------------------------------------------------------------
-  Severity
--------------------------------------------------------------------------------}
-
--- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
---
--- This ensures that for declarations that use known-to-be-unsupported types, we
--- can just register a parse failure and avoid generating bindings for that
--- declaration.
-instance IsTrace Level ParseTypeException where
-  getDefaultLogLevel = \case
-    UnexpectedTypeKind{}          -> Error
-    UnexpectedTypeDecl{}          -> Error
-    UnsupportedVariadicFunction   -> Warning
-    UnsupportedLongDouble         -> Warning
-    UnsupportedBuiltin{}          -> Warning
-    UnexpectedComplexType{}       -> Error
-    UnsupportedUnderlyingType _ x -> getDefaultLogLevel x
-  getSource  = const HsBindgen
-  getTraceId = const "parse-type-exception"
-
 -- | Unsupported features are warnings
-instance IsTrace Level DelayedParseMsg where
+instance IsTrace Level ParseMsg where
   getDefaultLogLevel = \case
-      ParseUnsupportedType err         -> getDefaultLogLevel err
       ParseUnsupportedImplicitFields{} -> Warning
       ParseUnexpectedAnonInSignature{} -> Warning
       ParseUnexpectedAnonInExtern{}    -> Warning
@@ -303,4 +320,21 @@ instance IsTrace Level DelayedParseMsg where
       ParseFunctionOfTypeTypedef{}     -> Warning
       ParseUnusableAnonDecl{}          -> Warning
   getSource  = const HsBindgen
-  getTraceId = const "parse-delayed"
+  getTraceId = const "parse"
+
+{-------------------------------------------------------------------------------
+  Delayed parse messages
+-------------------------------------------------------------------------------}
+
+-- | Delayed parse messages
+--
+-- We emit these parse messages only when we attempt to select the attached
+-- declaration.
+data DelayedParseMsg =
+    ParseTypeException ParseTypeException
+  | ParseDeclException ParseDeclException
+  | ParseMsg ParseMsg
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance PrettyForTrace DelayedParseMsg
+instance IsTrace Level DelayedParseMsg
