@@ -125,14 +125,14 @@ hs_bindgen_48dbbf4b09b5b3c1 = fromFFIType hs_bindgen_48dbbf4b09b5b3c1_base
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: Foreign.Word64 -> Uint32_t -> IO CInt
+bar_safe :: Foreign.Word64 -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar = hs_bindgen_48dbbf4b09b5b3c1
+bar_safe = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
     Word64
@@ -149,14 +149,14 @@ hs_bindgen_fe855d53295ba8ab = fromFFIType hs_bindgen_fe855d53295ba8ab_base
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: Foreign.Word64 -> Uint32_t -> IO CInt
+bar_unsafe :: Foreign.Word64 -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar = hs_bindgen_fe855d53295ba8ab
+bar_unsafe = hs_bindgen_fe855d53295ba8ab
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9_base ::
     IO (FunPtr Void)
@@ -165,18 +165,18 @@ hs_bindgen_993162e0dadfa2c9 :: IO (FunPtr (Foreign.Word64 ->
                                            Uint32_t -> IO CInt))
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
 hs_bindgen_993162e0dadfa2c9 = fromFFIType hs_bindgen_993162e0dadfa2c9_base
-{-# NOINLINE bar #-}
+{-# NOINLINE bar_funptr #-}
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: FunPtr (Foreign.Word64 -> Uint32_t -> IO CInt)
+bar_funptr :: FunPtr (Foreign.Word64 -> Uint32_t -> IO CInt)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar = unsafePerformIO hs_bindgen_993162e0dadfa2c9
+bar_funptr = unsafePerformIO hs_bindgen_993162e0dadfa2c9

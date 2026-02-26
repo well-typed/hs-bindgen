@@ -514,7 +514,7 @@ bindgenGlobalTerm = globalExpr . \case
     IO_unsafePerformIO -> (IRuntimeInternalPrelude, GVar, 'RIP.unsafePerformIO)
 
     -- PtrConst
-    PtrConst_unsafeFromPtr -> (IRuntimeModule "PtrConst", GCon, 'PtrConst.unsafeFromPtr)
+    PtrConst_unsafeFromPtr -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.unsafeFromPtr)
     PtrConst_unsafeToPtr   -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.unsafeToPtr)
     PtrConst_peek          -> (IRuntimeModule "PtrConst", GVar, 'PtrConst.peek)
 

@@ -8,6 +8,9 @@ module Test.HsBindgen.Resources (
   , getTestPackageRoot
   , getTestDefaultClangArgsConfig
   , getTestDefaultBackendConfig
+  , getTestThBackendConfig
+  , applyTestThCategoryChoice
+  , testThCategoryChoice
   ) where
 
 import System.FilePath ((</>))
@@ -15,6 +18,8 @@ import Test.Tasty
 
 import Clang.Version
 
+import HsBindgen.Backend.Category (ByCategory (..), Choice (..),
+                                   RenameTerm (..))
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -111,4 +116,24 @@ getTestDefaultBackendConfig testName pathStyle = def{
       -- Honor 'maxUniqueIdLength'.
       uniqueId = UniqueId (take 35 $ "test." <> testName)
     , haddock  = HaddockConfig pathStyle
+    }
+
+getTestThBackendConfig :: TestName -> PathStyle -> BackendConfig
+getTestThBackendConfig testName pathStyle =
+    (getTestDefaultBackendConfig testName pathStyle) {
+        categoryChoice = testThCategoryChoice
+      }
+
+-- | Apply TH-specific category choice to an existing 'BackendConfig',
+-- preserving all other settings (e.g. 'fieldNamingStrategy').
+applyTestThCategoryChoice :: BackendConfig -> BackendConfig
+applyTestThCategoryChoice cfg = cfg { categoryChoice = testThCategoryChoice }
+
+testThCategoryChoice :: ByCategory Choice
+testThCategoryChoice = ByCategory {
+      cType   = IncludeTypeCategory
+    , cSafe   = IncludeTermCategory $ RenameTerm (<> "_safe")
+    , cUnsafe = IncludeTermCategory $ RenameTerm (<> "_unsafe")
+    , cFunPtr = IncludeTermCategory $ RenameTerm (<> "_funptr")
+    , cGlobal = IncludeTermCategory def
     }

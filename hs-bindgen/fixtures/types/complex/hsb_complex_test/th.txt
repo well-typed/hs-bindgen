@@ -222,15 +222,15 @@ hs_bindgen_687af703c95fba0e = fromFFIType hs_bindgen_687af703c95fba0e_base
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f :: Complex CFloat ->
-                      Complex CFloat -> IO (Complex CFloat)
+multiply_complex_f_safe :: Complex CFloat ->
+                           Complex CFloat -> IO (Complex CFloat)
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_687af703c95fba0e a_2 b_3 res_4)))
+multiply_complex_f_safe = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_687af703c95fba0e a_2 b_3 res_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
 foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" hs_bindgen_3ff14ee8c5914fc6_base ::
     Ptr Void
@@ -248,15 +248,15 @@ hs_bindgen_3ff14ee8c5914fc6 = fromFFIType hs_bindgen_3ff14ee8c5914fc6_base
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex :: Complex CDouble ->
-               Complex CDouble -> IO (Complex CDouble)
+add_complex_safe :: Complex CDouble ->
+                    Complex CDouble -> IO (Complex CDouble)
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_3ff14ee8c5914fc6 a_2 b_3 res_4)))
+add_complex_safe = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_3ff14ee8c5914fc6 a_2 b_3 res_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 foreign import ccall unsafe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c2163672b_base ::
     Ptr Void
@@ -274,15 +274,15 @@ hs_bindgen_e5e3172c2163672b = fromFFIType hs_bindgen_e5e3172c2163672b_base
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f :: Complex CFloat ->
-                      Complex CFloat -> IO (Complex CFloat)
+multiply_complex_f_unsafe :: Complex CFloat ->
+                             Complex CFloat -> IO (Complex CFloat)
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_e5e3172c2163672b a_2 b_3 res_4)))
+multiply_complex_f_unsafe = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_e5e3172c2163672b a_2 b_3 res_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917973ab_base ::
     Ptr Void
@@ -300,15 +300,15 @@ hs_bindgen_28f2705e917973ab = fromFFIType hs_bindgen_28f2705e917973ab_base
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex :: Complex CDouble ->
-               Complex CDouble -> IO (Complex CDouble)
+add_complex_unsafe :: Complex CDouble ->
+                      Complex CDouble -> IO (Complex CDouble)
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_28f2705e917973ab a_2 b_3 res_4)))
+add_complex_unsafe = \a_0 -> \b_1 -> with a_0 (\a_2 -> with b_1 (\b_3 -> allocaAndPeek (\res_4 -> hs_bindgen_28f2705e917973ab a_2 b_3 res_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
 foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea741132943_base ::
     IO (FunPtr Void)
@@ -317,22 +317,22 @@ hs_bindgen_29b4fea741132943 :: IO (FunPtr (Complex CFloat ->
                                            Complex CFloat -> IO (Complex CFloat)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
 hs_bindgen_29b4fea741132943 = fromFFIType hs_bindgen_29b4fea741132943_base
-{-# NOINLINE multiply_complex_f #-}
+{-# NOINLINE multiply_complex_f_funptr #-}
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f :: FunPtr (Complex CFloat ->
-                              Complex CFloat -> IO (Complex CFloat))
+multiply_complex_f_funptr :: FunPtr (Complex CFloat ->
+                                     Complex CFloat -> IO (Complex CFloat))
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f = unsafePerformIO hs_bindgen_29b4fea741132943
+multiply_complex_f_funptr = unsafePerformIO hs_bindgen_29b4fea741132943
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
 foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8dd36c_base ::
     IO (FunPtr Void)
@@ -341,22 +341,22 @@ hs_bindgen_b53577d6ad8dd36c :: IO (FunPtr (Complex CDouble ->
                                            Complex CDouble -> IO (Complex CDouble)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
 hs_bindgen_b53577d6ad8dd36c = fromFFIType hs_bindgen_b53577d6ad8dd36c_base
-{-# NOINLINE add_complex #-}
+{-# NOINLINE add_complex_funptr #-}
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex :: FunPtr (Complex CDouble ->
-                       Complex CDouble -> IO (Complex CDouble))
+add_complex_funptr :: FunPtr (Complex CDouble ->
+                              Complex CDouble -> IO (Complex CDouble))
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex = unsafePerformIO hs_bindgen_b53577d6ad8dd36c
+add_complex_funptr = unsafePerformIO hs_bindgen_b53577d6ad8dd36c
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float@
 foreign import ccall unsafe "hs_bindgen_209e61216da37381" hs_bindgen_209e61216da37381_base ::
     IO (Ptr Void)
