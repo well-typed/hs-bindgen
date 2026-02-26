@@ -116,16 +116,6 @@ getTestDefaultBackendConfig testName pathStyle = def{
       -- Honor 'maxUniqueIdLength'.
       uniqueId = UniqueId (take 35 $ "test." <> testName)
     , haddock  = HaddockConfig pathStyle
-      -- Use all categories with suffixes to avoid duplicate symbols in TH output.
-      -- See https://github.com/well-typed/hs-bindgen/issues/1587
-    , categoryChoice = ByCategory {
-          cType   = IncludeTypeCategory
-        , cSafe   = IncludeTermCategory def
-        , cUnsafe = IncludeTermCategory def
-        , cFunPtr = IncludeTermCategory def
-        , cGlobal = IncludeTermCategory def
-        }
-    }
 
 getTestThBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestThBackendConfig testName pathStyle =
