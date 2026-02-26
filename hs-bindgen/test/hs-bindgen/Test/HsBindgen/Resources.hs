@@ -116,6 +116,7 @@ getTestDefaultBackendConfig testName pathStyle = def{
       -- Honor 'maxUniqueIdLength'.
       uniqueId = UniqueId (take 35 $ "test." <> testName)
     , haddock  = HaddockConfig pathStyle
+    }
 
 getTestThBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestThBackendConfig testName pathStyle =
