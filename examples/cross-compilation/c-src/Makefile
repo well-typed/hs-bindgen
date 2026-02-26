@@ -1,51 +1,18 @@
-# Makefile for arch_types library
-#
-# This Makefile supports both native and cross-compilation builds.
-#
-# Usage:
-#   make                          # Build for native platform
-#   make CC=aarch64-linux-gnu-gcc # Cross-compile for aarch64
-#   make clean                    # Remove build artifacts
+CC ?= clang
+CFLAGS ?= -Wall -fPIC -O2
 
-CC ?= gcc
-CFLAGS ?= -Wall -Wextra -fPIC -O2
+all: libarch_types.a libarch_types.so
 
-# Library name
-LIB_NAME = arch_types
+arch_types.o: arch_types.c arch_types.h
+	$(CC) $(CFLAGS) -c arch_types.c
 
-# Source and object files
-SRCS = arch_types.c
-OBJS = $(SRCS:.c=.o)
-
-# Output files
-STATIC_LIB = lib$(LIB_NAME).a
-SHARED_LIB = lib$(LIB_NAME).so
-
-# Default target: build both static and shared libraries
-all: $(STATIC_LIB) $(SHARED_LIB)
-
-# Build static library
-$(STATIC_LIB): $(OBJS)
+libarch_types.a: arch_types.o
 	$(AR) rcs $@ $^
 
-# Build shared library
-$(SHARED_LIB): $(OBJS)
-	$(CC) -shared -o $@ $^
-
-# Compile source files
-%.o: %.c arch_types.h
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Print architecture info (useful for debugging)
-info:
-	@echo "CC = $(CC)"
-	@echo "Detected platform:"
-	@$(CC) -dumpmachine 2>/dev/null || echo "(unable to detect)"
-	@echo "sizeof(long) test:"
-	@echo '#include <stdio.h>\nint main() { printf("%zu\\n", sizeof(long)); return 0; }' | \
-		$(CC) -x c - -o /tmp/sizeof_test 2>/dev/null && /tmp/sizeof_test || echo "(cross-compilation - cannot run)"
+libarch_types.so: arch_types.o
+	$(CC) $(CFLAGS) -shared -o $@ $^
 
 clean:
-	rm -f $(OBJS) $(STATIC_LIB) $(SHARED_LIB)
+	rm -f arch_types.o libarch_types.a libarch_types.so
 
-.PHONY: all clean info
+.PHONY: all clean

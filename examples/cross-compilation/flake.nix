@@ -26,17 +26,43 @@
         # blocked by a GHC runtime linker bug (ghc#26937).
         pkgsAarch64 = pkgs.pkgsCross.aarch64-multiplatform;
 
-        # Target sysroot (glibc headers for cross-compilation)
+        # Target sysroot (glibc headers + libraries).
+        # Used for two purposes:
+        #   1. QEMU runtime: provides the dynamic linker and system libraries
+        #      (via QEMU_AARCH64_LD_PREFIX, which points to the parent directory)
+        #   2. Binding generation: when C headers #include system headers
+        #      (e.g. <stdint.h>), hs-bindgen-cli's --target flag goes through
+        #      libclang directly (not the CC wrapper), so it may need an
+        #      explicit -isystem pointing at these headers
+        # Note: the aarch64Clang wrapper below bakes in these headers
+        # automatically, so C compilation via `make CC=...` does NOT need
+        # this sysroot separately.
         aarch64Sysroot = pkgsAarch64.glibc.dev;
 
-        # Cross-compiler binary
-        # Note: Nix uses aarch64-unknown-linux-gnu, GNU uses aarch64-linux-gnu
-        aarch64Gcc = "${pkgsAarch64.stdenv.cc}/bin/aarch64-unknown-linux-gnu-gcc";
+        # Cross-compiling Clang (runs on host, targets aarch64).
+        # This is the Nix CC wrapper from the LLVM stdenv -- a Clang binary
+        # with target sysroot headers (glibc), linker paths, and the correct
+        # --target flag baked in. Using `make CC="$AARCH64_CC"` just works
+        # without extra -isystem or --sysroot flags.
+        #
+        # We use llvmPackages.stdenv.cc (Clang) rather than buildPackages.gcc
+        # (GCC) for consistency with hs-bindgen-cli, which is built on
+        # libclang/LLVM.
+        #
+        # Note: pkgsAarch64.clang (without .llvmPackages) is a target-arch
+        # package whose wrapper uses aarch64 bash -- it cannot run on x86_64.
+        aarch64Clang = "${pkgsAarch64.llvmPackages.stdenv.cc}/bin/aarch64-unknown-linux-gnu-cc";
 
         # Cross-compiled GHC toolchain
         # Runs on x86_64 but produces target-architecture binaries
         ghcAarch64 = pkgsAarch64.buildPackages.ghc;
         cabalAarch64 = pkgsAarch64.buildPackages.cabal-install;
+
+        # Target-architecture GMP (libgmp).
+        # GHC's RTS links against libgmp, and the cross-linker needs the
+        # target-architecture version on the library search path when linking
+        # the final executable.
+        aarch64Gmp = pkgsAarch64.gmp;
 
         # Common tools needed by all shells
         commonBuildInputs = with pkgs; [
@@ -64,7 +90,6 @@
 
             buildInputs = commonBuildInputs ++ [
               pkgs.qemu
-              pkgsAarch64.buildPackages.gcc
               ghcAarch64
               cabalAarch64
             ];
@@ -72,28 +97,27 @@
             shellHook = ''
               echo "hs-bindgen cross-compilation environment"
               echo "  Target: aarch64-linux-gnu"
-              echo "  Run: ./generate-and-run.sh [all|native|aarch64]"
+              echo "  Run: ./generate-and-run.sh"
               echo ""
 
               # Cross-compiled GHC paths (read by generate-and-run.sh)
               export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
               export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
 
-              # Target sysroot (headers for cross-compilation)
+              # Target sysroot: used for QEMU runtime (dynamic linker +
+              # system libs) and for hs-bindgen-cli binding generation when
+              # C headers #include system headers (via -isystem)
               export AARCH64_SYSROOT="${aarch64Sysroot}"
 
-              # Cross-compiler path
-              export AARCH64_CC="${aarch64Gcc}"
+              # Cross-compiling Clang wrapper (for C library cross-compilation)
+              export AARCH64_CC="${aarch64Clang}"
+
+              # Target-arch GMP (GHC's RTS links against libgmp)
+              export AARCH64_GMP_LIB="${aarch64Gmp}/lib"
 
               # QEMU library path (sysroot for runtime library access)
               export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
             '';
-          });
-
-          # Native-only (no cross-GHC, fast to evaluate)
-          cross-native = pkgs.mkShell (commonShellVars // {
-            name = "hs-bindgen-native";
-            buildInputs = commonBuildInputs;
           });
 
           # AArch64 cross-compilation only
@@ -102,7 +126,6 @@
 
             buildInputs = commonBuildInputs ++ [
               pkgs.qemu
-              pkgsAarch64.buildPackages.gcc
               ghcAarch64
               cabalAarch64
             ];
@@ -111,35 +134,11 @@
               export GHC_AARCH64_PATH="${ghcAarch64}/bin/aarch64-unknown-linux-gnu-ghc"
               export CABAL_AARCH64_PATH="${cabalAarch64}/bin/cabal"
               export AARCH64_SYSROOT="${aarch64Sysroot}"
-              export AARCH64_CC="${aarch64Gcc}"
+              export AARCH64_CC="${aarch64Clang}"
+              export AARCH64_GMP_LIB="${aarch64Gmp}/lib"
               export QEMU_AARCH64_LD_PREFIX="${aarch64Sysroot}/.."
             '';
           });
-        };
-
-        # Nix derivations for building the C library for each target
-        packages = {
-          lib-native = pkgs.stdenv.mkDerivation {
-            name = "arch-types-native";
-            src = ./c-src;
-            buildPhase = "make";
-            installPhase = ''
-              mkdir -p $out/lib $out/include
-              cp libarch_types.* $out/lib/
-              cp arch_types.h $out/include/
-            '';
-          };
-
-          lib-aarch64 = pkgsAarch64.stdenv.mkDerivation {
-            name = "arch-types-aarch64";
-            src = ./c-src;
-            buildPhase = "make";
-            installPhase = ''
-              mkdir -p $out/lib $out/include
-              cp libarch_types.* $out/lib/
-              cp arch_types.h $out/include/
-            '';
-          };
         };
       }
     );

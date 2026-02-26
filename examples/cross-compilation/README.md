@@ -12,9 +12,7 @@ This example demonstrates:
 ```bash
 cd examples/cross-compilation
 nix develop
-./generate-and-run.sh           # all targets
-./generate-and-run.sh aarch64   # 64-bit ARM only
-./generate-and-run.sh native    # native only
+./generate-and-run.sh
 ```
 
 ## Prerequisites
@@ -33,7 +31,6 @@ experimental-features = nix-command flakes
 cross-compilation/
 ├── flake.nix              # Nix environment (cross-GHC, QEMU, sysroots)
 ├── generate-and-run.sh    # Full workflow: build, generate, cross-compile, run
-├── compare-sizes.sh       # Compare generated struct sizes across targets
 ├── c-src/
 │   ├── arch_types.h       # Header with architecture-dependent types
 │   ├── arch_types.c       # Implementation
@@ -42,25 +39,21 @@ cross-compilation/
     ├── cross-compilation-example.cabal
     ├── cabal.project
     ├── app/Main.hs        # Executable that prints struct sizes
-    ├── src-native/        # Generated bindings for native platform
     └── src-aarch64/       # Generated bindings for 64-bit ARM
 ```
 
 ## What the script does
 
-The `generate-and-run.sh` script runs a four-phase pipeline:
+The `generate-and-run.sh` script runs a three-phase pipeline:
 
-1. **Build C libraries** - compiles `arch_types.c` for native and aarch64
-   using native gcc and cross-compilers from Nix
+1. **Build C library** — cross-compiles `arch_types.c` for aarch64 using the
+   cross-compiling Clang wrapper from Nix
 
-2. **Generate Haskell bindings** - runs `hs-bindgen-cli preprocess` for each
-   target. The key option is `--clang-option="--target=<triple>"`, which tells
-   libclang to use the target's type sizes, pointer sizes, and alignment rules
+2. **Generate Haskell bindings** — runs `hs-bindgen-cli preprocess` with
+   `--clang-option="--target=aarch64-linux-gnu"`, which tells libclang to use
+   the target's type sizes, pointer sizes, and alignment rules
 
-3. **Build and run native** - builds and runs the Haskell executable with the
-   native GHC to verify it works
-
-4. **Cross-compile and run under QEMU** - builds the Haskell executable with
+3. **Cross-compile and run under QEMU** — builds the Haskell executable with
    a cross-compiling GHC from Nix, using iserv (external interpreter) for
    Template Haskell splices, then runs the result under QEMU
 
@@ -78,19 +71,6 @@ hs-bindgen-cli preprocess \
 The `--target` flag makes libclang use the target's data model. For example,
 `struct ArchInfo` is 24 bytes on LP64 (64-bit) but 16 bytes on ILP32 (32-bit)
 because `long` and pointer sizes differ.
-
-## Comparing struct sizes
-
-After running `generate-and-run.sh` you should already be able to compare the
-different sizes, however to compare the generated sizes after binding
-generation:
-
-```bash
-./compare-sizes.sh
-```
-
-This extracts `sizeOf`, `alignment`, and field offsets from the generated
-Haskell `Storable` instances and displays them side by side.
 
 ## Known issues and workarounds
 
