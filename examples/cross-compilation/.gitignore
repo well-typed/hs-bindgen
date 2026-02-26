@@ -1,12 +1,10 @@
 # Generated binding directories
-hs-project/src-native/
 hs-project/src-aarch64/
 
 # Built C library artifacts
 c-src/*.o
 c-src/*.a
 c-src/*.so
-c-src/lib-native/
 c-src/lib-aarch64/
 
 # Haskell build artifacts

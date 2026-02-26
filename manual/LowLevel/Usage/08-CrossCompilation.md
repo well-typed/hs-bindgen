@@ -87,13 +87,23 @@ hs-bindgen-cli preprocess \
   foo.h
 ```
 
+> [!TIP]
+> Nix's cross-compiler CC wrappers (`llvmPackages.stdenv.cc` for Clang,
+> `buildPackages.gcc` for GCC) include target sysroot headers automatically --
+> no `-isystem` needed when using them for C compilation (e.g., `make`).
+> The explicit `-isystem` approach shown above is needed when using
+> `hs-bindgen-cli`'s `--target` flag, which goes through libclang directly
+> (not via the CC wrapper), or when using a raw compiler without a wrapper.
+
 > [!NOTE]
 > When cross-compiling on NixOS/Nix, the `BINDGEN_EXTRA_CLANG_ARGS` environment
-> variable set by the Nix dev shell contains host-specific include paths that
-> conflict with the target. Similarly, `BINDGEN_BUILTIN_INCLUDE_DIR` controls
-> where `hs-bindgen` looks for Clang's built-in headers (like `stddef.h`); the
-> Nix dev shell sets it to prevent heuristic searching, but those paths are
-> host-specific. Clear both when cross-compiling.
+> variable set by the `hs-bindgen` Nix development shell (see `flake.nix`)
+> contains host-specific include paths that conflict with the target. Similarly,
+> `BINDGEN_BUILTIN_INCLUDE_DIR` controls where `hs-bindgen` looks for Clang's
+> built-in headers (like `stddef.h`); the `hs-bindgen` development shell sets it
+> to prevent heuristic searching, but those paths are host-specific. These
+> variables are specific to `hs-bindgen`'s Nix setup, not a general Nix
+> mechanism. Clear both when cross-compiling.
 
 Available cross-compilation targets in nixpkgs:
 
@@ -115,8 +125,10 @@ On other systems, you can:
 2. **Download target sysroot**: Obtain a sysroot containing headers for the
    target platform.
 
-3. **Use Docker/containers**: Run `hs-bindgen` in a container for the target
-   architecture.
+3. **Use Docker/containers**: Run `hs-bindgen` in a target-architecture
+   container (via QEMU system emulation). Note: this is native compilation
+   under emulation, not true cross-compilation -- `hs-bindgen` sees the
+   container's native architecture and generates bindings accordingly.
 
 ### Architecture differences example
 
@@ -153,14 +165,13 @@ instance F.Storable Example where
 
 A comprehensive working example is available at
 [`examples/cross-compilation/`](../../../examples/cross-compilation/). It
-includes a Nix development environment, scripts to generate bindings for
-multiple targets, and a comparison tool.
+includes a Nix development environment and a script to generate bindings,
+cross-compile, and run under QEMU.
 
 ```bash
 cd examples/cross-compilation
 nix develop
-./generate-and-run.sh      # generate, build, cross-compile, run
-./compare-sizes.sh         # compare struct sizes
+./generate-and-run.sh    # generate bindings, cross-compile, run under QEMU
 ```
 
 ## Part B: Building and running cross-compiled Haskell executables
@@ -207,6 +218,26 @@ Follow the guides the [GHC Cross-Compilation
 Wiki](https://gitlab.haskell.org/ghc/ghc/-/wikis/building/cross-compiling) for
 detailed instructions.
 
+### Cross-compiling C compiler
+
+Cross-compiling C libraries (that your Haskell FFI code links against) requires
+a C compiler that targets the right architecture. This is separate from GHC's
+cross-compilation -- GHC's cross-compiler has its own C compiler (typically GCC)
+hardcoded in its settings file, which it uses internally for linking and RTS
+compilation. You do not need to configure GHC's internal C compiler.
+
+The [cross-compilation example](../../../examples/cross-compilation/) uses Clang
+via Nix's `pkgsAarch64.llvmPackages.stdenv.cc` for consistency with
+`hs-bindgen-cli`, which is built on libclang/LLVM. This is a Nix CC wrapper with
+the target sysroot headers, linker paths, and `--target` flag baked in, so
+`make CC="$AARCH64_CC"` works without extra flags.
+
+Non-Nix users can use any cross-compiler for their C libraries; Clang is
+recommended for consistency with `hs-bindgen-cli` (which is built on
+libclang/LLVM). See the [Clang cross-compilation
+documentation](https://clang.llvm.org/docs/CrossCompilation.html) for details on
+configuring `--target` and sysroot paths.
+
 ### Template Haskell and iserv
 
 Template Haskell (TH) splices execute at compile time. During cross-compilation,
@@ -252,14 +283,17 @@ GHC passes iserv's arguments (pipe file descriptors) to the wrapper.
 >   ghc-options: -fexternal-interpreter -pgmi /path/to/iserv-wrapper.sh
 > ```
 
-#### Why build iserv from source
+#### Getting iserv
 
-Nix's cross-GHC (`pkgsCross.*.buildPackages.ghc`) does not ship an iserv binary
-(`ghc-iserv` or `ghc-iserv-dyn`). However, the `ghci` package is available in
-the cross-GHC's package database and provides
-[`GHCi.Server.defaultServer`](https://gitlab.haskell.org/ghc/ghc/-/tree/master/utils/iserv),
-which is the entire iserv implementation. Building iserv from source is just
-compiling a 4-line module:
+If you build GHC from source using Hadrian's default settings, iserv
+(`ghc-iserv` / `ghc-iserv-dyn`) is included in the installation and no extra
+steps are needed -- just point `-pgmi` at the wrapper script.
+
+Nix's cross-GHC (`pkgsCross.*.buildPackages.ghc`), however, does not ship an
+iserv binary. However, the `ghci` package is available in the cross-GHC's
+package database and provides `GHCi.Server.defaultServer`, which is the entire
+iserv implementation. Building iserv from source is just compiling a 4-line
+module:
 
 ```haskell
 module Main (main) where
@@ -268,15 +302,16 @@ main :: IO ()
 main = defaultServer
 ```
 
-We compile with two additional GHC flags to configure the RTS:
+We compile with `-rtsopts=all` to allow passing RTS options (e.g., `+RTS -M`
+for heap size) to iserv for debugging.
 
-- **`-fkeep-cafs`**: prevents the RTS from garbage-collecting CAFs (Constant
-  Applicative Forms -- top-level thunks like `x = expensiveComputation`) after
-  evaluation. Without this flag, the RTS would GC those results, causing
-  crashes from dangling pointers.
-
-- **`-rtsopts=all`**: allows passing RTS options (e.g., `+RTS -M` for heap
-  size) to iserv for debugging.
+> [!NOTE]
+> iserv handles CAF (Constant Applicative Form) retention internally: when GHC
+> sends the `InitLinker` message, iserv calls `initObjLinker RetainCAFs`, which
+> tells the RTS object linker to retain CAFs for dynamically loaded code (TH
+> splices). This is a different mechanism from the `-fkeep-cafs` compile-time
+> flag, which prevents GC of a binary's own statically-linked CAFs. iserv does
+> not need `-fkeep-cafs`.
 
 The [cross-compilation example](../../../examples/cross-compilation/) script
 compiles this module with the cross-GHC, producing a target-architecture iserv
