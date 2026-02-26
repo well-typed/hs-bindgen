@@ -9,7 +9,7 @@ module Test.HsBindgen.THFixtures.Compile (
 
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
-import System.IO.Temp (withSystemTempDirectory)
+import System.IO.Temp (withTempDirectory)
 import System.Process (CreateProcess (cwd), proc, readCreateProcessWithExitCode)
 
 {-------------------------------------------------------------------------------
@@ -18,8 +18,14 @@ import System.Process (CreateProcess (cwd), proc, readCreateProcessWithExitCode)
 
 -- | Compile a TH module and return the result
 --
--- Creates a temporary directory, writes the module content, and compiles
--- it with GHC through cabal exec.
+-- Creates a temporary directory under the package root, writes the module
+-- content, and compiles it with GHC through cabal exec.
+--
+-- The temp directory must live under the package root so that
+-- @getPackageRoot@ (used by @withHsBindgen@ at TH evaluation time) can
+-- find the @.cabal@ file by walking up from the source file.  On GHC < 9.4,
+-- @th-compat@'s polyfill searches the filesystem rather than querying the
+-- build tool, so a file in @/tmp@ would fail.
 --
 compileThModule ::
        FilePath -- ^ Package root
@@ -27,7 +33,7 @@ compileThModule ::
     -> String   -- ^ Module content
     -> IO (Either String ())
 compileThModule pkgRoot testName moduleContent =
-  withSystemTempDirectory ("th-fixture-" ++ sanitizeName testName) $ \tmpDir -> do
+  withTempDirectory pkgRoot ("th-fixture-" ++ sanitizeName testName) $ \tmpDir -> do
       let modulePath = tmpDir </> "Example.hs"
       writeFile modulePath moduleContent
       compileFile pkgRoot tmpDir modulePath
