@@ -24,6 +24,10 @@ module Example.Global
     , Example.Global.streamBinary
     , Example.Global.streamBinary_len
     , Example.Global.some_global_struct
+    , Example.Global.anonPoint
+    , Example.Global.anonPair
+    , Example.Global.anonEnum
+    , Example.Global.anonEnumCoords
     )
   where
 

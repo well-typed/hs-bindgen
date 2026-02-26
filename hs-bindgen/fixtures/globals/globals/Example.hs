@@ -20,6 +20,15 @@ module Example
     , Example.Version_t(..)
     , Example.Struct1_t(..)
     , Example.Struct2_t(..)
+    , Example.AnonPoint(..)
+    , Example.AnonPair(..)
+    , Example.AnonEnum(..)
+    , pattern Example.VAL_A
+    , pattern Example.VAL_B
+    , Example.AnonEnumCoords(..)
+    , pattern Example.X
+    , pattern Example.Y
+    , pattern Example.Z
     )
   where
 
