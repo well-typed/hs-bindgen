@@ -25,6 +25,7 @@
   `hs-bindgen-runtime`. This may affect required packages when using
   `hs-bindgen` generated code. In particular, the packages `ghc-prim` and
   `primitive` are not required by `hs-bindgen` generated code anymore.
+* Improve and disambiguate delayed parse trace messages.
 
 ### Bug fixes
 
