@@ -162,7 +162,7 @@ maybeReadRaw ptr
 --
 -- The allocated memory is aligned.
 --
--- Memory that is not written to by 'poke' may contain arbitrary data.
+-- Memory that is not written to by 'Storable.poke' may contain arbitrary data.
 --
 -- The allocated memory is freed when the function terminates, either normally
 -- or via an exception.  The passed pointer must therefore /not/ be used after
@@ -186,7 +186,8 @@ with x f = Alloc.allocaBytesAligned size align$ \ptr -> do
 -- The allocated memory is aligned.
 --
 -- The memory is filled with bytes of value zero before the value is written.
--- Memory that is not written to by 'poke' contains zeros, not arbitrary data.
+-- Memory that is not written to by 'Storable.poke' contains zeros, not
+-- arbitrary data.
 --
 -- The allocated memory is freed when the function terminates, either normally
 -- or via an exception.  The passed pointer must therefore /not/ be used after

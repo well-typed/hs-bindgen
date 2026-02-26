@@ -34,14 +34,15 @@ reverseConstantArray ptr = do
 reverseConstantArrayElems :: (Storable a, Show a, KnownNat n) => Ptr (ConstantArray n a) -> IO ()
 reverseConstantArrayElems ptr = do
     let (p, ptr') = CA.toFirstElemPtr ptr
+        len       = fromIntegral $ natVal p
     -- Print the input contents
-    xs <- F.peekArray (CA.intVal p) ptr'
+    xs <- F.peekArray len ptr'
     print xs
     -- Reverse the array
     let ys = reverse xs
     F.pokeArray ptr' ys
     -- Print the output contents
-    zs <- F.peekArray (CA.intVal p) ptr'
+    zs <- F.peekArray len ptr'
     print zs
 
 reverseIncompleteArray :: (Storable a, Show a) => Int -> Ptr (IncompleteArray a) -> IO ()

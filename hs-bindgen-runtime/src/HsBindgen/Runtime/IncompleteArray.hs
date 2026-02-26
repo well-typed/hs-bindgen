@@ -80,7 +80,8 @@ fromVector = coerce
 -- memory storing array elements. @p1@ points to where @xs@ starts, and @p2@
 -- points to where the first element of @xs@ starts, and these addresses are the
 -- same. In Haskell, the corresponding types for @p1@ and @p2@ respectively are
--- @'Ptr' ('IncompleteArray' 'CInt')@ and @'Ptr' 'CInt'@ respectively.
+-- @'Ptr' ('IncompleteArray' 'Foreign.C.CInt')@ and @'Ptr' 'Foreign.C.CInt'@
+-- respectively.
 --
 -- Functions like 'peekArray' require a @'Ptr' ('IncompleteArray' a)@ argument.
 -- If the user only has access to a @'Ptr' a@ but they know that is pointing to

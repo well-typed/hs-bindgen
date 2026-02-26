@@ -18,8 +18,6 @@ module HsBindgen.Runtime.ConstantArray (
   , fromList
     -- * Query
   , toList
-    -- * Auxiliary
-  , intVal
   ) where
 
 import Prelude hiding (repeat)
@@ -99,14 +97,15 @@ fromVector _ xs
 -- memory storing array elements. @p1@ points to where @xs@ starts, and @p2@
 -- points to where the first element of @xs@ starts, and these addresses are the
 -- same. In Haskell, the corresponding types for @p1@ and @p2@ respectively are
--- @'Ptr' ('ConstantArray' n 'CInt')@ and @'Ptr' 'CInt'@ respectively.
+-- @'Ptr' ('ConstantArray' n 'Foreign.C.CInt')@ and @'Ptr' 'Foreign.C.CInt'@
+-- respectively.
 --
 -- Functions like 'peek' require a @'Ptr' ('ConstantArray' n a)@ argument. If
 -- the user only has access to a @'Ptr' a@ but they know that is pointing to the
--- first element in an array, then they can use 'toPtr' to convert the
--- pointer before using 'peekArray' on it. Conversely, if the user has access to
--- a @'Ptr' ('ConstantArray' n a)@ but they want to convert it to a @'Ptr' a@,
--- then they can use @'toFirstElemPtr'@.
+-- first element in an array, then they can use 'toPtr' to convert the pointer
+-- before using 'HsBindgen.Runtime.IncompleteArray.peekArray' on it. Conversely,
+-- if the user has access to a @'Ptr' ('ConstantArray' n a)@ but they want to
+-- convert it to a @'Ptr' a@, then they can use @'toFirstElemPtr'@.
 --
 -- NOTE: with overloaded record dot syntax, syntax like @.toFirstElemPtr@ is
 -- also supported.

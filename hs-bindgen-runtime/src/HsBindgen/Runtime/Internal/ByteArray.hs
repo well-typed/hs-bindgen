@@ -106,7 +106,8 @@ pokeToByteArray n x =
       -- The copy constructed by 'freezeByteArray' is /not/ pinned.
       BA.freezeByteArray pinnedCopy 0 n
 
--- | Like 'thawByteArray', but the new 'MutableByteArray' is pinned
+-- | Like 'Data.Primiteve.ByteArray.thawByteArray', but the new
+-- | 'MutableByteArray' is pinned
 thawToPinned :: ByteArray -> IO (MutableByteArray RealWorld)
 thawToPinned src = do
     dest <- BA.newPinnedByteArray n

@@ -6,7 +6,9 @@
 
 ### New features
 
-* Add new `safeCastFunPtr` function to `HsBindgen.Runtime.Prelude`
+* Add new `safeCastFunPtr` function to `HsBindgen.Runtime.Prelude`.
+
+* Improve documentation and fix documentation-related warnings.
 
 ### Minor changes
 
@@ -15,6 +17,8 @@
 
 * Remove `TypeEquality` module and `TyEq`. Use built-in `(~)` or operator
   `(~)` (for later versions of GHC; implicitly imported from `Prelude`).
+
+* Do not export `intVal` from `HsBindgen.Runtime.ConstantArray`.
 
 ### Bug fixes
 

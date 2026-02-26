@@ -72,5 +72,15 @@ in
       inherit pkgsDefault pkgsOverlay;
       inherit (pkgsDefault) llvmPackages;
     };
+    base = pkgs.mkShell {
+      nativeBuildInputs =
+        let
+          hpkgs = pkgs.haskell.packages.ghc912;
+        in
+        [
+          hpkgs.ghc
+          hpkgs.cabal-install
+        ];
+    };
   };
 }
