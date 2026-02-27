@@ -32,6 +32,7 @@
 ### Appendix
 
 * [Visibility](LowLevel/Appendix/01-Visibility.md)
+* [The `Prim` class](LowLevel/Appendix/02-Prim.md)
 
 ## Handwriting high-level bindings
 

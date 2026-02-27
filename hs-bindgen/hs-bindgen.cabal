@@ -121,7 +121,6 @@ library internal
     HsBindgen.Backend.SHs.Simplify
     HsBindgen.Backend.SHs.Translation
     HsBindgen.Backend.SHs.Translation.Common
-    HsBindgen.Backend.SHs.Translation.Prim
     HsBindgen.Backend.TH.Translation
     HsBindgen.Backend.UniqueSymbol
     HsBindgen.BindingSpec

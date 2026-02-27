@@ -23,7 +23,6 @@ import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Backend.SHs.Translation.Common
-import HsBindgen.Backend.SHs.Translation.Prim qualified as SHsPrim
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
@@ -92,8 +91,6 @@ translateDefineInstanceDecl defInst =
         DInst $ translateWriteRawInstance struct i defInst.comment
       Hs.InstanceStorable struct i ->
         DInst $ translateStorableInstance struct i defInst.comment
-      Hs.InstancePrim struct i ->
-        DInst $ SHsPrim.translatePrimInstance struct i defInst.comment
       Hs.InstanceHasCField i ->
         DInst $ translateHasCFieldInstance i defInst.comment
       Hs.InstanceHasCBitfield i ->

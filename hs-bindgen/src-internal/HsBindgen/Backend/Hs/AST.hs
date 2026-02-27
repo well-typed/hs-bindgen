@@ -277,7 +277,6 @@ data InstanceDecl where
     InstanceReadRaw :: Struct n -> ReadRawInstance -> InstanceDecl
     InstanceWriteRaw :: Struct n -> WriteRawInstance -> InstanceDecl
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
-    InstancePrim :: Struct n -> PrimInstance -> InstanceDecl
     InstanceHasCField :: HasCFieldInstance -> InstanceDecl
     InstanceHasCBitfield :: HasCBitfieldInstance -> InstanceDecl
     InstanceHasField :: HasFieldInstance -> InstanceDecl
