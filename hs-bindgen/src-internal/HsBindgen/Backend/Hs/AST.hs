@@ -103,6 +103,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
@@ -306,7 +307,7 @@ data MacroExpr = MacroExpr {
     -- | Name of variable/function.
       name    :: Hs.Name Hs.NsVar
     -- | Type of variable/function.
-    , expr    :: CheckedMacroExpr
+    , expr    :: CheckedMacroExpr Final
     -- | RHS of variable/function.
     , comment :: Maybe HsDoc.Comment
     }

@@ -5,10 +5,13 @@
 #endif
 
 module C.Expr.Syntax.Expr (
-    -- ** Expressions
+    -- * Expressions
     MExpr(..)
   , MFun(..)
   , MTerm(..)
+    -- * Combinators
+  , mapMExpr
+  , mapMExprF
   ) where
 
 import Data.GADT.Compare (GEq (geq))
@@ -26,6 +29,7 @@ import C.Expr.Syntax.Literals
 import C.Expr.Syntax.Name
 import C.Expr.Syntax.TTG
 import C.Expr.Util.TestEquality
+import Data.Functor.Identity
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -173,3 +177,49 @@ data MTerm p =
 deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MTerm p )
 deriving stock instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MTerm p )
 deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( MTerm p )
+
+{-------------------------------------------------------------------------------
+  Mapping
+-------------------------------------------------------------------------------}
+
+mapMExpr :: forall p p'.
+     (XApp p -> XApp p')
+  -> (XVar p -> Name -> XVar p')
+  -> MExpr p -> MExpr p'
+mapMExpr fApp fVar =
+      runIdentity
+    . mapMExprF
+        (\xApp      -> Identity $ fApp xApp)
+        (\xVar name -> Identity $ fVar xVar name)
+
+mapMExprF :: forall f p p'.
+     Applicative f
+  => (XApp p -> f (XApp p'))
+  -> (XVar p -> Name -> f (XVar p'))
+  -> MExpr p -> f (MExpr p')
+mapMExprF fApp fVar =
+    goExpr
+  where
+    goExpr :: MExpr p -> f (MExpr p')
+    goExpr = \case
+        MTerm term ->
+          MTerm <$> goTerm term
+        MApp xApp fun args ->
+          MApp <$> fApp xApp <*> pure fun <*> traverse goExpr args
+
+    goTerm ::
+         MTerm p
+      -> f (MTerm p')
+    goTerm = \case
+        -- Only interesting case: variables
+        MVar xVar name args ->
+          pure MVar
+            <*> fVar xVar name
+            <*> pure name
+            <*> traverse goExpr args
+
+        -- Trivial cases: literals
+        MInt    x -> pure $ MInt    x
+        MFloat  x -> pure $ MFloat  x
+        MChar   x -> pure $ MChar   x
+        MString x -> pure $ MString x

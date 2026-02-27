@@ -1069,7 +1069,7 @@ addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec
 macroVarDecs ::
      HaddockConfig
   -> C.DeclInfo Final
-  -> CheckedMacroExpr
+  -> CheckedMacroExpr Final
   -> [Hs.Decl]
 macroVarDecs haddockConfig info macroExpr = [
       Hs.DeclMacroExpr $
