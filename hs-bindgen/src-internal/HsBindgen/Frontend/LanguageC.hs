@@ -223,7 +223,7 @@ bespokeTypes = \case
     -- If we add entries for types to `bespokeTypes` which are not keywords
     -- (i.e., are not part of the standard), we will pretend to know what these
     -- types are, but the actual type must come from a header, and we actually
-    -- do not know what that defintion is.
+    -- do not know what that definition is.
     ClangCStandard C23 _gnu -> [("bool", C.TypePrim C.PrimBool)]
     _otherwise -> []
 

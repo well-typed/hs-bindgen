@@ -7,10 +7,10 @@ ctypes:
   cname: MyArray
   hsname: MyArray
 - headers: binding-specs/fun_arg/macro/array_known_size.h
-  cname: A
+  cname: macro A
   hsname: A
 - headers: binding-specs/fun_arg/macro/array_known_size.h
-  cname: B
+  cname: macro B
   hsname: B
 hstypes:
 - hsname: A

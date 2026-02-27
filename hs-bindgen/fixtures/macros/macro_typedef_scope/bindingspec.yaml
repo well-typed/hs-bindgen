@@ -4,13 +4,13 @@ version:
 hsmodule: Example
 ctypes:
 - headers: macros/macro_typedef_scope.h
-  cname: T1
+  cname: macro T1
   hsname: T1
 - headers: macros/macro_typedef_scope.h
   cname: T2
   hsname: T2
 - headers: macros/macro_typedef_scope.h
-  cname: T3
+  cname: macro T3
   hsname: T3
 - headers: macros/macro_typedef_scope.h
   cname: T4

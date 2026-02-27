@@ -7,10 +7,10 @@ ctypes:
   cname: MyFunctionPointer
   hsname: MyFunctionPointer
 - headers: binding-specs/fun_arg/macro/function_pointer.h
-  cname: A
+  cname: macro A
   hsname: A
 - headers: binding-specs/fun_arg/macro/function_pointer.h
-  cname: B
+  cname: macro B
   hsname: B
 hstypes:
 - hsname: A

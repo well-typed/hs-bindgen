@@ -4,19 +4,19 @@ version:
 hsmodule: Example
 ctypes:
 - headers: macros/macro_in_fundecl.h
-  cname: I
+  cname: macro I
   hsname: I
 - headers: macros/macro_in_fundecl.h
-  cname: C
+  cname: macro C
   hsname: C
 - headers: macros/macro_in_fundecl.h
-  cname: F
+  cname: macro F
   hsname: F
 - headers: macros/macro_in_fundecl.h
-  cname: L
+  cname: macro L
   hsname: L
 - headers: macros/macro_in_fundecl.h
-  cname: S
+  cname: macro S
   hsname: S
 hstypes:
 - hsname: C

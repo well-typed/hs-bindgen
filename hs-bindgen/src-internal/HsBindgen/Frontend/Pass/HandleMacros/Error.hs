@@ -17,7 +17,6 @@ import HsBindgen.Frontend.LanguageC.Error qualified as LanC
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -51,7 +50,7 @@ data HandleMacrosError =
     -- macro as a type, and one for trying to parse the macro as an expression.
     HandleMacrosErrorParse LanC.Error CExpr.DSL.MacroParseError
 
-  | HandleMacrosErrorEmpty C.DeclName
+  | HandleMacrosErrorEmpty CDeclName
 
     -- | We could not type-check the macro
   | HandleMacrosErrorTc CExpr.DSL.MacroTcError

@@ -29,7 +29,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @PtrInt@
+{-| __C declaration:__ @macro PtrInt@
 
     __defined at:__ @macros\/macro_types.h 2:9@
 
@@ -60,7 +60,7 @@ instance HasCField.HasCField PtrInt "unwrapPtrInt" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @ShortInt@
+{-| __C declaration:__ @macro ShortInt@
 
     __defined at:__ @macros\/macro_types.h 3:9@
 
@@ -101,7 +101,7 @@ instance HasCField.HasCField ShortInt "unwrapShortInt" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @SignedShortInt@
+{-| __C declaration:__ @macro SignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 4:9@
 
@@ -142,7 +142,7 @@ instance HasCField.HasCField SignedShortInt "unwrapSignedShortInt" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @UnsignedShortInt@
+{-| __C declaration:__ @macro UnsignedShortInt@
 
     __defined at:__ @macros\/macro_types.h 5:9@
 
@@ -183,7 +183,7 @@ instance HasCField.HasCField UnsignedShortInt "unwrapUnsignedShortInt" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @PtrPtrChar@
+{-| __C declaration:__ @macro PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h 8:9@
 
@@ -214,7 +214,7 @@ instance HasCField.HasCField PtrPtrChar "unwrapPtrPtrChar" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @MTy@
+{-| __C declaration:__ @macro MTy@
 
     __defined at:__ @macros\/macro_types.h 11:9@
 
@@ -288,7 +288,7 @@ instance HasCField.HasCField Tty "unwrapTty" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @UINT8_T@
+{-| __C declaration:__ @macro UINT8_T@
 
     __defined at:__ @macros\/macro_types.h 14:9@
 
@@ -328,7 +328,7 @@ instance HasCField.HasCField UINT8_T "unwrapUINT8_T" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @BOOLEAN_T@
+{-| __C declaration:__ @macro BOOLEAN_T@
 
     __defined at:__ @macros\/macro_types.h 15:9@
 

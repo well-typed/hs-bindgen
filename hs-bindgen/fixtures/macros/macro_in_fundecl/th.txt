@@ -311,7 +311,7 @@
 -- {
 --   return &no_args_no_void;
 -- }
-{-| __C declaration:__ @I@
+{-| __C declaration:__ @macro I@
 
     __defined at:__ @macros\/macro_in_fundecl.h 5:9@
 
@@ -319,7 +319,7 @@
 -}
 newtype I
     = I {unwrapI :: CInt}
-      {- ^ __C declaration:__ @I@
+      {- ^ __C declaration:__ @macro I@
 
            __defined at:__ @macros\/macro_in_fundecl.h 5:9@
 
@@ -346,7 +346,7 @@ instance (~) ty CInt => HasField "unwrapI" (Ptr I) (Ptr ty)
 instance HasCField I "unwrapI"
     where type CFieldType I "unwrapI" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @C@
+{-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
 
@@ -354,7 +354,7 @@ instance HasCField I "unwrapI"
 -}
 newtype C
     = C {unwrapC :: CChar}
-      {- ^ __C declaration:__ @C@
+      {- ^ __C declaration:__ @macro C@
 
            __defined at:__ @macros\/macro_in_fundecl.h 6:9@
 
@@ -381,7 +381,7 @@ instance (~) ty CChar => HasField "unwrapC" (Ptr C) (Ptr ty)
 instance HasCField C "unwrapC"
     where type CFieldType C "unwrapC" = CChar
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @F@
+{-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
 
@@ -389,7 +389,7 @@ instance HasCField C "unwrapC"
 -}
 newtype F
     = F {unwrapF :: CFloat}
-      {- ^ __C declaration:__ @F@
+      {- ^ __C declaration:__ @macro F@
 
            __defined at:__ @macros\/macro_in_fundecl.h 7:9@
 
@@ -414,7 +414,7 @@ instance (~) ty CFloat => HasField "unwrapF" (Ptr F) (Ptr ty)
 instance HasCField F "unwrapF"
     where type CFieldType F "unwrapF" = CFloat
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @L@
+{-| __C declaration:__ @macro L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
 
@@ -422,7 +422,7 @@ instance HasCField F "unwrapF"
 -}
 newtype L
     = L {unwrapL :: CLong}
-      {- ^ __C declaration:__ @L@
+      {- ^ __C declaration:__ @macro L@
 
            __defined at:__ @macros\/macro_in_fundecl.h 8:9@
 
@@ -449,7 +449,7 @@ instance (~) ty CLong => HasField "unwrapL" (Ptr L) (Ptr ty)
 instance HasCField L "unwrapL"
     where type CFieldType L "unwrapL" = CLong
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @S@
+{-| __C declaration:__ @macro S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
 
@@ -457,7 +457,7 @@ instance HasCField L "unwrapL"
 -}
 newtype S
     = S {unwrapS :: CShort}
-      {- ^ __C declaration:__ @S@
+      {- ^ __C declaration:__ @macro S@
 
            __defined at:__ @macros\/macro_in_fundecl.h 9:9@
 

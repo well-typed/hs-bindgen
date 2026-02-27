@@ -23,7 +23,6 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -224,12 +223,12 @@ taggedPayload = go True
           --
           -- > typedef struct {..} * foo;
           --
-          -- but not, for exmaple
+          -- but not, for example
           --
           -- > typedef struct {..} foo[10];
           Nothing
 
     typeRef :: Bool -> DeclId -> Maybe TaggedPayload
     typeRef isDirect declId = do
-        void $ C.checkIsTagged declId.name.kind
+        void $ checkIsTagged declId.name.kind
         return TaggedPayload{isDirect = isDirect, id = declId}

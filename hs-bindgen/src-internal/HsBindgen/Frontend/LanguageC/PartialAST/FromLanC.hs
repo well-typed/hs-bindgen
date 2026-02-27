@@ -182,13 +182,13 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       -- User-defined types
       LanC.CSUType (LanC.CStruct su mTag mDef _attrs _a) _a' -> \partial -> do
         let tagKind = case su of
-                        LanC.CStructTag -> C.TagKindStruct
-                        LanC.CUnionTag  -> C.TagKindUnion
+                        LanC.CStructTag -> CTagKindStruct
+                        LanC.CUnionTag  -> CTagKindUnion
         name <- checkNotAnon mTag tagKind
         checkNoDef "struct or union definition" mDef
         notFun (typeRef name) partial
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
-        name <- checkNotAnon mTag C.TagKindEnum
+        name <- checkNotAnon mTag CTagKindEnum
         checkNoDef "enum definition" mDef
         typeEnv <- getReparseEnv
         case Map.lookup name.text typeEnv of
@@ -205,16 +205,16 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       charSign Nothing     = C.PrimSignImplicit Nothing
       charSign (Just sign) = C.PrimSignExplicit sign
 
-      typeRef :: C.DeclName -> C.Type HandleMacros
+      typeRef :: CDeclName -> C.Type HandleMacros
       typeRef name = C.TypeRef $ DeclId{name = name, isAnon = False}
 
-      checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
-      checkNotAnon mName tagKind =
+      checkNotAnon :: Maybe LanC.Ident -> CTagKind -> FromLanC CDeclName
+      checkNotAnon mName cTagKind =
           case mName of
             Just name ->
-              return $ C.DeclName (mkCName name) (C.NameKindTagged tagKind)
+              return $ CDeclName (mkCName name) (CNameKindTagged cTagKind)
             Nothing ->
-              unsupported $ "Anonymous " ++ show tagKind
+              unsupported $ "Anonymous " ++ show cTagKind
 
       checkNoDef :: String -> Maybe def -> FromLanC ()
       checkNoDef _   Nothing  = return ()

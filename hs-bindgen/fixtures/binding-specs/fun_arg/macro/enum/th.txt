@@ -124,7 +124,7 @@ pattern X :: MyEnum
     __exported by:__ @binding-specs\/fun_arg\/macro\/enum.h@
 -}
 pattern X = MyEnum 0
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 7:9@
 
@@ -132,7 +132,7 @@ pattern X = MyEnum 0
 -}
 newtype A
     = A {unwrapA :: MyEnum}
-      {- ^ __C declaration:__ @A@
+      {- ^ __C declaration:__ @macro A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 7:9@
 
@@ -150,7 +150,7 @@ instance (~) ty MyEnum => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyEnum
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 8:9@
 
@@ -158,7 +158,7 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @B@
+      {- ^ __C declaration:__ @macro B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 8:9@
 

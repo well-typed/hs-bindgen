@@ -34,8 +34,8 @@ import Text.SimplePrettyPrint (CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports (Default (def))
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -294,7 +294,7 @@ instance RenderLabel CtxDoc where renderLabel = id
 instance RenderLabel String where renderLabel = PP.string
 instance RenderLabel Text   where renderLabel = PP.string . Text.unpack
 
-instance RenderLabel C.DeclName
+instance RenderLabel CDeclName
 instance RenderLabel Hs.Identifier
 
 instance RenderLabel a => RenderLabel (Maybe a) where

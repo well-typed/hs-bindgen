@@ -37,7 +37,6 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Data types
@@ -484,7 +483,7 @@ sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap)
 -------------------------------------------------------------------------------}
 
 -- Match function to find selection roots.
-type Match = C.DeclName -> SingleLoc -> C.Availability -> Bool
+type Match = CDeclName -> SingleLoc -> C.Availability -> Bool
 
 -- | Limit the declaration index to those entries that match the select
 --   predicate. Do not include anything external nor omitted.

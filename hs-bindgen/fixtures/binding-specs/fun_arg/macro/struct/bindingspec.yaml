@@ -7,10 +7,10 @@ ctypes:
   cname: struct MyStruct
   hsname: MyStruct
 - headers: binding-specs/fun_arg/macro/struct.h
-  cname: A
+  cname: macro A
   hsname: A
 - headers: binding-specs/fun_arg/macro/struct.h
-  cname: B
+  cname: macro B
   hsname: B
 hstypes:
 - hsname: A

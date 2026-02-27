@@ -76,7 +76,7 @@ instance (~) ty CInt => HasField "unwrapT" (Ptr T) (Ptr ty)
 instance HasCField T "unwrapT"
     where type CFieldType T "unwrapT" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @U@
+{-| __C declaration:__ @macro U@
 
     __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 9:9@
 
@@ -84,7 +84,7 @@ instance HasCField T "unwrapT"
 -}
 newtype U
     = U {unwrapU :: CInt}
-      {- ^ __C declaration:__ @U@
+      {- ^ __C declaration:__ @macro U@
 
            __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 9:9@
 

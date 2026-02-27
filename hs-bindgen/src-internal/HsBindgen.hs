@@ -66,7 +66,7 @@ hsBindgen tu ts b i a = do
       Left err -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
         -- We specifically use exit code 3 here; it means that `hs-bindgen` ran
-        -- to completion, but an error has ocurred.
+        -- to completion, but an error has occurred.
         exitWith (ExitFailure 3)
       Right r  -> pure r
 

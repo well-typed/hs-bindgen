@@ -31,10 +31,10 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -48,7 +48,7 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 newtype ParseType a = Wrap (
-      StateT (Map C.DeclName (C.Type Parse)) IO a
+      StateT (Map CDeclName (C.Type Parse)) IO a
     )
   deriving newtype (
       Functor
@@ -60,7 +60,7 @@ newtype ParseType a = Wrap (
     , MonadMask
     )
 
-unwrap :: ParseType a -> StateT (Map C.DeclName (C.Type Parse)) IO a
+unwrap :: ParseType a -> StateT (Map CDeclName (C.Type Parse)) IO a
 unwrap (Wrap ma) = ma
 
 instance MonadError ParseTypeException ParseType where
@@ -78,18 +78,18 @@ run = liftIO . flip evalStateT Map.empty . unwrap
 -------------------------------------------------------------------------------}
 
 -- | Look up a typedef in the cache
-lookupCache :: C.DeclName -> ParseType (Maybe (C.Type Parse))
+lookupCache :: CDeclName -> ParseType (Maybe (C.Type Parse))
 lookupCache name = Wrap $ Map.lookup name <$> get
 
 -- | Insert a typedef into the cache
-insertCache :: C.DeclName -> C.Type Parse -> ParseType ()
+insertCache :: CDeclName -> C.Type Parse -> ParseType ()
 insertCache name ty = Wrap $ modify' (Map.insert name ty)
 
 -- | Run a parse action with a cache.
 --
 -- On a cache hit, ignores the parse action and returns the cached value. On a
 -- cache hit, runs the parse action, caches the result, and returns the result.
-cached :: C.DeclName -> ParseType (C.Type Parse) -> ParseType (C.Type Parse)
+cached :: CDeclName -> ParseType (C.Type Parse) -> ParseType (C.Type Parse)
 cached name k = do
     -- Check cache first
     mCachedValue <- lookupCache name
@@ -103,7 +103,7 @@ cached name k = do
         pure newValue
 
 -- | Like 'cached', but only uses the cache if the name argument is 'Just'.
-cachedMaybe :: Maybe C.DeclName -> ParseType (C.Type Parse) -> ParseType (C.Type Parse)
+cachedMaybe :: Maybe CDeclName -> ParseType (C.Type Parse) -> ParseType (C.Type Parse)
 cachedMaybe mName k =
     case mName of
       Nothing -> k

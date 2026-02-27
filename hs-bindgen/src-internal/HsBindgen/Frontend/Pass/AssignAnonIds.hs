@@ -21,7 +21,6 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -296,7 +295,7 @@ instance UpdateUseSites C.FunctionArg where
         <*> updateUseSites functionArg.typ
     where
       reconstruct ::
-           Maybe C.ScopedName
+           Maybe CScopedName
         -> C.Type AssignAnonIds
         -> C.FunctionArg AssignAnonIds
       reconstruct name' typ' = C.FunctionArg {

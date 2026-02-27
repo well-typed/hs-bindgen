@@ -10,19 +10,19 @@ ctypes:
   cname: T2
   hsname: T2
 - headers: types/typedefs/typedef_vs_macro.h
-  cname: M1
+  cname: macro M1
   hsname: M1
 - headers: types/typedefs/typedef_vs_macro.h
-  cname: M2
+  cname: macro M2
   hsname: M2
 - headers: types/typedefs/typedef_vs_macro.h
-  cname: M3
+  cname: macro M3
   hsname: M3
 - headers: types/typedefs/typedef_vs_macro.h
   cname: struct ExampleStruct
   hsname: ExampleStruct
 - headers: types/typedefs/typedef_vs_macro.h
-  cname: uint64_t
+  cname: macro uint64_t
   hsname: Uint64_t
 - headers: types/typedefs/typedef_vs_macro.h
   cname: struct foo

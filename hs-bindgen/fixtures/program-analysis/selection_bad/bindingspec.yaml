@@ -4,7 +4,7 @@ version:
 hsmodule: Example
 ctypes:
 - headers: program-analysis/selection_bad.h
-  cname: A
+  cname: macro A
   hsname: A
 hstypes:
 - hsname: A

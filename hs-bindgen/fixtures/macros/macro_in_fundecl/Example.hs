@@ -25,7 +25,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @I@
+{-| __C declaration:__ @macro I@
 
     __defined at:__ @macros\/macro_in_fundecl.h 5:9@
 
@@ -64,7 +64,7 @@ instance HasCField.HasCField I "unwrapI" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @C@
+{-| __C declaration:__ @macro C@
 
     __defined at:__ @macros\/macro_in_fundecl.h 6:9@
 
@@ -103,7 +103,7 @@ instance HasCField.HasCField C "unwrapC" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @F@
+{-| __C declaration:__ @macro F@
 
     __defined at:__ @macros\/macro_in_fundecl.h 7:9@
 
@@ -140,7 +140,7 @@ instance HasCField.HasCField F "unwrapF" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @L@
+{-| __C declaration:__ @macro L@
 
     __defined at:__ @macros\/macro_in_fundecl.h 8:9@
 
@@ -179,7 +179,7 @@ instance HasCField.HasCField L "unwrapL" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @S@
+{-| __C declaration:__ @macro S@
 
     __defined at:__ @macros\/macro_in_fundecl.h 9:9@
 

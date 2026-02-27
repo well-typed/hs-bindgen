@@ -20,7 +20,7 @@ import HsBindgen.Imports
 
   We work mostly in @IO@, and limited by @MonadUnliftIO@,
   but sometimes we need more effects: @Eff@ wrapping @ReaderT r IO@
-  pattern can mimick many other monads.
+  pattern can mimic many other monads.
 
   NOTE: This is intentionally /not/ a member of 'MonadCatch'. We use 'Eff'
   primarily for folding, and exception handling in folding requires special

@@ -29,11 +29,11 @@ module HsBindgen.Backend.Hs.Origin (
 
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -59,7 +59,7 @@ data Newtype =
   deriving stock (Generic, Show)
 
 data EmptyData =
-    Opaque C.NameKind
+    Opaque CNameKind
   deriving stock (Generic, Show)
 
 data ForeignImport =

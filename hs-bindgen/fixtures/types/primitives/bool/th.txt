@@ -96,7 +96,7 @@ instance HasCField Bools2 "bools2_y"
           offset# = \_ -> \_ -> 1
 instance (~) ty CBool => HasField "bools2_y" (Ptr Bools2) (Ptr ty)
     where getField = fromPtr (Proxy @"bools2_y")
-{-| __C declaration:__ @BOOL@
+{-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @types\/primitives\/bool.h 13:9@
 
@@ -104,7 +104,7 @@ instance (~) ty CBool => HasField "bools2_y" (Ptr Bools2) (Ptr ty)
 -}
 newtype BOOL
     = BOOL {unwrapBOOL :: CBool}
-      {- ^ __C declaration:__ @BOOL@
+      {- ^ __C declaration:__ @macro BOOL@
 
            __defined at:__ @types\/primitives\/bool.h 13:9@
 

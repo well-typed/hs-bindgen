@@ -178,42 +178,42 @@ pattern BAR :: Another_typedef_enum_e
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 pattern BAR = Another_typedef_enum_e 1
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 11:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a :: CInt
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 11:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a = 5 :: CInt
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 12:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 b :: CInt
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 12:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 b = 3 :: CInt
-{-| __C declaration:__ @SOME_DEFINED_CONSTANT@
+{-| __C declaration:__ @macro SOME_DEFINED_CONSTANT@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 13:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 sOME_DEFINED_CONSTANT :: CInt
-{-| __C declaration:__ @SOME_DEFINED_CONSTANT@
+{-| __C declaration:__ @macro SOME_DEFINED_CONSTANT@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 13:9@
 
@@ -509,56 +509,56 @@ instance (~) ty
                   (Ptr A_typedef_struct_t)
                   (Ptr ty)
     where getField = fromPtr (Proxy @"a_typedef_struct_t_field_10")
-{-| __C declaration:__ @A_DEFINE_0@
+{-| __C declaration:__ @macro A_DEFINE_0@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 53:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a_DEFINE_0 :: CInt
-{-| __C declaration:__ @A_DEFINE_0@
+{-| __C declaration:__ @macro A_DEFINE_0@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 53:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a_DEFINE_0 = 0 :: CInt
-{-| __C declaration:__ @A_DEFINE_1@
+{-| __C declaration:__ @macro A_DEFINE_1@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 54:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a_DEFINE_1 :: CUInt
-{-| __C declaration:__ @A_DEFINE_1@
+{-| __C declaration:__ @macro A_DEFINE_1@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 54:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a_DEFINE_1 = 20560 :: CUInt
-{-| __C declaration:__ @A_DEFINE_2@
+{-| __C declaration:__ @macro A_DEFINE_2@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 55:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a_DEFINE_2 :: CInt
-{-| __C declaration:__ @A_DEFINE_2@
+{-| __C declaration:__ @macro A_DEFINE_2@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 55:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 a_DEFINE_2 = 2 :: CInt
-{-| __C declaration:__ @TWO_ARGS@
+{-| __C declaration:__ @macro TWO_ARGS@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 56:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 tWO_ARGS :: (CInt, CInt)
-{-| __C declaration:__ @TWO_ARGS@
+{-| __C declaration:__ @macro TWO_ARGS@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 56:9@
 

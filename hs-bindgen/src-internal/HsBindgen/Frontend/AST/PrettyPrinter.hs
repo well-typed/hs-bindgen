@@ -11,6 +11,7 @@ import Data.Text qualified as Text
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -252,17 +253,8 @@ showsId p declId =
       Just name -> showsDeclName name
       Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
 
-showsDeclName :: C.DeclName -> ShowS
-showsDeclName (C.DeclName name kind) = showsNameKind kind . showsText name
-
-showsNameKind :: C.NameKind -> ShowS
-showsNameKind = \case
-    C.NameKindOrdinary    -> id
-    C.NameKindTagged kind ->
-      case kind of
-       C.TagKindStruct -> showString "struct "
-       C.TagKindEnum   -> showString "enum "
-       C.TagKindUnion  -> showString "union "
+showsDeclName :: CDeclName -> ShowS
+showsDeclName = showsText . renderCDeclNameC
 
 showsText :: Text -> ShowS
 showsText = showString . Text.unpack

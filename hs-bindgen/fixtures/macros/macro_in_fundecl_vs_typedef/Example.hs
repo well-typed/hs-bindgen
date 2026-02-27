@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @MC@
+{-| __C declaration:__ @macro MC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
 

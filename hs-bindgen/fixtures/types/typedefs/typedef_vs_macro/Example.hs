@@ -107,7 +107,7 @@ instance HasCField.HasCField T2 "unwrapT2" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @M1@
+{-| __C declaration:__ @macro M1@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 4:9@
 
@@ -146,7 +146,7 @@ instance HasCField.HasCField M1 "unwrapM1" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @M2@
+{-| __C declaration:__ @macro M2@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
 
@@ -185,7 +185,7 @@ instance HasCField.HasCField M2 "unwrapM2" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @M3@
+{-| __C declaration:__ @macro M3@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
 
@@ -334,7 +334,7 @@ instance ( ((~) ty) M2
   getField =
     HasCField.fromPtr (RIP.Proxy @"exampleStruct_m2")
 
-{-| __C declaration:__ @uint64_t@
+{-| __C declaration:__ @macro uint64_t@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@
 

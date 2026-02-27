@@ -4,7 +4,7 @@ version:
 hsmodule: M
 ctypes:
 - headers: binding-specs/macro_trans_dep_missing.h
-  cname: B
+  cname: macro B
   hsname: B
 hstypes:
 - hsname: B

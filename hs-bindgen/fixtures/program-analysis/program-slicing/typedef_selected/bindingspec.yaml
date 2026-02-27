@@ -7,7 +7,7 @@ ctypes:
   cname: T
   hsname: T
 - headers: program-analysis/program-slicing/typedef_selected.h
-  cname: U
+  cname: macro U
   hsname: U
 hstypes:
 - hsname: T

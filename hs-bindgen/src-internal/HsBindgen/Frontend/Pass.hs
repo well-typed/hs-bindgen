@@ -10,7 +10,6 @@ import Clang.HighLevel.Types
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -106,7 +105,7 @@ class (
   -- live in a local scope. This is initially 'C.ScopedName', and becomes
   -- 'ScopedNamePair' after 'MangleNames'.
   type ScopedName p :: Star
-  type ScopedName p = C.ScopedName
+  type ScopedName p = CScopedName
 
   -- | Macro body
   --
@@ -140,13 +139,13 @@ class (
   type Msg p :: Star
 
   -- | Name kind of the C name
-  idNameKind :: Proxy p -> Id p -> C.NameKind
-  default idNameKind :: Id p ~ DeclId => Proxy p -> Id p -> C.NameKind
+  idNameKind :: Proxy p -> Id p -> CNameKind
+  default idNameKind :: Id p ~ DeclId => Proxy p -> Id p -> CNameKind
   idNameKind _ = (.name.kind)
 
   -- | Name of the declaration as it appears in the C source, if any
-  idSourceName :: Proxy p -> Id p -> Maybe C.DeclName
-  default idSourceName :: Id p ~ DeclId => Proxy p -> Id p -> Maybe C.DeclName
+  idSourceName :: Proxy p -> Id p -> Maybe CDeclName
+  default idSourceName :: Id p ~ DeclId => Proxy p -> Id p -> Maybe CDeclName
   idSourceName _ = declIdSourceName
 
   -- | Location information

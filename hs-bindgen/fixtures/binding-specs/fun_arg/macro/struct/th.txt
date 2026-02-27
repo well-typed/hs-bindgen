@@ -96,7 +96,7 @@ instance HasCField MyStruct "myStruct_x"
 instance (~) ty CInt =>
          HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
     where getField = fromPtr (Proxy @"myStruct_x")
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 7:9@
 
@@ -104,7 +104,7 @@ instance (~) ty CInt =>
 -}
 newtype A
     = A {unwrapA :: MyStruct}
-      {- ^ __C declaration:__ @A@
+      {- ^ __C declaration:__ @macro A@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 7:9@
 
@@ -117,7 +117,7 @@ instance (~) ty MyStruct => HasField "unwrapA" (Ptr A) (Ptr ty)
 instance HasCField A "unwrapA"
     where type CFieldType A "unwrapA" = MyStruct
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 8:9@
 
@@ -125,7 +125,7 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @B@
+      {- ^ __C declaration:__ @macro B@
 
            __defined at:__ @binding-specs\/fun_arg\/macro\/struct.h 8:9@
 

@@ -102,10 +102,10 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
@@ -158,7 +158,7 @@ data ForeignImportDecl = ForeignImportDecl{
       name       :: Hs.Name Hs.NsVar
     , parameters :: [FunctionParameter]
     , result     :: HsType
-    , origName   :: C.DeclName
+    , origName   :: CDeclName
     , callConv   :: CallConv
     , origin     :: Origin.ForeignImport
     , comment    :: Maybe HsDoc.Comment
@@ -301,7 +301,7 @@ data InstanceDecl where
 
 deriving instance Show InstanceDecl
 
--- | Macro expresson
+-- | Macro expression
 type MacroExpr :: Star
 data MacroExpr = MacroExpr {
     -- | Name of variable/function.

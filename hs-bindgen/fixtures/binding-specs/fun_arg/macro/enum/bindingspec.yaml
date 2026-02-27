@@ -7,10 +7,10 @@ ctypes:
   cname: enum MyEnum
   hsname: MyEnum
 - headers: binding-specs/fun_arg/macro/enum.h
-  cname: A
+  cname: macro A
   hsname: A
 - headers: binding-specs/fun_arg/macro/enum.h
-  cname: B
+  cname: macro B
   hsname: B
 hstypes:
 - hsname: A

@@ -4,7 +4,7 @@ version:
 hsmodule: Example
 ctypes:
 - headers: macros/reparse.h
-  cname: A
+  cname: macro A
   hsname: A
 - headers: macros/reparse.h
   cname: struct some_struct
@@ -103,16 +103,16 @@ ctypes:
   cname: const_funptr7
   hsname: Const_funptr7
 - headers: macros/reparse.h
-  cname: BOOL
+  cname: macro BOOL
   hsname: BOOL
 - headers: macros/reparse.h
-  cname: INT
+  cname: macro INT
   hsname: INT
 - headers: macros/reparse.h
-  cname: INTP
+  cname: macro INTP
   hsname: INTP
 - headers: macros/reparse.h
-  cname: INTCP
+  cname: macro INTCP
   hsname: INTCP
 hstypes:
 - hsname: A

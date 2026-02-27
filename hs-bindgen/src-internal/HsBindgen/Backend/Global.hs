@@ -14,7 +14,7 @@ module HsBindgen.Backend.Global (
   , BindgenGlobalTerm(..)
   , bindgenGlobalTerm
 
-    -- ** Specifc to C expressions
+    -- ** Specific to C expressions
   , CExprGlobalType(..)
   , cExprGlobalType
   , CExprGlobalTerm(..)
@@ -66,7 +66,7 @@ deriving stock instance Show (GlobalCat lvl)
 --
 -- The constructor name 'CustomGlobal' highlights that users can create custom
 -- globals. However, we provide a predefined set of globals specific to
--- @hs-bindgen@ and the standard C expression lanauge @c-expr-runtime@.
+-- @hs-bindgen@ and the standard C expression language @c-expr-runtime@.
 data Global (lvl :: Level) = CustomGlobal {
     name  :: TH.Name
   , cat   :: GlobalCat lvl

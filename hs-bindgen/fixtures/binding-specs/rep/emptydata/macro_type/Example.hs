@@ -5,7 +5,7 @@ module Example
     )
   where
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @macro foo@
 
     __defined at:__ @binding-specs\/rep\/emptydata\/macro_type.h 1:9@
 

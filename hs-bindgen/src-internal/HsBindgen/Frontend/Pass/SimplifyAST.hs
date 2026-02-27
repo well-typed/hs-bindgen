@@ -11,14 +11,14 @@ import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (..))
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST,
                                                    SimplifyASTMsg (..))
-import HsBindgen.Language.C (DeclName (..), NameKind (..), PrimType,
-                             ScopedName (..))
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -62,8 +62,8 @@ simplifyAST usage parseResults = (results, msgs)
                                           }
                    }
                  | constant <- enum.constants
-                 , let ScopedName nameText = constant.info.name
-                       newId = Named (DeclName nameText NameKindOrdinary)
+                 , let CScopedName nameText = constant.info.name
+                       newId = Named (CDeclName nameText CNameKindOrdinary)
                        newInfo :: C.DeclInfo SimplifyAST
                        newInfo = (coercePass info) { C.id = newId }
                  ]
@@ -93,7 +93,7 @@ simplifyAST usage parseResults = (results, msgs)
 
 -- | Extract PrimType from a C.Type
 -- Anonymous enum types are always primitive types (e.g., unsigned int, int, etc.)
-extractPrimType :: C.Type Parse -> PrimType
+extractPrimType :: C.Type Parse -> C.PrimType
 extractPrimType (C.TypePrim pt) = pt
 extractPrimType ty = panicPure $ concat [
     "Expected TypePrim but got "

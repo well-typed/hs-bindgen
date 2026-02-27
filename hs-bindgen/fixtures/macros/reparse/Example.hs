@@ -77,7 +77,7 @@ import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/reparse.h 3:9@
 
@@ -2129,7 +2129,7 @@ instance HasCField.HasCField Const_funptr7 "unwrapConst_funptr7" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @BOOL@
+{-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @macros\/reparse.h 280:9@
 
@@ -2169,7 +2169,7 @@ instance HasCField.HasCField BOOL "unwrapBOOL" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @INT@
+{-| __C declaration:__ @macro INT@
 
     __defined at:__ @macros\/reparse.h 281:9@
 
@@ -2208,7 +2208,7 @@ instance HasCField.HasCField INT "unwrapINT" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @INTP@
+{-| __C declaration:__ @macro INTP@
 
     __defined at:__ @macros\/reparse.h 282:9@
 
@@ -2238,7 +2238,7 @@ instance HasCField.HasCField INTP "unwrapINTP" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @INTCP@
+{-| __C declaration:__ @macro INTCP@
 
     __defined at:__ @macros\/reparse.h 283:9@
 

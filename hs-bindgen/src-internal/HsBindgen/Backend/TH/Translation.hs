@@ -30,10 +30,10 @@ import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Errors
+import HsBindgen.Frontend.Naming
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.Instances as Inst
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 

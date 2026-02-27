@@ -13,6 +13,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C ()
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
@@ -124,20 +125,20 @@ fromDecl ty = do
         throwError $ UnsupportedBuiltin builtin
       Nothing -> ParseType.dispatchDecl decl $ \case
         CXCursor_EnumDecl   -> typeEnum decl
-        CXCursor_StructDecl -> typeRef decl C.TagKindStruct
-        CXCursor_UnionDecl  -> typeRef decl C.TagKindUnion
+        CXCursor_StructDecl -> typeRef decl CTagKindStruct
+        CXCursor_UnionDecl  -> typeRef decl CTagKindUnion
 
         CXCursor_TypedefDecl -> typeTypedef decl
 
         kind -> throwError $ UnexpectedTypeDecl (Right kind)
 
-typeRef :: MonadIO m => CXCursor -> C.TagKind -> m (C.Type Parse)
+typeRef :: MonadIO m => CXCursor -> CTagKind -> m (C.Type Parse)
 typeRef decl kind =
-    C.TypeRef <$> PrelimDeclId.atCursor decl (C.NameKindTagged kind)
+    C.TypeRef <$> PrelimDeclId.atCursor decl (CNameKindTagged kind)
 
 typeEnum :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeEnum decl = do
-    declId <- PrelimDeclId.atCursor decl (C.NameKindTagged C.TagKindEnum)
+    declId <- PrelimDeclId.atCursor decl (CNameKindTagged CTagKindEnum)
     -- Enums can be anonymous. In such cases, we bypass the cache and parse the
     -- enum type directly.
     let mDeclName = PrelimDeclId.sourceName declId
@@ -151,7 +152,7 @@ typeEnum decl = do
 
 typeTypedef :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeTypedef decl = do
-    declId <- PrelimDeclId.atCursor decl C.NameKindOrdinary
+    declId <- PrelimDeclId.atCursor decl CNameKindOrdinary
     -- Typedefs can not be anonymous, but we use 'cachedMaybe' for safety
     -- anyway
     let mDeclName = PrelimDeclId.sourceName declId

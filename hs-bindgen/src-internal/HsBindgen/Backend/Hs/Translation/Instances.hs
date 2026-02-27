@@ -54,7 +54,7 @@ type InstanceMap = Map (Hs.Name NsTypeConstr) (Set Inst.TypeClass)
 getInstances ::
      HasCallStack
   => InstanceMap                   -- ^ Current state
-  -> Maybe (Hs.Name NsTypeConstr)  -- ^ Name of current type (optionaL)
+  -> Maybe (Hs.Name NsTypeConstr)  -- ^ Name of current type (optional)
   -> Set Inst.TypeClass            -- ^ Candidate instances
   -> [HsType]                      -- ^ Dependencies
   -> Set Inst.TypeClass

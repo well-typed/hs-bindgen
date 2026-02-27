@@ -29,7 +29,6 @@ import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -138,7 +137,7 @@ processStructField field =
         , offset = field.offset
         , width  = field.width
         , info   = C.FieldInfo {
-              name    = C.ScopedName name
+              name    = CScopedName name
             , comment = fmap coercePass field.info.comment
             , loc     = field.info.loc
             }
@@ -191,7 +190,7 @@ processUnionField field =
           typ  = ty
         , ann  = NoAnn
         , info = C.FieldInfo {
-              name    = C.ScopedName name
+              name    = CScopedName name
             , comment = fmap coercePass field.info.comment
             , loc     = field.info.loc
             }
@@ -366,7 +365,7 @@ processFunction info function =
          }
       where
         mkFunctionArg name typ = C.FunctionArg {
-              name = C.ScopedName <$> name
+              name = CScopedName <$> name
             , typ = typ
             }
 
@@ -429,7 +428,7 @@ runM standard (WrapM ma) = (.errors) <$> runState ma (initMacroState standard)
 --
 -- We also return the new macro type environment
 parseMacro ::
-     C.DeclName
+     CDeclName
   -> [Token TokenSpelling]
   -> M (Either HandleMacrosError (CheckedMacro HandleMacros))
 parseMacro name []      = panicPure $ "Macro " <> show name <> ": unexpected empty list of tokens"

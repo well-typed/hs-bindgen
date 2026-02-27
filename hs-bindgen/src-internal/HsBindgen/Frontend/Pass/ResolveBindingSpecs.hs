@@ -31,7 +31,6 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
 
@@ -461,7 +460,7 @@ instance Resolve C.FunctionArg where
       <*> resolve ctx functionArg.typ
     where
       reconstruct ::
-           Maybe C.ScopedName
+           Maybe CScopedName
         -> C.Type ResolveBindingSpecs
         -> C.FunctionArg ResolveBindingSpecs
       reconstruct name' typ' = C.FunctionArg {

@@ -23,7 +23,7 @@ import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @MY_TYPE@
+{-| __C declaration:__ @macro MY_TYPE@
 
     __defined at:__ @macros\/macro_typedef_struct.h 1:9@
 

@@ -235,7 +235,7 @@ pattern FOO = Another_typedef_enum_e 0
 pattern BAR :: Another_typedef_enum_e
 pattern BAR = Another_typedef_enum_e 1
 
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 11:9@
 
@@ -244,7 +244,7 @@ pattern BAR = Another_typedef_enum_e 1
 a :: RIP.CInt
 a = (5 :: RIP.CInt)
 
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @macro B@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 12:9@
 
@@ -253,7 +253,7 @@ a = (5 :: RIP.CInt)
 b :: RIP.CInt
 b = (3 :: RIP.CInt)
 
-{-| __C declaration:__ @SOME_DEFINED_CONSTANT@
+{-| __C declaration:__ @macro SOME_DEFINED_CONSTANT@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 13:9@
 
@@ -627,7 +627,7 @@ instance ( ((~) ty) ((CA.ConstantArray 5) ((CA.ConstantArray 3) Another_typedef_
   getField =
     HasCField.fromPtr (RIP.Proxy @"a_typedef_struct_t_field_10")
 
-{-| __C declaration:__ @A_DEFINE_0@
+{-| __C declaration:__ @macro A_DEFINE_0@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 53:9@
 
@@ -636,7 +636,7 @@ instance ( ((~) ty) ((CA.ConstantArray 5) ((CA.ConstantArray 3) Another_typedef_
 a_DEFINE_0 :: RIP.CInt
 a_DEFINE_0 = (0 :: RIP.CInt)
 
-{-| __C declaration:__ @A_DEFINE_1@
+{-| __C declaration:__ @macro A_DEFINE_1@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 54:9@
 
@@ -645,7 +645,7 @@ a_DEFINE_0 = (0 :: RIP.CInt)
 a_DEFINE_1 :: RIP.CUInt
 a_DEFINE_1 = (20560 :: RIP.CUInt)
 
-{-| __C declaration:__ @A_DEFINE_2@
+{-| __C declaration:__ @macro A_DEFINE_2@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 55:9@
 
@@ -654,7 +654,7 @@ a_DEFINE_1 = (20560 :: RIP.CUInt)
 a_DEFINE_2 :: RIP.CInt
 a_DEFINE_2 = (2 :: RIP.CInt)
 
-{-| __C declaration:__ @TWO_ARGS@
+{-| __C declaration:__ @macro TWO_ARGS@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h 56:9@
 

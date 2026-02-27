@@ -230,7 +230,7 @@
 -- {
 --   return &struct_name3;
 -- }
-{-| __C declaration:__ @MC@
+{-| __C declaration:__ @macro MC@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
 
@@ -238,7 +238,7 @@
 -}
 newtype MC
     = MC {unwrapMC :: CChar}
-      {- ^ __C declaration:__ @MC@
+      {- ^ __C declaration:__ @macro MC@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
 

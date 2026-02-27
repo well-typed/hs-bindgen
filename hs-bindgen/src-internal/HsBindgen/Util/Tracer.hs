@@ -1,6 +1,6 @@
 -- | Logging
 --
--- Indended for unqualified import.
+-- Intended for unqualified import.
 module HsBindgen.Util.Tracer (
     -- * Tracer definition and main API
     Tracer -- opaque

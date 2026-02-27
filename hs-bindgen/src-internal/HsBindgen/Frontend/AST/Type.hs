@@ -43,6 +43,8 @@ module HsBindgen.Frontend.AST.Type (
   , isErasedTypeConstQualified
   ) where
 
+import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -501,12 +503,13 @@ hasUnsupportedType = aux . getCanonicalType
     aux TypeVoid              = False
     aux TypeBlock{}           = False
 
-    auxRef :: C.NameKind -> Bool
+    auxRef :: CNameKind -> Bool
     auxRef = \case
-          C.NameKindOrdinary               -> False
-          C.NameKindTagged C.TagKindStruct -> True
-          C.NameKindTagged C.TagKindUnion  -> True
-          C.NameKindTagged C.TagKindEnum   -> False
+      CNameKindOrdinary              -> panicPure "Unexpected CNameKindOrdinary"
+      CNameKindTagged CTagKindStruct -> True
+      CNameKindTagged CTagKindUnion  -> True
+      CNameKindTagged CTagKindEnum   -> panicPure "Unexpected CTagKindEnum"
+      CNameKindMacro                 -> panicPure "Unexpected CNameKindMacro"
 
 {-------------------------------------------------------------------------------
   Classification: simple classifiers
@@ -536,7 +539,7 @@ isCanonicalTypeStruct :: forall tag p.
   => TypeF tag p -> Bool
 isCanonicalTypeStruct ty =
     case getCanonicalType ty of
-      TypeRef ref -> idNameKind (Proxy @p) ref == C.NameKindTagged C.TagKindStruct
+      TypeRef ref -> idNameKind (Proxy @p) ref == CNameKindTagged CTagKindStruct
       _otherwise  -> False
 
 -- | Is the canonical type a union type?
@@ -545,7 +548,7 @@ isCanonicalTypeUnion :: forall tag p.
   => TypeF tag p -> Bool
 isCanonicalTypeUnion ty =
     case getCanonicalType ty of
-      TypeRef ref -> idNameKind (Proxy @p) ref == C.NameKindTagged C.TagKindUnion
+      TypeRef ref -> idNameKind (Proxy @p) ref == CNameKindTagged CTagKindUnion
       _otherwise  -> False
 
 -- | Is the erased type @const@-qualified?

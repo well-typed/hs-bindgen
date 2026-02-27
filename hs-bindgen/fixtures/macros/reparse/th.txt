@@ -2473,7 +2473,7 @@
 -- {
 --   return &funptr_ret10;
 -- }
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @macro A@
 
     __defined at:__ @macros\/reparse.h 3:9@
 
@@ -2481,7 +2481,7 @@
 -}
 newtype A
     = A {unwrapA :: CInt}
-      {- ^ __C declaration:__ @A@
+      {- ^ __C declaration:__ @macro A@
 
            __defined at:__ @macros\/reparse.h 3:9@
 
@@ -4183,7 +4183,7 @@ instance HasCField Const_funptr7 "unwrapConst_funptr7"
     where type CFieldType Const_funptr7
                           "unwrapConst_funptr7" = FunPtr Const_funptr7_Aux
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @BOOL@
+{-| __C declaration:__ @macro BOOL@
 
     __defined at:__ @macros\/reparse.h 280:9@
 
@@ -4191,7 +4191,7 @@ instance HasCField Const_funptr7 "unwrapConst_funptr7"
 -}
 newtype BOOL
     = BOOL {unwrapBOOL :: CBool}
-      {- ^ __C declaration:__ @BOOL@
+      {- ^ __C declaration:__ @macro BOOL@
 
            __defined at:__ @macros\/reparse.h 280:9@
 
@@ -4218,7 +4218,7 @@ instance (~) ty CBool => HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
 instance HasCField BOOL "unwrapBOOL"
     where type CFieldType BOOL "unwrapBOOL" = CBool
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @INT@
+{-| __C declaration:__ @macro INT@
 
     __defined at:__ @macros\/reparse.h 281:9@
 
@@ -4226,7 +4226,7 @@ instance HasCField BOOL "unwrapBOOL"
 -}
 newtype INT
     = INT {unwrapINT :: CInt}
-      {- ^ __C declaration:__ @INT@
+      {- ^ __C declaration:__ @macro INT@
 
            __defined at:__ @macros\/reparse.h 281:9@
 
@@ -4253,7 +4253,7 @@ instance (~) ty CInt => HasField "unwrapINT" (Ptr INT) (Ptr ty)
 instance HasCField INT "unwrapINT"
     where type CFieldType INT "unwrapINT" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @INTP@
+{-| __C declaration:__ @macro INTP@
 
     __defined at:__ @macros\/reparse.h 282:9@
 
@@ -4261,7 +4261,7 @@ instance HasCField INT "unwrapINT"
 -}
 newtype INTP
     = INTP {unwrapINTP :: (Ptr CInt)}
-      {- ^ __C declaration:__ @INTP@
+      {- ^ __C declaration:__ @macro INTP@
 
            __defined at:__ @macros\/reparse.h 282:9@
 
@@ -4279,7 +4279,7 @@ instance (~) ty (Ptr CInt) =>
 instance HasCField INTP "unwrapINTP"
     where type CFieldType INTP "unwrapINTP" = Ptr CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @INTCP@
+{-| __C declaration:__ @macro INTCP@
 
     __defined at:__ @macros\/reparse.h 283:9@
 
@@ -4287,7 +4287,7 @@ instance HasCField INTP "unwrapINTP"
 -}
 newtype INTCP
     = INTCP {unwrapINTCP :: (PtrConst CInt)}
-      {- ^ __C declaration:__ @INTCP@
+      {- ^ __C declaration:__ @macro INTCP@
 
            __defined at:__ @macros\/reparse.h 283:9@
 
