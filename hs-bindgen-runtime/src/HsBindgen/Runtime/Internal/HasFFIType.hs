@@ -120,7 +120,7 @@ castFunPtrToFFIType ::
   -> FunPtr (FFIType a)
 castFunPtrToFFIType = castFunPtr
   where
-    -- NOTE: the constaint is unused, but we want to restrict what types can be
+    -- NOTE: the constraint is unused, but we want to restrict what types can be
     -- cast, so we work around "unused constraint" warnings with this local
     -- definition.
     _unused = toFFIType @a
@@ -132,7 +132,7 @@ castFunPtrFromFFIType ::
   -> FunPtr a
 castFunPtrFromFFIType = castFunPtr
   where
-    -- NOTE: the constaint is unused, but we want to restrict what types can be
+    -- NOTE: the constraint is unused, but we want to restrict what types can be
     -- cast, so we work around "unused constraint" warnings with this local
     -- definition.
     _unused = fromFFIType @a

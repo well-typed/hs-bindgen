@@ -223,7 +223,7 @@ taggedPayload = go True
           --
           -- > typedef struct {..} * foo;
           --
-          -- but not, for exmaple
+          -- but not, for example
           --
           -- > typedef struct {..} foo[10];
           Nothing

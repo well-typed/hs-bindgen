@@ -1020,7 +1020,7 @@ data Visibility =
   | NonPublicVisibility
   deriving stock (Show, Eq, Generic)
 
--- | Retrieve the visibilty of the entity that the cursor is currently pointing
+-- | Retrieve the visibility of the entity that the cursor is currently pointing
 -- to.
 getCursorVisibility :: MonadIO m => CXCursor -> m Visibility
 getCursorVisibility = \curr -> do
@@ -1043,7 +1043,7 @@ getCursorVisibility = \curr -> do
         panicIO $ "Unexpected visibility " ++ show x ++ " at " ++ show loc
 
 -- | Check if a function declaration or global variable declaration has a
--- problematic case of non-public visiblity.
+-- problematic case of non-public visibility.
 --
 -- See the section on Visibility in the manual for more details.
 visibilityCanCauseErrors ::

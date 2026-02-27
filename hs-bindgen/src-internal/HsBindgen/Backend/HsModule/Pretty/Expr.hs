@@ -116,8 +116,8 @@ prettyRolledExpr env prec expr = case expr of
     e@(EInfix op x y) -> case (prec, getInfixSpecialCase env e) of
       -- Handle special cases only at precedence 0.
       (0, Just ds) -> PP.vcat ds
-      -- Sub-expressions are aggresively parenthesized so that we do not have to
-      -- worry about operator fixity/precedence.
+      -- Sub-expressions are aggressively parenthesized so that we do not have
+      -- to worry about operator fixity/precedence.
       _otherwise ->
         PP.parens $ PP.hsep
           [ prettyExpr env 1 x

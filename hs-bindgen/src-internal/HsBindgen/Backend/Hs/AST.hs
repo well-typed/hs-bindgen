@@ -301,7 +301,7 @@ data InstanceDecl where
 
 deriving instance Show InstanceDecl
 
--- | Macro expresson
+-- | Macro expression
 type MacroExpr :: Star
 data MacroExpr = MacroExpr {
     -- | Name of variable/function.

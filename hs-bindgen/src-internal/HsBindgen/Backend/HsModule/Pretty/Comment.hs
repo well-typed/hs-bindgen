@@ -30,7 +30,7 @@ import HsBindgen.Imports
 -- | Here we generate valid Haddock for 'Hs.Comment'. There are roughly 4 types
 -- of Haddocks that we might be able to generate:
 --
--- * Module Description Commments: Unfortunately, libclang doesn't allow us to
+-- * Module Description Comments: Unfortunately, libclang doesn't allow us to
 -- parse module level comments because they are not associated with any AST
 -- node. Assuming that the comment is not immediately followed by a
 -- declaration, in that case the module level comment will get confused with a
@@ -56,10 +56,9 @@ import HsBindgen.Imports
 --
 data CommentKind
   = TopLevelComment HsDoc.Comment
-    -- ^ Comments that will beging with \"{-|\" for top level declarations
+    -- ^ Comments that begin with \"{-|\" for top level declarations
   | PartOfDeclarationComment HsDoc.Comment
-    -- ^ Comments that will beging with \"{-^\" for fields and part of
-    -- declarations
+    -- ^ Comments that begin with \"{-^\" for fields and part of declarations
   | THComment HsDoc.Comment
     -- ^ Comments that will not begin with any specific documentation PP.string
     -- since they will be taken care of by Template Haskell

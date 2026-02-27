@@ -141,26 +141,27 @@ data DelayedParseMsg =
     -- on globals for details.
     --
     -- Duplicate symbols can also exist across multiple shared libraries as long
-    -- as these symbols have public visiblity. However, in such cases the linker
-    -- will pick one according to the rules of linker symbol interposition,
-    -- rather than throw a linker error. It can be suprising for users if the
-    -- linker picks an unexpected definition for the symbol they are
-    -- referencing. So, if a symbol has non-public visibility, the risk of such
-    -- surprises is mitigated somewhat. See the "Visibility" section in the
+    -- as these symbols have public visibility. However, in such cases the
+    -- linker will pick one according to the rules of linker symbol
+    -- interposition, rather than throw a linker error. It can be surprising for
+    -- users if the linker picks an unexpected definition for the symbol they
+    -- are referencing. So, if a symbol has non-public visibility, the risk of
+    -- such surprises is mitigated somewhat. See the "Visibility" section in the
     -- manual for more details.
   | ParsePotentialDuplicateSymbol
       -- | The symbol has public visibility
       Bool
 
     -- | A function declaration or global variable declaration has a problematic
-    -- case of non-public visiblity that can lead to linker errors if the symbol
-    -- is defined in a shared library.
+    -- case of non-public visibility that can lead to linker errors if the
+    -- symbol is defined in a shared library.
     --
     -- In such cases, we emit this message. Arguably declarations like these are
     -- a bug in the C library, given the way that header files are @#include@d
     -- in other header and body files.
     --
-    -- Concretely, a linker error can occur for a declarated symbol if it:
+    -- Concretely, a linker error can occur for a declared symbol if it:
+    --
     -- 1. has non-public visibility,
     -- 2. has external linkage, and
     -- 3. is not a definition (and there is no definition elsewhere in the

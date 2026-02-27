@@ -418,10 +418,10 @@ getOmitted index = Map.mapMaybe toOmitted index.map
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- We may no longer need `getSquashed` once we properly record lists of aliases.
 getSquashed :: DeclIndex -> Set DeclId -> Map DeclId (SourcePath, Hs.Identifier)
-getSquashed index targets = Map.mapMaybe onlySquashedTargettingSet index.map
+getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
   where
-    onlySquashedTargettingSet :: Entry -> Maybe (SourcePath, Hs.Identifier)
-    onlySquashedTargettingSet = \case
+    onlySquashedTargetingSet :: Entry -> Maybe (SourcePath, Hs.Identifier)
+    onlySquashedTargetingSet = \case
       UsableE (UsableSquashed e) ->
         case (e.targetNameHs, Set.member e.targetNameC targets) of
           (Just nameHs, True) -> Just (e.typedefLoc.singleLocPath, nameHs)

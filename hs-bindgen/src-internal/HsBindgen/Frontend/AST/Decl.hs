@@ -341,7 +341,8 @@ newtype Comment p = Comment{
 -- Doxygen references are just strings; in particular, they do not distinguish
 -- between namespaces (i.e., @struct foo@ is simply referred to as @foo@). In
 -- 'MangleNames' we will /search/ for a matching name and set the 'Id'
--- accordingly, so that we can generate an approprate reference in the Haddocks.
+-- accordingly, so that we can generate an appropriate reference in the
+-- Haddocks.
 data CommentRef p = CommentRef Text (Maybe (Id p))
 
 {-------------------------------------------------------------------------------

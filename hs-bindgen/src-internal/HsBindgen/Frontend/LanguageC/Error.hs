@@ -1,6 +1,6 @@
 -- | Errors arising from interacting with @language-c@
 --
--- Defined in its own module to avoid cyclic module dependenies.
+-- Defined in its own module to avoid cyclic module dependencies.
 module HsBindgen.Frontend.LanguageC.Error (
     Error(..)
   ) where
