@@ -471,7 +471,7 @@ instance Resolve C.FunctionArg where
 instance Resolve CheckedMacro where
   resolve ctx = \case
     MacroType typ  -> MacroType <$> resolve ctx typ
-    MacroExpr expr -> return (MacroExpr expr)
+    MacroExpr expr -> return (MacroExpr $ coercePass expr)
 
 instance Resolve CheckedMacroType where
   resolve ctx macroType = reconstruct <$> resolve ctx macroType.typ

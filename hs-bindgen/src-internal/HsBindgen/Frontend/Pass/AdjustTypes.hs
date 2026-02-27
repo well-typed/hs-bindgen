@@ -205,13 +205,13 @@ processMacroType macroType = do
       }
 
 processMacroExpr ::
-     CheckedMacroExpr
-  -> M CheckedMacroExpr
+     CheckedMacroExpr MangleNames
+  -> M (CheckedMacroExpr AdjustTypes)
 processMacroExpr macroExpr = do
     -- NOTE: currently macro expressions don't support function type parameters,
     -- if they do in the future, then we might have to recurse into the type of
     -- the macro expression?
-    pure macroExpr
+    pure $ coercePass macroExpr
 
 processFunction ::
      C.Function MangleNames

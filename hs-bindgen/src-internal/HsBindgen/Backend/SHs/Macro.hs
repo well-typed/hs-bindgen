@@ -20,9 +20,9 @@ import HsBindgen.Backend.Global
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Config.FixCandidate (FixCandidate)
-import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
+import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -121,24 +121,24 @@ simpleTyConApp _ _ =
 
 translateBody ::
      [DSL.Name]
-  -> DSL.MExpr p
+  -> DSL.MExpr (MacroEmbedPass Final)
   -> SExpr EmptyCtx
 translateBody macroArgs expr =
     topLevelLambdaN cnameToHint macroArgs (flip mexpr expr)
 
-mexpr :: forall ctx p.
+mexpr :: forall ctx.
      Map DSL.Name (Idx ctx)
-  -> DSL.MExpr p
+  -> DSL.MExpr (MacroEmbedPass Final)
   -> SExpr ctx
 mexpr env =
     goExpr
   where
-    goExpr :: DSL.MExpr p -> SExpr ctx
+    goExpr :: DSL.MExpr (MacroEmbedPass Final) -> SExpr ctx
     goExpr = \case
         DSL.MTerm t     -> goTerm t
         DSL.MApp _ f xs -> eAppN (mfun f) (goExpr <$> xs)
 
-    goTerm :: DSL.MTerm p -> SExpr ctx
+    goTerm :: DSL.MTerm (MacroEmbedPass Final) -> SExpr ctx
     goTerm = \case
         -- Literals
         DSL.MInt    x -> integerLiteral  x
@@ -147,10 +147,10 @@ mexpr env =
         DSL.MString x -> stringLiteral   x
 
         -- Variables
-        DSL.MVar _ cname args ->
+        DSL.MVar xVar cname args ->
           case Map.lookup cname env of
             Just i  -> EBound i
-            Nothing -> eAppN (EFree $ macroName cname) (goExpr <$> args)
+            Nothing -> eAppN (EFree $ macroName xVar) (goExpr <$> args)
 
 {-------------------------------------------------------------------------------
   Names
@@ -159,19 +159,8 @@ mexpr env =
 cnameToHint :: DSL.Name -> NameHint
 cnameToHint (DSL.Name t) = fromString (T.unpack t)
 
--- | Construct Haskell name for macro
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1504>
--- This should be done as part of the NameMangler frontend pass.
-macroName :: DSL.Name -> Hs.Name Hs.NsVar
-macroName (DSL.Name cName) =
-    case FixCandidate.fixCandidate fix cName of
-      Just hsName -> Hs.ExportedName hsName
-      Nothing     ->
-        panicPure $ "Unable to construct name for macro " ++ show cName
-  where
-    fix :: FixCandidate Maybe
-    fix = FixCandidate.fixCandidateDefault
+macroName :: DSL.XVar (MacroEmbedPass Final) -> Hs.Name Hs.NsVar
+macroName (MacroXVar namePair) = Hs.unsafeHsIdHsName $ unsafeHsName namePair
 
 {-------------------------------------------------------------------------------
   Literals

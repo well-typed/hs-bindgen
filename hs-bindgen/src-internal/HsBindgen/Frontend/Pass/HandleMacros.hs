@@ -453,7 +453,7 @@ parseMacro name tokens  = state     $ \st ->
                 Right inf -> (
                     Right $ MacroExpr $ CheckedMacroExpr{
                         args = args
-                      , body = body
+                      , body = macroEmbedPass body
                       , typ  = dropEval inf
                       }
                   , st & #macroEnv %~ Map.insert name' inf

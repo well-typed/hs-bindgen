@@ -244,3 +244,4 @@ instance CoercePassMacroId AdjustTypes Select
 
 instance CoercePassMacroBody AdjustTypes Select where
   coercePassMacroBody _ = coercePass
+
