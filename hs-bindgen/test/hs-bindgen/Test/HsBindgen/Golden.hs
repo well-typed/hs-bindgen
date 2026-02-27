@@ -397,7 +397,7 @@ test_attributes_asm :: TestCase
 test_attributes_asm =
     defaultTest "attributes/asm"
       & #clangVersion .~ Just (>= (18, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore %~ (<> ["-std=gnu2x"]) )
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=gnu2x"] )
 
 test_attributes_attributes :: TestCase
 test_attributes_attributes =
@@ -1367,7 +1367,7 @@ test_macros_reparse :: TestCase
 test_macros_reparse =
     defaultTest "macros/reparse"
       & #clangVersion   .~ Just (>= (15, 0, 0)) -- parse 'bool'
-      & #onBoot         .~ ( #clangArgs % #argsBefore %~ (<> ["-std=c2x"]) )
+      & #onBoot         .~ ( #clangArgs % #argsBefore .~ ["-std=c2x"] )
       & #tracePredicate .~ tolerateAll
 
 {-------------------------------------------------------------------------------
@@ -1842,7 +1842,7 @@ test_types_primitives_bool_c23 :: TestCase
 test_types_primitives_bool_c23 =
     defaultTest "types/primitives/bool_c23"
       & #clangVersion .~ Just (>= (15, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore %~ (<> ["-std=c2x"]) )
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c2x"] )
 
 test_types_primitives_least_fast :: TestCase
 test_types_primitives_least_fast =
