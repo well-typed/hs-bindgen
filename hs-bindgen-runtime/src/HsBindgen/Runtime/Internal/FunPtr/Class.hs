@@ -34,8 +34,8 @@ class FromFunPtr a where
   -- | Convert C function pointer into a Haskell function.
   fromFunPtr :: F.FunPtr a -> a
 
--- | This function makes sure that 'freeHaskellFunPtr' is called after
--- 'toFunPtr' has allocated memory for a 'FunPtr'.
+-- | This function makes sure that 'F.freeHaskellFunPtr' is called after
+-- 'toFunPtr' has allocated memory for a 'Ptr.FunPtr'.
 --
 withFunPtr :: ToFunPtr a => a -> (Ptr.FunPtr a -> IO b) -> IO b
 withFunPtr x = bracket (toFunPtr x) F.freeHaskellFunPtr

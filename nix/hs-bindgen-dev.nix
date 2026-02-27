@@ -15,7 +15,6 @@ let
     nativeBuildInputs = [
       # Haskell toolchain.
       hpkgsOverlay.cabal-install
-      hpkgsOverlay.ghc
       hpkgsOverlay.haskell-language-server
       # Haskell tools.
       # Fix the version of `cabal-fmt` because it compiles only with some

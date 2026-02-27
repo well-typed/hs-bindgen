@@ -5,7 +5,8 @@
 -- > import HsBindgen.Runtime.Prelude
 -- > import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
 module HsBindgen.Runtime.BitfieldPtr (
-    BitfieldPtr(BitfieldPtr)
+    Bitfield(..)
+  , BitfieldPtr(BitfieldPtr)
   , peek
   , poke
   ) where

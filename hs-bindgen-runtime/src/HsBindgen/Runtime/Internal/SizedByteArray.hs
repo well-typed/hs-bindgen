@@ -20,7 +20,7 @@ import HsBindgen.Runtime.Marshal
   Definition
 -------------------------------------------------------------------------------}
 
--- | 'SizedByteArray's provide deriving-via support for 'ByteArray'.
+-- | t'SizedByteArray's provide deriving-via support for t'ByteArray'.
 --
 -- Intended usage:
 --
@@ -29,17 +29,17 @@ import HsBindgen.Runtime.Marshal
 --
 -- == Size
 --
--- In this example, the 'ByteArray' must have size 16.
+-- In this example, the v'ByteArray' must have size 16.
 --
 -- == Storable
 --
--- The derived 'Storable' instance does /not/ declare that the 'ByteArray'
--- /itself/ is memory aligned in any way (indeed, the 'ByteArray' may well not
+-- The derived 'Storable' instance does /not/ declare that the t'ByteArray'
+-- /itself/ is memory aligned in any way (indeed, the t'ByteArray' may well not
 -- be pinned). It merely states that if we use 'Storable' to pass the
--- 'ByteArray' to a C function, we must
+-- t'ByteArray' to a C function, we must
 --
 -- * allocate a temporary buffer (typically using 'Foreign.alloca')
--- * copy the 'ByteArray' into that buffer
+-- * copy the v'ByteArray' into that buffer
 -- * call the C function, passing a pointer to this buffer
 --
 -- where /that temporary buffer/ must be memory aligned.
@@ -63,7 +63,7 @@ instance GHC.KnownNat n => ReadRaw (SizedByteArray n m) where
     BA.copyPtrToMutableByteArray arr 0 ptr size
     SizedByteArray <$> BA.unsafeFreezeByteArray arr
 
--- | Write a 'SizedByteArray' to the specified location, which must have the
+-- | Write a t'SizedByteArray' to the specified location, which must have the
 -- correct alignment (matching @m@)
 instance GHC.KnownNat n => WriteRaw (SizedByteArray n m) where
   writeRaw ptrSBA (SizedByteArray arr) = do

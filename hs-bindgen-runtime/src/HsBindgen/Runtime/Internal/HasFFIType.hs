@@ -76,16 +76,16 @@ import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
 -- === User-supplied instances
 --
 -- Generally as a rule of thumb, if @a@ is a valid foreign type, then there
--- should be a sensible 'HasFFIType' instance. Instances are provided in
--- this module for most basic type constructors, like '(->)', 'IO', '()', and
--- all eligible types from the "Foreign" module hierarchy. However, we can't
--- magically generate instance for user-defined newtypes, nor do we try to
--- generate instances for all newtypes from the @base@ package or other core
--- packages. Instead, the user should derive such instances either using
--- newtype-deriving or using deriving-via with the 'ViaNewtype'\/'ViaCoercible'
--- helper datatype. Instances can otherwise not be defined by hand. Regardless
--- of the deriving method, the @UndecidableInstances@ language extension should
--- also be enabled.
+-- should be a sensible 'HasFFIType' instance. Instances are provided in this
+-- module for most basic type constructors, like 'Prelude.(->)', 'IO',
+-- 'Prelude.()', and all eligible types from the "Foreign" module hierarchy.
+-- However, we can't magically generate instance for user-defined newtypes, nor
+-- do we try to generate instances for all newtypes from the @base@ package or
+-- other core packages. Instead, the user should derive such instances either
+-- using newtype-deriving or using deriving-via with the t'ViaNewtype'\ or
+-- t'ViaCoercible' helper datatypes. Instances can otherwise not be defined by
+-- hand. Regardless of the deriving method, the @UndecidableInstances@ language
+-- extension should also be enabled.
 --
 -- === Foreign types
 --

@@ -41,10 +41,9 @@ import Foreign.Storable
 -- >>> let width = 5 :: Int
 -- >>> extend (narrow (-100 :: CSChar) width) width :: CSChar
 -- -4
---
+
 -- Development note: we could get away without a type-class using 'defaultNarrow', 'signedExtend' or 'unsignedExtend' directly.
 -- However, we would need to encode the signedness of a target type somewhere anyway.
---
 class Bitfield a where
     -- | Narrow the value so that only @n@ lowest bits are set.
     narrow :: a -> Int -> Word64

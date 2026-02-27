@@ -34,9 +34,12 @@ import HsBindgen.Runtime.Marshal
   Definitions
 -------------------------------------------------------------------------------}
 
+-- | The offset of the FLAM to the beginning of the underlying data structure in
+--   bytes
 class Offset elem aux | aux -> elem where
   offset :: Proxy# aux -> Int
 
+-- | The number of elements 'elem' of the FLAM contained in structure 'aux'
 class Offset elem aux => NumElems elem aux | aux -> elem where
   numElems :: aux -> Int
 
@@ -96,6 +99,7 @@ poke ptrStruct (WithFlam aux vector)
   Exceptions
 -------------------------------------------------------------------------------}
 
+-- | Exception thrown when 'writeRaw' detects a FLAM length mismatch
 data FlamLengthMismatch = FlamLengthMismatch {
       flamLengthStruct   :: Int
     , flamLengthProvided :: Int

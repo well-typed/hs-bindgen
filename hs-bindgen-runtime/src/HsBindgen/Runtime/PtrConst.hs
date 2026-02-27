@@ -11,7 +11,7 @@ module HsBindgen.Runtime.PtrConst (
   , peek
   , unsafeToPtr
   , unsafeFromPtr
-    -- * Relationship with 'ConstPtr'
+    -- * Relationship with t'ConstPtr'
     -- $constptr
   ) where
 
@@ -83,26 +83,26 @@ unsafeFromPtr :: Ptr a -> PtrConst a
 unsafeFromPtr ptr = mkPtrConst ptr
 
 {-------------------------------------------------------------------------------
-  Relationship with 'ConstPtr'
+  Relationship with t'ConstPtr'
 -------------------------------------------------------------------------------}
 
 {- $constptr
 
-'PtrConst' is a pointer-to-const-data, but 'ConstPtr' is too. They are mostly
+'PtrConst' is a pointer-to-const-data, but t'ConstPtr' is too. They are mostly
 equivalent, so why a new type? For two main reasons:
 
-1. 'ConstPtr' is actually a misnomer: it is a pointer-to-const-data, not a
+1. t'ConstPtr' is actually a misnomer: it is a pointer-to-const-data, not a
    const-pointer-to-data.
-2. 'ConstPtr' can be freely converted to a 'Ptr', even though its contents
+2. t'ConstPtr' can be freely converted to a 'Ptr', even though its contents
    should be considered to be read-only.
 
 'PtrConst' is arguably a better name, and it goes further in ensuring that
 the pointer only has read access.
 
-On @base-4.18@ and up, 'PtrConst' is a type synonym around 'ConstPtr', while on
+On @base-4.18@ and up, 'PtrConst' is a type synonym around t'ConstPtr', while on
 earlier @base@ versions it is a custom, opaque datatype. If you care about
 compatibility with all @base@ versions that @hs-bindgen-runtime@ support, then
-you should treat 'PtrConst' as its own type distinct from 'ConstPtr' using only
+you should treat 'PtrConst' as its own type distinct from t'ConstPtr' using only
 the functions in the "HsBindgen.Runtime.PtrConst" module rather than the
 "Foreign.C.ConstPtr" module.
 -}

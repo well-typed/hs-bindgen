@@ -151,7 +151,7 @@ when :: (Eq b, Num b, Applicative f) => b -> f () -> f ()
 when b e = if isTrue b then e else pure ()
 {-# ANN when ("HLint: ignore Use when" :: String) #-}
 
--- | Execute an applicative expression when the condition 'ifFalse'
+-- | Execute an applicative expression when the condition 'isFalse'
 unless :: (Eq b, Num b, Applicative f) => b -> f () -> f ()
 unless b e = if isFalse b then e else pure ()
 {-# ANN unless ("HLint: ignore Use when" :: String) #-}

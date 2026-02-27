@@ -21,7 +21,7 @@
 -- > flagsPtr.driverFlags_allocates :: BitfieldPtr CUInt
 --
 -- Module "HsBindgen.Runtime.BitfieldPtr" can be used to interact with
--- these 'BitfieldPtr's; for example:
+-- these t'BitfieldPtr's; for example:
 --
 -- > BitfieldPtr.peek flagsPtr.driverFlags_allocates
 --
