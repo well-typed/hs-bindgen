@@ -3,6 +3,9 @@ name: Comprehensive CI
 # Manual trigger only - for pre-release validation and comprehensive testing
 on:
   workflow_dispatch:
+  push: # TODO: remove before merge
+    branches:
+      - bolt12/1159
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
