@@ -59,6 +59,7 @@ tests testResources = testTreeFor testResources $
           , TestCases "programAnalysis" testCases_bespoke_programAnalysis
           , TestCases "types"           testCases_bespoke_types
           ]
+      , TestCases "comprehensive" testCases_comprehensive
       ]
 
 -- | All test cases, for use by TH fixture compilation
@@ -77,6 +78,7 @@ allTestCases = concat [
     , testCases_bespoke_macros
     , testCases_bespoke_programAnalysis
     , testCases_bespoke_types
+    , testCases_comprehensive
     ]
 
 {-------------------------------------------------------------------------------
@@ -141,8 +143,8 @@ testCases_default = [
     , defaultTest "edge-cases/aux_funptr_newtypes"
     , defaultTest "edge-cases/distilled_lib_1"
     , defaultTest "edge-cases/enum_as_array_size"
-    , defaultTest "edge-cases/flam"
     , defaultTest "edge-cases/flam_functions"
+    , defaultTest "edge-cases/flam"
     , defaultTest "edge-cases/names"
     , defaultTest "edge-cases/spec_examples"
     , defaultTest "edge-cases/typedef_bitfield"
@@ -150,7 +152,6 @@ testCases_default = [
     , defaultTest "edge-cases/uses_utf8"
     , defaultTest "functions/callbacks"
     , defaultTest "functions/circular_dependency_fun"
-    , defaultTest "functions/typedef_funptr"
     , defaultTest "functions/heap_types/struct_const_member"
     , defaultTest "functions/heap_types/struct_const_typedef"
     , defaultTest "functions/heap_types/struct_const"
@@ -160,6 +161,7 @@ testCases_default = [
     , defaultTest "functions/heap_types/union_const"
     , defaultTest "functions/heap_types/union"
     , defaultTest "functions/simple_func"
+    , defaultTest "functions/typedef_funptr"
     , defaultTest "macros/issue_890"
     , defaultTest "macros/macro_functions"
     , defaultTest "macros/macro_strings"
@@ -173,16 +175,16 @@ testCases_default = [
     , defaultTest "types/complex/vector_test"
     , defaultTest "types/enums/anon_enum_toplevel"
     , defaultTest "types/enums/enum_cpp_syntax"
-    , defaultTest "types/enums/enums"
     , defaultTest "types/enums/enum_unsigned_values"
+    , defaultTest "types/enums/enums"
     , defaultTest "types/enums/nested_enums"
     , defaultTest "types/nested/nested_types"
     , defaultTest "types/primitives/bool"
     , defaultTest "types/primitives/fixedwidth"
     , defaultTest "types/primitives/primitive_insts"
     , defaultTest "types/primitives/primitive_types"
-    , defaultTest "types/qualifiers/type_qualifiers"
     , defaultTest "types/qualifiers/const_typedefs"
+    , defaultTest "types/qualifiers/type_qualifiers"
     , defaultTest "types/structs/anonymous"
     , defaultTest "types/structs/bitfields"
     , defaultTest "types/structs/circular_dependency_struct"
@@ -1908,3 +1910,48 @@ test_types_typedefs_typenames =
   where
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["enum foo", "foo"]
+
+{-------------------------------------------------------------------------------
+  Comprehensive test cases
+
+  Theses are larger test cases, possibly coming from external sources (such as
+  reported issues).
+
+  We enable record dot for all of these tests, partly to have some more tests
+  for record dot, and partly because this is the way I think most people should
+  use hs-bindgen.
+-------------------------------------------------------------------------------}
+
+testCases_comprehensive :: [TestCase]
+testCases_comprehensive = [
+      test_comprehensive_c2hsc
+    , comprehensiveTest "comprehensive/smoke"
+    ]
+
+comprehensiveTest :: String -> TestCase
+comprehensiveTest fp =
+    defaultTest fp
+      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+
+test_comprehensive_c2hsc :: TestCase
+test_comprehensive_c2hsc =
+    comprehensiveTest "comprehensive/c2hsc"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name (ParseUnsupportedType UnsupportedLongDouble) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [CDeclName]
+    declsWithMsgs = [
+          "ordinary_long_double"
+        , "ordinary_long_double_pointer"
+        , "ordinary_long_double_array"
+        , "ordinary_long_double_pointer_array"
+        , "struct ordinary_long_double_struct"
+        , "struct ordinary_long_double_pointer_struct"
+        , "struct ordinary_long_double_array_struct"
+        , "struct ordinary_long_double_pointer_array_struct"
+        ]

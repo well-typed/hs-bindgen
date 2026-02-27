@@ -1,0 +1,224 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: comprehensive/smoke.h
+  cname: uint
+  hsname: Uint
+- headers: comprehensive/smoke.h
+  cname: size_t
+  hsname: Size_t
+- headers: comprehensive/smoke.h
+  cname: struct bar1_t
+  hsname: Bar1_t
+- headers: comprehensive/smoke.h
+  cname: struct bar2_t
+  hsname: Bar2_t
+- headers: comprehensive/smoke.h
+  cname: bar2_t
+  hsname: Bar2_t
+- headers: comprehensive/smoke.h
+  cname: struct bar3_t
+  hsname: Bar3_t
+- headers: comprehensive/smoke.h
+  cname: bar3_t
+  hsname: Bar3_t
+- headers: comprehensive/smoke.h
+  cname: enum baz2_t
+  hsname: Baz2_t
+- headers: comprehensive/smoke.h
+  cname: baz2_t
+  hsname: Baz2_t
+- headers: comprehensive/smoke.h
+  cname: enum baz3_t
+  hsname: Baz3_t
+- headers: comprehensive/smoke.h
+  cname: enum baz4_t
+  hsname: Baz4_t
+- headers: comprehensive/smoke.h
+  cname: baz4_t
+  hsname: Baz4_t
+hstypes:
+- hsname: Bar1_t
+  representation:
+    record:
+      constructor: Bar1_t
+      fields:
+      - a
+      - b
+      - c
+      - d
+      - e
+      - f
+      - g
+      - h
+      - i
+      - j
+      - k
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar2_t
+  representation:
+    record:
+      constructor: Bar2_t
+      fields:
+      - a
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar3_t
+  representation:
+    record:
+      constructor: Bar3_t
+      fields:
+      - a
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Baz2_t
+  representation:
+    newtype:
+      constructor: Baz2_t
+      fields:
+      - unwrap
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Baz3_t
+  representation:
+    newtype:
+      constructor: Baz3_t
+      fields:
+      - unwrap
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Baz4_t
+  representation:
+    newtype:
+      constructor: Baz4_t
+      fields:
+      - unwrap
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Size_t
+  representation:
+    newtype:
+      constructor: Size_t
+      fields:
+      - unwrap
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Uint
+  representation:
+    newtype:
+      constructor: Uint
+      fields:
+      - unwrap
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
