@@ -101,7 +101,157 @@ jobs:
         key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
 
   # ============================================================================
-  # Job 2: Run cabal check for each package
+  # Job 2: Test all GHC versions on Windows
+  # ============================================================================
+
+  test-windows:
+    name: Test (windows-latest, GHC ${{ matrix.ghc }})
+    runs-on: windows-latest
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # GHC 9.2 uses GCC, not LLVM/Clang, so we do not test it.
+        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+
+    env:
+      cache-reset-number: 0
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 🛠️ Set git to use LF
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+
+    - name: 📥 Checkout
+      uses: actions/checkout@v4
+
+    - name: 🛠️ Setup Haskell
+      id: setup-haskell
+      uses: haskell-actions/setup@v2
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: 3.16
+
+    - name: 🛠️ Filter PATH
+      # Remove any existing LLVM installations (targeting MSVC) from PATH
+      # to avoid conflicts with the LLVM bundled with GHC.
+      shell: powershell
+      run: |
+        $oldPathDirs = ($env:PATH).Split(';')
+        $newPathDirs = $oldPathDirs | Where-Object { $_ -notlike '*LLVM*' }
+        $newPath = $newPathDirs -join ';'
+        echo "PATH=$newPATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
+
+    - name: 🛠️ Configure LLVM/Clang
+      # On Windows, LLVM/Clang is bundled with GHC in the mingw directory.
+      run: |
+        parentDir="$(dirname "$(dirname "$(which ghc)")")"
+        LLVM_PATH="${parentDir}/mingw"
+        if [ ! -d "${LLVM_PATH}" ] ; then
+          LLVM_PATH="${parentDir}/ghc/${{ steps.setup-haskell.outputs.ghc-version }}/mingw"
+          if [ ! -d "${LLVM_PATH}" ] ; then
+            echo "error: LLVM path not found"
+            false
+          fi
+        fi
+        echo LLVM_PATH="${LLVM_PATH}" | tee -a "${GITHUB_ENV}"
+        cygpath -w "${LLVM_PATH}/bin" | tee -a "${GITHUB_PATH}"
+        LLVM_CONFIG="${LLVM_PATH}/bin/llvm-config.exe"
+        if [ -x "${LLVM_CONFIG}" ] ; then
+          echo LLVM_CONFIG="${LLVM_CONFIG}" | tee -a "${GITHUB_ENV}"
+        fi
+
+    - name: 🛠️ cabal.project
+      run: cat cabal.project.ci | tee cabal.project
+
+    - name: 💾 Generate Cabal plan
+      run: cabal build all --dry-run
+
+    - name: 💾 Restore cache
+      id: cache-cabal-restore
+      uses: actions/cache/restore@v4
+      env:
+        key: comprehensive-${{ env.cache-reset-number }}-windows-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+        restore-keys: ${{ env.key }}-
+
+    - name: 🛠️ Build Cabal dependencies
+      run: cabal build all --only-dependencies
+
+    - name: 🏗️ Build
+      run: cabal build all
+
+    - name: 🧪 Test
+      run: cabal test -j1 all --test-show-details=direct
+      env:
+        # Skip TH fixture tests: the musl x86_64 headers shipped in
+        # musl-include/ are Linux-specific, so GHC's C compiler cannot
+        # use them on Windows.
+        TASTY_PATTERN: "!/th-fixtures/"
+        # Prevent MSYS/Git Bash from converting /th-fixtures/ to a
+        # Windows path.
+        MSYS_NO_PATHCONV: 1
+
+    - name: 🧪 Configure manual
+      # Add manual library directory to PATH so that the DLLs are found.
+      # Do not set SUPPORTS_UNICODE because the Windows assembler has an
+      # issue with Unicode characters.
+      working-directory: ./manual/hs
+      run: |
+        echo "${{github.workspace}}\\manual\\c" | tee -a "${GITHUB_PATH}"
+        cat cabal.project.ci | tee cabal.project
+        tee cabal.project.local <<EOF
+        package manual
+          extra-include-dirs:
+            ${{ github.workspace }}\\manual\\c
+          extra-lib-dirs:
+            ${{ github.workspace }}\\manual\\c
+
+        package hs-game
+          extra-include-dirs:
+            ${{ github.workspace }}\\manual\\c
+          extra-lib-dirs:
+            ${{ github.workspace }}\\manual\\c
+
+        package hs-vector
+          extra-include-dirs:
+            ${{ github.workspace }}\\manual\\c
+          extra-lib-dirs:
+            ${{ github.workspace }}\\manual\\c
+        EOF
+
+    - name: 🧪 Build C libraries
+      working-directory: ./manual/c
+      run: make
+
+    - name: 🧪 Run binding generation script
+      working-directory: ./manual
+      run: ./generate.sh
+
+    - name: 🧪 Build and run manual
+      working-directory: ./manual/hs
+      run: |
+        cabal build all
+        cabal run manual
+
+    - name: 💾 Save cache
+      uses: actions/cache/save@v4
+      if: ${{ !cancelled() }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
+
+  # ============================================================================
+  # Job 3: Run cabal check for each package
   # ============================================================================
 
   cabal-check:
@@ -140,7 +290,7 @@ jobs:
           cabal check
 
   # ============================================================================
-  # Job 3: Build from sdist
+  # Job 4: Build from sdist
   # ============================================================================
 
   sdist-build:
@@ -199,7 +349,7 @@ jobs:
           cabal build all
 
   # ============================================================================
-  # Job 4: Build Haddock documentation
+  # Job 5: Build Haddock documentation
   # ============================================================================
 
   build-haddock:
