@@ -1,102 +1,237 @@
--- | GHC compilation helper for TH fixture testing
---
--- This module provides functionality to compile generated TH modules
--- with GHC to verify they produce valid Haskell code.
+-- | Batch compilation of TH fixture modules via @cabal build@
 --
 module Test.HsBindgen.THFixtures.Compile (
-    compileThModule
+    setupBatchCompile
+  , sanitizeLibName
   ) where
 
-import System.Exit (ExitCode (..))
+import Data.Char (isAlphaNum)
+import Data.List (isInfixOf)
+import Data.Map.Strict (Map)
+import Data.Map.Strict qualified as Map
+import Data.Set (Set)
+import Data.Set qualified as Set
+import System.Directory (createDirectoryIfMissing)
+import System.Exit (ExitCode(..))
 import System.FilePath ((</>))
-import System.IO.Temp (withTempDirectory)
-import System.Process (CreateProcess (cwd), proc, readCreateProcessWithExitCode)
+import System.IO.Temp (withSystemTempDirectory)
+import System.Process (CreateProcess(cwd), proc, readCreateProcessWithExitCode)
 
 {-------------------------------------------------------------------------------
-  Compilation
+  Setup
 -------------------------------------------------------------------------------}
 
--- | Compile a TH module and return the result
+-- | Set up batch compilation
 --
--- Creates a temporary directory under the package root, writes the module
--- content, and compiles it with GHC through cabal exec.
+-- 1. Create temp dir
+-- 2. Write all TH modules to subdirectories
+-- 3. Generate hs-bindgen-th-fixtures.cabal with one internal library per test
+-- 4. Generate self-contained cabal.project
+-- 5. Run @cabal build --keep-going@
+-- 6. Parse "Failed to build" lines to determine per-library success/failure
 --
--- The temp directory must live under the package root so that
--- @getPackageRoot@ (used by @withHsBindgen@ at TH evaluation time) can
--- find the @.cabal@ file by walking up from the source file.  On GHC < 9.4,
--- @th-compat@'s polyfill searches the filesystem rather than querying the
--- build tool, so a file in @/tmp@ would fail.
---
-compileThModule ::
-       FilePath -- ^ Package root
-    -> String   -- ^ Test name (for temp directory naming)
-    -> String   -- ^ Module content
-    -> IO (Either String ())
-compileThModule pkgRoot testName moduleContent =
-  withTempDirectory pkgRoot ("th-fixture-" ++ sanitizeName testName) $ \tmpDir -> do
-      let modulePath = tmpDir </> "Example.hs"
-      writeFile modulePath moduleContent
-      compileFile pkgRoot tmpDir modulePath
+setupBatchCompile
+  :: FilePath            -- ^ Repo root (parent of hs-bindgen/)
+  -> [(String, String)]  -- ^ (test name, module content)
+  -> IO (Map String (Either String ()))
+setupBatchCompile repoRoot cases =
+    withSystemTempDirectory "hs-bindgen-th-fixtures" $ \tmpDir -> do
+      -- Write each module into its own subdirectory
+      mapM_ (writeTestModule tmpDir) cases
 
--- | Sanitize test name for use in file paths
-sanitizeName :: String -> String
-sanitizeName = map sanitizeChar
-  where
-    sanitizeChar '/' = '-'
-    sanitizeChar c   = c
+      -- Generate cabal file and project
+      let libNames = map (\(name, _) -> sanitizeLibName name) cases
+          cabalContent = generateCabalFile repoRoot libNames
+      writeFile (tmpDir </> "hs-bindgen-th-fixtures.cabal") cabalContent
 
--- | Compile a single Haskell file with GHC
-compileFile
-  :: FilePath -- ^ Package root (hs-bindgen directory)
-  -> FilePath -- ^ Output directory for build artifacts
-  -> FilePath -- ^ Path to the Haskell file to compile
-  -> IO (Either String ())
-compileFile pkgRoot outputDir modulePath = do
-  let examplesDir    = pkgRoot </> "examples"
-      goldenDir      = pkgRoot </> "examples" </> "golden"
-      muslIncludeDir = pkgRoot </> "musl-include" </> "x86_64"
+      indexState <- readIndexState (repoRoot </> "cabal.project.base")
+      let projectContent = generateCabalProject repoRoot indexState
+      writeFile (tmpDir </> "cabal.project") projectContent
 
-  -- Build cabal exec arguments
-  -- We need to pass GHC arguments as arguments to cabal exec -- ghc
-  --
-  -- NOTE: We pass @-optc -I<musl-include>@ so that GHC's C compiler uses the
-  -- same musl headers that libclang used (via Generate.hs) when parsing the C
-  -- sources.
-  let cabalArgs =
-        [ "exec", "--", "ghc"
-        , "-c"
-        , "-fforce-recomp"
-        , "-Wall"
-        , "-Wincomplete-uni-patterns"
-        , "-Wincomplete-record-updates"
-        , "-Wmissing-exported-signatures"
-        , "-Widentities"
-        , "-Wredundant-constraints"
-        , "-Wpartial-fields"
-        , "-Wcpp-undef"
-        , "-Wno-unused-matches"
-        , "-outputdir", outputDir
-        -- Use -package-id to expose the in-place hs-bindgen package
-        -- (it's marked as hidden by default in cabal exec environment)
-        , "-package-id", "hs-bindgen-0.1.0-inplace"
-        , "-package", "hs-bindgen-runtime"
-        , "-package", "c-expr-runtime"
-        , "-package", "optics"
-        , "-optc", "-I" ++ examplesDir
-        , "-optc", "-I" ++ goldenDir
-        , "-optc", "-I" ++ muslIncludeDir
-        , "-optc", "-std=gnu2x"
-        , "-optc", "-Wno-deprecated-declarations"
-        , "-optc", "-Wno-attributes"
-        , modulePath
+      -- Run cabal build --keep-going
+      let cabalArgs =
+            [ "build"
+            , "hs-bindgen-th-fixtures"
+            , "--keep-going"
+            , "-j"
+            , "--builddir=" ++ repoRoot </> "dist-newstyle-th-fixtures"
+            ]
+          createProc = (proc "cabal" cabalArgs) { cwd = Just tmpDir }
+
+      (exitCode, _stdout, stderr) <-
+        readCreateProcessWithExitCode createProc ""
+
+      -- Determine per-library results
+      let failedLibs = parseFailedLibs stderr
+          allLibNames =
+            [ "th-fixture-" ++ sanitizeLibName name
+            | (name, _) <- cases
+            ]
+          result libName
+            | ExitSuccess <- exitCode       = Right ()
+            | Set.null failedLibs           = Left stderr
+            | Set.member libName failedLibs = Left stderr
+            | otherwise                     = Right ()
+
+      return $ Map.fromList
+        [ (libName, result libName)
+        | libName <- allLibNames
         ]
 
-  -- Use proc with cwd set for cross-platform compatibility
-  -- This avoids the need for 'sh -c' which doesn't exist on Windows
-  let createProc = (proc "cabal" cabalArgs) { cwd = Just pkgRoot }
+{-------------------------------------------------------------------------------
+  Module writing
+-------------------------------------------------------------------------------}
 
-  (exitCode, _stdout, stderr) <- readCreateProcessWithExitCode createProc ""
+-- | Write a test module into its subdirectory
+writeTestModule :: FilePath -> (String, String) -> IO ()
+writeTestModule tmpDir (name, content) = do
+    let subDir = tmpDir </> sanitizeLibName name
+        modulePath = subDir </> "Example.hs"
+    createDirectoryIfMissing True subDir
+    writeFile modulePath content
 
-  return $ case exitCode of
-      ExitSuccess   -> Right ()
-      ExitFailure _ -> Left stderr
+{-------------------------------------------------------------------------------
+  Cabal file generation
+-------------------------------------------------------------------------------}
+
+-- | Generate the .cabal file content
+generateCabalFile :: FilePath -> [String] -> String
+generateCabalFile repoRoot libNames = unlines $ concat
+    [ header
+    , commonStanza
+    , concatMap libraryStanza libNames
+    ]
+  where
+    hsBindgenDir = repoRoot </> "hs-bindgen"
+
+    header :: [String]
+    header =
+      [ "cabal-version: 3.0"
+      , "name:          hs-bindgen-th-fixtures"
+      , "version:       0.0.0"
+      , "build-type:    Simple"
+      , ""
+      , "-- This file is generated by Test.HsBindgen.THFixtures.Compile"
+      , "-- Do not edit manually."
+      ]
+
+    commonStanza :: [String]
+    commonStanza =
+      [ ""
+      , "common th-fixture-common"
+      , "  default-language: GHC2021"
+      , "  ghc-options:"
+      , "    -Wall"
+      , "    -Wincomplete-uni-patterns"
+      , "    -Wincomplete-record-updates"
+      , "    -Wmissing-exported-signatures"
+      , "    -Widentities"
+      , "    -Wredundant-constraints"
+      , "    -Wpartial-fields"
+      , "    -Wcpp-undef"
+      , "    -Wno-unused-matches"
+      , "    -optc-std=gnu2x"
+      , "    -optc-Wno-deprecated-declarations"
+      , "    -optc-Wno-attributes"
+      , "  build-depends:"
+      , "    , base"
+      , "    , hs-bindgen"
+      , "    , hs-bindgen-runtime"
+      , "    , c-expr-runtime"
+      , "    , optics"
+      , "  include-dirs:"
+      , "    " ++ hsBindgenDir </> "examples"
+      , "    " ++ hsBindgenDir </> "examples" </> "golden"
+      , "    " ++ hsBindgenDir </> "musl-include" </> "x86_64"
+      ]
+
+    libraryStanza :: String -> [String]
+    libraryStanza libName =
+      [ ""
+      , "library th-fixture-" ++ libName
+      , "  import: th-fixture-common"
+      , "  hs-source-dirs: " ++ libName
+      , "  exposed-modules: Example"
+      ]
+
+{-------------------------------------------------------------------------------
+  Cabal project generation
+-------------------------------------------------------------------------------}
+
+-- | Read index-state from cabal.project.base
+readIndexState :: FilePath -> IO String
+readIndexState path = do
+    contents <- readFile path
+    case filter ("index-state:" `isInfixOf`) (lines contents) of
+      (line:_) -> return line
+      []       -> return "index-state: 2026-01-01T00:00:00Z"
+
+-- | Generate cabal.project content
+--
+-- Uses @shared: False@ so cabal builds static libraries (archives of .o
+-- files) instead of shared libraries.  This avoids linker failures from
+-- unresolved C symbols in CAPI FFI stubs — we only need to verify that
+-- compilation succeeds, not that linking against the actual C libraries works.
+generateCabalProject :: FilePath -> String -> String
+generateCabalProject repoRoot indexState = unlines
+    [ indexState
+    , "packages:"
+    , "  ."
+    , "  " ++ repoRoot </> "hs-bindgen"
+    , "  " ++ repoRoot </> "hs-bindgen-runtime"
+    , "  " ++ repoRoot </> "c-expr-runtime"
+    , "  " ++ repoRoot </> "c-expr-dsl"
+    , "allow-newer: all"
+    , "package hs-bindgen-th-fixtures"
+    , "  shared: False"
+    ]
+
+{-------------------------------------------------------------------------------
+  Result parsing
+-------------------------------------------------------------------------------}
+
+-- | Parse failed library names from cabal build stderr
+--
+-- Scans for lines containing "Failed to build" and extracts @lib:NAME@ from
+-- each.
+parseFailedLibs :: String -> Set String
+parseFailedLibs = Set.fromList . concatMap extractLib . lines
+  where
+    extractLib :: String -> [String]
+    extractLib line
+      | "Failed to build" `isInfixOf` line
+      , Just name <- findLibName line = [name]
+      | otherwise = []
+
+    findLibName :: String -> Maybe String
+    findLibName [] = Nothing
+    findLibName ('l':'i':'b':':':rest) = Just (takeWhile isLibNameChar rest)
+    findLibName (_:rest) = findLibName rest
+
+    isLibNameChar :: Char -> Bool
+    isLibNameChar c = isAlphaNum c || c == '-' || c == '_'
+
+{-------------------------------------------------------------------------------
+  Name sanitization
+-------------------------------------------------------------------------------}
+
+-- | Sanitize test name for use as a cabal library name
+--
+-- Ports the @compile-fixtures.sh@ sanitize logic:
+--
+-- * @.DIGIT@ -> @vDIGIT@  (avoids version-like segments)
+-- * @_DIGIT@ -> @nDIGIT@  (avoids version-like segments)
+-- * Remaining @/@, @_@, @.@ -> @-@
+--
+sanitizeLibName :: String -> String
+sanitizeLibName = go
+  where
+    go [] = []
+    go ('.':c:rest)
+      | c `elem` ['0'..'9'] = 'v' : c : go rest
+    go ('_':c:rest)
+      | c `elem` ['0'..'9'] = 'n' : c : go rest
+    go ('/':rest) = '-' : go rest
+    go ('_':rest) = '-' : go rest
+    go ('.':rest) = '-' : go rest
+    go (c:rest) = c : go rest
