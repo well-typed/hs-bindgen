@@ -366,6 +366,7 @@ library test-common
     Test.Common.HsBindgen.Trace.Predicate
     Test.Common.Util.AnsiDiff
     Test.Common.Util.Cabal
+    Test.Common.Util.FSTree
     Test.Common.Util.Tasty
     Test.Common.Util.Tasty.Golden
 

@@ -11,6 +11,7 @@ module HsBindgen (
   , writeBindingsSingleToDir
   , writeBindingsMultiple
   , writeBindingsToDir
+  , getBindingSpec
   , writeBindingSpec
   , writeTests
 
@@ -26,6 +27,7 @@ module HsBindgen (
 
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
+import Data.ByteString (ByteString)
 import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
 
@@ -239,9 +241,9 @@ writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = 
       moduleBaseName
       bindingsByCategory
 
--- | Write binding specifications to file.
-writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
-writeBindingSpec fileOverwritePolicy path = do
+-- | Get an external binding spec
+getBindingSpec :: BindingSpec.Format -> Artefact ByteString
+getBindingSpec format = do
     moduleBaseName <- FinalModuleBaseName
     includeGraph   <- snd <$> IncludeGraph
     declIndex      <- DeclIndex
@@ -252,7 +254,7 @@ writeBindingSpec fileOverwritePolicy path = do
     -- Binding specifications only specify types.
     let bs =
           genBindingSpec
-            (BindingSpec.getFormat path)
+            format
             (fromBaseModuleName moduleBaseName (Just CType))
             includeGraph
             declIndex
@@ -260,7 +262,13 @@ writeBindingSpec fileOverwritePolicy path = do
             omitTypes
             squashedTypes
             (view (lensForCategory CType) hsDecls)
-        fileDescription = FileDescription {
+    pure $ bs
+
+-- | Write binding specifications to file.
+writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
+writeBindingSpec fileOverwritePolicy path = do
+    bs <- getBindingSpec (BindingSpec.getFormat path)
+    let fileDescription = FileDescription {
               description     = "Binding specifications"
             , location        = UserSpecified path
             , overwritePolicy = fileOverwritePolicy
