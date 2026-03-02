@@ -13,3 +13,6 @@ unversioned
 
 # TH fixture test temp directories (normally cleaned up, but just in case)
 hs-bindgen/th-fixture-*/
+
+# Shared build directory for fixture compilation
+dist-newstyle-fixture-check/

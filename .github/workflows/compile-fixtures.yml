@@ -93,9 +93,6 @@ jobs:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
           key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
 
-      - name: 🏗️ Build hs-bindgen
-        run: cabal build hs-bindgen-runtime c-expr-runtime
-
       - name: 🧪 Compile fixtures
         run: |
           chmod +x scripts/ci/compile-fixtures.sh
