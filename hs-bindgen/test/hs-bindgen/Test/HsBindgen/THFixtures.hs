@@ -16,7 +16,7 @@ import Test.Tasty.Runners (Outcome (..), Result (..))
 import Test.HsBindgen.Golden (allTestCases)
 import Test.HsBindgen.Golden.TestCase (TestCase (..))
 import Test.HsBindgen.Resources
-import Test.HsBindgen.THFixtures.Compile (setupBatchCompile, sanitizeLibName)
+import Test.HsBindgen.THFixtures.Compile (sanitizeLibName, setupBatchCompile)
 import Test.HsBindgen.THFixtures.Generate (generateModule)
 import Test.HsBindgen.THFixtures.TestCases (THStatus (..), determineTHStatus)
 

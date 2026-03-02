@@ -322,10 +322,8 @@ HEADER
 # cabal can resolve build-depends without cloning or importing the full project.
 generate_cabal_project() {
     local target_dir="$1"
-    local index_state
-    index_state=$(grep '^index-state:' "$REPO_ROOT/cabal.project.base" | head -1)
     cat > "$target_dir/cabal.project" <<PROJECT
-${index_state}
+import: ${REPO_ROOT}/cabal.project.base
 packages:
   .
   ${REPO_ROOT}/hs-bindgen-runtime

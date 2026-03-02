@@ -12,10 +12,10 @@ import Data.Map.Strict qualified as Map
 import Data.Set (Set)
 import Data.Set qualified as Set
 import System.Directory (createDirectoryIfMissing)
-import System.Exit (ExitCode(..))
+import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
-import System.Process (CreateProcess(cwd), proc, readCreateProcessWithExitCode)
+import System.Process (CreateProcess (cwd), proc, readCreateProcessWithExitCode)
 
 {-------------------------------------------------------------------------------
   Setup
@@ -44,8 +44,7 @@ setupBatchCompile repoRoot cases =
           cabalContent = generateCabalFile repoRoot libNames
       writeFile (tmpDir </> "hs-bindgen-th-fixtures.cabal") cabalContent
 
-      indexState <- readIndexState (repoRoot </> "cabal.project.base")
-      let projectContent = generateCabalProject repoRoot indexState
+      let projectContent = generateCabalProject repoRoot
       writeFile (tmpDir </> "cabal.project") projectContent
 
       -- Run cabal build --keep-going
@@ -158,23 +157,18 @@ generateCabalFile repoRoot libNames = unlines $ concat
   Cabal project generation
 -------------------------------------------------------------------------------}
 
--- | Read index-state from cabal.project.base
-readIndexState :: FilePath -> IO String
-readIndexState path = do
-    contents <- readFile path
-    case filter ("index-state:" `isInfixOf`) (lines contents) of
-      (line:_) -> return line
-      []       -> return "index-state: 2026-01-01T00:00:00Z"
-
 -- | Generate cabal.project content
+--
+-- Imports @cabal.project.base@ to pick up @index-state@,
+-- @source-repository-package@ stanzas, and @allow-newer@ entries.
 --
 -- Uses @shared: False@ so cabal builds static libraries (archives of .o
 -- files) instead of shared libraries.  This avoids linker failures from
 -- unresolved C symbols in CAPI FFI stubs — we only need to verify that
 -- compilation succeeds, not that linking against the actual C libraries works.
-generateCabalProject :: FilePath -> String -> String
-generateCabalProject repoRoot indexState = unlines
-    [ indexState
+generateCabalProject :: FilePath -> String
+generateCabalProject repoRoot = unlines
+    [ "import: " ++ repoRoot </> "cabal.project.base"
     , "packages:"
     , "  ."
     , "  " ++ repoRoot </> "hs-bindgen"
