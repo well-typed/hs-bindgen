@@ -7,12 +7,14 @@ module HsBindgen.Frontend.ProcessIncludes (
   , getIncludeTo
   ) where
 
+import Control.Applicative (asum)
 import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
 import Data.List.Compat (unsnoc)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as Text
+import System.FilePath.Posix qualified as Posix
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
@@ -202,8 +204,8 @@ data IncDir = IncDir {
 processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
 processInclude unit curr = do
     incDirFrom    <- getIncludeFrom curr
-    incDirInclude <- getInclude unit curr
     incDirTo      <- getIncludeTo curr
+    incDirInclude <- getInclude unit curr incDirTo
     incDirInRoot  <-
       clang_Location_isFromMainFile =<< clang_getCursorLocation curr
     return IncDir{
@@ -226,47 +228,25 @@ getIncludeTo curr = do
     file <- clang_getIncludedFile curr
     SourcePath <$> clang_getFileName file
 
-getInclude :: CXTranslationUnit -> CXCursor -> IO Include
-getInclude unit curr = do
+getInclude :: CXTranslationUnit -> CXCursor -> SourcePath -> IO Include
+getInclude unit curr path = do
     tokens <- HighLevel.clang_tokenize unit . fmap multiLocExpansion
       =<< HighLevel.clang_getCursorExtent curr
     let err = "Unable to parse #include: " ++ show tokens
-    maybe (panicIO err) return $ parseInclude tokens
+    maybe (panicIO err) return $ parseInclude path tokens
 
-parseInclude :: [Token TokenSpelling] -> Maybe Include
-parseInclude = \case
+parseInclude :: SourcePath -> [Token TokenSpelling] -> Maybe Include
+parseInclude path = \case
     t0 : t1 : ts2 -> do
       guard $ isPunctuation t0 && t0 `hasSpelling` "#"
       guard $ isIdentifier t1
       let isIncludeNext = t1 `hasSpelling` "include_next"
       unless isIncludeNext $ guard (t1 `hasSpelling` "include")
-      case ts2 of
-        -- quote include arguments are parsed as literals
-        [t] -> do
-          guard $ isLiteral t
-          let s = Text.unpack $ getTokenSpelling (tokenSpelling t)
-          (cL, s1) <- List.uncons s
-          guard $ cL == '"'
-          (s', cR) <- unsnoc s1
-          guard $ cR == '"'
-          let (_, arg) = RootHeader.hashIncludeArg s'
-          return $
-            if isIncludeNext
-              then IncludeGraph.QuoteIncludeNext arg
-              else IncludeGraph.QuoteInclude arg
-        -- bracket include arguments are parsed using punctuation
-        t2 : ts3 -> do
-          guard $ isPunctuation t2 && t2 `hasSpelling` "<"
-          (ts, tR) <- unsnoc ts3
-          guard $ isPunctuation tR && tR `hasSpelling` ">"
-          -- ts may contain many token kinds, not just identifier/punctuation
-          let (_, arg) = RootHeader.hashIncludeArg $
-                concatMap (Text.unpack . getTokenSpelling . tokenSpelling) ts
-          return $
-            if isIncludeNext
-              then IncludeGraph.BracketIncludeNext arg
-              else IncludeGraph.BracketInclude arg
-        [] -> Nothing
+      asum [
+          parseQuoteIncludeArg   isIncludeNext ts2
+        , parseBracketIncludeArg isIncludeNext ts2
+        , parseMacroIncludeArg   isIncludeNext ts2
+        ]
     _otherwise -> Nothing
   where
     isIdentifier, isLiteral, isPunctuation :: Token a -> Bool
@@ -276,3 +256,48 @@ parseInclude = \case
 
     hasSpelling :: Token TokenSpelling -> Text -> Bool
     hasSpelling = (==) . (getTokenSpelling . tokenSpelling)
+
+    parseQuoteIncludeArg :: Bool -> [Token TokenSpelling] -> Maybe Include
+    parseQuoteIncludeArg isIncludeNext = \case
+      -- Quote include arguments are parsed as literals
+      [t] -> do
+        guard $ isLiteral t
+        let s = Text.unpack $ getTokenSpelling (tokenSpelling t)
+        (cL, s1) <- List.uncons s
+        guard $ cL == '"'
+        (s', cR) <- unsnoc s1
+        guard $ cR == '"'
+        let (_, arg) = RootHeader.hashIncludeArg s'
+        return $
+          if isIncludeNext
+            then IncludeGraph.QuoteIncludeNext arg
+            else IncludeGraph.QuoteInclude     arg
+      _otheriwse -> Nothing
+
+    parseBracketIncludeArg :: Bool -> [Token TokenSpelling] -> Maybe Include
+    parseBracketIncludeArg isIncludeNext = \case
+      -- Bracket include arguments are parsed using punctuation
+      t2 : ts3 -> do
+        guard $ isPunctuation t2 && t2 `hasSpelling` "<"
+        (ts, tR) <- unsnoc ts3
+        guard $ isPunctuation tR && tR `hasSpelling` ">"
+        -- ts may contain many token kinds, not just identifier/punctuation
+        let (_, arg) = RootHeader.hashIncludeArg $
+              concatMap (Text.unpack . getTokenSpelling . tokenSpelling) ts
+        return $
+          if isIncludeNext
+            then IncludeGraph.BracketIncludeNext arg
+            else IncludeGraph.BracketInclude     arg
+      [] -> Nothing
+
+    parseMacroIncludeArg :: Bool -> [Token TokenSpelling] -> Maybe Include
+    parseMacroIncludeArg isIncludeNext = \case
+      -- Macro include should have at least one argument
+      [] -> Nothing
+      _otherwise -> do
+        let (_, arg) = RootHeader.hashIncludeArg $
+              Posix.takeFileName (getSourcePath path)
+        return $
+          if isIncludeNext
+            then IncludeGraph.MacroIncludeNext arg
+            else IncludeGraph.MacroInclude     arg

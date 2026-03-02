@@ -55,6 +55,9 @@
 * Include `FunPtr` for macro-defined newtypes. See [PR #1711][pr-1711].
 * Fix a panic that occurred in some cases when generating `_Aux` newtypes for
   function pointers. See [issue #1694][issue-1694] and [PR #1724][pr-1724].
+* Fix a panic that occurred when the argument to a `#include` is a macro. In
+  Haddock documentation of declarations in the included header, we just
+  document the filename of the header.
 
 [pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
