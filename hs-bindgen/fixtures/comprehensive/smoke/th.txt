@@ -75,22 +75,22 @@
 --   return (foo12)(arg1);
 -- }
 -- char *hs_bindgen_6bee8b08c7819690 (
---   char (*arg1)[]
+--   char *arg1
 -- )
 -- {
---   return (foo13)(*arg1);
+--   return (foo13)(arg1);
 -- }
 -- char *hs_bindgen_a670ae425db6b59c (
---   char (*arg1)[]
+--   char *arg1
 -- )
 -- {
---   return (foo14)(*arg1);
+--   return (foo14)(arg1);
 -- }
 -- char *hs_bindgen_2422a51b7a32f594 (
---   char (*arg1)[5]
+--   char *arg1
 -- )
 -- {
---   return (foo15)(*arg1);
+--   return (foo15)(arg1);
 -- }
 -- char *hs_bindgen_cd49431b0bacd0ce (
 --   signed int arg1
@@ -265,22 +265,22 @@
 --   return (foo12)(arg1);
 -- }
 -- char *hs_bindgen_325eccfd4464f38f (
---   char (*arg1)[]
+--   char *arg1
 -- )
 -- {
---   return (foo13)(*arg1);
+--   return (foo13)(arg1);
 -- }
 -- char *hs_bindgen_e6168413cff5674e (
---   char (*arg1)[]
+--   char *arg1
 -- )
 -- {
---   return (foo14)(*arg1);
+--   return (foo14)(arg1);
 -- }
 -- char *hs_bindgen_0ea84b195eb56e51 (
---   char (*arg1)[5]
+--   char *arg1
 -- )
 -- {
---   return (foo15)(*arg1);
+--   return (foo15)(arg1);
 -- }
 -- char *hs_bindgen_46c499f7b2f29dbb (
 --   signed int arg1
@@ -481,7 +481,7 @@
 -- /* test_comprehensivesmoke_Example_get_foo13 */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_caa14e75b1229a54 (void)) (
---   char arg1[]
+--   char *arg1
 -- )
 -- {
 --   return &foo13;
@@ -489,7 +489,7 @@
 -- /* test_comprehensivesmoke_Example_get_foo14 */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_3cb093b66f7944d4 (void)) (
---   char arg1[]
+--   char *arg1
 -- )
 -- {
 --   return &foo14;
@@ -497,7 +497,7 @@
 -- /* test_comprehensivesmoke_Example_get_foo15 */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_fe12aea8f26fdc44 (void)) (
---   char arg1[5]
+--   char *arg1
 -- )
 -- {
 --   return &foo15;
@@ -1435,7 +1435,7 @@ foreign import ccall safe "hs_bindgen_6bee8b08c7819690" hs_bindgen_6bee8b08c7819
     Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo13@
-hs_bindgen_6bee8b08c7819690 :: Ptr (IncompleteArray CChar) ->
+hs_bindgen_6bee8b08c7819690 :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo13@
 hs_bindgen_6bee8b08c7819690 = fromFFIType hs_bindgen_6bee8b08c7819690_base
@@ -1445,7 +1445,7 @@ hs_bindgen_6bee8b08c7819690 = fromFFIType hs_bindgen_6bee8b08c7819690_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo13_safe :: Ptr (IncompleteArray CChar) -> IO (Ptr CChar)
+foo13_safe :: Ptr (Elem (IncompleteArray CChar)) -> IO (Ptr CChar)
 {-| __C declaration:__ @foo13@
 
     __defined at:__ @comprehensive\/smoke.h 22:9@
@@ -1458,7 +1458,7 @@ foreign import ccall safe "hs_bindgen_a670ae425db6b59c" hs_bindgen_a670ae425db6b
     Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo14@
-hs_bindgen_a670ae425db6b59c :: Ptr (IncompleteArray CChar) ->
+hs_bindgen_a670ae425db6b59c :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo14@
 hs_bindgen_a670ae425db6b59c = fromFFIType hs_bindgen_a670ae425db6b59c_base
@@ -1468,7 +1468,7 @@ hs_bindgen_a670ae425db6b59c = fromFFIType hs_bindgen_a670ae425db6b59c_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo14_safe :: Ptr (IncompleteArray CChar) -> IO (Ptr CChar)
+foo14_safe :: Ptr (Elem (IncompleteArray CChar)) -> IO (Ptr CChar)
 {-| __C declaration:__ @foo14@
 
     __defined at:__ @comprehensive\/smoke.h 23:9@
@@ -1481,7 +1481,8 @@ foreign import ccall safe "hs_bindgen_2422a51b7a32f594" hs_bindgen_2422a51b7a32f
     Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo15@
-hs_bindgen_2422a51b7a32f594 :: Ptr (ConstantArray 5 CChar) ->
+hs_bindgen_2422a51b7a32f594 :: Ptr (Elem (ConstantArray 5
+                                                        CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo15@
 hs_bindgen_2422a51b7a32f594 = fromFFIType hs_bindgen_2422a51b7a32f594_base
@@ -1491,7 +1492,7 @@ hs_bindgen_2422a51b7a32f594 = fromFFIType hs_bindgen_2422a51b7a32f594_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo15_safe :: Ptr (ConstantArray 5 CChar) -> IO (Ptr CChar)
+foo15_safe :: Ptr (Elem (ConstantArray 5 CChar)) -> IO (Ptr CChar)
 {-| __C declaration:__ @foo15@
 
     __defined at:__ @comprehensive\/smoke.h 24:9@
@@ -2101,7 +2102,7 @@ foreign import ccall unsafe "hs_bindgen_325eccfd4464f38f" hs_bindgen_325eccfd446
     Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo13@
-hs_bindgen_325eccfd4464f38f :: Ptr (IncompleteArray CChar) ->
+hs_bindgen_325eccfd4464f38f :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo13@
 hs_bindgen_325eccfd4464f38f = fromFFIType hs_bindgen_325eccfd4464f38f_base
@@ -2111,7 +2112,8 @@ hs_bindgen_325eccfd4464f38f = fromFFIType hs_bindgen_325eccfd4464f38f_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo13_unsafe :: Ptr (IncompleteArray CChar) -> IO (Ptr CChar)
+foo13_unsafe :: Ptr (Elem (IncompleteArray CChar)) ->
+                IO (Ptr CChar)
 {-| __C declaration:__ @foo13@
 
     __defined at:__ @comprehensive\/smoke.h 22:9@
@@ -2124,7 +2126,7 @@ foreign import ccall unsafe "hs_bindgen_e6168413cff5674e" hs_bindgen_e6168413cff
     Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo14@
-hs_bindgen_e6168413cff5674e :: Ptr (IncompleteArray CChar) ->
+hs_bindgen_e6168413cff5674e :: Ptr (Elem (IncompleteArray CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo14@
 hs_bindgen_e6168413cff5674e = fromFFIType hs_bindgen_e6168413cff5674e_base
@@ -2134,7 +2136,8 @@ hs_bindgen_e6168413cff5674e = fromFFIType hs_bindgen_e6168413cff5674e_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo14_unsafe :: Ptr (IncompleteArray CChar) -> IO (Ptr CChar)
+foo14_unsafe :: Ptr (Elem (IncompleteArray CChar)) ->
+                IO (Ptr CChar)
 {-| __C declaration:__ @foo14@
 
     __defined at:__ @comprehensive\/smoke.h 23:9@
@@ -2147,7 +2150,8 @@ foreign import ccall unsafe "hs_bindgen_0ea84b195eb56e51" hs_bindgen_0ea84b195eb
     Ptr Void
  -> IO (Ptr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo15@
-hs_bindgen_0ea84b195eb56e51 :: Ptr (ConstantArray 5 CChar) ->
+hs_bindgen_0ea84b195eb56e51 :: Ptr (Elem (ConstantArray 5
+                                                        CChar)) ->
                                IO (Ptr CChar)
 -- __unique:__ @test_comprehensivesmoke_Example_Unsafe_foo15@
 hs_bindgen_0ea84b195eb56e51 = fromFFIType hs_bindgen_0ea84b195eb56e51_base
@@ -2157,7 +2161,8 @@ hs_bindgen_0ea84b195eb56e51 = fromFFIType hs_bindgen_0ea84b195eb56e51_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo15_unsafe :: Ptr (ConstantArray 5 CChar) -> IO (Ptr CChar)
+foo15_unsafe :: Ptr (Elem (ConstantArray 5 CChar)) ->
+                IO (Ptr CChar)
 {-| __C declaration:__ @foo15@
 
     __defined at:__ @comprehensive\/smoke.h 24:9@
@@ -2774,7 +2779,7 @@ foo12_funptr = unsafePerformIO hs_bindgen_c219c7d6d459a7e0
 foreign import ccall unsafe "hs_bindgen_caa14e75b1229a54" hs_bindgen_caa14e75b1229a54_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo13@
-hs_bindgen_caa14e75b1229a54 :: IO (FunPtr (IncompleteArray CChar ->
+hs_bindgen_caa14e75b1229a54 :: IO (FunPtr (Ptr (Elem (IncompleteArray CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo13@
 hs_bindgen_caa14e75b1229a54 = fromFFIType hs_bindgen_caa14e75b1229a54_base
@@ -2785,7 +2790,8 @@ hs_bindgen_caa14e75b1229a54 = fromFFIType hs_bindgen_caa14e75b1229a54_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo13_funptr :: FunPtr (IncompleteArray CChar -> IO (Ptr CChar))
+foo13_funptr :: FunPtr (Ptr (Elem (IncompleteArray CChar)) ->
+                        IO (Ptr CChar))
 {-| __C declaration:__ @foo13@
 
     __defined at:__ @comprehensive\/smoke.h 22:9@
@@ -2797,7 +2803,7 @@ foo13_funptr = unsafePerformIO hs_bindgen_caa14e75b1229a54
 foreign import ccall unsafe "hs_bindgen_3cb093b66f7944d4" hs_bindgen_3cb093b66f7944d4_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo14@
-hs_bindgen_3cb093b66f7944d4 :: IO (FunPtr (IncompleteArray CChar ->
+hs_bindgen_3cb093b66f7944d4 :: IO (FunPtr (Ptr (Elem (IncompleteArray CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo14@
 hs_bindgen_3cb093b66f7944d4 = fromFFIType hs_bindgen_3cb093b66f7944d4_base
@@ -2808,7 +2814,8 @@ hs_bindgen_3cb093b66f7944d4 = fromFFIType hs_bindgen_3cb093b66f7944d4_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo14_funptr :: FunPtr (IncompleteArray CChar -> IO (Ptr CChar))
+foo14_funptr :: FunPtr (Ptr (Elem (IncompleteArray CChar)) ->
+                        IO (Ptr CChar))
 {-| __C declaration:__ @foo14@
 
     __defined at:__ @comprehensive\/smoke.h 23:9@
@@ -2820,7 +2827,8 @@ foo14_funptr = unsafePerformIO hs_bindgen_3cb093b66f7944d4
 foreign import ccall unsafe "hs_bindgen_fe12aea8f26fdc44" hs_bindgen_fe12aea8f26fdc44_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo15@
-hs_bindgen_fe12aea8f26fdc44 :: IO (FunPtr (ConstantArray 5 CChar ->
+hs_bindgen_fe12aea8f26fdc44 :: IO (FunPtr (Ptr (Elem (ConstantArray 5
+                                                                    CChar)) ->
                                            IO (Ptr CChar)))
 -- __unique:__ @test_comprehensivesmoke_Example_get_foo15@
 hs_bindgen_fe12aea8f26fdc44 = fromFFIType hs_bindgen_fe12aea8f26fdc44_base
@@ -2831,7 +2839,8 @@ hs_bindgen_fe12aea8f26fdc44 = fromFFIType hs_bindgen_fe12aea8f26fdc44_base
 
     __exported by:__ @comprehensive\/smoke.h@
 -}
-foo15_funptr :: FunPtr (ConstantArray 5 CChar -> IO (Ptr CChar))
+foo15_funptr :: FunPtr (Ptr (Elem (ConstantArray 5 CChar)) ->
+                        IO (Ptr CChar))
 {-| __C declaration:__ @foo15@
 
     __defined at:__ @comprehensive\/smoke.h 24:9@

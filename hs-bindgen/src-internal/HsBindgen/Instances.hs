@@ -47,6 +47,7 @@ data TypeClass =
   | HasFFIType
   | HasField      -- Indicates instances for all fields
   | Integral
+  | IsArray
   | Ix
   | Num
   | Ord
@@ -225,6 +226,10 @@ instance Default SupportedInstances where
           , mkDef HasFFIType Dependent   Newtype   []
           , mkDef HasField   Independent HsBindgen []
           , mkDef Integral   Dependent   Newtype   []
+            -- TODO: instance resolution for 'IsArray' is currently
+            -- special-cased because for 'IsArray' instances we don't have to
+            -- check all dependencies. See issue #1739.
+          , mkDef IsArray    Dependent   Newtype   []
           , mkDef Ix         Dependent   Newtype   []
           , mkDef Num        Dependent   Newtype   []
           , mkDef Ord        Dependent   Stock     []

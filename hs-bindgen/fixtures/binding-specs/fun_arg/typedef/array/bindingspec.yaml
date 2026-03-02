@@ -24,6 +24,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - Show
 - hsname: B
   representation:
@@ -36,6 +37,7 @@ hstypes:
   - Generic
   - HasCField
   - HasField
+  - IsArray
   - Show
 - hsname: E
   representation:

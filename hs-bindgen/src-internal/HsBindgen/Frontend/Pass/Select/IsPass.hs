@@ -49,6 +49,7 @@ type family AnnSelect ix where
   AnnSelect "Enum"             = NewtypeNames
   AnnSelect "Typedef"          = NewtypeNames
   AnnSelect "CheckedMacroType" = NewtypeNames
+  AnnSelect "TypeFunArg"       = AdjustedFrom Select
   AnnSelect _                  = NoAnn
 
 instance IsPass Select where
@@ -243,5 +244,10 @@ instance CoercePassId AdjustTypes Select
 instance CoercePassMacroId AdjustTypes Select
 
 instance CoercePassMacroBody AdjustTypes Select where
-  coercePassMacroBody _ = coercePass
+  coercePassMacroBody _ = coercePass @CheckedMacro @AdjustTypes @Select
 
+instance CoercePassAnn "TypeFunArg" AdjustTypes Select where
+  coercePassAnn _ = \case
+      AdjustedFromArray ty -> AdjustedFromArray (coercePass ty)
+      AdjustedFromFunction ty -> AdjustedFromFunction (coercePass ty)
+      NotAdjusted -> NotAdjusted

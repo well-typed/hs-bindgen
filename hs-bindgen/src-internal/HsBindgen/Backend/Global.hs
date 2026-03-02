@@ -36,6 +36,7 @@ import HsBindgen.Runtime.HasCBitfield qualified as HasCBitfield
 import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.Internal.Prelude qualified as RIP
+import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Marshal qualified as Marshal
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -120,9 +121,13 @@ data BindgenGlobalType =
     Foreign_Ptr_type
   | Foreign_FunPtr_type
   | Foreign_StablePtr_type
+  | IO_type
+
+      -- Arrays
   | ConstantArray_type
   | IncompleteArray_type
-  | IO_type
+  | IsArray_class
+  | IsArray_Elem
 
     -- EquivStorable
   | EquivStorable_type
@@ -328,9 +333,13 @@ bindgenGlobalType = globalType . \case
     Foreign_Ptr_type       -> (IRuntimeInternalPrelude, ''RIP.Ptr)
     Foreign_FunPtr_type    -> (IRuntimeInternalPrelude, ''RIP.FunPtr)
     Foreign_StablePtr_type -> (IRuntimeInternalPrelude, ''RIP.StablePtr)
+    IO_type                -> (IHaskellPrelude,         ''IO)
+
+      -- Arrays
     ConstantArray_type     -> (IRuntimeModule "CA",     ''CA.ConstantArray)
     IncompleteArray_type   -> (IRuntimeModule "IA",     ''IA.IncompleteArray)
-    IO_type                -> (IHaskellPrelude,         ''IO)
+    IsArray_class          -> (IRuntimeModule "IsA",    ''IsA.IsArray)
+    IsArray_Elem           -> (IRuntimeModule "IsA",    ''IsA.Elem)
 
     -- EquivStorable
     EquivStorable_type -> (IRuntimeModule "Marshal", ''Marshal.EquivStorable)
@@ -418,6 +427,7 @@ typeClassGlobal = globalType . \case
     Inst.HasField        -> (IRuntimeInternalPrelude,       ''RIP.HasField)
     Inst.Flam_Offset     -> (IRuntimeModule "FLAM",         ''FLAM.Offset)
     Inst.Integral        -> (IHaskellPrelude,               ''Integral)
+    Inst.IsArray         -> (IRuntimeModule "IsA",          ''IsA.IsArray)
     Inst.Ix              -> (IRuntimeInternalPrelude,       ''RIP.Ix)
     Inst.Num             -> (IHaskellPrelude,               ''Num)
     Inst.Ord             -> (IHaskellPrelude,               ''Ord)

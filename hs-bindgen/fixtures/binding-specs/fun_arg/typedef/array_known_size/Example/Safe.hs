@@ -16,46 +16,47 @@ module Example.Safe
 import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.Internal.CAPI
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified M
 import Example
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/fun_arg/typedef/array_known_size.h>"
   , "void hs_bindgen_99bb90e6d7637d2c ("
-  , "  signed int (*arg1)[3]"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (foo)(*arg1);"
+  , "  (foo)(arg1);"
   , "}"
   , "void hs_bindgen_392e3092a2681c13 ("
-  , "  A *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (fooA)(*arg1);"
+  , "  (fooA)(arg1);"
   , "}"
   , "void hs_bindgen_6011faf8531be4fa ("
-  , "  B *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (fooB)(*arg1);"
+  , "  (fooB)(arg1);"
   , "}"
   , "void hs_bindgen_40a50b8e6ac3b09d ("
-  , "  C *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (fooC)(*arg1);"
+  , "  (fooC)(arg1);"
   , "}"
   , "void hs_bindgen_32b4f35bf27a4bf8 ("
-  , "  D *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (fooD)(*arg1);"
+  , "  (fooD)(arg1);"
   , "}"
   , "void hs_bindgen_6e59183c0a861d01 ("
-  , "  E *arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
-  , "  (fooE)(*arg1);"
+  , "  (fooE)(arg1);"
   , "}"
   ]))
 
@@ -66,7 +67,7 @@ foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 hs_bindgen_99bb90e6d7637d2c ::
-     RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+     RIP.Ptr (IsA.Elem ((CA.ConstantArray 3) RIP.CInt))
   -> IO ()
 hs_bindgen_99bb90e6d7637d2c =
   RIP.fromFFIType hs_bindgen_99bb90e6d7637d2c_base
@@ -78,7 +79,7 @@ hs_bindgen_99bb90e6d7637d2c =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 foo ::
-     RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)
+     RIP.Ptr (IsA.Elem ((CA.ConstantArray 3) RIP.CInt))
      -- ^ __C declaration:__ @x@
   -> IO ()
 foo = hs_bindgen_99bb90e6d7637d2c
@@ -90,7 +91,7 @@ foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 hs_bindgen_392e3092a2681c13 ::
-     RIP.Ptr A
+     RIP.Ptr (IsA.Elem A)
   -> IO ()
 hs_bindgen_392e3092a2681c13 =
   RIP.fromFFIType hs_bindgen_392e3092a2681c13_base
@@ -102,7 +103,7 @@ hs_bindgen_392e3092a2681c13 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 fooA ::
-     RIP.Ptr A
+     RIP.Ptr (IsA.Elem A)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_392e3092a2681c13
@@ -114,7 +115,7 @@ foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 hs_bindgen_6011faf8531be4fa ::
-     RIP.Ptr B
+     RIP.Ptr (IsA.Elem B)
   -> IO ()
 hs_bindgen_6011faf8531be4fa =
   RIP.fromFFIType hs_bindgen_6011faf8531be4fa_base
@@ -126,7 +127,7 @@ hs_bindgen_6011faf8531be4fa =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 fooB ::
-     RIP.Ptr B
+     RIP.Ptr (IsA.Elem B)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_6011faf8531be4fa
@@ -138,7 +139,7 @@ foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 hs_bindgen_40a50b8e6ac3b09d ::
-     RIP.Ptr M.C
+     RIP.Ptr (IsA.Elem M.C)
   -> IO ()
 hs_bindgen_40a50b8e6ac3b09d =
   RIP.fromFFIType hs_bindgen_40a50b8e6ac3b09d_base
@@ -150,7 +151,7 @@ hs_bindgen_40a50b8e6ac3b09d =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 fooC ::
-     RIP.Ptr M.C
+     RIP.Ptr (IsA.Elem M.C)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooC = hs_bindgen_40a50b8e6ac3b09d
@@ -162,7 +163,7 @@ foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 hs_bindgen_32b4f35bf27a4bf8 ::
-     RIP.Ptr M.D
+     RIP.Ptr (IsA.Elem M.D)
   -> IO ()
 hs_bindgen_32b4f35bf27a4bf8 =
   RIP.fromFFIType hs_bindgen_32b4f35bf27a4bf8_base
@@ -174,7 +175,7 @@ hs_bindgen_32b4f35bf27a4bf8 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 fooD ::
-     RIP.Ptr M.D
+     RIP.Ptr (IsA.Elem M.D)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooD = hs_bindgen_32b4f35bf27a4bf8
@@ -186,7 +187,7 @@ foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 hs_bindgen_6e59183c0a861d01 ::
-     RIP.Ptr E
+     RIP.Ptr (IsA.Elem E)
   -> IO ()
 hs_bindgen_6e59183c0a861d01 =
   RIP.fromFFIType hs_bindgen_6e59183c0a861d01_base
@@ -198,7 +199,7 @@ hs_bindgen_6e59183c0a861d01 =
     __exported by:__ @binding-specs\/fun_arg\/typedef\/array_known_size.h@
 -}
 fooE ::
-     RIP.Ptr E
+     RIP.Ptr (IsA.Elem E)
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooE = hs_bindgen_6e59183c0a861d01

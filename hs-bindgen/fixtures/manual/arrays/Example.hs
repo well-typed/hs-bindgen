@@ -21,6 +21,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @triplet@
@@ -34,7 +35,8 @@ newtype Triplet = Triplet
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw
@@ -64,7 +66,8 @@ newtype Matrix = Matrix
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw
@@ -95,6 +98,7 @@ newtype Triplet_ptrs = Triplet_ptrs
   { unwrapTriplet_ptrs :: IA.IncompleteArray (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt))
   }
   deriving stock (Eq, RIP.Generic, Show)
+  deriving newtype (IsA.IsArray)
 
 instance ( ((~) ty) (IA.IncompleteArray (RIP.Ptr ((CA.ConstantArray 3) RIP.CInt)))
          ) => RIP.HasField "unwrapTriplet_ptrs" (RIP.Ptr Triplet_ptrs) (RIP.Ptr ty) where
