@@ -1,6 +1,10 @@
 -- | Parse messages
 module HsBindgen.Frontend.Pass.Parse.Msg (
-    ParseTypeException(..)
+    -- * Immediate parse messages
+    ImmediateParseMsg(..)
+
+    -- * Delayed parse messages
+  , ParseTypeException(..)
   , ParseDeclException(..)
   , ParseMsg(..)
   , DelayedParseMsg(..)
@@ -19,6 +23,35 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Immediate parse messages
+-------------------------------------------------------------------------------}
+
+-- | Parse messages that we emit immediately
+--
+-- Reasons for immediate emission:
+--
+-- - The user may not care (they might not even select the declaration), but we
+--   care (i.e., a bug or an unsupported feature)
+--
+-- - The declaration we fail to parse may affect other declarations
+data ImmediateParseMsg =
+    -- | We failed to parse a declaration that is required for scoping.
+    ParseOfDeclarationRequiredForScopingFailed ParseTypeException
+  deriving stock (Show)
+
+instance PrettyForTrace ImmediateParseMsg where
+  prettyForTrace = \case
+      ParseOfDeclarationRequiredForScopingFailed err ->
+        PP.hang "Parse of declaration required for scoping failed:" 2 $
+          prettyForTrace err
+
+instance IsTrace Level ImmediateParseMsg where
+  getDefaultLogLevel = \case
+      ParseOfDeclarationRequiredForScopingFailed{} -> Info
+  getSource  = const HsBindgen
+  getTraceId = const "parse-immediate"
 
 {-------------------------------------------------------------------------------
   Type-level exceptions
@@ -336,6 +369,8 @@ instance IsTrace Level ParseMsg where
 {-------------------------------------------------------------------------------
   Delayed parse messages
 -------------------------------------------------------------------------------}
+
+-- TODO-D: Flatten type.
 
 -- | Delayed parse messages
 --

@@ -42,8 +42,8 @@ import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosReparseMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
-import HsBindgen.Frontend.Pass.Parse.IsPass (ImmediateParseMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..),
+                                          ImmediateParseMsg (..),
                                           ParseDeclException (..),
                                           ParseMsg (..),
                                           ParseTypeException (..))

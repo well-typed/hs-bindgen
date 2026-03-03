@@ -459,6 +459,8 @@ unionFieldDecl ctx = \curr -> do
       , ann  = unionFieldAnn
       }
 
+-- TODO-D: We do not immediately emit parse failures for typedefs (or
+-- declarations required for scoping in general).
 typedefDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 typedefDecl ctx info = \curr -> do
     typedefType <- fromCXType ctx
