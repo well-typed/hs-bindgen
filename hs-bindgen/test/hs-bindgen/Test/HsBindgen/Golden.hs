@@ -9,7 +9,6 @@ import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((<.>), (</>))
 import Test.Tasty
 
-import Clang.LowLevel.Core
 import Clang.Version
 
 import HsBindgen.Backend.Category
@@ -258,8 +257,6 @@ test_arrays_array =
               Just Tolerated
             MatchDiagnosticOption "-Wno-tentative-definition-array" ->
               Just Tolerated
-            MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
-              Just $ Expected name
             _otherwise ->
               Nothing
           )
@@ -271,10 +268,6 @@ test_arrays_array =
         , "arr3"
         , "arr1"
         , "arr6"
-          -- Unkown storage class: static non-const
-        , "arr4"
-        , "arr5"
-        , "arr8"
         ]
 
 -- | @const@ qualifiers applied to arrays (through typedefs) should be
@@ -425,8 +418,6 @@ test_attributes_visibility_attributes =
               Just $ Expected name
             MatchDelayed name ParseNonPublicVisibility{} ->
               Just $ Expected name
-            MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
-              Just $ Expected name
             MatchDiagnosticOption "-Wno-extern-initializer" ->
               Just Tolerated
             _otherwise ->
@@ -451,9 +442,6 @@ test_attributes_visibility_attributes =
         , "i0" , "i1" , "i2" , "i3" , "i4"
         , "i5" , "i6" , "i7" , "i8" , "i9"
         , "i15", "i16", "i17", "i18", "i19"
-          -- Unsupported storage class
-        , "i20", "i21", "i22", "i23", "i24"
-        , "i25", "i26", "i27", "i28", "i29"
         ]
 
 {-------------------------------------------------------------------------------
@@ -989,13 +977,11 @@ test_declarations_redeclaration =
     testTraceMulti "declarations/redeclaration" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
-      MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
-        Just $ Expected name
       _otherwise ->
         Nothing
   where
     declsWithMsgs :: [CDeclName]
-    declsWithMsgs = ["x", "n"]
+    declsWithMsgs = ["x"]
 
 test_declarations_redeclaration_different :: TestCase
 test_declarations_redeclaration_different =
@@ -1038,8 +1024,6 @@ test_declarations_tentative_definitions :: TestCase
 test_declarations_tentative_definitions =
     testTraceMulti "declarations/tentative_definitions" declsWithMsgs $ \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
-        Just $ Expected name
-      MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
         Just $ Expected name
       MatchDiagnosticOption "-Wno-extern-initializer" ->
         Just $ Tolerated
