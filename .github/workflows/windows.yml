@@ -347,27 +347,15 @@ jobs:
               ${{ github.workspace }}\\manual\\c
           EOF
 
-      - name: "[manual] Build C libraries"
-        working-directory: ./manual/c
-        run: make
-
-      - name: "[manual] Run binding generation script"
+      - name: "[manual] Generate bindings, build and run the manual"
         working-directory: ./manual
-        run: ./generate.sh
-
-      - name: "[manual] Build manual"
-        working-directory: ./manual/hs
-        run: cabal build all
+        run: ./generate-and-run.sh
 
       - name: "[manual] Debug manual"
         working-directory: ./manual/hs
         run: |
           echo '== ldd run-manual.exe =========================================================='
           find dist-newstyle -type f -name run-manual.exe | xargs ldd
-
-      - name: "[manual] Run manual executable"
-        working-directory: ./manual/hs
-        run: cabal run manual
 
       - name: "[manual] Create tmate session"
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_tmate == 'manual' }}
