@@ -18,9 +18,9 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test = testCase test.name $
+check getTestResources test = testCase test.name $
     handle expectExitFailure $ do
-      eRes <- runTestHsBindgen noReport testResources test FinalDecls
+      eRes <- runTestHsBindgen noReport getTestResources test FinalDecls
       assertFailure $ mconcat [
           "expected hs-bindgen to fail early, "
         , "but it finished with the following result:\n"

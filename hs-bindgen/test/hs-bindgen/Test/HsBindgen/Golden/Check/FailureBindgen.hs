@@ -16,8 +16,8 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test = testCase test.name $ do
-    eRes <- runTestHsBindgen noReport testResources test FinalDecls
+check getTestResources test = testCase test.name $ do
+    eRes <- runTestHsBindgen noReport getTestResources test FinalDecls
     case eRes of
       Left  _ -> pure ()
       Right r -> assertFailure (msgWith r)

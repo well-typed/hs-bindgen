@@ -23,6 +23,7 @@ module HsBindgen.Runtime.Prelude (
     -- * Arrays
   , ConstantArray   -- opaque
   , IncompleteArray -- opaque
+  , IsArray (Elem)
 
     -- * Unions
   , zeroUnionValue
@@ -50,5 +51,6 @@ import HsBindgen.Runtime.IncompleteArray
 import HsBindgen.Runtime.Internal.FunPtr
 import HsBindgen.Runtime.Internal.Ptr
 import HsBindgen.Runtime.Internal.SizedByteArray
+import HsBindgen.Runtime.IsArray
 import HsBindgen.Runtime.Marshal
 import HsBindgen.Runtime.PtrConst

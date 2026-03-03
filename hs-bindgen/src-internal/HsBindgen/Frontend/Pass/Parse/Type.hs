@@ -14,6 +14,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C ()
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass (NoAnn (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
@@ -196,7 +197,12 @@ function hasProto = \ty -> do
       nargs <- clang_getNumArgTypes ty
       args  <- forM [0 .. nargs - 1] $ \i ->
                  clang_getArgType ty (fromIntegral i) >>= cxtype
-      pure $ C.TypeFun args res
+      pure $ C.TypeFun (map mkTypeFunArg args) res
+  where
+    mkTypeFunArg ty = C.TypeFunArgF {
+          typ = ty
+        , ann = NoAnn
+        }
 
 constantArray :: CXType -> ParseType (C.Type Parse)
 constantArray ty = do

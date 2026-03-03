@@ -74,6 +74,7 @@ import qualified HsBindgen.Runtime.ConstantArray as CA
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.IncompleteArray as IA
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
+import qualified HsBindgen.Runtime.IsArray as IsA
 import qualified HsBindgen.Runtime.Marshal as Marshal
 import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
@@ -275,6 +276,7 @@ newtype Arr_typedef1 = Arr_typedef1
   { unwrapArr_typedef1 :: IA.IncompleteArray A
   }
   deriving stock (Eq, RIP.Generic, Show)
+  deriving newtype (IsA.IsArray)
 
 instance ( ((~) ty) (IA.IncompleteArray A)
          ) => RIP.HasField "unwrapArr_typedef1" (RIP.Ptr Arr_typedef1) (RIP.Ptr ty) where
@@ -299,6 +301,7 @@ newtype Arr_typedef2 = Arr_typedef2
   { unwrapArr_typedef2 :: IA.IncompleteArray (RIP.Ptr A)
   }
   deriving stock (Eq, RIP.Generic, Show)
+  deriving newtype (IsA.IsArray)
 
 instance ( ((~) ty) (IA.IncompleteArray (RIP.Ptr A))
          ) => RIP.HasField "unwrapArr_typedef2" (RIP.Ptr Arr_typedef2) (RIP.Ptr ty) where
@@ -324,7 +327,8 @@ newtype Arr_typedef3 = Arr_typedef3
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw
@@ -354,7 +358,8 @@ newtype Arr_typedef4 = Arr_typedef4
   }
   deriving stock (Eq, RIP.Generic, Show)
   deriving newtype
-    ( Marshal.ReadRaw
+    ( IsA.IsArray
+    , Marshal.ReadRaw
     , Marshal.StaticSize
     , RIP.Storable
     , Marshal.WriteRaw

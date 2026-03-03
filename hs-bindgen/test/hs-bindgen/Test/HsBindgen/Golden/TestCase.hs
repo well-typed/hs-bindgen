@@ -25,6 +25,7 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestLibclangSimple
   , failingTestLibclangMulti
     -- * Execution
+  , getTestBootConfig
   , runTestHsBindgen
   , runTestHsBindgenSuccess
   ) where
@@ -38,7 +39,6 @@ import Clang.HighLevel.Types qualified as Clang
 import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
-import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
@@ -85,6 +85,13 @@ data TestCase = TestCase {
       --
       -- If the predicate does not match, the test is skipped entirely.
     , clangVersion :: Maybe ((Int, Int, Int) -> Bool)
+
+      -- | Configure the C standard for this test
+      --
+      -- In general, a feature should be tested with the /minimum/ standard that
+      -- supports the feature.  Additional tests with other standards may also
+      -- be provided, when appropriate.
+    , cStandard :: CStandard
 
       -- | Modify the default boot test configuration
     , onBoot :: BootConfig -> BootConfig
@@ -135,6 +142,7 @@ defaultTest fp = TestCase{
     , tracePredicate   = defaultTracePredicate
     , outcome          = Success
     , clangVersion     = Nothing
+    , cStandard        = c89
     , onBoot           = id
     , onFrontend       = id
     , onBackend        = id
@@ -244,22 +252,20 @@ failingTestLibclangMulti filename expected trace =
   Execution
 -------------------------------------------------------------------------------}
 
-getTestBootConfig :: IO TestResources -> TestCase -> IO BootConfig
-getTestBootConfig resources test = do
-    root <- getTestPackageRoot resources
-    clangArgsConfig <- getTestDefaultClangArgsConfig resources [test.inputDir]
-    return $ test.onBoot BootConfig {
-        clangArgs = clangArgsConfig {
-            builtinIncDir = BuiltinIncDirDisable
-          }
-      , baseModule = "Example"
-      , bindingSpec = BindingSpecConfig {
-            stdlibSpec              = test.specStdlib
-          , compatibility           = BindingSpecStrict
-          , extBindingSpecs         = map (root </>) test.specExternal
-          , prescriptiveBindingSpec = (root </>) <$> test.specPrescriptive
-          }
-      }
+getTestBootConfig :: TestCase -> TestResources -> BootConfig
+getTestBootConfig test testResources = test.onBoot BootConfig {
+      clangArgs =
+        getTestClangArgsConfig test.cStandard [test.inputDir] testResources
+    , baseModule = "Example"
+    , bindingSpec = BindingSpecConfig {
+          stdlibSpec              = test.specStdlib
+        , compatibility           = BindingSpecStrict
+        , extBindingSpecs         =
+            map (testResources.packageRoot </>) test.specExternal
+        , prescriptiveBindingSpec =
+            (testResources.packageRoot </>) <$> test.specPrescriptive
+        }
+    }
 
 getTestFrontendConfig :: TestCase -> FrontendConfig
 getTestFrontendConfig test = test.onFrontend def
@@ -283,8 +289,8 @@ runTestHsBindgen ::
   -> TestCase
   -> Artefact a
   -> IO (Either BindgenError a)
-runTestHsBindgen report resources test artefacts = do
-    bootConfig <- getTestBootConfig resources test
+runTestHsBindgen report getTestResources test artefacts = do
+    bootConfig <- getTestBootConfig test <$> getTestResources
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
@@ -297,9 +303,13 @@ runTestHsBindgen report resources test artefacts = do
         artefacts
 
 runTestHsBindgenSuccess ::
-  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact b -> IO b
-runTestHsBindgenSuccess report resources test artefacts = do
-    eRes <- runTestHsBindgen report resources test artefacts
+     (String -> IO ())
+  -> IO TestResources
+  -> TestCase
+  -> Artefact b
+  -> IO b
+runTestHsBindgenSuccess report getTestResources test artefacts = do
+    eRes <- runTestHsBindgen report getTestResources test artefacts
     case eRes of
       Left er -> assertFailure (msgWith er)
       Right r -> pure r

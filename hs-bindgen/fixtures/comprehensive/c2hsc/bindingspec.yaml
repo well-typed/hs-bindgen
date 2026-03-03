@@ -1,0 +1,1766 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: comprehensive/c2hsc.h
+  cname: an_pchar
+  hsname: An_pchar
+- headers: comprehensive/c2hsc.h
+  cname: struct MyCoolStruct
+  hsname: MyCoolStruct
+- headers: comprehensive/c2hsc.h
+  cname: MyCoolStruct
+  hsname: MyCoolStruct
+- headers: comprehensive/c2hsc.h
+  cname: foo
+  hsname: Foo
+- headers: comprehensive/c2hsc.h
+  cname: struct foo_t
+  hsname: Foo_t
+- headers: comprehensive/c2hsc.h
+  cname: struct Foo_10_
+  hsname: Foo_10
+- headers: comprehensive/c2hsc.h
+  cname: Foo_10
+  hsname: Foo_10
+- headers: comprehensive/c2hsc.h
+  cname: enum Bar_10_
+  hsname: Bar_10
+- headers: comprehensive/c2hsc.h
+  cname: Bar_10
+  hsname: Bar_10
+- headers: comprehensive/c2hsc.h
+  cname: struct st
+  hsname: St
+- headers: comprehensive/c2hsc.h
+  cname: enum e
+  hsname: E
+- headers: comprehensive/c2hsc.h
+  cname: union u
+  hsname: U
+- headers: comprehensive/c2hsc.h
+  cname: struct MyTypeImpl
+  hsname: MyTypeImpl
+- headers: comprehensive/c2hsc.h
+  cname: MyType
+  hsname: MyType
+- headers: comprehensive/c2hsc.h
+  cname: struct MyStruct
+  hsname: MyStructType
+- headers: comprehensive/c2hsc.h
+  cname: MyStructType
+  hsname: MyStructType
+- headers: comprehensive/c2hsc.h
+  cname: struct MyStructEmpty
+  hsname: MyStructEmptyType
+- headers: comprehensive/c2hsc.h
+  cname: MyStructEmptyType
+  hsname: MyStructEmptyType
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_float_struct
+  hsname: Ordinary_float_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_double_struct
+  hsname: Ordinary_double_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_char_struct
+  hsname: Ordinary_signed_char_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_char_struct
+  hsname: Explicit_signed_char_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_char_struct
+  hsname: Unsigned_char_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_short_struct
+  hsname: Ordinary_signed_short_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_short_struct
+  hsname: Explicit_signed_short_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_short_struct
+  hsname: Unsigned_short_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_int_struct
+  hsname: Ordinary_signed_int_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_int_struct
+  hsname: Explicit_signed_int_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_int_struct
+  hsname: Unsigned_int_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_struct
+  hsname: Ordinary_signed_long_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_struct
+  hsname: Explicit_signed_long_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_struct
+  hsname: Unsigned_long_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_long_struct
+  hsname: Ordinary_signed_long_long_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_long_struct
+  hsname: Explicit_signed_long_long_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_long_struct
+  hsname: Unsigned_long_long_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_void_pointer_struct
+  hsname: Ordinary_void_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_float_pointer_struct
+  hsname: Ordinary_float_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_double_pointer_struct
+  hsname: Ordinary_double_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_char_pointer_struct
+  hsname: Ordinary_signed_char_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_char_pointer_struct
+  hsname: Explicit_signed_char_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_char_pointer_struct
+  hsname: Unsigned_char_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_short_pointer_struct
+  hsname: Ordinary_signed_short_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_short_pointer_struct
+  hsname: Explicit_signed_short_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_short_pointer_struct
+  hsname: Unsigned_short_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_int_pointer_struct
+  hsname: Ordinary_signed_int_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_int_pointer_struct
+  hsname: Explicit_signed_int_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_int_pointer_struct
+  hsname: Unsigned_int_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_pointer_struct
+  hsname: Ordinary_signed_long_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_pointer_struct
+  hsname: Explicit_signed_long_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_pointer_struct
+  hsname: Unsigned_long_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_long_pointer_struct
+  hsname: Ordinary_signed_long_long_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_long_pointer_struct
+  hsname: Explicit_signed_long_long_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_long_pointer_struct
+  hsname: Unsigned_long_long_pointer_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_float_array_struct
+  hsname: Ordinary_float_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_double_array_struct
+  hsname: Ordinary_double_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_char_array_struct
+  hsname: Ordinary_signed_char_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_char_array_struct
+  hsname: Explicit_signed_char_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_char_array_struct
+  hsname: Unsigned_char_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_short_array_struct
+  hsname: Ordinary_signed_short_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_short_array_struct
+  hsname: Explicit_signed_short_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_short_array_struct
+  hsname: Unsigned_short_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_int_array_struct
+  hsname: Ordinary_signed_int_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_int_array_struct
+  hsname: Explicit_signed_int_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_int_array_struct
+  hsname: Unsigned_int_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_array_struct
+  hsname: Ordinary_signed_long_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_array_struct
+  hsname: Explicit_signed_long_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_array_struct
+  hsname: Unsigned_long_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_long_array_struct
+  hsname: Ordinary_signed_long_long_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_long_array_struct
+  hsname: Explicit_signed_long_long_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_long_array_struct
+  hsname: Unsigned_long_long_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_void_pointer_array_struct
+  hsname: Ordinary_void_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_float_pointer_array_struct
+  hsname: Ordinary_float_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_double_pointer_array_struct
+  hsname: Ordinary_double_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_char_pointer_array_struct
+  hsname: Ordinary_signed_char_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_char_pointer_array_struct
+  hsname: Explicit_signed_char_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_char_pointer_array_struct
+  hsname: Unsigned_char_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_short_pointer_array_struct
+  hsname: Ordinary_signed_short_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_short_pointer_array_struct
+  hsname: Explicit_signed_short_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_short_pointer_array_struct
+  hsname: Unsigned_short_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_int_pointer_array_struct
+  hsname: Ordinary_signed_int_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_int_pointer_array_struct
+  hsname: Explicit_signed_int_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_int_pointer_array_struct
+  hsname: Unsigned_int_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_pointer_array_struct
+  hsname: Ordinary_signed_long_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_pointer_array_struct
+  hsname: Explicit_signed_long_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_pointer_array_struct
+  hsname: Unsigned_long_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct ordinary_signed_long_long_pointer_array_struct
+  hsname: Ordinary_signed_long_long_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct explicit_signed_long_long_pointer_array_struct
+  hsname: Explicit_signed_long_long_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: struct unsigned_long_long_pointer_array_struct
+  hsname: Unsigned_long_long_pointer_array_struct
+- headers: comprehensive/c2hsc.h
+  cname: an_int
+  hsname: An_int
+- headers: comprehensive/c2hsc.h
+  cname: struct cal_table
+  hsname: Cal_table
+- headers: comprehensive/c2hsc.h
+  cname: struct @cal_table_table
+  hsname: Cal_table_table
+- headers: comprehensive/c2hsc.h
+  cname: struct Elf32_External_Dyn
+  hsname: Elf32_External_Dyn
+- headers: comprehensive/c2hsc.h
+  cname: union @Elf32_External_Dyn_d_un
+  hsname: Elf32_External_Dyn_d_un
+- headers: comprehensive/c2hsc.h
+  cname: Elf32_External_Dyn
+  hsname: Elf32_External_Dyn
+- headers: comprehensive/c2hsc.h
+  cname: bug_24
+  hsname: Bug_24
+- headers: comprehensive/c2hsc.h
+  cname: bug_24_2
+  hsname: Bug_24_2
+- headers: comprehensive/c2hsc.h
+  cname: MyArray_27
+  hsname: MyArray_27
+- headers: comprehensive/c2hsc.h
+  cname: struct MyStruct_27
+  hsname: MyStruct_27
+- headers: comprehensive/c2hsc.h
+  cname: MyStruct_27
+  hsname: MyStruct_27
+hstypes:
+- hsname: An_int
+  representation:
+    newtype:
+      constructor: An_int
+      fields:
+      - unwrap
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: An_pchar
+  representation:
+    newtype:
+      constructor: An_pchar
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_10
+  representation:
+    newtype:
+      constructor: Bar_10
+      fields:
+      - unwrap
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bug_24
+  representation:
+    newtype:
+      constructor: Bug_24
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bug_24_2
+  representation:
+    newtype:
+      constructor: Bug_24_2
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Cal_table
+  representation:
+    record:
+      constructor: Cal_table
+      fields:
+      - size
+      - table
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Cal_table_table
+  representation:
+    record:
+      constructor: Cal_table_table
+      fields:
+      - raw
+      - val
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrap
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Elf32_External_Dyn
+  representation:
+    record:
+      constructor: Elf32_External_Dyn
+      fields:
+      - d_tag
+      - d_un
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Elf32_External_Dyn_d_un
+  representation:
+    newtype:
+      constructor: Elf32_External_Dyn_d_un
+      fields:
+      - unwrap
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_char_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_char_array_struct
+      fields:
+      - explicit_signed_char_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_char_pointer_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_char_pointer_array_struct
+      fields:
+      - explicit_signed_char_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_char_pointer_struct
+  representation:
+    record:
+      constructor: Explicit_signed_char_pointer_struct
+      fields:
+      - explicit_signed_char_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_char_struct
+  representation:
+    record:
+      constructor: Explicit_signed_char_struct
+      fields:
+      - explicit_signed_char_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_int_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_int_array_struct
+      fields:
+      - explicit_signed_int_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_int_pointer_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_int_pointer_array_struct
+      fields:
+      - explicit_signed_int_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_int_pointer_struct
+  representation:
+    record:
+      constructor: Explicit_signed_int_pointer_struct
+      fields:
+      - explicit_signed_int_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_int_struct
+  representation:
+    record:
+      constructor: Explicit_signed_int_struct
+      fields:
+      - explicit_signed_int_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_array_struct
+      fields:
+      - explicit_signed_long_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_long_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_long_array_struct
+      fields:
+      - explicit_signed_long_long_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_long_pointer_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_long_pointer_array_struct
+      fields:
+      - explicit_signed_long_long_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_long_pointer_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_long_pointer_struct
+      fields:
+      - explicit_signed_long_long_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_long_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_long_struct
+      fields:
+      - explicit_signed_long_long_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_pointer_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_pointer_array_struct
+      fields:
+      - explicit_signed_long_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_pointer_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_pointer_struct
+      fields:
+      - explicit_signed_long_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_long_struct
+  representation:
+    record:
+      constructor: Explicit_signed_long_struct
+      fields:
+      - explicit_signed_long_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_short_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_short_array_struct
+      fields:
+      - explicit_signed_short_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_short_pointer_array_struct
+  representation:
+    record:
+      constructor: Explicit_signed_short_pointer_array_struct
+      fields:
+      - explicit_signed_short_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_short_pointer_struct
+  representation:
+    record:
+      constructor: Explicit_signed_short_pointer_struct
+      fields:
+      - explicit_signed_short_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Explicit_signed_short_struct
+  representation:
+    record:
+      constructor: Explicit_signed_short_struct
+      fields:
+      - explicit_signed_short_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo
+  representation:
+    newtype:
+      constructor: Foo
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_10
+  representation: emptydata
+- hsname: Foo_t
+  representation:
+    record:
+      constructor: Foo_t
+      fields:
+      - foo_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyArray_27
+  representation:
+    newtype:
+      constructor: MyArray_27
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - IsArray
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyCoolStruct
+  representation:
+    record:
+      constructor: MyCoolStruct
+      fields:
+      - listOfNames
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyStructEmptyType
+  representation: emptydata
+- hsname: MyStructType
+  representation:
+    record:
+      constructor: MyStructType
+      fields:
+      - x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyStruct_27
+  representation:
+    record:
+      constructor: MyStruct_27
+      fields:
+      - x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyType
+  representation:
+    newtype:
+      constructor: MyType
+      fields:
+      - unwrap
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: MyTypeImpl
+  representation: emptydata
+- hsname: Ordinary_double_array_struct
+  representation:
+    record:
+      constructor: Ordinary_double_array_struct
+      fields:
+      - ordinary_double_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_double_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_double_pointer_array_struct
+      fields:
+      - ordinary_double_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_double_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_double_pointer_struct
+      fields:
+      - ordinary_double_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_double_struct
+  representation:
+    record:
+      constructor: Ordinary_double_struct
+      fields:
+      - ordinary_double_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_float_array_struct
+  representation:
+    record:
+      constructor: Ordinary_float_array_struct
+      fields:
+      - ordinary_float_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_float_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_float_pointer_array_struct
+      fields:
+      - ordinary_float_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_float_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_float_pointer_struct
+      fields:
+      - ordinary_float_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_float_struct
+  representation:
+    record:
+      constructor: Ordinary_float_struct
+      fields:
+      - ordinary_float_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_char_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_char_array_struct
+      fields:
+      - ordinary_signed_char_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_char_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_char_pointer_array_struct
+      fields:
+      - ordinary_signed_char_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_char_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_char_pointer_struct
+      fields:
+      - ordinary_signed_char_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_char_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_char_struct
+      fields:
+      - ordinary_signed_char_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_int_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_int_array_struct
+      fields:
+      - ordinary_signed_int_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_int_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_int_pointer_array_struct
+      fields:
+      - ordinary_signed_int_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_int_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_int_pointer_struct
+      fields:
+      - ordinary_signed_int_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_int_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_int_struct
+      fields:
+      - ordinary_signed_int_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_array_struct
+      fields:
+      - ordinary_signed_long_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_long_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_long_array_struct
+      fields:
+      - ordinary_signed_long_long_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_long_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_long_pointer_array_struct
+      fields:
+      - ordinary_signed_long_long_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_long_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_long_pointer_struct
+      fields:
+      - ordinary_signed_long_long_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_long_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_long_struct
+      fields:
+      - ordinary_signed_long_long_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_pointer_array_struct
+      fields:
+      - ordinary_signed_long_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_pointer_struct
+      fields:
+      - ordinary_signed_long_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_long_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_long_struct
+      fields:
+      - ordinary_signed_long_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_short_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_short_array_struct
+      fields:
+      - ordinary_signed_short_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_short_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_short_pointer_array_struct
+      fields:
+      - ordinary_signed_short_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_short_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_short_pointer_struct
+      fields:
+      - ordinary_signed_short_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_signed_short_struct
+  representation:
+    record:
+      constructor: Ordinary_signed_short_struct
+      fields:
+      - ordinary_signed_short_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_void_pointer_array_struct
+  representation:
+    record:
+      constructor: Ordinary_void_pointer_array_struct
+      fields:
+      - ordinary_void_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Ordinary_void_pointer_struct
+  representation:
+    record:
+      constructor: Ordinary_void_pointer_struct
+      fields:
+      - ordinary_void_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: St
+  representation:
+    record:
+      constructor: St
+      fields:
+      - i
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - unwrap
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_char_array_struct
+  representation:
+    record:
+      constructor: Unsigned_char_array_struct
+      fields:
+      - unsigned_char_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_char_pointer_array_struct
+  representation:
+    record:
+      constructor: Unsigned_char_pointer_array_struct
+      fields:
+      - unsigned_char_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_char_pointer_struct
+  representation:
+    record:
+      constructor: Unsigned_char_pointer_struct
+      fields:
+      - unsigned_char_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_char_struct
+  representation:
+    record:
+      constructor: Unsigned_char_struct
+      fields:
+      - unsigned_char_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_int_array_struct
+  representation:
+    record:
+      constructor: Unsigned_int_array_struct
+      fields:
+      - unsigned_int_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_int_pointer_array_struct
+  representation:
+    record:
+      constructor: Unsigned_int_pointer_array_struct
+      fields:
+      - unsigned_int_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_int_pointer_struct
+  representation:
+    record:
+      constructor: Unsigned_int_pointer_struct
+      fields:
+      - unsigned_int_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_int_struct
+  representation:
+    record:
+      constructor: Unsigned_int_struct
+      fields:
+      - unsigned_int_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_array_struct
+  representation:
+    record:
+      constructor: Unsigned_long_array_struct
+      fields:
+      - unsigned_long_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_long_array_struct
+  representation:
+    record:
+      constructor: Unsigned_long_long_array_struct
+      fields:
+      - unsigned_long_long_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_long_pointer_array_struct
+  representation:
+    record:
+      constructor: Unsigned_long_long_pointer_array_struct
+      fields:
+      - unsigned_long_long_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_long_pointer_struct
+  representation:
+    record:
+      constructor: Unsigned_long_long_pointer_struct
+      fields:
+      - unsigned_long_long_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_long_struct
+  representation:
+    record:
+      constructor: Unsigned_long_long_struct
+      fields:
+      - unsigned_long_long_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_pointer_array_struct
+  representation:
+    record:
+      constructor: Unsigned_long_pointer_array_struct
+      fields:
+      - unsigned_long_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_pointer_struct
+  representation:
+    record:
+      constructor: Unsigned_long_pointer_struct
+      fields:
+      - unsigned_long_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_long_struct
+  representation:
+    record:
+      constructor: Unsigned_long_struct
+      fields:
+      - unsigned_long_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_short_array_struct
+  representation:
+    record:
+      constructor: Unsigned_short_array_struct
+      fields:
+      - unsigned_short_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_short_pointer_array_struct
+  representation:
+    record:
+      constructor: Unsigned_short_pointer_array_struct
+      fields:
+      - unsigned_short_pointer_array_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_short_pointer_struct
+  representation:
+    record:
+      constructor: Unsigned_short_pointer_struct
+      fields:
+      - unsigned_short_pointer_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Unsigned_short_struct
+  representation:
+    record:
+      constructor: Unsigned_short_struct
+      fields:
+      - unsigned_short_member
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

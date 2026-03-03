@@ -24,20 +24,20 @@ import Test.HsBindgen.THFixtures.TestCases (THStatus (..), determineTHStatus)
 -------------------------------------------------------------------------------}
 
 tests :: IO TestResources -> TestTree
-tests testResources =
+tests getTestResources =
     testGroup "th-fixtures" $
-        map (mkFixtureTest testResources) allTestCases
+        map (mkFixtureTest getTestResources) allTestCases
 
 mkFixtureTest :: IO TestResources -> TestCase -> TestTree
-mkFixtureTest testResources tc = case determineTHStatus tc of
+mkFixtureTest getTestResources tc = case determineTHStatus tc of
     THSkip reason ->
         singleTest tc.name $
           SimpleTest $ return $ skippedResult reason
     THCompile ->
         singleTest tc.name $ SimpleTest $ do
-            pkgRoot <- getTestPackageRoot testResources
-            let moduleContent = generateModule pkgRoot tc
-            result <- compileThModule pkgRoot tc.name moduleContent
+            testResources <- getTestResources
+            let moduleContent = generateModule testResources tc
+            result <- compileThModule testResources.packageRoot tc.name moduleContent
             case result of
                 Right () -> return $ passedResult "TH compilation succeeded"
                 Left err -> return $ testFailed $ "TH compilation failed:\n" ++ err

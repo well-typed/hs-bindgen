@@ -366,7 +366,7 @@ processFunction info function =
       where
         mkFunctionArg name typ = C.FunctionArg {
               name = CScopedName <$> name
-            , typ = typ
+            , argTyp = C.TypeFunArgF typ NoAnn
             }
 
 -- | Globals (externs or constants)
@@ -453,7 +453,7 @@ parseMacro name tokens  = state     $ \st ->
                 Right inf -> (
                     Right $ MacroExpr $ CheckedMacroExpr{
                         args = args
-                      , body = body
+                      , body = macroEmbedPass body
                       , typ  = dropEval inf
                       }
                   , st & #macroEnv %~ Map.insert name' inf

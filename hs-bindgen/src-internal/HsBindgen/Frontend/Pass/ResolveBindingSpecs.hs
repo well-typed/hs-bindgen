@@ -457,21 +457,21 @@ instance Resolve C.FunctionArg where
   resolve ctx functionArg =
     reconstruct
       <$> pure functionArg.name
-      <*> resolve ctx functionArg.typ
+      <*> resolve ctx functionArg.argTyp
     where
       reconstruct ::
-           Maybe CScopedName
-        -> C.Type ResolveBindingSpecs
+           Maybe (ScopedName ResolveBindingSpecs)
+        -> C.TypeFunArg ResolveBindingSpecs
         -> C.FunctionArg ResolveBindingSpecs
-      reconstruct name' typ' = C.FunctionArg {
+      reconstruct name' argTyp' = C.FunctionArg {
             name = name'
-          , typ = typ'
+          , argTyp = argTyp'
           }
 
 instance Resolve CheckedMacro where
   resolve ctx = \case
     MacroType typ  -> MacroType <$> resolve ctx typ
-    MacroExpr expr -> return (MacroExpr expr)
+    MacroExpr expr -> return (MacroExpr $ coercePass expr)
 
 instance Resolve CheckedMacroType where
   resolve ctx macroType = reconstruct <$> resolve ctx macroType.typ
@@ -554,6 +554,14 @@ instance Resolve C.Type where
                       . insertExtType cDeclId ty
                     pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
                   Nothing -> return Nothing
+
+instance Resolve C.TypeFunArg where
+  resolve ctx arg = do
+      typ' <- resolve ctx arg.typ
+      pure C.TypeFunArgF {
+          typ = typ'
+        , ann = arg.ann
+        }
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

@@ -20,6 +20,9 @@ module C.Expr.Syntax (
   , Ps
   , XVar(..)
   , XApp(..)
+    -- ** Combinators
+  , mapMExpr
+  , mapMExprF
   ) where
 
 import Data.Kind qualified as Hs

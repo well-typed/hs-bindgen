@@ -51,6 +51,7 @@ data DeclMeta = DeclMeta {
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassMacroBody AssignAnonIds ConstructTranslationUnit
-instance CoercePassId        AssignAnonIds ConstructTranslationUnit
-instance CoercePassMacroId   AssignAnonIds ConstructTranslationUnit
+instance CoercePassMacroBody        AssignAnonIds ConstructTranslationUnit
+instance CoercePassId               AssignAnonIds ConstructTranslationUnit
+instance CoercePassMacroId          AssignAnonIds ConstructTranslationUnit
+instance CoercePassAnn "TypeFunArg" AssignAnonIds ConstructTranslationUnit

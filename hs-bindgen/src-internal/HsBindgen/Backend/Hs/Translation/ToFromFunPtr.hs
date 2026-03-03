@@ -42,7 +42,7 @@ import HsBindgen.Language.C qualified as C
 -- These instances are placed in the main module to avoid orphan instances.
 forFunction ::
      C.Sizeofs
-  -> ([C.Type Final], C.Type Final)
+  -> ([C.TypeFunArg Final], C.Type Final)
   -> [Hs.Decl]
 forFunction sizeofs (args, res) =
     instancesFor
@@ -67,7 +67,7 @@ forFunction sizeofs (args, res) =
 forNewtype ::
      C.Sizeofs
   -> Hs.Newtype
-  -> ([C.Type Final], C.Type Final)
+  -> ([C.TypeFunArg Final], C.Type Final)
   -> [Hs.Decl]
 forNewtype sizeofs newtyp (args, res) =
     instancesFor

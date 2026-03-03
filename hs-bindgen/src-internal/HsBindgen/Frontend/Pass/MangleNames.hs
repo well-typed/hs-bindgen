@@ -10,6 +10,8 @@ import Data.Map qualified as Map
 import Data.Proxy
 import Data.Set qualified as Set
 
+import C.Expr.Syntax qualified as CExpr.DSL
+
 import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -683,10 +685,10 @@ instance MangleInDecl C.Function where
         -> M (C.FunctionArg MangleNames)
       mangleFunctionArg functionArg = do
           name' <- mapM (mangleArgumentName info) functionArg.name
-          typ' <- mangle functionArg.typ
+          argTyp' <- mangle functionArg.argTyp
           pure C.FunctionArg {
               name = name'
-            , typ = typ'
+            , argTyp = argTyp'
             }
 
       reconstruct ::
@@ -703,7 +705,7 @@ instance MangleInDecl C.Function where
 instance MangleInDecl CheckedMacro where
   mangleInDecl info = \case
       MacroType typ  -> MacroType <$> mangleInDecl info typ
-      MacroExpr expr -> return $ MacroExpr expr
+      MacroExpr expr -> MacroExpr <$> mangleInDecl info expr
 
 instance MangleInDecl CheckedMacroType where
   mangleInDecl info macroType = do
@@ -716,20 +718,31 @@ instance MangleInDecl CheckedMacroType where
           , ann = mkMacroTypeNames strategy' info
           }
 
+instance MangleInDecl CheckedMacroExpr where
+  mangleInDecl _info macroExpr = do
+      reconstruct <$>
+        CExpr.DSL.mapMExprF
+          (\MacroXApp -> return MacroXApp)
+          (\(MacroXVar name) _origName -> MacroXVar <$> mangleDeclId name)
+          macroExpr.body
+    where
+      reconstruct :: CExpr.DSL.MExpr (MacroEmbedPass MangleNames) -> CheckedMacroExpr MangleNames
+      reconstruct body' = CheckedMacroExpr{
+            args = macroExpr.args
+          , body = body'
+          , typ  = macroExpr.typ
+          }
+
 instance Mangle C.Type where
   mangle = \case
       -- Interesting cases
-      C.TypeRef declId  ->
-        fmap C.TypeRef $
+      C.TypeRef declId  -> fmap C.TypeRef $
         mangleDeclId declId
-      C.TypeEnum ref ->
-        fmap C.TypeEnum $
+      C.TypeEnum ref -> fmap C.TypeEnum $
         C.Ref <$> mangleDeclId ref.name <*> mangle ref.underlying
-      C.TypeMacro ref ->
-        fmap C.TypeMacro $
+      C.TypeMacro ref -> fmap C.TypeMacro $
         C.Ref <$>  mangleDeclId ref.name <*> mangle ref.underlying
-      C.TypeTypedef ref ->
-        fmap C.TypeTypedef $
+      C.TypeTypedef ref -> fmap C.TypeTypedef $
         C.Ref <$>  mangleDeclId ref.name <*> mangle ref.underlying
 
       -- Recursive cases
@@ -746,6 +759,9 @@ instance Mangle C.Type where
       C.TypePrim prim                  -> return $ C.TypePrim prim
       C.TypeVoid                       -> return $ C.TypeVoid
       C.TypeComplex prim               -> return $ C.TypeComplex prim
+
+instance Mangle C.TypeFunArg where
+  mangle arg = C.TypeFunArgF <$> mangle arg.typ <*> pure arg.ann
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

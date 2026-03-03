@@ -20,25 +20,27 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 tests :: IO TestResources -> TestTree
-tests testResources = testGroup "Integration.ExitCode" [
-    testSuccessCase testResources
-  , testUnresolvedInclude testResources
-  , testSuccessCaseProcess testResources
+tests getTestResources = testGroup "Integration.ExitCode" [
+    testSuccessCase        getTestResources
+  , testUnresolvedInclude  getTestResources
+  , testSuccessCaseProcess getTestResources
   , testUnresolvedIncludeProcess
   ]
 
 -- | Test that should complete successfully
 testSuccessCase :: IO TestResources -> TestTree
-testSuccessCase testResources = testCase "success does not throw" $ do
-  let test = defaultTest "functions/simple_func"
+testSuccessCase getTestResources = testCase "success does not throw" $ do
+  let test =
+        defaultTest "functions/simple_func"
+          & #cStandard .~ c99
       noReport = const $ pure ()
-  void $ runTestHsBindgenSuccess noReport testResources test FinalDecls
+  void $ runTestHsBindgenSuccess noReport getTestResources test FinalDecls
 
 -- | Test unresolved #include (issue #1197 scenario)
 --
 -- Should fail
 testUnresolvedInclude :: IO TestResources -> TestTree
-testUnresolvedInclude testResources = testCase "unresolved include throws exception" $ do
+testUnresolvedInclude getTestResources = testCase "unresolved include throws exception" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     let tempHeader = tmpDir </> "test-unresolved.h"
     writeFile tempHeader "#include <nonexistent/totally-bogus-header-12345.h>\n"
@@ -60,7 +62,7 @@ testUnresolvedInclude testResources = testCase "unresolved include throws except
           otherException -> throw otherException
 
     handle expectExitFailure $ do
-      eRes <- runTestHsBindgen noReport testResources test FinalDecls
+      eRes <- runTestHsBindgen noReport getTestResources test FinalDecls
       assertFailure $ mconcat [
           "expected hs-bindgen to fail early, "
         , "but it finished with the following result:\n"
@@ -69,9 +71,9 @@ testUnresolvedInclude testResources = testCase "unresolved include throws except
 
 -- | Test that actual process exit code
 testSuccessCaseProcess :: IO TestResources -> TestTree
-testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ do
+testSuccessCaseProcess getTestResources = testCase "success returns exit code 0" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
-    root <- getTestPackageRoot testResources
+    root <- (.packageRoot) <$> getTestResources
     let headerPath = root </> "examples/golden/functions/simple_func.h"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"

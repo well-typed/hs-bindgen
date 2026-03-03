@@ -5,6 +5,10 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
   , CheckedMacro(..)
   , CheckedMacroType(..)
   , CheckedMacroExpr(..)
+  , MacroEmbedPass
+  , CExpr.DSL.XApp(..)
+  , CExpr.DSL.XVar(..)
+  , macroEmbedPass
   ) where
 
 import C.Expr.Syntax qualified as CExpr.DSL
@@ -12,6 +16,7 @@ import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
@@ -43,7 +48,7 @@ instance IsPass HandleMacros where
 
 data CheckedMacro p =
     MacroType (CheckedMacroType p)
-  | MacroExpr CheckedMacroExpr
+  | MacroExpr (CheckedMacroExpr p)
 
 data CheckedMacroType p = CheckedMacroType{
       typ :: C.Type p
@@ -51,27 +56,70 @@ data CheckedMacroType p = CheckedMacroType{
     }
 
 -- | Checked expression (function) macro
---
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1269>
--- This is wrong, as it does not allow name mangling to do its job. To fix that
--- we'd have to change 'CExpr.DSL.MExpr'.
-data CheckedMacroExpr = CheckedMacroExpr{
+data CheckedMacroExpr p = CheckedMacroExpr{
       args :: [CExpr.DSL.Name]
-    , body :: CExpr.DSL.MExpr CExpr.DSL.Ps
+    , body :: CExpr.DSL.MExpr (MacroEmbedPass p)
     , typ  :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Generic)
 
 deriving stock instance IsPass p => Show (CheckedMacro     p)
 deriving stock instance IsPass p => Show (CheckedMacroType p)
+deriving stock instance IsPass p => Show (CheckedMacroExpr p)
 
 deriving stock instance IsPass p => Eq (CheckedMacro     p)
 deriving stock instance IsPass p => Eq (CheckedMacroType p)
+deriving stock instance IsPass p => Eq (CheckedMacroExpr p)
 
-instance CoercePass CheckedMacroType p p'
-      => CoercePass CheckedMacro p p' where
+{-------------------------------------------------------------------------------
+  Bridge between hs-bindgen passes and c-expr passes
+-------------------------------------------------------------------------------}
+
+-- | Embed hs-bindgen pass into c-expr pass
+type MacroEmbedPass :: Pass -> CExpr.DSL.Pass
+data MacroEmbedPass p a
+
+-- | Annotations for function application are not relevant for hs-bindgen
+data instance CExpr.DSL.XApp (MacroEmbedPass p) = MacroXApp
+  deriving stock (Eq, Show, Generic)
+
+-- | We use annotations on variables to integrate macros with the name mangler
+--
+-- NOTE: This is not used for local variables (macro arguments), but when
+-- macros reference other macros.
+data instance CExpr.DSL.XVar (MacroEmbedPass p) = MacroXVar (Id p)
+  deriving stock (Generic)
+
+deriving instance IsPass p => Eq   (CExpr.DSL.XVar (MacroEmbedPass p))
+deriving instance IsPass p => Show (CExpr.DSL.XVar (MacroEmbedPass p))
+
+macroEmbedPass ::
+     CExpr.DSL.MExpr CExpr.DSL.Ps
+  -> CExpr.DSL.MExpr (MacroEmbedPass HandleMacros)
+macroEmbedPass =
+    CExpr.DSL.mapMExpr
+      (\CExpr.DSL.NoXApp -> MacroXApp)
+      (\CExpr.DSL.NoXVar (CExpr.DSL.Name name) -> MacroXVar $ mkDeclId name)
+  where
+    mkDeclId :: Text -> DeclId
+    mkDeclId macroName = DeclId{
+          name = CDeclName{
+              text = macroName
+            , kind = CNameKindMacro
+            }
+        , isAnon = False
+        }
+
+{-------------------------------------------------------------------------------
+  CoercePass
+-------------------------------------------------------------------------------}
+
+instance (
+      CoercePass CheckedMacroType p p'
+    , CoercePass CheckedMacroExpr p p'
+    ) => CoercePass CheckedMacro p p' where
   coercePass (MacroType typ)  = MacroType (coercePass typ)
-  coercePass (MacroExpr expr) = MacroExpr expr
+  coercePass (MacroExpr expr) = MacroExpr (coercePass expr)
 
 instance (
       CoercePass C.Type p p'
@@ -82,10 +130,25 @@ instance (
       , ann = macroType.ann
       }
 
-{-------------------------------------------------------------------------------
-  CoercePass
--------------------------------------------------------------------------------}
+instance CoercePassId p p' => CoercePass CheckedMacroExpr p p' where
+  coercePass macroExpr = CheckedMacroExpr{
+        args = macroExpr.args
+      , body = auxBody macroExpr.body
+      , typ  = macroExpr.typ
+      }
+    where
+      auxBody ::
+           CExpr.DSL.MExpr (MacroEmbedPass p )
+        -> CExpr.DSL.MExpr (MacroEmbedPass p')
+      auxBody =
+          CExpr.DSL.mapMExpr
+            (\MacroXApp -> MacroXApp)
+            (\(MacroXVar name) _origName -> MacroXVar $
+                coercePassId (Proxy @'(p, p')) name
+            )
 
 instance CoercePassId ConstructTranslationUnit HandleMacros
 instance CoercePassMacroId ConstructTranslationUnit HandleMacros where
   coercePassMacroId _ = absurd
+
+instance CoercePassAnn "TypeFunArg" ConstructTranslationUnit HandleMacros

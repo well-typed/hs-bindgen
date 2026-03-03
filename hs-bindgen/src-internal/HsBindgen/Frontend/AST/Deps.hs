@@ -6,7 +6,7 @@ module HsBindgen.Frontend.AST.Deps (
 import GHC.Records
 
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Type (ValOrRef, depsOfType)
+import HsBindgen.Frontend.AST.Type (ValOrRef, depsOfType, depsOfTypeFunArg)
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 
@@ -36,7 +36,7 @@ depsOfDecl (C.DeclMacro _ts) =
     -- having /any/ dependencies, and will rely instead on source ordering.
     []
 depsOfDecl (C.DeclFunction function) =
-    concatMap depsOfType (function.res : map (.typ) function.args)
+    depsOfType function.res ++ concatMap (\arg -> depsOfTypeFunArg arg.argTyp) function.args
 depsOfDecl (C.DeclGlobal ty) =
     depsOfType ty
 
