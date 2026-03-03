@@ -146,8 +146,14 @@ instance IsTrace Level ParseDeclException where
 -- could reasonably expect to be supported eventually, and \"unexpected\", for
 -- strange C input.
 data ParseMsg =
+    -- | Declaration availability can not be determined.
+    --
+    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
+    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
+    ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
+
     -- | Struct with implicit fields
-    ParseUnsupportedImplicitFields
+  | ParseUnsupportedImplicitFields
 
     -- | Unexpected anonymous declaration inside function signature
     --
@@ -273,6 +279,10 @@ data ParseMsg =
 
 instance PrettyForTrace ParseMsg where
   prettyForTrace = \case
+      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
+          "Unknown declaration cursor availability:"
+        , PP.show simpleKind
+        ]
       ParseUnsupportedImplicitFields ->
         "Unsupported implicit fields"
       ParseUnexpectedAnonInSignature ->
@@ -310,6 +320,7 @@ instance PrettyForTrace ParseMsg where
 -- | Unsupported features are warnings
 instance IsTrace Level ParseMsg where
   getDefaultLogLevel = \case
+      ParseUnknownCursorAvailability{} -> Notice
       ParseUnsupportedImplicitFields{} -> Warning
       ParseUnexpectedAnonInSignature{} -> Warning
       ParseUnexpectedAnonInExtern{}    -> Warning

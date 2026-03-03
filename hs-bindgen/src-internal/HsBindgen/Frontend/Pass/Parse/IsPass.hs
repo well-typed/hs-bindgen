@@ -10,9 +10,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.Enum.Simple
 import Clang.HighLevel.Types
-import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
@@ -88,29 +86,18 @@ data RequiredForScoping =
 --
 -- - The declarations may affect other declarations
 data ImmediateParseMsg =
-    -- TODO-D: Move to ParseMsg.
-    -- | Declaration availability can not be determined.
-    --
-    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
-    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-    ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
     -- | We failed to parse a declaration that is required for scoping.
-  | ParseOfDeclarationRequiredForScopingFailed ParseTypeException
+    ParseOfDeclarationRequiredForScopingFailed ParseTypeException
   deriving stock (Show)
 
 instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
-      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
-          "unknown declaration availability:"
-        , PP.show simpleKind
-        ]
       ParseOfDeclarationRequiredForScopingFailed err ->
         PP.hang "parse of declaration required for scoping failed:" 2 $
           prettyForTrace err
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
-      ParseUnknownCursorAvailability{}             -> Notice
       ParseOfDeclarationRequiredForScopingFailed{} -> Info
   getSource  = const HsBindgen
   getTraceId = const "parse-immediate"
