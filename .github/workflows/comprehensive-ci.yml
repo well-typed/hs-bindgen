@@ -3,9 +3,6 @@ name: Comprehensive CI
 # Manual trigger only - for pre-release validation and comprehensive testing
 on:
   workflow_dispatch:
-  push: # TODO: remove before merge
-    branches:
-      - bolt12/1159
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -52,7 +49,6 @@ jobs:
       uses: actions/checkout@v4
 
     - name: 🛠️ Setup Haskell
-      id: setup-haskell
       uses: haskell-actions/setup@v2
       with:
         ghc-version: ${{ matrix.ghc }}
@@ -65,22 +61,6 @@ jobs:
 
     - name: 🛠️ cabal.project
       run: cp cabal.project.ci cabal.project
-
-    - name: 💾 Generate Cabal plan
-      run: cabal build all --dry-run
-
-    - name: 💾 Restore cache
-      id: cache-cabal-restore
-      uses: actions/cache/restore@v4
-      env:
-        key: comprehensive-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
-      with:
-        path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
-        restore-keys: ${{ env.key }}-
-
-    - name: 🛠️ Build Cabal dependencies
-      run: cabal build all --only-dependencies
 
     - name: 🏗️ Build
       run: cabal build all
@@ -101,13 +81,6 @@ jobs:
       if: runner.os == 'Linux'
       uses: ./.github/actions/build-manual-ubuntu
 
-    - name: 💾 Save cache
-      uses: actions/cache/save@v4
-      if: ${{ !cancelled() }}
-      with:
-        path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
-
   # ============================================================================
   # Job 2: Test all GHC versions on Windows
   # ============================================================================
@@ -123,9 +96,6 @@ jobs:
         # GHC 9.2 uses GCC, not LLVM/Clang, so we do not test it.
         # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-
-    env:
-      cache-reset-number: 0
 
     defaults:
       run:
@@ -178,22 +148,6 @@ jobs:
 
     - name: 🛠️ cabal.project
       run: cat cabal.project.ci | tee cabal.project
-
-    - name: 💾 Generate Cabal plan
-      run: cabal build all --dry-run
-
-    - name: 💾 Restore cache
-      id: cache-cabal-restore
-      uses: actions/cache/restore@v4
-      env:
-        key: comprehensive-${{ env.cache-reset-number }}-windows-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
-      with:
-        path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
-        restore-keys: ${{ env.key }}-
-
-    - name: 🛠️ Build Cabal dependencies
-      run: cabal build all --only-dependencies
 
     - name: 🏗️ Build
       run: cabal build all
@@ -250,13 +204,6 @@ jobs:
       run: |
         cabal build all
         cabal run manual
-
-    - name: 💾 Save cache
-      uses: actions/cache/save@v4
-      if: ${{ !cancelled() }}
-      with:
-        path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
 
   # ============================================================================
   # Job 3: Run cabal check for each package
@@ -385,7 +332,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🛠️ Setup Haskell
-        id: setup-haskell
         uses: haskell-actions/setup@v2
         with:
           ghc-version: ${{ matrix.ghc }}
@@ -398,29 +344,6 @@ jobs:
 
       - name: 🛠️ cabal.project
         run: cp cabal.project.ci cabal.project
-
-      - name: 💾 Generate Cabal plan
-        run: cabal build all --dry-run
-
-      - name: 💾 Restore cache
-        id: cache-cabal-restore
-        uses: actions/cache/restore@v4
-        env:
-          key: comprehensive-haddock-${{ runner.os }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
-        with:
-          path: ${{ steps.setup-haskell.outputs.cabal-store }}
-          key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
-          restore-keys: ${{ env.key }}-
-
-      - name: 🛠️ Build dependencies with Haddock
-        run: cabal build all --only-dependencies --enable-documentation
-
-      - name: 💾 Save cache
-        uses: actions/cache/save@v4
-        if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
-        with:
-          path: ${{ steps.setup-haskell.outputs.cabal-store }}
-          key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
 
       - name: 🏗️ Build Haddock for all packages
         run: cabal haddock all --haddock-for-hackage
