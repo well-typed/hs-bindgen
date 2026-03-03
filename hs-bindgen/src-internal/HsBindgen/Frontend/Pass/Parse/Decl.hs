@@ -93,11 +93,11 @@ topLevelDecl = foldWithHandler handleParseExceptions (parseDecl Nothing)
 
 -- | Get declaration info
 --
+-- The continuation is only called when the declaration info can be determined.
+--
 -- Must not be called on built-ins.
-
--- TODO-D: getDeclInfo :: ParseCtx -> CXCursor -> (C.DeclInfo Parse -> Parser) -> Parser
-getDeclInfo :: ParseCtx -> CXCursor -> ParseDecl (C.DeclInfo Parse)
-getDeclInfo ctx = \curr -> do
+withDeclInfo :: ParseCtx -> (C.DeclInfo Parse -> Parser) -> Parser
+withDeclInfo ctx k = \curr -> do
     declId         <- PrelimDeclId.atCursor curr ctx.inner.kind
     declLoc        <- HighLevel.clang_getCursorLocation' curr
     declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
@@ -107,26 +107,21 @@ getDeclInfo ctx = \curr -> do
     let mAvailability :: Maybe C.Availability
         mAvailability = fmap toAvailability $ fromSimple $ sAvailability
 
-        -- NOTE: If the availability is unknown/undefined, we set the
-        -- declaration to be unavailable. We do not attempt to parse unavailable
-        -- declarations and emit an appropriate trace.
-        declAvailability :: C.Availability
-        declAvailability = fromMaybe C.Unavailable mAvailability
-
-        info :: C.DeclInfo Parse
-        info = C.DeclInfo{
-              id           = declId
-            , loc          = declLoc
-            , headerInfo   = declHeaderInfo
-            , availability = declAvailability
-            , comment      = declComment
-            }
-
-    when (isNothing mAvailability) $
-      recordImmediateTrace declId declLoc $
-        ParseUnknownCursorAvailability sAvailability
-
-    pure info
+    case mAvailability of
+      Nothing -> foldContinueWith $ [
+          parseFail declId declLoc $ ParseMsg $
+            ParseUnknownCursorAvailability sAvailability
+        ]
+      Just availability ->
+        let info :: C.DeclInfo Parse
+            info = C.DeclInfo{
+                  id           = declId
+                , loc          = declLoc
+                , headerInfo   = declHeaderInfo
+                , availability = availability
+                , comment      = declComment
+                }
+        in k info curr
   where
     fromSimple :: IsSimpleEnum a => SimpleEnum a -> Maybe a
     fromSimple x = either (const Nothing) Just $ fromSimpleEnum x
@@ -221,13 +216,14 @@ parseDecl mCtx curr = dispatchWithArg curr $ \case
 -- get the list of tokens for built-in macros, we would anyway need to
 -- special-case them. For now we skip /all/ builtins.
 parseDeclWith :: ParseCtx -> (ParseCtx -> C.DeclInfo Parse -> Parser) -> Parser
-parseDeclWith ctx parser curr = do
+parseDeclWith ctx parser = \curr -> do
     mBuiltin <- PrelimDeclId.checkIsBuiltin curr
     case mBuiltin of
-      Just _name ->
-        foldContinue
-      Nothing -> do
-        info <- getDeclInfo ctx curr
+      Just _name -> foldContinue
+      Nothing    -> withDeclInfo ctx parseExplicitDecl curr
+  where
+    parseExplicitDecl :: C.DeclInfo Parse -> Parser
+    parseExplicitDecl info curr =
         if | C.Unavailable <- info.availability ->
                foldContinueWith [
                    parseDoNotAttempt info DeclarationUnavailable
@@ -248,7 +244,7 @@ parseDeclWith ctx parser curr = do
 -- In this phase, we return macro declarations simply as a list of tokens. We
 -- will parse them later (after sorting all declarations in the file).
 macroDefinition :: HasCallStack => ParseCtx -> C.DeclInfo Parse -> Parser
--- TODO-D: Parsing a macro does not required a context?
+-- TODO-D: Parsing a macro does not require a context?
 macroDefinition _ctx info = \curr -> do
     decl <- mkDecl <$> getUnparsedMacro curr
     foldContinueWith [parseSucceed decl]
