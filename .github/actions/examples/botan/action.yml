@@ -14,7 +14,7 @@ runs:
         create-symlink: true
         variant: 'ccache'
         key: setup-botan
-        append-timestamp: false
+        append-timestamp: true
         evict-old-files: 'job'
         max-size: 50M
 
