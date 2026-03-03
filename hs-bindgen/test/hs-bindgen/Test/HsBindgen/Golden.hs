@@ -42,7 +42,7 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 tests :: IO TestResources -> TestTree
-tests testResources = testTreeFor testResources $
+tests getTestResources = testTreeFor getTestResources $
     TestCaseSection "Test.HsBindgen.Golden" [
         TestCases "default" testCases_default
       , TestCases "manual"  testCases_manual
@@ -90,7 +90,7 @@ data TestCaseTree =
   | TestCases String [TestCase]
 
 testTreeFor :: IO TestResources -> TestCaseTree -> TestTree
-testTreeFor testResources = goTree
+testTreeFor getTestResources = goTree
   where
     goTree :: TestCaseTree -> TestTree
     goTree (TestCaseSection label sections) =
@@ -110,14 +110,14 @@ testTreeFor testResources = goTree
       = case test.outcome of
           Success ->
             withTestOutputDir test.outputDir $ testGroup test.name [
-                TH.check          testResources test
-              , PP.check          testResources test
-              , BindingSpec.check testResources test
+                TH.check          getTestResources test
+              , PP.check          getTestResources test
+              , BindingSpec.check getTestResources test
               ]
           FailureBindgen ->
-            FailureBindgen.check testResources test
+            FailureBindgen.check getTestResources test
           FailureLibclang ->
-            FailureLibclang.check testResources test
+            FailureLibclang.check getTestResources test
 
     withTestOutputDir :: FilePath -> TestTree -> TestTree
     withTestOutputDir outputDir k =
@@ -399,7 +399,7 @@ test_attributes_asm :: TestCase
 test_attributes_asm =
     defaultTest "attributes/asm"
       & #clangVersion .~ Just (>= (18, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=gnu2x"] )
+      & #cStandard    .~ gnu23
 
 test_attributes_attributes :: TestCase
 test_attributes_attributes =
@@ -867,7 +867,7 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
 test_bindingSpecs_stdlib_instances_c11_parse_def :: TestCase
 test_bindingSpecs_stdlib_instances_c11_parse_def =
     testVariant "binding-specs/stdlib/instances" "1.c11-parse-def"
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c11"] )
+      & #cStandard .~ c11
 
 -- **Case 2: C11; parse @stdbool.h@**
 --
@@ -878,7 +878,7 @@ test_bindingSpecs_stdlib_instances_c11_parse_def =
 test_bindingSpecs_stdlib_instances_c11_parse_all :: TestCase
 test_bindingSpecs_stdlib_instances_c11_parse_all =
     testVariant "binding-specs/stdlib/instances" "1.c11-parse-all"
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c11"] )
+      & #cStandard  .~ c11
       & #onFrontend .~ (\cfg -> cfg
           & #parsePredicate .~ BTrue
           )
@@ -891,7 +891,7 @@ test_bindingSpecs_stdlib_instances_c23_parse_def :: TestCase
 test_bindingSpecs_stdlib_instances_c23_parse_def =
     testVariant "binding-specs/stdlib/instances" "1.c23-parse-def"
       & #clangVersion .~ Just (>= (18, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
+      & #cStandard    .~ c23
 
 -- **Case 4: C23; parse @stdbool.h@**
 --
@@ -903,7 +903,7 @@ test_bindingSpecs_stdlib_instances_c23_parse_all :: TestCase
 test_bindingSpecs_stdlib_instances_c23_parse_all =
     testVariant "binding-specs/stdlib/instances" "1.c23-parse-all"
       & #clangVersion .~ Just (>= (18, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
+      & #cStandard    .~ c23
       & #onFrontend .~ (\cfg -> cfg
           & #parsePredicate .~ BTrue
           )
@@ -914,7 +914,7 @@ test_bindingSpecs_stdlib_bool_c23 :: TestCase
 test_bindingSpecs_stdlib_bool_c23 =
     defaultTest "binding-specs/stdlib/bool"
       & #clangVersion .~ Just (>= (18, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c23"] )
+      & #cStandard    .~ c23
 
 test_bindingSpecs_stdlib_return_values :: TestCase
 test_bindingSpecs_stdlib_return_values =
@@ -1369,7 +1369,7 @@ test_macros_reparse :: TestCase
 test_macros_reparse =
     defaultTest "macros/reparse"
       & #clangVersion   .~ Just (>= (15, 0, 0)) -- parse 'bool'
-      & #onBoot         .~ ( #clangArgs % #argsBefore .~ ["-std=c2x"] )
+      & #cStandard      .~ c23
       & #tracePredicate .~ tolerateAll
 
 {-------------------------------------------------------------------------------
@@ -1844,7 +1844,7 @@ test_types_primitives_bool_c23 :: TestCase
 test_types_primitives_bool_c23 =
     defaultTest "types/primitives/bool_c23"
       & #clangVersion .~ Just (>= (15, 0, 0))
-      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=c2x"] )
+      & #cStandard    .~ c23
 
 test_types_primitives_least_fast :: TestCase
 test_types_primitives_least_fast =

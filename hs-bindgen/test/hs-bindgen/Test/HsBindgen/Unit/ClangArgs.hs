@@ -19,8 +19,8 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 tests :: IO TestResources -> TestTree
-tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
-      testCase "getTargetTriple" $ testGetTargetTriple testResources
+tests getTestResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
+      testCase "getTargetTriple" $ testGetTargetTriple getTestResources
     , splitArgumentsTests
     ]
 
@@ -29,11 +29,11 @@ tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
 -------------------------------------------------------------------------------}
 
 testGetTargetTriple :: IO TestResources -> Assertion
-testGetTargetTriple testResources = do
-    clangArgsConfig <- getTestDefaultClangArgsConfig testResources []
-    let clangArgs = clangArgsConfigToClangArgs clangArgsConfig
-        setup = defaultClangSetup clangArgs $
-                  ClangInputMemory "hs-bindgen-triple.h" ""
+testGetTargetTriple getTestResources = do
+    clangArgs <-
+      (clangArgsConfigToClangArgs . (.clangArgsConfig)) <$> getTestResources
+    let setup = defaultClangSetup clangArgs $
+          ClangInputMemory "hs-bindgen-triple.h" ""
 
     triple <- withTracePredicate noReport defaultTracePredicate $ \tracer ->
       getTargetTriple tracer setup
