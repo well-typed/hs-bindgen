@@ -47,3 +47,10 @@ that can be extended by users for specific applications.
 
 You can find the (currently still very incomplete) manual in
 [manual/](manual/README.md).
+
+## Blogposts
+
+These blogposts might be useful to get acquainted with `hs-bindgen`:
+
+* [Edsko de Vries – Tuesday, 10 February 2026: hs-bindgen 0.1-alpha
+  release](https://well-typed.com/blog/2026/02/hs-bindgen-alpha/)
