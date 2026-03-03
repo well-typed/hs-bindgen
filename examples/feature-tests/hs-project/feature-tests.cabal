@@ -1,0 +1,83 @@
+cabal-version: 3.0
+name:          feature-tests
+version:       0.1.0.0
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Well-Typed LLP
+maintainer:    info@well-typed.com
+build-type:    Simple
+
+common warnings
+  ghc-options:
+    -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wpartial-fields -Widentities
+    -Wredundant-constraints -Wmissing-export-lists
+    -Wno-unticked-promoted-constructors -Wunused-packages
+    -Wmissing-deriving-strategies
+
+common language
+  default-language:   GHC2021
+  default-extensions:
+    DerivingStrategies
+    ImportQualifiedPost
+    LambdaCase
+    OverloadedRecordDot
+    PatternSynonyms
+    RecordWildCards
+    RoleAnnotations
+    ViewPatterns
+
+library generated
+  import:          warnings, language
+  visibility:      private
+  hs-source-dirs:  src-generated
+  exposed-modules:
+    Generated.Callbacks.Arrays.KnownSize
+    Generated.Callbacks.Arrays.KnownSize.FunPtr
+    Generated.Callbacks.Arrays.KnownSize.Safe
+    Generated.Callbacks.Arrays.KnownSize.Unsafe
+    Generated.Callbacks.Arrays.UnknownSize
+    Generated.Callbacks.Arrays.UnknownSize.FunPtr
+    Generated.Callbacks.Arrays.UnknownSize.Safe
+    Generated.Callbacks.Arrays.UnknownSize.Unsafe
+    Generated.Callbacks.Basic
+    Generated.Callbacks.Basic.FunPtr
+    Generated.Callbacks.Basic.Safe
+    Generated.Callbacks.Basic.Unsafe
+    Generated.Callbacks.Structs
+    Generated.Callbacks.Structs.FunPtr
+    Generated.Callbacks.Structs.Safe
+    Generated.Callbacks.Structs.Unsafe
+    Generated.Callbacks.Unions
+    Generated.Callbacks.Unions.FunPtr
+    Generated.Callbacks.Unions.Safe
+    Generated.Callbacks.Unions.Unsafe
+
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+
+  extra-libraries: feature-tests
+  ghc-options:     -Wno-missing-export-lists
+
+test-suite feature-tests
+  import:         warnings, language
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        Main.hs
+  other-modules:
+    Test.Callbacks.Arrays.KnownSize
+    Test.Callbacks.Arrays.UnknownSize
+    Test.Callbacks.Basic
+    Test.Callbacks.Structs
+    Test.Callbacks.Unions
+    Test.Util
+    Test.Util.Orphans
+
+  build-depends:
+    , base
+    , feature-tests:generated
+    , hs-bindgen-runtime
+    , tasty
+    , tasty-quickcheck
+    , vector
