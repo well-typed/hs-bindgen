@@ -137,7 +137,6 @@ testCases_default = [
     , defaultTest "declarations/opaque_declaration"
     , defaultTest "declarations/redeclaration_identical"
     , defaultTest "documentation/data_kind_pragma"
-    , defaultTest "edge-cases/adios"
     , defaultTest "edge-cases/anon_multiple_fields"
     , defaultTest "edge-cases/anon_multiple_typedefs"
     , defaultTest "edge-cases/aux_funptr_newtypes"
@@ -160,7 +159,6 @@ testCases_default = [
     , defaultTest "functions/heap_types/union_const_typedef"
     , defaultTest "functions/heap_types/union_const"
     , defaultTest "functions/heap_types/union"
-    , defaultTest "functions/simple_func"
     , defaultTest "functions/typedef_funptr"
     , defaultTest "macros/issue_890"
     , defaultTest "macros/macro_functions"
@@ -169,7 +167,6 @@ testCases_default = [
     , defaultTest "macros/macro_typedef_scope"
     , defaultTest "macros/macro_typedef_struct"
     , defaultTest "macros/macro_types"
-    , defaultTest "macros/macros"
     , defaultTest "types/complex/complex_non_float_test"
     , defaultTest "types/complex/hsb_complex_test"
     , defaultTest "types/complex/vector_test"
@@ -988,16 +985,21 @@ test_declarations_name_collision =
 
 test_declarations_redeclaration :: TestCase
 test_declarations_redeclaration =
-    testTraceMulti "declarations/redeclaration" declsWithMsgs $ \case
+    defaultTest "declarations/redeclaration"
+      & #cStandard      .~ c11
+      & #tracePredicate .~ multiTracePredicate expected trace
+  where
+    expected :: [CDeclName]
+    expected = ["x", "n"]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace = \case
       MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
       MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
         Just $ Expected name
       _otherwise ->
         Nothing
-  where
-    declsWithMsgs :: [CDeclName]
-    declsWithMsgs = ["x", "n"]
 
 test_declarations_redeclaration_different :: TestCase
 test_declarations_redeclaration_different =
@@ -1064,6 +1066,7 @@ test_documentation_doxygen_docs :: TestCase
 test_documentation_doxygen_docs =
     defaultTest "documentation/doxygen_docs"
       & #clangVersion .~ Just (>= (19, 0, 0))
+      & #cStandard .~ c99
 
 {-------------------------------------------------------------------------------
   Bespoke tests: edge cases
@@ -1071,7 +1074,8 @@ test_documentation_doxygen_docs =
 
 testCases_bespoke_edgeCases :: [TestCase]
 testCases_bespoke_edgeCases = [
-      test_edgeCases_clang_generated_collision
+      test_edgeCases_adios
+    , test_edgeCases_clang_generated_collision
     , test_edgeCases_duplicate
     , test_edgeCases_headers
     , test_edgeCases_iterator
@@ -1080,6 +1084,11 @@ testCases_bespoke_edgeCases = [
     , test_edgeCases_thread_local
     , test_edgeCases_unsupported_builtin
     ]
+
+test_edgeCases_adios :: TestCase
+test_edgeCases_adios =
+    defaultTest "edge-cases/adios"
+      & #cStandard .~ c11
 
 test_edgeCases_clang_generated_collision :: TestCase
 test_edgeCases_clang_generated_collision =
@@ -1133,6 +1142,7 @@ test_edgeCases_iterator :: TestCase
 test_edgeCases_iterator =
     defaultTest "edge-cases/iterator"
       & #clangVersion .~ Just (>= (15, 0, 0))
+      & #cStandard    .~ c23
       & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
 
 test_edgeCases_ordinary_anon :: TestCase
@@ -1157,6 +1167,7 @@ test_edgeCases_thread_local :: TestCase
 test_edgeCases_thread_local =
     defaultTest "edge-cases/thread_local"
       & #clangVersion   .~ Just (>= (16, 0, 0))
+      & #cStandard    .~ c23
       & #tracePredicate .~ singleTracePredicate (\case
             MatchDelayed _name ParseUnsupportedTLS ->
               Just $ Expected ()
@@ -1184,6 +1195,7 @@ testCases_bespoke_functions = [
       test_functions_decls_in_signature
     , test_functions_fun_attributes
     , test_functions_fun_attributes_conflict
+    , test_functions_simple_func
     , test_functions_simple_func_rename
     , test_functions_varargs
     ]
@@ -1240,9 +1252,15 @@ test_functions_fun_attributes_conflict =
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = []
 
+test_functions_simple_func :: TestCase
+test_functions_simple_func =
+    defaultTest "functions/simple_func"
+      & #cStandard .~ c99
+
 test_functions_simple_func_rename :: TestCase
 test_functions_simple_func_rename =
     testVariant "functions/simple_func" "1.rename"
+      & #cStandard .~ c99
       & #onBackend .~ ( #categoryChoice .~ ByCategory {
             cType = IncludeTypeCategory
           , cSafe = ExcludeCategory
@@ -1322,6 +1340,7 @@ testCases_bespoke_macros = [
       test_macros_macro_in_fundecl
     , test_macros_macro_in_fundecl_vs_typedef
     , test_macros_macro_redefines_global
+    , test_macros_macros
     , test_macros_reparse
     ]
 
@@ -1364,6 +1383,11 @@ test_macros_macro_redefines_global =
   where
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["stdin", "stdout", "stderr"]
+
+test_macros_macros :: TestCase
+test_macros_macros =
+    defaultTest "macros/macros"
+      & #cStandard .~ c23
 
 test_macros_reparse :: TestCase
 test_macros_reparse =
@@ -1923,35 +1947,42 @@ test_types_typedefs_typenames =
 -------------------------------------------------------------------------------}
 
 testCases_comprehensive :: [TestCase]
-testCases_comprehensive = [
+testCases_comprehensive = map enableRecordDot [
       test_comprehensive_c2hsc
-    , comprehensiveTest "comprehensive/smoke"
+    , test_comprehensive_smoke
     ]
-
-comprehensiveTest :: String -> TestCase
-comprehensiveTest fp =
-    defaultTest fp
-      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
-      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+  where
+    enableRecordDot :: TestCase -> TestCase
+    enableRecordDot tc =
+      tc
+        & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+        & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
 
 test_comprehensive_c2hsc :: TestCase
 test_comprehensive_c2hsc =
-    comprehensiveTest "comprehensive/c2hsc"
-      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchDelayed name (ParseUnsupportedType UnsupportedLongDouble) ->
-              Just $ Expected name
-            _otherwise ->
-              Nothing
-          )
+    defaultTest "comprehensive/c2hsc"
+      & #tracePredicate .~ multiTracePredicate expected trace
   where
-    declsWithMsgs :: [CDeclName]
-    declsWithMsgs = [
-          "ordinary_long_double"
-        , "ordinary_long_double_pointer"
-        , "ordinary_long_double_array"
-        , "ordinary_long_double_pointer_array"
-        , "struct ordinary_long_double_struct"
-        , "struct ordinary_long_double_pointer_struct"
-        , "struct ordinary_long_double_array_struct"
-        , "struct ordinary_long_double_pointer_array_struct"
-        ]
+    expected :: [CDeclName]
+    expected = [
+        "ordinary_long_double"
+      , "ordinary_long_double_pointer"
+      , "ordinary_long_double_array"
+      , "ordinary_long_double_pointer_array"
+      , "struct ordinary_long_double_struct"
+      , "struct ordinary_long_double_pointer_struct"
+      , "struct ordinary_long_double_array_struct"
+      , "struct ordinary_long_double_pointer_array_struct"
+      ]
+
+    trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
+    trace = \case
+      MatchDelayed name (ParseUnsupportedType UnsupportedLongDouble) ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+
+test_comprehensive_smoke :: TestCase
+test_comprehensive_smoke =
+    defaultTest "comprehensive/smoke"
+      & #cStandard .~ c99

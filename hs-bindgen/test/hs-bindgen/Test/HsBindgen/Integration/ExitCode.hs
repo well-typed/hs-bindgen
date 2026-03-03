@@ -30,7 +30,9 @@ tests getTestResources = testGroup "Integration.ExitCode" [
 -- | Test that should complete successfully
 testSuccessCase :: IO TestResources -> TestTree
 testSuccessCase getTestResources = testCase "success does not throw" $ do
-  let test = defaultTest "functions/simple_func"
+  let test =
+        defaultTest "functions/simple_func"
+          & #cStandard .~ c99
       noReport = const $ pure ()
   void $ runTestHsBindgenSuccess noReport getTestResources test FinalDecls
 
