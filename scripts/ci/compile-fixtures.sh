@@ -79,20 +79,14 @@ KNOWN_EMPTY=(
     types/typedefs/typenames
 )
 
-# Array variables can not be exported, so instead we export a function that sets
-# the array variable, and that function can be used in subshells
-set_known_werror_unclean() {
-    # Known fixtures that compile, but not cleanly, so they should be run without
-    # -Werror
-    KNOWN_WERROR_UNLCEAN=(
-        arrays/array
-        edge-cases/adios
-        attributes/visibility_attributes
-        declarations/tentative_definitions
-    )
-}
-export -f set_known_werror_unclean
-set_known_werror_unclean
+# Known fixtures that compile, but not cleanly, so they should be run without
+# -Werror
+KNOWN_WERROR_UNCLEAN=(
+    arrays/array
+    edge-cases/adios
+    attributes/visibility_attributes
+    declarations/tentative_definitions
+)
 
 # The number of fixtures that are known to exist (including known failures)
 #
@@ -134,14 +128,17 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 HS_BINDGEN_DIR="$REPO_ROOT/hs-bindgen"
 FIXTURES_DIR="$HS_BINDGEN_DIR/fixtures"
-EXAMPLES_DIR="$HS_BINDGEN_DIR/examples"
-MUSL_INCLUDE_DIR="$HS_BINDGEN_DIR/musl-include/x86_64"
+SHARED_BUILD_DIR="$REPO_ROOT/dist-newstyle-fixture-check"
 
 # Verify directories exist
 if [[ ! -d "$FIXTURES_DIR" ]]; then
     echo "Error: Fixtures not found at $FIXTURES_DIR" >&2
     exit 1
 fi
+
+###############################################################################
+# Helper functions
+###############################################################################
 
 # Extract the name of the fixture
 #
@@ -183,7 +180,7 @@ is_known_empty() {
 # Function to check if a file is in the known -Werror unclean fixtures list
 is_known_werror_unclean() {
     local fixture_name="$1"
-    for unclean in "${KNOWN_WERROR_UNLCEAN[@]}"; do
+    for unclean in "${KNOWN_WERROR_UNCLEAN[@]}"; do
         if [[ "$fixture_name" == "$unclean" ]]; then
             return 0
         fi
@@ -191,112 +188,195 @@ is_known_werror_unclean() {
     return 1
 }
 
-# Function to compile a single fixture
-# shellcheck disable=SC2329
-compile_fixture() {
-    local fixture_name="$1"
-
-    # Given the name of the fixture, we search for all pretty-printed Haskell
-    # files that we want to compile.
-    #
-    # NOTE: I (Joris) am not 100% sure, but it looks like the order in which the
-    # files are passed to the GHC invocation matters for module dependency
-    # resolution. We sort by directory depth first (shallower files first), then
-    # alphabetically. This ensures Example.hs is compiled before Example/*.hs,
-    # which is necessary since the submodules import the main Example module.
-    local files
-    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.hs" -print0 |
-        xargs -0 -I {} sh -c 'echo $(echo "{}" | tr -cd "/" | wc -c) "{}"' |
-        sort -n |
-        cut -d' ' -f2- |
-        tr '\n' ' ')
-
-    # Use a temporary output file to avoid polluting the fixtures directory
-    local output_dir
-    output_dir=$(mktemp -d)
-
-    local opts
-    set_known_werror_unclean
-    if [[ "$WERROR_ALL" == "true" ]]; then
-        opts="-optc -Werror"
-    elif is_known_werror_unclean "$fixture_name"; then
-        opts=""
-    else
-        opts="-optc -Werror"
-    fi
-
-    # Compile the fixture with GHC
-    # -c: Compile only (no linking)
-    # -fforce-recomp: Always recompile
-    # -package: Make package available for import
-    # -outputdir: Where to put build artifacts
-    # -optc: Pass the following flag to the C compiler
-    #   -I: Add include directory for C headers
-    #   -std=gnu2x: Use GNU C23 standard (supports C23 bool type + GNU extensions like asm)
-    #   -Wno-deprecated-declarations: Suppress warnings about deprecated functions
-    #   -Wno-attributes: Suppress warnings about unrecognized or ignored attributes
-    if (cd "$HS_BINDGEN_DIR" && cabal exec -- ghc \
-        -c \
-        -fforce-recomp \
-        -Wall \
-        -Werror \
-        -Wincomplete-uni-patterns \
-        -Wincomplete-record-updates \
-        -Wmissing-exported-signatures \
-        -Widentities \
-        -Wredundant-constraints \
-        -Wpartial-fields \
-        -Wcpp-undef \
-        -Wno-unused-matches \
-        -outputdir "$output_dir" \
-        -package hs-bindgen-runtime \
-        -package c-expr-runtime \
-        -optc -I"$EXAMPLES_DIR" \
-        -optc -I"$EXAMPLES_DIR/golden" \
-        -optc -I"$MUSL_INCLUDE_DIR" \
-        -optc -std=gnu2x \
-        -optc -Wno-deprecated-declarations \
-        -optc -Wno-attributes \
-        "$opts" \
-        $files &>"$output_dir/compile.log"); then
-        echo "✓ $fixture_name"
-        rm -rf "$output_dir"
-        return 0
-    else
-        echo "✗ $fixture_name"
-        if [[ -s "$output_dir/compile.log" ]]; then
-            echo "  Error log:"
-            sed 's/^/    /' "$output_dir/compile.log"
-        fi
-        rm -rf "$output_dir"
-        return 1
-    fi
+# Sanitize a fixture name for use as a cabal library name
+#
+# We replace /, _ with - and handle . and _ before digits specially: a dot or
+# underscore followed by a digit gets the digit prefixed with 'v' or 'n'
+# respectively (e.g. ".1." -> "v1-", "_1" -> "n1") to avoid creating segments
+# like "-1-" or trailing "-1" which cabal's munged package ID parser
+# misinterprets as version numbers. Remaining / _ . become -.
+sanitize() {
+    echo "$1" | sed 's/\.\([0-9]\)/v\1/g; s/_\([0-9]\)/n\1/g' | tr '/_.' '---'
 }
 
-if [ $# -eq 1 ]; then
+# Detect Haskell modules in a fixture directory
+#
+# Given the fixture directory, finds all .hs files and converts paths to module
+# names: Example.hs -> Example, Example/Safe.hs -> Example.Safe
+detect_modules() {
+    local fixture_dir="$1"
+    find "$fixture_dir" -type f -name "*.hs" -print0 |
+        sort -z |
+        while IFS= read -r -d '' hs_file; do
+            local rel="${hs_file#"$fixture_dir/"}"
+            # Strip .hs extension, replace / with .
+            rel="${rel%.hs}"
+            echo "${rel//\//.}"
+        done
+}
+
+###############################################################################
+# Cabal file and project generation
+###############################################################################
+
+# Generate hs-bindgen-fixtures.cabal in the given directory
+#
+# The generated package uses common stanzas and internal libraries. All paths
+# are absolute so the package can live in a temp directory outside the repo.
+generate_cabal_file() {
+    local target_dir="$1"
+    local cabal_file="$target_dir/hs-bindgen-fixtures.cabal"
+
+    {
+        cat <<HEADER
+cabal-version: 3.0
+name:          hs-bindgen-fixtures
+version:       0.0.0
+build-type:    Simple
+
+-- This file is generated by scripts/ci/compile-fixtures.sh
+-- Do not edit manually.
+
+common fixture-common
+  default-language: GHC2021
+  ghc-options:
+    -Wall
+    -Werror
+    -Wincomplete-uni-patterns
+    -Wincomplete-record-updates
+    -Wmissing-exported-signatures
+    -Widentities
+    -Wredundant-constraints
+    -Wpartial-fields
+    -Wcpp-undef
+    -Wno-unused-matches
+    -optc-std=gnu2x
+    -optc-Wno-deprecated-declarations
+    -optc-Wno-attributes
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+    , c-expr-runtime
+  include-dirs:
+    ${REPO_ROOT}/hs-bindgen/examples
+    ${REPO_ROOT}/hs-bindgen/examples/golden
+    ${REPO_ROOT}/hs-bindgen/musl-include/x86_64
+
+common fixture-cc-werror
+  ghc-options: -optc-Werror
+HEADER
+
+        # Generate one library per fixture
+        while IFS= read -r -d '' bindingspec; do
+            local fixture_dir
+            fixture_dir=$(dirname "$bindingspec")
+            local fixture_name
+            fixture_name="${fixture_dir#"$FIXTURES_DIR/"}"
+            fixture_name="${fixture_name%/}"
+
+            # Skip empty fixtures
+            local modules
+            modules=$(detect_modules "$fixture_dir")
+            if [[ -z "$modules" ]]; then
+                continue
+            fi
+
+            # Skip known failures (unless forced)
+            if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$fixture_name"; then
+                continue
+            fi
+
+            # Skip known empty (unless forced)
+            if [[ "$FORCE_ALL" == "false" ]] && is_known_empty "$fixture_name"; then
+                continue
+            fi
+
+            local lib_name
+            lib_name="fixture-$(sanitize "$fixture_name")"
+
+            # Determine which common stanzas to import
+            local imports="fixture-common"
+            if [[ "$WERROR_ALL" == "true" ]] || ! is_known_werror_unclean "$fixture_name"; then
+                imports="fixture-common, fixture-cc-werror"
+            fi
+
+            echo ""
+            echo "library $lib_name"
+            echo "  import: $imports"
+            echo "  hs-source-dirs: $REPO_ROOT/hs-bindgen/fixtures/$fixture_name"
+            echo "  exposed-modules:"
+            while IFS= read -r mod; do
+                if [[ -n "$mod" ]]; then
+                    echo "    $mod"
+                fi
+            done <<< "$modules"
+        done < <(find "$FIXTURES_DIR" -type f -name "bindingspec.yaml" -print0 | sort -z)
+
+    } > "$cabal_file"
+}
+
+# Generate a self-contained cabal.project in the given directory
+#
+# Uses the index-state from cabal.project.base and references local packages
+# (hs-bindgen-runtime, c-expr-runtime, c-expr-dsl) by absolute path so that
+# cabal can resolve build-depends without cloning or importing the full project.
+generate_cabal_project() {
+    local target_dir="$1"
+    cat > "$target_dir/cabal.project" <<PROJECT
+import: ${REPO_ROOT}/cabal.project.base
+packages:
+  .
+  ${REPO_ROOT}/hs-bindgen-runtime
+  ${REPO_ROOT}/c-expr-runtime
+  ${REPO_ROOT}/c-expr-dsl
+allow-newer: all
+package hs-bindgen-fixtures
+  shared: False
+PROJECT
+}
+
+###############################################################################
+# Main
+###############################################################################
+
+# Create temp dir for generated package; clean up on exit
+BATCH_DIR=$(mktemp -d)
+trap 'rm -rf "$BATCH_DIR"' EXIT
+
+# Single fixture mode
+if [[ $# -eq 1 ]]; then
     echo "========================================="
-    echo "Compiling single fixture..."
-    compile_fixture "$1"
-    exit
+    echo "Compiling single fixture: $1"
+    echo "========================================="
+    echo ""
+
+    generate_cabal_file "$BATCH_DIR"
+    generate_cabal_project "$BATCH_DIR"
+
+    lib_name="fixture-$(sanitize "$1")"
+
+    BUILD_EXIT=0
+    (cd "$BATCH_DIR" && cabal build "hs-bindgen-fixtures:$lib_name" \
+        --builddir="$SHARED_BUILD_DIR") || BUILD_EXIT=$?
+
+    echo ""
+    echo "========================================="
+    if [[ $BUILD_EXIT -eq 0 ]]; then
+        echo "✓ $1"
+    else
+        echo "✗ $1"
+    fi
+    echo "========================================="
+    exit $BUILD_EXIT
 fi
 
-# Make these functions and variables available to child processes (subshells)
-export -f compile_fixture
-export -f is_known_werror_unclean
-export WERROR_ALL
-export KNOWN_FIXTURES_COUNT
-export HS_BINDGEN_DIR
-export EXAMPLES_DIR
-export MUSL_INCLUDE_DIR
-export FIXTURES_DIR
-
-# Collect fixtures to compile
+# Batch mode: collect fixtures
 echo "Collecting fixtures..."
 FIXTURES_TO_COMPILE=()
 FIXTURES_SKIPPED=()
 FIXTURES_EMPTY=()
 
-# Use find to recursively search for all .hs files
+# Use find to recursively search for all fixtures
 while IFS= read -r -d '' file; do
     fixture_name=$(get_fixture_name "$file")
     if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$fixture_name"; then
@@ -349,25 +429,72 @@ if [[ ${#FIXTURES_TO_COMPILE[@]} -eq 0 ]]; then
     exit 0
 fi
 
-echo "Compiling ${#FIXTURES_TO_COMPILE[@]} fixtures with $JOBS parallel jobs..."
+# Generate cabal package and project in temp dir
+generate_cabal_file "$BATCH_DIR"
+generate_cabal_project "$BATCH_DIR"
+
+echo "Compiling ${#FIXTURES_TO_COMPILE[@]} fixtures..."
 echo ""
 
-# Compile fixtures in parallel using xargs
-FAILED=0
-if printf '%s\n' "${FIXTURES_TO_COMPILE[@]}" | xargs -P "$JOBS" -I {} bash -c 'compile_fixture "$@"' _ {}; then
-    :
-else
-    FAILED=1
-fi
+# Build all fixtures with --keep-going to report all failures at once.
+# Use tee so that cabal's output (progress, warnings, errors) is visible in
+# real time while also being captured for post-build per-fixture parsing.
+BUILD_LOG="$BATCH_DIR/build.log"
+BUILD_EXIT=0
+(cd "$BATCH_DIR" && cabal build hs-bindgen-fixtures \
+    -j"$JOBS" --keep-going \
+    --builddir="$SHARED_BUILD_DIR" \
+    2>&1) | tee "$BUILD_LOG" || BUILD_EXIT=$?
+
+# Extract failed library names from the build log
+#
+# Cabal reports failures in lines like:
+#   Failed to build hs-bindgen-fixtures-0.0.0 (lib:fixture-xxx from ...)
+FAILED_LIBS=()
+while IFS= read -r line; do
+    if [[ "$line" =~ lib:(fixture-[a-zA-Z0-9_-]+) ]]; then
+        FAILED_LIBS+=("${BASH_REMATCH[1]}")
+    fi
+done < <(grep "Failed to build" "$BUILD_LOG" 2>/dev/null || true)
+
+# Check if a library is in the failed set
+is_lib_failed() {
+    local lib="$1"
+    local f
+    for f in "${FAILED_LIBS[@]+"${FAILED_LIBS[@]}"}"; do
+        if [[ "$f" == "$lib" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Classify per-fixture results
+PASS=0
+FAIL=0
+FAIL_NAMES=()
+
+for fixture_name in "${FIXTURES_TO_COMPILE[@]}"; do
+    lib_name="fixture-$(sanitize "$fixture_name")"
+    if is_lib_failed "$lib_name"; then
+        FAIL=$((FAIL + 1))
+        FAIL_NAMES+=("$fixture_name")
+    else
+        PASS=$((PASS + 1))
+    fi
+done
 
 echo ""
 echo "========================================="
-if [[ $FAILED -eq 0 ]]; then
-    echo "✓ All fixtures compiled successfully!"
-    echo "========================================="
-    exit 0
-else
-    echo "✗ Some fixtures failed to compile"
-    echo "========================================="
-    exit 1
+echo "Results: $PASS passed, $FAIL failed, ${#FIXTURES_SKIPPED[@]} skipped"
+echo "========================================="
+
+if [[ ${#FAIL_NAMES[@]} -gt 0 ]]; then
+    echo ""
+    echo "Failed fixtures:"
+    for name in "${FAIL_NAMES[@]}"; do
+        echo "  ✗ $name"
+    done
 fi
+
+exit $BUILD_EXIT
