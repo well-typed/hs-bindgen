@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Pass.Parse.Context (
     -- * Declaration and parse contexts
-    DeclCtx(..)
+    RequiredForScoping(..)
+  , DeclCtx(..)
   , ParseCtx -- opaque
   , mkCtx
   , pushCtx
@@ -17,27 +18,15 @@ import Data.Typeable (Typeable)
 import GHC.Records (HasField (..))
 
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 
-{-------------------------------------------------------------------------------
-  Errors
-
-  Dealing with errors while parsing is tricky:
-
-  * The Clang API does not make it very easy to associate an error with a source
-    location, so it's hard to produce a useful error message.
-
-  * Parsing always happens whilst processing some enclosing declaration. When we
-    encounter something unsupported (or unexpected), we'll want to register a
-    parse failure and avoid generating bindings for that declaration, but we do
-    not have sufficient context here to do so.
-
-  For both of these reasons we simply throw an exception here, and then /catch/
-  that exception in 'foldDec'. This allows us to address both of these issues:
-  a declaration has a clear source location, so we can generate a helpful error
-  message, and we can skip the declaration we're currently processing.
--------------------------------------------------------------------------------}
+-- | We always need to parse declarations required for scoping as they may
+--   affect other declarations
+data RequiredForScoping =
+    RequiredForScoping
+  | NotRequiredForScoping
+  | UnknownRequiredForScoping
+  deriving stock (Show, Eq, Ord)
 
 data DeclCtx = DeclCtx {
      kind    :: CNameKind
@@ -74,7 +63,22 @@ instance HasField "outer" ParseCtx DeclCtx where
   getField  = (._outer)
 
 {-------------------------------------------------------------------------------
-  Exception in context
+  Errors
+
+  Dealing with errors while parsing is tricky:
+
+  * The Clang API does not make it very easy to associate an error with a source
+    location, so it's hard to produce a useful error message.
+
+  * Parsing always happens whilst processing some enclosing declaration. When we
+    encounter something unsupported (or unexpected), we'll want to register a
+    parse failure and avoid generating bindings for that declaration, but we do
+    not have sufficient context to do so.
+
+  For both of these reasons we simply throw an exception, and then /catch/
+  that exception in 'foldDec'. This allows us to address both of these issues:
+  a declaration has a clear source location, so we can generate a helpful error
+  message, and we can skip the declaration we're currently processing.
 -------------------------------------------------------------------------------}
 
 data ExceptionInCtx e = ExceptionInCtx {
