@@ -87,6 +87,11 @@ jobs:
 
     - name: 🧪 Test
       run: cabal test all --test-show-details=direct
+      env:
+        # On non-Linux, skip TH fixture tests: the musl x86_64 headers
+        # shipped in musl-include/ are Linux-specific, so GHC's C compiler
+        # cannot use them on macOS or Windows.
+        TASTY_PATTERN: ${{ runner.os != 'Linux' && '!/th-fixtures/' || '' }}
 
     - name: 🧪 Build manual (macOS)
       if: runner.os == 'macOS'
@@ -266,7 +271,6 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - ansi-diff
           - c-expr-runtime
           - c-expr-dsl
           - hs-bindgen
@@ -349,6 +353,11 @@ jobs:
             echo "  ${dir%/}" >> cabal.project
           done
 
+          # Append cabal.project.base for allow-newer, index-state, etc.
+          # (source-repository-package for libclang is harmless here since
+          # it's not referenced by any sdist package)
+          cat "$GITHUB_WORKSPACE/cabal.project.base" >> cabal.project
+
           cabal build all
 
   # ============================================================================
@@ -415,3 +424,36 @@ jobs:
 
       - name: 🏗️ Build Haddock for all packages
         run: cabal haddock all --haddock-for-hackage
+
+  # ============================================================================
+  # Job 6: Cross-compilation
+  # ============================================================================
+
+  cross-compile-test:
+    name: Cross-compile to aarch64
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v5
+
+    - name: 🛠️ Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+
+    - name: 💾 Cache Nix store
+      uses: DeterminateSystems/magic-nix-cache-action@main
+
+    - name: 🏗️ Build dev shell
+      working-directory: examples/cross-compilation
+      run: |
+        nix build .#devShells.x86_64-linux.cross-aarch64 --print-build-logs
+
+    - name: 📦 Update Hackage index
+      run: |
+        nix develop ./examples/cross-compilation#cross-aarch64 --command cabal update
+
+    - name: 🧪 Run cross-compilation workflow
+      working-directory: examples/cross-compilation
+      run: |
+        nix develop .#cross-aarch64 --command ./generate-and-run.sh
