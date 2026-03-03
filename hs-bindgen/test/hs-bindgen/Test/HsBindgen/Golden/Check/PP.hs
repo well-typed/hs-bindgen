@@ -25,7 +25,7 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test =
+check getTestResources test =
     withExampleDir $
     testGroup "pp" [
         goldenAnsiDiff (show bc) (fixture bc) $ \report -> do
@@ -42,7 +42,7 @@ check testResources test =
                         <$> FinalModuleBaseName
                         <*> getBindingsMultiple (view #fieldNamingStrategy backendCfg) mrc
           (baseName, output)
-            <- runTestHsBindgenSuccess report testResources test artefacts
+            <- runTestHsBindgenSuccess report getTestResources test artefacts
 
           -- A sanity check to make sure that that the modules we're rendering
           -- have the expected @Example@ base name.

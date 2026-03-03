@@ -11,16 +11,16 @@ import Test.Tasty.HUnit
 import Test.HsBindgen.Resources
 
 tests :: IO TestResources -> TestTree
-tests testResources = testGroup "Integration.OverwritePolicy" [
-    testDirOverwritePolicy  testResources
-  , testFileOverwritePolicy testResources
-  , testOverwritePolicies   testResources
+tests getTestResources = testGroup "Integration.OverwritePolicy" [
+    testDirOverwritePolicy  getTestResources
+  , testFileOverwritePolicy getTestResources
+  , testOverwritePolicies   getTestResources
   ]
 
 testDirOverwritePolicy :: IO TestResources -> TestTree
-testDirOverwritePolicy testResources = testCase "do not create output directory by default" $ do
+testDirOverwritePolicy getTestResources = testCase "do not create output directory by default" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
-    root <- getTestPackageRoot testResources
+    root <- (.packageRoot) <$> getTestResources
     let headerPath = root </> "examples/golden/functions/simple_func.h"
         outDir = tmpDir </> "src"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
@@ -35,9 +35,9 @@ testDirOverwritePolicy testResources = testCase "do not create output directory 
     exitCode @?= ExitFailure 3
 
 testFileOverwritePolicy :: IO TestResources -> TestTree
-testFileOverwritePolicy testResources = testCase "do not overwrite existing files by default" $ do
+testFileOverwritePolicy getTestResources = testCase "do not overwrite existing files by default" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
-    root <- getTestPackageRoot testResources
+    root <- (.packageRoot) <$> getTestResources
     let headerPath = root </> "examples/golden/functions/simple_func.h"
     -- Create a file that would be overwritten.
     createDirectory $ tmpDir </> "Generated"
@@ -55,9 +55,9 @@ testFileOverwritePolicy testResources = testCase "do not overwrite existing file
     exitCode @?= ExitFailure 3
 
 testOverwritePolicies :: IO TestResources -> TestTree
-testOverwritePolicies testResources = testCase "create directories and overwrite files if told by user" $ do
+testOverwritePolicies getTestResources = testCase "create directories and overwrite files if told by user" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
-    root <- getTestPackageRoot testResources
+    root <- (.packageRoot) <$> getTestResources
     let headerPath         = root </> "examples/golden/functions/simple_func.h"
         placeholderPath    = tmpDir </> "Generated/Safe.hs"
         placeholderContent =  "Placeholder file"

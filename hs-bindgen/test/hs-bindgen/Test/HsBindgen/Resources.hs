@@ -2,11 +2,24 @@
 --
 -- Intended for unqualified import.
 module Test.HsBindgen.Resources (
-    TestResources -- opaque
+    -- * C standards
+    CStandard
+  , c89
+  , gnu89
+  , c95
+  , c99
+  , gnu99
+  , c11
+  , gnu11
+  , c17
+  , gnu17
+  , c23
+  , gnu23
+    -- * Test resources
+  , TestResources(..)
   , withTestResources
-    -- * Use the resources
-  , getTestPackageRoot
-  , getTestDefaultClangArgsConfig
+  , getTestClangArgsConfig
+    -- * Backend configuration
   , getTestDefaultBackendConfig
   , getTestThBackendConfig
   , applyTestThCategoryChoice
@@ -16,99 +29,105 @@ module Test.HsBindgen.Resources (
 import System.FilePath ((</>))
 import Test.Tasty
 
-import Clang.Version
-
 import HsBindgen.Backend.Category (ByCategory (..), Choice (..),
                                    RenameTerm (..))
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
-import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
 
 import Test.Common.Util.Cabal
 
 {-------------------------------------------------------------------------------
-  Definition
+  CStandard
+-------------------------------------------------------------------------------}
+
+-- | C standard string, as accepted by the Clang @-std@ option
+--
+-- To see what C standards are supported by a specific version of Clang, run
+-- @clang -x c -std=mediocrity -@ to get a list.  Note that deprecated C
+-- standard strings are not listed even though they are still supported.  For
+-- example, when using Clang 21, @c2x@ is /not/ listed because that version
+-- supports @c23@.  It still accepts @c2x@, however, treating it the same as
+-- @c23@.  Specifying @c2x@ in test configuration is a convenient way to make
+-- the test work across versions of Clang where some versions support @c2x@ but
+-- not @c23@.
+type CStandard = String
+
+c89, gnu89, c95 :: CStandard
+c89   = "c89"
+gnu89 = "gnu89"
+c95   = "iso9899:199409"
+
+c99, gnu99 :: CStandard
+c99   = "c99"
+gnu99 = "gnu99"
+
+c11, gnu11 :: CStandard
+c11   = "c11"
+gnu11 = "gnu11"
+
+c17, gnu17 :: CStandard
+c17   = "c17"
+gnu17 = "gnu17"
+
+c23, gnu23 :: CStandard
+c23   = "c2x"
+gnu23 = "gnu2x"
+
+{-------------------------------------------------------------------------------
+  TestResources
 -------------------------------------------------------------------------------}
 
 data TestResources = TestResources {
       -- | Package root
       packageRoot :: FilePath
 
-      -- | Clang arguments configuration we use when running the tests
+      -- | Common Clang arguments
       --
-      -- NOTE: Individual tests will need to add their required include dirs.
-    , clangArgs :: ClangArgsConfig FilePath
+      -- This configures the Clang arguments that are common to all tests.
+    , clangArgsConfig :: ClangArgsConfig FilePath
     }
-
-{-------------------------------------------------------------------------------
-  Acquisition and release
--------------------------------------------------------------------------------}
 
 withTestResources :: (IO TestResources -> TestTree) -> TestTree
 withTestResources = withResource initTestResources freeTestResources
+  where
+    initTestResources :: IO TestResources
+    initTestResources = do
+      packageRoot <- findPackageDirectory "hs-bindgen"
+      return TestResources{
+          packageRoot     = packageRoot
+        , clangArgsConfig = def{
+              builtinIncDir    = BuiltinIncDirDisable
+            , extraIncludeDirs = [packageRoot </> "musl-include/x86_64"]
+            , argsAfter        = ["-target", "x86_64-pc-linux-musl"]
+            }
+        }
 
-initTestResources :: IO TestResources
-initTestResources = do
-    testPackageRoot <- findPackageDirectory "hs-bindgen"
-    return TestResources{
-        packageRoot = testPackageRoot
-      , clangArgs   = mkTestClangArgsConfig testPackageRoot
+    freeTestResources :: TestResources -> IO ()
+    freeTestResources _ = return ()
+
+getTestClangArgsConfig ::
+     CStandard
+  -> [FilePath]  -- ^ Include directories, relative to the package root
+  -> TestResources
+  -> ClangArgsConfig FilePath
+getTestClangArgsConfig cStandard includeDirs testResources =
+    testResources.clangArgsConfig{
+        -- NOTE: The C include search path is searched from left to right:
+        -- earlier flags overrule later flags.  We therefore configure the
+        -- test-specific include directories before the common include
+        -- directories.
+        extraIncludeDirs =
+             map ((</>) testResources.packageRoot) includeDirs
+          <> testResources.clangArgsConfig.extraIncludeDirs
+      , argsAfter =
+             testResources.clangArgsConfig.argsAfter
+          <> ["-std=" ++ cStandard]
       }
 
-freeTestResources :: TestResources -> IO ()
-freeTestResources _ = return ()
-
 {-------------------------------------------------------------------------------
-  Package root
--------------------------------------------------------------------------------}
-
-getTestPackageRoot :: IO TestResources -> IO FilePath
-getTestPackageRoot = fmap (.packageRoot)
-
-{-------------------------------------------------------------------------------
-  Clang arguments
--------------------------------------------------------------------------------}
-
-mkTestClangArgsConfig :: FilePath -> ClangArgsConfig FilePath
-mkTestClangArgsConfig packageRoot = def {
-      extraIncludeDirs = [packageRoot </> "musl-include/x86_64"]
-    , argsBefore       = [cStandardArg]
-    , argsAfter        = targetArgs
-    }
-  where
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1516>
-    -- We should use the minimum standard required for each test.
-    cStandardArg :: String
-    cStandardArg = "-std=" ++ case clangVersion of
-      ClangVersion version
-        | version < (9, 0, 0)  -> panicPure "C23 requires clang-9 or later"
-        | version < (18, 0, 0) -> "c2x"
-        | otherwise            -> "c23"
-      ClangVersionUnknown v -> panicPure $ "Unknown clang version: " ++ show v
-
-    targetArgs :: [String]
-    targetArgs = ["-target", "x86_64-pc-linux-musl"]
-
-getTestDefaultClangArgsConfig ::
-     IO TestResources
-  -> [FilePath]
-  -> IO (ClangArgsConfig FilePath)
-getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
-    aux <$> testResources
-  where
-    -- NOTE: The include search path is traversed from left to right. That is,
-    -- earlier flags overrule later flags, and so, the test-specific include
-    -- directories must come before the default include directories.
-    aux :: TestResources -> ClangArgsConfig FilePath
-    aux resources = resources.clangArgs
-        & #extraIncludeDirs .~
-               map ((</>) resources.packageRoot) extraIncludeDirs'
-            <> resources.clangArgs.extraIncludeDirs
-
-{-------------------------------------------------------------------------------
-  Test configuration
+  Backend configuration
 -------------------------------------------------------------------------------}
 
 getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig

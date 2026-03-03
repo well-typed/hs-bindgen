@@ -19,7 +19,7 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test =
+check getTestResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
       let artefacts =
             (,,,,,)
@@ -30,7 +30,7 @@ check testResources test =
               <*> SquashedTypes
               <*> HsDecls
       ((_, includeGraph), declIndex, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
-        runTestHsBindgenSuccess report testResources test artefacts
+        runTestHsBindgenSuccess report getTestResources test artefacts
 
       let output :: String
           output = UTF8.toString $

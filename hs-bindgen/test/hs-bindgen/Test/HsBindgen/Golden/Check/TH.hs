@@ -38,18 +38,18 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test =
+check getTestResources test =
     goldenAnsiDiff "th" fixture $ \report ->
       if ghcAtLeast904 then do
         let testTh =
               test
                 & #onBackend %~ (. applyTestThCategoryChoice)
-        pkgroot <- getTestPackageRoot testResources
+        pkgroot <- (.packageRoot) <$> getTestResources
         let artefacts = (,) <$> Dependencies <*> FinalDecls
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
         -- artefact manually.
         (deps, decls) <-
-          runTestHsBindgenSuccess report testResources testTh artefacts
+          runTestHsBindgenSuccess report getTestResources testTh artefacts
 
         let thDecls :: Qu [TH.Dec]
             thDecls = uncurry (getThDecls deps) $ Foldable.fold decls
