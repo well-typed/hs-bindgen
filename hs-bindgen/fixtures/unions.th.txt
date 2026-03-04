@@ -464,3 +464,659 @@ set_anonA_polar :: AnonA_polar -> AnonA
 
 -}
 set_anonA_polar = setUnionPayload
+newtype U1 = U1 {un_U1 :: ByteArray}
+deriving via (SizedByteArray 8 4) instance Storable U1
+{-|
+
+  __See:__ 'set_u1_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:46:9@
+
+__exported by:__ @unions.h@
+-}
+get_u1_x1 :: U1 -> CInt
+{-|
+
+  __See:__ 'set_u1_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:46:9@
+
+__exported by:__ @unions.h@
+-}
+get_u1_x1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u1_x1'
+
+-}
+set_u1_x1 :: CInt -> U1
+{-|
+
+  __See:__ 'get_u1_x1'
+
+-}
+set_u1_x1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u1_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:47:10@
+
+__exported by:__ @unions.h@
+-}
+get_u1_x2 :: U1 -> CChar
+{-|
+
+  __See:__ 'set_u1_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:47:10@
+
+__exported by:__ @unions.h@
+-}
+get_u1_x2 = getUnionPayload
+{-|
+
+  __See:__ 'get_u1_x2'
+
+-}
+set_u1_x2 :: CChar -> U1
+{-|
+
+  __See:__ 'get_u1_x2'
+
+-}
+set_u1_x2 = setUnionPayload
+newtype U2 = U2 {un_U2 :: ByteArray}
+deriving via (SizedByteArray 4 4) instance Storable U2
+{-|
+
+  __See:__ 'set_u2_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:54:9@
+
+__exported by:__ @unions.h@
+-}
+get_u2_x1 :: U2 -> CInt
+{-|
+
+  __See:__ 'set_u2_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:54:9@
+
+__exported by:__ @unions.h@
+-}
+get_u2_x1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u2_x1'
+
+-}
+set_u2_x1 :: CInt -> U2
+{-|
+
+  __See:__ 'get_u2_x1'
+
+-}
+set_u2_x1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u2_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:55:10@
+
+__exported by:__ @unions.h@
+-}
+get_u2_x2 :: U2 -> CChar
+{-|
+
+  __See:__ 'set_u2_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:55:10@
+
+__exported by:__ @unions.h@
+-}
+get_u2_x2 = getUnionPayload
+{-|
+
+  __See:__ 'get_u2_x2'
+
+-}
+set_u2_x2 :: CChar -> U2
+{-|
+
+  __See:__ 'get_u2_x2'
+
+-}
+set_u2_x2 = setUnionPayload
+newtype U3 = U3 {un_U3 :: ByteArray}
+deriving via (SizedByteArray 8 4) instance Storable U3
+{-|
+
+  __See:__ 'set_u3_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:61:7@
+
+__exported by:__ @unions.h@
+-}
+get_u3_l1 :: U3 -> CInt
+{-|
+
+  __See:__ 'set_u3_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:61:7@
+
+__exported by:__ @unions.h@
+-}
+get_u3_l1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u3_l1'
+
+-}
+set_u3_l1 :: CInt -> U3
+{-|
+
+  __See:__ 'get_u3_l1'
+
+-}
+set_u3_l1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u3_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:63:9@
+
+__exported by:__ @unions.h@
+-}
+get_u3_x1 :: U3 -> CInt
+{-|
+
+  __See:__ 'set_u3_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:63:9@
+
+__exported by:__ @unions.h@
+-}
+get_u3_x1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u3_x1'
+
+-}
+set_u3_x1 :: CInt -> U3
+{-|
+
+  __See:__ 'get_u3_x1'
+
+-}
+set_u3_x1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u3_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:64:10@
+
+__exported by:__ @unions.h@
+-}
+get_u3_x2 :: U3 -> CChar
+{-|
+
+  __See:__ 'set_u3_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:64:10@
+
+__exported by:__ @unions.h@
+-}
+get_u3_x2 = getUnionPayload
+{-|
+
+  __See:__ 'get_u3_x2'
+
+-}
+set_u3_x2 :: CChar -> U3
+{-|
+
+  __See:__ 'get_u3_x2'
+
+-}
+set_u3_x2 = setUnionPayload
+newtype U4 = U4 {un_U4 :: ByteArray}
+deriving via (SizedByteArray 4 4) instance Storable U4
+{-|
+
+  __See:__ 'set_u4_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:89:7@
+
+__exported by:__ @unions.h@
+-}
+get_u4_l1 :: U4 -> CInt
+{-|
+
+  __See:__ 'set_u4_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:89:7@
+
+__exported by:__ @unions.h@
+-}
+get_u4_l1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u4_l1'
+
+-}
+set_u4_l1 :: CInt -> U4
+{-|
+
+  __See:__ 'get_u4_l1'
+
+-}
+set_u4_l1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u4_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:91:9@
+
+__exported by:__ @unions.h@
+-}
+get_u4_x1 :: U4 -> CInt
+{-|
+
+  __See:__ 'set_u4_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:91:9@
+
+__exported by:__ @unions.h@
+-}
+get_u4_x1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u4_x1'
+
+-}
+set_u4_x1 :: CInt -> U4
+{-|
+
+  __See:__ 'get_u4_x1'
+
+-}
+set_u4_x1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u4_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:92:10@
+
+__exported by:__ @unions.h@
+-}
+get_u4_x2 :: U4 -> CChar
+{-|
+
+  __See:__ 'set_u4_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:92:10@
+
+__exported by:__ @unions.h@
+-}
+get_u4_x2 = getUnionPayload
+{-|
+
+  __See:__ 'get_u4_x2'
+
+-}
+set_u4_x2 :: CChar -> U4
+{-|
+
+  __See:__ 'get_u4_x2'
+
+-}
+set_u4_x2 = setUnionPayload
+newtype U5 = U5 {un_U5 :: ByteArray}
+deriving via (SizedByteArray 4 4) instance Storable U5
+{-|
+
+  __See:__ 'set_u5_uint32_t'
+
+__C declaration:__ @uint32_t@
+
+__defined at:__ @unions.h:101:7@
+
+__exported by:__ @unions.h@
+-}
+get_u5_uint32_t :: U5 -> CInt
+{-|
+
+  __See:__ 'set_u5_uint32_t'
+
+__C declaration:__ @uint32_t@
+
+__defined at:__ @unions.h:101:7@
+
+__exported by:__ @unions.h@
+-}
+get_u5_uint32_t = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_uint32_t'
+
+-}
+set_u5_uint32_t :: CInt -> U5
+{-|
+
+  __See:__ 'get_u5_uint32_t'
+
+-}
+set_u5_uint32_t = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:103:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x1 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:103:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_x1'
+
+-}
+set_u5_x1 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_x1'
+
+-}
+set_u5_x1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:104:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x2 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:104:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x2 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_x2'
+
+-}
+set_u5_x2 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_x2'
+
+-}
+set_u5_x2 = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_x3'
+
+__C declaration:__ @x3@
+
+__defined at:__ @unions.h:105:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x3 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_x3'
+
+__C declaration:__ @x3@
+
+__defined at:__ @unions.h:105:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x3 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_x3'
+
+-}
+set_u5_x3 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_x3'
+
+-}
+set_u5_x3 = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_x4'
+
+__C declaration:__ @x4@
+
+__defined at:__ @unions.h:106:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x4 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_x4'
+
+__C declaration:__ @x4@
+
+__defined at:__ @unions.h:106:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x4 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_x4'
+
+-}
+set_u5_x4 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_x4'
+
+-}
+set_u5_x4 = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_y1'
+
+__C declaration:__ @y1@
+
+__defined at:__ @unions.h:109:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y1 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_y1'
+
+__C declaration:__ @y1@
+
+__defined at:__ @unions.h:109:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y1 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_y1'
+
+-}
+set_u5_y1 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_y1'
+
+-}
+set_u5_y1 = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_y2'
+
+__C declaration:__ @y2@
+
+__defined at:__ @unions.h:110:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y2 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_y2'
+
+__C declaration:__ @y2@
+
+__defined at:__ @unions.h:110:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y2 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_y2'
+
+-}
+set_u5_y2 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_y2'
+
+-}
+set_u5_y2 = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_y3'
+
+__C declaration:__ @y3@
+
+__defined at:__ @unions.h:111:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y3 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_y3'
+
+__C declaration:__ @y3@
+
+__defined at:__ @unions.h:111:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y3 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_y3'
+
+-}
+set_u5_y3 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_y3'
+
+-}
+set_u5_y3 = setUnionPayload
+{-|
+
+  __See:__ 'set_u5_y4'
+
+__C declaration:__ @y4@
+
+__defined at:__ @unions.h:112:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y4 :: U5 -> CChar
+{-|
+
+  __See:__ 'set_u5_y4'
+
+__C declaration:__ @y4@
+
+__defined at:__ @unions.h:112:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y4 = getUnionPayload
+{-|
+
+  __See:__ 'get_u5_y4'
+
+-}
+set_u5_y4 :: CChar -> U5
+{-|
+
+  __See:__ 'get_u5_y4'
+
+-}
+set_u5_y4 = setUnionPayload

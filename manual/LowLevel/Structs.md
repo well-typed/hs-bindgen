@@ -55,13 +55,24 @@ deriving stock instance Show Triple_t
 
 ## Nested structures
 
-A nested structure is a structure inside another structure. Nested structures
-can be declared _separately_ or in an _embedded_ way.
+> [!NOTE] This section has many similarities to the [Nested unions
+> section](./Unions.md#nested-unions). Consider reading both.
+
+A nested structure is a structure inside another union or structure. Nested
+structures can be declared _separately_ or in an _embedded_ way. If nested
+structures are _embedded_, then they can either be _named_ or _anonymous_
+structures.
+
+For the most part the generated bindings are unsurprising regardless of whether
+a nested structures is inside a union or a structure. For simplicity we will
+almost exclusively show examples of nested structures inside structures in the
+remainder of this section. The one exception where we consider structs and
+unions separately has to do with _anonymous_ structures.
 
 ### Separate declaration
 
 First we declare a named structure, and then refer to it from the declaration of
-the nested structure:
+the enclosing structure:
 
 ```c
 /* Separate declaration of named structure. */
@@ -77,7 +88,7 @@ struct room {
 };
 ```
 
-creates the following bindings (instances omitted for brevity):
+`hs-bindgen` generates the following bindings (instances omitted for brevity):
 
 ```haskell
 data Door = Door
@@ -91,37 +102,15 @@ data Room = Room
   }
 ```
 
-### Embedded declaration (anonymous)
-
-Anonymous structures do not have a name nor a `typedef`. They are sometimes used
-when defining nested structures in an embedded way:
-
-```c
-/* Declare nested structure in an embedded way. The embedded structure is
-   anonymous. */
-struct aula1 {
-  struct {
-    float door_height;
-    float door_width;
-  };
-  int n_doors;
-};
-```
-
-Sometimes, we refer to such fields as _implicit fields_. `libclang` [does not
-provide enough information about the alignment of implicit
-fields](https://github.com/llvm/llvm-project/issues/122257), and so `hs-bindgen`
-does not support implicit fields yet. We [plan to support implicit
-fields](https://github.com/well-typed/hs-bindgen/issues/659) in the future.
 
 ### Embedded declaration (with variable name)
 
-Embedded structures can also have variable names:
+Embedded structures can have variable names:
 
 ```c
 /* Declare nested structure in an embedded way. The embedded structure has a
    variable name.  */
-struct aula2 {
+struct aula1 {
   struct {
     float height;
     float width;
@@ -133,16 +122,74 @@ struct aula2 {
 `hs-bindgen` generates the following bindings (instances omitted for brevity):
 
 ```haskell
-data Aula2_door = Aula2_door
-  { aula2_door_height :: CFloat
-  , aula2_door_width :: CFloat
+data Aula1_door = Aula1_door
+  { aula1_door_height :: CFloat
+  , aula1_door_width :: CFloat
   }
 
-data Aula2 = Aula2
-  { aula2_door :: Aula2_door
-  , aula2_n_doors :: CInt
+data Aula1 = Aula1
+  { aula1_door :: Aula1_door
+  , aula1_n_doors :: CInt
   }
 ```
+
+### Embedded declaration (anonymous)
+
+The definition of an anonymous structure is as follows (quoted from
+[cppreference.com][cppreference:struct]):
+
+[cppreference:struct]: https://en.cppreference.com/w/c/language/struct.html
+
+> Similar to union, an unnamed member of a struct whose type is a struct without
+> name is known as anonymous struct. Every member of an anonymous struct is
+> considered to be a member of the enclosing struct or union, keeping their
+> structure layout. This applies recursively if the enclosing struct or union is
+> also anonymous.
+
+Anonymous structures are sometimes used when defining nested structures in an
+embedded wa. This is one such example:
+
+```c
+/* Declare nested structure in an embedded way. The embedded structure is
+   anonymous. */
+struct aula2 {
+  struct {
+    float door_height;
+    float door_width;
+  };
+  int n_doors;
+};
+```
+
+By the C reference's definition of an anonymous structure, the fields of the
+nested structure can be accessed as if they were part of the enclosing
+structure. The same would be valid if the enclosing structure were a union
+instead. Sometimes, we refer to such fields as _implicit fields_.
+
+```c
+struct aula2 x;
+x.door_height = 1; // valid
+x.door_width = 2; // valid
+x.n_doors = 3; // valid
+```
+
+Currently `libclang` [does not provide information about the offset and
+alignment of implicit
+fields](https://github.com/llvm/llvm-project/issues/122257). This is problematic
+for binding generation, but to varying degrees depending on whether a nested
+structure is enclosed by a union or a structure.
+
+* **Nested structure inside an enclosing union**: the members of the enclosing
+  union are stored at offset 0 with respect to the enclosing union. Meaning that
+  a nested structure is also stored at offset 0, hence we do not need `libclang`
+  to tell us what the offset of the nested structure field is.
+
+* **Nested structure inside an enclosing structure**: the members of the
+  enclosing structure are stored at different offsets with respect to the
+  enclosing structure. Since we don't know these offsets, we can not generate
+  bindings. We [plan to support implicit
+  fields](https://github.com/well-typed/hs-bindgen/issues/682) for this scenario
+  in the future.
 
 ## Bitfields
 

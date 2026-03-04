@@ -40,6 +40,13 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
   preprocess \
     -I c \
+    -o hs/manual/generated/Unions.hs \
+    --module Unions \
+    unions.h
+
+cabal run hs-bindgen-cli -- \
+  preprocess \
+    -I c \
     -o hs/manual/generated/Globals.hs \
     --module Globals \
     globals.h

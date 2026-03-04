@@ -1,0 +1,32 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Generated.FFIType.A
+ctypes:
+- headers: ffitype.h
+  cname: A
+  hsname: A
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - un_A
+      ffitype: CChar
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable

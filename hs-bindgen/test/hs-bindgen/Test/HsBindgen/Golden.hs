@@ -106,7 +106,6 @@ testCases = [
     , defaultTest "typedef_vs_macro"
     , defaultTest "typedefs"
     , defaultTest "typenames"
-    , defaultTest "unions"
     , defaultTest "uses_utf8"
     , defaultTest "vector"
 
@@ -201,6 +200,11 @@ testCases = [
           Just $ Expected $ Labelled "Squashed" $ C.declIdName (C.declId info)
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsRenamedTagged info _to)) ->
           Just $ Expected $ Labelled "Renamed"  $ C.declIdName (C.declId info)
+        _otherwise ->
+          Nothing
+    , testTraceCustom "unions" ["u1", "u2", "u3", "u4", "u5"] $ \case
+        TraceFrontend (FrontendParse (ParseUnionImplicitFields info _)) ->
+          Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
     , testTraceCustom "varargs" ["f", "g"] $ \case

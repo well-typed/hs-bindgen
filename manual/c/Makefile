@@ -27,7 +27,7 @@ ifeq ($(LLVM_BACKEND),1)
 	EXTRAFLAGS:=
 endif
 
-default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libglobals${TARGET_EXT} libarrays${TARGET_EXT} libfunctionpointers${TARGET_EXT} libcomplex_test${TARGET_EXT}
+default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libunions${TARGET_EXT} libglobals${TARGET_EXT} libarrays${TARGET_EXT} libfunctionpointers${TARGET_EXT} libcomplex_test${TARGET_EXT}
 
 .PHONY: clean
 clean:
@@ -46,6 +46,12 @@ libstructs${TARGET_EXT}: structs.o
 
 structs.o: structs.c structs.h
 	gcc ${EXTRAFLAGS} -Wall -o structs.o -c -fPIC structs.c
+
+libunions${TARGET_EXT}: unions.o
+	gcc ${EXTRAFLAGS} -Wall -shared -o libunions${TARGET_EXT} unions.o
+
+unions.o: unions.c unions.h
+	gcc ${EXTRAFLAGS} -Wall -o unions.o -c -fPIC unions.c
 
 libglobals${TARGET_EXT}: globals.o
 	gcc ${EXTRAFLAGS} -Wall -shared -o libglobals${TARGET_EXT} globals.o

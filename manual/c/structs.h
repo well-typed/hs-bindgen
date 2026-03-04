@@ -15,28 +15,28 @@ struct room {
   struct door door2;
 };
 
-/* Embedded anonymous structures lead to an error while generating bindings. */
-/* Issue https://github.com/well-typed/hs-bindgen/issues/659. */
-
-/* /\* Declare nested structure in an embedded way. The embedded structure is */
-/*    anonymous. *\/ */
-/* struct aula1 { */
-/*   struct { */
-/*     float door_height; */
-/*     float door_width; */
-/*   }; */
-/*   int n_doors; */
-/* }; */
-
 /* Declare nested structure in an embedded way. The embedded structure has a
    variable name.  */
-struct aula2 {
+struct aula1 {
   struct {
     float height;
     float width;
   } door;
   int n_doors;
 };
+
+// Embedded anonymous structures lead to an error while generating bindings.
+// Issue https://github.com/well-typed/hs-bindgen/issues/659.
+
+// /* Declare nested structure in an embedded way. The embedded structure is
+//    anonymous. */
+// struct aula2 {
+//   struct {
+//     float door_height;
+//     float door_width;
+//   };
+//   int n_doors;
+// };
 
 /* -------------------------------------------------------------------------- */
 /* Bitfields. */

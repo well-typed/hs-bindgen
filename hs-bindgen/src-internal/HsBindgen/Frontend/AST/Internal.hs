@@ -174,6 +174,8 @@ data Union p = Union {
 data UnionField p = UnionField {
       unionFieldInfo    :: FieldInfo p
     , unionFieldType    :: Type p
+    , unionFieldOffset  :: Int -- ^ Offset in bits
+    , unionFieldWidth   :: Maybe Int
     , unionFieldAnn     :: Ann "UnionField" p
     }
 

@@ -61,3 +61,33 @@ types:
   identifier: DimPayloadB
   instances:
   - Storable
+- headers: unions.h
+  cname: union u1
+  module: Example
+  identifier: U1
+  instances:
+  - Storable
+- headers: unions.h
+  cname: union u2
+  module: Example
+  identifier: U2
+  instances:
+  - Storable
+- headers: unions.h
+  cname: union u3
+  module: Example
+  identifier: U3
+  instances:
+  - Storable
+- headers: unions.h
+  cname: union u4
+  module: Example
+  identifier: U4
+  instances:
+  - Storable
+- headers: unions.h
+  cname: union u5
+  module: Example
+  identifier: U5
+  instances:
+  - Storable

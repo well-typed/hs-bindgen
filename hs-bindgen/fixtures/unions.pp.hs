@@ -457,3 +457,470 @@ get_anonA_polar =
 set_anonA_polar :: AnonA_polar -> AnonA
 set_anonA_polar =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U1 = U1
+  { un_U1 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable U1
+
+{-|
+
+  __See:__ 'set_u1_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:46:9@
+
+__exported by:__ @unions.h@
+-}
+get_u1_x1 :: U1 -> FC.CInt
+get_u1_x1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u1_x1'
+
+-}
+set_u1_x1 :: FC.CInt -> U1
+set_u1_x1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u1_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:47:10@
+
+__exported by:__ @unions.h@
+-}
+get_u1_x2 :: U1 -> FC.CChar
+get_u1_x2 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u1_x2'
+
+-}
+set_u1_x2 :: FC.CChar -> U1
+set_u1_x2 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U2 = U2
+  { un_U2 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U2
+
+{-|
+
+  __See:__ 'set_u2_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:54:9@
+
+__exported by:__ @unions.h@
+-}
+get_u2_x1 :: U2 -> FC.CInt
+get_u2_x1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u2_x1'
+
+-}
+set_u2_x1 :: FC.CInt -> U2
+set_u2_x1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u2_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:55:10@
+
+__exported by:__ @unions.h@
+-}
+get_u2_x2 :: U2 -> FC.CChar
+get_u2_x2 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u2_x2'
+
+-}
+set_u2_x2 :: FC.CChar -> U2
+set_u2_x2 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U3 = U3
+  { un_U3 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable U3
+
+{-|
+
+  __See:__ 'set_u3_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:61:7@
+
+__exported by:__ @unions.h@
+-}
+get_u3_l1 :: U3 -> FC.CInt
+get_u3_l1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u3_l1'
+
+-}
+set_u3_l1 :: FC.CInt -> U3
+set_u3_l1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u3_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:63:9@
+
+__exported by:__ @unions.h@
+-}
+get_u3_x1 :: U3 -> FC.CInt
+get_u3_x1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u3_x1'
+
+-}
+set_u3_x1 :: FC.CInt -> U3
+set_u3_x1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u3_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:64:10@
+
+__exported by:__ @unions.h@
+-}
+get_u3_x2 :: U3 -> FC.CChar
+get_u3_x2 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u3_x2'
+
+-}
+set_u3_x2 :: FC.CChar -> U3
+set_u3_x2 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U4 = U4
+  { un_U4 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U4
+
+{-|
+
+  __See:__ 'set_u4_l1'
+
+__C declaration:__ @l1@
+
+__defined at:__ @unions.h:89:7@
+
+__exported by:__ @unions.h@
+-}
+get_u4_l1 :: U4 -> FC.CInt
+get_u4_l1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u4_l1'
+
+-}
+set_u4_l1 :: FC.CInt -> U4
+set_u4_l1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u4_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:91:9@
+
+__exported by:__ @unions.h@
+-}
+get_u4_x1 :: U4 -> FC.CInt
+get_u4_x1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u4_x1'
+
+-}
+set_u4_x1 :: FC.CInt -> U4
+set_u4_x1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u4_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:92:10@
+
+__exported by:__ @unions.h@
+-}
+get_u4_x2 :: U4 -> FC.CChar
+get_u4_x2 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u4_x2'
+
+-}
+set_u4_x2 :: FC.CChar -> U4
+set_u4_x2 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+newtype U5 = U5
+  { un_U5 :: Data.Array.Byte.ByteArray
+  }
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable U5
+
+{-|
+
+  __See:__ 'set_u5_uint32_t'
+
+__C declaration:__ @uint32_t@
+
+__defined at:__ @unions.h:101:7@
+
+__exported by:__ @unions.h@
+-}
+get_u5_uint32_t :: U5 -> FC.CInt
+get_u5_uint32_t =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_uint32_t'
+
+-}
+set_u5_uint32_t :: FC.CInt -> U5
+set_u5_uint32_t =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_x1'
+
+__C declaration:__ @x1@
+
+__defined at:__ @unions.h:103:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x1 :: U5 -> FC.CChar
+get_u5_x1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_x1'
+
+-}
+set_u5_x1 :: FC.CChar -> U5
+set_u5_x1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_x2'
+
+__C declaration:__ @x2@
+
+__defined at:__ @unions.h:104:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x2 :: U5 -> FC.CChar
+get_u5_x2 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_x2'
+
+-}
+set_u5_x2 :: FC.CChar -> U5
+set_u5_x2 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_x3'
+
+__C declaration:__ @x3@
+
+__defined at:__ @unions.h:105:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x3 :: U5 -> FC.CChar
+get_u5_x3 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_x3'
+
+-}
+set_u5_x3 :: FC.CChar -> U5
+set_u5_x3 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_x4'
+
+__C declaration:__ @x4@
+
+__defined at:__ @unions.h:106:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_x4 :: U5 -> FC.CChar
+get_u5_x4 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_x4'
+
+-}
+set_u5_x4 :: FC.CChar -> U5
+set_u5_x4 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_y1'
+
+__C declaration:__ @y1@
+
+__defined at:__ @unions.h:109:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y1 :: U5 -> FC.CChar
+get_u5_y1 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_y1'
+
+-}
+set_u5_y1 :: FC.CChar -> U5
+set_u5_y1 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_y2'
+
+__C declaration:__ @y2@
+
+__defined at:__ @unions.h:110:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y2 :: U5 -> FC.CChar
+get_u5_y2 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_y2'
+
+-}
+set_u5_y2 :: FC.CChar -> U5
+set_u5_y2 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_y3'
+
+__C declaration:__ @y3@
+
+__defined at:__ @unions.h:111:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y3 :: U5 -> FC.CChar
+get_u5_y3 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_y3'
+
+-}
+set_u5_y3 :: FC.CChar -> U5
+set_u5_y3 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-|
+
+  __See:__ 'set_u5_y4'
+
+__C declaration:__ @y4@
+
+__defined at:__ @unions.h:112:10@
+
+__exported by:__ @unions.h@
+-}
+get_u5_y4 :: U5 -> FC.CChar
+get_u5_y4 =
+  HsBindgen.Runtime.ByteArray.getUnionPayload
+
+{-|
+
+  __See:__ 'get_u5_y4'
+
+-}
+set_u5_y4 :: FC.CChar -> U5
+set_u5_y4 =
+  HsBindgen.Runtime.ByteArray.setUnionPayload

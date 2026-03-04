@@ -253,6 +253,21 @@ unionDecl info = simpleFold $ \curr -> do
                 , declAnn  = NoAnn
                 }
 
+        let getFields :: C.Decl Parse -> [C.UnionField Parse]
+            getFields C.Decl{declKind} = case declKind of
+                C.DeclStruct struct -> fmap structFieldUnionField $ C.structFields struct
+                C.DeclUnion union   -> C.unionFields union
+                _otherwise          -> []
+
+            structFieldUnionField :: C.StructField Parse -> C.UnionField Parse
+            structFieldUnionField C.StructField{..} = C.UnionField {
+                  unionFieldInfo = structFieldInfo
+                , unionFieldType = structFieldType
+                , unionFieldOffset = structFieldOffset
+                , unionFieldWidth = structFieldWidth
+                , unionFieldAnn = structFieldAnn
+                }
+
         -- Separate out nested declarations from regular struct fields
         --
         -- Local declarations inside unions that are not used by any fields
@@ -264,12 +279,11 @@ unionDecl info = simpleFold $ \curr -> do
         let partitionChildren ::
                  [Either [C.Decl Parse] (C.UnionField Parse)]
               -> ParseDecl (Maybe ([C.Decl Parse], [C.UnionField Parse]))
-            partitionChildren xs
-              | null unused = return $ Just (used, fields)
-              | otherwise   = do
-                  recordTrace info (NameKindTagged TagKindUnion)
-                    $ ParseUnsupportedImplicitFields info
-                  return Nothing
+            partitionChildren xs = do
+                unless (null unused) $
+                  recordTrace info (NameKindTagged TagKindUnion) $
+                    ParseUnionImplicitFields info (map C.declInfo unused)
+                return $ Just (used, fields ++ concatMap getFields unused)
               where
                 otherDecls :: [C.Decl Parse]
                 fields     :: [C.UnionField Parse]
@@ -339,10 +353,14 @@ unionFieldDecl info = \curr -> do
     unionFieldType <-
       fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindUnion))
         =<< clang_getCursorType curr
-    unionFieldAnn  <- getReparseInfo curr
+    unionFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
+    unionFieldAnn    <- getReparseInfo curr
+    unionFieldWidth  <- structWidth curr
     pure C.UnionField{
         unionFieldInfo
       , unionFieldType
+      , unionFieldOffset
+      , unionFieldWidth
       , unionFieldAnn
       }
 
@@ -743,6 +761,8 @@ detectUnionImplicitFields ::
   -> [C.UnionField Parse]
      -- ^ Fields of the (outer) union
   -> ([C.Decl Parse], [C.Decl Parse])
+     -- ^ The first component contains the implicit fields, the second component
+     -- contains the "regular" fields.
 detectUnionImplicitFields nestedDecls outerFields =
     List.partition declIsUsed nestedDecls
   where

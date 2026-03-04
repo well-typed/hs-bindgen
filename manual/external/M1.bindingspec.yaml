@@ -1,0 +1,180 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-gnu
+hsmodule: BindingSpecifications.M1
+ctypes:
+- headers: binding_specifications.h
+  cname: TyA
+  hsname: TyA
+- headers: binding_specifications.h
+  cname: TyB
+  hsname: TyB
+- headers: binding_specifications.h
+  cname: TyC
+  hsname: TyC
+- headers: binding_specifications.h
+  cname: TyD
+  hsname: TyD
+- headers: binding_specifications.h
+  cname: TyE
+  hsname: TyE
+- headers: binding_specifications.h
+  cname: enum TyEnum
+  hsname: TyEnum
+- headers: binding_specifications.h
+  cname: TyF
+  hsname: TyF
+- headers: binding_specifications.h
+  cname: TyG
+  hsname: TyG
+- headers: binding_specifications.h
+  cname: TyH
+  hsname: TyH
+- headers: binding_specifications.h
+  cname: TyI
+  hsname: TyI
+- headers: binding_specifications.h
+  cname: struct TyStruct
+  hsname: TyStruct
+- headers: binding_specifications.h
+  cname: union TyUnion
+  hsname: TyUnion
+hstypes:
+- hsname: TyA
+  representation:
+    newtype:
+      constructor: TyA
+      fields:
+      - un_TyA
+      ffitype: CChar
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: TyB
+  representation:
+    newtype:
+      constructor: TyB
+      fields:
+      - un_TyB
+  instances:
+  - Eq
+  - Show
+- hsname: TyC
+  representation:
+    newtype:
+      constructor: TyC
+      fields:
+      - un_TyC
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: TyD
+  representation:
+    newtype:
+      constructor: TyD
+      fields:
+      - un_TyD
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: TyE
+  representation:
+    newtype:
+      constructor: TyE
+      fields:
+      - un_TyE
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: TyEnum
+  representation:
+    newtype:
+      constructor: TyEnum
+      fields:
+      - un_TyEnum
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: TyF
+  representation:
+    newtype:
+      constructor: TyF
+      fields:
+      - un_TyF
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: TyG
+  representation:
+    record:
+      constructor: TyG
+      fields:
+      - tyG_x
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: TyH
+  representation:
+    newtype:
+      constructor: TyH
+      fields:
+      - un_TyH
+  instances:
+  - Storable
+- hsname: TyI
+  representation:
+    newtype:
+      constructor: TyI
+      fields:
+      - un_TyI
+  instances:
+  - Storable
+- hsname: TyStruct
+  representation:
+    record:
+      constructor: TyStruct
+      fields:
+      - tyStruct_x
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: TyUnion
+  representation:
+    newtype:
+      constructor: TyUnion
+      fields:
+      - un_TyUnion
+  instances:
+  - Storable

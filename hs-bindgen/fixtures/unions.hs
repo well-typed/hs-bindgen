@@ -4482,4 +4482,1549 @@
               [
                 Bold [TextContent "See:"],
                 Identifier
-                  "get_anonA_polar"]]}}]
+                  "get_anonA_polar"]]}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "U1",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "U1",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_U1",
+        fieldType = HsByteArray,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin =
+      Decl {
+        declInfo =
+        DeclInfo {
+          declLoc = "unions.h:44:7",
+          declId = NamePair {
+            nameC = Name "u1",
+            nameHsIdent = HsIdentifier
+              "U1"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          declComment =
+          Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "A union containing only an implicit, anonymous struct."]])},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "U1",
+              newtypeField = HsName
+                "@NsVar"
+                "un_U1"},
+            unionSizeof = 8,
+            unionAlignment = 4,
+            unionFields = [
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:46:9",
+                  fieldName = NamePair {
+                    nameC = Name "x1",
+                    nameHsIdent = HsIdentifier
+                      "u1_x1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed)},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:47:10",
+                  fieldName = NamePair {
+                    nameC = Name "x2",
+                    nameHsIdent = HsIdentifier
+                      "u1_x2"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [Storable],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A union containing only an implicit, anonymous struct."],
+          commentOrigin = Just "u1",
+          commentLocation = Just
+            "unions.h:44:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveVia
+        (HsSizedByteArray 8 4),
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "U1",
+      deriveInstanceComment =
+      Nothing},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u1_x1",
+      unionGetterType = HsPrimType
+        HsPrimCInt,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U1",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x1",
+          commentLocation = Just
+            "unions.h:46:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u1_x1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u1_x1",
+      unionSetterType = HsPrimType
+        HsPrimCInt,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U1",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u1_x1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u1_x2",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U1",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x2",
+          commentLocation = Just
+            "unions.h:47:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u1_x2"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u1_x2",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U1",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u1_x2"]]}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "U2",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "U2",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_U2",
+        fieldType = HsByteArray,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin =
+      Decl {
+        declInfo =
+        DeclInfo {
+          declLoc = "unions.h:52:7",
+          declId = NamePair {
+            nameC = Name "u2",
+            nameHsIdent = HsIdentifier
+              "U2"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          declComment =
+          Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "A union containing only an implicit, anonymous union."]])},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "U2",
+              newtypeField = HsName
+                "@NsVar"
+                "un_U2"},
+            unionSizeof = 4,
+            unionAlignment = 4,
+            unionFields = [
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:54:9",
+                  fieldName = NamePair {
+                    nameC = Name "x1",
+                    nameHsIdent = HsIdentifier
+                      "u2_x1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed)},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:55:10",
+                  fieldName = NamePair {
+                    nameC = Name "x2",
+                    nameHsIdent = HsIdentifier
+                      "u2_x2"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [Storable],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A union containing only an implicit, anonymous union."],
+          commentOrigin = Just "u2",
+          commentLocation = Just
+            "unions.h:52:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveVia
+        (HsSizedByteArray 4 4),
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "U2",
+      deriveInstanceComment =
+      Nothing},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u2_x1",
+      unionGetterType = HsPrimType
+        HsPrimCInt,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U2",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x1",
+          commentLocation = Just
+            "unions.h:54:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u2_x1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u2_x1",
+      unionSetterType = HsPrimType
+        HsPrimCInt,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U2",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u2_x1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u2_x2",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U2",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x2",
+          commentLocation = Just
+            "unions.h:55:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u2_x2"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u2_x2",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U2",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u2_x2"]]}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "U3",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "U3",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_U3",
+        fieldType = HsByteArray,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin =
+      Decl {
+        declInfo =
+        DeclInfo {
+          declLoc = "unions.h:60:7",
+          declId = NamePair {
+            nameC = Name "u3",
+            nameHsIdent = HsIdentifier
+              "U3"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          declComment =
+          Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "A union containing a regular field and an implicit, anonymous struct."]])},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "U3",
+              newtypeField = HsName
+                "@NsVar"
+                "un_U3"},
+            unionSizeof = 8,
+            unionAlignment = 4,
+            unionFields = [
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:61:7",
+                  fieldName = NamePair {
+                    nameC = Name "l1",
+                    nameHsIdent = HsIdentifier
+                      "u3_l1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed)},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:63:9",
+                  fieldName = NamePair {
+                    nameC = Name "x1",
+                    nameHsIdent = HsIdentifier
+                      "u3_x1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed)},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:64:10",
+                  fieldName = NamePair {
+                    nameC = Name "x2",
+                    nameHsIdent = HsIdentifier
+                      "u3_x2"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [Storable],
+      newtypeComment =
+      Just
+        Comment {
+          commentTitle =
+          Just
+            [
+              TextContent
+                "A union containing a regular field and an implicit, anonymous struct."],
+          commentOrigin = Just "u3",
+          commentLocation = Just
+            "unions.h:60:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveVia
+        (HsSizedByteArray 8 4),
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "U3",
+      deriveInstanceComment =
+      Nothing},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u3_l1",
+      unionGetterType = HsPrimType
+        HsPrimCInt,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U3",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "l1",
+          commentLocation = Just
+            "unions.h:61:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u3_l1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u3_l1",
+      unionSetterType = HsPrimType
+        HsPrimCInt,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U3",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u3_l1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u3_x1",
+      unionGetterType = HsPrimType
+        HsPrimCInt,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U3",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x1",
+          commentLocation = Just
+            "unions.h:63:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u3_x1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u3_x1",
+      unionSetterType = HsPrimType
+        HsPrimCInt,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U3",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u3_x1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u3_x2",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U3",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x2",
+          commentLocation = Just
+            "unions.h:64:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u3_x2"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u3_x2",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U3",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u3_x2"]]}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "U4",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "U4",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_U4",
+        fieldType = HsByteArray,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin =
+      Decl {
+        declInfo =
+        DeclInfo {
+          declLoc = "unions.h:88:7",
+          declId = NamePair {
+            nameC = Name "u4",
+            nameHsIdent = HsIdentifier
+              "U4"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          declComment =
+          Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "A union containing a regular field and an implicit, anonymous union."]])},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "U4",
+              newtypeField = HsName
+                "@NsVar"
+                "un_U4"},
+            unionSizeof = 4,
+            unionAlignment = 4,
+            unionFields = [
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:89:7",
+                  fieldName = NamePair {
+                    nameC = Name "l1",
+                    nameHsIdent = HsIdentifier
+                      "u4_l1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed)},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:91:9",
+                  fieldName = NamePair {
+                    nameC = Name "x1",
+                    nameHsIdent = HsIdentifier
+                      "u4_x1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed)},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:92:10",
+                  fieldName = NamePair {
+                    nameC = Name "x2",
+                    nameHsIdent = HsIdentifier
+                      "u4_x2"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [Storable],
+      newtypeComment =
+      Just
+        Comment {
+          commentTitle =
+          Just
+            [
+              TextContent
+                "A union containing a regular field and an implicit, anonymous union."],
+          commentOrigin = Just "u4",
+          commentLocation = Just
+            "unions.h:88:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveVia
+        (HsSizedByteArray 4 4),
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "U4",
+      deriveInstanceComment =
+      Nothing},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u4_l1",
+      unionGetterType = HsPrimType
+        HsPrimCInt,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U4",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "l1",
+          commentLocation = Just
+            "unions.h:89:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u4_l1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u4_l1",
+      unionSetterType = HsPrimType
+        HsPrimCInt,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U4",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u4_l1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u4_x1",
+      unionGetterType = HsPrimType
+        HsPrimCInt,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U4",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x1",
+          commentLocation = Just
+            "unions.h:91:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u4_x1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u4_x1",
+      unionSetterType = HsPrimType
+        HsPrimCInt,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U4",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u4_x1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u4_x2",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U4",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x2",
+          commentLocation = Just
+            "unions.h:92:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u4_x2"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u4_x2",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U4",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u4_x2"]]}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "U5",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "U5",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_U5",
+        fieldType = HsByteArray,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "unions.h:100:7",
+          declId = NamePair {
+            nameC = Name "u5",
+            nameHsIdent = HsIdentifier
+              "U5"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          declComment = Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "A union containing:",
+                    TextContent "- a regular field",
+                    TextContent
+                      "- an implicit, anonymous struct",
+                    TextContent
+                      "- an implicit, anonymous union"]])},
+        declKind = Union
+          Union {
+            unionNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "U5",
+              newtypeField = HsName
+                "@NsVar"
+                "un_U5"},
+            unionSizeof = 4,
+            unionAlignment = 4,
+            unionFields = [
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:101:7",
+                  fieldName = NamePair {
+                    nameC = Name "uint32_t",
+                    nameHsIdent = HsIdentifier
+                      "u5_uint32_t"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimIntegral PrimInt Signed)},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:103:10",
+                  fieldName = NamePair {
+                    nameC = Name "x1",
+                    nameHsIdent = HsIdentifier
+                      "u5_x1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:104:10",
+                  fieldName = NamePair {
+                    nameC = Name "x2",
+                    nameHsIdent = HsIdentifier
+                      "u5_x2"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:105:10",
+                  fieldName = NamePair {
+                    nameC = Name "x3",
+                    nameHsIdent = HsIdentifier
+                      "u5_x3"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:106:10",
+                  fieldName = NamePair {
+                    nameC = Name "x4",
+                    nameHsIdent = HsIdentifier
+                      "u5_x4"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:109:10",
+                  fieldName = NamePair {
+                    nameC = Name "y1",
+                    nameHsIdent = HsIdentifier
+                      "u5_y1"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:110:10",
+                  fieldName = NamePair {
+                    nameC = Name "y2",
+                    nameHsIdent = HsIdentifier
+                      "u5_y2"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:111:10",
+                  fieldName = NamePair {
+                    nameC = Name "y3",
+                    nameHsIdent = HsIdentifier
+                      "u5_y3"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))},
+              UnionField {
+                unionFieldInfo = FieldInfo {
+                  fieldLoc = "unions.h:112:10",
+                  fieldName = NamePair {
+                    nameC = Name "y4",
+                    nameHsIdent = HsIdentifier
+                      "u5_y4"},
+                  fieldComment = Nothing},
+                unionFieldType = TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))}]},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [Storable],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "A union containing:",
+              TextContent "- a regular field",
+              TextContent
+                "- an implicit, anonymous struct",
+              TextContent
+                "- an implicit, anonymous union"],
+          commentOrigin = Just "u5",
+          commentLocation = Just
+            "unions.h:100:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveVia
+        (HsSizedByteArray 4 4),
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "U5",
+      deriveInstanceComment =
+      Nothing},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_uint32_t",
+      unionGetterType = HsPrimType
+        HsPrimCInt,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "uint32_t",
+          commentLocation = Just
+            "unions.h:101:7",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier
+                  "set_u5_uint32_t"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_uint32_t",
+      unionSetterType = HsPrimType
+        HsPrimCInt,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier
+                  "get_u5_uint32_t"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_x1",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x1",
+          commentLocation = Just
+            "unions.h:103:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_x1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_x1",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_x1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_x2",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x2",
+          commentLocation = Just
+            "unions.h:104:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_x2"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_x2",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_x2"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_x3",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x3",
+          commentLocation = Just
+            "unions.h:105:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_x3"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_x3",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_x3"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_x4",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "x4",
+          commentLocation = Just
+            "unions.h:106:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_x4"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_x4",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_x4"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_y1",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "y1",
+          commentLocation = Just
+            "unions.h:109:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_y1"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_y1",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_y1"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_y2",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "y2",
+          commentLocation = Just
+            "unions.h:110:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_y2"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_y2",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_y2"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_y3",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "y3",
+          commentLocation = Just
+            "unions.h:111:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_y3"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_y3",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_y3"]]}},
+  DeclUnionGetter
+    UnionGetter {
+      unionGetterName = HsName
+        "@NsVar"
+        "get_u5_y4",
+      unionGetterType = HsPrimType
+        HsPrimCChar,
+      unionGetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionGetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "y4",
+          commentLocation = Just
+            "unions.h:112:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["unions.h"],
+              headerInclude = "unions.h"},
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "set_u5_y4"]]}},
+  DeclUnionSetter
+    UnionSetter {
+      unionSetterName = HsName
+        "@NsVar"
+        "set_u5_y4",
+      unionSetterType = HsPrimType
+        HsPrimCChar,
+      unionSetterConstr = HsName
+        "@NsTypeConstr"
+        "U5",
+      unionSetterComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = [
+            Paragraph
+              [
+                Bold [TextContent "See:"],
+                Identifier "get_u5_y4"]]}}]
