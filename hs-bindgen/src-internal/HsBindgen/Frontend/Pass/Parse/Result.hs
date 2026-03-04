@@ -9,7 +9,6 @@ module HsBindgen.Frontend.Pass.Parse.Result (
   , parseSucceed
   , parseSucceedWith
   , parseDoNotAttempt
-  , parseFail
     -- * Query
   , getParseResultMaybeDecl
   , getParseResultEitherDecl
@@ -85,7 +84,7 @@ data ParseNotAttempted =
 -- We need this information when selecting declarations: Does the user want to
 -- select declarations, we have failed to parse?
 newtype ParseFailure = ParseFailure {
-      msg :: DelayedParseMsg
+      msg :: ParseMsg
     }
   deriving stock (Show, Generic)
   deriving newtype (IsTrace Level)
@@ -125,9 +124,11 @@ instance PrettyForTrace ParseFailure where
   Convenience constructors
 -------------------------------------------------------------------------------}
 
+-- | Assemble a parse success
 parseSucceed :: C.Decl p -> ParseResult p
 parseSucceed = parseSucceedWith []
 
+-- | Assemble a parse success with delayed parse messages
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl p -> ParseResult p
 parseSucceedWith msgs decl = ParseResult{
      id             = decl.info.id
@@ -138,18 +139,12 @@ parseSucceedWith msgs decl = ParseResult{
        }
     }
 
+-- | Assemble a "parse not attempted" with a reason
 parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult p
 parseDoNotAttempt info reason = ParseResult{
       id              = info.id
     , loc             = info.loc
     , classification = ParseResultNotAttempted reason
-    }
-
-parseFail :: Id p -> SingleLoc -> DelayedParseMsg -> ParseResult p
-parseFail declId declLoc msg = ParseResult{
-      id             = declId
-    , loc            = declLoc
-    , classification = ParseResultFailure $ ParseFailure msg
     }
 
 {-------------------------------------------------------------------------------

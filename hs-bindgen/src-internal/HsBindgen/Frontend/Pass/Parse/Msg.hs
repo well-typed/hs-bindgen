@@ -1,12 +1,11 @@
 -- | Parse messages
 module HsBindgen.Frontend.Pass.Parse.Msg (
+    ParseMsg(..)
+
     -- * Immediate parse messages
-    ImmediateParseMsg(..)
+  , ImmediateParseMsg(..)
 
     -- * Delayed parse messages
-  , ParseTypeException(..)
-  , ParseDeclException(..)
-  , ParseMsg(..)
   , DelayedParseMsg(..)
   ) where
 
@@ -24,6 +23,15 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
+data ParseMsg = Immediate ImmediateParseMsg | Delayed DelayedParseMsg
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance PrettyForTrace ParseMsg
+instance IsTrace Level ParseMsg
+
+instance Exception ParseMsg where
+  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
+
 {-------------------------------------------------------------------------------
   Immediate parse messages
 -------------------------------------------------------------------------------}
@@ -37,30 +45,22 @@ import HsBindgen.Util.Tracer
 --
 -- - The declaration we fail to parse may affect other declarations
 data ImmediateParseMsg =
-    -- | We failed to parse a declaration that is required for scoping.
-    ParseOfDeclarationRequiredForScopingFailed ParseTypeException
-  deriving stock (Show)
+    -- | Recursive case; we failed to parse the target of a @typedef@ with an
+    --   immediate parse message.
+    ParseUnexpectedUnderlyingType PrelimDeclId ImmediateParseMsg
 
-instance PrettyForTrace ImmediateParseMsg where
-  prettyForTrace = \case
-      ParseOfDeclarationRequiredForScopingFailed err ->
-        PP.hang "Parse of declaration required for scoping failed:" 2 $
-          prettyForTrace err
+    -- | Recursive case; we failed to parse a declaration that is required for scoping.
+  | ParseOfDeclarationRequiredForScopingFailed ParseMsg
 
-instance IsTrace Level ImmediateParseMsg where
-  getDefaultLogLevel = \case
-      ParseOfDeclarationRequiredForScopingFailed{} -> Info
-  getSource  = const HsBindgen
-  getTraceId = const "parse-immediate"
+    -- | Recursive case; we failed to parse a declaration that may be required
+    --   for scoping.
+  | ParseOfDeclarationMaybeRequiredForScopingFailed ParseMsg
 
-{-------------------------------------------------------------------------------
-  Type-level exceptions
--------------------------------------------------------------------------------}
-
--- TODO-D: Unexpected should move into immediate.
-
--- | Unexpected exceptions that are caught and reported when parsing types
-data ParseTypeException =
+    -- | Declaration availability can not be determined.
+    --
+    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
+    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
+  | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
     -- | We encountered an unexpected type kind
     --
     -- This is always a bug in hs-bindgen: if this kind of type is unsupported,
@@ -68,56 +68,55 @@ data ParseTypeException =
     --
     -- If this is a @Left@ value, it means that our @libclang@ bindings are
     -- incomplete.
-    UnexpectedTypeKind (Either CInt CXTypeKind)
+  | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
 
     -- | We encountered an unexpected type declaration
     --
     -- Similar comments apply as for 'UnexpectedTypeKind'.
-  | UnexpectedTypeDecl (Either CInt CXCursorKind)
-
-    -- | We do not support variadic (varargs) functions
-  | UnsupportedVariadicFunction
-
-    -- | We do not support @long double@
-  | UnsupportedLongDouble
-
-    -- | Clang built-in declaration
-  | UnsupportedBuiltin Text
+  | ParseUnexpectedTypeDecl (Either CInt CXCursorKind)
 
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
-  | UnexpectedComplexType CXType
+  | ParseUnexpectedComplexType CXType
 
-  | UnsupportedUnderlyingType PrelimDeclId ParseTypeException
-  deriving stock (Show, Eq, Ord)
+  | ParseNoMainHeadersException String SourcePath
+  deriving stock (Show, Eq, Ord, Generic)
 
-instance Exception ParseTypeException where
-  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
-
-instance PrettyForTrace ParseTypeException where
+instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
-      UnexpectedTypeKind (Right kind) ->
-          unexpected $ "type kind " >< PP.show kind
-      UnexpectedTypeKind (Left i) ->
-          unexpected $ "type kind " >< PP.show i
-      UnexpectedTypeDecl (Right kind) ->
-          unexpected $ "type declaration " >< PP.show kind
-      UnexpectedTypeDecl (Left i) ->
-          unexpected $ "type declaration " >< PP.show i
-      UnsupportedVariadicFunction ->
-          "Unsupported variadic (varargs) function"
-      UnsupportedLongDouble ->
-          "Unsupported long double"
-      UnsupportedBuiltin name ->
-          "Unsupported built-in " >< PP.show name
-      UnexpectedComplexType ty ->
-          "Unexpected complex type " >< PP.show ty
-      UnsupportedUnderlyingType name err -> PP.hcat [
-            "Unsupported underlying type of typedef "
+      ParseUnexpectedUnderlyingType name err ->
+        unexpected $ PP.hcat [
+            "underlying type of typedef "
           , PP.show name
           , ": "
           , prettyForTrace err
           ]
+      ParseOfDeclarationRequiredForScopingFailed err ->
+        PP.hang "Parse of declaration required for scoping failed:" 2 $
+          prettyForTrace err
+      ParseOfDeclarationMaybeRequiredForScopingFailed err ->
+        PP.hang "Parse of declaration maybe required for scoping failed:" 2 $
+          prettyForTrace err
+      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
+          "Unknown declaration cursor availability:"
+        , PP.show simpleKind
+        ]
+      ParseUnexpectedTypeKind (Right kind) ->
+        unexpected $ "type kind " >< PP.show kind
+      ParseUnexpectedTypeKind (Left i) ->
+        unexpected $ "type kind " >< PP.show i
+      ParseUnexpectedTypeDecl (Right kind) ->
+        unexpected $ "type declaration " >< PP.show kind
+      ParseUnexpectedTypeDecl (Left i) ->
+        unexpected $ "type declaration " >< PP.show i
+      ParseUnexpectedComplexType ty ->
+        unexpected $ "complex type " >< PP.show ty
+      ParseNoMainHeadersException why whr -> PP.hsep [
+          "Could not determine main headers:"
+        , PP.string why
+        , "at"
+        , PP.string $ getSourcePath whr
+        ]
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
       unexpected msg = PP.vcat [
@@ -125,70 +124,40 @@ instance PrettyForTrace ParseTypeException where
           , PP.string pleaseReport
           ]
 
--- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
---
--- This ensures that for declarations that use known-to-be-unsupported types, we
--- can just register a parse failure and avoid generating bindings for that
--- declaration.
-instance IsTrace Level ParseTypeException where
+instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
-    UnexpectedTypeKind{}          -> Error
-    UnexpectedTypeDecl{}          -> Error
-    UnsupportedVariadicFunction   -> Warning
-    UnsupportedLongDouble         -> Warning
-    UnsupportedBuiltin{}          -> Warning
-    UnexpectedComplexType{}       -> Error
-    UnsupportedUnderlyingType _ x -> getDefaultLogLevel x
+      ParseUnexpectedUnderlyingType _ x                 -> getDefaultLogLevel x
+      ParseOfDeclarationRequiredForScopingFailed{}      -> Info
+      ParseOfDeclarationMaybeRequiredForScopingFailed{} -> Info
+      ParseUnknownCursorAvailability{}                  -> Notice
+      ParseUnexpectedTypeKind{}                         -> Warning
+      ParseUnexpectedTypeDecl{}                         -> Warning
+      ParseUnexpectedComplexType{}                      -> Warning
+      ParseNoMainHeadersException{}                     -> Error
   getSource  = const HsBindgen
-  getTraceId = const "parse-type-exception"
+  getTraceId = const "parse-immediate"
 
 {-------------------------------------------------------------------------------
-  Term-level exceptions
+  Delayed parse messages
 -------------------------------------------------------------------------------}
 
--- | Unexpected exceptions that are caught and reported when parsing terms
-data ParseDeclException =
-    ParseNoMainHeadersException String SourcePath
-  deriving stock (Show, Eq, Ord)
-
-instance Exception ParseDeclException where
-  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
-
-instance PrettyForTrace ParseDeclException where
-  prettyForTrace = \case
-    ParseNoMainHeadersException why whr -> PP.hsep [
-        "Could not determine main headers:"
-      , PP.string why
-      , "at"
-      , PP.string $ getSourcePath whr
-      ]
-
-instance IsTrace Level ParseDeclException where
-  getDefaultLogLevel = const Error
-  getSource          = const HsBindgen
-  getTraceId = \case
-    ParseNoMainHeadersException{} -> "parse-no-main-headers"
-
-{-------------------------------------------------------------------------------
-  Messages
--------------------------------------------------------------------------------}
-
--- | Parse messages
+-- | Delayed parse messages
+--
+-- We emit these parse messages only when we attempt to select the attached
+-- declaration.
 --
 -- We distinguish between \"unsupported\", which refers to C features that one
--- could reasonably expect to be supported eventually, and \"unexpected\", for
--- strange C input.
-data ParseMsg =
-    -- | Declaration availability can not be determined.
-    --
-    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
-    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-    ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
+-- could reasonably expect to be supported eventually, and \"unexpected\", for C
+-- input we are not prepared for.
+data DelayedParseMsg =
+    -- | Recursive case; we failed to parse the target of a @typedef@ with a
+    --   delayed parse message.
+    ParseUnsupportedUnderlyingType PrelimDeclId DelayedParseMsg
 
     -- | Struct with implicit fields
   | ParseUnsupportedImplicitFields
 
-    -- | Unexpected anonymous declaration inside function signature
+    -- | Unsupported anonymous declaration inside function signature
     --
     -- Consider:
     --
@@ -216,9 +185,9 @@ data ParseMsg =
     -- no way of assigning a name to the struct). Since it is relatively clear
     -- that the anonymous version is anyway unusable (callers would have no way
     -- of constructing any values), we rule them out.
-  | ParseUnexpectedAnonInSignature
+  | ParseUnsupportedAnonInSignature
 
-    -- | Unexpected anonymous declaration inside @extern@
+    -- | Unsupported anonymous declaration inside @extern@
     --
     -- Something like
     --
@@ -239,7 +208,7 @@ data ParseMsg =
     -- (As of C23, the situation is different for /named/ structs: multiple uses
     -- of a struct with the same name are considered compatible as of
     -- WG14-N3037.)
-  | ParseUnexpectedAnonInExtern
+  | ParseUnsupportedAnonInExtern
 
     -- | Thread local variables
     --
@@ -308,19 +277,33 @@ data ParseMsg =
     -- here (that is, it's source location); the identifier of the outer
     -- declaration is recorded in the encloding 'ParseResult'.
   | ParseUnusableAnonDecl AnonId
+
+    -- | We do not support variadic (varargs) functions
+  | ParseUnsupportedVariadicFunction
+
+    -- | We do not support @long double@
+  | ParseUnsupportedLongDouble
+
+    -- | We do not support @float128@
+  | ParseUnsupportedFloat128
+
+    -- | Clang built-in declaration
+  | ParseUnsupportedBuiltin Text
   deriving stock (Show, Eq, Ord, Generic)
 
-instance PrettyForTrace ParseMsg where
+instance PrettyForTrace DelayedParseMsg where
   prettyForTrace = \case
-      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
-          "Unknown declaration cursor availability:"
-        , PP.show simpleKind
+      ParseUnsupportedUnderlyingType name err -> PP.hcat [
+          "Unsupported underlying type of typedef "
+        , PP.show name
+        , ": "
+        , prettyForTrace err
         ]
       ParseUnsupportedImplicitFields ->
         "Unsupported implicit fields"
-      ParseUnexpectedAnonInSignature ->
+      ParseUnsupportedAnonInSignature ->
         "Unexpected anonymous declaration in function signature"
-      ParseUnexpectedAnonInExtern ->
+      ParseUnsupportedAnonInExtern ->
         "Unexpected anonymous declaration in global variable"
       ParseUnsupportedTLS ->
         "Unsupported thread-local variable"
@@ -349,38 +332,31 @@ instance PrettyForTrace ParseMsg where
           "Unusable anonymous declaration "
         , prettyForTrace anonId
         ]
+      ParseUnsupportedVariadicFunction ->
+        "Unsupported variadic (varargs) function"
+      ParseUnsupportedLongDouble ->
+        "Unsupported long double"
+      ParseUnsupportedFloat128 ->
+        "Unsupported float128"
+      ParseUnsupportedBuiltin name ->
+        "Unsupported built-in " >< PP.show name
 
 -- | Unsupported features are warnings
-instance IsTrace Level ParseMsg where
+instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
-      ParseUnknownCursorAvailability{} -> Notice
-      ParseUnsupportedImplicitFields{} -> Warning
-      ParseUnexpectedAnonInSignature{} -> Warning
-      ParseUnexpectedAnonInExtern{}    -> Warning
-      ParseUnsupportedTLS{}            -> Warning
-      ParseUnknownStorageClass{}       -> Warning
-      ParsePotentialDuplicateSymbol{}  -> Notice
-      ParseNonPublicVisibility{}       -> Warning
-      ParseFunctionOfTypeTypedef{}     -> Warning
-      ParseUnusableAnonDecl{}          -> Warning
+      ParseUnsupportedUnderlyingType{}    -> Warning
+      ParseUnsupportedImplicitFields{}    -> Warning
+      ParseUnsupportedAnonInSignature{}   -> Warning
+      ParseUnsupportedAnonInExtern{}      -> Warning
+      ParseUnsupportedTLS{}               -> Warning
+      ParseUnknownStorageClass{}          -> Warning
+      ParsePotentialDuplicateSymbol{}     -> Notice
+      ParseNonPublicVisibility{}          -> Warning
+      ParseFunctionOfTypeTypedef{}        -> Warning
+      ParseUnusableAnonDecl{}             -> Warning
+      ParseUnsupportedVariadicFunction    -> Warning
+      ParseUnsupportedLongDouble          -> Warning
+      ParseUnsupportedFloat128            -> Warning
+      ParseUnsupportedBuiltin{}           -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse"
-
-{-------------------------------------------------------------------------------
-  Delayed parse messages
--------------------------------------------------------------------------------}
-
--- TODO-D: Flatten type.
-
--- | Delayed parse messages
---
--- We emit these parse messages only when we attempt to select the attached
--- declaration.
-data DelayedParseMsg =
-    ParseTypeException ParseTypeException
-  | ParseDeclException ParseDeclException
-  | ParseMsg ParseMsg
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance PrettyForTrace DelayedParseMsg
-instance IsTrace Level DelayedParseMsg

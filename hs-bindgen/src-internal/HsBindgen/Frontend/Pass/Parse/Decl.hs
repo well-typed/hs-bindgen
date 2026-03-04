@@ -11,7 +11,6 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -49,32 +48,9 @@ topLevelDecl = foldWithHandler handleParseExceptions (parseDecl Nothing)
       -> SomeException
       -> ParseDecl (Maybe [ParseResult Parse])
     handleParseExceptions curr err
-      | Just e <- fromException @(ExceptionInCtx ParseDeclException) err = do
-          (declId, declLoc) <- getDeclInfoForTrace curr e
-          pure $ Just [
-              parseFail declId declLoc $
-                ParseDeclException e.exception
-            ]
-      | Just e <- fromException @(ExceptionInCtx ParseTypeException) err = do
+      | Just e <- fromException @(ExceptionInCtx ParseMsg) err = do
           (declId, declLoc)  <- getDeclInfoForTrace curr e
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1249>
-          -- Ideally we'd only emit the trace when we /use/ the declaration that
-          -- we fail to parse.
-          case e.ctx.scoping of
-            RequiredForScoping ->
-              recordImmediateTrace declId declLoc $
-                ParseOfDeclarationRequiredForScopingFailed e.exception
-            NotRequiredForScoping ->
-              pure ()
-            UnknownRequiredForScoping ->
-              -- TODO-D: For now we handle unknowns as if they are required for
-              -- scoping. We could use a separate trace.
-              recordImmediateTrace declId declLoc $
-                ParseOfDeclarationRequiredForScopingFailed e.exception
-          pure $ Just [
-              parseFail declId declLoc $
-                ParseTypeException e.exception
-            ]
+          Just <$> parseFail e.ctx declId declLoc e.exception
       | otherwise = liftIO $ throwIO err
 
     -- The declaration ID and the location are not always available while
@@ -83,7 +59,7 @@ topLevelDecl = foldWithHandler handleParseExceptions (parseDecl Nothing)
     getDeclInfoForTrace ::
       CXCursor -> ExceptionInCtx e -> ParseDecl (PrelimDeclId, SingleLoc)
     getDeclInfoForTrace curr e = do
-      declId  <- PrelimDeclId.atCursor curr e.ctx.kind
+      declId  <- PrelimDeclId.atCursor curr e.ctx.outer.kind
       declLoc <- HighLevel.clang_getCursorLocation' curr
       pure (declId, declLoc)
 
@@ -91,37 +67,49 @@ topLevelDecl = foldWithHandler handleParseExceptions (parseDecl Nothing)
   Info that we collect for all declarations
 -------------------------------------------------------------------------------}
 
--- | Get declaration info
+-- | Parse with declaration info
 --
 -- The continuation is only called when the declaration info can be determined.
 --
 -- Must not be called on built-ins.
-withDeclInfo :: ParseCtx -> (C.DeclInfo Parse -> Parser) -> Parser
-withDeclInfo ctx k = \curr -> do
-    declId         <- PrelimDeclId.atCursor curr ctx.inner.kind
-    declLoc        <- HighLevel.clang_getCursorLocation' curr
-    declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
-    sAvailability  <- clang_getCursorAvailability curr
-    declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
-
-    let mAvailability :: Maybe C.Availability
-        mAvailability = fmap toAvailability $ fromSimple $ sAvailability
-
-    case mAvailability of
-      Nothing -> foldContinueWith $ [
-          parseFail declId declLoc $ ParseMsg $
-            ParseUnknownCursorAvailability sAvailability
-        ]
-      Just availability ->
+withDeclInfo :: ParseCtx -> CXCursor -> (C.DeclInfo Parse -> ParserS) -> ParserS
+withDeclInfo ctx curr k = do
+    declId          <- PrelimDeclId.atCursor curr ctx.inner.kind
+    declLoc         <- HighLevel.clang_getCursorLocation' curr
+    withHeaderInfo ctx declId declLoc $ \declHeaderInfo ->
+      withAvailability ctx declId declLoc curr $ \declAvailability -> do
+        declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
         let info :: C.DeclInfo Parse
             info = C.DeclInfo{
                   id           = declId
                 , loc          = declLoc
                 , headerInfo   = declHeaderInfo
-                , availability = availability
+                , availability = declAvailability
                 , comment      = declComment
                 }
-        in k info curr
+        k info
+
+-- | Continue with availability
+--
+-- The continuation is only called when the availability can be determined.
+withAvailability ::
+     ParseCtx
+  -> PrelimDeclId
+  -> SingleLoc
+  -> CXCursor
+  -> (C.Availability -> ParserS)
+  -> ParserS
+withAvailability ctx declId declLoc curr k = do
+    sAvailability  <- clang_getCursorAvailability curr
+    let mAvailability :: Maybe C.Availability
+        mAvailability = fmap toAvailability $ fromSimple $ sAvailability
+    case mAvailability of
+      Nothing -> do
+        failures <-
+          parseFail ctx declId declLoc $ Immediate $
+            ParseUnknownCursorAvailability sAvailability
+        foldContinueWith failures
+      Just availability -> k availability
   where
     fromSimple :: IsSimpleEnum a => SimpleEnum a -> Maybe a
     fromSimple x = either (const Nothing) Just $ fromSimpleEnum x
@@ -133,19 +121,30 @@ withDeclInfo ctx k = \curr -> do
       CXAvailability_NotAvailable  -> C.Unavailable
       CXAvailability_NotAccessible -> C.Unavailable
 
-    getHeaderInfo :: SourcePath -> ParseDecl C.HeaderInfo
-    getHeaderInfo path = do
-        eRes <- evalGetMainHeadersAndInclude path
-        case eRes of
-          Left err  -> liftIO $ throwIO $ ExceptionInCtx err ctx.outer
-          Right res -> pure $ uncurry aux res
-      where
-        aux :: NonEmpty HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
-        aux mainHeaders include = C.HeaderInfo{
-            mainHeaders     = mainHeaders
-          , includeArg      = IncludeGraph.getIncludeArg      include
-          , includeMacroArg = IncludeGraph.getIncludeMacroArg include
-          }
+-- | Continue with header information
+--
+-- The continuation is only called when the header information can be determined.
+withHeaderInfo ::
+     ParseCtx
+  -> PrelimDeclId
+  -> SingleLoc
+  -> (C.HeaderInfo -> ParserS)
+  -> ParserS
+withHeaderInfo ctx declId declLoc k = do
+  eRes <- evalGetMainHeadersAndInclude (singleLocPath declLoc)
+  case eRes of
+    Left err -> do
+      failures <- parseFail ctx declId declLoc $ Immediate err
+      foldContinueWith failures
+    Right res ->
+      k $ uncurry aux res
+  where
+    aux :: NonEmpty HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
+    aux mainHeaders include = C.HeaderInfo{
+        mainHeaders     = mainHeaders
+      , includeArg      = IncludeGraph.getIncludeArg      include
+      , includeMacroArg = IncludeGraph.getIncludeMacroArg include
+      }
 
 getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
@@ -174,6 +173,7 @@ getReparseInfo = \curr -> do
 -------------------------------------------------------------------------------}
 
 type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult Parse])
+type ParserS = ParseDecl (Next ParseDecl [ParseResult Parse])
 
 -- | Declarations
 parseDecl :: HasCallStack => Maybe ParseCtx -> Parser
@@ -216,14 +216,14 @@ parseDecl mCtx curr = dispatchWithArg curr $ \case
 -- get the list of tokens for built-in macros, we would anyway need to
 -- special-case them. For now we skip /all/ builtins.
 parseDeclWith :: ParseCtx -> (ParseCtx -> C.DeclInfo Parse -> Parser) -> Parser
-parseDeclWith ctx parser = \curr -> do
+parseDeclWith ctx parser curr = do
     mBuiltin <- PrelimDeclId.checkIsBuiltin curr
     case mBuiltin of
       Just _name -> foldContinue
-      Nothing    -> withDeclInfo ctx parseExplicitDecl curr
+      Nothing    -> withDeclInfo ctx curr parseExplicitDecl
   where
-    parseExplicitDecl :: C.DeclInfo Parse -> Parser
-    parseExplicitDecl info curr =
+    parseExplicitDecl :: C.DeclInfo Parse -> ParserS
+    parseExplicitDecl info =
         if | C.Unavailable <- info.availability ->
                foldContinueWith [
                    parseDoNotAttempt info DeclarationUnavailable
@@ -244,7 +244,6 @@ parseDeclWith ctx parser = \curr -> do
 -- In this phase, we return macro declarations simply as a list of tokens. We
 -- will parse them later (after sorting all declarations in the file).
 macroDefinition :: HasCallStack => ParseCtx -> C.DeclInfo Parse -> Parser
--- TODO-D: Parsing a macro does not require a context?
 macroDefinition _ctx info = \curr -> do
     decl <- mkDecl <$> getUnparsedMacro curr
     foldContinueWith [parseSucceed decl]
@@ -310,14 +309,13 @@ structDecl ctx info = \curr -> do
               (fails, otherDecls) = partitionEithers $
                                       map getParseResultEitherDecl otherRs
           mPartitioned <- partitionChildren otherDecls fields
-          pure $ (fails ++) $ case mPartitioned of
+          (fails ++) <$> case mPartitioned of
             Just decls ->
-              map parseSucceed $ decls ++ [mkStruct fields]
-            Nothing -> [
-                -- If the struct has implicit fields, don't generate anything.
-                parseFail info.id info.loc $
-                  ParseMsg $ ParseUnsupportedImplicitFields
-              ]
+              pure $ map parseSucceed $ decls ++ [mkStruct fields]
+            Nothing -> do
+              -- If the struct has implicit fields, don't generate anything.
+              parseFail ctx info.id info.loc $ Delayed ParseUnsupportedImplicitFields
+
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -391,14 +389,12 @@ unionDecl ctx info = \curr -> do
               (fails, otherDecls) = partitionEithers $
                                       map getParseResultEitherDecl otherRs
           mPartitioned <- partitionChildren otherDecls fields
-          pure $ (fails ++) $ case mPartitioned of
+          (fails ++) <$> case mPartitioned of
             Just decls ->
-              map parseSucceed $ decls ++ [mkUnion fields]
-            Nothing -> [
-                -- If the union has implicit fields, don't generate anything.
-                parseFail info.id info.loc $
-                  ParseMsg ParseUnsupportedImplicitFields
-              ]
+              pure $ map parseSucceed $ decls ++ [mkUnion fields]
+            Nothing -> do
+              -- If the union has implicit fields, don't generate anything.
+              parseFail ctx info.id info.loc $ Delayed ParseUnsupportedImplicitFields
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -603,11 +599,9 @@ functionDecl ctx info = \curr -> do
             -- This declaration may act as a definition.
             let isDefn = declCls == Definition
 
-            pure $ (fails ++) $
-              if not (null anonDecls) then [
-                  parseFail info.id info.loc $
-                    ParseMsg ParseUnexpectedAnonInSignature
-                ]
+            (fails ++) <$>
+              if not (null anonDecls) then do
+                parseFail ctx info.id info.loc $ Delayed ParseUnsupportedAnonInSignature
               else
                 let nonPublicVisibility = [
                         ParseNonPublicVisibility
@@ -617,9 +611,9 @@ functionDecl ctx info = \curr -> do
                         ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
                       | isDefn && linkage == ExternalLinkage
                       ]
-                    msgs = map ParseMsg $ nonPublicVisibility ++ potentialDuplicate
+                    msgs = nonPublicVisibility ++ potentialDuplicate
                     funDeclResult = parseSucceedWith msgs (mkDecl purity)
-                in map parseSucceed otherDecls ++ [funDeclResult]
+                in pure $ map parseSucceed otherDecls ++ [funDeclResult]
   where
     guardTypeFunction ::
          CXCursor
@@ -647,10 +641,7 @@ functionDecl ctx info = \curr -> do
                 }
             pure $ Right (args', res)
           C.TypeTypedef{} ->
-            pure $ Left [
-                parseFail info.id info.loc $
-                  ParseMsg ParseFunctionOfTypeTypedef
-              ]
+            Left <$> (parseFail ctx info.id info.loc $ Delayed ParseFunctionOfTypeTypedef)
           otherType ->
             panicIO $ "Expected function type, but got " <> show otherType
 
@@ -734,7 +725,7 @@ varDecl ctx info = \curr -> do
         let isDefn = declCls == Definition
                    || (isTentative && declCls == DefinitionUnavailable)
 
-        pure $ (fails ++) $
+        (fails ++) <$>
           let nonPublicVisibility = [
                   ParseNonPublicVisibility
                 | visibilityCanCauseErrors visibility linkage isDefn
@@ -743,18 +734,18 @@ varDecl ctx info = \curr -> do
                   ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
                 | isDefn && linkage == ExternalLinkage
                 ]
-              msgs = map ParseMsg $ nonPublicVisibility ++ potentialDuplicate
+              msgs = nonPublicVisibility ++ potentialDuplicate
            in case cls of
                 VarGlobal IsExtern
-                  | not (null anonDecls) ->
-                    [ parseFail info.id info.loc $ ParseMsg ParseUnexpectedAnonInExtern ]
+                  | not (null anonDecls) -> do
+                    parseFail ctx info.id info.loc $ Delayed ParseUnsupportedAnonInExtern
                 VarGlobal _ ->
-                  (map parseSucceed (anonDecls ++ otherDecls) ++) $
+                  pure $ (map parseSucceed (anonDecls ++ otherDecls) ++) $
                     singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
                 VarThreadLocal ->
-                  [ parseFail info.id info.loc $ ParseMsg ParseUnsupportedTLS ]
+                  parseFail ctx info.id info.loc $ Delayed ParseUnsupportedTLS
                 VarUnsupported storage ->
-                  [ parseFail info.id info.loc $ ParseMsg $ ParseUnknownStorageClass storage ]
+                  parseFail ctx info.id info.loc $ Delayed $ ParseUnknownStorageClass storage
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult Parse]

@@ -5,10 +5,8 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchDiagnosticCategory
   , matchDiagnosticSpelling
     -- * Parse
-  , pattern MatchParse
-  , pattern MatchParseTypeException
-  , pattern MatchParseDeclException
-  , pattern MatchParseMsg
+  , pattern MatchImmediate
+  , pattern MatchDelayed
     -- * HandleMacros
   , pattern MatchHandleMacros
     -- * ResolveBindingSpecs
@@ -69,26 +67,18 @@ matchDiagnosticSpelling text = \case
   Parse
 -------------------------------------------------------------------------------}
 
-pattern MatchParse :: CDeclName -> ImmediateParseMsg -> TraceMsg
-pattern MatchParse name x <- TraceFrontend (
+pattern MatchImmediate :: CDeclName -> ImmediateParseMsg -> TraceMsg
+pattern MatchImmediate name x <- TraceFrontend (
       FrontendParse WithLocationInfo{
           loc = locationInfoName -> Just name
         , msg = x
         }
     )
 
-pattern MatchParseTypeException :: CDeclName -> ParseTypeException -> TraceMsg
-pattern MatchParseTypeException name x <-
-  MatchSelect name (matchParseTypeException -> Just x)
+pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
+pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
 
-pattern MatchParseDeclException :: CDeclName -> ParseDeclException -> TraceMsg
-pattern MatchParseDeclException name x <-
-  MatchSelect name (matchParseDeclException -> Just x)
-
-pattern MatchParseMsg :: CDeclName -> ParseMsg -> TraceMsg
-pattern MatchParseMsg name x <- MatchSelect name (matchParseMsg -> Just x)
-
-pattern MatchUnknownStorageClass :: CX_StorageClass -> ParseMsg
+pattern MatchUnknownStorageClass :: CX_StorageClass -> DelayedParseMsg
 pattern MatchUnknownStorageClass x <- ParseUnknownStorageClass (
       fromSimpleEnum -> Right x
     )
@@ -166,20 +156,5 @@ pattern MatchMangle name x <- TraceFrontend (
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
     SelectParseSuccess x -> Just x
-    SelectParseFailure (ParseFailure x) -> Just x
+    SelectParseFailure (ParseFailure (Delayed x)) -> Just x
     _otherwise -> Nothing
-
-matchParseTypeException :: SelectMsg -> Maybe ParseTypeException
-matchParseTypeException x =  case matchDelayed x of
-  Just (ParseTypeException m) -> Just m
-  _otherwise        -> Nothing
-
-matchParseDeclException :: SelectMsg -> Maybe ParseDeclException
-matchParseDeclException x =  case matchDelayed x of
-  Just (ParseDeclException m) -> Just m
-  _otherwise        -> Nothing
-
-matchParseMsg :: SelectMsg -> Maybe ParseMsg
-matchParseMsg x = case matchDelayed x of
-  Just (ParseMsg m) -> Just m
-  _otherwise        -> Nothing
