@@ -1,7 +1,10 @@
 module Main (main) where
 
+import Data.Proxy (Proxy (..))
 import Test.Tasty
+import Test.Tasty.Options (OptionDescription (..))
 
+import Test.Common.Util.Tasty.Golden (RunMode)
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
 import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
@@ -17,7 +20,8 @@ import Test.HsBindgen.Unit.Tracer qualified as Unit.Tracer
 -------------------------------------------------------------------------------}
 
 main :: IO ()
-main = defaultMain $ withTestResources $ \testResources ->
+main = defaultMainWithIngredients ingredients $
+    withTestResources $ \testResources ->
     testGroup "test-hs-bindgen" [
         testGroup "unit tests" [
             Unit.ClangArgs.tests testResources
@@ -36,3 +40,7 @@ main = defaultMain $ withTestResources $ \testResources ->
           ]
       , THFixtures.tests testResources
       ]
+  where
+    ingredients =
+        includingOptions [Option (Proxy :: Proxy RunMode)]
+      : defaultIngredients

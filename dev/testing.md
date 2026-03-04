@@ -8,6 +8,24 @@ This document covers tests and how to run them for the `hs-bindgen` project.
 
 ## Running Tests
 
+### Fast Mode
+
+The `test-hs-bindgen` test suite supports a `--fast` (`-f`) flag that skips slow
+tests for quicker development iteration:
+
+```bash
+cabal run test-hs-bindgen -- --fast
+```
+
+This skips:
+- **TH fixture compilation tests** (~177 tests) — these run `cabal build` on
+  generated TH modules and are the most expensive test group.
+- **Unsafe golden tests** (~168 tests) — if `.Safe` passes, `.Unsafe` almost
+  certainly will too, since they differ only in the foreign import safety
+  annotation.
+
+Full mode (the default) runs all tests and is unchanged.
+
 ### Golden Test Updates
 
 When tests fail due to expected output changes, update them with:

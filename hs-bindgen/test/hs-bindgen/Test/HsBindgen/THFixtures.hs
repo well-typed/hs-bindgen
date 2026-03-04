@@ -13,6 +13,7 @@ import Test.Tasty.Providers (IsTest (..), singleTest, testFailed)
 import Test.Tasty.Providers.ConsoleFormat (noResultDetails)
 import Test.Tasty.Runners (Outcome (..), Result (..))
 
+import Test.Common.Util.Tasty.Golden (RunMode (..))
 import Test.HsBindgen.Golden (allTestCases)
 import Test.HsBindgen.Golden.TestCase (TestCase (..))
 import Test.HsBindgen.Resources
@@ -25,10 +26,12 @@ import Test.HsBindgen.THFixtures.TestCases (THStatus (..), determineTHStatus)
 -------------------------------------------------------------------------------}
 
 tests :: IO TestResources -> TestTree
-tests testResources =
-    withResource setup (const $ return ()) $ \getResults ->
-        testGroup "th-fixtures" $
-            map (mkFixtureTest getResults) allTestCases
+tests testResources = askOption $ \case
+    Fast -> testGroup "th-fixtures" []
+    Full ->
+      withResource setup (const $ return ()) $ \getResults ->
+          testGroup "th-fixtures" $
+              map (mkFixtureTest getResults) allTestCases
   where
     setup = do
         testResources' <- testResources

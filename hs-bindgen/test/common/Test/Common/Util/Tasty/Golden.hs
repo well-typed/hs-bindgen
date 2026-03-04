@@ -9,6 +9,7 @@
 module Test.Common.Util.Tasty.Golden (
     ActualValue(..)
   , goldenTestSteps
+  , RunMode(..)
   ) where
 
 import Control.DeepSeq (rnf)
@@ -106,6 +107,20 @@ instance IsOption Debug where
     optionName = return "debug"
     optionHelp = return "Print all trace messages"
     optionCLParser = flagCLParser (Just 'v') (Debug True)
+
+-- | Test run mode: 'Full' runs all tests, 'Fast' skips slow tests.
+data RunMode = Fast | Full
+  deriving (Eq, Ord)
+
+instance IsOption RunMode where
+    defaultValue = Full
+    parseValue s = case safeReadBool s of
+        Just True  -> Just Fast
+        Just False -> Just Full
+        Nothing    -> Nothing
+    optionName = return "fast"
+    optionHelp = return "Skip slow tests (TH fixtures, Unsafe golden tests)"
+    optionCLParser = flagCLParser (Just 'f') Fast
 
 {-------------------------------------------------------------------------------
   Internals
