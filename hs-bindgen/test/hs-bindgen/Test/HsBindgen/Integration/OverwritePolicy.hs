@@ -1,6 +1,6 @@
 module Test.HsBindgen.Integration.OverwritePolicy (tests) where
 
-import System.Directory (createDirectory)
+import System.Directory (createDirectory, doesFileExist)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -12,9 +12,11 @@ import Test.HsBindgen.Resources
 
 tests :: IO TestResources -> TestTree
 tests getTestResources = testGroup "Integration.OverwritePolicy" [
-    testDirOverwritePolicy  getTestResources
-  , testFileOverwritePolicy getTestResources
-  , testOverwritePolicies   getTestResources
+    testDirOverwritePolicy        getTestResources
+  , testFileOverwritePolicy       getTestResources
+  , testOverwritePolicies         getTestResources
+  , testBindingSpecCreateDirs     getTestResources
+  , testBindingSpecNoDirByDefault getTestResources
   ]
 
 testDirOverwritePolicy :: IO TestResources -> TestTree
@@ -77,3 +79,40 @@ testOverwritePolicies getTestResources = testCase "create directories and overwr
     -- Check that the placeholder file content has changed.
     content <- readFile placeholderPath
     assertBool "placeholder content has changed" (content /= placeholderContent)
+
+testBindingSpecCreateDirs :: IO TestResources -> TestTree
+testBindingSpecCreateDirs getTestResources = testCase "--create-output-dirs creates dirs for --gen-binding-spec" $ do
+  withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+    root <- (.packageRoot) <$> getTestResources
+    let headerPath      = root </> "examples/golden/functions/simple_func.h"
+        bindingSpecPath = tmpDir </> "specs" </> "binding-spec.yaml"
+    (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
+                                               [ "preprocess"
+                                               , "--create-output-dirs"
+                                               , "--hs-output-dir"
+                                               , tmpDir
+                                               , "--gen-binding-spec"
+                                               , bindingSpecPath
+                                               , headerPath
+                                               ]
+                                               ""
+    exitCode @?= ExitSuccess
+    exists <- doesFileExist bindingSpecPath
+    assertBool "binding spec file was created" exists
+
+testBindingSpecNoDirByDefault :: IO TestResources -> TestTree
+testBindingSpecNoDirByDefault getTestResources = testCase "do not create --gen-binding-spec directory by default" $ do
+  withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
+    root <- (.packageRoot) <$> getTestResources
+    let headerPath      = root </> "examples/golden/functions/simple_func.h"
+        bindingSpecPath = tmpDir </> "specs" </> "binding-spec.yaml"
+    (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
+                                               [ "preprocess"
+                                               , "--hs-output-dir"
+                                               , tmpDir
+                                               , "--gen-binding-spec"
+                                               , bindingSpecPath
+                                               , headerPath
+                                               ]
+                                               ""
+    exitCode @?= ExitFailure 3

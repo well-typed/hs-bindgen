@@ -135,7 +135,7 @@ writeIncludeGraph pol mPath = do
     let rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
-      Just path -> write pol "include graph" (UserSpecified path) rendered
+      Just path -> write pol def "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
@@ -144,7 +144,7 @@ writeUseDeclGraph pol mPath = do
     let rendered = UseDeclGraph.dumpMermaid useDeclGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
-      Just path -> write pol "use-decl graph" (UserSpecified path) rendered
+      Just path -> write pol def "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
 getBindings :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact String
@@ -159,7 +159,7 @@ getBindings fns mrc = do
 writeBindings :: FieldNamingStrategy -> ModuleRenderConfig -> FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindings fns mrc fileOverwritePolicy path = do
     bindings <- getBindings fns mrc
-    write fileOverwritePolicy "bindings" (UserSpecified path) bindings
+    write fileOverwritePolicy def "bindings" (UserSpecified path) bindings
 
 -- | Write bindings to a directory (single module combining all categories).
 --
@@ -182,12 +182,11 @@ writeBindingsSingleToDir fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir
 
         location :: FileLocation
         location = RelativeFileLocation RelativeToOutputDir{
-              outputDir       = hsOutputDir
-            , localPath       = localPath
-            , outputDirPolicy = outputDirPolicy
+              outputDir = hsOutputDir
+            , localPath = localPath
             }
 
-    write fileOverwritePolicy "bindings" location bindings
+    write fileOverwritePolicy outputDirPolicy "bindings" location bindings
 
 -- | Write bindings to a directory, choosing between single and multi-module modes.
 --
@@ -240,8 +239,12 @@ writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = 
       bindingsByCategory
 
 -- | Write binding specifications to file.
-writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
-writeBindingSpec fileOverwritePolicy path = do
+writeBindingSpec ::
+     FileOverwritePolicy
+  -> OutputDirPolicy
+  -> FilePath
+  -> Artefact ()
+writeBindingSpec fileOverwritePolicy outputDirPolicy path = do
     moduleBaseName <- FinalModuleBaseName
     includeGraph   <- snd <$> IncludeGraph
     declIndex      <- DeclIndex
@@ -264,6 +267,7 @@ writeBindingSpec fileOverwritePolicy path = do
               description     = "Binding specifications"
             , location        = UserSpecified path
             , overwritePolicy = fileOverwritePolicy
+            , outputDirPolicy = outputDirPolicy
             , content         = ByteStringContent bs
             }
     Lift $ delay $ WriteToFile fileDescription
@@ -286,12 +290,12 @@ writeTests _testDir = do
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: FileOverwritePolicy -> String -> FileLocation -> String -> Artefact ()
-write pol what loc str
+write :: FileOverwritePolicy -> OutputDirPolicy -> String -> FileLocation -> String -> Artefact ()
+write pol dirPol what loc str
   | null str =
     EmitTrace $ SkipWriteToFileNoBindings loc
   | otherwise =
-    Lift $ delay $ WriteToFile $ FileDescription what loc pol (StringContent str)
+    Lift $ delay $ WriteToFile $ FileDescription what loc pol dirPol (StringContent str)
 
 writeByCategory ::
      FileOverwritePolicy
@@ -307,7 +311,7 @@ writeByCategory filePolicy dirPolicy what dir moduleBaseName =
     writeCategory :: Category -> Maybe String -> Artefact ()
     writeCategory _    Nothing   = pure ()
     writeCategory cat (Just str) =
-        write filePolicy whatWithCategory location str
+        write filePolicy dirPolicy whatWithCategory location str
       where
         localPath :: FilePath
         localPath = Hs.moduleNamePath $
@@ -318,9 +322,8 @@ writeByCategory filePolicy dirPolicy what dir moduleBaseName =
 
         location :: FileLocation
         location = RelativeFileLocation RelativeToOutputDir{
-              outputDir       = dir
-            , localPath       = localPath
-            , outputDirPolicy = dirPolicy
+              outputDir = dir
+            , localPath = localPath
             }
 
 nullDecls :: ([a], [b]) -> Bool

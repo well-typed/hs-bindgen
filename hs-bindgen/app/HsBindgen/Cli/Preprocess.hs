@@ -108,4 +108,4 @@ exec global opts = do
             opts.hsOutputDir
 
       forM_ opts.outputBindingSpec $ \path ->
-        writeBindingSpec opts.fileOverwritePolicy path
+        writeBindingSpec opts.fileOverwritePolicy opts.outputDirPolicy path
