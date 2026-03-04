@@ -284,6 +284,7 @@ common fixture-common
 
 common fixture-cc-werror
   ghc-options: -optc-Werror
+
 HEADER
 
         # Generate one library per fixture
@@ -497,6 +498,7 @@ if [[ $# -eq 1 ]]; then
     BUILD_EXIT=0
     (cd "$BATCH_DIR" && cabal haddock "hs-bindgen-fixtures:$lib_name" \
         --builddir="$SHARED_BUILD_DIR" \
+        --haddock-all \
         --haddock-html-location='../$pkg-$version/docs' \
         --haddock-hoogle \
         --haddock-html) || BUILD_EXIT=$?
@@ -597,23 +599,25 @@ BUILD_EXIT=0
 (cd "$BATCH_DIR" && cabal haddock all \
     -j"$JOBS" --keep-going \
     --builddir="$SHARED_BUILD_DIR" \
+    --haddock-all \
     --haddock-html-location='../$pkg-$version/docs' \
     --haddock-hoogle \
     --haddock-html \
     2>&1) | tee "$BUILD_LOG" || BUILD_EXIT=$?
 
-# Copy haddock output to persistent directory
-HADDOCK_HTML_DIR="$SHARED_BUILD_DIR/doc/html/hs-bindgen-fixtures"
-if [[ -d "$HADDOCK_HTML_DIR" ]]; then
-    for fixture_name in "${FIXTURES_TO_COMPILE[@]}"; do
-        lib_name="fixture-$(sanitize "$fixture_name")"
-        local_doc_dir="$HADDOCK_HTML_DIR/$lib_name"
-        if [[ -d "$local_doc_dir" ]]; then
-            mkdir -p "$HADDOCK_OUTPUT_DIR/$lib_name"
-            cp -r "$local_doc_dir"/* "$HADDOCK_OUTPUT_DIR/$lib_name/" 2>/dev/null || true
-        fi
-    done
-fi
+# Copy haddock output to persistent directory.
+#
+# Cabal places haddock output for internal libraries under:
+#   $builddir/build/<platform>/<compiler>/<pkg>-<ver>/l/<lib>/doc/html/<pkg>/<lib>/
+# We use find to locate each library's doc directory.
+for fixture_name in "${FIXTURES_TO_COMPILE[@]}"; do
+    lib_name="fixture-$(sanitize "$fixture_name")"
+    local_doc_dir=$(find "$SHARED_BUILD_DIR" -type d -name "$lib_name" -path "*/doc/html/*" 2>/dev/null | head -1)
+    if [[ -n "$local_doc_dir" ]]; then
+        mkdir -p "$HADDOCK_OUTPUT_DIR/$lib_name"
+        cp -r "$local_doc_dir"/* "$HADDOCK_OUTPUT_DIR/$lib_name/" 2>/dev/null || true
+    fi
+done
 
 # Extract failed library names from the build log
 #
