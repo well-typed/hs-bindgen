@@ -1,0 +1,112 @@
+-- addDependentFile examples/golden/edge-cases/include_macro_child.h
+-- addDependentFile examples/golden/edge-cases/include_macro_parent.h
+{-| __C declaration:__ @struct pt@
+
+    __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:9@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
+data Pt
+    = Pt {pt_x :: CDouble
+          {- ^ __C declaration:__ @x@
+
+               __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:25@
+
+               __exported by:__ @edge-cases\/include_macro_parent.h@
+          -},
+          pt_y :: CDouble
+          {- ^ __C declaration:__ @y@
+
+               __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:28@
+
+               __exported by:__ @edge-cases\/include_macro_parent.h@
+          -}}
+      {- ^ __C declaration:__ @struct pt@
+
+           __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:9@
+
+           __exported by:__ @edge-cases\/include_macro_parent.h@
+      -}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Pt
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Pt
+    where readRaw = \ptr_0 -> (pure Pt <*> readRaw (Proxy @"pt_x") ptr_0) <*> readRaw (Proxy @"pt_y") ptr_0
+instance WriteRaw Pt
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Pt pt_x_2
+                                          pt_y_3 -> writeRaw (Proxy @"pt_x") ptr_0 pt_x_2 >> writeRaw (Proxy @"pt_y") ptr_0 pt_y_3
+deriving via (EquivStorable Pt) instance Storable Pt
+instance HasCField Pt "pt_x"
+    where type CFieldType Pt "pt_x" = CDouble
+          offset# = \_ -> \_ -> 0
+instance (~) ty CDouble => HasField "pt_x" (Ptr Pt) (Ptr ty)
+    where getField = fromPtr (Proxy @"pt_x")
+instance HasCField Pt "pt_y"
+    where type CFieldType Pt "pt_y" = CDouble
+          offset# = \_ -> \_ -> 8
+instance (~) ty CDouble => HasField "pt_y" (Ptr Pt) (Ptr ty)
+    where getField = fromPtr (Proxy @"pt_y")
+{-| __C declaration:__ @macro CHILD_HEADER@
+
+    __defined at:__ @edge-cases\/include_macro_parent.h 4:9@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
+cHILD_HEADER :: (Ptr CChar, Int)
+{-| __C declaration:__ @macro CHILD_HEADER@
+
+    __defined at:__ @edge-cases\/include_macro_parent.h 4:9@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
+cHILD_HEADER = (Ptr "include_macro_child.h"#, 21) :: CStringLen
+{-| __C declaration:__ @struct rect@
+
+    __defined at:__ @edge-cases\/include_macro_parent.h 7:8@
+
+    __exported by:__ @edge-cases\/include_macro_parent.h@
+-}
+data Rect
+    = Rect {rect_tl :: Pt
+            {- ^ __C declaration:__ @tl@
+
+                 __defined at:__ @edge-cases\/include_macro_parent.h 7:18@
+
+                 __exported by:__ @edge-cases\/include_macro_parent.h@
+            -},
+            rect_br :: Pt
+            {- ^ __C declaration:__ @br@
+
+                 __defined at:__ @edge-cases\/include_macro_parent.h 7:22@
+
+                 __exported by:__ @edge-cases\/include_macro_parent.h@
+            -}}
+      {- ^ __C declaration:__ @struct rect@
+
+           __defined at:__ @edge-cases\/include_macro_parent.h 7:8@
+
+           __exported by:__ @edge-cases\/include_macro_parent.h@
+      -}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Rect
+    where staticSizeOf = \_ -> 32 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw Rect
+    where readRaw = \ptr_0 -> (pure Rect <*> readRaw (Proxy @"rect_tl") ptr_0) <*> readRaw (Proxy @"rect_br") ptr_0
+instance WriteRaw Rect
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Rect rect_tl_2
+                                            rect_br_3 -> writeRaw (Proxy @"rect_tl") ptr_0 rect_tl_2 >> writeRaw (Proxy @"rect_br") ptr_0 rect_br_3
+deriving via (EquivStorable Rect) instance Storable Rect
+instance HasCField Rect "rect_tl"
+    where type CFieldType Rect "rect_tl" = Pt
+          offset# = \_ -> \_ -> 0
+instance (~) ty Pt => HasField "rect_tl" (Ptr Rect) (Ptr ty)
+    where getField = fromPtr (Proxy @"rect_tl")
+instance HasCField Rect "rect_br"
+    where type CFieldType Rect "rect_br" = Pt
+          offset# = \_ -> \_ -> 16
+instance (~) ty Pt => HasField "rect_br" (Ptr Rect) (Ptr ty)
+    where getField = fromPtr (Proxy @"rect_br")

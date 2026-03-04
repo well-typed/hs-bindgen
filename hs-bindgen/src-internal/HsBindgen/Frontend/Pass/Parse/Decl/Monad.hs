@@ -38,6 +38,7 @@ import Clang.Paths
 
 import HsBindgen.Eff
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
@@ -94,7 +95,7 @@ getTranslationUnit = wrapEff $ \support -> return support.env.unit
 
 evalGetMainHeadersAndInclude ::
      SourcePath
-  -> ParseDecl (NonEmpty HashIncludeArg, HashIncludeArg)
+  -> ParseDecl (NonEmpty HashIncludeArg, IncludeGraph.Include)
 evalGetMainHeadersAndInclude path = wrapEff $ \support ->
     either panicIO return $ support.env.getMainHeadersAndInclude path
 

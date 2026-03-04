@@ -105,7 +105,7 @@ import HsBindgen.Imports
 -- | Function to get the main headers that (transitively) include a source path,
 -- as well as the @#include@ argument used to include the source path
 type GetMainHeadersAndInclude =
-   SourcePath -> Either String (NonEmpty HashIncludeArg, HashIncludeArg)
+   SourcePath -> Either String (NonEmpty HashIncludeArg, Include)
 
 -- | Process includes
 --
@@ -131,7 +131,7 @@ processIncludes unit = do
 
         mainPathPairs :: [(SourcePath, HashIncludeArg)]
         mainPathPairs = [
-            (incDir.to, IncludeGraph.includeArg incDir.include)
+            (incDir.to, IncludeGraph.getIncludeArg incDir.include)
           | incDir <- includes
           , incDir.inRoot
           ]
@@ -155,8 +155,8 @@ processIncludes unit = do
                   ++ msg
           in  case IncludeGraph.getIncludes includeGraph path of
                 DynGraph.FindEdgesFound startIncludes termIncludes -> Right $
-                  ( IncludeGraph.includeArg <$> termIncludes
-                  , IncludeGraph.includeArg (NonEmpty.head startIncludes)
+                  ( IncludeGraph.getIncludeArg <$> termIncludes
+                  , NonEmpty.head startIncludes
                   )
                 DynGraph.FindEdgesNone    -> error' "none"
                 DynGraph.FindEdgesInvalid -> error' "invalid"
@@ -294,10 +294,11 @@ parseInclude path = \case
     parseMacroIncludeArg isIncludeNext = \case
       -- Macro include should have at least one argument
       [] -> Nothing
-      _otherwise -> do
+      ts -> do
         let (_, arg) = RootHeader.hashIncludeArg $
               Posix.takeFileName (getSourcePath path)
+            macroArg = mconcat $ map (getTokenSpelling . tokenSpelling) ts
         return $
           if isIncludeNext
-            then IncludeGraph.MacroIncludeNext arg
-            else IncludeGraph.MacroInclude     arg
+            then IncludeGraph.MacroIncludeNext arg macroArg
+            else IncludeGraph.MacroInclude     arg macroArg

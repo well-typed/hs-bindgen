@@ -75,7 +75,7 @@ instance Pretty CommentKind where
         -- Only user-facing metadata should trigger Haddock comment syntax.
         userFacingMetadata = catMaybes [
             (\n -> "__C declaration:__ @"
-                >< PP.text (escapeAtSigns n)
+                >< PP.text (escapeMidLine n)
                 >< "@") <$> comment.origin
           , (\p -> "__defined at:__ @"
                 >< uncurry prettyHashIncludeArgLoc p
@@ -138,23 +138,31 @@ instance Pretty CommentKind where
                      ]
 
 prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc -> CtxDoc
-prettyHashIncludeArgLoc info loc = PP.string $
-    -- Use space instead of first colon to avoid GHC literate preprocessor mangling
-    escapePaths info.includeArg.path ++ " "
-      ++ show (singleLocLine loc) ++ ":" ++ show (singleLocColumn loc)
+prettyHashIncludeArgLoc info loc =
+    -- Text like @:1:2@ is mangled by the GHC literate preprocessor, so we
+    -- cannot format source locations like that.
+    --
+    -- * @foo.h 1:2@ is fine
+    -- * @foo.h:1:2@ causes mangling issues
+    PP.string . escapeMidLineString . unwords $ catMaybes [
+        Just info.includeArg.path
+      , formatMacroArg <$> info.includeMacroArg
+      , Just sourceLoc
+      ]
+  where
+    sourceLoc :: String
+    sourceLoc = show (singleLocLine loc) ++ ':' : show (singleLocColumn loc)
+
+    formatMacroArg :: Text -> String
+    formatMacroArg = ('(' :) . (++ ")") . Text.unpack
 
 prettyMainHeaders :: C.HeaderInfo -> CtxDoc
 prettyMainHeaders info =
       PP.string
     . List.intercalate "@, @"
-    . map (escapePaths . (.path))
+    . map (escapeMidLineString . (.path))
     . NonEmpty.toList
     $ info.mainHeaders
-
-escapePaths :: String -> String
-escapePaths []       = []
-escapePaths ('/':ss) = "\\/" ++ escapePaths ss
-escapePaths (s:ss)   = s : escapePaths ss
 
 instance Pretty HsDoc.CommentBlockContent where
   pretty = \case
@@ -203,12 +211,29 @@ instance Pretty HsDoc.CommentMeta where
   pretty HsDoc.Since{..} = "@since:" <+> PP.text sinceContent
 
 {-------------------------------------------------------------------------------
-  Helpers
+  Auxiliary functions
 -------------------------------------------------------------------------------}
 
-escapeAtSigns :: Text -> Text
-escapeAtSigns = Text.pack . concatMap aux . Text.unpack
+-- | Escape Haddock special characters in mid-line content
+--
+-- <https://haskell-haddock.readthedocs.io/latest/markup.html#special-characters>
+--
+-- This is /not/ sufficient to escape start-of-line content.
+escapeMidLine :: Text -> Text
+escapeMidLine = Text.pack . escapeMidLineString . Text.unpack
+
+escapeMidLineString :: String -> String
+escapeMidLineString = concatMap aux
   where
     aux :: Char -> [Char]
-    aux '@' = "\\@"
-    aux c   = [c]
+    aux = \case
+      '\\' -> "\\\\"
+      '/'  -> "\\/"
+      '\'' -> "\\'"
+      '`'  -> "\\`"
+      '"'  -> "\\\""
+      '@'  -> "\\@"
+      '<'  -> "\\<"
+      '$'  -> "\\$"
+      '#'  -> "\\#"
+      c    -> [c]

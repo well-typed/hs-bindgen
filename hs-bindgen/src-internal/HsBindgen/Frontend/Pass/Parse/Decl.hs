@@ -13,6 +13,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Type qualified as C
@@ -26,6 +27,7 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
+import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -109,7 +111,14 @@ getDeclInfo = \curr cNameKind -> do
       CXAvailability_NotAccessible -> C.Unavailable
 
 getHeaderInfo :: SourcePath -> ParseDecl C.HeaderInfo
-getHeaderInfo path = uncurry C.HeaderInfo <$> evalGetMainHeadersAndInclude path
+getHeaderInfo path = uncurry aux <$> evalGetMainHeadersAndInclude path
+  where
+    aux :: NonEmpty HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
+    aux mainHeaders include = C.HeaderInfo{
+        mainHeaders     = mainHeaders
+      , includeArg      = IncludeGraph.getIncludeArg      include
+      , includeMacroArg = IncludeGraph.getIncludeMacroArg include
+      }
 
 getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
