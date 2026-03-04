@@ -3,6 +3,9 @@
 # Exit on first error
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
 # There's a quirk with Apple and Windows assembler and LLVM IR that do not
 # accept Unicode characters. There's SUPPORTS_UNICODE flag that allows Unicode
 # characters and we only enable that for non-MacOS and non-LLVM backend
@@ -17,6 +20,61 @@ else
     echo "Not setting SUPPORTS_UNICODE (not Linux or LLVM backend enabled)"
 fi
 
+echo "# "
+echo "# Building C libraries"
+echo "# "
+
+make -C "$SCRIPT_DIR/c"
+
+export LD_LIBRARY_PATH="$SCRIPT_DIR/c:${LD_LIBRARY_PATH:-}"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    export DYLD_LIBRARY_PATH="$SCRIPT_DIR/c:${DYLD_LIBRARY_PATH:-}"
+fi
+
+if [[ -f "$SCRIPT_DIR/hs/cabal.project.local" ]]; then
+    echo "# "
+    echo "# Using existing cabal.project.local"
+    echo "# "
+else
+    echo "# "
+    echo "# Generating cabal.project.local"
+    echo "# "
+
+    SUPPORTS_UNICODE_STANZA=""
+    if [[ "$(uname -s)" == "Linux" && "${LLVM_BACKEND}" != "1" ]]; then
+        SUPPORTS_UNICODE_STANZA="package manual
+  ghc-options:
+    -optc-DSUPPORTS_UNICODE
+    -DSUPPORTS_UNICODE
+
+"
+    fi
+
+    cat > "$SCRIPT_DIR/hs/cabal.project.local" <<EOF
+${SUPPORTS_UNICODE_STANZA}package manual
+  extra-include-dirs:
+      $SCRIPT_DIR/c
+  extra-lib-dirs:
+      $SCRIPT_DIR/c
+
+package hs-game
+  extra-include-dirs:
+      $SCRIPT_DIR/c
+  extra-lib-dirs:
+      $SCRIPT_DIR/c
+
+package hs-vector
+  extra-include-dirs:
+      $SCRIPT_DIR/c
+  extra-lib-dirs:
+      $SCRIPT_DIR/c
+EOF
+fi
+
+echo "# "
+echo "# Generating Haskell bindings"
+echo "# "
+
 mkdir -p external
 
 echo "# "
@@ -25,7 +83,7 @@ echo "# "
 
 mkdir -p hs/manual/generated
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -35,7 +93,7 @@ cabal run hs-bindgen-cli -- \
     --module Example \
     manual_examples.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -45,7 +103,7 @@ cabal run hs-bindgen-cli -- \
     --module Structs \
     structs.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -55,7 +113,7 @@ cabal run hs-bindgen-cli -- \
     --module Globals \
     globals.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -65,7 +123,7 @@ cabal run hs-bindgen-cli -- \
     --module Arrays \
     arrays.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -75,7 +133,7 @@ cabal run hs-bindgen-cli -- \
     --module FunctionPointers \
     function_pointers.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -85,7 +143,7 @@ cabal run hs-bindgen-cli -- \
     --module Complex \
     hsb_complex_test.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -95,7 +153,7 @@ cabal run hs-bindgen-cli -- \
     --module Callbacks \
     callbacks.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c/ \
     --create-output-dirs \
@@ -109,7 +167,7 @@ echo "# "
 echo "# Unprefixed field names"
 echo "# "
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -126,7 +184,7 @@ echo "# "
 
 mkdir -p hs/hs-vector/generated
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -139,7 +197,7 @@ cabal run hs-bindgen-cli -- \
 
 mkdir -p hs/hs-vector/generated/Vector
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -150,7 +208,7 @@ cabal run hs-bindgen-cli -- \
     --module Vector.Rotate \
     vector_rotate.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -167,7 +225,7 @@ echo "# "
 
 mkdir -p hs/hs-game/generated/Game
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -180,7 +238,7 @@ cabal run hs-bindgen-cli -- \
     game_world.h \
     game_player.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -191,7 +249,7 @@ cabal run hs-bindgen-cli -- \
     --module Game.World \
     game_world.h
 
-cabal run hs-bindgen-cli -- \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
     --create-output-dirs \
@@ -201,3 +259,13 @@ cabal run hs-bindgen-cli -- \
     --external-binding-spec external/game.yaml \
     --module Game.Player \
     game_player.h
+
+echo "# "
+echo "# Building and running the manual"
+echo "# "
+
+(
+    cd "$SCRIPT_DIR/hs"
+    cabal build all
+    cabal run manual
+)

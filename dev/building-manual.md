@@ -53,18 +53,12 @@ make
 cd ..
 ```
 
-Generate bindings using the [generate.sh](../manual/generate.sh) script:
+Alternatively, `generate-and-run.sh` will build the C libraries, generate
+`cabal.project.local`, generate bindings, build Haskell, and run the manual
+all in one step:
 
 ```bash
-./generate.sh
-```
-
-Finally, run the manual:
-
-```bash
-cd hs/
-cp ../cabal.project.local .
-cabal run manual
+./generate-and-run.sh
 ```
 
 ## Platform-Specific Notes
