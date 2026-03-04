@@ -120,4 +120,7 @@ exec global opts = do
             opts.configCLI.hsOutputDir
 
       forM_ opts.configCLI.outputBindingSpec $ \path ->
-        writeBindingSpec opts.configCLI.fileOverwritePolicy path
+        writeBindingSpec
+          opts.configCLI.fileOverwritePolicy
+          opts.configCLI.outputDirPolicy
+          path

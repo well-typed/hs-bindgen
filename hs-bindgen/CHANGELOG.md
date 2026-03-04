@@ -76,12 +76,15 @@
 * Fix a panic that occurred when the argument to a `#include` is a macro. In
   Haddock documentation of declarations in the included header, we just
   document the filename of the header.
+* Fix `--create-output-dirs` not creating directories for `--gen-binding-spec`
+  output paths. See [issue #1806][issue-1806].
 
 [is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
 [pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
+[issue-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
 
 ## 0.1.0-alpha -- 2026-02-06
 
