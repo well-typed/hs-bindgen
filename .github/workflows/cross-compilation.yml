@@ -1,0 +1,54 @@
+name: Cross-Compilation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  cross-compile-test:
+    name: Cross-compile to aarch64
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+
+    - name: Cache Nix store
+      uses: DeterminateSystems/magic-nix-cache-action@main
+
+    - name: Build dev shell
+      working-directory: examples/cross-compilation
+      run: |
+        nix build .#devShells.x86_64-linux.cross-aarch64 --print-build-logs
+
+    - name: Update Hackage index
+      run: |
+        nix develop ./examples/cross-compilation#cross-aarch64 --command cabal update
+
+    - name: Run workflow with timing
+      working-directory: examples/cross-compilation
+      run: |
+        nix develop .#cross-aarch64 --command ./generate-and-run.sh
