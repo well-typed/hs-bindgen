@@ -1,5 +1,6 @@
 module Main (main) where
 
+import Data.Sequence qualified as Seq
 import Test.Tasty
 
 import Test.HsBindgen.Golden qualified as Golden
@@ -35,5 +36,6 @@ main = defaultMain $
       , testGroup "golden tests" [
             Golden.tests testResources
           ]
-      , THFixtures.tests testResources
+        -- Path from root to here, for @-p@ pattern filtering.
+      , THFixtures.tests (Seq.fromList ["test-hs-bindgen"]) testResources
       ]
