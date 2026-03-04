@@ -26,6 +26,14 @@ This skips:
 
 Full mode (the default) runs all tests and is unchanged.
 
+### Debug Mode
+
+Use `--debug` (`-v`) to print all trace messages during golden test execution:
+
+```bash
+cabal run test-hs-bindgen -- --debug
+```
+
 ### Golden Test Updates
 
 When tests fail due to expected output changes, update them with:

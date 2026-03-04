@@ -143,6 +143,7 @@ instance IsTest GoldenTest where
     testOptions = return [
           Option (Proxy :: Proxy AcceptTests)
         , Option (Proxy :: Proxy Debug)
+        , Option (Proxy :: Proxy RunMode)
         ]
 
 runGoldenSteps :: GoldenSteps a -> (Progress -> IO ()) -> OptionSet -> IO Result
