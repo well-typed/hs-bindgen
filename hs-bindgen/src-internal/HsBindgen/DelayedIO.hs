@@ -65,7 +65,7 @@ checkPolicy = \case
       let baseDir = takeDirectory path
       dirExists  <- liftIO $ Dir.doesDirectoryExist baseDir
       fileExists <- liftIO $ Dir.doesFileExist path
-      unless dirExists $
+      unless (dirExists || fd.outputDirPolicy == CreateOutputDirs) $
         throwError $ DirectoryDoesNotExist baseDir
       when (fileExists && fd.overwritePolicy == DoNotOverwriteFiles) $
         throwError $ FileAlreadyExists path
@@ -73,7 +73,7 @@ checkPolicy = \case
       let path = relative.outputDir </> relative.localPath
       dirExists  <- liftIO $ Dir.doesDirectoryExist relative.outputDir
       fileExists <- liftIO $ Dir.doesFileExist path
-      unless (dirExists || relative.outputDirPolicy == CreateOutputDirs ) $
+      unless (dirExists || fd.outputDirPolicy == CreateOutputDirs) $
         throwError $ DirectoryDoesNotExist relative.outputDir
       when (fileExists && fd.overwritePolicy == DoNotOverwriteFiles) $
         throwError $ FileAlreadyExists path
@@ -86,26 +86,25 @@ data FileDescription = FileDescription {
       description     :: String
     , location        :: FileLocation
     , overwritePolicy :: FileOverwritePolicy
+    , outputDirPolicy :: OutputDirPolicy
     , content         :: FileContent
     }
 
 data FileLocation =
-      -- | We never create directories for user-specified file paths.
       UserSpecified FilePath
     | RelativeFileLocation RelativeToOutputDir
   deriving stock (Show, Generic)
 
 data RelativeToOutputDir = RelativeToOutputDir {
-      outputDir       :: FilePath
-    , localPath       :: FilePath
-    , outputDirPolicy :: OutputDirPolicy
+      outputDir :: FilePath
+    , localPath :: FilePath
     }
   deriving stock (Show, Generic)
 
 fileLocationToPath :: FileLocation -> FilePath
 fileLocationToPath = \case
     UserSpecified p -> p
-    RelativeFileLocation (RelativeToOutputDir d p _) -> d </> p
+    RelativeFileLocation relative -> relative.outputDir </> relative.localPath
 
 -- | Content to be written to a file
 --

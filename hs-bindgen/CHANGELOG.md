@@ -55,11 +55,14 @@
 * Include `FunPtr` for macro-defined newtypes. See [PR #1711][pr-1711].
 * Fix a panic that occurred in some cases when generating `_Aux` newtypes for
   function pointers. See [issue #1694][issue-1694] and [PR #1724][pr-1724].
+* Fix `--create-output-dirs` not creating directories for `--gen-binding-spec`
+  output paths. See [issue #1806][issue-1806].
 
 [pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 [issue-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
+[issue-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
 
 ## 0.1.0-alpha -- 2026-02-06
 
