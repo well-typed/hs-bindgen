@@ -65,7 +65,7 @@ updateParseResult chosenNames result =
               id             = declId'
             , loc            = result.loc
             , classification = ParseResultFailure $ ParseFailure $
-                                 ParseMsg $ ParseUnusableAnonDecl anonId
+                                 Delayed $ ParseUnusableAnonDecl anonId
             }
           Right (declInfo', declKind') -> ParseResult{
               id             = declInfo'.id

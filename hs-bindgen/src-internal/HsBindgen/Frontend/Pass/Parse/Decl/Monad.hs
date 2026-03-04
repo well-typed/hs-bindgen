@@ -21,6 +21,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , recordImmediateTrace
     -- ** Errors
   , unknownCursorKind
+  , parseFail
     -- * Utility: dispatching
   , dispatch
   , dispatchWithArg
@@ -42,9 +43,11 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
@@ -97,7 +100,7 @@ getTranslationUnit = wrapEff $ \support -> return support.env.unit
 evalGetMainHeadersAndInclude ::
      SourcePath
   -> ParseDecl
-      (Either ParseDeclException
+      (Either ImmediateParseMsg
         (NonEmpty HashIncludeArg, IncludeGraph.Include))
 evalGetMainHeadersAndInclude path = wrapEff $ \support ->
     pure $
@@ -176,6 +179,43 @@ recordImmediateTrace declId declLoc msg = wrapEff $ \support ->
   Errors
 -------------------------------------------------------------------------------}
 
+-- | Record a parse failure
+--
+-- In contrast to 'parseSucceed' and 'parseDoNotAttempt', this is a monadic
+-- action: It checks for immediate parse messages that should be
+-- emitted directly.
+parseFail :: ParseCtx -> PrelimDeclId -> SingleLoc -> ParseMsg -> ParseDecl [ParseResult Parse]
+parseFail ctx declId declLoc msg = do
+    maybeEmitScopingMsg ctx.outer.scoping declId declLoc msg
+    case msg of
+      Immediate m -> do
+        recordImmediateTrace declId declLoc m
+        pure [parseResult]
+      Delayed _ ->
+        pure [parseResult]
+  where
+    parseResult = ParseResult{
+        id             = declId
+      , loc            = declLoc
+      , classification = ParseResultFailure $ ParseFailure msg
+      }
+
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1249>
+-- Ideally we'd only emit the trace when we /use/ the declaration that
+-- we fail to parse.
+maybeEmitScopingMsg ::
+  RequiredForScoping -> PrelimDeclId -> SingleLoc -> ParseMsg -> ParseDecl ()
+maybeEmitScopingMsg scoping declId declLoc msg = case scoping of
+    RequiredForScoping ->
+      recordImmediateTrace declId declLoc $
+        ParseOfDeclarationRequiredForScopingFailed msg
+    NotRequiredForScoping ->
+      pure ()
+    UnknownRequiredForScoping ->
+      recordImmediateTrace declId declLoc $
+        ParseOfDeclarationMaybeRequiredForScopingFailed msg
+
+-- TODO-D: Remove 'unknownCursorKind'.
 unknownCursorKind :: MonadIO m => CXCursorKind -> CXCursor -> m x
 unknownCursorKind kind curr = do
     loc      <- HighLevel.clang_getCursorLocation' curr

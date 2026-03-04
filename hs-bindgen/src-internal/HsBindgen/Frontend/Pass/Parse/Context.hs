@@ -83,7 +83,7 @@ instance HasField "outer" ParseCtx DeclCtx where
 
 data ExceptionInCtx e = ExceptionInCtx {
       exception :: e
-    , ctx       :: DeclCtx
+    , ctx       :: ParseCtx
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -91,7 +91,7 @@ instance (Show e, Typeable e) => Exception (ExceptionInCtx e)
 
 addCtxHandler ::
      forall e a. (Exception e)
-  => Proxy e -> DeclCtx -> SomeException -> IO a
+  => Proxy e -> ParseCtx -> SomeException -> IO a
 addCtxHandler _p c e
   | Just e' <- (fromException @e e) =
       throwIO (ExceptionInCtx e' c)

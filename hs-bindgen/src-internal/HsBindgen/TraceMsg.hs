@@ -15,8 +15,6 @@ module HsBindgen.TraceMsg (
   , ImmediateAssignAnonIdsMsg (..)
   , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
-  , ParseTypeException(..)
-  , ParseDeclException(..)
   , ParseMsg(..)
   , CExpr.DSL.MacroParseError(..)
   , ResolveBindingSpecsMsg(..)
@@ -43,10 +41,7 @@ import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosReparseMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (..),
-                                          ImmediateParseMsg (..),
-                                          ParseDeclException (..),
-                                          ParseMsg (..),
-                                          ParseTypeException (..))
+                                          ImmediateParseMsg (..), ParseMsg (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecsMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
 import HsBindgen.Frontend.RootHeader (HashIncludeArgMsg (..))

@@ -212,9 +212,9 @@ testCases_manual = [
 test_manual_globals :: TestCase
 test_manual_globals =
     testTraceMulti "manual/globals" declsWithMsgs $ \case
-      MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
-      MatchParseMsg name ParseUnexpectedAnonInExtern{} ->
+      MatchDelayed name ParseUnsupportedAnonInExtern{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -251,13 +251,13 @@ test_arrays_array =
     defaultTest "arrays/array"
       & #clangVersion   .~ Just (>= (19, 0, 0))
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+            MatchDelayed name ParsePotentialDuplicateSymbol{} ->
               Just $ Expected name
             MatchDiagnosticOption "-Wno-extern-initializer" ->
               Just Tolerated
             MatchDiagnosticOption "-Wno-tentative-definition-array" ->
               Just Tolerated
-            MatchParseMsg name (MatchUnknownStorageClass CX_SC_Static) ->
+            MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
               Just $ Expected name
             _otherwise ->
               Nothing
@@ -420,11 +420,11 @@ test_attributes_visibility_attributes =
               (BNot (BIf (SelectDecl DeclDeprecated)))
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+            MatchDelayed name ParsePotentialDuplicateSymbol{} ->
               Just $ Expected name
-            MatchParseMsg name ParseNonPublicVisibility{} ->
+            MatchDelayed name ParseNonPublicVisibility{} ->
               Just $ Expected name
-            MatchParseMsg name (MatchUnknownStorageClass CX_SC_Static) ->
+            MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
               Just $ Expected name
             MatchDiagnosticOption "-Wno-extern-initializer" ->
               Just Tolerated
@@ -953,7 +953,7 @@ test_declarations_declaration_unselected_b =
 test_declarations_definitions :: TestCase
 test_declarations_definitions =
     testTraceMulti "declarations/definitions" declsWithMsgs $ \case
-      MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -994,9 +994,9 @@ test_declarations_redeclaration =
 
     trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
     trace = \case
-      MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
-      MatchParseMsg name (MatchUnknownStorageClass CX_SC_Static) ->
+      MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1041,9 +1041,9 @@ test_declarations_select_scoping =
 test_declarations_tentative_definitions :: TestCase
 test_declarations_tentative_definitions =
     testTraceMulti "declarations/tentative_definitions" declsWithMsgs $ \case
-      MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
-      MatchParseMsg name (MatchUnknownStorageClass CX_SC_Static) ->
+      MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
         Just $ Expected name
       MatchDiagnosticOption "-Wno-extern-initializer" ->
         Just $ Tolerated
@@ -1175,7 +1175,7 @@ test_edgeCases_thread_local =
       & #clangVersion   .~ Just (>= (16, 0, 0))
       & #cStandard    .~ c23
       & #tracePredicate .~ singleTracePredicate (\case
-            MatchParseMsg _name ParseUnsupportedTLS ->
+            MatchDelayed _name ParseUnsupportedTLS ->
               Just $ Expected ()
             _otherwise ->
               Nothing
@@ -1184,7 +1184,7 @@ test_edgeCases_thread_local =
 test_edgeCases_unsupported_builtin :: TestCase
 test_edgeCases_unsupported_builtin =
     testTraceMulti "edge-cases/unsupported_builtin" declsWithMsgs $ \case
-      MatchParseTypeException name (UnsupportedBuiltin "__builtin_va_list") ->
+      MatchDelayed name (ParseUnsupportedBuiltin "__builtin_va_list") ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1209,7 +1209,7 @@ testCases_bespoke_functions = [
 test_functions_decls_in_signature :: TestCase
 test_functions_decls_in_signature =
     testTraceMulti "functions/decls_in_signature" declsWithMsgs $ \case
-      MatchParseMsg name ParseUnexpectedAnonInSignature{} ->
+      MatchDelayed name ParseUnsupportedAnonInSignature{} ->
         Just $ Expected name
       MatchDiagnosticOption _diag ->
         Just $ Tolerated
@@ -1224,11 +1224,11 @@ test_functions_fun_attributes =
     defaultTest "functions/fun_attributes"
       & #clangVersion   .~ Just (>= (15, 0, 0))
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchParseTypeException name UnsupportedVariadicFunction ->
+            MatchDelayed name ParseUnsupportedVariadicFunction ->
               Just $ Expected name
-            MatchParseMsg name ParseNonPublicVisibility ->
+            MatchDelayed name ParseNonPublicVisibility ->
               Just $ Expected name
-            MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+            MatchDelayed name ParsePotentialDuplicateSymbol{} ->
               Just $ Expected name
             MatchSelect name SelectDeprecated{} ->
               Just $ Expected name
@@ -1278,12 +1278,12 @@ test_functions_simple_func_rename =
 test_functions_varargs :: TestCase
 test_functions_varargs =
     testTraceMulti "functions/varargs" declsWithMsgs $ \case
-      MatchParseTypeException name UnsupportedVariadicFunction ->
+      MatchDelayed name ParseUnsupportedVariadicFunction ->
         Just $ Expected name
-      MatchParseTypeException name (
-        UnsupportedUnderlyingType
+      MatchDelayed name (
+        ParseUnsupportedUnderlyingType
           (PrelimDeclId.Named (CDeclName "va_list" CNameKindOrdinary))
-          (UnsupportedBuiltin "__builtin_va_list")
+          (ParseUnsupportedBuiltin "__builtin_va_list")
         ) ->
         Just $ Expected name
       _otherwise ->
@@ -1304,7 +1304,7 @@ testCases_bespoke_globals = [
 test_globals_globals :: TestCase
 test_globals_globals =
     testTraceMulti "globals/globals" declsWithMsgs $ \case
-      MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1351,7 +1351,7 @@ testCases_bespoke_macros = [
 test_macros_macro_in_fundecl :: TestCase
 test_macros_macro_in_fundecl =
     testTraceMulti "macros/macro_in_fundecl" declsWithMsgs $ \case
-      MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1369,7 +1369,7 @@ test_macros_macro_in_fundecl =
 test_macros_macro_in_fundecl_vs_typedef :: TestCase
 test_macros_macro_in_fundecl_vs_typedef =
     testTraceMulti "macros/macro_in_fundecl_vs_typedef" declsWithMsgs $ \case
-      MatchParseMsg name ParsePotentialDuplicateSymbol{} ->
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1444,9 +1444,9 @@ test_programAnalysis_delay_traces =
               (BIf $ SelectDecl (DeclNameMatches "struct"))
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchParseTypeException name UnsupportedLongDouble ->
+            MatchDelayed name ParseUnsupportedLongDouble ->
               Just $ Expected name
-            MatchParseTypeException name UnsupportedVariadicFunction ->
+            MatchDelayed name ParseUnsupportedVariadicFunction ->
               Just $ Expected name
             _otherwise ->
                Nothing
@@ -1848,7 +1848,7 @@ testCases_bespoke_types = [
 test_types_implicit_fields_struct :: TestCase
 test_types_implicit_fields_struct =
     testTraceSimple "types/structs/implicit_fields_struct" $ \case
-      MatchParseMsg _name ParseUnsupportedImplicitFields{} ->
+      MatchDelayed _name ParseUnsupportedImplicitFields{} ->
         Just $ Expected ()
       _otherwise ->
         Nothing
@@ -1856,7 +1856,7 @@ test_types_implicit_fields_struct =
 test_types_implicit_fields_union :: TestCase
 test_types_implicit_fields_union =
     testTraceSimple "types/unions/implicit_fields_union" $ \case
-      MatchParseMsg _name ParseUnsupportedImplicitFields{} ->
+      MatchDelayed _name ParseUnsupportedImplicitFields{} ->
         Just $ Expected ()
       _otherwise ->
         Nothing
@@ -1864,7 +1864,7 @@ test_types_implicit_fields_union =
 test_types_long_double :: TestCase
 test_types_long_double =
     testTraceSimple "types/special/long_double" $ \case
-      MatchParseTypeException _name UnsupportedLongDouble ->
+      MatchDelayed _name ParseUnsupportedLongDouble ->
         Just $ Expected ()
       _otherwise ->
         Nothing
@@ -1883,7 +1883,7 @@ test_types_primitives_least_fast =
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =
     testTraceMulti "types/special/parse_failure_long_double" declsWithMsgs $ \case
-      MatchParseTypeException name UnsupportedLongDouble ->
+      MatchDelayed name ParseUnsupportedLongDouble ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1920,7 +1920,7 @@ test_types_structs_unnamed_struct =
 test_types_typedefs_typedefs :: TestCase
 test_types_typedefs_typedefs =
     testTraceMulti "types/typedefs/typedefs" declsWithMsgs $ \case
-      MatchParseMsg name ParseFunctionOfTypeTypedef ->
+      MatchDelayed name ParseFunctionOfTypeTypedef ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1982,7 +1982,7 @@ test_comprehensive_c2hsc =
 
     trace :: TraceMsg -> Maybe (TraceExpectation CDeclName)
     trace = \case
-      MatchParseTypeException name UnsupportedLongDouble ->
+      MatchDelayed name ParseUnsupportedLongDouble ->
         Just $ Expected name
       _otherwise ->
         Nothing
