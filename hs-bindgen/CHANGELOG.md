@@ -21,6 +21,9 @@
 
 ### New features
 
+* `internal frontend` command takes a `--pass` option
+  (e.g. `internal frontend --pass select`) to dump the result of a specific
+  frontend pass. Defaults to `adjust-types` (the final pass) when omitted.
 * Generate explicit export lists in preprocessor-generated modules, hiding
   internal `hs_bindgen_` helper bindings from the public API and documentation
   ([#76](https://github.com/well-typed/hs-bindgen/issues/76)). Export items

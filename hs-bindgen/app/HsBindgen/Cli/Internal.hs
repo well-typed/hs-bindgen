@@ -29,9 +29,7 @@ info = progDesc "Internal commands, for hs-bindgen development"
   Commands
 -------------------------------------------------------------------------------}
 
--- Ordered lexicographically
-newtype Cmd =
-    CmdFrontend Frontend.Opts
+newtype Cmd = CmdFrontend Frontend.Opts
 
 parseCmd :: Parser Cmd
 parseCmd = subparser $ mconcat [

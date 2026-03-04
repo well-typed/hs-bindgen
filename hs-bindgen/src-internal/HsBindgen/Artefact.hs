@@ -1,6 +1,9 @@
 module HsBindgen.Artefact (
+    -- * Frontend passes
+    FrontendPass(..)
+  , frontendPassName
     -- * Artefacts
-    Artefact(..)
+  , Artefact(..)
   , runArtefacts
   , ArtefactMsg(..)
   )
@@ -27,12 +30,63 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit)
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
+import HsBindgen.Frontend.Pass.Parse.Result (ParseResult)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
+import HsBindgen.Frontend.Pass.Select.IsPass (Select)
+import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Frontend passes
+-------------------------------------------------------------------------------}
+
+-- | Frontend passes
+--
+-- Each constructor names a frontend pass and carries the result type of running
+-- that pass. See "HsBindgen.Frontend" for the pass ordering and descriptions.
+data FrontendPass (result :: Star) where
+  DumpParse
+    :: FrontendPass [ParseResult Parse]
+  DumpSimplifyAST
+    :: FrontendPass [ParseResult SimplifyAST]
+  DumpAssignAnonIds
+    :: FrontendPass [ParseResult AssignAnonIds]
+  DumpConstructTranslationUnit
+    :: FrontendPass (C.TranslationUnit ConstructTranslationUnit)
+  DumpHandleMacros
+    :: FrontendPass (C.TranslationUnit HandleMacros)
+  DumpResolveBindingSpecs
+    :: FrontendPass (C.TranslationUnit ResolveBindingSpecs)
+  DumpMangleNames
+    :: FrontendPass (C.TranslationUnit MangleNames)
+  DumpSelect
+    :: FrontendPass (C.TranslationUnit Select)
+  DumpAdjustTypes
+    :: FrontendPass (C.TranslationUnit AdjustTypes)
+
+-- | Human-readable name of a frontend pass (for CLI and traces)
+frontendPassName :: FrontendPass result -> String
+frontendPassName = \case
+  DumpParse                    -> "parse"
+  DumpSimplifyAST              -> "simplify-ast"
+  DumpAssignAnonIds            -> "assign-anon-ids"
+  DumpConstructTranslationUnit -> "construct-translation-unit"
+  DumpHandleMacros             -> "handle-macros"
+  DumpResolveBindingSpecs      -> "resolve-binding-specs"
+  DumpMangleNames              -> "mangle-names"
+  DumpSelect                   -> "select"
+  DumpAdjustTypes              -> "adjust-types"
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -42,6 +96,8 @@ import HsBindgen.Util.Tracer
 data Artefact (a :: Star) where
   -- * Boot
   HashIncludeArgs     :: Artefact [HashIncludeArg]
+  -- * Frontend passes
+  RunFrontendPass     :: FrontendPass result -> Artefact result
   -- * Frontend
   IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
   GetMainHeaders      :: Artefact ProcessIncludes.GetMainHeaders
@@ -98,6 +154,8 @@ runArtefacts tracer boot frontend backend artefact =
     runArtefact = \case
         --Boot.
         HashIncludeArgs     -> runCached boot.hashIncludeArgs
+        -- Frontend passes.
+        RunFrontendPass p   -> runFrontendPass frontend p
         -- Frontend.
         IncludeGraph        -> runCached frontend.includeGraph
         GetMainHeaders      -> runCached frontend.getMainHeaders
@@ -116,6 +174,19 @@ runArtefacts tracer boot frontend backend artefact =
         (EmitTrace x)       -> emitTrace tracer x
         (Lift   f)          -> f
         (Bind x f)          -> runArtefact x >>= runArtefact . f
+
+-- | Run a frontend pass by dispatching on the 'FrontendPass' GADT.
+runFrontendPass :: FrontendArtefact -> FrontendPass result -> DelayedIOM result
+runFrontendPass fe = \case
+    DumpParse                    -> runCached fe.dumpParse
+    DumpSimplifyAST              -> runCached fe.dumpSimplifyAST
+    DumpAssignAnonIds            -> runCached fe.dumpAssignAnonIds
+    DumpConstructTranslationUnit -> runCached fe.dumpConstructTranslationUnit
+    DumpHandleMacros             -> runCached fe.dumpHandleMacros
+    DumpResolveBindingSpecs      -> runCached fe.dumpResolveBindingSpecs
+    DumpMangleNames              -> runCached fe.dumpMangleNames
+    DumpSelect                   -> runCached fe.dumpSelect
+    DumpAdjustTypes              -> runCached fe.dumpAdjustTypes
 
 {-------------------------------------------------------------------------------
   Traces
