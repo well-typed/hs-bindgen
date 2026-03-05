@@ -53,10 +53,6 @@ data ImmediateParseMsg =
     -- | Recursive case; we failed to parse a declaration that is required for scoping.
   | ParseOfDeclarationRequiredForScopingFailed ParseMsg
 
-    -- | Recursive case; we failed to parse a declaration that may be required
-    --   for scoping.
-  | ParseOfDeclarationMaybeRequiredForScopingFailed ParseMsg
-
     -- | Declaration availability can not be determined.
     --
     -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
@@ -102,9 +98,6 @@ instance PrettyForTrace ImmediateParseMsg where
       ParseOfDeclarationRequiredForScopingFailed err ->
         PP.hang "Parse of declaration required for scoping failed:" 2 $
           prettyForTrace err
-      ParseOfDeclarationMaybeRequiredForScopingFailed err ->
-        PP.hang "Parse of declaration maybe required for scoping failed:" 2 $
-          prettyForTrace err
       ParseUnknownCursorAvailability simpleKind -> PP.hsep [
           "Unknown declaration cursor availability:"
         , PP.show simpleKind
@@ -144,7 +137,6 @@ instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
       ParseUnexpectedUnderlyingType _ x                 -> getDefaultLogLevel x
       ParseOfDeclarationRequiredForScopingFailed{}      -> Info
-      ParseOfDeclarationMaybeRequiredForScopingFailed{} -> Info
       ParseUnknownCursorAvailability{}                  -> Notice
       ParseUnexpectedTypeKind{}                         -> Warning
       ParseUnexpectedCursorKind{}                       -> Warning

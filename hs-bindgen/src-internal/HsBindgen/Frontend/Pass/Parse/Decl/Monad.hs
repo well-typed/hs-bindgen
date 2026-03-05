@@ -228,6 +228,3 @@ maybeEmitScopingMsg scoping declId declLoc msg = case scoping of
         ParseOfDeclarationRequiredForScopingFailed msg
     NotRequiredForScoping ->
       pure ()
-    UnknownRequiredForScoping ->
-      recordImmediateTrace declId declLoc $
-        ParseOfDeclarationMaybeRequiredForScopingFailed msg

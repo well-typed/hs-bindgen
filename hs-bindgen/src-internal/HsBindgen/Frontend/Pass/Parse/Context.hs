@@ -25,7 +25,6 @@ import HsBindgen.Imports
 data RequiredForScoping =
     RequiredForScoping
   | NotRequiredForScoping
-  | UnknownRequiredForScoping
   deriving stock (Show, Eq, Ord)
 
 data DeclCtx = DeclCtx {
