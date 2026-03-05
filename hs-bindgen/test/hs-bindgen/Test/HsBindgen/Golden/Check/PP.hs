@@ -27,7 +27,11 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check getTestResources test =
     withExampleDir $
-    testGroup "pp" [
+    askOption $ \runMode ->
+    let categories = case runMode of
+          Fast -> filter (/= CTerm CUnsafe) allCategories
+          Full -> allCategories
+    in testGroup "pp" [
         goldenAnsiDiff (show bc) (fixture bc) $ \report -> do
           -- A golden tests should typically produce only a single file, so we
           -- run @hs-bindgen@ separately for each binding category. It's
@@ -55,7 +59,7 @@ check getTestResources test =
             Nothing -> ActualNoOutput
             Just x  -> ActualValue x
 
-      | (bc :: Category) <- allCategories
+      | (bc :: Category) <- categories
       ]
   where
     -- === Filepaths

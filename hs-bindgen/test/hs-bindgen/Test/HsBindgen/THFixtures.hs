@@ -7,12 +7,15 @@
 module Test.HsBindgen.THFixtures (tests) where
 
 import Data.Map.Strict qualified as Map
+import Data.Sequence (Seq)
+import Data.Sequence qualified as Seq
 import System.FilePath (takeDirectory)
 import Test.Tasty
 import Test.Tasty.Providers (IsTest (..), singleTest, testFailed)
 import Test.Tasty.Providers.ConsoleFormat (noResultDetails)
-import Test.Tasty.Runners (Outcome (..), Result (..))
+import Test.Tasty.Runners (Outcome (..), Result (..), testPatternMatches)
 
+import Test.Common.Util.Tasty.Golden (RunMode (..))
 import Test.HsBindgen.Golden (allTestCases)
 import Test.HsBindgen.Golden.TestCase (TestCase (..))
 import Test.HsBindgen.Resources
@@ -24,19 +27,28 @@ import Test.HsBindgen.THFixtures.TestCases (THStatus (..), determineTHStatus)
   Tests
 -------------------------------------------------------------------------------}
 
-tests :: IO TestResources -> TestTree
-tests testResources =
-    withResource setup (const $ return ()) $ \getResults ->
+-- | @pathPrefix@ is the path of 'testGroup' names from the test tree root
+-- to this point (e.g. @[\"test-hs-bindgen\"]@). 'testPatternMatches' needs
+-- full paths to replicate tasty's @-p@ filtering.
+tests :: Seq String -> IO TestResources -> TestTree
+tests pathPrefix testResources = askOption $ \case
+    Fast -> testGroup "th-fixtures" []
+    Full -> askOption $ \testPattern ->
+      withResource (setup testPattern) (const $ return ()) $ \getResults ->
         testGroup "th-fixtures" $
-            map (mkFixtureTest getResults) allTestCases
+          map (mkFixtureTest getResults) allTestCases
   where
-    setup = do
+    -- Only compile fixtures that match the @-p@ pattern. Without this,
+    -- 'withResource' compiles all fixtures regardless of @-p@.
+    setup testPattern = do
         testResources' <- testResources
         let repoRoot = takeDirectory testResources'.packageRoot
             cases =
               [ (tc.name, generateModule testResources' tc)
               | tc <- allTestCases
               , determineTHStatus tc == THCompile
+              , testPatternMatches testPattern
+                  (pathPrefix <> Seq.fromList ["th-fixtures", tc.name])
               ]
         setupBatchCompile repoRoot cases
 

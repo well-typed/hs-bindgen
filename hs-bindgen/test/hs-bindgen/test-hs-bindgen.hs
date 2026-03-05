@@ -1,5 +1,6 @@
 module Main (main) where
 
+import Data.Sequence qualified as Seq
 import Test.Tasty
 
 import Test.HsBindgen.Golden qualified as Golden
@@ -17,7 +18,8 @@ import Test.HsBindgen.Unit.Tracer qualified as Unit.Tracer
 -------------------------------------------------------------------------------}
 
 main :: IO ()
-main = defaultMain $ withTestResources $ \testResources ->
+main = defaultMain $
+    withTestResources $ \testResources ->
     testGroup "test-hs-bindgen" [
         testGroup "unit tests" [
             Unit.ClangArgs.tests testResources
@@ -34,5 +36,6 @@ main = defaultMain $ withTestResources $ \testResources ->
       , testGroup "golden tests" [
             Golden.tests testResources
           ]
-      , THFixtures.tests testResources
+        -- Path from root to here, for @-p@ pattern filtering.
+      , THFixtures.tests (Seq.fromList ["test-hs-bindgen"]) testResources
       ]
