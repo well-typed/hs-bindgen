@@ -193,9 +193,6 @@ jobs:
     - name: 🛠️ Build Cabal dependencies
       run: cabal build all --only-dependencies
 
-    - name: 🏗️ Build (--prefer-oldest, lower bounds check)
-      run: cabal build all --prefer-oldest
-
     - name: 🏗️ Build
       run: cabal build all
 

@@ -22,13 +22,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [ubuntu-latest, macos-latest]
+        runner: [ubuntu-latest, macos-latest, windows-latest]
         ghc: ['9.2', '9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
         llvm: ['14', '16', '18', '20', '21']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
             llvm: '21'
+          # LLVM 21 not available on Windows
+          - runner: windows-latest
+            llvm: '21'
+          # Conservative Windows LLVM selection: skip 20 for now
+          - runner: windows-latest
+            llvm: '20'
 
     defaults:
       run:
@@ -62,6 +68,9 @@ jobs:
     - name: 🛠️ cabal.project
       run: cp cabal.project.ci cabal.project
 
+    - name: 🏗️ Build (--prefer-oldest, lower bounds check)
+      run: cabal build all --prefer-oldest
+
     - name: 🏗️ Build
       run: cabal build all
 
@@ -72,6 +81,8 @@ jobs:
         # shipped in musl-include/ are Linux-specific, so GHC's C compiler
         # cannot use them on macOS or Windows.
         TASTY_PATTERN: ${{ runner.os != 'Linux' && '!/th-fixtures/' || '' }}
+        # Prevent MSYS/Git Bash from converting /th-fixtures/ to a Windows path
+        MSYS_NO_PATHCONV: 1
 
     - name: 🧪 Build manual (macOS)
       if: runner.os == 'macOS'
@@ -349,7 +360,54 @@ jobs:
         run: cabal haddock all --haddock-for-hackage
 
   # ============================================================================
-  # Job 6: Cross-compilation
+  # Job 6: Generate Haddock documentation for fixtures
+  # ============================================================================
+
+  generate-fixture-haddocks:
+    name: Generate Fixture Haddocks (GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ghc: ['9.4']
+        llvm: ['15']
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm }}
+
+      - name: 🛠️ Configure
+        run: |
+          cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
+
+      - name: 🛠️ Build Cabal dependencies
+        run: cabal build all --only-dependencies
+
+      - name: 🧪 Compile and generate Haddocks for fixtures
+        run: |
+          chmod +x scripts/ci/compile-and-generate-haddocks-fixtures.sh
+          scripts/ci/compile-and-generate-haddocks-fixtures.sh --haddock
+
+  # ============================================================================
+  # Job 7: Cross-compilation
   # ============================================================================
 
   cross-compile-test:

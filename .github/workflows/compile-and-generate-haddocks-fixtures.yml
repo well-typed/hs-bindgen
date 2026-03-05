@@ -1,4 +1,4 @@
-name: Compile and Generate Haddocks for Fixtures
+name: Compile Fixtures
 
 on:
   push:
@@ -19,8 +19,8 @@ defaults:
     shell: bash
 
 jobs:
-  compile-and-generate-haddocks-fixtures:
-    name: Compile & Generate Haddocks (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, Cabal ${{ matrix.cabal-version }}, LLVM ${{matrix.llvm-version }})
+  compile-fixtures:
+    name: Compile Fixtures (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, Cabal ${{ matrix.cabal-version }}, LLVM ${{matrix.llvm-version }})
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 30
 
@@ -29,10 +29,6 @@ jobs:
       # We run the workflow only once, but using a matrix makes it easy to
       # change these settings in the future. As an added benefit, we can refer
       # to the matrix entries in the job name.
-      #
-      # NOTE: This workflow both compiles fixtures AND generates Haddock
-      # documentation. Since Haddock compiles files internally, this single pass
-      # validates both compilation and documentation in one efficient step.
       matrix:
         runner: ['ubuntu-latest']
         ghc-version: ['9.4']
@@ -97,7 +93,7 @@ jobs:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
           key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
 
-      - name: 🧪 Compile and generate Haddocks for fixtures
+      - name: 🧪 Compile fixtures
         run: |
           chmod +x scripts/ci/compile-and-generate-haddocks-fixtures.sh
           scripts/ci/compile-and-generate-haddocks-fixtures.sh

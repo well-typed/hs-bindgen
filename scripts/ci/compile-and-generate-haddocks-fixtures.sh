@@ -2,13 +2,8 @@
 #
 # compile-and-generate-haddocks-fixtures.sh
 #
-# This script serves a DUAL PURPOSE:
-# 1. COMPILES all fixture files (validating they produce valid Haskell code)
-# 2. GENERATES Haddock documentation for all fixtures
-#
-# Since Haddock compiles files internally before generating documentation,
-# we use cabal haddock (instead of cabal build) to validate both compilation
-# AND documentation generation in a single pass.
+# Compiles all fixture files (validating they produce valid Haskell code).
+# With --haddock, also generates Haddock documentation for all fixtures.
 #
 
 set -euo pipefail
@@ -17,19 +12,19 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS] [FIXTURE]
 
-Compile and generate Haddock documentation for generated .hs fixture files.
-
-Since Haddock compiles files internally before generating docs, this single script
-validates both compilation and documentation generation in one pass.
+Compile generated .hs fixture files. With --haddock, also generate Haddock
+documentation.
 
 If a single FIXTURE is provided as an argument, only process this FIXTURE.
 
 Options:
-  -j N    Number of parallel jobs (default: 4)
-  -f      Force processing of all fixtures, including known failures
-  -w      Use -optc -Werror for all fixtures, including known fixtures that do
-          not compile cleanly with -optc -Werror
-  -h      Show this help message
+  --haddock  Also generate Haddock documentation (uses cabal haddock instead of
+             cabal build)
+  -j N       Number of parallel jobs (default: 4)
+  -f         Force processing of all fixtures, including known failures
+  -w         Use -optc -Werror for all fixtures, including known fixtures that do
+             not compile cleanly with -optc -Werror
+  -h         Show this help message
 
 Exit codes:
   0       All (non-skipped) fixtures processed successfully
@@ -112,8 +107,23 @@ KNOWN_FIXTURES_COUNT=169
 JOBS=4
 FORCE_ALL=false
 WERROR_ALL=false
+HADDOCK_MODE=false
 
-# Parse options
+# Parse --haddock (long option) before getopts
+ARGS=()
+for arg in "$@"; do
+    case "$arg" in
+    --haddock)
+        HADDOCK_MODE=true
+        ;;
+    *)
+        ARGS+=("$arg")
+        ;;
+    esac
+done
+set -- ${ARGS[@]+"${ARGS[@]}"}
+
+# Parse short options
 while getopts "j:fwh" opt; do
     case "$opt" in
     j)
@@ -153,8 +163,10 @@ if [[ ! -d "$FIXTURES_DIR" ]]; then
     exit 1
 fi
 
-# Create haddock output directory
-mkdir -p "$HADDOCK_OUTPUT_DIR"
+# Create haddock output directory (only needed in haddock mode)
+if [[ "$HADDOCK_MODE" == "true" ]]; then
+    mkdir -p "$HADDOCK_OUTPUT_DIR"
+fi
 
 ###############################################################################
 # Helper functions
@@ -496,20 +508,25 @@ if [[ $# -eq 1 ]]; then
     lib_name="fixture-$(sanitize "$1")"
 
     BUILD_EXIT=0
-    (cd "$BATCH_DIR" && cabal haddock "hs-bindgen-fixtures:$lib_name" \
-        --builddir="$SHARED_BUILD_DIR" \
-        --haddock-all \
-        --haddock-html-location='../$pkg-$version/docs' \
-        --haddock-hoogle \
-        --haddock-html) || BUILD_EXIT=$?
+    if [[ "$HADDOCK_MODE" == "true" ]]; then
+        (cd "$BATCH_DIR" && cabal haddock "hs-bindgen-fixtures:$lib_name" \
+            --builddir="$SHARED_BUILD_DIR" \
+            --haddock-all \
+            --haddock-html-location='../$pkg-$version/docs' \
+            --haddock-hoogle \
+            --haddock-html) || BUILD_EXIT=$?
 
-    # Copy haddock output to persistent directory
-    if [[ $BUILD_EXIT -eq 0 ]]; then
-        local_haddock_dir=$(find "$SHARED_BUILD_DIR" -type d -name "$lib_name" -path "*/doc/html/*" 2>/dev/null | head -1)
-        if [[ -n "$local_haddock_dir" ]]; then
-            mkdir -p "$HADDOCK_OUTPUT_DIR/$lib_name"
-            cp -r "$local_haddock_dir"/* "$HADDOCK_OUTPUT_DIR/$lib_name/" 2>/dev/null || true
+        # Copy haddock output to persistent directory
+        if [[ $BUILD_EXIT -eq 0 ]]; then
+            local_haddock_dir=$(find "$SHARED_BUILD_DIR" -type d -name "$lib_name" -path "*/doc/html/*" 2>/dev/null | head -1)
+            if [[ -n "$local_haddock_dir" ]]; then
+                mkdir -p "$HADDOCK_OUTPUT_DIR/$lib_name"
+                cp -r "$local_haddock_dir"/* "$HADDOCK_OUTPUT_DIR/$lib_name/" 2>/dev/null || true
+            fi
         fi
+    else
+        (cd "$BATCH_DIR" && cabal build "hs-bindgen-fixtures:$lib_name" \
+            --builddir="$SHARED_BUILD_DIR") || BUILD_EXIT=$?
     fi
 
     echo ""
@@ -545,7 +562,11 @@ FIXTURES_FOUND_COUNT=$((${#FIXTURES_TO_COMPILE[@]} + ${#FIXTURES_SKIPPED[@]} + $
 
 echo ""
 echo "========================================="
-echo "Fixture Compilation & Haddock Report"
+if [[ "$HADDOCK_MODE" == "true" ]]; then
+    echo "Fixture Compilation & Haddock Report"
+else
+    echo "Fixture Compilation Report"
+fi
 echo "========================================="
 echo "Total known fixtures: $KNOWN_FIXTURES_COUNT"
 echo "Total found fixtures: $FIXTURES_FOUND_COUNT"
@@ -586,38 +607,47 @@ fi
 generate_cabal_file "$BATCH_DIR"
 generate_cabal_project "$BATCH_DIR"
 
-echo "Compiling and generating Haddocks for ${#FIXTURES_TO_COMPILE[@]} fixtures..."
+if [[ "$HADDOCK_MODE" == "true" ]]; then
+    echo "Compiling and generating Haddocks for ${#FIXTURES_TO_COMPILE[@]} fixtures..."
+else
+    echo "Compiling ${#FIXTURES_TO_COMPILE[@]} fixtures..."
+fi
 echo ""
 
-# Build all fixtures with haddock using --keep-going to report all failures at
-# once. Since haddock compiles files internally, this validates both compilation
-# and documentation generation in one pass. Use tee so that cabal's output
-# (progress, warnings, errors) is visible in real time while also being captured
-# for post-build per-fixture parsing.
+# Build all fixtures using --keep-going to report all failures at once. Use tee
+# so that cabal's output (progress, warnings, errors) is visible in real time
+# while also being captured for post-build per-fixture parsing.
 BUILD_LOG="$BATCH_DIR/build.log"
 BUILD_EXIT=0
-(cd "$BATCH_DIR" && cabal haddock all \
-    -j"$JOBS" --keep-going \
-    --builddir="$SHARED_BUILD_DIR" \
-    --haddock-all \
-    --haddock-html-location='../$pkg-$version/docs' \
-    --haddock-hoogle \
-    --haddock-html \
-    2>&1) | tee "$BUILD_LOG" || BUILD_EXIT=$?
+if [[ "$HADDOCK_MODE" == "true" ]]; then
+    (cd "$BATCH_DIR" && cabal haddock all \
+        -j"$JOBS" --keep-going \
+        --builddir="$SHARED_BUILD_DIR" \
+        --haddock-all \
+        --haddock-html-location='../$pkg-$version/docs' \
+        --haddock-hoogle \
+        --haddock-html \
+        2>&1) | tee "$BUILD_LOG" || BUILD_EXIT=$?
 
-# Copy haddock output to persistent directory.
-#
-# Cabal places haddock output for internal libraries under:
-#   $builddir/build/<platform>/<compiler>/<pkg>-<ver>/l/<lib>/doc/html/<pkg>/<lib>/
-# We use find to locate each library's doc directory.
-for fixture_name in "${FIXTURES_TO_COMPILE[@]}"; do
-    lib_name="fixture-$(sanitize "$fixture_name")"
-    local_doc_dir=$(find "$SHARED_BUILD_DIR" -type d -name "$lib_name" -path "*/doc/html/*" 2>/dev/null | head -1)
-    if [[ -n "$local_doc_dir" ]]; then
-        mkdir -p "$HADDOCK_OUTPUT_DIR/$lib_name"
-        cp -r "$local_doc_dir"/* "$HADDOCK_OUTPUT_DIR/$lib_name/" 2>/dev/null || true
-    fi
-done
+    # Copy haddock output to persistent directory.
+    #
+    # Cabal places haddock output for internal libraries under:
+    #   $builddir/build/<platform>/<compiler>/<pkg>-<ver>/l/<lib>/doc/html/<pkg>/<lib>/
+    # We use find to locate each library's doc directory.
+    for fixture_name in "${FIXTURES_TO_COMPILE[@]}"; do
+        lib_name="fixture-$(sanitize "$fixture_name")"
+        local_doc_dir=$(find "$SHARED_BUILD_DIR" -type d -name "$lib_name" -path "*/doc/html/*" 2>/dev/null | head -1)
+        if [[ -n "$local_doc_dir" ]]; then
+            mkdir -p "$HADDOCK_OUTPUT_DIR/$lib_name"
+            cp -r "$local_doc_dir"/* "$HADDOCK_OUTPUT_DIR/$lib_name/" 2>/dev/null || true
+        fi
+    done
+else
+    (cd "$BATCH_DIR" && cabal build all \
+        -j"$JOBS" --keep-going \
+        --builddir="$SHARED_BUILD_DIR" \
+        2>&1) | tee "$BUILD_LOG" || BUILD_EXIT=$?
+fi
 
 # Extract failed library names from the build log
 #
@@ -670,12 +700,14 @@ if [[ ${#FAIL_NAMES[@]} -gt 0 ]]; then
     done
 fi
 
-# Generate index page for browsing all fixture haddocks
-generate_index "${#FIXTURES_TO_COMPILE[@]}" "${#FIXTURES_SKIPPED[@]}" "${#FIXTURES_EMPTY[@]}"
+# Generate index page for browsing all fixture haddocks (haddock mode only)
+if [[ "$HADDOCK_MODE" == "true" ]]; then
+    generate_index "${#FIXTURES_TO_COMPILE[@]}" "${#FIXTURES_SKIPPED[@]}" "${#FIXTURES_EMPTY[@]}"
 
-echo ""
-echo "Browse fixture documentation at:"
-echo "  $HADDOCK_OUTPUT_DIR/index.html"
-echo ""
+    echo ""
+    echo "Browse fixture documentation at:"
+    echo "  $HADDOCK_OUTPUT_DIR/index.html"
+    echo ""
+fi
 
 exit $BUILD_EXIT
