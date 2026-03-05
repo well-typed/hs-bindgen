@@ -52,7 +52,9 @@ setupBatchCompile repoRoot cases =
             [ "build"
             , "hs-bindgen-th-fixtures"
             , "--keep-going"
-            , "-j"
+            -- Attempt to avoid nondeterministic failures; see
+            -- <https://github.com/well-typed/hs-bindgen/issues/1813>
+            , "-j1"
             , "--builddir=" ++ repoRoot </> "dist-newstyle-th-fixtures"
             ]
           createProc = (proc "cabal" cabalArgs) { cwd = Just tmpDir }
