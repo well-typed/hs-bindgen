@@ -9,7 +9,6 @@ import GHC.Stack
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
-import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C ()
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
@@ -129,7 +128,7 @@ fromDecl ty = do
 
         CXCursor_TypedefDecl -> typeTypedef decl
 
-        kind -> throwError $ Immediate $ ParseUnexpectedTypeDecl (Right kind)
+        kind -> throwError $ Immediate $ ParseUnexpectedCursorKind (Right kind)
 
 typeRef :: MonadIO m => CXCursor -> CTagKind -> m (C.Type Parse)
 typeRef decl kind =
@@ -150,14 +149,14 @@ typeEnum decl = do
           }
 
 typeTypedef :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
-typeTypedef decl = do
-    declId <- PrelimDeclId.atCursor decl CNameKindOrdinary
+typeTypedef curr = do
+    declId <- PrelimDeclId.atCursor curr CNameKindOrdinary
     -- Typedefs can not be anonymous, but we use 'cachedMaybe' for safety
     -- anyway
     let mDeclName = PrelimDeclId.sourceName declId
     ParseType.cachedMaybe mDeclName $ do
         underlying <- handle (addUnderlyingTypeContextHandler declId) $
-                        getUnderlyingType decl
+                        getUnderlyingType curr
         pure $ C.TypeTypedef $ C.Ref {
             name = declId
           , underlying = underlying
@@ -176,8 +175,10 @@ typeTypedef decl = do
           refTy <- clang_Type_getNamedType uTy
           addQualifiers <- qualifiers uTy
           addQualifiers <$> cxtype refTy
-        Right{}                 -> cxtype uTy
-        _otherwise              -> panicPure "Invalid underlying type"
+        Right{} ->
+          cxtype uTy
+        typeKind ->
+          throwError $ Immediate $ ParseUnexpectedTypeKind typeKind
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto = \ty -> do

@@ -23,6 +23,7 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
+-- | An immediate or delayed parse message
 data ParseMsg = Immediate ImmediateParseMsg | Delayed DelayedParseMsg
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -61,6 +62,7 @@ data ImmediateParseMsg =
     -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
     -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
   | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
+
     -- | We encountered an unexpected type kind
     --
     -- This is always a bug in hs-bindgen: if this kind of type is unsupported,
@@ -70,16 +72,22 @@ data ImmediateParseMsg =
     -- incomplete.
   | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
 
-    -- | We encountered an unexpected type declaration
+    -- | We encountered an unexpected cursor kind
     --
     -- Similar comments apply as for 'UnexpectedTypeKind'.
-  | ParseUnexpectedTypeDecl (Either CInt CXCursorKind)
+  | ParseUnexpectedCursorKind (Either CInt CXCursorKind)
 
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
   | ParseUnexpectedComplexType CXType
 
   | ParseNoMainHeadersException String SourcePath
+
+  | ParseExpectedFunctionType String
+
+  | ParseUnexpectedLinkage (Either CInt CXLinkageKind)
+
+  | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace ImmediateParseMsg where
@@ -101,14 +109,10 @@ instance PrettyForTrace ImmediateParseMsg where
           "Unknown declaration cursor availability:"
         , PP.show simpleKind
         ]
-      ParseUnexpectedTypeKind (Right kind) ->
-        unexpected $ "type kind " >< PP.show kind
-      ParseUnexpectedTypeKind (Left i) ->
-        unexpected $ "type kind " >< PP.show i
-      ParseUnexpectedTypeDecl (Right kind) ->
-        unexpected $ "type declaration " >< PP.show kind
-      ParseUnexpectedTypeDecl (Left i) ->
-        unexpected $ "type declaration " >< PP.show i
+      ParseUnexpectedTypeKind x ->
+        unexpected $ "type kind " >< either PP.show PP.show x
+      ParseUnexpectedCursorKind x ->
+        unexpected $ "cursor kind " >< either PP.show PP.show x
       ParseUnexpectedComplexType ty ->
         unexpected $ "complex type " >< PP.show ty
       ParseNoMainHeadersException why whr -> PP.hsep [
@@ -116,6 +120,18 @@ instance PrettyForTrace ImmediateParseMsg where
         , PP.string why
         , "at"
         , PP.string $ getSourcePath whr
+        ]
+      ParseExpectedFunctionType ty -> PP.hsep [
+          "Expected function type, but got"
+        , PP.string ty
+        ]
+      ParseUnexpectedLinkage linkage -> PP.hcat [
+          "Unexpected linkage: "
+        , PP.show linkage
+        ]
+      ParseUnexpectedVisibility visibility -> PP.hcat [
+          "Unexpected visibility: "
+        , PP.show visibility
         ]
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
@@ -131,9 +147,12 @@ instance IsTrace Level ImmediateParseMsg where
       ParseOfDeclarationMaybeRequiredForScopingFailed{} -> Info
       ParseUnknownCursorAvailability{}                  -> Notice
       ParseUnexpectedTypeKind{}                         -> Warning
-      ParseUnexpectedTypeDecl{}                         -> Warning
+      ParseUnexpectedCursorKind{}                       -> Warning
       ParseUnexpectedComplexType{}                      -> Warning
       ParseNoMainHeadersException{}                     -> Error
+      ParseExpectedFunctionType{}                       -> Warning
+      ParseUnexpectedLinkage{}                          -> Warning
+      ParseUnexpectedVisibility{}                       -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse-immediate"
 
@@ -289,6 +308,12 @@ data DelayedParseMsg =
 
     -- | Clang built-in declaration
   | ParseUnsupportedBuiltin Text
+
+  | ParseInvalidLinkage
+
+  | ParseUnsupportedLinkage String CXLinkageKind
+
+  | ParseInvalidVisibility
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace DelayedParseMsg where
@@ -340,6 +365,17 @@ instance PrettyForTrace DelayedParseMsg where
         "Unsupported float128"
       ParseUnsupportedBuiltin name ->
         "Unsupported built-in " >< PP.show name
+      ParseInvalidLinkage ->
+        "Invalid linkage (CXLinkage_Invalid)"
+      ParseUnsupportedLinkage comment linkage -> PP.hcat [
+          "Unsupported linkage: "
+        , PP.show linkage
+        , " ("
+        , PP.string comment
+        , ")"
+        ]
+      ParseInvalidVisibility ->
+        "Invalid visibility (CXVisibility_Invalid)"
 
 -- | Unsupported features are warnings
 instance IsTrace Level DelayedParseMsg where
@@ -358,5 +394,8 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedLongDouble          -> Warning
       ParseUnsupportedFloat128            -> Warning
       ParseUnsupportedBuiltin{}           -> Warning
+      ParseInvalidLinkage                 -> Warning
+      ParseUnsupportedLinkage{}           -> Warning
+      ParseInvalidVisibility              -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse"
