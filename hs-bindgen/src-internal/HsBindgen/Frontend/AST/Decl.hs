@@ -122,6 +122,9 @@ data HeaderInfo = HeaderInfo{
       -- | @#include@ argument used to include the file where the declaration is
       -- actually declared
     , includeArg :: HashIncludeArg
+
+      -- | Raw macro used as a @#include@ argument, when applicable
+    , includeMacroArg :: Maybe Text
     }
   deriving stock (Show, Eq, Generic)
 

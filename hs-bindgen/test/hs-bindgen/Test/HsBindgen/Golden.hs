@@ -1078,6 +1078,7 @@ testCases_bespoke_edgeCases = [
     , test_edgeCases_clang_generated_collision
     , test_edgeCases_duplicate
     , test_edgeCases_headers
+    , test_edgeCases_include_macro
     , test_edgeCases_iterator
     , test_edgeCases_ordinary_anon
     , test_edgeCases_select_no_match
@@ -1137,6 +1138,11 @@ test_edgeCases_headers =
         Just $ Expected ()
       _otherwise ->
         Nothing
+
+test_edgeCases_include_macro :: TestCase
+test_edgeCases_include_macro =
+    defaultTest "edge-cases/include_macro_parent"
+      & #onFrontend .~ ( #selectPredicate .~ BTrue )
 
 test_edgeCases_iterator :: TestCase
 test_edgeCases_iterator =

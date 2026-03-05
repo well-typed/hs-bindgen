@@ -1,0 +1,49 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/include_macro_parent.h
+  cname: struct pt
+  hsname: Pt
+- headers: edge-cases/include_macro_parent.h
+  cname: pt
+  hsname: Pt
+- headers: edge-cases/include_macro_parent.h
+  cname: struct rect
+  hsname: Rect
+hstypes:
+- hsname: Pt
+  representation:
+    record:
+      constructor: Pt
+      fields:
+      - pt_x
+      - pt_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Rect
+  representation:
+    record:
+      constructor: Rect
+      fields:
+      - rect_tl
+      - rect_br
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
