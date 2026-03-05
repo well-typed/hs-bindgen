@@ -43,7 +43,7 @@ import HsBindgen.Language.C qualified as C
 -- goes wrong with a nested declaration, we want to skip the entire outer
 -- declaration.
 topLevelDecl :: Fold ParseDecl [ParseResult Parse]
-topLevelDecl = foldWithHandler handleParseExceptions (parseDecl Nothing)
+topLevelDecl = foldWithHandler handleParseExceptions (parseDecl' Nothing)
   where
     handleParseExceptions ::
          CXCursor
@@ -55,118 +55,18 @@ topLevelDecl = foldWithHandler handleParseExceptions (parseDecl Nothing)
       | otherwise = liftIO $ throwIO err
 
 {-------------------------------------------------------------------------------
-  Info that we collect for all declarations
--------------------------------------------------------------------------------}
-
--- | Parse with declaration info
---
--- The continuation is only called when the declaration info can be determined.
---
--- Must not be called on built-ins.
-withDeclInfo :: ParseCtx -> (C.DeclInfo Parse -> Parser) -> Parser
-withDeclInfo ctx k = \curr -> do
-    declId          <- PrelimDeclId.atCursor curr ctx.inner.kind
-    declLoc         <- HighLevel.clang_getCursorLocation' curr
-    (withHeaderInfo ctx declId declLoc $ \headerInfo ->
-      withAvailability ctx declId declLoc $ \availability curr' -> do
-        declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
-        let info :: C.DeclInfo Parse
-            info = C.DeclInfo{
-                  id           = declId
-                , loc          = declLoc
-                , headerInfo   = headerInfo
-                , availability = availability
-                , comment      = declComment
-                }
-        k info curr') curr
-
--- | Continue with availability
---
--- The continuation is only called when the availability can be determined.
-withAvailability ::
-     ParseCtx
-  -> PrelimDeclId
-  -> SingleLoc
-  -> (C.Availability -> Parser)
-  -> Parser
-withAvailability ctx declId declLoc k = \curr -> do
-    sAvailability  <- clang_getCursorAvailability curr
-    let mAvailability :: Maybe C.Availability
-        mAvailability = fmap toAvailability $ fromSimple $ sAvailability
-    case mAvailability of
-      Nothing -> do
-        failures <-
-          parseFail ctx declId declLoc $ Immediate $
-            ParseUnknownCursorAvailability sAvailability
-        foldContinueWith failures
-      Just availability -> k availability curr
-  where
-    fromSimple :: IsSimpleEnum a => SimpleEnum a -> Maybe a
-    fromSimple x = either (const Nothing) Just $ fromSimpleEnum x
-
-    toAvailability :: CXAvailabilityKind -> C.Availability
-    toAvailability = \case
-      CXAvailability_Available     -> C.Available
-      CXAvailability_Deprecated    -> C.Deprecated
-      CXAvailability_NotAvailable  -> C.Unavailable
-      CXAvailability_NotAccessible -> C.Unavailable
-
--- | Continue with header information
---
--- The continuation is only called when the header information can be determined.
-withHeaderInfo ::
-     ParseCtx
-  -> PrelimDeclId
-  -> SingleLoc
-  -> (C.HeaderInfo -> Parser)
-  -> Parser
-withHeaderInfo ctx declId declLoc k = \curr -> do
-  eRes <- evalGetMainHeadersAndInclude (singleLocPath declLoc)
-  case eRes of
-    Left err -> do
-      failures <- parseFail ctx declId declLoc $ Immediate err
-      foldContinueWith failures
-    Right res ->
-      k (uncurry aux res) curr
-  where
-    aux :: NonEmpty HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
-    aux mainHeaders include = C.HeaderInfo{
-        mainHeaders     = mainHeaders
-      , includeArg      = IncludeGraph.getIncludeArg      include
-      , includeMacroArg = IncludeGraph.getIncludeMacroArg include
-      }
-
-getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
-getFieldInfo = \curr -> do
-    fieldLoc     <- HighLevel.clang_getCursorLocation' curr
-    fieldName    <- CScopedName <$> clang_getCursorDisplayName curr
-    fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
-
-    return C.FieldInfo {
-        loc     = fieldLoc
-      , name    = fieldName
-      , comment = fieldComment
-      }
-
-getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
-getReparseInfo = \curr -> do
-    extent <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
-    hasMacroExpansion <- checkHasMacroExpansion extent
-    if hasMacroExpansion then do
-      unit <- getTranslationUnit
-      ReparseNeeded <$> HighLevel.clang_tokenize unit extent
-    else
-      return ReparseNotNeeded
-
-{-------------------------------------------------------------------------------
   Functions for each kind of declaration
 -------------------------------------------------------------------------------}
 
 type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult Parse])
 
--- | Declarations
-parseDecl :: HasCallStack => Maybe ParseCtx -> Parser
-parseDecl mCtx = dispatchWithArg mCtx $ \case
+-- | Parse declarations with available parse context
+parseDecl :: ParseCtx -> Parser
+parseDecl = parseDecl' . Just
+
+-- | Parse declarations, possibly without a parse context
+parseDecl' :: HasCallStack => Maybe ParseCtx -> Parser
+parseDecl' mCtx = withCursorKind' $ \case
       -- Ordinary kinds that we parse
       CXCursor_FunctionDecl    -> parseDeclWith (push CNameKindOrdinary NotRequiredForScoping) functionDecl
       CXCursor_VarDecl         -> parseDeclWith (push CNameKindOrdinary NotRequiredForScoping) varDecl
@@ -201,6 +101,11 @@ parseDecl mCtx = dispatchWithArg mCtx $ \case
       in  case mCtx of
             Nothing     -> mkCtx   ctx
             Just ctxOld -> pushCtx ctx ctxOld
+
+    withCursorKind' :: (CXCursorKind -> Parser) -> Parser
+    withCursorKind' = case mCtx of
+      Nothing  -> unsafeWithCursorKind
+      Just ctx -> withCursorKind ctx
 
 -- | Parse declaration
 --
@@ -413,7 +318,7 @@ declOrFieldDecl ctx fieldDecl = simpleFold $ \curr -> do
         -- elsewhere, so here we choose not to recurse.
         foldContinueWith $ Right field
       _otherwise -> do
-        fmap Left <$> parseDecl (Just ctx) curr
+        fmap Left <$> parseDecl ctx curr
 
 structFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl ctx = \curr -> do
@@ -666,8 +571,8 @@ functionDecl ctx info =
             foldRecurseWith nestedDecl (return . concat)
 
           -- Nested declarations
-          Right CXCursor_StructDecl -> fmap (fmap Left) <$> parseDecl (Just ctx) curr
-          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> parseDecl (Just ctx) curr
+          Right CXCursor_StructDecl -> fmap (fmap Left) <$> parseDecl ctx curr
+          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> parseDecl ctx curr
 
           -- Harmless
           Right CXCursor_TypeRef        -> foldContinue
@@ -763,16 +668,14 @@ varDecl ctx info = do
                     parseFail ctx info.id info.loc $ Delayed $ ParseUnknownStorageClass storage
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult Parse]
-    nestedDecl = simpleFold $ \curr -> do
-        kind <- fromSimpleEnum <$> clang_getCursorKind curr
-        case kind of
+    nestedDecl = simpleFold $ withCursorKind ctx $ \case
           -- Reference to previously declared type can safely be skipped
-          Right CXCursor_TypeRef -> foldContinue
+          CXCursor_TypeRef -> skip
 
           -- Nested /new/ declarations
-          Right CXCursor_StructDecl -> parseDecl (Just ctx) curr
-          Right CXCursor_UnionDecl  -> parseDecl (Just ctx) curr
-          Right CXCursor_EnumDecl   -> parseDecl (Just ctx) curr
+          CXCursor_StructDecl -> parseDecl ctx
+          CXCursor_UnionDecl  -> parseDecl ctx
+          CXCursor_EnumDecl   -> parseDecl ctx
 
           -- Initializers
           --
@@ -781,17 +684,17 @@ varDecl ctx info = do
           --
           -- The order here roughly matches the order of 'CXCursor'.
           -- <https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013>
-          Right CXCursor_IntegerLiteral      -> foldContinue
-          Right CXCursor_FloatingLiteral     -> foldContinue
-          Right CXCursor_ImaginaryLiteral    -> foldContinue
-          Right CXCursor_StringLiteral       -> foldContinue
-          Right CXCursor_ParenExpr           -> foldContinue
-          Right CXCursor_UnaryOperator       -> foldContinue
-          Right CXCursor_BinaryOperator      -> foldContinue
-          Right CXCursor_ConditionalOperator -> foldContinue
-          Right CXCursor_CStyleCastExpr      -> foldContinue
-          Right CXCursor_InitListExpr        -> foldContinue
-          Right CXCursor_CXXBoolLiteralExpr  -> foldContinue -- Since C23
+          CXCursor_IntegerLiteral      -> skip
+          CXCursor_FloatingLiteral     -> skip
+          CXCursor_ImaginaryLiteral    -> skip
+          CXCursor_StringLiteral       -> skip
+          CXCursor_ParenExpr           -> skip
+          CXCursor_UnaryOperator       -> skip
+          CXCursor_BinaryOperator      -> skip
+          CXCursor_ConditionalOperator -> skip
+          CXCursor_CStyleCastExpr      -> skip
+          CXCursor_InitListExpr        -> skip
+          CXCursor_CXXBoolLiteralExpr  -> skip -- Since C23
 
           -- Some initializers are \"unexposed\".
           --
@@ -808,25 +711,28 @@ varDecl ctx info = do
           --
           -- The only other example I'm currently aware of is characters
           -- ('CXCursor_CharacterLiteral').
-          Right CXCursor_UnexposedExpr -> foldContinue
-          Right CXCursor_DeclRefExpr   -> foldContinue
+          CXCursor_UnexposedExpr -> skip
+          CXCursor_DeclRefExpr   -> skip
 
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.
-          Right CXCursor_VisibilityAttr -> foldContinue
+          CXCursor_VisibilityAttr -> skip
 
           -- We are not interested in assembler labels.
-          Right CXCursor_AsmLabelAttr -> foldContinue
+          CXCursor_AsmLabelAttr -> skip
 
           -- Function types
-          Right CXCursor_ParmDecl -> foldContinue
+          CXCursor_ParmDecl -> skip
 
           -- Fail on anything we don't recognize
-          otherKind -> do
+          otherKind -> \_curr -> do
             failures <-
               parseFail ctx info.id info.loc
-                (Immediate $ ParseUnexpectedCursorKind otherKind)
+                (Immediate $ ParseUnexpectedCursorKind $ Right otherKind)
             foldContinueWith failures
+
+    skip :: MonadIO m => b -> m (Next m a)
+    skip = const foldContinue
 
 {-------------------------------------------------------------------------------
   Utility: dispatching based on the cursor kind
@@ -869,25 +775,138 @@ failUnrecognizedKind ctx eKind curr =
     let msg = Immediate (ParseUnexpectedCursorKind eKind)
     in  parseFailNoInfo ctx msg curr
 
-dispatch ::
-     Maybe ParseCtx
-  -> (CXCursorKind -> Parser)
+-- | Obtain cursor kind and run continuation
+--
+-- Without a 'ParseCtx', we cannot attach a possible error to the declaration,
+-- and so we must panic.
+--
+-- Use 'withCursorKind' instead, if possible.
+unsafeWithCursorKind ::
+     (CXCursorKind -> Parser)
   -> Parser
-dispatch mCtx k = \curr -> do
+unsafeWithCursorKind k = \curr -> do
     mKind <- fromSimpleEnum <$> clang_getCursorKind curr
     case mKind of
       Right kind -> k kind curr
-      Left  i    -> case mCtx of
-        Nothing ->
-          unavoidablePanicUnrecognizedKind (Left i) curr
-        Just ctx ->
-          failUnrecognizedKind ctx (Left i) curr >>= foldContinueWith
+      Left  i    -> unavoidablePanicUnrecognizedKind (Left i) curr
 
-dispatchWithArg ::
-     Maybe ParseCtx
+-- | Obtain cursor kind and run continuation
+--
+-- Only run continuation if the cursor kind can be obtain, otherwise fail with a
+-- 'ParseFailure'.
+withCursorKind ::
+     ParseCtx
   -> (CXCursorKind -> Parser)
   -> Parser
-dispatchWithArg mCtx f = dispatch mCtx $ \kind -> f kind
+withCursorKind ctx k = \curr -> do
+    mKind <- fromSimpleEnum <$> clang_getCursorKind curr
+    case mKind of
+      Right kind -> k kind curr
+      Left  i    -> failUnrecognizedKind ctx (Left i) curr >>= foldContinueWith
+
+{-------------------------------------------------------------------------------
+  Info that we collect for all declarations
+-------------------------------------------------------------------------------}
+
+-- | Parse with declaration info
+--
+-- The continuation is only called when the declaration info can be determined.
+--
+-- Must not be called on built-ins.
+withDeclInfo :: ParseCtx -> (C.DeclInfo Parse -> Parser) -> Parser
+withDeclInfo ctx k = \curr -> do
+    declId          <- PrelimDeclId.atCursor curr ctx.inner.kind
+    declLoc         <- HighLevel.clang_getCursorLocation' curr
+    (withHeaderInfo ctx declId declLoc $ \headerInfo ->
+      withAvailability ctx declId declLoc $ \availability curr' -> do
+        declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
+        let info :: C.DeclInfo Parse
+            info = C.DeclInfo{
+                  id           = declId
+                , loc          = declLoc
+                , headerInfo   = headerInfo
+                , availability = availability
+                , comment      = declComment
+                }
+        k info curr') curr
+
+-- | Continue with availability
+--
+-- The continuation is only called when the availability can be determined.
+withAvailability ::
+     ParseCtx
+  -> PrelimDeclId
+  -> SingleLoc
+  -> (C.Availability -> Parser)
+  -> Parser
+withAvailability ctx declId declLoc k = \curr -> do
+    sAvailability  <- clang_getCursorAvailability curr
+    let mAvailability :: Maybe C.Availability
+        mAvailability = fmap toAvailability $ fromSimple $ sAvailability
+    case mAvailability of
+      Nothing -> do
+        failures <-
+          parseFail ctx declId declLoc $ Immediate $
+            ParseUnknownCursorAvailability sAvailability
+        foldContinueWith failures
+      Just availability -> k availability curr
+  where
+    fromSimple :: IsSimpleEnum a => SimpleEnum a -> Maybe a
+    fromSimple x = either (const Nothing) Just $ fromSimpleEnum x
+
+    toAvailability :: CXAvailabilityKind -> C.Availability
+    toAvailability = \case
+      CXAvailability_Available     -> C.Available
+      CXAvailability_Deprecated    -> C.Deprecated
+      CXAvailability_NotAvailable  -> C.Unavailable
+      CXAvailability_NotAccessible -> C.Unavailable
+
+-- | Continue with header information
+--
+-- The continuation is only called when the header information can be determined.
+withHeaderInfo ::
+     ParseCtx
+  -> PrelimDeclId
+  -> SingleLoc
+  -> (C.HeaderInfo -> Parser)
+  -> Parser
+withHeaderInfo ctx declId declLoc k = \curr -> do
+  eRes <- evalGetMainHeadersAndInclude (singleLocPath declLoc)
+  case eRes of
+    Left err -> do
+      failures <- parseFail ctx declId declLoc $ Immediate err
+      foldContinueWith failures
+    Right res ->
+      k (uncurry aux res) curr
+  where
+    aux :: NonEmpty HashIncludeArg -> IncludeGraph.Include -> C.HeaderInfo
+    aux mainHeaders include = C.HeaderInfo{
+        mainHeaders     = mainHeaders
+      , includeArg      = IncludeGraph.getIncludeArg      include
+      , includeMacroArg = IncludeGraph.getIncludeMacroArg include
+      }
+
+getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
+getFieldInfo = \curr -> do
+    fieldLoc     <- HighLevel.clang_getCursorLocation' curr
+    fieldName    <- CScopedName <$> clang_getCursorDisplayName curr
+    fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
+
+    return C.FieldInfo {
+        loc     = fieldLoc
+      , name    = fieldName
+      , comment = fieldComment
+      }
+
+getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
+getReparseInfo = \curr -> do
+    extent <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
+    hasMacroExpansion <- checkHasMacroExpansion extent
+    if hasMacroExpansion then do
+      unit <- getTranslationUnit
+      ReparseNeeded <$> HighLevel.clang_tokenize unit extent
+    else
+      return ReparseNotNeeded
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
