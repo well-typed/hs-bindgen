@@ -370,9 +370,7 @@ library test-common
     Test.Common.Util.Tasty.Golden
 
   -- Internal dependencies
-  build-depends:
-    , hs-bindgen:internal
-    , libclang-bindings
+  build-depends:   hs-bindgen:internal
 
   -- Inherited dependencies
   build-depends:
