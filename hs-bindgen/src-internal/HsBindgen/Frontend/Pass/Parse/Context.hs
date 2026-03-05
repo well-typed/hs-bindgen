@@ -37,30 +37,24 @@ data DeclCtx = DeclCtx {
 -- | The parse context stores information about the inner-most declaration
 --   (i.e., the one we are parsing right now), and the outer-most declaration
 --   (i.e., the top-level declaration).
-data ParseCtx = ParseCtx {
-    _ctxs  :: NonEmpty DeclCtx
-  , _outer :: DeclCtx
-
-}
+data ParseCtx = ParseCtx { _ctxs  :: NonEmpty DeclCtx }
   deriving stock (Show, Eq, Ord)
 
 mkCtx :: DeclCtx -> ParseCtx
 mkCtx ctx = ParseCtx{
       _ctxs  = NonEmpty.singleton ctx
-    , _outer = ctx
     }
 
 pushCtx :: DeclCtx -> ParseCtx -> ParseCtx
 pushCtx ctx e = ParseCtx{
       _ctxs = ctx <| e._ctxs
-    , _outer = e._outer
     }
 
 instance HasField "inner" ParseCtx DeclCtx where
   getField = NonEmpty.head . (._ctxs)
 
 instance HasField "outer" ParseCtx DeclCtx where
-  getField  = (._outer)
+  getField  = NonEmpty.last . (._ctxs)
 
 {-------------------------------------------------------------------------------
   Errors

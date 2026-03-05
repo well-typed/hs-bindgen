@@ -27,7 +27,6 @@ import Data.Text qualified as Text
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
@@ -156,5 +155,5 @@ pattern MatchMangle name x <- TraceFrontend (
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
     SelectParseSuccess x -> Just x
-    SelectParseFailure (ParseFailure (Delayed x)) -> Just x
+    SelectParseFailure (Delayed x) -> Just x
     _otherwise -> Nothing

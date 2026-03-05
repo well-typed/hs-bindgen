@@ -43,7 +43,7 @@ import HsBindgen.Language.C qualified as C
 -- goes wrong with a nested declaration, we want to skip the entire outer
 -- declaration.
 topLevelDecl :: Fold ParseDecl [ParseResult Parse]
-topLevelDecl = foldWithHandler handleParseExceptions (parseDecl' Nothing)
+topLevelDecl = foldWithHandler handleParseExceptions parseDeclTopLevel
   where
     handleParseExceptions ::
          CXCursor
@@ -61,39 +61,45 @@ topLevelDecl = foldWithHandler handleParseExceptions (parseDecl' Nothing)
 type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult Parse])
 
 -- | Parse declarations with available parse context
-parseDecl :: ParseCtx -> Parser
-parseDecl = parseDecl' . Just
+parseDeclNested :: ParseCtx -> Parser
+parseDeclNested = parseDecl' . Just
 
--- | Parse declarations, possibly without a parse context
+-- | Parse a top level declaration (parse context not yet available)
+parseDeclTopLevel :: Parser
+parseDeclTopLevel = parseDecl' Nothing
+
+-- | Auxiliary function; use 'parseDecl' or 'parseDeclTopLevel'
 parseDecl' :: HasCallStack => Maybe ParseCtx -> Parser
-parseDecl' mCtx = withCursorKind' $ \case
+parseDecl' mCtx = withCursorKindNoCtx $ \case
       -- Ordinary kinds that we parse
-      CXCursor_FunctionDecl    -> parseDeclWith (push CNameKindOrdinary NotRequiredForScoping) functionDecl
-      CXCursor_VarDecl         -> parseDeclWith (push CNameKindOrdinary NotRequiredForScoping) varDecl
-      CXCursor_TypedefDecl     -> parseDeclWith (push CNameKindOrdinary RequiredForScoping)    typedefDecl
-      CXCursor_MacroDefinition -> parseDeclWith (push CNameKindMacro    NotRequiredForScoping) macroDefinition
+      Right CXCursor_FunctionDecl    -> parseDeclWith (push CNameKindOrdinary NotRequiredForScoping) functionDecl
+      Right CXCursor_VarDecl         -> parseDeclWith (push CNameKindOrdinary NotRequiredForScoping) varDecl
+      Right CXCursor_TypedefDecl     -> parseDeclWith (push CNameKindOrdinary RequiredForScoping)    typedefDecl
+      Right CXCursor_MacroDefinition -> parseDeclWith (push CNameKindMacro    NotRequiredForScoping) macroDefinition
 
       -- Tagged kinds that we parse
-      CXCursor_StructDecl -> parseDeclWith (push (CNameKindTagged CTagKindStruct) NotRequiredForScoping) structDecl
-      CXCursor_UnionDecl  -> parseDeclWith (push (CNameKindTagged CTagKindUnion)  NotRequiredForScoping) unionDecl
-      CXCursor_EnumDecl   -> parseDeclWith (push (CNameKindTagged CTagKindEnum)   NotRequiredForScoping) enumDecl
+      Right CXCursor_StructDecl -> parseDeclWith (push (CNameKindTagged CTagKindStruct) NotRequiredForScoping) structDecl
+      Right CXCursor_UnionDecl  -> parseDeclWith (push (CNameKindTagged CTagKindUnion)  NotRequiredForScoping) unionDecl
+      Right CXCursor_EnumDecl   -> parseDeclWith (push (CNameKindTagged CTagKindEnum)   NotRequiredForScoping) enumDecl
 
       -- Process macro expansions independent of any select predicates
-      CXCursor_MacroExpansion -> macroExpansion
+      Right CXCursor_MacroExpansion -> macroExpansion
 
       -- Kinds that we skip over
-      CXCursor_AlignedAttr        -> \_curr -> foldContinue
-      CXCursor_InclusionDirective -> \_curr -> foldContinue
-      CXCursor_PackedAttr         -> \_curr -> foldContinue
-      CXCursor_UnexposedAttr      -> \_curr -> foldContinue
-      CXCursor_UnexposedDecl      -> \_curr -> foldContinue
+      Right CXCursor_AlignedAttr        -> \_curr -> foldContinue
+      Right CXCursor_InclusionDirective -> \_curr -> foldContinue
+      Right CXCursor_PackedAttr         -> \_curr -> foldContinue
+      Right CXCursor_UnexposedAttr      -> \_curr -> foldContinue
+      Right CXCursor_UnexposedDecl      -> \_curr -> foldContinue
 
       -- Report error for declarations we don't recognize
-      kind -> case mCtx of
+      eKind -> case mCtx of
         Nothing  ->
-          unavoidablePanicUnrecognizedKind (Right kind)
+          -- Without a 'ParseCtx', we cannot attach a possible error to the
+          -- declaration, and so we must panic.
+          unavoidablePanicUnrecognizedKind eKind
         Just ctx ->
-          failUnrecognizedKind ctx (Right kind) >=> foldContinueWith
+          failUnrecognizedKind ctx eKind >=> foldContinueWith
   where
     push :: CNameKind -> RequiredForScoping -> ParseCtx
     push kind scoping =
@@ -102,10 +108,40 @@ parseDecl' mCtx = withCursorKind' $ \case
             Nothing     -> mkCtx   ctx
             Just ctxOld -> pushCtx ctx ctxOld
 
-    withCursorKind' :: (CXCursorKind -> Parser) -> Parser
-    withCursorKind' = case mCtx of
-      Nothing  -> unsafeWithCursorKind
-      Just ctx -> withCursorKind ctx
+    -- We use a custom 'withCursorKind' function here, because the parse context
+    -- is not always available.
+    withCursorKindNoCtx :: (Either CInt CXCursorKind -> Parser) -> Parser
+    withCursorKindNoCtx k = \curr -> do
+        mKind <- fromSimpleEnum <$> clang_getCursorKind curr
+        k mKind curr
+
+    -- Unavoidably panic (!) on an unrecognized cursor kind
+    --
+    -- Only use this function if there is no way to assemble a 'ParseResult'.
+    --
+    -- See 'failUnrecognizedKind'.
+    unavoidablePanicUnrecognizedKind ::
+      MonadIO m => Either CInt CXCursorKind -> CXCursor -> m b
+    unavoidablePanicUnrecognizedKind eKind curr = do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        case eKind of
+          Left i ->
+            panicIO $ concat [
+                "Unrecognized CXCursorKind "
+              , show i
+              , " at "
+              , show loc
+              ]
+          Right kind -> do
+            spelling <- clang_getCursorKindSpelling (simpleEnum kind)
+            panicIO $ concat [
+                "Unknown cursor of kind "
+              , show kind
+              , " ("
+              , Text.unpack spelling
+              , ") at "
+              , show loc
+              ]
 
 -- | Parse declaration
 --
@@ -318,7 +354,7 @@ declOrFieldDecl ctx fieldDecl = simpleFold $ \curr -> do
         -- elsewhere, so here we choose not to recurse.
         foldContinueWith $ Right field
       _otherwise -> do
-        fmap Left <$> parseDecl ctx curr
+        fmap Left <$> parseDeclNested ctx curr
 
 structFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl ctx = \curr -> do
@@ -571,8 +607,8 @@ functionDecl ctx info =
             foldRecurseWith nestedDecl (return . concat)
 
           -- Nested declarations
-          Right CXCursor_StructDecl -> fmap (fmap Left) <$> parseDecl ctx curr
-          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> parseDecl ctx curr
+          Right CXCursor_StructDecl -> fmap (fmap Left) <$> parseDeclNested ctx curr
+          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> parseDeclNested ctx curr
 
           -- Harmless
           Right CXCursor_TypeRef        -> foldContinue
@@ -673,9 +709,9 @@ varDecl ctx info = do
           CXCursor_TypeRef -> skip
 
           -- Nested /new/ declarations
-          CXCursor_StructDecl -> parseDecl ctx
-          CXCursor_UnionDecl  -> parseDecl ctx
-          CXCursor_EnumDecl   -> parseDecl ctx
+          CXCursor_StructDecl -> parseDeclNested ctx
+          CXCursor_UnionDecl  -> parseDeclNested ctx
+          CXCursor_EnumDecl   -> parseDeclNested ctx
 
           -- Initializers
           --
@@ -738,34 +774,6 @@ varDecl ctx info = do
   Utility: dispatching based on the cursor kind
 -------------------------------------------------------------------------------}
 
--- | Unavoidably panic (!) on an unrecognized cursor kind
---
--- Only use this function if there is no way to assemble a 'ParseResult'.
---
--- See 'failUnrecognizedKind'.
-unavoidablePanicUnrecognizedKind ::
-  MonadIO m => Either CInt CXCursorKind -> CXCursor -> m b
-unavoidablePanicUnrecognizedKind eKind curr = do
-    loc <- HighLevel.clang_getCursorLocation' curr
-    case eKind of
-      Left i ->
-        panicIO $ concat [
-            "Unrecognized CXCursorKind "
-          , show i
-          , " at "
-          , show loc
-          ]
-      Right kind -> do
-        spelling <- clang_getCursorKindSpelling (simpleEnum kind)
-        panicIO $ concat [
-            "Unknown cursor of kind "
-          , show kind
-          , " ("
-          , Text.unpack spelling
-          , ") at "
-          , show loc
-          ]
-
 -- | Fail safely due to an unrecognized cursor kind
 --
 -- Assemble a parse failure
@@ -774,21 +782,6 @@ failUnrecognizedKind ::
 failUnrecognizedKind ctx eKind curr =
     let msg = Immediate (ParseUnexpectedCursorKind eKind)
     in  parseFailNoInfo ctx msg curr
-
--- | Obtain cursor kind and run continuation
---
--- Without a 'ParseCtx', we cannot attach a possible error to the declaration,
--- and so we must panic.
---
--- Use 'withCursorKind' instead, if possible.
-unsafeWithCursorKind ::
-     (CXCursorKind -> Parser)
-  -> Parser
-unsafeWithCursorKind k = \curr -> do
-    mKind <- fromSimpleEnum <$> clang_getCursorKind curr
-    case mKind of
-      Right kind -> k kind curr
-      Left  i    -> unavoidablePanicUnrecognizedKind (Left i) curr
 
 -- | Obtain cursor kind and run continuation
 --
@@ -907,6 +900,85 @@ getReparseInfo = \curr -> do
       ReparseNeeded <$> HighLevel.clang_tokenize unit extent
     else
       return ReparseNotNeeded
+
+-- | The linkage of a linker symbol determines whether or not a linker symbol is
+-- visible to the linker outside the translation unit it is defined in.
+--
+-- See the section on Visibility in the manual for more details.
+data Linkage =
+    InternalLinkage
+  | NoLinkage
+  | ExternalLinkage
+  deriving stock (Show, Eq, Generic)
+
+-- | Retrieve the linkage of the entity that the cursor is currently pointing
+-- to.
+--
+-- Only call continuation if linkage can be retrieved.
+withCursorLinkage ::
+  ParseCtx -> C.DeclInfo Parse -> (Linkage -> Parser) -> Parser
+withCursorLinkage ctx info k = \curr -> do
+    simpleLinkage   <- clang_getCursorLinkage curr
+    case fromSimpleLinkage simpleLinkage of
+      Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
+      Right l  -> k l curr
+  where
+    fromSimpleLinkage :: SimpleEnum CXLinkageKind -> Either ParseMsg Linkage
+    fromSimpleLinkage simpleLinkage =
+      case fromSimpleEnum simpleLinkage of
+        Right linkage' -> case linkage' of
+          CXLinkage_Invalid ->
+            Left $ Delayed ParseInvalidLinkage
+          CXLinkage_NoLinkage ->
+            Right NoLinkage
+          CXLinkage_Internal ->
+            Right InternalLinkage
+          CXLinkage_UniqueExternal ->
+            Left $ Delayed $ ParseUnsupportedLinkage "C++ specific" linkage'
+          CXLinkage_External ->
+            Right ExternalLinkage
+        Left x -> do
+          Left $ Immediate $ ParseUnexpectedLinkage (Left x)
+
+-- | The visibility of a linker symbol determines whether or not a linker symbol
+-- is visible to the linker outside of the shared object that it is defined in.
+--
+-- See the section on Visibility in the manual for more details.
+data Visibility =
+    PublicVisibility
+  | NonPublicVisibility
+  deriving stock (Show, Eq, Generic)
+
+-- | Retrieve the visibility of the entity that the cursor is currently pointing
+-- to.
+--
+-- Only call continuation if cursor visibility can be retrieved.
+withCursorVisibility :: ParseCtx -> C.DeclInfo Parse -> (Visibility -> Parser) -> Parser
+withCursorVisibility ctx info k = \curr -> do
+    simpleVisibility  <- clang_getCursorVisibility curr
+    case fromSimpleVisibility simpleVisibility of
+      Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
+      Right v  -> k v curr
+  where
+    fromSimpleVisibility :: SimpleEnum CXVisibilityKind -> Either ParseMsg Visibility
+    fromSimpleVisibility simpleVisibility =
+      case fromSimpleEnum simpleVisibility of
+        -- See https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb
+        Right vis' -> case vis' of
+          -- Despite the name, /default/ always means public.
+          CXVisibility_Default ->
+            Right PublicVisibility
+          CXVisibility_Hidden ->
+            Right NonPublicVisibility
+          -- This visibility is rarely useful in practice. For binding generation,
+          -- we treat it as non-public visibility.
+          CXVisibility_Protected ->
+            Right NonPublicVisibility
+          CXVisibility_Invalid ->
+            Left $ Delayed $ ParseInvalidVisibility
+        Left x ->
+          Left $ Immediate $ ParseUnexpectedVisibility (Left x)
+
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
@@ -1073,84 +1145,6 @@ classifyVarDecl = \curr -> do
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal
-
--- | The linkage of a linker symbol determines whether or not a linker symbol is
--- visible to the linker outside the translation unit it is defined in.
---
--- See the section on Visibility in the manual for more details.
-data Linkage =
-    InternalLinkage
-  | NoLinkage
-  | ExternalLinkage
-  deriving stock (Show, Eq, Generic)
-
--- | Retrieve the linkage of the entity that the cursor is currently pointing
--- to.
---
--- Only call continuation if linkage can be retrieved.
-withCursorLinkage ::
-  ParseCtx -> C.DeclInfo Parse -> (Linkage -> Parser) -> Parser
-withCursorLinkage ctx info k = \curr -> do
-    simpleLinkage   <- clang_getCursorLinkage curr
-    case fromSimpleLinkage simpleLinkage of
-      Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
-      Right l  -> k l curr
-  where
-    fromSimpleLinkage :: SimpleEnum CXLinkageKind -> Either ParseMsg Linkage
-    fromSimpleLinkage simpleLinkage =
-      case fromSimpleEnum simpleLinkage of
-        Right linkage' -> case linkage' of
-          CXLinkage_Invalid ->
-            Left $ Delayed ParseInvalidLinkage
-          CXLinkage_NoLinkage ->
-            Right NoLinkage
-          CXLinkage_Internal ->
-            Right InternalLinkage
-          CXLinkage_UniqueExternal ->
-            Left $ Delayed $ ParseUnsupportedLinkage "C++ specific" linkage'
-          CXLinkage_External ->
-            Right ExternalLinkage
-        Left x -> do
-          Left $ Immediate $ ParseUnexpectedLinkage (Left x)
-
--- | The visibility of a linker symbol determines whether or not a linker symbol
--- is visible to the linker outside of the shared object that it is defined in.
---
--- See the section on Visibility in the manual for more details.
-data Visibility =
-    PublicVisibility
-  | NonPublicVisibility
-  deriving stock (Show, Eq, Generic)
-
--- | Retrieve the visibility of the entity that the cursor is currently pointing
--- to.
---
--- Only call continuation if cursor visibility can be retrieved.
-withCursorVisibility :: ParseCtx -> C.DeclInfo Parse -> (Visibility -> Parser) -> Parser
-withCursorVisibility ctx info k = \curr -> do
-    simpleVisibility  <- clang_getCursorVisibility curr
-    case fromSimpleVisibility simpleVisibility of
-      Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
-      Right v  -> k v curr
-  where
-    fromSimpleVisibility :: SimpleEnum CXVisibilityKind -> Either ParseMsg Visibility
-    fromSimpleVisibility simpleVisibility =
-      case fromSimpleEnum simpleVisibility of
-        -- See https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb
-        Right vis' -> case vis' of
-          -- Despite the name, /default/ always means public.
-          CXVisibility_Default ->
-            Right PublicVisibility
-          CXVisibility_Hidden ->
-            Right NonPublicVisibility
-          -- This visibility is rarely useful in practice. For binding generation,
-          -- we treat it as non-public visibility.
-          CXVisibility_Protected ->
-            Right NonPublicVisibility
-          CXVisibility_Invalid ->
-            Left $ Delayed $ ParseInvalidVisibility
-        Left x ->
-          Left $ Immediate $ ParseUnexpectedVisibility (Left x)
 
 -- | Check if a function declaration or global variable declaration has a
 -- problematic case of non-public visibility.

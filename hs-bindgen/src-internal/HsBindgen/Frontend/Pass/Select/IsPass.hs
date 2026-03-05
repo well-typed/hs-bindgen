@@ -152,7 +152,7 @@ data SelectMsg =
   | SelectParseNotAttempted ParseNotAttempted
     -- | Delayed parse message for declarations the user wants to select
     -- directly, but we have failed to parse.
-  | SelectParseFailure ParseFailure
+  | SelectParseFailure ParseMsg
     -- | Delayed construct translation unit message for conflicting declarations
     -- the user wants to select directly.
   | SelectConflict

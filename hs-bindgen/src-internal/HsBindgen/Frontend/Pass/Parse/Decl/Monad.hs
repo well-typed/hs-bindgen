@@ -189,16 +189,14 @@ parseFail ::
 parseFail ctx declId declLoc msg = do
     maybeEmitScopingMsg ctx.outer.scoping declId declLoc msg
     case msg of
-      Immediate m -> do
-        recordImmediateTrace declId declLoc m
-        pure [parseResult]
-      Delayed _ ->
-        pure [parseResult]
+      Immediate m -> recordImmediateTrace declId declLoc m
+      Delayed   _ -> pure ()
+    pure [parseResult]
   where
     parseResult = ParseResult{
         id             = declId
       , loc            = declLoc
-      , classification = ParseResultFailure $ ParseFailure msg
+      , classification = ParseResultFailure msg
       }
 
 -- | Record a parse failure without having the declaration information readily
