@@ -968,14 +968,11 @@ classifyVarDecl = \curr -> do
     tls <- clang_getCursorTLSKind curr
     case fromSimpleEnum tls of
       Right CXTLS_None -> do
-        storage   <- clang_Cursor_getStorageClass curr
-        typ       <- clang_getCursorType curr
-        canonical <- clang_getCanonicalType typ
-        isConst   <- clang_isConstQualifiedType canonical
-        case (fromSimpleEnum storage, isConst) of
-          (Right CX_SC_Extern , _    ) -> return $ VarGlobal IsExtern
-          (Right CX_SC_None   , _    ) -> return $ VarGlobal IsNotExtern
-          (Right CX_SC_Static , _    ) -> return $ VarGlobal IsNotExtern
+        storage <- clang_Cursor_getStorageClass curr
+        case fromSimpleEnum storage of
+          Right CX_SC_Extern  -> return $ VarGlobal IsExtern
+          Right CX_SC_None    -> return $ VarGlobal IsNotExtern
+          Right CX_SC_Static  -> return $ VarGlobal IsNotExtern
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal

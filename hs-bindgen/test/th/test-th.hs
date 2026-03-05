@@ -23,6 +23,8 @@ import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import Test.Common.Util.Tasty
+import Test.TH.StaticCounterA qualified as CounterA
+import Test.TH.StaticCounterB qualified as CounterB
 import Test.TH.Test01 qualified as Test01
 import Test.TH.Test02 qualified as Test02
 
@@ -225,6 +227,39 @@ test02 = testGroup "test_02"
     ]
 
 {-------------------------------------------------------------------------------
+  Static counter
+-------------------------------------------------------------------------------}
+
+testStaticCounter :: TestTree
+testStaticCounter = testGroup "static_counter"
+    [ testCase "independent static state" $ do
+        -- Reset both counters
+        CounterA.reset
+        CounterB.reset
+
+        -- Increment counter A a few times
+        a0 <- CounterA.count
+        a1 <- CounterA.count
+        a2 <- CounterA.count
+
+        a0 @?= 0
+        a1 @?= 1
+        a2 @?= 2
+
+        -- Counter B should be independent (still at 0)
+        b0 <- CounterB.count
+        b0 @?= 0
+
+        -- And counter B increments independently
+        b1 <- CounterB.count
+        b1 @?= 1
+
+        -- Counter A continues from where it left off
+        a3 <- CounterA.count
+        a3 @?= 3
+    ]
+
+{-------------------------------------------------------------------------------
   Main
 -------------------------------------------------------------------------------}
 
@@ -232,4 +267,5 @@ main :: IO ()
 main = defaultMain $ testGroup "test-th" [
       test01
     , test02
+    , testStaticCounter
     ]

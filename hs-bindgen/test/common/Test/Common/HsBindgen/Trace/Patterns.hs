@@ -7,7 +7,6 @@ module Test.Common.HsBindgen.Trace.Patterns (
     -- * Parse
   , pattern MatchParse
   , pattern MatchDelayed
-  , pattern MatchUnknownStorageClass
     -- * HandleMacros
   , pattern MatchHandleMacros
     -- * ResolveBindingSpecs
@@ -24,9 +23,6 @@ module Test.Common.HsBindgen.Trace.Patterns (
   ) where
 
 import Data.Text qualified as Text
-
-import Clang.Enum.Simple
-import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
@@ -81,11 +77,6 @@ pattern MatchParse name x <- TraceFrontend (
 
 pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
 pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
-
-pattern MatchUnknownStorageClass :: CX_StorageClass -> DelayedParseMsg
-pattern MatchUnknownStorageClass x <- ParseUnknownStorageClass (
-      fromSimpleEnum -> Right x
-    )
 
 {-------------------------------------------------------------------------------
   HandleMacros
