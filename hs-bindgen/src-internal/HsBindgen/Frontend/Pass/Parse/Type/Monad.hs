@@ -135,4 +135,4 @@ dispatchDecl curr k = do
     mKind <- fromSimpleEnum <$> clang_getCursorKind curr
     case mKind of
       Right kind -> k kind
-      Left  i    -> throwError $ Immediate $ ParseUnexpectedTypeDecl (Left i)
+      Left  i    -> throwError $ Immediate $ ParseUnexpectedCursorKind (Left i)
