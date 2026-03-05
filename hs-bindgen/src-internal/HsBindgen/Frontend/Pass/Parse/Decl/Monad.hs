@@ -95,7 +95,7 @@ getTranslationUnit = wrapEff $ \support -> return support.env.unit
 evalGetMainHeadersAndInclude ::
      SourcePath
   -> ParseDecl
-      (Either ImmediateParseMsg
+      (Either DelayedParseMsg
         (NonEmpty HashIncludeArg, IncludeGraph.Include))
 evalGetMainHeadersAndInclude path = wrapEff $ \support ->
     pure $
@@ -184,26 +184,22 @@ parseFail ::
      ParseCtx
   -> PrelimDeclId
   -> SingleLoc
-  -> ParseMsg
+  -> DelayedParseMsg
   -> ParseDecl [ParseResult Parse]
 parseFail ctx declId declLoc msg = do
-    maybeEmitScopingMsg ctx.outer.scoping declId declLoc msg
-    case msg of
-      Immediate m -> recordImmediateTrace declId declLoc m
-      Delayed   _ -> pure ()
-    pure [parseResult]
-  where
-    parseResult = ParseResult{
-        id             = declId
-      , loc            = declLoc
-      , classification = ParseResultFailure msg
-      }
+    maybeEmitScopingMsg ctx.outer.scoping declId declLoc
+    pure $ (:[]) $
+      ParseResult{
+          id             = declId
+        , loc            = declLoc
+        , classification = ParseResultFailure msg
+        }
 
 -- | Record a parse failure without having the declaration information readily
 --   available
 --
 -- Retrieve the information using libclang and the provided cursor.
-parseFailNoInfo :: ParseCtx -> ParseMsg -> CXCursor -> ParseDecl [ParseResult Parse]
+parseFailNoInfo :: ParseCtx -> DelayedParseMsg -> CXCursor -> ParseDecl [ParseResult Parse]
 parseFailNoInfo ctx msg curr = do
     (declId, declLoc) <- getDeclInfoForTrace
     parseFail ctx declId declLoc msg
@@ -221,10 +217,10 @@ parseFailNoInfo ctx msg curr = do
 -- Ideally we'd only emit the trace when we /use/ the declaration that
 -- we fail to parse.
 maybeEmitScopingMsg ::
-  RequiredForScoping -> PrelimDeclId -> SingleLoc -> ParseMsg -> ParseDecl ()
-maybeEmitScopingMsg scoping declId declLoc msg = case scoping of
+  RequiredForScoping -> PrelimDeclId -> SingleLoc -> ParseDecl ()
+maybeEmitScopingMsg scoping declId declLoc = case scoping of
     RequiredForScoping ->
       recordImmediateTrace declId declLoc $
-        ParseOfDeclarationRequiredForScopingFailed msg
+        ParseOfDeclarationRequiredForScopingFailed
     NotRequiredForScoping ->
       pure ()

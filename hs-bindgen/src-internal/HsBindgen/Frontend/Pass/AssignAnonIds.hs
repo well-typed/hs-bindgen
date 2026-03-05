@@ -64,8 +64,7 @@ updateParseResult chosenNames result =
           Left (UnusableAnonDecl anonId) -> ParseResult{
               id             = declId'
             , loc            = result.loc
-            , classification = ParseResultFailure $
-                                 Delayed $ ParseUnusableAnonDecl anonId
+            , classification = ParseResultFailure $ ParseUnusableAnonDecl anonId
             }
           Right (declInfo', declKind') -> ParseResult{
               id             = declInfo'.id
@@ -97,7 +96,7 @@ updateParseResult chosenNames result =
         }
 
     auxFailure ::
-         ParseMsg
+         DelayedParseMsg
       -> DeclId
       -> ParseResult AssignAnonIds
     auxFailure failure declId' = ParseResult{

@@ -167,7 +167,7 @@ usableToLoc = \case
 -- CXAvailabilityKind).
 data Unusable =
       UnusableParseNotAttempted  SingleLoc (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure       SingleLoc ParseMsg
+    | UnusableParseFailure       SingleLoc DelayedParseMsg
     | UnusableConflict           Conflict
     | UnusableMangleNamesFailure SingleLoc MangleNamesFailure
     | UnusableFailedMacro        FailedMacro

@@ -77,11 +77,6 @@ pattern MatchImmediate name x <- TraceFrontend (
 pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
 pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
 
-pattern MatchUnknownStorageClass :: CX_StorageClass -> DelayedParseMsg
-pattern MatchUnknownStorageClass x <- ParseUnknownStorageClass (
-      fromSimpleEnum -> Right x
-    )
-
 {-------------------------------------------------------------------------------
   HandleMacros
 -------------------------------------------------------------------------------}
@@ -155,5 +150,5 @@ pattern MatchMangle name x <- TraceFrontend (
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
     SelectParseSuccess x -> Just x
-    SelectParseFailure (Delayed x) -> Just x
+    SelectParseFailure x -> Just x
     _otherwise -> Nothing

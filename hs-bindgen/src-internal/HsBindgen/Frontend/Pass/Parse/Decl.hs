@@ -50,7 +50,7 @@ topLevelDecl = foldWithHandler handleParseExceptions parseDeclTopLevel
       -> SomeException
       -> ParseDecl (Maybe [ParseResult Parse])
     handleParseExceptions curr err
-      | Just e <- fromException @(ExceptionInCtx ParseMsg) err = do
+      | Just e <- fromException @(ExceptionInCtx DelayedParseMsg) err = do
           Just <$> parseFailNoInfo e.ctx e.exception curr
       | otherwise = liftIO $ throwIO err
 
@@ -248,7 +248,7 @@ structDecl ctx info = \curr -> do
               pure $ map parseSucceed $ decls ++ [mkStruct fields]
             Nothing -> do
               -- If the struct has implicit fields, don't generate anything.
-              parseFail ctx info.id info.loc $ Delayed ParseUnsupportedImplicitFields
+              parseFail ctx info.id info.loc ParseUnsupportedImplicitFields
 
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
@@ -328,7 +328,7 @@ unionDecl ctx info = \curr -> do
               pure $ map parseSucceed $ decls ++ [mkUnion fields]
             Nothing -> do
               -- If the union has implicit fields, don't generate anything.
-              parseFail ctx info.id info.loc $ Delayed ParseUnsupportedImplicitFields
+              parseFail ctx info.id info.loc ParseUnsupportedImplicitFields
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -447,7 +447,7 @@ enumDecl ctx info = \curr -> do
                 go _                    = C.Signed
 
         let parseConstant ::
-              Fold ParseDecl (Either ImmediateParseMsg (C.EnumConstant Parse))
+              Fold ParseDecl (Either DelayedParseMsg (C.EnumConstant Parse))
             parseConstant = simpleFold $ \curr' -> do
                 mKind <- fromSimpleEnum <$> clang_getCursorKind curr'
                 case mKind of
@@ -459,7 +459,7 @@ enumDecl ctx info = \curr -> do
                     (Left $ ParseUnexpectedCursorKind unexpectedKind)
 
         let mkEnum ::
-                 [Either ImmediateParseMsg (C.EnumConstant Parse)]
+                 [Either DelayedParseMsg (C.EnumConstant Parse)]
               -> ParseDecl [ParseResult Parse]
             mkEnum eConstants = case partitionEithers eConstants of
               ([], constants) -> pure $ (:[]) $ parseSucceed $ C.Decl{
@@ -474,7 +474,7 @@ enumDecl ctx info = \curr -> do
                            }
                 }
               -- If there are errors, report the first one.
-              (msg:_, _) -> parseFail ctx info.id info.loc (Immediate msg)
+              (msg:_, _) -> parseFail ctx info.id info.loc msg
 
         foldRecurseWith parseConstant mkEnum
       DefinitionUnavailable -> do
@@ -547,7 +547,7 @@ functionDecl ctx info =
 
               (fails ++) <$>
                 if not (null anonDecls) then do
-                  parseFail ctx info.id info.loc $ Delayed ParseUnsupportedAnonInSignature
+                  parseFail ctx info.id info.loc ParseUnsupportedAnonInSignature
                 else
                   let nonPublicVisibility = [
                           ParseNonPublicVisibility
@@ -588,12 +588,11 @@ functionDecl ctx info =
             pure $ Right (args', res)
           C.TypeTypedef{} ->
             Left <$>
-              (parseFail ctx info.id info.loc $
-                 Delayed ParseFunctionOfTypeTypedef)
+              (parseFail ctx info.id info.loc ParseFunctionOfTypeTypedef)
           otherType ->
             Left <$>
               (parseFail ctx info.id info.loc $
-                 Immediate $ ParseExpectedFunctionType $ show otherType)
+                 ParseExpectedFunctionType $ show otherType)
 
     -- Look for (unsupported) declarations inside function parameters, and for
     -- function attributes. Function attributes are returned separately, so that
@@ -637,7 +636,7 @@ functionDecl ctx info =
           otherKind -> do
             failures <-
               parseFail ctx info.id info.loc
-                (Immediate $ ParseUnexpectedCursorKind otherKind)
+                (ParseUnexpectedCursorKind otherKind)
             foldContinueWith $ map Left failures
 
 -- | Global variable declaration
@@ -694,14 +693,14 @@ varDecl ctx info = do
              in case cls of
                   VarGlobal IsExtern
                     | not (null anonDecls) -> do
-                      parseFail ctx info.id info.loc $ Delayed ParseUnsupportedAnonInExtern
+                      parseFail ctx info.id info.loc ParseUnsupportedAnonInExtern
                   VarGlobal _ ->
                     pure $ (map parseSucceed (anonDecls ++ otherDecls) ++) $
                       singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
                   VarThreadLocal ->
-                    parseFail ctx info.id info.loc $ Delayed ParseUnsupportedTLS
+                    parseFail ctx info.id info.loc ParseUnsupportedTLS
                   VarUnsupported storage ->
-                    parseFail ctx info.id info.loc $ Delayed $ ParseUnknownStorageClass storage
+                    parseFail ctx info.id info.loc $ ParseUnknownStorageClass storage
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult Parse]
     nestedDecl = simpleFold $ withCursorKind ctx $ \case
@@ -764,7 +763,7 @@ varDecl ctx info = do
           otherKind -> \_curr -> do
             failures <-
               parseFail ctx info.id info.loc
-                (Immediate $ ParseUnexpectedCursorKind $ Right otherKind)
+                (ParseUnexpectedCursorKind $ Right otherKind)
             foldContinueWith failures
 
     skip :: MonadIO m => b -> m (Next m a)
@@ -780,7 +779,7 @@ varDecl ctx info = do
 failUnrecognizedKind ::
   ParseCtx -> Either CInt CXCursorKind -> CXCursor -> ParseDecl [ParseResult Parse]
 failUnrecognizedKind ctx eKind curr =
-    let msg = Immediate (ParseUnexpectedCursorKind eKind)
+    let msg = ParseUnexpectedCursorKind eKind
     in  parseFailNoInfo ctx msg curr
 
 -- | Obtain cursor kind and run continuation
@@ -839,7 +838,7 @@ withAvailability ctx declId declLoc k = \curr -> do
     case mAvailability of
       Nothing -> do
         failures <-
-          parseFail ctx declId declLoc $ Immediate $
+          parseFail ctx declId declLoc $
             ParseUnknownCursorAvailability sAvailability
         foldContinueWith failures
       Just availability -> k availability curr
@@ -867,7 +866,7 @@ withHeaderInfo ctx declId declLoc k = \curr -> do
   eRes <- evalGetMainHeadersAndInclude (singleLocPath declLoc)
   case eRes of
     Left err -> do
-      failures <- parseFail ctx declId declLoc $ Immediate err
+      failures <- parseFail ctx declId declLoc err
       foldContinueWith failures
     Right res ->
       k (uncurry aux res) curr
@@ -923,22 +922,22 @@ withCursorLinkage ctx info k = \curr -> do
       Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
       Right l  -> k l curr
   where
-    fromSimpleLinkage :: SimpleEnum CXLinkageKind -> Either ParseMsg Linkage
+    fromSimpleLinkage :: SimpleEnum CXLinkageKind -> Either DelayedParseMsg Linkage
     fromSimpleLinkage simpleLinkage =
       case fromSimpleEnum simpleLinkage of
         Right linkage' -> case linkage' of
           CXLinkage_Invalid ->
-            Left $ Delayed ParseInvalidLinkage
+            Left ParseInvalidLinkage
           CXLinkage_NoLinkage ->
             Right NoLinkage
           CXLinkage_Internal ->
             Right InternalLinkage
           CXLinkage_UniqueExternal ->
-            Left $ Delayed $ ParseUnsupportedLinkage "C++ specific" linkage'
+            Left $ ParseUnsupportedLinkage "C++ specific" linkage'
           CXLinkage_External ->
             Right ExternalLinkage
         Left x -> do
-          Left $ Immediate $ ParseUnexpectedLinkage (Left x)
+          Left $ ParseUnexpectedLinkage (Left x)
 
 -- | The visibility of a linker symbol determines whether or not a linker symbol
 -- is visible to the linker outside of the shared object that it is defined in.
@@ -960,7 +959,7 @@ withCursorVisibility ctx info k = \curr -> do
       Left err -> parseFail ctx info.id info.loc err >>= foldContinueWith
       Right v  -> k v curr
   where
-    fromSimpleVisibility :: SimpleEnum CXVisibilityKind -> Either ParseMsg Visibility
+    fromSimpleVisibility :: SimpleEnum CXVisibilityKind -> Either DelayedParseMsg Visibility
     fromSimpleVisibility simpleVisibility =
       case fromSimpleEnum simpleVisibility of
         -- See https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb
@@ -975,9 +974,9 @@ withCursorVisibility ctx info k = \curr -> do
           CXVisibility_Protected ->
             Right NonPublicVisibility
           CXVisibility_Invalid ->
-            Left $ Delayed $ ParseInvalidVisibility
+            Left $ ParseInvalidVisibility
         Left x ->
-          Left $ Immediate $ ParseUnexpectedVisibility (Left x)
+          Left $ ParseUnexpectedVisibility (Left x)
 
 
 {-------------------------------------------------------------------------------
