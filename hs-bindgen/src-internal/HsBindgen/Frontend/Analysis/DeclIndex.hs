@@ -61,6 +61,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Co
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.Language.Haskell qualified as Hs
@@ -166,7 +167,7 @@ usableToLoc = \case
 -- CXAvailabilityKind).
 data Unusable =
       UnusableParseNotAttempted  SingleLoc (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure       SingleLoc ParseFailure
+    | UnusableParseFailure       SingleLoc ParseMsg
     | UnusableConflict           Conflict
     | UnusableMangleNamesFailure SingleLoc MangleNamesFailure
     | UnusableFailedMacro        FailedMacro

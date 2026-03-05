@@ -95,7 +95,7 @@ instance PrettyForTrace ImmediateParseMsg where
       ParseUnexpectedUnderlyingType name err ->
         unexpected $ PP.hcat [
             "underlying type of typedef "
-          , PP.show name
+          , prettyForTrace name
           , ": "
           , prettyForTrace err
           ]
@@ -169,6 +169,9 @@ instance IsTrace Level ImmediateParseMsg where
 -- could reasonably expect to be supported eventually, and \"unexpected\", for C
 -- input we are not prepared for.
 data DelayedParseMsg =
+    -- TODO-D: Merge with ParseUnexpectedUnderlyingType; the severity is
+    -- determined by the recursive case.
+
     -- | Recursive case; we failed to parse the target of a @typedef@ with a
     --   delayed parse message.
     ParseUnsupportedUnderlyingType PrelimDeclId DelayedParseMsg
@@ -320,7 +323,7 @@ instance PrettyForTrace DelayedParseMsg where
   prettyForTrace = \case
       ParseUnsupportedUnderlyingType name err -> PP.hcat [
           "Unsupported underlying type of typedef "
-        , PP.show name
+        , prettyForTrace name
         , ": "
         , prettyForTrace err
         ]
