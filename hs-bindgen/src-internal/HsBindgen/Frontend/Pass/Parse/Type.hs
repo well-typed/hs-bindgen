@@ -34,7 +34,7 @@ fromCXType ctx =
     liftIO . handle h . ParseType.run . cxtype
   where
     h :: SomeException -> IO a
-    h = addCtxHandler (Proxy :: Proxy ParseMsg) ctx
+    h = addCtxHandler (Proxy :: Proxy DelayedParseMsg) ctx
 
 {-------------------------------------------------------------------------------
   Dispatch
@@ -56,9 +56,9 @@ cxtype ty = do
       CXType_LongLong   -> prim $ C.PrimIntegral C.PrimLongLong C.Signed
       CXType_ULongLong  -> prim $ C.PrimIntegral C.PrimLongLong C.Unsigned
       CXType_Float      -> prim $ C.PrimFloating C.PrimFloat
-      CXType_Float128   -> failure $ Delayed ParseUnsupportedFloat128
+      CXType_Float128   -> failure ParseUnsupportedFloat128
       CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
-      CXType_LongDouble -> failure $ Delayed ParseUnsupportedLongDouble
+      CXType_LongDouble -> failure ParseUnsupportedLongDouble
       CXType_Bool       -> prim $ C.PrimBool
       CXType_Complex    -> complex
 
@@ -75,12 +75,12 @@ cxtype ty = do
       CXType_Typedef         -> fromDecl
       CXType_Void            -> const (pure C.TypeVoid)
 
-      kind -> failure $ Immediate $ ParseUnexpectedTypeKind (Right kind)
+      kind -> failure $ ParseUnexpectedTypeKind (Right kind)
 
     addQualifiers <- qualifiers ty
     pure $ addQualifiers reifiedType
   where
-    failure :: ParseMsg -> CXType -> ParseType (C.Type Parse)
+    failure :: DelayedParseMsg -> CXType -> ParseType (C.Type Parse)
     failure err _ty = throwError err
 
 qualifiers :: CXType -> ParseType (C.Type Parse -> C.Type Parse)
@@ -103,7 +103,7 @@ complex ty = do
   cty         <- cxtype complexType
   case cty of
     C.TypePrim p -> pure (C.TypeComplex p)
-    _            -> throwError $ Immediate $ ParseUnexpectedComplexType complexType
+    _            -> throwError $ ParseUnexpectedComplexType complexType
 
 elaborated :: CXType -> ParseType (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype
@@ -120,7 +120,7 @@ fromDecl ty = do
         -- Built-in types don't have a corresponding declaration; if we want
         -- to support them, we have to special-case each one. For now, we don't
         -- support any.
-        throwError $ Delayed $ ParseUnsupportedBuiltin builtin
+        throwError $ ParseUnsupportedBuiltin builtin
       Nothing -> ParseType.dispatchDecl decl $ \case
         CXCursor_EnumDecl   -> typeEnum decl
         CXCursor_StructDecl -> typeRef decl CTagKindStruct
@@ -128,7 +128,7 @@ fromDecl ty = do
 
         CXCursor_TypedefDecl -> typeTypedef decl
 
-        kind -> throwError $ Immediate $ ParseUnexpectedCursorKind (Right kind)
+        kind -> throwError $ ParseUnexpectedCursorKind (Right kind)
 
 typeRef :: MonadIO m => CXCursor -> CTagKind -> m (C.Type Parse)
 typeRef decl kind =
@@ -178,7 +178,7 @@ typeTypedef curr = do
         Right{} ->
           cxtype uTy
         typeKind ->
-          throwError $ Immediate $ ParseUnexpectedTypeKind typeKind
+          throwError $ ParseUnexpectedTypeKind typeKind
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto = \ty -> do
@@ -190,7 +190,7 @@ function hasProto = \ty -> do
         then clang_isFunctionTypeVariadic ty
         else return False
     if isVariadic then do
-      throwError $ Delayed ParseUnsupportedVariadicFunction
+      throwError ParseUnsupportedVariadicFunction
     else do
       res   <- clang_getResultType ty >>= cxtype
       nargs <- clang_getNumArgTypes ty
@@ -228,8 +228,6 @@ blockPointer ty = do
 
 addUnderlyingTypeContextHandler :: PrelimDeclId -> SomeException -> ParseType a
 addUnderlyingTypeContextHandler n e
-  | Just e' <- (fromException @ParseMsg e)
-  = case e' of
-    Immediate m -> throwM (Immediate $ ParseUnexpectedUnderlyingType  n m)
-    Delayed   m -> throwM (Delayed   $ ParseUnsupportedUnderlyingType n m)
+  | Just e' <- (fromException @DelayedParseMsg e)
+  = throwM (ParseUnderlyingTypeFailed n e')
   | otherwise  = throwM e

@@ -60,7 +60,7 @@ newtype ParseType a = Wrap (
 unwrap :: ParseType a -> StateT (Map CDeclName (C.Type Parse)) IO a
 unwrap (Wrap ma) = ma
 
-instance MonadError ParseMsg ParseType where
+instance MonadError DelayedParseMsg ParseType where
   throwError err   = Wrap $ lift $ throwIO err
   f `catchError` h = Wrap
                    $ StateT
@@ -111,16 +111,16 @@ cachedMaybe mName k =
 -------------------------------------------------------------------------------}
 
 dispatch ::
-     MonadError ParseMsg m
+     MonadError DelayedParseMsg m
   => CXType -> (CXTypeKind -> m a) -> m a
 dispatch curr k = do
     let mKind = fromSimpleEnum $ cxtKind curr
     case mKind of
       Right kind -> k kind
-      Left  i    -> throwError $ Immediate $ ParseUnexpectedTypeKind (Left i)
+      Left  i    -> throwError $ ParseUnexpectedTypeKind (Left i)
 
 dispatchWithArg ::
-     MonadError ParseMsg m
+     MonadError DelayedParseMsg m
   => CXType
   -> (CXTypeKind -> CXType -> m a)
   -> m a
@@ -128,11 +128,11 @@ dispatchWithArg x f = dispatch x $ \kind -> f kind x
 
 dispatchDecl ::
      ( MonadIO m
-     , MonadError ParseMsg m
+     , MonadError DelayedParseMsg m
      )
   => CXCursor -> (CXCursorKind -> m b) -> m b
 dispatchDecl curr k = do
     mKind <- fromSimpleEnum <$> clang_getCursorKind curr
     case mKind of
       Right kind -> k kind
-      Left  i    -> throwError $ Immediate $ ParseUnexpectedCursorKind (Left i)
+      Left  i    -> throwError $ ParseUnexpectedCursorKind (Left i)

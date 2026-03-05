@@ -41,7 +41,7 @@ data ParseResult p = ParseResult{
 data ParseClassification p =
     ParseResultSuccess      (ParseSuccess p)
   | ParseResultNotAttempted ParseNotAttempted
-  | ParseResultFailure      ParseMsg
+  | ParseResultFailure      DelayedParseMsg
   deriving stock (Show, Generic)
 
 instance PrettyForTrace (ParseClassification p) where

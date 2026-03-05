@@ -1,16 +1,14 @@
 -- | Parse messages
 module HsBindgen.Frontend.Pass.Parse.Msg (
-    ParseMsg(..)
-
     -- * Immediate parse messages
-  , ImmediateParseMsg(..)
+    ImmediateParseMsg(..)
 
     -- * Delayed parse messages
   , DelayedParseMsg(..)
   ) where
 
-import Control.Exception
-import Foreign.C
+import Control.Exception (Exception (..))
+import Foreign.C (CInt)
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -22,16 +20,6 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
-
--- | An immediate or delayed parse message
-data ParseMsg = Immediate ImmediateParseMsg | Delayed DelayedParseMsg
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance PrettyForTrace ParseMsg
-instance IsTrace Level ParseMsg
-
-instance Exception ParseMsg where
-  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
 
 {-------------------------------------------------------------------------------
   Immediate parse messages
@@ -46,105 +34,19 @@ instance Exception ParseMsg where
 --
 -- - The declaration we fail to parse may affect other declarations
 data ImmediateParseMsg =
-    -- | Recursive case; we failed to parse the target of a @typedef@ with an
-    --   immediate parse message.
-    ParseUnexpectedUnderlyingType PrelimDeclId ImmediateParseMsg
+    -- | We failed to parse a declaration that is required for scoping.
+    ParseOfDeclarationRequiredForScopingFailed
 
-    -- | Recursive case; we failed to parse a declaration that is required for scoping.
-  | ParseOfDeclarationRequiredForScopingFailed ParseMsg
-
-    -- | Declaration availability can not be determined.
-    --
-    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
-    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-  | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
-
-    -- | We encountered an unexpected type kind
-    --
-    -- This is always a bug in hs-bindgen: if this kind of type is unsupported,
-    -- we should explicitly check for it and throw an appropriate exception.
-    --
-    -- If this is a @Left@ value, it means that our @libclang@ bindings are
-    -- incomplete.
-  | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
-
-    -- | We encountered an unexpected cursor kind
-    --
-    -- Similar comments apply as for 'UnexpectedTypeKind'.
-  | ParseUnexpectedCursorKind (Either CInt CXCursorKind)
-
-    -- | Complex types can only be defined using primitive types, e.g.
-    -- @double complex@. @struct Point complex@ is not allowed.
-  | ParseUnexpectedComplexType CXType
-
-  | ParseNoMainHeadersException String SourcePath
-
-  | ParseExpectedFunctionType String
-
-  | ParseUnexpectedLinkage (Either CInt CXLinkageKind)
-
-  | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
-      ParseUnexpectedUnderlyingType name err ->
-        unexpected $ PP.hcat [
-            "underlying type of typedef "
-          , prettyForTrace name
-          , ": "
-          , prettyForTrace err
-          ]
-      ParseOfDeclarationRequiredForScopingFailed err ->
-        PP.hang "Parse of declaration required for scoping failed:" 2 $
-          prettyForTrace err
-      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
-          "Unknown declaration cursor availability:"
-        , PP.show simpleKind
-        ]
-      ParseUnexpectedTypeKind x ->
-        unexpected $ "type kind " >< either PP.show PP.show x
-      ParseUnexpectedCursorKind x ->
-        unexpected $ "cursor kind " >< either PP.show PP.show x
-      ParseUnexpectedComplexType ty ->
-        unexpected $ "complex type " >< PP.show ty
-      ParseNoMainHeadersException why whr -> PP.hsep [
-          "Could not determine main headers:"
-        , PP.string why
-        , "at"
-        , PP.string $ getSourcePath whr
-        ]
-      ParseExpectedFunctionType ty -> PP.hsep [
-          "Expected function type, but got"
-        , PP.string ty
-        ]
-      ParseUnexpectedLinkage linkage -> PP.hcat [
-          "Unexpected linkage: "
-        , PP.show linkage
-        ]
-      ParseUnexpectedVisibility visibility -> PP.hcat [
-          "Unexpected visibility: "
-        , PP.show visibility
-        ]
-    where
-      unexpected :: PP.CtxDoc -> PP.CtxDoc
-      unexpected msg = PP.vcat [
-            "Unexpected " >< msg
-          , PP.string pleaseReport
-          ]
+      ParseOfDeclarationRequiredForScopingFailed ->
+        "Parse of declaration required for scoping failed"
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
-      ParseUnexpectedUnderlyingType _ x                 -> getDefaultLogLevel x
-      ParseOfDeclarationRequiredForScopingFailed{}      -> Info
-      ParseUnknownCursorAvailability{}                  -> Notice
-      ParseUnexpectedTypeKind{}                         -> Warning
-      ParseUnexpectedCursorKind{}                       -> Warning
-      ParseUnexpectedComplexType{}                      -> Warning
-      ParseNoMainHeadersException{}                     -> Error
-      ParseExpectedFunctionType{}                       -> Warning
-      ParseUnexpectedLinkage{}                          -> Warning
-      ParseUnexpectedVisibility{}                       -> Warning
+      ParseOfDeclarationRequiredForScopingFailed{} -> Info
   getSource  = const HsBindgen
   getTraceId = const "parse-immediate"
 
@@ -161,12 +63,9 @@ instance IsTrace Level ImmediateParseMsg where
 -- could reasonably expect to be supported eventually, and \"unexpected\", for C
 -- input we are not prepared for.
 data DelayedParseMsg =
-    -- TODO-D: Merge with ParseUnexpectedUnderlyingType; the severity is
-    -- determined by the recursive case.
-
     -- | Recursive case; we failed to parse the target of a @typedef@ with a
     --   delayed parse message.
-    ParseUnsupportedUnderlyingType PrelimDeclId DelayedParseMsg
+    ParseUnderlyingTypeFailed PrelimDeclId DelayedParseMsg
 
     -- | Struct with implicit fields
   | ParseUnsupportedImplicitFields
@@ -309,12 +208,47 @@ data DelayedParseMsg =
   | ParseUnsupportedLinkage String CXLinkageKind
 
   | ParseInvalidVisibility
+
+    -- | Declaration availability can not be determined.
+    --
+    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
+    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
+  | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
+
+    -- | We encountered an unexpected type kind
+    --
+    -- This is always a bug in hs-bindgen: if this kind of type is unsupported,
+    -- we should explicitly check for it and throw an appropriate exception.
+    --
+    -- If this is a @Left@ value, it means that our @libclang@ bindings are
+    -- incomplete.
+  | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
+
+    -- | We encountered an unexpected cursor kind
+    --
+    -- Similar comments apply as for 'UnexpectedTypeKind'.
+  | ParseUnexpectedCursorKind (Either CInt CXCursorKind)
+
+    -- | Complex types can only be defined using primitive types, e.g.
+    -- @double complex@. @struct Point complex@ is not allowed.
+  | ParseUnexpectedComplexType CXType
+
+  | ParseNoMainHeadersException String SourcePath
+
+  | ParseExpectedFunctionType String
+
+  | ParseUnexpectedLinkage (Either CInt CXLinkageKind)
+
+  | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
   deriving stock (Show, Eq, Ord, Generic)
+
+instance Exception DelayedParseMsg where
+  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
 
 instance PrettyForTrace DelayedParseMsg where
   prettyForTrace = \case
-      ParseUnsupportedUnderlyingType name err -> PP.hcat [
-          "Unsupported underlying type of typedef "
+      ParseUnderlyingTypeFailed name err -> PP.hcat [
+          "Parse failure of underlying type of typedef "
         , prettyForTrace name
         , ": "
         , prettyForTrace err
@@ -371,26 +305,68 @@ instance PrettyForTrace DelayedParseMsg where
         ]
       ParseInvalidVisibility ->
         "Invalid visibility (CXVisibility_Invalid)"
+      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
+          "Unknown declaration cursor availability:"
+        , PP.show simpleKind
+        ]
+      ParseUnexpectedTypeKind x ->
+        unexpected $ "type kind " >< either PP.show PP.show x
+      ParseUnexpectedCursorKind x ->
+        unexpected $ "cursor kind " >< either PP.show PP.show x
+      ParseUnexpectedComplexType ty ->
+        unexpected $ "complex type " >< PP.show ty
+      ParseNoMainHeadersException why whr -> PP.hsep [
+          "Could not determine main headers:"
+        , PP.string why
+        , "at"
+        , PP.string $ getSourcePath whr
+        ]
+      ParseExpectedFunctionType ty -> PP.hsep [
+          "Expected function type, but got"
+        , PP.string ty
+        ]
+      ParseUnexpectedLinkage linkage -> PP.hcat [
+          "Unexpected linkage: "
+        , PP.show linkage
+        ]
+      ParseUnexpectedVisibility visibility -> PP.hcat [
+          "Unexpected visibility: "
+        , PP.show visibility
+        ]
+    where
+      unexpected :: PP.CtxDoc -> PP.CtxDoc
+      unexpected msg = PP.vcat [
+            "Unexpected " >< msg
+          , PP.string pleaseReport
+          ]
 
 -- | Unsupported features are warnings
 instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
-      ParseUnsupportedUnderlyingType{}    -> Warning
-      ParseUnsupportedImplicitFields{}    -> Warning
-      ParseUnsupportedAnonInSignature{}   -> Warning
-      ParseUnsupportedAnonInExtern{}      -> Warning
-      ParseUnsupportedTLS{}               -> Warning
-      ParseUnknownStorageClass{}          -> Warning
-      ParsePotentialDuplicateSymbol{}     -> Notice
-      ParseNonPublicVisibility{}          -> Warning
-      ParseFunctionOfTypeTypedef{}        -> Warning
-      ParseUnusableAnonDecl{}             -> Warning
-      ParseUnsupportedVariadicFunction    -> Warning
-      ParseUnsupportedLongDouble          -> Warning
-      ParseUnsupportedFloat128            -> Warning
-      ParseUnsupportedBuiltin{}           -> Warning
-      ParseInvalidLinkage                 -> Warning
-      ParseUnsupportedLinkage{}           -> Warning
-      ParseInvalidVisibility              -> Warning
+      ParseUnderlyingTypeFailed _ err   -> getDefaultLogLevel err
+      ParseUnsupportedImplicitFields{}  -> Warning
+      ParseUnsupportedAnonInSignature{} -> Warning
+      ParseUnsupportedAnonInExtern{}    -> Warning
+      ParseUnsupportedTLS{}             -> Warning
+      ParseUnknownStorageClass{}        -> Warning
+      ParsePotentialDuplicateSymbol{}   -> Notice
+      ParseNonPublicVisibility{}        -> Warning
+      ParseFunctionOfTypeTypedef{}      -> Warning
+      ParseUnusableAnonDecl{}           -> Warning
+      ParseUnsupportedVariadicFunction  -> Warning
+      ParseUnsupportedLongDouble        -> Warning
+      ParseUnsupportedFloat128          -> Warning
+      ParseUnsupportedBuiltin{}         -> Warning
+      ParseInvalidLinkage               -> Warning
+      ParseUnsupportedLinkage{}         -> Warning
+      ParseInvalidVisibility            -> Warning
+      ParseUnknownCursorAvailability{}  -> Warning
+      ParseUnexpectedTypeKind{}         -> Bug
+      ParseUnexpectedCursorKind{}       -> Bug
+      ParseUnexpectedComplexType{}      -> Bug
+      ParseNoMainHeadersException{}     -> Error
+      ParseExpectedFunctionType{}       -> Bug
+      ParseUnexpectedLinkage{}          -> Bug
+      ParseUnexpectedVisibility{}       -> Bug
   getSource  = const HsBindgen
   getTraceId = const "parse"

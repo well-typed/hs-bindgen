@@ -1281,7 +1281,7 @@ test_functions_varargs =
       MatchDelayed name ParseUnsupportedVariadicFunction ->
         Just $ Expected name
       MatchDelayed name (
-        ParseUnsupportedUnderlyingType
+        ParseUnderlyingTypeFailed
           (PrelimDeclId.Named (CDeclName "va_list" CNameKindOrdinary))
           (ParseUnsupportedBuiltin "__builtin_va_list")
         ) ->
