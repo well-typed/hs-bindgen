@@ -42,6 +42,7 @@
   `hs-bindgen` generated code. In particular, the packages `ghc-prim` and
   `primitive` are not required by `hs-bindgen` generated code anymore.
 * Improve and disambiguate delayed parse trace messages.
+* Improve error handling in `hs-bindgen` frontend, see [issue #1009][is-1009]
 
 ### Bug fixes
 
@@ -54,14 +55,15 @@
   `hs-bindgen` used the signed libclang API.
 * Include `FunPtr` for macro-defined newtypes. See [PR #1711][pr-1711].
 * Fix a panic that occurred in some cases when generating `_Aux` newtypes for
-  function pointers. See [issue #1694][issue-1694] and [PR #1724][pr-1724].
+  function pointers. See [issue #1694][is-1694] and [PR #1724][pr-1724].
 * Fix a panic that occurred when the argument to a `#include` is a macro. In
   Haddock documentation of declarations in the included header, we just
   document the filename of the header.
 
+[is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
+[is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
 [pr-1711]: https://github.com/well-typed/hs-bindgen/pull/1711
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
-[issue-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 
 ## 0.1.0-alpha -- 2026-02-06
