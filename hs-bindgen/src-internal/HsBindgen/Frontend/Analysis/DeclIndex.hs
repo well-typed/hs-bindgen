@@ -442,6 +442,18 @@ getUnusables index xs =
       UsableE   _ -> Nothing
       UnusableE e -> Just e
 
+-- TODO-D: Add TODO items for ticket
+-- https://github.com/well-typed/hs-bindgen/issues/1820. (No required for scoping messages).
+
+-- TODO-D: Verify that we get messages for transitive dependencies.
+
+-- TODO-D:
+-- getDelayedParseMsgs :: DeclIndex -> [(DeclId, SingleLoc, DelayedParseMsg)]
+-- getDelayedParseMsgs index = Map.mapMaybe getDelayedParseMsg index
+--   where
+--     getDelayedParseMsg :: _
+--     getDelayedParseMsg = _
+
 {-------------------------------------------------------------------------------
   Support for macro failures
 -------------------------------------------------------------------------------}

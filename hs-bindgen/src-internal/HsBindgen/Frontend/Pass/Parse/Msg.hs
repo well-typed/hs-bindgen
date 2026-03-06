@@ -41,12 +41,15 @@ data ImmediateParseMsg =
 
 instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
-      ParseOfDeclarationRequiredForScopingFailed ->
-        "Parse of declaration required for scoping failed"
+      ParseOfDeclarationRequiredForScopingFailed -> PP.hcat [
+          "Parse of declaration required for scoping failed;"
+        , "the failed declaration may be required when parsing"
+        , "other declarations containing macro replacements"
+        ]
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
-      ParseOfDeclarationRequiredForScopingFailed{} -> Info
+      ParseOfDeclarationRequiredForScopingFailed{} -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse-immediate"
 
