@@ -951,9 +951,10 @@ data VarClassification =
     --
     -- NOTE: `static` can be useful to be able to specify the /value/ of the
     -- constant in the header file (perhaps so that the compiler can inline it).
-    -- However, `static` does not make sense without `const`: this would be a
-    -- mutable variable, but it would be local to any C file that included the
-    -- header; it would be invisible to the C API.
+    -- Without `const`, `static` results in a mutable variable local to any C
+    -- file that includes the header, invisible to the C API. Arguably this does
+    -- not make much sense, but it does occur in real-world code (e.g. device
+    -- driver headers), so we accept it nonetheless.
     --
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/829>
     -- We could in principle expose the /value/ of the constant, if we know it.
@@ -976,14 +977,11 @@ classifyVarDecl = \curr -> do
     tls <- clang_getCursorTLSKind curr
     case fromSimpleEnum tls of
       Right CXTLS_None -> do
-        storage   <- clang_Cursor_getStorageClass curr
-        typ       <- clang_getCursorType curr
-        canonical <- clang_getCanonicalType typ
-        isConst   <- clang_isConstQualifiedType canonical
-        case (fromSimpleEnum storage, isConst) of
-          (Right CX_SC_Extern , _    ) -> return $ VarGlobal IsExtern
-          (Right CX_SC_None   , _    ) -> return $ VarGlobal IsNotExtern
-          (Right CX_SC_Static , True ) -> return $ VarGlobal IsNotExtern
+        storage <- clang_Cursor_getStorageClass curr
+        case fromSimpleEnum storage of
+          Right CX_SC_Extern  -> return $ VarGlobal IsExtern
+          Right CX_SC_None    -> return $ VarGlobal IsNotExtern
+          Right CX_SC_Static  -> return $ VarGlobal IsNotExtern
           _otherwise -> return $ VarUnsupported storage
       _otherwise ->
         return VarThreadLocal

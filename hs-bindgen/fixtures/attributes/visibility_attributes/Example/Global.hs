@@ -23,6 +23,16 @@ module Example.Global
     , Example.Global.i17
     , Example.Global.i18
     , Example.Global.i19
+    , Example.Global.i20
+    , Example.Global.i21
+    , Example.Global.i22
+    , Example.Global.i23
+    , Example.Global.i24
+    , Example.Global.i25
+    , Example.Global.i26
+    , Example.Global.i27
+    , Example.Global.i28
+    , Example.Global.i29
     )
   where
 
@@ -150,6 +160,66 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "signed int *hs_bindgen_795a8bc9f1790423 (void)"
   , "{"
   , "  return &i19;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i20 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_aca4ebe3ed82b446 (void)"
+  , "{"
+  , "  return &i20;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i21 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_0e754fa77e17d23d (void)"
+  , "{"
+  , "  return &i21;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i22 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_7eb5ba69a6d8d55b (void)"
+  , "{"
+  , "  return &i22;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i23 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_6dbf0480a4c2e807 (void)"
+  , "{"
+  , "  return &i23;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i24 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_bbbdbed0c98985f3 (void)"
+  , "{"
+  , "  return &i24;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i25 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_a826c861455e1bde (void)"
+  , "{"
+  , "  return &i25;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i26 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_d706089e2ea7a7fc (void)"
+  , "{"
+  , "  return &i26;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i27 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_32a85a0ad6b6eb00 (void)"
+  , "{"
+  , "  return &i27;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i28 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_f437afacd1f16ba0 (void)"
+  , "{"
+  , "  return &i28;"
+  , "}"
+  , "/* test_attributesvisibility_attribut_Example_get_i29 */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_f2048ce2feab803f (void)"
+  , "{"
+  , "  return &i29;"
   , "}"
   ]))
 
@@ -532,3 +602,193 @@ hs_bindgen_795a8bc9f1790423 =
 -}
 i19 :: RIP.Ptr RIP.CInt
 i19 = RIP.unsafePerformIO hs_bindgen_795a8bc9f1790423
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i20@
+foreign import ccall unsafe "hs_bindgen_aca4ebe3ed82b446" hs_bindgen_aca4ebe3ed82b446_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i20@
+hs_bindgen_aca4ebe3ed82b446 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_aca4ebe3ed82b446 =
+  RIP.fromFFIType hs_bindgen_aca4ebe3ed82b446_base
+
+{-# NOINLINE i20 #-}
+{-| __C declaration:__ @i20@
+
+    __defined at:__ @attributes\/visibility_attributes.h 89:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i20 :: RIP.Ptr RIP.CInt
+i20 = RIP.unsafePerformIO hs_bindgen_aca4ebe3ed82b446
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i21@
+foreign import ccall unsafe "hs_bindgen_0e754fa77e17d23d" hs_bindgen_0e754fa77e17d23d_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i21@
+hs_bindgen_0e754fa77e17d23d :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_0e754fa77e17d23d =
+  RIP.fromFFIType hs_bindgen_0e754fa77e17d23d_base
+
+{-# NOINLINE i21 #-}
+{-| __C declaration:__ @i21@
+
+    __defined at:__ @attributes\/visibility_attributes.h 90:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i21 :: RIP.Ptr RIP.CInt
+i21 = RIP.unsafePerformIO hs_bindgen_0e754fa77e17d23d
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i22@
+foreign import ccall unsafe "hs_bindgen_7eb5ba69a6d8d55b" hs_bindgen_7eb5ba69a6d8d55b_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i22@
+hs_bindgen_7eb5ba69a6d8d55b :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_7eb5ba69a6d8d55b =
+  RIP.fromFFIType hs_bindgen_7eb5ba69a6d8d55b_base
+
+{-# NOINLINE i22 #-}
+{-| __C declaration:__ @i22@
+
+    __defined at:__ @attributes\/visibility_attributes.h 91:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i22 :: RIP.Ptr RIP.CInt
+i22 = RIP.unsafePerformIO hs_bindgen_7eb5ba69a6d8d55b
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i23@
+foreign import ccall unsafe "hs_bindgen_6dbf0480a4c2e807" hs_bindgen_6dbf0480a4c2e807_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i23@
+hs_bindgen_6dbf0480a4c2e807 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_6dbf0480a4c2e807 =
+  RIP.fromFFIType hs_bindgen_6dbf0480a4c2e807_base
+
+{-# NOINLINE i23 #-}
+{-| __C declaration:__ @i23@
+
+    __defined at:__ @attributes\/visibility_attributes.h 92:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i23 :: RIP.Ptr RIP.CInt
+i23 = RIP.unsafePerformIO hs_bindgen_6dbf0480a4c2e807
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i24@
+foreign import ccall unsafe "hs_bindgen_bbbdbed0c98985f3" hs_bindgen_bbbdbed0c98985f3_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i24@
+hs_bindgen_bbbdbed0c98985f3 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_bbbdbed0c98985f3 =
+  RIP.fromFFIType hs_bindgen_bbbdbed0c98985f3_base
+
+{-# NOINLINE i24 #-}
+{-| __C declaration:__ @i24@
+
+    __defined at:__ @attributes\/visibility_attributes.h 93:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i24 :: RIP.Ptr RIP.CInt
+i24 = RIP.unsafePerformIO hs_bindgen_bbbdbed0c98985f3
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i25@
+foreign import ccall unsafe "hs_bindgen_a826c861455e1bde" hs_bindgen_a826c861455e1bde_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i25@
+hs_bindgen_a826c861455e1bde :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_a826c861455e1bde =
+  RIP.fromFFIType hs_bindgen_a826c861455e1bde_base
+
+{-# NOINLINE i25 #-}
+{-| __C declaration:__ @i25@
+
+    __defined at:__ @attributes\/visibility_attributes.h 96:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i25 :: RIP.Ptr RIP.CInt
+i25 = RIP.unsafePerformIO hs_bindgen_a826c861455e1bde
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i26@
+foreign import ccall unsafe "hs_bindgen_d706089e2ea7a7fc" hs_bindgen_d706089e2ea7a7fc_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i26@
+hs_bindgen_d706089e2ea7a7fc :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_d706089e2ea7a7fc =
+  RIP.fromFFIType hs_bindgen_d706089e2ea7a7fc_base
+
+{-# NOINLINE i26 #-}
+{-| __C declaration:__ @i26@
+
+    __defined at:__ @attributes\/visibility_attributes.h 97:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i26 :: RIP.Ptr RIP.CInt
+i26 = RIP.unsafePerformIO hs_bindgen_d706089e2ea7a7fc
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i27@
+foreign import ccall unsafe "hs_bindgen_32a85a0ad6b6eb00" hs_bindgen_32a85a0ad6b6eb00_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i27@
+hs_bindgen_32a85a0ad6b6eb00 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_32a85a0ad6b6eb00 =
+  RIP.fromFFIType hs_bindgen_32a85a0ad6b6eb00_base
+
+{-# NOINLINE i27 #-}
+{-| __C declaration:__ @i27@
+
+    __defined at:__ @attributes\/visibility_attributes.h 98:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i27 :: RIP.Ptr RIP.CInt
+i27 = RIP.unsafePerformIO hs_bindgen_32a85a0ad6b6eb00
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i28@
+foreign import ccall unsafe "hs_bindgen_f437afacd1f16ba0" hs_bindgen_f437afacd1f16ba0_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i28@
+hs_bindgen_f437afacd1f16ba0 :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_f437afacd1f16ba0 =
+  RIP.fromFFIType hs_bindgen_f437afacd1f16ba0_base
+
+{-# NOINLINE i28 #-}
+{-| __C declaration:__ @i28@
+
+    __defined at:__ @attributes\/visibility_attributes.h 99:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i28 :: RIP.Ptr RIP.CInt
+i28 = RIP.unsafePerformIO hs_bindgen_f437afacd1f16ba0
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i29@
+foreign import ccall unsafe "hs_bindgen_f2048ce2feab803f" hs_bindgen_f2048ce2feab803f_base ::
+     IO (RIP.Ptr RIP.Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i29@
+hs_bindgen_f2048ce2feab803f :: IO (RIP.Ptr RIP.CInt)
+hs_bindgen_f2048ce2feab803f =
+  RIP.fromFFIType hs_bindgen_f2048ce2feab803f_base
+
+{-# NOINLINE i29 #-}
+{-| __C declaration:__ @i29@
+
+    __defined at:__ @attributes\/visibility_attributes.h 100:55@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+i29 :: RIP.Ptr RIP.CInt
+i29 = RIP.unsafePerformIO hs_bindgen_f2048ce2feab803f

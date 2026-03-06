@@ -6,6 +6,12 @@
 -- {
 --   return &x;
 -- }
+-- /* test_declarationsredeclaration_Example_get_n */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_8afd78f6e3766c89 (void)
+-- {
+--   return &n;
+-- }
 {-| __C declaration:__ @int_t@
 
     __defined at:__ @declarations\/redeclaration.h 20:13@
@@ -195,3 +201,25 @@ x :: Ptr CInt
     __exported by:__ @declarations\/redeclaration.h@
 -}
 x = unsafePerformIO hs_bindgen_6f47e5cbb92690b9
+-- __unique:__ @test_declarationsredeclaration_Example_get_n@
+foreign import ccall unsafe "hs_bindgen_8afd78f6e3766c89" hs_bindgen_8afd78f6e3766c89_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_declarationsredeclaration_Example_get_n@
+hs_bindgen_8afd78f6e3766c89 :: IO (Ptr CInt)
+-- __unique:__ @test_declarationsredeclaration_Example_get_n@
+hs_bindgen_8afd78f6e3766c89 = fromFFIType hs_bindgen_8afd78f6e3766c89_base
+{-# NOINLINE n #-}
+{-| __C declaration:__ @n@
+
+    __defined at:__ @declarations\/redeclaration.h 15:12@
+
+    __exported by:__ @declarations\/redeclaration.h@
+-}
+n :: Ptr CInt
+{-| __C declaration:__ @n@
+
+    __defined at:__ @declarations\/redeclaration.h 15:12@
+
+    __exported by:__ @declarations\/redeclaration.h@
+-}
+n = unsafePerformIO hs_bindgen_8afd78f6e3766c89

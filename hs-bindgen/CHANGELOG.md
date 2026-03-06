@@ -45,6 +45,10 @@
 
 ### Bug fixes
 
+* Generate bindings for `static` (non-`const`) declarations. Previously these
+  were rejected as an unsupported, even though the duplicate-symbols warning
+  suggested using `static`
+  ([#1769](https://github.com/well-typed/hs-bindgen/issues/1769)).
 * Wrap function names in parentheses in generated C wrappers (`(erf)(x)`
   instead of `erf(x)`) to prevent function-like macro expansion when a macro
   shadows the function name.
