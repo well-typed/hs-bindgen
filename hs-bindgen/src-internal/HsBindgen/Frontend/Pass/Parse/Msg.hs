@@ -54,6 +54,11 @@ instance IsTrace Level ImmediateParseMsg where
   Delayed parse messages
 -------------------------------------------------------------------------------}
 
+-- Note to developers: We order delayed parse message constructors by
+-- 1. Recursive constructors come first
+-- 2. Severity; debug messages come first
+-- 3. Constructor name
+
 -- | Delayed parse messages
 --
 -- We emit these parse messages only when we attempt to select the attached
@@ -67,8 +72,91 @@ data DelayedParseMsg =
     --   delayed parse message.
     ParseUnderlyingTypeFailed PrelimDeclId DelayedParseMsg
 
-    -- | Struct with implicit fields
-  | ParseUnsupportedImplicitFields
+    -- | Fully defined global variables and functions with external linkage.
+    --
+    -- Such definitions can lead to duplicate symbols (linker errors) if they
+    -- are included more than once in the same program. See the manual section
+    -- on globals for details.
+    --
+    -- Duplicate symbols can also exist across multiple shared libraries as long
+    -- as these symbols have public visibility. However, in such cases the
+    -- linker will pick one according to the rules of linker symbol
+    -- interposition, rather than throw a linker error. It can be surprising for
+    -- users if the linker picks an unexpected definition for the symbol they
+    -- are referencing. So, if a symbol has non-public visibility, the risk of
+    -- such surprises is mitigated somewhat. See the "Visibility" section in the
+    -- manual for more details.
+  | ParsePotentialDuplicateSymbol
+      -- | The symbol has public visibility
+      Bool
+
+    -- | A function declaration was encountered where the type of the function
+    -- is typedef reference. This is not yet supported by hs-bindgen.
+    --
+    -- For example:
+    --
+    -- > typedef int int2int(int);
+    -- > extern int2int foo;
+    --
+    -- <https://github.com/well-typed/hs-bindgen/issues/1034>
+  | ParseFunctionOfTypeTypedef
+
+  | ParseInvalidLinkage
+
+  | ParseInvalidVisibility
+
+    -- | A function declaration or global variable declaration has a problematic
+    -- case of non-public visibility that can lead to linker errors if the
+    -- symbol is defined in a shared library.
+    --
+    -- In such cases, we emit this message. Arguably declarations like these are
+    -- a bug in the C library, given the way that header files are @#include@d
+    -- in other header and body files.
+    --
+    -- Concretely, a linker error can occur for a declared symbol if it:
+    --
+    -- 1. has non-public visibility,
+    -- 2. has external linkage, and
+    -- 3. is not a definition (and there is no definition elsewhere in the
+    --    header).
+    --
+    -- For example:
+    --
+    -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
+    -- > extern int __attribute__ ((visibility ("hidden"))) i;
+  | ParseNonPublicVisibility
+
+    -- | Declaration availability can not be determined.
+    --
+    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
+    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
+  | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
+
+    -- | Variable declaration
+  | ParseUnknownStorageClass (SimpleEnum CX_StorageClass)
+
+    -- | Unsupported anonymous declaration inside @extern@
+    --
+    -- Something like
+    --
+    -- > extern struct { .. } config;
+    --
+    -- does not make sense: this declares the existence of some externally
+    -- defined global variable, but it is impossible to actually define said
+    -- global variable; an attempt such as
+    --
+    -- > #include "config.h"
+    -- > struct { .. } config = ..
+    --
+    -- will result in an error: "conflicting types for 'config'".
+    --
+    -- The /header/ however by itself will not result in a @clang@ warning, so
+    -- we detect the situation and warn the user in @hs-bindgen@.
+    --
+    -- (As of C23, the situation is different for /named/ structs: multiple uses
+    -- of a struct with the same name are considered compatible as of
+    -- WG14-N3037.)
+  | ParseUnsupportedAnonInExtern
 
     -- | Unsupported anonymous declaration inside function signature
     --
@@ -100,86 +188,27 @@ data DelayedParseMsg =
     -- of constructing any values), we rule them out.
   | ParseUnsupportedAnonInSignature
 
-    -- | Unsupported anonymous declaration inside @extern@
-    --
-    -- Something like
-    --
-    -- > extern struct { .. } config;
-    --
-    -- does not make sense: this declares the existence of some externally
-    -- defined global variable, but it is impossible to actually define said
-    -- global variable; an attempt such as
-    --
-    -- > #include "config.h"
-    -- > struct { .. } config = ..
-    --
-    -- will result in an error: "conflicting types for 'config'".
-    --
-    -- The /header/ however by itself will not result in a @clang@ warning, so
-    -- we detect the situation and warn the user in @hs-bindgen@.
-    --
-    -- (As of C23, the situation is different for /named/ structs: multiple uses
-    -- of a struct with the same name are considered compatible as of
-    -- WG14-N3037.)
-  | ParseUnsupportedAnonInExtern
+    -- | Clang built-in declaration
+  | ParseUnsupportedBuiltin Text
+
+    -- | We do not support @float128@
+  | ParseUnsupportedFloat128
+
+    -- | Struct with implicit fields
+  | ParseUnsupportedImplicitFields
+
+  | ParseUnsupportedLinkage String CXLinkageKind
+
+    -- | We do not support @long double@
+  | ParseUnsupportedLongDouble
 
     -- | Thread local variables
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/828>
   | ParseUnsupportedTLS
 
-    -- | Variable declaration
-  | ParseUnknownStorageClass (SimpleEnum CX_StorageClass)
-
-    -- | Fully defined global variables and functions with external linkage.
-    --
-    -- Such definitions can lead to duplicate symbols (linker errors) if they
-    -- are included more than once in the same program. See the manual section
-    -- on globals for details.
-    --
-    -- Duplicate symbols can also exist across multiple shared libraries as long
-    -- as these symbols have public visibility. However, in such cases the
-    -- linker will pick one according to the rules of linker symbol
-    -- interposition, rather than throw a linker error. It can be surprising for
-    -- users if the linker picks an unexpected definition for the symbol they
-    -- are referencing. So, if a symbol has non-public visibility, the risk of
-    -- such surprises is mitigated somewhat. See the "Visibility" section in the
-    -- manual for more details.
-  | ParsePotentialDuplicateSymbol
-      -- | The symbol has public visibility
-      Bool
-
-    -- | A function declaration or global variable declaration has a problematic
-    -- case of non-public visibility that can lead to linker errors if the
-    -- symbol is defined in a shared library.
-    --
-    -- In such cases, we emit this message. Arguably declarations like these are
-    -- a bug in the C library, given the way that header files are @#include@d
-    -- in other header and body files.
-    --
-    -- Concretely, a linker error can occur for a declared symbol if it:
-    --
-    -- 1. has non-public visibility,
-    -- 2. has external linkage, and
-    -- 3. is not a definition (and there is no definition elsewhere in the
-    --    header).
-    --
-    -- For example:
-    --
-    -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
-    -- > extern int __attribute__ ((visibility ("hidden"))) i;
-  | ParseNonPublicVisibility
-
-    -- | A function declaration was encountered where the type of the function
-    -- is typedef reference. This is not yet supported by hs-bindgen.
-    --
-    -- For example:
-    --
-    -- > typedef int int2int(int);
-    -- > extern int2int foo;
-    --
-    -- <https://github.com/well-typed/hs-bindgen/issues/1034>
-  | ParseFunctionOfTypeTypedef
+    -- | We do not support variadic (varargs) functions
+  | ParseUnsupportedVariadicFunction
 
     -- | Unusable anonymous declaration
     --
@@ -190,30 +219,6 @@ data DelayedParseMsg =
     -- here (that is, it's source location); the identifier of the outer
     -- declaration is recorded in the encloding 'ParseResult'.
   | ParseUnusableAnonDecl AnonId
-
-    -- | We do not support variadic (varargs) functions
-  | ParseUnsupportedVariadicFunction
-
-    -- | We do not support @long double@
-  | ParseUnsupportedLongDouble
-
-    -- | We do not support @float128@
-  | ParseUnsupportedFloat128
-
-    -- | Clang built-in declaration
-  | ParseUnsupportedBuiltin Text
-
-  | ParseInvalidLinkage
-
-  | ParseUnsupportedLinkage String CXLinkageKind
-
-  | ParseInvalidVisibility
-
-    -- | Declaration availability can not be determined.
-    --
-    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
-    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-  | ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
 
     -- | We encountered an unexpected type kind
     --
@@ -233,13 +238,13 @@ data DelayedParseMsg =
     -- @double complex@. @struct Point complex@ is not allowed.
   | ParseUnexpectedComplexType CXType
 
-  | ParseNoMainHeadersException String SourcePath
-
   | ParseExpectedFunctionType String
 
   | ParseUnexpectedLinkage (Either CInt CXLinkageKind)
 
   | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
+
+  | ParseNoMainHeadersException String SourcePath
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Exception DelayedParseMsg where
@@ -253,18 +258,6 @@ instance PrettyForTrace DelayedParseMsg where
         , ": "
         , prettyForTrace err
         ]
-      ParseUnsupportedImplicitFields ->
-        "Unsupported implicit fields"
-      ParseUnsupportedAnonInSignature ->
-        "Unexpected anonymous declaration in function signature"
-      ParseUnsupportedAnonInExtern ->
-        "Unexpected anonymous declaration in global variable"
-      ParseUnsupportedTLS ->
-        "Unsupported thread-local variable"
-      ParseUnknownStorageClass storage -> PP.hsep [
-          "Unsupported storage class"
-        , PP.show storage
-        ]
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
             "Bindings may result in duplicate symbols; "
           , "consider using 'static' or 'extern'"
@@ -276,26 +269,34 @@ instance PrettyForTrace DelayedParseMsg where
             , "visibility to the symbol"
             ]
           else []
+      ParseFunctionOfTypeTypedef ->
+        "Unsupported function declared with a typedef type"
+      ParseInvalidLinkage ->
+        "Invalid linkage (CXLinkage_Invalid)"
+      ParseInvalidVisibility ->
+        "Invalid visibility (CXVisibility_Invalid)"
       ParseNonPublicVisibility -> PP.hsep [
           "Bindings may result in linker errors"
         , "because the symbol has non-public visibility"
         ]
-      ParseFunctionOfTypeTypedef ->
-        "Unsupported function declared with a typedef type"
-      ParseUnusableAnonDecl anonId -> PP.hsep [
-          "Unusable anonymous declaration "
-        , prettyForTrace anonId
+      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
+          "Unknown declaration cursor availability:"
+        , PP.show simpleKind
         ]
-      ParseUnsupportedVariadicFunction ->
-        "Unsupported variadic (varargs) function"
-      ParseUnsupportedLongDouble ->
-        "Unsupported long double"
-      ParseUnsupportedFloat128 ->
-        "Unsupported float128"
+      ParseUnknownStorageClass storage -> PP.hsep [
+          "Unsupported storage class"
+        , PP.show storage
+        ]
+      ParseUnsupportedAnonInExtern ->
+        "Unexpected anonymous declaration in global variable"
+      ParseUnsupportedAnonInSignature ->
+        "Unexpected anonymous declaration in function signature"
       ParseUnsupportedBuiltin name ->
         "Unsupported built-in " >< PP.show name
-      ParseInvalidLinkage ->
-        "Invalid linkage (CXLinkage_Invalid)"
+      ParseUnsupportedFloat128 ->
+        "Unsupported float128"
+      ParseUnsupportedImplicitFields ->
+        "Unsupported implicit fields"
       ParseUnsupportedLinkage comment linkage -> PP.hcat [
           "Unsupported linkage: "
         , PP.show linkage
@@ -303,11 +304,15 @@ instance PrettyForTrace DelayedParseMsg where
         , PP.string comment
         , ")"
         ]
-      ParseInvalidVisibility ->
-        "Invalid visibility (CXVisibility_Invalid)"
-      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
-          "Unknown declaration cursor availability:"
-        , PP.show simpleKind
+      ParseUnsupportedLongDouble ->
+        "Unsupported long double"
+      ParseUnsupportedTLS ->
+        "Unsupported thread-local variable"
+      ParseUnsupportedVariadicFunction ->
+        "Unsupported variadic (varargs) function"
+      ParseUnusableAnonDecl anonId -> PP.hsep [
+          "Unusable anonymous declaration "
+        , prettyForTrace anonId
         ]
       ParseUnexpectedTypeKind x ->
         unexpected $ "type kind " >< either PP.show PP.show x
@@ -315,12 +320,6 @@ instance PrettyForTrace DelayedParseMsg where
         unexpected $ "cursor kind " >< either PP.show PP.show x
       ParseUnexpectedComplexType ty ->
         unexpected $ "complex type " >< PP.show ty
-      ParseNoMainHeadersException why whr -> PP.hsep [
-          "Could not determine main headers:"
-        , PP.string why
-        , "at"
-        , PP.string $ getSourcePath whr
-        ]
       ParseExpectedFunctionType ty -> PP.hsep [
           "Expected function type, but got"
         , PP.string ty
@@ -333,6 +332,12 @@ instance PrettyForTrace DelayedParseMsg where
           "Unexpected visibility: "
         , PP.show visibility
         ]
+      ParseNoMainHeadersException why whr -> PP.hsep [
+          "Could not determine main headers:"
+        , PP.string why
+        , "at"
+        , PP.string $ getSourcePath whr
+        ]
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
       unexpected msg = PP.vcat [
@@ -344,29 +349,29 @@ instance PrettyForTrace DelayedParseMsg where
 instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
       ParseUnderlyingTypeFailed _ err   -> getDefaultLogLevel err
-      ParseUnsupportedImplicitFields{}  -> Warning
-      ParseUnsupportedAnonInSignature{} -> Warning
-      ParseUnsupportedAnonInExtern{}    -> Warning
-      ParseUnsupportedTLS{}             -> Warning
-      ParseUnknownStorageClass{}        -> Warning
       ParsePotentialDuplicateSymbol{}   -> Notice
-      ParseNonPublicVisibility{}        -> Warning
       ParseFunctionOfTypeTypedef{}      -> Warning
-      ParseUnusableAnonDecl{}           -> Warning
-      ParseUnsupportedVariadicFunction  -> Warning
-      ParseUnsupportedLongDouble        -> Warning
-      ParseUnsupportedFloat128          -> Warning
-      ParseUnsupportedBuiltin{}         -> Warning
       ParseInvalidLinkage               -> Warning
-      ParseUnsupportedLinkage{}         -> Warning
       ParseInvalidVisibility            -> Warning
+      ParseNonPublicVisibility{}        -> Warning
       ParseUnknownCursorAvailability{}  -> Warning
+      ParseUnknownStorageClass{}        -> Warning
+      ParseUnsupportedAnonInExtern{}    -> Warning
+      ParseUnsupportedAnonInSignature{} -> Warning
+      ParseUnsupportedBuiltin{}         -> Warning
+      ParseUnsupportedFloat128          -> Warning
+      ParseUnsupportedImplicitFields{}  -> Warning
+      ParseUnsupportedLinkage{}         -> Warning
+      ParseUnsupportedLongDouble        -> Warning
+      ParseUnsupportedTLS{}             -> Warning
+      ParseUnsupportedVariadicFunction  -> Warning
+      ParseUnusableAnonDecl{}           -> Warning
       ParseUnexpectedTypeKind{}         -> Bug
       ParseUnexpectedCursorKind{}       -> Bug
       ParseUnexpectedComplexType{}      -> Bug
-      ParseNoMainHeadersException{}     -> Error
       ParseExpectedFunctionType{}       -> Bug
       ParseUnexpectedLinkage{}          -> Bug
       ParseUnexpectedVisibility{}       -> Bug
+      ParseNoMainHeadersException{}     -> Error
   getSource  = const HsBindgen
   getTraceId = const "parse"
