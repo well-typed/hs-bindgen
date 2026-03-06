@@ -62,6 +62,7 @@ import System.IO (Handle, hPutStr, stderr)
 import Text.SimplePrettyPrint (Context, CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Errors
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -188,7 +189,7 @@ getColorForLevel = \case
   Info    -> Green
   Notice  -> Yellow
   Warning -> Yellow
-  Bug     -> Yellow
+  Bug     -> Red
   Error   -> Red
 
 -- | Safe log or verbosity level to be used by the backend.
@@ -665,7 +666,11 @@ formatTrace ansiColor showTimeStamp level trace = do
     mTime <- case showTimeStamp of
       DisableTimeStamp -> pure Nothing
       EnableTimeStamp -> Just <$> liftIO getCurrentTime
-    pure $ formatLine mTime $ PP.renderCtxDoc context $ prettyForTrace trace
+    pure $
+      formatLine mTime $
+        appendBugNote $
+          PP.renderCtxDoc context $
+            prettyForTrace trace
   where
     context :: Context
     context = PP.mkContext 120
@@ -703,3 +708,8 @@ formatTrace ansiColor showTimeStamp level trace = do
 
     formatLine :: Maybe UTCTime -> String -> String
     formatLine mTime = prependLabels mTime
+
+    appendBugNote :: String -> String
+    appendBugNote x = case level of
+      Bug       -> x ++ "\n" ++ pleaseReport
+      _otherLvl -> x

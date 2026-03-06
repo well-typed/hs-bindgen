@@ -29,11 +29,11 @@ import HsBindgen.Util.Tracer
 --
 -- Reasons for immediate emission:
 --
--- - The user may not care (they might not even select the declaration), but we
---   care (i.e., a bug or an unsupported feature)
+-- - The info/debug message is useful to developers
 --
 -- - The declaration we fail to parse may affect other declarations
 data ImmediateParseMsg =
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1820>
     -- | We failed to parse a declaration that is required for scoping.
     ParseOfDeclarationRequiredForScopingFailed
 
@@ -41,8 +41,11 @@ data ImmediateParseMsg =
 
 instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
-      ParseOfDeclarationRequiredForScopingFailed ->
-        "Parse of declaration required for scoping failed"
+      ParseOfDeclarationRequiredForScopingFailed -> PP.hsep [
+          "Parse of declaration required for scoping failed;"
+        , "the failed declaration may be required when parsing"
+        , "other declarations containing macro replacements"
+        ]
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
@@ -220,6 +223,19 @@ data DelayedParseMsg =
     -- declaration is recorded in the encloding 'ParseResult'.
   | ParseUnusableAnonDecl AnonId
 
+  | ParseExpectedFunctionType String
+
+    -- | Complex types can only be defined using primitive types, e.g.
+    -- @double complex@. @struct Point complex@ is not allowed.
+  | ParseUnexpectedComplexType CXType
+
+    -- | We encountered an unexpected cursor kind
+    --
+    -- Similar comments apply as for 'UnexpectedTypeKind'.
+  | ParseUnexpectedCursorKind (Either CInt CXCursorKind)
+
+  | ParseUnexpectedLinkage (Either CInt CXLinkageKind)
+
     -- | We encountered an unexpected type kind
     --
     -- This is always a bug in hs-bindgen: if this kind of type is unsupported,
@@ -228,19 +244,6 @@ data DelayedParseMsg =
     -- If this is a @Left@ value, it means that our @libclang@ bindings are
     -- incomplete.
   | ParseUnexpectedTypeKind (Either CInt CXTypeKind)
-
-    -- | We encountered an unexpected cursor kind
-    --
-    -- Similar comments apply as for 'UnexpectedTypeKind'.
-  | ParseUnexpectedCursorKind (Either CInt CXCursorKind)
-
-    -- | Complex types can only be defined using primitive types, e.g.
-    -- @double complex@. @struct Point complex@ is not allowed.
-  | ParseUnexpectedComplexType CXType
-
-  | ParseExpectedFunctionType String
-
-  | ParseUnexpectedLinkage (Either CInt CXLinkageKind)
 
   | ParseUnexpectedVisibility (Either CInt CXLinkageKind)
 
@@ -314,20 +317,20 @@ instance PrettyForTrace DelayedParseMsg where
           "Unusable anonymous declaration "
         , prettyForTrace anonId
         ]
-      ParseUnexpectedTypeKind x ->
-        unexpected $ "type kind " >< either PP.show PP.show x
-      ParseUnexpectedCursorKind x ->
-        unexpected $ "cursor kind " >< either PP.show PP.show x
-      ParseUnexpectedComplexType ty ->
-        unexpected $ "complex type " >< PP.show ty
       ParseExpectedFunctionType ty -> PP.hsep [
           "Expected function type, but got"
         , PP.string ty
         ]
+      ParseUnexpectedComplexType ty ->
+        unexpected $ "complex type " >< PP.show ty
+      ParseUnexpectedCursorKind x ->
+        unexpected $ "cursor kind " >< either PP.show PP.show x
       ParseUnexpectedLinkage linkage -> PP.hcat [
           "Unexpected linkage: "
         , PP.show linkage
         ]
+      ParseUnexpectedTypeKind x ->
+        unexpected $ "type kind " >< either PP.show PP.show x
       ParseUnexpectedVisibility visibility -> PP.hcat [
           "Unexpected visibility: "
         , PP.show visibility
@@ -366,11 +369,11 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedTLS{}             -> Warning
       ParseUnsupportedVariadicFunction  -> Warning
       ParseUnusableAnonDecl{}           -> Warning
-      ParseUnexpectedTypeKind{}         -> Bug
-      ParseUnexpectedCursorKind{}       -> Bug
-      ParseUnexpectedComplexType{}      -> Bug
       ParseExpectedFunctionType{}       -> Bug
+      ParseUnexpectedComplexType{}      -> Bug
+      ParseUnexpectedCursorKind{}       -> Bug
       ParseUnexpectedLinkage{}          -> Bug
+      ParseUnexpectedTypeKind{}         -> Bug
       ParseUnexpectedVisibility{}       -> Bug
       ParseNoMainHeadersException{}     -> Error
   getSource  = const HsBindgen

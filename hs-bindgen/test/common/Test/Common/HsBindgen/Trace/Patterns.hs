@@ -149,6 +149,6 @@ pattern MatchMangle name x <- TraceFrontend (
 
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
-    SelectParseSuccess x -> Just x
+    SelectDelayedParseMsg x -> Just x
     SelectParseFailure x -> Just x
     _otherwise -> Nothing

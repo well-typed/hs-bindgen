@@ -213,6 +213,7 @@ parseFailNoInfo ctx msg curr = do
       declLoc <- HighLevel.clang_getCursorLocation' curr
       pure (declId, declLoc)
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1820>
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1249>
 -- Ideally we'd only emit the trace when we /use/ the declaration that
 -- we fail to parse.

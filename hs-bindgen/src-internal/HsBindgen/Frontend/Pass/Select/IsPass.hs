@@ -145,8 +145,8 @@ data SelectMsg =
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select the deprecated declaration?
   | SelectDeprecated SelectReason
-    -- | Delayed parse message for actually selected declarations.
-  | SelectParseSuccess DelayedParseMsg
+    -- | Delayed parse message.
+  | SelectDelayedParseMsg DelayedParseMsg
     -- | Delayed parse message for declarations the user wants to select
     -- directly, but we have not attempted to parse.
   | SelectParseNotAttempted ParseNotAttempted
@@ -176,7 +176,7 @@ instance PrettyForTrace SelectMsg where
           PP.vcat $ map prettyForTrace xs
       SelectDeprecated r ->
         appendSelectReason r "Selected a deprecated declaration"
-      SelectParseSuccess x ->
+      SelectDelayedParseMsg x ->
         PP.hang "During parse:" 2 (prettyForTrace x)
       SelectParseNotAttempted x ->
         couldNotSelect $ PP.vcat [
@@ -214,7 +214,7 @@ instance IsTrace Level SelectMsg where
     SelectStatusInfo{}              -> Info
     TransitiveDependenciesMissing{} -> Warning
     SelectDeprecated{}              -> Notice
-    SelectParseSuccess x            -> getDefaultLogLevel x
+    SelectDelayedParseMsg x         -> getDefaultLogLevel x
     SelectParseNotAttempted{}       -> Warning
     SelectParseFailure x            -> getDefaultLogLevel x
     SelectConflict{}                -> Warning
@@ -227,7 +227,7 @@ instance IsTrace Level SelectMsg where
     SelectStatusInfo{}              -> "select"
     TransitiveDependenciesMissing{} -> "select"
     SelectDeprecated{}              -> "select"
-    SelectParseSuccess x            -> "select-" <> getTraceId x
+    SelectDelayedParseMsg x         -> "select-" <> getTraceId x
     SelectParseNotAttempted{}       -> "select-parse"
     SelectParseFailure x            -> "select-" <> getTraceId x
     SelectConflict{}                -> "select"
