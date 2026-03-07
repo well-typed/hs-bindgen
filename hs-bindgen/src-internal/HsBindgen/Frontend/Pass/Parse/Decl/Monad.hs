@@ -20,32 +20,31 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
     -- ** Logging
   , recordImmediateTrace
     -- ** Errors
-  , unknownCursorKind
-    -- * Utility: dispatching
-  , dispatch
-  , dispatchWithArg
+  , parseFail
+  , parseFailNoInfo
   ) where
 
 import Data.IORef
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 
-import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Eff
-import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.ProcessIncludes (GetMainHeadersAndInclude)
+import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -95,9 +94,13 @@ getTranslationUnit = wrapEff $ \support -> return support.env.unit
 
 evalGetMainHeadersAndInclude ::
      SourcePath
-  -> ParseDecl (NonEmpty HashIncludeArg, IncludeGraph.Include)
+  -> ParseDecl
+      (Either DelayedParseMsg
+        (NonEmpty HashIncludeArg, IncludeGraph.Include))
 evalGetMainHeadersAndInclude path = wrapEff $ \support ->
-    either panicIO return $ support.env.getMainHeadersAndInclude path
+    pure $
+      first (\err -> ParseNoMainHeadersException err path) $
+      support.env.getMainHeadersAndInclude path
 
 evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
 evalPredicate info = wrapEff $ \support -> pure $
@@ -154,8 +157,9 @@ checkHasMacroExpansion extent = do
   Logging
 -------------------------------------------------------------------------------}
 
--- | Directly emit a parse message that can not be attached to a declaration,
--- usually because not enough information about the declaration is available.
+-- | Directly emit a parse message that can not be attached to a parsed
+-- declaration, usually because not enough information about the declaration is
+-- available.
 recordImmediateTrace ::
      PrelimDeclId
   -> SingleLoc
@@ -171,33 +175,52 @@ recordImmediateTrace declId declLoc msg = wrapEff $ \support ->
   Errors
 -------------------------------------------------------------------------------}
 
-unknownCursorKind :: MonadIO m => CXCursorKind -> CXCursor -> m x
-unknownCursorKind kind curr = do
-    loc      <- HighLevel.clang_getCursorLocation' curr
-    spelling <- clang_getCursorKindSpelling (simpleEnum kind)
-    panicIO $ concat [
-        "Unknown cursor of kind "
-      , show kind
-      , " ("
-      , Text.unpack spelling
-      , ") at "
-      , show loc
-      ]
+-- | Record a parse failure
+--
+-- In contrast to 'parseSucceed' and 'parseDoNotAttempt', this is a monadic
+-- action: It checks for immediate parse messages that should be
+-- emitted directly.
+parseFail ::
+     ParseCtx
+  -> PrelimDeclId
+  -> SingleLoc
+  -> DelayedParseMsg
+  -> ParseDecl [ParseResult Parse]
+parseFail ctx declId declLoc msg = do
+    maybeEmitScopingMsg ctx.outer.scoping declId declLoc
+    pure $ (:[]) $
+      ParseResult{
+          id             = declId
+        , loc            = declLoc
+        , classification = ParseResultFailure msg
+        }
 
-{-------------------------------------------------------------------------------
-  Utility: dispatching based on the cursor kind
--------------------------------------------------------------------------------}
+-- | Record a parse failure without having the declaration information readily
+--   available
+--
+-- Retrieve the information using libclang and the provided cursor.
+parseFailNoInfo :: ParseCtx -> DelayedParseMsg -> CXCursor -> ParseDecl [ParseResult Parse]
+parseFailNoInfo ctx msg curr = do
+    (declId, declLoc) <- getDeclInfoForTrace
+    parseFail ctx declId declLoc msg
+  where
+    -- The declaration ID and the location are not always available while
+    -- parsing, and so are not part of the declaration context. We have to
+    -- obtain them again here.
+    getDeclInfoForTrace :: ParseDecl (PrelimDeclId, SingleLoc)
+    getDeclInfoForTrace = do
+      declId  <- PrelimDeclId.atCursor curr ctx.outer.kind
+      declLoc <- HighLevel.clang_getCursorLocation' curr
+      pure (declId, declLoc)
 
-dispatch :: MonadIO m => CXCursor -> (CXCursorKind -> m a) -> m a
-dispatch curr k = do
-    mKind <- fromSimpleEnum <$> clang_getCursorKind curr
-    case mKind of
-      Right kind -> k kind
-      Left  i    -> panicIO $ "Unrecognized CXCursorKind " ++ show i
-
-dispatchWithArg ::
-     MonadIO m
-  => CXCursor
-  -> (CXCursorKind -> CXCursor -> m a)
-  -> m a
-dispatchWithArg x f = dispatch x $ \kind -> f kind x
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1249>
+-- Ideally we'd only emit the trace when we /use/ the declaration that
+-- we fail to parse.
+maybeEmitScopingMsg ::
+  RequiredForScoping -> PrelimDeclId -> SingleLoc -> ParseDecl ()
+maybeEmitScopingMsg scoping declId declLoc = case scoping of
+    RequiredForScoping ->
+      recordImmediateTrace declId declLoc $
+        ParseOfDeclarationRequiredForScopingFailed
+    NotRequiredForScoping ->
+      pure ()

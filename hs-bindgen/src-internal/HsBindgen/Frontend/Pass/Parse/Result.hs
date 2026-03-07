@@ -4,12 +4,10 @@ module HsBindgen.Frontend.Pass.Parse.Result (
   , ParseClassification(..)
   , ParseSuccess(..)
   , ParseNotAttempted(..)
-  , ParseFailure(..)
     -- * Convenience constructors
   , parseSucceed
   , parseSucceedWith
   , parseDoNotAttempt
-  , parseFail
     -- * Query
   , getParseResultMaybeDecl
   , getParseResultEitherDecl
@@ -43,9 +41,15 @@ data ParseResult p = ParseResult{
 data ParseClassification p =
     ParseResultSuccess      (ParseSuccess p)
   | ParseResultNotAttempted ParseNotAttempted
-  | ParseResultFailure      ParseFailure
+  | ParseResultFailure      DelayedParseMsg
   deriving stock (Show, Generic)
-  deriving anyclass (PrettyForTrace)
+
+instance PrettyForTrace (ParseClassification p) where
+  prettyForTrace = \case
+    ParseResultSuccess      x -> prettyForTrace x
+    ParseResultNotAttempted x -> prettyForTrace x
+    ParseResultFailure msg    -> PP.hang "Parse failure:" 2 $
+      prettyForTrace msg
 
 data ParseSuccess p = ParseSuccess {
       decl             :: C.Decl p
@@ -79,17 +83,6 @@ data ParseNotAttempted =
   | ParsePredicateNotMatched
   deriving stock (Show, Eq, Ord)
 
--- | Declarations that match the parse predicate but that we fail to parse and
--- reify
---
--- We need this information when selecting declarations: Does the user want to
--- select declarations, we have failed to parse?
-newtype ParseFailure = ParseFailure {
-      msg :: DelayedParseMsg
-    }
-  deriving stock (Show, Generic)
-  deriving newtype (IsTrace Level)
-
 {-------------------------------------------------------------------------------
   Pretty-printing
 -------------------------------------------------------------------------------}
@@ -117,17 +110,15 @@ instance PrettyForTrace ParseNotAttempted where
         DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
         ParsePredicateNotMatched -> "Parse predicate did not match"
 
-instance PrettyForTrace ParseFailure where
-  prettyForTrace failure = PP.hang "Parse failure:" 2 $
-      prettyForTrace failure.msg
-
 {-------------------------------------------------------------------------------
   Convenience constructors
 -------------------------------------------------------------------------------}
 
+-- | Assemble a parse success
 parseSucceed :: C.Decl p -> ParseResult p
 parseSucceed = parseSucceedWith []
 
+-- | Assemble a parse success with delayed parse messages
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl p -> ParseResult p
 parseSucceedWith msgs decl = ParseResult{
      id             = decl.info.id
@@ -138,18 +129,12 @@ parseSucceedWith msgs decl = ParseResult{
        }
     }
 
+-- | Assemble a "parse not attempted" with a reason
 parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult p
 parseDoNotAttempt info reason = ParseResult{
       id              = info.id
     , loc             = info.loc
     , classification = ParseResultNotAttempted reason
-    }
-
-parseFail :: Id p -> SingleLoc -> DelayedParseMsg -> ParseResult p
-parseFail declId declLoc msg = ParseResult{
-      id             = declId
-    , loc            = declLoc
-    , classification = ParseResultFailure $ ParseFailure msg
     }
 
 {-------------------------------------------------------------------------------

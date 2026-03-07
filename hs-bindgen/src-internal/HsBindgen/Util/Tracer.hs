@@ -163,6 +163,9 @@ data Level =
     -- | We may produce incomplete bindings
   | Warning
 
+    -- | We encountered something unexpected but may produce incomplete bindings
+  | Bug
+
     -- | We are unable to produce /any/ bindings at all
   | Error
   deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
@@ -176,6 +179,7 @@ alignLevel = \case
   Info    -> "Info   "
   Notice  -> "Notice "
   Warning -> "Warning"
+  Bug     -> "Bug    "
   Error   -> "Error  "
 
 getColorForLevel :: Level -> Color
@@ -184,6 +188,7 @@ getColorForLevel = \case
   Info    -> Green
   Notice  -> Yellow
   Warning -> Yellow
+  Bug     -> Yellow
   Error   -> Red
 
 -- | Safe log or verbosity level to be used by the backend.
