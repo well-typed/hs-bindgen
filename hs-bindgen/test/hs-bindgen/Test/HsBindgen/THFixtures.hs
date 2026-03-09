@@ -31,7 +31,7 @@ import Test.HsBindgen.THFixtures.TestCases (THStatus (..), determineTHStatus)
 -- to this point (e.g. @[\"test-hs-bindgen\"]@). 'testPatternMatches' needs
 -- full paths to replicate tasty's @-p@ filtering.
 tests :: Seq String -> IO TestResources -> TestTree
-tests pathPrefix testResources = askOption $ \case
+tests pathPrefix getTestResources = askOption $ \case
     Fast -> testGroup "th-fixtures" []
     Full -> askOption $ \testPattern ->
       withResource (setup testPattern) (const $ return ()) $ \getResults ->
@@ -41,10 +41,10 @@ tests pathPrefix testResources = askOption $ \case
     -- Only compile fixtures that match the @-p@ pattern. Without this,
     -- 'withResource' compiles all fixtures regardless of @-p@.
     setup testPattern = do
-        testResources' <- testResources
-        let repoRoot = takeDirectory testResources'.packageRoot
+        testResources <- getTestResources
+        let repoRoot = takeDirectory testResources.packageRoot
             cases =
-              [ (tc.name, generateModule testResources' tc)
+              [ (tc.name, generateModule testResources tc)
               | tc <- allTestCases
               , determineTHStatus tc == THCompile
               , testPatternMatches testPattern
