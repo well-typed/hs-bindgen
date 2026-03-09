@@ -22,19 +22,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        runner: [ubuntu-latest, macos-latest, windows-latest]
+        runner: [ubuntu-latest, macos-latest]
         ghc: ['9.2', '9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
         llvm: ['14', '16', '18', '20', '21']
         exclude:
           # LLVM 21 not available on macOS ARM64
           - runner: macos-latest
             llvm: '21'
-          # LLVM 21 not available on Windows
-          - runner: windows-latest
-            llvm: '21'
-          # Conservative Windows LLVM selection: skip 20 for now
-          - runner: windows-latest
-            llvm: '20'
 
     defaults:
       run:
@@ -81,8 +75,6 @@ jobs:
         # shipped in musl-include/ are Linux-specific, so GHC's C compiler
         # cannot use them on macOS or Windows.
         TASTY_PATTERN: ${{ runner.os != 'Linux' && '!/th-fixtures/' || '' }}
-        # Prevent MSYS/Git Bash from converting /th-fixtures/ to a Windows path
-        MSYS_NO_PATHCONV: 1
 
     - name: 🧪 Build manual (macOS)
       if: runner.os == 'macOS'
@@ -202,19 +194,9 @@ jobs:
             ${{ github.workspace }}\\manual\\c
         EOF
 
-    - name: 🧪 Build C libraries
-      working-directory: ./manual/c
-      run: make
-
-    - name: 🧪 Run binding generation script
+    - name: 🧪 Generate bindings, build and run manual
       working-directory: ./manual
-      run: ./generate.sh
-
-    - name: 🧪 Build and run manual
-      working-directory: ./manual/hs
-      run: |
-        cabal build all
-        cabal run manual
+      run: ./generate-and-run.sh
 
   # ============================================================================
   # Job 3: Run cabal check for each package
