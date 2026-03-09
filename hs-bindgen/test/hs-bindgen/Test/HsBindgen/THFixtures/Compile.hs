@@ -5,8 +5,9 @@ module Test.HsBindgen.THFixtures.Compile (
   , sanitizeLibName
   ) where
 
-import Data.Char (isAlphaNum)
-import Data.List (isInfixOf)
+import Control.Monad (guard)
+import Data.Char (isAlphaNum, isDigit)
+import Data.List (isInfixOf, stripPrefix)
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Set (Set)
@@ -64,6 +65,7 @@ setupBatchCompile repoRoot cases =
 
       -- Determine per-library results
       let failedLibs = parseFailedLibs stderr
+          libSections = parseLibSections stderr
           allLibNames =
             [ "th-fixture-" ++ sanitizeLibName name
             | (name, _) <- cases
@@ -71,7 +73,8 @@ setupBatchCompile repoRoot cases =
           result libName
             | ExitSuccess <- exitCode       = Right ()
             | Set.null failedLibs           = Left stderr
-            | Set.member libName failedLibs = Left stderr
+            | Set.member libName failedLibs =
+                Left $ Map.findWithDefault stderr libName libSections
             | otherwise                     = Right ()
 
       return $ Map.fromList
@@ -185,6 +188,85 @@ generateCabalProject repoRoot = unlines
 {-------------------------------------------------------------------------------
   Result parsing
 -------------------------------------------------------------------------------}
+
+-- | Split cabal build stderr into per-library sections
+--
+-- With @-j1@, libraries compile sequentially so their errors appear in order
+-- in stderr.  Each library's GHC error references its source directory as
+-- @\<dirname\>/Example.hs:line:col: error:@.  We call that line the "anchor".
+--
+-- The structure of stderr when two libraries (A and B) fail looks like:
+--
+-- @
+--   Warning: ...                                  ← preamble (assigned to A)
+--   Template Haskell error: ... header_a.h ...    ← TH diagnostic (preamble, assigned to A)
+--   dirname-a\/Example.hs:1:1: error: [GHC-87897] ← ANCHOR for lib A
+--       Exception when trying to run ...          ← continuation (indented)
+--     |                                           ← continuation (indented)
+--   1 | {-# LANGUAGE CApiFFI #-}                  ← continuation (digit-prefixed)
+--     | ^                                         ← continuation (indented)
+--                                                 ← blank (continuation)
+--   Template Haskell error: ... header_b.h ...    ← TH diagnostic (preamble, assigned to B)
+--   dirname-b\/Example.hs:1:1: error: [GHC-87897] ← ANCHOR for lib B
+--       ...                                       ← continuation
+--                                                 ← blank (continuation)
+--   Error: [Cabal-7125]                           ← footer (dropped)
+--   Failed to build lib:th-fixture-dirname-a ...  ← footer (dropped)
+--   Failed to build lib:th-fixture-dirname-b ...  ← footer (dropped)
+-- @
+--
+-- Each section is: accumulated preamble + anchor + continuation lines (blank,
+-- indented, or digit-prefixed).  The footer after the last continuation has no
+-- following anchor, so it is dropped.
+--
+parseLibSections :: String -> Map String String
+parseLibSections stderr =
+    Map.fromList
+      [ ("th-fixture-" ++ name, unlines sectionLines)
+      | (name, sectionLines) <- extractSections (lines stderr)
+      ]
+
+-- | Break stderr lines into named sections, one per library.
+--
+-- Lines are accumulated as a "preamble" until a GHC error anchor
+-- (@\<dirname\>/Example.hs:line:col:@) is found; then the preamble,
+-- anchor, and its continuation lines form that library's section.
+--
+extractSections :: [String] -> [(String, [String])]
+extractSections = collect []
+  where
+    collect :: [String] -> [String] -> [(String, [String])]
+    collect _preamble [] = []
+    collect preamble (l : ls) = case anchorLibName l of
+        Just name ->
+          let (cont, rest) = span isContinuation ls
+          in  (name, preamble ++ l : cont) : collect [] rest
+        Nothing ->
+          collect (preamble ++ [l]) ls
+
+-- | Try to extract a library dirname from a GHC error anchor line.
+--
+-- Matches lines like @types-enums-foo\/Example.hs:1:1: error: ...@
+-- and returns @\"types-enums-foo\"@.
+anchorLibName :: String -> Maybe String
+anchorLibName line = do
+    let (dirname, rest) = break (== '/') line
+    guard $ not (null dirname)
+    guard $ all isDirNameChar dirname
+    _ <- stripPrefix "/Example.hs:" rest
+    pure dirname
+
+-- | Characters allowed in a cabal library directory name.
+isDirNameChar :: Char -> Bool
+isDirNameChar c = isAlphaNum c || c == '-' || c == '_'
+
+-- | Does this line continue a GHC error block?
+--
+-- Blank lines, indented lines, and line-number references
+-- (e.g. @1 | {-# LANGUAGE ... #-}@) are continuations.
+isContinuation :: String -> Bool
+isContinuation []    = True
+isContinuation (c:_) = c == ' ' || isDigit c
 
 -- | Parse failed library names from cabal build stderr
 --
