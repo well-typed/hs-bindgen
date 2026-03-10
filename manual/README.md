@@ -13,7 +13,7 @@
 * [Tracing](LowLevel/Usage/02-Tracing.md)
 * [Clang options](LowLevel/Usage/03-ClangOptions.md)
 * [Includes](LowLevel/Usage/04-Includes.md)
-* [Parsing, selecting and program slicing](LowLevel/Usage/05-ParsingSelectingAndProgramSlicing.md)
+* [Selecting and program slicing](LowLevel/Usage/05-SelectingAndProgramSlicing.md)
 * [Binding specifications](LowLevel/Usage/06-BindingSpecifications.md)
 * [Test generation](LowLevel/Usage/07-TestGeneration.md)
 * [Cross-compilation](LowLevel/Usage/08-CrossCompilation.md)

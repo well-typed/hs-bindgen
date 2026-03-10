@@ -181,7 +181,7 @@ data Unusable =
 instance PrettyForTrace Unusable where
   prettyForTrace = \case
     UnusableParseNotAttempted{} ->
-      "Parse not attempted: adjust the parse predicate"
+      "Parse not attempted"
     UnusableParseFailure{} ->
       "Parse failed"
     UnusableConflict{} ->

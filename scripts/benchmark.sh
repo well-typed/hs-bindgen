@@ -28,4 +28,4 @@ create_bindings() {
 export -f create_bindings
 
 echo
-hyperfine 'create_bindings' 'create_bindings --parse-all'
+hyperfine 'create_bindings'

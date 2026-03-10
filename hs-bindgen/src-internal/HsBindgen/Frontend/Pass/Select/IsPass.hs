@@ -178,10 +178,7 @@ instance PrettyForTrace SelectMsg where
       SelectDelayedParseMsg x ->
         PP.hang "During parse:" 2 (prettyForTrace x)
       SelectParseNotAttempted x ->
-        couldNotSelect $ PP.vcat [
-            prettyForTrace x
-          , "Adjust the parse predicate"
-          ]
+        couldNotSelect $ prettyForTrace x
       SelectParseFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectConflict ->

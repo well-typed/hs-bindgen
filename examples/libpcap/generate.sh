@@ -24,21 +24,6 @@ libclang_flags=(
     --clang-option '-std=gnu17'
 )
 
-# `hs-bindgen` parses the C header files using `libclang` and interprets/reifies
-# the declarations into an `hs-bindgen`-internal abstract syntax tree. These
-# flags affect the parsing/reifying step.
-parse_flags=(
-    # The external binding specifications we provide for the C standard library
-    # do not cover all definitions. We instruct `hs-bindgen` to parse additional
-    # headers.
-    --parse-by-header-path "struct_timeval.h"
-    --parse-by-header-path "socket.h"
-    # By default `hs-bindgen` parses all headers in the main header directory,
-    # but we adjust the parse predicate above, and so need to provide this
-    # option.
-    --parse-from-main-header-dirs
-)
-
 # We only generate bindings for a sub-set of all parsed/reified declarations.
 # These flags configure the selection step.
 select_flags=(
@@ -69,10 +54,9 @@ debug_flags=(
     # -v4
 )
 
-cabal run --project-dir=${PROJECT_ROOT} -- hs-bindgen-cli preprocess \
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli preprocess \
     "${module_flags[@]}" \
     "${libclang_flags[@]}" \
-    "${parse_flags[@]}" \
     "${select_flags[@]}" \
     "${debug_flags[@]}" \
     pcap.h

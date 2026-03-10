@@ -61,12 +61,9 @@ data ParseSuccess p = ParseSuccess {
 
 -- | Why did we not attempt to parse a declaration?
 data ParseNotAttempted =
-    -- | We do not parse builtin declarations.
-    DeclarationBuiltin
-
     -- | We unexpectedly did not attempt to parse a declaration because it is
     -- reported "unavailable".
-  | DeclarationUnavailable
+    DeclarationUnavailable
   deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
@@ -90,10 +87,8 @@ instance PrettyForTrace (ParseSuccess p) where
           map prettyForTrace success.delayedParseMsgs
 
 instance PrettyForTrace ParseNotAttempted where
-  prettyForTrace x = PP.hang "Parse not attempted: " 2 $
-      case x of
-        DeclarationBuiltin       -> "Builtin declaration"
-        DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
+  prettyForTrace = PP.hang "Parse not attempted: " 2 . \case
+    DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
 
 {-------------------------------------------------------------------------------
   Convenience constructors
