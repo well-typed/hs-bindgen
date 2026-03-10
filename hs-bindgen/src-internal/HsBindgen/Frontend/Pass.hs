@@ -51,9 +51,9 @@ class (
       , Show (Ann "StructField"      p)
       , Show (Ann "TranslationUnit"  p)
       , Show (Ann "Typedef"          p)
+      , Show (Ann "TypeFunArg"       p)
       , Show (Ann "Union"            p)
       , Show (Ann "UnionField"       p)
-      , Show (Ann "TypeFunArg"       p)
 
         -- 'Ord' constraints for identifiers (which we often store in maps)
 
@@ -85,9 +85,9 @@ class (
       , Eq (Ann "Struct"           p)
       , Eq (Ann "StructField"      p)
       , Eq (Ann "Typedef"          p)
+      , Eq (Ann "TypeFunArg"       p)
       , Eq (Ann "Union"            p)
       , Eq (Ann "UnionField"       p)
-      , Eq (Ann "TypeFunArg"       p)
 
       ) => IsPass (p :: Pass) where
   -- | Declaration identifier
