@@ -147,8 +147,10 @@ jobs:
           echo '== $PATH ======================================================================='
           echo "${PATH}" | tr ':' '\n'
 
-      - name: "[checkout] Setup git"
-        uses: ./.github/actions/setup-git
+      - name: "[checkout] Configure git to use LF"
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
 
       - name: "[checkout] Checkout repository"
         uses: actions/checkout@v4
