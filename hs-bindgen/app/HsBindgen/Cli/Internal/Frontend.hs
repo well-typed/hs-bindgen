@@ -52,8 +52,8 @@ parseFrontendPassName s = case lookup s knownPasses of
         , mk DumpHandleMacros
         , mk DumpResolveBindingSpecs
         , mk DumpMangleNames
-        , mk DumpSelect
         , mk DumpAdjustTypes
+        , mk DumpSelect
         ]
 
     mk :: Show result => FrontendPass result -> (String, SomeFrontendPass)
@@ -114,7 +114,7 @@ exec global opts = case opts.dump of
       where
         artefact :: Artefact ()
         artefact = do
-            result <- RunFrontendPass pass
+            result <- DumpFrontendPass pass
             Lift $ delay . WriteToStdOut . StringContent $ show result
 
         bindgenConfig :: BindgenConfig

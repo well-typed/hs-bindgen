@@ -17,21 +17,9 @@ frontend pass to dump (defaults to `adjust-types`, the final pass).
 
 ### Available passes
 
-| # | `--pass` value | Description |
-|---|----------------|-------------|
-| 1 | `parse` | Traverse libclang AST into Haskell C AST |
-| 2 | `simplify-ast` | Convert anonymous enums to pattern synonyms |
-| 3 | `assign-anon-ids` | Assign names to anonymous declarations |
-| 4 | `construct-translation-unit` | Order declarations by dependencies, build graphs |
-| 5 | `handle-macros` | Typecheck macros, reparse with macro info |
-| 6 | `resolve-binding-specs` | Apply external/prescriptive binding specs |
-| 7 | `mangle-names` | Assign Haskell names, squash typedefs |
-| 8 | `select` | Filter by predicates and program slicing |
-| 9 | `adjust-types` | Adjust types (e.g. function args to function pointers) |
-
-Passes 1--3 produce `[ParseResult p]`; passes 4--9 produce
-`C.TranslationUnit p`. See `HsBindgen.Frontend` module header for ordering
-constraints.
+Available passes are defined by the `FrontendPass` GADT in
+`HsBindgen.Artefact`. See `HsBindgen.Frontend` module header for pass
+ordering and constraints. Run `--help` to see the current list.
 
 ### Examples
 
@@ -56,7 +44,7 @@ cabal run hs-bindgen-cli -- internal frontend --pass resolve-binding-specs \
 
 ## `clang-ast-dump`
 
-Displays low-level details about the Clang AST, as libclang sees it (before
+Displays low-level details about the Clang AST, as `libclang` sees it (before
 any `hs-bindgen` processing). Aids in designing the translation from Clang
 types to our Haskell types.
 

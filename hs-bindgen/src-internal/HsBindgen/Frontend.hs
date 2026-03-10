@@ -327,10 +327,6 @@ runFrontend tracer config boot = do
     frontendDependencies <- cache "frontendDependencies" $ do
       IncludeGraph.toSortedList . (.includeGraph) <$> getCTranslationUnit
 
-    frontendDumpParse <- cache "frontendDumpParse" $ do
-      (parseResults, _, _, _, _, _) <- parsePass
-      pure parseResults
-
     pure FrontendArtefact{
         includeGraph   = frontendIncludeGraph
       , getMainHeaders = frontendGetMainHeaders
@@ -342,15 +338,15 @@ runFrontend tracer config boot = do
       , squashedTypes  = frontendSquashedTypes
       , dependencies   = frontendDependencies
 
-      , dumpParse                    = frontendDumpParse
+      , dumpParse                    = (\(x, _, _, _, _, _) -> x) <$> parsePass
       , dumpSimplifyAST              = simplifyASTPass
       , dumpAssignAnonIds            = assignAnonIdsPass
       , dumpConstructTranslationUnit = constructTranslationUnitPass
       , dumpHandleMacros             = handleMacrosPass
       , dumpResolveBindingSpecs      = resolveBindingSpecsPass
       , dumpMangleNames              = mangleNamesPass
-      , dumpSelect                   = selectPass
       , dumpAdjustTypes              = adjustTypesPass
+      , dumpSelect                   = selectPass
       }
   where
     getRootHeader :: Cached RootHeader
@@ -404,8 +400,8 @@ data FrontendArtefact = FrontendArtefact {
     , dumpHandleMacros             :: Cached (C.TranslationUnit HandleMacros)
     , dumpResolveBindingSpecs      :: Cached (C.TranslationUnit ResolveBindingSpecs)
     , dumpMangleNames              :: Cached (C.TranslationUnit MangleNames)
-    , dumpSelect                   :: Cached (C.TranslationUnit Select)
     , dumpAdjustTypes              :: Cached (C.TranslationUnit AdjustTypes)
+    , dumpSelect                   :: Cached (C.TranslationUnit Select)
     }
 
 {-------------------------------------------------------------------------------

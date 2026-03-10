@@ -70,10 +70,10 @@ data FrontendPass (result :: Star) where
     :: FrontendPass (C.TranslationUnit ResolveBindingSpecs)
   DumpMangleNames
     :: FrontendPass (C.TranslationUnit MangleNames)
-  DumpSelect
-    :: FrontendPass (C.TranslationUnit Select)
   DumpAdjustTypes
     :: FrontendPass (C.TranslationUnit AdjustTypes)
+  DumpSelect
+    :: FrontendPass (C.TranslationUnit Select)
 
 -- | Human-readable name of a frontend pass (for CLI and traces)
 frontendPassName :: FrontendPass result -> String
@@ -85,8 +85,8 @@ frontendPassName = \case
   DumpHandleMacros             -> "handle-macros"
   DumpResolveBindingSpecs      -> "resolve-binding-specs"
   DumpMangleNames              -> "mangle-names"
-  DumpSelect                   -> "select"
   DumpAdjustTypes              -> "adjust-types"
+  DumpSelect                   -> "select"
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -97,7 +97,7 @@ data Artefact (a :: Star) where
   -- * Boot
   HashIncludeArgs     :: Artefact [HashIncludeArg]
   -- * Frontend passes
-  RunFrontendPass     :: FrontendPass result -> Artefact result
+  DumpFrontendPass    :: FrontendPass result -> Artefact result
   -- * Frontend
   IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
   GetMainHeaders      :: Artefact ProcessIncludes.GetMainHeaders
@@ -155,7 +155,7 @@ runArtefacts tracer boot frontend backend artefact =
         --Boot.
         HashIncludeArgs     -> runCached boot.hashIncludeArgs
         -- Frontend passes.
-        RunFrontendPass p   -> runFrontendPass frontend p
+        DumpFrontendPass p  -> runFrontendPass frontend p
         -- Frontend.
         IncludeGraph        -> runCached frontend.includeGraph
         GetMainHeaders      -> runCached frontend.getMainHeaders
@@ -175,7 +175,6 @@ runArtefacts tracer boot frontend backend artefact =
         (Lift   f)          -> f
         (Bind x f)          -> runArtefact x >>= runArtefact . f
 
--- | Run a frontend pass by dispatching on the 'FrontendPass' GADT.
 runFrontendPass :: FrontendArtefact -> FrontendPass result -> DelayedIOM result
 runFrontendPass fe = \case
     DumpParse                    -> runCached fe.dumpParse
@@ -185,8 +184,8 @@ runFrontendPass fe = \case
     DumpHandleMacros             -> runCached fe.dumpHandleMacros
     DumpResolveBindingSpecs      -> runCached fe.dumpResolveBindingSpecs
     DumpMangleNames              -> runCached fe.dumpMangleNames
-    DumpSelect                   -> runCached fe.dumpSelect
     DumpAdjustTypes              -> runCached fe.dumpAdjustTypes
+    DumpSelect                   -> runCached fe.dumpSelect
 
 {-------------------------------------------------------------------------------
   Traces
