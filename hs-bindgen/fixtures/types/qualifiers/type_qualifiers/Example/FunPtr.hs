@@ -16,7 +16,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   [ "#include <types/qualifiers/type_qualifiers.h>"
   , "/* test_typesqualifierstype_qualifie_Example_get_list_example */"
   , "__attribute__ ((const))"
-  , "_Bool (*hs_bindgen_a19bc138e7f2759b (void)) ("
+  , "bool (*hs_bindgen_a19bc138e7f2759b (void)) ("
   , "  char const **arg1,"
   , "  size_t arg2"
   , ")"
@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
-hs_bindgen_a19bc138e7f2759b :: IO (RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool))
+hs_bindgen_a19bc138e7f2759b :: IO (RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO HsBindgen.Runtime.LibC.CBool))
 hs_bindgen_a19bc138e7f2759b =
   RIP.fromFFIType hs_bindgen_a19bc138e7f2759b_base
 
@@ -41,6 +41,6 @@ hs_bindgen_a19bc138e7f2759b =
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
-list_example :: RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO RIP.CBool)
+list_example :: RIP.FunPtr ((RIP.Ptr (PtrConst.PtrConst RIP.CChar)) -> HsBindgen.Runtime.LibC.CSize -> IO HsBindgen.Runtime.LibC.CBool)
 list_example =
   RIP.unsafePerformIO hs_bindgen_a19bc138e7f2759b
