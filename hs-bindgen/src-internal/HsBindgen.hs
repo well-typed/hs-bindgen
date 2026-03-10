@@ -24,6 +24,7 @@ module HsBindgen (
   , hsBindgenE
   ) where
 
+import Control.Exception (Exception (..), catch)
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
 import System.Exit (ExitCode (..), exitWith)
@@ -37,6 +38,7 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
+import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.DelayedIO
 import HsBindgen.Errors (throwPure_TODO)
@@ -61,7 +63,13 @@ hsBindgen ::
   -> Artefact a
   -> IO a
 hsBindgen tu ts b i a = do
-    eRes <- hsBindgenE tu ts b i a
+    eRes <- hsBindgenE tu ts b i a `catch` \e -> case fromException e of
+      Just (LibclangException msg) -> do
+        putStrLn $ PP.renderCtxDoc PP.defaultContext (PP.string msg)
+        -- We specifically use exit code 2 here; it means that the call to
+        -- `libclang` has failed.
+        exitWith (ExitFailure 2)
+      _ -> throwIO e
     case eRes of
       Left err -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err

@@ -3,11 +3,12 @@
 -- For failing test cases, we verify the trace messages.
 module Test.HsBindgen.Golden.Check.FailureBindgen (check) where
 
-import Test.Tasty (TestTree)
+import Test.Tasty (TestTree, askOption)
 import Test.Tasty.HUnit
 
 import HsBindgen
 
+import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 
@@ -16,15 +17,18 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check getTestResources test = testCase test.name $ do
-    eRes <- runTestHsBindgen noReport getTestResources test FinalDecls
-    case eRes of
-      Left  _ -> pure ()
-      Right r -> assertFailure (msgWith r)
+check getTestResources test =
+    askOption $ \(Debug debug) -> do
+      let report :: String -> IO ()
+          report = case debug of
+            False -> const $ pure ()
+            True  -> putStrLn
+      testCase test.name $ do
+        eRes <- runTestHsBindgen report getTestResources test FinalDecls
+        case eRes of
+          Left  _ -> pure ()
+          Right r -> assertFailure (msgWith r)
   where
-    noReport :: a -> IO ()
-    noReport = const $ pure ()
-
     msgWith :: Show b => b -> String
     msgWith r = mconcat [
         "Expected 'hs-bindgen' to fail, "

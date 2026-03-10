@@ -19,7 +19,7 @@ module Test.Common.HsBindgen.Trace.Predicate (
   , withTraceConfigPredicate
   ) where
 
-import Control.Exception (Exception, throwIO)
+import Control.Exception (Exception (..), catch, throwIO)
 import Control.Monad.Except (Except, runExcept, throwError)
 import Data.Foldable qualified as Foldable
 import Data.IORef (modifyIORef', newIORef, readIORef)
@@ -33,6 +33,7 @@ import Data.Typeable (Typeable)
 import Text.SimplePrettyPrint (CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Clang
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports (Default (def))
@@ -186,15 +187,23 @@ withTraceConfigPredicate report (TracePredicate predicate) action = do
               }
           }
 
+        reportTraces :: IO ()
+        reportTraces = do
+          traces <- readIORef tracesRef
+          mapM_ (report . show . prettyForTrace) traces
+
+
         checkTraces :: IO ()
         checkTraces = do
           traces <- readIORef tracesRef
-          mapM_ (report . show . prettyForTrace) traces
           case runExcept (predicate traces) of
             Left  e -> throwIO e
             Right _ -> pure ()
 
-    action tracerConfig <* checkTraces
+    (action tracerConfig <* reportTraces <* checkTraces) `catch` \e ->
+      case fromException e of
+        Just (_ :: LibclangException) -> reportTraces >> throwIO e
+        _                             -> throwIO e
 
 {-------------------------------------------------------------------------------
   Trace exception

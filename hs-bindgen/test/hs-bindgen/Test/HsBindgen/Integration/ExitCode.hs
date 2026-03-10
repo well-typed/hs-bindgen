@@ -1,6 +1,6 @@
 module Test.HsBindgen.Integration.ExitCode (tests) where
 
-import Control.Exception (handle, throw)
+import Control.Exception (Exception (..), SomeException, handle)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -9,6 +9,7 @@ import Test.Tasty
 import Test.Tasty.HUnit
 
 import HsBindgen.Artefact (Artefact (..))
+import HsBindgen.Clang (LibclangException)
 import HsBindgen.Imports
 
 import Test.Common.HsBindgen.Trace.Predicate
@@ -54,14 +55,12 @@ testUnresolvedInclude getTestResources = testCase "unresolved include throws exc
         noReport :: a -> IO ()
         noReport = const $ pure ()
 
-        expectExitFailure :: ExitCode -> IO ()
-        expectExitFailure = \case
-          -- We specifically test for exit code 2 here; it means that the
-          -- `hs-bindgen` invocation of `libclang` has failed.
-          ExitFailure 2  -> pure ()
-          otherException -> throw otherException
+        expectLibclangException :: SomeException -> IO ()
+        expectLibclangException e = case fromException e of
+          Just (_ :: LibclangException) -> pure ()
+          _                             -> throwIO e
 
-    handle expectExitFailure $ do
+    handle expectLibclangException $ do
       eRes <- runTestHsBindgen noReport getTestResources test FinalDecls
       assertFailure $ mconcat [
           "expected hs-bindgen to fail early, "

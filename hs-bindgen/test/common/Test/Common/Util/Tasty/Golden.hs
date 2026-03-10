@@ -10,6 +10,9 @@ module Test.Common.Util.Tasty.Golden (
     ActualValue(..)
   , goldenTestSteps
   , RunMode(..)
+
+    -- * Options
+  , Debug(..)
   ) where
 
 import Control.DeepSeq (rnf)
