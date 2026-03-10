@@ -6,6 +6,7 @@ import Data.Text
 import Text.Printf (printf)
 
 import Clang.Args
+import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (foldContinue)
 import Clang.HighLevel.Types qualified as HighLevel
@@ -13,7 +14,6 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Clang
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
 
@@ -29,9 +29,11 @@ getSizeofs tr args = withClang tr clangSetup $ \unit -> do
 varDecls :: CXCursor -> IO [(Text, NumBytes)]
 varDecls rootCursor =
     HighLevel.clang_visitChildren rootCursor $ HighLevel.simpleFold $ \curr -> do
-      dispatchWithArg curr $ \case
-        CXCursor_VarDecl -> varDecl >=> HighLevel.foldContinueWith
-        _ -> const foldContinue
+      mKind <- fromSimpleEnum <$> clang_getCursorKind curr
+      case mKind of
+          Right CXCursor_VarDecl -> varDecl >=> HighLevel.foldContinueWith
+          _ -> const foldContinue
+        $ curr
 
 varDecl :: CXCursor -> IO (Text, NumBytes)
 varDecl curr = do

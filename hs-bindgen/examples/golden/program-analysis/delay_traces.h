@@ -14,6 +14,12 @@ struct nested_long_double_s {
   } inner_s_member;
 };
 
+struct nested_long_double_u {
+  union {
+    long double inner_int_member;
+  } inner_u_member;
+};
+
 // In the tests, we do not select these. No traces should be emitted.
 long double long_double_var1;
 long double long_double_var2;

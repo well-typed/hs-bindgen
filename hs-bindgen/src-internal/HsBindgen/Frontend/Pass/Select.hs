@@ -37,6 +37,7 @@ import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Data types
@@ -96,34 +97,40 @@ selectDecls ::
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
-        selectedIndex :: DeclIndex
-        selectedIndex = selectDeclIndex unit.ann.declUseGraph match index
+        selectionRootsIndex :: DeclIndex
+        selectionRootsIndex = selectDeclIndex unit.ann.declUseGraph match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
         -- declarations attached to the translation unit).
         rootIds :: Set DeclId
-        rootIds = DeclIndex.keysSet selectedIndex
+        rootIds = DeclIndex.keysSet selectionRootsIndex
 
         -- Identifiers of transitive dependencies including selection roots.
-        rootAndTransIds :: Set DeclId
-        rootAndTransIds =
+        rootAndTransDepIds :: Set DeclId
+        rootAndTransDepIds =
           UseDeclGraph.getTransitiveDeps useDeclGraph $
             Set.toList rootIds
 
         -- Identifiers of transitive dependencies excluding selection roots.
-        strictTransIds :: Set DeclId
-        strictTransIds = rootAndTransIds \\ rootIds
+        strictTransDepIds :: Set DeclId
+        strictTransDepIds = rootAndTransDepIds \\ rootIds
 
         -- Identifiers of all selected declarations.
         selectedIds :: Set DeclId
         -- Identifiers of (additional) transitive dependencies selected due to
         -- program slicing. This is the only point where we differentiate
         -- between selection with or without program slicing.
-        additionalSelectedTransIds :: Set DeclId
-        (selectedIds, additionalSelectedTransIds) = case config.programSlicing of
+        additionalSelectedTransDepIds :: Set DeclId
+        (selectedIds, additionalSelectedTransDepIds) = case config.programSlicing of
           DisableProgramSlicing -> (rootIds        , Set.empty)
-          EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
+          EnableProgramSlicing  -> (rootAndTransDepIds, strictTransDepIds)
+
+        additionalSelectedTransDepsIndex :: DeclIndex
+        additionalSelectedTransDepsIndex = DeclIndex.restrictKeys index additionalSelectedTransDepIds
+
+        notSelectedIndex :: DeclIndex
+        notSelectedIndex = DeclIndex.withoutKeys index selectedIds
 
         getTransitiveSelectability :: DeclId -> TransitiveSelectability
         getTransitiveSelectability x
@@ -182,7 +189,7 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         selectMsgs =
           getSelectMsgs
             rootIds
-            additionalSelectedTransIds
+            additionalSelectedTransDepIds
             getTransitiveSelectability
             index
 
@@ -207,7 +214,9 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
         msgs =
           concat [
               selectMsgs
-            , getDelayedMsgs selectedIndex
+            , getDelayedMsgsSelectionRoots selectionRootsIndex
+            , getDelayedMsgsAdditionalSelectedTransDeps additionalSelectedTransDepsIndex
+            , getDelayedMsgsNotSelected notSelectedIndex
             , noDeclarationsMatchedMsg
             ]
 
@@ -286,7 +295,7 @@ getSelectMsgs ::
   -> [Msg Select]
 getSelectMsgs
   rootIds
-  additionalSelectedTransIds
+  additionalSelectedTransDepIds
   getTransitiveSelectability
   declIndex
   = concatMap (uncurry aux) $ DeclIndex.toList declIndex
@@ -297,7 +306,7 @@ getSelectMsgs
         getTransitiveSelectability
         declIndex
         rootIds
-        additionalSelectedTransIds
+        additionalSelectedTransDepIds
 
 getSelectMsgsDeclId ::
     (DeclId -> TransitiveSelectability)
@@ -314,7 +323,7 @@ getSelectMsgsDeclId
   getTransitiveSelectability
   declIndex
   rootIds
-  additionalSelectedTransIds
+  additionalSelectedTransDepIds
   declId
   entry
   = case ( isSelectedRoot
@@ -344,7 +353,7 @@ getSelectMsgsDeclId
     isSelectedRoot = Set.member declId rootIds
     -- These are also always strict transitive dependencies.
     isAdditionalSelectedTransDep =
-      Set.member declId additionalSelectedTransIds
+      Set.member declId additionalSelectedTransDepIds
     transitiveSelectability = getTransitiveSelectability declId
 
     getMsgsFor :: SelectReason -> [Msg Select]
@@ -390,8 +399,8 @@ getSelectMsgsDeclId
   Delayed traces
 -------------------------------------------------------------------------------}
 
-getDelayedMsgs :: DeclIndex -> [Msg Select]
-getDelayedMsgs = concatMap (uncurry aux) . DeclIndex.toList
+getDelayedMsgsSelectionRoots :: DeclIndex -> [Msg Select]
+getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
   where
     aux :: DeclId -> Entry -> [Msg Select]
     aux declId = \case
@@ -399,13 +408,13 @@ getDelayedMsgs = concatMap (uncurry aux) . DeclIndex.toList
         UsableSuccess success ->
           [ WithLocationInfo{
                 loc = declIdLocationInfo declId [success.decl.info.loc]
-              , msg = SelectParseSuccess x
+              , msg = SelectDelayedParseMsg x
               }
           | x <- success.delayedParseMsgs
           ]
         UsableExternal   -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
-        -- this; instead we have issued a notice that the typedef was squashed.
+        -- this; instead we have issued a notice that the @typedef@ was squashed.
         UsableSquashed x ->
           [ WithLocationInfo{
                 loc = declIdLocationInfo declId [x.typedefLoc]
@@ -438,6 +447,71 @@ getDelayedMsgs = concatMap (uncurry aux) . DeclIndex.toList
           }
         UnusableOmitted{} ->
           []
+
+getDelayedMsgsAdditionalSelectedTransDeps :: DeclIndex -> [Msg Select]
+getDelayedMsgsAdditionalSelectedTransDeps = concatMap (uncurry aux) . DeclIndex.toList
+  where
+    aux :: DeclId -> Entry -> [Msg Select]
+    aux declId = \case
+      UsableE e -> case e of
+        UsableSuccess success ->
+          [ WithLocationInfo{
+                loc = declIdLocationInfo declId [success.decl.info.loc]
+              , msg = SelectDelayedParseMsg x
+              }
+          | x <- success.delayedParseMsgs
+          ]
+        UsableExternal   -> []
+        -- Parse messages are unavailable for squashed entries. We are OK with
+        -- this; instead we have issued a notice that the @typedef@ was squashed.
+        UsableSquashed x ->
+          [ WithLocationInfo{
+                loc = declIdLocationInfo declId [x.typedefLoc]
+              , msg = SelectMangleNamesSquashed x
+              }
+          ]
+      -- Messages for unusable transitive dependencies are already attached to
+      -- the traces of the reverse transitive dependencies.
+      UnusableE _ -> []
+
+-- NOTE: We emit delayed BUG-level parse messages even for declarations that are
+-- not selected. We do not have a test for this; please ensure delayed BUG-level
+-- parse messages are emitted for all declarations also in the future.
+getDelayedMsgsNotSelected :: DeclIndex -> [Msg Select]
+getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
+  where
+    aux :: DeclId -> Entry -> [Msg Select]
+    aux declId = \case
+      UsableE e -> case e of
+        UsableSuccess success ->
+          [ WithLocationInfo{
+                loc = declIdLocationInfo declId [success.decl.info.loc]
+              , msg = SelectDelayedParseMsg x
+              }
+          | x <- success.delayedParseMsgs
+          , getDefaultLogLevel x == Bug
+          ]
+        UsableExternal -> []
+        UsableSquashed{} -> []
+      UnusableE e -> case e of
+        UnusableParseNotAttempted{} -> []
+        UnusableParseFailure loc x -> case getDefaultLogLevel x of
+          Bug ->
+            List.singleton WithLocationInfo{
+                loc = declIdLocationInfo declId [loc]
+              , msg = SelectDelayedParseMsg x
+              }
+          _otherLvl -> []
+        UnusableConflict{} -> []
+        UnusableMangleNamesFailure{} -> []
+        UnusableFailedMacro x -> case getDefaultLogLevel x.macroError of
+          Bug ->
+            List.singleton WithLocationInfo{
+                loc = declIdLocationInfo x.name [x.loc]
+              , msg = SelectMacroFailure x.macroError
+              }
+          _otherLvl -> []
+        UnusableOmitted{} -> []
 
 {-------------------------------------------------------------------------------
   Sort traces

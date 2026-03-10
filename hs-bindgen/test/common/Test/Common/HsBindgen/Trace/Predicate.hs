@@ -122,6 +122,7 @@ customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
     defaultTracePredicateSimple :: a -> TraceExpectation b
     defaultTracePredicateSimple = \case
         Error        -> Unexpected
+        Bug          -> Unexpected
         Warning      -> Unexpected
         Notice       -> Tolerated
         Info         -> Tolerated

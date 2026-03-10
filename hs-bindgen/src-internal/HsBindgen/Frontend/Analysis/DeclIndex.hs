@@ -17,6 +17,8 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , fromParseResults
     -- * Filter
   , filter
+  , restrictKeys
+  , withoutKeys
     -- * Query parse successes
   , lookup
   , getDecls
@@ -61,6 +63,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Co
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.Language.Haskell qualified as Hs
@@ -166,7 +169,7 @@ usableToLoc = \case
 -- CXAvailabilityKind).
 data Unusable =
       UnusableParseNotAttempted  SingleLoc (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure       SingleLoc ParseFailure
+    | UnusableParseFailure       SingleLoc DelayedParseMsg
     | UnusableConflict           Conflict
     | UnusableMangleNamesFailure SingleLoc MangleNamesFailure
     | UnusableFailedMacro        FailedMacro
@@ -354,6 +357,12 @@ fromParseResults results = flip execState empty $ mapM_ aux results
 filter :: (DeclId -> Entry -> Bool) -> DeclIndex -> DeclIndex
 filter p (DeclIndex entries) = DeclIndex (Map.filterWithKey p entries)
 
+restrictKeys :: DeclIndex -> Set DeclId -> DeclIndex
+restrictKeys index xs = DeclIndex $ Map.restrictKeys index.map xs
+
+withoutKeys :: DeclIndex -> Set DeclId -> DeclIndex
+withoutKeys index xs = DeclIndex $ Map.withoutKeys index.map xs
+
 {-------------------------------------------------------------------------------
   Query parse successes
 -------------------------------------------------------------------------------}
@@ -430,12 +439,8 @@ getSquashed index targets = Map.mapMaybe onlySquashedTargetingSet index.map
 
 -- | Restrict the declaration index to unusable declarations in a given set.
 getUnusables :: DeclIndex -> Set DeclId -> Map DeclId Unusable
-getUnusables index xs =
-    Map.mapMaybe onlyUnusable indexRestricted
+getUnusables index = Map.mapMaybe onlyUnusable . (.map) . restrictKeys index
   where
-    indexRestricted :: Map DeclId Entry
-    indexRestricted = Map.restrictKeys index.map xs
-
     onlyUnusable :: Entry -> Maybe Unusable
     onlyUnusable = \case
       UsableE   _ -> Nothing

@@ -5,7 +5,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchDiagnosticCategory
   , matchDiagnosticSpelling
     -- * Parse
-  , pattern MatchParse
+  , pattern MatchImmediate
   , pattern MatchDelayed
     -- * HandleMacros
   , pattern MatchHandleMacros
@@ -27,7 +27,6 @@ import Data.Text qualified as Text
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
@@ -67,8 +66,8 @@ matchDiagnosticSpelling text = \case
   Parse
 -------------------------------------------------------------------------------}
 
-pattern MatchParse :: CDeclName -> ImmediateParseMsg -> TraceMsg
-pattern MatchParse name x <- TraceFrontend (
+pattern MatchImmediate :: CDeclName -> ImmediateParseMsg -> TraceMsg
+pattern MatchImmediate name x <- TraceFrontend (
       FrontendParse WithLocationInfo{
           loc = locationInfoName -> Just name
         , msg = x
@@ -150,6 +149,6 @@ pattern MatchMangle name x <- TraceFrontend (
 
 matchDelayed :: SelectMsg -> Maybe DelayedParseMsg
 matchDelayed = \case
-    SelectParseSuccess x -> Just x
-    SelectParseFailure (ParseFailure x) -> Just x
+    SelectDelayedParseMsg x -> Just x
+    SelectParseFailure x -> Just x
     _otherwise -> Nothing
