@@ -35,15 +35,8 @@ jobs:
         shell: bash
 
     steps:
-    - name: 🛠️ Set git to use LF
-      run: |
-        git config --global core.autocrlf false
-        git config --global core.eol lf
-
-    - name: 🛠️ Fix git on macOS (prioritize system git over Homebrew)
-      if: runner.os == 'macOS'
-      run: |
-        echo "/usr/bin" >> "$GITHUB_PATH"
+    - name: 🛠️ Setup git
+      uses: ./.github/actions/setup-git
 
     - name: 📥 Checkout
       uses: actions/checkout@v4
@@ -105,10 +98,8 @@ jobs:
         shell: bash
 
     steps:
-    - name: 🛠️ Set git to use LF
-      run: |
-        git config --global core.autocrlf false
-        git config --global core.eol lf
+    - name: 🛠️ Setup git
+      uses: ./.github/actions/setup-git
 
     - name: 📥 Checkout
       uses: actions/checkout@v4
@@ -120,34 +111,10 @@ jobs:
         ghc-version: ${{ matrix.ghc }}
         cabal-version: 3.16
 
-    - name: 🛠️ Filter PATH
-      # Remove any existing LLVM installations (targeting MSVC) from PATH
-      # to avoid conflicts with the LLVM bundled with GHC.
-      shell: powershell
-      run: |
-        $oldPathDirs = ($env:PATH).Split(';')
-        $newPathDirs = $oldPathDirs | Where-Object { $_ -notlike '*LLVM*' }
-        $newPath = $newPathDirs -join ';'
-        echo "PATH=$newPATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
-
-    - name: 🛠️ Configure LLVM/Clang
-      # On Windows, LLVM/Clang is bundled with GHC in the mingw directory.
-      run: |
-        parentDir="$(dirname "$(dirname "$(which ghc)")")"
-        LLVM_PATH="${parentDir}/mingw"
-        if [ ! -d "${LLVM_PATH}" ] ; then
-          LLVM_PATH="${parentDir}/ghc/${{ steps.setup-haskell.outputs.ghc-version }}/mingw"
-          if [ ! -d "${LLVM_PATH}" ] ; then
-            echo "error: LLVM path not found"
-            false
-          fi
-        fi
-        echo LLVM_PATH="${LLVM_PATH}" | tee -a "${GITHUB_ENV}"
-        cygpath -w "${LLVM_PATH}/bin" | tee -a "${GITHUB_PATH}"
-        LLVM_CONFIG="${LLVM_PATH}/bin/llvm-config.exe"
-        if [ -x "${LLVM_CONFIG}" ] ; then
-          echo LLVM_CONFIG="${LLVM_CONFIG}" | tee -a "${GITHUB_ENV}"
-        fi
+    - name: 🛠️ Setup LLVM/Clang (Windows)
+      uses: ./.github/actions/setup-llvm-windows
+      with:
+        ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
 
     - name: 🛠️ cabal.project
       run: cat cabal.project.ci | tee cabal.project
@@ -241,21 +208,29 @@ jobs:
   # ============================================================================
 
   sdist-build:
-    name: Build from sdist (GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
-    runs-on: ubuntu-latest
+    name: Build from sdist (${{ matrix.runner }}, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 45
 
     strategy:
       fail-fast: false
       matrix:
+        runner: [ubuntu-latest, macos-latest]
         ghc: ['9.2', '9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
         llvm: ['14', '16', '18', '20', '21']
+        exclude:
+          # LLVM 21 not available on macOS ARM64
+          - runner: macos-latest
+            llvm: '21'
 
     defaults:
       run:
         shell: bash
 
     steps:
+      - name: 🛠️ Setup git
+        uses: ./.github/actions/setup-git
+
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
@@ -301,26 +276,103 @@ jobs:
           cabal build all
 
   # ============================================================================
-  # Job 5: Build Haddock documentation
+  # Job 4b: Build from sdist (Windows)
   # ============================================================================
 
-  build-haddock:
-    name: Build Haddock (GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+  sdist-build-windows:
+    name: Build from sdist (windows-latest, GHC ${{ matrix.ghc }})
+    runs-on: windows-latest
+    timeout-minutes: 45
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        # Doesn't run GHC 9.2 due to a haddock bug
+        # GHC 9.2 uses GCC, not LLVM/Clang, so we do not test it.
+        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
         ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
-        llvm: ['14', '16', '18', '20', '21']
 
     defaults:
       run:
         shell: bash
 
     steps:
+      - name: 🛠️ Setup git
+        uses: ./.github/actions/setup-git
+
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang (Windows)
+        uses: ./.github/actions/setup-llvm-windows
+        with:
+          ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
+
+      - name: 🛠️ cabal.project
+        run: cat cabal.project.ci | tee cabal.project
+
+      - name: 📦 Generate all sdists
+        run: cabal sdist all
+
+      - name: 🏗️ Build from sdists
+        run: |
+          TEMP_DIR=$(mktemp -d)
+
+          # Extract all sdists
+          for SDIST_FILE in dist-newstyle/sdist/*.tar.gz; do
+            tar xzf "$SDIST_FILE" -C "$TEMP_DIR"
+          done
+
+          cd "$TEMP_DIR"
+
+          # Create cabal.project with all extracted packages
+          echo "packages:" > cabal.project
+          for dir in */; do
+            echo "  ${dir%/}" >> cabal.project
+          done
+
+          # Append cabal.project.base for allow-newer, index-state, etc.
+          # (source-repository-package for libclang is harmless here since
+          # it's not referenced by any sdist package)
+          cat "$GITHUB_WORKSPACE/cabal.project.base" >> cabal.project
+
+          cabal build all
+
+  # ============================================================================
+  # Job 5: Build Haddock documentation
+  # ============================================================================
+
+  build-haddock:
+    name: Build Haddock (${{ matrix.runner }}, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: true
+      matrix:
+        runner: [ubuntu-latest, macos-latest]
+        # Doesn't run GHC 9.2 due to a haddock bug
+        ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+        llvm: ['14', '16', '18', '20', '21']
+        exclude:
+          # LLVM 21 not available on macOS ARM64
+          - runner: macos-latest
+            llvm: '21'
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 🛠️ Setup git
+        uses: ./.github/actions/setup-git
+
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
@@ -337,6 +389,52 @@ jobs:
 
       - name: 🛠️ cabal.project
         run: cp cabal.project.ci cabal.project
+
+      - name: 🏗️ Build Haddock for all packages
+        run: cabal haddock all --haddock-for-hackage
+
+  # ============================================================================
+  # Job 5b: Build Haddock documentation (Windows)
+  # ============================================================================
+
+  build-haddock-windows:
+    name: Build Haddock (windows-latest, GHC ${{ matrix.ghc }})
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: true
+      matrix:
+        # Doesn't run GHC 9.2 due to a haddock bug.
+        # GHC 9.2 also uses GCC on Windows, not LLVM/Clang.
+        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 🛠️ Setup git
+        uses: ./.github/actions/setup-git
+
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang (Windows)
+        uses: ./.github/actions/setup-llvm-windows
+        with:
+          ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
+
+      - name: 🛠️ cabal.project
+        run: cat cabal.project.ci | tee cabal.project
 
       - name: 🏗️ Build Haddock for all packages
         run: cabal haddock all --haddock-for-hackage
