@@ -38,7 +38,6 @@ data Config_ path = Config {
   , bindingSpec :: BindingSpecConfig
 
     -- * Frontend
-  , parsePredicate      :: Boolean ParsePredicate
   , selectPredicate     :: Boolean SelectPredicate
   , programSlicing      :: ProgramSlicing
   , fieldNamingStrategy :: FieldNamingStrategy
@@ -64,8 +63,7 @@ toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
        , bindingSpec = config.bindingSpec
        }
     , frontend = FrontendConfig {
-         parsePredicate      = config.parsePredicate
-       , selectPredicate     = config.selectPredicate
+         selectPredicate     = config.selectPredicate
        , programSlicing      = config.programSlicing
        , fieldNamingStrategy = config.fieldNamingStrategy
        }

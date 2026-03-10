@@ -13,7 +13,6 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
     -- ** "Reader"
   , getTranslationUnit
   , evalGetMainHeadersAndInclude
-  , evalPredicate
     -- ** "State"
   , recordMacroExpansionAt
   , checkHasMacroExpansion
@@ -34,7 +33,6 @@ import Clang.Paths
 
 import HsBindgen.Eff
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
@@ -85,7 +83,6 @@ data Env = Env {
     , isMainHeader             :: IsMainHeader
     , isInMainHeaderDir        :: IsInMainHeaderDir
     , getMainHeadersAndInclude :: GetMainHeadersAndInclude
-    , predicate                :: Boolean ParsePredicate
     , tracer                   :: Tracer (Msg Parse)
     }
 
@@ -101,14 +98,6 @@ evalGetMainHeadersAndInclude path = wrapEff $ \support ->
     pure $
       first (\err -> ParseNoMainHeadersException err path) $
       support.env.getMainHeadersAndInclude path
-
-evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
-evalPredicate info = wrapEff $ \support -> pure $
-    matchParse
-      support.env.isMainHeader
-      support.env.isInMainHeaderDir
-      (singleLocPath info.loc)
-      support.env.predicate
 
 {-------------------------------------------------------------------------------
   "State"

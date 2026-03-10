@@ -184,7 +184,6 @@ runFrontend tracer config boot = do
               , isMainHeader             = isMainHeader
               , isInMainHeaderDir        = isInMainHeaderDir
               , getMainHeadersAndInclude = getMainHeadersAndInclude
-              , predicate                = config.parsePredicate
               , tracer                   = contramap FrontendParse tracer
               }
         parseResults <- parseDecls parseEnv unit
@@ -195,14 +194,7 @@ runFrontend tracer config boot = do
 
             -- Include graph predicate.
             includeGraphPred :: SourcePath -> Bool
-            includeGraphPred path =
-                matchParse
-                  isMainHeader
-                  isInMainHeaderDir
-                  path
-                  config.parsePredicate
-                && path /= RootHeader.name
-
+            includeGraphPred path = path /= RootHeader.name
 
         pure $ (
             parseResults
@@ -323,7 +315,6 @@ runFrontend tracer config boot = do
     selectConfig :: SelectConfig
     selectConfig = SelectConfig{
           programSlicing  = config.programSlicing
-        , parsePredicate  = config.parsePredicate
         , selectPredicate = config.selectPredicate
         }
 

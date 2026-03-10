@@ -85,7 +85,6 @@ instance Default ProgramSlicing where
 
 data SelectConfig = SelectConfig {
       programSlicing  :: ProgramSlicing
-    , parsePredicate  :: Boolean ParsePredicate
     , selectPredicate :: Boolean SelectPredicate
     }
   deriving stock (Show, Eq)

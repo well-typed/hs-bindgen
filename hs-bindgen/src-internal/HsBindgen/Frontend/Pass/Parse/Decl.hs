@@ -162,16 +162,8 @@ parseDeclWith ctx parser curr = do
              foldContinueWith [
                  parseDoNotAttempt info DeclarationUnavailable
                ]
-         | RequiredForScoping <- ctx.inner.scoping ->
+         | otherwise ->
              parser ctx info curr
-         | otherwise -> do
-             matched <- evalPredicate info
-             if matched then
-               parser ctx info curr
-             else
-               foldContinueWith [
-                 parseDoNotAttempt info ParsePredicateNotMatched
-               ]
 
 -- | Macros
 --

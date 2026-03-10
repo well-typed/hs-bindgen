@@ -168,7 +168,6 @@ parseConfig :: Parser Config
 parseConfig = Config
     <$> parseClangArgsConfig
     <*> parseBindingSpec
-    <*> parseParsePredicate
     <*> parseSelectPredicate
     <*> parseProgramSlicing
     <*> parseFieldNamingStrategy
@@ -310,42 +309,6 @@ parseClangOptionAfter = strOption $ mconcat [
 {-------------------------------------------------------------------------------
   Predicates and slicing
 -------------------------------------------------------------------------------}
-
-parseParsePredicate :: Parser (Boolean ParsePredicate)
-parseParsePredicate = fmap aux . many . asum $ [
-      flag' (Right BTrue) $ mconcat [
-          long "parse-all"
-        , help "Parse all headers"
-        ]
-    , flag' (Right (BIf (ParseHeader FromMainHeaders))) $ mconcat [
-          long "parse-from-main-headers"
-        , help "Parse main headers"
-        ]
-    , flag' (Right (BIf (ParseHeader FromMainHeaderDirs))) $ mconcat [
-          long "parse-from-main-header-dirs"
-        , help "Parse headers in main header directories (default)"
-        ]
-    , fmap (Right . BIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
-          long "parse-by-header-path"
-        , metavar "PCRE"
-        , help "Parse headers with paths that match PCRE"
-        ]
-    , fmap (Left . BIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
-          long "parse-except-by-header-path"
-        , metavar "PCRE"
-        , help "Parse except headers with paths that match PCRE"
-        ]
-    ]
-  where
-    aux ::
-         [Either (Boolean ParsePredicate) (Boolean ParsePredicate)]
-      -> Boolean ParsePredicate
-    aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
-
-    applyDefault :: Default a => [a] -> [a]
-    applyDefault = \case
-      [] -> [def]
-      ps -> ps
 
 parseSelectPredicate :: Parser (Boolean SelectPredicate)
 parseSelectPredicate = fmap aux . many . asum $ [
