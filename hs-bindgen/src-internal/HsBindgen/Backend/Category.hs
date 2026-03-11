@@ -44,8 +44,8 @@ data Category =
   | CTerm TermCategory
   deriving stock (Show, Eq, Ord)
 
-allCategories :: [Category]
-allCategories = [CType] ++ map CTerm [minBound .. maxBound]
+allCategories :: NonEmpty Category
+allCategories = CType :| map CTerm [minBound .. maxBound]
 
 -- | Like 'Data.Map.Strict.mapWithKey'.
 mapWithCategory ::
