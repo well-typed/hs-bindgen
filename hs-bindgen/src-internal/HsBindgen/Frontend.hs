@@ -2,7 +2,7 @@ module HsBindgen.Frontend (
     runFrontend
   , FrontendArtefact (..)
   , FrontendMsg(..)
-  , ParseMeta(..)
+  , ParseInfo(..)
   ) where
 
 
@@ -192,37 +192,42 @@ runFrontend tracer config boot = do
             decls = mapMaybe getParseResultMaybeDecl parseResults
             usageAnalysis = AnonUsageAnalysis.fromDecls decls
 
-        pure $ (
-            parseResults
-          , ParseMeta {
-              includeGraph      = includeGraph
-            , isMainHeader      = isMainHeader
-            , isInMainHeaderDir = isInMainHeaderDir
-            , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
-            , usageAnalysis     = usageAnalysis
-            }
-          )
+        pure $ ParsePassResult {
+            results           = parseResults
+          , includeGraph      = includeGraph
+          , isMainHeader      = isMainHeader
+          , isInMainHeaderDir = isInMainHeaderDir
+          , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
+          , usageAnalysis     = usageAnalysis
+          }
+
+    parseMeta <- cache "parseMeta" $ do
+      afterParse <- parsePass
+      pure ParseInfo {
+        includeGraph   = afterParse.includeGraph
+      , getMainHeaders = afterParse.getMainHeaders
+      }
 
     simplifyASTPass <- cache "simplifyAST" $ do
-      (afterParse, parseMeta) <- parsePass
+      afterParse <- parsePass
       let (afterSimplifyAST, msgsSimplifyAST) =
-            simplifyAST parseMeta.usageAnalysis afterParse
+            simplifyAST afterParse.usageAnalysis afterParse.results
       forM_ msgsSimplifyAST $ traceWith tracer . FrontendSimplifyAST
       pure afterSimplifyAST
 
     assignAnonIdsPass <- cache "assignAnonIds" $ do
-      parseMeta <- snd <$> parsePass
+      afterParse <- parsePass
       afterSimplifyAST <- simplifyASTPass
       let (afterAssignAnonIds, msgsAssignAnonIds) =
-            assignAnonIds parseMeta.usageAnalysis afterSimplifyAST
+            assignAnonIds afterParse.usageAnalysis afterSimplifyAST
       forM_ msgsAssignAnonIds $ traceWith tracer . FrontendAssignAnonIds
       pure afterAssignAnonIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
-      parseMeta <- snd <$> parsePass
+      afterParse <- parsePass
       afterAssignAnonIds <- assignAnonIdsPass
       let afterConstructTranslationUnit =
-            constructTranslationUnit afterAssignAnonIds parseMeta.includeGraph
+            constructTranslationUnit afterAssignAnonIds afterParse.includeGraph
       pure afterConstructTranslationUnit
 
     handleMacrosPass <- cache "handleMacros" $ do
@@ -261,12 +266,12 @@ runFrontend tracer config boot = do
       pure afterAdjustTypes
 
     selectPass <- cache "select" $ do
-      parseMeta <- snd <$> parsePass
+      afterParse <- parsePass
       afterAdjustTypesPass <- adjustTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
-              parseMeta.isMainHeader
-              parseMeta.isInMainHeaderDir
+              afterParse.isMainHeader
+              afterParse.isInMainHeaderDir
               selectConfig
               afterAdjustTypesPass
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
@@ -275,8 +280,8 @@ runFrontend tracer config boot = do
     finalPass <- cache "Final" $ selectPass
 
     pure FrontendArtefact{
-        parseMeta                = snd <$> parsePass
-      , parse                    = fst <$> parsePass
+        parseMeta                = parseMeta
+      , parse                    = (.results) <$> parsePass
       , simplifyAST              = simplifyASTPass
       , assignAnonIds            = assignAnonIdsPass
       , constructTranslationUnit = constructTranslationUnitPass
@@ -321,7 +326,7 @@ runFrontend tracer config boot = do
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-      parseMeta                :: Cached ParseMeta
+      parseMeta                :: Cached ParseInfo
 
     , parse                    :: Cached [ParseResult Parse]
     , simplifyAST              :: Cached [ParseResult SimplifyAST]
@@ -361,11 +366,21 @@ data FrontendMsg =
   Helpers
 -------------------------------------------------------------------------------}
 
--- | Meta information useful for inspection as well as peripheral tasks.
+-- | Information useful for inspection as well as peripheral tasks.
 --
 -- Excluded from the parse pass result because there is no 'Show' instance.
-data ParseMeta = ParseMeta {
+data ParseInfo = ParseInfo {
       includeGraph      :: IncludeGraph
+    , getMainHeaders    :: GetMainHeaders
+    }
+
+{-------------------------------------------------------------------------------
+  Internal helpers
+-------------------------------------------------------------------------------}
+
+data ParsePassResult = ParsePassResult {
+      results           :: [ParseResult Parse]
+    , includeGraph      :: IncludeGraph
     , isMainHeader      :: IsMainHeader
     , isInMainHeaderDir :: IsInMainHeaderDir
     , getMainHeaders    :: GetMainHeaders

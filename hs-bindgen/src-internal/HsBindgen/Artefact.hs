@@ -77,7 +77,7 @@ data Artefact (a :: Star) where
   HashIncludeArgs :: Artefact [HashIncludeArg]
   ModuleBaseName  :: Artefact BaseModuleName
   -- * Frontend
-  ParseMetaA      :: Artefact ParseMeta
+  ParseInfoA      :: Artefact ParseInfo
   FrontendPassA   :: FrontendPass result -> Artefact result
   -- * Backend
   HsDecls         :: Artefact (ByCategory_ [Hs.Decl])
@@ -126,7 +126,7 @@ runArtefacts tracer boot frontend backend artefact =
         HashIncludeArgs -> runCached boot.hashIncludeArgs
         ModuleBaseName  -> pure boot.baseModule
         -- Frontend.
-        ParseMetaA      -> runCached frontend.parseMeta
+        ParseInfoA      -> runCached frontend.parseMeta
         FrontendPassA p -> runFrontendPass p
         -- Backend.
         HsDecls         -> runCached backend.hsDecls

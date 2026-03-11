@@ -324,10 +324,10 @@ writeTests _testDir = do
 -------------------------------------------------------------------------------}
 
 getGetMainHeaders :: Artefact ProcessIncludes.GetMainHeaders
-getGetMainHeaders = (.getMainHeaders) <$> ParseMetaA
+getGetMainHeaders = (.getMainHeaders) <$> ParseInfoA
 
 getIncludeGraph :: Artefact IncludeGraph
-getIncludeGraph = (.includeGraph) <$> ParseMetaA
+getIncludeGraph = (.includeGraph) <$> ParseInfoA
 
 getDeclIndex :: Artefact DeclIndex
 getDeclIndex = (.ann.declIndex) <$> FrontendPassA FinalPass
