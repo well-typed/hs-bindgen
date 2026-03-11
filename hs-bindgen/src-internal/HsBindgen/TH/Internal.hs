@@ -91,7 +91,7 @@ withHsBindgen config configTH hashIncludes = do
 
         artefact :: Artefact ([SourcePath], ([CWrapper], [SHs.SDecl]))
         artefact = (,)
-          <$> Dependencies
+          <$> getDependencies
           <*> (Foldable.fold <$> FinalDecls)
 
     (deps, decls) <- liftIO $

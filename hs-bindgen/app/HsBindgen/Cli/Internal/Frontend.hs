@@ -71,6 +71,7 @@ frontendPassName = \case
   DumpMangleNames              -> "mangle-names"
   DumpAdjustTypes              -> "adjust-types"
   DumpSelect                   -> "select"
+  DumpFinal                    -> "final"
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -127,7 +128,7 @@ exec global opts = case opts.dump of
       where
         artefact :: Artefact ()
         artefact = do
-            result <- DumpFrontendPass pass
+            result <- FrontendPassA pass
             Lift $ delay . WriteToStdOut . StringContent $ show result
 
         bindgenConfig :: BindgenConfig

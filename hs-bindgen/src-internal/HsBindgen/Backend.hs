@@ -16,6 +16,11 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.AST.Decl
+import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -31,22 +36,33 @@ runBackend ::
   -> IO BackendArtefact
 runBackend tracer config boot frontend = do
     -- 1. Reified C declarations to @Hs@ declarations.
-    backendHsDeclsAll <- cache $
-      Hs.generateDeclarations config.uniqueId config.fieldNamingStrategy config.haddock boot.baseModule
-        <$> frontend.index
-        <*> boot.sizeofs
-        <*> frontend.cDecls
+    backendHsDeclsAll <- cache "hsDeclsAll" $ do
+      final <- frontend.final
+      sizeofs <- boot.sizeofs
+      let declIndex :: DeclIndex
+          declIndex = final.ann.declIndex
+
+          cDecls :: [C.Decl Final]
+          cDecls = final.decls
+      pure $ Hs.generateDeclarations
+        config.uniqueId
+        config.fieldNamingStrategy
+        config.haddock
+        boot.baseModule
+        declIndex
+        sizeofs
+        cDecls
 
     -- 2. Apply binding category choice.
-    backendHsDecls <- cache $ do
+    backendHsDecls <- cache "hsDecls" $ do
       decls <- backendHsDeclsAll
       pure $ applyBindingCategoryChoice config.categoryChoice decls
 
     -- 3. @Hs@ declarations to simple @Hs@ declarations.
-    sHsDecls <- cache $ SHs.translateDecls <$> backendHsDecls
+    sHsDecls <- cache "sHsDecls" $ SHs.translateDecls <$> backendHsDecls
 
     -- 4. Simplify.
-    backendFinalDecls <- cache $ SHs.simplifySHs <$> sHsDecls
+    backendFinalDecls <- cache "finalDecls" $ SHs.simplifySHs <$> sHsDecls
 
     pure $ BackendArtefact {
         hsDecls             = backendHsDecls
@@ -55,8 +71,8 @@ runBackend tracer config boot frontend = do
       , fieldNamingStrategy = config.fieldNamingStrategy
       }
   where
-    cache :: Cached a -> IO (Cached a)
-    cache = cacheWith (contramap BackendCache tracer) Nothing
+    cache :: String -> Cached a -> IO (Cached a)
+    cache = cacheWith (contramap BackendCache tracer) . Just
 
 {-------------------------------------------------------------------------------
   Backend

@@ -2,10 +2,9 @@ module HsBindgen.Frontend (
     runFrontend
   , FrontendArtefact (..)
   , FrontendMsg(..)
+  , ParseMeta(..)
   ) where
 
-import Data.Map.Strict qualified as Map
-import Data.Set qualified as Set
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
@@ -18,13 +17,8 @@ import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes (adjustTypes)
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
@@ -52,7 +46,6 @@ import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 -- | Frontend
@@ -200,35 +193,49 @@ runFrontend tracer config boot = do
             decls = mapMaybe getParseResultMaybeDecl parseResults
             usageAnalysis = AnonUsageAnalysis.fromDecls decls
 
-        pure $ ParsePassResult {
-            results           = parseResults
-          , includeGraph      = includeGraph
-          , isMainHeader      = isMainHeader
-          , isInMainHeaderDir = isInMainHeaderDir
-          , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
-          , usageAnalysis     = usageAnalysis
-          }
+            -- Include graph predicate.
+            includeGraphPred :: SourcePath -> Bool
+            includeGraphPred path =
+                matchParse
+                  isMainHeader
+                  isInMainHeaderDir
+                  path
+                  config.parsePredicate
+                && path /= RootHeader.name
+
+
+        pure $ (
+            parseResults
+          , ParseMeta {
+              includeGraph      = includeGraph
+            , includeGraphPred  = includeGraphPred
+            , isMainHeader      = isMainHeader
+            , isInMainHeaderDir = isInMainHeaderDir
+            , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
+            , usageAnalysis     = usageAnalysis
+            }
+          )
 
     simplifyASTPass <- cache "simplifyAST" $ do
-      afterParse <- parsePass
+      (afterParse, parseMeta) <- parsePass
       let (afterSimplifyAST, msgsSimplifyAST) =
-            simplifyAST afterParse.usageAnalysis afterParse.results
+            simplifyAST parseMeta.usageAnalysis afterParse
       forM_ msgsSimplifyAST $ traceWith tracer . FrontendSimplifyAST
       pure afterSimplifyAST
 
     assignAnonIdsPass <- cache "assignAnonIds" $ do
-      afterParse <- parsePass
+      parseMeta <- snd <$> parsePass
       afterSimplifyAST <- simplifyASTPass
       let (afterAssignAnonIds, msgsAssignAnonIds) =
-            assignAnonIds afterParse.usageAnalysis afterSimplifyAST
+            assignAnonIds parseMeta.usageAnalysis afterSimplifyAST
       forM_ msgsAssignAnonIds $ traceWith tracer . FrontendAssignAnonIds
       pure afterAssignAnonIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
-      afterParse <- parsePass
+      parseMeta <- snd <$> parsePass
       afterAssignAnonIds <- assignAnonIdsPass
       let afterConstructTranslationUnit =
-            constructTranslationUnit afterAssignAnonIds afterParse.includeGraph
+            constructTranslationUnit afterAssignAnonIds parseMeta.includeGraph
       pure afterConstructTranslationUnit
 
     handleMacrosPass <- cache "handleMacros" $ do
@@ -267,94 +274,31 @@ runFrontend tracer config boot = do
       pure afterAdjustTypes
 
     selectPass <- cache "select" $ do
-      afterParse <- parsePass
+      parseMeta <- snd <$> parsePass
       afterAdjustTypesPass <- adjustTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
-              afterParse.isMainHeader
-              afterParse.isInMainHeaderDir
+              parseMeta.isMainHeader
+              parseMeta.isInMainHeaderDir
               selectConfig
               afterAdjustTypesPass
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
-    finalPass <- cache "Final" $ do
-      selectPass
-
-    -- Unit.
-    getCTranslationUnit <- cache "getCTranslationUnit" $ do
-      afterFinal <- finalPass
-      pure $ afterFinal
-
-    -- Include graph predicate.
-    getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      afterParse <- parsePass
-      pure $ \path ->
-        matchParse
-          afterParse.isMainHeader
-          afterParse.isInMainHeaderDir
-          path
-          config.parsePredicate
-        && path /= RootHeader.name
-
-    -- Graphs.
-    frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
-      includeGraphP <- getIncludeGraphP
-      afterParse <- parsePass
-      pure (includeGraphP, afterParse.includeGraph)
-    frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
-      afterParse <- parsePass
-      pure afterParse.getMainHeaders
-    frontendIndex <- cache "frontendIndex" $ do
-      (.ann.declIndex) <$> constructTranslationUnitPass
-    frontendUseDeclGraph <- cache "frontendUseDeclGraph" $ do
-      (.ann.useDeclGraph) <$> constructTranslationUnitPass
-    frontendDeclUseGraph <- cache "frontendDeclUseGraph" $ do
-      (.ann.declUseGraph) <$> constructTranslationUnitPass
-
-    -- Omitted types
-    frontendOmitTypes <- cache "frontendOmitTypes" $
-      Map.toList . DeclIndex.getOmitted . view ( #ann % #declIndex ) <$>
-        resolveBindingSpecsPass
-
-    -- Declarations.
-    frontendCDecls <- cache "frontendDecls" $
-      (.decls) <$> getCTranslationUnit
-
-    -- Squashed types
-    --
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
-    -- When we properly record aliases, we may not need this anymore.
-    frontendSquashedTypes <- cache "frontendSquashedTypes" $ do
-      decls <- frontendCDecls
-      let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls
-      declIndex <- view ( #ann % #declIndex ) <$> finalPass
-      pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
-
-    -- Dependencies.
-    frontendDependencies <- cache "frontendDependencies" $ do
-      IncludeGraph.toSortedList . (.includeGraph) <$> getCTranslationUnit
+    finalPass <- cache "Final" $ selectPass
 
     pure FrontendArtefact{
-        includeGraph   = frontendIncludeGraph
-      , getMainHeaders = frontendGetMainHeaders
-      , index          = frontendIndex
-      , useDeclGraph   = frontendUseDeclGraph
-      , declUseGraph   = frontendDeclUseGraph
-      , omitTypes      = frontendOmitTypes
-      , cDecls         = frontendCDecls
-      , squashedTypes  = frontendSquashedTypes
-      , dependencies   = frontendDependencies
-
-      , dumpParse                    = (.results) <$> parsePass
-      , dumpSimplifyAST              = simplifyASTPass
-      , dumpAssignAnonIds            = assignAnonIdsPass
-      , dumpConstructTranslationUnit = constructTranslationUnitPass
-      , dumpHandleMacros             = handleMacrosPass
-      , dumpResolveBindingSpecs      = resolveBindingSpecsPass
-      , dumpMangleNames              = mangleNamesPass
-      , dumpAdjustTypes              = adjustTypesPass
-      , dumpSelect                   = selectPass
+        parseMeta                = snd <$> parsePass
+      , parse                    = fst <$> parsePass
+      , simplifyAST              = simplifyASTPass
+      , assignAnonIds            = assignAnonIdsPass
+      , constructTranslationUnit = constructTranslationUnitPass
+      , handleMacros             = handleMacrosPass
+      , resolveBindingSpecs      = resolveBindingSpecsPass
+      , mangleNames              = mangleNamesPass
+      , adjustTypes              = adjustTypesPass
+      , select                   = selectPass
+      , final                    = finalPass
       }
   where
     getRootHeader :: Cached RootHeader
@@ -391,29 +335,22 @@ runFrontend tracer config boot = do
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-      includeGraph   :: Cached (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-    , getMainHeaders :: Cached GetMainHeaders
-    , index          :: Cached DeclIndex.DeclIndex
-    , useDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
-    , declUseGraph   :: Cached DeclUseGraph.DeclUseGraph
-    , omitTypes      :: Cached [(DeclId, SourcePath)]
-    , cDecls         :: Cached [C.Decl Final]
-    , squashedTypes  :: Cached [(DeclId, (SourcePath, Hs.Identifier))]
-    , dependencies   :: Cached [SourcePath]
-      -- | Per-pass results (for internal dump commands)
-    , dumpParse                    :: Cached [ParseResult Parse]
-    , dumpSimplifyAST              :: Cached [ParseResult SimplifyAST]
-    , dumpAssignAnonIds            :: Cached [ParseResult AssignAnonIds]
-    , dumpConstructTranslationUnit :: Cached (C.TranslationUnit ConstructTranslationUnit)
-    , dumpHandleMacros             :: Cached (C.TranslationUnit HandleMacros)
-    , dumpResolveBindingSpecs      :: Cached (C.TranslationUnit ResolveBindingSpecs)
-    , dumpMangleNames              :: Cached (C.TranslationUnit MangleNames)
-    , dumpAdjustTypes              :: Cached (C.TranslationUnit AdjustTypes)
-    , dumpSelect                   :: Cached (C.TranslationUnit Select)
+      parseMeta                :: Cached ParseMeta
+
+    , parse                    :: Cached [ParseResult Parse]
+    , simplifyAST              :: Cached [ParseResult SimplifyAST]
+    , assignAnonIds            :: Cached [ParseResult AssignAnonIds]
+    , constructTranslationUnit :: Cached (C.TranslationUnit ConstructTranslationUnit)
+    , handleMacros             :: Cached (C.TranslationUnit HandleMacros)
+    , resolveBindingSpecs      :: Cached (C.TranslationUnit ResolveBindingSpecs)
+    , mangleNames              :: Cached (C.TranslationUnit MangleNames)
+    , adjustTypes              :: Cached (C.TranslationUnit AdjustTypes)
+    , select                   :: Cached (C.TranslationUnit Select)
+    , final                    :: Cached (C.TranslationUnit Final)
     }
 
 {-------------------------------------------------------------------------------
-  Trace
+  Traces
 -------------------------------------------------------------------------------}
 
 -- | Frontend trace messages
@@ -435,12 +372,15 @@ data FrontendMsg =
   deriving anyclass (PrettyForTrace, IsTrace Level)
 
 {-------------------------------------------------------------------------------
-  Internal helpers
+  Helpers
 -------------------------------------------------------------------------------}
 
-data ParsePassResult = ParsePassResult {
-      results           :: [ParseResult Parse]
-    , includeGraph      :: IncludeGraph
+-- | Meta information useful for inspection as well as peripheral tasks.
+--
+-- Excluded from the parse pass result because there is no 'Show' instance.
+data ParseMeta = ParseMeta {
+      includeGraph      :: IncludeGraph
+    , includeGraphPred  :: SourcePath -> Bool
     , isMainHeader      :: IsMainHeader
     , isInMainHeaderDir :: IsInMainHeaderDir
     , getMainHeaders    :: GetMainHeaders

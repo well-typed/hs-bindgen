@@ -23,13 +23,13 @@ check getTestResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
       let artefacts =
             (,,,,,)
-              <$> IncludeGraph
-              <*> DeclIndex
-              <*> GetMainHeaders
-              <*> OmitTypes
-              <*> SquashedTypes
+              <$> getIncludeGraph
+              <*> getDeclIndex
+              <*> getGetMainHeaders
+              <*> getOmittedTypes
+              <*> getSquashedTypes
               <*> HsDecls
-      ((_, includeGraph), declIndex, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
+      (includeGraph, declIndex, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
         runTestHsBindgenSuccess report getTestResources test artefacts
 
       let output :: String
