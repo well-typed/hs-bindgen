@@ -71,6 +71,10 @@
 * Fix a panic that occurred when the argument to a `#include` is a macro. In
   Haddock documentation of declarations in the included header, we just
   document the filename of the header.
+* Skip functions whose parameters reference struct/union declarations which
+  are out of scope. This could indicate a missing `#include` in the C
+  header. Previously, these declarations caused a panic in `MangleNames`;
+  now they are skipped with a warning.
 
 [is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
