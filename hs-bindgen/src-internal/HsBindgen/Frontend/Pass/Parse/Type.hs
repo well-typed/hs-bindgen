@@ -123,8 +123,10 @@ fromDecl ty = do
         throwError $ ParseUnsupportedBuiltin builtin
       Nothing -> ParseType.dispatchDecl decl $ \case
         CXCursor_EnumDecl   -> typeEnum decl
-        CXCursor_StructDecl -> typeRef decl CTagKindStruct
-        CXCursor_UnionDecl  -> typeRef decl CTagKindUnion
+        CXCursor_StructDecl -> checkNotOutOfScopeDecl decl CTagKindStruct
+                            >> typeRef decl CTagKindStruct
+        CXCursor_UnionDecl  -> checkNotOutOfScopeDecl decl CTagKindUnion
+                            >> typeRef decl CTagKindUnion
 
         CXCursor_TypedefDecl -> typeTypedef decl
 
@@ -133,6 +135,39 @@ fromDecl ty = do
 typeRef :: MonadIO m => CXCursor -> CTagKind -> m (C.Type Parse)
 typeRef decl kind =
     C.TypeRef <$> PrelimDeclId.atCursor decl (CNameKindTagged kind)
+
+-- | Check that a struct/union declaration is not out of scope inside a
+-- function prototype.
+--
+-- We detect this by combining two clang queries:
+--
+-- 1. @clang_getCursorSemanticParent@: for a file-scope @struct foo@, the
+--    semantic parent is the translation unit. But when @struct foo@ is out of
+--    scope inside a function, clang parents it under the
+--    @CXCursor_FunctionDecl@.
+--
+-- 2. @clang_isCursorDefinition@: distinguishes the out of scope declarations
+--    from inline definitions. A struct /defined/ inline in a prototype (e.g.
+--    @void f(struct s {int x;} a)@) has @isDef = True@ and a complete type,
+--    so we allow it. A bare reference like @void f(struct s *p)@ where
+--    @struct s@ has no file-scope declaration has @isDef = False@.
+--
+-- Examples:
+--
+-- @
+-- struct opaque;
+-- void f(struct opaque *p);           -- OK: parent is TranslationUnit
+-- void g(struct s { int x; } arg);    -- OK: isDef = True
+-- @
+--
+checkNotOutOfScopeDecl :: CXCursor -> CTagKind -> ParseType ()
+checkNotOutOfScopeDecl decl kind = do
+    parent     <- clang_getCursorSemanticParent decl
+    parentKind <- fromSimpleEnum <$> clang_getCursorKind parent
+    isDef      <- clang_isCursorDefinition decl
+    when (parentKind == Right CXCursor_FunctionDecl && not isDef) $ do
+      name <- clang_getCursorSpelling decl
+      throwError $ ParseDeclarationOutOfScope kind name
 
 typeEnum :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeEnum decl = do

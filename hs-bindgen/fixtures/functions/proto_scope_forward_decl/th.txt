@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/functions/proto_scope_forward_decl.h
