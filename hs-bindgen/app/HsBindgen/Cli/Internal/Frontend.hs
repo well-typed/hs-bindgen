@@ -59,6 +59,19 @@ parseFrontendPassName s = case lookup s knownPasses of
     mk :: Show result => FrontendPass result -> (String, SomeFrontendPass)
     mk d = (frontendPassName d, SomeFrontendPass d)
 
+-- Ensure that we handle all 'FrontendPass' constructors.
+frontendPassName :: FrontendPass result -> String
+frontendPassName = \case
+  DumpParse                    -> "parse"
+  DumpSimplifyAST              -> "simplify-ast"
+  DumpAssignAnonIds            -> "assign-anon-ids"
+  DumpConstructTranslationUnit -> "construct-translation-unit"
+  DumpHandleMacros             -> "handle-macros"
+  DumpResolveBindingSpecs      -> "resolve-binding-specs"
+  DumpMangleNames              -> "mangle-names"
+  DumpAdjustTypes              -> "adjust-types"
+  DumpSelect                   -> "select"
+
 {-------------------------------------------------------------------------------
   CLI help
 -------------------------------------------------------------------------------}

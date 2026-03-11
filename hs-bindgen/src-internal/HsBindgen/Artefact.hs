@@ -1,7 +1,6 @@
 module HsBindgen.Artefact (
     -- * Frontend passes
     FrontendPass(..)
-  , frontendPassName
     -- * Artefacts
   , Artefact(..)
   , runArtefacts
@@ -53,7 +52,7 @@ import HsBindgen.Util.Tracer
 
 -- | Frontend passes
 --
--- Each constructor names a frontend pass and carries the result type of running
+-- Each constructor corresponds to a frontend pass carrying the result type of
 -- that pass. See "HsBindgen.Frontend" for the pass ordering and descriptions.
 data FrontendPass (result :: Star) where
   DumpParse
@@ -74,19 +73,6 @@ data FrontendPass (result :: Star) where
     :: FrontendPass (C.TranslationUnit AdjustTypes)
   DumpSelect
     :: FrontendPass (C.TranslationUnit Select)
-
--- | Human-readable name of a frontend pass (for CLI and traces)
-frontendPassName :: FrontendPass result -> String
-frontendPassName = \case
-  DumpParse                    -> "parse"
-  DumpSimplifyAST              -> "simplify-ast"
-  DumpAssignAnonIds            -> "assign-anon-ids"
-  DumpConstructTranslationUnit -> "construct-translation-unit"
-  DumpHandleMacros             -> "handle-macros"
-  DumpResolveBindingSpecs      -> "resolve-binding-specs"
-  DumpMangleNames              -> "mangle-names"
-  DumpAdjustTypes              -> "adjust-types"
-  DumpSelect                   -> "select"
 
 {-------------------------------------------------------------------------------
   Artefact
