@@ -192,15 +192,10 @@ runFrontend tracer config boot = do
             decls = mapMaybe getParseResultMaybeDecl parseResults
             usageAnalysis = AnonUsageAnalysis.fromDecls decls
 
-            -- Include graph predicate.
-            includeGraphPred :: SourcePath -> Bool
-            includeGraphPred path = path /= RootHeader.name
-
         pure $ (
             parseResults
           , ParseMeta {
               includeGraph      = includeGraph
-            , includeGraphPred  = includeGraphPred
             , isMainHeader      = isMainHeader
             , isInMainHeaderDir = isInMainHeaderDir
             , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
@@ -371,7 +366,6 @@ data FrontendMsg =
 -- Excluded from the parse pass result because there is no 'Show' instance.
 data ParseMeta = ParseMeta {
       includeGraph      :: IncludeGraph
-    , includeGraphPred  :: SourcePath -> Bool
     , isMainHeader      :: IsMainHeader
     , isInMainHeaderDir :: IsInMainHeaderDir
     , getMainHeaders    :: GetMainHeaders

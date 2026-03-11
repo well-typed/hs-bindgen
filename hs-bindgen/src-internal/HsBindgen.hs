@@ -18,7 +18,6 @@ module HsBindgen (
 
     -- ** Low-level artefacts
   , getIncludeGraph
-  , getIncludeGraphPred
   , getDeclIndex
   , getUseDeclGraph
   , getDeclUseGraph
@@ -74,6 +73,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
@@ -167,9 +167,9 @@ hsBindgenE
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
 writeIncludeGraph pol mPath = do
-    includeGraph     <- getIncludeGraph
-    includeGraphPred <- getIncludeGraphPred
-    let rendered = IncludeGraph.dumpMermaid includeGraphPred includeGraph
+    includeGraph <- getIncludeGraph
+    let predicate = (/= RootHeader.name)
+        rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
       Just path -> write pol "include graph" (UserSpecified path) rendered
@@ -328,9 +328,6 @@ getGetMainHeaders = (.getMainHeaders) <$> ParseMetaA
 
 getIncludeGraph :: Artefact IncludeGraph
 getIncludeGraph = (.includeGraph) <$> ParseMetaA
-
-getIncludeGraphPred :: Artefact (SourcePath -> Bool)
-getIncludeGraphPred = (.includeGraphPred) <$> ParseMetaA
 
 getDeclIndex :: Artefact DeclIndex
 getDeclIndex = (.ann.declIndex) <$> FrontendPassA FinalPass
