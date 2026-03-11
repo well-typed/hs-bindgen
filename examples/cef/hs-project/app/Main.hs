@@ -2,7 +2,7 @@
 
 module Main (main) where
 
-import Data.Proxy (Proxy(..))
+import Data.Proxy (Proxy (..))
 import Foreign.C.String (newCString)
 import Foreign.Marshal.Alloc (alloca, allocaBytes)
 import Foreign.Marshal.Array (withArray0)
@@ -10,16 +10,16 @@ import Foreign.Marshal.Utils (fillBytes)
 import Foreign.Ptr (Ptr, nullPtr)
 import Foreign.Storable (peek, poke, sizeOf)
 import System.Environment (getArgs, getProgName)
-import System.Exit (ExitCode(..), exitSuccess, exitWith)
+import System.Exit (ExitCode (..), exitSuccess, exitWith)
 
-import qualified HsBindgen.Runtime.HasCField as HasCField
-import qualified HsBindgen.Runtime.Internal.FunPtr as FunPtr
-import qualified HsBindgen.Runtime.PtrConst as PtrConst
+import HsBindgen.Runtime.HasCField qualified as HasCField
+import HsBindgen.Runtime.Internal.FunPtr qualified as FunPtr
+import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
 import CEF.ApiHash.Safe (cef_api_hash, cef_api_version)
-import CEF.App (Cef_main_args_t(..), C_Cef_settings_t)
+import CEF.App (C_Cef_settings_t, Cef_main_args_t (..))
 import CEF.App.Safe (cef_execute_process, cef_initialize, cef_shutdown)
-import CEF.CommandLine (Cef_command_line_t(..))
+import CEF.CommandLine (Cef_command_line_t (..))
 import CEF.CommandLine.Safe (cef_command_line_create)
 
 -- | Initialize CEF in headless mode, create a command line object, and exercise

@@ -199,10 +199,6 @@ library
     CEF.Urlrequest.Safe
     CEF.Urlrequest.Unsafe
     CEF.V8
-    CEF.VersionInfo
-    CEF.VersionInfo.FunPtr
-    CEF.VersionInfo.Safe
-    CEF.VersionInfo.Unsafe
     CEF.V8.FunPtr
     CEF.V8.Safe
     CEF.V8.Unsafe
@@ -210,6 +206,10 @@ library
     CEF.Values.FunPtr
     CEF.Values.Safe
     CEF.Values.Unsafe
+    CEF.VersionInfo
+    CEF.VersionInfo.FunPtr
+    CEF.VersionInfo.Safe
+    CEF.VersionInfo.Unsafe
     CEF.WaitableEvent
     CEF.WaitableEvent.FunPtr
     CEF.WaitableEvent.Safe
