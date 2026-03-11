@@ -16,9 +16,11 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis)
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -198,33 +200,35 @@ runFrontend tracer config boot = do
             decls = mapMaybe getParseResultMaybeDecl parseResults
             usageAnalysis = AnonUsageAnalysis.fromDecls decls
 
-        pure
-          ( parseResults
-          , includeGraph
-          , isMainHeader
-          , isInMainHeaderDir
-          , toGetMainHeaders getMainHeadersAndInclude
-          , usageAnalysis
-          )
+        pure $ ParsePassResult {
+            results           = parseResults
+          , includeGraph      = includeGraph
+          , isMainHeader      = isMainHeader
+          , isInMainHeaderDir = isInMainHeaderDir
+          , getMainHeaders    = toGetMainHeaders getMainHeadersAndInclude
+          , usageAnalysis     = usageAnalysis
+          }
 
     simplifyASTPass <- cache "simplifyAST" $ do
-      (afterParse, _, _, _, _, ua) <- parsePass
-      let (afterSimplifyAST, msgsSimplifyAST) = simplifyAST ua afterParse
+      afterParse <- parsePass
+      let (afterSimplifyAST, msgsSimplifyAST) =
+            simplifyAST afterParse.usageAnalysis afterParse.results
       forM_ msgsSimplifyAST $ traceWith tracer . FrontendSimplifyAST
       pure afterSimplifyAST
 
     assignAnonIdsPass <- cache "assignAnonIds" $ do
-      (_, _, _, _, _, ua) <- parsePass
+      afterParse <- parsePass
       afterSimplifyAST <- simplifyASTPass
-      let (afterAssignAnonIds, msgsAssignAnonIds) = assignAnonIds ua afterSimplifyAST
+      let (afterAssignAnonIds, msgsAssignAnonIds) =
+            assignAnonIds afterParse.usageAnalysis afterSimplifyAST
       forM_ msgsAssignAnonIds $ traceWith tracer . FrontendAssignAnonIds
       pure afterAssignAnonIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
-      (_, includeGraph, _, _, _, _) <- parsePass
+      afterParse <- parsePass
       afterAssignAnonIds <- assignAnonIdsPass
       let afterConstructTranslationUnit =
-            constructTranslationUnit afterAssignAnonIds includeGraph
+            constructTranslationUnit afterAssignAnonIds afterParse.includeGraph
       pure afterConstructTranslationUnit
 
     handleMacrosPass <- cache "handleMacros" $ do
@@ -263,12 +267,12 @@ runFrontend tracer config boot = do
       pure afterAdjustTypes
 
     selectPass <- cache "select" $ do
-      (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
+      afterParse <- parsePass
       afterAdjustTypesPass <- adjustTypesPass
       let (afterSelect, msgsSelect) =
             selectDecls
-              isMainHeader
-              isInMainHeaderDir
+              afterParse.isMainHeader
+              afterParse.isInMainHeaderDir
               selectConfig
               afterAdjustTypesPass
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
@@ -284,19 +288,23 @@ runFrontend tracer config boot = do
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
+      afterParse <- parsePass
       pure $ \path ->
-        matchParse isMainHeader isInMainHeaderDir path config.parsePredicate
+        matchParse
+          afterParse.isMainHeader
+          afterParse.isInMainHeaderDir
+          path
+          config.parsePredicate
         && path /= RootHeader.name
 
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
       includeGraphP <- getIncludeGraphP
-      (_, includeGraph, _, _, _, _) <- parsePass
-      pure (includeGraphP, includeGraph)
+      afterParse <- parsePass
+      pure (includeGraphP, afterParse.includeGraph)
     frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
-      (_, _, _, _, getMainHeaders, _) <- parsePass
-      pure getMainHeaders
+      afterParse <- parsePass
+      pure afterParse.getMainHeaders
     frontendIndex <- cache "frontendIndex" $ do
       (.ann.declIndex) <$> constructTranslationUnitPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $ do
@@ -338,7 +346,7 @@ runFrontend tracer config boot = do
       , squashedTypes  = frontendSquashedTypes
       , dependencies   = frontendDependencies
 
-      , dumpParse                    = (\(x, _, _, _, _, _) -> x) <$> parsePass
+      , dumpParse                    = (.results) <$> parsePass
       , dumpSimplifyAST              = simplifyASTPass
       , dumpAssignAnonIds            = assignAnonIdsPass
       , dumpConstructTranslationUnit = constructTranslationUnitPass
@@ -425,3 +433,16 @@ data FrontendMsg =
   | FrontendCache                    (SafeTrace CacheMsg)
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+{-------------------------------------------------------------------------------
+  Internal helpers
+-------------------------------------------------------------------------------}
+
+data ParsePassResult = ParsePassResult {
+      results           :: [ParseResult Parse]
+    , includeGraph      :: IncludeGraph
+    , isMainHeader      :: IsMainHeader
+    , isInMainHeaderDir :: IsInMainHeaderDir
+    , getMainHeaders    :: GetMainHeaders
+    , usageAnalysis     :: AnonUsageAnalysis
+    }
