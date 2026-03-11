@@ -5,6 +5,7 @@ module HsBindgen.Clang (
   , ClangInput(..)
   , defaultClangSetup
   , withClang
+  , LibclangException(..)
   , withClang'
     -- * Trace messages
   , ClangMsg(..)
@@ -12,7 +13,6 @@ module HsBindgen.Clang (
   ) where
 
 import Data.Text qualified as Text
-import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -73,10 +73,10 @@ withClang tracer setup k = do
     mRes <- withClang' tracer setup $ \unit -> do
       anyIsError <- traceDiagnostics unit
       if anyIsError
-        then exit
+        then throwIO $ LibclangException "Call to 'libclang' returned an error"
         else Just <$> k unit
     case mRes of
-      Nothing  -> exit
+      Nothing  -> throwIO $ LibclangException "Call to 'libclang' failed"
       Just res -> pure res
   where
     traceDiagnostics :: CXTranslationUnit -> IO Bool
@@ -89,10 +89,10 @@ withClang tracer setup k = do
             traceWith (contramap ClangDiagnostic tracer) d
             go (anyIsError || diagnosticIsError d) ds
 
-    -- We specifically use exit code 2 here; it means that the invocation of
-    -- `libclang` has failed.
-    exit :: IO b
-    exit = exitWith (ExitFailure 2)
+data LibclangException = LibclangException String
+  deriving stock (Show, Eq, Ord)
+
+instance Exception LibclangException
 
 -- | Call clang to parse with the specified 'ClangSetup'
 --

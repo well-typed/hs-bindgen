@@ -3,13 +3,14 @@
 -- Test for non-zero exit code
 module Test.HsBindgen.Golden.Check.FailureLibclang (check) where
 
-import Control.Exception (handle, throw)
-import System.Exit (ExitCode (..))
-import Test.Tasty (TestTree)
+import Control.Exception (Exception (..), SomeException, handle, throw)
+import Test.Tasty (TestTree, askOption)
 import Test.Tasty.HUnit
 
 import HsBindgen
+import HsBindgen.Clang
 
+import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 
@@ -18,22 +19,23 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check getTestResources test = testCase test.name $
-    handle expectExitFailure $ do
-      eRes <- runTestHsBindgen noReport getTestResources test FinalDecls
-      assertFailure $ mconcat [
-          "expected hs-bindgen to fail early, "
-        , "but it finished with the following result:\n"
-        , show eRes
-        ]
+check getTestResources test =
+    askOption $ \(Debug debug) -> do
+      let report :: String -> IO ()
+          report = case debug of
+            False -> const $ pure ()
+            True  -> putStrLn
+      testCase test.name $
+        handle expectLibclangFailure $ do
+          eRes <- runTestHsBindgen report getTestResources test FinalDecls
+          assertFailure $ mconcat [
+              "expected 'hs-bindgen' to fail early, "
+            , "but it finished with the following result:\n"
+            , show eRes
+            ]
 
   where
-    noReport :: a -> IO ()
-    noReport = const $ pure ()
-
-    expectExitFailure :: ExitCode -> IO ()
-    expectExitFailure = \case
-      -- We specifically test for exit code 2 here; it means that the
-      -- `hs-bindgen` invocation of `libclang` has failed.
-      ExitFailure 2  -> pure ()
-      otherException -> throw otherException
+    expectLibclangFailure :: SomeException -> IO ()
+    expectLibclangFailure e = case fromException e of
+      Just (_ :: LibclangException)  -> pure ()
+      _                              -> throw e
