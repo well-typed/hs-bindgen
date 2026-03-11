@@ -78,7 +78,6 @@ generate_bindings() {
         --create-output-dirs
         --overwrite-files
         --module "$MODULE_NAME"
-        --parse-all
         --select-from-main-headers
         --enable-program-slicing
         --gen-binding-spec "$BINDING_SPEC_FILE"
@@ -127,7 +126,6 @@ generate_non_capi_binding() {
         --create-output-dirs
         --overwrite-files
         --module "$MODULE_NAME"
-        --parse-all
         --select-from-main-headers
         --enable-program-slicing
         --gen-binding-spec "$BINDING_SPEC_FILE"
