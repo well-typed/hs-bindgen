@@ -88,6 +88,11 @@
   document the filename of the header.
 * Fix `--create-output-dirs` not creating directories for `--gen-binding-spec`
   output paths. See [issue #1806][issue-1806].
+* Skip functions whose parameters reference struct/union declarations that
+  will not be visible outside of the function, including both forward
+  references and inline definitions. This could indicate a missing `#include`
+  in the C header. Previously, forward references caused a panic in
+  `MangleNames`; now they are skipped with a warning.
 
 [is-1009]: https://github.com/well-typed/hs-bindgen/issues/1009
 [is-1694]: https://github.com/well-typed/hs-bindgen/issues/1694
