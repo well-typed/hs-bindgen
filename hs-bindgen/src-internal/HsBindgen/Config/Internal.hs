@@ -82,13 +82,10 @@ data FrontendConfig = FrontendConfig {
 -- | Configuration of backend of @hs-bindgen@.
 --
 -- The backend translates the reified C declarations to Haskell declarations.
---
--- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
       uniqueId            :: UniqueId
     , haddock             :: HaddockConfig
     , categoryChoice      :: ByCategory Choice
-    , fieldNamingStrategy :: FieldNamingStrategy
     , qualifiedStyle      :: QualifiedStyle
     }
   deriving stock (Show, Generic)

@@ -1,4 +1,4 @@
-module HsBindgen.DelayedIO (
+module HsBindgen.ArtefactM (
     -- * Policies
     FileOverwritePolicy(..)
   , OutputDirPolicy(..)
@@ -9,9 +9,10 @@ module HsBindgen.DelayedIO (
   , fileLocationToPath
   , RelativeToOutputDir(..)
   , FileContent(..)
-    -- * DelayedIOM monad
-  , DelayedIOM -- opaque
-  , runDelayedIOM
+    -- * ArtefactM monad
+  , ArtefactM -- opaque
+  , runArtefactM
+  , getConfig
   , runCached
   , emitTrace
     -- ** Actions
@@ -25,6 +26,7 @@ module HsBindgen.DelayedIO (
   ) where
 
 import Control.Monad.Except (ExceptT, MonadError (..))
+import Control.Monad.Reader (MonadReader (..), ReaderT (..))
 import Control.Monad.State (StateT (..), modify)
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as BSS
@@ -34,6 +36,7 @@ import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Cache
+import HsBindgen.Config.Internal
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -115,28 +118,34 @@ data FileContent =
   deriving Show
 
 {-------------------------------------------------------------------------------
-  DelayedIOM monad
+  ArtefactM monad
 -------------------------------------------------------------------------------}
 
-newtype DelayedIOM a = WrapDelayedIOM (StateT [DelayedIO] IO a)
+-- TODO-D: getFrontendConfig
+newtype ArtefactM a =
+  WrapArtefactM (StateT [DelayedIO] (ReaderT BindgenConfig IO) a)
   deriving newtype (
       Functor
     , Applicative
     , Monad
+    , MonadReader BindgenConfig
     )
 
-runDelayedIOM :: DelayedIOM a -> IO (a, [DelayedIO])
-runDelayedIOM (WrapDelayedIOM ma) = runStateT ma []
+runArtefactM :: ArtefactM a -> BindgenConfig -> IO (a, [DelayedIO])
+runArtefactM (WrapArtefactM ma) = runReaderT (runStateT ma [])
+
+getConfig :: ArtefactM BindgenConfig
+getConfig = ask
 
 -- | Private (i.e., /not public/) API :-).
-unsafeIO :: IO a -> DelayedIOM a
-unsafeIO = WrapDelayedIOM . liftIO
+unsafeIO :: IO a -> ArtefactM a
+unsafeIO = WrapArtefactM . liftIO
 
 -- | Emit a trace while running artefacts.
-emitTrace :: Tracer a -> a -> DelayedIOM ()
+emitTrace :: Tracer a -> a -> ArtefactM ()
 emitTrace t = unsafeIO . traceWith t
 
-runCached :: Cached a -> DelayedIOM a
+runCached :: Cached a -> ArtefactM a
 runCached = unsafeIO . getCached
 
 {-------------------------------------------------------------------------------
@@ -146,8 +155,8 @@ runCached = unsafeIO . getCached
 -- | Register a delayed IO action. The action will only be performed if the
 --   artefacts are obtained without Error traces, and if the output policies
 --   are met.
-delay :: DelayedIO -> DelayedIOM ()
-delay a = WrapDelayedIOM $ modify (a :)
+delay :: DelayedIO -> ArtefactM ()
+delay a = WrapArtefactM $ modify (a :)
 
 -- | Delayed IO action
 data DelayedIO =

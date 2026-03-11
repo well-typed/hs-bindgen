@@ -30,7 +30,7 @@ import HsBindgen.Util.Tracer
 -- The backend is pure and should not emit warnings or errors.
 runBackend ::
      Tracer BackendMsg
-  -> BackendConfig
+  -> BindgenConfig
   -> BootArtefact
   -> FrontendArtefact
   -> IO BackendArtefact
@@ -45,9 +45,9 @@ runBackend tracer config boot frontend = do
           cDecls :: [C.Decl Final]
           cDecls = final.decls
       pure $ Hs.generateDeclarations
-        config.uniqueId
-        config.fieldNamingStrategy
-        config.haddock
+        config.backend.uniqueId
+        config.frontend.fieldNamingStrategy
+        config.backend.haddock
         boot.baseModule
         declIndex
         sizeofs
@@ -56,7 +56,7 @@ runBackend tracer config boot frontend = do
     -- 2. Apply binding category choice.
     backendHsDecls <- cache "hsDecls" $ do
       decls <- backendHsDeclsAll
-      pure $ applyBindingCategoryChoice config.categoryChoice decls
+      pure $ applyBindingCategoryChoice config.backend.categoryChoice decls
 
     -- 3. @Hs@ declarations to simple @Hs@ declarations.
     sHsDecls <- cache "sHsDecls" $ SHs.translateDecls <$> backendHsDecls

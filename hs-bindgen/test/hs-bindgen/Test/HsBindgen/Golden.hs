@@ -203,7 +203,6 @@ testCases_manual = [
     , defaultTest "manual/function_pointers"
     , defaultTest "manual/enable_record_dot"
       & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
-      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
     , defaultTest "manual/zero_copy"
     , test_manual_globals
     ]
@@ -1011,6 +1010,7 @@ testCases_bespoke_edgeCases = [
       test_edgeCases_adios
     , test_edgeCases_clang_generated_collision
     , test_edgeCases_duplicate
+    , test_edgeCases_duplicate_record_dot
     , test_edgeCases_headers
     , test_edgeCases_include_macro
     , test_edgeCases_iterator
@@ -1063,6 +1063,13 @@ test_edgeCases_duplicate =
           ("duplicate", "conflict")
         , ("function", "transitive conflict")
         ]
+
+test_edgeCases_duplicate_record_dot :: TestCase
+test_edgeCases_duplicate_record_dot =
+    defaultTest "edge-cases/duplicate_record_dot"
+      & #onFrontend .~ (\cfg -> cfg
+            & #fieldNamingStrategy .~ EnableRecordDot
+          )
 
 test_edgeCases_headers :: TestCase
 test_edgeCases_headers =
@@ -1831,7 +1838,6 @@ test_types_structs_enable_record_dot :: TestCase
 test_types_structs_enable_record_dot =
     testVariant "types/structs/simple_structs" "enable_record_dot"
       & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
-      & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
 
 test_types_structs_post_qualified :: TestCase
 test_types_structs_post_qualified =
@@ -1889,10 +1895,8 @@ testCases_comprehensive = map enableRecordDot [
     ]
   where
     enableRecordDot :: TestCase -> TestCase
-    enableRecordDot tc =
-      tc
-        & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
-        & #onBackend  .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+    enableRecordDot =
+      #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
 
 test_comprehensive_c2hsc :: TestCase
 test_comprehensive_c2hsc =

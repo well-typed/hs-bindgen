@@ -19,9 +19,9 @@ import HsBindgen
 import HsBindgen.App
 import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
                              buildCategoryChoice, parseOutputOptions)
+import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal
-import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 
@@ -94,14 +94,12 @@ exec global opts = do
       case opts.outputOptions of
         OutputOptions (SingleFile _) ->
           writeBindingsSingleToDir
-            opts.config.fieldNamingStrategy
             mrc
             opts.fileOverwritePolicy
             opts.outputDirPolicy
             opts.hsOutputDir
-        _                            ->
+        _ ->
           writeBindingsMultiple
-            opts.config.fieldNamingStrategy
             mrc
             opts.fileOverwritePolicy
             opts.outputDirPolicy

@@ -20,9 +20,9 @@ import Options.Applicative hiding (info)
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.Artefact
+import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
-import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
 
 {-------------------------------------------------------------------------------

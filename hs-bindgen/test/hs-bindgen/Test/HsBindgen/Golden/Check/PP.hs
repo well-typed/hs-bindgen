@@ -13,8 +13,8 @@ import Test.Tasty.HUnit (assertFailure)
 import HsBindgen (getBindingsMultiple)
 import HsBindgen hiding (getBindingsMultiple)
 import HsBindgen.Backend.Category
-import HsBindgen.Config (BackendConfig (..))
-import HsBindgen.Config.Prelims
+import HsBindgen.Config
+import HsBindgen.Config.Internal
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -86,10 +86,9 @@ check getTestResources test =
           mrc = ModuleRenderConfig {
               qualifiedStyle = view #qualifiedStyle backendCfg
             }
-          fns = view #fieldNamingStrategy backendCfg
           artefacts = (,)
                     <$> ModuleBaseName
-                    <*> getBindingsMultiple fns mrc
+                    <*> getBindingsMultiple mrc
       result <- runTestHsBindgen collectTrace getTestResources test artefacts
       msgs <- reverse <$> readIORef traceMessages
       pure $ fmap (\(baseName, output) -> (baseName, msgs, output)) result

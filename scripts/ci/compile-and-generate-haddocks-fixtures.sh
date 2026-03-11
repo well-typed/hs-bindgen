@@ -101,7 +101,7 @@ KNOWN_WERROR_UNCLEAN=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=167
+KNOWN_FIXTURES_COUNT=168
 
 # Default options
 JOBS=4
@@ -379,7 +379,7 @@ generate_index() {
     local skipped_count="$2"
     local empty_count="$3"
 
-    cat > "$index_file" <<'HEREDOC'
+    cat >"$index_file" <<'HEREDOC'
 <!DOCTYPE html>
 <html>
 <head>
@@ -452,12 +452,12 @@ generate_index() {
         <strong>Statistics:</strong><br>
 HEREDOC
 
-    echo "        Total fixtures: $((processed_count + skipped_count + empty_count))<br>" >> "$index_file"
-    echo "        Processed: <span class=\"success\">$processed_count</span><br>" >> "$index_file"
-    echo "        Skipped (known failures): <span class=\"skipped\">$skipped_count</span><br>" >> "$index_file"
-    echo "        Skipped (empty): <span class=\"skipped\">$empty_count</span>" >> "$index_file"
+    echo "        Total fixtures: $((processed_count + skipped_count + empty_count))<br>" >>"$index_file"
+    echo "        Processed: <span class=\"success\">$processed_count</span><br>" >>"$index_file"
+    echo "        Skipped (known failures): <span class=\"skipped\">$skipped_count</span><br>" >>"$index_file"
+    echo "        Skipped (empty): <span class=\"skipped\">$empty_count</span>" >>"$index_file"
 
-    cat >> "$index_file" <<'HEREDOC'
+    cat >>"$index_file" <<'HEREDOC'
     </div>
 
     <h2>Fixture Documentation</h2>
@@ -470,13 +470,13 @@ HEREDOC
         lib_name="fixture-$(sanitize "$fixture_name")"
         local doc_dir="$HADDOCK_OUTPUT_DIR/$lib_name"
         if [[ -d "$doc_dir" ]]; then
-            echo "        <div class=\"fixture-item\"><a href=\"$lib_name/index.html\">$fixture_name</a></div>" >> "$index_file"
+            echo "        <div class=\"fixture-item\"><a href=\"$lib_name/index.html\">$fixture_name</a></div>" >>"$index_file"
         else
-            echo "        <div class=\"fixture-item\"><span class=\"error\">$fixture_name</span> (failed)</div>" >> "$index_file"
+            echo "        <div class=\"fixture-item\"><span class=\"error\">$fixture_name</span> (failed)</div>" >>"$index_file"
         fi
     done
 
-    cat >> "$index_file" <<'HEREDOC'
+    cat >>"$index_file" <<'HEREDOC'
     </div>
 
     <footer>

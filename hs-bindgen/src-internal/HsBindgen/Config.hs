@@ -71,8 +71,7 @@ toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
          uniqueId       = uniqueId
        , haddock        = def & #pathStyle .~ config.haddockPathStyle
        , categoryChoice = choice
-       , fieldNamingStrategy = config.fieldNamingStrategy
-       , qualifiedStyle      = config.qualifiedStyle
+       , qualifiedStyle = config.qualifiedStyle
        }
     }
 

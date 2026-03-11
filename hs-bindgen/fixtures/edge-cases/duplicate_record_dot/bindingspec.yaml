@@ -1,0 +1,44 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/duplicate_record_dot.h
+  cname: struct A
+  hsname: A
+- headers: edge-cases/duplicate_record_dot.h
+  cname: struct B
+  hsname: B
+hstypes:
+- hsname: A
+  representation:
+    record:
+      constructor: A
+      fields:
+      - dup
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: B
+  representation:
+    record:
+      constructor: B
+      fields:
+      - dup
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

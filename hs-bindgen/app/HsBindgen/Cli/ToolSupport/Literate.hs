@@ -27,9 +27,9 @@ import HsBindgen.App
 import HsBindgen.App.Output (OutputMode (..), OutputOptions,
                              SingleFileCategory (..), buildCategoryChoice,
                              parseOutputOptions)
+import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
-import HsBindgen.DelayedIO
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 
@@ -127,7 +127,7 @@ exec opts = do
           }
 
         artefact :: Artefact ()
-        artefact = writeBindings lit.config.fieldNamingStrategy mrc overwriteFiles opts.output
+        artefact = writeBindings mrc overwriteFiles opts.output
 
     hsBindgen
       lit.globalOpts.unsafe
