@@ -95,5 +95,5 @@ jobs:
 
       - name: 🧪 Compile fixtures
         run: |
-          chmod +x scripts/ci/compile-fixtures.sh
-          scripts/ci/compile-fixtures.sh
+          chmod +x scripts/ci/compile-and-generate-haddocks-fixtures.sh
+          scripts/ci/compile-and-generate-haddocks-fixtures.sh

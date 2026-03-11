@@ -1,0 +1,547 @@
+name: Comprehensive CI
+
+# Manual trigger only - for pre-release validation and comprehensive testing
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  # ============================================================================
+  # Job 1: Test all GHC and LLVM version combinations
+  # ============================================================================
+
+  test-all-llvm-and-ghc-versions:
+    name: Test (${{ matrix.runner }}, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest, macos-latest]
+        ghc: ['9.2', '9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+        llvm: ['14', '16', '18', '20', '21']
+        exclude:
+          # LLVM 21 not available on macOS ARM64
+          - runner: macos-latest
+            llvm: '21'
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 🛠️ Set git to use LF
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+
+    - name: 🛠️ Fix git on macOS (prioritize system git over Homebrew)
+      if: runner.os == 'macOS'
+      run: |
+        echo "/usr/bin" >> "$GITHUB_PATH"
+
+    - name: 📥 Checkout
+      uses: actions/checkout@v4
+
+    - name: 🛠️ Setup Haskell
+      uses: haskell-actions/setup@v2
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: 3.16
+
+    - name: 🛠️ Install LLVM/Clang
+      uses: ./.github/actions/setup-llvm
+      with:
+        version: ${{ matrix.llvm }}
+
+    - name: 🛠️ cabal.project
+      run: cp cabal.project.ci cabal.project
+
+    - name: 🏗️ Build (--prefer-oldest, lower bounds check)
+      run: cabal build all --prefer-oldest
+
+    - name: 🏗️ Build
+      run: cabal build all
+
+    - name: 🧪 Test
+      run: cabal test all --test-show-details=direct
+      env:
+        # On non-Linux, skip TH fixture tests: the musl x86_64 headers
+        # shipped in musl-include/ are Linux-specific, so GHC's C compiler
+        # cannot use them on macOS or Windows.
+        TASTY_PATTERN: ${{ runner.os != 'Linux' && '!/th-fixtures/' || '' }}
+
+    - name: 🧪 Build manual (macOS)
+      if: runner.os == 'macOS'
+      uses: ./.github/actions/build-manual-macos
+
+    - name: 🧪 Build manual (Ubuntu)
+      if: runner.os == 'Linux'
+      uses: ./.github/actions/build-manual-ubuntu
+
+  # ============================================================================
+  # Job 2: Test all GHC versions on Windows
+  # ============================================================================
+
+  test-windows:
+    name: Test (windows-latest, GHC ${{ matrix.ghc }})
+    runs-on: windows-latest
+    timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # GHC 9.2 uses GCC, not LLVM/Clang, so we do not test it.
+        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 🛠️ Set git to use LF
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+
+    - name: 📥 Checkout
+      uses: actions/checkout@v4
+
+    - name: 🛠️ Setup Haskell
+      id: setup-haskell
+      uses: haskell-actions/setup@v2
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: 3.16
+
+    - name: 🛠️ Setup LLVM/Clang (Windows)
+      uses: ./.github/actions/setup-llvm-windows
+      with:
+        ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
+
+    - name: 🛠️ cabal.project
+      run: cat cabal.project.ci | tee cabal.project
+
+    - name: 🏗️ Build
+      run: cabal build all
+
+    - name: 🧪 Test
+      run: cabal test -j1 all --test-show-details=direct
+      env:
+        # Skip TH fixture tests: the musl x86_64 headers shipped in
+        # musl-include/ are Linux-specific, so GHC's C compiler cannot
+        # use them on Windows.
+        TASTY_PATTERN: "!/th-fixtures/"
+        # Prevent MSYS/Git Bash from converting /th-fixtures/ to a
+        # Windows path.
+        MSYS_NO_PATHCONV: 1
+
+    - name: 🧪 Configure manual
+      # Add manual library directory to PATH so that the DLLs are found.
+      # Do not set SUPPORTS_UNICODE because the Windows assembler has an
+      # issue with Unicode characters.
+      working-directory: ./manual/hs
+      run: |
+        echo "${{github.workspace}}\\manual\\c" | tee -a "${GITHUB_PATH}"
+        cat cabal.project.ci | tee cabal.project
+        tee cabal.project.local <<EOF
+        package manual
+          extra-include-dirs:
+            ${{ github.workspace }}\\manual\\c
+          extra-lib-dirs:
+            ${{ github.workspace }}\\manual\\c
+
+        package hs-game
+          extra-include-dirs:
+            ${{ github.workspace }}\\manual\\c
+          extra-lib-dirs:
+            ${{ github.workspace }}\\manual\\c
+
+        package hs-vector
+          extra-include-dirs:
+            ${{ github.workspace }}\\manual\\c
+          extra-lib-dirs:
+            ${{ github.workspace }}\\manual\\c
+        EOF
+
+    - name: 🧪 Generate bindings, build and run manual
+      working-directory: ./manual
+      run: ./generate-and-run.sh
+
+  # ============================================================================
+  # Job 3: Run cabal check for each package
+  # ============================================================================
+
+  cabal-check:
+    name: Cabal check (${{ matrix.package }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - c-expr-runtime
+          - c-expr-dsl
+          - hs-bindgen
+          - hs-bindgen-runtime
+          - hs-bindgen-test-runtime
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: '9.4'
+          cabal-version: '3.16'
+
+      - name: 🧪 Run cabal check
+        run: |
+          cd ${{ matrix.package }}
+          cabal check
+
+  # ============================================================================
+  # Job 4: Build from sdist
+  # ============================================================================
+
+  sdist-build:
+    name: Build from sdist (${{ matrix.runner }}, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest, macos-latest]
+        ghc: ['9.2', '9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+        llvm: ['14', '16', '18', '20', '21']
+        exclude:
+          # LLVM 21 not available on macOS ARM64
+          - runner: macos-latest
+            llvm: '21'
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 🛠️ Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: 🛠️ Fix git on macOS (prioritize system git over Homebrew)
+        if: runner.os == 'macOS'
+        run: |
+          echo "/usr/bin" >> "$GITHUB_PATH"
+
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm }}
+
+      - name: 🛠️ cabal.project
+        run: cp cabal.project.ci cabal.project
+
+      - name: 📦 Generate all sdists
+        run: cabal sdist all
+
+      - name: 🏗️ Build from sdists
+        run: |
+          TEMP_DIR=$(mktemp -d)
+
+          # Extract all sdists
+          for SDIST_FILE in dist-newstyle/sdist/*.tar.gz; do
+            tar xzf "$SDIST_FILE" -C "$TEMP_DIR"
+          done
+
+          cd "$TEMP_DIR"
+
+          # Create cabal.project with all extracted packages
+          echo "packages:" > cabal.project
+          for dir in */; do
+            echo "  ${dir%/}" >> cabal.project
+          done
+
+          # Append cabal.project.base for allow-newer, index-state, etc.
+          # (source-repository-package for libclang is harmless here since
+          # it's not referenced by any sdist package)
+          cat "$GITHUB_WORKSPACE/cabal.project.base" >> cabal.project
+
+          cabal build all
+
+  # ============================================================================
+  # Job 4b: Build from sdist (Windows)
+  # ============================================================================
+
+  sdist-build-windows:
+    name: Build from sdist (windows-latest, GHC ${{ matrix.ghc }})
+    runs-on: windows-latest
+    timeout-minutes: 45
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # GHC 9.2 uses GCC, not LLVM/Clang, so we do not test it.
+        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 🛠️ Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang (Windows)
+        uses: ./.github/actions/setup-llvm-windows
+        with:
+          ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
+
+      - name: 🛠️ cabal.project
+        run: cat cabal.project.ci | tee cabal.project
+
+      - name: 📦 Generate all sdists
+        run: cabal sdist all
+
+      - name: 🏗️ Build from sdists
+        run: |
+          TEMP_DIR=$(mktemp -d)
+
+          # Extract all sdists
+          for SDIST_FILE in dist-newstyle/sdist/*.tar.gz; do
+            tar xzf "$SDIST_FILE" -C "$TEMP_DIR"
+          done
+
+          cd "$TEMP_DIR"
+
+          # Create cabal.project with all extracted packages
+          echo "packages:" > cabal.project
+          for dir in */; do
+            echo "  ${dir%/}" >> cabal.project
+          done
+
+          # Append cabal.project.base for allow-newer, index-state, etc.
+          # (source-repository-package for libclang is harmless here since
+          # it's not referenced by any sdist package)
+          cat "$GITHUB_WORKSPACE/cabal.project.base" >> cabal.project
+
+          cabal build all
+
+  # ============================================================================
+  # Job 5: Build Haddock documentation
+  # ============================================================================
+
+  build-haddock:
+    name: Build Haddock (${{ matrix.runner }}, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: true
+      matrix:
+        runner: [ubuntu-latest, macos-latest]
+        # Doesn't run GHC 9.2 due to a haddock bug
+        ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+        llvm: ['14', '16', '18', '20', '21']
+        exclude:
+          # LLVM 21 not available on macOS ARM64
+          - runner: macos-latest
+            llvm: '21'
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 🛠️ Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: 🛠️ Fix git on macOS (prioritize system git over Homebrew)
+        if: runner.os == 'macOS'
+        run: |
+          echo "/usr/bin" >> "$GITHUB_PATH"
+
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm }}
+
+      - name: 🛠️ cabal.project
+        run: cp cabal.project.ci cabal.project
+
+      - name: 🏗️ Build Haddock for all packages
+        run: cabal haddock all --haddock-for-hackage
+
+  # ============================================================================
+  # Job 5b: Build Haddock documentation (Windows)
+  # ============================================================================
+
+  build-haddock-windows:
+    name: Build Haddock (windows-latest, GHC ${{ matrix.ghc }})
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: true
+      matrix:
+        # Doesn't run GHC 9.2 due to a haddock bug.
+        # GHC 9.2 also uses GCC on Windows, not LLVM/Clang.
+        # On Windows, LLVM is bundled with GHC — no separate LLVM matrix.
+        ghc: ['9.4', '9.6', '9.8', '9.10', '9.12', '9.14']
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 🛠️ Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang (Windows)
+        uses: ./.github/actions/setup-llvm-windows
+        with:
+          ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
+
+      - name: 🛠️ cabal.project
+        run: cat cabal.project.ci | tee cabal.project
+
+      - name: 🏗️ Build Haddock for all packages
+        run: cabal haddock all --haddock-for-hackage
+
+  # ============================================================================
+  # Job 6: Generate Haddock documentation for fixtures
+  # ============================================================================
+
+  generate-fixture-haddocks:
+    name: Generate Fixture Haddocks (GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ghc: ['9.4']
+        llvm: ['15']
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: '3.16'
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm }}
+
+      - name: 🛠️ Configure
+        run: |
+          cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
+
+      - name: 🛠️ Build Cabal dependencies
+        run: cabal build all --only-dependencies
+
+      - name: 🧪 Compile and generate Haddocks for fixtures
+        run: |
+          chmod +x scripts/ci/compile-and-generate-haddocks-fixtures.sh
+          scripts/ci/compile-and-generate-haddocks-fixtures.sh --haddock
+
+  # ============================================================================
+  # Job 7: Cross-compilation
+  # ============================================================================
+
+  cross-compile-test:
+    name: Cross-compile to aarch64
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v5
+
+    - name: 🛠️ Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+
+    - name: 💾 Cache Nix store
+      uses: DeterminateSystems/magic-nix-cache-action@main
+
+    - name: 🏗️ Build dev shell
+      working-directory: examples/cross-compilation
+      run: |
+        nix build .#devShells.x86_64-linux.cross-aarch64 --print-build-logs
+
+    - name: 📦 Update Hackage index
+      run: |
+        nix develop ./examples/cross-compilation#cross-aarch64 --command cabal update
+
+    - name: 🧪 Run cross-compilation workflow
+      working-directory: examples/cross-compilation
+      run: |
+        nix develop .#cross-aarch64 --command ./generate-and-run.sh

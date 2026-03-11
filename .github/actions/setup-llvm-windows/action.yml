@@ -1,0 +1,40 @@
+name: Setup LLVM/Clang (Windows)
+description: Configure the LLVM/Clang bundled with GHC on Windows
+
+inputs:
+  ghc-version:
+    description: 'GHC version (from haskell-actions/setup outputs)'
+    required: true
+
+runs:
+  using: composite
+  steps:
+  - name: Filter PATH
+    # Remove any existing LLVM installations (targeting MSVC) from PATH
+    # to avoid conflicts with the LLVM bundled with GHC.
+    shell: powershell
+    run: |
+      $oldPathDirs = ($env:PATH).Split(';')
+      $newPathDirs = $oldPathDirs | Where-Object { $_ -notlike '*LLVM*' }
+      $newPath = $newPathDirs -join ';'
+      echo "PATH=$newPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
+
+  - name: Configure LLVM/Clang
+    # On Windows, LLVM/Clang is bundled with GHC in the mingw directory.
+    shell: bash
+    run: |
+      parentDir="$(dirname "$(dirname "$(which ghc)")")"
+      LLVM_PATH="${parentDir}/mingw"
+      if [ ! -d "${LLVM_PATH}" ] ; then
+        LLVM_PATH="${parentDir}/ghc/${{ inputs.ghc-version }}/mingw"
+        if [ ! -d "${LLVM_PATH}" ] ; then
+          echo "error: LLVM path not found"
+          false
+        fi
+      fi
+      echo LLVM_PATH="${LLVM_PATH}" | tee -a "${GITHUB_ENV}"
+      cygpath -w "${LLVM_PATH}/bin" | tee -a "${GITHUB_PATH}"
+      LLVM_CONFIG="${LLVM_PATH}/bin/llvm-config.exe"
+      if [ -x "${LLVM_CONFIG}" ] ; then
+        echo LLVM_CONFIG="${LLVM_CONFIG}" | tee -a "${GITHUB_ENV}"
+      fi

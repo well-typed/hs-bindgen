@@ -18,12 +18,28 @@ runs:
       wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb
       sudo apt install ./libtinfo5_6.3-2ubuntu0.1_amd64.deb
 
+  - name: Windows quirks - Filter MSVC LLVM from PATH
+    shell: powershell
+    if: ${{ runner.os == 'Windows' }}
+    run: |
+      $oldPathDirs = ($env:PATH).Split(';')
+      $newPathDirs = $oldPathDirs | Where-Object { $_ -notlike '*LLVM*' }
+      $newPath = $newPathDirs -join ';'
+      echo "PATH=$newPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
+
   - name: Install LLVM/Clang
     uses: KyleMayes/install-llvm-action@v2.0.8
     with:
       version: ${{ inputs.version }}
       directory: ${{ runner.temp }}/llvm
       env: false
+
+  - name: Windows quirks - Configure environment variables
+    shell: bash
+    if: ${{ runner.os == 'Windows' }}
+    run: |
+      echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config.exe" | tee -a "$GITHUB_ENV"
+      echo "LIBCLANG_PATH=$LLVM_PATH/lib" | tee -a "$GITHUB_ENV"
 
   - name: macOS quirks - Configure environment variables
     shell: bash

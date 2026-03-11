@@ -184,34 +184,10 @@ jobs:
           echo '== ghc-pkg list ================================================================'
           ghc-pkg list
 
-      - name: "[setup] Filter PATH"
-        # To ensure that we never use any executables or DLLs from a version of
-        # LLVM/Clang that is already installed, targeting MSVC, we remove them
-        # from the `PATH`.
-        shell: powershell
-        run: |
-          $oldPathDirs = ($env:PATH).Split(';')
-          $newPathDirs = $oldPathDirs | Where-Object { $_ -notlike '*LLVM*' }
-          $newPath = $newPathDirs -join ';'
-          echo "PATH=$newPATH" | Out-File -FilePath $env:GITHUB_ENV -Encoding UTF8 -Append
-
-      - name: "[setup] Configure LLVM/Clang"
-        run: |
-          parentDir="$(dirname "$(dirname "$(which ghc)")")"
-          LLVM_PATH="${parentDir}/mingw"
-          if [ ! -d "${LLVM_PATH}" ] ; then
-            LLVM_PATH="${parentDir}/ghc/${{ steps.setup-haskell.outputs.ghc-version }}/mingw"
-            if [ ! -d "${LLVM_PATH}" ] ; then
-              echo "error: LLVM path not found"
-              false
-            fi
-          fi
-          echo LLVM_PATH="${LLVM_PATH}" | tee -a "${GITHUB_ENV}"
-          cygpath -w "${LLVM_PATH}/bin" | tee -a "${GITHUB_PATH}"
-          LLVM_CONFIG="${LLVM_PATH}/bin/llvm-config.exe"
-          if [ -x "${LLVM_CONFIG}" ] ; then
-            echo LLVM_CONFIG="${LLVM_CONFIG}" | tee -a "${GITHUB_ENV}"
-          fi
+      - name: "[setup] Setup LLVM/Clang (Windows)"
+        uses: ./.github/actions/setup-llvm-windows
+        with:
+          ghc-version: ${{ steps.setup-haskell.outputs.ghc-version }}
 
       - name: "[setup] Debug LLVM/Clang"
         run: |
