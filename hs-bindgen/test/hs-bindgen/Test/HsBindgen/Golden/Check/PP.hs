@@ -88,7 +88,7 @@ check getTestResources test =
             }
           fns = view #fieldNamingStrategy backendCfg
           artefacts = (,)
-                    <$> FinalModuleBaseName
+                    <$> ModuleBaseName
                     <*> getBindingsMultiple fns mrc
       result <- runTestHsBindgen collectTrace getTestResources test artefacts
       msgs <- reverse <$> readIORef traceMessages

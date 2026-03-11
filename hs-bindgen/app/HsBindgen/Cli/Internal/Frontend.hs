@@ -45,15 +45,16 @@ parseFrontendPassName s = case lookup s knownPasses of
   where
     knownPasses :: [(String, SomeFrontendPass)]
     knownPasses = [
-          mk DumpParse
-        , mk DumpSimplifyAST
-        , mk DumpAssignAnonIds
-        , mk DumpConstructTranslationUnit
-        , mk DumpHandleMacros
-        , mk DumpResolveBindingSpecs
-        , mk DumpMangleNames
-        , mk DumpAdjustTypes
-        , mk DumpSelect
+          mk ParsePass
+        , mk SimplifyASTPass
+        , mk AssignAnonIdsPass
+        , mk ConstructTranslationUnitPass
+        , mk HandleMacrosPass
+        , mk ResolveBindingSpecsPass
+        , mk MangleNamesPass
+        , mk AdjustTypesPass
+        , mk SelectPass
+        , mk FinalPass
         ]
 
     mk :: Show result => FrontendPass result -> (String, SomeFrontendPass)
@@ -62,16 +63,16 @@ parseFrontendPassName s = case lookup s knownPasses of
 -- Ensure that we handle all 'FrontendPass' constructors.
 frontendPassName :: FrontendPass result -> String
 frontendPassName = \case
-  DumpParse                    -> "parse"
-  DumpSimplifyAST              -> "simplify-ast"
-  DumpAssignAnonIds            -> "assign-anon-ids"
-  DumpConstructTranslationUnit -> "construct-translation-unit"
-  DumpHandleMacros             -> "handle-macros"
-  DumpResolveBindingSpecs      -> "resolve-binding-specs"
-  DumpMangleNames              -> "mangle-names"
-  DumpAdjustTypes              -> "adjust-types"
-  DumpSelect                   -> "select"
-  DumpFinal                    -> "final"
+  ParsePass                    -> "parse"
+  SimplifyASTPass              -> "simplify-ast"
+  AssignAnonIdsPass            -> "assign-anon-ids"
+  ConstructTranslationUnitPass -> "construct-translation-unit"
+  HandleMacrosPass             -> "handle-macros"
+  ResolveBindingSpecsPass      -> "resolve-binding-specs"
+  MangleNamesPass              -> "mangle-names"
+  AdjustTypesPass              -> "adjust-types"
+  SelectPass                   -> "select"
+  FinalPass                    -> "final"
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -106,7 +107,7 @@ parseOpts =
 parseDump :: Parser SomeFrontendPass
 parseDump = option (eitherReader parseFrontendPassName) $ mconcat [
       long "pass"
-    , value (SomeFrontendPass DumpAdjustTypes)
+    , value (SomeFrontendPass AdjustTypesPass)
     , showDefaultWith (\(SomeFrontendPass d) -> frontendPassName d)
     , help "Frontend pass to dump"
     , metavar "PASS"

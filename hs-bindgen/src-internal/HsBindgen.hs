@@ -178,7 +178,7 @@ writeUseDeclGraph pol mPath = do
 -- | Get bindings (single module).
 getBindings :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact String
 getBindings fns mrc = do
-    name  <- FinalModuleBaseName
+    name  <- ModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsSingleModule name
@@ -203,7 +203,7 @@ writeBindingsSingleToDir ::
   -> FilePath
   -> Artefact ()
 writeBindingsSingleToDir fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
-    moduleBaseName <- FinalModuleBaseName
+    moduleBaseName <- ModuleBaseName
     bindings       <- getBindings fns mrc
     let localPath :: FilePath
         localPath = Hs.moduleNamePath $
@@ -239,7 +239,7 @@ writeBindingsToDir fns mrc filePolicy dirPolicy hsOutputDir categoriesSelected =
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String))
 getBindingsMultiple fns mrc = do
-    name  <- FinalModuleBaseName
+    name  <- ModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
@@ -258,7 +258,7 @@ writeBindingsMultiple ::
   -> FilePath
   -> Artefact ()
 writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
-    moduleBaseName     <- FinalModuleBaseName
+    moduleBaseName     <- ModuleBaseName
     bindingsByCategory <- getBindingsMultiple fns mrc
     writeByCategory
       fileOverwritePolicy
@@ -271,7 +271,7 @@ writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = 
 -- | Write binding specifications to file.
 writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindingSpec fileOverwritePolicy path = do
-    moduleBaseName <- FinalModuleBaseName
+    moduleBaseName <- ModuleBaseName
     includeGraph   <- getIncludeGraph
     declIndex      <- getDeclIndex
     getMainHeaders <- getGetMainHeaders
@@ -300,7 +300,7 @@ writeBindingSpec fileOverwritePolicy path = do
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
 writeTests _testDir = do
-    -- moduleBaseName  <- FinalModuleBaseName
+    -- moduleBaseName  <- ModuleBaseName
     -- hashIncludeArgs <- HashIncludeArgs
     -- hsDecls         <- HsDecls
     -- liftIO $
@@ -325,20 +325,20 @@ getIncludeGraphPred :: Artefact (SourcePath -> Bool)
 getIncludeGraphPred = (.includeGraphPred) <$> ParseMetaA
 
 getDeclIndex :: Artefact DeclIndex
-getDeclIndex = (.ann.declIndex) <$> FrontendPassA DumpFinal
+getDeclIndex = (.ann.declIndex) <$> FrontendPassA FinalPass
 
 getUseDeclGraph :: Artefact UseDeclGraph
-getUseDeclGraph = (.ann.useDeclGraph) <$> FrontendPassA DumpConstructTranslationUnit
+getUseDeclGraph = (.ann.useDeclGraph) <$> FrontendPassA ConstructTranslationUnitPass
 
 getDeclUseGraph :: Artefact DeclUseGraph
-getDeclUseGraph = (.ann.declUseGraph) <$> FrontendPassA DumpConstructTranslationUnit
+getDeclUseGraph = (.ann.declUseGraph) <$> FrontendPassA ConstructTranslationUnitPass
 
 getOmittedTypes :: Artefact [(DeclId, SourcePath)]
 getOmittedTypes =
     Map.toList . DeclIndex.getOmitted <$> getDeclIndex
 
 getReifiedC :: Artefact [C.Decl Final]
-getReifiedC = (.decls) <$> FrontendPassA DumpFinal
+getReifiedC = (.decls) <$> FrontendPassA FinalPass
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
 -- When we properly record aliases, we may not need this anymore.
@@ -351,7 +351,6 @@ getSquashedTypes = do
 
 getDependencies :: Artefact [SourcePath]
 getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
-
 
 {-------------------------------------------------------------------------------
   Helpers

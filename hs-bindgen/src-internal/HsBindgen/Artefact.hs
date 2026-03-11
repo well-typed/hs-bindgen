@@ -46,26 +46,25 @@ import HsBindgen.Util.Tracer
 -- Each constructor corresponds to a frontend pass carrying the result type of
 -- that pass. See "HsBindgen.Frontend" for the pass ordering and descriptions.
 data FrontendPass (result :: Star) where
--- TODO-D: Rename to ParsePass etc.
-  DumpParse
+  ParsePass
     :: FrontendPass [ParseResult Parse]
-  DumpSimplifyAST
+  SimplifyASTPass
     :: FrontendPass [ParseResult SimplifyAST]
-  DumpAssignAnonIds
+  AssignAnonIdsPass
     :: FrontendPass [ParseResult AssignAnonIds]
-  DumpConstructTranslationUnit
+  ConstructTranslationUnitPass
     :: FrontendPass (C.TranslationUnit ConstructTranslationUnit)
-  DumpHandleMacros
+  HandleMacrosPass
     :: FrontendPass (C.TranslationUnit HandleMacros)
-  DumpResolveBindingSpecs
+  ResolveBindingSpecsPass
     :: FrontendPass (C.TranslationUnit ResolveBindingSpecs)
-  DumpMangleNames
+  MangleNamesPass
     :: FrontendPass (C.TranslationUnit MangleNames)
-  DumpAdjustTypes
+  AdjustTypesPass
     :: FrontendPass (C.TranslationUnit AdjustTypes)
-  DumpSelect
+  SelectPass
     :: FrontendPass (C.TranslationUnit Select)
-  DumpFinal
+  FinalPass
     :: FrontendPass (C.TranslationUnit Final)
 
 {-------------------------------------------------------------------------------
@@ -75,18 +74,18 @@ data FrontendPass (result :: Star) where
 -- | Build artefact.
 data Artefact (a :: Star) where
   -- * Boot
-  HashIncludeArgs     :: Artefact [HashIncludeArg]
-  -- * Frontend passes
-  ParseMetaA          :: Artefact ParseMeta
-  FrontendPassA       :: FrontendPass result -> Artefact result
+  HashIncludeArgs :: Artefact [HashIncludeArg]
+  ModuleBaseName  :: Artefact BaseModuleName
+  -- * Frontend
+  ParseMetaA      :: Artefact ParseMeta
+  FrontendPassA   :: FrontendPass result -> Artefact result
   -- * Backend
-  HsDecls             :: Artefact (ByCategory_ [Hs.Decl])
-  FinalDecls          :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
-  FinalModuleBaseName :: Artefact BaseModuleName
+  HsDecls         :: Artefact (ByCategory_ [Hs.Decl])
+  FinalDecls      :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
   -- * Control flow
-  EmitTrace           :: ArtefactMsg -> Artefact ()
-  Lift                :: DelayedIOM a -> Artefact a
-  Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
+  EmitTrace       :: ArtefactMsg -> Artefact ()
+  Lift            :: DelayedIOM a -> Artefact a
+  Bind            :: Artefact b  -> (b -> Artefact c ) -> Artefact c
 
 instance Functor Artefact where
   fmap :: (a -> b) -> Artefact a -> Artefact b
@@ -124,32 +123,31 @@ runArtefacts tracer boot frontend backend artefact =
     runArtefact :: forall x. Artefact x -> DelayedIOM x
     runArtefact = \case
         --Boot.
-        HashIncludeArgs     -> runCached boot.hashIncludeArgs
-
+        HashIncludeArgs -> runCached boot.hashIncludeArgs
+        ModuleBaseName  -> pure boot.baseModule
         -- Frontend.
-        ParseMetaA          -> runCached frontend.parseMeta
-        FrontendPassA p     -> runFrontendPass frontend p
+        ParseMetaA      -> runCached frontend.parseMeta
+        FrontendPassA p -> runFrontendPass p
         -- Backend.
-        HsDecls             -> runCached backend.hsDecls
-        FinalDecls          -> runCached backend.finalDecls
-        FinalModuleBaseName -> pure backend.finalModuleBaseName
+        HsDecls         -> runCached backend.hsDecls
+        FinalDecls      -> runCached backend.finalDecls
         -- Control flow
-        (EmitTrace x)       -> emitTrace tracer x
-        (Lift   f)          -> f
-        (Bind x f)          -> runArtefact x >>= runArtefact . f
+        (EmitTrace x)   -> emitTrace tracer x
+        (Lift   f)      -> f
+        (Bind x f)      -> runArtefact x >>= runArtefact . f
 
-    runFrontendPass :: FrontendArtefact -> FrontendPass result -> DelayedIOM result
-    runFrontendPass fe = \case
-        DumpParse                    -> runCached fe.parse
-        DumpSimplifyAST              -> runCached fe.simplifyAST
-        DumpAssignAnonIds            -> runCached fe.assignAnonIds
-        DumpConstructTranslationUnit -> runCached fe.constructTranslationUnit
-        DumpHandleMacros             -> runCached fe.handleMacros
-        DumpResolveBindingSpecs      -> runCached fe.resolveBindingSpecs
-        DumpMangleNames              -> runCached fe.mangleNames
-        DumpAdjustTypes              -> runCached fe.adjustTypes
-        DumpSelect                   -> runCached fe.select
-        DumpFinal                    -> runCached fe.final
+    runFrontendPass :: FrontendPass result -> DelayedIOM result
+    runFrontendPass = \case
+        ParsePass                    -> runCached frontend.parse
+        SimplifyASTPass              -> runCached frontend.simplifyAST
+        AssignAnonIdsPass            -> runCached frontend.assignAnonIds
+        ConstructTranslationUnitPass -> runCached frontend.constructTranslationUnit
+        HandleMacrosPass             -> runCached frontend.handleMacros
+        ResolveBindingSpecsPass      -> runCached frontend.resolveBindingSpecs
+        MangleNamesPass              -> runCached frontend.mangleNames
+        AdjustTypesPass              -> runCached frontend.adjustTypes
+        SelectPass                   -> runCached frontend.select
+        FinalPass                    -> runCached frontend.final
 
 {-------------------------------------------------------------------------------
   Traces

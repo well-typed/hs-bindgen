@@ -67,8 +67,6 @@ runBackend tracer config boot frontend = do
     pure $ BackendArtefact {
         hsDecls             = backendHsDecls
       , finalDecls          = backendFinalDecls
-      , finalModuleBaseName = boot.baseModule
-      , fieldNamingStrategy = config.fieldNamingStrategy
       }
   where
     cache :: String -> Cached a -> IO (Cached a)
@@ -81,11 +79,6 @@ runBackend tracer config boot frontend = do
 data BackendArtefact = BackendArtefact {
       hsDecls             :: Cached (ByCategory_ [Hs.Decl])
     , finalDecls          :: Cached (ByCategory_ ([CWrapper], [SHs.SDecl]))
-    , finalModuleBaseName :: BaseModuleName
-    -- | This is needed in the backend to compute the set of necessary
-    -- extensions, i.e. @DuplicateRecordFields@
-    --
-    , fieldNamingStrategy :: FieldNamingStrategy
     }
 
 {-------------------------------------------------------------------------------
