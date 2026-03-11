@@ -37,6 +37,7 @@ testCases = [
     , test_functions_decls_in_signature
     , test_functions_fun_attributes
     , test_functions_fun_attributes_conflict
+    , test_functions_proto_scope_forward_decl
     , test_functions_simple_func
     , test_functions_simple_func_rename
     , test_functions_varargs
@@ -97,6 +98,19 @@ test_functions_fun_attributes_conflict =
   where
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = []
+
+test_functions_proto_scope_forward_decl :: TestCase
+test_functions_proto_scope_forward_decl =
+    testTraceMulti "functions/proto_scope_forward_decl" declsWithMsgs $ \case
+      MatchDelayed name ParseDeclarationOutOfScope{} ->
+        Just $ Expected name
+      MatchDiagnosticOption _diag ->
+        Just $ Tolerated
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [CDeclName]
+    declsWithMsgs = ["f"]
 
 test_functions_simple_func :: TestCase
 test_functions_simple_func =
