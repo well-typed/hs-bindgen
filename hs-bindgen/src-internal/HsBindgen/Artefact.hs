@@ -1,6 +1,8 @@
 module HsBindgen.Artefact (
+    -- * Frontend passes
+    FrontendPass(..)
     -- * Artefacts
-    Artefact(..)
+  , Artefact(..)
   , runArtefacts
   , ArtefactMsg(..)
   )
@@ -9,8 +11,6 @@ where
 import Control.Monad (liftM)
 import Text.SimplePrettyPrint ((<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
-
-import Clang.Paths
 
 import HsBindgen.Backend
 import HsBindgen.Backend.Category
@@ -21,18 +21,51 @@ import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.DelayedIO
 import HsBindgen.Frontend
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
+import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (AssignAnonIds)
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.Final (Final)
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacros)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNames)
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
+import HsBindgen.Frontend.Pass.Parse.Result (ParseResult)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
+import HsBindgen.Frontend.Pass.Select.IsPass (Select)
+import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Frontend passes
+-------------------------------------------------------------------------------}
+
+-- | Frontend passes
+--
+-- Each constructor corresponds to a frontend pass carrying the result type of
+-- that pass. See "HsBindgen.Frontend" for the pass ordering and descriptions.
+data FrontendPass (result :: Star) where
+  ParsePass
+    :: FrontendPass [ParseResult Parse]
+  SimplifyASTPass
+    :: FrontendPass [ParseResult SimplifyAST]
+  AssignAnonIdsPass
+    :: FrontendPass [ParseResult AssignAnonIds]
+  ConstructTranslationUnitPass
+    :: FrontendPass (C.TranslationUnit ConstructTranslationUnit)
+  HandleMacrosPass
+    :: FrontendPass (C.TranslationUnit HandleMacros)
+  ResolveBindingSpecsPass
+    :: FrontendPass (C.TranslationUnit ResolveBindingSpecs)
+  MangleNamesPass
+    :: FrontendPass (C.TranslationUnit MangleNames)
+  AdjustTypesPass
+    :: FrontendPass (C.TranslationUnit AdjustTypes)
+  SelectPass
+    :: FrontendPass (C.TranslationUnit Select)
+  FinalPass
+    :: FrontendPass (C.TranslationUnit Final)
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -41,25 +74,18 @@ import HsBindgen.Util.Tracer
 -- | Build artefact.
 data Artefact (a :: Star) where
   -- * Boot
-  HashIncludeArgs     :: Artefact [HashIncludeArg]
+  HashIncludeArgs :: Artefact [HashIncludeArg]
+  ModuleBaseName  :: Artefact BaseModuleName
   -- * Frontend
-  IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  GetMainHeaders      :: Artefact ProcessIncludes.GetMainHeaders
-  DeclIndex           :: Artefact DeclIndex.DeclIndex
-  UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
-  DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
-  OmitTypes           :: Artefact [(DeclId, SourcePath)]
-  ReifiedC            :: Artefact [C.Decl Final]
-  SquashedTypes       :: Artefact [(DeclId, (SourcePath, Hs.Identifier))]
-  Dependencies        :: Artefact [SourcePath]
+  ParseMetaA      :: Artefact ParseMeta
+  FrontendPassA   :: FrontendPass result -> Artefact result
   -- * Backend
-  HsDecls             :: Artefact (ByCategory_ [Hs.Decl])
-  FinalDecls          :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
-  FinalModuleBaseName :: Artefact BaseModuleName
+  HsDecls         :: Artefact (ByCategory_ [Hs.Decl])
+  FinalDecls      :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
   -- * Control flow
-  EmitTrace           :: ArtefactMsg -> Artefact ()
-  Lift                :: DelayedIOM a -> Artefact a
-  Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
+  EmitTrace       :: ArtefactMsg -> Artefact ()
+  Lift            :: DelayedIOM a -> Artefact a
+  Bind            :: Artefact b  -> (b -> Artefact c ) -> Artefact c
 
 instance Functor Artefact where
   fmap :: (a -> b) -> Artefact a -> Artefact b
@@ -97,25 +123,31 @@ runArtefacts tracer boot frontend backend artefact =
     runArtefact :: forall x. Artefact x -> DelayedIOM x
     runArtefact = \case
         --Boot.
-        HashIncludeArgs     -> runCached boot.hashIncludeArgs
+        HashIncludeArgs -> runCached boot.hashIncludeArgs
+        ModuleBaseName  -> pure boot.baseModule
         -- Frontend.
-        IncludeGraph        -> runCached frontend.includeGraph
-        GetMainHeaders      -> runCached frontend.getMainHeaders
-        DeclIndex           -> runCached frontend.index
-        UseDeclGraph        -> runCached frontend.useDeclGraph
-        DeclUseGraph        -> runCached frontend.declUseGraph
-        OmitTypes           -> runCached frontend.omitTypes
-        ReifiedC            -> runCached frontend.cDecls
-        SquashedTypes       -> runCached frontend.squashedTypes
-        Dependencies        -> runCached frontend.dependencies
+        ParseMetaA      -> runCached frontend.parseMeta
+        FrontendPassA p -> runFrontendPass p
         -- Backend.
-        HsDecls             -> runCached backend.hsDecls
-        FinalDecls          -> runCached backend.finalDecls
-        FinalModuleBaseName -> pure backend.finalModuleBaseName
+        HsDecls         -> runCached backend.hsDecls
+        FinalDecls      -> runCached backend.finalDecls
         -- Control flow
-        (EmitTrace x)       -> emitTrace tracer x
-        (Lift   f)          -> f
-        (Bind x f)          -> runArtefact x >>= runArtefact . f
+        (EmitTrace x)   -> emitTrace tracer x
+        (Lift   f)      -> f
+        (Bind x f)      -> runArtefact x >>= runArtefact . f
+
+    runFrontendPass :: FrontendPass result -> DelayedIOM result
+    runFrontendPass = \case
+        ParsePass                    -> runCached frontend.parse
+        SimplifyASTPass              -> runCached frontend.simplifyAST
+        AssignAnonIdsPass            -> runCached frontend.assignAnonIds
+        ConstructTranslationUnitPass -> runCached frontend.constructTranslationUnit
+        HandleMacrosPass             -> runCached frontend.handleMacros
+        ResolveBindingSpecsPass      -> runCached frontend.resolveBindingSpecs
+        MangleNamesPass              -> runCached frontend.mangleNames
+        AdjustTypesPass              -> runCached frontend.adjustTypes
+        SelectPass                   -> runCached frontend.select
+        FinalPass                    -> runCached frontend.final
 
 {-------------------------------------------------------------------------------
   Traces

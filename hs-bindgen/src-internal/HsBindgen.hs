@@ -3,6 +3,8 @@ module HsBindgen (
 
     -- * Artefacts
   , Artefact(..)
+
+    -- ** High-level artefacts
   , writeIncludeGraph
   , writeUseDeclGraph
   , getBindings
@@ -13,6 +15,18 @@ module HsBindgen (
   , writeBindingsToDir
   , writeBindingSpec
   , writeTests
+
+    -- ** Low-level artefacts
+  , getIncludeGraph
+  , getIncludeGraphPred
+  , getDeclIndex
+  , getUseDeclGraph
+  , getDeclUseGraph
+  , getOmittedTypes
+  , getReifiedC
+  , getSquashedTypes
+  , getDependencies
+  , getGetMainHeaders
 
     -- * Errors
   , BindgenError(..)
@@ -26,8 +40,12 @@ module HsBindgen (
 
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
+import Data.Map qualified as Map
+import Data.Set qualified as Set
 import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
+
+import Clang.Paths
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
@@ -41,8 +59,18 @@ import HsBindgen.Config.Internal
 import HsBindgen.DelayedIO
 import HsBindgen.Errors (throwPure_TODO)
 import HsBindgen.Frontend
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -125,14 +153,15 @@ hsBindgenE
           pure r
 
 {-------------------------------------------------------------------------------
-  Custom build artefacts
+  High-level artefacts
 -------------------------------------------------------------------------------}
 
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
 writeIncludeGraph pol mPath = do
-    (predicate, includeGraph) <- IncludeGraph
-    let rendered = IncludeGraph.dumpMermaid predicate includeGraph
+    includeGraph     <- getIncludeGraph
+    includeGraphPred <- getIncludeGraphPred
+    let rendered = IncludeGraph.dumpMermaid includeGraphPred includeGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
       Just path -> write pol "include graph" (UserSpecified path) rendered
@@ -140,7 +169,7 @@ writeIncludeGraph pol mPath = do
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
 writeUseDeclGraph pol mPath = do
-    useDeclGraph <- UseDeclGraph
+    useDeclGraph <- getUseDeclGraph
     let rendered = UseDeclGraph.dumpMermaid useDeclGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
@@ -149,7 +178,7 @@ writeUseDeclGraph pol mPath = do
 -- | Get bindings (single module).
 getBindings :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact String
 getBindings fns mrc = do
-    name  <- FinalModuleBaseName
+    name  <- ModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsSingleModule name
@@ -174,7 +203,7 @@ writeBindingsSingleToDir ::
   -> FilePath
   -> Artefact ()
 writeBindingsSingleToDir fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
-    moduleBaseName <- FinalModuleBaseName
+    moduleBaseName <- ModuleBaseName
     bindings       <- getBindings fns mrc
     let localPath :: FilePath
         localPath = Hs.moduleNamePath $
@@ -210,7 +239,7 @@ writeBindingsToDir fns mrc filePolicy dirPolicy hsOutputDir categoriesSelected =
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String))
 getBindingsMultiple fns mrc = do
-    name  <- FinalModuleBaseName
+    name  <- ModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
@@ -229,7 +258,7 @@ writeBindingsMultiple ::
   -> FilePath
   -> Artefact ()
 writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
-    moduleBaseName     <- FinalModuleBaseName
+    moduleBaseName     <- ModuleBaseName
     bindingsByCategory <- getBindingsMultiple fns mrc
     writeByCategory
       fileOverwritePolicy
@@ -242,12 +271,12 @@ writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = 
 -- | Write binding specifications to file.
 writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindingSpec fileOverwritePolicy path = do
-    moduleBaseName <- FinalModuleBaseName
-    includeGraph   <- snd <$> IncludeGraph
-    declIndex      <- DeclIndex
-    getMainHeaders <- GetMainHeaders
-    omitTypes      <- OmitTypes
-    squashedTypes  <- SquashedTypes
+    moduleBaseName <- ModuleBaseName
+    includeGraph   <- getIncludeGraph
+    declIndex      <- getDeclIndex
+    getMainHeaders <- getGetMainHeaders
+    omittedTypes   <- getOmittedTypes
+    squashedTypes  <- getSquashedTypes
     hsDecls        <- HsDecls
     -- Binding specifications only specify types.
     let bs =
@@ -257,7 +286,7 @@ writeBindingSpec fileOverwritePolicy path = do
             includeGraph
             declIndex
             getMainHeaders
-            omitTypes
+            omittedTypes
             squashedTypes
             (view (lensForCategory CType) hsDecls)
         fileDescription = FileDescription {
@@ -271,7 +300,7 @@ writeBindingSpec fileOverwritePolicy path = do
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
 writeTests _testDir = do
-    -- moduleBaseName  <- FinalModuleBaseName
+    -- moduleBaseName  <- ModuleBaseName
     -- hashIncludeArgs <- HashIncludeArgs
     -- hsDecls         <- HsDecls
     -- liftIO $
@@ -281,6 +310,47 @@ writeTests _testDir = do
     --     moduleBaseName
     --     testDir
     throwPure_TODO 22 "Test generation integrated into the artefact API"
+
+{-------------------------------------------------------------------------------
+  Low-level artefacts
+-------------------------------------------------------------------------------}
+
+getGetMainHeaders :: Artefact ProcessIncludes.GetMainHeaders
+getGetMainHeaders = (.getMainHeaders) <$> ParseMetaA
+
+getIncludeGraph :: Artefact IncludeGraph
+getIncludeGraph = (.includeGraph) <$> ParseMetaA
+
+getIncludeGraphPred :: Artefact (SourcePath -> Bool)
+getIncludeGraphPred = (.includeGraphPred) <$> ParseMetaA
+
+getDeclIndex :: Artefact DeclIndex
+getDeclIndex = (.ann.declIndex) <$> FrontendPassA FinalPass
+
+getUseDeclGraph :: Artefact UseDeclGraph
+getUseDeclGraph = (.ann.useDeclGraph) <$> FrontendPassA ConstructTranslationUnitPass
+
+getDeclUseGraph :: Artefact DeclUseGraph
+getDeclUseGraph = (.ann.declUseGraph) <$> FrontendPassA ConstructTranslationUnitPass
+
+getOmittedTypes :: Artefact [(DeclId, SourcePath)]
+getOmittedTypes =
+    Map.toList . DeclIndex.getOmitted <$> getDeclIndex
+
+getReifiedC :: Artefact [C.Decl Final]
+getReifiedC = (.decls) <$> FrontendPassA FinalPass
+
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1549>
+-- When we properly record aliases, we may not need this anymore.
+getSquashedTypes :: Artefact [(DeclId, (SourcePath, Hs.Identifier))]
+getSquashedTypes = do
+  decls <- getReifiedC
+  let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls
+  declIndex <- getDeclIndex
+  pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
+
+getDependencies :: Artefact [SourcePath]
+getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
 
 {-------------------------------------------------------------------------------
   Helpers

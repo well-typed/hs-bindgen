@@ -45,7 +45,7 @@ check getTestResources test =
               test
                 & #onBackend %~ (. applyTestThCategoryChoice)
         pkgroot <- (.packageRoot) <$> getTestResources
-        let artefacts = (,) <$> Dependencies <*> FinalDecls
+        let artefacts = (,) <$> getDependencies <*> FinalDecls
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
         -- artefact manually.
         (deps, decls) <-

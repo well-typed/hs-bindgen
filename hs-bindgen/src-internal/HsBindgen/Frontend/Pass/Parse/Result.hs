@@ -38,6 +38,8 @@ data ParseResult p = ParseResult{
     , classification :: ParseClassification p
     }
 
+deriving stock instance IsPass p => Show (ParseResult p)
+
 data ParseClassification p =
     ParseResultSuccess      (ParseSuccess p)
   | ParseResultNotAttempted ParseNotAttempted
