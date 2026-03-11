@@ -101,7 +101,7 @@ KNOWN_WERROR_UNCLEAN=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=169
+KNOWN_FIXTURES_COUNT=167
 
 # Default options
 JOBS=4
@@ -342,10 +342,10 @@ HEADER
                 if [[ -n "$mod" ]]; then
                     echo "    $mod"
                 fi
-            done <<< "$modules"
+            done <<<"$modules"
         done < <(find "$FIXTURES_DIR" -type f -name "bindingspec.yaml" -print0 | sort -z)
 
-    } > "$cabal_file"
+    } >"$cabal_file"
 }
 
 # Generate a self-contained cabal.project in the given directory
@@ -355,7 +355,7 @@ HEADER
 # cabal can resolve build-depends without cloning or importing the full project.
 generate_cabal_project() {
     local target_dir="$1"
-    cat > "$target_dir/cabal.project" <<PROJECT
+    cat >"$target_dir/cabal.project" <<PROJECT
 import: ${REPO_ROOT}/cabal.project.base
 packages:
   .

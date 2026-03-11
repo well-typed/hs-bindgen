@@ -6,7 +6,6 @@ module HsBindgen.Frontend.Predicate (
     -- * Predicates
   , HeaderPathPredicate (..)
   , DeclPredicate (..)
-  , ParsePredicate (..)
   , SelectPredicate (..)
   , Regex -- opaque
     -- * Execution (internal API)
@@ -14,7 +13,6 @@ module HsBindgen.Frontend.Predicate (
   , mkIsMainHeader
   , IsInMainHeaderDir
   , mkIsInMainHeaderDir
-  , matchParse
   , matchSelect
   ) where
 
@@ -82,32 +80,12 @@ data DeclPredicate =
   | DeclDeprecated
   deriving stock (Show, Eq, Generic)
 
--- | Predicates for the @Parse@ pass
---
--- Parse predicates match against header file paths only.
---
--- The parse predicate and the select predicate both allow matching against
--- header paths but serve different purposes. The parse predicate dictates which
--- declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
--- the select predicate dictates which declarations `hs-bindgen` generates
--- bindings for. For details, please see the @hs-bindgen@ manual section on
--- predicates and program slicing.
-data ParsePredicate =
-    ParseHeader HeaderPathPredicate
-  deriving stock (Show, Eq, Generic)
-
-instance Default ParsePredicate where
-  def = ParseHeader FromMainHeaderDirs
-
 -- | Predicates for the @Select@ pass
 --
 -- Select predicates match against header file paths or the declarations
 -- themselves.
 --
--- The parse predicate and the select predicate both allow matching against
--- header paths but serve different purposes. The parse predicate dictates which
--- declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
--- the select predicate dictates which declarations `hs-bindgen` generates
+-- The select predicate dictates which declarations `hs-bindgen` generates
 -- bindings for. For details, please see the @hs-bindgen@ manual section on
 -- predicates and program slicing.
 data SelectPredicate =
@@ -152,16 +130,6 @@ mkIsInMainHeaderDir paths path =
     mainDirs :: [[FilePath]]
     mainDirs = map FilePath.splitDirectories . Set.toList $
       Set.map (FilePath.takeDirectory . getSourcePath) paths
-
--- | Match 'ParsePredicate' predicates
-matchParse ::
-     IsMainHeader
-  -> IsInMainHeaderDir
-  -> SourcePath
-  -> Boolean ParsePredicate
-  -> Bool
-matchParse isMainHeader isInMainHeaderDir path = eval $ \case
-    ParseHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
 
 -- | Match 'SelectPredicate' predicates
 matchSelect ::

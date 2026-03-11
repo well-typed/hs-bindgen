@@ -231,27 +231,14 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
     useDeclGraph = unit.ann.useDeclGraph
 
     match :: Match
-    match name loc availability = parsed && selected
-      where
-        -- We have parsed some declarations that are required for scoping but
-        -- that actually do not match the parse predicate. We want to avoid
-        -- selecting these declarations. This is only problematic if the select
-        -- predicate is wider than the parse predicate (rarely the case).
-        parsed, selected :: Bool
-        parsed =
-          matchParse
-            isMainHeader
-            isInMainHeaderDir
-            (singleLocPath loc)
-            config.parsePredicate
-        selected =
-          matchSelect
-            isMainHeader
-            isInMainHeaderDir
-            (singleLocPath loc)
-            name
-            availability
-            config.selectPredicate
+    match name loc availability =
+      matchSelect
+        isMainHeader
+        isInMainHeaderDir
+        (singleLocPath loc)
+        name
+        availability
+        config.selectPredicate
 
 {-------------------------------------------------------------------------------
   Filter list of declarations

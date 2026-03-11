@@ -55,20 +55,6 @@ Options configuring `libclang`:
 See [Clang options](03-ClangOptions.md) for details about the order in which
 options are passed to Clang.
 
-#### Parse predicates
-
-Options determining which declarations are parsed:
-
-- `--parse-from-main-header-dirs` - Parse all headers in main header directory
-- `--parse-by-header-path PATTERN` - Parse declarations from headers matching pattern
-- `--parse-by-decl-name PATTERN` - Parse declarations with names matching pattern
-
-Note that `hs-bindgen` always parses declarations required for scoping (e.g.,
-type definitions), regardless of parse predicates.  These declarations are
-filtered during selection.
-
-See [Parsing, selecting, and program slicing](05-ParsingSelectingAndProgramSlicing.md) for details.
-
 #### Select predicates
 
 Options determining which parsed declarations are included in the generated
@@ -85,8 +71,8 @@ predicates are included.  With program slicing enabled, transitive
 dependencies of selected declarations are included, even if explicitly
 deselected.
 
-See [Parsing, selecting, and program slicing](05-ParsingSelectingAndProgramSlicing.md)
-for details.
+See [Selecting, and program slicing](05-SelectingAndProgramSlicing.md) for
+details.
 
 ### Example
 
@@ -100,9 +86,6 @@ cabal run hs-bindgen-cli -- preprocess \
     --create-output-dirs \
     --module Generated.Pcap \
     --gnu \
-    --parse-by-header-path "struct_timeval.h" \
-    --parse-by-header-path "socket.h" \
-    --parse-from-main-header-dirs \
     --select-by-header-path pcap.h \
     --enable-program-slicing \
     --select-except-deprecated \
@@ -299,7 +282,6 @@ The `Config` type configures binding generation.  Common fields:
   - `Rel "path"` - Relative path (relative to module directory)
 - `#clang % #gnu` - GNU extensions (`GnuEnabled` or `GnuDisabled`)
 - `#clang % #cStandard` - C standard (e.g., `C99`, `C11`)
-- `#parse` - Parse predicates
 - `#select` - Select predicates and program slicing
 - `#backend % #safety` - Safety (`Safe`, `Unsafe`, or `GenerateBoth`)
 

@@ -18,6 +18,10 @@
   generate Haskell function types (.e.g, `newtype`s) that take pointers to their
   corresponding array *elements* as arguments. This uses the `Elem` associated
   type class from the new `IsArray` class. See [PR #1712][pr-1712].
+* Parse predicates have been removed. Now, `hs-bindgen` always parses and
+  reifies all declarations, reducing code complexity and cognitive overhead
+  imposed on users. To migrate, remove `--parse-*` command line client options,
+  or the parse-related configuration option when using Template Haskell model.
 
 ### New features
 

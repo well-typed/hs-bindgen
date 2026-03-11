@@ -61,28 +61,9 @@ data ParseSuccess p = ParseSuccess {
 
 -- | Why did we not attempt to parse a declaration?
 data ParseNotAttempted =
-    -- | We do not parse builtin declarations.
-    DeclarationBuiltin
-
     -- | We unexpectedly did not attempt to parse a declaration because it is
     -- reported "unavailable".
-  | DeclarationUnavailable
-
-    -- | Declarations that do not match the parse predicate.
-    --
-    -- For example, we may provide external bindings for skipped declarations.
-    -- We do /not/ support external bindings for /anonymous/ non-parsed
-    -- declarations; /if/ you want to provide an external binding for some local
-    -- type, for example
-    --
-    -- > struct rect {
-    -- >   struct { int x; int y; } bottomleft;
-    -- >   struct { int x; int y; } topright;
-    -- > };
-    --
-    -- then you need to make sure that you /traverse/ @rect@, so that the
-    -- @NameAnon@ pass can do its work.
-  | ParsePredicateNotMatched
+    DeclarationUnavailable
   deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
@@ -106,11 +87,8 @@ instance PrettyForTrace (ParseSuccess p) where
           map prettyForTrace success.delayedParseMsgs
 
 instance PrettyForTrace ParseNotAttempted where
-  prettyForTrace x = PP.hang "Parse not attempted: " 2 $
-      case x of
-        DeclarationBuiltin       -> "Builtin declaration"
-        DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
-        ParsePredicateNotMatched -> "Parse predicate did not match"
+  prettyForTrace = PP.hang "Parse not attempted: " 2 . \case
+    DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
 
 {-------------------------------------------------------------------------------
   Convenience constructors

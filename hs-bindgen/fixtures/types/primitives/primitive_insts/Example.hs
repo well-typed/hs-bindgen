@@ -870,7 +870,7 @@ instance HasCField.HasCField Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong" where
     __exported by:__ @types\/primitives\/primitive_insts.h@
 -}
 newtype Prim_HsPrimCBool = Prim_HsPrimCBool
-  { unwrapPrim_HsPrimCBool :: RIP.CBool
+  { unwrapPrim_HsPrimCBool :: HsBindgen.Runtime.LibC.CBool
   }
   deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
@@ -891,7 +891,7 @@ newtype Prim_HsPrimCBool = Prim_HsPrimCBool
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CBool
+instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
          ) => RIP.HasField "unwrapPrim_HsPrimCBool" (RIP.Ptr Prim_HsPrimCBool) (RIP.Ptr ty) where
 
   getField =
@@ -900,7 +900,7 @@ instance ( ((~) ty) RIP.CBool
 instance HasCField.HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool" where
 
   type CFieldType Prim_HsPrimCBool "unwrapPrim_HsPrimCBool" =
-    RIP.CBool
+    HsBindgen.Runtime.LibC.CBool
 
   offset# = \_ -> \_ -> 0
 

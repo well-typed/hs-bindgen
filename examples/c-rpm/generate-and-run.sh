@@ -66,11 +66,10 @@ generate_bindings() {
         --create-output-dirs
         --overwrite-files
         --module "$MODULE_NAME"
-        --parse-all
         --select-from-main-headers
         --enable-program-slicing
         --gen-binding-spec "$BINDING_SPEC_FILE"
-      )
+    )
 
     # Add external binding specs if any
     for spec in "${EXTERNAL_SPECS[@]}"; do
@@ -146,7 +145,7 @@ generate_bindings "rpmlib.h" "RPM.Lib" \
     "$BINDING_SPEC_DIR/header.yaml" \
     "$BINDING_SPEC_DIR/rpmtag.yaml" \
     "$BINDING_SPEC_DIR/rpmds.yaml" \
-    "$BINDING_SPEC_DIR/rpmver.yaml" \
+    "$BINDING_SPEC_DIR/rpmver.yaml"
 
 echo "# "
 echo "# Updating cabal.project.local"

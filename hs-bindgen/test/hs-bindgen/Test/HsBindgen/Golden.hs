@@ -481,10 +481,8 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_struct
     , test_bindingSpecs_fun_arg_macro_union
       -- * Standard library
-    , test_bindingSpecs_stdlib_instances_c11_parse_def
-    , test_bindingSpecs_stdlib_instances_c11_parse_all
-    , test_bindingSpecs_stdlib_instances_c23_parse_def
-    , test_bindingSpecs_stdlib_instances_c23_parse_all
+    , test_bindingSpecs_stdlib_instances_c11
+    , test_bindingSpecs_stdlib_instances_c23
     , test_bindingSpecs_stdlib_bool_c23
     , test_bindingSpecs_stdlib_return_values
     ]
@@ -808,19 +806,13 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
   Bespoke tests: binding specs: standard library
 -------------------------------------------------------------------------------}
 
--- The following tests and test variants examine "expectations" about how we
--- handle @bool@.
+-- The following test variants examine "expectations" about how we handle
+-- @bool@.
 --
--- In partiuclar, we translate @bool@ to
+-- | The translation of @bool@ involves unique pitfalls. Historically defined as
+-- a macro in @stdbool.h@, it became a primitive keyword in C23.
 --
--- - 'HsBindgen.Runtime.LibC.CBool' if we parse all declarations, and
---
--- - 'RIP.CBool' if we use the default parse predicate (and do not parse the
---   standard library header files).
---
--- The reasons are convoluted, yet appear unique to @bool@. As a primitive type,
--- it was historically defined as a macro in @stdbool.h@ and transitioned to a
--- keyword in C23.
+-- We translate @bool@ to 'HsBindgen.Runtime.LibC.CBool'.
 --
 -- Given the C header file
 --
@@ -835,66 +827,37 @@ noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
 -- #define bool _Bool
 -- @
 --
--- Since @bool@ is a macro, @libclang@ will always inform us about a macro
--- expansion in the definition of @Foo@, irrespective about whether we parse, or
--- do not parse @stdbool.h@. That is, we always reparse the @bool@ macro in
+-- Since @bool@ is a macro, @libclang@ will inform us about a macro expansion in
+-- the definition of @Foo@. That is, we always reparse the @bool@ macro in
 -- @Foo@.
 --
 -- The reparse environment depends on the C standard (in C23 we translate @bool@
 -- directly to the primitive boolean type).
 --
--- **Case 1: C11; do not parse @stdbool.h@**
---
--- @bool@ is missing in the reparse environment, and we fail to reparse the
--- @typedef@ of @Foo@. Hence, we use the expanded version of the macro provided
--- by @libclang@, which we recognize as @TypePrim TypeBool@. We translate to
--- 'RIP.CBool'.
-test_bindingSpecs_stdlib_instances_c11_parse_def :: TestCase
-test_bindingSpecs_stdlib_instances_c11_parse_def =
-    testVariant "binding-specs/stdlib/instances" "1.c11-parse-def"
-      & #cStandard .~ c11
-
--- **Case 2: C11; parse @stdbool.h@**
+-- **Case 1: C11**
 --
 -- The definition of @bool@ is added to the reparse environment; reparsing
 -- correctly recognizes @bool@ as an external reference, which gets matched
 -- against the external binding spec. We translate to
 -- 'HsBindgen.Runtime.LibC.CBool'.
-test_bindingSpecs_stdlib_instances_c11_parse_all :: TestCase
-test_bindingSpecs_stdlib_instances_c11_parse_all =
+test_bindingSpecs_stdlib_instances_c11 :: TestCase
+test_bindingSpecs_stdlib_instances_c11 =
     testVariant "binding-specs/stdlib/instances" "1.c11-parse-all"
       & #cStandard  .~ c11
-      & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate .~ BTrue
-          )
 
--- **Case 3: C23; do not parse @stdbool.h@**
---
--- @bool@ is a keyword, and as such, part of the initial reparse environment.
--- Reparsing maps @bool@ to @TypePrim TypeBool@. We translate to 'RIP.CBool'.
-test_bindingSpecs_stdlib_instances_c23_parse_def :: TestCase
-test_bindingSpecs_stdlib_instances_c23_parse_def =
-    testVariant "binding-specs/stdlib/instances" "1.c23-parse-def"
-      & #clangVersion .~ Just (>= (18, 0, 0))
-      & #cStandard    .~ c23
-
--- **Case 4: C23; parse @stdbool.h@**
+-- **Case 2: C23**
 --
 -- The definition of @bool@ replaces the original keyword entry of the reparse
 -- environment; reparsing correctly recognizes @bool@ as an external reference,
 -- which gets matched against the external binding spec. We translate to
 -- 'HsBindgen.Runtime.LibC.CBool'.
-test_bindingSpecs_stdlib_instances_c23_parse_all :: TestCase
-test_bindingSpecs_stdlib_instances_c23_parse_all =
+test_bindingSpecs_stdlib_instances_c23 :: TestCase
+test_bindingSpecs_stdlib_instances_c23 =
     testVariant "binding-specs/stdlib/instances" "1.c23-parse-all"
       & #clangVersion .~ Just (>= (18, 0, 0))
       & #cStandard    .~ c23
-      & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate .~ BTrue
-          )
 
--- Version of test using C23, without including @stdbool.h@. The primitive is
--- used and the parse predicate does not matter.
+-- **Case 3: C23 without including @stdbool.h@**
 test_bindingSpecs_stdlib_bool_c23 :: TestCase
 test_bindingSpecs_stdlib_bool_c23 =
     defaultTest "binding-specs/stdlib/bool"
@@ -904,13 +867,6 @@ test_bindingSpecs_stdlib_bool_c23 =
 test_bindingSpecs_stdlib_return_values :: TestCase
 test_bindingSpecs_stdlib_return_values =
     defaultTest "binding-specs/stdlib/return_values"
-      & #onFrontend .~ (\cfg -> cfg
-          -- We parse all standard library headers to force application of the
-          -- standard library external binding specification for @bool@; see
-          -- discussion above.
-          & #parsePredicate .~ BTrue
-          )
-
 {-------------------------------------------------------------------------------
   Bespoke tests: declarations
 -------------------------------------------------------------------------------}
@@ -1003,13 +959,10 @@ test_declarations_select_scoping :: TestCase
 test_declarations_select_scoping =
     defaultTest "declarations/select_scoping"
       & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate  .~ BIf (ParseHeader FromMainHeaders)
-          & #selectPredicate .~ BTrue
+          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
-              Just $ Expected name
-            MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableParseNotAttempted{}]) ->
               Just $ Expected name
             _otherwise ->
               Nothing
@@ -1019,9 +972,6 @@ test_declarations_select_scoping =
     declsWithMsgs = [
           "ParsedAndSelected2"
         , "ParsedAndSelected3"
-        , "struct ParsedUnselectable"
-        , "ParsedAndSelected4"
-        , "ParsedAndSelected5"
         ]
 
 test_declarations_tentative_definitions :: TestCase
@@ -1095,7 +1045,6 @@ test_edgeCases_duplicate :: TestCase
 test_edgeCases_duplicate =
     defaultTest "edge-cases/duplicate"
       & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate  .~ BTrue
           & #selectPredicate .~ BOr
               (BIf $ SelectDecl (DeclNameMatches "function"))
               (BIf $ SelectDecl (DeclNameMatches "duplicate"))
@@ -1500,7 +1449,6 @@ test_programAnalysis_program_slicing_selection :: TestCase
 test_programAnalysis_program_slicing_selection =
     defaultTest "program-analysis/program_slicing_selection"
       & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate .~ BTrue
           & #selectPredicate .~ BOr
               (BIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
               (BIf . SelectDecl $ DeclNameMatches "read_file_chunk")
@@ -1528,7 +1476,6 @@ test_programAnalysis_program_slicing_simple :: TestCase
 test_programAnalysis_program_slicing_simple =
     defaultTest "program-analysis/program_slicing_simple"
       & #onFrontend .~ (\cfg -> cfg
-          & #parsePredicate  .~ BTrue
           & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
           & #programSlicing  .~ EnableProgramSlicing
           )

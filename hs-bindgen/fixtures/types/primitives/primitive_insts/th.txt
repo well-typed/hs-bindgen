@@ -757,7 +757,7 @@ instance HasCField Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong"
     __exported by:__ @types\/primitives\/primitive_insts.h@
 -}
 newtype Prim_HsPrimCBool
-    = Prim_HsPrimCBool {unwrapPrim_HsPrimCBool :: CBool}
+    = Prim_HsPrimCBool {unwrapPrim_HsPrimCBool :: HsBindgen.Runtime.LibC.CBool}
       {- ^ __C declaration:__ @prim_HsPrimCBool@
 
            __defined at:__ @types\/primitives\/primitive_insts.h 39:28@
@@ -780,12 +780,12 @@ newtype Prim_HsPrimCBool
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CBool =>
+instance (~) ty HsBindgen.Runtime.LibC.CBool =>
          HasField "unwrapPrim_HsPrimCBool" (Ptr Prim_HsPrimCBool) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapPrim_HsPrimCBool")
 instance HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool"
     where type CFieldType Prim_HsPrimCBool
-                          "unwrapPrim_HsPrimCBool" = CBool
+                          "unwrapPrim_HsPrimCBool" = HsBindgen.Runtime.LibC.CBool
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @prim_HsPrimCFloat@
 

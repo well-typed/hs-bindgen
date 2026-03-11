@@ -20,18 +20,7 @@ import HsBindgen.Frontend.Predicate
 
 tests :: TestTree
 tests = testGroup "Test.HsBindgen.Prop.Selection" [
-      testGroup "matchParse" [
-          testProperty "true"                  prop_parseTrue
-        , testProperty "false"                 prop_parseFalse
-        , testProperty "and"                   prop_parseAnd
-        , testProperty "or"                    prop_parseOr
-        , testProperty "not"                   prop_parseNot
-        , testProperty "from-main-headers"     prop_parseFromMainHeaders
-        , testProperty "from-main-header-dirs" prop_parseFromMainHeaderDirs
-        , testProperty "header-path/all"       prop_parseHeaderPathMatchesAll
-        , testProperty "header-path/needle"    prop_parseHeaderPathMatchesNeedle
-        ]
-    , testGroup "matchSelect" [
+      testGroup "matchSelect" [
           testProperty "true"                  prop_selectTrue
         , testProperty "false"                 prop_selectFalse
         , testProperty "and"                   prop_selectAnd
@@ -46,71 +35,15 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
         , testProperty "decl-deprecated"       prop_selectDeclMatchDeprecated
         ]
     , testGroup "mergeBooleans" [
-          testProperty "select/false"     prop_mergeFalse
-        , testProperty "select/add/true"  prop_mergeAddTrue
-        , testProperty "select/add/false" prop_mergeAddFalse
+          testProperty "select/false"     (prop_mergeFalse @SelectPredicate)
+        , testProperty "select/add/true"  (prop_mergeAddTrue @SelectPredicate)
+        , testProperty "select/add/false" (prop_mergeAddFalse @SelectPredicate)
         , testCase     "true/pos"         mergeTruePos
         , testCase     "true/neg"         mergeTrueNeg
-        , testCase     "deselect/one"      mergeDeselectOne
-        , testCase     "deselect/two"      mergeDeselectTwo
+        , testCase     "deselect/one"     mergeDeselectOne
+        , testCase     "deselect/two"     mergeDeselectTwo
         ]
     ]
-
-{-------------------------------------------------------------------------------
-  Parse pass selection properties
--------------------------------------------------------------------------------}
-
-prop_parseTrue :: SourcePath -> Bool
-prop_parseTrue path = matchParse (const True) (const True) path BTrue
-
-prop_parseFalse :: SourcePath -> Bool
-prop_parseFalse path = not $ matchParse (const True) (const True) path BFalse
-
-prop_parseAnd
-  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath
-  -> Boolean ParsePredicate -> Boolean ParsePredicate -> Bool
-prop_parseAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path p1 p2 =
-    let p1Res = matchParse isMainHeader isInMainHeaderDir path p1
-        p2Res = matchParse isMainHeader isInMainHeaderDir path p2
-        p1AndP2Res = matchParse isMainHeader isInMainHeaderDir path (BAnd p1 p2)
-     in (p1Res && p2Res) == p1AndP2Res
-
-prop_parseOr
-  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath
-  -> Boolean ParsePredicate -> Boolean ParsePredicate -> Bool
-prop_parseOr (Fn isMainHeader) (Fn isInMainHeaderDir) path p1 p2 =
-    let p1Res = matchParse isMainHeader isInMainHeaderDir path p1
-        p2Res = matchParse isMainHeader isInMainHeaderDir path p2
-        p1OrP2Res = matchParse isMainHeader isInMainHeaderDir path (BOr p1 p2)
-     in (p1Res || p2Res) == p1OrP2Res
-
-prop_parseNot
-  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath
-  -> Boolean ParsePredicate -> Property
-prop_parseNot (Fn isMainHeader) (Fn isInMainHeaderDir) path p =
-      matchParse isMainHeader isInMainHeaderDir path p
-  =/= matchParse isMainHeader isInMainHeaderDir path (BNot p)
-
-prop_parseFromMainHeaders :: Fun SourcePath Bool -> SourcePath -> Bool
-prop_parseFromMainHeaders (Fn isMainHeader) path =
-  let p = BIf (ParseHeader FromMainHeaders)
-   in matchParse isMainHeader unused path p == isMainHeader path
-
-prop_parseFromMainHeaderDirs :: Fun SourcePath Bool -> SourcePath -> Bool
-prop_parseFromMainHeaderDirs (Fn isInMainHeaderDir) path =
-  let p = BIf (ParseHeader FromMainHeaderDirs)
-   in matchParse unused isInMainHeaderDir path p == isInMainHeaderDir path
-
-prop_parseHeaderPathMatchesAll :: SourcePath -> Bool
-prop_parseHeaderPathMatchesAll path =
-  let p = BIf (ParseHeader (HeaderPathMatches ".*"))
-   in matchParse unused unused path p
-
-prop_parseHeaderPathMatchesNeedle :: SourcePath -> Bool
-prop_parseHeaderPathMatchesNeedle (SourcePath pathT) =
-  let path = SourcePath $ pathT <> "NEEDLE" <> pathT
-      p = BIf (ParseHeader (HeaderPathMatches "NEEDLE"))
-   in matchParse unused unused path p
 
 {-------------------------------------------------------------------------------
   Select pass selection properties
@@ -205,16 +138,17 @@ prop_selectDeclMatchDeprecated path name availability =
   Match tests and properties
 -------------------------------------------------------------------------------}
 
-prop_mergeFalse :: [Boolean ParsePredicate] -> Property
+prop_mergeFalse ::
+  (Eq a, Show a) => [Boolean a] -> Property
 prop_mergeFalse ps = mergeBooleans ps [] === BFalse
 
 prop_mergeAddTrue ::
-  [Boolean ParsePredicate] -> [Boolean ParsePredicate] -> Property
+  (Eq a, Show a) => [Boolean a] -> [Boolean a] -> Property
 prop_mergeAddTrue ps qs =
   mergeBooleans ps [BTrue] === mergeBooleans ps (BTrue : qs)
 
 prop_mergeAddFalse ::
-  [Boolean ParsePredicate] -> [Boolean ParsePredicate] -> Property
+  (Eq a, Show a) => [Boolean a] -> [Boolean a] -> Property
 prop_mergeAddFalse ps qs =
   mergeBooleans ps qs === mergeBooleans (BFalse : ps) qs
 
@@ -261,26 +195,23 @@ instance Arbitrary CDeclName where
 instance Arbitrary C.Availability where
   arbitrary = elements [minBound .. maxBound]
 
-instance Arbitrary (Boolean ParsePredicate) where
+instance Arbitrary a => Arbitrary (Boolean a) where
   arbitrary = oneof [
       pure BTrue
+    , pure BFalse
     , BAnd <$> arbitrary <*> arbitrary
+    , BOr <$> arbitrary <*> arbitrary
     , BNot <$> arbitrary
-    , pure (BIf (ParseHeader FromMainHeaders))
-    , pure (BIf (ParseHeader FromMainHeaderDirs))
-    , BIf . ParseHeader . HeaderPathMatches <$> elements regexPatterns
+    , BIf <$> arbitrary
     ]
 
-instance Arbitrary (Boolean SelectPredicate) where
+instance Arbitrary SelectPredicate where
   arbitrary = oneof [
-      pure BTrue
-    , BAnd <$> arbitrary <*> arbitrary
-    , BNot <$> arbitrary
-    , pure (BIf (SelectHeader FromMainHeaders))
-    , pure (BIf (SelectHeader FromMainHeaderDirs))
-    , BIf . SelectHeader  . HeaderPathMatches <$> elements regexPatterns
-    , BIf . SelectDecl    . DeclNameMatches   <$> elements regexPatterns
-    , pure (BIf (SelectDecl DeclDeprecated))
+      pure (SelectHeader FromMainHeaders)
+    , pure (SelectHeader FromMainHeaderDirs)
+    , SelectHeader . HeaderPathMatches <$> elements regexPatterns
+    , SelectDecl . DeclNameMatches     <$> elements regexPatterns
+    , pure (SelectDecl DeclDeprecated)
     ]
 
 regexPatterns :: [Regex]
