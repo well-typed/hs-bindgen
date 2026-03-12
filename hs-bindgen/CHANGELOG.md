@@ -54,6 +54,11 @@
 
 ### Bug fixes
 
+* Fix generation of documentation for record fields in Template Haskell mode
+  with `EnableRecordDot`. Previously, duplicate record fields induced "ambiguous
+  occurrence" errors. This fix is only available for GHC versions 9.8 and newer.
+  For older versions of GHC, we deactivated creation of documentation for record
+  fields in Template Haskell mode.
 * Generate bindings for `static` (non-`const`) declarations. Previously these
   were rejected as an unsupported, even though the duplicate-symbols warning
   suggested using `static`
