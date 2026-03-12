@@ -42,7 +42,9 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+#if !MIN_VERSION_language_c(0,10,2)
 import HsBindgen.Language.C qualified as C
+#endif
 
 {-------------------------------------------------------------------------------
   Top-level

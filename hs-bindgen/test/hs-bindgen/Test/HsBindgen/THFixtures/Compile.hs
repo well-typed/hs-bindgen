@@ -134,6 +134,7 @@ generateCabalFile repoRoot libNames = unlines $ concat
       , "    -Wpartial-fields"
       , "    -Wcpp-undef"
       , "    -Wno-unused-matches"
+      , "    -Wno-unused-imports"
       , "    -optc-std=gnu2x"
       , "    -optc-Wno-deprecated-declarations"
       , "    -optc-Wno-attributes"
@@ -192,57 +193,51 @@ generateCabalProject repoRoot = unlines
 -- | Split cabal build stderr into per-library sections
 --
 -- With @-j1@, libraries compile sequentially so their errors appear in order
--- in stderr.  Each library's GHC error references its source directory as
--- @\<dirname\>/Example.hs:line:col: error:@.  We call that line the "anchor".
+-- in stderr.  We recognise two kinds of anchor lines:
 --
--- The structure of stderr when two libraries (A and B) fail looks like:
+-- 1. GHC error: @\<dirname\>\/Example.hs:line:col: error:@
+-- 2. C compiler error: @...\/examples\/golden\/\<test-path\>.h:line:col: error:@
 --
--- @
---   Warning: ...                                  ← preamble (assigned to A)
---   Template Haskell error: ... header_a.h ...    ← TH diagnostic (preamble, assigned to A)
---   dirname-a\/Example.hs:1:1: error: [GHC-87897] ← ANCHOR for lib A
---       Exception when trying to run ...          ← continuation (indented)
---     |                                           ← continuation (indented)
---   1 | {-# LANGUAGE CApiFFI #-}                  ← continuation (digit-prefixed)
---     | ^                                         ← continuation (indented)
---                                                 ← blank (continuation)
---   Template Haskell error: ... header_b.h ...    ← TH diagnostic (preamble, assigned to B)
---   dirname-b\/Example.hs:1:1: error: [GHC-87897] ← ANCHOR for lib B
---       ...                                       ← continuation
---                                                 ← blank (continuation)
---   Error: [Cabal-7125]                           ← footer (dropped)
---   Failed to build lib:th-fixture-dirname-a ...  ← footer (dropped)
---   Failed to build lib:th-fixture-dirname-b ...  ← footer (dropped)
--- @
---
--- Each section is: accumulated preamble + anchor + continuation lines (blank,
--- indented, or digit-prefixed).  The footer after the last continuation has no
--- following anchor, so it is dropped.
+-- Each section is: anchor + continuation lines (blank, indented, or
+-- digit-prefixed).  Non-anchor lines (TH warnings, cabal footer, etc.) are
+-- dropped so that only the relevant errors appear in each library's section.
 --
 parseLibSections :: String -> Map String String
 parseLibSections stderr =
-    Map.fromList
+    Map.fromListWith (\later earlier -> earlier ++ later)
       [ ("th-fixture-" ++ name, unlines sectionLines)
       | (name, sectionLines) <- extractSections (lines stderr)
       ]
 
 -- | Break stderr lines into named sections, one per library.
 --
--- Lines are accumulated as a "preamble" until a GHC error anchor
--- (@\<dirname\>/Example.hs:line:col:@) is found; then the preamble,
--- anchor, and its continuation lines form that library's section.
+-- Non-anchor lines (e.g. TH warnings from other libraries) are dropped.
+-- Each section consists of the anchor line and its continuation lines.
+--
+-- We recognise two kinds of anchors:
+--
+-- 1. GHC error anchors: @\<dirname\>/Example.hs:line:col:@
+-- 2. C compiler error anchors: @.../examples/golden/\<test-path\>.h:line:col:@
+--
+-- The second kind is needed because C compiler failures (e.g. from CAPI FFI
+-- stubs) do not produce GHC error anchors.
 --
 extractSections :: [String] -> [(String, [String])]
-extractSections = collect []
+extractSections = collect
   where
-    collect :: [String] -> [String] -> [(String, [String])]
-    collect _preamble [] = []
-    collect preamble (l : ls) = case anchorLibName l of
+    collect :: [String] -> [(String, [String])]
+    collect [] = []
+    collect (l : ls) = case findAnchor l of
         Just name ->
           let (cont, rest) = span isContinuation ls
-          in  (name, preamble ++ l : cont) : collect [] rest
+          in  (name, l : cont) : collect rest
         Nothing ->
-          collect (preamble ++ [l]) ls
+          collect ls
+
+    findAnchor :: String -> Maybe String
+    findAnchor l = case anchorLibName l of
+        Just name -> Just name
+        Nothing   -> cErrorAnchorLibName l
 
 -- | Try to extract a library dirname from a GHC error anchor line.
 --
@@ -255,6 +250,25 @@ anchorLibName line = do
     guard $ all isDirNameChar dirname
     _ <- stripPrefix "/Example.hs:" rest
     pure dirname
+
+-- | Try to extract a library dirname from a C compiler error line.
+--
+-- Matches lines containing @examples\/golden\/\<test-path\>.h:@
+-- and returns the sanitized dirname (e.g. @\"types-primitives-bool\"@).
+cErrorAnchorLibName :: String -> Maybe String
+cErrorAnchorLibName line = do
+    rest <- findAfter "examples/golden/" line
+    let (testPath, suffix) = break (== '.') rest
+    _ <- stripPrefix ".h:" suffix
+    guard $ not (null testPath)
+    pure (sanitizeLibName testPath)
+
+-- | Find the first occurrence of a substring and return what follows it.
+findAfter :: String -> String -> Maybe String
+findAfter _   [] = Nothing
+findAfter sub str@(_:rest) = case stripPrefix sub str of
+    Just after -> Just after
+    Nothing    -> findAfter sub rest
 
 -- | Characters allowed in a cabal library directory name.
 isDirNameChar :: Char -> Bool

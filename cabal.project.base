@@ -1,11 +1,13 @@
 -- curent date: 3-month update
-index-state: 2026-02-05T03:27:53Z
+index-state: 2026-03-12T10:22:50Z
 
 -- Note: this should point to a commit on libclang's main branch
 source-repository-package
     type: git
     location: https://github.com/well-typed/libclang
     tag: d6e482df49b88375cf3075928a78ee86c2a068d4
+
+constraints: language-c == 0.10.2
 
 --
 -- Temporary package bounds overrides for ghc 9.14

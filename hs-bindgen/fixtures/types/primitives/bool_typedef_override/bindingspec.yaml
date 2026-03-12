@@ -1,0 +1,70 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/primitives/bool_typedef_override.h
+  cname: macro A
+  hsname: A
+- headers: types/primitives/bool_typedef_override.h
+  cname: bool
+  hsname: Bool'
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - unwrapA
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bool'
+  representation:
+    newtype:
+      constructor: Bool'
+      fields:
+      - unwrapBool'
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
