@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 -- | Main entry point to the @language-c@ infrastructure
 --
 -- It should not be necessary to import any other module in @LanguageC.*@.
@@ -218,6 +220,7 @@ initReparseEnv standard = Map.fromList (bespokeTypes standard)
 -- The language-c parser does not support these explicitly.
 bespokeTypes :: ClangCStandard -> [(CName, C.Type HandleMacros)]
 bespokeTypes = \case
+#if !MIN_VERSION_language_c(0,10,2)
     -- Make sure that we really only replace keywords lacking definitions.
     --
     -- If we add entries for types to `bespokeTypes` which are not keywords
@@ -225,6 +228,7 @@ bespokeTypes = \case
     -- types are, but the actual type must come from a header, and we actually
     -- do not know what that definition is.
     ClangCStandard C23 _gnu -> [("bool", C.TypePrim C.PrimBool)]
+#endif
     _otherwise -> []
 
 {-------------------------------------------------------------------------------
