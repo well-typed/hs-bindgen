@@ -20,12 +20,6 @@ data Foo
 
                 __exported by:__ @types\/nested\/nested_types.h@
            -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @types\/nested\/nested_types.h 1:8@
-
-           __exported by:__ @types\/nested\/nested_types.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 8 :: Int
@@ -68,12 +62,6 @@ data Bar
 
                 __exported by:__ @types\/nested\/nested_types.h@
            -}}
-      {- ^ __C declaration:__ @struct bar@
-
-           __defined at:__ @types\/nested\/nested_types.h 6:8@
-
-           __exported by:__ @types\/nested\/nested_types.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 16 :: Int
@@ -116,12 +104,6 @@ data Ex3_ex3_struct
 
                            __exported by:__ @types\/nested\/nested_types.h@
                       -}}
-      {- ^ __C declaration:__ @struct \@ex3_ex3_struct@
-
-           __defined at:__ @types\/nested\/nested_types.h 12:5@
-
-           __exported by:__ @types\/nested\/nested_types.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ex3_ex3_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -166,12 +148,6 @@ data Ex3
 
                 __exported by:__ @types\/nested\/nested_types.h@
            -}}
-      {- ^ __C declaration:__ @struct ex3@
-
-           __defined at:__ @types\/nested\/nested_types.h 11:8@
-
-           __exported by:__ @types\/nested\/nested_types.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ex3
     where staticSizeOf = \_ -> 12 :: Int
@@ -215,12 +191,6 @@ data Ex4_odd
 
                     __exported by:__ @types\/nested\/nested_types.h@
                -}}
-      {- ^ __C declaration:__ @struct ex4_odd@
-
-           __defined at:__ @types\/nested\/nested_types.h 22:8@
-
-           __exported by:__ @types\/nested\/nested_types.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ex4_odd
     where staticSizeOf = \_ -> 16 :: Int
@@ -265,12 +235,6 @@ data Ex4_even
 
                      __exported by:__ @types\/nested\/nested_types.h@
                 -}}
-      {- ^ __C declaration:__ @struct ex4_even@
-
-           __defined at:__ @types\/nested\/nested_types.h 24:12@
-
-           __exported by:__ @types\/nested\/nested_types.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ex4_even
     where staticSizeOf = \_ -> 16 :: Int

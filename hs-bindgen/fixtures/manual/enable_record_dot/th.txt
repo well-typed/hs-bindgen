@@ -9,23 +9,17 @@ data Point
     = Point {x :: CInt
              {- ^ __C declaration:__ @x@
 
-                  __defined at:__ @manual\/enable_record_dot.h 25:7@
+                  __defined at:__ @manual\/enable_record_dot.h 13:7@
 
                   __exported by:__ @manual\/enable_record_dot.h@
              -},
              y :: CInt
              {- ^ __C declaration:__ @y@
 
-                  __defined at:__ @manual\/enable_record_dot.h 26:7@
+                  __defined at:__ @manual\/enable_record_dot.h 14:7@
 
                   __exported by:__ @manual\/enable_record_dot.h@
              -}}
-      {- ^ __C declaration:__ @struct Point@
-
-           __defined at:__ @manual\/enable_record_dot.h 12:8@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
@@ -57,23 +51,17 @@ data Size
     = Size {width :: CInt
             {- ^ __C declaration:__ @width@
 
-                 __defined at:__ @manual\/enable_record_dot.h 27:7@
+                 __defined at:__ @manual\/enable_record_dot.h 19:7@
 
                  __exported by:__ @manual\/enable_record_dot.h@
             -},
             height :: CInt
             {- ^ __C declaration:__ @height@
 
-                 __defined at:__ @manual\/enable_record_dot.h 28:7@
+                 __defined at:__ @manual\/enable_record_dot.h 20:7@
 
                  __exported by:__ @manual\/enable_record_dot.h@
             -}}
-      {- ^ __C declaration:__ @struct Size@
-
-           __defined at:__ @manual\/enable_record_dot.h 18:8@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Size
     where staticSizeOf = \_ -> 8 :: Int
@@ -130,12 +118,6 @@ data Rect
 
                  __exported by:__ @manual\/enable_record_dot.h@
             -}}
-      {- ^ __C declaration:__ @struct Rect@
-
-           __defined at:__ @manual\/enable_record_dot.h 24:8@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Rect
     where staticSizeOf = \_ -> 16 :: Int
@@ -177,12 +159,6 @@ instance (~) ty CInt => HasField "height" (Ptr Rect) (Ptr ty)
 -}
 newtype E
     = E {unwrap :: CUInt}
-      {- ^ __C declaration:__ @enum E@
-
-           __defined at:__ @manual\/enable_record_dot.h 32:6@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
@@ -226,12 +202,6 @@ instance HasCField E "unwrap"
     __exported by:__ @manual\/enable_record_dot.h@
 -}
 pattern X :: E
-{-| __C declaration:__ @x@
-
-    __defined at:__ @manual\/enable_record_dot.h 33:3@
-
-    __exported by:__ @manual\/enable_record_dot.h@
--}
 pattern X = E 0
 {-| __C declaration:__ @y@
 
@@ -240,12 +210,6 @@ pattern X = E 0
     __exported by:__ @manual\/enable_record_dot.h@
 -}
 pattern Y :: E
-{-| __C declaration:__ @y@
-
-    __defined at:__ @manual\/enable_record_dot.h 34:3@
-
-    __exported by:__ @manual\/enable_record_dot.h@
--}
 pattern Y = E 1
 {-| __C declaration:__ @Value@
 
@@ -255,12 +219,6 @@ pattern Y = E 1
 -}
 newtype Value
     = Value {unwrap :: CInt}
-      {- ^ __C declaration:__ @Value@
-
-           __defined at:__ @manual\/enable_record_dot.h 38:13@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -288,15 +246,7 @@ instance HasCField Value "unwrap"
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
-newtype U1
-    = U1 {unwrap :: ByteArray}
-      {- ^ __C declaration:__ @union U1@
-
-           __defined at:__ @manual\/enable_record_dot.h 41:7@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
-    deriving stock Generic
+newtype U1 = U1 {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U1
 deriving via (SizedByteArray 4 4) instance ReadRaw U1
 deriving via (SizedByteArray 4 4) instance WriteRaw U1
@@ -385,15 +335,7 @@ instance (~) ty CInt => HasField "y" (Ptr U1) (Ptr ty)
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
-newtype U2_t
-    = U2_t {unwrap :: ByteArray}
-      {- ^ __C declaration:__ @union U2@
-
-           __defined at:__ @manual\/enable_record_dot.h 47:15@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
-    deriving stock Generic
+newtype U2_t = U2_t {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U2_t
 deriving via (SizedByteArray 4 4) instance ReadRaw U2_t
 deriving via (SizedByteArray 4 4) instance WriteRaw U2_t
@@ -482,15 +424,7 @@ instance (~) ty CInt => HasField "b" (Ptr U2_t) (Ptr ty)
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
-newtype U3
-    = U3 {unwrap :: ByteArray}
-      {- ^ __C declaration:__ @union U3@
-
-           __defined at:__ @manual\/enable_record_dot.h 53:7@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
-    deriving stock Generic
+newtype U3 = U3 {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 8 4) instance StaticSize U3
 deriving via (SizedByteArray 8 4) instance ReadRaw U3
 deriving via (SizedByteArray 8 4) instance WriteRaw U3
@@ -579,15 +513,7 @@ instance (~) ty Size => HasField "s" (Ptr U3) (Ptr ty)
 
     __exported by:__ @manual\/enable_record_dot.h@
 -}
-newtype U4
-    = U4 {unwrap :: ByteArray}
-      {- ^ __C declaration:__ @union U4@
-
-           __defined at:__ @manual\/enable_record_dot.h 59:7@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
-    deriving stock Generic
+newtype U4 = U4 {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U4
 deriving via (SizedByteArray 4 4) instance ReadRaw U4
 deriving via (SizedByteArray 4 4) instance WriteRaw U4
@@ -687,14 +613,6 @@ __exported by:__ @manual\/enable_record_dot.h@
 -}
 newtype RunDriver_Aux
     = RunDriver_Aux {unwrap :: (Ptr Driver -> IO CInt)}
-      {- ^ Auxiliary type used by 'RunDriver'
-
-      __C declaration:__ @RunDriver@
-
-      __defined at:__ @manual\/enable_record_dot.h 66:15@
-
-      __exported by:__ @manual\/enable_record_dot.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
@@ -733,12 +651,6 @@ instance HasCField RunDriver_Aux "unwrap"
 -}
 newtype RunDriver
     = RunDriver {unwrap :: (FunPtr RunDriver_Aux)}
-      {- ^ __C declaration:__ @RunDriver@
-
-           __defined at:__ @manual\/enable_record_dot.h 66:15@
-
-           __exported by:__ @manual\/enable_record_dot.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,

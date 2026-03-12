@@ -9,14 +9,6 @@ __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
 -}
 newtype FunPtr_Aux
     = FunPtr_Aux {unwrapFunPtr_Aux :: (Foo -> IO ())}
-      {- ^ Auxiliary type used by 'FunPtr'
-
-      __C declaration:__ @FunPtr@
-
-      __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
-
-      __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
-      -}
     deriving stock Generic
 instance (~) ty (Foo -> IO ()) =>
          HasField "unwrapFunPtr_Aux" (Ptr FunPtr_Aux) (Ptr ty)
@@ -32,12 +24,6 @@ instance HasCField FunPtr_Aux "unwrapFunPtr_Aux"
 -}
 newtype FunPtr
     = FunPtr {unwrapFunPtr :: (FunPtr FunPtr_Aux)}
-      {- ^ __C declaration:__ @FunPtr@
-
-           __defined at:__ @edge-cases\/aux_funptr_newtypes.h 6:16@
-
-           __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -71,12 +57,6 @@ data Foo
 
                 __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
            -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @edge-cases\/aux_funptr_newtypes.h 8:8@
-
-           __exported by:__ @edge-cases\/aux_funptr_newtypes.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 8 :: Int

@@ -14,12 +14,6 @@ data UnrelatedDeclaration
 
                                  __exported by:__ @program-analysis\/selection_omit_external_a.h@
                             -}}
-      {- ^ __C declaration:__ @struct UnrelatedDeclaration@
-
-           __defined at:__ @program-analysis\/selection_omit_external_a.h 4:8@
-
-           __exported by:__ @program-analysis\/selection_omit_external_a.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize UnrelatedDeclaration
     where staticSizeOf = \_ -> 4 :: Int

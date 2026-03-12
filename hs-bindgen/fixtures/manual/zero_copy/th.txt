@@ -70,12 +70,6 @@ data Point
 
                   __exported by:__ @manual\/zero_copy.h@
              -}}
-      {- ^ __C declaration:__ @struct point@
-
-           __defined at:__ @manual\/zero_copy.h 12:8@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Point
     where staticSizeOf = \_ -> 8 :: Int
@@ -118,12 +112,6 @@ data Rectangle
 
                       __exported by:__ @manual\/zero_copy.h@
                  -}}
-      {- ^ __C declaration:__ @struct rectangle@
-
-           __defined at:__ @manual\/zero_copy.h 17:8@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Rectangle
     where staticSizeOf = \_ -> 16 :: Int
@@ -168,12 +156,6 @@ data Circle
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-      {- ^ __C declaration:__ @struct circle@
-
-           __defined at:__ @manual\/zero_copy.h 22:8@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Circle
     where staticSizeOf = \_ -> 12 :: Int
@@ -205,12 +187,6 @@ instance (~) ty CInt =>
 -}
 newtype Shape
     = Shape {unwrapShape :: ByteArray}
-      {- ^ __C declaration:__ @union shape@
-
-           __defined at:__ @manual\/zero_copy.h 30:7@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 16 4) instance StaticSize Shape
 deriving via (SizedByteArray 16 4) instance ReadRaw Shape
@@ -338,12 +314,6 @@ data Colour
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-      {- ^ __C declaration:__ @struct colour@
-
-           __defined at:__ @manual\/zero_copy.h 39:8@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Colour
     where staticSizeOf = \_ -> 4 :: Int
@@ -401,12 +371,6 @@ instance (~) ty CUInt =>
 -}
 newtype MyInt
     = MyInt {unwrapMyInt :: CInt}
-      {- ^ __C declaration:__ @myInt@
-
-           __defined at:__ @manual\/zero_copy.h 50:13@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -449,12 +413,6 @@ data Drawing
 
                     __exported by:__ @manual\/zero_copy.h@
                -}}
-      {- ^ __C declaration:__ @struct drawing@
-
-           __defined at:__ @manual\/zero_copy.h 55:16@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Drawing
     where staticSizeOf = \_ -> 16 :: Int
@@ -506,12 +464,6 @@ data Tic_tac_toe
 
                         __exported by:__ @manual\/zero_copy.h@
                    -}}
-      {- ^ __C declaration:__ @struct tic_tac_toe@
-
-           __defined at:__ @manual\/zero_copy.h 63:16@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Tic_tac_toe
     where staticSizeOf = \_ -> 36 :: Int
@@ -586,12 +538,6 @@ type Vector = WithFlam CChar Vector_Aux
 -}
 newtype Triplet
     = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
-      {- ^ __C declaration:__ @triplet@
-
-           __defined at:__ @manual\/zero_copy.h 82:13@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
@@ -609,12 +555,6 @@ instance HasCField Triplet "unwrapTriplet"
 -}
 newtype Matrix
     = Matrix {unwrapMatrix :: (ConstantArray 3 Triplet)}
-      {- ^ __C declaration:__ @matrix@
-
-           __defined at:__ @manual\/zero_copy.h 83:17@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 Triplet) =>

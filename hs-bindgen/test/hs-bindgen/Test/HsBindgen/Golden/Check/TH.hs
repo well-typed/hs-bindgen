@@ -158,32 +158,19 @@ instance Guasi Qu where
     extsEnabled = return []
     reportError _ = return ()
 
-    putLocalDoc ns nm s = Qu $ do
+    putLocalDoc :: forall ns. Hs.SingNamespace ns => Hs.Name ns -> HsDoc.Comment -> Qu ()
+    putLocalDoc nm s = Qu $ do
         q@QuState{ documentationMap = docMap } <- get
-        let hsNm = TH.Name (TH.OccName nmStr) (TH.NameG thNs pkg mdl)
+        let hsNm = getGlobalName (Hs.namespaceOf (Hs.singNamespace :: Hs.SNamespace ns)) $
+                     Text.unpack $ Hs.getName nm
         put $!
           q { documentationMap =
                 Map.insert (TH.DeclDoc hsNm) s docMap
             }
-      where
-        nmStr :: String
-        nmStr = Text.unpack $ Hs.getName nm
-
-        pkg :: TH.PkgName
-        pkg = TH.PkgName "test-pkg"
-
-        mdl :: TH.ModName
-        mdl = TH.ModName "test-module"
-
-        thNs :: TH.NameSpace
-        thNs = case Hs.namespaceOf ns of
-          Hs.NsVar        -> TH.VarName
-          Hs.NsConstr     -> TH.DataName
-          Hs.NsTypeConstr -> TH.TcClsName
 
     putLocalFieldDoc parent field s = Qu $ do
         q@QuState{ documentationMap = docMap } <- get
-        let hsNm = TH.Name (TH.OccName fieldStr) (TH.NameG thNs pkg mdl)
+        let hsNm = getGlobalFieldName parentStr fieldStr
         put $!
           q { documentationMap =
                 Map.insert (TH.DeclDoc hsNm) s docMap
@@ -193,15 +180,6 @@ instance Guasi Qu where
         parentStr = Text.unpack $ Hs.getName parent
         fieldStr  = Text.unpack $ Hs.getName field
 
-        pkg :: TH.PkgName
-        pkg = TH.PkgName "test-pkg"
-
-        mdl :: TH.ModName
-        mdl = TH.ModName "test-module"
-
-        thNs :: TH.NameSpace
-        thNs = TH.FldName parentStr
-
 runQu :: Qu a -> (QuState, a)
 runQu (Qu m) = case runState m emptyQuState of
     (x, q) -> (q, x)
@@ -209,6 +187,34 @@ runQu (Qu m) = case runState m emptyQuState of
 {-------------------------------------------------------------------------------
   Internal auxiliary: Template Haskell functions
 -------------------------------------------------------------------------------}
+
+getGlobalName :: Hs.Namespace -> String -> TH.Name
+getGlobalName ns nm = TH.Name (TH.OccName nm) (TH.NameG thNs pkg mdl)
+  where
+    pkg :: TH.PkgName
+    pkg = TH.PkgName "fake-pkg"
+
+    mdl :: TH.ModName
+    mdl = TH.ModName "fake-mdl"
+
+    thNs :: TH.NameSpace
+    thNs = case ns of
+      Hs.NsVar        -> TH.VarName
+      Hs.NsConstr     -> TH.DataName
+      Hs.NsTypeConstr -> TH.TcClsName
+
+getGlobalFieldName :: String -> String -> TH.Name
+getGlobalFieldName parent field =
+    TH.Name (TH.OccName field) (TH.NameG thNs pkg mdl)
+  where
+    pkg :: TH.PkgName
+    pkg = TH.PkgName "fake-pkg-field"
+
+    mdl :: TH.ModName
+    mdl = TH.ModName "fake-mdl-field"
+
+    thNs :: TH.NameSpace
+    thNs = TH.FldName parent
 
 -- | This function pretty prints 'TH.Dec' with their associated documentation.
 prettyWithDocumentationMap ::
@@ -481,7 +487,7 @@ ppCon :: Map TH.DocLoc HsDoc.Comment -> TH.Con -> TH.Doc
 ppCon docMap con =
   case con of
     TH.RecC name fields ->
-            TH.ppr name TH.<+> ppRecordFields docMap fields
+            TH.ppr name TH.<+> ppRecordFields docMap name fields
       TH.$$ getConNamesDoc docMap [name]
 
     TH.ForallC _ _ innerCon ->
@@ -490,7 +496,7 @@ ppCon docMap con =
 
     TH.RecGadtC names fields rtype ->
             TH.commaSepApplied names TH.<+> TH.dcolon
-                                     TH.<+> ppRecordFields docMap fields
+                                     TH.<+> ppGadtRecordFields docMap fields
                                      TH.<+> TH.arrow
                                      TH.<+> TH.ppr rtype
       TH.$$ getConNamesDoc docMap names
@@ -498,19 +504,36 @@ ppCon docMap con =
     _ ->    TH.ppr con
       TH.$$ getConNamesDoc docMap (get_cons_names con)
 
--- | Pretty-print record fields with documentation
-ppRecordFields ::
+-- | Pretty-print GADT record fields with documentation
+ppGadtRecordFields ::
      Map TH.DocLoc HsDoc.Comment
   -> [TH.VarBangType]
   -> TH.Doc
-ppRecordFields docMap fields =
+ppGadtRecordFields docMap fields =
   TH.braces $ TH.sep $ TH.punctuate TH.comma $ map ppField fields
   where
     ppField (fname, bang, ftype) =
       let fieldBase = TH.pprName' TH.Applied fname TH.<+> TH.dcolon TH.<+>
                       TH.pprBangType (bang, ftype)
-      in     fieldBase
-       TH.$$ getConNamesDoc docMap [fname]
+      in  fieldBase
+            TH.$$ getConNamesDoc docMap [fname]
+
+-- | Pretty-print record fields with documentation
+ppRecordFields ::
+     Map TH.DocLoc HsDoc.Comment
+  -> TH.Name
+  -> [TH.VarBangType]
+  -> TH.Doc
+ppRecordFields docMap parent fields =
+  TH.braces $ TH.sep $ TH.punctuate TH.comma $ map ppField fields
+  where
+    ppField (fname, bang, ftype) =
+      let fieldBase = TH.pprName' TH.Applied fname TH.<+> TH.dcolon TH.<+>
+                      TH.pprBangType (bang, ftype)
+      in  fieldBase
+            TH.$$ getConNamesDoc docMap
+              [getGlobalFieldName parentStr $ TH.nameBase fname]
+    parentStr = TH.nameBase parent
 
 -- | Aggregate all comments for each name and pretty print
 getConNamesDoc :: Map TH.DocLoc HsDoc.Comment -> [TH.Name] -> TH.Doc
@@ -535,34 +558,30 @@ get_cons_names (TH.RecGadtC ns _ _) = ns
 
 -- | Get DocLoc for declarations that can have attached documentation.
 getDecDocLoc :: TH.Dec -> Maybe TH.DocLoc
-getDecDocLoc (TH.FunD n _)                                        = Just $ TH.DeclDoc n
-getDecDocLoc (TH.ValD (TH.VarP n) _ _)                            = Just $ TH.DeclDoc n
-getDecDocLoc (TH.DataD _ n _ _ _ _)                               = Just $ TH.DeclDoc n
-getDecDocLoc (TH.NewtypeD _ n _ _ _ _)                            = Just $ TH.DeclDoc n
-#if MIN_VERSION_template_haskell(2,20,0)
-getDecDocLoc (TH.TypeDataD n _ _ _)                               = Just $ TH.DeclDoc n
-#endif
-getDecDocLoc (TH.TySynD n _ _)                                    = Just $ TH.DeclDoc n
-getDecDocLoc (TH.ClassD _ n _ _ _)                                = Just $ TH.DeclDoc n
-getDecDocLoc (TH.SigD n _)                                        = Just $ TH.DeclDoc n
-getDecDocLoc (TH.ForeignD (TH.ImportF _ _ _ n _))                 = Just $ TH.DeclDoc n
-getDecDocLoc (TH.ForeignD (TH.ExportF _ _ n _))                   = Just $ TH.DeclDoc n
-#if MIN_VERSION_template_haskell(2,22,0)
-getDecDocLoc (TH.InfixD _ _ n)                                    = Just $ TH.DeclDoc n
-#else
-getDecDocLoc (TH.InfixD _ n)                                      = Just $ TH.DeclDoc n
-#endif
-getDecDocLoc (TH.DataFamilyD n _ _)                               = Just $ TH.DeclDoc n
-getDecDocLoc (TH.OpenTypeFamilyD (TH.TypeFamilyHead n _ _ _))     = Just $ TH.DeclDoc n
-getDecDocLoc (TH.ClosedTypeFamilyD (TH.TypeFamilyHead n _ _ _) _) = Just $ TH.DeclDoc n
-getDecDocLoc (TH.PatSynD n _ _ _)                                 = Just $ TH.DeclDoc n
-getDecDocLoc (TH.PatSynSigD n _)                                  = Just $ TH.DeclDoc n
-getDecDocLoc (TH.DefaultSigD n _)                                 = Just $ TH.DeclDoc n
-getDecDocLoc (TH.InstanceD _ _ t _)                               = Just $ TH.InstDoc t
-getDecDocLoc (TH.DataInstD _ _ t _ _ _)                           = Just $ TH.InstDoc t
-getDecDocLoc (TH.NewtypeInstD _ _ t _ _ _)                        = Just $ TH.InstDoc t
-getDecDocLoc (TH.TySynInstD (TH.TySynEqn _ t _))                  = Just $ TH.InstDoc t
-getDecDocLoc _                                                    = Nothing
+getDecDocLoc = \case
+    (TH.FunD n _)                        -> mkV n
+    (TH.ValD (TH.VarP n) _ _)            -> mkV n
+    (TH.DataD _ n _ _ _ _)               -> mkT n
+    (TH.NewtypeD _ n _ _ _ _)            -> mkT n
+    (TH.TySynD n _ _)                    -> mkT n
+    (TH.ClassD _ n _ _ _)                -> mkT n
+    (TH.SigD n _)                        -> mkV n
+    (TH.ForeignD (TH.ImportF _ _ _ n _)) -> mkV n
+    (TH.ForeignD (TH.ExportF _ _ n _))   -> mkV n
+    (TH.PatSynSigD n _)                  -> mkC n
+    TH.InstanceD{}                       -> Nothing
+    TH.StandaloneDerivD{}                -> Nothing
+    TH.PragmaD{}                         -> Nothing
+    TH.TySynInstD{}                      -> Nothing
+    TH.PatSynD{}                         -> Nothing
+    unhandledDec                         -> err unhandledDec
+  where
+    err d = error $ "getDecDocLoc: unhandled declaration type: " <> show d
+
+mkT, mkC, mkV :: TH.Name -> Maybe TH.DocLoc
+mkT = Just . TH.DeclDoc . getGlobalName Hs.NsTypeConstr . TH.nameBase
+mkC = Just . TH.DeclDoc . getGlobalName Hs.NsConstr     . TH.nameBase
+mkV = Just . TH.DeclDoc . getGlobalName Hs.NsVar        . TH.nameBase
 
 {-------------------------------------------------------------------------------
   Configuration

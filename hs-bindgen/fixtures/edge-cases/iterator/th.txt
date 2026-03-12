@@ -194,12 +194,6 @@
 -}
 newtype Toggle
     = Toggle {unwrapToggle :: (Block (IO CBool))}
-      {- ^ __C declaration:__ @Toggle@
-
-           __defined at:__ @edge-cases\/iterator.h 3:16@
-
-           __exported by:__ @edge-cases\/iterator.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 instance (~) ty (Block (IO CBool)) =>
@@ -216,12 +210,6 @@ instance HasCField Toggle "unwrapToggle"
 -}
 newtype Counter
     = Counter {unwrapCounter :: (Block (IO CInt))}
-      {- ^ __C declaration:__ @Counter@
-
-           __defined at:__ @edge-cases\/iterator.h 10:14@
-
-           __exported by:__ @edge-cases\/iterator.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 instance (~) ty (Block (IO CInt)) =>
@@ -238,12 +226,6 @@ instance HasCField Counter "unwrapCounter"
 -}
 newtype VarCounter
     = VarCounter {unwrapVarCounter :: (Block (CInt -> IO CInt))}
-      {- ^ __C declaration:__ @VarCounter@
-
-           __defined at:__ @edge-cases\/iterator.h 17:14@
-
-           __exported by:__ @edge-cases\/iterator.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 instance (~) ty (Block (CInt -> IO CInt)) =>

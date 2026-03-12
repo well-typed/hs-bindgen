@@ -3,10 +3,10 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: edge-cases/duplicate_record_dot.h
+- headers: edge-cases/duplicate_record_field.h
   cname: struct A
   hsname: A
-- headers: edge-cases/duplicate_record_dot.h
+- headers: edge-cases/duplicate_record_field.h
   cname: struct B
   hsname: B
 hstypes:

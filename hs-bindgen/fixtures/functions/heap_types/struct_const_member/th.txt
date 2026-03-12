@@ -36,12 +36,6 @@ data T
 
               __exported by:__ @functions\/heap_types\/struct_const_member.h@
          -}}
-      {- ^ __C declaration:__ @struct S@
-
-           __defined at:__ @functions\/heap_types\/struct_const_member.h 3:8@
-
-           __exported by:__ @functions\/heap_types\/struct_const_member.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize T
     where staticSizeOf = \_ -> 4 :: Int

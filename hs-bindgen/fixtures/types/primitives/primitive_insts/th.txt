@@ -12,12 +12,6 @@
 -}
 newtype Prim_HsPrimCPtrdiff
     = Prim_HsPrimCPtrdiff {unwrapPrim_HsPrimCPtrdiff :: HsBindgen.Runtime.LibC.CPtrdiff}
-      {- ^ __C declaration:__ @prim_HsPrimCPtrdiff@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 13:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -51,12 +45,6 @@ instance HasCField Prim_HsPrimCPtrdiff "unwrapPrim_HsPrimCPtrdiff"
 -}
 newtype Prim_HsPrimInt8
     = Prim_HsPrimInt8 {unwrapPrim_HsPrimInt8 :: HsBindgen.Runtime.LibC.Int8}
-      {- ^ __C declaration:__ @prim_HsPrimInt8@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 19:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -88,12 +76,6 @@ instance HasCField Prim_HsPrimInt8 "unwrapPrim_HsPrimInt8"
 -}
 newtype Prim_HsPrimInt16
     = Prim_HsPrimInt16 {unwrapPrim_HsPrimInt16 :: HsBindgen.Runtime.LibC.Int16}
-      {- ^ __C declaration:__ @prim_HsPrimInt16@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 20:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -125,12 +107,6 @@ instance HasCField Prim_HsPrimInt16 "unwrapPrim_HsPrimInt16"
 -}
 newtype Prim_HsPrimInt32
     = Prim_HsPrimInt32 {unwrapPrim_HsPrimInt32 :: HsBindgen.Runtime.LibC.Int32}
-      {- ^ __C declaration:__ @prim_HsPrimInt32@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 21:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -162,12 +138,6 @@ instance HasCField Prim_HsPrimInt32 "unwrapPrim_HsPrimInt32"
 -}
 newtype Prim_HsPrimInt64
     = Prim_HsPrimInt64 {unwrapPrim_HsPrimInt64 :: HsBindgen.Runtime.LibC.Int64}
-      {- ^ __C declaration:__ @prim_HsPrimInt64@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 22:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -199,12 +169,6 @@ instance HasCField Prim_HsPrimInt64 "unwrapPrim_HsPrimInt64"
 -}
 newtype Prim_HsPrimWord8
     = Prim_HsPrimWord8 {unwrapPrim_HsPrimWord8 :: HsBindgen.Runtime.LibC.Word8}
-      {- ^ __C declaration:__ @prim_HsPrimWord8@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 24:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -236,12 +200,6 @@ instance HasCField Prim_HsPrimWord8 "unwrapPrim_HsPrimWord8"
 -}
 newtype Prim_HsPrimWord16
     = Prim_HsPrimWord16 {unwrapPrim_HsPrimWord16 :: HsBindgen.Runtime.LibC.Word16}
-      {- ^ __C declaration:__ @prim_HsPrimWord16@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 25:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -273,12 +231,6 @@ instance HasCField Prim_HsPrimWord16 "unwrapPrim_HsPrimWord16"
 -}
 newtype Prim_HsPrimWord32
     = Prim_HsPrimWord32 {unwrapPrim_HsPrimWord32 :: HsBindgen.Runtime.LibC.Word32}
-      {- ^ __C declaration:__ @prim_HsPrimWord32@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 26:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -310,12 +262,6 @@ instance HasCField Prim_HsPrimWord32 "unwrapPrim_HsPrimWord32"
 -}
 newtype Prim_HsPrimWord64
     = Prim_HsPrimWord64 {unwrapPrim_HsPrimWord64 :: HsBindgen.Runtime.LibC.Word64}
-      {- ^ __C declaration:__ @prim_HsPrimWord64@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 27:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -347,12 +293,6 @@ instance HasCField Prim_HsPrimWord64 "unwrapPrim_HsPrimWord64"
 -}
 newtype Prim_HsPrimCChar
     = Prim_HsPrimCChar {unwrapPrim_HsPrimCChar :: CChar}
-      {- ^ __C declaration:__ @prim_HsPrimCChar@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 28:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -384,12 +324,6 @@ instance HasCField Prim_HsPrimCChar "unwrapPrim_HsPrimCChar"
 -}
 newtype Prim_HsPrimCSChar
     = Prim_HsPrimCSChar {unwrapPrim_HsPrimCSChar :: CSChar}
-      {- ^ __C declaration:__ @prim_HsPrimCSChar@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 29:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -421,12 +355,6 @@ instance HasCField Prim_HsPrimCSChar "unwrapPrim_HsPrimCSChar"
 -}
 newtype Prim_HsPrimCUChar
     = Prim_HsPrimCUChar {unwrapPrim_HsPrimCUChar :: CUChar}
-      {- ^ __C declaration:__ @prim_HsPrimCUChar@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 30:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -458,12 +386,6 @@ instance HasCField Prim_HsPrimCUChar "unwrapPrim_HsPrimCUChar"
 -}
 newtype Prim_HsPrimCShort
     = Prim_HsPrimCShort {unwrapPrim_HsPrimCShort :: CShort}
-      {- ^ __C declaration:__ @prim_HsPrimCShort@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 31:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -495,12 +417,6 @@ instance HasCField Prim_HsPrimCShort "unwrapPrim_HsPrimCShort"
 -}
 newtype Prim_HsPrimCUShort
     = Prim_HsPrimCUShort {unwrapPrim_HsPrimCUShort :: CUShort}
-      {- ^ __C declaration:__ @prim_HsPrimCUShort@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 32:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -534,12 +450,6 @@ instance HasCField Prim_HsPrimCUShort "unwrapPrim_HsPrimCUShort"
 -}
 newtype Prim_HsPrimCInt
     = Prim_HsPrimCInt {unwrapPrim_HsPrimCInt :: CInt}
-      {- ^ __C declaration:__ @prim_HsPrimCInt@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 33:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -571,12 +481,6 @@ instance HasCField Prim_HsPrimCInt "unwrapPrim_HsPrimCInt"
 -}
 newtype Prim_HsPrimCUInt
     = Prim_HsPrimCUInt {unwrapPrim_HsPrimCUInt :: CUInt}
-      {- ^ __C declaration:__ @prim_HsPrimCUInt@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 34:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -608,12 +512,6 @@ instance HasCField Prim_HsPrimCUInt "unwrapPrim_HsPrimCUInt"
 -}
 newtype Prim_HsPrimCLong
     = Prim_HsPrimCLong {unwrapPrim_HsPrimCLong :: CLong}
-      {- ^ __C declaration:__ @prim_HsPrimCLong@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 35:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -645,12 +543,6 @@ instance HasCField Prim_HsPrimCLong "unwrapPrim_HsPrimCLong"
 -}
 newtype Prim_HsPrimCULong
     = Prim_HsPrimCULong {unwrapPrim_HsPrimCULong :: CULong}
-      {- ^ __C declaration:__ @prim_HsPrimCULong@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 36:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -682,12 +574,6 @@ instance HasCField Prim_HsPrimCULong "unwrapPrim_HsPrimCULong"
 -}
 newtype Prim_HsPrimCLLong
     = Prim_HsPrimCLLong {unwrapPrim_HsPrimCLLong :: CLLong}
-      {- ^ __C declaration:__ @prim_HsPrimCLLong@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 37:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -719,12 +605,6 @@ instance HasCField Prim_HsPrimCLLong "unwrapPrim_HsPrimCLLong"
 -}
 newtype Prim_HsPrimCULLong
     = Prim_HsPrimCULLong {unwrapPrim_HsPrimCULLong :: CULLong}
-      {- ^ __C declaration:__ @prim_HsPrimCULLong@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 38:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -758,12 +638,6 @@ instance HasCField Prim_HsPrimCULLong "unwrapPrim_HsPrimCULLong"
 -}
 newtype Prim_HsPrimCBool
     = Prim_HsPrimCBool {unwrapPrim_HsPrimCBool :: HsBindgen.Runtime.LibC.CBool}
-      {- ^ __C declaration:__ @prim_HsPrimCBool@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 39:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -795,12 +669,6 @@ instance HasCField Prim_HsPrimCBool "unwrapPrim_HsPrimCBool"
 -}
 newtype Prim_HsPrimCFloat
     = Prim_HsPrimCFloat {unwrapPrim_HsPrimCFloat :: CFloat}
-      {- ^ __C declaration:__ @prim_HsPrimCFloat@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 40:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Enum,
                       Floating,
@@ -830,12 +698,6 @@ instance HasCField Prim_HsPrimCFloat "unwrapPrim_HsPrimCFloat"
 -}
 newtype Prim_HsPrimCDouble
     = Prim_HsPrimCDouble {unwrapPrim_HsPrimCDouble :: CDouble}
-      {- ^ __C declaration:__ @prim_HsPrimCDouble@
-
-           __defined at:__ @types\/primitives\/primitive_insts.h 41:28@
-
-           __exported by:__ @types\/primitives\/primitive_insts.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Enum,
                       Floating,

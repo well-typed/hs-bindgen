@@ -522,12 +522,6 @@
 -}
 newtype An_pchar
     = An_pchar {unwrap :: (PtrConst CChar)}
-      {- ^ __C declaration:__ @an_pchar@
-
-           __defined at:__ @comprehensive\/c2hsc.h 12:21@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -555,12 +549,6 @@ data MyCoolStruct
 
                          __exported by:__ @comprehensive\/c2hsc.h@
                     -}}
-      {- ^ __C declaration:__ @struct MyCoolStruct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 15:9@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize MyCoolStruct
     where staticSizeOf = \_ -> 2040 :: Int
@@ -588,14 +576,6 @@ __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype Foo_Aux
     = Foo_Aux {unwrap :: (CInt -> IO CInt)}
-      {- ^ Auxiliary type used by 'Foo'
-
-      __C declaration:__ @foo@
-
-      __defined at:__ @comprehensive\/c2hsc.h 20:15@
-
-      __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_b5a7b5e83ffee6b4_base ::
@@ -631,12 +611,6 @@ instance HasCField Foo_Aux "unwrap"
 -}
 newtype Foo
     = Foo {unwrap :: (FunPtr Foo_Aux)}
-      {- ^ __C declaration:__ @foo@
-
-           __defined at:__ @comprehensive\/c2hsc.h 20:15@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -663,12 +637,6 @@ data Foo_t
 
                   __exported by:__ @comprehensive\/c2hsc.h@
              -}}
-      {- ^ __C declaration:__ @struct foo_t@
-
-           __defined at:__ @comprehensive\/c2hsc.h 31:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Foo_t
     where staticSizeOf = \_ -> 8 :: Int
@@ -700,12 +668,6 @@ data Foo_10
 -}
 newtype Bar_10
     = Bar_10 {unwrap :: CUInt}
-      {- ^ __C declaration:__ @enum Bar_10_@
-
-           __defined at:__ @comprehensive\/c2hsc.h 45:14@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Bar_10
@@ -749,12 +711,6 @@ instance HasCField Bar_10 "unwrap"
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 pattern BAR :: Bar_10
-{-| __C declaration:__ @BAR@
-
-    __defined at:__ @comprehensive\/c2hsc.h 45:24@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
 pattern BAR = Bar_10 0
 {-| __C declaration:__ @struct st@
 
@@ -770,12 +726,6 @@ data St
 
                __exported by:__ @comprehensive\/c2hsc.h@
           -}}
-      {- ^ __C declaration:__ @struct st@
-
-           __defined at:__ @comprehensive\/c2hsc.h 48:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize St
     where staticSizeOf = \_ -> 4 :: Int
@@ -799,12 +749,6 @@ instance (~) ty CInt => HasField "i" (Ptr St) (Ptr ty)
 -}
 newtype E
     = E {unwrap :: CUInt}
-      {- ^ __C declaration:__ @enum e@
-
-           __defined at:__ @comprehensive\/c2hsc.h 52:6@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
@@ -848,12 +792,6 @@ instance HasCField E "unwrap"
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
 pattern CONST :: E
-{-| __C declaration:__ @CONST@
-
-    __defined at:__ @comprehensive\/c2hsc.h 53:3@
-
-    __exported by:__ @comprehensive\/c2hsc.h@
--}
 pattern CONST = E 0
 {-| __C declaration:__ @union u@
 
@@ -861,15 +799,7 @@ pattern CONST = E 0
 
     __exported by:__ @comprehensive\/c2hsc.h@
 -}
-newtype U
-    = U {unwrap :: ByteArray}
-      {- ^ __C declaration:__ @union u@
-
-           __defined at:__ @comprehensive\/c2hsc.h 56:7@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
-    deriving stock Generic
+newtype U = U {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 1 1) instance StaticSize U
 deriving via (SizedByteArray 1 1) instance ReadRaw U
 deriving via (SizedByteArray 1 1) instance WriteRaw U
@@ -928,12 +858,6 @@ data MyTypeImpl
 -}
 newtype MyType
     = MyType {unwrap :: (Ptr MyTypeImpl)}
-      {- ^ __C declaration:__ @MyType@
-
-           __defined at:__ @comprehensive\/c2hsc.h 62:28@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -956,16 +880,10 @@ data MyStructType
     = MyStructType {x :: CInt
                     {- ^ __C declaration:__ @x@
 
-                         __defined at:__ @comprehensive\/c2hsc.h 366:14@
+                         __defined at:__ @comprehensive\/c2hsc.h 65:7@
 
                          __exported by:__ @comprehensive\/c2hsc.h@
                     -}}
-      {- ^ __C declaration:__ @struct MyStruct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 64:16@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize MyStructType
     where staticSizeOf = \_ -> 4 :: Int
@@ -1004,14 +922,6 @@ data Ordinary_float_struct
 
                                   __exported by:__ @comprehensive\/c2hsc.h@
                              -}}
-      {- ^ Structs: primitive types
-
-      __C declaration:__ @struct ordinary_float_struct@
-
-      __defined at:__ @comprehensive\/c2hsc.h 204:8@
-
-      __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_float_struct
     where staticSizeOf = \_ -> 4 :: Int
@@ -1045,12 +955,6 @@ data Ordinary_double_struct
 
                                    __exported by:__ @comprehensive\/c2hsc.h@
                               -}}
-      {- ^ __C declaration:__ @struct ordinary_double_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 205:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_double_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1084,12 +988,6 @@ data Ordinary_signed_char_struct
 
                                         __exported by:__ @comprehensive\/c2hsc.h@
                                    -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_char_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 208:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_char_struct
     where staticSizeOf = \_ -> 1 :: Int
@@ -1124,12 +1022,6 @@ data Explicit_signed_char_struct
 
                                         __exported by:__ @comprehensive\/c2hsc.h@
                                    -}}
-      {- ^ __C declaration:__ @struct explicit_signed_char_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 209:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_char_struct
     where staticSizeOf = \_ -> 1 :: Int
@@ -1164,12 +1056,6 @@ data Unsigned_char_struct
 
                                  __exported by:__ @comprehensive\/c2hsc.h@
                             -}}
-      {- ^ __C declaration:__ @struct unsigned_char_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 210:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_char_struct
     where staticSizeOf = \_ -> 1 :: Int
@@ -1201,12 +1087,6 @@ data Ordinary_signed_short_struct
 
                                          __exported by:__ @comprehensive\/c2hsc.h@
                                     -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_short_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 212:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_short_struct
     where staticSizeOf = \_ -> 2 :: Int
@@ -1241,12 +1121,6 @@ data Explicit_signed_short_struct
 
                                          __exported by:__ @comprehensive\/c2hsc.h@
                                     -}}
-      {- ^ __C declaration:__ @struct explicit_signed_short_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 213:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_short_struct
     where staticSizeOf = \_ -> 2 :: Int
@@ -1281,12 +1155,6 @@ data Unsigned_short_struct
 
                                   __exported by:__ @comprehensive\/c2hsc.h@
                              -}}
-      {- ^ __C declaration:__ @struct unsigned_short_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 214:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_short_struct
     where staticSizeOf = \_ -> 2 :: Int
@@ -1320,12 +1188,6 @@ data Ordinary_signed_int_struct
 
                                        __exported by:__ @comprehensive\/c2hsc.h@
                                   -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_int_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 216:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_int_struct
     where staticSizeOf = \_ -> 4 :: Int
@@ -1360,12 +1222,6 @@ data Explicit_signed_int_struct
 
                                        __exported by:__ @comprehensive\/c2hsc.h@
                                   -}}
-      {- ^ __C declaration:__ @struct explicit_signed_int_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 217:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_int_struct
     where staticSizeOf = \_ -> 4 :: Int
@@ -1400,12 +1256,6 @@ data Unsigned_int_struct
 
                                 __exported by:__ @comprehensive\/c2hsc.h@
                            -}}
-      {- ^ __C declaration:__ @struct unsigned_int_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 218:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_int_struct
     where staticSizeOf = \_ -> 4 :: Int
@@ -1437,12 +1287,6 @@ data Ordinary_signed_long_struct
 
                                         __exported by:__ @comprehensive\/c2hsc.h@
                                    -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 220:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1477,12 +1321,6 @@ data Explicit_signed_long_struct
 
                                         __exported by:__ @comprehensive\/c2hsc.h@
                                    -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 221:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1517,12 +1355,6 @@ data Unsigned_long_struct
 
                                  __exported by:__ @comprehensive\/c2hsc.h@
                             -}}
-      {- ^ __C declaration:__ @struct unsigned_long_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 222:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1554,12 +1386,6 @@ data Ordinary_signed_long_long_struct
 
                                              __exported by:__ @comprehensive\/c2hsc.h@
                                         -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_long_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 224:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_long_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1594,12 +1420,6 @@ data Explicit_signed_long_long_struct
 
                                              __exported by:__ @comprehensive\/c2hsc.h@
                                         -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_long_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 225:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_long_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1634,12 +1454,6 @@ data Unsigned_long_long_struct
 
                                       __exported by:__ @comprehensive\/c2hsc.h@
                                  -}}
-      {- ^ __C declaration:__ @struct unsigned_long_long_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 226:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_long_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1678,16 +1492,6 @@ data Ordinary_void_pointer_struct
 
                                          __exported by:__ @comprehensive\/c2hsc.h@
                                     -}}
-      {- ^ Structs: pointers
-
-         NOTE: `ordinary_signed_char_pointer_struct` is commented out in the original test suite, unclear why (no reason is given).
-
-      __C declaration:__ @struct ordinary_void_pointer_struct@
-
-      __defined at:__ @comprehensive\/c2hsc.h 235:8@
-
-      __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_void_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1722,12 +1526,6 @@ data Ordinary_float_pointer_struct
 
                                           __exported by:__ @comprehensive\/c2hsc.h@
                                      -}}
-      {- ^ __C declaration:__ @struct ordinary_float_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 237:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_float_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1762,12 +1560,6 @@ data Ordinary_double_pointer_struct
 
                                            __exported by:__ @comprehensive\/c2hsc.h@
                                       -}}
-      {- ^ __C declaration:__ @struct ordinary_double_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 238:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_double_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1802,12 +1594,6 @@ data Ordinary_signed_char_pointer_struct
 
                                                 __exported by:__ @comprehensive\/c2hsc.h@
                                            -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_char_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 241:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_char_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1842,12 +1628,6 @@ data Explicit_signed_char_pointer_struct
 
                                                 __exported by:__ @comprehensive\/c2hsc.h@
                                            -}}
-      {- ^ __C declaration:__ @struct explicit_signed_char_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 242:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_char_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1882,12 +1662,6 @@ data Unsigned_char_pointer_struct
 
                                          __exported by:__ @comprehensive\/c2hsc.h@
                                     -}}
-      {- ^ __C declaration:__ @struct unsigned_char_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 243:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_char_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1922,12 +1696,6 @@ data Ordinary_signed_short_pointer_struct
 
                                                  __exported by:__ @comprehensive\/c2hsc.h@
                                             -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_short_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 245:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_short_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -1962,12 +1730,6 @@ data Explicit_signed_short_pointer_struct
 
                                                  __exported by:__ @comprehensive\/c2hsc.h@
                                             -}}
-      {- ^ __C declaration:__ @struct explicit_signed_short_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 246:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_short_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2002,12 +1764,6 @@ data Unsigned_short_pointer_struct
 
                                           __exported by:__ @comprehensive\/c2hsc.h@
                                      -}}
-      {- ^ __C declaration:__ @struct unsigned_short_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 247:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_short_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2042,12 +1798,6 @@ data Ordinary_signed_int_pointer_struct
 
                                                __exported by:__ @comprehensive\/c2hsc.h@
                                           -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_int_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 249:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_int_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2082,12 +1832,6 @@ data Explicit_signed_int_pointer_struct
 
                                                __exported by:__ @comprehensive\/c2hsc.h@
                                           -}}
-      {- ^ __C declaration:__ @struct explicit_signed_int_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 250:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_int_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2122,12 +1866,6 @@ data Unsigned_int_pointer_struct
 
                                         __exported by:__ @comprehensive\/c2hsc.h@
                                    -}}
-      {- ^ __C declaration:__ @struct unsigned_int_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 251:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_int_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2162,12 +1900,6 @@ data Ordinary_signed_long_pointer_struct
 
                                                 __exported by:__ @comprehensive\/c2hsc.h@
                                            -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 253:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2202,12 +1934,6 @@ data Explicit_signed_long_pointer_struct
 
                                                 __exported by:__ @comprehensive\/c2hsc.h@
                                            -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 254:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2242,12 +1968,6 @@ data Unsigned_long_pointer_struct
 
                                          __exported by:__ @comprehensive\/c2hsc.h@
                                     -}}
-      {- ^ __C declaration:__ @struct unsigned_long_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 255:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2282,12 +2002,6 @@ data Ordinary_signed_long_long_pointer_struct
 
                                                      __exported by:__ @comprehensive\/c2hsc.h@
                                                 -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_long_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 257:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_long_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2322,12 +2036,6 @@ data Explicit_signed_long_long_pointer_struct
 
                                                      __exported by:__ @comprehensive\/c2hsc.h@
                                                 -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_long_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 258:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_long_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2362,12 +2070,6 @@ data Unsigned_long_long_pointer_struct
 
                                               __exported by:__ @comprehensive\/c2hsc.h@
                                          -}}
-      {- ^ __C declaration:__ @struct unsigned_long_long_pointer_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 259:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_long_pointer_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -2405,14 +2107,6 @@ data Ordinary_float_array_struct
 
                                         __exported by:__ @comprehensive\/c2hsc.h@
                                    -}}
-      {- ^ Structs: arrays
-
-      __C declaration:__ @struct ordinary_float_array_struct@
-
-      __defined at:__ @comprehensive\/c2hsc.h 265:8@
-
-      __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_float_array_struct
     where staticSizeOf = \_ -> 40 :: Int
@@ -2448,12 +2142,6 @@ data Ordinary_double_array_struct
 
                                          __exported by:__ @comprehensive\/c2hsc.h@
                                     -}}
-      {- ^ __C declaration:__ @struct ordinary_double_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 266:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_double_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -2489,12 +2177,6 @@ data Ordinary_signed_char_array_struct
 
                                               __exported by:__ @comprehensive\/c2hsc.h@
                                          -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_char_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 269:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_char_array_struct
     where staticSizeOf = \_ -> 10 :: Int
@@ -2530,12 +2212,6 @@ data Explicit_signed_char_array_struct
 
                                               __exported by:__ @comprehensive\/c2hsc.h@
                                          -}}
-      {- ^ __C declaration:__ @struct explicit_signed_char_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 270:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_char_array_struct
     where staticSizeOf = \_ -> 10 :: Int
@@ -2571,12 +2247,6 @@ data Unsigned_char_array_struct
 
                                        __exported by:__ @comprehensive\/c2hsc.h@
                                   -}}
-      {- ^ __C declaration:__ @struct unsigned_char_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 271:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_char_array_struct
     where staticSizeOf = \_ -> 10 :: Int
@@ -2612,12 +2282,6 @@ data Ordinary_signed_short_array_struct
 
                                                __exported by:__ @comprehensive\/c2hsc.h@
                                           -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_short_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 273:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_short_array_struct
     where staticSizeOf = \_ -> 20 :: Int
@@ -2653,12 +2317,6 @@ data Explicit_signed_short_array_struct
 
                                                __exported by:__ @comprehensive\/c2hsc.h@
                                           -}}
-      {- ^ __C declaration:__ @struct explicit_signed_short_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 274:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_short_array_struct
     where staticSizeOf = \_ -> 20 :: Int
@@ -2694,12 +2352,6 @@ data Unsigned_short_array_struct
 
                                         __exported by:__ @comprehensive\/c2hsc.h@
                                    -}}
-      {- ^ __C declaration:__ @struct unsigned_short_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 275:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_short_array_struct
     where staticSizeOf = \_ -> 20 :: Int
@@ -2735,12 +2387,6 @@ data Ordinary_signed_int_array_struct
 
                                              __exported by:__ @comprehensive\/c2hsc.h@
                                         -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_int_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 277:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_int_array_struct
     where staticSizeOf = \_ -> 40 :: Int
@@ -2776,12 +2422,6 @@ data Explicit_signed_int_array_struct
 
                                              __exported by:__ @comprehensive\/c2hsc.h@
                                         -}}
-      {- ^ __C declaration:__ @struct explicit_signed_int_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 278:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_int_array_struct
     where staticSizeOf = \_ -> 40 :: Int
@@ -2817,12 +2457,6 @@ data Unsigned_int_array_struct
 
                                       __exported by:__ @comprehensive\/c2hsc.h@
                                  -}}
-      {- ^ __C declaration:__ @struct unsigned_int_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 279:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_int_array_struct
     where staticSizeOf = \_ -> 40 :: Int
@@ -2858,12 +2492,6 @@ data Ordinary_signed_long_array_struct
 
                                               __exported by:__ @comprehensive\/c2hsc.h@
                                          -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 281:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -2899,12 +2527,6 @@ data Explicit_signed_long_array_struct
 
                                               __exported by:__ @comprehensive\/c2hsc.h@
                                          -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 282:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -2940,12 +2562,6 @@ data Unsigned_long_array_struct
 
                                        __exported by:__ @comprehensive\/c2hsc.h@
                                   -}}
-      {- ^ __C declaration:__ @struct unsigned_long_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 283:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -2981,12 +2597,6 @@ data Ordinary_signed_long_long_array_struct
 
                                                    __exported by:__ @comprehensive\/c2hsc.h@
                                               -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_long_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 285:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_long_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3022,12 +2632,6 @@ data Explicit_signed_long_long_array_struct
 
                                                    __exported by:__ @comprehensive\/c2hsc.h@
                                               -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_long_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 286:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_long_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3063,12 +2667,6 @@ data Unsigned_long_long_array_struct
 
                                             __exported by:__ @comprehensive\/c2hsc.h@
                                        -}}
-      {- ^ __C declaration:__ @struct unsigned_long_long_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 287:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_long_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3108,16 +2706,6 @@ data Ordinary_void_pointer_array_struct
 
                                                __exported by:__ @comprehensive\/c2hsc.h@
                                           -}}
-      {- ^ Structs: arrays of pointers
-
-         NOTE: Here too `ordinary_signed_char_pointer_array_struct` was commented out in the original test suite, with no reason given.
-
-      __C declaration:__ @struct ordinary_void_pointer_array_struct@
-
-      __defined at:__ @comprehensive\/c2hsc.h 296:8@
-
-      __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_void_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3153,12 +2741,6 @@ data Ordinary_float_pointer_array_struct
 
                                                 __exported by:__ @comprehensive\/c2hsc.h@
                                            -}}
-      {- ^ __C declaration:__ @struct ordinary_float_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 298:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_float_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3195,12 +2777,6 @@ data Ordinary_double_pointer_array_struct
 
                                                  __exported by:__ @comprehensive\/c2hsc.h@
                                             -}}
-      {- ^ __C declaration:__ @struct ordinary_double_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 299:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_double_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3237,12 +2813,6 @@ data Ordinary_signed_char_pointer_array_struct
 
                                                       __exported by:__ @comprehensive\/c2hsc.h@
                                                  -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_char_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 302:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_char_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3279,12 +2849,6 @@ data Explicit_signed_char_pointer_array_struct
 
                                                       __exported by:__ @comprehensive\/c2hsc.h@
                                                  -}}
-      {- ^ __C declaration:__ @struct explicit_signed_char_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 303:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_char_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3321,12 +2885,6 @@ data Unsigned_char_pointer_array_struct
 
                                                __exported by:__ @comprehensive\/c2hsc.h@
                                           -}}
-      {- ^ __C declaration:__ @struct unsigned_char_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 304:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_char_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3363,12 +2921,6 @@ data Ordinary_signed_short_pointer_array_struct
 
                                                        __exported by:__ @comprehensive\/c2hsc.h@
                                                   -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_short_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 306:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_short_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3405,12 +2957,6 @@ data Explicit_signed_short_pointer_array_struct
 
                                                        __exported by:__ @comprehensive\/c2hsc.h@
                                                   -}}
-      {- ^ __C declaration:__ @struct explicit_signed_short_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 307:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_short_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3447,12 +2993,6 @@ data Unsigned_short_pointer_array_struct
 
                                                 __exported by:__ @comprehensive\/c2hsc.h@
                                            -}}
-      {- ^ __C declaration:__ @struct unsigned_short_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 308:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_short_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3489,12 +3029,6 @@ data Ordinary_signed_int_pointer_array_struct
 
                                                      __exported by:__ @comprehensive\/c2hsc.h@
                                                 -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_int_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 310:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_int_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3531,12 +3065,6 @@ data Explicit_signed_int_pointer_array_struct
 
                                                      __exported by:__ @comprehensive\/c2hsc.h@
                                                 -}}
-      {- ^ __C declaration:__ @struct explicit_signed_int_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 311:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_int_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3573,12 +3101,6 @@ data Unsigned_int_pointer_array_struct
 
                                               __exported by:__ @comprehensive\/c2hsc.h@
                                          -}}
-      {- ^ __C declaration:__ @struct unsigned_int_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 312:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_int_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3614,12 +3136,6 @@ data Ordinary_signed_long_pointer_array_struct
 
                                                       __exported by:__ @comprehensive\/c2hsc.h@
                                                  -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 314:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3656,12 +3172,6 @@ data Explicit_signed_long_pointer_array_struct
 
                                                       __exported by:__ @comprehensive\/c2hsc.h@
                                                  -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 315:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3698,12 +3208,6 @@ data Unsigned_long_pointer_array_struct
 
                                                __exported by:__ @comprehensive\/c2hsc.h@
                                           -}}
-      {- ^ __C declaration:__ @struct unsigned_long_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 316:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3740,12 +3244,6 @@ data Ordinary_signed_long_long_pointer_array_struct
 
                                                            __exported by:__ @comprehensive\/c2hsc.h@
                                                       -}}
-      {- ^ __C declaration:__ @struct ordinary_signed_long_long_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 318:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Ordinary_signed_long_long_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3782,12 +3280,6 @@ data Explicit_signed_long_long_pointer_array_struct
 
                                                            __exported by:__ @comprehensive\/c2hsc.h@
                                                       -}}
-      {- ^ __C declaration:__ @struct explicit_signed_long_long_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 319:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Explicit_signed_long_long_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3824,12 +3316,6 @@ data Unsigned_long_long_pointer_array_struct
 
                                                     __exported by:__ @comprehensive\/c2hsc.h@
                                                -}}
-      {- ^ __C declaration:__ @struct unsigned_long_long_pointer_array_struct@
-
-           __defined at:__ @comprehensive\/c2hsc.h 320:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Unsigned_long_long_pointer_array_struct
     where staticSizeOf = \_ -> 80 :: Int
@@ -3863,16 +3349,6 @@ __exported by:__ @comprehensive\/c2hsc.h@
 -}
 newtype An_int
     = An_int {unwrap :: CInt}
-      {- ^ Sanity checks
-
-         NOTE: The `smoke.h` test is moved to a separate header.
-
-      __C declaration:__ @an_int@
-
-      __defined at:__ @comprehensive\/c2hsc.h 329:13@
-
-      __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -3915,12 +3391,6 @@ data Cal_table_table
 
                             __exported by:__ @comprehensive\/c2hsc.h@
                        -}}
-      {- ^ __C declaration:__ @struct \@cal_table_table@
-
-           __defined at:__ @comprehensive\/c2hsc.h 341:5@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Cal_table_table
     where staticSizeOf = \_ -> 8 :: Int
@@ -3965,12 +3435,6 @@ data Cal_table
 
                       __exported by:__ @comprehensive\/c2hsc.h@
                  -}}
-      {- ^ __C declaration:__ @struct cal_table@
-
-           __defined at:__ @comprehensive\/c2hsc.h 339:8@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Cal_table
     where staticSizeOf = \_ -> 260 :: Int
@@ -4002,12 +3466,6 @@ instance (~) ty (ConstantArray 32 Cal_table_table) =>
 -}
 newtype Elf32_External_Dyn_d_un
     = Elf32_External_Dyn_d_un {unwrap :: ByteArray}
-      {- ^ __C declaration:__ @union \@Elf32_External_Dyn_d_un@
-
-           __defined at:__ @comprehensive\/c2hsc.h 349:3@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 4
                              1) instance StaticSize Elf32_External_Dyn_d_un
@@ -4123,12 +3581,6 @@ data Elf32_External_Dyn
 
                                __exported by:__ @comprehensive\/c2hsc.h@
                           -}}
-      {- ^ __C declaration:__ @struct Elf32_External_Dyn@
-
-           __defined at:__ @comprehensive\/c2hsc.h 347:9@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock Generic
 instance StaticSize Elf32_External_Dyn
     where staticSizeOf = \_ -> 8 :: Int
@@ -4162,12 +3614,6 @@ instance (~) ty Elf32_External_Dyn_d_un =>
 -}
 newtype Bug_24
     = Bug_24 {unwrap :: (Ptr CInt)}
-      {- ^ __C declaration:__ @bug_24@
-
-           __defined at:__ @comprehensive\/c2hsc.h 358:15@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -4188,12 +3634,6 @@ instance HasCField Bug_24 "unwrap"
 -}
 newtype Bug_24_2
     = Bug_24_2 {unwrap :: (PtrConst CInt)}
-      {- ^ __C declaration:__ @bug_24_2@
-
-           __defined at:__ @comprehensive\/c2hsc.h 359:21@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -4214,12 +3654,6 @@ instance HasCField Bug_24_2 "unwrap"
 -}
 newtype MyArray_27
     = MyArray_27 {unwrap :: (ConstantArray 20 CInt)}
-      {- ^ __C declaration:__ @MyArray_27@
-
-           __defined at:__ @comprehensive\/c2hsc.h 364:13@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 20 CInt) =>
@@ -4242,12 +3676,6 @@ data MyStruct_27
 
                         __exported by:__ @comprehensive\/c2hsc.h@
                    -}}
-      {- ^ __C declaration:__ @struct MyStruct_27@
-
-           __defined at:__ @comprehensive\/c2hsc.h 365:9@
-
-           __exported by:__ @comprehensive\/c2hsc.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize MyStruct_27
     where staticSizeOf = \_ -> 80 :: Int

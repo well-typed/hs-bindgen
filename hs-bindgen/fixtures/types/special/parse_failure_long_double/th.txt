@@ -34,12 +34,6 @@ data Struct2
 
                     __exported by:__ @types\/special\/parse_failure_long_double.h@
                -}}
-      {- ^ __C declaration:__ @struct struct2@
-
-           __defined at:__ @types\/special\/parse_failure_long_double.h 13:8@
-
-           __exported by:__ @types\/special\/parse_failure_long_double.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Struct2
     where staticSizeOf = \_ -> 4 :: Int

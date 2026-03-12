@@ -71,14 +71,6 @@ __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
 newtype MyFunctionPointer_Aux
     = MyFunctionPointer_Aux {unwrapMyFunctionPointer_Aux :: (CInt ->
                                                              IO CInt)}
-      {- ^ Auxiliary type used by 'MyFunctionPointer'
-
-      __C declaration:__ @MyFunctionPointer@
-
-      __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
-
-      __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
@@ -120,12 +112,6 @@ instance HasCField MyFunctionPointer_Aux
 -}
 newtype MyFunctionPointer
     = MyFunctionPointer {unwrapMyFunctionPointer :: (FunPtr MyFunctionPointer_Aux)}
-      {- ^ __C declaration:__ @MyFunctionPointer@
-
-           __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 4:15@
-
-           __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -147,12 +133,6 @@ instance HasCField MyFunctionPointer "unwrapMyFunctionPointer"
 -}
 newtype A
     = A {unwrapA :: MyFunctionPointer}
-      {- ^ __C declaration:__ @macro A@
-
-           __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 7:9@
-
-           __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -173,12 +153,6 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @macro B@
-
-           __defined at:__ @binding-specs\/fun_arg\/macro\/function_pointer.h 8:9@
-
-           __exported by:__ @binding-specs\/fun_arg\/macro\/function_pointer.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,

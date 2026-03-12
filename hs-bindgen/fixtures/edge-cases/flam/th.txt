@@ -53,12 +53,6 @@ data Foo_bar
 
                     __exported by:__ @edge-cases\/flam.h@
                -}}
-      {- ^ __C declaration:__ @struct \@foo_bar@
-
-           __defined at:__ @edge-cases\/flam.h 10:2@
-
-           __exported by:__ @edge-cases\/flam.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Foo_bar
     where staticSizeOf = \_ -> 8 :: Int

@@ -372,18 +372,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Size_type
     = Size_type {unwrapSize_type :: HsBindgen.Runtime.LibC.CSize}
-      {- ^ This is the comment __title__
-
-         > size_type
-
-         Size type for this library
-
-      __C declaration:__ @size_type@
-
-      __defined at:__ @documentation\/doxygen_docs.h 54:16@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -443,18 +431,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Color_enum
     = Color_enum {unwrapColor_enum :: CUInt}
-      {- ^
-
-         > color_enum
-
-         Color enumeration without typedef
-
-      __C declaration:__ @enum color_enum@
-
-      __defined at:__ @documentation\/doxygen_docs.h 83:6@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Color_enum
@@ -503,14 +479,6 @@ __defined at:__ @documentation\/doxygen_docs.h 84:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_RED :: Color_enum
-{-| Red color
-
-__C declaration:__ @COLOR_RED@
-
-__defined at:__ @documentation\/doxygen_docs.h 84:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern COLOR_RED = Color_enum 0
 {-| Green color
 
@@ -521,14 +489,6 @@ __defined at:__ @documentation\/doxygen_docs.h 85:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_GREEN :: Color_enum
-{-| Green color
-
-__C declaration:__ @COLOR_GREEN@
-
-__defined at:__ @documentation\/doxygen_docs.h 85:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern COLOR_GREEN = Color_enum 1
 {-| Blue color
 
@@ -539,14 +499,6 @@ __defined at:__ @documentation\/doxygen_docs.h 86:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern COLOR_BLUE :: Color_enum
-{-| Blue color
-
-__C declaration:__ @COLOR_BLUE@
-
-__defined at:__ @documentation\/doxygen_docs.h 86:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern COLOR_BLUE = Color_enum 2
 {-| Auxiliary type used by 'Event_callback_t'
 
@@ -559,14 +511,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t_Aux
     = Event_callback_t_Aux {unwrapEvent_callback_t_Aux :: (CInt ->
                                                            Ptr Void -> IO CInt)}
-      {- ^ Auxiliary type used by 'Event_callback_t'
-
-      __C declaration:__ @event_callback_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 225:15@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
@@ -619,22 +563,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t
     = Event_callback_t {unwrapEvent_callback_t :: (FunPtr Event_callback_t_Aux)}
-      {- ^
-
-         Callback function type
-
-         [__@event_type@ /(input)/__]: Type of event
-
-         [__@user_data@ /(input)/__]: User-provided data
-
-         __returns:__ Handling result
-
-      __C declaration:__ @event_callback_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 225:15@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -718,18 +646,6 @@ data Config_t
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -}}
-      {- ^
-
-         Structure with documented fields
-
-         This structure demonstrates field documentation.
-
-      __C declaration:__ @struct config_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 232:9@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Config_t
     where staticSizeOf = \_ -> 88 :: Int
@@ -792,18 +708,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Status_code_t
     = Status_code_t {unwrapStatus_code_t :: CInt}
-      {- ^
-
-         Enumeration with documented values
-
-         This enum shows different status codes.
-
-      __C declaration:__ @enum status_code_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 258:9@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Status_code_t
@@ -851,16 +755,6 @@ __defined at:__ @documentation\/doxygen_docs.h 260:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_OK :: Status_code_t
-{-|
-
-  Operation successful
-
-__C declaration:__ @STATUS_OK@
-
-__defined at:__ @documentation\/doxygen_docs.h 260:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern STATUS_OK = Status_code_t 0
 {-|
 
@@ -873,16 +767,6 @@ __defined at:__ @documentation\/doxygen_docs.h 263:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_INVALID_PARAM :: Status_code_t
-{-|
-
-  Invalid parameter provided
-
-__C declaration:__ @STATUS_INVALID_PARAM@
-
-__defined at:__ @documentation\/doxygen_docs.h 263:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern STATUS_INVALID_PARAM = Status_code_t (-1)
 {-|
 
@@ -895,16 +779,6 @@ __defined at:__ @documentation\/doxygen_docs.h 266:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_NO_MEMORY :: Status_code_t
-{-|
-
-  Memory allocation failed
-
-__C declaration:__ @STATUS_NO_MEMORY@
-
-__defined at:__ @documentation\/doxygen_docs.h 266:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern STATUS_NO_MEMORY = Status_code_t (-2)
 {-|
 
@@ -917,16 +791,6 @@ __defined at:__ @documentation\/doxygen_docs.h 269:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_TIMEOUT :: Status_code_t
-{-|
-
-  Operation timed out
-
-__C declaration:__ @STATUS_TIMEOUT@
-
-__defined at:__ @documentation\/doxygen_docs.h 269:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern STATUS_TIMEOUT = Status_code_t (-3)
 {-|
 
@@ -939,16 +803,6 @@ __defined at:__ @documentation\/doxygen_docs.h 272:5@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 pattern STATUS_ERROR :: Status_code_t
-{-|
-
-  Generic error
-
-__C declaration:__ @STATUS_ERROR@
-
-__defined at:__ @documentation\/doxygen_docs.h 272:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
--}
 pattern STATUS_ERROR = Status_code_t (-99)
 {-|
 
@@ -985,18 +839,6 @@ data Data_union_t_as_parts
 
                              __exported by:__ @documentation\/doxygen_docs.h@
                              -}}
-      {- ^
-
-         Structured representation
-
-         Allows access to high and low parts separately
-
-      __C declaration:__ @struct \@data_union_t_as_parts@
-
-      __defined at:__ @documentation\/doxygen_docs.h 290:5@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Data_union_t_as_parts
     where staticSizeOf = \_ -> 4 :: Int
@@ -1044,20 +886,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Data_union_t
     = Data_union_t {unwrapData_union_t :: ByteArray}
-      {- ^
-
-         > data_union_t
-
-         Union with documented fields
-
-         This union demonstrates different data representations.
-
-      __C declaration:__ @union data_union_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 281:9@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize Data_union_t
 deriving via (SizedByteArray 4 4) instance ReadRaw Data_union_t
@@ -1303,20 +1131,6 @@ data Bitfield_t
 
                   __exported by:__ @documentation\/doxygen_docs.h@
                   -}}
-      {- ^
-
-         > bitfield_t
-
-         Bit field structure
-
-         Demonstrates bit field documentation.
-
-      __C declaration:__ @struct bitfield_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 302:9@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bitfield_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -1369,14 +1183,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t_Aux
     = Processor_fn_t_Aux {unwrapProcessor_fn_t_Aux :: (CInt ->
                                                        Ptr Void -> IO CInt)}
-      {- ^ Auxiliary type used by 'Processor_fn_t'
-
-      __C declaration:__ @processor_fn_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 317:15@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
@@ -1430,24 +1236,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t
     = Processor_fn_t {unwrapProcessor_fn_t :: (FunPtr Processor_fn_t_Aux)}
-      {- ^
-
-         > processor_fn_t
-
-         Function pointer typedef
-
-         [__@input@ /(input)/__]: Input value
-
-         [__@context@ /(input)/__]: Context pointer
-
-         __returns:__ Processed value
-
-      __C declaration:__ @processor_fn_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 317:15@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -1475,18 +1263,6 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Filename_t
     = Filename_t {unwrapFilename_t :: (ConstantArray 256 CChar)}
-      {- ^
-
-         > filename_t
-
-         Array typedef with size
-
-      __C declaration:__ @filename_t@
-
-      __defined at:__ @documentation\/doxygen_docs.h 323:14@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 256 CChar) =>

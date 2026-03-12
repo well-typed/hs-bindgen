@@ -20,12 +20,6 @@ data S1
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @struct S1@
-
-           __defined at:__ @types\/structs\/simple_structs.h 2:8@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S1
     where staticSizeOf = \_ -> 8 :: Int
@@ -75,12 +69,6 @@ data S2_t
 
                  __exported by:__ @types\/structs\/simple_structs.h@
             -}}
-      {- ^ __C declaration:__ @struct S2@
-
-           __defined at:__ @types\/structs\/simple_structs.h 8:16@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S2_t
     where staticSizeOf = \_ -> 12 :: Int
@@ -122,12 +110,6 @@ data S3_t
 
                  __exported by:__ @types\/structs\/simple_structs.h@
             -}}
-      {- ^ __C declaration:__ @struct S3_t@
-
-           __defined at:__ @types\/structs\/simple_structs.h 15:9@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S3_t
     where staticSizeOf = \_ -> 1 :: Int
@@ -171,12 +153,6 @@ data S4
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @struct S4@
-
-           __defined at:__ @types\/structs\/simple_structs.h 19:8@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S4
     where staticSizeOf = \_ -> 16 :: Int
@@ -225,12 +201,6 @@ data S5
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @struct S5@
-
-           __defined at:__ @types\/structs\/simple_structs.h 26:16@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S5
     where staticSizeOf = \_ -> 8 :: Int
@@ -273,12 +243,6 @@ data S6
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @struct S6@
-
-           __defined at:__ @types\/structs\/simple_structs.h 31:8@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S6
     where staticSizeOf = \_ -> 8 :: Int
@@ -321,12 +285,6 @@ data S7a_Aux
 
                     __exported by:__ @types\/structs\/simple_structs.h@
                -}}
-      {- ^ __C declaration:__ @struct \@S7a_Aux@
-
-           __defined at:__ @types\/structs\/simple_structs.h 34:9@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S7a_Aux
     where staticSizeOf = \_ -> 8 :: Int
@@ -357,12 +315,6 @@ instance (~) ty CInt => HasField "s7a_Aux_b" (Ptr S7a_Aux) (Ptr ty)
 -}
 newtype S7a
     = S7a {unwrapS7a :: (Ptr S7a_Aux)}
-      {- ^ __C declaration:__ @S7a@
-
-           __defined at:__ @types\/structs\/simple_structs.h 34:36@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -396,12 +348,6 @@ data S7b_Aux
 
                     __exported by:__ @types\/structs\/simple_structs.h@
                -}}
-      {- ^ __C declaration:__ @struct \@S7b_Aux@
-
-           __defined at:__ @types\/structs\/simple_structs.h 35:9@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S7b_Aux
     where staticSizeOf = \_ -> 8 :: Int
@@ -432,12 +378,6 @@ instance (~) ty CInt => HasField "s7b_Aux_b" (Ptr S7b_Aux) (Ptr ty)
 -}
 newtype S7b
     = S7b {unwrapS7b :: (Ptr (Ptr (Ptr S7b_Aux)))}
-      {- ^ __C declaration:__ @S7b@
-
-           __defined at:__ @types\/structs\/simple_structs.h 35:38@
-
-           __exported by:__ @types\/structs\/simple_structs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,

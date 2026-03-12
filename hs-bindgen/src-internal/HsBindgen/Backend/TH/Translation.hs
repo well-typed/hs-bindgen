@@ -252,13 +252,13 @@ mkDecl = \case
             Nothing
             [TH.recC (hsNameToTH record.con) fields]
             (nestedDeriving record.deriv)
-        putLocalDocM Hs.SNsTypeConstr record.typ record.comment
+        putLocalDocM record.typ record.comment
 
         pure [decl]
 
       DEmptyData empty -> do
         decl <- TH.dataD (TH.cxt []) (hsNameToTH empty.name) [] Nothing [] []
-        putLocalDocMTyp empty.name empty.comment
+        putLocalDocM empty.name empty.comment
         pure [decl]
 
       DNewtype newtyp -> do
@@ -278,7 +278,7 @@ mkDecl = \case
             Nothing
             (TH.recC (hsNameToTH newtyp.con) [field])
             (nestedDeriving newtyp.deriv)
-        putLocalDocMTyp (newtyp.name) (newtyp.comment)
+        putLocalDocM (newtyp.name) (newtyp.comment)
         pure [decl]
 
       DDerivingInstance deriv -> do
@@ -325,7 +325,7 @@ mkDecl = \case
               <*> pure impent
               <*> pure (hsNameToTH foreignImport.name)
               <*> mkType EmptyEnv importType
-        putLocalDocMVar foreignImport.name foreignImport.comment
+        putLocalDocM foreignImport.name foreignImport.comment
         pure [decl]
 
       DBinding binding -> do
@@ -341,7 +341,7 @@ mkDecl = \case
                   <*> mkType EmptyEnv bindingType
             , simpleDecl bindingName binding.body
             ]
-        putLocalDocMVar binding.name binding.comment
+        putLocalDocM binding.name binding.comment
         pure decls
 
       DPatternSynonym patSyn -> do
@@ -357,7 +357,7 @@ mkDecl = \case
             TH.implBidir
             (mkPat patSyn.rhs)
           ]
-        putLocalDocMCon patSyn.name patSyn.comment
+        putLocalDocM patSyn.name patSyn.comment
         pure decls
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
@@ -425,17 +425,8 @@ newNames env (AS n) (NameHint hint ::: hints) = do
     return (x : xs, env' :> x)
 
 putLocalDocM ::
-  Guasi g => Hs.SNamespace ns -> Hs.Name ns -> Maybe HsDoc.Comment -> g ()
-putLocalDocM ns nm = traverse_ (putLocalDoc ns nm)
-
-putLocalDocMTyp :: Guasi g => Hs.Name Hs.NsTypeConstr -> Maybe HsDoc.Comment -> g ()
-putLocalDocMTyp = putLocalDocM Hs.SNsTypeConstr
-
-putLocalDocMCon :: Guasi g => Hs.Name Hs.NsConstr -> Maybe HsDoc.Comment -> g ()
-putLocalDocMCon = putLocalDocM Hs.SNsConstr
-
-putLocalDocMVar :: Guasi g => Hs.Name Hs.NsVar -> Maybe HsDoc.Comment -> g ()
-putLocalDocMVar = putLocalDocM Hs.SNsVar
+  (Guasi g, Hs.SingNamespace ns) => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
+putLocalDocM nm = traverse_ (putLocalDoc nm)
 
 putLocalFieldDocM ::
   Guasi g => Hs.Name Hs.NsConstr -> Hs.Name Hs.NsVar -> Maybe HsDoc.Comment -> g ()

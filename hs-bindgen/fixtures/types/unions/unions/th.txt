@@ -20,12 +20,6 @@ data Dim2
 
                  __exported by:__ @types\/unions\/unions.h@
             -}}
-      {- ^ __C declaration:__ @struct Dim2@
-
-           __defined at:__ @types\/unions\/unions.h 1:8@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Dim2
     where staticSizeOf = \_ -> 8 :: Int
@@ -75,12 +69,6 @@ data Dim3
 
                  __exported by:__ @types\/unions\/unions.h@
             -}}
-      {- ^ __C declaration:__ @struct Dim3@
-
-           __defined at:__ @types\/unions\/unions.h 6:8@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Dim3
     where staticSizeOf = \_ -> 12 :: Int
@@ -116,12 +104,6 @@ instance (~) ty CInt => HasField "dim3_z" (Ptr Dim3) (Ptr ty)
 -}
 newtype DimPayload
     = DimPayload {unwrapDimPayload :: ByteArray}
-      {- ^ __C declaration:__ @union DimPayload@
-
-           __defined at:__ @types\/unions\/unions.h 12:7@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 8 4) instance StaticSize DimPayload
 deriving via (SizedByteArray 8 4) instance ReadRaw DimPayload
@@ -228,12 +210,6 @@ data Dim
 
                 __exported by:__ @types\/unions\/unions.h@
            -}}
-      {- ^ __C declaration:__ @struct Dim@
-
-           __defined at:__ @types\/unions\/unions.h 17:8@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock Generic
 instance StaticSize Dim
     where staticSizeOf = \_ -> 12 :: Int
@@ -264,12 +240,6 @@ instance (~) ty DimPayload =>
 -}
 newtype DimPayloadB
     = DimPayloadB {unwrapDimPayloadB :: ByteArray}
-      {- ^ __C declaration:__ @union DimPayloadB@
-
-           __defined at:__ @types\/unions\/unions.h 23:15@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 8 4) instance StaticSize DimPayloadB
 deriving via (SizedByteArray 8 4) instance ReadRaw DimPayloadB
@@ -376,12 +346,6 @@ data DimB
 
                  __exported by:__ @types\/unions\/unions.h@
             -}}
-      {- ^ __C declaration:__ @struct DimB@
-
-           __defined at:__ @types\/unions\/unions.h 28:8@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock Generic
 instance StaticSize DimB
     where staticSizeOf = \_ -> 12 :: Int
@@ -425,12 +389,6 @@ data AnonA_xy
 
                      __exported by:__ @types\/unions\/unions.h@
                 -}}
-      {- ^ __C declaration:__ @struct \@AnonA_xy@
-
-           __defined at:__ @types\/unions\/unions.h 35:5@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize AnonA_xy
     where staticSizeOf = \_ -> 16 :: Int
@@ -475,12 +433,6 @@ data AnonA_polar
 
                         __exported by:__ @types\/unions\/unions.h@
                    -}}
-      {- ^ __C declaration:__ @struct \@AnonA_polar@
-
-           __defined at:__ @types\/unions\/unions.h 36:5@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize AnonA_polar
     where staticSizeOf = \_ -> 16 :: Int
@@ -512,12 +464,6 @@ instance (~) ty CDouble =>
 -}
 newtype AnonA
     = AnonA {unwrapAnonA :: ByteArray}
-      {- ^ __C declaration:__ @union AnonA@
-
-           __defined at:__ @types\/unions\/unions.h 34:7@
-
-           __exported by:__ @types\/unions\/unions.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 16 8) instance StaticSize AnonA
 deriving via (SizedByteArray 16 8) instance ReadRaw AnonA

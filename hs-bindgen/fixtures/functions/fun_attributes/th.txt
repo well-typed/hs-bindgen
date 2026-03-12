@@ -439,19 +439,7 @@ __defined at:__ @functions\/fun_attributes.h 7:9@
 
 __exported by:__ @functions\/fun_attributes.h@
 -}
-data FILE
-    = FILE {}
-      {- ^ Attributes on functions
-
-         Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
-
-      __C declaration:__ @struct FILE@
-
-      __defined at:__ @functions\/fun_attributes.h 7:9@
-
-      __exported by:__ @functions\/fun_attributes.h@
-      -}
-    deriving stock (Eq, Generic, Show)
+data FILE = FILE {} deriving stock (Eq, Generic, Show)
 instance StaticSize FILE
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -469,12 +457,6 @@ deriving via (EquivStorable FILE) instance Storable FILE
 -}
 newtype Size_t
     = Size_t {unwrapSize_t :: CInt}
-      {- ^ __C declaration:__ @size_t@
-
-           __defined at:__ @functions\/fun_attributes.h 8:13@
-
-           __exported by:__ @functions\/fun_attributes.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

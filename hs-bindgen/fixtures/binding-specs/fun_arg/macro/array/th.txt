@@ -68,12 +68,6 @@
 -}
 newtype MyArray
     = MyArray {unwrapMyArray :: (IncompleteArray CInt)}
-      {- ^ __C declaration:__ @MyArray@
-
-           __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 4:13@
-
-           __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>
@@ -91,12 +85,6 @@ instance HasCField MyArray "unwrapMyArray"
 -}
 newtype A
     = A {unwrapA :: MyArray}
-      {- ^ __C declaration:__ @macro A@
-
-           __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 7:9@
-
-           __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty MyArray => HasField "unwrapA" (Ptr A) (Ptr ty)
@@ -112,12 +100,6 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @macro B@
-
-           __defined at:__ @binding-specs\/fun_arg\/macro\/array.h 8:9@
-
-           __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)

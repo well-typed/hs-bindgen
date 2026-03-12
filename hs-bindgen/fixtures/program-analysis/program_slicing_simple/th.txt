@@ -34,12 +34,6 @@
 -}
 newtype Uint32_t
     = Uint32_t {unwrapUint32_t :: CUInt}
-      {- ^ __C declaration:__ @uint32_t@
-
-           __defined at:__ @bits\/alltypes.h 131:25@
-
-           __exported by:__ @program-analysis\/program_slicing_simple.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -83,12 +77,6 @@ data Foo
 
                 __exported by:__ @program-analysis\/program_slicing_simple.h@
            -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @program-analysis\/program_slicing_simple.h 3:8@
-
-           __exported by:__ @program-analysis\/program_slicing_simple.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance Storable Foo
     where sizeOf = \_ -> 16 :: Int

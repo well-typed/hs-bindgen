@@ -7,12 +7,6 @@
 -}
 newtype Stdlib_CBool
     = Stdlib_CBool {unwrapStdlib_CBool :: CBool}
-      {- ^ __C declaration:__ @stdlib_CBool@
-
-           __defined at:__ @binding-specs\/stdlib\/bool.h 1:14@
-
-           __exported by:__ @binding-specs\/stdlib\/bool.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

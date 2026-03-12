@@ -8,12 +8,6 @@
 -}
 newtype ParsedAndSelected1
     = ParsedAndSelected1 {unwrapParsedAndSelected1 :: CInt}
-      {- ^ __C declaration:__ @ParsedAndSelected1@
-
-           __defined at:__ @declarations\/select_scoping.h 6:13@
-
-           __exported by:__ @declarations\/select_scoping.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

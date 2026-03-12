@@ -44,12 +44,6 @@ data Point1a
 
                     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
                -}}
-      {- ^ __C declaration:__ @struct point1a@
-
-           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:9@
-
-           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Point1a
     where staticSizeOf = \_ -> 8 :: Int
@@ -79,12 +73,6 @@ instance (~) ty CInt => HasField "point1a_y" (Ptr Point1a) (Ptr ty)
 -}
 newtype Point1b
     = Point1b {unwrapPoint1b :: Point1a}
-      {- ^ __C declaration:__ @point1b@
-
-           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:43@
-
-           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty Point1a =>
@@ -114,12 +102,6 @@ data Point2a
 
                     __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
                -}}
-      {- ^ __C declaration:__ @struct point2a@
-
-           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:9@
-
-           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Point2a
     where staticSizeOf = \_ -> 8 :: Int
@@ -149,12 +131,6 @@ instance (~) ty CInt => HasField "point2a_y" (Ptr Point2a) (Ptr ty)
 -}
 newtype Point2b
     = Point2b {unwrapPoint2b :: (Ptr Point2a)}
-      {- ^ __C declaration:__ @point2b@
-
-           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:44@
-
-           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -188,12 +164,6 @@ data Point3a_Aux
 
                         __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
                    -}}
-      {- ^ __C declaration:__ @struct \@point3a_Aux@
-
-           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:9@
-
-           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Point3a_Aux
     where staticSizeOf = \_ -> 8 :: Int
@@ -225,12 +195,6 @@ instance (~) ty CInt =>
 -}
 newtype Point3a
     = Point3a {unwrapPoint3a :: (Ptr Point3a_Aux)}
-      {- ^ __C declaration:__ @point3a@
-
-           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:35@
-
-           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -251,12 +215,6 @@ instance HasCField Point3a "unwrapPoint3a"
 -}
 newtype Point3b
     = Point3b {unwrapPoint3b :: (Ptr Point3a_Aux)}
-      {- ^ __C declaration:__ @point3b@
-
-           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:45@
-
-           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,

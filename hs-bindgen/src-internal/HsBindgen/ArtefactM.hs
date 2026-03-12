@@ -121,7 +121,6 @@ data FileContent =
   ArtefactM monad
 -------------------------------------------------------------------------------}
 
--- TODO-D: getFrontendConfig
 newtype ArtefactM a =
   WrapArtefactM (StateT [DelayedIO] (ReaderT BindgenConfig IO) a)
   deriving newtype (

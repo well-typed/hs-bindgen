@@ -26,7 +26,7 @@ class TH.Quote g => Guasi g where
     --
     -- Ideally we'd use @withDecDoc@ instead, but this gets confused by existing
     -- functions in scope <https://gitlab.haskell.org/ghc/ghc/-/issues/26817>.
-    putLocalDoc :: Hs.SNamespace ns -> Hs.Name ns -> HsDoc.Comment -> g ()
+    putLocalDoc :: Hs.SingNamespace ns => Hs.Name ns -> HsDoc.Comment -> g ()
     -- | Attach a documentation to a field of a parent declaration /in the
     --   current module/.
     --
@@ -43,7 +43,8 @@ instance Guasi TH.Q where
 
     addCSource = TH.addForeignSource TH.LangC
 
-    putLocalDoc ns nm comment = do
+    putLocalDoc :: forall ns. Hs.SingNamespace ns => Hs.Name ns -> HsDoc.Comment -> TH.Q ()
+    putLocalDoc nm comment = do
         loc <- TH.location
         let pkg = TH.PkgName $ TH.loc_package loc
             mdl = TH.ModName $ TH.loc_module loc
@@ -58,7 +59,7 @@ instance Guasi TH.Q where
         nmStr = Text.unpack $ Hs.getName nm
 
         thNs :: TH.NameSpace
-        thNs = case Hs.namespaceOf ns of
+        thNs = case Hs.namespaceOf (Hs.singNamespace :: Hs.SNamespace ns) of
           Hs.NsVar        -> TH.VarName
           Hs.NsConstr     -> TH.DataName
           Hs.NsTypeConstr -> TH.TcClsName

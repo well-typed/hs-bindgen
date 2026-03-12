@@ -23,12 +23,6 @@ data Foo
 
                 __exported by:__ @types\/primitives\/fixedwidth.h@
            -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @types\/primitives\/fixedwidth.h 3:8@
-
-           __exported by:__ @types\/primitives\/fixedwidth.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 16 :: Int

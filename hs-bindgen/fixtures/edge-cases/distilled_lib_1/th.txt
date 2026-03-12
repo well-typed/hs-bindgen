@@ -57,12 +57,6 @@ data Another_typedef_struct_t
 
                                      __exported by:__ @edge-cases\/distilled_lib_1.h@
                                 -}}
-      {- ^ __C declaration:__ @struct another_typedef_struct_t@
-
-           __defined at:__ @edge-cases\/distilled_lib_1.h 9:9@
-
-           __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Another_typedef_struct_t
     where staticSizeOf = \_ -> 8 :: Int
@@ -102,12 +96,6 @@ instance (~) ty CChar =>
 -}
 newtype Another_typedef_enum_e
     = Another_typedef_enum_e {unwrapAnother_typedef_enum_e :: CUInt}
-      {- ^ __C declaration:__ @enum another_typedef_enum_e@
-
-           __defined at:__ @edge-cases\/distilled_lib_1.h 10:9@
-
-           __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Another_typedef_enum_e
@@ -157,12 +145,6 @@ instance HasCField Another_typedef_enum_e
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 pattern FOO :: Another_typedef_enum_e
-{-| __C declaration:__ @FOO@
-
-    __defined at:__ @edge-cases\/distilled_lib_1.h 10:16@
-
-    __exported by:__ @edge-cases\/distilled_lib_1.h@
--}
 pattern FOO = Another_typedef_enum_e 0
 {-| __C declaration:__ @BAR@
 
@@ -171,12 +153,6 @@ pattern FOO = Another_typedef_enum_e 0
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 pattern BAR :: Another_typedef_enum_e
-{-| __C declaration:__ @BAR@
-
-    __defined at:__ @edge-cases\/distilled_lib_1.h 10:21@
-
-    __exported by:__ @edge-cases\/distilled_lib_1.h@
--}
 pattern BAR = Another_typedef_enum_e 1
 {-| __C declaration:__ @macro A@
 
@@ -228,12 +204,6 @@ sOME_DEFINED_CONSTANT = 4 :: CInt
 -}
 newtype A_type_t
     = A_type_t {unwrapA_type_t :: CInt}
-      {- ^ __C declaration:__ @a_type_t@
-
-           __defined at:__ @edge-cases\/distilled_lib_1.h 14:13@
-
-           __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -264,12 +234,6 @@ instance HasCField A_type_t "unwrapA_type_t"
 -}
 newtype Var_t
     = Var_t {unwrapVar_t :: CInt}
-      {- ^ __C declaration:__ @var_t@
-
-           __defined at:__ @edge-cases\/distilled_lib_1.h 15:13@
-
-           __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -379,12 +343,6 @@ data A_typedef_struct_t
 
                                __exported by:__ @edge-cases\/distilled_lib_1.h@
                           -}}
-      {- ^ __C declaration:__ @struct a_typedef_struct@
-
-           __defined at:__ @edge-cases\/distilled_lib_1.h 35:16@
-
-           __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize A_typedef_struct_t
     where staticSizeOf = \_ -> 140 :: Int
@@ -573,12 +531,6 @@ tWO_ARGS = (13398 :: CInt, 30874 :: CInt)
 -}
 newtype A_typedef_enum_e
     = A_typedef_enum_e {unwrapA_typedef_enum_e :: CUChar}
-      {- ^ __C declaration:__ @enum a_typedef_enum_e@
-
-           __defined at:__ @edge-cases\/distilled_lib_1.h 61:9@
-
-           __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize A_typedef_enum_e
@@ -627,12 +579,6 @@ instance HasCField A_typedef_enum_e "unwrapA_typedef_enum_e"
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 pattern ENUM_CASE_0 :: A_typedef_enum_e
-{-| __C declaration:__ @ENUM_CASE_0@
-
-    __defined at:__ @edge-cases\/distilled_lib_1.h 63:3@
-
-    __exported by:__ @edge-cases\/distilled_lib_1.h@
--}
 pattern ENUM_CASE_0 = A_typedef_enum_e 0
 {-| __C declaration:__ @ENUM_CASE_1@
 
@@ -641,12 +587,6 @@ pattern ENUM_CASE_0 = A_typedef_enum_e 0
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 pattern ENUM_CASE_1 :: A_typedef_enum_e
-{-| __C declaration:__ @ENUM_CASE_1@
-
-    __defined at:__ @edge-cases\/distilled_lib_1.h 64:3@
-
-    __exported by:__ @edge-cases\/distilled_lib_1.h@
--}
 pattern ENUM_CASE_1 = A_typedef_enum_e 1
 {-| __C declaration:__ @ENUM_CASE_2@
 
@@ -655,12 +595,6 @@ pattern ENUM_CASE_1 = A_typedef_enum_e 1
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 pattern ENUM_CASE_2 :: A_typedef_enum_e
-{-| __C declaration:__ @ENUM_CASE_2@
-
-    __defined at:__ @edge-cases\/distilled_lib_1.h 65:3@
-
-    __exported by:__ @edge-cases\/distilled_lib_1.h@
--}
 pattern ENUM_CASE_2 = A_typedef_enum_e 2
 {-| __C declaration:__ @ENUM_CASE_3@
 
@@ -669,12 +603,6 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 pattern ENUM_CASE_3 :: A_typedef_enum_e
-{-| __C declaration:__ @ENUM_CASE_3@
-
-    __defined at:__ @edge-cases\/distilled_lib_1.h 66:3@
-
-    __exported by:__ @edge-cases\/distilled_lib_1.h@
--}
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 {-| Auxiliary type used by 'Callback_t'
 
@@ -688,14 +616,6 @@ newtype Callback_t_Aux
     = Callback_t_Aux {unwrapCallback_t_Aux :: (Ptr Void ->
                                                HsBindgen.Runtime.LibC.Word32 ->
                                                IO HsBindgen.Runtime.LibC.Word32)}
-      {- ^ Auxiliary type used by 'Callback_t'
-
-      __C declaration:__ @callback_t@
-
-      __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
-
-      __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
@@ -740,12 +660,6 @@ instance HasCField Callback_t_Aux "unwrapCallback_t_Aux"
 -}
 newtype Callback_t
     = Callback_t {unwrapCallback_t :: (FunPtr Callback_t_Aux)}
-      {- ^ __C declaration:__ @callback_t@
-
-           __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
-
-           __exported by:__ @edge-cases\/distilled_lib_1.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,

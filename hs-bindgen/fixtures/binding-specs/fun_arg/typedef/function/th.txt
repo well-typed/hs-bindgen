@@ -260,12 +260,6 @@
 -}
 newtype A
     = A {unwrapA :: (CInt -> IO CInt)}
-      {- ^ __C declaration:__ @A@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 6:13@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
@@ -301,12 +295,6 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @B@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 7:11@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
@@ -320,15 +308,7 @@ instance HasCField B "unwrapB"
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
 -}
-newtype E
-    = E {unwrapE :: M.C}
-      {- ^ __C declaration:__ @E@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/function.h 19:11@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/function.h@
-      -}
-    deriving stock Generic
+newtype E = E {unwrapE :: M.C} deriving stock Generic
 instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"

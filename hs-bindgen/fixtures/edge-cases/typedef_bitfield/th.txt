@@ -7,12 +7,6 @@
 -}
 newtype MyInt
     = MyInt {unwrapMyInt :: CInt}
-      {- ^ __C declaration:__ @myInt@
-
-           __defined at:__ @edge-cases\/typedef_bitfield.h 2:13@
-
-           __exported by:__ @edge-cases\/typedef_bitfield.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -42,12 +36,6 @@ instance HasCField MyInt "unwrapMyInt"
 -}
 newtype MyUInt
     = MyUInt {unwrapMyUInt :: CUInt}
-      {- ^ __C declaration:__ @myUInt@
-
-           __defined at:__ @edge-cases\/typedef_bitfield.h 3:22@
-
-           __exported by:__ @edge-cases\/typedef_bitfield.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -78,12 +66,6 @@ instance HasCField MyUInt "unwrapMyUInt"
 -}
 newtype MyLong
     = MyLong {unwrapMyLong :: CLong}
-      {- ^ __C declaration:__ @myLong@
-
-           __defined at:__ @edge-cases\/typedef_bitfield.h 4:14@
-
-           __exported by:__ @edge-cases\/typedef_bitfield.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -134,12 +116,6 @@ data MyStruct
 
                      __exported by:__ @edge-cases\/typedef_bitfield.h@
                 -}}
-      {- ^ __C declaration:__ @struct myStruct@
-
-           __defined at:__ @edge-cases\/typedef_bitfield.h 6:8@
-
-           __exported by:__ @edge-cases\/typedef_bitfield.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize MyStruct
     where staticSizeOf = \_ -> 8 :: Int

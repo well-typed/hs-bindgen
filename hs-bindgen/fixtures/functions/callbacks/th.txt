@@ -432,14 +432,6 @@ __exported by:__ @functions\/callbacks.h@
 -}
 newtype FileOpenedNotification_Aux
     = FileOpenedNotification_Aux {unwrapFileOpenedNotification_Aux :: (IO ())}
-      {- ^ Auxiliary type used by 'FileOpenedNotification'
-
-      __C declaration:__ @FileOpenedNotification@
-
-      __defined at:__ @functions\/callbacks.h 10:16@
-
-      __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a_base ::
@@ -480,12 +472,6 @@ instance HasCField FileOpenedNotification_Aux
 -}
 newtype FileOpenedNotification
     = FileOpenedNotification {unwrapFileOpenedNotification :: (FunPtr FileOpenedNotification_Aux)}
-      {- ^ __C declaration:__ @FileOpenedNotification@
-
-           __defined at:__ @functions\/callbacks.h 10:16@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -512,14 +498,6 @@ __exported by:__ @functions\/callbacks.h@
 -}
 newtype ProgressUpdate_Aux
     = ProgressUpdate_Aux {unwrapProgressUpdate_Aux :: (CInt -> IO ())}
-      {- ^ Auxiliary type used by 'ProgressUpdate'
-
-      __C declaration:__ @ProgressUpdate@
-
-      __defined at:__ @functions\/callbacks.h 11:16@
-
-      __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
@@ -560,12 +538,6 @@ instance HasCField ProgressUpdate_Aux "unwrapProgressUpdate_Aux"
 -}
 newtype ProgressUpdate
     = ProgressUpdate {unwrapProgressUpdate :: (FunPtr ProgressUpdate_Aux)}
-      {- ^ __C declaration:__ @ProgressUpdate@
-
-           __defined at:__ @functions\/callbacks.h 11:16@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -589,14 +561,6 @@ __exported by:__ @functions\/callbacks.h@
 -}
 newtype DataValidator_Aux
     = DataValidator_Aux {unwrapDataValidator_Aux :: (CInt -> IO CInt)}
-      {- ^ Auxiliary type used by 'DataValidator'
-
-      __C declaration:__ @DataValidator@
-
-      __defined at:__ @functions\/callbacks.h 12:15@
-
-      __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
@@ -635,12 +599,6 @@ instance HasCField DataValidator_Aux "unwrapDataValidator_Aux"
 -}
 newtype DataValidator
     = DataValidator {unwrapDataValidator :: (FunPtr DataValidator_Aux)}
-      {- ^ __C declaration:__ @DataValidator@
-
-           __defined at:__ @functions\/callbacks.h 12:15@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -675,12 +633,6 @@ data Measurement
 
                         __exported by:__ @functions\/callbacks.h@
                    -}}
-      {- ^ __C declaration:__ @struct Measurement@
-
-           __defined at:__ @functions\/callbacks.h 21:8@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Measurement
     where staticSizeOf = \_ -> 16 :: Int
@@ -715,14 +667,6 @@ __exported by:__ @functions\/callbacks.h@
 newtype MeasurementReceived_Aux
     = MeasurementReceived_Aux {unwrapMeasurementReceived_Aux :: (Ptr Measurement ->
                                                                  IO ())}
-      {- ^ Auxiliary type used by 'MeasurementReceived'
-
-      __C declaration:__ @MeasurementReceived@
-
-      __defined at:__ @functions\/callbacks.h 26:16@
-
-      __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b_base ::
@@ -764,12 +708,6 @@ instance HasCField MeasurementReceived_Aux
 -}
 newtype MeasurementReceived
     = MeasurementReceived {unwrapMeasurementReceived :: (FunPtr MeasurementReceived_Aux)}
-      {- ^ __C declaration:__ @MeasurementReceived@
-
-           __defined at:__ @functions\/callbacks.h 26:16@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -796,14 +734,6 @@ __exported by:__ @functions\/callbacks.h@
 newtype MeasurementReceived2_Aux
     = MeasurementReceived2_Aux {unwrapMeasurementReceived2_Aux :: (Measurement ->
                                                                    IO ())}
-      {- ^ Auxiliary type used by 'MeasurementReceived2'
-
-      __C declaration:__ @MeasurementReceived2@
-
-      __defined at:__ @functions\/callbacks.h 29:16@
-
-      __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
 instance (~) ty (Measurement -> IO ()) =>
          HasField "unwrapMeasurementReceived2_Aux"
@@ -823,12 +753,6 @@ instance HasCField MeasurementReceived2_Aux
 -}
 newtype MeasurementReceived2
     = MeasurementReceived2 {unwrapMeasurementReceived2 :: (FunPtr MeasurementReceived2_Aux)}
-      {- ^ __C declaration:__ @MeasurementReceived2@
-
-           __defined at:__ @functions\/callbacks.h 29:16@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -857,14 +781,6 @@ newtype SampleBufferFull_Aux
     = SampleBufferFull_Aux {unwrapSampleBufferFull_Aux :: (Ptr (Elem (ConstantArray 10
                                                                                     CInt)) ->
                                                            IO ())}
-      {- ^ Auxiliary type used by 'SampleBufferFull'
-
-      __C declaration:__ @SampleBufferFull@
-
-      __defined at:__ @functions\/callbacks.h 32:16@
-
-      __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_57d9e30494ae4453_base ::
@@ -908,12 +824,6 @@ instance HasCField SampleBufferFull_Aux
 -}
 newtype SampleBufferFull
     = SampleBufferFull {unwrapSampleBufferFull :: (FunPtr SampleBufferFull_Aux)}
-      {- ^ __C declaration:__ @SampleBufferFull@
-
-           __defined at:__ @functions\/callbacks.h 32:16@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -957,12 +867,6 @@ data MeasurementHandler
 
                                __exported by:__ @functions\/callbacks.h@
                           -}}
-      {- ^ __C declaration:__ @struct MeasurementHandler@
-
-           __defined at:__ @functions\/callbacks.h 50:8@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize MeasurementHandler
     where staticSizeOf = \_ -> 24 :: Int
@@ -1033,12 +937,6 @@ data DataPipeline
 
                          __exported by:__ @functions\/callbacks.h@
                     -}}
-      {- ^ __C declaration:__ @struct DataPipeline@
-
-           __defined at:__ @functions\/callbacks.h 58:8@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize DataPipeline
     where staticSizeOf = \_ -> 24 :: Int
@@ -1084,12 +982,6 @@ instance (~) ty
 -}
 newtype ProcessorCallback
     = ProcessorCallback {unwrapProcessorCallback :: ByteArray}
-      {- ^ __C declaration:__ @union ProcessorCallback@
-
-           __defined at:__ @functions\/callbacks.h 69:7@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 8
                              8) instance StaticSize ProcessorCallback
@@ -1250,12 +1142,6 @@ instance (~) ty
 -}
 newtype Processor_mode
     = Processor_mode {unwrapProcessor_mode :: CUInt}
-      {- ^ __C declaration:__ @enum \@Processor_mode@
-
-           __defined at:__ @functions\/callbacks.h 76:3@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Processor_mode
@@ -1302,12 +1188,6 @@ instance HasCField Processor_mode "unwrapProcessor_mode"
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_SIMPLE :: Processor_mode
-{-| __C declaration:__ @MODE_SIMPLE@
-
-    __defined at:__ @functions\/callbacks.h 76:10@
-
-    __exported by:__ @functions\/callbacks.h@
--}
 pattern MODE_SIMPLE = Processor_mode 0
 {-| __C declaration:__ @MODE_VALIDATED@
 
@@ -1316,12 +1196,6 @@ pattern MODE_SIMPLE = Processor_mode 0
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_VALIDATED :: Processor_mode
-{-| __C declaration:__ @MODE_VALIDATED@
-
-    __defined at:__ @functions\/callbacks.h 76:23@
-
-    __exported by:__ @functions\/callbacks.h@
--}
 pattern MODE_VALIDATED = Processor_mode 1
 {-| __C declaration:__ @MODE_PROGRESS@
 
@@ -1330,12 +1204,6 @@ pattern MODE_VALIDATED = Processor_mode 1
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_PROGRESS :: Processor_mode
-{-| __C declaration:__ @MODE_PROGRESS@
-
-    __defined at:__ @functions\/callbacks.h 76:39@
-
-    __exported by:__ @functions\/callbacks.h@
--}
 pattern MODE_PROGRESS = Processor_mode 2
 {-| __C declaration:__ @struct Processor@
 
@@ -1358,12 +1226,6 @@ data Processor
 
                       __exported by:__ @functions\/callbacks.h@
                  -}}
-      {- ^ __C declaration:__ @struct Processor@
-
-           __defined at:__ @functions\/callbacks.h 75:8@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock Generic
 instance StaticSize Processor
     where staticSizeOf = \_ -> 16 :: Int
@@ -1396,12 +1258,6 @@ instance (~) ty ProcessorCallback =>
 -}
 newtype Foo
     = Foo {unwrapFoo :: CInt}
-      {- ^ __C declaration:__ @foo@
-
-           __defined at:__ @functions\/callbacks.h 94:13@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -1431,12 +1287,6 @@ instance HasCField Foo "unwrapFoo"
 -}
 newtype Foo2
     = Foo2 {unwrapFoo2 :: CInt}
-      {- ^ __C declaration:__ @foo2@
-
-           __defined at:__ @functions\/callbacks.h 95:13@
-
-           __exported by:__ @functions\/callbacks.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

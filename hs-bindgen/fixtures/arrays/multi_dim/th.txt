@@ -168,12 +168,6 @@
 -}
 newtype Matrix
     = Matrix {unwrapMatrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
-      {- ^ __C declaration:__ @matrix@
-
-           __defined at:__ @arrays\/multi_dim.h 12:13@
-
-           __exported by:__ @arrays\/multi_dim.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 4 (ConstantArray 3 CInt)) =>
@@ -192,12 +186,6 @@ instance HasCField Matrix "unwrapMatrix"
 newtype Triplets
     = Triplets {unwrapTriplets :: (IncompleteArray (ConstantArray 3
                                                                   CInt))}
-      {- ^ __C declaration:__ @triplets@
-
-           __defined at:__ @arrays\/multi_dim.h 17:13@
-
-           __exported by:__ @arrays\/multi_dim.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray (ConstantArray 3 CInt)) =>

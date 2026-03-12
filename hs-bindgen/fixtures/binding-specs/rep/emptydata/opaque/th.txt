@@ -20,12 +20,6 @@ data Bar
 
                 __exported by:__ @binding-specs\/rep\/emptydata\/opaque.h@
            -}}
-      {- ^ __C declaration:__ @struct bar@
-
-           __defined at:__ @binding-specs\/rep\/emptydata\/opaque.h 3:8@
-
-           __exported by:__ @binding-specs\/rep\/emptydata\/opaque.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 8 :: Int

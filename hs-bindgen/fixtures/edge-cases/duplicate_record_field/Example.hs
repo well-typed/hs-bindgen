@@ -24,17 +24,17 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct A@
 
-    __defined at:__ @edge-cases\/duplicate_record_dot.h 1:8@
+    __defined at:__ @edge-cases\/duplicate_record_field.h 1:8@
 
-    __exported by:__ @edge-cases\/duplicate_record_dot.h@
+    __exported by:__ @edge-cases\/duplicate_record_field.h@
 -}
 data A = A
   { dup :: RIP.CInt
     {- ^ __C declaration:__ @dup@
 
-         __defined at:__ @edge-cases\/duplicate_record_dot.h 2:7@
+         __defined at:__ @edge-cases\/duplicate_record_field.h 2:7@
 
-         __exported by:__ @edge-cases\/duplicate_record_dot.h@
+         __exported by:__ @edge-cases\/duplicate_record_field.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -76,17 +76,17 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct B@
 
-    __defined at:__ @edge-cases\/duplicate_record_dot.h 5:8@
+    __defined at:__ @edge-cases\/duplicate_record_field.h 5:8@
 
-    __exported by:__ @edge-cases\/duplicate_record_dot.h@
+    __exported by:__ @edge-cases\/duplicate_record_field.h@
 -}
 data B = B
   { dup :: RIP.CInt
     {- ^ __C declaration:__ @dup@
 
-         __defined at:__ @edge-cases\/duplicate_record_dot.h 6:7@
+         __defined at:__ @edge-cases\/duplicate_record_field.h 6:7@
 
-         __exported by:__ @edge-cases\/duplicate_record_dot.h@
+         __exported by:__ @edge-cases\/duplicate_record_field.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)

@@ -319,12 +319,6 @@
 -}
 newtype I
     = I {unwrapI :: CInt}
-      {- ^ __C declaration:__ @macro I@
-
-           __defined at:__ @macros\/macro_in_fundecl.h 5:9@
-
-           __exported by:__ @macros\/macro_in_fundecl.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -354,12 +348,6 @@ instance HasCField I "unwrapI"
 -}
 newtype C
     = C {unwrapC :: CChar}
-      {- ^ __C declaration:__ @macro C@
-
-           __defined at:__ @macros\/macro_in_fundecl.h 6:9@
-
-           __exported by:__ @macros\/macro_in_fundecl.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -389,12 +377,6 @@ instance HasCField C "unwrapC"
 -}
 newtype F
     = F {unwrapF :: CFloat}
-      {- ^ __C declaration:__ @macro F@
-
-           __defined at:__ @macros\/macro_in_fundecl.h 7:9@
-
-           __exported by:__ @macros\/macro_in_fundecl.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Enum,
                       Floating,
@@ -422,12 +404,6 @@ instance HasCField F "unwrapF"
 -}
 newtype L
     = L {unwrapL :: CLong}
-      {- ^ __C declaration:__ @macro L@
-
-           __defined at:__ @macros\/macro_in_fundecl.h 8:9@
-
-           __exported by:__ @macros\/macro_in_fundecl.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -457,12 +433,6 @@ instance HasCField L "unwrapL"
 -}
 newtype S
     = S {unwrapS :: CShort}
-      {- ^ __C declaration:__ @macro S@
-
-           __defined at:__ @macros\/macro_in_fundecl.h 9:9@
-
-           __exported by:__ @macros\/macro_in_fundecl.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

@@ -1010,7 +1010,7 @@ testCases_bespoke_edgeCases = [
       test_edgeCases_adios
     , test_edgeCases_clang_generated_collision
     , test_edgeCases_duplicate
-    , test_edgeCases_duplicate_record_dot
+    , test_edgeCases_duplicate_record_field
     , test_edgeCases_headers
     , test_edgeCases_include_macro
     , test_edgeCases_iterator
@@ -1064,9 +1064,9 @@ test_edgeCases_duplicate =
         , ("function", "transitive conflict")
         ]
 
-test_edgeCases_duplicate_record_dot :: TestCase
-test_edgeCases_duplicate_record_dot =
-    defaultTest "edge-cases/duplicate_record_dot"
+test_edgeCases_duplicate_record_field :: TestCase
+test_edgeCases_duplicate_record_field =
+    defaultTest "edge-cases/duplicate_record_field"
       & #onFrontend .~ (\cfg -> cfg
             & #fieldNamingStrategy .~ EnableRecordDot
           )

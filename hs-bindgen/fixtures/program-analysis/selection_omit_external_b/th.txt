@@ -14,12 +14,6 @@ data Omitted
 
                     __exported by:__ @program-analysis\/selection_omit_external_b.h@
                -}}
-      {- ^ __C declaration:__ @struct Omitted@
-
-           __defined at:__ @selection_omit_external_root.h 1:8@
-
-           __exported by:__ @program-analysis\/selection_omit_external_b.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Omitted
     where staticSizeOf = \_ -> 4 :: Int
@@ -49,12 +43,6 @@ data DirectlyDependsOnOmitted
 
                                      __exported by:__ @program-analysis\/selection_omit_external_b.h@
                                 -}}
-      {- ^ __C declaration:__ @struct DirectlyDependsOnOmitted@
-
-           __defined at:__ @program-analysis\/selection_omit_external_b.h 4:8@
-
-           __exported by:__ @program-analysis\/selection_omit_external_b.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize DirectlyDependsOnOmitted
     where staticSizeOf = \_ -> 4 :: Int
@@ -89,12 +77,6 @@ data IndirectlyDependsOnOmitted
 
                                        __exported by:__ @program-analysis\/selection_omit_external_b.h@
                                   -}}
-      {- ^ __C declaration:__ @struct IndirectlyDependsOnOmitted@
-
-           __defined at:__ @program-analysis\/selection_omit_external_b.h 8:8@
-
-           __exported by:__ @program-analysis\/selection_omit_external_b.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize IndirectlyDependsOnOmitted
     where staticSizeOf = \_ -> 4 :: Int

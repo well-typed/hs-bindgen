@@ -28,15 +28,7 @@
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
-newtype U
-    = U {unwrapU :: ByteArray}
-      {- ^ __C declaration:__ @union U@
-
-           __defined at:__ @functions\/heap_types\/union_const_typedef.h 3:7@
-
-           __exported by:__ @functions\/heap_types\/union_const_typedef.h@
-      -}
-    deriving stock Generic
+newtype U = U {unwrapU :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U
 deriving via (SizedByteArray 4 4) instance ReadRaw U
 deriving via (SizedByteArray 4 4) instance WriteRaw U
@@ -88,12 +80,6 @@ instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
 -}
 newtype T
     = T {unwrapT :: U}
-      {- ^ __C declaration:__ @T@
-
-           __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
-
-           __exported by:__ @functions\/heap_types\/union_const_typedef.h@
-      -}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty U => HasField "unwrapT" (Ptr T) (Ptr ty)

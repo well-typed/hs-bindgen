@@ -29,4 +29,4 @@ let cfg :: Config
     cfgTh :: ConfigTH
     cfgTh = def
  in withHsBindgen cfg cfgTh $
-      hashInclude "duplicate_record_dot.h"
+      hashInclude "duplicate_record_field.h"

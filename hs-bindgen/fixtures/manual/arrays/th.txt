@@ -87,12 +87,6 @@
 -}
 newtype Triplet
     = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
-      {- ^ __C declaration:__ @triplet@
-
-           __defined at:__ @manual\/arrays.h 32:13@
-
-           __exported by:__ @manual\/arrays.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
@@ -110,12 +104,6 @@ instance HasCField Triplet "unwrapTriplet"
 -}
 newtype Matrix
     = Matrix {unwrapMatrix :: (ConstantArray 3 Triplet)}
-      {- ^ __C declaration:__ @matrix@
-
-           __defined at:__ @manual\/arrays.h 34:17@
-
-           __exported by:__ @manual\/arrays.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 Triplet) =>
@@ -136,14 +124,6 @@ __exported by:__ @manual\/arrays.h@
 newtype Triplet_ptrs
     = Triplet_ptrs {unwrapTriplet_ptrs :: (IncompleteArray (Ptr (ConstantArray 3
                                                                                CInt)))}
-      {- ^ A typedef representing a an array of unknown size, where each element is a pointer to an array of known size 3, where each element is an int.
-
-      __C declaration:__ @triplet_ptrs@
-
-      __defined at:__ @manual\/arrays.h 44:15@
-
-      __exported by:__ @manual\/arrays.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray (Ptr (ConstantArray 3 CInt))) =>

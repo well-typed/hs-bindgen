@@ -128,12 +128,6 @@
 -}
 newtype MyUnion
     = MyUnion {unwrapMyUnion :: ByteArray}
-      {- ^ __C declaration:__ @union MyUnion@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 4:7@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize MyUnion
 deriving via (SizedByteArray 4 4) instance ReadRaw MyUnion
@@ -186,12 +180,6 @@ instance (~) ty CInt => HasField "myUnion_x" (Ptr MyUnion) (Ptr ty)
 -}
 newtype A
     = A {unwrapA :: MyUnion}
-      {- ^ __C declaration:__ @A@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 7:23@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
-      -}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty MyUnion => HasField "unwrapA" (Ptr A) (Ptr ty)
@@ -207,12 +195,6 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @B@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 8:11@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
-      -}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
@@ -226,15 +208,7 @@ instance HasCField B "unwrapB"
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
 -}
-newtype E
-    = E {unwrapE :: M.C}
-      {- ^ __C declaration:__ @E@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/union.h 21:11@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/union.h@
-      -}
-    deriving stock Generic
+newtype E = E {unwrapE :: M.C} deriving stock Generic
 instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"

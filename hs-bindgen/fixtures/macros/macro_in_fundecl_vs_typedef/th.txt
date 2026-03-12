@@ -238,12 +238,6 @@
 -}
 newtype MC
     = MC {unwrapMC :: CChar}
-      {- ^ __C declaration:__ @macro MC@
-
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
-
-           __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -273,12 +267,6 @@ instance HasCField MC "unwrapMC"
 -}
 newtype TC
     = TC {unwrapTC :: CChar}
-      {- ^ __C declaration:__ @TC@
-
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@
-
-           __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -314,12 +302,6 @@ data Struct1
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct struct1@
-
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:16@
-
-           __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Struct1
     where staticSizeOf = \_ -> 4 :: Int
@@ -349,12 +331,6 @@ data Struct2
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct struct2@
-
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:9@
-
-           __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Struct2
     where staticSizeOf = \_ -> 4 :: Int
@@ -384,12 +360,6 @@ data Struct3
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct struct3@
-
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:16@
-
-           __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Struct3
     where staticSizeOf = \_ -> 4 :: Int
@@ -413,12 +383,6 @@ instance (~) ty CInt => HasField "struct3_a" (Ptr Struct3) (Ptr ty)
 -}
 newtype Struct3_t
     = Struct3_t {unwrapStruct3_t :: Struct3}
-      {- ^ __C declaration:__ @struct3_t@
-
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:35@
-
-           __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty Struct3 =>
@@ -441,12 +405,6 @@ data Struct4
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct struct4@
-
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:16@
-
-           __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Struct4
     where staticSizeOf = \_ -> 4 :: Int

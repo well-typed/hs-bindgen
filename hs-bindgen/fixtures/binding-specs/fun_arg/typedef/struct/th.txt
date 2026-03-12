@@ -134,12 +134,6 @@ data MyStruct
 
                      __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
                 -}}
-      {- ^ __C declaration:__ @struct MyStruct@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 4:8@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize MyStruct
     where staticSizeOf = \_ -> 4 :: Int
@@ -164,12 +158,6 @@ instance (~) ty CInt =>
 -}
 newtype A
     = A {unwrapA :: MyStruct}
-      {- ^ __C declaration:__ @A@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 7:25@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty MyStruct => HasField "unwrapA" (Ptr A) (Ptr ty)
@@ -185,12 +173,6 @@ instance HasCField A "unwrapA"
 -}
 newtype B
     = B {unwrapB :: A}
-      {- ^ __C declaration:__ @B@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 8:11@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
@@ -204,15 +186,7 @@ instance HasCField B "unwrapB"
 
     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
 -}
-newtype E
-    = E {unwrapE :: M.C}
-      {- ^ __C declaration:__ @E@
-
-           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 21:11@
-
-           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
-      -}
-    deriving stock Generic
+newtype E = E {unwrapE :: M.C} deriving stock Generic
 instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapE")
 instance HasCField E "unwrapE"
