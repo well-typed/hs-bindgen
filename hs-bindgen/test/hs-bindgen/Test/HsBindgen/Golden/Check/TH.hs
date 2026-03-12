@@ -24,6 +24,8 @@ import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Pretty.Comment
+import HsBindgen.Config
+import HsBindgen.Config.Internal
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -41,7 +43,7 @@ import Test.HsBindgen.Resources
 check :: IO TestResources -> TestCase -> TestTree
 check getTestResources test =
     goldenAnsiDiff "th" fixture $ \report ->
-      if ghcAtLeast904 then do
+      if ghcAtLeast908 then do
         let testTh =
               test
                 & #onBackend %~ (. applyTestThCategoryChoice)
@@ -52,8 +54,10 @@ check getTestResources test =
         (deps, decls) <-
           runTestHsBindgenSuccess report getTestResources testTh artefacts
 
-        let thDecls :: Qu [TH.Dec]
-            thDecls = uncurry (getThDecls deps) $ Foldable.fold decls
+        let fns :: FieldNamingStrategy
+            fns = (.fieldNamingStrategy) $ getTestFrontendConfig test
+            thDecls :: Qu [TH.Dec]
+            thDecls = uncurry (getThDecls fns deps) $ Foldable.fold decls
 
             (st, thdecs) = runQu thDecls
 
@@ -77,7 +81,7 @@ check getTestResources test =
 
         return $ ActualValue output
       else
-        return $ ActualSkipped "ghc < 9.4"
+        return $ ActualSkipped "ghc < 9.8"
   where
     fixture :: FilePath
     fixture = test.outputDir </> "th" <.> "txt"
@@ -168,13 +172,18 @@ instance Guasi Qu where
                 Map.insert (TH.DeclDoc hsNm) s docMap
             }
 
-    putLocalFieldDoc parent field s = Qu $ do
-        q@QuState{ documentationMap = docMap } <- get
-        let hsNm = getGlobalFieldName parentStr fieldStr
-        put $!
-          q { documentationMap =
-                Map.insert (TH.DeclDoc hsNm) s docMap
-            }
+    -- See notes in "HsBindgen.Guasi".
+    putLocalFieldDoc _fns parent field s =
+        if ghcAtLeast908 then
+          Qu $ do
+            q@QuState{ documentationMap = docMap } <- get
+            let hsNm = getGlobalFieldName parentStr fieldStr
+            put $!
+              q { documentationMap =
+                    Map.insert (TH.DeclDoc hsNm) s docMap
+                }
+        else
+           error "TH test does not support GHC versions older than 9.8"
       where
         parentStr, fieldStr :: String
         parentStr = Text.unpack $ Hs.getName parent
@@ -203,6 +212,8 @@ getGlobalName ns nm = TH.Name (TH.OccName nm) (TH.NameG thNs pkg mdl)
       Hs.NsConstr     -> TH.DataName
       Hs.NsTypeConstr -> TH.TcClsName
 
+#if __GLASGOW_HASKELL__ >=908
+-- See notes in "HsBindgen.Guasi".
 getGlobalFieldName :: String -> String -> TH.Name
 getGlobalFieldName parent field =
     TH.Name (TH.OccName field) (TH.NameG thNs pkg mdl)
@@ -215,6 +226,11 @@ getGlobalFieldName parent field =
 
     thNs :: TH.NameSpace
     thNs = TH.FldName parent
+#else
+getGlobalFieldName :: String -> String -> TH.Name
+getGlobalFieldName _ _ =
+    error "TH test does not support GHC versions older than 9.8"
+#endif
 
 -- | This function pretty prints 'TH.Dec' with their associated documentation.
 prettyWithDocumentationMap ::
@@ -593,9 +609,9 @@ nestDepth :: Int
 nestDepth = 4
 
 -- | Skip TH for older ghc
-ghcAtLeast904 :: Bool
-#if __GLASGOW_HASKELL__ >=904
-ghcAtLeast904 = True
+ghcAtLeast908 :: Bool
+#if __GLASGOW_HASKELL__ >=908
+ghcAtLeast908 = True
 #else
-ghcAtLeast904 = False
+ghcAtLeast908 = False
 #endif

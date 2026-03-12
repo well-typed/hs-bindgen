@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 module HsBindgen.Guasi (
     Guasi (..)
   ) where
@@ -10,6 +12,7 @@ import Text.SimplePrettyPrint (pretty)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Pretty.Comment (CommentKind (..))
+import HsBindgen.Config (FieldNamingStrategy (..))
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
@@ -34,7 +37,7 @@ class TH.Quote g => Guasi g where
     -- duplicate record fields, Template Haskell gets confused, reporting
     -- "ambiguous occurrence" errors.
     putLocalFieldDoc ::
-      Hs.Name Hs.NsConstr -> Hs.Name Hs.NsVar -> HsDoc.Comment -> g ()
+      FieldNamingStrategy -> Hs.Name Hs.NsConstr -> Hs.Name Hs.NsVar -> HsDoc.Comment -> g ()
 
 instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile
@@ -64,7 +67,12 @@ instance Guasi TH.Q where
           Hs.NsConstr     -> TH.DataName
           Hs.NsTypeConstr -> TH.TcClsName
 
-    putLocalFieldDoc parent field comment = do
+#if __GLASGOW_HASKELL__ >=908
+    -- Here we have to go out of the way. We need to rigurously disambiguate
+    -- field names when attaching documentation if record dot syntax is enabled.
+    -- However, we can only do so with `template-haskell >= 2.21`, shipping with
+    -- GHC 9.8.
+    putLocalFieldDoc _fns parent field comment = do
         loc <- TH.location
         let pkg = TH.PkgName $ TH.loc_package loc
             mdl = TH.ModName $ TH.loc_module loc
@@ -81,3 +89,11 @@ instance Guasi TH.Q where
 
         thNs :: TH.NameSpace
         thNs = TH.FldName parentStr
+#else
+    -- For older versions of GHC, we only provide field documentation when
+    -- fields are prefixed and have unique names.
+    putLocalFieldDoc fns _parent field comment =
+        case fns of
+          EnableRecordDot    -> pure ()
+          PrefixedFieldNames -> putLocalDoc field comment
+#endif

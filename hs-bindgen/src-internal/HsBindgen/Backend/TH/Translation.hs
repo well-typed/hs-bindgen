@@ -29,6 +29,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Level
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation.Common
+import HsBindgen.Config (FieldNamingStrategy)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Guasi
@@ -203,8 +204,8 @@ mkRolledType env ty = case ty of
             , Text.unpack extRef.ident.text
             ]
 
-mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
-mkDecl = \case
+mkDecl :: forall q. Guasi q => FieldNamingStrategy -> SDecl -> q [TH.Dec]
+mkDecl fns = \case
       DTypSyn typSyn -> do
         targetType <- mkType EmptyEnv typSyn.typ
         pure [TH.TySynD (hsNameToTH typSyn.name) [] targetType]
@@ -242,7 +243,7 @@ mkDecl = \case
                 )
               | field <- record.fields
               ]
-        traverse_ (uncurry (putLocalFieldDocM record.con)) docs
+        traverse_ (uncurry (putLocalFieldDocM fns record.con)) docs
 
         decl <-
           TH.dataD
@@ -268,7 +269,7 @@ mkDecl = \case
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv newtyp.field.typ)
 
-        putLocalFieldDocM newtyp.con newtyp.field.name newtyp.field.comment
+        putLocalFieldDocM fns newtyp.con newtyp.field.name newtyp.field.comment
 
         decl <-
           TH.newtypeD
@@ -429,8 +430,13 @@ putLocalDocM ::
 putLocalDocM nm = traverse_ (putLocalDoc nm)
 
 putLocalFieldDocM ::
-  Guasi g => Hs.Name Hs.NsConstr -> Hs.Name Hs.NsVar -> Maybe HsDoc.Comment -> g ()
-putLocalFieldDocM  parent field = traverse_ (putLocalFieldDoc parent field)
+     Guasi g
+  => FieldNamingStrategy
+  -> Hs.Name Hs.NsConstr
+  -> Hs.Name Hs.NsVar
+  -> Maybe HsDoc.Comment
+  -> g ()
+putLocalFieldDocM fns parent field = traverse_ (putLocalFieldDoc fns parent field)
 
 {-------------------------------------------------------------------------------
   Tuples
