@@ -470,6 +470,7 @@ test-suite test-th
     -Wno-unticked-promoted-constructors
 
   other-modules:
+    Test.TH.RecordDot
     Test.TH.StaticCounterA
     Test.TH.StaticCounterB
     Test.TH.Test01
