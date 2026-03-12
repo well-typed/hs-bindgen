@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 -- | Construct the partial AST from the language-C AST
 module HsBindgen.Frontend.LanguageC.PartialAST.FromLanC (
     mkPartialDecl
@@ -172,8 +174,12 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
 
       -- Unsupported types
       LanC.CInt128Type{}   -> \_ -> unsupported "CInt128Type"
+#if MIN_VERSION_language_c(0,9,2)
       LanC.CUInt128Type{}  -> \_ -> unsupported "CUInt128Type"
+#endif
+#if MIN_VERSION_language_c(0,10,0)
       LanC.CBFloat16Type{} -> \_ -> unsupported "CBFloat16Type"
+#endif
       LanC.CFloatNType{}   -> \_ -> unsupported "CFloatNType"
       LanC.CTypeOfExpr{}   -> \_ -> unsupported "CTypeOfExpr"
       LanC.CTypeOfType{}   -> \_ -> unsupported "CTypeOfType"
