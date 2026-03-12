@@ -82,9 +82,8 @@ check getTestResources test =
     setupBindgen = do
       traceMessages <- newIORef []
       let collectTrace msg = modifyIORef' traceMessages (msg :)
-          backendCfg = getTestBackendConfig test
           mrc = ModuleRenderConfig {
-              qualifiedStyle = view #qualifiedStyle backendCfg
+              qualifiedStyle = test.qualifiedStyle
             }
           artefacts = (,)
                     <$> ModuleBaseName

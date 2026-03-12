@@ -118,6 +118,9 @@ data TestCase = TestCase {
       -- For tests this value should be 'Short' by default in order to avoid
       -- #966.
     , pathStyle :: PathStyle
+
+      -- | In imports, put "qualified" before or after the module name
+    , qualifiedStyle :: QualifiedStyle
     }
   deriving stock (Generic)
 
@@ -151,6 +154,7 @@ defaultTest fp = TestCase{
     , specExternal     = []
     , specPrescriptive = Nothing
     , pathStyle        = Short
+    , qualifiedStyle   = def
     }
 
 testVariant ::

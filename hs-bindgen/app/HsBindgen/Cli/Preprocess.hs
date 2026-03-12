@@ -40,6 +40,7 @@ data Opts = Opts {
       config              :: Config
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
+    , qualifiedStyle      :: QualifiedStyle
     , outputOptions       :: OutputOptions
     , hsOutputDir         :: FilePath
     , outputBindingSpec   :: Maybe FilePath
@@ -56,6 +57,7 @@ parseOpts =
       <$> parseConfig
       <*> parseUniqueId
       <*> parseBaseModuleName
+      <*> parseQualifiedStyle
       <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
@@ -86,7 +88,7 @@ exec global opts = do
 
     mrc :: ModuleRenderConfig
     mrc = ModuleRenderConfig {
-        qualifiedStyle = opts.config.qualifiedStyle
+        qualifiedStyle = opts.qualifiedStyle
       }
 
     artefact :: Artefact ()

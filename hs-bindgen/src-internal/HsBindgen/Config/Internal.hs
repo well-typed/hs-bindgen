@@ -34,6 +34,13 @@ import HsBindgen.Util.Tracer
 -- NOTE: Configuration types should contain user-provided data, not
 -- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
 -- artefacts.
+--
+-- NOTE: These 'BindgenConfig' options are provided /once/ (i.e., the function
+-- 'HsBindgen.hsBindgen' runs once). This is, for example, the C standard. In
+-- contrast, configuration of external artifacts that may change even for the
+-- same @hsBindgen@ run, should be directly provided to these external
+-- artifacts. This is, for example, the output file path of the generated
+-- bindings.
 data BindgenConfig = BindgenConfig {
       boot     :: BootConfig
     , frontend :: FrontendConfig
@@ -86,7 +93,6 @@ data BackendConfig = BackendConfig {
       uniqueId            :: UniqueId
     , haddock             :: HaddockConfig
     , categoryChoice      :: ByCategory Choice
-    , qualifiedStyle      :: QualifiedStyle
     }
   deriving stock (Show, Generic)
   deriving anyclass Default

@@ -85,6 +85,7 @@ data Lit = Lit {
     , config         :: Config
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
+    , qualifiedStyle :: QualifiedStyle
     , outputOptions  :: OutputOptions
     , inputs         :: [UncheckedHashIncludeArg]
     }
@@ -95,6 +96,7 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
+  <*> parseQualifiedStyle
   <*> parseOutputOptions (SingleFile (SingleFileSafe "" :| []))
   <*> parseInputs
 
@@ -123,7 +125,7 @@ exec opts = do
 
         mrc :: ModuleRenderConfig
         mrc = ModuleRenderConfig {
-            qualifiedStyle = lit.config.qualifiedStyle
+            qualifiedStyle = lit.qualifiedStyle
           }
 
         artefact :: Artefact ()

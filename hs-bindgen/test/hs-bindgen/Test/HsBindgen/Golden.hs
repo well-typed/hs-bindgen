@@ -1842,7 +1842,7 @@ test_types_structs_enable_record_dot =
 test_types_structs_post_qualified :: TestCase
 test_types_structs_post_qualified =
     testVariant "types/structs/simple_structs" "post_qualified"
-      & #onBackend .~ ( #qualifiedStyle .~ PostQualified )
+      & #qualifiedStyle .~ PostQualified
 
 test_types_structs_unnamed_struct :: TestCase
 test_types_structs_unnamed_struct =
