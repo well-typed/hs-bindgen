@@ -13,7 +13,8 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 
-{-# OPTIONS_GHC -ddump-splices -ddump-to-file -ddump-deriv #-}
+-- {-# OPTIONS_GHC -ddump-splices -ddump-deriv -ddump-to-file #-}
+-- {-# OPTIONS_GHC -ddump-splices #-}
 
 module Test.TH.RecordDot where
 
@@ -24,15 +25,8 @@ import HsBindgen.TH
 let cfg :: Config
     cfg = def
       & #clang % #extraIncludeDirs .~ [Pkg "examples"]
-      -- TODO-D.
-      -- & #fieldNamingStrategy       .~ EnableRecordDot
+      & #fieldNamingStrategy       .~ EnableRecordDot
     cfgTh :: ConfigTH
     cfgTh = def
  in withHsBindgen cfg cfgTh $
       hashInclude "duplicate_record_dot.h"
-
--- [d| data A = A { a :: Int }
---     data B = B { a :: Int } |]
-
--- x = A 10
--- y = x.a

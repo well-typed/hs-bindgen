@@ -26,6 +26,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Pretty.Comment
 import HsBindgen.Guasi
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TH.Internal
 
 import Test.Common.Util.Tasty
@@ -157,12 +158,49 @@ instance Guasi Qu where
     extsEnabled = return []
     reportError _ = return ()
 
-    putLocalDoc nm s = Qu $ do
+    putLocalDoc ns nm s = Qu $ do
         q@QuState{ documentationMap = docMap } <- get
+        let hsNm = TH.Name (TH.OccName nmStr) (TH.NameG thNs pkg mdl)
         put $!
           q { documentationMap =
-                Map.insert (TH.DeclDoc $ TH.mkName (Text.unpack $ Hs.getName nm)) s docMap
+                Map.insert (TH.DeclDoc hsNm) s docMap
             }
+      where
+        nmStr :: String
+        nmStr = Text.unpack $ Hs.getName nm
+
+        pkg :: TH.PkgName
+        pkg = TH.PkgName "test-pkg"
+
+        mdl :: TH.ModName
+        mdl = TH.ModName "test-module"
+
+        thNs :: TH.NameSpace
+        thNs = case Hs.namespaceOf ns of
+          Hs.NsVar        -> TH.VarName
+          Hs.NsConstr     -> TH.DataName
+          Hs.NsTypeConstr -> TH.TcClsName
+
+    putLocalFieldDoc parent field s = Qu $ do
+        q@QuState{ documentationMap = docMap } <- get
+        let hsNm = TH.Name (TH.OccName fieldStr) (TH.NameG thNs pkg mdl)
+        put $!
+          q { documentationMap =
+                Map.insert (TH.DeclDoc hsNm) s docMap
+            }
+      where
+        parentStr, fieldStr :: String
+        parentStr = Text.unpack $ Hs.getName parent
+        fieldStr  = Text.unpack $ Hs.getName field
+
+        pkg :: TH.PkgName
+        pkg = TH.PkgName "test-pkg"
+
+        mdl :: TH.ModName
+        mdl = TH.ModName "test-module"
+
+        thNs :: TH.NameSpace
+        thNs = TH.FldName parentStr
 
 runQu :: Qu a -> (QuState, a)
 runQu (Qu m) = case runState m emptyQuState of

@@ -242,8 +242,7 @@ mkDecl = \case
                 )
               | field <- record.fields
               ]
-
-        traverse_ (uncurry putLocalDocM) docs
+        traverse_ (uncurry (putLocalFieldDocM record.con)) docs
 
         decl <-
           TH.dataD
@@ -253,12 +252,13 @@ mkDecl = \case
             Nothing
             [TH.recC (hsNameToTH record.con) fields]
             (nestedDeriving record.deriv)
-        putLocalDocM record.typ record.comment
+        putLocalDocM Hs.SNsTypeConstr record.typ record.comment
+
         pure [decl]
 
       DEmptyData empty -> do
         decl <- TH.dataD (TH.cxt []) (hsNameToTH empty.name) [] Nothing [] []
-        putLocalDocM empty.name empty.comment
+        putLocalDocMTyp empty.name empty.comment
         pure [decl]
 
       DNewtype newtyp -> do
@@ -268,7 +268,7 @@ mkDecl = \case
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv newtyp.field.typ)
 
-        putLocalDocM newtyp.field.name newtyp.field.comment
+        putLocalFieldDocM newtyp.con newtyp.field.name newtyp.field.comment
 
         decl <-
           TH.newtypeD
@@ -278,7 +278,7 @@ mkDecl = \case
             Nothing
             (TH.recC (hsNameToTH newtyp.con) [field])
             (nestedDeriving newtyp.deriv)
-        putLocalDocM (newtyp.name) (newtyp.comment)
+        putLocalDocMTyp (newtyp.name) (newtyp.comment)
         pure [decl]
 
       DDerivingInstance deriv -> do
@@ -325,7 +325,7 @@ mkDecl = \case
               <*> pure impent
               <*> pure (hsNameToTH foreignImport.name)
               <*> mkType EmptyEnv importType
-        putLocalDocM foreignImport.name foreignImport.comment
+        putLocalDocMVar foreignImport.name foreignImport.comment
         pure [decl]
 
       DBinding binding -> do
@@ -341,7 +341,7 @@ mkDecl = \case
                   <*> mkType EmptyEnv bindingType
             , simpleDecl bindingName binding.body
             ]
-        putLocalDocM binding.name binding.comment
+        putLocalDocMVar binding.name binding.comment
         pure decls
 
       DPatternSynonym patSyn -> do
@@ -357,7 +357,7 @@ mkDecl = \case
             TH.implBidir
             (mkPat patSyn.rhs)
           ]
-        putLocalDocM patSyn.name patSyn.comment
+        putLocalDocMCon patSyn.name patSyn.comment
         pure decls
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
@@ -424,8 +424,22 @@ newNames env (AS n) (NameHint hint ::: hints) = do
     x <- TH.newName hint
     return (x : xs, env' :> x)
 
-putLocalDocM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
-putLocalDocM nm = traverse_ (putLocalDoc nm)
+putLocalDocM ::
+  Guasi g => Hs.SNamespace ns -> Hs.Name ns -> Maybe HsDoc.Comment -> g ()
+putLocalDocM ns nm = traverse_ (putLocalDoc ns nm)
+
+putLocalDocMTyp :: Guasi g => Hs.Name Hs.NsTypeConstr -> Maybe HsDoc.Comment -> g ()
+putLocalDocMTyp = putLocalDocM Hs.SNsTypeConstr
+
+putLocalDocMCon :: Guasi g => Hs.Name Hs.NsConstr -> Maybe HsDoc.Comment -> g ()
+putLocalDocMCon = putLocalDocM Hs.SNsConstr
+
+putLocalDocMVar :: Guasi g => Hs.Name Hs.NsVar -> Maybe HsDoc.Comment -> g ()
+putLocalDocMVar = putLocalDocM Hs.SNsVar
+
+putLocalFieldDocM ::
+  Guasi g => Hs.Name Hs.NsConstr -> Hs.Name Hs.NsVar -> Maybe HsDoc.Comment -> g ()
+putLocalFieldDocM  parent field = traverse_ (putLocalFieldDoc parent field)
 
 {-------------------------------------------------------------------------------
   Tuples
