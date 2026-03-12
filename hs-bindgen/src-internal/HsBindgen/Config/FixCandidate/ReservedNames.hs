@@ -143,7 +143,8 @@ ghcNonReservedKeywords = [
 -- * @>>@
 hsBindgenReservedTypeNames :: [Text]
 hsBindgenReservedTypeNames =
-    [ "Bounded"
+    [ "Bool"
+    , "Bounded"
     , "Enum"
     , "Eq"
     , "FiniteBits"

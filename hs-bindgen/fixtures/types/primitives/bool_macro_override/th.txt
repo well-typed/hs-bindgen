@@ -1,0 +1,242 @@
+-- addDependentFile examples/golden/types/primitives/bool_macro_override.h
+-- #include <types/primitives/bool_macro_override.h>
+-- void hs_bindgen_fc2c0275afbb3c2e (
+--   A arg1,
+--   _Bool arg2
+-- )
+-- {
+--   (f)(arg1, arg2);
+-- }
+-- void hs_bindgen_d07d93e6b7330d03 (
+--   A arg1,
+--   bool arg2
+-- )
+-- {
+--   (g)(arg1, arg2);
+-- }
+-- void hs_bindgen_c170f90cc5412c59 (
+--   A arg1,
+--   _Bool arg2
+-- )
+-- {
+--   (f)(arg1, arg2);
+-- }
+-- void hs_bindgen_18fbcf94c0b76854 (
+--   A arg1,
+--   bool arg2
+-- )
+-- {
+--   (g)(arg1, arg2);
+-- }
+-- /* test_typesprimitivesbool_macro_ov_Example_get_f */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_aa1f6a0351ab44da (void)) (
+--   A arg1,
+--   _Bool arg2
+-- )
+-- {
+--   return &f;
+-- }
+-- /* test_typesprimitivesbool_macro_ov_Example_get_g */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_c0944c7d91c77d18 (void)) (
+--   A arg1,
+--   bool arg2
+-- )
+-- {
+--   return &g;
+-- }
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 5:9@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+newtype A
+    = A {unwrapA :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro bool@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 8:9@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+newtype Bool'
+    = Bool' {unwrapBool' :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapBool'" (Ptr Bool') (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBool'")
+instance HasCField Bool' "unwrapBool'"
+    where type CFieldType Bool' "unwrapBool'" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
+foreign import ccall safe "hs_bindgen_fc2c0275afbb3c2e" hs_bindgen_fc2c0275afbb3c2e_base ::
+    Int32
+ -> Word8
+ -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
+hs_bindgen_fc2c0275afbb3c2e :: A -> CBool -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_f@
+hs_bindgen_fc2c0275afbb3c2e = fromFFIType hs_bindgen_fc2c0275afbb3c2e_base
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+f_safe :: A -> CBool -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+f_safe = hs_bindgen_fc2c0275afbb3c2e
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
+foreign import ccall safe "hs_bindgen_d07d93e6b7330d03" hs_bindgen_d07d93e6b7330d03_base ::
+    Int32
+ -> Int32
+ -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
+hs_bindgen_d07d93e6b7330d03 :: A -> Bool' -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Safe_g@
+hs_bindgen_d07d93e6b7330d03 = fromFFIType hs_bindgen_d07d93e6b7330d03_base
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+g_safe :: A -> Bool' -> IO ()
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+g_safe = hs_bindgen_d07d93e6b7330d03
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
+foreign import ccall unsafe "hs_bindgen_c170f90cc5412c59" hs_bindgen_c170f90cc5412c59_base ::
+    Int32
+ -> Word8
+ -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
+hs_bindgen_c170f90cc5412c59 :: A -> CBool -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_f@
+hs_bindgen_c170f90cc5412c59 = fromFFIType hs_bindgen_c170f90cc5412c59_base
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+f_unsafe :: A -> CBool -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+f_unsafe = hs_bindgen_c170f90cc5412c59
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
+foreign import ccall unsafe "hs_bindgen_18fbcf94c0b76854" hs_bindgen_18fbcf94c0b76854_base ::
+    Int32
+ -> Int32
+ -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
+hs_bindgen_18fbcf94c0b76854 :: A -> Bool' -> IO ()
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_Unsafe_g@
+hs_bindgen_18fbcf94c0b76854 = fromFFIType hs_bindgen_18fbcf94c0b76854_base
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+g_unsafe :: A -> Bool' -> IO ()
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+g_unsafe = hs_bindgen_18fbcf94c0b76854
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_f@
+foreign import ccall unsafe "hs_bindgen_aa1f6a0351ab44da" hs_bindgen_aa1f6a0351ab44da_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_f@
+hs_bindgen_aa1f6a0351ab44da :: IO (FunPtr (A -> CBool -> IO ()))
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_f@
+hs_bindgen_aa1f6a0351ab44da = fromFFIType hs_bindgen_aa1f6a0351ab44da_base
+{-# NOINLINE f_funptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+f_funptr :: FunPtr (A -> CBool -> IO ())
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+f_funptr = unsafePerformIO hs_bindgen_aa1f6a0351ab44da
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_g@
+foreign import ccall unsafe "hs_bindgen_c0944c7d91c77d18" hs_bindgen_c0944c7d91c77d18_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_g@
+hs_bindgen_c0944c7d91c77d18 :: IO (FunPtr (A -> Bool' -> IO ()))
+-- __unique:__ @test_typesprimitivesbool_macro_ov_Example_get_g@
+hs_bindgen_c0944c7d91c77d18 = fromFFIType hs_bindgen_c0944c7d91c77d18_base
+{-# NOINLINE g_funptr #-}
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+g_funptr :: FunPtr (A -> Bool' -> IO ())
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/primitives\/bool_macro_override.h 9:6@
+
+    __exported by:__ @types\/primitives\/bool_macro_override.h@
+-}
+g_funptr = unsafePerformIO hs_bindgen_c0944c7d91c77d18
