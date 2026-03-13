@@ -71,6 +71,7 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
@@ -166,10 +167,19 @@ hsBindgenE
 -------------------------------------------------------------------------------}
 
 -- | Write the include graph to `STDOUT` or a file.
-writeIncludeGraph :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
-writeIncludeGraph filePolicy dirPolicy mPath = do
+writeIncludeGraph ::
+     Boolean Regex
+  -> FilePolicy
+  -> DirPolicy
+  -> Maybe FilePath
+  -> Artefact ()
+writeIncludeGraph regex filePolicy dirPolicy mPath = do
     includeGraph <- getIncludeGraph
-    let predicate = (/= RootHeader.name)
+    -- TODO-D: Move predicates into `getIncludeGraph`?
+    let predicateUser, predicateRoot, predicate :: SourcePath -> Bool
+        predicateUser (SourcePath p) = eval (\r -> matchTest r p) regex
+        predicateRoot                = (/= RootHeader.name)
+        predicate p = predicateUser p && predicateRoot p
         rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
       Nothing   ->
