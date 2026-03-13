@@ -7,8 +7,6 @@ source-repository-package
     location: https://github.com/well-typed/libclang
     tag: d6e482df49b88375cf3075928a78ee86c2a068d4
 
-constraints: language-c == 0.10.2
-
 --
 -- Temporary package bounds overrides for ghc 9.14
 --
