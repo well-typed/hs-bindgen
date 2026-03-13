@@ -32,14 +32,16 @@ in
         # TODO: The test of `c-expr-runtime` requires `musl` headers, but
         # providing `musl` as test system dependency causes other build errors.
         c-expr-runtime = hlib.dontCheck hsBindgenPkgs.c-expr-runtime;
-        # TODO: Test of `hs-bindgen` fails because it run `hs-bindgen-cli` which
-        # is a build output of `hs-bindgen` (chicken-egg problem).
         hs-bindgen = hlib.overrideCabal (drv: {
-          # Tests depend on executable.
+          # TODO: Test of `hs-bindgen` fails because it runs `hs-bindgen-cli`
+          # which is a build output of `hs-bindgen` (chicken-egg problem).
           preCheck = ''
             export PATH="$PWD/dist/build/hs-bindgen-cli:$PATH"
           ''
           + (drv.preCheck or "");
+          # TODO: Test of `hs-bindgen` fails because compilation of TH fixtures
+          # is impure.
+          doCheck = false;
           buildDepends = drv.buildDepends or [ ] ++ [
             final.hsBindgenHook
           ];
