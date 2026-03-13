@@ -164,17 +164,20 @@ multiLocToLanC mloc =
   Flatten: produce a raw string we can give to language-c to parse
 -------------------------------------------------------------------------------}
 
-defaultFlatten :: [Clang.Token Clang.TokenSpelling] -> String
-defaultFlatten allTokens =
+flattenTokens :: String -> [Clang.Token Clang.TokenSpelling] -> String
+flattenTokens trailer allTokens =
     go allTokens
   where
     -- Skip over comments
     go :: [Clang.Token Clang.TokenSpelling] -> String
-    go []     = ";"
+    go []     = trailer
     go (t:ts) =
         case Clang.fromSimpleEnum $ Clang.tokenKind t of
           Right Clang.CXToken_Comment -> go ts
           _otherwise -> prependToken t $ go ts
+
+defaultFlatten :: [Clang.Token Clang.TokenSpelling] -> String
+defaultFlatten = flattenTokens ";"
 
 flattenFunDecl :: [Clang.Token Clang.TokenSpelling] -> String
 flattenFunDecl allTokens =
@@ -198,7 +201,19 @@ flattenFunDecl allTokens =
 
 flattenMacroTypeDef :: [Clang.Token Clang.TokenSpelling] -> String
 flattenMacroTypeDef []         = panicPure "Unexpected empty list of tokens"
+#if MIN_VERSION_language_c(0,10,2)
+-- language-c 0.10.2 lexes @bool@ as a keyword, so it cannot be used as a
+-- typedef name. We substitute a placeholder identifier instead.
+-- 'parseMacroType' only uses the type from the parsed declaration, not the
+-- name, so the placeholder has no effect on the result.
+flattenMacroTypeDef (name:def)
+  | Clang.getTokenSpelling (Clang.tokenSpelling name) == "bool"
+  = "typedef " ++ flattenTokens "_hsbg_bool ;" def
+  | otherwise
+  = "typedef " ++ defaultFlatten (def ++ [name])
+#else
 flattenMacroTypeDef (name:def) = "typedef " ++ defaultFlatten (def ++ [name])
+#endif
 
 prependToken :: Clang.Token Clang.TokenSpelling -> String -> String
 prependToken token rest = concat [

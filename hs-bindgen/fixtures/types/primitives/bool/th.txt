@@ -95,7 +95,7 @@ instance (~) ty HsBindgen.Runtime.LibC.CBool =>
     __exported by:__ @types\/primitives\/bool.h@
 -}
 newtype BOOL
-    = BOOL {unwrapBOOL :: CBool}
+    = BOOL {unwrapBOOL :: HsBindgen.Runtime.LibC.CBool}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -112,10 +112,12 @@ newtype BOOL
                       StaticSize,
                       Storable,
                       WriteRaw)
-instance (~) ty CBool => HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
+instance (~) ty HsBindgen.Runtime.LibC.CBool =>
+         HasField "unwrapBOOL" (Ptr BOOL) (Ptr ty)
     where getField = fromPtr (Proxy @"unwrapBOOL")
 instance HasCField BOOL "unwrapBOOL"
-    where type CFieldType BOOL "unwrapBOOL" = CBool
+    where type CFieldType BOOL
+                          "unwrapBOOL" = HsBindgen.Runtime.LibC.CBool
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct bools3@
 

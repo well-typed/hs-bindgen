@@ -179,7 +179,7 @@ instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
     __exported by:__ @types\/primitives\/bool.h@
 -}
 newtype BOOL = BOOL
-  { unwrapBOOL :: RIP.CBool
+  { unwrapBOOL :: HsBindgen.Runtime.LibC.CBool
   }
   deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
@@ -200,7 +200,7 @@ newtype BOOL = BOOL
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) RIP.CBool
+instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
          ) => RIP.HasField "unwrapBOOL" (RIP.Ptr BOOL) (RIP.Ptr ty) where
 
   getField =
@@ -208,7 +208,8 @@ instance ( ((~) ty) RIP.CBool
 
 instance HasCField.HasCField BOOL "unwrapBOOL" where
 
-  type CFieldType BOOL "unwrapBOOL" = RIP.CBool
+  type CFieldType BOOL "unwrapBOOL" =
+    HsBindgen.Runtime.LibC.CBool
 
   offset# = \_ -> \_ -> 0
 
