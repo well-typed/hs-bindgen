@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+
 -- | Construct the partial AST from the language-C AST
 module HsBindgen.Frontend.LanguageC.PartialAST.FromLanC (
     mkPartialDecl
@@ -157,7 +159,18 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       LanC.CLongType   _a -> withSign $ C.PrimIntegral C.PrimLong  . fromMaybe C.Signed
       LanC.CFloatType  _a -> notFun $ C.TypePrim $ C.PrimFloating C.PrimFloat
       LanC.CDoubleType _a -> notFun $ C.TypePrim $ C.PrimFloating C.PrimDouble
+#if MIN_VERSION_language_c(0,10,2)
+      -- language-c 0.10.2 lexes both @bool@ and @_Bool@ as keywords, both
+      -- producing @CBoolType@. If the user has redefined @bool@ (via @#define@
+      -- or @typedef@), we should use that definition instead.
+      LanC.CBoolType   _a -> \partial -> do
+        typeEnv <- getReparseEnv
+        case Map.lookup "bool" typeEnv of
+          Just typ -> notFun typ partial
+          Nothing  -> notFun (C.TypePrim C.PrimBool) partial
+#else
       LanC.CBoolType   _a -> notFun $ C.TypePrim $ C.PrimBool
+#endif
 
       -- Complex types
       LanC.CComplexType _a -> \case
@@ -172,8 +185,12 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
 
       -- Unsupported types
       LanC.CInt128Type{}   -> \_ -> unsupported "CInt128Type"
+#if MIN_VERSION_language_c(0,9,2)
       LanC.CUInt128Type{}  -> \_ -> unsupported "CUInt128Type"
+#endif
+#if MIN_VERSION_language_c(0,10,0)
       LanC.CBFloat16Type{} -> \_ -> unsupported "CBFloat16Type"
+#endif
       LanC.CFloatNType{}   -> \_ -> unsupported "CFloatNType"
       LanC.CTypeOfExpr{}   -> \_ -> unsupported "CTypeOfExpr"
       LanC.CTypeOfType{}   -> \_ -> unsupported "CTypeOfType"

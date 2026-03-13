@@ -1,0 +1,151 @@
+-- addDependentFile examples/golden/types/primitives/bool_typedef_override.h
+-- #include <types/primitives/bool_typedef_override.h>
+-- void hs_bindgen_ea0e9b7fd1e9560c (
+--   A arg1,
+--   bool arg2
+-- )
+-- {
+--   (f)(arg1, arg2);
+-- }
+-- void hs_bindgen_1ab53e827ec0c8e2 (
+--   A arg1,
+--   bool arg2
+-- )
+-- {
+--   (f)(arg1, arg2);
+-- }
+-- /* test_typesprimitivesbool_typedef__Example_get_f */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_54e8e1ffb47ff670 (void)) (
+--   A arg1,
+--   bool arg2
+-- )
+-- {
+--   return &f;
+-- }
+{-| __C declaration:__ @macro A@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 4:9@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+newtype A
+    = A {unwrapA :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapA" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapA")
+instance HasCField A "unwrapA"
+    where type CFieldType A "unwrapA" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @bool@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 5:13@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+newtype Bool'
+    = Bool' {unwrapBool' :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapBool'" (Ptr Bool') (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapBool'")
+instance HasCField Bool' "unwrapBool'"
+    where type CFieldType Bool' "unwrapBool'" = CInt
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
+foreign import ccall safe "hs_bindgen_ea0e9b7fd1e9560c" hs_bindgen_ea0e9b7fd1e9560c_base ::
+    Int32
+ -> Int32
+ -> IO ()
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
+hs_bindgen_ea0e9b7fd1e9560c :: A -> Bool' -> IO ()
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_Safe_f@
+hs_bindgen_ea0e9b7fd1e9560c = fromFFIType hs_bindgen_ea0e9b7fd1e9560c_base
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+f_safe :: A -> Bool' -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+f_safe = hs_bindgen_ea0e9b7fd1e9560c
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
+foreign import ccall unsafe "hs_bindgen_1ab53e827ec0c8e2" hs_bindgen_1ab53e827ec0c8e2_base ::
+    Int32
+ -> Int32
+ -> IO ()
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
+hs_bindgen_1ab53e827ec0c8e2 :: A -> Bool' -> IO ()
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_Unsafe_f@
+hs_bindgen_1ab53e827ec0c8e2 = fromFFIType hs_bindgen_1ab53e827ec0c8e2_base
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+f_unsafe :: A -> Bool' -> IO ()
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+f_unsafe = hs_bindgen_1ab53e827ec0c8e2
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_get_f@
+foreign import ccall unsafe "hs_bindgen_54e8e1ffb47ff670" hs_bindgen_54e8e1ffb47ff670_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_get_f@
+hs_bindgen_54e8e1ffb47ff670 :: IO (FunPtr (A -> Bool' -> IO ()))
+-- __unique:__ @test_typesprimitivesbool_typedef__Example_get_f@
+hs_bindgen_54e8e1ffb47ff670 = fromFFIType hs_bindgen_54e8e1ffb47ff670_base
+{-# NOINLINE f_funptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+f_funptr :: FunPtr (A -> Bool' -> IO ())
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/primitives\/bool_typedef_override.h 6:6@
+
+    __exported by:__ @types\/primitives\/bool_typedef_override.h@
+-}
+f_funptr = unsafePerformIO hs_bindgen_54e8e1ffb47ff670
