@@ -129,7 +129,7 @@ exec opts = do
           }
 
         artefact :: Artefact ()
-        artefact = writeBindings mrc filePolicy opts.output
+        artefact = writeBindings mrc filePolicy DoNotCreateOutputDirs opts.output
 
     hsBindgen
       lit.globalOpts.unsafe

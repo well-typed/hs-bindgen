@@ -41,6 +41,7 @@ data Opts = Opts {
     , output         :: Maybe FilePath
     , inputs         :: [UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
+    , dirPolicy      :: DirPolicy
     }
 
 parseOpts :: Parser Opts
@@ -52,6 +53,7 @@ parseOpts =
       <*> optional parseOutput'
       <*> parseInputs
       <*> parseFilePolicy
+      <*> parseDirPolicy
 
 parseOutput' :: Parser FilePath
 parseOutput' = strOption $ mconcat [
@@ -75,7 +77,7 @@ exec global opts =
       artefact
   where
     artefact :: Artefact ()
-    artefact = writeUseDeclGraph opts.filePolicy opts.output
+    artefact = writeUseDeclGraph opts.filePolicy opts.dirPolicy opts.output
 
     bindgenConfig :: BindgenConfig
     bindgenConfig =

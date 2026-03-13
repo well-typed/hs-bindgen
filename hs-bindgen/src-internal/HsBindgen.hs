@@ -167,23 +167,27 @@ hsBindgenE
 -------------------------------------------------------------------------------}
 
 -- | Write the include graph to `STDOUT` or a file.
-writeIncludeGraph :: FilePolicy -> Maybe FilePath -> Artefact ()
-writeIncludeGraph filePolicy mPath = do
+writeIncludeGraph :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
+writeIncludeGraph filePolicy dirPolicy mPath = do
     includeGraph <- getIncludeGraph
     let predicate = (/= RootHeader.name)
         rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
-      Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
-      Just path -> write filePolicy def "include graph" (UserSpecified path) rendered
+      Nothing   ->
+        Lift $ delay $ WriteToStdOut $ StringContent rendered
+      Just path ->
+        write filePolicy dirPolicy "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
-writeUseDeclGraph :: FilePolicy -> Maybe FilePath -> Artefact ()
-writeUseDeclGraph filePolicy mPath = do
+writeUseDeclGraph :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
+writeUseDeclGraph filePolicy dirPolicy mPath = do
     useDeclGraph <- getUseDeclGraph
     let rendered = UseDeclGraph.dumpMermaid useDeclGraph
     case mPath of
-      Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
-      Just path -> write filePolicy def "use-decl graph" (UserSpecified path) rendered
+      Nothing   ->
+        Lift $ delay $ WriteToStdOut $ StringContent rendered
+      Just path ->
+        write filePolicy dirPolicy "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
 getBindings :: ModuleRenderConfig -> Artefact String
@@ -197,10 +201,15 @@ getBindings mrc = do
       translateModuleSingle fns mrc name decls
 
 -- | Write bindings to file.
-writeBindings :: ModuleRenderConfig -> FilePolicy -> FilePath -> Artefact ()
-writeBindings mrc filePolicy path = do
+writeBindings ::
+     ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Artefact ()
+writeBindings mrc filePolicy dirPolicy path = do
     bindings <- getBindings mrc
-    write filePolicy def "bindings" (UserSpecified path) bindings
+    write filePolicy dirPolicy "bindings" (UserSpecified path) bindings
 
 -- | Write bindings to a directory (single module combining all categories).
 --

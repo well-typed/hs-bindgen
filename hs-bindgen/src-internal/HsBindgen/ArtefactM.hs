@@ -49,16 +49,10 @@ data FilePolicy
   | DoNotOverwriteFiles
   deriving (Show, Eq)
 
-instance Default FilePolicy where
-  def = DoNotOverwriteFiles
-
 data DirPolicy
   = CreateOutputDirs
   | DoNotCreateOutputDirs
   deriving (Show, Eq)
-
-instance Default DirPolicy where
-  def = DoNotCreateOutputDirs
 
 checkPolicy :: DelayedIO -> ExceptT DelayedIOError IO ()
 checkPolicy = \case
