@@ -59,6 +59,7 @@ KNOWN_FAILURES=(
     functions/heap_types/union_const                  # Issue #1490
     program-analysis/program-slicing/macro_selected   # TODO: see issue #1679
     program-analysis/program-slicing/macro_unselected # TODO: see issue #1679
+    types/primitives/bool_typedef_override            # typedef int bool is invalid in C23
 )
 
 # Known fixtures without code - these will be skipped
