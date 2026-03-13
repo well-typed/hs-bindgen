@@ -10,12 +10,6 @@
 -}
 newtype Foo_enum
     = Foo_enum {unwrapFoo_enum :: HsBindgen.Runtime.LibC.Word32}
-      {- ^ __C declaration:__ @enum foo_enum@
-
-           __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:9@
-
-           __exported by:__ @types\/enums\/enum_cpp_syntax.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Foo_enum
@@ -62,12 +56,6 @@ instance HasCField Foo_enum "unwrapFoo_enum"
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
 pattern A :: Foo_enum
-{-| __C declaration:__ @A@
-
-    __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:27@
-
-    __exported by:__ @types\/enums\/enum_cpp_syntax.h@
--}
 pattern A = Foo_enum 0
 {-| __C declaration:__ @B@
 
@@ -76,12 +64,6 @@ pattern A = Foo_enum 0
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
 pattern B :: Foo_enum
-{-| __C declaration:__ @B@
-
-    __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:30@
-
-    __exported by:__ @types\/enums\/enum_cpp_syntax.h@
--}
 pattern B = Foo_enum 1
 {-| __C declaration:__ @C@
 
@@ -90,10 +72,4 @@ pattern B = Foo_enum 1
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
 pattern C :: Foo_enum
-{-| __C declaration:__ @C@
-
-    __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:33@
-
-    __exported by:__ @types\/enums\/enum_cpp_syntax.h@
--}
 pattern C = Foo_enum 2

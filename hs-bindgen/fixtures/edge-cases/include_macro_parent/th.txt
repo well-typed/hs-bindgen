@@ -21,12 +21,6 @@ data Pt
 
                __exported by:__ @edge-cases\/include_macro_parent.h@
           -}}
-      {- ^ __C declaration:__ @struct pt@
-
-           __defined at:__ @include_macro_child.h (CHILD_HEADER) 1:9@
-
-           __exported by:__ @edge-cases\/include_macro_parent.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Pt
     where staticSizeOf = \_ -> 16 :: Int
@@ -83,12 +77,6 @@ data Rect
 
                  __exported by:__ @edge-cases\/include_macro_parent.h@
             -}}
-      {- ^ __C declaration:__ @struct rect@
-
-           __defined at:__ @edge-cases\/include_macro_parent.h 7:8@
-
-           __exported by:__ @edge-cases\/include_macro_parent.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Rect
     where staticSizeOf = \_ -> 32 :: Int

@@ -94,12 +94,6 @@ data Outside
 
                     __exported by:__ @functions\/decls_in_signature.h@
                -}}
-      {- ^ __C declaration:__ @struct outside@
-
-           __defined at:__ @functions\/decls_in_signature.h 3:8@
-
-           __exported by:__ @functions\/decls_in_signature.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Outside
     where staticSizeOf = \_ -> 8 :: Int
@@ -146,16 +140,6 @@ data Named_struct
 
                          __exported by:__ @functions\/decls_in_signature.h@
                     -}}
-      {- ^ Error cases
-
-         See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
-
-      __C declaration:__ @struct named_struct@
-
-      __defined at:__ @functions\/decls_in_signature.h 17:16@
-
-      __exported by:__ @functions\/decls_in_signature.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Named_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -187,12 +171,6 @@ instance (~) ty CInt =>
 -}
 newtype Named_union
     = Named_union {unwrapNamed_union :: ByteArray}
-      {- ^ __C declaration:__ @union named_union@
-
-           __defined at:__ @functions\/decls_in_signature.h 20:15@
-
-           __exported by:__ @functions\/decls_in_signature.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize Named_union
 deriving via (SizedByteArray 4 4) instance ReadRaw Named_union

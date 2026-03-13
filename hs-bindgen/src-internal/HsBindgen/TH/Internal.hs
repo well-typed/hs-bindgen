@@ -102,10 +102,10 @@ withHsBindgen config configTH hashIncludes = do
         uncheckedHashIncludeArgs
         artefact
 
-    let fieldNaming = bindgenConfig.frontend.fieldNamingStrategy
-        requiredExts = uncurry (getExtensions fieldNaming) decls
-    checkLanguageExtensions requiredExts
-    uncurry (getThDecls deps) decls
+    let fns  = bindgenConfig.frontend.fieldNamingStrategy
+        exts = uncurry (getExtensions fns) decls
+    checkLanguageExtensions exts
+    uncurry (getThDecls fns deps) decls
 
 -- | @#include@ (i.e., generate bindings for) a C header
 --
@@ -143,11 +143,12 @@ getExtensions fieldNaming wrappers decls =
 -- Non-IO part of 'withHsBindgen'.
 getThDecls
     :: Guasi q
-    => [SourcePath]
+    => FieldNamingStrategy
+    -> [SourcePath]
     -> [CWrapper]
     -> [SHs.SDecl]
     -> q [TH.Dec]
-getThDecls deps wrappers decls = do
+getThDecls fns deps wrappers decls = do
     -- Record dependencies, including transitively included headers.
     mapM_ (addDependentFile . getSourcePath) deps
 
@@ -155,7 +156,7 @@ getThDecls deps wrappers decls = do
     addCSource wrapperSrc
 
     -- Generate TH declarations.
-    fmap concat $ traverse mkDecl decls
+    fmap concat $ traverse (mkDecl fns) decls
   where
     wrapperSrc :: String
     wrapperSrc = getCWrappersSource wrappers

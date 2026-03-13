@@ -44,7 +44,6 @@ data Config_ path = Config {
 
     -- * Backend
   , haddockPathStyle :: PathStyle
-  , qualifiedStyle   :: QualifiedStyle
   }
   deriving stock (Eq, Show, Generic)
   deriving stock (Functor, Foldable, Traversable)
@@ -58,21 +57,19 @@ toBindgenConfig ::
   -> BindgenConfig
 toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
       boot = BootConfig {
-         clangArgs   = config.clang
-       , baseModule  = baseModuleName
-       , bindingSpec = config.bindingSpec
-       }
+          clangArgs   = config.clang
+        , baseModule  = baseModuleName
+        , bindingSpec = config.bindingSpec
+        }
     , frontend = FrontendConfig {
-         selectPredicate     = config.selectPredicate
-       , programSlicing      = config.programSlicing
-       , fieldNamingStrategy = config.fieldNamingStrategy
-       }
+          selectPredicate     = config.selectPredicate
+        , programSlicing      = config.programSlicing
+        , fieldNamingStrategy = config.fieldNamingStrategy
+        }
     , backend = BackendConfig {
-         uniqueId       = uniqueId
-       , haddock        = def & #pathStyle .~ config.haddockPathStyle
-       , categoryChoice = choice
-       , fieldNamingStrategy = config.fieldNamingStrategy
-       , qualifiedStyle      = config.qualifiedStyle
+          uniqueId       = uniqueId
+        , haddock        = def & #pathStyle .~ config.haddockPathStyle
+        , categoryChoice = choice
        }
     }
 

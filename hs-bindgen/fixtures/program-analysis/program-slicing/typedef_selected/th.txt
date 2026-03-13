@@ -49,12 +49,6 @@
 -}
 newtype T
     = T {unwrapT :: CInt}
-      {- ^ __C declaration:__ @T@
-
-           __defined at:__ @typedef_selected_t.h 3:13@
-
-           __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -84,12 +78,6 @@ instance HasCField T "unwrapT"
 -}
 newtype U
     = U {unwrapU :: CInt}
-      {- ^ __C declaration:__ @macro U@
-
-           __defined at:__ @program-analysis\/program-slicing\/typedef_selected.h 9:9@
-
-           __exported by:__ @program-analysis\/program-slicing\/typedef_selected.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

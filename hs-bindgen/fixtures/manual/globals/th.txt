@@ -153,12 +153,6 @@ data GlobalConfig
 
                          __exported by:__ @manual\/globals.h@
                     -}}
-      {- ^ __C declaration:__ @struct globalConfig@
-
-           __defined at:__ @manual\/globals.h 7:9@
-
-           __exported by:__ @manual\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize GlobalConfig
     where staticSizeOf = \_ -> 8 :: Int
@@ -190,12 +184,6 @@ instance (~) ty CInt =>
 -}
 newtype ConstInt
     = ConstInt {unwrapConstInt :: CInt}
-      {- ^ __C declaration:__ @ConstInt@
-
-           __defined at:__ @manual\/globals.h 40:19@
-
-           __exported by:__ @manual\/globals.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -239,12 +227,6 @@ data Tuple
 
                   __exported by:__ @manual\/globals.h@
              -}}
-      {- ^ __C declaration:__ @struct tuple@
-
-           __defined at:__ @manual\/globals.h 52:8@
-
-           __exported by:__ @manual\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Tuple
     where staticSizeOf = \_ -> 8 :: Int
@@ -274,12 +256,6 @@ instance (~) ty CInt => HasField "tuple_y" (Ptr Tuple) (Ptr ty)
 -}
 newtype Triplet
     = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
-      {- ^ __C declaration:__ @triplet@
-
-           __defined at:__ @manual\/globals.h 81:13@
-
-           __exported by:__ @manual\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>
@@ -297,12 +273,6 @@ instance HasCField Triplet "unwrapTriplet"
 -}
 newtype List
     = List {unwrapList :: (IncompleteArray CInt)}
-      {- ^ __C declaration:__ @list@
-
-           __defined at:__ @manual\/globals.h 85:13@
-
-           __exported by:__ @manual\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray CInt) =>

@@ -48,12 +48,6 @@ data Flags
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -}}
-      {- ^ __C declaration:__ @struct flags@
-
-           __defined at:__ @types\/structs\/bitfields.h 1:8@
-
-           __exported by:__ @types\/structs\/bitfields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Flags
     where staticSizeOf = \_ -> 4 :: Int
@@ -137,12 +131,6 @@ data Overflow32
 
                        __exported by:__ @types\/structs\/bitfields.h@
                   -}}
-      {- ^ __C declaration:__ @struct overflow32@
-
-           __defined at:__ @types\/structs\/bitfields.h 12:8@
-
-           __exported by:__ @types\/structs\/bitfields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Overflow32
     where staticSizeOf = \_ -> 12 :: Int
@@ -204,12 +192,6 @@ data Overflow32b
 
                         __exported by:__ @types\/structs\/bitfields.h@
                    -}}
-      {- ^ __C declaration:__ @struct overflow32b@
-
-           __defined at:__ @types\/structs\/bitfields.h 18:8@
-
-           __exported by:__ @types\/structs\/bitfields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Overflow32b
     where staticSizeOf = \_ -> 8 :: Int
@@ -271,12 +253,6 @@ data Overflow32c
 
                         __exported by:__ @types\/structs\/bitfields.h@
                    -}}
-      {- ^ __C declaration:__ @struct overflow32c@
-
-           __defined at:__ @types\/structs\/bitfields.h 24:8@
-
-           __exported by:__ @types\/structs\/bitfields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Overflow32c
     where staticSizeOf = \_ -> 16 :: Int
@@ -331,12 +307,6 @@ data Overflow64
 
                        __exported by:__ @types\/structs\/bitfields.h@
                   -}}
-      {- ^ __C declaration:__ @struct overflow64@
-
-           __defined at:__ @types\/structs\/bitfields.h 30:8@
-
-           __exported by:__ @types\/structs\/bitfields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Overflow64
     where staticSizeOf = \_ -> 16 :: Int
@@ -383,12 +353,6 @@ data AlignA
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -}}
-      {- ^ __C declaration:__ @struct alignA@
-
-           __defined at:__ @types\/structs\/bitfields.h 36:8@
-
-           __exported by:__ @types\/structs\/bitfields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize AlignA
     where staticSizeOf = \_ -> 4 :: Int
@@ -435,12 +399,6 @@ data AlignB
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -}}
-      {- ^ __C declaration:__ @struct alignB@
-
-           __defined at:__ @types\/structs\/bitfields.h 41:8@
-
-           __exported by:__ @types\/structs\/bitfields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize AlignB
     where staticSizeOf = \_ -> 8 :: Int

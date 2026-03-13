@@ -44,12 +44,6 @@ data Vector
 
                    __exported by:__ @types\/complex\/vector_test.h@
               -}}
-      {- ^ __C declaration:__ @struct vector@
-
-           __defined at:__ @types\/complex\/vector_test.h 1:9@
-
-           __exported by:__ @types\/complex\/vector_test.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Vector
     where staticSizeOf = \_ -> 16 :: Int

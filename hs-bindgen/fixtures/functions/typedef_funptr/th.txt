@@ -9,14 +9,6 @@ __exported by:__ @functions\/typedef_funptr.h@
 -}
 newtype RunDriver_Aux
     = RunDriver_Aux {unwrapRunDriver_Aux :: (Ptr Driver -> IO CInt)}
-      {- ^ Auxiliary type used by 'RunDriver'
-
-      __C declaration:__ @RunDriver@
-
-      __defined at:__ @functions\/typedef_funptr.h 12:15@
-
-      __exported by:__ @functions\/typedef_funptr.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_d86ecf261d7044c6_base ::
@@ -55,12 +47,6 @@ instance HasCField RunDriver_Aux "unwrapRunDriver_Aux"
 -}
 newtype RunDriver
     = RunDriver {unwrapRunDriver :: (FunPtr RunDriver_Aux)}
-      {- ^ __C declaration:__ @RunDriver@
-
-           __defined at:__ @functions\/typedef_funptr.h 12:15@
-
-           __exported by:__ @functions\/typedef_funptr.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -88,12 +74,6 @@ data Driver
 
                    __exported by:__ @functions\/typedef_funptr.h@
               -}}
-      {- ^ __C declaration:__ @struct Driver@
-
-           __defined at:__ @functions\/typedef_funptr.h 13:8@
-
-           __exported by:__ @functions\/typedef_funptr.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Driver
     where staticSizeOf = \_ -> 8 :: Int
@@ -124,12 +104,6 @@ data Bare
 
                  __exported by:__ @functions\/typedef_funptr.h@
             -}}
-      {- ^ __C declaration:__ @struct Bare@
-
-           __defined at:__ @functions\/typedef_funptr.h 20:8@
-
-           __exported by:__ @functions\/typedef_funptr.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bare
     where staticSizeOf = \_ -> 8 :: Int

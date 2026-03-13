@@ -20,12 +20,6 @@ data Some_struct_field1
 
                                __exported by:__ @edge-cases\/anon_multiple_fields.h@
                           -}}
-      {- ^ __C declaration:__ @struct \@some_struct_field1@
-
-           __defined at:__ @edge-cases\/anon_multiple_fields.h 5:3@
-
-           __exported by:__ @edge-cases\/anon_multiple_fields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Some_struct_field1
     where staticSizeOf = \_ -> 8 :: Int
@@ -79,12 +73,6 @@ data Some_struct
 
                         __exported by:__ @edge-cases\/anon_multiple_fields.h@
                    -}}
-      {- ^ __C declaration:__ @struct some_struct@
-
-           __defined at:__ @edge-cases\/anon_multiple_fields.h 4:8@
-
-           __exported by:__ @edge-cases\/anon_multiple_fields.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Some_struct
     where staticSizeOf = \_ -> 24 :: Int

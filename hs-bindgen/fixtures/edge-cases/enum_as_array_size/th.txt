@@ -14,12 +14,6 @@
 -}
 newtype Test
     = Test {unwrapTest :: CUInt}
-      {- ^ __C declaration:__ @enum test@
-
-           __defined at:__ @edge-cases\/enum_as_array_size.h 3:6@
-
-           __exported by:__ @edge-cases\/enum_as_array_size.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Test
@@ -64,12 +58,6 @@ instance HasCField Test "unwrapTest"
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
 pattern Test_a :: Test
-{-| __C declaration:__ @test_a@
-
-    __defined at:__ @edge-cases\/enum_as_array_size.h 4:3@
-
-    __exported by:__ @edge-cases\/enum_as_array_size.h@
--}
 pattern Test_a = Test 0
 {-| __C declaration:__ @test_count@
 
@@ -78,12 +66,6 @@ pattern Test_a = Test 0
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
 pattern Test_count :: Test
-{-| __C declaration:__ @test_count@
-
-    __defined at:__ @edge-cases\/enum_as_array_size.h 5:3@
-
-    __exported by:__ @edge-cases\/enum_as_array_size.h@
--}
 pattern Test_count = Test 1
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
 foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817_base ::

@@ -20,12 +20,6 @@
 -}
 newtype Int_t
     = Int_t {unwrapInt_t :: CInt}
-      {- ^ __C declaration:__ @int_t@
-
-           __defined at:__ @declarations\/redeclaration.h 20:13@
-
-           __exported by:__ @declarations\/redeclaration.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -61,12 +55,6 @@ data X
 
               __exported by:__ @declarations\/redeclaration.h@
          -}}
-      {- ^ __C declaration:__ @struct X@
-
-           __defined at:__ @declarations\/redeclaration.h 26:8@
-
-           __exported by:__ @declarations\/redeclaration.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize X
     where staticSizeOf = \_ -> 4 :: Int
@@ -88,15 +76,7 @@ instance (~) ty CInt => HasField "x_n" (Ptr X) (Ptr ty)
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-newtype Y
-    = Y {unwrapY :: ByteArray}
-      {- ^ __C declaration:__ @union Y@
-
-           __defined at:__ @declarations\/redeclaration.h 30:7@
-
-           __exported by:__ @declarations\/redeclaration.h@
-      -}
-    deriving stock Generic
+newtype Y = Y {unwrapY :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize Y
 deriving via (SizedByteArray 4 4) instance ReadRaw Y
 deriving via (SizedByteArray 4 4) instance WriteRaw Y

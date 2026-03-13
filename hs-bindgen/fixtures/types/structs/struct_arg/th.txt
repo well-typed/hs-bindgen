@@ -110,12 +110,6 @@ data Thing
 
                   __exported by:__ @types\/structs\/struct_arg.h@
              -}}
-      {- ^ __C declaration:__ @struct thing@
-
-           __defined at:__ @types\/structs\/struct_arg.h 2:8@
-
-           __exported by:__ @types\/structs\/struct_arg.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Thing
     where staticSizeOf = \_ -> 4 :: Int

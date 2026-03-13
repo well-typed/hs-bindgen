@@ -16,6 +16,7 @@ module HsBindgen.App (
   , parseUniqueId
     -- ** Module option
   , parseBaseModuleName
+  , parseQualifiedStyle
     -- ** Output options
   , parseHsOutputDir
   , parseOutputDirPolicy
@@ -38,11 +39,11 @@ import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen
+import HsBindgen.ArtefactM
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
-import HsBindgen.DelayedIO
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
@@ -172,7 +173,6 @@ parseConfig = Config
     <*> parseProgramSlicing
     <*> parseFieldNamingStrategy
     <*> parsePathStyle
-    <*> parseQualifiedStyle
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -376,6 +376,26 @@ parseProgramSlicing =
           ]
       ]
 
+{-------------------------------------------------------------------------------
+  Translation options
+-------------------------------------------------------------------------------}
+
+parseUniqueId :: Parser UniqueId
+parseUniqueId = fmap UniqueId . strOption $ mconcat [
+      long "unique-id"
+    , metavar "ID"
+    , value ""
+    , help $ concat [
+          "Use unique ID to discriminate global C identifiers"
+        , " (default: empty string)"
+        ]
+    ]
+
+{-------------------------------------------------------------------------------
+  Module option
+-------------------------------------------------------------------------------}
+
+
 parseFieldNamingStrategy :: Parser FieldNamingStrategy
 parseFieldNamingStrategy =
     flag PrefixedFieldNames EnableRecordDot $ mconcat [
@@ -397,25 +417,6 @@ parseQualifiedStyle =
           , " Adds ImportQualifiedPost extension."
           ]
       ]
-
-{-------------------------------------------------------------------------------
-  Translation options
--------------------------------------------------------------------------------}
-
-parseUniqueId :: Parser UniqueId
-parseUniqueId = fmap UniqueId . strOption $ mconcat [
-      long "unique-id"
-    , metavar "ID"
-    , value ""
-    , help $ concat [
-          "Use unique ID to discriminate global C identifiers"
-        , " (default: empty string)"
-        ]
-    ]
-
-{-------------------------------------------------------------------------------
-  Module option
--------------------------------------------------------------------------------}
 
 parseBaseModuleName :: Parser BaseModuleName
 parseBaseModuleName = strOption $ mconcat [

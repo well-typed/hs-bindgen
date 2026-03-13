@@ -13,12 +13,6 @@ data S1_t
 
                  __exported by:__ @declarations\/forward_declaration.h@
             -}}
-      {- ^ __C declaration:__ @struct S1@
-
-           __defined at:__ @declarations\/forward_declaration.h 3:8@
-
-           __exported by:__ @declarations\/forward_declaration.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S1_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -48,12 +42,6 @@ data S2
 
                __exported by:__ @declarations\/forward_declaration.h@
           -}}
-      {- ^ __C declaration:__ @struct S2@
-
-           __defined at:__ @declarations\/forward_declaration.h 9:8@
-
-           __exported by:__ @declarations\/forward_declaration.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S2
     where staticSizeOf = \_ -> 4 :: Int

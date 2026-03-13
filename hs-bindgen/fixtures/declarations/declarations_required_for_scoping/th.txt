@@ -30,12 +30,6 @@
 -}
 newtype A
     = A {unwrapA :: HsBindgen.Runtime.LibC.CSize}
-      {- ^ __C declaration:__ @macro A@
-
-           __defined at:__ @declarations\/declarations_required_for_scoping.h 5:9@
-
-           __exported by:__ @declarations\/declarations_required_for_scoping.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

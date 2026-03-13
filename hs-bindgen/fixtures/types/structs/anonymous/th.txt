@@ -20,12 +20,6 @@ data S1_c
 
                  __exported by:__ @types\/structs\/anonymous.h@
             -}}
-      {- ^ __C declaration:__ @struct \@S1_c@
-
-           __defined at:__ @types\/structs\/anonymous.h 3:3@
-
-           __exported by:__ @types\/structs\/anonymous.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S1_c
     where staticSizeOf = \_ -> 8 :: Int
@@ -68,12 +62,6 @@ data S1
 
                __exported by:__ @types\/structs\/anonymous.h@
           -}}
-      {- ^ __C declaration:__ @struct S1@
-
-           __defined at:__ @types\/structs\/anonymous.h 2:8@
-
-           __exported by:__ @types\/structs\/anonymous.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S1
     where staticSizeOf = \_ -> 12 :: Int
@@ -109,12 +97,6 @@ data S2_inner_deep
 
                           __exported by:__ @types\/structs\/anonymous.h@
                      -}}
-      {- ^ __C declaration:__ @struct \@S2_inner_deep@
-
-           __defined at:__ @types\/structs\/anonymous.h 15:5@
-
-           __exported by:__ @types\/structs\/anonymous.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S2_inner_deep
     where staticSizeOf = \_ -> 4 :: Int
@@ -152,12 +134,6 @@ data S2_inner
 
                      __exported by:__ @types\/structs\/anonymous.h@
                 -}}
-      {- ^ __C declaration:__ @struct \@S2_inner@
-
-           __defined at:__ @types\/structs\/anonymous.h 13:3@
-
-           __exported by:__ @types\/structs\/anonymous.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S2_inner
     where staticSizeOf = \_ -> 8 :: Int
@@ -202,12 +178,6 @@ data S2
 
                __exported by:__ @types\/structs\/anonymous.h@
           -}}
-      {- ^ __C declaration:__ @struct S2@
-
-           __defined at:__ @types\/structs\/anonymous.h 12:8@
-
-           __exported by:__ @types\/structs\/anonymous.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S2
     where staticSizeOf = \_ -> 12 :: Int
@@ -250,12 +220,6 @@ data S3
 
                __exported by:__ @types\/structs\/anonymous.h@
           -}}
-      {- ^ __C declaration:__ @struct S3@
-
-           __defined at:__ @types\/structs\/anonymous.h 24:8@
-
-           __exported by:__ @types\/structs\/anonymous.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S3
     where staticSizeOf = \_ -> 16 :: Int
@@ -299,12 +263,6 @@ data S3_c
 
                  __exported by:__ @types\/structs\/anonymous.h@
             -}}
-      {- ^ __C declaration:__ @struct \@S3_c@
-
-           __defined at:__ @types\/structs\/anonymous.h 25:3@
-
-           __exported by:__ @types\/structs\/anonymous.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S3_c
     where staticSizeOf = \_ -> 8 :: Int

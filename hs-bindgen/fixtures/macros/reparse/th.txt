@@ -2481,12 +2481,6 @@
 -}
 newtype A
     = A {unwrapA :: CInt}
-      {- ^ __C declaration:__ @macro A@
-
-           __defined at:__ @macros\/reparse.h 3:9@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -2516,12 +2510,6 @@ instance HasCField A "unwrapA"
 -}
 data Some_struct
     = Some_struct {}
-      {- ^ __C declaration:__ @struct some_struct@
-
-           __defined at:__ @macros\/reparse.h 7:8@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Some_struct
     where staticSizeOf = \_ -> 0 :: Int
@@ -2540,12 +2528,6 @@ deriving via (EquivStorable Some_struct) instance Storable Some_struct
 -}
 newtype Some_union
     = Some_union {unwrapSome_union :: ByteArray}
-      {- ^ __C declaration:__ @union some_union@
-
-           __defined at:__ @macros\/reparse.h 8:7@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 0 1) instance StaticSize Some_union
 deriving via (SizedByteArray 0 1) instance ReadRaw Some_union
@@ -2559,12 +2541,6 @@ deriving via (EquivStorable Some_union) instance Storable Some_union
 -}
 newtype Some_enum
     = Some_enum {unwrapSome_enum :: CUInt}
-      {- ^ __C declaration:__ @enum some_enum@
-
-           __defined at:__ @macros\/reparse.h 9:6@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Some_enum
@@ -2609,12 +2585,6 @@ instance HasCField Some_enum "unwrapSome_enum"
     __exported by:__ @macros\/reparse.h@
 -}
 pattern ENUM_A :: Some_enum
-{-| __C declaration:__ @ENUM_A@
-
-    __defined at:__ @macros\/reparse.h 9:18@
-
-    __exported by:__ @macros\/reparse.h@
--}
 pattern ENUM_A = Some_enum 0
 {-| __C declaration:__ @arr_typedef1@
 
@@ -2624,12 +2594,6 @@ pattern ENUM_A = Some_enum 0
 -}
 newtype Arr_typedef1
     = Arr_typedef1 {unwrapArr_typedef1 :: (IncompleteArray A)}
-      {- ^ __C declaration:__ @arr_typedef1@
-
-           __defined at:__ @macros\/reparse.h 109:13@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray A) =>
@@ -2647,12 +2611,6 @@ instance HasCField Arr_typedef1 "unwrapArr_typedef1"
 -}
 newtype Arr_typedef2
     = Arr_typedef2 {unwrapArr_typedef2 :: (IncompleteArray (Ptr A))}
-      {- ^ __C declaration:__ @arr_typedef2@
-
-           __defined at:__ @macros\/reparse.h 110:13@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype IsArray
 instance (~) ty (IncompleteArray (Ptr A)) =>
@@ -2670,12 +2628,6 @@ instance HasCField Arr_typedef2 "unwrapArr_typedef2"
 -}
 newtype Arr_typedef3
     = Arr_typedef3 {unwrapArr_typedef3 :: (ConstantArray 5 A)}
-      {- ^ __C declaration:__ @arr_typedef3@
-
-           __defined at:__ @macros\/reparse.h 111:13@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 5 A) =>
@@ -2693,12 +2645,6 @@ instance HasCField Arr_typedef3 "unwrapArr_typedef3"
 -}
 newtype Arr_typedef4
     = Arr_typedef4 {unwrapArr_typedef4 :: (ConstantArray 5 (Ptr A))}
-      {- ^ __C declaration:__ @arr_typedef4@
-
-           __defined at:__ @macros\/reparse.h 112:13@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 5 (Ptr A)) =>
@@ -2718,14 +2664,6 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Typedef1
     = Typedef1 {unwrapTypedef1 :: A}
-      {- ^ Typedefs
-
-      __C declaration:__ @typedef1@
-
-      __defined at:__ @macros\/reparse.h 118:14@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -2756,12 +2694,6 @@ instance HasCField Typedef1 "unwrapTypedef1"
 -}
 newtype Typedef2
     = Typedef2 {unwrapTypedef2 :: (Ptr A)}
-      {- ^ __C declaration:__ @typedef2@
-
-           __defined at:__ @macros\/reparse.h 119:14@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -2782,12 +2714,6 @@ instance HasCField Typedef2 "unwrapTypedef2"
 -}
 newtype Typedef3
     = Typedef3 {unwrapTypedef3 :: (Ptr (Ptr A))}
-      {- ^ __C declaration:__ @typedef3@
-
-           __defined at:__ @macros\/reparse.h 120:14@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -2810,14 +2736,6 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef1_Aux
     = Funptr_typedef1_Aux {unwrapFunptr_typedef1_Aux :: (IO A)}
-      {- ^ Auxiliary type used by 'Funptr_typedef1'
-
-      __C declaration:__ @funptr_typedef1@
-
-      __defined at:__ @macros\/reparse.h 132:16@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de_base ::
@@ -2857,12 +2775,6 @@ instance HasCField Funptr_typedef1_Aux "unwrapFunptr_typedef1_Aux"
 -}
 newtype Funptr_typedef1
     = Funptr_typedef1 {unwrapFunptr_typedef1 :: (FunPtr Funptr_typedef1_Aux)}
-      {- ^ __C declaration:__ @funptr_typedef1@
-
-           __defined at:__ @macros\/reparse.h 132:16@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -2886,14 +2798,6 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef2_Aux
     = Funptr_typedef2_Aux {unwrapFunptr_typedef2_Aux :: (IO (Ptr A))}
-      {- ^ Auxiliary type used by 'Funptr_typedef2'
-
-      __C declaration:__ @funptr_typedef2@
-
-      __defined at:__ @macros\/reparse.h 133:16@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0_base ::
@@ -2933,12 +2837,6 @@ instance HasCField Funptr_typedef2_Aux "unwrapFunptr_typedef2_Aux"
 -}
 newtype Funptr_typedef2
     = Funptr_typedef2 {unwrapFunptr_typedef2 :: (FunPtr Funptr_typedef2_Aux)}
-      {- ^ __C declaration:__ @funptr_typedef2@
-
-           __defined at:__ @macros\/reparse.h 133:16@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -2962,14 +2860,6 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef3_Aux
     = Funptr_typedef3_Aux {unwrapFunptr_typedef3_Aux :: (IO (Ptr (Ptr A)))}
-      {- ^ Auxiliary type used by 'Funptr_typedef3'
-
-      __C declaration:__ @funptr_typedef3@
-
-      __defined at:__ @macros\/reparse.h 134:16@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8_base ::
@@ -3009,12 +2899,6 @@ instance HasCField Funptr_typedef3_Aux "unwrapFunptr_typedef3_Aux"
 -}
 newtype Funptr_typedef3
     = Funptr_typedef3 {unwrapFunptr_typedef3 :: (FunPtr Funptr_typedef3_Aux)}
-      {- ^ __C declaration:__ @funptr_typedef3@
-
-           __defined at:__ @macros\/reparse.h 134:16@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3039,14 +2923,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef4_Aux
     = Funptr_typedef4_Aux {unwrapFunptr_typedef4_Aux :: (CInt ->
                                                          CDouble -> IO A)}
-      {- ^ Auxiliary type used by 'Funptr_typedef4'
-
-      __C declaration:__ @funptr_typedef4@
-
-      __defined at:__ @macros\/reparse.h 135:16@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386_base ::
@@ -3088,12 +2964,6 @@ instance HasCField Funptr_typedef4_Aux "unwrapFunptr_typedef4_Aux"
 -}
 newtype Funptr_typedef4
     = Funptr_typedef4 {unwrapFunptr_typedef4 :: (FunPtr Funptr_typedef4_Aux)}
-      {- ^ __C declaration:__ @funptr_typedef4@
-
-           __defined at:__ @macros\/reparse.h 135:16@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3118,14 +2988,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef5_Aux
     = Funptr_typedef5_Aux {unwrapFunptr_typedef5_Aux :: (CInt ->
                                                          CDouble -> IO (Ptr A))}
-      {- ^ Auxiliary type used by 'Funptr_typedef5'
-
-      __C declaration:__ @funptr_typedef5@
-
-      __defined at:__ @macros\/reparse.h 136:16@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46_base ::
@@ -3167,12 +3029,6 @@ instance HasCField Funptr_typedef5_Aux "unwrapFunptr_typedef5_Aux"
 -}
 newtype Funptr_typedef5
     = Funptr_typedef5 {unwrapFunptr_typedef5 :: (FunPtr Funptr_typedef5_Aux)}
-      {- ^ __C declaration:__ @funptr_typedef5@
-
-           __defined at:__ @macros\/reparse.h 136:16@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3194,12 +3050,6 @@ instance HasCField Funptr_typedef5 "unwrapFunptr_typedef5"
 -}
 newtype Comments2
     = Comments2 {unwrapComments2 :: A}
-      {- ^ __C declaration:__ @comments2@
-
-           __defined at:__ @macros\/reparse.h 145:30@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -3252,14 +3102,6 @@ data Example_struct
 
                            __exported by:__ @macros\/reparse.h@
                       -}}
-      {- ^ Struct fields
-
-      __C declaration:__ @struct example_struct@
-
-      __defined at:__ @macros\/reparse.h 151:8@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Example_struct
     where staticSizeOf = \_ -> 24 :: Int
@@ -3300,12 +3142,6 @@ instance (~) ty (Ptr (Ptr A)) =>
 -}
 newtype Const_typedef1
     = Const_typedef1 {unwrapConst_typedef1 :: A}
-      {- ^ __C declaration:__ @const_typedef1@
-
-           __defined at:__ @macros\/reparse.h 220:25@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -3336,12 +3172,6 @@ instance HasCField Const_typedef1 "unwrapConst_typedef1"
 -}
 newtype Const_typedef2
     = Const_typedef2 {unwrapConst_typedef2 :: A}
-      {- ^ __C declaration:__ @const_typedef2@
-
-           __defined at:__ @macros\/reparse.h 221:25@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -3372,12 +3202,6 @@ instance HasCField Const_typedef2 "unwrapConst_typedef2"
 -}
 newtype Const_typedef3
     = Const_typedef3 {unwrapConst_typedef3 :: (PtrConst A)}
-      {- ^ __C declaration:__ @const_typedef3@
-
-           __defined at:__ @macros\/reparse.h 222:25@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3399,12 +3223,6 @@ instance HasCField Const_typedef3 "unwrapConst_typedef3"
 -}
 newtype Const_typedef4
     = Const_typedef4 {unwrapConst_typedef4 :: (PtrConst A)}
-      {- ^ __C declaration:__ @const_typedef4@
-
-           __defined at:__ @macros\/reparse.h 223:25@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3426,12 +3244,6 @@ instance HasCField Const_typedef4 "unwrapConst_typedef4"
 -}
 newtype Const_typedef5
     = Const_typedef5 {unwrapConst_typedef5 :: (Ptr A)}
-      {- ^ __C declaration:__ @const_typedef5@
-
-           __defined at:__ @macros\/reparse.h 224:25@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3452,12 +3264,6 @@ instance HasCField Const_typedef5 "unwrapConst_typedef5"
 -}
 newtype Const_typedef6
     = Const_typedef6 {unwrapConst_typedef6 :: (PtrConst A)}
-      {- ^ __C declaration:__ @const_typedef6@
-
-           __defined at:__ @macros\/reparse.h 225:25@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3479,12 +3285,6 @@ instance HasCField Const_typedef6 "unwrapConst_typedef6"
 -}
 newtype Const_typedef7
     = Const_typedef7 {unwrapConst_typedef7 :: (PtrConst A)}
-      {- ^ __C declaration:__ @const_typedef7@
-
-           __defined at:__ @macros\/reparse.h 226:25@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3554,12 +3354,6 @@ data Example_struct_with_const
 
                                       __exported by:__ @macros\/reparse.h@
                                  -}}
-      {- ^ __C declaration:__ @struct example_struct_with_const@
-
-           __defined at:__ @macros\/reparse.h 228:8@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Example_struct_with_const
     where staticSizeOf = \_ -> 48 :: Int
@@ -3657,14 +3451,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr1_Aux
     = Const_funptr1_Aux {unwrapConst_funptr1_Aux :: (CInt ->
                                                      CDouble -> IO A)}
-      {- ^ Auxiliary type used by 'Const_funptr1'
-
-      __C declaration:__ @const_funptr1@
-
-      __defined at:__ @macros\/reparse.h 238:27@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b_base ::
@@ -3704,12 +3490,6 @@ instance HasCField Const_funptr1_Aux "unwrapConst_funptr1_Aux"
 -}
 newtype Const_funptr1
     = Const_funptr1 {unwrapConst_funptr1 :: (FunPtr Const_funptr1_Aux)}
-      {- ^ __C declaration:__ @const_funptr1@
-
-           __defined at:__ @macros\/reparse.h 238:27@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3734,14 +3514,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr2_Aux
     = Const_funptr2_Aux {unwrapConst_funptr2_Aux :: (CInt ->
                                                      CDouble -> IO A)}
-      {- ^ Auxiliary type used by 'Const_funptr2'
-
-      __C declaration:__ @const_funptr2@
-
-      __defined at:__ @macros\/reparse.h 239:27@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb_base ::
@@ -3781,12 +3553,6 @@ instance HasCField Const_funptr2_Aux "unwrapConst_funptr2_Aux"
 -}
 newtype Const_funptr2
     = Const_funptr2 {unwrapConst_funptr2 :: (FunPtr Const_funptr2_Aux)}
-      {- ^ __C declaration:__ @const_funptr2@
-
-           __defined at:__ @macros\/reparse.h 239:27@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3811,14 +3577,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr3_Aux
     = Const_funptr3_Aux {unwrapConst_funptr3_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
-      {- ^ Auxiliary type used by 'Const_funptr3'
-
-      __C declaration:__ @const_funptr3@
-
-      __defined at:__ @macros\/reparse.h 240:27@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c_base ::
@@ -3858,12 +3616,6 @@ instance HasCField Const_funptr3_Aux "unwrapConst_funptr3_Aux"
 -}
 newtype Const_funptr3
     = Const_funptr3 {unwrapConst_funptr3 :: (FunPtr Const_funptr3_Aux)}
-      {- ^ __C declaration:__ @const_funptr3@
-
-           __defined at:__ @macros\/reparse.h 240:27@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3888,14 +3640,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr4_Aux
     = Const_funptr4_Aux {unwrapConst_funptr4_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
-      {- ^ Auxiliary type used by 'Const_funptr4'
-
-      __C declaration:__ @const_funptr4@
-
-      __defined at:__ @macros\/reparse.h 241:27@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b_base ::
@@ -3935,12 +3679,6 @@ instance HasCField Const_funptr4_Aux "unwrapConst_funptr4_Aux"
 -}
 newtype Const_funptr4
     = Const_funptr4 {unwrapConst_funptr4 :: (FunPtr Const_funptr4_Aux)}
-      {- ^ __C declaration:__ @const_funptr4@
-
-           __defined at:__ @macros\/reparse.h 241:27@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -3965,14 +3703,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr5_Aux
     = Const_funptr5_Aux {unwrapConst_funptr5_Aux :: (CInt ->
                                                      CDouble -> IO (Ptr A))}
-      {- ^ Auxiliary type used by 'Const_funptr5'
-
-      __C declaration:__ @const_funptr5@
-
-      __defined at:__ @macros\/reparse.h 242:27@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1_base ::
@@ -4012,12 +3742,6 @@ instance HasCField Const_funptr5_Aux "unwrapConst_funptr5_Aux"
 -}
 newtype Const_funptr5
     = Const_funptr5 {unwrapConst_funptr5 :: (FunPtr Const_funptr5_Aux)}
-      {- ^ __C declaration:__ @const_funptr5@
-
-           __defined at:__ @macros\/reparse.h 242:27@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -4042,14 +3766,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr6_Aux
     = Const_funptr6_Aux {unwrapConst_funptr6_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
-      {- ^ Auxiliary type used by 'Const_funptr6'
-
-      __C declaration:__ @const_funptr6@
-
-      __defined at:__ @macros\/reparse.h 243:27@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f_base ::
@@ -4089,12 +3805,6 @@ instance HasCField Const_funptr6_Aux "unwrapConst_funptr6_Aux"
 -}
 newtype Const_funptr6
     = Const_funptr6 {unwrapConst_funptr6 :: (FunPtr Const_funptr6_Aux)}
-      {- ^ __C declaration:__ @const_funptr6@
-
-           __defined at:__ @macros\/reparse.h 243:27@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -4119,14 +3829,6 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr7_Aux
     = Const_funptr7_Aux {unwrapConst_funptr7_Aux :: (CInt ->
                                                      CDouble -> IO (PtrConst A))}
-      {- ^ Auxiliary type used by 'Const_funptr7'
-
-      __C declaration:__ @const_funptr7@
-
-      __defined at:__ @macros\/reparse.h 244:27@
-
-      __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06_base ::
@@ -4166,12 +3868,6 @@ instance HasCField Const_funptr7_Aux "unwrapConst_funptr7_Aux"
 -}
 newtype Const_funptr7
     = Const_funptr7 {unwrapConst_funptr7 :: (FunPtr Const_funptr7_Aux)}
-      {- ^ __C declaration:__ @const_funptr7@
-
-           __defined at:__ @macros\/reparse.h 244:27@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -4193,12 +3889,6 @@ instance HasCField Const_funptr7 "unwrapConst_funptr7"
 -}
 newtype BOOL
     = BOOL {unwrapBOOL :: CBool}
-      {- ^ __C declaration:__ @macro BOOL@
-
-           __defined at:__ @macros\/reparse.h 280:9@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -4228,12 +3918,6 @@ instance HasCField BOOL "unwrapBOOL"
 -}
 newtype INT
     = INT {unwrapINT :: CInt}
-      {- ^ __C declaration:__ @macro INT@
-
-           __defined at:__ @macros\/reparse.h 281:9@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -4263,12 +3947,6 @@ instance HasCField INT "unwrapINT"
 -}
 newtype INTP
     = INTP {unwrapINTP :: (Ptr CInt)}
-      {- ^ __C declaration:__ @macro INTP@
-
-           __defined at:__ @macros\/reparse.h 282:9@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -4289,12 +3967,6 @@ instance HasCField INTP "unwrapINTP"
 -}
 newtype INTCP
     = INTCP {unwrapINTCP :: (PtrConst CInt)}
-      {- ^ __C declaration:__ @macro INTCP@
-
-           __defined at:__ @macros\/reparse.h 283:9@
-
-           __exported by:__ @macros\/reparse.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,

@@ -7,12 +7,6 @@
 -}
 newtype T1
     = T1 {unwrapT1 :: CInt}
-      {- ^ __C declaration:__ @T1@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 1:13@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -42,12 +36,6 @@ instance HasCField T1 "unwrapT1"
 -}
 newtype T2
     = T2 {unwrapT2 :: CChar}
-      {- ^ __C declaration:__ @T2@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 2:14@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -77,12 +65,6 @@ instance HasCField T2 "unwrapT2"
 -}
 newtype M1
     = M1 {unwrapM1 :: CInt}
-      {- ^ __C declaration:__ @macro M1@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 4:9@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -112,12 +94,6 @@ instance HasCField M1 "unwrapM1"
 -}
 newtype M2
     = M2 {unwrapM2 :: CChar}
-      {- ^ __C declaration:__ @macro M2@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -147,12 +123,6 @@ instance HasCField M2 "unwrapM2"
 -}
 newtype M3
     = M3 {unwrapM3 :: (Ptr CInt)}
-      {- ^ __C declaration:__ @macro M3@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -199,12 +169,6 @@ data ExampleStruct
 
                           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
                      -}}
-      {- ^ __C declaration:__ @struct ExampleStruct@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 8:8@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize ExampleStruct
     where staticSizeOf = \_ -> 16 :: Int
@@ -250,12 +214,6 @@ instance (~) ty M2 =>
 -}
 newtype Uint64_t
     = Uint64_t {unwrapUint64_t :: CInt}
-      {- ^ __C declaration:__ @macro uint64_t@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -292,12 +250,6 @@ data Foo
 
                 __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
            -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @types\/typedefs\/typedef_vs_macro.h 17:8@
-
-           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 8 :: Int

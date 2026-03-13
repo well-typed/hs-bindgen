@@ -7,12 +7,6 @@
 -}
 newtype Triplet
     = Triplet {unwrapTriplet :: (ConstantArray 3 CInt)}
-      {- ^ __C declaration:__ @triplet@
-
-           __defined at:__ @documentation\/data_kind_pragma.h 3:13@
-
-           __exported by:__ @documentation\/data_kind_pragma.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (IsArray, ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty (ConstantArray 3 CInt) =>

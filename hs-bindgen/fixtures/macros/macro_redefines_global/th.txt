@@ -7,12 +7,6 @@
 -}
 newtype FILE
     = FILE {unwrapFILE :: CInt}
-      {- ^ __C declaration:__ @FILE@
-
-           __defined at:__ @macros\/macro_redefines_global.h 7:13@
-
-           __exported by:__ @macros\/macro_redefines_global.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

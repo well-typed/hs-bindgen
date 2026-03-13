@@ -235,12 +235,6 @@
 -}
 newtype Int_fast16_t
     = Int_fast16_t {unwrapInt_fast16_t :: HsBindgen.Runtime.LibC.Int32}
-      {- ^ __C declaration:__ @int_fast16_t@
-
-           __defined at:__ @bits\/stdint.h 1:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -272,12 +266,6 @@ instance HasCField Int_fast16_t "unwrapInt_fast16_t"
 -}
 newtype Int_fast32_t
     = Int_fast32_t {unwrapInt_fast32_t :: HsBindgen.Runtime.LibC.Int32}
-      {- ^ __C declaration:__ @int_fast32_t@
-
-           __defined at:__ @bits\/stdint.h 2:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -309,12 +297,6 @@ instance HasCField Int_fast32_t "unwrapInt_fast32_t"
 -}
 newtype Uint_fast16_t
     = Uint_fast16_t {unwrapUint_fast16_t :: HsBindgen.Runtime.LibC.Word32}
-      {- ^ __C declaration:__ @uint_fast16_t@
-
-           __defined at:__ @bits\/stdint.h 3:18@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -346,12 +328,6 @@ instance HasCField Uint_fast16_t "unwrapUint_fast16_t"
 -}
 newtype Uint_fast32_t
     = Uint_fast32_t {unwrapUint_fast32_t :: HsBindgen.Runtime.LibC.Word32}
-      {- ^ __C declaration:__ @uint_fast32_t@
-
-           __defined at:__ @bits\/stdint.h 4:18@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -383,12 +359,6 @@ instance HasCField Uint_fast32_t "unwrapUint_fast32_t"
 -}
 newtype Int_fast8_t
     = Int_fast8_t {unwrapInt_fast8_t :: HsBindgen.Runtime.LibC.Int8}
-      {- ^ __C declaration:__ @int_fast8_t@
-
-           __defined at:__ @stdint.h 22:16@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -420,12 +390,6 @@ instance HasCField Int_fast8_t "unwrapInt_fast8_t"
 -}
 newtype Int_fast64_t
     = Int_fast64_t {unwrapInt_fast64_t :: HsBindgen.Runtime.LibC.Int64}
-      {- ^ __C declaration:__ @int_fast64_t@
-
-           __defined at:__ @stdint.h 23:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -457,12 +421,6 @@ instance HasCField Int_fast64_t "unwrapInt_fast64_t"
 -}
 newtype Int_least8_t
     = Int_least8_t {unwrapInt_least8_t :: HsBindgen.Runtime.LibC.Int8}
-      {- ^ __C declaration:__ @int_least8_t@
-
-           __defined at:__ @stdint.h 25:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -494,12 +452,6 @@ instance HasCField Int_least8_t "unwrapInt_least8_t"
 -}
 newtype Int_least16_t
     = Int_least16_t {unwrapInt_least16_t :: HsBindgen.Runtime.LibC.Int16}
-      {- ^ __C declaration:__ @int_least16_t@
-
-           __defined at:__ @stdint.h 26:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -531,12 +483,6 @@ instance HasCField Int_least16_t "unwrapInt_least16_t"
 -}
 newtype Int_least32_t
     = Int_least32_t {unwrapInt_least32_t :: HsBindgen.Runtime.LibC.Int32}
-      {- ^ __C declaration:__ @int_least32_t@
-
-           __defined at:__ @stdint.h 27:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -568,12 +514,6 @@ instance HasCField Int_least32_t "unwrapInt_least32_t"
 -}
 newtype Int_least64_t
     = Int_least64_t {unwrapInt_least64_t :: HsBindgen.Runtime.LibC.Int64}
-      {- ^ __C declaration:__ @int_least64_t@
-
-           __defined at:__ @stdint.h 28:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -605,12 +545,6 @@ instance HasCField Int_least64_t "unwrapInt_least64_t"
 -}
 newtype Uint_fast8_t
     = Uint_fast8_t {unwrapUint_fast8_t :: HsBindgen.Runtime.LibC.Word8}
-      {- ^ __C declaration:__ @uint_fast8_t@
-
-           __defined at:__ @stdint.h 30:17@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -642,12 +576,6 @@ instance HasCField Uint_fast8_t "unwrapUint_fast8_t"
 -}
 newtype Uint_fast64_t
     = Uint_fast64_t {unwrapUint_fast64_t :: HsBindgen.Runtime.LibC.Word64}
-      {- ^ __C declaration:__ @uint_fast64_t@
-
-           __defined at:__ @stdint.h 31:18@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -679,12 +607,6 @@ instance HasCField Uint_fast64_t "unwrapUint_fast64_t"
 -}
 newtype Uint_least8_t
     = Uint_least8_t {unwrapUint_least8_t :: HsBindgen.Runtime.LibC.Word8}
-      {- ^ __C declaration:__ @uint_least8_t@
-
-           __defined at:__ @stdint.h 33:18@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -716,12 +638,6 @@ instance HasCField Uint_least8_t "unwrapUint_least8_t"
 -}
 newtype Uint_least16_t
     = Uint_least16_t {unwrapUint_least16_t :: HsBindgen.Runtime.LibC.Word16}
-      {- ^ __C declaration:__ @uint_least16_t@
-
-           __defined at:__ @stdint.h 34:18@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -753,12 +669,6 @@ instance HasCField Uint_least16_t "unwrapUint_least16_t"
 -}
 newtype Uint_least32_t
     = Uint_least32_t {unwrapUint_least32_t :: HsBindgen.Runtime.LibC.Word32}
-      {- ^ __C declaration:__ @uint_least32_t@
-
-           __defined at:__ @stdint.h 35:18@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -790,12 +700,6 @@ instance HasCField Uint_least32_t "unwrapUint_least32_t"
 -}
 newtype Uint_least64_t
     = Uint_least64_t {unwrapUint_least64_t :: HsBindgen.Runtime.LibC.Word64}
-      {- ^ __C declaration:__ @uint_least64_t@
-
-           __defined at:__ @stdint.h 36:18@
-
-           __exported by:__ @types\/primitives\/least_fast.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

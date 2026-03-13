@@ -29,9 +29,12 @@ module HsBindgen.TH (
   , Predicate.Regex
 
     -- *** Select predicates and program slicing
-  , Predicate.DeclPredicate(..)
   , Predicate.SelectPredicate(..)
+  , Predicate.DeclPredicate(..)
   , Select.ProgramSlicing(..)
+
+    -- ** Fields
+  , Config.FieldNamingStrategy(..)
 
     -- ** Binding categories
   , Category.ByCategory(..)
@@ -46,8 +49,9 @@ module HsBindgen.TH (
 
     -- ** Tracer
   , Tracer.Verbosity(..)
-  , Tracer.Level(..)
   , TraceMsg.CustomLogLevelSetting(..)
+  , Tracer.Level(..)
+  , Tracer.TraceId(..)
 
     -- * Re-exports
   , Default.Default(..)

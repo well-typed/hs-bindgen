@@ -17,6 +17,7 @@ module HsBindgen (
   , writeTests
 
     -- ** Low-level artefacts
+  , getConfig
   , getIncludeGraph
   , getDeclIndex
   , getUseDeclGraph
@@ -48,6 +49,7 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.Paths
 
 import HsBindgen.Artefact
+import HsBindgen.ArtefactM
 import HsBindgen.Backend
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
@@ -57,7 +59,6 @@ import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
-import HsBindgen.DelayedIO
 import HsBindgen.Errors (throwPure_TODO)
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
@@ -136,13 +137,14 @@ hsBindgenE
           tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
       backendArtefact <-
         withTracerSafe tracerConfigBackend  $ \tracerSafe ->
-          runBackend tracerSafe config.backend bootArtefact frontendArtefact
+          runBackend tracerSafe config bootArtefact frontendArtefact
       -- 4. Artefacts.
       let tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
           tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe
       withTracerSafe tracerConfigArtefact $ \tracerSafe ->
         runArtefacts
           tracerSafe
+          config
           bootArtefact
           frontendArtefact
           backendArtefact
@@ -184,18 +186,20 @@ writeUseDeclGraph pol mPath = do
       Just path -> write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
-getBindings :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact String
-getBindings fns mrc = do
+getBindings :: ModuleRenderConfig -> Artefact String
+getBindings mrc = do
     name  <- ModuleBaseName
     decls <- FinalDecls
-    when (all nullDecls decls) $
-      EmitTrace $ NoBindingsSingleModule name
-    pure $ render $ translateModuleSingle fns mrc name decls
+    when (all nullDecls decls) $ EmitTrace $ NoBindingsSingleModule name
+    config <- getConfig
+    let fns = config.frontend.fieldNamingStrategy
+    pure $ render $
+      translateModuleSingle fns mrc name decls
 
 -- | Write bindings to file.
-writeBindings :: FieldNamingStrategy -> ModuleRenderConfig -> FileOverwritePolicy -> FilePath -> Artefact ()
-writeBindings fns mrc fileOverwritePolicy path = do
-    bindings <- getBindings fns mrc
+writeBindings :: ModuleRenderConfig -> FileOverwritePolicy -> FilePath -> Artefact ()
+writeBindings mrc fileOverwritePolicy path = do
+    bindings <- getBindings mrc
     write fileOverwritePolicy "bindings" (UserSpecified path) bindings
 
 -- | Write bindings to a directory (single module combining all categories).
@@ -204,15 +208,14 @@ writeBindings fns mrc fileOverwritePolicy path = do
 -- constructs the file path from the module name, similar to
 -- 'writeBindingsMultiple' but generating only one file.
 writeBindingsSingleToDir ::
-     FieldNamingStrategy
-  -> ModuleRenderConfig
+     ModuleRenderConfig
   -> FileOverwritePolicy
   -> OutputDirPolicy
   -> FilePath
   -> Artefact ()
-writeBindingsSingleToDir fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
+writeBindingsSingleToDir mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
     moduleBaseName <- ModuleBaseName
-    bindings       <- getBindings fns mrc
+    bindings       <- getBindings mrc
     let localPath :: FilePath
         localPath = Hs.moduleNamePath $
             fromBaseModuleName moduleBaseName Nothing
@@ -232,25 +235,26 @@ writeBindingsSingleToDir fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir
 -- all selected categories)
 -- - If no categories were selected: multi-module mode (one file per category)
 writeBindingsToDir ::
-     FieldNamingStrategy
-  -> ModuleRenderConfig
+     ModuleRenderConfig
   -> FileOverwritePolicy
   -> OutputDirPolicy
   -> FilePath
   -> Bool  -- ^ True if categories were explicitly selected
   -> Artefact ()
-writeBindingsToDir fns mrc filePolicy dirPolicy hsOutputDir categoriesSelected =
+writeBindingsToDir mrc filePolicy dirPolicy hsOutputDir categoriesSelected =
     if categoriesSelected
-      then writeBindingsSingleToDir fns mrc filePolicy dirPolicy hsOutputDir
-      else writeBindingsMultiple fns mrc filePolicy dirPolicy hsOutputDir
+      then writeBindingsSingleToDir mrc filePolicy dirPolicy hsOutputDir
+      else writeBindingsMultiple mrc filePolicy dirPolicy hsOutputDir
 
 -- | Get bindings (one module per binding category).
-getBindingsMultiple :: FieldNamingStrategy -> ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String))
-getBindingsMultiple fns mrc = do
+getBindingsMultiple :: ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String))
+getBindingsMultiple mrc = do
     name  <- ModuleBaseName
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
+    config <- getConfig
+    let fns = config.frontend.fieldNamingStrategy
     pure $ fmap render <$> translateModuleMultiple fns mrc name decls
 
 -- | Write bindings to files in provided output directory.
@@ -259,15 +263,14 @@ getBindingsMultiple fns mrc = do
 --
 -- If no file is given, print to standard output.
 writeBindingsMultiple ::
-     FieldNamingStrategy
-  -> ModuleRenderConfig
+     ModuleRenderConfig
   -> FileOverwritePolicy
   -> OutputDirPolicy
   -> FilePath
   -> Artefact ()
-writeBindingsMultiple fns mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
+writeBindingsMultiple mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
     moduleBaseName     <- ModuleBaseName
-    bindingsByCategory <- getBindingsMultiple fns mrc
+    bindingsByCategory <- getBindingsMultiple mrc
     writeByCategory
       fileOverwritePolicy
       outputDirPolicy
@@ -322,6 +325,9 @@ writeTests _testDir = do
 {-------------------------------------------------------------------------------
   Low-level artefacts
 -------------------------------------------------------------------------------}
+
+getConfig :: Artefact BindgenConfig
+getConfig = Lift askConfig
 
 getGetMainHeaders :: Artefact ProcessIncludes.GetMainHeaders
 getGetMainHeaders = (.getMainHeaders) <$> ParseInfoA

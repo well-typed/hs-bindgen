@@ -7,12 +7,6 @@
 -}
 newtype T1
     = T1 {unwrapT1 :: CInt}
-      {- ^ __C declaration:__ @macro T1@
-
-           __defined at:__ @macros\/macro_typedef_scope.h 4:9@
-
-           __exported by:__ @macros\/macro_typedef_scope.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -42,12 +36,6 @@ instance HasCField T1 "unwrapT1"
 -}
 newtype T2
     = T2 {unwrapT2 :: T1}
-      {- ^ __C declaration:__ @T2@
-
-           __defined at:__ @macros\/macro_typedef_scope.h 5:12@
-
-           __exported by:__ @macros\/macro_typedef_scope.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -77,12 +65,6 @@ instance HasCField T2 "unwrapT2"
 -}
 newtype T3
     = T3 {unwrapT3 :: T2}
-      {- ^ __C declaration:__ @macro T3@
-
-           __defined at:__ @macros\/macro_typedef_scope.h 6:9@
-
-           __exported by:__ @macros\/macro_typedef_scope.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -112,12 +94,6 @@ instance HasCField T3 "unwrapT3"
 -}
 newtype T4
     = T4 {unwrapT4 :: T3}
-      {- ^ __C declaration:__ @T4@
-
-           __defined at:__ @macros\/macro_typedef_scope.h 7:12@
-
-           __exported by:__ @macros\/macro_typedef_scope.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

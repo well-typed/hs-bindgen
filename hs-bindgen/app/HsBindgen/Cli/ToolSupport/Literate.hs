@@ -27,9 +27,9 @@ import HsBindgen.App
 import HsBindgen.App.Output (OutputMode (..), OutputOptions,
                              SingleFileCategory (..), buildCategoryChoice,
                              parseOutputOptions)
+import HsBindgen.ArtefactM
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
-import HsBindgen.DelayedIO
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 
@@ -85,6 +85,7 @@ data Lit = Lit {
     , config         :: Config
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
+    , qualifiedStyle :: QualifiedStyle
     , outputOptions  :: OutputOptions
     , inputs         :: [UncheckedHashIncludeArg]
     }
@@ -95,6 +96,7 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
+  <*> parseQualifiedStyle
   <*> parseOutputOptions (SingleFile (SingleFileSafe "" :| []))
   <*> parseInputs
 
@@ -123,11 +125,11 @@ exec opts = do
 
         mrc :: ModuleRenderConfig
         mrc = ModuleRenderConfig {
-            qualifiedStyle = lit.config.qualifiedStyle
+            qualifiedStyle = lit.qualifiedStyle
           }
 
         artefact :: Artefact ()
-        artefact = writeBindings lit.config.fieldNamingStrategy mrc overwriteFiles opts.output
+        artefact = writeBindings mrc overwriteFiles opts.output
 
     hsBindgen
       lit.globalOpts.unsafe

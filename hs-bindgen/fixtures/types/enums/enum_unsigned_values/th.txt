@@ -10,12 +10,6 @@
 -}
 newtype Uint8_enum
     = Uint8_enum {unwrapUint8_enum :: HsBindgen.Runtime.LibC.Word8}
-      {- ^ __C declaration:__ @enum uint8_enum@
-
-           __defined at:__ @types\/enums\/enum_unsigned_values.h 4:9@
-
-           __exported by:__ @types\/enums\/enum_unsigned_values.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Uint8_enum
@@ -59,12 +53,6 @@ instance HasCField Uint8_enum "unwrapUint8_enum"
     __exported by:__ @types\/enums\/enum_unsigned_values.h@
 -}
 pattern U8_ZERO :: Uint8_enum
-{-| __C declaration:__ @U8_ZERO@
-
-    __defined at:__ @types\/enums\/enum_unsigned_values.h 5:3@
-
-    __exported by:__ @types\/enums\/enum_unsigned_values.h@
--}
 pattern U8_ZERO = Uint8_enum 0
 {-| __C declaration:__ @U8_127@
 
@@ -73,12 +61,6 @@ pattern U8_ZERO = Uint8_enum 0
     __exported by:__ @types\/enums\/enum_unsigned_values.h@
 -}
 pattern U8_127 :: Uint8_enum
-{-| __C declaration:__ @U8_127@
-
-    __defined at:__ @types\/enums\/enum_unsigned_values.h 6:3@
-
-    __exported by:__ @types\/enums\/enum_unsigned_values.h@
--}
 pattern U8_127 = Uint8_enum 127
 {-| __C declaration:__ @U8_128@
 
@@ -87,12 +69,6 @@ pattern U8_127 = Uint8_enum 127
     __exported by:__ @types\/enums\/enum_unsigned_values.h@
 -}
 pattern U8_128 :: Uint8_enum
-{-| __C declaration:__ @U8_128@
-
-    __defined at:__ @types\/enums\/enum_unsigned_values.h 7:3@
-
-    __exported by:__ @types\/enums\/enum_unsigned_values.h@
--}
 pattern U8_128 = Uint8_enum 128
 {-| __C declaration:__ @U8_255@
 
@@ -101,10 +77,4 @@ pattern U8_128 = Uint8_enum 128
     __exported by:__ @types\/enums\/enum_unsigned_values.h@
 -}
 pattern U8_255 :: Uint8_enum
-{-| __C declaration:__ @U8_255@
-
-    __defined at:__ @types\/enums\/enum_unsigned_values.h 8:3@
-
-    __exported by:__ @types\/enums\/enum_unsigned_values.h@
--}
 pattern U8_255 = Uint8_enum 255

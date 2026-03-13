@@ -20,12 +20,6 @@ data Foo
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @attributes\/attributes.h 10:36@
-
-           __exported by:__ @attributes\/attributes.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Foo
     where staticSizeOf = \_ -> 5 :: Int
@@ -68,12 +62,6 @@ data Bar
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @struct bar@
-
-           __defined at:__ @attributes\/attributes.h 16:15@
-
-           __exported by:__ @attributes\/attributes.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bar
     where staticSizeOf = \_ -> 5 :: Int
@@ -116,12 +104,6 @@ data Baz
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @struct baz@
-
-           __defined at:__ @attributes\/attributes.h 22:9@
-
-           __exported by:__ @attributes\/attributes.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Baz
     where staticSizeOf = \_ -> 5 :: Int
@@ -164,12 +146,6 @@ data Qux
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @struct qux@
-
-           __defined at:__ @attributes\/attributes.h 28:9@
-
-           __exported by:__ @attributes\/attributes.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Qux
     where staticSizeOf = \_ -> 5 :: Int
@@ -219,12 +195,6 @@ data FILE
 
                  __exported by:__ @attributes\/attributes.h@
             -}}
-      {- ^ __C declaration:__ @struct __sFILE@
-
-           __defined at:__ @attributes\/attributes.h 34:16@
-
-           __exported by:__ @attributes\/attributes.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize FILE
     where staticSizeOf = \_ -> 16 :: Int

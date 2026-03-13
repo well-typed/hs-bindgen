@@ -646,16 +646,6 @@ __exported by:__ @comprehensive\/smoke.h@
 -}
 newtype Uint
     = Uint {unwrap :: CUInt}
-      {- ^ This is a test case in the c2hsc test suite
-
-         https://github.com/jwiegley/c2hsc/blob/master/test/main.hs
-
-      __C declaration:__ @uint@
-
-      __defined at:__ @comprehensive\/smoke.h 7:22@
-
-      __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -685,12 +675,6 @@ instance HasCField Uint "unwrap"
 -}
 newtype Size_t
     = Size_t {unwrap :: CULong}
-      {- ^ __C declaration:__ @size_t@
-
-           __defined at:__ @comprehensive\/smoke.h 8:23@
-
-           __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -722,7 +706,7 @@ data Bar1_t
     = Bar1_t {a :: (Ptr Void)
               {- ^ __C declaration:__ @a@
 
-                   __defined at:__ @comprehensive\/smoke.h 59:7@
+                   __defined at:__ @comprehensive\/smoke.h 40:11@
 
                    __exported by:__ @comprehensive\/smoke.h@
               -},
@@ -796,12 +780,6 @@ data Bar1_t
 
                    __exported by:__ @comprehensive\/smoke.h@
               -}}
-      {- ^ __C declaration:__ @struct bar1_t@
-
-           __defined at:__ @comprehensive\/smoke.h 39:8@
-
-           __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bar1_t
     where staticSizeOf = \_ -> 80 :: Int
@@ -896,16 +874,10 @@ data Bar2_t
     = Bar2_t {a :: CInt
               {- ^ __C declaration:__ @a@
 
-                   __defined at:__ @comprehensive\/smoke.h 59:7@
+                   __defined at:__ @comprehensive\/smoke.h 55:7@
 
                    __exported by:__ @comprehensive\/smoke.h@
               -}}
-      {- ^ __C declaration:__ @struct bar2_t@
-
-           __defined at:__ @comprehensive\/smoke.h 54:16@
-
-           __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bar2_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -935,12 +907,6 @@ data Bar3_t
 
                    __exported by:__ @comprehensive\/smoke.h@
               -}}
-      {- ^ __C declaration:__ @struct bar3_t@
-
-           __defined at:__ @comprehensive\/smoke.h 58:9@
-
-           __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Bar3_t
     where staticSizeOf = \_ -> 4 :: Int
@@ -963,12 +929,6 @@ instance (~) ty CInt => HasField "a" (Ptr Bar3_t) (Ptr ty)
     __exported by:__ @comprehensive\/smoke.h@
 -}
 pattern BAZ1 :: CUInt
-{-| __C declaration:__ @BAZ1@
-
-    __defined at:__ @comprehensive\/smoke.h 62:1@
-
-    __exported by:__ @comprehensive\/smoke.h@
--}
 pattern BAZ1 = 1
 {-| __C declaration:__ @enum baz2_t@
 
@@ -978,12 +938,6 @@ pattern BAZ1 = 1
 -}
 newtype Baz2_t
     = Baz2_t {unwrap :: CUInt}
-      {- ^ __C declaration:__ @enum baz2_t@
-
-           __defined at:__ @comprehensive\/smoke.h 66:9@
-
-           __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Baz2_t
@@ -1027,12 +981,6 @@ instance HasCField Baz2_t "unwrap"
     __exported by:__ @comprehensive\/smoke.h@
 -}
 pattern BAZ2 :: Baz2_t
-{-| __C declaration:__ @BAZ2@
-
-    __defined at:__ @comprehensive\/smoke.h 67:3@
-
-    __exported by:__ @comprehensive\/smoke.h@
--}
 pattern BAZ2 = Baz2_t 1
 {-| __C declaration:__ @enum baz3_t@
 
@@ -1042,12 +990,6 @@ pattern BAZ2 = Baz2_t 1
 -}
 newtype Baz3_t
     = Baz3_t {unwrap :: CUInt}
-      {- ^ __C declaration:__ @enum baz3_t@
-
-           __defined at:__ @comprehensive\/smoke.h 70:6@
-
-           __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Baz3_t
@@ -1091,12 +1033,6 @@ instance HasCField Baz3_t "unwrap"
     __exported by:__ @comprehensive\/smoke.h@
 -}
 pattern BAZ3 :: Baz3_t
-{-| __C declaration:__ @BAZ3@
-
-    __defined at:__ @comprehensive\/smoke.h 71:3@
-
-    __exported by:__ @comprehensive\/smoke.h@
--}
 pattern BAZ3 = Baz3_t 1
 {-| __C declaration:__ @enum baz4_t@
 
@@ -1106,12 +1042,6 @@ pattern BAZ3 = Baz3_t 1
 -}
 newtype Baz4_t
     = Baz4_t {unwrap :: CUInt}
-      {- ^ __C declaration:__ @enum baz4_t@
-
-           __defined at:__ @comprehensive\/smoke.h 74:14@
-
-           __exported by:__ @comprehensive\/smoke.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize Baz4_t
@@ -1155,12 +1085,6 @@ instance HasCField Baz4_t "unwrap"
     __exported by:__ @comprehensive\/smoke.h@
 -}
 pattern BAZ4 :: Baz4_t
-{-| __C declaration:__ @BAZ4@
-
-    __defined at:__ @comprehensive\/smoke.h 75:3@
-
-    __exported by:__ @comprehensive\/smoke.h@
--}
 pattern BAZ4 = Baz4_t 1
 -- __unique:__ @test_comprehensivesmoke_Example_Safe_foo1@
 foreign import ccall safe "hs_bindgen_2743241662e587e2" hs_bindgen_2743241662e587e2_base ::

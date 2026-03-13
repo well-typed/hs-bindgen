@@ -80,12 +80,6 @@
 -}
 newtype I
     = I {unwrapI :: CInt}
-      {- ^ __C declaration:__ @I@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 10:13@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -113,15 +107,7 @@ instance HasCField I "unwrapI"
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
-data S
-    = S {}
-      {- ^ __C declaration:__ @struct S@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 11:8@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
-    deriving stock (Eq, Generic, Show)
+data S = S {} deriving stock (Eq, Generic, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 0 :: Int
           staticAlignment = \_ -> 1 :: Int
@@ -137,15 +123,7 @@ deriving via (EquivStorable S) instance Storable S
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
-newtype U
-    = U {unwrapU :: ByteArray}
-      {- ^ __C declaration:__ @union U@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
-    deriving stock Generic
+newtype U = U {unwrapU :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 0 1) instance StaticSize U
 deriving via (SizedByteArray 0 1) instance ReadRaw U
 deriving via (SizedByteArray 0 1) instance WriteRaw U
@@ -158,12 +136,6 @@ deriving via (EquivStorable U) instance Storable U
 -}
 newtype E
     = E {unwrapE :: CUInt}
-      {- ^ __C declaration:__ @enum E@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 13:6@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize E
@@ -207,12 +179,6 @@ instance HasCField E "unwrapE"
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 pattern Foo :: E
-{-| __C declaration:__ @foo@
-
-    __defined at:__ @types\/qualifiers\/const_typedefs.h 13:9@
-
-    __exported by:__ @types\/qualifiers\/const_typedefs.h@
--}
 pattern Foo = E 0
 {-| __C declaration:__ @TI@
 
@@ -222,12 +188,6 @@ pattern Foo = E 0
 -}
 newtype TI
     = TI {unwrapTI :: I}
-      {- ^ __C declaration:__ @TI@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 20:17@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -257,12 +217,6 @@ instance HasCField TI "unwrapTI"
 -}
 newtype TS
     = TS {unwrapTS :: S}
-      {- ^ __C declaration:__ @TS@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 21:24@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty S => HasField "unwrapTS" (Ptr TS) (Ptr ty)
@@ -278,12 +232,6 @@ instance HasCField TS "unwrapTS"
 -}
 newtype TU
     = TU {unwrapTU :: U}
-      {- ^ __C declaration:__ @TU@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 22:23@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty U => HasField "unwrapTU" (Ptr TU) (Ptr ty)
@@ -299,12 +247,6 @@ instance HasCField TU "unwrapTU"
 -}
 newtype TE
     = TE {unwrapTE :: E}
-      {- ^ __C declaration:__ @TE@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 23:22@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (HasFFIType,
                       Prim,
@@ -325,12 +267,6 @@ instance HasCField TE "unwrapTE"
 -}
 newtype TTI
     = TTI {unwrapTTI :: TI}
-      {- ^ __C declaration:__ @TTI@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 30:12@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -360,12 +296,6 @@ instance HasCField TTI "unwrapTTI"
 -}
 newtype TTS
     = TTS {unwrapTTS :: TS}
-      {- ^ __C declaration:__ @TTS@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 31:12@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty TS => HasField "unwrapTTS" (Ptr TTS) (Ptr ty)
@@ -381,12 +311,6 @@ instance HasCField TTS "unwrapTTS"
 -}
 newtype TTU
     = TTU {unwrapTTU :: TU}
-      {- ^ __C declaration:__ @TTU@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 32:12@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock Generic
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty TU => HasField "unwrapTTU" (Ptr TTU) (Ptr ty)
@@ -402,12 +326,6 @@ instance HasCField TTU "unwrapTTU"
 -}
 newtype TTE
     = TTE {unwrapTTE :: TE}
-      {- ^ __C declaration:__ @TTE@
-
-           __defined at:__ @types\/qualifiers\/const_typedefs.h 33:12@
-
-           __exported by:__ @types\/qualifiers\/const_typedefs.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (HasFFIType,
                       Prim,

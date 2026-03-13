@@ -25,15 +25,23 @@ import HsBindgen.Util.Tracer
 
 -- | Configuration of @hs-bindgen@.
 --
--- 'BindgenConfig' combines all configurable settings of @hs-bindgen@.
+-- 'BindgenConfig' combines all configurable settings of @hs-bindgen@ that are
+-- necessary in all modes (CLI and Template Haskell).
 --
--- NOTE: Configuration types determine the "how", not the "what". For example,
+-- Configuration types determine the "how", not the "what". For example,
 -- it should state how we process a header file, but not state which headers we
 -- want to process.
 --
--- NOTE: Configuration types should contain user-provided data, not
+-- Configuration types should contain user-provided data, not
 -- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
 -- artefacts.
+--
+-- These 'BindgenConfig' options are provided /once/ (i.e., the function
+-- 'HsBindgen.hsBindgen' runs once). This is, for example, the C standard. In
+-- contrast, configuration of external artifacts that may change even for the
+-- same @hsBindgen@ run, should be directly provided to these external
+-- artifacts. This is, for example, the output file path of the generated
+-- bindings.
 data BindgenConfig = BindgenConfig {
       boot     :: BootConfig
     , frontend :: FrontendConfig
@@ -82,14 +90,10 @@ data FrontendConfig = FrontendConfig {
 -- | Configuration of backend of @hs-bindgen@.
 --
 -- The backend translates the reified C declarations to Haskell declarations.
---
--- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
       uniqueId            :: UniqueId
     , haddock             :: HaddockConfig
     , categoryChoice      :: ByCategory Choice
-    , fieldNamingStrategy :: FieldNamingStrategy
-    , qualifiedStyle      :: QualifiedStyle
     }
   deriving stock (Show, Generic)
   deriving anyclass Default

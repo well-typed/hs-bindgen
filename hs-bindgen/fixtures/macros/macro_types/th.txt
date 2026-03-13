@@ -7,12 +7,6 @@
 -}
 newtype PtrInt
     = PtrInt {unwrapPtrInt :: (Ptr CInt)}
-      {- ^ __C declaration:__ @macro PtrInt@
-
-           __defined at:__ @macros\/macro_types.h 2:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -33,12 +27,6 @@ instance HasCField PtrInt "unwrapPtrInt"
 -}
 newtype ShortInt
     = ShortInt {unwrapShortInt :: CShort}
-      {- ^ __C declaration:__ @macro ShortInt@
-
-           __defined at:__ @macros\/macro_types.h 3:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -69,12 +57,6 @@ instance HasCField ShortInt "unwrapShortInt"
 -}
 newtype SignedShortInt
     = SignedShortInt {unwrapSignedShortInt :: CShort}
-      {- ^ __C declaration:__ @macro SignedShortInt@
-
-           __defined at:__ @macros\/macro_types.h 4:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -106,12 +88,6 @@ instance HasCField SignedShortInt "unwrapSignedShortInt"
 -}
 newtype UnsignedShortInt
     = UnsignedShortInt {unwrapUnsignedShortInt :: CUShort}
-      {- ^ __C declaration:__ @macro UnsignedShortInt@
-
-           __defined at:__ @macros\/macro_types.h 5:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -143,12 +119,6 @@ instance HasCField UnsignedShortInt "unwrapUnsignedShortInt"
 -}
 newtype PtrPtrChar
     = PtrPtrChar {unwrapPtrPtrChar :: (Ptr (Ptr CChar))}
-      {- ^ __C declaration:__ @macro PtrPtrChar@
-
-           __defined at:__ @macros\/macro_types.h 8:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Show)
     deriving newtype (HasFFIType,
                       ReadRaw,
@@ -170,12 +140,6 @@ instance HasCField PtrPtrChar "unwrapPtrPtrChar"
 -}
 newtype MTy
     = MTy {unwrapMTy :: CFloat}
-      {- ^ __C declaration:__ @macro MTy@
-
-           __defined at:__ @macros\/macro_types.h 11:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Enum,
                       Floating,
@@ -203,12 +167,6 @@ instance HasCField MTy "unwrapMTy"
 -}
 newtype Tty
     = Tty {unwrapTty :: MTy}
-      {- ^ __C declaration:__ @tty@
-
-           __defined at:__ @macros\/macro_types.h 12:13@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Enum,
                       Floating,
@@ -236,12 +194,6 @@ instance HasCField Tty "unwrapTty"
 -}
 newtype UINT8_T
     = UINT8_T {unwrapUINT8_T :: CUChar}
-      {- ^ __C declaration:__ @macro UINT8_T@
-
-           __defined at:__ @macros\/macro_types.h 14:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -272,12 +224,6 @@ instance HasCField UINT8_T "unwrapUINT8_T"
 -}
 newtype BOOLEAN_T
     = BOOLEAN_T {unwrapBOOLEAN_T :: UINT8_T}
-      {- ^ __C declaration:__ @macro BOOLEAN_T@
-
-           __defined at:__ @macros\/macro_types.h 15:9@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -308,12 +254,6 @@ instance HasCField BOOLEAN_T "unwrapBOOLEAN_T"
 -}
 newtype Boolean_T
     = Boolean_T {unwrapBoolean_T :: BOOLEAN_T}
-      {- ^ __C declaration:__ @boolean_T@
-
-           __defined at:__ @macros\/macro_types.h 16:19@
-
-           __exported by:__ @macros\/macro_types.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

@@ -76,12 +76,6 @@
 -}
 newtype Adio'0301s
     = Adio'0301s {unwrapAdio'0301s :: CInt}
-      {- ^ __C declaration:__ @adiós@
-
-           __defined at:__ @edge-cases\/adios.h 7:13@
-
-           __exported by:__ @edge-cases\/adios.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
@@ -112,12 +106,6 @@ instance HasCField Adio'0301s "unwrapAdio'0301s"
 -}
 newtype C数字
     = C数字 {unwrapC数字 :: CInt}
-      {- ^ __C declaration:__ @数字@
-
-           __defined at:__ @edge-cases\/adios.h 17:13@
-
-           __exported by:__ @edge-cases\/adios.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

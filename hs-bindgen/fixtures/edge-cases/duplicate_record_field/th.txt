@@ -1,0 +1,59 @@
+-- addDependentFile examples/golden/edge-cases/duplicate_record_field.h
+{-| __C declaration:__ @struct A@
+
+    __defined at:__ @edge-cases\/duplicate_record_field.h 1:8@
+
+    __exported by:__ @edge-cases\/duplicate_record_field.h@
+-}
+data A
+    = A {dup :: CInt
+         {- ^ __C declaration:__ @dup@
+
+              __defined at:__ @edge-cases\/duplicate_record_field.h 2:7@
+
+              __exported by:__ @edge-cases\/duplicate_record_field.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize A
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw A
+    where readRaw = \ptr_0 -> pure A <*> readRaw (Proxy @"dup") ptr_0
+instance WriteRaw A
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       A dup_2 -> writeRaw (Proxy @"dup") ptr_0 dup_2
+deriving via (EquivStorable A) instance Storable A
+instance HasCField A "dup"
+    where type CFieldType A "dup" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "dup" (Ptr A) (Ptr ty)
+    where getField = fromPtr (Proxy @"dup")
+{-| __C declaration:__ @struct B@
+
+    __defined at:__ @edge-cases\/duplicate_record_field.h 5:8@
+
+    __exported by:__ @edge-cases\/duplicate_record_field.h@
+-}
+data B
+    = B {dup :: CInt
+         {- ^ __C declaration:__ @dup@
+
+              __defined at:__ @edge-cases\/duplicate_record_field.h 6:7@
+
+              __exported by:__ @edge-cases\/duplicate_record_field.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize B
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw B
+    where readRaw = \ptr_0 -> pure B <*> readRaw (Proxy @"dup") ptr_0
+instance WriteRaw B
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       B dup_2 -> writeRaw (Proxy @"dup") ptr_0 dup_2
+deriving via (EquivStorable B) instance Storable B
+instance HasCField B "dup"
+    where type CFieldType B "dup" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "dup" (Ptr B) (Ptr ty)
+    where getField = fromPtr (Proxy @"dup")

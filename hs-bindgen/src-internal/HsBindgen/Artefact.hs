@@ -12,6 +12,7 @@ import Control.Monad (liftM)
 import Text.SimplePrettyPrint ((<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.ArtefactM
 import HsBindgen.Backend
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -19,7 +20,7 @@ import HsBindgen.Backend.Hs.CallConv (CWrapper)
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
 import HsBindgen.Config
-import HsBindgen.DelayedIO
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass (AdjustTypes)
@@ -84,7 +85,7 @@ data Artefact (a :: Star) where
   FinalDecls      :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
   -- * Control flow
   EmitTrace       :: ArtefactMsg -> Artefact ()
-  Lift            :: DelayedIOM a -> Artefact a
+  Lift            :: ArtefactM a -> Artefact a
   Bind            :: Artefact b  -> (b -> Artefact c ) -> Artefact c
 
 instance Functor Artefact where
@@ -112,15 +113,16 @@ instance Monad Artefact where
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
 runArtefacts :: forall a.
      Tracer ArtefactMsg
+  -> BindgenConfig
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefact a
   -> IO (a, [DelayedIO])
-runArtefacts tracer boot frontend backend artefact =
-    second reverse <$> (runDelayedIOM $ runArtefact artefact)
+runArtefacts tracer config boot frontend backend artefact =
+    second reverse <$> (runArtefactM (runArtefact artefact) config)
   where
-    runArtefact :: forall x. Artefact x -> DelayedIOM x
+    runArtefact :: forall x. Artefact x -> ArtefactM x
     runArtefact = \case
         --Boot.
         HashIncludeArgs -> runCached boot.hashIncludeArgs
@@ -136,7 +138,7 @@ runArtefacts tracer boot frontend backend artefact =
         (Lift   f)      -> f
         (Bind x f)      -> runArtefact x >>= runArtefact . f
 
-    runFrontendPass :: FrontendPass result -> DelayedIOM result
+    runFrontendPass :: FrontendPass result -> ArtefactM result
     runFrontendPass = \case
         ParsePass                    -> runCached frontend.parse
         SimplifyASTPass              -> runCached frontend.simplifyAST

@@ -36,12 +36,6 @@ data S
 
               __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
          -}}
-      {- ^ __C declaration:__ @struct S@
-
-           __defined at:__ @functions\/heap_types\/struct_const_typedef.h 3:8@
-
-           __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize S
     where staticSizeOf = \_ -> 4 :: Int
@@ -65,12 +59,6 @@ instance (~) ty CInt => HasField "s_x" (Ptr S) (Ptr ty)
 -}
 newtype T
     = T {unwrapT :: S}
-      {- ^ __C declaration:__ @T@
-
-           __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
-
-           __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
     deriving newtype (ReadRaw, StaticSize, Storable, WriteRaw)
 instance (~) ty S => HasField "unwrapT" (Ptr T) (Ptr ty)

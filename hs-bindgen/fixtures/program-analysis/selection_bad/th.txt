@@ -8,12 +8,6 @@
 -}
 newtype A
     = A {unwrapA :: CInt}
-      {- ^ __C declaration:__ @macro A@
-
-           __defined at:__ @program-analysis\/selection_bad.h 3:9@
-
-           __exported by:__ @program-analysis\/selection_bad.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,

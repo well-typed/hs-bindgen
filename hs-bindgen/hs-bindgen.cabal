@@ -81,6 +81,7 @@ library internal
     Data.DynGraph.Labelled
     HsBindgen
     HsBindgen.Artefact
+    HsBindgen.ArtefactM
     HsBindgen.Backend
     HsBindgen.Backend.Category
     HsBindgen.Backend.Category.ApplyChoice
@@ -143,7 +144,6 @@ library internal
     HsBindgen.Config.FixCandidate.ReservedNames
     HsBindgen.Config.Internal
     HsBindgen.Config.Prelims
-    HsBindgen.DelayedIO
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend
@@ -470,6 +470,7 @@ test-suite test-th
     -Wno-unticked-promoted-constructors
 
   other-modules:
+    Test.TH.RecordDot
     Test.TH.StaticCounterA
     Test.TH.StaticCounterB
     Test.TH.Test01

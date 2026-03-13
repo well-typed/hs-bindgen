@@ -20,12 +20,6 @@ data Piyo
 
                  __exported by:__ @binding-specs\/name\/squash_typedef.h@
             -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @binding-specs\/name\/squash_typedef.h 1:16@
-
-           __exported by:__ @binding-specs\/name\/squash_typedef.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Piyo
     where staticSizeOf = \_ -> 8 :: Int

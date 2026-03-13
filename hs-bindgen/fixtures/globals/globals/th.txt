@@ -170,12 +170,6 @@ data Config
 
                    __exported by:__ @globals\/globals.h@
               -}}
-      {- ^ __C declaration:__ @struct config@
-
-           __defined at:__ @globals\/globals.h 13:8@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Config
     where staticSizeOf = \_ -> 8 :: Int
@@ -218,12 +212,6 @@ data Inline_struct
 
                           __exported by:__ @globals\/globals.h@
                      -}}
-      {- ^ __C declaration:__ @struct inline_struct@
-
-           __defined at:__ @globals\/globals.h 20:15@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Inline_struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -275,12 +263,6 @@ data Version_t
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __C declaration:__ @struct version_t@
-
-           __defined at:__ @globals\/globals.h 407:9@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Version_t
     where staticSizeOf = \_ -> 6 :: Int
@@ -342,12 +324,6 @@ data Struct1_t
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __C declaration:__ @struct struct1_t@
-
-           __defined at:__ @globals\/globals.h 414:9@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Struct1_t
     where staticSizeOf = \_ -> 10 :: Int
@@ -394,12 +370,6 @@ data Struct2_t
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __C declaration:__ @struct struct2_t@
-
-           __defined at:__ @globals\/globals.h 421:9@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Struct2_t
     where staticSizeOf = \_ -> 10 :: Int
@@ -437,12 +407,6 @@ data AnonPoint
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __C declaration:__ @struct \@anonPoint@
-
-           __defined at:__ @globals\/globals.h 439:1@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize AnonPoint
     where staticSizeOf = \_ -> 8 :: Int
@@ -487,12 +451,6 @@ data AnonPair
 
                      __exported by:__ @globals\/globals.h@
                 -}}
-      {- ^ __C declaration:__ @struct \@anonPair@
-
-           __defined at:__ @globals\/globals.h 442:1@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize AnonPair
     where staticSizeOf = \_ -> 8 :: Int
@@ -524,12 +482,6 @@ instance (~) ty CInt =>
 -}
 newtype AnonEnum
     = AnonEnum {unwrapAnonEnum :: CUInt}
-      {- ^ __C declaration:__ @enum \@anonEnum@
-
-           __defined at:__ @globals\/globals.h 445:1@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize AnonEnum
@@ -575,12 +527,6 @@ instance HasCField AnonEnum "unwrapAnonEnum"
     __exported by:__ @globals\/globals.h@
 -}
 pattern VAL_A :: AnonEnum
-{-| __C declaration:__ @VAL_A@
-
-    __defined at:__ @globals\/globals.h 445:8@
-
-    __exported by:__ @globals\/globals.h@
--}
 pattern VAL_A = AnonEnum 0
 {-| __C declaration:__ @VAL_B@
 
@@ -589,12 +535,6 @@ pattern VAL_A = AnonEnum 0
     __exported by:__ @globals\/globals.h@
 -}
 pattern VAL_B :: AnonEnum
-{-| __C declaration:__ @VAL_B@
-
-    __defined at:__ @globals\/globals.h 445:19@
-
-    __exported by:__ @globals\/globals.h@
--}
 pattern VAL_B = AnonEnum 1
 {-| __C declaration:__ @enum \@anonEnumCoords@
 
@@ -604,12 +544,6 @@ pattern VAL_B = AnonEnum 1
 -}
 newtype AnonEnumCoords
     = AnonEnumCoords {unwrapAnonEnumCoords :: CUInt}
-      {- ^ __C declaration:__ @enum \@anonEnumCoords@
-
-           __defined at:__ @globals\/globals.h 448:1@
-
-           __exported by:__ @globals\/globals.h@
-      -}
     deriving stock (Eq, Generic, Ord)
     deriving newtype HasFFIType
 instance StaticSize AnonEnumCoords
@@ -650,12 +584,6 @@ instance HasCField AnonEnumCoords "unwrapAnonEnumCoords"
     __exported by:__ @globals\/globals.h@
 -}
 pattern X :: AnonEnumCoords
-{-| __C declaration:__ @X@
-
-    __defined at:__ @globals\/globals.h 448:8@
-
-    __exported by:__ @globals\/globals.h@
--}
 pattern X = AnonEnumCoords 10
 {-| __C declaration:__ @Y@
 
@@ -664,12 +592,6 @@ pattern X = AnonEnumCoords 10
     __exported by:__ @globals\/globals.h@
 -}
 pattern Y :: AnonEnumCoords
-{-| __C declaration:__ @Y@
-
-    __defined at:__ @globals\/globals.h 448:16@
-
-    __exported by:__ @globals\/globals.h@
--}
 pattern Y = AnonEnumCoords 20
 {-| __C declaration:__ @Z@
 
@@ -678,12 +600,6 @@ pattern Y = AnonEnumCoords 20
     __exported by:__ @globals\/globals.h@
 -}
 pattern Z :: AnonEnumCoords
-{-| __C declaration:__ @Z@
-
-    __defined at:__ @globals\/globals.h 448:24@
-
-    __exported by:__ @globals\/globals.h@
--}
 pattern Z = AnonEnumCoords 30
 -- __unique:__ @test_globalsglobals_Example_get_simpleGlobal@
 foreign import ccall unsafe "hs_bindgen_4f8e7b3d91414aa8" hs_bindgen_4f8e7b3d91414aa8_base ::

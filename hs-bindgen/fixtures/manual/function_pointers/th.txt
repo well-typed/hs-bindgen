@@ -205,12 +205,6 @@
 -}
 newtype Int2int
     = Int2int {unwrapInt2int :: (CInt -> IO CInt)}
-      {- ^ __C declaration:__ @int2int@
-
-           __defined at:__ @manual\/function_pointers.h 19:13@
-
-           __exported by:__ @manual\/function_pointers.h@
-      -}
     deriving stock Generic
     deriving newtype HasFFIType
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
@@ -255,14 +249,6 @@ data Apply1Struct
 
                          __exported by:__ @manual\/function_pointers.h@
                     -}}
-      {- ^ A struct field pointing to a function like apply1_nopointer().
-
-      __C declaration:__ @struct Apply1Struct@
-
-      __defined at:__ @manual\/function_pointers.h 37:8@
-
-      __exported by:__ @manual\/function_pointers.h@
-      -}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Apply1Struct
     where staticSizeOf = \_ -> 8 :: Int
@@ -294,14 +280,6 @@ __exported by:__ @manual\/function_pointers.h@
 -}
 newtype Apply1Union
     = Apply1Union {unwrapApply1Union :: ByteArray}
-      {- ^ A union field pointing to a function like apply1_nopointer().
-
-      __C declaration:__ @union Apply1Union@
-
-      __defined at:__ @manual\/function_pointers.h 43:7@
-
-      __exported by:__ @manual\/function_pointers.h@
-      -}
     deriving stock Generic
 deriving via (SizedByteArray 8 8) instance StaticSize Apply1Union
 deriving via (SizedByteArray 8 8) instance ReadRaw Apply1Union

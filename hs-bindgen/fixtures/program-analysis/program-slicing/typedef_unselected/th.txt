@@ -29,12 +29,6 @@
 -}
 newtype U
     = U {unwrapU :: CInt}
-      {- ^ __C declaration:__ @macro U@
-
-           __defined at:__ @program-analysis\/program-slicing\/typedef_unselected.h 11:9@
-
-           __exported by:__ @program-analysis\/program-slicing\/typedef_unselected.h@
-      -}
     deriving stock (Eq, Generic, Ord, Read, Show)
     deriving newtype (Bitfield,
                       Bits,
