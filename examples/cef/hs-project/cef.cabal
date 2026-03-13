@@ -1,0 +1,244 @@
+cabal-version:   3.0
+name:            cef
+version:         0.1.0.0
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Well-Typed LLP
+maintainer:      info@well-typed.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common warnings
+  ghc-options:
+    -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wpartial-fields -Widentities
+    -Wredundant-constraints -Wmissing-export-lists
+    -Wno-unticked-promoted-constructors -Wunused-packages
+    -Wmissing-deriving-strategies
+
+common language
+  default-language:   GHC2021
+  default-extensions:
+    DerivingStrategies
+    ImportQualifiedPost
+    LambdaCase
+    PatternSynonyms
+    RecordWildCards
+    RoleAnnotations
+    ViewPatterns
+
+library
+  import:          warnings, language
+  exposed-modules:
+    CEF.AccessibilityHandler
+    CEF.ApiHash
+    CEF.ApiHash.FunPtr
+    CEF.ApiHash.Safe
+    CEF.ApiHash.Unsafe
+    CEF.App
+    CEF.App.FunPtr
+    CEF.App.Safe
+    CEF.App.Unsafe
+    CEF.AudioHandler
+    CEF.AuthCallback
+    CEF.Base
+    CEF.Browser
+    CEF.Browser.FunPtr
+    CEF.Browser.Safe
+    CEF.Browser.Unsafe
+    CEF.BrowserProcessHandler
+    CEF.Callback
+    CEF.Client
+    CEF.CommandHandler
+    CEF.CommandLine
+    CEF.CommandLine.FunPtr
+    CEF.CommandLine.Safe
+    CEF.CommandLine.Unsafe
+    CEF.ContextMenuHandler
+    CEF.Cookie
+    CEF.Cookie.FunPtr
+    CEF.Cookie.Safe
+    CEF.Cookie.Unsafe
+    CEF.CrashUtil
+    CEF.CrashUtil.FunPtr
+    CEF.CrashUtil.Safe
+    CEF.CrashUtil.Unsafe
+    CEF.DevtoolsMessageObserver
+    CEF.DialogHandler
+    CEF.DisplayHandler
+    CEF.Dom
+    CEF.DownloadHandler
+    CEF.DownloadItem
+    CEF.DragData
+    CEF.DragData.FunPtr
+    CEF.DragData.Safe
+    CEF.DragData.Unsafe
+    CEF.DragHandler
+    CEF.FileUtil
+    CEF.FileUtil.FunPtr
+    CEF.FileUtil.Safe
+    CEF.FileUtil.Unsafe
+    CEF.FindHandler
+    CEF.FocusHandler
+    CEF.Frame
+    CEF.FrameHandler
+    CEF.I18nUtil.FunPtr
+    CEF.I18nUtil.Safe
+    CEF.I18nUtil.Unsafe
+    CEF.Image
+    CEF.Image.FunPtr
+    CEF.Image.Safe
+    CEF.Image.Unsafe
+    CEF.JsdialogHandler
+    CEF.KeyboardHandler
+    CEF.LifeSpanHandler
+    CEF.LoadHandler
+    CEF.MediaRouter
+    CEF.MediaRouter.FunPtr
+    CEF.MediaRouter.Safe
+    CEF.MediaRouter.Unsafe
+    CEF.MenuModel
+    CEF.MenuModel.FunPtr
+    CEF.MenuModel.Safe
+    CEF.MenuModel.Unsafe
+    CEF.MenuModelDelegate
+    CEF.NavigationEntry
+    CEF.OriginWhitelist
+    CEF.OriginWhitelist.FunPtr
+    CEF.OriginWhitelist.Safe
+    CEF.OriginWhitelist.Unsafe
+    CEF.Parser
+    CEF.Parser.FunPtr
+    CEF.Parser.Safe
+    CEF.Parser.Unsafe
+    CEF.PathUtil
+    CEF.PathUtil.FunPtr
+    CEF.PathUtil.Safe
+    CEF.PathUtil.Unsafe
+    CEF.PermissionHandler
+    CEF.Preference
+    CEF.Preference.FunPtr
+    CEF.Preference.Safe
+    CEF.Preference.Unsafe
+    CEF.PrintHandler
+    CEF.PrintSettings
+    CEF.PrintSettings.FunPtr
+    CEF.PrintSettings.Safe
+    CEF.PrintSettings.Unsafe
+    CEF.ProcessMessage
+    CEF.ProcessMessage.FunPtr
+    CEF.ProcessMessage.Safe
+    CEF.ProcessMessage.Unsafe
+    CEF.Registration
+    CEF.RenderHandler
+    CEF.RenderProcessHandler
+    CEF.Request
+    CEF.Request.FunPtr
+    CEF.Request.Safe
+    CEF.Request.Unsafe
+    CEF.RequestContext
+    CEF.RequestContext.FunPtr
+    CEF.RequestContext.Safe
+    CEF.RequestContext.Unsafe
+    CEF.RequestContextHandler
+    CEF.RequestHandler
+    CEF.ResourceBundle
+    CEF.ResourceBundle.FunPtr
+    CEF.ResourceBundle.Safe
+    CEF.ResourceBundle.Unsafe
+    CEF.ResourceBundleHandler
+    CEF.ResourceHandler
+    CEF.ResourceRequestHandler
+    CEF.Response
+    CEF.Response.FunPtr
+    CEF.Response.Safe
+    CEF.Response.Unsafe
+    CEF.ResponseFilter
+    CEF.Scheme
+    CEF.Scheme.FunPtr
+    CEF.Scheme.Safe
+    CEF.Scheme.Unsafe
+    CEF.Server
+    CEF.Server.FunPtr
+    CEF.Server.Safe
+    CEF.Server.Unsafe
+    CEF.SharedMemoryRegion
+    CEF.SharedProcessMessageBuilder
+    CEF.SharedProcessMessageBuilder.FunPtr
+    CEF.SharedProcessMessageBuilder.Safe
+    CEF.SharedProcessMessageBuilder.Unsafe
+    CEF.SslInfo
+    CEF.SslInfo.FunPtr
+    CEF.SslInfo.Safe
+    CEF.SslInfo.Unsafe
+    CEF.SslStatus
+    CEF.Stream
+    CEF.Stream.FunPtr
+    CEF.Stream.Safe
+    CEF.Stream.Unsafe
+    CEF.StringVisitor
+    CEF.Task
+    CEF.Task.FunPtr
+    CEF.Task.Safe
+    CEF.Task.Unsafe
+    CEF.TaskManager
+    CEF.TaskManager.FunPtr
+    CEF.TaskManager.Safe
+    CEF.TaskManager.Unsafe
+    CEF.Thread
+    CEF.Thread.FunPtr
+    CEF.Thread.Safe
+    CEF.Thread.Unsafe
+    CEF.Trace
+    CEF.Trace.FunPtr
+    CEF.Trace.Safe
+    CEF.Trace.Unsafe
+    CEF.UnresponsiveProcessCallback
+    CEF.Urlrequest
+    CEF.Urlrequest.FunPtr
+    CEF.Urlrequest.Safe
+    CEF.Urlrequest.Unsafe
+    CEF.V8
+    CEF.V8.FunPtr
+    CEF.V8.Safe
+    CEF.V8.Unsafe
+    CEF.Values
+    CEF.Values.FunPtr
+    CEF.Values.Safe
+    CEF.Values.Unsafe
+    CEF.VersionInfo
+    CEF.VersionInfo.FunPtr
+    CEF.VersionInfo.Safe
+    CEF.VersionInfo.Unsafe
+    CEF.WaitableEvent
+    CEF.WaitableEvent.FunPtr
+    CEF.WaitableEvent.Safe
+    CEF.WaitableEvent.Unsafe
+    CEF.X509Certificate
+    CEF.XmlReader
+    CEF.XmlReader.FunPtr
+    CEF.XmlReader.Safe
+    CEF.XmlReader.Unsafe
+    CEF.ZipReader
+    CEF.ZipReader.FunPtr
+    CEF.ZipReader.Safe
+    CEF.ZipReader.Unsafe
+
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+
+  hs-source-dirs:  src
+  extra-libraries: cef
+  cc-options:      -DCEF_API_VERSION=14500
+  ghc-options:     -Wno-missing-export-lists
+
+executable cef-bin
+  import:         warnings, language
+  main-is:        Main.hs
+  build-depends:
+    , base
+    , cef
+    , hs-bindgen-runtime
+
+  hs-source-dirs: app

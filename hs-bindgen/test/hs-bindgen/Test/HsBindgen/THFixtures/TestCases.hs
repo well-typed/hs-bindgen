@@ -126,6 +126,7 @@ determineTHStatus tc
       , "edge-cases/select_no_match"
       , "edge-cases/thread_local"
       , "edge-cases/unsupported_builtin"
+      , "functions/proto_scope_forward_decl"
       , "macros/macro_type_void"
       , "program-analysis/delay_traces"
       , "program-analysis/selection_foo"
