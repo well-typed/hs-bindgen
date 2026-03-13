@@ -25,17 +25,18 @@ import HsBindgen.Util.Tracer
 
 -- | Configuration of @hs-bindgen@.
 --
--- 'BindgenConfig' combines all configurable settings of @hs-bindgen@.
+-- 'BindgenConfig' combines all configurable settings of @hs-bindgen@ that are
+-- necessary in all modes (CLI and Template Haskell).
 --
--- NOTE: Configuration types determine the "how", not the "what". For example,
+-- Configuration types determine the "how", not the "what". For example,
 -- it should state how we process a header file, but not state which headers we
 -- want to process.
 --
--- NOTE: Configuration types should contain user-provided data, not
+-- Configuration types should contain user-provided data, not
 -- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
 -- artefacts.
 --
--- NOTE: These 'BindgenConfig' options are provided /once/ (i.e., the function
+-- These 'BindgenConfig' options are provided /once/ (i.e., the function
 -- 'HsBindgen.hsBindgen' runs once). This is, for example, the C standard. In
 -- contrast, configuration of external artifacts that may change even for the
 -- same @hsBindgen@ run, should be directly provided to these external

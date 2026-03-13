@@ -17,6 +17,7 @@ module HsBindgen (
   , writeTests
 
     -- ** Low-level artefacts
+  , getConfig
   , getIncludeGraph
   , getDeclIndex
   , getUseDeclGraph
@@ -189,13 +190,11 @@ getBindings :: ModuleRenderConfig -> Artefact String
 getBindings mrc = do
     name  <- ModuleBaseName
     decls <- FinalDecls
-    when (all nullDecls decls) $
-      EmitTrace $ NoBindingsSingleModule name
-    Lift $ do
-      config <- getConfig
-      let fns = config.frontend.fieldNamingStrategy
-      pure $ render $
-        translateModuleSingle fns mrc name decls
+    when (all nullDecls decls) $ EmitTrace $ NoBindingsSingleModule name
+    config <- getConfig
+    let fns = config.frontend.fieldNamingStrategy
+    pure $ render $
+      translateModuleSingle fns mrc name decls
 
 -- | Write bindings to file.
 writeBindings :: ModuleRenderConfig -> FileOverwritePolicy -> FilePath -> Artefact ()
@@ -254,10 +253,9 @@ getBindingsMultiple mrc = do
     decls <- FinalDecls
     when (all nullDecls decls) $
       EmitTrace $ NoBindingsMultipleModules name
-    Lift $ do
-      config <- getConfig
-      let fns = config.frontend.fieldNamingStrategy
-      pure $ fmap render <$> translateModuleMultiple fns mrc name decls
+    config <- getConfig
+    let fns = config.frontend.fieldNamingStrategy
+    pure $ fmap render <$> translateModuleMultiple fns mrc name decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -327,6 +325,9 @@ writeTests _testDir = do
 {-------------------------------------------------------------------------------
   Low-level artefacts
 -------------------------------------------------------------------------------}
+
+getConfig :: Artefact BindgenConfig
+getConfig = Lift askConfig
 
 getGetMainHeaders :: Artefact ProcessIncludes.GetMainHeaders
 getGetMainHeaders = (.getMainHeaders) <$> ParseInfoA

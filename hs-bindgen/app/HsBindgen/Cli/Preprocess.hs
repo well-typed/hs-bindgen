@@ -9,6 +9,7 @@ module HsBindgen.Cli.Preprocess (
     -- * Options
   , Opts(..)
   , parseOpts
+  , ConfigCLI(..)
     -- * Execution
   , exec
   ) where
@@ -38,7 +39,19 @@ info = progDesc "Generate Haskell module from C headers"
 
 data Opts = Opts {
       config              :: Config
-    , uniqueId            :: UniqueId
+    , configCLI           :: ConfigCLI
+    }
+  deriving (Generic)
+
+parseOpts :: Parser Opts
+parseOpts =
+    Opts
+      <$> parseConfig
+      <*> parseConfigCLI
+
+-- | CLI options; the TH equivalent of ConfigCLI' is 'HsBindgen.Config.ConfigTH'.
+data ConfigCLI = ConfigCLI {
+      uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
     , qualifiedStyle      :: QualifiedStyle
     , outputOptions       :: OutputOptions
@@ -51,11 +64,10 @@ data Opts = Opts {
     }
   deriving (Generic)
 
-parseOpts :: Parser Opts
-parseOpts =
-    Opts
-      <$> parseConfig
-      <*> parseUniqueId
+parseConfigCLI :: Parser ConfigCLI
+parseConfigCLI =
+    ConfigCLI
+      <$> parseUniqueId
       <*> parseBaseModuleName
       <*> parseQualifiedStyle
       <*> parseOutputOptions FilePerModule
@@ -75,37 +87,37 @@ exec global opts = do
       global.unsafe
       global.safe
       bindgenConfig
-      opts.inputs
+      opts.configCLI.inputs
       artefact
   where
     bindgenConfig :: BindgenConfig
     bindgenConfig =
         toBindgenConfig
           opts.config
-          opts.uniqueId
-          opts.baseModuleName
-          (buildCategoryChoice opts.outputOptions)
+          opts.configCLI.uniqueId
+          opts.configCLI.baseModuleName
+          (buildCategoryChoice opts.configCLI.outputOptions)
 
     mrc :: ModuleRenderConfig
     mrc = ModuleRenderConfig {
-        qualifiedStyle = opts.qualifiedStyle
+        qualifiedStyle = opts.configCLI.qualifiedStyle
       }
 
     artefact :: Artefact ()
     artefact = do
-      case opts.outputOptions of
+      case opts.configCLI.outputOptions of
         OutputOptions (SingleFile _) ->
           writeBindingsSingleToDir
             mrc
-            opts.fileOverwritePolicy
-            opts.outputDirPolicy
-            opts.hsOutputDir
+            opts.configCLI.fileOverwritePolicy
+            opts.configCLI.outputDirPolicy
+            opts.configCLI.hsOutputDir
         _ ->
           writeBindingsMultiple
             mrc
-            opts.fileOverwritePolicy
-            opts.outputDirPolicy
-            opts.hsOutputDir
+            opts.configCLI.fileOverwritePolicy
+            opts.configCLI.outputDirPolicy
+            opts.configCLI.hsOutputDir
 
-      forM_ opts.outputBindingSpec $ \path ->
-        writeBindingSpec opts.fileOverwritePolicy path
+      forM_ opts.configCLI.outputBindingSpec $ \path ->
+        writeBindingSpec opts.configCLI.fileOverwritePolicy path

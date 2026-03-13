@@ -12,7 +12,7 @@ module HsBindgen.ArtefactM (
     -- * ArtefactM monad
   , ArtefactM -- opaque
   , runArtefactM
-  , getConfig
+  , askConfig
   , runCached
   , emitTrace
     -- ** Actions
@@ -133,8 +133,8 @@ newtype ArtefactM a =
 runArtefactM :: ArtefactM a -> BindgenConfig -> IO (a, [DelayedIO])
 runArtefactM (WrapArtefactM ma) = runReaderT (runStateT ma [])
 
-getConfig :: ArtefactM BindgenConfig
-getConfig = ask
+askConfig :: ArtefactM BindgenConfig
+askConfig = ask
 
 -- | Private (i.e., /not public/) API :-).
 unsafeIO :: IO a -> ArtefactM a
