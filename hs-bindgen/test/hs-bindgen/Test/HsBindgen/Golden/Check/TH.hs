@@ -74,7 +74,7 @@ check getTestResources test =
               , [ "-- " ++ normalizeQuotes l
                 | src <- st.cSources, l <- lines src
                 ]
-              , [ show $ prettyWithDocumentationMap True st.documentationMap d
+              , [ show $ prettyWithDocumentationMap True st.docMap d
                 | d <- unqualNames thdecs
                 ]
               ]
@@ -131,11 +131,28 @@ convertWindows = map f where
 newtype Qu a = Qu (State QuState a)
   deriving newtype (Functor, Applicative, Monad)
 
+data QuDecLoc = QuDecLoc {
+    ns :: Hs.Namespace
+  , nm :: String
+  }
+  deriving (Show, Eq, Ord, Generic)
+
+data QuFldLoc = QuFldLoc {
+    parent :: String
+  , field  :: String
+  }
+  deriving (Show, Eq, Ord, Generic)
+
+data QuDocLoc = QuD QuDecLoc | QuF QuFldLoc
+  deriving stock (Show, Eq, Ord, Generic)
+
+type QuDocMap = Map QuDocLoc HsDoc.Comment
+
 data QuState = QuState{
       dependencyFiles  :: [FilePath]
     , uniquenessNumber :: !Integer
     , cSources         :: [String]
-    , documentationMap :: Map TH.DocLoc HsDoc.Comment
+    , docMap           :: QuDocMap
     }
 
 emptyQuState :: QuState
@@ -164,26 +181,22 @@ instance Guasi Qu where
 
     putLocalDoc :: forall ns. Hs.SingNamespace ns => Hs.Name ns -> HsDoc.Comment -> Qu ()
     putLocalDoc nm s = Qu $ do
-        q@QuState{ documentationMap = docMap } <- get
-        let hsNm = getGlobalName (Hs.namespaceOf (Hs.singNamespace :: Hs.SNamespace ns)) $
-                     Text.unpack $ Hs.getName nm
+        q@QuState{ docMap = docMap } <- get
+        let ns = Hs.namespaceOf (Hs.singNamespace :: Hs.SNamespace ns)
+            loc = QuDecLoc ns (Text.unpack $ Hs.getName nm)
         put $!
-          q { documentationMap =
-                Map.insert (TH.DeclDoc hsNm) s docMap
+          q { docMap =
+                Map.insert (QuD loc) s docMap
             }
 
-    -- See notes in "HsBindgen.Guasi".
     putLocalFieldDoc _fns parent field s =
-        if ghcAtLeast908 then
-          Qu $ do
-            q@QuState{ documentationMap = docMap } <- get
-            let hsNm = getGlobalFieldName parentStr fieldStr
-            put $!
-              q { documentationMap =
-                    Map.insert (TH.DeclDoc hsNm) s docMap
-                }
-        else
-           error "TH test does not support GHC versions older than 9.8"
+        Qu $ do
+          q@QuState{ docMap = docMap } <- get
+          let loc = QuFldLoc parentStr fieldStr
+          put $!
+            q { docMap =
+                  Map.insert (QuF loc) s docMap
+              }
       where
         parentStr, fieldStr :: String
         parentStr = Text.unpack $ Hs.getName parent
@@ -197,45 +210,10 @@ runQu (Qu m) = case runState m emptyQuState of
   Internal auxiliary: Template Haskell functions
 -------------------------------------------------------------------------------}
 
-getGlobalName :: Hs.Namespace -> String -> TH.Name
-getGlobalName ns nm = TH.Name (TH.OccName nm) (TH.NameG thNs pkg mdl)
-  where
-    pkg :: TH.PkgName
-    pkg = TH.PkgName "fake-pkg"
-
-    mdl :: TH.ModName
-    mdl = TH.ModName "fake-mdl"
-
-    thNs :: TH.NameSpace
-    thNs = case ns of
-      Hs.NsVar        -> TH.VarName
-      Hs.NsConstr     -> TH.DataName
-      Hs.NsTypeConstr -> TH.TcClsName
-
-#if __GLASGOW_HASKELL__ >=908
--- See notes in "HsBindgen.Guasi".
-getGlobalFieldName :: String -> String -> TH.Name
-getGlobalFieldName parent field =
-    TH.Name (TH.OccName field) (TH.NameG thNs pkg mdl)
-  where
-    pkg :: TH.PkgName
-    pkg = TH.PkgName "fake-pkg-field"
-
-    mdl :: TH.ModName
-    mdl = TH.ModName "fake-mdl-field"
-
-    thNs :: TH.NameSpace
-    thNs = TH.FldName parent
-#else
-getGlobalFieldName :: String -> String -> TH.Name
-getGlobalFieldName _ _ =
-    error "TH test does not support GHC versions older than 9.8"
-#endif
-
 -- | This function pretty prints 'TH.Dec' with their associated documentation.
 prettyWithDocumentationMap ::
      Bool
-  -> Map TH.DocLoc HsDoc.Comment
+  -> QuDocMap
   -> TH.Dec
   -> TH.Doc
 prettyWithDocumentationMap isTop docMap dec =
@@ -283,7 +261,7 @@ prettyWithDocumentationMap isTop docMap dec =
 
 -- | Helper function to lookup and format documentation
 --
-formatDecDoc :: Map TH.DocLoc HsDoc.Comment -> TH.Dec -> TH.Doc
+formatDecDoc :: QuDocMap -> TH.Dec -> TH.Doc
 formatDecDoc docMap thDec =
   case getDecDocLoc thDec >>= (`Map.lookup` docMap) of
     Nothing -> TH.empty
@@ -301,7 +279,7 @@ formatDecDoc docMap thDec =
 -- expressions)
 --
 thCompatValD ::
-     Map TH.DocLoc HsDoc.Comment
+     QuDocMap
   -> TH.Pat
   -> TH.Body
   -> [TH.Dec]
@@ -314,7 +292,7 @@ thCompatValD docMap p r ds =
 --
 thCompatClassD ::
      TH.PprFlag a
-  => Map TH.DocLoc HsDoc.Comment
+  => QuDocMap
   -> TH.Name
   -> [TH.TyVarBndr a]
   -> [TH.FunDep]
@@ -331,7 +309,7 @@ thCompatClassD docMap name tyvars fundeps cxt decs =
 -- | Compatible version of 'TH.InstanceD' pretty-printing
 --
 thCompatInstanceD ::
-     Map TH.DocLoc HsDoc.Comment
+     QuDocMap
   -> Maybe TH.Overlap
   -> TH.Cxt
   -> TH.Type
@@ -346,7 +324,7 @@ thCompatInstanceD docMap overlap cxt typ decs =
 -- | Compatible version of where clause pretty-printing (removes braces from
 --   case expressions)
 --
-thCompatWhereClause :: Map TH.DocLoc HsDoc.Comment -> [TH.Dec] -> TH.Doc
+thCompatWhereClause :: QuDocMap -> [TH.Dec] -> TH.Doc
 thCompatWhereClause _ [] = TH.empty
 thCompatWhereClause docMap ds = TH.nest nestDepth
                               $ TH.text "where"
@@ -354,7 +332,7 @@ thCompatWhereClause docMap ds = TH.nest nestDepth
 
 -- | Compatible 'TH.Body' pretty-printing
 thCompatPprBody ::
-     Map TH.DocLoc HsDoc.Comment
+     QuDocMap
   -> Bool
   -> TH.Body
   -> TH.Doc
@@ -370,7 +348,7 @@ thCompatPprBody docMap eq body =
 -- | Compatible guarded expression pretty-printing
 --
 thCompatPprGuarded ::
-     Map TH.DocLoc HsDoc.Comment
+     QuDocMap
   -> TH.Doc
   -> (TH.Guard, TH.Exp)
   -> TH.Doc
@@ -388,7 +366,7 @@ thCompatPprGuarded docMap eqDoc (guard', expr) =
 --
 -- We preserve #13856 pattern match
 --
-thCompatPprExp :: Map TH.DocLoc HsDoc.Comment -> TH.Exp -> TH.Doc
+thCompatPprExp :: QuDocMap -> TH.Exp -> TH.Doc
 thCompatPprExp docMap expr =
   case expr of
     TH.LamE [] e -> thCompatPprExp docMap e -- #13856
@@ -441,7 +419,7 @@ thCompatPprType = go
         _ -> TH.ppr ty
 
 -- | Compatible match pretty-printing
-thCompatPprMatch :: Map TH.DocLoc HsDoc.Comment -> TH.Match -> TH.Doc
+thCompatPprMatch :: QuDocMap -> TH.Match -> TH.Doc
 thCompatPprMatch docMap (TH.Match p rhs ds) =
         TH.pprMatchPat p TH.<+> thCompatPprBody docMap False rhs
   TH.$$ thCompatWhereClause docMap ds
@@ -454,7 +432,7 @@ thCompatPprMatch docMap (TH.Match p rhs ds) =
 --
 ppTypeDef ::
      TH.PprFlag a
-  => Map TH.DocLoc HsDoc.Comment
+  => QuDocMap
   -> String
   -> TH.Cxt
   -> Maybe TH.Name
@@ -499,30 +477,30 @@ ppTypeDef docMap s cxt mbName tyvars mkind cons derivs =
 
 -- | Pretty print 'TH.Con' with documentation
 --
-ppCon :: Map TH.DocLoc HsDoc.Comment -> TH.Con -> TH.Doc
+ppCon :: QuDocMap -> TH.Con -> TH.Doc
 ppCon docMap con =
   case con of
     TH.RecC name fields ->
             TH.ppr name TH.<+> ppRecordFields docMap name fields
-      TH.$$ getConNamesDoc docMap [name]
+      TH.$$ getDoc docMap [mkCon name]
 
     TH.ForallC _ _ innerCon ->
             TH.ppr con
-      TH.$$ getConNamesDoc docMap (get_cons_names innerCon)
+      TH.$$ getDoc docMap (get_cons_names innerCon)
 
     TH.RecGadtC names fields rtype ->
             TH.commaSepApplied names TH.<+> TH.dcolon
                                      TH.<+> ppGadtRecordFields docMap fields
                                      TH.<+> TH.arrow
                                      TH.<+> TH.ppr rtype
-      TH.$$ getConNamesDoc docMap names
+      TH.$$ getDoc docMap (map mkCon names)
 
     _ ->    TH.ppr con
-      TH.$$ getConNamesDoc docMap (get_cons_names con)
+      TH.$$ getDoc docMap (get_cons_names con)
 
 -- | Pretty-print GADT record fields with documentation
 ppGadtRecordFields ::
-     Map TH.DocLoc HsDoc.Comment
+     QuDocMap
   -> [TH.VarBangType]
   -> TH.Doc
 ppGadtRecordFields docMap fields =
@@ -532,11 +510,11 @@ ppGadtRecordFields docMap fields =
       let fieldBase = TH.pprName' TH.Applied fname TH.<+> TH.dcolon TH.<+>
                       TH.pprBangType (bang, ftype)
       in  fieldBase
-            TH.$$ getConNamesDoc docMap [fname]
+            TH.$$ getDoc docMap [mkCon fname]
 
 -- | Pretty-print record fields with documentation
 ppRecordFields ::
-     Map TH.DocLoc HsDoc.Comment
+     QuDocMap
   -> TH.Name
   -> [TH.VarBangType]
   -> TH.Doc
@@ -547,44 +525,44 @@ ppRecordFields docMap parent fields =
       let fieldBase = TH.pprName' TH.Applied fname TH.<+> TH.dcolon TH.<+>
                       TH.pprBangType (bang, ftype)
       in  fieldBase
-            TH.$$ getConNamesDoc docMap
-              [getGlobalFieldName parentStr $ TH.nameBase fname]
+            TH.$$ getDoc docMap
+              [QuF $ QuFldLoc parentStr (TH.nameBase fname)]
     parentStr = TH.nameBase parent
 
 -- | Aggregate all comments for each name and pretty print
-getConNamesDoc :: Map TH.DocLoc HsDoc.Comment -> [TH.Name] -> TH.Doc
-getConNamesDoc docMap names =
-  case foldMap (\n -> Map.lookup (TH.DeclDoc n) docMap) names of
+getDoc :: QuDocMap -> [QuDocLoc] -> TH.Doc
+getDoc docMap names =
+  case foldMap (\n -> Map.lookup n docMap) names of
     Nothing -> TH.empty
     Just c  -> pure
              $ PP.runCtxDoc PP.defaultContext (pretty (PartOfDeclarationComment c))
 
 -- | Get constructor names (defined here as it's not in all TH versions)
-get_cons_names :: TH.Con -> [TH.Name]
-get_cons_names (TH.NormalC n _)     = [n]
-get_cons_names (TH.RecC n _)        = [n]
-get_cons_names (TH.InfixC _ n _)    = [n]
+get_cons_names :: TH.Con -> [QuDocLoc]
+get_cons_names (TH.NormalC n _)     = [mkCon n]
+get_cons_names (TH.RecC n _)        = [mkCon n]
+get_cons_names (TH.InfixC _ n _)    = [mkCon n]
 get_cons_names (TH.ForallC _ _ c)   = get_cons_names c
-get_cons_names (TH.GadtC ns _ _)    = ns
-get_cons_names (TH.RecGadtC ns _ _) = ns
+get_cons_names (TH.GadtC ns _ _)    = map mkCon ns
+get_cons_names (TH.RecGadtC ns _ _) = map mkCon ns
 
 {-------------------------------------------------------------------------------
   DocLoc extraction
 -------------------------------------------------------------------------------}
 
 -- | Get DocLoc for declarations that can have attached documentation.
-getDecDocLoc :: TH.Dec -> Maybe TH.DocLoc
+getDecDocLoc :: TH.Dec -> Maybe QuDocLoc
 getDecDocLoc = \case
-    (TH.FunD n _)                        -> mkV n
-    (TH.ValD (TH.VarP n) _ _)            -> mkV n
-    (TH.DataD _ n _ _ _ _)               -> mkT n
-    (TH.NewtypeD _ n _ _ _ _)            -> mkT n
-    (TH.TySynD n _ _)                    -> mkT n
-    (TH.ClassD _ n _ _ _)                -> mkT n
-    (TH.SigD n _)                        -> mkV n
-    (TH.ForeignD (TH.ImportF _ _ _ n _)) -> mkV n
-    (TH.ForeignD (TH.ExportF _ _ n _))   -> mkV n
-    (TH.PatSynSigD n _)                  -> mkC n
+    (TH.FunD n _)                        -> Just $ mkVar n
+    (TH.ValD (TH.VarP n) _ _)            -> Just $ mkVar n
+    (TH.DataD _ n _ _ _ _)               -> Just $ mkTyp n
+    (TH.NewtypeD _ n _ _ _ _)            -> Just $ mkTyp n
+    (TH.TySynD n _ _)                    -> Just $ mkTyp n
+    (TH.ClassD _ n _ _ _)                -> Just $ mkTyp n
+    (TH.SigD n _)                        -> Just $ mkVar n
+    (TH.ForeignD (TH.ImportF _ _ _ n _)) -> Just $ mkVar n
+    (TH.ForeignD (TH.ExportF _ _ n _))   -> Just $ mkVar n
+    (TH.PatSynSigD n _)                  -> Just $ mkCon n
     TH.InstanceD{}                       -> Nothing
     TH.StandaloneDerivD{}                -> Nothing
     TH.PragmaD{}                         -> Nothing
@@ -594,10 +572,10 @@ getDecDocLoc = \case
   where
     err d = error $ "getDecDocLoc: unhandled declaration type: " <> show d
 
-mkT, mkC, mkV :: TH.Name -> Maybe TH.DocLoc
-mkT = Just . TH.DeclDoc . getGlobalName Hs.NsTypeConstr . TH.nameBase
-mkC = Just . TH.DeclDoc . getGlobalName Hs.NsConstr     . TH.nameBase
-mkV = Just . TH.DeclDoc . getGlobalName Hs.NsVar        . TH.nameBase
+mkTyp, mkCon, mkVar :: TH.Name -> QuDocLoc
+mkTyp = QuD . QuDecLoc Hs.NsTypeConstr . TH.nameBase
+mkCon = QuD . QuDecLoc Hs.NsConstr     . TH.nameBase
+mkVar = QuD . QuDecLoc Hs.NsVar        . TH.nameBase
 
 {-------------------------------------------------------------------------------
   Configuration
