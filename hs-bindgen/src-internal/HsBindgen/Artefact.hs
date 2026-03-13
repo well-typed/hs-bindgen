@@ -164,7 +164,7 @@ instance PrettyForTrace ArtefactMsg where
     NoBindingsSingleModule md ->
       "No output generated (module " <+> PP.show md <+> " is empty)"
     NoBindingsMultipleModules md ->
-      "No output generated (all binding categories with base module name " <+> PP.show md <+> " are empty)"
+      "No output generated (all binding categories with base module name" <+> PP.show md <+> "are empty)"
     SkipWriteToFileNoBindings fp ->
       "Skipping 'write file' operation (" >< PP.show fp >< "): file is empty"
 
