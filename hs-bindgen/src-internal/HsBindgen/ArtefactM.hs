@@ -1,7 +1,7 @@
 module HsBindgen.ArtefactM (
     -- * Policies
-    FileOverwritePolicy(..)
-  , OutputDirPolicy(..)
+    FilePolicy(..)
+  , DirPolicy(..)
   , checkPolicy
     -- * File description
   , FileDescription(..)
@@ -44,20 +44,20 @@ import HsBindgen.Util.Tracer
   Policies
 -------------------------------------------------------------------------------}
 
-data FileOverwritePolicy
+data FilePolicy
   = AllowFileOverwrite
   | DoNotOverwriteFiles
   deriving (Show, Eq)
 
-instance Default FileOverwritePolicy where
+instance Default FilePolicy where
   def = DoNotOverwriteFiles
 
-data OutputDirPolicy
+data DirPolicy
   = CreateOutputDirs
   | DoNotCreateOutputDirs
   deriving (Show, Eq)
 
-instance Default OutputDirPolicy where
+instance Default DirPolicy where
   def = DoNotCreateOutputDirs
 
 checkPolicy :: DelayedIO -> ExceptT DelayedIOError IO ()
@@ -68,17 +68,17 @@ checkPolicy = \case
       let baseDir = takeDirectory path
       dirExists  <- liftIO $ Dir.doesDirectoryExist baseDir
       fileExists <- liftIO $ Dir.doesFileExist path
-      unless (dirExists || fd.outputDirPolicy == CreateOutputDirs) $
+      unless (dirExists || fd.dirPolicy == CreateOutputDirs) $
         throwError $ DirectoryDoesNotExist baseDir
-      when (fileExists && fd.overwritePolicy == DoNotOverwriteFiles) $
+      when (fileExists && fd.filePolicy == DoNotOverwriteFiles) $
         throwError $ FileAlreadyExists path
     RelativeFileLocation relative -> do
       let path = relative.outputDir </> relative.localPath
       dirExists  <- liftIO $ Dir.doesDirectoryExist relative.outputDir
       fileExists <- liftIO $ Dir.doesFileExist path
-      unless (dirExists || fd.outputDirPolicy == CreateOutputDirs) $
+      unless (dirExists || fd.dirPolicy == CreateOutputDirs) $
         throwError $ DirectoryDoesNotExist relative.outputDir
-      when (fileExists && fd.overwritePolicy == DoNotOverwriteFiles) $
+      when (fileExists && fd.filePolicy == DoNotOverwriteFiles) $
         throwError $ FileAlreadyExists path
 
 {-------------------------------------------------------------------------------
@@ -86,11 +86,11 @@ checkPolicy = \case
 -------------------------------------------------------------------------------}
 
 data FileDescription = FileDescription {
-      description     :: String
-    , location        :: FileLocation
-    , overwritePolicy :: FileOverwritePolicy
-    , outputDirPolicy :: OutputDirPolicy
-    , content         :: FileContent
+      description :: String
+    , location    :: FileLocation
+    , filePolicy  :: FilePolicy
+    , dirPolicy   :: DirPolicy
+    , content     :: FileContent
     }
 
 data FileLocation =

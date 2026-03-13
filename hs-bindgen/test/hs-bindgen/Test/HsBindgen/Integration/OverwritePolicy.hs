@@ -12,15 +12,15 @@ import Test.HsBindgen.Resources
 
 tests :: IO TestResources -> TestTree
 tests getTestResources = testGroup "Integration.OverwritePolicy" [
-    testDirOverwritePolicy        getTestResources
-  , testFileOverwritePolicy       getTestResources
+    testDirPolicy                 getTestResources
+  , testFilePolicy                getTestResources
   , testOverwritePolicies         getTestResources
   , testBindingSpecCreateDirs     getTestResources
   , testBindingSpecNoDirByDefault getTestResources
   ]
 
-testDirOverwritePolicy :: IO TestResources -> TestTree
-testDirOverwritePolicy getTestResources = testCase "do not create output directory by default" $ do
+testDirPolicy :: IO TestResources -> TestTree
+testDirPolicy getTestResources = testCase "do not create output directory by default" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
     let headerPath = root </> "examples/golden/functions/simple_func.h"
@@ -36,8 +36,8 @@ testDirOverwritePolicy getTestResources = testCase "do not create output directo
     -- to completion, but an error has ocurred.
     exitCode @?= ExitFailure 3
 
-testFileOverwritePolicy :: IO TestResources -> TestTree
-testFileOverwritePolicy getTestResources = testCase "do not overwrite existing files by default" $ do
+testFilePolicy :: IO TestResources -> TestTree
+testFilePolicy getTestResources = testCase "do not overwrite existing files by default" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- (.packageRoot) <$> getTestResources
     let headerPath = root </> "examples/golden/functions/simple_func.h"

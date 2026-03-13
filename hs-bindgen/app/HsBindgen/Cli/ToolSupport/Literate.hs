@@ -120,8 +120,8 @@ exec opts = do
 
         -- It is understood that literate mode will overwrite existing files
         -- (generated files will anyway live in @dist-newstyle@ or similar)
-        overwriteFiles :: FileOverwritePolicy
-        overwriteFiles = AllowFileOverwrite
+        filePolicy :: FilePolicy
+        filePolicy = AllowFileOverwrite
 
         mrc :: ModuleRenderConfig
         mrc = ModuleRenderConfig {
@@ -129,7 +129,7 @@ exec opts = do
           }
 
         artefact :: Artefact ()
-        artefact = writeBindings mrc overwriteFiles opts.output
+        artefact = writeBindings mrc filePolicy opts.output
 
     hsBindgen
       lit.globalOpts.unsafe

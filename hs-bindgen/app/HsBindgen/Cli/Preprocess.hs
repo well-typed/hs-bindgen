@@ -51,16 +51,16 @@ parseOpts =
 
 -- | CLI options; the TH equivalent of ConfigCLI' is 'HsBindgen.Config.ConfigTH'.
 data ConfigCLI = ConfigCLI {
-      uniqueId            :: UniqueId
-    , baseModuleName      :: BaseModuleName
-    , qualifiedStyle      :: QualifiedStyle
-    , outputOptions       :: OutputOptions
-    , hsOutputDir         :: FilePath
-    , outputBindingSpec   :: Maybe FilePath
-    , outputDirPolicy     :: OutputDirPolicy
-    , fileOverwritePolicy :: FileOverwritePolicy
+      uniqueId          :: UniqueId
+    , baseModuleName    :: BaseModuleName
+    , qualifiedStyle    :: QualifiedStyle
+    , outputOptions     :: OutputOptions
+    , hsOutputDir       :: FilePath
+    , outputBindingSpec :: Maybe FilePath
+    , dirPolicy         :: DirPolicy
+    , filePolicy        :: FilePolicy
     -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs              :: [UncheckedHashIncludeArg]
+    , inputs            :: [UncheckedHashIncludeArg]
     }
   deriving (Generic)
 
@@ -73,8 +73,8 @@ parseConfigCLI =
       <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
-      <*> parseOutputDirPolicy
-      <*> parseFileOverwritePolicy
+      <*> parseDirPolicy
+      <*> parseFilePolicy
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -109,18 +109,18 @@ exec global opts = do
         OutputOptions (SingleFile _) ->
           writeBindingsSingleToDir
             mrc
-            opts.configCLI.fileOverwritePolicy
-            opts.configCLI.outputDirPolicy
+            opts.configCLI.filePolicy
+            opts.configCLI.dirPolicy
             opts.configCLI.hsOutputDir
         _ ->
           writeBindingsMultiple
             mrc
-            opts.configCLI.fileOverwritePolicy
-            opts.configCLI.outputDirPolicy
+            opts.configCLI.filePolicy
+            opts.configCLI.dirPolicy
             opts.configCLI.hsOutputDir
 
       forM_ opts.configCLI.outputBindingSpec $ \path ->
         writeBindingSpec
-          opts.configCLI.fileOverwritePolicy
-          opts.configCLI.outputDirPolicy
+          opts.configCLI.filePolicy
+          opts.configCLI.dirPolicy
           path
