@@ -167,23 +167,27 @@ hsBindgenE
 -------------------------------------------------------------------------------}
 
 -- | Write the include graph to `STDOUT` or a file.
-writeIncludeGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
-writeIncludeGraph pol mPath = do
+writeIncludeGraph :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
+writeIncludeGraph filePolicy dirPolicy mPath = do
     includeGraph <- getIncludeGraph
     let predicate = (/= RootHeader.name)
         rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
-      Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
-      Just path -> write pol "include graph" (UserSpecified path) rendered
+      Nothing   ->
+        Lift $ delay $ WriteToStdOut $ StringContent rendered
+      Just path ->
+        write filePolicy dirPolicy "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
-writeUseDeclGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
-writeUseDeclGraph pol mPath = do
+writeUseDeclGraph :: FilePolicy -> DirPolicy -> Maybe FilePath -> Artefact ()
+writeUseDeclGraph filePolicy dirPolicy mPath = do
     useDeclGraph <- getUseDeclGraph
     let rendered = UseDeclGraph.dumpMermaid useDeclGraph
     case mPath of
-      Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
-      Just path -> write pol "use-decl graph" (UserSpecified path) rendered
+      Nothing   ->
+        Lift $ delay $ WriteToStdOut $ StringContent rendered
+      Just path ->
+        write filePolicy dirPolicy "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
 getBindings :: ModuleRenderConfig -> Artefact String
@@ -197,10 +201,15 @@ getBindings mrc = do
       translateModuleSingle fns mrc name decls
 
 -- | Write bindings to file.
-writeBindings :: ModuleRenderConfig -> FileOverwritePolicy -> FilePath -> Artefact ()
-writeBindings mrc fileOverwritePolicy path = do
+writeBindings ::
+     ModuleRenderConfig
+  -> FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Artefact ()
+writeBindings mrc filePolicy dirPolicy path = do
     bindings <- getBindings mrc
-    write fileOverwritePolicy "bindings" (UserSpecified path) bindings
+    write filePolicy dirPolicy "bindings" (UserSpecified path) bindings
 
 -- | Write bindings to a directory (single module combining all categories).
 --
@@ -209,11 +218,11 @@ writeBindings mrc fileOverwritePolicy path = do
 -- 'writeBindingsMultiple' but generating only one file.
 writeBindingsSingleToDir ::
      ModuleRenderConfig
-  -> FileOverwritePolicy
-  -> OutputDirPolicy
+  -> FilePolicy
+  -> DirPolicy
   -> FilePath
   -> Artefact ()
-writeBindingsSingleToDir mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
+writeBindingsSingleToDir mrc filePolicy dirPolicy hsOutputDir = do
     moduleBaseName <- ModuleBaseName
     bindings       <- getBindings mrc
     let localPath :: FilePath
@@ -222,12 +231,11 @@ writeBindingsSingleToDir mrc fileOverwritePolicy outputDirPolicy hsOutputDir = d
 
         location :: FileLocation
         location = RelativeFileLocation RelativeToOutputDir{
-              outputDir       = hsOutputDir
-            , localPath       = localPath
-            , outputDirPolicy = outputDirPolicy
+              outputDir = hsOutputDir
+            , localPath = localPath
             }
 
-    write fileOverwritePolicy "bindings" location bindings
+    write filePolicy dirPolicy "bindings" location bindings
 
 -- | Write bindings to a directory, choosing between single and multi-module modes.
 --
@@ -236,8 +244,8 @@ writeBindingsSingleToDir mrc fileOverwritePolicy outputDirPolicy hsOutputDir = d
 -- - If no categories were selected: multi-module mode (one file per category)
 writeBindingsToDir ::
      ModuleRenderConfig
-  -> FileOverwritePolicy
-  -> OutputDirPolicy
+  -> FilePolicy
+  -> DirPolicy
   -> FilePath
   -> Bool  -- ^ True if categories were explicitly selected
   -> Artefact ()
@@ -264,24 +272,28 @@ getBindingsMultiple mrc = do
 -- If no file is given, print to standard output.
 writeBindingsMultiple ::
      ModuleRenderConfig
-  -> FileOverwritePolicy
-  -> OutputDirPolicy
+  -> FilePolicy
+  -> DirPolicy
   -> FilePath
   -> Artefact ()
-writeBindingsMultiple mrc fileOverwritePolicy outputDirPolicy hsOutputDir = do
+writeBindingsMultiple mrc filePolicy dirPolicy hsOutputDir = do
     moduleBaseName     <- ModuleBaseName
     bindingsByCategory <- getBindingsMultiple mrc
     writeByCategory
-      fileOverwritePolicy
-      outputDirPolicy
+      filePolicy
+      dirPolicy
       "Bindings"
       hsOutputDir
       moduleBaseName
       bindingsByCategory
 
 -- | Write binding specifications to file.
-writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
-writeBindingSpec fileOverwritePolicy path = do
+writeBindingSpec ::
+     FilePolicy
+  -> DirPolicy
+  -> FilePath
+  -> Artefact ()
+writeBindingSpec filePolicy dirPolicy path = do
     moduleBaseName <- ModuleBaseName
     includeGraph   <- getIncludeGraph
     declIndex      <- getDeclIndex
@@ -301,10 +313,11 @@ writeBindingSpec fileOverwritePolicy path = do
             squashedTypes
             (view (lensForCategory CType) hsDecls)
         fileDescription = FileDescription {
-              description     = "Binding specifications"
-            , location        = UserSpecified path
-            , overwritePolicy = fileOverwritePolicy
-            , content         = ByteStringContent bs
+              description = "Binding specifications"
+            , location    = UserSpecified path
+            , filePolicy  = filePolicy
+            , dirPolicy   = dirPolicy
+            , content     = ByteStringContent bs
             }
     Lift $ delay $ WriteToFile fileDescription
 
@@ -367,16 +380,17 @@ getDependencies = IncludeGraph.toSortedList <$> getIncludeGraph
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: FileOverwritePolicy -> String -> FileLocation -> String -> Artefact ()
-write pol what loc str
+write :: FilePolicy -> DirPolicy -> String -> FileLocation -> String -> Artefact ()
+write filePolicy dirPolicy what loc str
   | null str =
     EmitTrace $ SkipWriteToFileNoBindings loc
   | otherwise =
-    Lift $ delay $ WriteToFile $ FileDescription what loc pol (StringContent str)
+    Lift $ delay $
+      WriteToFile $ FileDescription what loc filePolicy dirPolicy (StringContent str)
 
 writeByCategory ::
-     FileOverwritePolicy
-  -> OutputDirPolicy
+     FilePolicy
+  -> DirPolicy
   -> String
   -> FilePath
   -> BaseModuleName
@@ -388,7 +402,7 @@ writeByCategory filePolicy dirPolicy what dir moduleBaseName =
     writeCategory :: Category -> Maybe String -> Artefact ()
     writeCategory _    Nothing   = pure ()
     writeCategory cat (Just str) =
-        write filePolicy whatWithCategory location str
+        write filePolicy dirPolicy whatWithCategory location str
       where
         localPath :: FilePath
         localPath = Hs.moduleNamePath $
@@ -399,9 +413,8 @@ writeByCategory filePolicy dirPolicy what dir moduleBaseName =
 
         location :: FileLocation
         location = RelativeFileLocation RelativeToOutputDir{
-              outputDir       = dir
-            , localPath       = localPath
-            , outputDirPolicy = dirPolicy
+              outputDir = dir
+            , localPath = localPath
             }
 
 nullDecls :: ([a], [b]) -> Bool

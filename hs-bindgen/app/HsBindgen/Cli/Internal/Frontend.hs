@@ -86,12 +86,12 @@ info = progDesc "Dump the result of a frontend pass"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      dump                :: SomeFrontendPass
-    , config              :: Config
-    , uniqueId            :: UniqueId
-    , baseModuleName      :: BaseModuleName
-    , inputs              :: [UncheckedHashIncludeArg]
-    , fileOverwritePolicy :: FileOverwritePolicy
+      dump           :: SomeFrontendPass
+    , config         :: Config
+    , uniqueId       :: UniqueId
+    , baseModuleName :: BaseModuleName
+    , inputs         :: [UncheckedHashIncludeArg]
+    , filePolicy     :: FilePolicy
     }
 
 parseOpts :: Parser Opts
@@ -102,7 +102,7 @@ parseOpts =
       <*> parseUniqueId
       <*> parseBaseModuleName
       <*> parseInputs
-      <*> parseFileOverwritePolicy
+      <*> parseFilePolicy
 
 parseDump :: Parser SomeFrontendPass
 parseDump = option (eitherReader parseFrontendPassName) $ mconcat [

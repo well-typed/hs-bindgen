@@ -35,12 +35,13 @@ info = progDesc "Output the use-decl graph"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config              :: Config
-    , uniqueId            :: UniqueId
-    , baseModuleName      :: BaseModuleName
-    , output              :: Maybe FilePath
-    , inputs              :: [UncheckedHashIncludeArg]
-    , fileOverwritePolicy :: FileOverwritePolicy
+      config         :: Config
+    , uniqueId       :: UniqueId
+    , baseModuleName :: BaseModuleName
+    , output         :: Maybe FilePath
+    , inputs         :: [UncheckedHashIncludeArg]
+    , filePolicy     :: FilePolicy
+    , dirPolicy      :: DirPolicy
     }
 
 parseOpts :: Parser Opts
@@ -51,7 +52,8 @@ parseOpts =
       <*> parseBaseModuleName
       <*> optional parseOutput'
       <*> parseInputs
-      <*> parseFileOverwritePolicy
+      <*> parseFilePolicy
+      <*> parseDirPolicy
 
 parseOutput' :: Parser FilePath
 parseOutput' = strOption $ mconcat [
@@ -75,7 +77,7 @@ exec global opts =
       artefact
   where
     artefact :: Artefact ()
-    artefact = writeUseDeclGraph opts.fileOverwritePolicy opts.output
+    artefact = writeUseDeclGraph opts.filePolicy opts.dirPolicy opts.output
 
     bindgenConfig :: BindgenConfig
     bindgenConfig =

@@ -19,8 +19,8 @@ module HsBindgen.App (
   , parseQualifiedStyle
     -- ** Output options
   , parseHsOutputDir
-  , parseOutputDirPolicy
-  , parseFileOverwritePolicy
+  , parseDirPolicy
+  , parseFilePolicy
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -438,14 +438,14 @@ parseHsOutputDir = strOption $ mconcat [
     , help "Output directory of generated Haskell modules"
     ]
 
-parseOutputDirPolicy :: Parser OutputDirPolicy
-parseOutputDirPolicy = flag DoNotCreateOutputDirs CreateOutputDirs $ mconcat [
+parseDirPolicy :: Parser DirPolicy
+parseDirPolicy = flag DoNotCreateOutputDirs CreateOutputDirs $ mconcat [
       long "create-output-dirs"
     , help "Create the specified output directories if they do not exist"
     ]
 
-parseFileOverwritePolicy :: Parser FileOverwritePolicy
-parseFileOverwritePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
+parseFilePolicy :: Parser FilePolicy
+parseFilePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
       long "overwrite-files"
     , help "Allow overwriting existing output files"
     ]
