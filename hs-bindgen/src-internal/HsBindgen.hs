@@ -168,19 +168,23 @@ hsBindgenE
 
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph ::
-     Boolean Regex
+     Bool
+  -> Boolean Regex
   -> FilePolicy
   -> DirPolicy
   -> Maybe FilePath
   -> Artefact ()
-writeIncludeGraph regex filePolicy dirPolicy mPath = do
+writeIncludeGraph simple regex filePolicy dirPolicy mPath = do
     includeGraph <- getIncludeGraph
-    -- TODO-D: Move predicates into `getIncludeGraph`?
     let predicateUser, predicateRoot, predicate :: SourcePath -> Bool
         predicateUser (SourcePath p) = eval (\r -> matchTest r p) regex
         predicateRoot                = (/= RootHeader.name)
-        predicate p = predicateUser p && predicateRoot p
-        rendered = IncludeGraph.dumpMermaid predicate includeGraph
+        predicate      p             = predicateUser p && predicateRoot p
+        rendered =
+          if simple then
+            IncludeGraph.dumpMermaidSimple predicate includeGraph
+          else
+            IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
       Nothing   ->
         Lift $ delay $ WriteToStdOut $ StringContent rendered

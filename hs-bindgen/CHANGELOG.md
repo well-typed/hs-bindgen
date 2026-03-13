@@ -25,6 +25,10 @@
 
 ### New features
 
+* The `info include-graph` sub-command has received new options: `--include
+  PCRE`, and `--exclude PCRE` allow fine-tuned choice of headers to include or
+  exclude from the include graph; `--simple` reduces include graph verbosity,
+  for example, by removing edge labels.
 * Generate explicit export lists in preprocessor-generated modules, hiding
   internal `hs_bindgen_` helper bindings from the public API and documentation
   ([#76](https://github.com/well-typed/hs-bindgen/issues/76)). Export items

@@ -21,9 +21,11 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , getIncludes
     -- * Debugging
   , Predicate
+  , dumpMermaidSimple
   , dumpMermaid
   ) where
 
+import Data.DynGraph qualified as Unlabelled
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
@@ -148,15 +150,61 @@ getIncludes includeGraph = DynGraph.findEdges includeGraph.graph
 -- graph are shown.
 type Predicate = SourcePath -> Bool
 
+-- TODO-D:
+--
+-- DynGraph:
+--
+-- - Remove node without loosing connections.
+--
+-- For example,
+--
+--   A-->B-->C
+--       |
+--       --->D
+--
+-- Removal of node 'B' creates
+--
+--   A-->C
+--   |
+--   --->D
+--
+--
+-- Output operations:
+--
+-- - Simplify header path (I don't know yet how or in which way).
+
+dumpMermaidSimple :: Predicate -> IncludeGraph -> String
+dumpMermaidSimple p g = Unlabelled.dumpMermaid opts $
+    -- Combination of dangling (i.e., transitive) edges is only possible with a
+    -- combining function (i.e., edge label type must be a Monoid). This is
+    -- complicated for the 'Include' type we use in 'IncludeGraph'; it is much
+    -- simpler to only combine edges without labels.
+    Unlabelled.filterVerticesCombineEdges p $
+      Unlabelled.fromLabelled g.graph
+  where
+    opts :: Unlabelled.MermaidOptions SourcePath
+    opts = Unlabelled.MermaidOptions{
+        reverseEdges = True
+      , renderVertex = Just . Text.unpack . simplify
+      }
+
+    -- Remove prefix up to, and including "/include/".
+    simplify :: SourcePath -> Text
+    simplify (SourcePath x) = case Text.breakOnAll "/include/" x of
+      [] -> x
+      (_, suf): _ -> case Text.stripPrefix "/include/" suf of
+        Nothing   -> suf
+        Just suf' -> suf'
+
 dumpMermaid :: Predicate -> IncludeGraph -> String
-dumpMermaid p includeGraph =
+dumpMermaid p g =
     DynGraph.dumpMermaid
       DynGraph.MermaidOptions{
           reverseEdges = True
         , renderVertex = \path -> guard (p path) >> return (getSourcePath path)
         , renderEdge   = Just . renderInclude
         }
-      includeGraph.graph
+      g.graph
   where
     renderInclude :: Include -> String
     renderInclude = \case

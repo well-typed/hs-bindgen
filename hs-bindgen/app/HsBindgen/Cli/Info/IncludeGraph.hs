@@ -40,6 +40,7 @@ info = progDesc "Output the include graph"
 data Opts = Opts {
       config         :: Config
     , predicate      :: Boolean Regex
+    , simple         :: Bool
     , output         :: Maybe FilePath
     , inputs         :: [UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
@@ -51,6 +52,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parsePredicate
+      <*> parseSimple
       <*> optional parseOutput'
       <*> parseInputs
       <*> parseFilePolicy
@@ -78,6 +80,17 @@ parsePredicate = fmap merge . many . asum $ [
       [] -> [BTrue]
       xs -> xs
 
+parseSimple :: Parser Bool
+parseSimple = switch $ mconcat [
+      short 's'
+    , long "simple"
+    , help $ concat [
+        "No edge labels, "
+      , "strip prefix '.../include/' from paths, "
+      , "combine dangling (i.e., transitive) edges when removing nodes"
+      ]
+    ]
+
 parseOutput' :: Parser FilePath
 parseOutput' = strOption $ mconcat [
       short 'o'
@@ -102,6 +115,7 @@ exec global opts =
     artefact :: Artefact ()
     artefact =
       writeIncludeGraph
+        opts.simple
         opts.predicate
         opts.filePolicy
         opts.dirPolicy
