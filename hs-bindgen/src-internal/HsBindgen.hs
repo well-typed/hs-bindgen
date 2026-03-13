@@ -10,9 +10,8 @@ module HsBindgen (
   , getBindings
   , getBindingsMultiple
   , writeBindings
-  , writeBindingsSingleToDir
+  , writeBindingsSingle
   , writeBindingsMultiple
-  , writeBindingsToDir
   , writeBindingSpec
   , writeTests
 
@@ -216,13 +215,13 @@ writeBindings mrc filePolicy dirPolicy path = do
 -- Unlike 'writeBindings', this writes to a directory and automatically
 -- constructs the file path from the module name, similar to
 -- 'writeBindingsMultiple' but generating only one file.
-writeBindingsSingleToDir ::
+writeBindingsSingle ::
      ModuleRenderConfig
   -> FilePolicy
   -> DirPolicy
   -> FilePath
   -> Artefact ()
-writeBindingsSingleToDir mrc filePolicy dirPolicy hsOutputDir = do
+writeBindingsSingle mrc filePolicy dirPolicy hsOutputDir = do
     moduleBaseName <- ModuleBaseName
     bindings       <- getBindings mrc
     let localPath :: FilePath
@@ -236,23 +235,6 @@ writeBindingsSingleToDir mrc filePolicy dirPolicy hsOutputDir = do
             }
 
     write filePolicy dirPolicy "bindings" location bindings
-
--- | Write bindings to a directory, choosing between single and multi-module modes.
---
--- - If categories were explicitly selected: single-module mode (one file with
--- all selected categories)
--- - If no categories were selected: multi-module mode (one file per category)
-writeBindingsToDir ::
-     ModuleRenderConfig
-  -> FilePolicy
-  -> DirPolicy
-  -> FilePath
-  -> Bool  -- ^ True if categories were explicitly selected
-  -> Artefact ()
-writeBindingsToDir mrc filePolicy dirPolicy hsOutputDir categoriesSelected =
-    if categoriesSelected
-      then writeBindingsSingleToDir mrc filePolicy dirPolicy hsOutputDir
-      else writeBindingsMultiple mrc filePolicy dirPolicy hsOutputDir
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: ModuleRenderConfig -> Artefact (ByCategory_ (Maybe String))
