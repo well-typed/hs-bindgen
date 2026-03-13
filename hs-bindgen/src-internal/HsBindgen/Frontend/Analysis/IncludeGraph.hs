@@ -148,6 +148,29 @@ getIncludes includeGraph = DynGraph.findEdges includeGraph.graph
 -- graph are shown.
 type Predicate = SourcePath -> Bool
 
+-- TODO-D:
+--
+-- DynGraph:
+--
+-- - Remove node without loosing connections.
+--
+-- For example,
+--
+--   A-->B-->C
+--       |
+--       --->D
+--
+-- Removal of node 'B' creates
+--
+--   A-->C
+--   |
+--   --->D
+--
+--
+-- Output operations:
+--
+-- - Simplify header path (I don't know yet how or in which way).
+
 dumpMermaid :: Predicate -> IncludeGraph -> String
 dumpMermaid p includeGraph =
     DynGraph.dumpMermaid
