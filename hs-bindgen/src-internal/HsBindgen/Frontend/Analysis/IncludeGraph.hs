@@ -150,37 +150,37 @@ getIncludes includeGraph = DynGraph.findEdges includeGraph.graph
 -- graph are shown.
 type Predicate = SourcePath -> Bool
 
--- TODO-D:
+-- | Dump simplified version of the include graph.
 --
--- DynGraph:
+-- This entails:
 --
--- - Remove node without loosing connections.
+-- - Remove edge labels ('Include' type).
 --
--- For example,
+-- - Combine dangling (i.e., transient) edges of removed vertices.
 --
---   A-->B-->C
---       |
---       --->D
+--   For example,
 --
--- Removal of node 'B' creates
+--     A-->B-->C
+--         |
+--         --->D
 --
---   A-->C
---   |
---   --->D
+--   Removal of node 'B' creates
 --
+--     A-->C
+--     |
+--     --->D
 --
--- Output operations:
---
--- - Simplify header path (I don't know yet how or in which way).
-
+-- - Strip prefix ".../include/" from paths.
 dumpMermaidSimple :: Predicate -> IncludeGraph -> String
-dumpMermaidSimple p g = Unlabelled.dumpMermaid opts $
-    -- Combination of dangling (i.e., transitive) edges is only possible with a
-    -- combining function (i.e., edge label type must be a Monoid). This is
-    -- complicated for the 'Include' type we use in 'IncludeGraph'; it is much
-    -- simpler to only combine edges without labels.
-    Unlabelled.filterVerticesCombineEdges p $
-      Unlabelled.fromLabelled g.graph
+dumpMermaidSimple p g =
+    Unlabelled.dumpMermaid opts $
+      -- Combination of dangling (i.e., transitive) edges is only possible with
+      -- a combining function (i.e., edge label type must be a Monoid). This is
+      -- complicated for the 'Include' type we use in 'IncludeGraph'; it is much
+      -- simpler to only combine edges without labels.
+      Unlabelled.filterVerticesCombineEdges p $
+        -- Remove edge labels.
+        Unlabelled.fromLabelled g.graph
   where
     opts :: Unlabelled.MermaidOptions SourcePath
     opts = Unlabelled.MermaidOptions{
@@ -191,7 +191,7 @@ dumpMermaidSimple p g = Unlabelled.dumpMermaid opts $
     -- Remove prefix up to, and including "/include/".
     simplify :: SourcePath -> Text
     simplify (SourcePath x) = case Text.breakOnAll "/include/" x of
-      [] -> x
+      []          -> x
       (_, suf): _ -> case Text.stripPrefix "/include/" suf of
         Nothing   -> suf
         Just suf' -> suf'
