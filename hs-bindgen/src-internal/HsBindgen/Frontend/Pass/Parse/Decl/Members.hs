@@ -94,16 +94,30 @@ parseMembersWith ctx parseField parseObject k =
           -- therefore only try to detect the situation and report an error when
           -- it happens. Hopefully this is anyway very rare.
           (used, unused) = detectImplicitFields successes fields
-      if null unused then
+          -- Implicit fields might exist for fields of nested anonymous
+          -- structs\/unions that failed to parse. However, we don't know what
+          -- the names of the relevant unparsed fields are. As such we'll have
+          -- to assume that implicit fields exist when there are unparsed nested
+          -- declarations.
+          --
+          -- If all nested anonymous structs\/unions were parsed successfully,
+          -- then we can properly detect implicit fields using
+          -- 'detectImplicitFields'.
+          hasImplicitFields = not (null fails) || not (null unused)
+          -- Always return all nested declarations, regardless of their parse
+          -- status. The @Select@ pass wil handle deselecting declarations if
+          -- necessary.
+          declMembers = fails ++ map parseSucceed used
+      if hasImplicitFields then
+        -- If the struct has implicit fields, don't return any fields.
         k ParseMembersResult {
-              declMembers  = fails ++ map parseSucceed used
-            , fieldMembers = Right fields
+              declMembers  = declMembers
+            , fieldMembers = Left ParseUnsupportedImplicitFields
             }
-      -- If the struct has implicit fields, don't generate anything.
       else
         k ParseMembersResult {
-              declMembers  = fails
-            , fieldMembers = Left ParseUnsupportedImplicitFields
+              declMembers  = declMembers
+            , fieldMembers = Right fields
             }
 
 -- | Parse a single member of a struct\/union
