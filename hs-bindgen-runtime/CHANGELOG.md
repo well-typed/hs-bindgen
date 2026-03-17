@@ -28,6 +28,12 @@
 
 ### Bug fixes
 
+* Rewrite bit-field `peek` and `poke` code to read to and write from the correct
+  locations in memory, support packed `struct` fields that cross machine word
+  boundaries, and only use aligned reads/writes so that it is safe across all
+  architectures
+* Fix `loMask @Int64 64`, which was returning an incorrect mask
+
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 
 ## 0.1.0-alpha -- 2026-02-06

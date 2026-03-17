@@ -61,9 +61,10 @@ import Foreign.Ptr
 import GHC.Exts (Proxy#, proxy#)
 import GHC.TypeLits
 
-import HsBindgen.Runtime.BitfieldPtr (BitfieldPtr (BitfieldPtr))
+import HsBindgen.Runtime.BitfieldPtr (BitfieldPtr, mkBitfieldPtr)
 import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
 import HsBindgen.Runtime.Internal.Bitfield (Bitfield)
+import HsBindgen.Runtime.Marshal qualified as Marshal
 
 -- | Evidence that a C object @a@ has a bit-field with the name @field@.
 --
@@ -139,11 +140,14 @@ width = \_ _ -> bitfieldWidth# (proxy# @a) (proxy# @field)
 -- | Convert a pointer to a C object to a pointer to one of the object's
 -- bit-fields.
 toPtr ::
-     forall a field. HasCBitfield a field
+     forall a field. (
+       Marshal.StaticSize a
+     , HasCBitfield a field
+     )
   => Proxy field
   -> Ptr a
   -> BitfieldPtr (CBitfieldType a field)
-toPtr _ ptr = BitfieldPtr (castPtr ptr) o w
+toPtr _ ptr = mkBitfieldPtr ptr o w
   where
     o = bitfieldOffset# (proxy# @a) (proxy# @field)
     w = bitfieldWidth#  (proxy# @a) (proxy# @field)
@@ -152,7 +156,8 @@ toPtr _ ptr = BitfieldPtr (castPtr ptr) o w
 -- | Using a pointer to a C object, read from one of the object's bit-fields.
 peek ::
      forall a field. (
-       HasCBitfield a field
+       Marshal.StaticSize a
+     , HasCBitfield a field
      , Bitfield (CBitfieldType a field)
      )
   => Proxy field
@@ -164,7 +169,8 @@ peek field ptr = BitfieldPtr.peek (toPtr field ptr)
 -- | Using a pointer to a C object, write to one of the object's bit-fields.
 poke ::
      forall a field. (
-       HasCBitfield a field
+       Marshal.StaticSize a
+     , HasCBitfield a field
      , Bitfield (CBitfieldType a field)
      )
   => Proxy field
