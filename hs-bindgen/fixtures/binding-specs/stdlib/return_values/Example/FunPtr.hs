@@ -43,7 +43,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   [ "#include <binding-specs/stdlib/return_values.h>"
   , "/* test_bindingspecsstdlibreturn_va_Example_get_bool_fun */"
   , "__attribute__ ((const))"
-  , "bool (*hs_bindgen_4d50a5da1d788aef (void)) (void)"
+  , "_Bool (*hs_bindgen_4d50a5da1d788aef (void)) (void)"
   , "{"
   , "  return &bool_fun;"
   , "}"
@@ -222,7 +222,7 @@ foreign import ccall unsafe "hs_bindgen_4d50a5da1d788aef" hs_bindgen_4d50a5da1d7
      IO (RIP.FunPtr RIP.Void)
 
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_bool_fun@
-hs_bindgen_4d50a5da1d788aef :: IO (RIP.FunPtr (IO HsBindgen.Runtime.LibC.CBool))
+hs_bindgen_4d50a5da1d788aef :: IO (RIP.FunPtr (IO RIP.CBool))
 hs_bindgen_4d50a5da1d788aef =
   RIP.fromFFIType hs_bindgen_4d50a5da1d788aef_base
 
@@ -233,7 +233,7 @@ hs_bindgen_4d50a5da1d788aef =
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
-bool_fun :: RIP.FunPtr (IO HsBindgen.Runtime.LibC.CBool)
+bool_fun :: RIP.FunPtr (IO RIP.CBool)
 bool_fun =
   RIP.unsafePerformIO hs_bindgen_4d50a5da1d788aef
 

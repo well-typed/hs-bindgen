@@ -349,7 +349,7 @@ instance HasCField.HasCField Var_t "unwrapVar_t" where
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 data A_typedef_struct_t = A_typedef_struct_t
-  { a_typedef_struct_t_field_0 :: HsBindgen.Runtime.LibC.CBool
+  { a_typedef_struct_t_field_0 :: RIP.CBool
     {- ^ __C declaration:__ @field_0@
 
          __defined at:__ @edge-cases\/distilled_lib_1.h 37:31@
@@ -487,11 +487,11 @@ deriving via Marshal.EquivStorable A_typedef_struct_t instance RIP.Storable A_ty
 instance HasCField.HasCField A_typedef_struct_t "a_typedef_struct_t_field_0" where
 
   type CFieldType A_typedef_struct_t "a_typedef_struct_t_field_0" =
-    HsBindgen.Runtime.LibC.CBool
+    RIP.CBool
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
+instance ( ((~) ty) RIP.CBool
          ) => RIP.HasField "a_typedef_struct_t_field_0" (RIP.Ptr A_typedef_struct_t) (RIP.Ptr ty) where
 
   getField =

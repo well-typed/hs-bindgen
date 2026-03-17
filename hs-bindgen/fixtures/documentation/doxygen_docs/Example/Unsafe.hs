@@ -40,7 +40,7 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return (process_data)(arg1, arg2, arg3);"
   , "}"
-  , "bool hs_bindgen_c27e893aea0b0a77 ("
+  , "_Bool hs_bindgen_c27e893aea0b0a77 ("
   , "  char const *arg1"
   , ")"
   , "{"
@@ -53,13 +53,13 @@ $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.un
   , "{"
   , "  return (calculate_value)(arg1, arg2);"
   , "}"
-  , "bool hs_bindgen_09abc3cb74562964 ("
+  , "_Bool hs_bindgen_09abc3cb74562964 ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return (html_example)(arg1);"
   , "}"
-  , "bool hs_bindgen_47cba1a95d265f84 ("
+  , "_Bool hs_bindgen_47cba1a95d265f84 ("
   , "  char const **arg1,"
   , "  size_t arg2"
   , ")"
@@ -202,7 +202,7 @@ foreign import ccall unsafe "hs_bindgen_c27e893aea0b0a77" hs_bindgen_c27e893aea0
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_file@
 hs_bindgen_c27e893aea0b0a77 ::
      PtrConst.PtrConst RIP.CChar
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 hs_bindgen_c27e893aea0b0a77 =
   RIP.fromFFIType hs_bindgen_c27e893aea0b0a77_base
 
@@ -230,7 +230,7 @@ process_file ::
 
      __C declaration:__ @filename@
      -}
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 process_file = hs_bindgen_c27e893aea0b0a77
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_calculate_value@
@@ -296,7 +296,7 @@ foreign import ccall unsafe "hs_bindgen_09abc3cb74562964" hs_bindgen_09abc3cb745
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_example@
 hs_bindgen_09abc3cb74562964 ::
      RIP.CInt
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 hs_bindgen_09abc3cb74562964 =
   RIP.fromFFIType hs_bindgen_09abc3cb74562964_base
 
@@ -326,7 +326,7 @@ html_example ::
 
      __C declaration:__ @value@
      -}
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 html_example = hs_bindgen_09abc3cb74562964
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
@@ -339,7 +339,7 @@ foreign import ccall unsafe "hs_bindgen_47cba1a95d265f84" hs_bindgen_47cba1a95d2
 hs_bindgen_47cba1a95d265f84 ::
      RIP.Ptr (PtrConst.PtrConst RIP.CChar)
   -> HsBindgen.Runtime.LibC.CSize
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 hs_bindgen_47cba1a95d265f84 =
   RIP.fromFFIType hs_bindgen_47cba1a95d265f84_base
 
@@ -404,7 +404,7 @@ list_example ::
 
      __C declaration:__ @count@
      -}
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 list_example = hs_bindgen_47cba1a95d265f84
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_dangerous_function@

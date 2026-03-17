@@ -58,7 +58,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @binding-specs\/stdlib\/instances.h@
 -}
 newtype Stdlib_CBool = Stdlib_CBool
-  { unwrapStdlib_CBool :: HsBindgen.Runtime.LibC.CBool
+  { unwrapStdlib_CBool :: RIP.CBool
   }
   deriving stock (Eq, RIP.Generic, Ord, Read, Show)
   deriving newtype
@@ -79,7 +79,7 @@ newtype Stdlib_CBool = Stdlib_CBool
     , Marshal.WriteRaw
     )
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
+instance ( ((~) ty) RIP.CBool
          ) => RIP.HasField "unwrapStdlib_CBool" (RIP.Ptr Stdlib_CBool) (RIP.Ptr ty) where
 
   getField =
@@ -88,7 +88,7 @@ instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
 instance HasCField.HasCField Stdlib_CBool "unwrapStdlib_CBool" where
 
   type CFieldType Stdlib_CBool "unwrapStdlib_CBool" =
-    HsBindgen.Runtime.LibC.CBool
+    RIP.CBool
 
   offset# = \_ -> \_ -> 0
 

@@ -29,6 +29,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C (PrimType (PrimBool))
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -463,8 +464,19 @@ parseMacro name tokens  = state     $ \st ->
               (Left $ HandleMacrosErrorParse errType errExpr, st)
   where
     updateReparseEnv :: C.Type HandleMacros -> LanC.ReparseEnv -> LanC.ReparseEnv
-    updateReparseEnv typ =
-        Map.insert name.text $
+    updateReparseEnv typ
+      -- stdbool.h defines @#define bool _Bool@, which is just an alias for
+      -- the primitive boolean type. We normalise this away: if @bool@ maps
+      -- to @PrimBool@, we store @TypePrim PrimBool@ directly instead of
+      -- wrapping it in @TypeMacro@. This ensures that @bool@ from stdbool.h
+      -- renders identically to @_Bool@, regardless of language-c version.
+      -- Genuine redefinitions like @#define bool int@ are not affected
+      -- because their underlying type is not @PrimBool@.
+      | name.text == "bool"
+      , C.TypePrim PrimBool <- typ
+      = Map.insert name.text typ
+      | otherwise
+      = Map.insert name.text $
           C.TypeMacro $ C.Ref {
               name = DeclId{name = name, isAnon = False}
             , underlying = typ

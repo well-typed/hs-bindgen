@@ -80,19 +80,7 @@ reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
 -- Unlike the other parsers, this is not /re/parsing: we are parsing this macro
 -- for the first time.
 parseMacroType :: Parser (C.Type HandleMacros)
-#if MIN_VERSION_language_c(0,10,2)
--- When we parse a macro body like @_Bool@ in @#define BOOL _Bool@,
--- language-c 0.10.2 produces @CBoolType@, whose handler looks up
--- @\"bool\"@ in the reparse env. If stdbool.h was already processed,
--- that lookup finds stdbool.h's entry instead of returning @PrimBool@.
--- Removing @\"bool\"@ from the env here avoids that, matching the
--- behaviour of language-c < 0.10.2.
-parseMacroType env =
-    parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
-      (Map.delete "bool" env)
-#else
 parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
-#endif
   where
     -- @void@ does not make sense as a top-level type
     checkNotVoid ::

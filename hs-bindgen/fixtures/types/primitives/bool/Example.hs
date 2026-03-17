@@ -23,7 +23,6 @@ module Example
 
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
-import qualified HsBindgen.Runtime.LibC
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct bools1@
@@ -105,14 +104,14 @@ instance ( ((~) ty) RIP.CBool
     __exported by:__ @types\/primitives\/bool.h@
 -}
 data Bools2 = Bools2
-  { bools2_x :: HsBindgen.Runtime.LibC.CBool
+  { bools2_x :: RIP.CBool
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @types\/primitives\/bool.h 9:10@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
-  , bools2_y :: HsBindgen.Runtime.LibC.CBool
+  , bools2_y :: RIP.CBool
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/primitives\/bool.h 10:10@
@@ -150,24 +149,22 @@ deriving via Marshal.EquivStorable Bools2 instance RIP.Storable Bools2
 
 instance HasCField.HasCField Bools2 "bools2_x" where
 
-  type CFieldType Bools2 "bools2_x" =
-    HsBindgen.Runtime.LibC.CBool
+  type CFieldType Bools2 "bools2_x" = RIP.CBool
 
   offset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
+instance ( ((~) ty) RIP.CBool
          ) => RIP.HasField "bools2_x" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools2_x")
 
 instance HasCField.HasCField Bools2 "bools2_y" where
 
-  type CFieldType Bools2 "bools2_y" =
-    HsBindgen.Runtime.LibC.CBool
+  type CFieldType Bools2 "bools2_y" = RIP.CBool
 
   offset# = \_ -> \_ -> 1
 
-instance ( ((~) ty) HsBindgen.Runtime.LibC.CBool
+instance ( ((~) ty) RIP.CBool
          ) => RIP.HasField "bools2_y" (RIP.Ptr Bools2) (RIP.Ptr ty) where
 
   getField = HasCField.fromPtr (RIP.Proxy @"bools2_y")

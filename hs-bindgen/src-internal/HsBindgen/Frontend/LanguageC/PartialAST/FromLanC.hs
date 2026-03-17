@@ -163,6 +163,9 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       -- language-c 0.10.2 lexes both @bool@ and @_Bool@ as @CBoolType@.
       -- If @bool@ has been redefined (via @#define@ or @typedef@), the
       -- reparse env will contain that definition and we use it here.
+      -- The standard stdbool.h alias @#define bool _Bool@ is normalised
+      -- away by 'updateReparseEnv' in the HandleMacros pass, so the
+      -- lookup returns @TypePrim PrimBool@ in that case.
       LanC.CBoolType   _a -> \partial -> do
         typeEnv <- getReparseEnv
         case Map.lookup "bool" typeEnv of
