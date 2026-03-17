@@ -39,7 +39,7 @@ empty :: DynGraph a
 empty = Labelled.empty
 
 fromLabelled :: Labelled.DynGraph l a -> DynGraph a
-fromLabelled = Labelled.mapEdges (const ())
+fromLabelled = Labelled.mapEdges $ const ()
 
 {-------------------------------------------------------------------------------
   Insertion
@@ -104,15 +104,15 @@ dfFindMember = Labelled.dfFindMember
 --
 --   A-->B-->C
 --       |
---       --->D
+--       +-->D
 --
 -- Removal of vertex 'B' creates
 --
---   A-->C
+--   A------>C
 --   |
---   --->D
+--   +------>D
 filterVerticesCombineEdges :: Ord a => (a -> Bool) -> DynGraph a -> DynGraph a
-filterVerticesCombineEdges = Labelled.filterVerticesCombineEdges
+filterVerticesCombineEdges p = Labelled.filterVerticesCombineEdges p (\_ _ -> ())
 
 {-------------------------------------------------------------------------------
   Debugging
@@ -131,5 +131,5 @@ dumpMermaid opts =
     Labelled.dumpMermaid Labelled.MermaidOptions{
         reverseEdges = opts.reverseEdges
       , renderVertex = opts.renderVertex
-      , renderEdge   = \() -> Nothing
+      , renderEdge   = \() -> Labelled.EdgeSpec Labelled.Straight Nothing
       }

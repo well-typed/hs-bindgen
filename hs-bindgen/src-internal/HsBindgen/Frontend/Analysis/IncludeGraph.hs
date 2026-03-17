@@ -21,16 +21,14 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
   , getIncludes
     -- * Debugging
   , Predicate
-  , dumpMermaidSimple
+  , DumpOpts(..)
   , dumpMermaid
   ) where
 
-import Data.DynGraph qualified as Unlabelled
-import Data.DynGraph.Labelled (DynGraph)
-import Data.DynGraph.Labelled qualified as DynGraph
+import Data.DynGraph.Labelled (DynGraph, MermaidOptions (reverseEdges))
+import Data.DynGraph.Labelled qualified as Graph
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
-import Data.Text qualified as Text
 
 import Clang.Paths
 
@@ -42,12 +40,14 @@ import HsBindgen.Imports
   Definition
 -------------------------------------------------------------------------------}
 
+type Graph = DynGraph
+
 -- | Include graph
 --
 -- We create a DAG of C header paths with an edge for each @#include@.
 -- The edges are /reversed/ to represent an \"included by\" relation.
 data IncludeGraph = IncludeGraph{
-      graph :: DynGraph Include SourcePath
+      graph :: Graph Include SourcePath
     }
   deriving stock (Show, Eq)
 
@@ -103,7 +103,7 @@ getIncludeMacroArg = \case
 -------------------------------------------------------------------------------}
 
 empty :: IncludeGraph
-empty = IncludeGraph DynGraph.empty
+empty = IncludeGraph Graph.empty
 
 register ::
      SourcePath -- ^ Path of header that includes the following header
@@ -112,7 +112,7 @@ register ::
   -> IncludeGraph
   -> IncludeGraph
 register header include incHeader includeGraph = IncludeGraph $
-    DynGraph.insertEdge incHeader include header includeGraph.graph
+    Graph.insertEdge incHeader include header includeGraph.graph
 
 fromList :: [(SourcePath, Include, SourcePath)] -> IncludeGraph
 fromList edges = List.foldl' add empty edges
@@ -125,11 +125,11 @@ fromList edges = List.foldl' add empty edges
 -------------------------------------------------------------------------------}
 
 reaches :: IncludeGraph -> SourcePath -> Set SourcePath
-reaches includeGraph = DynGraph.reaches includeGraph.graph . List.singleton
+reaches includeGraph = Graph.reaches includeGraph.graph . List.singleton
 
 toSortedList :: IncludeGraph -> [SourcePath]
 toSortedList includeGraph =
-    List.delete RootHeader.name $ DynGraph.topSort includeGraph.graph
+    List.delete RootHeader.name $ Graph.topSort includeGraph.graph
 
 toOrderMap :: IncludeGraph -> Map SourcePath Int
 toOrderMap graph = Map.fromList (zip (toSortedList graph) [0..])
@@ -137,80 +137,120 @@ toOrderMap graph = Map.fromList (zip (toSortedList graph) [0..])
 getIncludes ::
      IncludeGraph
   -> SourcePath
-  -> DynGraph.FindEdgesResult Include
-getIncludes includeGraph = DynGraph.findEdges includeGraph.graph
+  -> Graph.FindEdgesResult Include
+getIncludes includeGraph = Graph.findEdges includeGraph.graph
 
 {-------------------------------------------------------------------------------
   Debugging
 -------------------------------------------------------------------------------}
 
 -- | Include graph predicate
---
--- An include graph predicate can be used to filter which indexes of an include
--- graph are shown.
 type Predicate = SourcePath -> Bool
 
--- | Dump simplified version of the include graph.
+data DumpOpts = DumpOpts {
+      -- | Only show vertices satisfying the predicate.
+      --
+      --   Combine dangling (i.e., transient) edges at removed vertices.
+      --
+      --   For example,
+      --
+      --     A-D->B-->C
+      --         |
+      --         +-->D
+      --
+      --   Removal of node 'B' creates
+      --
+      --     A-->C
+      --     |
+      --     --->D
+      predicate :: Predicate
+      -- | How should we show the include header?
+      --
+      -- - If 'True': Show paths of include header files
+      --
+      -- - If 'False':  Show the @#include@ argument, which usually shorter
+    , showPaths :: Bool
+    }
+
+-- | Dump include graph
 --
--- This entails:
+-- See 'DumpOpts'.
 --
--- - Remove edge labels ('Include' type).
---
--- - Combine dangling (i.e., transient) edges of removed vertices.
---
---   For example,
---
---     A-->B-->C
---         |
---         --->D
---
---   Removal of node 'B' creates
---
---     A-->C
---     |
---     --->D
---
--- - Strip prefix ".../include/" from paths.
-dumpMermaidSimple :: Predicate -> IncludeGraph -> String
-dumpMermaidSimple p g =
-    Unlabelled.dumpMermaid opts $
-      -- Combination of dangling (i.e., transitive) edges is only possible with
-      -- a combining function (i.e., edge label type must be a Monoid). This is
-      -- complicated for the 'Include' type we use in 'IncludeGraph'; it is much
-      -- simpler to only combine edges without labels.
-      Unlabelled.filterVerticesCombineEdges p $
-        -- Remove edge labels.
-        Unlabelled.fromLabelled g.graph
+-- Render direct (transient) dependencies using straight (dotted) arrows,
+-- respectively.
+dumpMermaid :: DumpOpts -> IncludeGraph -> String
+dumpMermaid o g =
+    Graph.dumpMermaid opts $
+      Graph.combineParallelEdges combineParallel $
+        Graph.filterVerticesCombineEdges predicate combineSequential $
+          Graph.mapEdges (const Direct) $
+            Graph.mapVerticesOutgoingEdges Vertex g.graph
   where
-    opts :: Unlabelled.MermaidOptions SourcePath
-    opts = Unlabelled.MermaidOptions{
+    predicate :: Vertex -> Bool
+    predicate v = o.predicate v.path
+
+    renderVertex :: Vertex -> FilePath
+    renderVertex v =
+      if o.showPaths then
+        getSourcePath v.path
+      else
+        getIncludePath v
+
+    renderEdge :: Edge -> Graph.EdgeSpec
+    renderEdge = \case
+      Direct    -> Graph.EdgeSpec Graph.Straight Nothing
+      Transient -> Graph.EdgeSpec Graph.Dotted   Nothing
+
+    opts :: Graph.MermaidOptions Edge Vertex
+    opts = Graph.MermaidOptions{
         reverseEdges = True
-      , renderVertex = Just . Text.unpack . simplify
+      , renderVertex = Just . renderVertex
+      , renderEdge   = renderEdge
       }
 
-    -- Remove prefix up to, and including "/include/".
-    simplify :: SourcePath -> Text
-    simplify (SourcePath x) = case Text.breakOnAll "/include/" x of
-      []          -> x
-      (_, suf): _ -> case Text.stripPrefix "/include/" suf of
-        Nothing   -> suf
-        Just suf' -> suf'
+    toPath :: Include -> FilePath
+    toPath = (.path) . getIncludeArg
 
-dumpMermaid :: Predicate -> IncludeGraph -> String
-dumpMermaid p g =
-    DynGraph.dumpMermaid
-      DynGraph.MermaidOptions{
-          reverseEdges = True
-        , renderVertex = \path -> guard (p path) >> return (getSourcePath path)
-        , renderEdge   = Just . renderInclude
-        }
-      g.graph
-  where
-    renderInclude :: Include -> String
-    renderInclude = \case
-      BracketInclude     i   -> "#include <"       ++ i.path ++ ">"
-      QuoteInclude       i   -> "#include \""      ++ i.path ++ "\""
-      MacroInclude       _ m -> "#include "        ++ Text.unpack m
-      BracketIncludeNext i   -> "#include_next <"  ++ i.path ++ ">"
-      QuoteIncludeNext   i   -> "#include_next \"" ++ i.path ++ "\""
-      MacroIncludeNext   _ m -> "#include_next "   ++ Text.unpack m
+    getIncludePath :: Vertex -> FilePath
+    getIncludePath v = safeHead $ List.sortOn length $  map toPath $ v.includes
+
+    safeHead :: [String] -> String
+    safeHead []    = getSourcePath $ RootHeader.name
+    safeHead (x:_) = x
+
+data Edge = Direct | Transient
+ deriving stock (Show, Eq, Ord)
+
+data Vertex = Vertex {
+      includes :: [Include]
+    , path     :: SourcePath
+   }
+ deriving stock (Show, Eq, Ord)
+
+-- | Sequential combination of simple include edges.
+--
+-- @
+-- A---D--->B---D--->C
+--
+-- A--------I------->C
+-- @
+combineSequential :: Edge -> Edge -> Edge
+combineSequential _ _ = Transient
+
+-- | Parallel combination of simple include edges.
+--
+-- @
+-- A---D--->B---D--->C
+-- |                 ^
+-- |                 |
+-- ---------D---------
+--
+-- A--------I------->C
+-- |                 ^
+-- |                 |
+-- ---------D---------
+-- @
+combineParallel :: Edge -> Edge -> Edge
+combineParallel (Direct   ) (_        ) = Direct
+combineParallel (_        ) (Direct   ) = Direct
+combineParallel (Transient) (Transient) = Transient

@@ -191,6 +191,7 @@ dumpMermaid useDeclGraph =
       DynGraph.MermaidOptions{
           reverseEdges = False
         , renderVertex = Just . show
-        , renderEdge   = Just . show
+        , renderEdge   = \e ->
+            DynGraph.EdgeSpec DynGraph.Straight (Just $ show e)
         }
       useDeclGraph.graph

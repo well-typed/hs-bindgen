@@ -20,11 +20,15 @@ module Data.DynGraph.Labelled (
     -- * Deletion
   , deleteEdgesFrom
   , deleteEdgesTo
+  , combineParallelEdges
   , filterEdges
   , filterVerticesCombineEdges
     -- * Map
   , mapEdges
+  , mapVerticesOutgoingEdges
     -- * Debugging
+  , EdgeType(..)
+  , EdgeSpec(..)
   , MermaidOptions(..)
   , dumpMermaid
     -- * Auxiliary: tree traversals
@@ -284,6 +288,38 @@ deleteEdgesTo vs graph =
       | Set.null s = Nothing
       | otherwise  = Just s
 
+-- | Combine parallel edges using the provided function (·).
+--
+-- For example, if @e < f@,
+--
+-- @
+--                      +-----e-----+
+--                      |           |
+--                      |           v
+-- combineParallelEdges A           B = A-----(e · f)---->B
+--                      |           ^
+--                      |           |
+--                      +-----f-----+
+-- @
+combineParallelEdges :: forall a l. Ord l => (l -> l -> l) -> DynGraph l a -> DynGraph l a
+combineParallelEdges (·) g = DynGraph{
+      vtxMap = g.vtxMap
+    , idxMap = g.idxMap
+    , edges  = IntMap.map aux g.edges
+    }
+  where
+    fromSet :: Ord k => Set (k, v) -> Map k (NonEmpty v)
+    fromSet =
+      Map.fromListWith (<>) .
+        map (\(k, v) -> (k, NonEmpty.singleton v)) .
+          Set.toList
+
+    combine :: Foldable t => t l -> l
+    combine = Foldable.foldl1 (·)
+
+    aux :: Ord k => Set (k, l) -> Set (k, l)
+    aux = Set.fromList . Map.toList . Map.map combine . fromSet
+
 filterEdges :: forall l a. (l -> Bool) -> DynGraph l a -> DynGraph l a
 filterEdges f graph = graph {
       edges = IntMap.mapMaybe aux graph.edges
@@ -297,23 +333,35 @@ filterEdges f graph = graph {
 
 -- | Retain vertices that satisfy the predicate.
 --
--- If possible, combine dangling (i.e., transitive) edges.
+-- If possible, combine dangling (i.e., transitive) edges using the provide
+-- function (·).
 --
 -- For example, assume
 --
---   A-->B-->C
---       |
---       --->D
+-- @
+--   +------(ac)-----+
+--   |               v
+--   A--ab-->B--bc-->C
+--           |
+--           +--bd-->D
+-- @
 --
--- Removal of vertex 'B' creates
+-- Removal of vertex @B@ creates
 --
---   A-->C
+-- @
+--   +------(ac)------+
+--   |                v
+--   A---(ab · bc)--->C
 --   |
---   --->D
+--   +---(ab · bd)--->D
+-- @
+--
+-- If @(ac) == (ab > bc)@ then the two edges are merged, and the graph only
+-- contains one edge from @A@ to @C@.
 filterVerticesCombineEdges :: forall a l.
-  (Monoid l, Ord a, Ord l) => (a -> Bool) -> DynGraph l a -> DynGraph l a
-filterVerticesCombineEdges p g =
-  Foldable.foldl' (flip deleteVertexCombineEdges) g $
+  (Ord a, Ord l) => (a -> Bool) -> (l -> l -> l) -> DynGraph l a -> DynGraph l a
+filterVerticesCombineEdges p (·) g =
+  Foldable.foldl' (deleteVertexCombineEdges (·)) g $
     -- Negate the predicate since we _delete_ all vertices satisfying the
     -- predicate.
     filter (not . p) $
@@ -330,14 +378,45 @@ mapEdges f g = DynGraph{
     , edges = IntMap.map (Set.map (\(x, l) -> (x, f l))) g.edges
     }
 
+-- | Replace vertices with new values obtained from the outgoing edges and the
+--   old vertex.
+--
+-- Specific function to serve creation of 'IncludeGraph's.
+mapVerticesOutgoingEdges ::
+     forall a b l.
+     (Ord l, Ord a, Ord b) => ([l] -> a -> b)
+  -> DynGraph l a
+  -> DynGraph l b
+mapVerticesOutgoingEdges f g = DynGraph{
+      vtxMap = Map.mapKeys f' g.vtxMap
+    , idxMap = IntMap.map  f' g.idxMap
+    , edges  = g.edges
+    }
+  where
+    f' :: a -> b
+    f' x = let outgoingEdges = Set.toList $ Set.map snd $ g `neighbors` x
+           in  f outgoingEdges x
+
 {-------------------------------------------------------------------------------
   Debugging
 -------------------------------------------------------------------------------}
 
+data EdgeType = Straight | Dotted
+
+data EdgeSpec = EdgeSpec {
+    typ   :: EdgeType
+  , label :: Maybe String
+}
+
+getLinkType :: EdgeType -> String
+getLinkType = \case
+  Straight -> "-->"
+  Dotted   -> "-.->"
+
 data MermaidOptions l a = MermaidOptions{
       reverseEdges :: Bool
     , renderVertex :: a -> Maybe String
-    , renderEdge   :: l -> Maybe String
+    , renderEdge   :: l -> EdgeSpec
     }
 
 -- | Render a Mermaid diagram
@@ -358,7 +437,7 @@ dumpMermaid opts graph =
 
     nodes, links :: [String]
     nodes = [
-        "  v" ++ show idx ++ "[\"" ++ escapeString rendered ++ "\"]"
+        "  v" ++ show idx ++ "(\"" ++ escapeString rendered ++ "\")"
       | (_v, idx) <- Map.toAscList graph.vtxMap
       , Just rendered <- [IntMap.lookup idx pSet]
       ]
@@ -366,8 +445,8 @@ dumpMermaid opts graph =
          concat [
              "  v"
            , show (if opts.reverseEdges then to else fr)
-           , "-->"
-           , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") (opts.renderEdge l)
+           , getLinkType edgeSpec.typ
+           , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") edgeSpec.label
            , "v"
            , show (if opts.reverseEdges then fr else to)
            ]
@@ -375,6 +454,7 @@ dumpMermaid opts graph =
        , fr `IntMap.member` pSet
        , (to, l) <- Set.toAscList rSet
        , to `IntMap.member` pSet
+       , let edgeSpec = opts.renderEdge l
        ]
 
     escapeString :: String -> [Char]
@@ -475,8 +555,12 @@ dfs' graph idxs0 = case Map.size graph.vtxMap of
       f (Array.readArray m) (\idx -> Array.writeArray m idx True)
 
 deleteVertexCombineEdges ::
-     (Monoid l, Ord a, Ord l) => a -> DynGraph l a -> DynGraph l a
-deleteVertexCombineEdges x g = DynGraph{
+     forall a l. (Ord a, Ord l)
+  => (l -> l -> l)
+  -> DynGraph l a
+  -> a
+  -> DynGraph l a
+deleteVertexCombineEdges (·) g x = DynGraph{
       vtxMap = vtxMap'
     , idxMap = idxMap'
     , edges  = edges'
@@ -490,18 +574,16 @@ deleteVertexCombineEdges x g = DynGraph{
       Nothing  -> g.edges
       Just idx -> combineEdges idx g.edges
 
-    combineEdges ::
-         forall l. (Ord l, Monoid l)
-      => Int -> IntMap (Set (Int, l)) -> IntMap (Set (Int, l))
-    combineEdges vtx edges = IntMap.mapMaybeWithKey connect edges
+    combineEdges :: Int -> IntMap (Set (Int, l)) -> IntMap (Set (Int, l))
+    combineEdges vtx edges = IntMap.mapMaybeWithKey combine edges
       where
         edgesFromVtx :: Set (Int, l)
         edgesFromVtx = case IntMap.lookup vtx edges of
           Nothing -> mempty
           Just fromVtx -> fromVtx
 
-        connect :: Int -> Set (Int, l) -> Maybe (Set (Int, l))
-        connect k tos =
+        combine :: Int -> Set (Int, l) -> Maybe (Set (Int, l))
+        combine k tos =
             if k == vtx then
               -- Remove all edges originating from the vertex to remove.
               Nothing
@@ -510,7 +592,7 @@ deleteVertexCombineEdges x g = DynGraph{
                 if to == vtx then
                   -- Redirect edges targeting the vertex to all targets of the
                   -- vertex.
-                  [(to', l <> l') | (to', l') <- Set.toList edgesFromVtx]
+                  [(to', l · l') | (to', l') <- Set.toList edgesFromVtx]
                 else
                   [(to, l)]
                   | (to , l ) <- Set.toList tos
