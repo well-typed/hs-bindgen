@@ -20,7 +20,19 @@ import Test.HsBindgen.Resources
 testCases :: [TestCase]
 testCases = [
       -- Default tests
-      defaultTest "types/complex/complex_non_float_test"
+      defaultTest "types/anonymous/edge-cases/anon_in_nonanon"
+    , defaultTest "types/anonymous/edge-cases/bitfield"
+    , defaultTest "types/anonymous/edge-cases/duplicate_field_names"
+    , defaultTest "types/anonymous/edge-cases/empty_anon"
+    , defaultTest "types/anonymous/edge-cases/multi_nesting"
+    , defaultTest "types/anonymous/edge-cases/unnamed_bitfield"
+    , defaultTest "types/anonymous/struct_in_struct"
+    , defaultTest "types/anonymous/struct_in_union"
+    , defaultTest "types/anonymous/struct"
+    , defaultTest "types/anonymous/union_in_struct"
+    , defaultTest "types/anonymous/union_in_union"
+    , defaultTest "types/anonymous/union"
+    , defaultTest "types/complex/complex_non_float_test"
     , defaultTest "types/complex/hsb_complex_test"
     , defaultTest "types/complex/vector_test"
     , defaultTest "types/enums/anon_enum_toplevel"
@@ -46,8 +58,6 @@ testCases = [
     , defaultTest "types/unions/nested_unions"
     , defaultTest "types/unions/unions"
       -- Bespoke tests
-    , test_types_implicit_fields_struct
-    , test_types_implicit_fields_union
     , test_types_long_double
     , test_types_primitives_bool_c23
     , test_types_primitives_bool_macro_override
@@ -69,22 +79,6 @@ testCases = [
 {-------------------------------------------------------------------------------
   Individual test definitions
 -------------------------------------------------------------------------------}
-
-test_types_implicit_fields_struct :: TestCase
-test_types_implicit_fields_struct =
-    testTraceSimple "types/structs/implicit_fields_struct" $ \case
-      MatchDelayed _name ParseUnsupportedImplicitFields{} ->
-        Just $ Expected ()
-      _otherwise ->
-        Nothing
-
-test_types_implicit_fields_union :: TestCase
-test_types_implicit_fields_union =
-    testTraceSimple "types/unions/implicit_fields_union" $ \case
-      MatchDelayed _name ParseUnsupportedImplicitFields{} ->
-        Just $ Expected ()
-      _otherwise ->
-        Nothing
 
 test_types_long_double :: TestCase
 test_types_long_double =

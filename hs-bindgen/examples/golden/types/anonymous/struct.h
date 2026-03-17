@@ -1,6 +1,8 @@
-// Union with implicit fields
+// Struct with implicit fields
 //
-union has_implicit_fields {
+// The order is relevant in the case that we compute offsets (as opposed to ask
+// clang for offsets) if we flatten the struct.
+struct has_implicit_fields {
   int x1;
   struct {
     int x2_1;
@@ -17,5 +19,3 @@ union has_implicit_fields {
   }; // implicit field x5
   int x5;
 };
-
-
