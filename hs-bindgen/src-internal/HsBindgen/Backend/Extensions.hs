@@ -32,13 +32,13 @@ requiredExtensions fieldNaming = \case
     DRecord record -> mconcat [
         recordExtensions record
       , nestedDeriving record.deriv
-      , enableRecordDotExtensions fieldNaming
+      , omitFieldPrefixesExtensions fieldNaming
       , Set.singleton TH.DeriveGeneric
       ]
     DNewtype newtyp -> mconcat [
         nestedDeriving newtyp.deriv
       , typeExtensions newtyp.field.typ
-      , enableRecordDotExtensions fieldNaming
+      , omitFieldPrefixesExtensions fieldNaming
       , Set.singleton TH.DeriveGeneric
       ]
     DEmptyData{} -> mconcat [
@@ -82,11 +82,12 @@ nestedDeriving deriv =
 recordExtensions :: Record -> Set TH.Extension
 recordExtensions record = foldMap fieldExtensions record.fields
 
--- | Extensions required when using enable record dot flag.
-enableRecordDotExtensions :: FieldNamingStrategy -> Set TH.Extension
-enableRecordDotExtensions = \case
-    PrefixedFieldNames -> mempty
-    EnableRecordDot    -> Set.singleton TH.DuplicateRecordFields
+-- | Extensions required when using 'OmitFieldPrefixes' or the
+-- | "--omit-field-prefixes" flag.
+omitFieldPrefixesExtensions :: FieldNamingStrategy -> Set TH.Extension
+omitFieldPrefixesExtensions = \case
+    AddFieldPrefixes  -> mempty
+    OmitFieldPrefixes -> Set.singleton TH.DuplicateRecordFields
 
 fieldExtensions :: Field -> Set TH.Extension
 fieldExtensions field = typeExtensions field.typ

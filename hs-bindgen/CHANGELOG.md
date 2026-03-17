@@ -4,6 +4,8 @@
 
 ### Breaking changes
 
+* Rename option `--enable-record-dot` to `--omit-field-prefixes`, which is more
+  to the point.
 * Occurrences of the `CFieldType`/`CBitfieldType` type families in
   class instance heads are now replaced by their definition.
 * `--enable-blocks` CLI option renamed to `-fblocks`, matching `clang`
@@ -59,7 +61,7 @@
 ### Bug fixes
 
 * Fix generation of documentation for record fields in Template Haskell mode
-  with `EnableRecordDot`. Previously, duplicate record fields induced "ambiguous
+  with `OmitFieldPrefixes`. Previously, duplicate record fields induced "ambiguous
   occurrence" errors. This fix is only available for GHC versions 9.8 and newer.
   For older versions of GHC, we deactivated creation of documentation for record
   fields in Template Haskell mode.

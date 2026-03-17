@@ -409,9 +409,9 @@ mangleFieldName info fieldCName = do
     strategy <- WrapM $ asks (.fieldNamingStrategy)
     let candidate :: Text
         candidate = case strategy of
-          PrefixedFieldNames ->
+          AddFieldPrefixes ->
             info.id.unsafeHsName.text <> "_" <> fieldCName.text
-          EnableRecordDot ->
+          OmitFieldPrefixes ->
             fieldCName.text
     ScopedNamePair fieldCName <$>
       mkIdentifier info (Proxy @Hs.NsVar) candidate
@@ -470,8 +470,8 @@ mkFieldName strategy info = Hs.unsafeHsIdHsName $ unwrapName strategy info.id.un
     unwrapName :: FieldNamingStrategy -> Hs.Identifier -> Hs.Identifier
     unwrapName fns typeName  = Hs.Identifier $
       case fns of
-        PrefixedFieldNames   -> "unwrap" <> typeName.text
-        EnableRecordDot      -> "unwrap"
+        AddFieldPrefixes  -> "unwrap" <> typeName.text
+        OmitFieldPrefixes -> "unwrap"
 
 -- | Generic construction of newtype names, given only the type name
 --

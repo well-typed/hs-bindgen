@@ -647,16 +647,16 @@ translateCEnumInstance struct fTyp vMap isSequential fieldNamingStrategy mbComme
     fname :: Hs.Name Hs.NsVar
     fname = (NonEmpty.head $ Vec.toNonEmpty struct.fields).name
 
-    -- When using EnableRecordDot, many newtypes will have fields named "unwrap",
+    -- When using OmitFieldPrefixes, many newtypes will have fields named "unwrap",
     -- which makes the bare identifier "unwrap" ambiguous. We use getField with
     -- type application only in that case. Otherwise, we use the bare field name
     -- directly since it's unique (e.g., unwrapE, unwrapValue).
     fromCEnumE :: ClosedExpr
     fromCEnumE =
       case fieldNamingStrategy of
-        EnableRecordDot ->
+        OmitFieldPrefixes ->
           eBindgenGlobal HasField_getField `ETypeApp` translateType (Hs.HsStrLit "unwrap")
-        PrefixedFieldNames ->
+        AddFieldPrefixes ->
           EFree fname
 
     declaredValuesE :: SExpr ctx

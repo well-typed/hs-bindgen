@@ -69,9 +69,9 @@ instance Guasi TH.Q where
 
 #if __GLASGOW_HASKELL__ >=908
     -- Here we have to go out of the way. We need to rigurously disambiguate
-    -- field names when attaching documentation if record dot syntax is enabled.
-    -- However, we can only do so with `template-haskell >= 2.21`, shipping with
-    -- GHC 9.8.
+    -- field names when attaching documentation to fields without prefixes
+    -- (`--omit-field-prefixes`). However, we can only do so with
+    -- `template-haskell >= 2.21`, shipping with GHC 9.8.
     putLocalFieldDoc _fns parent field comment = do
         loc <- TH.location
         let pkg = TH.PkgName $ TH.loc_package loc
@@ -94,6 +94,6 @@ instance Guasi TH.Q where
     -- fields are prefixed and have unique names.
     putLocalFieldDoc fns _parent field comment =
         case fns of
-          EnableRecordDot    -> pure ()
-          PrefixedFieldNames -> putLocalDoc field comment
+          OmitFieldPrefixes -> pure ()
+          AddFieldPrefixes  -> putLocalDoc field comment
 #endif

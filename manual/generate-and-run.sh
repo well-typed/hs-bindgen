@@ -50,7 +50,7 @@ else
 "
     fi
 
-    cat > "$SCRIPT_DIR/hs/cabal.project.local" <<EOF
+    cat >"$SCRIPT_DIR/hs/cabal.project.local" <<EOF
 ${SUPPORTS_UNICODE_STANZA}package manual
   extra-include-dirs:
       $SCRIPT_DIR/c
@@ -172,11 +172,11 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     -I c \
     --create-output-dirs \
     --overwrite-files \
-    --unique-id com.hs-bindgen.manual.enablerecorddot \
+    --unique-id com.hs-bindgen.manual.omitfieldprefixes \
     --hs-output-dir hs/manual/generated \
-    --module EnableRecordDot \
-    --enable-record-dot \
-    enable_record_dot.h
+    --module OmitFieldPrefixes \
+    --omit-field-prefixes \
+    omit_field_prefixes.h
 
 echo "# "
 echo "# External bindings: vector example"

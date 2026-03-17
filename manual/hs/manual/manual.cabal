@@ -23,12 +23,12 @@ executable run-manual
   main-is:         Manual.hs
   other-modules:
     Manual.BindingSpecifications
-    Manual.EnableRecordDot
     Manual.Functions.FirstOrder
     Manual.Functions.HigherOrder
     Manual.GeneratedNames
     Manual.Globals
     Manual.Macros
+    Manual.OmitFieldPrefixes
     Manual.Tools
     Manual.Types.Arrays
     Manual.Types.Complex
@@ -74,7 +74,6 @@ executable run-manual
     Complex
     Complex.Global
     Complex.Safe
-    EnableRecordDot
     Example
     Example.Unsafe
     FunctionPointers
@@ -84,6 +83,7 @@ executable run-manual
     Globals
     Globals.Global
     Manual.Tools
+    OmitFieldPrefixes
     Structs
     Structs.Safe
     ZeroCopy
