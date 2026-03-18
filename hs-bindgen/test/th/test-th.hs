@@ -22,6 +22,7 @@ import HsBindgen.Runtime.IsArray qualified as IsA
 import HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
+import Test.Bitfields qualified
 import Test.Common.Util.Tasty
 import Test.TH.StaticCounterA qualified as CounterA
 import Test.TH.StaticCounterB qualified as CounterB
@@ -267,5 +268,6 @@ main :: IO ()
 main = defaultMain $ testGroup "test-th" [
       test01
     , test02
+    , Test.Bitfields.tests
     , testStaticCounter
     ]
