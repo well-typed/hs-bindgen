@@ -107,7 +107,7 @@ exec global opts = do
     artefact = do
       case opts.configCLI.outputOptions of
         OutputOptions (SingleFile _) ->
-          writeBindingsSingleToDir
+          writeBindingsSingle
             mrc
             opts.configCLI.filePolicy
             opts.configCLI.dirPolicy

@@ -3,11 +3,13 @@ module HsBindgen.Frontend.Predicate (
     -- * Booleans
     Boolean (..)
   , mergeBooleans
+  , eval
     -- * Predicates
   , HeaderPathPredicate (..)
   , DeclPredicate (..)
   , SelectPredicate (..)
   , Regex -- opaque
+  , matchTest
     -- * Execution (internal API)
   , IsMainHeader
   , mkIsMainHeader

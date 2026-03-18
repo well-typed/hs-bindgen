@@ -692,8 +692,8 @@ typedefFunPtrDecs supInsts fns haddockConfig sizeofs origInfo n (args, res) orig
               constr = Hs.unsafeHsIdHsName auxDeclIdPair.unsafeHsName
             , field  = Hs.unsafeHsIdHsName
                      $ case fns of
-                         EnableRecordDot    -> "unwrap"
-                         PrefixedFieldNames -> "unwrap" <> auxDeclIdPair.unsafeHsName
+                         OmitFieldPrefixes -> "unwrap"
+                         AddFieldPrefixes  -> "unwrap" <> auxDeclIdPair.unsafeHsName
 
             }
         }

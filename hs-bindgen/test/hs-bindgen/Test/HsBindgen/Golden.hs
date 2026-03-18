@@ -201,8 +201,8 @@ testCases_manual :: [TestCase]
 testCases_manual = [
       defaultTest "manual/arrays"
     , defaultTest "manual/function_pointers"
-    , defaultTest "manual/enable_record_dot"
-      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+    , defaultTest "manual/omit_field_prefixes"
+      & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
     , defaultTest "manual/zero_copy"
     , test_manual_globals
     ]
@@ -1068,7 +1068,7 @@ test_edgeCases_duplicate_record_field :: TestCase
 test_edgeCases_duplicate_record_field =
     defaultTest "edge-cases/duplicate_record_field"
       & #onFrontend .~ (\cfg -> cfg
-            & #fieldNamingStrategy .~ EnableRecordDot
+            & #fieldNamingStrategy .~ OmitFieldPrefixes
           )
 
 test_edgeCases_headers :: TestCase
@@ -1776,7 +1776,7 @@ testCases_bespoke_types = [
     , test_types_primitives_least_fast
     , test_types_special_parse_failure_long_double
     , test_types_structs_named_vs_anon
-    , test_types_structs_enable_record_dot
+    , test_types_structs_omit_field_prefixes
     , test_types_structs_post_qualified
     , test_types_structs_unnamed_struct
     , test_types_typedefs_typedefs
@@ -1834,10 +1834,10 @@ test_types_structs_named_vs_anon =
     defaultTest "types/structs/named_vs_anon"
       & #clangVersion .~ Just (>= (19, 1, 0))
 
-test_types_structs_enable_record_dot :: TestCase
-test_types_structs_enable_record_dot =
-    testVariant "types/structs/simple_structs" "enable_record_dot"
-      & #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+test_types_structs_omit_field_prefixes :: TestCase
+test_types_structs_omit_field_prefixes =
+    testVariant "types/structs/simple_structs" "omit_field_prefixes"
+      & #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
 test_types_structs_post_qualified :: TestCase
 test_types_structs_post_qualified =
@@ -1883,20 +1883,20 @@ test_types_typedefs_typenames =
   Theses are larger test cases, possibly coming from external sources (such as
   reported issues).
 
-  We enable record dot for all of these tests, partly to have some more tests
-  for record dot, and partly because this is the way I think most people should
-  use hs-bindgen.
+  We use 'OmitFieldPrefixes' for all of these tests, partly to have some more
+  tests for skipping field prefixes, and partly because we think this is the way
+  most people should use 'hs-bindgen'.
 -------------------------------------------------------------------------------}
 
 testCases_comprehensive :: [TestCase]
-testCases_comprehensive = map enableRecordDot [
+testCases_comprehensive = map omitFieldPrefixes [
       test_comprehensive_c2hsc
     , test_comprehensive_smoke
     ]
   where
-    enableRecordDot :: TestCase -> TestCase
-    enableRecordDot =
-      #onFrontend .~ ( #fieldNamingStrategy .~ EnableRecordDot )
+    omitFieldPrefixes :: TestCase -> TestCase
+    omitFieldPrefixes =
+      #onFrontend .~ ( #fieldNamingStrategy .~ OmitFieldPrefixes )
 
 test_comprehensive_c2hsc :: TestCase
 test_comprehensive_c2hsc =

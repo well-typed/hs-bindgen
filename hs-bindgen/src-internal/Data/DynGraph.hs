@@ -3,6 +3,7 @@ module Data.DynGraph (
     DynGraph
     -- * Construction
   , empty
+  , fromLabelled
     -- * Insertion
   , insertVertex
   , insertEdge
@@ -12,6 +13,8 @@ module Data.DynGraph (
   , topSort
   , dff
   , dfFindMember
+    -- * Deletion
+  , filterVerticesCombineEdges
     -- * Debugging
   , MermaidOptions(..)
   , dumpMermaid
@@ -34,6 +37,9 @@ type DynGraph = Labelled.DynGraph ()
 -- | The empty graph
 empty :: DynGraph a
 empty = Labelled.empty
+
+fromLabelled :: Labelled.DynGraph l a -> DynGraph a
+fromLabelled = Labelled.mapEdges $ const ()
 
 {-------------------------------------------------------------------------------
   Insertion
@@ -87,6 +93,28 @@ dfFindMember :: Ord a => Set a -> DynGraph a -> a -> Maybe a
 dfFindMember = Labelled.dfFindMember
 
 {-------------------------------------------------------------------------------
+  Deletion
+-------------------------------------------------------------------------------}
+
+-- | Retain vertices that satisfy the predicate.
+--
+-- If possible, combine dangling (i.e., transitive) edges.
+--
+-- For example, assume
+--
+--   A-->B-->C
+--       |
+--       +-->D
+--
+-- Removal of vertex 'B' creates
+--
+--   A------>C
+--   |
+--   +------>D
+filterVerticesCombineEdges :: Ord a => (a -> Bool) -> DynGraph a -> DynGraph a
+filterVerticesCombineEdges p = Labelled.filterVerticesCombineEdges p (\_ _ -> ())
+
+{-------------------------------------------------------------------------------
   Debugging
 -------------------------------------------------------------------------------}
 
@@ -103,5 +131,5 @@ dumpMermaid opts =
     Labelled.dumpMermaid Labelled.MermaidOptions{
         reverseEdges = opts.reverseEdges
       , renderVertex = opts.renderVertex
-      , renderEdge   = \() -> Nothing
+      , renderEdge   = \() -> Labelled.EdgeSpec Labelled.Straight Nothing
       }

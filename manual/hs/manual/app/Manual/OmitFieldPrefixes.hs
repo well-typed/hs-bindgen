@@ -3,12 +3,12 @@
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# OPTIONS_GHC -Wno-ambiguous-fields #-}
 
-module Manual.EnableRecordDot (examples) where
+module Manual.OmitFieldPrefixes (examples) where
 
 import Prelude
 
-import EnableRecordDot
 import Manual.Tools
+import OmitFieldPrefixes
 
 {-------------------------------------------------------------------------------
   Examples

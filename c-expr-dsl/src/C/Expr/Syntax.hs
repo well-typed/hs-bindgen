@@ -43,7 +43,7 @@ import Clang.HighLevel.Types
 type Macro :: Pass -> Hs.Type
 data Macro p = Macro {
       macroLoc  :: MultiLoc
-    , macroName :: Name      -- TODO: This should be polymorphic in ID
+    , macroName :: Name
     , macroArgs :: [Name]
     , macroBody :: MExpr p
     }

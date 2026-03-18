@@ -12,7 +12,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 -- NOTE: This module tests if we can handle duplicate record fields with
--- @EnableRecordDot@.
+-- @OmitFieldPrefixes@.
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedRecordDot #-}
 
@@ -38,7 +38,7 @@ import HsBindgen.TH
 let cfg :: Config
     cfg = def
       & #clang % #extraIncludeDirs .~ [Pkg "examples"]
-      & #fieldNamingStrategy       .~ EnableRecordDot
+      & #fieldNamingStrategy       .~ OmitFieldPrefixes
     cfgTh :: ConfigTH
     cfgTh = def
  in withHsBindgen cfg cfgTh $

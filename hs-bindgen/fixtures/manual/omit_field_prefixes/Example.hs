@@ -58,24 +58,24 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
 
 {-| __C declaration:__ @struct Point@
 
-    __defined at:__ @manual\/enable_record_dot.h 12:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 12:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Point = Point
   { x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @manual\/enable_record_dot.h 13:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 13:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   , y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @manual\/enable_record_dot.h 14:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 14:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -130,24 +130,24 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct Size@
 
-    __defined at:__ @manual\/enable_record_dot.h 18:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 18:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Size = Size
   { width :: RIP.CInt
     {- ^ __C declaration:__ @width@
 
-         __defined at:__ @manual\/enable_record_dot.h 19:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 19:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   , height :: RIP.CInt
     {- ^ __C declaration:__ @height@
 
-         __defined at:__ @manual\/enable_record_dot.h 20:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 20:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -202,38 +202,38 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @struct Rect@
 
-    __defined at:__ @manual\/enable_record_dot.h 24:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 24:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Rect = Rect
   { x :: RIP.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @manual\/enable_record_dot.h 25:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 25:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   , y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @manual\/enable_record_dot.h 26:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 26:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   , width :: RIP.CInt
     {- ^ __C declaration:__ @width@
 
-         __defined at:__ @manual\/enable_record_dot.h 27:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 27:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   , height :: RIP.CInt
     {- ^ __C declaration:__ @height@
 
-         __defined at:__ @manual\/enable_record_dot.h 28:7@
+         __defined at:__ @manual\/omit_field_prefixes.h 28:7@
 
-         __exported by:__ @manual\/enable_record_dot.h@
+         __exported by:__ @manual\/omit_field_prefixes.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
@@ -314,9 +314,9 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @enum E@
 
-    __defined at:__ @manual\/enable_record_dot.h 32:6@
+    __defined at:__ @manual\/omit_field_prefixes.h 32:6@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype E = E
   { unwrap :: RIP.CUInt
@@ -402,27 +402,27 @@ instance HasCField.HasCField E "unwrap" where
 
 {-| __C declaration:__ @x@
 
-    __defined at:__ @manual\/enable_record_dot.h 33:3@
+    __defined at:__ @manual\/omit_field_prefixes.h 33:3@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 pattern X :: E
 pattern X = E 0
 
 {-| __C declaration:__ @y@
 
-    __defined at:__ @manual\/enable_record_dot.h 34:3@
+    __defined at:__ @manual\/omit_field_prefixes.h 34:3@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 pattern Y :: E
 pattern Y = E 1
 
 {-| __C declaration:__ @Value@
 
-    __defined at:__ @manual\/enable_record_dot.h 38:13@
+    __defined at:__ @manual\/omit_field_prefixes.h 38:13@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype Value = Value
   { unwrap :: RIP.CInt
@@ -459,9 +459,9 @@ instance HasCField.HasCField Value "unwrap" where
 
 {-| __C declaration:__ @union U1@
 
-    __defined at:__ @manual\/enable_record_dot.h 41:7@
+    __defined at:__ @manual\/omit_field_prefixes.h 41:7@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U1 = U1
   { unwrap :: RIP.ByteArray
@@ -482,9 +482,9 @@ deriving via Marshal.EquivStorable U1 instance RIP.Storable U1
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 42:7@
+__defined at:__ @manual\/omit_field_prefixes.h 42:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u1_x ::
      U1
@@ -507,9 +507,9 @@ set_u1_x = RIP.setUnionPayload
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 43:7@
+__defined at:__ @manual\/omit_field_prefixes.h 43:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u1_y ::
      U1
@@ -548,9 +548,9 @@ instance (((~) ty) RIP.CInt) => RIP.HasField "y" (RIP.Ptr U1) (RIP.Ptr ty) where
 
 {-| __C declaration:__ @union U2@
 
-    __defined at:__ @manual\/enable_record_dot.h 47:15@
+    __defined at:__ @manual\/omit_field_prefixes.h 47:15@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U2_t = U2_t
   { unwrap :: RIP.ByteArray
@@ -571,9 +571,9 @@ deriving via Marshal.EquivStorable U2_t instance RIP.Storable U2_t
 
 __C declaration:__ @a@
 
-__defined at:__ @manual\/enable_record_dot.h 48:8@
+__defined at:__ @manual\/omit_field_prefixes.h 48:8@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u2_t_a ::
      U2_t
@@ -596,9 +596,9 @@ set_u2_t_a = RIP.setUnionPayload
 
 __C declaration:__ @b@
 
-__defined at:__ @manual\/enable_record_dot.h 49:7@
+__defined at:__ @manual\/omit_field_prefixes.h 49:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u2_t_b ::
      U2_t
@@ -639,9 +639,9 @@ instance ( ((~) ty) RIP.CInt
 
 {-| __C declaration:__ @union U3@
 
-    __defined at:__ @manual\/enable_record_dot.h 53:7@
+    __defined at:__ @manual\/omit_field_prefixes.h 53:7@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U3 = U3
   { unwrap :: RIP.ByteArray
@@ -662,9 +662,9 @@ deriving via Marshal.EquivStorable U3 instance RIP.Storable U3
 
 __C declaration:__ @p@
 
-__defined at:__ @manual\/enable_record_dot.h 54:16@
+__defined at:__ @manual\/omit_field_prefixes.h 54:16@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u3_p ::
      U3
@@ -687,9 +687,9 @@ set_u3_p = RIP.setUnionPayload
 
 __C declaration:__ @s@
 
-__defined at:__ @manual\/enable_record_dot.h 55:15@
+__defined at:__ @manual\/omit_field_prefixes.h 55:15@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u3_s ::
      U3
@@ -728,9 +728,9 @@ instance (((~) ty) Size) => RIP.HasField "s" (RIP.Ptr U3) (RIP.Ptr ty) where
 
 {-| __C declaration:__ @union U4@
 
-    __defined at:__ @manual\/enable_record_dot.h 59:7@
+    __defined at:__ @manual\/omit_field_prefixes.h 59:7@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U4 = U4
   { unwrap :: RIP.ByteArray
@@ -751,9 +751,9 @@ deriving via Marshal.EquivStorable U4 instance RIP.Storable U4
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 60:7@
+__defined at:__ @manual\/omit_field_prefixes.h 60:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u4_x ::
      U4
@@ -776,9 +776,9 @@ set_u4_x = RIP.setUnionPayload
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 61:7@
+__defined at:__ @manual\/omit_field_prefixes.h 61:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u4_y ::
      U4
@@ -817,9 +817,9 @@ instance (((~) ty) RIP.CInt) => RIP.HasField "y" (RIP.Ptr U4) (RIP.Ptr ty) where
 
 {-| __C declaration:__ @struct Driver@
 
-    __defined at:__ @manual\/enable_record_dot.h 65:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 65:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Driver
 
@@ -827,9 +827,9 @@ data Driver
 
 __C declaration:__ @RunDriver@
 
-__defined at:__ @manual\/enable_record_dot.h 66:15@
+__defined at:__ @manual\/omit_field_prefixes.h 66:15@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype RunDriver_Aux = RunDriver_Aux
   { unwrap :: (RIP.Ptr Driver) -> IO RIP.CInt
@@ -883,9 +883,9 @@ instance HasCField.HasCField RunDriver_Aux "unwrap" where
 
 {-| __C declaration:__ @RunDriver@
 
-    __defined at:__ @manual\/enable_record_dot.h 66:15@
+    __defined at:__ @manual\/omit_field_prefixes.h 66:15@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype RunDriver = RunDriver
   { unwrap :: RIP.FunPtr RunDriver_Aux

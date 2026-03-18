@@ -13,13 +13,16 @@ module HsBindgen.Cli.Info.IncludeGraph (
   , exec
   ) where
 
+import Data.Either (partitionEithers)
 import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.ArtefactM
+import HsBindgen.Backend.Category
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 
@@ -36,8 +39,8 @@ info = progDesc "Output the include graph"
 
 data Opts = Opts {
       config         :: Config
-    , uniqueId       :: UniqueId
-    , baseModuleName :: BaseModuleName
+    , predicate      :: Boolean Regex
+    , showPaths      :: Bool
     , output         :: Maybe FilePath
     , inputs         :: [UncheckedHashIncludeArg]
     , filePolicy     :: FilePolicy
@@ -48,12 +51,40 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseConfig
-      <*> parseUniqueId
-      <*> parseBaseModuleName
+      <*> parsePredicate
+      <*> parseShowPaths
       <*> optional parseOutput'
       <*> parseInputs
       <*> parseFilePolicy
       <*> parseDirPolicy
+
+parsePredicate :: Parser (Boolean Regex)
+parsePredicate = fmap merge . many . asum $ [
+      fmap (Right . BIf) $ strOption $ mconcat [
+          long "include"
+        , metavar "PCRE"
+        , help "Only include headers with paths that match PCRE (by default, include all)"
+        ]
+    , fmap (Left . BIf) $ strOption $ mconcat [
+          long "exclude"
+        , metavar "PCRE"
+        , help "Exclude headers with paths that match PCRE"
+        ]
+    ]
+  where
+    merge :: Eq a => [Either (Boolean a) (Boolean a)] -> Boolean a
+    merge = uncurry mergeBooleans . fmap defaultIncludeAll . partitionEithers
+
+    defaultIncludeAll :: [Boolean a] -> [Boolean a]
+    defaultIncludeAll = \case
+      [] -> [BTrue]
+      xs -> xs
+
+parseShowPaths :: Parser Bool
+parseShowPaths = switch $ mconcat [
+      long "show-paths"
+    , help "Show paths of include header files instead of their '#include' arguments"
+    ]
 
 parseOutput' :: Parser FilePath
 parseOutput' = strOption $ mconcat [
@@ -77,12 +108,18 @@ exec global opts =
       artefact
   where
     artefact :: Artefact ()
-    artefact = writeIncludeGraph opts.filePolicy opts.dirPolicy opts.output
+    artefact =
+      writeIncludeGraph
+        opts.predicate
+        opts.showPaths
+        opts.filePolicy
+        opts.dirPolicy
+        opts.output
 
     bindgenConfig :: BindgenConfig
     bindgenConfig =
         toBindgenConfig
           opts.config
-          opts.uniqueId
-          opts.baseModuleName
-          def
+          (UniqueId       "unused-unique-id")
+          (BaseModuleName "unused-module-name")
+          (def :: ByCategory Choice)

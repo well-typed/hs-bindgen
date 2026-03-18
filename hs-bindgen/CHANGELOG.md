@@ -4,6 +4,8 @@
 
 ### Breaking changes
 
+* Rename option `--enable-record-dot` to `--omit-field-prefixes`, which is more
+  to the point.
 * Occurrences of the `CFieldType`/`CBitfieldType` type families in
   class instance heads are now replaced by their definition.
 * `--enable-blocks` CLI option renamed to `-fblocks`, matching `clang`
@@ -25,6 +27,10 @@
 
 ### New features
 
+* The `info include-graph` sub-command has received new options: `--include
+  PCRE`, and `--exclude PCRE` allow fine-tuned choice of headers to include or
+  exclude from the include graph; `--simple` reduces include graph verbosity,
+  for example, by removing edge labels.
 * Generate explicit export lists in preprocessor-generated modules, hiding
   internal `hs_bindgen_` helper bindings from the public API and documentation
   ([#76](https://github.com/well-typed/hs-bindgen/issues/76)). Export items
@@ -55,7 +61,7 @@
 ### Bug fixes
 
 * Fix generation of documentation for record fields in Template Haskell mode
-  with `EnableRecordDot`. Previously, duplicate record fields induced "ambiguous
+  with `OmitFieldPrefixes`. Previously, duplicate record fields induced "ambiguous
   occurrence" errors. This fix is only available for GHC versions 9.8 and newer.
   For older versions of GHC, we deactivated creation of documentation for record
   fields in Template Haskell mode.

@@ -20,8 +20,15 @@ module Data.DynGraph.Labelled (
     -- * Deletion
   , deleteEdgesFrom
   , deleteEdgesTo
+  , combineParallelEdges
   , filterEdges
+  , filterVerticesCombineEdges
+    -- * Map
+  , mapEdges
+  , mapVerticesOutgoingEdges
     -- * Debugging
+  , EdgeType(..)
+  , EdgeSpec(..)
   , MermaidOptions(..)
   , dumpMermaid
     -- * Auxiliary: tree traversals
@@ -36,6 +43,7 @@ import Control.Monad.ST (ST)
 import Control.Monad.ST qualified as ST
 import Data.Array.ST.Safe qualified as Array
 import Data.Bifunctor
+import Data.Foldable qualified as Foldable
 import Data.IntMap.Strict (IntMap)
 import Data.IntMap.Strict qualified as IntMap
 import Data.IntSet (IntSet)
@@ -50,6 +58,7 @@ import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.Tree (Tree)
 import Data.Tree qualified as Tree
+import GHC.Generics (Generic)
 
 {-------------------------------------------------------------------------------
   Type
@@ -68,6 +77,7 @@ data DynGraph l a = DynGraph {
     , idxMap :: !(IntMap a)
     , edges  :: !(IntMap (Set (Int, l)))
     }
+  deriving stock (Generic)
 
 deriving instance (Show a, Show l) => Show (DynGraph l a)
 deriving instance (Eq   a, Eq   l) => Eq   (DynGraph l a)
@@ -278,6 +288,38 @@ deleteEdgesTo vs graph =
       | Set.null s = Nothing
       | otherwise  = Just s
 
+-- | Combine parallel edges using the provided function (·).
+--
+-- For example, if @e < f@,
+--
+-- @
+--                      +-----e-----+
+--                      |           |
+--                      |           v
+-- combineParallelEdges A           B = A-----(e · f)---->B
+--                      |           ^
+--                      |           |
+--                      +-----f-----+
+-- @
+combineParallelEdges :: forall a l. Ord l => (l -> l -> l) -> DynGraph l a -> DynGraph l a
+combineParallelEdges (·) g = DynGraph{
+      vtxMap = g.vtxMap
+    , idxMap = g.idxMap
+    , edges  = IntMap.map aux g.edges
+    }
+  where
+    fromSet :: Ord k => Set (k, v) -> Map k (NonEmpty v)
+    fromSet =
+      Map.fromListWith (<>) .
+        map (\(k, v) -> (k, NonEmpty.singleton v)) .
+          Set.toList
+
+    combine :: Foldable t => t l -> l
+    combine = Foldable.foldl1 (·)
+
+    aux :: Ord k => Set (k, l) -> Set (k, l)
+    aux = Set.fromList . Map.toList . Map.map combine . fromSet
+
 filterEdges :: forall l a. (l -> Bool) -> DynGraph l a -> DynGraph l a
 filterEdges f graph = graph {
       edges = IntMap.mapMaybe aux graph.edges
@@ -288,6 +330,151 @@ filterEdges f graph = graph {
 
     dropIfEmpty :: Set (Int, l) -> Maybe (Set (Int, l))
     dropIfEmpty x = if Set.null x then Nothing else Just x
+
+-- | Retain vertices that satisfy the predicate.
+--
+-- If possible, combine dangling (i.e., transitive) edges using the provide
+-- function (·).
+--
+-- For example, assume
+--
+-- @
+--   +------(ac)-----+
+--   |               v
+--   A--ab-->B--bc-->C
+--           |
+--           +--bd-->D
+-- @
+--
+-- Removal of vertex @B@ creates
+--
+-- @
+--   +------(ac)------+
+--   |                v
+--   A---(ab · bc)--->C
+--   |
+--   +---(ab · bd)--->D
+-- @
+--
+-- If @(ac) == (ab > bc)@ then the two edges are merged, and the graph only
+-- contains one edge from @A@ to @C@.
+filterVerticesCombineEdges :: forall a l.
+  (Ord a, Ord l) => (a -> Bool) -> (l -> l -> l) -> DynGraph l a -> DynGraph l a
+filterVerticesCombineEdges p (·) g =
+  Foldable.foldl' (deleteVertexCombineEdges (·)) g $
+    -- Negate the predicate since we _delete_ all vertices satisfying the
+    -- predicate.
+    filter (not . p) $
+      vertices g
+
+{-------------------------------------------------------------------------------
+  Map
+-------------------------------------------------------------------------------}
+
+mapEdges :: Ord l2 => (l1 -> l2) -> DynGraph l1 a -> DynGraph l2 a
+mapEdges f g = DynGraph{
+      vtxMap = g.vtxMap
+    , idxMap = g.idxMap
+    , edges = IntMap.map (Set.map (\(x, l) -> (x, f l))) g.edges
+    }
+
+-- | Replace vertices with new values obtained from the outgoing edges and the
+--   old vertex.
+--
+-- Specific function to serve creation of 'IncludeGraph's.
+mapVerticesOutgoingEdges ::
+     forall a b l.
+     (Ord l, Ord a, Ord b) => ([l] -> a -> b)
+  -> DynGraph l a
+  -> DynGraph l b
+mapVerticesOutgoingEdges f g = DynGraph{
+      vtxMap = Map.mapKeys f' g.vtxMap
+    , idxMap = IntMap.map  f' g.idxMap
+    , edges  = g.edges
+    }
+  where
+    f' :: a -> b
+    f' x = let outgoingEdges = Set.toList $ Set.map snd $ g `neighbors` x
+           in  f outgoingEdges x
+
+{-------------------------------------------------------------------------------
+  Debugging
+-------------------------------------------------------------------------------}
+
+data EdgeType = Straight | Dotted
+
+data EdgeSpec = EdgeSpec {
+    typ   :: EdgeType
+  , label :: Maybe String
+}
+
+getLinkType :: EdgeType -> String
+getLinkType = \case
+  Straight -> "-->"
+  Dotted   -> "-.->"
+
+data MermaidOptions l a = MermaidOptions{
+      reverseEdges :: Bool
+    , renderVertex :: a -> Maybe String
+    , renderEdge   :: l -> EdgeSpec
+    }
+
+-- | Render a Mermaid diagram
+--
+-- See https://mermaid.js.org/>
+dumpMermaid :: MermaidOptions l a -> DynGraph l a -> String
+dumpMermaid opts graph =
+    unlines $ header : nodes ++ links
+  where
+    header :: String
+    header = "graph TD;"
+
+    pSet :: IntMap String
+    pSet = IntMap.fromAscList $
+        mapMaybe
+          (\(idx, v) -> (idx,) <$> opts.renderVertex v)
+          (IntMap.toAscList graph.idxMap)
+
+    nodes, links :: [String]
+    nodes = [
+        "  v" ++ show idx ++ "(\"" ++ escapeString rendered ++ "\")"
+      | (_v, idx) <- Map.toAscList graph.vtxMap
+      , Just rendered <- [IntMap.lookup idx pSet]
+      ]
+    links = [
+         concat [
+             "  v"
+           , show (if opts.reverseEdges then to else fr)
+           , getLinkType edgeSpec.typ
+           , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") edgeSpec.label
+           , "v"
+           , show (if opts.reverseEdges then fr else to)
+           ]
+       | (fr, rSet) <- IntMap.toAscList graph.edges
+       , fr `IntMap.member` pSet
+       , (to, l) <- Set.toAscList rSet
+       , to `IntMap.member` pSet
+       , let edgeSpec = opts.renderEdge l
+       ]
+
+    escapeString :: String -> [Char]
+    escapeString = concatMap $ \case
+        '"' -> "&quot;"
+        '<' -> "&lt;"
+        '>' -> "&gt;"
+        c   -> [c]
+
+{-------------------------------------------------------------------------------
+  Auxiliary: tree traversals
+-------------------------------------------------------------------------------}
+
+postorderTree :: Tree a -> [a]
+postorderTree tree =
+       postorderForest tree.subForest
+    ++ [tree.rootLabel]
+
+postorderForest :: [Tree a] -> [a]
+postorderForest = concatMap postorderTree
 
 {-------------------------------------------------------------------------------
   Internal
@@ -367,68 +554,47 @@ dfs' graph idxs0 = case Map.size graph.vtxMap of
       m <- Array.newArray bnds False :: ST s (Array.STUArray s Int Bool)
       f (Array.readArray m) (\idx -> Array.writeArray m idx True)
 
-{-------------------------------------------------------------------------------
-  Debugging
--------------------------------------------------------------------------------}
-
-data MermaidOptions l a = MermaidOptions{
-      reverseEdges :: Bool
-    , renderVertex :: a -> Maybe String
-    , renderEdge   :: l -> Maybe String
+deleteVertexCombineEdges ::
+     forall a l. (Ord a, Ord l)
+  => (l -> l -> l)
+  -> DynGraph l a
+  -> a
+  -> DynGraph l a
+deleteVertexCombineEdges (·) g x = DynGraph{
+      vtxMap = vtxMap'
+    , idxMap = idxMap'
+    , edges  = edges'
     }
-
--- | Render a Mermaid diagram
---
--- See https://mermaid.js.org/>
-dumpMermaid :: MermaidOptions l a -> DynGraph l a -> String
-dumpMermaid opts graph =
-    unlines $ header : nodes ++ links
   where
-    header :: String
-    header = "graph TD;"
+    (mIdx, vtxMap') = Map.updateLookupWithKey (\_ _ -> Nothing) x g.vtxMap
+    idxMap' = case mIdx of
+      Nothing  -> g.idxMap
+      Just idx -> IntMap.delete idx g.idxMap
+    edges' = case mIdx of
+      Nothing  -> g.edges
+      Just idx -> combineEdges idx g.edges
 
-    pSet :: IntMap String
-    pSet = IntMap.fromAscList $
-        mapMaybe
-          (\(idx, v) -> (idx,) <$> opts.renderVertex v)
-          (IntMap.toAscList graph.idxMap)
+    combineEdges :: Int -> IntMap (Set (Int, l)) -> IntMap (Set (Int, l))
+    combineEdges vtx edges = IntMap.mapMaybeWithKey combine edges
+      where
+        edgesFromVtx :: Set (Int, l)
+        edgesFromVtx = case IntMap.lookup vtx edges of
+          Nothing -> mempty
+          Just fromVtx -> fromVtx
 
-    nodes, links :: [String]
-    nodes = [
-        "  v" ++ show idx ++ "[\"" ++ escapeString rendered ++ "\"]"
-      | (_v, idx) <- Map.toAscList graph.vtxMap
-      , Just rendered <- [IntMap.lookup idx pSet]
-      ]
-    links = [
-         concat [
-             "  v"
-           , show (if opts.reverseEdges then to else fr)
-           , "-->"
-           , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") (opts.renderEdge l)
-           , "v"
-           , show (if opts.reverseEdges then fr else to)
-           ]
-       | (fr, rSet) <- IntMap.toAscList graph.edges
-       , fr `IntMap.member` pSet
-       , (to, l) <- Set.toAscList rSet
-       , to `IntMap.member` pSet
-       ]
+        combine :: Int -> Set (Int, l) -> Maybe (Set (Int, l))
+        combine k tos =
+            if k == vtx then
+              -- Remove all edges originating from the vertex to remove.
+              Nothing
+            else
+              Just $ Set.fromList $ concat [
+                if to == vtx then
+                  -- Redirect edges targeting the vertex to all targets of the
+                  -- vertex.
+                  [(to', l · l') | (to', l') <- Set.toList edgesFromVtx]
+                else
+                  [(to, l)]
+                  | (to , l ) <- Set.toList tos
+                ]
 
-    escapeString :: String -> [Char]
-    escapeString = concatMap $ \case
-        '"' -> "&quot;"
-        '<' -> "&lt;"
-        '>' -> "&gt;"
-        c   -> [c]
-
-{-------------------------------------------------------------------------------
-  Auxiliary: tree traversals
--------------------------------------------------------------------------------}
-
-postorderTree :: Tree a -> [a]
-postorderTree tree =
-       postorderForest tree.subForest
-    ++ [tree.rootLabel]
-
-postorderForest :: [Tree a] -> [a]
-postorderForest = concatMap postorderTree

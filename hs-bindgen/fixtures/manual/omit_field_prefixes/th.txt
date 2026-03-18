@@ -1,24 +1,24 @@
--- addDependentFile examples/golden/manual/enable_record_dot.h
+-- addDependentFile examples/golden/manual/omit_field_prefixes.h
 {-| __C declaration:__ @struct Point@
 
-    __defined at:__ @manual\/enable_record_dot.h 12:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 12:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Point
     = Point {x :: CInt
              {- ^ __C declaration:__ @x@
 
-                  __defined at:__ @manual\/enable_record_dot.h 13:7@
+                  __defined at:__ @manual\/omit_field_prefixes.h 13:7@
 
-                  __exported by:__ @manual\/enable_record_dot.h@
+                  __exported by:__ @manual\/omit_field_prefixes.h@
              -},
              y :: CInt
              {- ^ __C declaration:__ @y@
 
-                  __defined at:__ @manual\/enable_record_dot.h 14:7@
+                  __defined at:__ @manual\/omit_field_prefixes.h 14:7@
 
-                  __exported by:__ @manual\/enable_record_dot.h@
+                  __exported by:__ @manual\/omit_field_prefixes.h@
              -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Point
@@ -43,24 +43,24 @@ instance (~) ty CInt => HasField "y" (Ptr Point) (Ptr ty)
     where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @struct Size@
 
-    __defined at:__ @manual\/enable_record_dot.h 18:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 18:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Size
     = Size {width :: CInt
             {- ^ __C declaration:__ @width@
 
-                 __defined at:__ @manual\/enable_record_dot.h 19:7@
+                 __defined at:__ @manual\/omit_field_prefixes.h 19:7@
 
-                 __exported by:__ @manual\/enable_record_dot.h@
+                 __exported by:__ @manual\/omit_field_prefixes.h@
             -},
             height :: CInt
             {- ^ __C declaration:__ @height@
 
-                 __defined at:__ @manual\/enable_record_dot.h 20:7@
+                 __defined at:__ @manual\/omit_field_prefixes.h 20:7@
 
-                 __exported by:__ @manual\/enable_record_dot.h@
+                 __exported by:__ @manual\/omit_field_prefixes.h@
             -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Size
@@ -85,38 +85,38 @@ instance (~) ty CInt => HasField "height" (Ptr Size) (Ptr ty)
     where getField = fromPtr (Proxy @"height")
 {-| __C declaration:__ @struct Rect@
 
-    __defined at:__ @manual\/enable_record_dot.h 24:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 24:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Rect
     = Rect {x :: CInt
             {- ^ __C declaration:__ @x@
 
-                 __defined at:__ @manual\/enable_record_dot.h 25:7@
+                 __defined at:__ @manual\/omit_field_prefixes.h 25:7@
 
-                 __exported by:__ @manual\/enable_record_dot.h@
+                 __exported by:__ @manual\/omit_field_prefixes.h@
             -},
             y :: CInt
             {- ^ __C declaration:__ @y@
 
-                 __defined at:__ @manual\/enable_record_dot.h 26:7@
+                 __defined at:__ @manual\/omit_field_prefixes.h 26:7@
 
-                 __exported by:__ @manual\/enable_record_dot.h@
+                 __exported by:__ @manual\/omit_field_prefixes.h@
             -},
             width :: CInt
             {- ^ __C declaration:__ @width@
 
-                 __defined at:__ @manual\/enable_record_dot.h 27:7@
+                 __defined at:__ @manual\/omit_field_prefixes.h 27:7@
 
-                 __exported by:__ @manual\/enable_record_dot.h@
+                 __exported by:__ @manual\/omit_field_prefixes.h@
             -},
             height :: CInt
             {- ^ __C declaration:__ @height@
 
-                 __defined at:__ @manual\/enable_record_dot.h 28:7@
+                 __defined at:__ @manual\/omit_field_prefixes.h 28:7@
 
-                 __exported by:__ @manual\/enable_record_dot.h@
+                 __exported by:__ @manual\/omit_field_prefixes.h@
             -}}
     deriving stock (Eq, Generic, Show)
 instance StaticSize Rect
@@ -153,9 +153,9 @@ instance (~) ty CInt => HasField "height" (Ptr Rect) (Ptr ty)
     where getField = fromPtr (Proxy @"height")
 {-| __C declaration:__ @enum E@
 
-    __defined at:__ @manual\/enable_record_dot.h 32:6@
+    __defined at:__ @manual\/omit_field_prefixes.h 32:6@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype E
     = E {unwrap :: CUInt}
@@ -197,25 +197,25 @@ instance HasCField E "unwrap"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @x@
 
-    __defined at:__ @manual\/enable_record_dot.h 33:3@
+    __defined at:__ @manual\/omit_field_prefixes.h 33:3@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 pattern X :: E
 pattern X = E 0
 {-| __C declaration:__ @y@
 
-    __defined at:__ @manual\/enable_record_dot.h 34:3@
+    __defined at:__ @manual\/omit_field_prefixes.h 34:3@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 pattern Y :: E
 pattern Y = E 1
 {-| __C declaration:__ @Value@
 
-    __defined at:__ @manual\/enable_record_dot.h 38:13@
+    __defined at:__ @manual\/omit_field_prefixes.h 38:13@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype Value
     = Value {unwrap :: CInt}
@@ -242,9 +242,9 @@ instance HasCField Value "unwrap"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @union U1@
 
-    __defined at:__ @manual\/enable_record_dot.h 41:7@
+    __defined at:__ @manual\/omit_field_prefixes.h 41:7@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U1 = U1 {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U1
@@ -257,9 +257,9 @@ deriving via (EquivStorable U1) instance Storable U1
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 42:7@
+__defined at:__ @manual\/omit_field_prefixes.h 42:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u1_x :: U1 -> CInt
 {-|
@@ -268,9 +268,9 @@ get_u1_x :: U1 -> CInt
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 42:7@
+__defined at:__ @manual\/omit_field_prefixes.h 42:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u1_x = getUnionPayload
 {-|
@@ -291,9 +291,9 @@ set_u1_x = setUnionPayload
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 43:7@
+__defined at:__ @manual\/omit_field_prefixes.h 43:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u1_y :: U1 -> CInt
 {-|
@@ -302,9 +302,9 @@ get_u1_y :: U1 -> CInt
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 43:7@
+__defined at:__ @manual\/omit_field_prefixes.h 43:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u1_y = getUnionPayload
 {-|
@@ -331,9 +331,9 @@ instance (~) ty CInt => HasField "y" (Ptr U1) (Ptr ty)
     where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @union U2@
 
-    __defined at:__ @manual\/enable_record_dot.h 47:15@
+    __defined at:__ @manual\/omit_field_prefixes.h 47:15@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U2_t = U2_t {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U2_t
@@ -346,9 +346,9 @@ deriving via (EquivStorable U2_t) instance Storable U2_t
 
 __C declaration:__ @a@
 
-__defined at:__ @manual\/enable_record_dot.h 48:8@
+__defined at:__ @manual\/omit_field_prefixes.h 48:8@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u2_t_a :: U2_t -> CChar
 {-|
@@ -357,9 +357,9 @@ get_u2_t_a :: U2_t -> CChar
 
 __C declaration:__ @a@
 
-__defined at:__ @manual\/enable_record_dot.h 48:8@
+__defined at:__ @manual\/omit_field_prefixes.h 48:8@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u2_t_a = getUnionPayload
 {-|
@@ -380,9 +380,9 @@ set_u2_t_a = setUnionPayload
 
 __C declaration:__ @b@
 
-__defined at:__ @manual\/enable_record_dot.h 49:7@
+__defined at:__ @manual\/omit_field_prefixes.h 49:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u2_t_b :: U2_t -> CInt
 {-|
@@ -391,9 +391,9 @@ get_u2_t_b :: U2_t -> CInt
 
 __C declaration:__ @b@
 
-__defined at:__ @manual\/enable_record_dot.h 49:7@
+__defined at:__ @manual\/omit_field_prefixes.h 49:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u2_t_b = getUnionPayload
 {-|
@@ -420,9 +420,9 @@ instance (~) ty CInt => HasField "b" (Ptr U2_t) (Ptr ty)
     where getField = fromPtr (Proxy @"b")
 {-| __C declaration:__ @union U3@
 
-    __defined at:__ @manual\/enable_record_dot.h 53:7@
+    __defined at:__ @manual\/omit_field_prefixes.h 53:7@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U3 = U3 {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 8 4) instance StaticSize U3
@@ -435,9 +435,9 @@ deriving via (EquivStorable U3) instance Storable U3
 
 __C declaration:__ @p@
 
-__defined at:__ @manual\/enable_record_dot.h 54:16@
+__defined at:__ @manual\/omit_field_prefixes.h 54:16@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u3_p :: U3 -> Point
 {-|
@@ -446,9 +446,9 @@ get_u3_p :: U3 -> Point
 
 __C declaration:__ @p@
 
-__defined at:__ @manual\/enable_record_dot.h 54:16@
+__defined at:__ @manual\/omit_field_prefixes.h 54:16@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u3_p = getUnionPayload
 {-|
@@ -469,9 +469,9 @@ set_u3_p = setUnionPayload
 
 __C declaration:__ @s@
 
-__defined at:__ @manual\/enable_record_dot.h 55:15@
+__defined at:__ @manual\/omit_field_prefixes.h 55:15@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u3_s :: U3 -> Size
 {-|
@@ -480,9 +480,9 @@ get_u3_s :: U3 -> Size
 
 __C declaration:__ @s@
 
-__defined at:__ @manual\/enable_record_dot.h 55:15@
+__defined at:__ @manual\/omit_field_prefixes.h 55:15@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u3_s = getUnionPayload
 {-|
@@ -509,9 +509,9 @@ instance (~) ty Size => HasField "s" (Ptr U3) (Ptr ty)
     where getField = fromPtr (Proxy @"s")
 {-| __C declaration:__ @union U4@
 
-    __defined at:__ @manual\/enable_record_dot.h 59:7@
+    __defined at:__ @manual\/omit_field_prefixes.h 59:7@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype U4 = U4 {unwrap :: ByteArray} deriving stock Generic
 deriving via (SizedByteArray 4 4) instance StaticSize U4
@@ -524,9 +524,9 @@ deriving via (EquivStorable U4) instance Storable U4
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 60:7@
+__defined at:__ @manual\/omit_field_prefixes.h 60:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u4_x :: U4 -> CInt
 {-|
@@ -535,9 +535,9 @@ get_u4_x :: U4 -> CInt
 
 __C declaration:__ @x@
 
-__defined at:__ @manual\/enable_record_dot.h 60:7@
+__defined at:__ @manual\/omit_field_prefixes.h 60:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u4_x = getUnionPayload
 {-|
@@ -558,9 +558,9 @@ set_u4_x = setUnionPayload
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 61:7@
+__defined at:__ @manual\/omit_field_prefixes.h 61:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u4_y :: U4 -> CInt
 {-|
@@ -569,9 +569,9 @@ get_u4_y :: U4 -> CInt
 
 __C declaration:__ @y@
 
-__defined at:__ @manual\/enable_record_dot.h 61:7@
+__defined at:__ @manual\/omit_field_prefixes.h 61:7@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 get_u4_y = getUnionPayload
 {-|
@@ -598,18 +598,18 @@ instance (~) ty CInt => HasField "y" (Ptr U4) (Ptr ty)
     where getField = fromPtr (Proxy @"y")
 {-| __C declaration:__ @struct Driver@
 
-    __defined at:__ @manual\/enable_record_dot.h 65:8@
+    __defined at:__ @manual\/omit_field_prefixes.h 65:8@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 data Driver
 {-| Auxiliary type used by 'RunDriver'
 
 __C declaration:__ @RunDriver@
 
-__defined at:__ @manual\/enable_record_dot.h 66:15@
+__defined at:__ @manual\/omit_field_prefixes.h 66:15@
 
-__exported by:__ @manual\/enable_record_dot.h@
+__exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype RunDriver_Aux
     = RunDriver_Aux {unwrap :: (Ptr Driver -> IO CInt)}
@@ -645,9 +645,9 @@ instance HasCField RunDriver_Aux "unwrap"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @RunDriver@
 
-    __defined at:__ @manual\/enable_record_dot.h 66:15@
+    __defined at:__ @manual\/omit_field_prefixes.h 66:15@
 
-    __exported by:__ @manual\/enable_record_dot.h@
+    __exported by:__ @manual\/omit_field_prefixes.h@
 -}
 newtype RunDriver
     = RunDriver {unwrap :: (FunPtr RunDriver_Aux)}

@@ -398,12 +398,12 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
 
 parseFieldNamingStrategy :: Parser FieldNamingStrategy
 parseFieldNamingStrategy =
-    flag PrefixedFieldNames EnableRecordDot $ mconcat [
-        long "enable-record-dot"
+    flag AddFieldPrefixes OmitFieldPrefixes $ mconcat [
+        long "omit-field-prefixes"
       , help $ concat [
-            "Use unprefixed field names (e.g. 'x' instead of 'structName_x')."
-          , " All newtype unwrap functions are called 'unwrap'."
-          , " Requires DuplicateRecordFields extension."
+            "Use unprefixed field names (e.g. 'x' instead of 'structName_x'). "
+          , "All newtype unwrap functions are called 'unwrap'. "
+          , "Requires 'DuplicateRecordFields' extension."
           ]
       ]
 
@@ -414,7 +414,7 @@ parseQualifiedStyle =
       , help $ concat [
             "Use post-qualified imports (e.g. 'import Data.Proxy qualified')"
           , " instead of pre-qualified imports."
-          , " Adds ImportQualifiedPost extension."
+          , " Adds 'ImportQualifiedPost' extension."
           ]
       ]
 
