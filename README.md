@@ -1,56 +1,99 @@
-# `hs-bindgen`: automatically create Haskell bindings from C header files
+# `hs-bindgen`
+
+[![Build Status](https://github.com/well-typed/hs-bindgen/actions/workflows/haskell.yml/badge.svg)](https://github.com/well-typed/hs-bindgen/actions)
+[![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-lightgray.svg)](https://github.com/well-typed/hs-bindgen/blob/main/hs-bindgen/LICENSE)
+
+`hs-bindgen` is a [Haskell][] library that *automatically* generates Haskell FFI
+bindings from C header files.
+
+[Haskell]: <https://www.haskell.org/>
 
 > [!WARNING]
-> This project is under active development, and has not yet been released.
-> That said, you might already get some usable results out of it; if something
-> breaks, please check the issue tracker to see if the problem is already known,
-> and open an issue if not.
+> This project has not had an official release yet.  There is a wide variety of
+> C (and C preprocessor) code in the world, so we are currently soliciting
+> feedback prior to the first official release.  Please try it out!  If
+> something breaks, please check the [issues][] to see if the problem is already
+> known, and open an issue if not.
 
-## Project goals
+[issues]: <https://github.com/well-typed/hs-bindgen/issues>
 
-### Low-level API
+Check the [releases][] ([RSS][]) for release information.  A Hackage package
+will be made available from the first official release.
 
-The goal of the low-level API is to generate Haskell bindings from C headers,
-in "fire and forget" mode.
+[releases]: <https://github.com/well-typed/hs-bindgen/releases>
+[RSS]: <https://github.com/well-typed/hs-bindgen/releases.atom>
 
-The most important existing tools for the generation of Haskell bindings from C
-headers, `hsc2hs` and `c2hs`, require a lot of user input (see [Alternative
-generators](https://github.com/well-typed/hs-bindgen/tree/main/alternatives) for
-a full review): they assist in writing bindings by filling in details about the
-C code _when requested_, but the process is still driven by the programmer. The
-goal of `hs-bindgen`, inspired by the Rust
-[`bindgen`](https://github.com/rust-lang/rust-bindgen) tool, is to have the
-entire process be driven by the C header(s) themselves.
+## Documentation
 
-The bindings generated in this mode are too low-level for convenient usage in
-Haskell applications; for example, `char*` in C translates to `Ptr CChar` in
-Haskell, instead of `String` (or `Text`, `ByteString`, ..). Tools like `c2hs`
-can be used to define higher-level bindings, but not automatically, and at the
-cost of having to learn a rather arcane bespoke syntax. Using `hs-bindgen`, even
-if we do not use it to generate high-level Haskell bindings, users can write
-their own high-level bindings _on top of_ the low-level bindings, just as
-regular Haskell code. This should also improve integration with tooling such as
-[HLS](https://github.com/haskell/haskell-language-server). Writing such bindings
-could potentially assisted by regular Haskell functions to [capture common
-patterns](https://github.com/well-typed/hs-bindgen/issues/27).
+* [`hs-bindgen` Manual][]
+* [`hs-bindgen` Nix tutorial][]
 
-### High-level API
+[`hs-bindgen` manual]: <https://github.com/well-typed/hs-bindgen/blob/main/manual/README.md>
+[`hs-bindgen` Nix tutorial]: <https://github.com/well-typed/hs-bindgen-tutorial-nix/blob/main/readme.md>
 
-The goal of the high-level API is to be able to generate higher-level bindings
-using heuristics to recognize particular patterns, with a good set of defaults
-that can be extended by users for specific applications.
+### Blog posts
 
-> [!NOTE]
-> We have not yet begun work on the high level API.
+* [`hs-bindgen 0.1-alpha` release](https://well-typed.com/blog/2026/02/hs-bindgen-alpha/)
+  by Edsko de Vries (10 February 2026)
+* [Wait, this isn't Haskell...](https://crtschin.com/posts/wait-this-isnt-haskell)
+  by Curtis Chin Jen Sem (26 December 2025)
 
-## Manual
+### Papers
 
-You can find the (currently still very incomplete) manual in
-[manual/](manual/README.md).
+* [Automatic C Bindings Generation for Haskell](https://dl.acm.org/doi/10.1145/3759164.3759350)
+  (9 October 2025)
+    * [Presentation](https://www.youtube.com/watch?v=SeLI3lMnhnA)
 
-## Blogposts
+## Examples
 
-These blogposts might be useful to get acquainted with `hs-bindgen`:
+We test `hs-bindgen` with various C projects, and we include some examples in
+this repository.  Please note that these are used for testing and are not
+meant to be complete.  See the [examples README][] for details.
 
-* [Edsko de Vries – Tuesday, 10 February 2026: hs-bindgen 0.1-alpha
-  release](https://well-typed.com/blog/2026/02/hs-bindgen-alpha/)
+[examples README]: <https://github.com/well-typed/hs-bindgen/tree/main/examples#examples>
+
+Examples include:
+
+* [Botan][], a C++ cryptography library:
+  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/botan)
+* [libpcap][], an interface to various kernel packet capture mechanisms:
+  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/libpcap)
+* [MiniSat][], a minimalistic, open-source SAT solver:
+  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-minisat)
+* [QR-Code-generator][], a library for generating QR codes:
+  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-qrcode)
+* [RogueUtil][], a cross-platform C library for terminal manipulation:
+  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-rogueutil)
+* [rpm][], a powerful package management system:
+  [bindings](https://github.com/well-typed/hs-bindgen/tree/main/examples/c-rpm)
+
+[Botan]: <https://botan.randombit.net/>
+[libpcap]: <https://github.com/the-tcpdump-group/libpcap>
+[minisat]: <https://github.com/niklasso/minisat-c-bindings>
+[QR-Code-generator]: <https://github.com/nayuki/QR-Code-generator>
+[RogueUtil]: <https://github.com/sakhmatd/rogueutil>
+[rpm]: <https://github.com/rpm-software-management/rpm>
+
+## Contributors
+
+Our thanks go to those who have contributed to this project with development,
+bug reports, feature requests, blog posts, etc., including:
+
+* [Alex Mason](https://github.com/axman6)
+* [`andromeda-fp`](https://github.com/andromeda-fp)
+* [Armando Santos](https://github.com/bolt12)
+* [`aveltras`](https://github.com/aveltras)
+* [Chandler Barlow](https://github.com/chandler-barlow)
+* [Curtis Chin Jen Sem](https://github.com/crtschin)
+* [Dominik Schrempf](https://github.com/dschrempf)
+* [Edsko de Vries](https://github.com/edsko)
+* [Finley McIlwaine](https://github.com/FinleyMcIlwaine)
+* [George Thomas](https://github.com/georgefst)
+* [Jonathan Lorimer](https://github.com/JonathanLorimer)
+* [Joris Dral](https://github.com/jorisdral)
+* [`Krantz98`](https://www.reddit.com/user/Krantz98)
+* [`Merivuokko`](https://github.com/Merivuokko)
+* [Oleg Grenrus](https://github.com/phadej)
+* [Sam Derbyshire](https://github.com/sheaf)
+* [Tobias Dammers](https://github.com/tdammers)
+* [Travis Cardwell](https://github.com/TravisCardwell)
