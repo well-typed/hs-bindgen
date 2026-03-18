@@ -22,6 +22,7 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
+import HsBindgen.Frontend.Pass.Parse.Decl.Comment (parseCommentReferences)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -974,12 +975,6 @@ withCursorVisibility ctx info k = \curr -> do
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
-
-parseCommentReferences :: CDoc.Comment Text -> C.Comment Parse
-parseCommentReferences comment = C.Comment (fmap auxRefs comment)
-  where
-    auxRefs :: Text -> C.CommentRef Parse
-    auxRefs ref = C.CommentRef ref Nothing
 
 -- | Partition declarations into anonymous and non-anonymous
 --

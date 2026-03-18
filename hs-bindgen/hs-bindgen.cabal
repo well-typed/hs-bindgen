@@ -185,6 +185,7 @@ library internal
     HsBindgen.Frontend.Pass.Parse
     HsBindgen.Frontend.Pass.Parse.Context
     HsBindgen.Frontend.Pass.Parse.Decl
+    HsBindgen.Frontend.Pass.Parse.Decl.Comment
     HsBindgen.Frontend.Pass.Parse.IsPass
     HsBindgen.Frontend.Pass.Parse.Monad.Decl
     HsBindgen.Frontend.Pass.Parse.Monad.Type
