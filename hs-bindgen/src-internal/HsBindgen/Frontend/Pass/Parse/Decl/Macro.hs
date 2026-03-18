@@ -1,5 +1,5 @@
 -- | Parse functions related to reparsing
-module HsBindgen.Frontend.Pass.Parse.Decl.Reparse (
+module HsBindgen.Frontend.Pass.Parse.Decl.Macro (
     getReparseInfo
   ) where
 

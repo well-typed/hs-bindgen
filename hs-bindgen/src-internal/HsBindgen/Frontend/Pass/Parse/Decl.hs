@@ -23,10 +23,10 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.Decl.Comment (parseCommentReferences)
 import HsBindgen.Frontend.Pass.Parse.Decl.Field (getFieldInfo)
+import HsBindgen.Frontend.Pass.Parse.Decl.Macro (getReparseInfo)
 import HsBindgen.Frontend.Pass.Parse.Decl.Members (ParseMembersResult (declMembers, fieldMembers),
                                                    parseStructMembersWith,
                                                    parseUnionMembersWith)
-import HsBindgen.Frontend.Pass.Parse.Decl.Reparse (getReparseInfo)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg

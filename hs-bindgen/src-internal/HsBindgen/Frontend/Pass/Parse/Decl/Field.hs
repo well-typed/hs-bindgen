@@ -15,7 +15,7 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming (CScopedName (CScopedName))
 import HsBindgen.Frontend.Pass.Parse.Context (ParseCtx)
 import HsBindgen.Frontend.Pass.Parse.Decl.Comment (parseCommentReferences)
-import HsBindgen.Frontend.Pass.Parse.Decl.Reparse (getReparseInfo)
+import HsBindgen.Frontend.Pass.Parse.Decl.Macro (getReparseInfo)
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Type (fromCXType)
