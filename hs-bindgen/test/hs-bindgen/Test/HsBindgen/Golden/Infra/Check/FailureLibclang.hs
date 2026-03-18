@@ -1,7 +1,7 @@
 -- | Golden test: Failure (non-zero exit code)
 --
 -- Test for non-zero exit code
-module Test.HsBindgen.Golden.Check.FailureLibclang (check) where
+module Test.HsBindgen.Golden.Infra.Check.FailureLibclang (check) where
 
 import Control.Exception (Exception (..), SomeException, handle, throw)
 import Test.Tasty (TestTree, askOption)
@@ -11,7 +11,7 @@ import HsBindgen
 import HsBindgen.Clang
 
 import Test.Common.Util.Tasty.Golden
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------

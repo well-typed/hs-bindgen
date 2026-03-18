@@ -1,7 +1,7 @@
 -- | Golden test: failing test cases
 --
 -- For failing test cases, we verify the trace messages.
-module Test.HsBindgen.Golden.Check.FailureBindgen (check) where
+module Test.HsBindgen.Golden.Infra.Check.FailureBindgen (check) where
 
 import Test.Tasty (TestTree, askOption)
 import Test.Tasty.HUnit
@@ -9,7 +9,7 @@ import Test.Tasty.HUnit
 import HsBindgen
 
 import Test.Common.Util.Tasty.Golden
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------

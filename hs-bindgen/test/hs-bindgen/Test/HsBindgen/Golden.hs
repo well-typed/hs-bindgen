@@ -2,7 +2,7 @@
 module Test.HsBindgen.Golden (
     tests
   , allTestCases
-  , module Test.HsBindgen.Golden.TestCase
+  , module Test.HsBindgen.Golden.Infra.TestCase
   ) where
 
 import System.Directory (createDirectoryIfMissing)
@@ -13,21 +13,21 @@ import Clang.Version
 import Test.HsBindgen.Golden.Arrays qualified as Arrays
 import Test.HsBindgen.Golden.Attributes qualified as Attributes
 import Test.HsBindgen.Golden.BindingSpecs qualified as BindingSpecs
-import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
-import Test.HsBindgen.Golden.Check.FailureBindgen qualified as FailureBindgen
-import Test.HsBindgen.Golden.Check.FailureLibclang qualified as FailureLibclang
-import Test.HsBindgen.Golden.Check.PP qualified as PP
-import Test.HsBindgen.Golden.Check.TH qualified as TH
 import Test.HsBindgen.Golden.Comprehensive qualified as Comprehensive
 import Test.HsBindgen.Golden.Declarations qualified as Declarations
 import Test.HsBindgen.Golden.Documentation qualified as Documentation
 import Test.HsBindgen.Golden.EdgeCases qualified as EdgeCases
 import Test.HsBindgen.Golden.Functions qualified as Functions
 import Test.HsBindgen.Golden.Globals qualified as Globals
+import Test.HsBindgen.Golden.Infra.Check.BindingSpec qualified as BindingSpec
+import Test.HsBindgen.Golden.Infra.Check.FailureBindgen qualified as FailureBindgen
+import Test.HsBindgen.Golden.Infra.Check.FailureLibclang qualified as FailureLibclang
+import Test.HsBindgen.Golden.Infra.Check.PP qualified as PP
+import Test.HsBindgen.Golden.Infra.Check.TH qualified as TH
+import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Golden.Macros qualified as Macros
 import Test.HsBindgen.Golden.Manual qualified as Manual
 import Test.HsBindgen.Golden.ProgramAnalysis qualified as ProgramAnalysis
-import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Golden.Types qualified as Types
 import Test.HsBindgen.Resources
 

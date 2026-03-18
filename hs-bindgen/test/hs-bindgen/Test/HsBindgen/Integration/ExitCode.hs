@@ -13,7 +13,7 @@ import HsBindgen.Clang (LibclangException)
 import HsBindgen.Imports
 
 import Test.Common.HsBindgen.Trace.Predicate
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------

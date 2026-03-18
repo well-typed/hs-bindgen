@@ -14,7 +14,7 @@ import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs (ClangArgsConfig (..))
 import HsBindgen.Config.Internal
 
-import Test.HsBindgen.Golden.TestCase (TestCase (..), getTestBootConfig)
+import Test.HsBindgen.Golden.Infra.TestCase (TestCase (..), getTestBootConfig)
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 {-# LANGUAGE TemplateHaskellQuotes #-}
 
 -- | Golden test: TH output
-module Test.HsBindgen.Golden.Check.TH (check) where
+module Test.HsBindgen.Golden.Infra.Check.TH (check) where
 
 import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Foldable qualified as Foldable
@@ -33,7 +33,7 @@ import HsBindgen.TH.Internal
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden (ActualValue (..))
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------

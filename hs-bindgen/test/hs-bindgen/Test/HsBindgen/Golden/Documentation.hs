@@ -3,7 +3,7 @@ module Test.HsBindgen.Golden.Documentation (testCases) where
 
 import HsBindgen.Imports
 
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------

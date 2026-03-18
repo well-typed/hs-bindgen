@@ -1,7 +1,7 @@
 -- | Configuring individual test cases (examples)
 --
 -- Intended for unqualified import.
-module Test.HsBindgen.Golden.TestCase (
+module Test.HsBindgen.Golden.Infra.TestCase (
     -- * Definition
     Outcome(..)
   , TestCase(..)

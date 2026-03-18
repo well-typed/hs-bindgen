@@ -12,7 +12,7 @@ import HsBindgen.TraceMsg
 
 import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 
 {-------------------------------------------------------------------------------
   Test cases

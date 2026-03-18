@@ -412,21 +412,21 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Arrays
     Test.HsBindgen.Golden.Attributes
     Test.HsBindgen.Golden.BindingSpecs
-    Test.HsBindgen.Golden.Check.BindingSpec
-    Test.HsBindgen.Golden.Check.FailureBindgen
-    Test.HsBindgen.Golden.Check.FailureLibclang
-    Test.HsBindgen.Golden.Check.PP
-    Test.HsBindgen.Golden.Check.TH
     Test.HsBindgen.Golden.Comprehensive
     Test.HsBindgen.Golden.Declarations
     Test.HsBindgen.Golden.Documentation
     Test.HsBindgen.Golden.EdgeCases
     Test.HsBindgen.Golden.Functions
     Test.HsBindgen.Golden.Globals
+    Test.HsBindgen.Golden.Infra.Check.BindingSpec
+    Test.HsBindgen.Golden.Infra.Check.FailureBindgen
+    Test.HsBindgen.Golden.Infra.Check.FailureLibclang
+    Test.HsBindgen.Golden.Infra.Check.PP
+    Test.HsBindgen.Golden.Infra.Check.TH
+    Test.HsBindgen.Golden.Infra.TestCase
     Test.HsBindgen.Golden.Macros
     Test.HsBindgen.Golden.Manual
     Test.HsBindgen.Golden.ProgramAnalysis
-    Test.HsBindgen.Golden.TestCase
     Test.HsBindgen.Golden.Types
     Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Integration.OverwritePolicy
