@@ -23,6 +23,8 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.Decl.Comment (parseCommentReferences)
+import HsBindgen.Frontend.Pass.Parse.Decl.Field (getFieldInfo, structFieldDecl,
+                                                 unionFieldDecl)
 import HsBindgen.Frontend.Pass.Parse.Decl.Reparse (getReparseInfo)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl
@@ -349,39 +351,6 @@ declOrFieldDecl ctx fieldDecl = simpleFold $ \curr -> do
         foldContinueWith $ Right field
       _otherwise -> do
         fmap Left <$> parseDeclNested ctx curr
-
-structFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.StructField Parse)
-structFieldDecl ctx = \curr -> do
-    structFieldInfo   <- getFieldInfo curr
-    structFieldType   <- fromCXType ctx =<< clang_getCursorType curr
-    structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
-    structFieldAnn    <- getReparseInfo curr
-    structFieldWidth  <- structWidth curr
-    pure C.StructField{
-        info   = structFieldInfo
-      , typ    = structFieldType
-      , offset = structFieldOffset
-      , width  = structFieldWidth
-      , ann    = structFieldAnn
-      }
-
-structWidth :: CXCursor -> ParseDecl (Maybe Int)
-structWidth = \curr -> do
-    isBitField <- clang_Cursor_isBitField curr
-    if isBitField
-      then Just . fromIntegral <$> clang_getFieldDeclBitWidth curr
-      else return Nothing
-
-unionFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.UnionField Parse)
-unionFieldDecl ctx = \curr -> do
-    unionFieldInfo <- getFieldInfo curr
-    unionFieldType <- fromCXType ctx =<< clang_getCursorType curr
-    unionFieldAnn  <- getReparseInfo curr
-    pure C.UnionField{
-        info = unionFieldInfo
-      , typ  = unionFieldType
-      , ann  = unionFieldAnn
-      }
 
 typedefDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 typedefDecl ctx info = \curr -> do
@@ -870,18 +839,6 @@ withHeaderInfo ctx declId declLoc k = \curr -> do
         mainHeaders     = mainHeaders
       , includeArg      = IncludeGraph.getIncludeArg      include
       , includeMacroArg = IncludeGraph.getIncludeMacroArg include
-      }
-
-getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
-getFieldInfo = \curr -> do
-    fieldLoc     <- HighLevel.clang_getCursorLocation' curr
-    fieldName    <- CScopedName <$> clang_getCursorDisplayName curr
-    fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
-
-    return C.FieldInfo {
-        loc     = fieldLoc
-      , name    = fieldName
-      , comment = fieldComment
       }
 
 -- | The linkage of a linker symbol determines whether or not a linker symbol is
