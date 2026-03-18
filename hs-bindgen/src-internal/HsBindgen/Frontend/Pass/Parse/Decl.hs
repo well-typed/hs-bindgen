@@ -23,6 +23,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.Decl.Comment (parseCommentReferences)
+import HsBindgen.Frontend.Pass.Parse.Decl.Reparse (getReparseInfo)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -882,16 +883,6 @@ getFieldInfo = \curr -> do
       , name    = fieldName
       , comment = fieldComment
       }
-
-getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
-getReparseInfo = \curr -> do
-    extent <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
-    hasMacroExpansion <- checkHasMacroExpansion extent
-    if hasMacroExpansion then do
-      unit <- getTranslationUnit
-      ReparseNeeded <$> HighLevel.clang_tokenize unit extent
-    else
-      return ReparseNotNeeded
 
 -- | The linkage of a linker symbol determines whether or not a linker symbol is
 -- visible to the linker outside the translation unit it is defined in.
