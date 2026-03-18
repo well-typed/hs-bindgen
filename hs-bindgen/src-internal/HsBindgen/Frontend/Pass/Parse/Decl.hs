@@ -22,8 +22,8 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
-import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
