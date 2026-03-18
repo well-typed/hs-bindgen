@@ -2,9 +2,9 @@
 --
 -- Intended for unqualified import (unless context is unambiguous).
 --
--- > import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType)
--- > import HsBindgen.Frontend.Pass.Parse.Type.Monad qualified as ParseType
-module HsBindgen.Frontend.Pass.Parse.Type.Monad (
+-- > import HsBindgen.Frontend.Pass.Parse.Monad.Type (ParseType)
+-- > import HsBindgen.Frontend.Pass.Parse.Monad.Type qualified as ParseType
+module HsBindgen.Frontend.Pass.Parse.Monad.Type (
     ParseType -- opaque
   , run
     -- * Caching API

@@ -2,9 +2,9 @@
 --
 -- Intended for unqualified import (unless context is unambiguous).
 --
--- > import HsBindgen.Frontend.Pass.Parse.Decl.Monad (ParseDecl)
--- > import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
-module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
+-- > import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
+-- > import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
+module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
     -- * Definition
     ParseDecl
   , Env (..)

@@ -15,11 +15,11 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass (NoAnn (..))
 import HsBindgen.Frontend.Pass.Parse.Context
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Monad.Type (ParseType)
+import HsBindgen.Frontend.Pass.Parse.Monad.Type qualified as ParseType
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType)
-import HsBindgen.Frontend.Pass.Parse.Type.Monad qualified as ParseType
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 

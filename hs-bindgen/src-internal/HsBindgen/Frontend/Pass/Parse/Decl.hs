@@ -17,13 +17,18 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Context
-import HsBindgen.Frontend.Pass.Parse.Decl.Monad
+import HsBindgen.Frontend.Pass.Parse.Decl.Comment (parseCommentReferences)
+import HsBindgen.Frontend.Pass.Parse.Decl.Field (getFieldInfo)
+import HsBindgen.Frontend.Pass.Parse.Decl.Macro (getReparseInfo)
+import HsBindgen.Frontend.Pass.Parse.Decl.Members (ParseMembersResult (declMembers, fieldMembers),
+                                                   parseStructMembersWith,
+                                                   parseUnionMembersWith)
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Monad.Decl
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
@@ -212,35 +217,20 @@ structDecl ctx info = \curr -> do
               where
                 (regularFields, mFlam) = partitionFields allFields
 
-        -- Separate out nested declarations from regular struct fields
-        --
-        -- Local declarations inside structs that are not used by any fields
-        -- result in implicit fields. Unfortunately, @libclang@ does not make
-        -- these visible <https://github.com/llvm/llvm-project/issues/122257>.
-        -- This matters, because we need the offsets of these implicit fields.
-        -- For now we therefore only try to detect the situation and report an
-        -- error when it happens. Hopefully this is anyway very rare.
-        let partitionChildren ::
-                 [C.Decl Parse] -> [C.StructField Parse]
-              -> ParseDecl (Maybe [C.Decl Parse])
-            partitionChildren otherDecls fields
-              | null unused = pure $ Just used
-              | otherwise   = pure Nothing
-              where
-                used, unused :: [C.Decl Parse]
-                (used, unused) = detectStructImplicitFields otherDecls fields
-
-        foldRecurseWith (declOrFieldDecl ctx $ structFieldDecl ctx) $ \xs -> do
-          let (otherRs, fields)   = first concat $ partitionEithers xs
-              (fails, otherDecls) = partitionEithers $
-                                      map getParseResultEitherDecl otherRs
-          mPartitioned <- partitionChildren otherDecls fields
-          (fails ++) <$> case mPartitioned of
-            Just decls ->
-              pure $ map parseSucceed $ decls ++ [mkStruct fields]
-            Nothing -> do
-              -- If the struct has implicit fields, don't generate anything.
-              parseFail ctx info.id info.loc ParseUnsupportedImplicitFields
+        -- Recursively parse all members of the struct. These members include
+        -- field declarations and nested struct/union declarations.
+        parseStructMembersWith ctx parseDeclNested $ \membersResult ->
+          -- The parse results of nested struct/union declarations are returned
+          -- regardless of the parse status of field declarations.
+          (membersResult.declMembers ++) <$>
+            -- If we failed to parse any of the field declarations, then we will
+            -- not return a struct object, because it will have missing fields
+            -- that are therefore inaccessible in Haskell.
+            case membersResult.fieldMembers of
+              Left failMsg ->
+                parseFail ctx info.id info.loc failMsg
+              Right fields ->
+                pure [parseSucceed (mkStruct fields)]
 
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
@@ -292,35 +282,21 @@ unionDecl ctx info = \curr -> do
                            }
                 }
 
-        -- Separate out nested declarations from regular struct fields
-        --
-        -- Local declarations inside unions that are not used by any fields
-        -- result in implicit fields. Unfortunately, @libclang@ does not make
-        -- these visible <https://github.com/llvm/llvm-project/issues/122257>.
-        -- We could in principle support it but currently we don't. See #682.
-        -- For now we only try to detect the situation and report an error when
-        -- it happens. Hopefully this is anyway very rare.
-        let partitionChildren ::
-                 [C.Decl Parse] -> [C.UnionField Parse]
-              -> ParseDecl (Maybe [C.Decl Parse])
-            partitionChildren otherDecls fields
-              | null unused = pure $ Just used
-              | otherwise   = pure Nothing
-              where
-                used, unused :: [C.Decl Parse]
-                (used, unused) = detectUnionImplicitFields otherDecls fields
+        -- Recursively parse all members of the union. These members include
+        -- field declarations and nested struct/union declarations.
+        parseUnionMembersWith ctx parseDeclNested $ \membersResult ->
+          -- The parse results of nested struct/union declarations are returned
+          -- regardless of the parse status of field declarations.
+          (membersResult.declMembers ++) <$>
+            -- If we failed to parse any of the field declarations, then we will
+            -- not return a union object, because it will have missing fields
+            -- that are therefore inaccessible in Haskell.
+            case membersResult.fieldMembers of
+              Left failMsg ->
+                parseFail ctx info.id info.loc failMsg
+              Right fields ->
+                pure [parseSucceed (mkUnion fields)]
 
-        foldRecurseWith (declOrFieldDecl ctx $ unionFieldDecl ctx) $ \xs -> do
-          let (otherRs, fields)   = first concat $ partitionEithers xs
-              (fails, otherDecls) = partitionEithers $
-                                      map getParseResultEitherDecl otherRs
-          mPartitioned <- partitionChildren otherDecls fields
-          (fails ++) <$> case mPartitioned of
-            Just decls ->
-              pure $ map parseSucceed $ decls ++ [mkUnion fields]
-            Nothing -> do
-              -- If the union has implicit fields, don't generate anything.
-              parseFail ctx info.id info.loc ParseUnsupportedImplicitFields
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -332,54 +308,6 @@ unionDecl ctx info = \curr -> do
       DefinitionElsewhere _ ->
         foldContinue
 
-declOrFieldDecl ::
-     ParseCtx
-  -> (CXCursor -> ParseDecl (a Parse))
-  -> Fold ParseDecl (Either [ParseResult Parse] (a Parse))
-declOrFieldDecl ctx fieldDecl = simpleFold $ \curr -> do
-    kind <- fromSimpleEnum <$> clang_getCursorKind curr
-    case kind of
-      Right CXCursor_FieldDecl -> do
-        field <- fieldDecl curr
-        -- Field declarations can have struct declarations as children in the
-        -- clang AST; however, those are duplicates of declarations that appear
-        -- elsewhere, so here we choose not to recurse.
-        foldContinueWith $ Right field
-      _otherwise -> do
-        fmap Left <$> parseDeclNested ctx curr
-
-structFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.StructField Parse)
-structFieldDecl ctx = \curr -> do
-    structFieldInfo   <- getFieldInfo curr
-    structFieldType   <- fromCXType ctx =<< clang_getCursorType curr
-    structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
-    structFieldAnn    <- getReparseInfo curr
-    structFieldWidth  <- structWidth curr
-    pure C.StructField{
-        info   = structFieldInfo
-      , typ    = structFieldType
-      , offset = structFieldOffset
-      , width  = structFieldWidth
-      , ann    = structFieldAnn
-      }
-
-structWidth :: CXCursor -> ParseDecl (Maybe Int)
-structWidth = \curr -> do
-    isBitField <- clang_Cursor_isBitField curr
-    if isBitField
-      then Just . fromIntegral <$> clang_getFieldDeclBitWidth curr
-      else return Nothing
-
-unionFieldDecl :: ParseCtx -> CXCursor -> ParseDecl (C.UnionField Parse)
-unionFieldDecl ctx = \curr -> do
-    unionFieldInfo <- getFieldInfo curr
-    unionFieldType <- fromCXType ctx =<< clang_getCursorType curr
-    unionFieldAnn  <- getReparseInfo curr
-    pure C.UnionField{
-        info = unionFieldInfo
-      , typ  = unionFieldType
-      , ann  = unionFieldAnn
-      }
 
 typedefDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 typedefDecl ctx info = \curr -> do
@@ -870,28 +798,6 @@ withHeaderInfo ctx declId declLoc k = \curr -> do
       , includeMacroArg = IncludeGraph.getIncludeMacroArg include
       }
 
-getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
-getFieldInfo = \curr -> do
-    fieldLoc     <- HighLevel.clang_getCursorLocation' curr
-    fieldName    <- CScopedName <$> clang_getCursorDisplayName curr
-    fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
-
-    return C.FieldInfo {
-        loc     = fieldLoc
-      , name    = fieldName
-      , comment = fieldComment
-      }
-
-getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
-getReparseInfo = \curr -> do
-    extent <- fmap multiLocExpansion <$> HighLevel.clang_getCursorExtent curr
-    hasMacroExpansion <- checkHasMacroExpansion extent
-    if hasMacroExpansion then do
-      unit <- getTranslationUnit
-      ReparseNeeded <$> HighLevel.clang_tokenize unit extent
-    else
-      return ReparseNotNeeded
-
 -- | The linkage of a linker symbol determines whether or not a linker symbol is
 -- visible to the linker outside the translation unit it is defined in.
 --
@@ -975,12 +881,6 @@ withCursorVisibility ctx info k = \curr -> do
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-parseCommentReferences :: CDoc.Comment Text -> C.Comment Parse
-parseCommentReferences comment = C.Comment (fmap auxRefs comment)
-  where
-    auxRefs :: Text -> C.CommentRef Parse
-    auxRefs ref = C.CommentRef ref Nothing
-
 -- | Partition declarations into anonymous and non-anonymous
 --
 -- We are only interested in the name of the declaration /itself/; if a named
@@ -992,99 +892,6 @@ partitionAnonDecls =
     declIdIsAnon :: PrelimDeclId -> Bool
     declIdIsAnon PrelimDeclId.Anon{} = True
     declIdIsAnon _otherwise          = False
-
--- | Detect implicit fields inside a struct
---
--- Implicit fields arise from structs that are declared inside an outer struct,
--- but without an explicit reference from any of the fields in that outer
--- struct. Something like this:
---
--- > struct outer {
--- >   struct inner {
--- >     int x;
--- >     int y;
--- >   };
--- >   int z;
--- > };
---
--- We cannot support implicit fields due to a limitation of clang
--- (<https://github.com/well-typed/hs-bindgen/issues/659>), but we should at
--- least detect when they are used and issue an error.
---
--- This function partitions local declarations into those that are referenced by
--- some field ("regular declarations"), and those that are not (that is, the
--- implicit fields). Doing this correctly is a little tricky, because clang
--- reports /all/ nested declarations at once. For example, in
---
--- > struct outer {
--- >   struct {
--- >     int x1_1;
--- >     struct {
--- >       int x1_2_1;
--- >     } x1_2;
--- >   } x1;
--- >   int x2;
--- > };
---
--- there are no implicit fields, but we see both nested structs at once (inside
--- the outermost struct), and so we need to check if there is a reference to the
--- inner struct from /any/ nested field, not just fields of the outermost
--- struct.
-detectStructImplicitFields ::
-     [C.Decl Parse]
-     -- ^ Nested declarations inside a struct
-  -> [C.StructField Parse]
-     -- ^ Fields of the (outer) struct
-  -> ([C.Decl Parse], [C.Decl Parse])
-detectStructImplicitFields nestedDecls outerFields =
-    List.partition declIsUsed nestedDecls
-  where
-    allFields :: [Either (C.StructField Parse) (C.UnionField Parse)]
-    allFields = map Left outerFields ++ concatMap nestedFields nestedDecls
-
-    nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
-    nestedFields decl =
-        case decl.kind of
-          C.DeclStruct struct -> map Left  struct.fields
-          C.DeclUnion union   -> map Right union.fields
-          _otherwise          -> []
-
-    fieldDeps :: [PrelimDeclId]
-    fieldDeps = map snd $ concatMap (either depsOfField depsOfField) allFields
-
-    declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.info.id `elem` fieldDeps
-
--- | Detect implicit fields inside a union
---
--- Similar to 'detectStructImplicitFields', but for union fields.
--- This function partitions local declarations into those that are referenced by
--- some field ("regular declarations"), and those that are not (that is, the
--- implicit fields).
-detectUnionImplicitFields ::
-     [C.Decl Parse]
-     -- ^ Nested declarations inside a union
-  -> [C.UnionField Parse]
-     -- ^ Fields of the (outer) union
-  -> ([C.Decl Parse], [C.Decl Parse])
-detectUnionImplicitFields nestedDecls outerFields =
-    List.partition declIsUsed nestedDecls
-  where
-    allFields :: [Either (C.StructField Parse) (C.UnionField Parse)]
-    allFields = map Right outerFields ++ concatMap nestedFields nestedDecls
-
-    nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
-    nestedFields decl =
-        case decl.kind of
-          C.DeclStruct struct -> map Left  struct.fields
-          C.DeclUnion union   -> map Right union.fields
-          _otherwise          -> []
-
-    fieldDeps :: [PrelimDeclId]
-    fieldDeps = map snd $ concatMap (either depsOfField depsOfField) allFields
-
-    declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.info.id `elem` fieldDeps
 
 -- | Whether a global variable has @extern@ storage class
 --

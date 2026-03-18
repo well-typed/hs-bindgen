@@ -7,8 +7,8 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.Pass.Parse.Decl
-import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Monad.Decl qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.Result
 
 {-------------------------------------------------------------------------------
