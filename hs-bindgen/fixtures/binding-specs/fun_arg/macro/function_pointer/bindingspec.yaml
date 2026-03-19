@@ -12,6 +12,9 @@ ctypes:
 - headers: binding-specs/fun_arg/macro/function_pointer.h
   cname: macro B
   hsname: B
+- headers: binding-specs/fun_arg/macro/function_pointer.h
+  cname: macro E
+  hsname: E
 hstypes:
 - hsname: A
   representation:
@@ -49,6 +52,16 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - unwrapE
+  instances:
+  - Generic
+  - HasCField
+  - HasField
 - hsname: MyFunctionPointer
   representation:
     newtype:

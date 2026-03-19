@@ -118,18 +118,3 @@ foldTokens showTokens updatePos = \f ->
         errUnexpected :: t -> ParseError
         errUnexpected t =
            newErrorMessage (SysUnExpect $ showTokens [t]) (statePos initState)
-
-_tokens' :: forall s u m t.
-     (Stream s m t, Eq t)
-  => ([t] -> String)
-  -> (SourcePos -> [t] -> SourcePos)
-  -> [t]
-  -> ParsecT s u m [t]
-_tokens' showTokens updatePos expected =
-    foldTokens showTokens updatePos (go expected) <?> showTokens expected
-  where
-    go :: [t] -> Consumer t [t]
-    go []     = Done expected
-    go (t:ts) = Look { onEof   = Nothing
-                     , onToken = \t' -> guard (t == t') >> return (go ts)
-                     }

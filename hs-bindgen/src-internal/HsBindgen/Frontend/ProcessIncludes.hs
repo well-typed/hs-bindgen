@@ -203,13 +203,13 @@ data IncDir = IncDir {
 
 processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
 processInclude unit curr = do
-    incDirFrom    <- getIncludeFrom curr
+    incDirFromLoc <- HighLevel.clang_getCursorLocation' curr
     incDirTo      <- getIncludeTo curr
     incDirInclude <- getInclude unit curr incDirTo
     incDirInRoot  <-
       clang_Location_isFromMainFile =<< clang_getCursorLocation curr
     return IncDir{
-        from    = incDirFrom
+        from    = singleLocPath incDirFromLoc
       , include = incDirInclude
       , to      = incDirTo
       , inRoot  = incDirInRoot
@@ -218,10 +218,6 @@ processInclude unit curr = do
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
-
-getIncludeFrom :: MonadIO m => CXCursor -> m SourcePath
-getIncludeFrom curr =
-    singleLocPath <$> HighLevel.clang_getCursorLocation' curr
 
 getIncludeTo :: MonadIO m => CXCursor -> m SourcePath
 getIncludeTo curr = do

@@ -26,18 +26,18 @@ import GHC.Stack
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | Monad used to translate from the @language-c@ AST to our
+-- | Monad used to translate from the @language-c@ AST to our AST
 --
--- The @p@ parameter indicates a @hs-bindgen@ pass; this will be instantiated
--- to @HandleMacros@, but we leave it polymorphic here to avoid unnecessary
--- mutual dependencies.
+-- The @p@ parameter indicates an @hs-bindgen@ pass; this will be instantiated
+-- to @ReparseMacroExpansions@. We leave it polymorphic here to avoid
+-- unnecessary mutual dependencies.
 newtype FromLanC a = WrapFromLanC (
       ExceptT Error (Reader ReparseEnv) a
     )
@@ -49,7 +49,7 @@ newtype FromLanC a = WrapFromLanC (
     )
 
 -- | Types in scope when reparsing a particular declaration
-type ReparseEnv = Map CName (C.Type HandleMacros)
+type ReparseEnv = Map CName (C.Type ReparseMacroExpansions)
 
 runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
 runFromLanC typeEnv (WrapFromLanC ma) =

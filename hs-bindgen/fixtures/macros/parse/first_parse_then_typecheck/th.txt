@@ -1,0 +1,88 @@
+-- addDependentFile examples/golden/macros/parse/first_parse_then_typecheck.h
+{-| __C declaration:__ @macro ValueA@
+
+    __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 7:9@
+
+    __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
+-}
+valueA :: CInt
+{-| __C declaration:__ @macro ValueA@
+
+    __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 7:9@
+
+    __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
+-}
+valueA = 1 :: CInt
+{-| __C declaration:__ @macro ValueB@
+
+    __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 6:9@
+
+    __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
+-}
+valueB :: CInt
+{-| __C declaration:__ @macro ValueB@
+
+    __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 6:9@
+
+    __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
+-}
+valueB = valueA
+{-| __C declaration:__ @macro TypeA@
+
+    __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 10:9@
+
+    __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
+-}
+newtype TypeA
+    = TypeA {unwrapTypeA :: CInt}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty CInt => HasField "unwrapTypeA" (Ptr TypeA) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTypeA")
+instance HasCField TypeA "unwrapTypeA"
+    where type CFieldType TypeA "unwrapTypeA" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro TypeB@
+
+    __defined at:__ @macros\/parse\/first_parse_then_typecheck.h 9:9@
+
+    __exported by:__ @macros\/parse\/first_parse_then_typecheck.h@
+-}
+newtype TypeB
+    = TypeB {unwrapTypeB :: TypeA}
+    deriving stock (Eq, Generic, Ord, Read, Show)
+    deriving newtype (Bitfield,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      HasFFIType,
+                      Integral,
+                      Ix,
+                      Num,
+                      Prim,
+                      ReadRaw,
+                      Real,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty TypeA =>
+         HasField "unwrapTypeB" (Ptr TypeB) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapTypeB")
+instance HasCField TypeB "unwrapTypeB"
+    where type CFieldType TypeB "unwrapTypeB" = TypeA
+          offset# = \_ -> \_ -> 0

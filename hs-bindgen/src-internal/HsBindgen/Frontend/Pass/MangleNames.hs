@@ -10,8 +10,6 @@ import Data.Map qualified as Map
 import Data.Proxy
 import Data.Set qualified as Set
 
-import C.Expr.Syntax qualified as CExpr.DSL
-
 import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -29,10 +27,10 @@ import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (WithCallStack, withCallStack)
@@ -374,11 +372,12 @@ mangleDecl decl = do
 
         let info :: C.DeclInfo MangleNames
             info = C.DeclInfo{
-                 id           = declId'
-               , comment      = declComment'
-               , loc          = decl.info.loc
+                 loc          = decl.info.loc
+               , id           = declId'
+               , seqNr        = decl.info.seqNr
                , headerInfo   = decl.info.headerInfo
                , availability = decl.info.availability
+               , comment      = declComment'
                }
 
             reconstruct :: C.DeclKind MangleNames -> C.Decl MangleNames
@@ -706,6 +705,14 @@ instance MangleInDecl C.Function where
           , ann   = function.ann
           }
 
+instance Mangle C.Global where
+  mangle global = do
+      typ' <- mangle global.typ
+      pure C.Global{
+          typ = typ'
+        , ann = global.ann
+        }
+
 instance MangleInDecl CheckedMacro where
   mangleInDecl info = \case
       MacroType typ  -> MacroType <$> mangleInDecl info typ
@@ -724,15 +731,10 @@ instance MangleInDecl CheckedMacroType where
 
 instance MangleInDecl CheckedMacroExpr where
   mangleInDecl _info macroExpr = do
-      reconstruct <$>
-        CExpr.DSL.mapMExprF
-          (\MacroXApp -> return MacroXApp)
-          (\(MacroXVar name) _origName -> MacroXVar <$> mangleDeclId name)
-          macroExpr.body
-    where
-      reconstruct :: CExpr.DSL.MExpr (MacroEmbedPass MangleNames) -> CheckedMacroExpr MangleNames
-      reconstruct body' = CheckedMacroExpr{
-            args = macroExpr.args
+      args' <- traverse mangleDeclId macroExpr.args
+      body' <- traverse mangleDeclId macroExpr.body
+      pure CheckedMacroExpr{
+            args = args'
           , body = body'
           , typ  = macroExpr.typ
           }

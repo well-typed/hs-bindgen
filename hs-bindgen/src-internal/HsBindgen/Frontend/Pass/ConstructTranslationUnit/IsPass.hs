@@ -5,11 +5,11 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
 
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph
+import HsBindgen.Frontend.Analysis.UseDeclGraph.Definition (UseDeclGraph)
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, UnparsedMacro)
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -28,10 +28,11 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit "UnionField"      = ReparseInfo
   AnnConstructTranslationUnit "Typedef"         = ReparseInfo
   AnnConstructTranslationUnit "Function"        = ReparseInfo
+  AnnConstructTranslationUnit "Global"          = ReparseInfo
   AnnConstructTranslationUnit _                 = NoAnn
 
 instance IsPass ConstructTranslationUnit where
-  type MacroBody  ConstructTranslationUnit = UnparsedMacro
+  type MacroBody  ConstructTranslationUnit = ParsedMacro
   type ExtBinding ConstructTranslationUnit = Void
   type Ann ix     ConstructTranslationUnit = AnnConstructTranslationUnit ix
   type Msg        ConstructTranslationUnit = NoMsg Level
@@ -51,7 +52,13 @@ data DeclMeta = DeclMeta {
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassMacroBody        AssignAnonIds ConstructTranslationUnit
-instance CoercePassId               AssignAnonIds ConstructTranslationUnit
-instance CoercePassMacroId          AssignAnonIds ConstructTranslationUnit
-instance CoercePassAnn "TypeFunArg" AssignAnonIds ConstructTranslationUnit
+instance CoercePassMacroBody         AssignAnonIds ConstructTranslationUnit
+instance CoercePassId                AssignAnonIds ConstructTranslationUnit
+instance CoercePassMacroId           AssignAnonIds ConstructTranslationUnit
+
+instance CoercePassAnn "TypeFunArg"  AssignAnonIds ConstructTranslationUnit
+instance CoercePassAnn "StructField" AssignAnonIds ConstructTranslationUnit
+instance CoercePassAnn "UnionField"  AssignAnonIds ConstructTranslationUnit
+instance CoercePassAnn "Typedef"     AssignAnonIds ConstructTranslationUnit
+instance CoercePassAnn "Function"    AssignAnonIds ConstructTranslationUnit
+instance CoercePassAnn "Global"      AssignAnonIds ConstructTranslationUnit

@@ -23,13 +23,13 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.Error
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure)
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.Error
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Util.Tracer
 
@@ -136,7 +136,7 @@ instance PrettyForTrace TransitiveDependencyMissing where
 -- | Select trace messages
 data SelectMsg =
     -- | Information about selection status; issued for all available
-    --declarations.
+    -- declarations.
     SelectStatusInfo SelectStatus
     -- | The user has selected a declaration that is available but has missing
     -- transitive dependencies.
@@ -159,7 +159,7 @@ data SelectMsg =
   | SelectMangleNamesSquashed Squashed
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
-  | SelectMacroFailure HandleMacrosError
+  | SelectMacroTypecheckFailure MacroTypecheckError
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -174,7 +174,7 @@ instance PrettyForTrace SelectMsg where
         couldNotSelectWithReason s $
           PP.vcat $ map prettyForTrace xs
       SelectDeprecated r ->
-        appendSelectReason r "Selected a deprecated declaration"
+        withSelectReason r "Selected a deprecated declaration"
       SelectDelayedParseMsg x ->
         PP.hang "During parse:" 2 (prettyForTrace x)
       SelectParseNotAttempted x ->
@@ -182,27 +182,30 @@ instance PrettyForTrace SelectMsg where
       SelectParseFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectConflict ->
-        couldNotSelect $ "Conflicting declarations"
+        couldNotSelect "Conflicting declarations"
       SelectMangleNamesFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectMangleNamesSquashed x -> PP.hsep [
           "Squashed typedef to"
         , prettyForTrace x.targetNameC
         ]
-      SelectMacroFailure x ->
+      SelectMacroTypecheckFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectNoDeclarationsMatched ->
         "No declarations matched the select predicate"
     where
-      couldNotSelect :: CtxDoc -> CtxDoc
-      couldNotSelect x = PP.hang "Could not select declaration:" 2 x
+      couldNotSelectStr :: CtxDoc
+      couldNotSelectStr = "Could not select declaration"
 
-      appendSelectReason :: SelectReason -> CtxDoc -> CtxDoc
-      appendSelectReason r x = x <+> "(" >< prettyForTrace r >< ")"
+      couldNotSelect :: CtxDoc -> CtxDoc
+      couldNotSelect x = PP.hang (couldNotSelectStr >< ":") 2 x
+
+      withSelectReason :: SelectReason -> CtxDoc -> CtxDoc
+      withSelectReason r x = x <+> "(" >< prettyForTrace r >< ")"
 
       couldNotSelectWithReason :: SelectReason -> CtxDoc -> CtxDoc
       couldNotSelectWithReason r x =
-        let intro = appendSelectReason r "Could not select declaration" >< ":"
+        let intro = withSelectReason r couldNotSelectStr >< ":"
         in  PP.hang intro 2 x
 
 instance IsTrace Level SelectMsg where
@@ -216,7 +219,7 @@ instance IsTrace Level SelectMsg where
     SelectConflict{}                -> Warning
     SelectMangleNamesFailure{}      -> Warning
     SelectMangleNamesSquashed{}     -> Notice
-    SelectMacroFailure x            -> getDefaultLogLevel x
+    SelectMacroTypecheckFailure x   -> getDefaultLogLevel x
     SelectNoDeclarationsMatched     -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
@@ -229,16 +232,15 @@ instance IsTrace Level SelectMsg where
     SelectConflict{}                -> "select"
     SelectMangleNamesFailure{}      -> "select-mangle-names-failure"
     SelectMangleNamesSquashed{}     -> "select-mangle-names-squashed"
-    SelectMacroFailure x            -> "select-" <> getTraceId x
+    SelectMacroTypecheckFailure x   -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched     -> "select"
 
 {-------------------------------------------------------------------------------
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId AdjustTypes Select
-instance CoercePassMacroId AdjustTypes Select
-
+instance CoercePassId        AdjustTypes Select
+instance CoercePassMacroId   AdjustTypes Select
 instance CoercePassMacroBody AdjustTypes Select where
   coercePassMacroBody _ = coercePass @CheckedMacro @AdjustTypes @Select
 

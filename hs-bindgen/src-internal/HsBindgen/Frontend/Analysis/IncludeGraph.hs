@@ -111,8 +111,11 @@ register ::
   -> SourcePath -- ^ Path of the included header
   -> IncludeGraph
   -> IncludeGraph
-register header include incHeader includeGraph = IncludeGraph $
-    Graph.insertEdge incHeader include header includeGraph.graph
+register header include incHeader includeGraph =
+    IncludeGraph $
+      Graph.insertEdge incHeader include header $
+        Graph.insertVertex incHeader $ Graph.insertVertex header $
+          includeGraph.graph
 
 fromList :: [(SourcePath, Include, SourcePath)] -> IncludeGraph
 fromList edges = List.foldl' add empty edges

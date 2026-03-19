@@ -132,11 +132,12 @@ instance (
     , CoercePass C.Comment p p'
     ) => CoercePass C.DeclInfo p p' where
   coercePass info = C.DeclInfo{
-        id           = coercePassId (Proxy @'(p, p')) info.id
-      , comment      = fmap coercePass info.comment
-      , loc          = info.loc
+        loc          = info.loc
+      , id           = coercePassId (Proxy @'(p, p')) info.id
+      , seqNr        = info.seqNr
       , headerInfo   = info.headerInfo
       , availability = info.availability
+      , comment      = fmap coercePass info.comment
       }
 
 instance (
@@ -155,7 +156,7 @@ instance (
      , CoercePass C.Union    p p'
      , CoercePass C.Typedef  p p'
      , CoercePass C.Function p p'
-     , CoercePass C.Type     p p'
+     , CoercePass C.Global   p p'
      , CoercePass C.AnonEnumConstant p p'
      , CoercePassMacroBody p p'
      ) => CoercePass C.DeclKind p p' where
@@ -272,6 +273,19 @@ instance (
       , res   = coercePass function.res
       , attrs = function.attrs
       , ann   = function.ann
+      }
+
+instance (
+      CoercePassId p p'
+    , CoercePassMacroId p p'
+    , ScopedName p ~ ScopedName p'
+    , ExtBinding p ~ ExtBinding p'
+    , CoercePassAnn "TypeFunArg" p p'
+    , Ann "Global" p ~ Ann "Global" p'
+    ) => CoercePass C.Global p p' where
+  coercePass global = C.Global{
+        typ = coercePass global.typ
+      , ann = global.ann
       }
 
 instance (

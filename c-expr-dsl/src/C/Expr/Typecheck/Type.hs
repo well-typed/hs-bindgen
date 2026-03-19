@@ -81,6 +81,7 @@ module C.Expr.Typecheck.Type (
   , pattern HsIntTy
   , pattern CharTy
   , pattern CharLitTy
+  , pattern MacroTypeTy
     -- ** Query
   , tyVarName
   , tyVarNames
@@ -302,14 +303,20 @@ deriving stock instance Eq ( GenerativeTyCon nbArgs res )
 
 type DataTyCon :: Nat -> Hs.Type
 data DataTyCon nbArgs where
+  -- TODO <https://github.com/well-typed/hs-bindgen/issues/1900>
+  --
+  -- Split the type language into types of types, and types of values.
+  -- | Type of types
+  MacroTypeTyCon :: DataTyCon Z
+
   -- | Type constructor for 'Void'
   VoidTyCon      :: DataTyCon Z
   -- | Type constructor for character literals (different from the C @char@
   -- integral type)
   CharLitTyCon   :: DataTyCon Z
-  -- | Unary type constructor for integral types, such as 'Int' or 'UShort'.
+  -- | Unary type constructor for integral types, such as 'Int' or 'UShort'
   IntLikeTyCon   :: DataTyCon ( S Z )
-  -- | Unary type constructor for floating-point types, such as 'Float' or 'Double'.
+  -- | Unary type constructor for floating-point types, such as 'Float' or 'Double'
   FloatLikeTyCon :: DataTyCon ( S Z )
   -- | Type constructor for pointers
   PtrTyCon       :: DataTyCon ( S Z )
@@ -370,7 +377,7 @@ data ClassTyCon nbArgs where
   RelOrdTyCon     :: ClassTyCon ( S ( S Z ) )
   -- | Class type constructor for @Plus@ (unary plus)
   PlusTyCon       :: ClassTyCon ( S Z )
-  -- | Class type constructor for @Minus (unary minus)
+  -- | Class type constructor for @Minus@ (unary minus)
   MinusTyCon      :: ClassTyCon ( S Z )
   -- | Class type constructor for @Add@
   AddTyCon        :: ClassTyCon ( S ( S Z ) )
@@ -405,6 +412,7 @@ instance Show ( GenerativeTyCon n ki ) where
 instance Show ( DataTyCon n ) where
   showsPrec p = \case
     VoidTyCon                 -> showString "Void"
+    MacroTypeTyCon            -> showString "Type"
     PtrTyCon                  -> showString "Ptr"
     CharLitTyCon              -> showString "CharLit"
     IntLikeTyCon              -> showString "IntLike"
@@ -446,6 +454,10 @@ instance Show ( ClassTyCon n ) where
   Type environment
 -------------------------------------------------------------------------------}
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1915>
+--
+-- Use @'Maybe' 'FunValue'@ and emit typecheck error when value required but
+-- unavailable.
 type TypeEnv = Map Name ( Quant ( FunValue, Type Ty ) )
 type VarEnv  = Map Name ( Type Ty )
 
@@ -499,6 +511,15 @@ witnessValSType ( ValSType ty ) f =
   Runtime.witnessType @c ( witnessValSType @c ) ty f
 
 -- | A Haskell function that evaluates a macro function.
+--
+-- We sometimes need to be able to evaluate macros, in particular when a macro
+-- appears as the size of an array:
+--
+-- @
+--   #define N 16
+--   #define M(X) 2 * X
+--   void foo(int arr[M(N) + N]);
+-- @
 data FunValue where
   FunValue :: SNatI n => FunName -> ( Vec n Value -> Value ) -> FunValue
 instance Eq FunValue where
@@ -690,3 +711,6 @@ pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( Runtime.CharLike Runt
 
 pattern CharLitTy :: Type Ty
 pattern CharLitTy = Data CharLitTyCon VNil
+
+pattern MacroTypeTy :: Type Ty
+pattern MacroTypeTy = Data MacroTypeTyCon VNil

@@ -12,19 +12,19 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.Pass (NoAnn (..))
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
-fromDecl :: PartialDecl -> FromLanC (Maybe CName, C.Type HandleMacros)
+fromDecl :: PartialDecl -> FromLanC (Maybe CName, C.Type ReparseMacroExpansions)
 fromDecl partialDecl = do
     typ <- fromKnownType <$> fromPartialType partialDecl.typ
     return (partialDecl.name, typ)
 
-fromNamedDecl :: PartialDecl -> FromLanC (CName, C.Type HandleMacros)
+fromNamedDecl :: PartialDecl -> FromLanC (CName, C.Type ReparseMacroExpansions)
 fromNamedDecl partialDecl = do
     name <- partialFromJust partialDecl.name
     typ  <- fromKnownType <$> fromPartialType partialDecl.typ
@@ -34,8 +34,8 @@ fromFunDecl ::
      PartialDecl
   -> FromLanC (
          CName
-       , ( [(Maybe CName, C.Type HandleMacros)]
-         , C.Type HandleMacros
+       , ( [(Maybe CName, C.Type ReparseMacroExpansions)]
+         , C.Type ReparseMacroExpansions
          )
        )
 fromFunDecl partialDecl = do
@@ -52,7 +52,7 @@ fromPartialType = \case
      PartialUnknown{} -> unexpected "incomplete type"
      PartialKnown typ -> return typ
 
-fromKnownType :: KnownType -> C.Type HandleMacros
+fromKnownType :: KnownType -> C.Type ReparseMacroExpansions
 fromKnownType = \case
     KnownType   typ        -> typ
     TopLevelFun params res -> C.TypeFun (map (mkTypeFunArg . snd) params) res
@@ -65,8 +65,8 @@ fromKnownType = \case
 fromTopLevelFun ::
      KnownType
   -> FromLanC (
-         [(Maybe CName, C.Type HandleMacros)]
-       , C.Type HandleMacros
+         [(Maybe CName, C.Type ReparseMacroExpansions)]
+       , C.Type ReparseMacroExpansions
        )
 fromTopLevelFun = \case
     TopLevelFun params res -> return (params, res)

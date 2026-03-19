@@ -1,0 +1,126 @@
+-- addDependentFile examples/golden/macros/macro_type_ptr_qualifiers.h
+{-| __C declaration:__ @macro PtrToVoid@
+
+    __defined at:__ @macros\/macro_type_ptr_qualifiers.h 2:9@
+
+    __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
+-}
+newtype PtrToVoid
+    = PtrToVoid {unwrapPtrToVoid :: (Ptr Void)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr Void) =>
+         HasField "unwrapPtrToVoid" (Ptr PtrToVoid) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPtrToVoid")
+instance HasCField PtrToVoid "unwrapPtrToVoid"
+    where type CFieldType PtrToVoid "unwrapPtrToVoid" = Ptr Void
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro PtrToConstVoidL@
+
+    __defined at:__ @macros\/macro_type_ptr_qualifiers.h 5:9@
+
+    __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
+-}
+newtype PtrToConstVoidL
+    = PtrToConstVoidL {unwrapPtrToConstVoidL :: (PtrConst Void)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (PtrConst Void) =>
+         HasField "unwrapPtrToConstVoidL" (Ptr PtrToConstVoidL) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPtrToConstVoidL")
+instance HasCField PtrToConstVoidL "unwrapPtrToConstVoidL"
+    where type CFieldType PtrToConstVoidL
+                          "unwrapPtrToConstVoidL" = PtrConst Void
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro PtrToConstVoidR@
+
+    __defined at:__ @macros\/macro_type_ptr_qualifiers.h 8:9@
+
+    __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
+-}
+newtype PtrToConstVoidR
+    = PtrToConstVoidR {unwrapPtrToConstVoidR :: (PtrConst Void)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (PtrConst Void) =>
+         HasField "unwrapPtrToConstVoidR" (Ptr PtrToConstVoidR) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPtrToConstVoidR")
+instance HasCField PtrToConstVoidR "unwrapPtrToConstVoidR"
+    where type CFieldType PtrToConstVoidR
+                          "unwrapPtrToConstVoidR" = PtrConst Void
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro PtrToConstIntL@
+
+    __defined at:__ @macros\/macro_type_ptr_qualifiers.h 11:9@
+
+    __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
+-}
+newtype PtrToConstIntL
+    = PtrToConstIntL {unwrapPtrToConstIntL :: (PtrConst CInt)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (PtrConst CInt) =>
+         HasField "unwrapPtrToConstIntL" (Ptr PtrToConstIntL) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPtrToConstIntL")
+instance HasCField PtrToConstIntL "unwrapPtrToConstIntL"
+    where type CFieldType PtrToConstIntL
+                          "unwrapPtrToConstIntL" = PtrConst CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro PtrToConstIntR@
+
+    __defined at:__ @macros\/macro_type_ptr_qualifiers.h 14:9@
+
+    __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
+-}
+newtype PtrToConstIntR
+    = PtrToConstIntR {unwrapPtrToConstIntR :: (PtrConst CInt)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (PtrConst CInt) =>
+         HasField "unwrapPtrToConstIntR" (Ptr PtrToConstIntR) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapPtrToConstIntR")
+instance HasCField PtrToConstIntR "unwrapPtrToConstIntR"
+    where type CFieldType PtrToConstIntR
+                          "unwrapPtrToConstIntR" = PtrConst CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro ConstPtrToInt@
+
+    __defined at:__ @macros\/macro_type_ptr_qualifiers.h 17:9@
+
+    __exported by:__ @macros\/macro_type_ptr_qualifiers.h@
+-}
+newtype ConstPtrToInt
+    = ConstPtrToInt {unwrapConstPtrToInt :: (Ptr CInt)}
+    deriving stock (Eq, Generic, Ord, Show)
+    deriving newtype (HasFFIType,
+                      ReadRaw,
+                      StaticSize,
+                      Storable,
+                      WriteRaw)
+instance (~) ty (Ptr CInt) =>
+         HasField "unwrapConstPtrToInt" (Ptr ConstPtrToInt) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapConstPtrToInt")
+instance HasCField ConstPtrToInt "unwrapConstPtrToInt"
+    where type CFieldType ConstPtrToInt
+                          "unwrapConstPtrToInt" = Ptr CInt
+          offset# = \_ -> \_ -> 0

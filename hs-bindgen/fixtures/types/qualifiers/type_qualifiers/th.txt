@@ -1,6 +1,6 @@
+-- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stddef.h
--- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/types/qualifiers/type_qualifiers.h
 -- #include <types/qualifiers/type_qualifiers.h>
 -- _Bool hs_bindgen_32187cc02676ee72 (

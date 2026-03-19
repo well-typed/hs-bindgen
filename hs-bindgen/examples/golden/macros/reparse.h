@@ -155,18 +155,16 @@ struct example_struct {
 };
 
 /**
- * TODO: Globals and constants
- *
- * https://github.com/well-typed/hs-bindgen/issues/831
+ * Globals and constants
  */
 
-// extern A    global1;
-// extern A *  global2;
-// extern A ** global3;
+extern A    global1;
+extern A *  global2;
+extern A ** global3;
 
-// extern A    const const1;
-// extern A *  const const2;
-// extern A ** const const3;
+extern A    const const1;
+extern A *  const const2;
+extern A ** const const3;
 
 /**
  * `const` qualifier

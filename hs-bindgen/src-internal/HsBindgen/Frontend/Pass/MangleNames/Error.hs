@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Pass.MangleNames.Error (
     MangleNamesFailure (..)
   ) where
+
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.LocationInfo

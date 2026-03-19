@@ -18,6 +18,24 @@
 -- {
 --   (fooB)(*arg1);
 -- }
+-- void hs_bindgen_c82bf4a34bf547de (
+--   C *arg1
+-- )
+-- {
+--   (fooC)(*arg1);
+-- }
+-- void hs_bindgen_25033ba8f1b4731d (
+--   D *arg1
+-- )
+-- {
+--   (fooD)(*arg1);
+-- }
+-- void hs_bindgen_0cf5debdefedd88c (
+--   E *arg1
+-- )
+-- {
+--   (fooE)(*arg1);
+-- }
 -- void hs_bindgen_f784f3292d76f05c (
 --   union MyUnion *arg1
 -- )
@@ -35,6 +53,24 @@
 -- )
 -- {
 --   (fooB)(*arg1);
+-- }
+-- void hs_bindgen_6984f6c3dda0005c (
+--   C *arg1
+-- )
+-- {
+--   (fooC)(*arg1);
+-- }
+-- void hs_bindgen_5431738e4ccf9ce9 (
+--   D *arg1
+-- )
+-- {
+--   (fooD)(*arg1);
+-- }
+-- void hs_bindgen_1032f2cabeb8faaa (
+--   E *arg1
+-- )
+-- {
+--   (fooE)(*arg1);
 -- }
 -- /* test_bindingspecsfun_argmacroun_Example_get_foo */
 -- __attribute__ ((const))
@@ -60,9 +96,33 @@
 -- {
 --   return &fooB;
 -- }
+-- /* test_bindingspecsfun_argmacroun_Example_get_fooC */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_669f2d7e801db0d0 (void)) (
+--   C arg1
+-- )
+-- {
+--   return &fooC;
+-- }
+-- /* test_bindingspecsfun_argmacroun_Example_get_fooD */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_6504f8cec55c35ff (void)) (
+--   D arg1
+-- )
+-- {
+--   return &fooD;
+-- }
+-- /* test_bindingspecsfun_argmacroun_Example_get_fooE */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_ae8e5c504bcf0849 (void)) (
+--   E arg1
+-- )
+-- {
+--   return &fooE;
+-- }
 {-| __C declaration:__ @union MyUnion@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 4:7@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:7@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -79,7 +139,7 @@ deriving via (EquivStorable MyUnion) instance Storable MyUnion
 
 __C declaration:__ @x@
 
-__defined at:__ @binding-specs\/fun_arg\/macro\/union.h 4:21@
+__defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
 
 __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -90,7 +150,7 @@ get_myUnion_x :: MyUnion -> CInt
 
 __C declaration:__ @x@
 
-__defined at:__ @binding-specs\/fun_arg\/macro\/union.h 4:21@
+__defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:21@
 
 __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -114,7 +174,7 @@ instance (~) ty CInt => HasField "myUnion_x" (Ptr MyUnion) (Ptr ty)
     where getField = fromPtr (Proxy @"myUnion_x")
 {-| __C declaration:__ @macro A@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 7:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 9:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -129,7 +189,7 @@ instance HasCField A "unwrapA"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @macro B@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 8:9@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:9@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -142,6 +202,18 @@ instance (~) ty A => HasField "unwrapB" (Ptr B) (Ptr ty)
 instance HasCField B "unwrapB"
     where type CFieldType B "unwrapB" = A
           offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @macro E@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 31:9@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+newtype E = E {unwrapE :: M.C} deriving stock Generic
+instance (~) ty M.C => HasField "unwrapE" (Ptr E) (Ptr ty)
+    where getField = fromPtr (Proxy @"unwrapE")
+instance HasCField E "unwrapE"
+    where type CFieldType E "unwrapE" = M.C
+          offset# = \_ -> \_ -> 0
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_5da9ad143faecbca" hs_bindgen_5da9ad143faecbca_base ::
     Ptr Void
@@ -152,14 +224,14 @@ hs_bindgen_5da9ad143faecbca :: Ptr MyUnion -> IO ()
 hs_bindgen_5da9ad143faecbca = fromFFIType hs_bindgen_5da9ad143faecbca_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 foo_safe :: MyUnion -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -174,14 +246,14 @@ hs_bindgen_f70ba8b74da026b3 :: Ptr A -> IO ()
 hs_bindgen_f70ba8b74da026b3 = fromFFIType hs_bindgen_f70ba8b74da026b3_base
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooA_safe :: A -> IO ()
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -196,18 +268,84 @@ hs_bindgen_89e946b10b5189a6 :: Ptr B -> IO ()
 hs_bindgen_89e946b10b5189a6 = fromFFIType hs_bindgen_89e946b10b5189a6_base
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooB_safe :: B -> IO ()
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooB_safe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_89e946b10b5189a6 x_1)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooC@
+foreign import ccall safe "hs_bindgen_c82bf4a34bf547de" hs_bindgen_c82bf4a34bf547de_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooC@
+hs_bindgen_c82bf4a34bf547de :: Ptr M.C -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooC@
+hs_bindgen_c82bf4a34bf547de = fromFFIType hs_bindgen_c82bf4a34bf547de_base
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooC_safe :: M.C -> IO ()
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooC_safe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_c82bf4a34bf547de x_1)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooD@
+foreign import ccall safe "hs_bindgen_25033ba8f1b4731d" hs_bindgen_25033ba8f1b4731d_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooD@
+hs_bindgen_25033ba8f1b4731d :: Ptr M.D -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooD@
+hs_bindgen_25033ba8f1b4731d = fromFFIType hs_bindgen_25033ba8f1b4731d_base
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooD_safe :: M.D -> IO ()
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooD_safe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_25033ba8f1b4731d x_1)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooE@
+foreign import ccall safe "hs_bindgen_0cf5debdefedd88c" hs_bindgen_0cf5debdefedd88c_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooE@
+hs_bindgen_0cf5debdefedd88c :: Ptr E -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Safe_fooE@
+hs_bindgen_0cf5debdefedd88c = fromFFIType hs_bindgen_0cf5debdefedd88c_base
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooE_safe :: E -> IO ()
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooE_safe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_0cf5debdefedd88c x_1)
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_f784f3292d76f05c" hs_bindgen_f784f3292d76f05c_base ::
     Ptr Void
@@ -218,14 +356,14 @@ hs_bindgen_f784f3292d76f05c :: Ptr MyUnion -> IO ()
 hs_bindgen_f784f3292d76f05c = fromFFIType hs_bindgen_f784f3292d76f05c_base
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 foo_unsafe :: MyUnion -> IO ()
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -240,14 +378,14 @@ hs_bindgen_317131bf91a541b2 :: Ptr A -> IO ()
 hs_bindgen_317131bf91a541b2 = fromFFIType hs_bindgen_317131bf91a541b2_base
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooA_unsafe :: A -> IO ()
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -262,18 +400,84 @@ hs_bindgen_d2ce062db2e5b039 :: Ptr B -> IO ()
 hs_bindgen_d2ce062db2e5b039 = fromFFIType hs_bindgen_d2ce062db2e5b039_base
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooB_unsafe :: B -> IO ()
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooB_unsafe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_d2ce062db2e5b039 x_1)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooC@
+foreign import ccall unsafe "hs_bindgen_6984f6c3dda0005c" hs_bindgen_6984f6c3dda0005c_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooC@
+hs_bindgen_6984f6c3dda0005c :: Ptr M.C -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooC@
+hs_bindgen_6984f6c3dda0005c = fromFFIType hs_bindgen_6984f6c3dda0005c_base
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooC_unsafe :: M.C -> IO ()
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooC_unsafe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_6984f6c3dda0005c x_1)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooD@
+foreign import ccall unsafe "hs_bindgen_5431738e4ccf9ce9" hs_bindgen_5431738e4ccf9ce9_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooD@
+hs_bindgen_5431738e4ccf9ce9 :: Ptr M.D -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooD@
+hs_bindgen_5431738e4ccf9ce9 = fromFFIType hs_bindgen_5431738e4ccf9ce9_base
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooD_unsafe :: M.D -> IO ()
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooD_unsafe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_5431738e4ccf9ce9 x_1)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooE@
+foreign import ccall unsafe "hs_bindgen_1032f2cabeb8faaa" hs_bindgen_1032f2cabeb8faaa_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooE@
+hs_bindgen_1032f2cabeb8faaa :: Ptr E -> IO ()
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooE@
+hs_bindgen_1032f2cabeb8faaa = fromFFIType hs_bindgen_1032f2cabeb8faaa_base
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooE_unsafe :: E -> IO ()
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooE_unsafe = \x_0 -> with x_0 (\x_1 -> hs_bindgen_1032f2cabeb8faaa x_1)
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_foo@
 foreign import ccall unsafe "hs_bindgen_cda902505d180c3d" hs_bindgen_cda902505d180c3d_base ::
     IO (FunPtr Void)
@@ -284,14 +488,14 @@ hs_bindgen_cda902505d180c3d = fromFFIType hs_bindgen_cda902505d180c3d_base
 {-# NOINLINE foo_funptr #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 foo_funptr :: FunPtr (MyUnion -> IO ())
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 6:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -306,14 +510,14 @@ hs_bindgen_d2d25b201a07a90e = fromFFIType hs_bindgen_d2d25b201a07a90e_base
 {-# NOINLINE fooA_funptr #-}
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooA_funptr :: FunPtr (A -> IO ())
 {-| __C declaration:__ @fooA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 10:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 12:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
@@ -328,15 +532,81 @@ hs_bindgen_4f49b9aa9b0c125d = fromFFIType hs_bindgen_4f49b9aa9b0c125d_base
 {-# NOINLINE fooB_funptr #-}
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooB_funptr :: FunPtr (B -> IO ())
 {-| __C declaration:__ @fooB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 11:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 13:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
 -}
 fooB_funptr = unsafePerformIO hs_bindgen_4f49b9aa9b0c125d
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooC@
+foreign import ccall unsafe "hs_bindgen_669f2d7e801db0d0" hs_bindgen_669f2d7e801db0d0_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooC@
+hs_bindgen_669f2d7e801db0d0 :: IO (FunPtr (M.C -> IO ()))
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooC@
+hs_bindgen_669f2d7e801db0d0 = fromFFIType hs_bindgen_669f2d7e801db0d0_base
+{-# NOINLINE fooC_funptr #-}
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooC_funptr :: FunPtr (M.C -> IO ())
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 33:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooC_funptr = unsafePerformIO hs_bindgen_669f2d7e801db0d0
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooD@
+foreign import ccall unsafe "hs_bindgen_6504f8cec55c35ff" hs_bindgen_6504f8cec55c35ff_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooD@
+hs_bindgen_6504f8cec55c35ff :: IO (FunPtr (M.D -> IO ()))
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooD@
+hs_bindgen_6504f8cec55c35ff = fromFFIType hs_bindgen_6504f8cec55c35ff_base
+{-# NOINLINE fooD_funptr #-}
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooD_funptr :: FunPtr (M.D -> IO ())
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 34:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooD_funptr = unsafePerformIO hs_bindgen_6504f8cec55c35ff
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooE@
+foreign import ccall unsafe "hs_bindgen_ae8e5c504bcf0849" hs_bindgen_ae8e5c504bcf0849_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooE@
+hs_bindgen_ae8e5c504bcf0849 :: IO (FunPtr (E -> IO ()))
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_get_fooE@
+hs_bindgen_ae8e5c504bcf0849 = fromFFIType hs_bindgen_ae8e5c504bcf0849_base
+{-# NOINLINE fooE_funptr #-}
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooE_funptr :: FunPtr (E -> IO ())
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 35:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/macro\/union.h@
+-}
+fooE_funptr = unsafePerformIO hs_bindgen_ae8e5c504bcf0849

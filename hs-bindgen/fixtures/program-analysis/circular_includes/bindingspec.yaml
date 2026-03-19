@@ -1,0 +1,70 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: program-analysis/circular_includes.h
+  cname: OUTER_BEFORE_CIRCULAR_INCLUDE
+  hsname: OUTER_BEFORE_CIRCULAR_INCLUDE
+- headers: program-analysis/circular_includes.h
+  cname: OUTER_AFTER_CIRCULAR_INCLUDE
+  hsname: OUTER_AFTER_CIRCULAR_INCLUDE
+hstypes:
+- hsname: OUTER_AFTER_CIRCULAR_INCLUDE
+  representation:
+    newtype:
+      constructor: OUTER_AFTER_CIRCULAR_INCLUDE
+      fields:
+      - unwrapOUTER_AFTER_CIRCULAR_INCLUDE
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: OUTER_BEFORE_CIRCULAR_INCLUDE
+  representation:
+    newtype:
+      constructor: OUTER_BEFORE_CIRCULAR_INCLUDE
+      fields:
+      - unwrapOUTER_BEFORE_CIRCULAR_INCLUDE
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - Real
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

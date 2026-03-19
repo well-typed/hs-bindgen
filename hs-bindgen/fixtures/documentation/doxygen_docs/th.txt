@@ -1,8 +1,8 @@
--- addDependentFile musl-include/x86_64/stdbool.h
--- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
 -- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile musl-include/x86_64/stdbool.h
+-- addDependentFile musl-include/x86_64/stddef.h
 -- addDependentFile examples/golden/documentation/doxygen_docs.h
 -- #include <documentation/doxygen_docs.h>
 -- signed int hs_bindgen_7eada9f65d982412 (

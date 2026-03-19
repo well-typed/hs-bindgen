@@ -1,8 +1,8 @@
--- addDependentFile musl-include/x86_64/bits/stdint.h
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stdint.h
--- addDependentFile musl-include/x86_64/stddef.h
 -- addDependentFile musl-include/x86_64/stdbool.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/types/primitives/primitive_insts.h
 {-| __C declaration:__ @prim_HsPrimCPtrdiff@
 

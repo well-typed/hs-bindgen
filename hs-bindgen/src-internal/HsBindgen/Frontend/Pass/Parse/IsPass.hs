@@ -1,7 +1,7 @@
 module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
     -- * Macros
-  , UnparsedMacro(..)
+  , ParsedMacro(..)
   , ReparseInfo(..)
     -- * Fields
   , FieldOrigin(..)
@@ -10,6 +10,8 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     -- * IsAnon
   , IsAnon(..)
   ) where
+
+import C.Expr.Syntax qualified as CExpr.DSL
 
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core (CXType)
@@ -37,11 +39,12 @@ type family AnnParse (ix :: Symbol) :: Star where
   AnnParse "UnionField"  = (ReparseInfo, FieldOrigin)
   AnnParse "Typedef"     = ReparseInfo
   AnnParse "Function"    = ReparseInfo
+  AnnParse "Global"      = ReparseInfo
   AnnParse _             = NoAnn
 
 instance IsPass Parse where
   type Id         Parse = PrelimDeclId
-  type MacroBody  Parse = UnparsedMacro
+  type MacroBody  Parse = ParsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
   type Msg        Parse = WithCallStack (WithLocationInfo ImmediateParseMsg)
@@ -54,16 +57,29 @@ instance IsPass Parse where
   Macros
 -------------------------------------------------------------------------------}
 
-data UnparsedMacro = UnparsedMacro {
-      tokens :: [Token TokenSpelling]
+-- | Syntactic parse result from @c-expr-dsl@.
+--
+-- A type macro (e.g. @#define FOO int@) has 'CExpr.DSL.macroBody' equal to
+-- @'CExpr.DSL.MTerm' ('CExpr.DSL.MType' …)@. An expression macro has any
+-- other 'CExpr.DSL.macroBody'. Type conversion and expression typechecking
+-- happen later in "HsBindgen.Frontend.Pass.TypecheckMacros".
+newtype ParsedMacro = ParsedMacro {
+      parsedMacro :: CExpr.DSL.Macro
     }
-  deriving stock (Show, Eq, Ord)
+
+deriving stock instance Show ParsedMacro
+deriving stock instance Eq   ParsedMacro
 
 data ReparseInfo =
     -- | We need to reparse this declaration (to deal with macros)
     --
-    -- NOTE: We do not use this for macros /themselves/ (see 'UnparsedMacro').
-    ReparseNeeded [Token TokenSpelling]
+    -- We do not use this for macro declarations _themselves_ (see
+    -- 'ParsedMacro').
+    ReparseNeeded
+      [Token TokenSpelling]
+      -- ^ Original tokens of declaration without macro expansions
+      (Set Text)
+      -- ^ Names of expanded macros
 
     -- | This declaration does not use macros, so no need to reparse
   | ReparseNotNeeded

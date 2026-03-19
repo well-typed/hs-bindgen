@@ -1,4 +1,4 @@
--- | Declaration definition-usage graph
+-- | Declaration-usage graph
 --
 -- Intended for qualified import.
 --
@@ -20,8 +20,8 @@ import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
 import Data.Set qualified as Set
 
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
-import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
+import HsBindgen.Frontend.Analysis.UseDeclGraph.Definition (UseDeclGraph)
+import HsBindgen.Frontend.Analysis.UseDeclGraph.Definition qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Type (ValOrRef)
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports

@@ -12,11 +12,9 @@
 module C.Expr.Typecheck.Expr
   (
     -- * Typechecking macros
-    tcMacro
+    tcExpr
   , MacroTcError(..)
-  , pprTcMacroError
-
-  , TypeEnv
+  , pprMacroTcError
 
     -- ** Macro type-system
   , Type(..), Kind(..)
@@ -31,7 +29,6 @@ module C.Expr.Typecheck.Expr
   , pprTcError, pprCtOrigin, pprMetaOrigin, pprCouldNotUnifyReason
 
     -- * Evaluating macros
-  , evaluateMExpr
   , naturalMaybe
 
   )
@@ -49,7 +46,6 @@ import Control.Monad.Writer (WriterT)
 import Control.Monad.Writer qualified as Writer
 import Data.Bifunctor
 import Data.Either (partitionEithers)
-import Data.Fin (Fin)
 import Data.Fin qualified as Fin
 import Data.Foldable qualified as Foldable
 import Data.Functor ((<&>))
@@ -256,12 +252,18 @@ isAtomicType = \case
   Constraints & errors
 -------------------------------------------------------------------------------}
 
-data Fun = forall arity. Fun ( Either Name ( MFun arity ) )
+data Fun = forall arity. Fun ( Either Name ( VaFun arity ) )
+
 funName :: Fun -> FunName
 funName ( Fun f ) =
   case f of
-    Left n -> getName n
+    Left  n  -> getName n
     Right mf -> Text.pack ( show mf )
+
+typFunName :: TyFun n -> FunName
+typFunName = \case
+    Pointer -> "pointer (*)"
+    Const   -> "const qualifier (const)"
 
 data TcError
   = UnificationError !UnificationError
@@ -695,6 +697,7 @@ fromMacroType = \case
         case dat of
           TupleTyCon {} -> Nothing
           VoidTyCon -> Just $ Runtime.Void
+          MacroTypeTyCon -> Nothing
           CharLitTyCon -> Nothing
           IntLikeTyCon ->
             case args of
@@ -744,8 +747,8 @@ instantiate ctOrig instOrig body = do
 -------------------------------------------------------------------------------}
 
 -- | Infer the type of a macro declaration (before constraint solving and generalisation).
-inferTop :: Name -> Vec nbArgs Name -> MExpr Ps
-         -> TcUniqueM ( ( ( MExpr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
+inferTop :: Name -> Vec nbArgs Name -> Expr Ps
+         -> TcUniqueM ( ( ( Expr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) ), Cts ), [ ( TcError, SrcSpan ) ] )
 inferTop funNm args body = do
   plat <- lift getPlatform
   ( ( ( tcBody, ( argTys, bodyTy ) ), ( cts, mbErrs ) ), subst ) <- runTcGenMTcM ( inferLam funNm args body )
@@ -761,41 +764,67 @@ inferTop funNm args body = do
     ]
   return ( ( ( tcBody, ( argTys', bodyTy' ) ), cts' ), mbErrs )
 
-inferExpr :: MExpr Ps -> TcGenM ( Type Ty, MExpr Tc )
+inferExpr :: Expr Ps -> TcGenM ( Type Ty, Expr Tc )
 inferExpr = \case
-  MTerm tm -> second MTerm <$> inferTerm tm
-  MApp NoXApp fun args ->
-    do ( funVal, ( args', resTy ) ) <- inferApp ( Fun $ Right fun ) args
-       return ( resTy, MApp ( XAppTc funVal ) fun args' )
+  Term tm -> second Term <$> inferTerm tm
+  TyApp fun args -> do
+    ( args', resTy ) <- inferTyApp fun args
+    pure ( resTy, TyApp fun args' )
+  VaApp NoXApp fun args -> do
+    ( funVal, ( args', resTy ) ) <- inferVaApp ( Fun $ Right fun ) args
+    return ( resTy, VaApp ( XAppTc funVal ) fun args' )
 
-inferTerm :: MTerm Ps -> TcGenM ( Type Ty, MTerm Tc )
+inferTerm :: Term Ps -> TcGenM ( Type Ty, Term Tc )
 inferTerm = \case
-  MInt lit@( IntegerLiteral { integerLiteralType = intyTy } ) ->
-    return $
-      ( IntLike $ PrimIntInfoTy $ CIntegralType $ Runtime.IntLike intyTy
-      , MInt lit
-      )
-  MFloat lit@( FloatingLiteral { floatingLiteralType = floatyTy }) ->
-    return
-      ( FloatLike $ PrimFloatInfoTy floatyTy
-      , MFloat lit
-      )
-  MChar lit ->
-    return ( CharLitTy, MChar lit )
-  MString lit ->
-    return ( String, MString lit )
-  MVar NoXVar fun argsList -> Vec.reifyList argsList $ \ args ->
-    do ( funVal, ( args', resTy ) ) <- inferApp ( Fun $ Left fun ) args
-       return ( resTy, MVar ( XVarTc funVal ) fun ( Vec.toList args' ) )
+  Literal x ->
+    pure (inferLit x, Literal x)
+  Var NoXVar fun argsList -> Vec.reifyList argsList $ \ args ->
+    do ( funVal, ( args', resTy ) ) <- inferVaApp ( Fun $ Left fun ) args
+       return ( resTy, Var ( XVarTc funVal ) fun ( Vec.toList args' ) )
+
+inferLit :: Literal -> Type Ty
+inferLit = \case
+  TypeLit{}        -> MacroTypeTy
+  ValueLit vaLit -> case vaLit of
+    ValueInt ( IntegerLiteral { integerLiteralType = intyTy } ) ->
+      IntLike $ PrimIntInfoTy $ CIntegralType $ Runtime.IntLike intyTy
+    ValueFloat ( FloatingLiteral { floatingLiteralType = floatyTy }) ->
+      FloatLike $ PrimFloatInfoTy floatyTy
+    ValueChar{} ->
+      CharLitTy
+    ValueString{} ->
+      String
+
+inferTyApp ::
+     TyFun n
+  -> Vec nbArgs ( Expr Ps )
+  -> TcGenM ( Vec nbArgs ( Expr Tc ), Type Ty )
+inferTyApp fun args = do
+  let funTy = inferTyFun fun
+  -- The handling of arguments is duplicated in 'inferVaApp'.
+  case args of
+    VNil ->
+      pure (VNil, funTy)
+    _ ::: _ -> do
+      args' <- traverse inferExpr args
+      let ( argTys', argExprs ) = ( Vec.toNonEmpty $ fmap fst args', fmap snd args' )
+      resTy <- newMetaTyVarTy ( ExpectedFunTyResTy $ funNm ) "r"
+      let actualTy = FunTy argTys' resTy
+      liftUnifyM $ unifyType ( AppOrigin $ funNm ) NotSwapped actualTy funTy
+      pure ( argExprs, resTy )
+  where
+    funNm = typFunName fun
 
 -- | Infer the type of an application of a function to arguments.
 --
 -- Also returns a 'FunValue', which allows evaluating the instantiated function.
-inferApp :: Fun
-         -> Vec nbArgs ( MExpr Ps )
-         -> TcGenM ( FunValue, ( Vec nbArgs ( MExpr Tc ), Type Ty ) )
-inferApp fun args = do
+inferVaApp ::
+     Fun
+  -> Vec nbArgs ( Expr Ps )
+  -> TcGenM ( FunValue, ( Vec nbArgs ( Expr Tc ), Type Ty ) )
+inferVaApp fun args = do
   ( funVal, funTy ) <- inferFun fun
+  -- The handling of arguments is duplicated in 'inferTyApp'.
   ( funVal , ) <$> case args of
     VNil ->
       return ( VNil, funTy )
@@ -832,7 +861,7 @@ inferFun f@( Fun fun ) =
               alpha <- newMetaTyVarTy ( ExpectedVarTy varNm ) ( varStr <> "_ty" )
               return ( FunValue @Z varStr $ const NoValue, alpha )
     Right mFun  ->
-      case inferMFun mFun of
+      case inferVaFun mFun of
         Quant funQTy -> do
           snd <$>
             instantiate ( FunInstOrigin funNm ) ( FunInstMetaOrigin funNm ) funQTy
@@ -843,8 +872,8 @@ inferFun f@( Fun fun ) =
 inferLam :: forall nbArgs
          .  Name            -- ^ name of the function (for error messages)
          -> Vec nbArgs Name -- ^ argument names
-         -> MExpr Ps          -- ^ function body
-         -> TcGenM ( MExpr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
+         -> Expr Ps        -- ^ function body
+         -> TcGenM ( Expr Tc, ( Vec nbArgs ( Type Ty ), Type Ty ) )
 inferLam _ VNil body = do
   ( bodyTy, body' ) <- inferExpr body
   return ( body', ( VNil, bodyTy) )
@@ -857,10 +886,19 @@ inferLam funNm argNms@( _ ::: _ ) body = do
     ( bodyTy, body' ) <- inferExpr body
     return ( body', ( argTys, bodyTy ) )
 
--- | Infer the type of an 'MFun', together with a 'FunValue' used to
+-- Unlike value functions, functions on the type level are always monomorphic,
+-- so we don't need a 'Quant'.
+inferTyFun :: TyFun n -> Type Ty
+inferTyFun fun = case fun of
+    -- Pointer: MacroType -> MacroType
+    Pointer -> mkFunTy [MacroTypeTy] MacroTypeTy
+    -- Const qualifier: MacroType -> MacroType
+    Const   -> mkFunTy [MacroTypeTy] MacroTypeTy
+
+-- | Infer the type of an 'VFun', together with a 'FunValue' used to
 -- evaluate this function.
-inferMFun :: MFun arity -> Quant ( FunValue, Type Ty )
-inferMFun fun = case fun of
+inferVaFun :: VaFun arity -> Quant ( FunValue, Type Ty )
+inferVaFun fun = case fun of
 
   -- Tuple
   MTuple @n -> Quant @( S ( S n ) ) \ as ->
@@ -1217,21 +1255,6 @@ data InertSet =
     , inertEqs   :: ![ ( ( Type Ct, CtOrigin ), Solubility ) ]
     }
   deriving stock Show
-
-{-
-liftTcGenM :: TcGenM a -> TcUniqueM ( Maybe ( a, ( Subst TyVar, Cts ) ) )
-liftTcGenM ( Writer.WriterT ( State.StateT f ) ) =
-  State.StateT \ ( u, st ) ->
-    let
-      aux :: ( ( a, ( Cts, [ ( TcError, SrcSpan ) ] ) ), ( Unique, Subst TyVar ) )
-          -> ( Maybe ( a, ( Subst TyVar, Cts ) ), ( Unique, SolverState ) )
-      aux ( ( a, ( cts, errs ) ), ( u', subst' ) ) =
-        if null errs
-        then ( Just ( a, ( subst', cts ) ), ( u', st ) )
-        else ( Nothing, ( u, st ) )
-    in
-    fmap aux $ f ( u, solverSubst st )
--}
 
 emptyInertSet :: InertSet
 emptyInertSet =
@@ -1612,33 +1635,6 @@ doesNotRefine qtvs ( Subst matchSubst ) ( Subst dfltSubst ) =
               Just ( _, matchTy ) ->
                 matchTy `eqType` dfltTy
 
-{-
--- | Combine two substitutions, if they are compatible.
-combineSubsts :: Subst tv -> Subst tv -> Maybe ( Subst tv )
-combineSubsts ( Subst s1 ) ( Subst s2 ) =
-  case IntMap.foldMapWithKey go s1 s2 of
-    ( Any errs, subst ) ->
-      if errs
-      then Nothing
-      else Just $ Subst subst
-  where
-    go :: Int -> ( tv, Type Ty ) -> IntMap ( tv, Type Ty )
-       -> ( Any, IntMap ( tv, Type Ty ) )
-    go k tys1 m2 =
-      case IntMap.alterF ( fmap Just . doIntersect k tys1 ) k m2 of
-        Nothing -> ( Any True , mempty )
-        Just m3 -> ( Any False, m3 )
-
-    doIntersect :: Int
-                -> ( tv, Type Ty ) -> Maybe ( tv, Type Ty )
-                -> Maybe ( tv, Type Ty )
-    doIntersect _ tvTy1 Nothing = Just tvTy1
-    doIntersect _ tvTy1@( _, ty1 ) ( Just ( _, ty2 ) ) =
-      if eqType ty1 ty2
-      then Just tvTy1
-      else Nothing
--}
-
 -- | Match a constraint against an instance.
 --
 -- The returned first substitution does the matching, if that was possible.
@@ -1733,7 +1729,7 @@ Evaluation proceeds as follows:
         , value     = fromInteger 16 :: CInt
         }
 
-    See e.g. the MInt case of 'evaluateTerm'.
+    See e.g. the ValueInt case of 'evaluateTerm'.
 
   (2) MFun: built-in functions.
 
@@ -1759,7 +1755,7 @@ Evaluation proceeds as follows:
     This function behaves like a lookup function which, given a pair of types,
     returns the 'Add' instance at that type.
 
-    The function 'inferMFun' thus does two things:
+    The function 'inferVFun' thus does two things:
 
       1. As its name indicates, it infers the instantiated type of a function.
       2. It also returns the appropriate lookup function, such as 'singAdd' for
@@ -1777,7 +1773,7 @@ Evaluation proceeds as follows:
 
     To do this, we create a new value environment (using 'Map Name Value'),
     and then call 'evaluateExpr'.
-    When we get to a macro argument (in the 'MVar' case of 'evaluateTerm'),
+    When we get to a macro argument (in the 'Var' case of 'evaluateTerm'),
     we simply look up in the map to obtain the value.
 
     In this way, after typechecking each macro, we can produce a function of
@@ -1809,10 +1805,11 @@ This is easier than erasing the types and dealing with typeclass specialisation,
 which is what GHC does.
 -}
 
-evaluateExpr :: Map Name Value -> TypeEnv -> MExpr Tc -> Value
+evaluateExpr :: Map Name Value -> TypeEnv -> Expr Tc -> Value
 evaluateExpr argVals tyEnv = \case
-  MTerm tm -> evaluateTerm argVals tyEnv tm
-  MApp @_ @m ( XAppTc ( FunValue @n _ fn ) ) _funName args ->
+  Term tm  -> evaluateTerm argVals tyEnv tm
+  TyApp{}  -> NoValue
+  VaApp @_ @m ( XAppTc ( FunValue @n _ fn ) ) _funName args ->
     -- We have stored the function that performs evaluation in the XAppTc
     -- field of the AST. For example, for addition, we have wrapped
     --
@@ -1826,35 +1823,16 @@ evaluateExpr argVals tyEnv = \case
         Nothing ->
           NoValue
 
-evaluateTerm :: Map Name Value -> TypeEnv -> MTerm Tc -> Value
+evaluateTerm :: Map Name Value -> TypeEnv -> Term Tc -> Value
 evaluateTerm argVals tyEnv = \case
-  MInt lit ->
-    let i = integerLiteralValue lit
-        ty = integerLiteralType lit
-    in
-      Runtime.promoteIntLikeType ty $ \ sTy ->
-        Value
-          ( ValSType $ Runtime.SArithmetic $ Runtime.SIntegral $ Runtime.SIntLike sTy )
-          ( fromInteger i )
-  MFloat lit ->
-    let ty = floatingLiteralType lit
-    in
-      Runtime.promoteFloatingType ty $ \ case
-        sTy@Runtime.SFloatType ->
-          Value
-            ( ValSType $ Runtime.SArithmetic $ Runtime.SFloatLike sTy )
-            ( CFloat  $ floatingLiteralFloatValue  lit )
-        sTy@Runtime.SDoubleType ->
-          Value
-            ( ValSType $ Runtime.SArithmetic $ Runtime.SFloatLike sTy )
-            ( CDouble $ floatingLiteralDoubleValue lit )
-  MVar ( XVarTc ( FunValue @n _ fn ) ) nm args
+  Literal x -> evaluateLit x
+  Var ( XVarTc ( FunValue @n _ fn ) ) nm args
     -- Is this an argument to the macro, e.g. @X@ in @#define AddOne(X) X+1@?
     | [] <- args
     , Just mbVal <- Map.lookup nm argVals
     -> mbVal
     | otherwise
-    -> Vec.reifyList args $ \ ( argsVec :: Vec m ( MExpr Tc ) ) ->
+    -> Vec.reifyList args $ \ ( argsVec :: Vec m ( Expr Tc ) ) ->
         case Nat.eqNat @n @m of
           Nothing ->
             error $ unlines
@@ -1868,9 +1846,36 @@ evaluateTerm argVals tyEnv = \case
             -- evaluator function. See also the 'MApp' case in 'evaluateExpr'.
             fn $ fmap ( evaluateExpr argVals tyEnv ) argsVec
 
-  -- TODO: not dealing with these for now
-  MChar   {} -> NoValue
-  MString {} -> NoValue
+-- Evaluation of integer and floating literals; useful, for example, when
+-- calculating the length for arrays.
+evaluateLit :: Literal -> Value
+evaluateLit = \case
+  ValueLit vaLit -> case vaLit of
+    ValueInt lit ->
+      let i = integerLiteralValue lit
+          ty = integerLiteralType lit
+      in
+        Runtime.promoteIntLikeType ty $ \ sTy ->
+          Value
+            ( ValSType $ Runtime.SArithmetic $ Runtime.SIntegral $ Runtime.SIntLike sTy )
+            ( fromInteger i )
+    ValueFloat lit ->
+      let ty = floatingLiteralType lit
+      in
+        Runtime.promoteFloatingType ty $ \ case
+          sTy@Runtime.SFloatType ->
+            Value
+              ( ValSType $ Runtime.SArithmetic $ Runtime.SFloatLike sTy )
+              ( CFloat  $ floatingLiteralFloatValue  lit )
+          sTy@Runtime.SDoubleType ->
+            Value
+              ( ValSType $ Runtime.SArithmetic $ Runtime.SFloatLike sTy )
+              ( CDouble $ floatingLiteralDoubleValue lit )
+    -- We do not evaluate character and string functions.
+    ValueChar   {} -> NoValue
+    ValueString {} -> NoValue
+  -- We do not evaluate type functions.
+  TypeLit    {} -> NoValue
 
 naturalMaybe :: ValSType ty -> ty -> Maybe Natural
 naturalMaybe ( ValSType ty ) i =
@@ -1884,16 +1889,20 @@ naturalMaybe ( ValSType ty ) i =
     _ -> Nothing
 
 {-------------------------------------------------------------------------------
-  Typechecking macros: generalisation
+  Typechecking macros: generalisation (internal)
 -------------------------------------------------------------------------------}
 
--- | Typecheck a macro.
-tcMacro :: TypeEnv
-        -> Name            -- ^ name of the macro
-        -> Vec nbArgs Name -- ^ macro arguments
-        -> MExpr Ps          -- ^ macro body
-        -> Either MacroTcError ( Quant ( FunValue, Type Ty ) )
-tcMacro tyEnv macroNm args body =
+-- | Typecheck a macro expression body (internal).
+--
+-- Also returns the body type (post-inference, pre-quantification) so the
+-- caller can tell whether the macro denotes a type or a value.
+tcExpr ::
+     TypeEnv
+  -> Name            -- ^ name of the macro
+  -> Vec nbArgs Name -- ^ macro arguments
+  -> Expr Ps        -- ^ macro body
+  -> Either MacroTcError ( Type Ty, Quant ( FunValue, Type Ty ) )
+tcExpr tyEnv macroNm args body =
   let plat = Runtime.hostPlatform in
   throwErrors $ runTcM plat tyEnv $ ( `State.evalStateT` Unique 0 ) $ Except.runExceptT do
 
@@ -1921,7 +1930,7 @@ tcMacro tyEnv macroNm args body =
 
     debugTraceM $
       unlines
-        [ "tcMacro"
+        [ "tcExpr"
         , "argTys: " ++ show argTys
         , "bodyTy: " ++ show bodyTy
         , "freeTvs: " ++ show freeTvs
@@ -1937,7 +1946,7 @@ tcMacro tyEnv macroNm args body =
     unless (IntSet.null ambigs) $
       error $
         unlines
-          [ "tcMacro: ambiguous type variables"
+          [ "tcExpr: ambiguous type variables"
           , "ambigs: " ++ show ambigs
           , "qtvs: " ++ show qtvsList
           , "cts: " ++ show simpleCts
@@ -1955,7 +1964,7 @@ tcMacro tyEnv macroNm args body =
     unless allAtomic $
       error $
         unlines
-          [ "tcMacro computed a non-atomic type"
+          [ "tcExpr computed a non-atomic type"
           , "qtvs: " ++ show qtvsList
           , "cts: " ++ show simpleCts
           , "argTys: " ++ show argTys
@@ -1963,23 +1972,25 @@ tcMacro tyEnv macroNm args body =
           ]
 
     return $
-      Vec.reifyList qtvsList \ qtvs ->
-        Quant \ tys ->
-          let quantSubst = mkSubst $ Foldable.toList $ Vec.zipWith (,) qtvs tys
-              finalSubst = quantSubst <> ctSubst
-              norm :: Type ki -> Type ki
-              norm = applySubstNormalise plat finalSubst
-              evalFun =
-                Vec.withDict args $
-                  FunValue ( getName macroNm )$ \ argVals ->
-                  evaluateExpr
-                    ( Map.fromList $ Vec.toList $ Vec.zipWith (,) args argVals )
-                    tyEnv
-                    body'
-          in QuantTyBody
-              { quantTyQuant = map norm ( fmap fst simpleCts )
-              , quantTyBody  = ( evalFun, mkFunTy ( fmap norm argTys ) ( norm bodyTy ) )
-              }
+      ( bodyTy
+      , Vec.reifyList qtvsList \ qtvs ->
+          Quant \ tys ->
+            let quantSubst = mkSubst $ Foldable.toList $ Vec.zipWith (,) qtvs tys
+                finalSubst = quantSubst <> ctSubst
+                norm :: Type ki -> Type ki
+                norm = applySubstNormalise plat finalSubst
+                evalFun =
+                  Vec.withDict args $
+                    FunValue ( getName macroNm )$ \ argVals ->
+                    evaluateExpr
+                      ( Map.fromList $ Vec.toList $ Vec.zipWith (,) args argVals )
+                      tyEnv
+                      body'
+            in QuantTyBody
+                { quantTyQuant = map norm ( fmap fst simpleCts )
+                , quantTyBody  = ( evalFun, mkFunTy ( fmap norm argTys ) ( norm bodyTy ) )
+                }
+      )
   where
     throwErrors ( _, ( err : errs ) ) = Left $ TcErrors ( err NE.:| errs )
     throwErrors ( res, [] ) = res
@@ -1995,8 +2006,8 @@ data MacroTcError
 instance Eq MacroTcError where
   _ == _ = True
 
-pprTcMacroError :: MacroTcError -> Text
-pprTcMacroError tcMacroErr =
+pprMacroTcError :: MacroTcError -> Text
+pprMacroTcError tcMacroErr =
   Text.intercalate "\n" $
     case tcMacroErr of
       TcErrors errs ->
@@ -2019,40 +2030,6 @@ guarded :: ( m -> Bool ) -> m -> Maybe m
 guarded cond m = do
   guard $ cond m
   return m
-
-{-------------------------------------------------------------------------------
-  Public evaluation function
--------------------------------------------------------------------------------}
-
-evaluateMExpr :: TypeEnv -> MExpr Ps -> Value
-evaluateMExpr tyEnv e =
-  case tcMacro tyEnv ( Name nm ) VNil e of
-    Left {} -> NoValue
-    Right ( Quant @nbBinders body ) ->
-      let
-        tvs = fmap mkTv ( Vec.universe @nbBinders )
-        QuantTyBody _cts ( funValue, _bodyTy ) = body tvs
-      in
-        case funValue of
-          FunValue @n _ f
-            | Just Refl <- Nat.eqNat @n @Z
-            -> f VNil
-          _ -> NoValue
-  where
-    nm = "<<array size expression>>"
-    mkTv :: Nat.SNatI n => Fin n -> Type Ty
-    mkTv f =
-      let
-        i :: Int
-        i = fromIntegral f
-      in
-        TyVarTy $
-          MetaTv $
-            MetaTyVar
-              { metaTyVarUnique = Unique $ ( -1 - i )
-              , metaTyVarName   = "_alpha_" <> Text.pack (show i)
-              , metaOrigin      = Inst ( FunInstMetaOrigin nm ) i
-              }
 
 {-------------------------------------------------------------------------------
   Quick & dirty testing framework

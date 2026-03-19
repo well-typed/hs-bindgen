@@ -104,7 +104,7 @@ import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.Config.Prelims (FieldNamingStrategy (..))
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
@@ -333,7 +333,7 @@ data VarDeclRHS ctx
 -- of a C macro.
 data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. InfixAppHead (CExpr.DSL.MFun arity)
+  = forall arity. InfixAppHead (CExpr.DSL.VaFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (Hs.Name Hs.NsVar)
 

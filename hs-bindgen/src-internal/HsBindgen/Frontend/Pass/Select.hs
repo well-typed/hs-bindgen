@@ -32,7 +32,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AdjustTypes.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -431,9 +430,9 @@ getDelayedMsgsSelectionRoots = concatMap (uncurry aux) . DeclIndex.toList
             loc = declIdLocationInfo declId [loc]
           , msg = SelectMangleNamesFailure x
           }
-        UnusableFailedMacro x -> List.singleton $ withCallStack WithLocationInfo{
-            loc = declIdLocationInfo x.name [x.loc]
-          , msg = SelectMacroFailure x.macroError
+        UnusableMacroTypecheckError loc err -> List.singleton$ withCallStack WithLocationInfo{
+            loc = declIdLocationInfo declId [loc]
+          , msg = SelectMacroTypecheckFailure err
           }
         UnusableOmitted{} ->
           []
@@ -494,11 +493,11 @@ getDelayedMsgsNotSelected = concatMap (uncurry aux) . DeclIndex.toList
           _otherLvl -> []
         UnusableConflict{} -> []
         UnusableMangleNamesFailure{} -> []
-        UnusableFailedMacro x -> case getDefaultLogLevel x.macroError of
+        UnusableMacroTypecheckError loc err -> case getDefaultLogLevel err of
           Bug ->
             List.singleton $ withCallStack WithLocationInfo{
-                loc = declIdLocationInfo x.name [x.loc]
-              , msg = SelectMacroFailure x.macroError
+                loc = declIdLocationInfo declId [loc]
+              , msg = SelectMacroTypecheckFailure err
               }
           _otherLvl -> []
         UnusableOmitted{} -> []
@@ -597,8 +596,8 @@ selectDeclIndex declUseGraph p declIndex =
             Just (Conflict.toList conflict, C.Available)
           UnusableMangleNamesFailure loc _ ->
             Just ([loc], C.Available)
-          UnusableFailedMacro failedMacro ->
-            Just ([failedMacro.loc], C.Available)
+          UnusableMacroTypecheckError loc _ ->
+            Just ([loc], C.Available)
           UnusableOmitted{} ->
             Nothing
 

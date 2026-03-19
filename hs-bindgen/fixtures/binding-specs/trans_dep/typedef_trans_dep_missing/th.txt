@@ -1,0 +1,88 @@
+-- addDependentFile examples/golden/binding-specs/trans_dep/typedef_trans_dep_missing.h
+-- #include <binding-specs/trans_dep/typedef_trans_dep_missing.h>
+-- void hs_bindgen_6687afc6aaabd927 (
+--   B *arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- void hs_bindgen_38d7300ed18eb652 (
+--   B *arg1
+-- )
+-- {
+--   (foo)(arg1);
+-- }
+-- /* test_bindingspecstrans_deptypede_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_e5f763922a0a17ca (void)) (
+--   B *arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_6687afc6aaabd927" hs_bindgen_6687afc6aaabd927_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_Safe_foo@
+hs_bindgen_6687afc6aaabd927 :: Ptr M.B -> IO ()
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_Safe_foo@
+hs_bindgen_6687afc6aaabd927 = fromFFIType hs_bindgen_6687afc6aaabd927_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
+
+    __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
+-}
+foo_safe :: Ptr M.B -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
+
+    __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
+-}
+foo_safe = hs_bindgen_6687afc6aaabd927
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_Unsafe_foo@
+foreign import ccall unsafe "hs_bindgen_38d7300ed18eb652" hs_bindgen_38d7300ed18eb652_base ::
+    Ptr Void
+ -> IO ()
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_Unsafe_foo@
+hs_bindgen_38d7300ed18eb652 :: Ptr M.B -> IO ()
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_Unsafe_foo@
+hs_bindgen_38d7300ed18eb652 = fromFFIType hs_bindgen_38d7300ed18eb652_base
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
+
+    __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
+-}
+foo_unsafe :: Ptr M.B -> IO ()
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
+
+    __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
+-}
+foo_unsafe = hs_bindgen_38d7300ed18eb652
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_get_foo@
+foreign import ccall unsafe "hs_bindgen_e5f763922a0a17ca" hs_bindgen_e5f763922a0a17ca_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_get_foo@
+hs_bindgen_e5f763922a0a17ca :: IO (FunPtr (Ptr M.B -> IO ()))
+-- __unique:__ @test_bindingspecstrans_deptypede_Example_get_foo@
+hs_bindgen_e5f763922a0a17ca = fromFFIType hs_bindgen_e5f763922a0a17ca_base
+{-# NOINLINE foo_funptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
+
+    __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
+-}
+foo_funptr :: FunPtr (Ptr M.B -> IO ())
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h 9:6@
+
+    __exported by:__ @binding-specs\/trans_dep\/typedef_trans_dep_missing.h@
+-}
+foo_funptr = unsafePerformIO hs_bindgen_e5f763922a0a17ca

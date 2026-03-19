@@ -8,8 +8,6 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchImmediate
   , pattern MatchDelayed
   , pattern MatchDelayedImplicitField
-    -- * HandleMacros
-  , pattern MatchHandleMacros
     -- * ResolveBindingSpecs
   , pattern MatchBindingSpec
   , pattern MatchResolveBindingSpecs
@@ -82,15 +80,6 @@ pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
 
 pattern MatchDelayedImplicitField :: CDeclName -> ParseImplicitFieldsMsg -> TraceMsg
 pattern MatchDelayedImplicitField name x <- MatchDelayed name (ParseImplicitFieldFailed x)
-
-{-------------------------------------------------------------------------------
-  HandleMacros
--------------------------------------------------------------------------------}
-
-pattern MatchHandleMacros :: HandleMacrosReparseMsg -> TraceMsg
-pattern MatchHandleMacros x <- TraceFrontend (
-      FrontendHandleMacros WithCallStack{traceMsg = x}
-    )
 
 {-------------------------------------------------------------------------------
   ResolveBindingSpecs

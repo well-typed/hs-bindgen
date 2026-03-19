@@ -21,6 +21,9 @@ import Test.HsBindgen.Golden.Infra.TestCase
 testCases :: [TestCase]
 testCases = [
       test_programAnalysis_delay_traces
+      -- * Circular programs
+    , test_programAnalysis_circular_includes
+    , test_programAnalysis_circular_macro
       -- * Program slicing
     , test_programAnalysis_program_slicing_macro_selected
     , test_programAnalysis_program_slicing_macro_unselected
@@ -88,6 +91,37 @@ test_programAnalysis_delay_traces =
         ]
 
 {-------------------------------------------------------------------------------
+  Circularities
+-------------------------------------------------------------------------------}
+
+test_programAnalysis_circular_includes :: TestCase
+test_programAnalysis_circular_includes =
+    defaultTest "program-analysis/circular_includes"
+
+test_programAnalysis_circular_macro :: TestCase
+test_programAnalysis_circular_macro =
+    defaultTest "program-analysis/circular_macro"
+      & #tracePredicate .~
+          multiTracePredicateCustomLogLevel
+            -- We want to check macro traces.
+            (getCustomLogLevel [EnableMacroWarnings]) declsWithMsgs (\case
+                MatchSelect name SelectMacroTypecheckFailure{} ->
+                  Just $ Expected (name, "typecheck")
+                MatchSelect name TransitiveDependenciesMissing{} ->
+                  Just $ Expected (name, "transitive")
+                _otherwise ->
+                  Nothing
+              )
+  where
+    declsWithMsgs :: [(CDeclName, String)]
+    declsWithMsgs = [
+        ("macro A", "typecheck")
+      , ("macro A", "transitive")
+      , ("macro B", "typecheck")
+      , ("macro B", "transitive")
+      ]
+
+{-------------------------------------------------------------------------------
   Program slicing
 -------------------------------------------------------------------------------}
 
@@ -111,10 +145,8 @@ test_programAnalysis_program_slicing_macro_unselected =
               Nothing
           )
   where
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1679>
-    -- We should get a message about @foo@ missing.
     declsWithMsgs :: [CDeclName]
-    declsWithMsgs = []
+    declsWithMsgs = ["foo"]
 
 test_programAnalysis_program_slicing_typedef_selected :: TestCase
 test_programAnalysis_program_slicing_typedef_selected =
@@ -303,11 +335,13 @@ test_programAnalysis_selection_foo =
     testTraceMulti "program-analysis/selection_foo" declsWithMsgs $ \case
       MatchSelect name SelectParseFailure{} ->
         Just $ Expected name
+      MatchSelect name (MatchTransMissing [_]) ->
+        Just $ Expected name
       _otherwise ->
         Nothing
   where
     declsWithMsgs :: [CDeclName]
-    declsWithMsgs = ["f"]
+    declsWithMsgs = ["macro A", "f"]
 
 test_programAnalysis_selection_matches_c_names_1 :: TestCase
 test_programAnalysis_selection_matches_c_names_1 =

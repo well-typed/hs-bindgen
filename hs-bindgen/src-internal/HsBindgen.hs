@@ -347,10 +347,10 @@ getDeclIndex :: Artefact DeclIndex
 getDeclIndex = (.ann.declIndex) <$> FrontendPassA FinalPass
 
 getUseDeclGraph :: Artefact UseDeclGraph
-getUseDeclGraph = (.ann.useDeclGraph) <$> FrontendPassA ConstructTranslationUnitPass
+getUseDeclGraph = (.ann.useDeclGraph) <$> FrontendPassA FinalPass
 
 getDeclUseGraph :: Artefact DeclUseGraph
-getDeclUseGraph = (.ann.declUseGraph) <$> FrontendPassA ConstructTranslationUnitPass
+getDeclUseGraph = (.ann.declUseGraph) <$> FrontendPassA FinalPass
 
 getOmittedTypes :: Artefact [(DeclId, SourcePath)]
 getOmittedTypes =

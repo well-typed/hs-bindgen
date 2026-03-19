@@ -80,7 +80,14 @@ in
         [
           hpkgs.ghc
           hpkgs.cabal-install
+
+          pkgs.llvmPackages.clang
+          pkgs.llvmPackages.libclang
+          pkgs.llvmPackages.llvm
+
+          pkgsOverlay.hsBindgenHook
         ];
+      shellHook = import ./hs-bindgen-shell-hook.nix { inherit (pkgs) git llvmPackages; };
     };
   };
 }

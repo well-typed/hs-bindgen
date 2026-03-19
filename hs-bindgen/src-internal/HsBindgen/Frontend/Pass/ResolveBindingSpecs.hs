@@ -28,8 +28,9 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.ReparseMacroExpansions.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.TypecheckMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
@@ -39,12 +40,14 @@ import HsBindgen.Util.Tracer (withCallStack)
   Top-level
 -------------------------------------------------------------------------------}
 
+type PreviousPass = ReparseMacroExpansions
+
 resolveBindingSpecs ::
      HasCallStack
   => Hs.ModuleName
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
-  -> C.TranslationUnit HandleMacros
+  -> C.TranslationUnit PreviousPass
   -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
 resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
@@ -187,7 +190,7 @@ insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 -------------------------------------------------------------------------------}
 
 -- Resolve declarations, in two passes
-resolveDecls :: HasCallStack => [C.Decl HandleMacros] -> M [C.Decl ResolveBindingSpecs]
+resolveDecls :: HasCallStack => [C.Decl PreviousPass] -> M [C.Decl ResolveBindingSpecs]
 resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 
 -- Pass one: top-level
@@ -202,10 +205,10 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- specification when applicable.
 resolveTop ::
      HasCallStack
-  => C.Decl HandleMacros
+  => C.Decl PreviousPass
   -> M
        ( Maybe
-           ( C.Decl HandleMacros
+           ( C.Decl PreviousPass
            , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
            )
        )
@@ -243,12 +246,12 @@ resolveTop decl = Reader.ask >>= \env -> do
 -- Type specifications that do not match declarations may themselves be mutated.
 applyPrescriptive ::
      HasCallStack
-  => C.Decl HandleMacros
+  => C.Decl PreviousPass
   -> BindingSpec.CTypeSpec
   -> Maybe BindingSpec.HsTypeSpec
   -> M
        ( Maybe
-           ( C.Decl HandleMacros
+           ( C.Decl PreviousPass
            , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
            )
        )
@@ -270,7 +273,7 @@ applyPrescriptive decl cTypeSpec = \case
   where
     auxRecord ::
          BindingSpec.HsRecordRep
-      -> M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+      -> M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxRecord recordRep =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate the record type and number of fields.
@@ -278,13 +281,13 @@ applyPrescriptive decl cTypeSpec = \case
 
     auxNewtype ::
          BindingSpec.HsNewtypeRep
-      -> M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+      -> M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxNewtype newtypeRep =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate enum, typedef, or macro type
       return (decl, Just (BindingSpec.HsTypeRepNewtype newtypeRep))
 
-    auxEmptyData :: M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+    auxEmptyData :: M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxEmptyData = do
       let isValid = case decl.kind of
             C.DeclStruct{}    -> True
@@ -313,7 +316,7 @@ applyPrescriptive decl cTypeSpec = \case
             insertTrace (withCallStack $ ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
           return (decl, Nothing)
 
-    auxTypeAlias :: M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+    auxTypeAlias :: M (C.Decl PreviousPass, Maybe BindingSpec.HsTypeRep)
     auxTypeAlias =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1447>
       -- We should validate types.
@@ -326,7 +329,7 @@ applyPrescriptive decl cTypeSpec = \case
 -- current pass.
 resolveDeep ::
      HasCallStack
-  => C.Decl HandleMacros
+  => C.Decl PreviousPass
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
@@ -345,7 +348,7 @@ class Resolve a where
   resolve ::
        HasCallStack
     => DeclId -- context declaration
-    -> a HandleMacros
+    -> a PreviousPass
     -> M (a ResolveBindingSpecs)
 
 instance Resolve C.DeclKind where
@@ -458,6 +461,16 @@ instance Resolve C.Function where
         , attrs = function.attrs
         , ann   = function.ann
         }
+
+instance Resolve C.Global where
+  resolve ctx global =
+      reconstruct <$> resolve ctx global.typ
+    where
+      reconstruct :: C.Type ResolveBindingSpecs -> C.Global ResolveBindingSpecs
+      reconstruct globalType' = C.Global{
+            typ = globalType'
+          , ann = global.ann
+          }
 
 instance Resolve C.FunctionArg where
   resolve ctx functionArg =

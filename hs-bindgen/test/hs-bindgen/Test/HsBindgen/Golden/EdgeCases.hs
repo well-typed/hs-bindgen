@@ -80,6 +80,7 @@ test_edgeCases_duplicate =
           & #selectPredicate .~ BOr
               (BIf $ SelectDecl (DeclNameMatches "function"))
               (BIf $ SelectDecl (DeclNameMatches "duplicate"))
+          & #programSlicing .~ EnableProgramSlicing
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
@@ -92,8 +93,9 @@ test_edgeCases_duplicate =
   where
     declsWithMsgs :: [(CDeclName, String)]
     declsWithMsgs = [
-          ("duplicate", "conflict")
-        , ("function", "transitive conflict")
+          ("macro duplicate", "conflict")
+        , ("duplicate", "conflict")
+        , ("function",  "transitive conflict")
         ]
 
 test_edgeCases_duplicate_record_field :: TestCase

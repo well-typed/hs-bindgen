@@ -87,8 +87,10 @@
 # 'fail' is the only way to abort in TH, so helpers are defined in Errors.
 - ignore: {name: "Use panicIO", within: "HsBindgen.Errors" }
 # These cannot be used in hs-bindgen-runtime because they are defined in hs-bindgen.
+- ignore: {name: "Use panicIO",   within: "C.Expr.**" }
 - ignore: {name: "Use panicIO",   within: "HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicIO",   within: "Test.**" }
+- ignore: {name: "Use panicPure", within: "C.Expr.**" }
 - ignore: {name: "Use panicPure", within: "HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicPure", within: "Test.HsBindgen.Runtime.**" }
 - ignore: {name: "Use panicPure", within: "Test.**" }

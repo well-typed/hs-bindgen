@@ -12,20 +12,27 @@ module HsBindgen.Frontend.Pass.Parse.Monad.Decl (
     -- * Functionality
     -- ** "Reader"
   , getTranslationUnit
+  , getCStandard
   , evalGetMainHeadersAndInclude
     -- ** "State"
+  , recordMacroDefinitionAt
+  , getMacroDefinitions
   , recordMacroExpansionAt
-  , checkHasMacroExpansion
+  , getMacroExpansions
     -- ** Logging
-  , recordImmediateTrace
+  , traceImmediate
+  , traceImmediateGlobal
     -- ** Errors
   , parseFail
   , parseFailNoInfo
   ) where
 
 import Data.IORef
+import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import Clang.CStandard
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
@@ -41,9 +48,8 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
-import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
+import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -79,15 +85,16 @@ run env f = do
 
 data Env = Env {
       unit                     :: CXTranslationUnit
-    , rootHeader               :: RootHeader
-    , isMainHeader             :: IsMainHeader
-    , isInMainHeaderDir        :: IsInMainHeaderDir
+    , cStandard                :: ClangCStandard
     , getMainHeadersAndInclude :: GetMainHeadersAndInclude
     , tracer                   :: Tracer (Msg Parse)
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
 getTranslationUnit = wrapEff $ \support -> return support.env.unit
+
+getCStandard :: ParseDecl ClangCStandard
+getCStandard = wrapEff $ \support-> return support.env.cStandard
 
 evalGetMainHeadersAndInclude ::
      SourcePath
@@ -104,62 +111,104 @@ evalGetMainHeadersAndInclude path = wrapEff $ \support ->
 -------------------------------------------------------------------------------}
 
 data ParseState = ParseState {
-      -- | Where did clang expand macros?
+      -- | Macros definitions we have parsed
+      macroDefinitions :: [(CXSourceLocation, ParseResult Parse)]
+
+      -- | Where did Clang expand macros, and what are their names?
       --
       -- Declarations with expanded macros need to be reparsed.
-      macroExpansions :: Set SingleLoc
+      --
+      -- We use a stacked map so we can lookup macro expansions in source
+      -- location ranges reasonably fast.
+    , macroExpansions :: Map SourcePath (Map Int (NonEmpty Text))
     }
   deriving (Generic)
 
 initParseState :: ParseState
 initParseState = ParseState{
-      macroExpansions = Set.empty
+      macroDefinitions = []
+    , macroExpansions  = Map.empty
     }
 
-recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
-recordMacroExpansionAt loc = wrapEff $ \support ->
-    modifyIORef support.state $ #macroExpansions %~ Set.insert loc
+recordMacroDefinitionAt :: CXSourceLocation -> ParseResult Parse -> ParseDecl ()
+recordMacroDefinitionAt loc result = wrapEff $ \support ->
+    modifyIORef support.state $ #macroDefinitions %~ ((loc, result) :)
 
-checkHasMacroExpansion :: Range SingleLoc -> ParseDecl Bool
-checkHasMacroExpansion extent = do
-    wrapEff $ \support ->
-      aux extent . (.macroExpansions) <$> readIORef support.state
+getMacroDefinitions :: ParseDecl [(CXSourceLocation, ParseResult Parse)]
+getMacroDefinitions = wrapEff $ \support -> do
+    s <- readIORef support.state
+    pure s.macroDefinitions
+
+recordMacroExpansionAt :: SingleLoc -> Text -> ParseDecl ()
+recordMacroExpansionAt loc macroName = wrapEff $ \support -> do
+    modifyIORef support.state $ #macroExpansions %~ addMacro
   where
-    aux :: Range SingleLoc -> Set SingleLoc -> Bool
-    aux range expansions = or [
-        -- Do a quick O(log n) check first, for the common case that the macro
-        -- is right at the start of the range. For example, this would capture
-        -- cases such as
-        --
-        -- > #define T int
-        -- >
-        -- > struct ExampleStruct {
-        -- >   T field;
-        -- > };
-        Set.member (rangeStart range) expansions
+    addMacro ::
+         Map SourcePath (Map Int (NonEmpty Text))
+      -> Map SourcePath (Map Int (NonEmpty Text))
+    addMacro = Map.alter addMacroAtFile loc.singleLocPath
 
-        -- If that fails, do a O(n) scan through all macro expansions
-      , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
-      ]
+    addMacroAtFile ::
+         Maybe (Map Int (NonEmpty Text))
+      -> Maybe (Map Int (NonEmpty Text))
+    addMacroAtFile = Just . \case
+      Nothing ->
+        Map.singleton loc.singleLocLine $ NonEmpty.singleton macroName
+      Just lineMap ->
+        Map.alter addMacroAtLine loc.singleLocLine lineMap
+
+    addMacroAtLine :: Maybe (NonEmpty Text) -> Maybe (NonEmpty Text)
+    addMacroAtLine = Just . \case
+      Nothing     -> NonEmpty.singleton macroName
+      Just macros -> NonEmpty.cons      macroName macros
+
+getMacroExpansions :: Range SingleLoc -> ParseDecl (Set Text)
+getMacroExpansions range
+  -- We do not support getting macro expansions for declarations spanning
+  -- multiple files.
+  | range.rangeStart.singleLocPath /= range.rangeEnd.singleLocPath = do
+      traceImmediateGlobal (ParseGetMacroExpansionsMultipleFiles range)
+      pure $ Set.empty
+  | otherwise = do
+    wrapEff $ \support ->
+      aux . (.macroExpansions) <$> readIORef support.state
+  where
+    sourcePath :: SourcePath
+    sourcePath = range.rangeStart.singleLocPath
+
+    aux :: Map SourcePath (Map Int (NonEmpty Text)) -> Set Text
+    aux fileMap = case Map.lookup sourcePath fileMap of
+      Nothing      -> Set.empty
+      Just lineMap ->
+        Set.fromList $ concatMap NonEmpty.toList $ Map.elems $
+          Map.takeWhileAntitone (range.rangeEnd.singleLocLine >=) $
+            Map.dropWhileAntitone (range.rangeStart.singleLocLine >) lineMap
 
 {-------------------------------------------------------------------------------
   Logging
 -------------------------------------------------------------------------------}
 
--- | Directly emit a parse message that can not be attached to a parsed
--- declaration, usually because not enough information about the declaration is
--- available.
-recordImmediateTrace ::
+-- | Immediately emit a parse trace message with location information
+traceImmediate ::
      PrelimDeclId
   -> SingleLoc
   -> ImmediateParseMsg
   -> ParseDecl ()
-recordImmediateTrace declId declLoc msg = wrapEff $ \support ->
+traceImmediate declId declLoc msg = wrapEff $ \support ->
     traceWith (contramap withCallStack support.env.tracer) $
-      (withCallStack $ WithLocationInfo{
+      withCallStack WithLocationInfo{
         loc = prelimDeclIdLocationInfo declId [declLoc]
       , msg = msg
-      })
+      }
+
+-- | Immediately emit a global parse trace message without location information
+traceImmediateGlobal :: ImmediateParseMsg -> ParseDecl ()
+traceImmediateGlobal msg = wrapEff $ \support ->
+    traceWith (contramap withCallStack support.env.tracer) $
+      withCallStack WithLocationInfo{
+        loc = LocationUnavailable
+      , msg = msg
+      }
 
 {-------------------------------------------------------------------------------
   Errors
@@ -211,7 +260,7 @@ maybeEmitScopingMsg ::
   RequiredForScoping -> PrelimDeclId -> SingleLoc -> ParseDecl ()
 maybeEmitScopingMsg scoping declId declLoc = case scoping of
     RequiredForScoping ->
-      recordImmediateTrace declId declLoc $
+      traceImmediate declId declLoc $
         ParseOfDeclarationRequiredForScopingFailed
     NotRequiredForScoping ->
       pure ()
