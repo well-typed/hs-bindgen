@@ -393,6 +393,10 @@ Using Clang for both, generation of and compilation of the bindings ensures
 consistency and correctness, but we currently do not thoroughly test compilation
 of code using the generated bindings with Clang.
 
+Note that `static inline` functions in a C header file are compiled using the C
+compiler that GHC is configured to use.  One should beware of any Clang/GCC
+discrepancies in such functions when GCC is used.
+
 #### Installation of LLVM and Clang
 
 You need to install LLVM and Clang. The specific package names may vary
