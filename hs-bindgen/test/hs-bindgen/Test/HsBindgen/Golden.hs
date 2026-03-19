@@ -1852,7 +1852,7 @@ test_types_structs_post_qualified =
 
 test_types_structs_unnamed_struct :: TestCase
 test_types_structs_unnamed_struct =
-    testTraceSimple "types/structs/unnamed-struct" $ \case
+    testTraceSimple "types/structs/unnamed_struct" $ \case
       MatchDiagnosticCategory "Semantic Issue" ->
         Just $ Expected ()
       MatchNoDeclarations ->
