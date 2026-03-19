@@ -14,7 +14,7 @@ import qualified HsBindgen.Runtime.PtrConst as PtrConst
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
-  , "bool hs_bindgen_32187cc02676ee72 ("
+  , "_Bool hs_bindgen_32187cc02676ee72 ("
   , "  char const **arg1,"
   , "  size_t arg2"
   , ")"
@@ -33,7 +33,7 @@ foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676e
 hs_bindgen_32187cc02676ee72 ::
      RIP.Ptr (PtrConst.PtrConst RIP.CChar)
   -> HsBindgen.Runtime.LibC.CSize
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 hs_bindgen_32187cc02676ee72 =
   RIP.fromFFIType hs_bindgen_32187cc02676ee72_base
 
@@ -48,5 +48,5 @@ list_example ::
      -- ^ __C declaration:__ @items@
   -> HsBindgen.Runtime.LibC.CSize
      -- ^ __C declaration:__ @count@
-  -> IO HsBindgen.Runtime.LibC.CBool
+  -> IO RIP.CBool
 list_example = hs_bindgen_32187cc02676ee72

@@ -53,6 +53,8 @@
 
 ### Minor changes
 
+* Support `language-c` 0.9.x through 0.10.2
+  ([#1662](https://github.com/well-typed/hs-bindgen/issues/1662)).
 * Re-export all global definitions used by `hs-bindgen` generated code from
   `hs-bindgen-runtime`. This may affect required packages when using
   `hs-bindgen` generated code. In particular, the packages `ghc-prim` and

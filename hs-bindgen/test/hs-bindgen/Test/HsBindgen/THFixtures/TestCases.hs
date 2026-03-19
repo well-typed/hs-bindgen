@@ -71,6 +71,11 @@ determineTHStatus tc
   -- Windows-specific failures
   | tc.name `elem` windowsSpecificFailures
       = THSkip "Windows-specific failure"
+  -- @typedef int bool@ is invalid in C23 (@bool@ is a keyword).  The golden
+  -- test (PP mode) passes because clang parses the header with @-std=c89@
+  -- where @bool@ is not a keyword.
+  | tc.name == "types/primitives/bool_typedef_override"
+      = THSkip "typedef int bool is invalid in C23"
   -- Variant tests (name contains a period followed by a number)
   | isVariantTest tc.name
       = THSkip "Variant test (only base test compiled)"

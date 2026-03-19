@@ -49,14 +49,14 @@ instance (~) ty CBool => HasField "bools1_y" (Ptr Bools1) (Ptr ty)
     __exported by:__ @types\/primitives\/bool.h@
 -}
 data Bools2
-    = Bools2 {bools2_x :: HsBindgen.Runtime.LibC.CBool
+    = Bools2 {bools2_x :: CBool
               {- ^ __C declaration:__ @x@
 
                    __defined at:__ @types\/primitives\/bool.h 9:10@
 
                    __exported by:__ @types\/primitives\/bool.h@
               -},
-              bools2_y :: HsBindgen.Runtime.LibC.CBool
+              bools2_y :: CBool
               {- ^ __C declaration:__ @y@
 
                    __defined at:__ @types\/primitives\/bool.h 10:10@
@@ -75,18 +75,14 @@ instance WriteRaw Bools2
                                               bools2_y_3 -> writeRaw (Proxy @"bools2_x") ptr_0 bools2_x_2 >> writeRaw (Proxy @"bools2_y") ptr_0 bools2_y_3
 deriving via (EquivStorable Bools2) instance Storable Bools2
 instance HasCField Bools2 "bools2_x"
-    where type CFieldType Bools2
-                          "bools2_x" = HsBindgen.Runtime.LibC.CBool
+    where type CFieldType Bools2 "bools2_x" = CBool
           offset# = \_ -> \_ -> 0
-instance (~) ty HsBindgen.Runtime.LibC.CBool =>
-         HasField "bools2_x" (Ptr Bools2) (Ptr ty)
+instance (~) ty CBool => HasField "bools2_x" (Ptr Bools2) (Ptr ty)
     where getField = fromPtr (Proxy @"bools2_x")
 instance HasCField Bools2 "bools2_y"
-    where type CFieldType Bools2
-                          "bools2_y" = HsBindgen.Runtime.LibC.CBool
+    where type CFieldType Bools2 "bools2_y" = CBool
           offset# = \_ -> \_ -> 1
-instance (~) ty HsBindgen.Runtime.LibC.CBool =>
-         HasField "bools2_y" (Ptr Bools2) (Ptr ty)
+instance (~) ty CBool => HasField "bools2_y" (Ptr Bools2) (Ptr ty)
     where getField = fromPtr (Proxy @"bools2_y")
 {-| __C declaration:__ @macro BOOL@
 

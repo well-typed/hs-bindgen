@@ -310,7 +310,7 @@ data Struct1_t
 
                       __exported by:__ @globals\/globals.h@
                  -},
-                 struct1_t_y :: HsBindgen.Runtime.LibC.CBool
+                 struct1_t_y :: CBool
                  {- ^ __C declaration:__ @y@
 
                       __defined at:__ @globals\/globals.h 417:13@
@@ -344,10 +344,9 @@ instance (~) ty HsBindgen.Runtime.LibC.Word16 =>
          HasField "struct1_t_x" (Ptr Struct1_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_t_x")
 instance HasCField Struct1_t "struct1_t_y"
-    where type CFieldType Struct1_t
-                          "struct1_t_y" = HsBindgen.Runtime.LibC.CBool
+    where type CFieldType Struct1_t "struct1_t_y" = CBool
           offset# = \_ -> \_ -> 2
-instance (~) ty HsBindgen.Runtime.LibC.CBool =>
+instance (~) ty CBool =>
          HasField "struct1_t_y" (Ptr Struct1_t) (Ptr ty)
     where getField = fromPtr (Proxy @"struct1_t_y")
 instance HasCField Struct1_t "struct1_t_version"

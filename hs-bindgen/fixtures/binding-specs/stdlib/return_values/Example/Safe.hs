@@ -41,7 +41,7 @@ import qualified HsBindgen.Runtime.LibC
 
 $(HsBindgen.Runtime.Internal.CAPI.addCSource (HsBindgen.Runtime.Internal.CAPI.unlines
   [ "#include <binding-specs/stdlib/return_values.h>"
-  , "bool hs_bindgen_4cd199ba56c14547 (void)"
+  , "_Bool hs_bindgen_4cd199ba56c14547 (void)"
   , "{"
   , "  return (bool_fun)();"
   , "}"
@@ -164,7 +164,7 @@ foreign import ccall safe "hs_bindgen_4cd199ba56c14547" hs_bindgen_4cd199ba56c14
      IO RIP.Word8
 
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_bool_fun@
-hs_bindgen_4cd199ba56c14547 :: IO HsBindgen.Runtime.LibC.CBool
+hs_bindgen_4cd199ba56c14547 :: IO RIP.CBool
 hs_bindgen_4cd199ba56c14547 =
   RIP.fromFFIType hs_bindgen_4cd199ba56c14547_base
 
@@ -174,7 +174,7 @@ hs_bindgen_4cd199ba56c14547 =
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
-bool_fun :: IO HsBindgen.Runtime.LibC.CBool
+bool_fun :: IO RIP.CBool
 bool_fun = hs_bindgen_4cd199ba56c14547
 
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_int8_t_fun@

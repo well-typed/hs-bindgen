@@ -17,7 +17,7 @@
 -- addDependentFile musl-include/x86_64/fenv.h
 -- addDependentFile examples/golden/binding-specs/stdlib/return_values.h
 -- #include <binding-specs/stdlib/return_values.h>
--- bool hs_bindgen_4cd199ba56c14547 (void)
+-- _Bool hs_bindgen_4cd199ba56c14547 (void)
 -- {
 --   return (bool_fun)();
 -- }
@@ -133,7 +133,7 @@
 -- {
 --   return (sig_atomic_t_fun)();
 -- }
--- bool hs_bindgen_6b68851ce9c1f36f (void)
+-- _Bool hs_bindgen_6b68851ce9c1f36f (void)
 -- {
 --   return (bool_fun)();
 -- }
@@ -251,7 +251,7 @@
 -- }
 -- /* test_bindingspecsstdlibreturn_va_Example_get_bool_fun */
 -- __attribute__ ((const))
--- bool (*hs_bindgen_4d50a5da1d788aef (void)) (void)
+-- _Bool (*hs_bindgen_4d50a5da1d788aef (void)) (void)
 -- {
 --   return &bool_fun;
 -- }
@@ -433,7 +433,7 @@
 foreign import ccall safe "hs_bindgen_4cd199ba56c14547" hs_bindgen_4cd199ba56c14547_base ::
     IO Word8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_bool_fun@
-hs_bindgen_4cd199ba56c14547 :: IO HsBindgen.Runtime.LibC.CBool
+hs_bindgen_4cd199ba56c14547 :: IO CBool
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Safe_bool_fun@
 hs_bindgen_4cd199ba56c14547 = fromFFIType hs_bindgen_4cd199ba56c14547_base
 {-| __C declaration:__ @bool_fun@
@@ -442,7 +442,7 @@ hs_bindgen_4cd199ba56c14547 = fromFFIType hs_bindgen_4cd199ba56c14547_base
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
-bool_fun_safe :: IO HsBindgen.Runtime.LibC.CBool
+bool_fun_safe :: IO CBool
 {-| __C declaration:__ @bool_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
@@ -1042,7 +1042,7 @@ sig_atomic_t_fun_safe = hs_bindgen_222eab426c700a03
 foreign import ccall unsafe "hs_bindgen_6b68851ce9c1f36f" hs_bindgen_6b68851ce9c1f36f_base ::
     IO Word8
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_bool_fun@
-hs_bindgen_6b68851ce9c1f36f :: IO HsBindgen.Runtime.LibC.CBool
+hs_bindgen_6b68851ce9c1f36f :: IO CBool
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_Unsafe_bool_fun@
 hs_bindgen_6b68851ce9c1f36f = fromFFIType hs_bindgen_6b68851ce9c1f36f_base
 {-| __C declaration:__ @bool_fun@
@@ -1051,7 +1051,7 @@ hs_bindgen_6b68851ce9c1f36f = fromFFIType hs_bindgen_6b68851ce9c1f36f_base
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
-bool_fun_unsafe :: IO HsBindgen.Runtime.LibC.CBool
+bool_fun_unsafe :: IO CBool
 {-| __C declaration:__ @bool_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
@@ -1651,7 +1651,7 @@ sig_atomic_t_fun_unsafe = hs_bindgen_1aecb4fb9faabcf5
 foreign import ccall unsafe "hs_bindgen_4d50a5da1d788aef" hs_bindgen_4d50a5da1d788aef_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_bool_fun@
-hs_bindgen_4d50a5da1d788aef :: IO (FunPtr (IO HsBindgen.Runtime.LibC.CBool))
+hs_bindgen_4d50a5da1d788aef :: IO (FunPtr (IO CBool))
 -- __unique:__ @test_bindingspecsstdlibreturn_va_Example_get_bool_fun@
 hs_bindgen_4d50a5da1d788aef = fromFFIType hs_bindgen_4d50a5da1d788aef_base
 {-# NOINLINE bool_fun_funptr #-}
@@ -1661,7 +1661,7 @@ hs_bindgen_4d50a5da1d788aef = fromFFIType hs_bindgen_4d50a5da1d788aef_base
 
     __exported by:__ @binding-specs\/stdlib\/return_values.h@
 -}
-bool_fun_funptr :: FunPtr (IO HsBindgen.Runtime.LibC.CBool)
+bool_fun_funptr :: FunPtr (IO CBool)
 {-| __C declaration:__ @bool_fun@
 
     __defined at:__ @binding-specs\/stdlib\/return_values.h 20:6@
