@@ -25,7 +25,7 @@ import HsBindgen.Frontend.Pass.Parse.Decl.Field (structFieldDecl,
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseUnsupportedImplicitFields))
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Anon, Named))
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
                                              getParseResultEitherDecl,
                                              parseSucceed)
@@ -201,5 +201,12 @@ detectImplicitFields nestedDecls outerFields =
         , concatMap (either depsOfField depsOfField) nestedFields
         ]
 
+    -- Note: nested declarations belong to the same scope as the enclosing
+    -- object
+    --
+    -- <https://en.cppreference.com/w/c/language/scope.html#Notes>
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.info.id `elem` fieldDeps
+    declIsUsed decl = case decl.info.id of
+        -- Implicit fields can not refer to named declarations
+        Named{} -> True
+        Anon{} -> decl.info.id `elem` fieldDeps
