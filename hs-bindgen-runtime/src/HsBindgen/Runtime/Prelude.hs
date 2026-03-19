@@ -9,7 +9,8 @@ module HsBindgen.Runtime.Prelude (
     -- * Fields and bit-fields
   , HasCField(..)
   , HasCBitfield(..)
-  , BitfieldPtr (..)
+  , BitfieldPtr
+  , mkBitfieldPtr
 
     -- * Function pointers and instances
   , ToFunPtr (..)

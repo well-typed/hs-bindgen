@@ -48,6 +48,8 @@
   after the global variable. Extern anonymous declarations
   (e.g., `extern struct { .. } config;`) are rejected as unusable.
   * Generate an `IsArray` instance for each newtype of a type with an `IsArray`
+* Support unnamed bit-field declarations (of width zero), used to instruct the
+  compiler to not pack any more fields into the current storage unit.
 
 ### Minor changes
 

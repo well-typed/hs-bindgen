@@ -168,76 +168,76 @@ size_t hsbg_alignof_CFloat(void) { return alignof(float); }
 size_t hsbg_alignof_CDouble(void) { return alignof(double); }
 
 /*******************************************************************************
-  Preturb
+  Perturb
 *******************************************************************************/
 
-char hsbg_preturb_CChar(long long size, char c) { return c + size; }
+char hsbg_perturb_CChar(long long size, char c) { return c + size; }
 
-signed char hsbg_preturb_CSChar(long long size, signed char c) {
+signed char hsbg_perturb_CSChar(long long size, signed char c) {
   return c + size;
 }
 
-unsigned char hsbg_preturb_CUChar(long long size, unsigned char c) {
+unsigned char hsbg_perturb_CUChar(long long size, unsigned char c) {
   return c + size;
 }
 
-short hsbg_preturb_CShort(long long size, short n) { return n + size; }
+short hsbg_perturb_CShort(long long size, short n) { return n + size; }
 
-unsigned short hsbg_preturb_CUShort(long long size, unsigned short n) {
+unsigned short hsbg_perturb_CUShort(long long size, unsigned short n) {
   return n + size;
 }
 
-int hsbg_preturb_CInt(long long size, int n) { return n + size; }
+int hsbg_perturb_CInt(long long size, int n) { return n + size; }
 
-unsigned int hsbg_preturb_CUInt(long long size, unsigned int n) {
+unsigned int hsbg_perturb_CUInt(long long size, unsigned int n) {
   return n + size;
 }
 
-long hsbg_preturb_CLong(long long size, long n) { return n + size; }
+long hsbg_perturb_CLong(long long size, long n) { return n + size; }
 
-unsigned long hsbg_preturb_CULong(long long size, unsigned long n) {
+unsigned long hsbg_perturb_CULong(long long size, unsigned long n) {
   return n + size;
 }
 
-ptrdiff_t hsbg_preturb_CPtrdiff(long long size, ptrdiff_t n) {
+ptrdiff_t hsbg_perturb_CPtrdiff(long long size, ptrdiff_t n) {
   return n + size;
 }
 
-size_t hsbg_preturb_CSize(long long size, size_t n) { return n + size; }
+size_t hsbg_perturb_CSize(long long size, size_t n) { return n + size; }
 
-wchar_t hsbg_preturb_CWchar(long long size, wchar_t c) { return c + size; }
+wchar_t hsbg_perturb_CWchar(long long size, wchar_t c) { return c + size; }
 
-sig_atomic_t hsbg_preturb_CSigAtomic(long long size, sig_atomic_t n) {
+sig_atomic_t hsbg_perturb_CSigAtomic(long long size, sig_atomic_t n) {
   return n + size;
 }
 
-long long hsbg_preturb_CLLong(long long size, long long n) { return n + size; }
+long long hsbg_perturb_CLLong(long long size, long long n) { return n + size; }
 
-unsigned long long hsbg_preturb_CULLong(long long size, unsigned long long n) {
+unsigned long long hsbg_perturb_CULLong(long long size, unsigned long long n) {
   return n + size;
 }
 
-bool hsbg_preturb_CBool(long long size, bool b) {
+bool hsbg_perturb_CBool(long long size, bool b) {
   return (llabs(size) % 2 == 1) != b;
 }
 
-intptr_t hsbg_preturb_CIntPtr(long long size, intptr_t n) { return n + size; }
+intptr_t hsbg_perturb_CIntPtr(long long size, intptr_t n) { return n + size; }
 
-uintptr_t hsbg_preturb_CUIntPtr(long long size, uintptr_t n) {
+uintptr_t hsbg_perturb_CUIntPtr(long long size, uintptr_t n) {
   return n + size;
 }
 
-intmax_t hsbg_preturb_CIntMax(long long size, intmax_t n) { return n + size; }
+intmax_t hsbg_perturb_CIntMax(long long size, intmax_t n) { return n + size; }
 
-uintmax_t hsbg_preturb_CUIntMax(long long size, uintmax_t n) {
+uintmax_t hsbg_perturb_CUIntMax(long long size, uintmax_t n) {
   return n + size;
 }
 
-clock_t hsbg_preturb_CClock(long long size, clock_t c) { return c + size; }
+clock_t hsbg_perturb_CClock(long long size, clock_t c) { return c + size; }
 
-time_t hsbg_preturb_CTime(long long size, time_t t) { return t + size; }
+time_t hsbg_perturb_CTime(long long size, time_t t) { return t + size; }
 
-float hsbg_preturb_CFloat(long long size, float x) {
+float hsbg_perturb_CFloat(long long size, float x) {
   if (isnan(x)) {
     return (llabs(size) % 2 == 0) ? NAN : -0.0;
   }
@@ -286,7 +286,7 @@ float hsbg_preturb_CFloat(long long size, float x) {
   return *x_r;
 }
 
-double hsbg_preturb_CDouble(long long size, double x) {
+double hsbg_perturb_CDouble(long long size, double x) {
   if (isnan(x)) {
     return (llabs(size) % 2 == 0) ? NAN : -0.0;
   }

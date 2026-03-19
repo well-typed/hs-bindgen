@@ -134,7 +134,7 @@ determineTHStatus tc
       , "program-analysis/selection_squash_typedef"
       , "types/special/long_double"
       , "types/structs/implicit_fields_struct"
-      , "types/structs/unnamed-struct"
+      , "types/structs/unnamed_struct"
       , "types/unions/implicit_fields_union"
       , "types/typedefs/typenames"
       ]
