@@ -17,6 +17,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Naming (CTagKind, cTagKindPrefix)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -92,6 +93,12 @@ data DelayedParseMsg =
   | ParsePotentialDuplicateSymbol
       -- | The symbol has public visibility
       Bool
+
+    -- | Struct/union tag first declared inside a function prototype, e.g.
+    -- @void f(struct foo* arg);@
+    --
+    -- Might indicate a missing @#include@ in the header.
+  | ParseDeclarationNotVisible CTagKind Text
 
     -- | A function declaration was encountered where the type of the function
     -- is typedef reference. This is not yet supported by hs-bindgen.
@@ -317,6 +324,13 @@ instance PrettyForTrace DelayedParseMsg where
           "Unusable anonymous declaration "
         , prettyForTrace anonId
         ]
+      ParseDeclarationNotVisible kind name -> PP.hcat [
+            "Declaration of '"
+          , PP.text (cTagKindPrefix kind)
+          , " "
+          , PP.text name
+          , "' will not be visible outside of this function"
+          ]
       ParseExpectedFunctionType ty -> PP.hsep [
           "Expected function type, but got"
         , PP.string ty
@@ -353,6 +367,7 @@ instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
       ParseUnderlyingTypeFailed _ err   -> getDefaultLogLevel err
       ParsePotentialDuplicateSymbol{}   -> Notice
+      ParseDeclarationNotVisible{}      -> Warning
       ParseFunctionOfTypeTypedef{}      -> Warning
       ParseInvalidLinkage               -> Warning
       ParseInvalidVisibility            -> Warning

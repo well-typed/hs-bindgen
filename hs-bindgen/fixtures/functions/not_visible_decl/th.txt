@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/functions/not_visible_decl.h

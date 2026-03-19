@@ -37,6 +37,7 @@ testCases = [
     , test_functions_decls_in_signature
     , test_functions_fun_attributes
     , test_functions_fun_attributes_conflict
+    , test_functions_not_visible_decl
     , test_functions_simple_func
     , test_functions_simple_func_rename
     , test_functions_varargs
@@ -49,6 +50,8 @@ testCases = [
 test_functions_decls_in_signature :: TestCase
 test_functions_decls_in_signature =
     testTraceMulti "functions/decls_in_signature" declsWithMsgs $ \case
+      MatchDelayed name ParseDeclarationNotVisible{} ->
+        Just $ Expected name
       MatchDelayed name ParseUnsupportedAnonInSignature{} ->
         Just $ Expected name
       MatchDiagnosticOption _diag ->
@@ -57,7 +60,7 @@ test_functions_decls_in_signature =
         Nothing
   where
     declsWithMsgs :: [CDeclName]
-    declsWithMsgs = ["f3", "f4", "f5"]
+    declsWithMsgs = ["f1", "f2", "f3", "f4", "f5"]
 
 test_functions_fun_attributes :: TestCase
 test_functions_fun_attributes =
@@ -97,6 +100,21 @@ test_functions_fun_attributes_conflict =
   where
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = []
+
+test_functions_not_visible_decl :: TestCase
+test_functions_not_visible_decl =
+    testTraceMulti "functions/not_visible_decl" declsWithMsgs $ \case
+      MatchDelayed name ParseDeclarationNotVisible{} ->
+        Just $ Expected name
+      MatchDelayed name ParseUnsupportedAnonInSignature{} ->
+        Just $ Expected name
+      MatchDiagnosticOption _diag ->
+        Just $ Tolerated
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [CDeclName]
+    declsWithMsgs = ["f", "g", "h"]
 
 test_functions_simple_func :: TestCase
 test_functions_simple_func =

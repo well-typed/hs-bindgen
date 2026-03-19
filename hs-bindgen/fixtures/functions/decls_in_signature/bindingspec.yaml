@@ -9,44 +9,7 @@ ctypes:
 - headers: functions/decls_in_signature.h
   cname: struct outside
   hsname: Outside
-- headers: functions/decls_in_signature.h
-  cname: struct named_struct
-  hsname: Named_struct
-- headers: functions/decls_in_signature.h
-  cname: union named_union
-  hsname: Named_union
 hstypes:
-- hsname: Named_struct
-  representation:
-    record:
-      constructor: Named_struct
-      fields:
-      - named_struct_x
-      - named_struct_y
-  instances:
-  - Eq
-  - Generic
-  - HasCField
-  - HasField
-  - ReadRaw
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: Named_union
-  representation:
-    newtype:
-      constructor: Named_union
-      fields:
-      - unwrapNamed_union
-  instances:
-  - Generic
-  - HasCField
-  - HasField
-  - ReadRaw
-  - StaticSize
-  - Storable
-  - WriteRaw
 - hsname: Opaque
   representation: emptydata
 - hsname: Outside

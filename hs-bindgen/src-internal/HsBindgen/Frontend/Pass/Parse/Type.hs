@@ -123,8 +123,10 @@ fromDecl ty = do
         throwError $ ParseUnsupportedBuiltin builtin
       Nothing -> ParseType.dispatchDecl decl $ \case
         CXCursor_EnumDecl   -> typeEnum decl
-        CXCursor_StructDecl -> typeRef decl CTagKindStruct
-        CXCursor_UnionDecl  -> typeRef decl CTagKindUnion
+        CXCursor_StructDecl -> checkVisibleDecl decl CTagKindStruct
+                            >> typeRef decl CTagKindStruct
+        CXCursor_UnionDecl  -> checkVisibleDecl decl CTagKindUnion
+                            >> typeRef decl CTagKindUnion
 
         CXCursor_TypedefDecl -> typeTypedef decl
 
@@ -133,6 +135,33 @@ fromDecl ty = do
 typeRef :: MonadIO m => CXCursor -> CTagKind -> m (C.Type Parse)
 typeRef decl kind =
     C.TypeRef <$> PrelimDeclId.atCursor decl (CNameKindTagged kind)
+
+-- | Check that a struct/union declaration is visible outside a function
+-- prototype.
+--
+-- We detect this using @clang_getCursorSemanticParent@: for a file-scope
+-- @struct foo@, the semantic parent is the translation unit. But when
+-- @struct foo@ appears only inside a function prototype (whether as a bare
+-- forward reference or an inline definition), clang parents it under the
+-- @CXCursor_FunctionDecl@.
+--
+-- Examples:
+--
+-- @
+-- struct opaque;
+-- void f(struct opaque *p);              -- OK: parent is TranslationUnit
+-- void g(struct s *p);                   -- rejected: parent is FunctionDecl
+-- void h(struct s { int x; } arg);       -- rejected: parent is FunctionDecl
+-- void k(struct { int x; char c; } arg); -- rejected: parent is FunctionDecl
+-- @
+--
+checkVisibleDecl :: CXCursor -> CTagKind -> ParseType ()
+checkVisibleDecl decl kind = do
+    parent     <- clang_getCursorSemanticParent decl
+    parentKind <- fromSimpleEnum <$> clang_getCursorKind parent
+    when (parentKind == Right CXCursor_FunctionDecl) $ do
+      name <- clang_getCursorSpelling decl
+      throwError $ ParseDeclarationNotVisible kind name
 
 typeEnum :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
 typeEnum decl = do

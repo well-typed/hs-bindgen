@@ -38,7 +38,7 @@ jobs:
         # NOTE: add new example projects here. The example project has to
         # satisfy some requirements for this workflow to work correctly. See
         # ./examples/README.md (with respect to the repository root).
-        example: ['botan', 'bundled-c', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue', 'c-rpm', 'feature-tests']
+        example: ['botan', 'bundled-c', 'cef', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue', 'c-rpm', 'feature-tests']
 
     env:
       # We assume that the example executable lives in this directory
@@ -154,6 +154,10 @@ jobs:
     - name: 🧪 Build and run bundled-c example
       if: ${{ matrix.example == 'bundled-c' }}
       uses: ./.github/actions/examples/bundled-c
+
+    - name: 🧪 Build and run cef example
+      if: ${{ matrix.example == 'cef' }}
+      uses: ./.github/actions/examples/cef
 
     - name: 🧪 Build and run c-minisat example
       if: ${{ matrix.example == 'c-minisat' }}
