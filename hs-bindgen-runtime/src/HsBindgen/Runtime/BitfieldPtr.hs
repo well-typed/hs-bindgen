@@ -6,8 +6,12 @@
 -- > import HsBindgen.Runtime.BitfieldPtr qualified as BitfieldPtr
 module HsBindgen.Runtime.BitfieldPtr (
     Bitfield(..)
-  , BitfieldPtr
+  , BitfieldPtr -- opaque
   , mkBitfieldPtr
+  , startingByte
+  , offset
+  , width
+  , bounds
   , peek
   , poke
   ) where
@@ -29,19 +33,18 @@ data BitfieldPtr a = UnsafeBitfieldPtr {
       -- | Pointer to the byte where the bit-field starts
       --
       -- We do /not/ assume that the pointer is aligned.
-      --
-      -- The @a@ is a lie, unless the offset is zero, but we use @a@ instead of
-      -- '()' because we do not want @a@ to be a phantom.
-      _ptr    :: Ptr a
+      startingByte :: Ptr ()
       -- | Offset of the bit-field (0 to 7 bits)
-    , _offset :: Int
+    , offset :: Int
       -- | Width of the bit-field (1 to 64 bits)
-    , _width  :: Int
+    , width :: Int
       -- | Memory bounds of the @struct@
+      --
+      -- The lower bound is inclusive, and the upper bound is exclusive.
       --
       -- To peek/poke a bit-field, we may peek/poke any memory within these
       -- bounds.  We must not peek/poke memory outside of these bounds.
-    , _bounds :: (Ptr (), Ptr ())
+    , bounds :: (Ptr (), Ptr ())
     }
 
 -- | Construct a 'BitfieldPtr' given the C object pointer, offset, and width
@@ -52,10 +55,10 @@ mkBitfieldPtr :: forall s a.
   -> Int    -- ^ Width of the bit-field (1 to 64 bits)
   -> BitfieldPtr a
 mkBitfieldPtr ptr off width = UnsafeBitfieldPtr{
-      _ptr    = castPtr $ ptr `plusPtr` offBytes
-    , _offset = offBits
-    , _width  = width
-    , _bounds = (ptrL, ptrH)
+      startingByte = castPtr $ ptr `plusPtr` offBytes
+    , offset       = offBits
+    , width        = width
+    , bounds       = (ptrL, ptrH)
     }
   where
     offBytes, offBits :: Int
@@ -68,9 +71,9 @@ mkBitfieldPtr ptr off width = UnsafeBitfieldPtr{
 {-# INLINE peek #-}
 -- | Read from a bit-field
 peek :: Bitfield a => BitfieldPtr a -> IO a
-peek (UnsafeBitfieldPtr p o w b) = Bitfield.peekBitOffWidth (castPtr p) o w b
+peek (UnsafeBitfieldPtr p o w b) = Bitfield.peekBitOffWidth p o w b
 
 {-# INLINE poke #-}
 -- | Write to a bit-field
 poke :: Bitfield a => BitfieldPtr a -> a -> IO ()
-poke (UnsafeBitfieldPtr p o w b) = Bitfield.pokeBitOffWidth (castPtr p) o w b
+poke (UnsafeBitfieldPtr p o w b) = Bitfield.pokeBitOffWidth p o w b
