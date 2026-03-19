@@ -80,6 +80,7 @@ generate_bindings() {
         --module "$MODULE_NAME"
         --select-from-main-headers
         --enable-program-slicing
+        --omit-field-prefixes
         --gen-binding-spec "$BINDING_SPEC_FILE"
       )
 
@@ -128,6 +129,7 @@ generate_non_capi_binding() {
         --module "$MODULE_NAME"
         --select-from-main-headers
         --enable-program-slicing
+        --omit-field-prefixes
         --gen-binding-spec "$BINDING_SPEC_FILE"
       )
 

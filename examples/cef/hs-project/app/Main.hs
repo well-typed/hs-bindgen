@@ -1,8 +1,7 @@
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 
 module Main (main) where
 
-import Data.Proxy (Proxy (..))
 import Foreign.C.String (newCString)
 import Foreign.Marshal.Alloc (alloca, allocaBytes)
 import Foreign.Marshal.Array (withArray0)
@@ -12,7 +11,6 @@ import Foreign.Storable (peek, poke, sizeOf)
 import System.Environment (getArgs, getProgName)
 import System.Exit (ExitCode (..), exitSuccess, exitWith)
 
-import HsBindgen.Runtime.HasCField qualified as HasCField
 import HsBindgen.Runtime.Internal.FunPtr qualified as FunPtr
 import HsBindgen.Runtime.PtrConst qualified as PtrConst
 
@@ -52,10 +50,8 @@ main = do
                 let settingsSize = sizeOf (undefined :: C_Cef_settings_t)
                 allocaBytes settingsSize $ \(settingsPtr :: Ptr C_Cef_settings_t) -> do
                     fillBytes settingsPtr 0 settingsSize
-                    HasCField.writeRaw (Proxy @"c_Cef_settings_t_size")
-                        settingsPtr (fromIntegral settingsSize)
-                    HasCField.writeRaw (Proxy @"c_Cef_settings_t_no_sandbox")
-                        settingsPtr 1
+                    poke settingsPtr.size (fromIntegral settingsSize)
+                    poke settingsPtr.no_sandbox 1
 
                     let constSettings = PtrConst.unsafeFromPtr settingsPtr
                     initResult <- cef_initialize constMainArgs constSettings nullPtr nullPtr
@@ -77,12 +73,12 @@ main = do
                             obj <- peek cmdLine
 
                             -- Call is_valid via vtable function pointer dispatch
-                            let isValid = FunPtr.fromFunPtr (cef_command_line_t_is_valid obj)
+                            let isValid = FunPtr.fromFunPtr obj.is_valid
                             valid <- isValid cmdLine
                             putStrLn $ "  is_valid: " ++ show valid
 
                             -- Call has_switches via vtable dispatch
-                            let hasSwitches = FunPtr.fromFunPtr (cef_command_line_t_has_switches obj)
+                            let hasSwitches = FunPtr.fromFunPtr obj.has_switches
                             switches <- hasSwitches cmdLine
                             putStrLn $ "  has_switches (empty): " ++ show switches
 
