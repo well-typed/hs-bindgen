@@ -1,0 +1,25 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/scoping/wide_nesting.h
+  cname: struct baz
+  hsname: Baz
+hstypes:
+- hsname: Baz
+  representation:
+    record:
+      constructor: Baz
+      fields:
+      - baz_x3_1
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

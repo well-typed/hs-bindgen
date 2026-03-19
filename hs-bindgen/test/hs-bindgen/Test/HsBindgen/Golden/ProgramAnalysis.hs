@@ -59,12 +59,17 @@ test_programAnalysis_delay_traces =
             -- assigned name kinds.
             BOr
               (BIf $ SelectDecl (DeclNameMatches "_function"))
-              (BIf $ SelectDecl (DeclNameMatches "struct"))
-          )
+              (BOr
+                (BIf $ SelectDecl (DeclNameMatches "struct"))
+                (BIf $ SelectDecl (DeclNameMatches "union"))
+              )
+            )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDelayed name ParseUnsupportedLongDouble ->
               Just $ Expected name
             MatchDelayed name ParseUnsupportedVariadicFunction ->
+              Just $ Expected name
+            MatchDelayed name ParseNestedDeclsFailed ->
               Just $ Expected name
             _otherwise ->
                Nothing
@@ -77,6 +82,9 @@ test_programAnalysis_delay_traces =
         , "struct long_double_s"
         , "struct nested_long_double_s"
         , "struct nested_long_double_u"
+          -- TODO https://github.com/well-typed/hs-bindgen/issues/1851
+          -- Why are the anonymous nested structs not reported? Because
+          -- they are skipped by the AssignAnonIds step?
         ]
 
 {-------------------------------------------------------------------------------

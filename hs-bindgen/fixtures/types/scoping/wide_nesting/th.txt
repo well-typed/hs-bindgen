@@ -1,0 +1,59 @@
+-- addDependentFile examples/golden/types/scoping/wide_nesting.h
+-- #include <types/scoping/wide_nesting.h>
+-- /* test_typesscopingwide_nesting_Example_get_X */
+-- __attribute__ ((const))
+-- struct baz *hs_bindgen_a295757aed8ccce9 (void)
+-- {
+--   return &X;
+-- }
+{-| __C declaration:__ @struct baz@
+
+    __defined at:__ @types\/scoping\/wide_nesting.h 21:10@
+
+    __exported by:__ @types\/scoping\/wide_nesting.h@
+-}
+data Baz
+    = Baz {baz_x3_1 :: CInt
+           {- ^ __C declaration:__ @x3_1@
+
+                __defined at:__ @types\/scoping\/wide_nesting.h 22:9@
+
+                __exported by:__ @types\/scoping\/wide_nesting.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Baz
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Baz
+    where readRaw = \ptr_0 -> pure Baz <*> readRaw (Proxy @"baz_x3_1") ptr_0
+instance WriteRaw Baz
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Baz baz_x3_1_2 -> writeRaw (Proxy @"baz_x3_1") ptr_0 baz_x3_1_2
+deriving via (EquivStorable Baz) instance Storable Baz
+instance HasCField Baz "baz_x3_1"
+    where type CFieldType Baz "baz_x3_1" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "baz_x3_1" (Ptr Baz) (Ptr ty)
+    where getField = fromPtr (Proxy @"baz_x3_1")
+-- __unique:__ @test_typesscopingwide_nesting_Example_get_X@
+foreign import ccall unsafe "hs_bindgen_a295757aed8ccce9" hs_bindgen_a295757aed8ccce9_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_typesscopingwide_nesting_Example_get_X@
+hs_bindgen_a295757aed8ccce9 :: IO (Ptr Baz)
+-- __unique:__ @test_typesscopingwide_nesting_Example_get_X@
+hs_bindgen_a295757aed8ccce9 = fromFFIType hs_bindgen_a295757aed8ccce9_base
+{-# NOINLINE x #-}
+{-| __C declaration:__ @X@
+
+    __defined at:__ @types\/scoping\/wide_nesting.h 26:19@
+
+    __exported by:__ @types\/scoping\/wide_nesting.h@
+-}
+x :: Ptr Baz
+{-| __C declaration:__ @X@
+
+    __defined at:__ @types\/scoping\/wide_nesting.h 26:19@
+
+    __exported by:__ @types\/scoping\/wide_nesting.h@
+-}
+x = unsafePerformIO hs_bindgen_a295757aed8ccce9
