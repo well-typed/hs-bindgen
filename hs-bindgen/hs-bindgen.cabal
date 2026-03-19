@@ -475,12 +475,12 @@ test-suite test-th
 
   other-modules:
     Test.Bitfields
+    Test.TH.Bitfields
     Test.TH.RecordDot
     Test.TH.StaticCounterA
     Test.TH.StaticCounterB
     Test.TH.Test01
     Test.TH.Test02
-    Test.TH.TestBitfields
 
   -- Internal dependencies
   build-depends:

@@ -1,3 +1,9 @@
+-- | Bit-field tests
+--
+-- Note that this generates bindings for a header that is also tested using
+-- golden tests.  This module is used by "Test.Bitfields" to implement property
+-- tests.
+
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
@@ -13,7 +19,7 @@
 
 -- {-# OPTIONS_GHC -ddump-splices #-}
 
-module Test.TH.TestBitfields where
+module Test.TH.Bitfields where
 
 import Optics ((%), (&), (.~))
 
@@ -21,8 +27,10 @@ import HsBindgen.TH
 
 let cfg :: Config
     cfg = def
+      -- Include directory @examples/golden@ is /not/ used because include
+      -- directory @examples@ is used in the Cabal configuration.
       & #clang % #extraIncludeDirs .~ [Pkg "examples"]
     cfgTh :: ConfigTH
     cfgTh = def
  in withHsBindgen cfg cfgTh $
-      hashInclude "test_bitfields.h"
+      hashInclude "golden/types/structs/bitfields.h"

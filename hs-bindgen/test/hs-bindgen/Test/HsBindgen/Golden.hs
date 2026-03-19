@@ -182,7 +182,6 @@ testCases_default = [
     , defaultTest "types/qualifiers/const_typedefs"
     , defaultTest "types/qualifiers/type_qualifiers"
     , defaultTest "types/structs/anonymous"
-    , defaultTest "types/structs/bitfields"
     , defaultTest "types/structs/circular_dependency_struct"
     , defaultTest "types/structs/recursive_struct"
     , defaultTest "types/structs/simple_structs"
@@ -1775,6 +1774,7 @@ testCases_bespoke_types = [
     , test_types_primitives_bool_c23
     , test_types_primitives_least_fast
     , test_types_special_parse_failure_long_double
+    , test_types_structs_bitfields
     , test_types_structs_named_vs_anon
     , test_types_structs_omit_field_prefixes
     , test_types_structs_post_qualified
@@ -1828,6 +1828,11 @@ test_types_special_parse_failure_long_double =
   where
     declsWithMsgs :: [CDeclName]
     declsWithMsgs = ["fun1", "struct struct1"]
+
+test_types_structs_bitfields :: TestCase
+test_types_structs_bitfields =
+    defaultTest "types/structs/bitfields"
+      & #cStandard .~ c99  -- C99 required for inline functions
 
 test_types_structs_named_vs_anon :: TestCase
 test_types_structs_named_vs_anon =

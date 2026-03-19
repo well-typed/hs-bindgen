@@ -12,734 +12,1474 @@
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example
-    ( Example.Flags(..)
-    , Example.Overflow32(..)
-    , Example.Overflow32b(..)
-    , Example.Overflow32c(..)
-    , Example.Overflow64(..)
-    , Example.AlignA(..)
-    , Example.AlignB(..)
+    ( Example.Foo_8(..)
+    , Example.Foo_16(..)
+    , Example.Foo_32(..)
+    , Example.Foo_64(..)
+    , Example.Bar_8_8(..)
+    , Example.Bar_8_16(..)
+    , Example.Bar_8_32(..)
+    , Example.Bar_8_64(..)
+    , Example.Bar_16_16(..)
+    , Example.Bar_16_32(..)
+    , Example.Bar_16_64(..)
+    , Example.Bar_32_32(..)
+    , Example.Bar_32_64(..)
+    , Example.Bar_64_64(..)
     )
   where
 
 import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
 import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
-import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
 
-{-| __C declaration:__ @struct flags@
+{-| ***************************************************************************** not packed, < =8-bit fields ****************************************************************************
 
-    __defined at:__ @types\/structs\/bitfields.h 1:8@
+__C declaration:__ @struct foo_8@
 
-    __exported by:__ @types\/structs\/bitfields.h@
+__defined at:__ @types\/structs\/bitfields.h 25:8@
+
+__exported by:__ @types\/structs\/bitfields.h@
 -}
-data Flags = Flags
-  { flags_fieldX :: RIP.CChar
-    {- ^ __C declaration:__ @fieldX@
+data Foo_8 = Foo_8
+  { foo_8_a :: RIP.CSChar
+    {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 2:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , flags_flagA :: RIP.CInt
-    {- ^ __C declaration:__ @flagA@
-
-         __defined at:__ @types\/structs\/bitfields.h 3:9@
+         __defined at:__ @types\/structs\/bitfields.h 26:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_flagB :: RIP.CInt
-    {- ^ __C declaration:__ @flagB@
+  , foo_8_b :: RIP.CSChar
+    {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 4:9@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , flags_flagC :: RIP.CInt
-    {- ^ __C declaration:__ @flagC@
-
-         __defined at:__ @types\/structs\/bitfields.h 5:9@
+         __defined at:__ @types\/structs\/bitfields.h 27:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_fieldY :: RIP.CChar
-    {- ^ __C declaration:__ @fieldY@
+  , foo_8_c :: RIP.CSChar
+    {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/bitfields.h 6:10@
+         __defined at:__ @types\/structs\/bitfields.h 28:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , flags_bits :: RIP.CInt
-    {- ^ __C declaration:__ @bits@
+  , foo_8_d :: RIP.CSChar
+    {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/bitfields.h 7:9@
+         __defined at:__ @types\/structs\/bitfields.h 29:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_8_e :: RIP.CSChar
+    {- ^ __C declaration:__ @e@
+
+         __defined at:__ @types\/structs\/bitfields.h 30:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_8_f :: RIP.CSChar
+    {- ^ __C declaration:__ @f@
+
+         __defined at:__ @types\/structs\/bitfields.h 31:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize Flags where
+instance Marshal.StaticSize Foo_8 where
 
   staticSizeOf = \_ -> (4 :: Int)
 
-  staticAlignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (1 :: Int)
 
-instance Marshal.ReadRaw Flags where
+instance Marshal.ReadRaw Foo_8 where
 
   readRaw =
     \ptr0 ->
-          pure Flags
-      <*> HasCField.readRaw (RIP.Proxy @"flags_fieldX") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"flags_flagA") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"flags_flagB") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"flags_flagC") ptr0
-      <*> HasCField.readRaw (RIP.Proxy @"flags_fieldY") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"flags_bits") ptr0
+          pure Foo_8
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_8_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_8_b") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_8_c") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_8_d") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_8_e") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_8_f") ptr0
 
-instance Marshal.WriteRaw Flags where
+instance Marshal.WriteRaw Foo_8 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Flags
-            flags_fieldX2
-            flags_flagA3
-            flags_flagB4
-            flags_flagC5
-            flags_fieldY6
-            flags_bits7 ->
-                 HasCField.writeRaw (RIP.Proxy @"flags_fieldX") ptr0 flags_fieldX2
-              >> HasCBitfield.poke (RIP.Proxy @"flags_flagA") ptr0 flags_flagA3
-              >> HasCBitfield.poke (RIP.Proxy @"flags_flagB") ptr0 flags_flagB4
-              >> HasCBitfield.poke (RIP.Proxy @"flags_flagC") ptr0 flags_flagC5
-              >> HasCField.writeRaw (RIP.Proxy @"flags_fieldY") ptr0 flags_fieldY6
-              >> HasCBitfield.poke (RIP.Proxy @"flags_bits") ptr0 flags_bits7
+          Foo_8 foo_8_a2 foo_8_b3 foo_8_c4 foo_8_d5 foo_8_e6 foo_8_f7 ->
+               HasCBitfield.poke (RIP.Proxy @"foo_8_a") ptr0 foo_8_a2
+            >> HasCBitfield.poke (RIP.Proxy @"foo_8_b") ptr0 foo_8_b3
+            >> HasCBitfield.poke (RIP.Proxy @"foo_8_c") ptr0 foo_8_c4
+            >> HasCBitfield.poke (RIP.Proxy @"foo_8_d") ptr0 foo_8_d5
+            >> HasCBitfield.poke (RIP.Proxy @"foo_8_e") ptr0 foo_8_e6
+            >> HasCBitfield.poke (RIP.Proxy @"foo_8_f") ptr0 foo_8_f7
 
-deriving via Marshal.EquivStorable Flags instance RIP.Storable Flags
+deriving via Marshal.EquivStorable Foo_8 instance RIP.Storable Foo_8
 
-instance HasCField.HasCField Flags "flags_fieldX" where
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_a" where
 
-  type CFieldType Flags "flags_fieldX" = RIP.CChar
+  type CBitfieldType Foo_8 "foo_8_a" = RIP.CSChar
 
-  offset# = \_ -> \_ -> 0
+  bitfieldOffset# = \_ -> \_ -> 0
 
-instance ( ((~) ty) RIP.CChar
-         ) => RIP.HasField "flags_fieldX" (RIP.Ptr Flags) (RIP.Ptr ty) where
+  bitfieldWidth# = \_ -> \_ -> 3
 
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"flags_fieldX")
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_8_a" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-instance HasCBitfield.HasCBitfield Flags "flags_flagA" where
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_a")
 
-  type CBitfieldType Flags "flags_flagA" = RIP.CInt
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_b" where
 
-  bitfieldOffset# = \_ -> \_ -> 8
+  type CBitfieldType Foo_8 "foo_8_b" = RIP.CSChar
 
-  bitfieldWidth# = \_ -> \_ -> 1
+  bitfieldOffset# = \_ -> \_ -> 3
 
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "flags_flagA" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
+  bitfieldWidth# = \_ -> \_ -> 3
 
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"flags_flagA")
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_8_b" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-instance HasCBitfield.HasCBitfield Flags "flags_flagB" where
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_b")
 
-  type CBitfieldType Flags "flags_flagB" = RIP.CInt
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_c" where
 
-  bitfieldOffset# = \_ -> \_ -> 9
+  type CBitfieldType Foo_8 "foo_8_c" = RIP.CSChar
 
-  bitfieldWidth# = \_ -> \_ -> 1
-
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "flags_flagB" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"flags_flagB")
-
-instance HasCBitfield.HasCBitfield Flags "flags_flagC" where
-
-  type CBitfieldType Flags "flags_flagC" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 10
-
-  bitfieldWidth# = \_ -> \_ -> 1
-
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "flags_flagC" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"flags_flagC")
-
-instance HasCField.HasCField Flags "flags_fieldY" where
-
-  type CFieldType Flags "flags_fieldY" = RIP.CChar
-
-  offset# = \_ -> \_ -> 2
-
-instance ( ((~) ty) RIP.CChar
-         ) => RIP.HasField "flags_fieldY" (RIP.Ptr Flags) (RIP.Ptr ty) where
-
-  getField =
-    HasCField.fromPtr (RIP.Proxy @"flags_fieldY")
-
-instance HasCBitfield.HasCBitfield Flags "flags_bits" where
-
-  type CBitfieldType Flags "flags_bits" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 24
+  bitfieldOffset# = \_ -> \_ -> 6
 
   bitfieldWidth# = \_ -> \_ -> 2
 
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "flags_bits" (RIP.Ptr Flags) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_8_c" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"flags_bits")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_c")
 
-{-| __C declaration:__ @struct overflow32@
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_d" where
 
-    __defined at:__ @types\/structs\/bitfields.h 12:8@
+  type CBitfieldType Foo_8 "foo_8_d" = RIP.CSChar
 
-    __exported by:__ @types\/structs\/bitfields.h@
+  bitfieldOffset# = \_ -> \_ -> 8
+
+  bitfieldWidth# = \_ -> \_ -> 3
+
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_8_d" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_d")
+
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_e" where
+
+  type CBitfieldType Foo_8 "foo_8_e" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 16
+
+  bitfieldWidth# = \_ -> \_ -> 8
+
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_8_e" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_e")
+
+instance HasCBitfield.HasCBitfield Foo_8 "foo_8_f" where
+
+  type CBitfieldType Foo_8 "foo_8_f" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 24
+
+  bitfieldWidth# = \_ -> \_ -> 5
+
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_8_f" (RIP.Ptr Foo_8) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_8_f")
+
+{-| ***************************************************************************** not packed, < =16-bit fields ****************************************************************************
+
+__C declaration:__ @struct foo_16@
+
+__defined at:__ @types\/structs\/bitfields.h 70:8@
+
+__exported by:__ @types\/structs\/bitfields.h@
 -}
-data Overflow32 = Overflow32
-  { overflow32_x :: RIP.CInt
-    {- ^ __C declaration:__ @x@
+data Foo_16 = Foo_16
+  { foo_16_a :: RIP.CSChar
+    {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 13:9@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , overflow32_y :: RIP.CInt
-    {- ^ __C declaration:__ @y@
-
-         __defined at:__ @types\/structs\/bitfields.h 14:9@
+         __defined at:__ @types\/structs\/bitfields.h 71:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , overflow32_z :: RIP.CInt
-    {- ^ __C declaration:__ @z@
+  , foo_16_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 15:9@
+         __defined at:__ @types\/structs\/bitfields.h 72:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_16_c :: RIP.CInt
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @types\/structs\/bitfields.h 73:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_16_d :: RIP.CInt
+    {- ^ __C declaration:__ @d@
+
+         __defined at:__ @types\/structs\/bitfields.h 74:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_16_e :: RIP.CInt
+    {- ^ __C declaration:__ @e@
+
+         __defined at:__ @types\/structs\/bitfields.h 75:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_16_f :: RIP.CInt
+    {- ^ __C declaration:__ @f@
+
+         __defined at:__ @types\/structs\/bitfields.h 76:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize Overflow32 where
+instance Marshal.StaticSize Foo_16 where
 
   staticSizeOf = \_ -> (12 :: Int)
 
   staticAlignment = \_ -> (4 :: Int)
 
-instance Marshal.ReadRaw Overflow32 where
+instance Marshal.ReadRaw Foo_16 where
 
   readRaw =
     \ptr0 ->
-          pure Overflow32
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32_y") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32_z") ptr0
+          pure Foo_16
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_16_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_16_b") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_16_c") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_16_d") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_16_e") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_16_f") ptr0
 
-instance Marshal.WriteRaw Overflow32 where
+instance Marshal.WriteRaw Foo_16 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Overflow32 overflow32_x2 overflow32_y3 overflow32_z4 ->
-               HasCBitfield.poke (RIP.Proxy @"overflow32_x") ptr0 overflow32_x2
-            >> HasCBitfield.poke (RIP.Proxy @"overflow32_y") ptr0 overflow32_y3
-            >> HasCBitfield.poke (RIP.Proxy @"overflow32_z") ptr0 overflow32_z4
+          Foo_16 foo_16_a2 foo_16_b3 foo_16_c4 foo_16_d5 foo_16_e6 foo_16_f7 ->
+               HasCBitfield.poke (RIP.Proxy @"foo_16_a") ptr0 foo_16_a2
+            >> HasCBitfield.poke (RIP.Proxy @"foo_16_b") ptr0 foo_16_b3
+            >> HasCBitfield.poke (RIP.Proxy @"foo_16_c") ptr0 foo_16_c4
+            >> HasCBitfield.poke (RIP.Proxy @"foo_16_d") ptr0 foo_16_d5
+            >> HasCBitfield.poke (RIP.Proxy @"foo_16_e") ptr0 foo_16_e6
+            >> HasCBitfield.poke (RIP.Proxy @"foo_16_f") ptr0 foo_16_f7
 
-deriving via Marshal.EquivStorable Overflow32 instance RIP.Storable Overflow32
+deriving via Marshal.EquivStorable Foo_16 instance RIP.Storable Foo_16
 
-instance HasCBitfield.HasCBitfield Overflow32 "overflow32_x" where
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_a" where
 
-  type CBitfieldType Overflow32 "overflow32_x" =
-    RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "overflow32_x" (RIP.Ptr Overflow32) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32_x")
-
-instance HasCBitfield.HasCBitfield Overflow32 "overflow32_y" where
-
-  type CBitfieldType Overflow32 "overflow32_y" =
-    RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 32
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "overflow32_y" (RIP.Ptr Overflow32) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32_y")
-
-instance HasCBitfield.HasCBitfield Overflow32 "overflow32_z" where
-
-  type CBitfieldType Overflow32 "overflow32_z" =
-    RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 64
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "overflow32_z" (RIP.Ptr Overflow32) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32_z")
-
-{-| __C declaration:__ @struct overflow32b@
-
-    __defined at:__ @types\/structs\/bitfields.h 18:8@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-data Overflow32b = Overflow32b
-  { overflow32b_x :: RIP.CLong
-    {- ^ __C declaration:__ @x@
-
-         __defined at:__ @types\/structs\/bitfields.h 19:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , overflow32b_y :: RIP.CLong
-    {- ^ __C declaration:__ @y@
-
-         __defined at:__ @types\/structs\/bitfields.h 20:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , overflow32b_z :: RIP.CLong
-    {- ^ __C declaration:__ @z@
-
-         __defined at:__ @types\/structs\/bitfields.h 21:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  }
-  deriving stock (Eq, RIP.Generic, Show)
-
-instance Marshal.StaticSize Overflow32b where
-
-  staticSizeOf = \_ -> (8 :: Int)
-
-  staticAlignment = \_ -> (8 :: Int)
-
-instance Marshal.ReadRaw Overflow32b where
-
-  readRaw =
-    \ptr0 ->
-          pure Overflow32b
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32b_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32b_y") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32b_z") ptr0
-
-instance Marshal.WriteRaw Overflow32b where
-
-  writeRaw =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Overflow32b overflow32b_x2 overflow32b_y3 overflow32b_z4 ->
-               HasCBitfield.poke (RIP.Proxy @"overflow32b_x") ptr0 overflow32b_x2
-            >> HasCBitfield.poke (RIP.Proxy @"overflow32b_y") ptr0 overflow32b_y3
-            >> HasCBitfield.poke (RIP.Proxy @"overflow32b_z") ptr0 overflow32b_z4
-
-deriving via Marshal.EquivStorable Overflow32b instance RIP.Storable Overflow32b
-
-instance HasCBitfield.HasCBitfield Overflow32b "overflow32b_x" where
-
-  type CBitfieldType Overflow32b "overflow32b_x" =
-    RIP.CLong
+  type CBitfieldType Foo_16 "foo_16_a" = RIP.CSChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
-  bitfieldWidth# = \_ -> \_ -> 17
+  bitfieldWidth# = \_ -> \_ -> 6
 
-instance ( ((~) ty) RIP.CLong
-         ) => RIP.HasField "overflow32b_x" (RIP.Ptr Overflow32b) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_16_a" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32b_x")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_a")
 
-instance HasCBitfield.HasCBitfield Overflow32b "overflow32b_y" where
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_b" where
 
-  type CBitfieldType Overflow32b "overflow32b_y" =
-    RIP.CLong
+  type CBitfieldType Foo_16 "foo_16_b" = RIP.CInt
 
-  bitfieldOffset# = \_ -> \_ -> 17
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CLong
-         ) => RIP.HasField "overflow32b_y" (RIP.Ptr Overflow32b) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32b_y")
-
-instance HasCBitfield.HasCBitfield Overflow32b "overflow32b_z" where
-
-  type CBitfieldType Overflow32b "overflow32b_z" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 34
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CLong
-         ) => RIP.HasField "overflow32b_z" (RIP.Ptr Overflow32b) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32b_z")
-
-{-| __C declaration:__ @struct overflow32c@
-
-    __defined at:__ @types\/structs\/bitfields.h 24:8@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-data Overflow32c = Overflow32c
-  { overflow32c_x :: RIP.CLong
-    {- ^ __C declaration:__ @x@
-
-         __defined at:__ @types\/structs\/bitfields.h 25:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , overflow32c_y :: RIP.CInt
-    {- ^ __C declaration:__ @y@
-
-         __defined at:__ @types\/structs\/bitfields.h 26:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , overflow32c_z :: RIP.CLong
-    {- ^ __C declaration:__ @z@
-
-         __defined at:__ @types\/structs\/bitfields.h 27:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  }
-  deriving stock (Eq, RIP.Generic, Show)
-
-instance Marshal.StaticSize Overflow32c where
-
-  staticSizeOf = \_ -> (16 :: Int)
-
-  staticAlignment = \_ -> (8 :: Int)
-
-instance Marshal.ReadRaw Overflow32c where
-
-  readRaw =
-    \ptr0 ->
-          pure Overflow32c
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32c_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32c_y") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow32c_z") ptr0
-
-instance Marshal.WriteRaw Overflow32c where
-
-  writeRaw =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Overflow32c overflow32c_x2 overflow32c_y3 overflow32c_z4 ->
-               HasCBitfield.poke (RIP.Proxy @"overflow32c_x") ptr0 overflow32c_x2
-            >> HasCBitfield.poke (RIP.Proxy @"overflow32c_y") ptr0 overflow32c_y3
-            >> HasCBitfield.poke (RIP.Proxy @"overflow32c_z") ptr0 overflow32c_z4
-
-deriving via Marshal.EquivStorable Overflow32c instance RIP.Storable Overflow32c
-
-instance HasCBitfield.HasCBitfield Overflow32c "overflow32c_x" where
-
-  type CBitfieldType Overflow32c "overflow32c_x" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CLong
-         ) => RIP.HasField "overflow32c_x" (RIP.Ptr Overflow32c) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32c_x")
-
-instance HasCBitfield.HasCBitfield Overflow32c "overflow32c_y" where
-
-  type CBitfieldType Overflow32c "overflow32c_y" =
-    RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 32
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "overflow32c_y" (RIP.Ptr Overflow32c) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32c_y")
-
-instance HasCBitfield.HasCBitfield Overflow32c "overflow32c_z" where
-
-  type CBitfieldType Overflow32c "overflow32c_z" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 64
-
-  bitfieldWidth# = \_ -> \_ -> 17
-
-instance ( ((~) ty) RIP.CLong
-         ) => RIP.HasField "overflow32c_z" (RIP.Ptr Overflow32c) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow32c_z")
-
-{-| __C declaration:__ @struct overflow64@
-
-    __defined at:__ @types\/structs\/bitfields.h 30:8@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-data Overflow64 = Overflow64
-  { overflow64_x :: RIP.CLong
-    {- ^ __C declaration:__ @x@
-
-         __defined at:__ @types\/structs\/bitfields.h 31:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , overflow64_y :: RIP.CLong
-    {- ^ __C declaration:__ @y@
-
-         __defined at:__ @types\/structs\/bitfields.h 32:10@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  }
-  deriving stock (Eq, RIP.Generic, Show)
-
-instance Marshal.StaticSize Overflow64 where
-
-  staticSizeOf = \_ -> (16 :: Int)
-
-  staticAlignment = \_ -> (8 :: Int)
-
-instance Marshal.ReadRaw Overflow64 where
-
-  readRaw =
-    \ptr0 ->
-          pure Overflow64
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow64_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"overflow64_y") ptr0
-
-instance Marshal.WriteRaw Overflow64 where
-
-  writeRaw =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Overflow64 overflow64_x2 overflow64_y3 ->
-               HasCBitfield.poke (RIP.Proxy @"overflow64_x") ptr0 overflow64_x2
-            >> HasCBitfield.poke (RIP.Proxy @"overflow64_y") ptr0 overflow64_y3
-
-deriving via Marshal.EquivStorable Overflow64 instance RIP.Storable Overflow64
-
-instance HasCBitfield.HasCBitfield Overflow64 "overflow64_x" where
-
-  type CBitfieldType Overflow64 "overflow64_x" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 33
-
-instance ( ((~) ty) RIP.CLong
-         ) => RIP.HasField "overflow64_x" (RIP.Ptr Overflow64) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow64_x")
-
-instance HasCBitfield.HasCBitfield Overflow64 "overflow64_y" where
-
-  type CBitfieldType Overflow64 "overflow64_y" =
-    RIP.CLong
-
-  bitfieldOffset# = \_ -> \_ -> 64
-
-  bitfieldWidth# = \_ -> \_ -> 33
-
-instance ( ((~) ty) RIP.CLong
-         ) => RIP.HasField "overflow64_y" (RIP.Ptr Overflow64) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField =
-    HasCBitfield.toPtr (RIP.Proxy @"overflow64_y")
-
-{-| __C declaration:__ @struct alignA@
-
-    __defined at:__ @types\/structs\/bitfields.h 36:8@
-
-    __exported by:__ @types\/structs\/bitfields.h@
--}
-data AlignA = AlignA
-  { alignA_x :: RIP.CUChar
-    {- ^ __C declaration:__ @x@
-
-         __defined at:__ @types\/structs\/bitfields.h 37:16@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  , alignA_y :: RIP.CInt
-    {- ^ __C declaration:__ @y@
-
-         __defined at:__ @types\/structs\/bitfields.h 38:6@
-
-         __exported by:__ @types\/structs\/bitfields.h@
-    -}
-  }
-  deriving stock (Eq, RIP.Generic, Show)
-
-instance Marshal.StaticSize AlignA where
-
-  staticSizeOf = \_ -> (4 :: Int)
-
-  staticAlignment = \_ -> (4 :: Int)
-
-instance Marshal.ReadRaw AlignA where
-
-  readRaw =
-    \ptr0 ->
-          pure AlignA
-      <*> HasCBitfield.peek (RIP.Proxy @"alignA_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"alignA_y") ptr0
-
-instance Marshal.WriteRaw AlignA where
-
-  writeRaw =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          AlignA alignA_x2 alignA_y3 ->
-               HasCBitfield.poke (RIP.Proxy @"alignA_x") ptr0 alignA_x2
-            >> HasCBitfield.poke (RIP.Proxy @"alignA_y") ptr0 alignA_y3
-
-deriving via Marshal.EquivStorable AlignA instance RIP.Storable AlignA
-
-instance HasCBitfield.HasCBitfield AlignA "alignA_x" where
-
-  type CBitfieldType AlignA "alignA_x" = RIP.CUChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 1
-
-instance ( ((~) ty) RIP.CUChar
-         ) => RIP.HasField "alignA_x" (RIP.Ptr AlignA) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"alignA_x")
-
-instance HasCBitfield.HasCBitfield AlignA "alignA_y" where
-
-  type CBitfieldType AlignA "alignA_y" = RIP.CInt
-
-  bitfieldOffset# = \_ -> \_ -> 1
+  bitfieldOffset# = \_ -> \_ -> 6
 
   bitfieldWidth# = \_ -> \_ -> 10
 
 instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "alignA_y" (RIP.Ptr AlignA) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_16_b" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"alignA_y")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_b")
 
-{-| __C declaration:__ @struct alignB@
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_c" where
 
-    __defined at:__ @types\/structs\/bitfields.h 41:8@
+  type CBitfieldType Foo_16 "foo_16_c" = RIP.CInt
 
-    __exported by:__ @types\/structs\/bitfields.h@
+  bitfieldOffset# = \_ -> \_ -> 16
+
+  bitfieldWidth# = \_ -> \_ -> 16
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "foo_16_c" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_c")
+
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_d" where
+
+  type CBitfieldType Foo_16 "foo_16_d" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 32
+
+  bitfieldWidth# = \_ -> \_ -> 16
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "foo_16_d" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_d")
+
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_e" where
+
+  type CBitfieldType Foo_16 "foo_16_e" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 48
+
+  bitfieldWidth# = \_ -> \_ -> 12
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "foo_16_e" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_e")
+
+instance HasCBitfield.HasCBitfield Foo_16 "foo_16_f" where
+
+  type CBitfieldType Foo_16 "foo_16_f" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 64
+
+  bitfieldWidth# = \_ -> \_ -> 12
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "foo_16_f" (RIP.Ptr Foo_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_16_f")
+
+{-| ***************************************************************************** not packed, < =32-bit fields ****************************************************************************
+
+__C declaration:__ @struct foo_32@
+
+__defined at:__ @types\/structs\/bitfields.h 115:8@
+
+__exported by:__ @types\/structs\/bitfields.h@
 -}
-data AlignB = AlignB
-  { alignB_x :: RIP.CUChar
-    {- ^ __C declaration:__ @x@
+data Foo_32 = Foo_32
+  { foo_32_a :: RIP.CSChar
+    {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/bitfields.h 42:16@
+         __defined at:__ @types\/structs\/bitfields.h 116:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
-  , alignB_y :: RIP.CInt
-    {- ^ __C declaration:__ @y@
+  , foo_32_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/bitfields.h 43:6@
+         __defined at:__ @types\/structs\/bitfields.h 117:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_32_c :: RIP.CInt
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @types\/structs\/bitfields.h 118:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_32_d :: RIP.CInt
+    {- ^ __C declaration:__ @d@
+
+         __defined at:__ @types\/structs\/bitfields.h 119:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_32_e :: RIP.CLong
+    {- ^ __C declaration:__ @e@
+
+         __defined at:__ @types\/structs\/bitfields.h 120:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_32_f :: RIP.CInt
+    {- ^ __C declaration:__ @f@
+
+         __defined at:__ @types\/structs\/bitfields.h 121:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_32_g :: RIP.CLong
+    {- ^ __C declaration:__ @g@
+
+         __defined at:__ @types\/structs\/bitfields.h 122:15@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   }
   deriving stock (Eq, RIP.Generic, Show)
 
-instance Marshal.StaticSize AlignB where
+instance Marshal.StaticSize Foo_32 where
 
-  staticSizeOf = \_ -> (8 :: Int)
+  staticSizeOf = \_ -> (16 :: Int)
 
-  staticAlignment = \_ -> (4 :: Int)
+  staticAlignment = \_ -> (8 :: Int)
 
-instance Marshal.ReadRaw AlignB where
+instance Marshal.ReadRaw Foo_32 where
 
   readRaw =
     \ptr0 ->
-          pure AlignB
-      <*> HasCBitfield.peek (RIP.Proxy @"alignB_x") ptr0
-      <*> HasCBitfield.peek (RIP.Proxy @"alignB_y") ptr0
+          pure Foo_32
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_32_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_32_b") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_32_c") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_32_d") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_32_e") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_32_f") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_32_g") ptr0
 
-instance Marshal.WriteRaw AlignB where
+instance Marshal.WriteRaw Foo_32 where
 
   writeRaw =
     \ptr0 ->
       \s1 ->
         case s1 of
-          AlignB alignB_x2 alignB_y3 ->
-               HasCBitfield.poke (RIP.Proxy @"alignB_x") ptr0 alignB_x2
-            >> HasCBitfield.poke (RIP.Proxy @"alignB_y") ptr0 alignB_y3
+          Foo_32 foo_32_a2 foo_32_b3 foo_32_c4 foo_32_d5 foo_32_e6 foo_32_f7 foo_32_g8 ->
+               HasCBitfield.poke (RIP.Proxy @"foo_32_a") ptr0 foo_32_a2
+            >> HasCBitfield.poke (RIP.Proxy @"foo_32_b") ptr0 foo_32_b3
+            >> HasCBitfield.poke (RIP.Proxy @"foo_32_c") ptr0 foo_32_c4
+            >> HasCBitfield.poke (RIP.Proxy @"foo_32_d") ptr0 foo_32_d5
+            >> HasCBitfield.poke (RIP.Proxy @"foo_32_e") ptr0 foo_32_e6
+            >> HasCBitfield.poke (RIP.Proxy @"foo_32_f") ptr0 foo_32_f7
+            >> HasCBitfield.poke (RIP.Proxy @"foo_32_g") ptr0 foo_32_g8
 
-deriving via Marshal.EquivStorable AlignB instance RIP.Storable AlignB
+deriving via Marshal.EquivStorable Foo_32 instance RIP.Storable Foo_32
 
-instance HasCBitfield.HasCBitfield AlignB "alignB_x" where
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_a" where
 
-  type CBitfieldType AlignB "alignB_x" = RIP.CUChar
+  type CBitfieldType Foo_32 "foo_32_a" = RIP.CSChar
 
   bitfieldOffset# = \_ -> \_ -> 0
 
-  bitfieldWidth# = \_ -> \_ -> 7
+  bitfieldWidth# = \_ -> \_ -> 6
 
-instance ( ((~) ty) RIP.CUChar
-         ) => RIP.HasField "alignB_x" (RIP.Ptr AlignB) (BitfieldPtr.BitfieldPtr ty) where
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "foo_32_a" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"alignB_x")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_a")
 
-instance HasCBitfield.HasCBitfield AlignB "alignB_y" where
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_b" where
 
-  type CBitfieldType AlignB "alignB_y" = RIP.CInt
+  type CBitfieldType Foo_32 "foo_32_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 6
+
+  bitfieldWidth# = \_ -> \_ -> 12
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "foo_32_b" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_b")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_c" where
+
+  type CBitfieldType Foo_32 "foo_32_c" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 18
+
+  bitfieldWidth# = \_ -> \_ -> 14
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "foo_32_c" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_c")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_d" where
+
+  type CBitfieldType Foo_32 "foo_32_d" = RIP.CInt
 
   bitfieldOffset# = \_ -> \_ -> 32
 
-  bitfieldWidth# = \_ -> \_ -> 31
+  bitfieldWidth# = \_ -> \_ -> 10
 
 instance ( ((~) ty) RIP.CInt
-         ) => RIP.HasField "alignB_y" (RIP.Ptr AlignB) (BitfieldPtr.BitfieldPtr ty) where
+         ) => RIP.HasField "foo_32_d" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
 
-  getField = HasCBitfield.toPtr (RIP.Proxy @"alignB_y")
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_d")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_e" where
+
+  type CBitfieldType Foo_32 "foo_32_e" = RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 64
+
+  bitfieldWidth# = \_ -> \_ -> 32
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "foo_32_e" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_e")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_f" where
+
+  type CBitfieldType Foo_32 "foo_32_f" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 96
+
+  bitfieldWidth# = \_ -> \_ -> 6
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "foo_32_f" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_f")
+
+instance HasCBitfield.HasCBitfield Foo_32 "foo_32_g" where
+
+  type CBitfieldType Foo_32 "foo_32_g" = RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 102
+
+  bitfieldWidth# = \_ -> \_ -> 24
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "foo_32_g" (RIP.Ptr Foo_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_32_g")
+
+{-| ***************************************************************************** not packed, < =64-bit fields ****************************************************************************
+
+__C declaration:__ @struct foo_64@
+
+__defined at:__ @types\/structs\/bitfields.h 165:8@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Foo_64 = Foo_64
+  { foo_64_a :: RIP.CLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 166:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_64_b :: RIP.CLLong
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 167:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_64_c :: RIP.CLLong
+    {- ^ __C declaration:__ @c@
+
+         __defined at:__ @types\/structs\/bitfields.h 168:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , foo_64_d :: RIP.CLLong
+    {- ^ __C declaration:__ @d@
+
+         __defined at:__ @types\/structs\/bitfields.h 169:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Foo_64 where
+
+  staticSizeOf = \_ -> (24 :: Int)
+
+  staticAlignment = \_ -> (8 :: Int)
+
+instance Marshal.ReadRaw Foo_64 where
+
+  readRaw =
+    \ptr0 ->
+          pure Foo_64
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_64_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_64_b") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_64_c") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"foo_64_d") ptr0
+
+instance Marshal.WriteRaw Foo_64 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Foo_64 foo_64_a2 foo_64_b3 foo_64_c4 foo_64_d5 ->
+               HasCBitfield.poke (RIP.Proxy @"foo_64_a") ptr0 foo_64_a2
+            >> HasCBitfield.poke (RIP.Proxy @"foo_64_b") ptr0 foo_64_b3
+            >> HasCBitfield.poke (RIP.Proxy @"foo_64_c") ptr0 foo_64_c4
+            >> HasCBitfield.poke (RIP.Proxy @"foo_64_d") ptr0 foo_64_d5
+
+deriving via Marshal.EquivStorable Foo_64 instance RIP.Storable Foo_64
+
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_a" where
+
+  type CBitfieldType Foo_64 "foo_64_a" = RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 24
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "foo_64_a" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_a")
+
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_b" where
+
+  type CBitfieldType Foo_64 "foo_64_b" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 24
+
+  bitfieldWidth# = \_ -> \_ -> 40
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "foo_64_b" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_b")
+
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_c" where
+
+  type CBitfieldType Foo_64 "foo_64_c" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 64
+
+  bitfieldWidth# = \_ -> \_ -> 64
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "foo_64_c" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_c")
+
+instance HasCBitfield.HasCBitfield Foo_64 "foo_64_d" where
+
+  type CBitfieldType Foo_64 "foo_64_d" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 128
+
+  bitfieldWidth# = \_ -> \_ -> 36
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "foo_64_d" (RIP.Ptr Foo_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField = HasCBitfield.toPtr (RIP.Proxy @"foo_64_d")
+
+{-| ***************************************************************************** packed, < =8-bit field crosses 8-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_8_8@
+
+__defined at:__ @types\/structs\/bitfields.h 200:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_8 = Bar_8_8
+  { bar_8_8_a :: RIP.CSChar
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 201:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_8_8_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 202:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_8_8 where
+
+  staticSizeOf = \_ -> (2 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_8_8 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_8_8
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_8_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_8_b") ptr0
+
+instance Marshal.WriteRaw Bar_8_8 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_8_8 bar_8_8_a2 bar_8_8_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_8_8_a") ptr0 bar_8_8_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_8_8_b") ptr0 bar_8_8_b3
+
+deriving via Marshal.EquivStorable Bar_8_8 instance RIP.Storable Bar_8_8
+
+instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_a" where
+
+  type CBitfieldType Bar_8_8 "bar_8_8_a" = RIP.CSChar
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 6
+
+instance ( ((~) ty) RIP.CSChar
+         ) => RIP.HasField "bar_8_8_a" (RIP.Ptr Bar_8_8) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_8 "bar_8_8_b" where
+
+  type CBitfieldType Bar_8_8 "bar_8_8_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 6
+
+  bitfieldWidth# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_8_8_b" (RIP.Ptr Bar_8_8) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_8_b")
+
+{-| ***************************************************************************** packed, < =8-bit field crosses 16-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_8_16@
+
+__defined at:__ @types\/structs\/bitfields.h 225:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_16 = Bar_8_16
+  { bar_8_16_a :: RIP.CInt
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 226:14@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_8_16_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 227:14@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_8_16 where
+
+  staticSizeOf = \_ -> (3 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_8_16 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_8_16
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_16_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_16_b") ptr0
+
+instance Marshal.WriteRaw Bar_8_16 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_8_16 bar_8_16_a2 bar_8_16_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_8_16_a") ptr0 bar_8_16_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_8_16_b") ptr0 bar_8_16_b3
+
+deriving via Marshal.EquivStorable Bar_8_16 instance RIP.Storable Bar_8_16
+
+instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_a" where
+
+  type CBitfieldType Bar_8_16 "bar_8_16_a" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 14
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_8_16_a" (RIP.Ptr Bar_8_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_16 "bar_8_16_b" where
+
+  type CBitfieldType Bar_8_16 "bar_8_16_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 14
+
+  bitfieldWidth# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_8_16_b" (RIP.Ptr Bar_8_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_16_b")
+
+{-| ***************************************************************************** packed, < =8-bit field crosses 32-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_8_32@
+
+__defined at:__ @types\/structs\/bitfields.h 250:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_32 = Bar_8_32
+  { bar_8_32_a :: RIP.CLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 251:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_8_32_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 252:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_8_32 where
+
+  staticSizeOf = \_ -> (5 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_8_32 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_8_32
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_32_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_32_b") ptr0
+
+instance Marshal.WriteRaw Bar_8_32 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_8_32 bar_8_32_a2 bar_8_32_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_8_32_a") ptr0 bar_8_32_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_8_32_b") ptr0 bar_8_32_b3
+
+deriving via Marshal.EquivStorable Bar_8_32 instance RIP.Storable Bar_8_32
+
+instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_a" where
+
+  type CBitfieldType Bar_8_32 "bar_8_32_a" = RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 30
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "bar_8_32_a" (RIP.Ptr Bar_8_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_32 "bar_8_32_b" where
+
+  type CBitfieldType Bar_8_32 "bar_8_32_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 30
+
+  bitfieldWidth# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_8_32_b" (RIP.Ptr Bar_8_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_32_b")
+
+{-| ***************************************************************************** packed, < =8-bit field crosses 64-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_8_64@
+
+__defined at:__ @types\/structs\/bitfields.h 275:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_8_64 = Bar_8_64
+  { bar_8_64_a :: RIP.CLLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 276:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_8_64_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 277:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_8_64 where
+
+  staticSizeOf = \_ -> (9 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_8_64 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_8_64
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_64_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_8_64_b") ptr0
+
+instance Marshal.WriteRaw Bar_8_64 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_8_64 bar_8_64_a2 bar_8_64_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_8_64_a") ptr0 bar_8_64_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_8_64_b") ptr0 bar_8_64_b3
+
+deriving via Marshal.EquivStorable Bar_8_64 instance RIP.Storable Bar_8_64
+
+instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_a" where
+
+  type CBitfieldType Bar_8_64 "bar_8_64_a" = RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 62
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "bar_8_64_a" (RIP.Ptr Bar_8_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_8_64 "bar_8_64_b" where
+
+  type CBitfieldType Bar_8_64 "bar_8_64_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 62
+
+  bitfieldWidth# = \_ -> \_ -> 4
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_8_64_b" (RIP.Ptr Bar_8_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_8_64_b")
+
+{-| ***************************************************************************** packed, < =16-bit field crosses 16-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_16_16@
+
+__defined at:__ @types\/structs\/bitfields.h 300:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_16_16 = Bar_16_16
+  { bar_16_16_a :: RIP.CInt
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 301:14@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_16_16_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 302:14@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_16_16 where
+
+  staticSizeOf = \_ -> (4 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_16_16 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_16_16
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_16_16_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_16_16_b") ptr0
+
+instance Marshal.WriteRaw Bar_16_16 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_16_16 bar_16_16_a2 bar_16_16_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_16_16_a") ptr0 bar_16_16_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_16_16_b") ptr0 bar_16_16_b3
+
+deriving via Marshal.EquivStorable Bar_16_16 instance RIP.Storable Bar_16_16
+
+instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_a" where
+
+  type CBitfieldType Bar_16_16 "bar_16_16_a" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 14
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_16_16_a" (RIP.Ptr Bar_16_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_a")
+
+instance HasCBitfield.HasCBitfield Bar_16_16 "bar_16_16_b" where
+
+  type CBitfieldType Bar_16_16 "bar_16_16_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 14
+
+  bitfieldWidth# = \_ -> \_ -> 14
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_16_16_b" (RIP.Ptr Bar_16_16) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_16_b")
+
+{-| ***************************************************************************** packed, < =16-bit field crosses 32-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_16_32@
+
+__defined at:__ @types\/structs\/bitfields.h 325:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_16_32 = Bar_16_32
+  { bar_16_32_a :: RIP.CLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 326:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_16_32_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 327:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_16_32 where
+
+  staticSizeOf = \_ -> (5 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_16_32 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_16_32
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_16_32_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_16_32_b") ptr0
+
+instance Marshal.WriteRaw Bar_16_32 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_16_32 bar_16_32_a2 bar_16_32_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_16_32_a") ptr0 bar_16_32_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_16_32_b") ptr0 bar_16_32_b3
+
+deriving via Marshal.EquivStorable Bar_16_32 instance RIP.Storable Bar_16_32
+
+instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_a" where
+
+  type CBitfieldType Bar_16_32 "bar_16_32_a" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 24
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "bar_16_32_a" (RIP.Ptr Bar_16_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_a")
+
+instance HasCBitfield.HasCBitfield Bar_16_32 "bar_16_32_b" where
+
+  type CBitfieldType Bar_16_32 "bar_16_32_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 24
+
+  bitfieldWidth# = \_ -> \_ -> 14
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_16_32_b" (RIP.Ptr Bar_16_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_32_b")
+
+{-| ***************************************************************************** packed, < =16-bit field crosses 64-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_16_64@
+
+__defined at:__ @types\/structs\/bitfields.h 350:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_16_64 = Bar_16_64
+  { bar_16_64_a :: RIP.CLLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 351:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_16_64_b :: RIP.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 352:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_16_64 where
+
+  staticSizeOf = \_ -> (9 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_16_64 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_16_64
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_16_64_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_16_64_b") ptr0
+
+instance Marshal.WriteRaw Bar_16_64 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_16_64 bar_16_64_a2 bar_16_64_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_16_64_a") ptr0 bar_16_64_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_16_64_b") ptr0 bar_16_64_b3
+
+deriving via Marshal.EquivStorable Bar_16_64 instance RIP.Storable Bar_16_64
+
+instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_a" where
+
+  type CBitfieldType Bar_16_64 "bar_16_64_a" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 56
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "bar_16_64_a" (RIP.Ptr Bar_16_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_16_64 "bar_16_64_b" where
+
+  type CBitfieldType Bar_16_64 "bar_16_64_b" = RIP.CInt
+
+  bitfieldOffset# = \_ -> \_ -> 56
+
+  bitfieldWidth# = \_ -> \_ -> 14
+
+instance ( ((~) ty) RIP.CInt
+         ) => RIP.HasField "bar_16_64_b" (RIP.Ptr Bar_16_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_16_64_b")
+
+{-| ***************************************************************************** packed, < =32-bit field crosses 32-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_32_32@
+
+__defined at:__ @types\/structs\/bitfields.h 375:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_32_32 = Bar_32_32
+  { bar_32_32_a :: RIP.CLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 376:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_32_32_b :: RIP.CLong
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 377:15@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_32_32 where
+
+  staticSizeOf = \_ -> (8 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_32_32 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_32_32
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_32_32_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_32_32_b") ptr0
+
+instance Marshal.WriteRaw Bar_32_32 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_32_32 bar_32_32_a2 bar_32_32_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_32_32_a") ptr0 bar_32_32_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_32_32_b") ptr0 bar_32_32_b3
+
+deriving via Marshal.EquivStorable Bar_32_32 instance RIP.Storable Bar_32_32
+
+instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_a" where
+
+  type CBitfieldType Bar_32_32 "bar_32_32_a" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 30
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "bar_32_32_a" (RIP.Ptr Bar_32_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_a")
+
+instance HasCBitfield.HasCBitfield Bar_32_32 "bar_32_32_b" where
+
+  type CBitfieldType Bar_32_32 "bar_32_32_b" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 30
+
+  bitfieldWidth# = \_ -> \_ -> 30
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "bar_32_32_b" (RIP.Ptr Bar_32_32) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_32_b")
+
+{-| ***************************************************************************** packed, < =32-bit field crosses 64-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_32_64@
+
+__defined at:__ @types\/structs\/bitfields.h 400:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_32_64 = Bar_32_64
+  { bar_32_64_a :: RIP.CLLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 401:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_32_64_b :: RIP.CLong
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 402:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_32_64 where
+
+  staticSizeOf = \_ -> (11 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_32_64 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_32_64
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_32_64_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_32_64_b") ptr0
+
+instance Marshal.WriteRaw Bar_32_64 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_32_64 bar_32_64_a2 bar_32_64_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_32_64_a") ptr0 bar_32_64_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_32_64_b") ptr0 bar_32_64_b3
+
+deriving via Marshal.EquivStorable Bar_32_64 instance RIP.Storable Bar_32_64
+
+instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_a" where
+
+  type CBitfieldType Bar_32_64 "bar_32_64_a" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 56
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "bar_32_64_a" (RIP.Ptr Bar_32_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_32_64 "bar_32_64_b" where
+
+  type CBitfieldType Bar_32_64 "bar_32_64_b" =
+    RIP.CLong
+
+  bitfieldOffset# = \_ -> \_ -> 56
+
+  bitfieldWidth# = \_ -> \_ -> 30
+
+instance ( ((~) ty) RIP.CLong
+         ) => RIP.HasField "bar_32_64_b" (RIP.Ptr Bar_32_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_32_64_b")
+
+{-| ***************************************************************************** packed, < =64-bit field crosses 64-bit word boundary ****************************************************************************
+
+__C declaration:__ @struct bar_64_64@
+
+__defined at:__ @types\/structs\/bitfields.h 425:32@
+
+__exported by:__ @types\/structs\/bitfields.h@
+-}
+data Bar_64_64 = Bar_64_64
+  { bar_64_64_a :: RIP.CLLong
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @types\/structs\/bitfields.h 426:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  , bar_64_64_b :: RIP.CLLong
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @types\/structs\/bitfields.h 427:20@
+
+         __exported by:__ @types\/structs\/bitfields.h@
+    -}
+  }
+  deriving stock (Eq, RIP.Generic, Show)
+
+instance Marshal.StaticSize Bar_64_64 where
+
+  staticSizeOf = \_ -> (12 :: Int)
+
+  staticAlignment = \_ -> (1 :: Int)
+
+instance Marshal.ReadRaw Bar_64_64 where
+
+  readRaw =
+    \ptr0 ->
+          pure Bar_64_64
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_64_64_a") ptr0
+      <*> HasCBitfield.peek (RIP.Proxy @"bar_64_64_b") ptr0
+
+instance Marshal.WriteRaw Bar_64_64 where
+
+  writeRaw =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Bar_64_64 bar_64_64_a2 bar_64_64_b3 ->
+               HasCBitfield.poke (RIP.Proxy @"bar_64_64_a") ptr0 bar_64_64_a2
+            >> HasCBitfield.poke (RIP.Proxy @"bar_64_64_b") ptr0 bar_64_64_b3
+
+deriving via Marshal.EquivStorable Bar_64_64 instance RIP.Storable Bar_64_64
+
+instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_a" where
+
+  type CBitfieldType Bar_64_64 "bar_64_64_a" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 0
+
+  bitfieldWidth# = \_ -> \_ -> 56
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "bar_64_64_a" (RIP.Ptr Bar_64_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_a")
+
+instance HasCBitfield.HasCBitfield Bar_64_64 "bar_64_64_b" where
+
+  type CBitfieldType Bar_64_64 "bar_64_64_b" =
+    RIP.CLLong
+
+  bitfieldOffset# = \_ -> \_ -> 56
+
+  bitfieldWidth# = \_ -> \_ -> 40
+
+instance ( ((~) ty) RIP.CLLong
+         ) => RIP.HasField "bar_64_64_b" (RIP.Ptr Bar_64_64) (BitfieldPtr.BitfieldPtr ty) where
+
+  getField =
+    HasCBitfield.toPtr (RIP.Proxy @"bar_64_64_b")

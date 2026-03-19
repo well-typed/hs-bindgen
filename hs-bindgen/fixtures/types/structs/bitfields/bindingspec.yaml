@@ -4,34 +4,55 @@ version:
 hsmodule: Example
 ctypes:
 - headers: types/structs/bitfields.h
-  cname: struct flags
-  hsname: Flags
+  cname: struct foo_8
+  hsname: Foo_8
 - headers: types/structs/bitfields.h
-  cname: struct overflow32
-  hsname: Overflow32
+  cname: struct foo_16
+  hsname: Foo_16
 - headers: types/structs/bitfields.h
-  cname: struct overflow32b
-  hsname: Overflow32b
+  cname: struct foo_32
+  hsname: Foo_32
 - headers: types/structs/bitfields.h
-  cname: struct overflow32c
-  hsname: Overflow32c
+  cname: struct foo_64
+  hsname: Foo_64
 - headers: types/structs/bitfields.h
-  cname: struct overflow64
-  hsname: Overflow64
+  cname: struct bar_8_8
+  hsname: Bar_8_8
 - headers: types/structs/bitfields.h
-  cname: struct alignA
-  hsname: AlignA
+  cname: struct bar_8_16
+  hsname: Bar_8_16
 - headers: types/structs/bitfields.h
-  cname: struct alignB
-  hsname: AlignB
+  cname: struct bar_8_32
+  hsname: Bar_8_32
+- headers: types/structs/bitfields.h
+  cname: struct bar_8_64
+  hsname: Bar_8_64
+- headers: types/structs/bitfields.h
+  cname: struct bar_16_16
+  hsname: Bar_16_16
+- headers: types/structs/bitfields.h
+  cname: struct bar_16_32
+  hsname: Bar_16_32
+- headers: types/structs/bitfields.h
+  cname: struct bar_16_64
+  hsname: Bar_16_64
+- headers: types/structs/bitfields.h
+  cname: struct bar_32_32
+  hsname: Bar_32_32
+- headers: types/structs/bitfields.h
+  cname: struct bar_32_64
+  hsname: Bar_32_64
+- headers: types/structs/bitfields.h
+  cname: struct bar_64_64
+  hsname: Bar_64_64
 hstypes:
-- hsname: AlignA
+- hsname: Bar_16_16
   representation:
     record:
-      constructor: AlignA
+      constructor: Bar_16_16
       fields:
-      - alignA_x
-      - alignA_y
+      - bar_16_16_a
+      - bar_16_16_b
   instances:
   - Eq
   - Generic
@@ -42,13 +63,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: AlignB
+- hsname: Bar_16_32
   representation:
     record:
-      constructor: AlignB
+      constructor: Bar_16_32
       fields:
-      - alignB_x
-      - alignB_y
+      - bar_16_32_a
+      - bar_16_32_b
   instances:
   - Eq
   - Generic
@@ -59,36 +80,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Flags
+- hsname: Bar_16_64
   representation:
     record:
-      constructor: Flags
+      constructor: Bar_16_64
       fields:
-      - flags_fieldX
-      - flags_flagA
-      - flags_flagB
-      - flags_flagC
-      - flags_fieldY
-      - flags_bits
-  instances:
-  - Eq
-  - Generic
-  - HasCBitfield
-  - HasCField
-  - HasField
-  - ReadRaw
-  - Show
-  - StaticSize
-  - Storable
-  - WriteRaw
-- hsname: Overflow32
-  representation:
-    record:
-      constructor: Overflow32
-      fields:
-      - overflow32_x
-      - overflow32_y
-      - overflow32_z
+      - bar_16_64_a
+      - bar_16_64_b
   instances:
   - Eq
   - Generic
@@ -99,14 +97,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Overflow32b
+- hsname: Bar_32_32
   representation:
     record:
-      constructor: Overflow32b
+      constructor: Bar_32_32
       fields:
-      - overflow32b_x
-      - overflow32b_y
-      - overflow32b_z
+      - bar_32_32_a
+      - bar_32_32_b
   instances:
   - Eq
   - Generic
@@ -117,14 +114,13 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Overflow32c
+- hsname: Bar_32_64
   representation:
     record:
-      constructor: Overflow32c
+      constructor: Bar_32_64
       fields:
-      - overflow32c_x
-      - overflow32c_y
-      - overflow32c_z
+      - bar_32_64_a
+      - bar_32_64_b
   instances:
   - Eq
   - Generic
@@ -135,13 +131,164 @@ hstypes:
   - StaticSize
   - Storable
   - WriteRaw
-- hsname: Overflow64
+- hsname: Bar_64_64
   representation:
     record:
-      constructor: Overflow64
+      constructor: Bar_64_64
       fields:
-      - overflow64_x
-      - overflow64_y
+      - bar_64_64_a
+      - bar_64_64_b
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_16
+  representation:
+    record:
+      constructor: Bar_8_16
+      fields:
+      - bar_8_16_a
+      - bar_8_16_b
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_32
+  representation:
+    record:
+      constructor: Bar_8_32
+      fields:
+      - bar_8_32_a
+      - bar_8_32_b
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_64
+  representation:
+    record:
+      constructor: Bar_8_64
+      fields:
+      - bar_8_64_a
+      - bar_8_64_b
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Bar_8_8
+  representation:
+    record:
+      constructor: Bar_8_8
+      fields:
+      - bar_8_8_a
+      - bar_8_8_b
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_16
+  representation:
+    record:
+      constructor: Foo_16
+      fields:
+      - foo_16_a
+      - foo_16_b
+      - foo_16_c
+      - foo_16_d
+      - foo_16_e
+      - foo_16_f
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_32
+  representation:
+    record:
+      constructor: Foo_32
+      fields:
+      - foo_32_a
+      - foo_32_b
+      - foo_32_c
+      - foo_32_d
+      - foo_32_e
+      - foo_32_f
+      - foo_32_g
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_64
+  representation:
+    record:
+      constructor: Foo_64
+      fields:
+      - foo_64_a
+      - foo_64_b
+      - foo_64_c
+      - foo_64_d
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Foo_8
+  representation:
+    record:
+      constructor: Foo_8
+      fields:
+      - foo_8_a
+      - foo_8_b
+      - foo_8_c
+      - foo_8_d
+      - foo_8_e
+      - foo_8_f
   instances:
   - Eq
   - Generic
