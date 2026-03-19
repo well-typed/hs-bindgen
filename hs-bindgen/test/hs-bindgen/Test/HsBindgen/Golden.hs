@@ -186,6 +186,7 @@ testCases_default = [
     , defaultTest "types/structs/recursive_struct"
     , defaultTest "types/structs/simple_structs"
     , defaultTest "types/structs/struct_arg"
+    , defaultTest "types/structs/unnamed_bitfield"
     , defaultTest "types/typedefs/multi_level_function_pointer"
     , defaultTest "types/typedefs/typedef_vs_macro"
     , defaultTest "types/unions/nested_unions"

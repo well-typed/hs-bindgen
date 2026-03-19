@@ -209,7 +209,7 @@ structDecl ctx info = \curr -> do
                 , kind = C.DeclStruct C.Struct{
                              sizeof    = fromIntegral sizeof
                            , alignment = fromIntegral alignment
-                           , fields    = regularFields
+                           , fields    = filter isNotZeroWidth regularFields
                            , flam      = mFlam
                            , ann       = NoAnn
                            }
@@ -260,6 +260,14 @@ structDecl ctx info = \curr -> do
                             in (reverse acc ++ fs, Just f')
                           _otherwise->
                             go (f:acc) fs
+
+    -- A bit-field declaration with no declarator and width zero is a special
+    -- case that instructs the compiler to not pack any more fields into the
+    -- current storage unit.  This is used to conform to externally imposed
+    -- layouts.  This predicate is used to filter out such declarations, which
+    -- are not actual bit-fields.
+    isNotZeroWidth :: C.StructField Parse -> Bool
+    isNotZeroWidth field = maybe True (> 0) field.width
 
 unionDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 unionDecl ctx info = \curr -> do

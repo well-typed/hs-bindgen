@@ -1,0 +1,27 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/structs/unnamed_bitfield.h
+  cname: struct foo
+  hsname: Foo
+hstypes:
+- hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_a
+      - foo_b
+      - foo_c
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
