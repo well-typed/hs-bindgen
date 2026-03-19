@@ -1,5 +1,5 @@
 -- | Golden test: pretty-printed Haskell code
-module Test.HsBindgen.Golden.Check.PP (check) where
+module Test.HsBindgen.Golden.Infra.Check.PP (check) where
 
 import Control.Monad (when)
 import Data.IORef
@@ -20,7 +20,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------

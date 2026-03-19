@@ -15,7 +15,7 @@ import Data.List (isPrefixOf)
 
 import Clang.Version
 
-import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Golden.Infra.TestCase
 
 {-------------------------------------------------------------------------------
   TH compilation status
