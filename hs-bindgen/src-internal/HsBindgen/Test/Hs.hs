@@ -61,7 +61,7 @@ genTestsHs
       [ ("Foreign",                             "F")
       , ("Foreign.C",                           "FC")
       , ("HsBindgen.TestRuntime.GenSeq",        "GenSeq")
-      , ("HsBindgen.TestRuntime.Preturb",       "Preturb")
+      , ("HsBindgen.TestRuntime.Perturb",       "Perturb")
       , ("Data.Proxy",                          "Proxy")
       , ("Test.QuickCheck",                     "QC")
       , ("HsBindgen.TestRuntime.RepZero",       "RepZero")
@@ -95,7 +95,7 @@ getFfiFunctions includeFile cFunPrefix = \case
         , FfiAlignof  includeFile cFunPrefix structName
         , FfiGenSeqHs includeFile cFunPrefix structName
         , FfiGenSeqC  includeFile cFunPrefix structName
-        , FfiPreturb  includeFile cFunPrefix structName
+        , FfiPerturb  includeFile cFunPrefix structName
         ]
       _otherwise -> []
     _otherwise -> []
@@ -107,7 +107,7 @@ getOrphanInstances = \case
         let fieldNames = Hs.fieldName <$> Vec.toList structFields
         in  [ ArbitraryInstance     structName structConstr fieldNames
             , GenSeqInstance        structName structConstr fieldNames
-            , PreturbInstance       structName structConstr fieldNames
+            , PerturbInstance       structName structConstr fieldNames
             , SameSemanticsInstance structName              fieldNames
             ]
       _otherwise -> []
@@ -153,12 +153,12 @@ data FfiFunction =
   | FfiAlignof  IncludeFile CFunPrefix (HsName NsTypeConstr)
   | FfiGenSeqHs IncludeFile CFunPrefix (HsName NsTypeConstr)
   | FfiGenSeqC  IncludeFile CFunPrefix (HsName NsTypeConstr)
-  | FfiPreturb  IncludeFile CFunPrefix (HsName NsTypeConstr)
+  | FfiPerturb  IncludeFile CFunPrefix (HsName NsTypeConstr)
 
 data OrphanInstance =
     ArbitraryInstance     (HsName NsTypeConstr) (HsName NsConstr) [HsName NsVar]
   | GenSeqInstance        (HsName NsTypeConstr) (HsName NsConstr) [HsName NsVar]
-  | PreturbInstance       (HsName NsTypeConstr) (HsName NsConstr) [HsName NsVar]
+  | PerturbInstance       (HsName NsTypeConstr) (HsName NsConstr) [HsName NsVar]
   | SameSemanticsInstance (HsName NsTypeConstr)                   [HsName NsVar]
 
 newtype TypeTest = TypeTest (HsName NsTypeConstr)
@@ -198,7 +198,7 @@ instance Pretty FfiFunction where
     FfiAlignof  inc pfx name -> prettyFfiAlignof  inc pfx name
     FfiGenSeqHs inc pfx name -> prettyFfiGenSeqHs inc pfx name
     FfiGenSeqC  inc pfx name -> prettyFfiGenSeqC  inc pfx name
-    FfiPreturb  inc pfx name -> prettyFfiPreturb  inc pfx name
+    FfiPerturb  inc pfx name -> prettyFfiPerturb  inc pfx name
 
 prettyFfiSizeof :: IncludeFile -> CFunPrefix -> HsName NsTypeConstr -> CtxDoc
 prettyFfiSizeof inc pfx name =
@@ -272,30 +272,30 @@ prettyFfiGenSeqC inc pfx' name' = vsep
     pfx  = string pfx'
     name = prettyHsName name'
 
-prettyFfiPreturb :: IncludeFile -> CFunPrefix -> HsName NsTypeConstr -> CtxDoc
-prettyFfiPreturb inc pfx' name' = vsep
+prettyFfiPerturb :: IncludeFile -> CFunPrefix -> HsName NsTypeConstr -> CtxDoc
+prettyFfiPerturb inc pfx' name' = vsep
     [ hang
-        ( hcat ["preturb", name, " :: FC.CLong -> X.", name, " -> IO X.", name]
-            $$ hcat ["preturb", name, " size source ="]
+        ( hcat ["perturb", name, " :: FC.CLong -> X.", name, " -> IO X.", name]
+            $$ hcat ["perturb", name, " size source ="]
         )
         4
         ( hang "F.alloca $ \\sourcePtr ->" 2
             . hang "F.alloca $ \\targetPtr -> do" 2
             $ vcat
                 [ "F.poke sourcePtr source"
-                , hcat [pfx, "_preturb_", name, " size sourcePtr targetPtr"]
+                , hcat [pfx, "_perturb_", name, " size sourcePtr targetPtr"]
                 , "F.peek targetPtr"
                 ]
         )
     , hang
         ( hcat
             [ "foreign import capi unsafe \"", string inc, " "
-            , pfx, "_preturb_", name, "\""
+            , pfx, "_perturb_", name, "\""
             ]
         )
         2
         ( hcat
-            [ pfx, "_preturb_", name, " :: FC.CLong -> F.Ptr X.", name
+            [ pfx, "_perturb_", name, " :: FC.CLong -> F.Ptr X.", name
             , " -> F.Ptr X.", name, " -> IO ()"
             ]
         )
@@ -311,8 +311,8 @@ instance Pretty OrphanInstance where
       prettyArbitraryInstance typeName cnstName fieldNames
     GenSeqInstance typeName cnstName fieldNames ->
       prettyGenSeqInstance typeName cnstName fieldNames
-    PreturbInstance typeName cnstName fieldNames ->
-      prettyPreturbInstance typeName cnstName fieldNames
+    PerturbInstance typeName cnstName fieldNames ->
+      prettyPerturbInstance typeName cnstName fieldNames
     SameSemanticsInstance typeName fieldNames ->
       prettySameSemanticsInstance typeName fieldNames
 
@@ -377,20 +377,20 @@ prettyGenSeqInstance typeName' cnstName' fieldNames' =
     fieldNames :: [CtxDoc]
     fieldNames = prettyHsName <$> fieldNames'
 
-prettyPreturbInstance ::
+prettyPerturbInstance ::
      HsName NsTypeConstr
   -> HsName NsConstr
   -> [HsName NsVar]
   -> CtxDoc
-prettyPreturbInstance typeName' cnstName' fieldNames' =
+prettyPerturbInstance typeName' cnstName' fieldNames' =
     hang
-      (hcat ["instance Preturb.Preturb X.", typeName, " where"])
+      (hcat ["instance Perturb.Perturb X.", typeName, " where"])
       2
       ( hang
-          (hcat ["preturb size X.", cnstName, "{..} = X.", cnstName])
+          (hcat ["perturb size X.", cnstName, "{..} = X.", cnstName])
           2
           ( vlist '{' '}'
-              [ hcat [fieldName, " = Preturb.preturb size ", fieldName]
+              [ hcat [fieldName, " = Perturb.perturb size ", fieldName]
               | fieldName <- fieldNames
               ]
           )
@@ -450,9 +450,9 @@ prettyTypeTest name' =
               hcat ["GenSeq.assertHsGenSeq1CEq genSeqHs", name]
           , hang "THU.testCase GenSeq.nameHsGenSeq1SameSemanticsCGenSeq1 $" 2 $
               hcat ["GenSeq.assertHsGenSeq1SameSemanticsCGenSeq1 genSeqC", name]
-          , hang "TQC.testProperty Preturb.nameHsPreturbNXSameSemanticsCPreturbNX $" 2 $
+          , hang "TQC.testProperty Perturb.nameHsPerturbNXSameSemanticsCPerturbNX $" 2 $
               hcat
-                [ "Preturb.prop_HsPreturbNXSameSemanticsCPreturbNX preturb"
+                [ "Perturb.prop_HsPerturbNXSameSemanticsCPerturbNX perturb"
                 , name
                 ]
           ]

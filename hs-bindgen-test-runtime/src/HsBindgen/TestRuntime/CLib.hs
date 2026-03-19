@@ -77,31 +77,31 @@ module HsBindgen.TestRuntime.CLib (
   , alignofCTime
   , alignofCFloat
   , alignofCDouble
-    -- * Preturb
-  , preturbCChar
-  , preturbCSChar
-  , preturbCUChar
-  , preturbCShort
-  , preturbCUShort
-  , preturbCInt
-  , preturbCUInt
-  , preturbCLong
-  , preturbCULong
-  , preturbCPtrdiff
-  , preturbCSize
-  , preturbCWchar
-  , preturbCSigAtomic
-  , preturbCLLong
-  , preturbCULLong
-  , preturbCBool
-  , preturbCIntPtr
-  , preturbCUIntPtr
-  , preturbCIntMax
-  , preturbCUIntMax
-  , preturbCClock
-  , preturbCTime
-  , preturbCFloat
-  , preturbCDouble
+    -- * Perturb
+  , perturbCChar
+  , perturbCSChar
+  , perturbCUChar
+  , perturbCShort
+  , perturbCUShort
+  , perturbCInt
+  , perturbCUInt
+  , perturbCLong
+  , perturbCULong
+  , perturbCPtrdiff
+  , perturbCSize
+  , perturbCWchar
+  , perturbCSigAtomic
+  , perturbCLLong
+  , perturbCULLong
+  , perturbCBool
+  , perturbCIntPtr
+  , perturbCUIntPtr
+  , perturbCIntMax
+  , perturbCUIntMax
+  , perturbCClock
+  , perturbCTime
+  , perturbCFloat
+  , perturbCDouble
   ) where
 
 import Foreign.C qualified as FC
@@ -335,77 +335,77 @@ foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_alignof_CDouble"
   alignofCDouble :: IO FC.CSize
 
 {-------------------------------------------------------------------------------
-  Preturb
+  Perturb
 -------------------------------------------------------------------------------}
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CChar"
-  preturbCChar :: FC.CLLong -> FC.CChar -> IO FC.CChar
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CChar"
+  perturbCChar :: FC.CLLong -> FC.CChar -> IO FC.CChar
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CSChar"
-  preturbCSChar :: FC.CLLong -> FC.CSChar -> IO FC.CSChar
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CSChar"
+  perturbCSChar :: FC.CLLong -> FC.CSChar -> IO FC.CSChar
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CUChar"
-  preturbCUChar :: FC.CLLong -> FC.CUChar -> IO FC.CUChar
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CUChar"
+  perturbCUChar :: FC.CLLong -> FC.CUChar -> IO FC.CUChar
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CShort"
-  preturbCShort :: FC.CLLong -> FC.CShort -> IO FC.CShort
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CShort"
+  perturbCShort :: FC.CLLong -> FC.CShort -> IO FC.CShort
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CUShort"
-  preturbCUShort :: FC.CLLong -> FC.CUShort -> IO FC.CUShort
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CUShort"
+  perturbCUShort :: FC.CLLong -> FC.CUShort -> IO FC.CUShort
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CInt"
-  preturbCInt :: FC.CLLong -> FC.CInt -> IO FC.CInt
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CInt"
+  perturbCInt :: FC.CLLong -> FC.CInt -> IO FC.CInt
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CUInt"
-  preturbCUInt :: FC.CLLong -> FC.CUInt -> IO FC.CUInt
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CUInt"
+  perturbCUInt :: FC.CLLong -> FC.CUInt -> IO FC.CUInt
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CLong"
-  preturbCLong :: FC.CLLong -> FC.CLong -> IO FC.CLong
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CLong"
+  perturbCLong :: FC.CLLong -> FC.CLong -> IO FC.CLong
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CULong"
-  preturbCULong :: FC.CLLong -> FC.CULong -> IO FC.CULong
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CULong"
+  perturbCULong :: FC.CLLong -> FC.CULong -> IO FC.CULong
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CPtrdiff"
-  preturbCPtrdiff :: FC.CLLong -> FC.CPtrdiff -> IO FC.CPtrdiff
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CPtrdiff"
+  perturbCPtrdiff :: FC.CLLong -> FC.CPtrdiff -> IO FC.CPtrdiff
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CSize"
-  preturbCSize :: FC.CLLong -> FC.CSize -> IO FC.CSize
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CSize"
+  perturbCSize :: FC.CLLong -> FC.CSize -> IO FC.CSize
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CWchar"
-  preturbCWchar :: FC.CLLong -> FC.CWchar -> IO FC.CWchar
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CWchar"
+  perturbCWchar :: FC.CLLong -> FC.CWchar -> IO FC.CWchar
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CSigAtomic"
-  preturbCSigAtomic :: FC.CLLong -> FC.CSigAtomic -> IO FC.CSigAtomic
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CSigAtomic"
+  perturbCSigAtomic :: FC.CLLong -> FC.CSigAtomic -> IO FC.CSigAtomic
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CLLong"
-  preturbCLLong :: FC.CLLong -> FC.CLLong -> IO FC.CLLong
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CLLong"
+  perturbCLLong :: FC.CLLong -> FC.CLLong -> IO FC.CLLong
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CULLong"
-  preturbCULLong :: FC.CLLong -> FC.CULLong -> IO FC.CULLong
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CULLong"
+  perturbCULLong :: FC.CLLong -> FC.CULLong -> IO FC.CULLong
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CBool"
-  preturbCBool :: FC.CLLong -> FC.CBool -> IO FC.CBool
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CBool"
+  perturbCBool :: FC.CLLong -> FC.CBool -> IO FC.CBool
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CIntPtr"
-  preturbCIntPtr :: FC.CLLong -> FC.CIntPtr -> IO FC.CIntPtr
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CIntPtr"
+  perturbCIntPtr :: FC.CLLong -> FC.CIntPtr -> IO FC.CIntPtr
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CUIntPtr"
-  preturbCUIntPtr :: FC.CLLong -> FC.CUIntPtr -> IO FC.CUIntPtr
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CUIntPtr"
+  perturbCUIntPtr :: FC.CLLong -> FC.CUIntPtr -> IO FC.CUIntPtr
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CIntMax"
-  preturbCIntMax :: FC.CLLong -> FC.CIntMax -> IO FC.CIntMax
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CIntMax"
+  perturbCIntMax :: FC.CLLong -> FC.CIntMax -> IO FC.CIntMax
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CUIntMax"
-  preturbCUIntMax :: FC.CLLong -> FC.CUIntMax -> IO FC.CUIntMax
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CUIntMax"
+  perturbCUIntMax :: FC.CLLong -> FC.CUIntMax -> IO FC.CUIntMax
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CClock"
-  preturbCClock :: FC.CLLong -> FC.CClock -> IO FC.CClock
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CClock"
+  perturbCClock :: FC.CLLong -> FC.CClock -> IO FC.CClock
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CTime"
-  preturbCTime :: FC.CLLong -> FC.CTime -> IO FC.CTime
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CTime"
+  perturbCTime :: FC.CLLong -> FC.CTime -> IO FC.CTime
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CFloat"
-  preturbCFloat :: FC.CLLong -> FC.CFloat -> IO FC.CFloat
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CFloat"
+  perturbCFloat :: FC.CLLong -> FC.CFloat -> IO FC.CFloat
 
-foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_preturb_CDouble"
-  preturbCDouble :: FC.CLLong -> FC.CDouble -> IO FC.CDouble
+foreign import capi unsafe "hs_bindgen_test_runtime.h hsbg_perturb_CDouble"
+  perturbCDouble :: FC.CLLong -> FC.CDouble -> IO FC.CDouble

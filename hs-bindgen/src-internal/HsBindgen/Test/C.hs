@@ -63,7 +63,7 @@ getTestHeaderDecls cFunPrefix = \case
             , CTestAlignofDecl  cFunPrefix structName
             , CTestGenseqhsDecl cFunPrefix structName cts
             , CTestGenseqcDecl  cFunPrefix structName cts
-            , CTestPreturbDecl  cFunPrefix structName cts
+            , CTestPerturbDecl  cFunPrefix structName cts
             ]
           Nothing -> []
       _otherwise -> []
@@ -80,7 +80,7 @@ getTestSourceDefns cFunPrefix = \case
                 , CTestAlignofDefn  cFunPrefix structName cts
                 , CTestGenseqhsDefn cFunPrefix structName cts fieldPs
                 , CTestGenseqcDefn  cFunPrefix structName cts fieldPs
-                , CTestPreturbDefn  cFunPrefix structName cts fieldPs
+                , CTestPerturbDefn  cFunPrefix structName cts fieldPs
                 ]
           Nothing -> []
       _otherwise -> []
@@ -151,7 +151,7 @@ data CTestDecl =
     | CTestAlignofDecl  CFunPrefix (HsName NsTypeConstr)
     | CTestGenseqhsDecl CFunPrefix (HsName NsTypeConstr) CTypeSpelling
     | CTestGenseqcDecl  CFunPrefix (HsName NsTypeConstr) CTypeSpelling
-    | CTestPreturbDecl  CFunPrefix (HsName NsTypeConstr) CTypeSpelling
+    | CTestPerturbDecl  CFunPrefix (HsName NsTypeConstr) CTypeSpelling
 
 data CTestSource = CTestSource {
       cTestSourceUsrIncludes :: [IncludeFile]
@@ -164,7 +164,7 @@ data CTestDefn =
     | CTestAlignofDefn  CFunPrefix (HsName NsTypeConstr) CTypeSpelling
     | CTestGenseqhsDefn CFunPrefix (HsName NsTypeConstr) CTypeSpelling [FieldP]
     | CTestGenseqcDefn  CFunPrefix (HsName NsTypeConstr) CTypeSpelling [FieldP]
-    | CTestPreturbDefn  CFunPrefix (HsName NsTypeConstr) CTypeSpelling [FieldP]
+    | CTestPerturbDefn  CFunPrefix (HsName NsTypeConstr) CTypeSpelling [FieldP]
 
 {-------------------------------------------------------------------------------
   Pretty printing
@@ -203,9 +203,9 @@ instance Pretty CTestDecl where
         (hcat ["void ", string pfx, "_genseqc_", prettyHsName name])
         [string cts <+> "*const"]
         ";"
-    CTestPreturbDecl pfx name cts ->
+    CTestPerturbDecl pfx name cts ->
       prettyFun
-        (hcat ["void ", string pfx, "_preturb_", prettyHsName name])
+        (hcat ["void ", string pfx, "_perturb_", prettyHsName name])
         [ "long"
         , string cts <+> "const *const"
         , string cts <+> "*const"
@@ -277,9 +277,9 @@ instance Pretty CTestDefn where
         | (idx, (cField, hsFieldType)) <- zip [1..] fieldPairs
         ]
       ++ ["}"]
-    CTestPreturbDefn pfx name cts fieldPairs -> vcat $
+    CTestPerturbDefn pfx name cts fieldPairs -> vcat $
         prettyFun
-          (hcat ["void ", string pfx, "_preturb_", prettyHsName name])
+          (hcat ["void ", string pfx, "_perturb_", prettyHsName name])
           [ "long size"
           , string cts <+> "const *const source"
           , string cts <+> "*const target"
@@ -288,7 +288,7 @@ instance Pretty CTestDefn where
       : [ nest 2 $ hcat
             [ "target->"
             , prettyCName cField
-            , " = hsbg_preturb_"
+            , " = hsbg_perturb_"
             , string hsFieldType
             , "(size, source->"
             , prettyCName cField

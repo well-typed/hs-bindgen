@@ -1,19 +1,19 @@
-module HsBindgen.TestRuntime.Preturb (
-    -- * Preturb
-    Preturb(..)
+module HsBindgen.TestRuntime.Perturb (
+    -- * Perturb
+    Perturb(..)
     -- * Properties
-  , namePreturb0XSameSemanticsX
-  , prop_Preturb0XSameSemanticsX
-  , assertPreturb0XSameSemanticsX
-  , nameNotPreturb1XSameSemanticsX
-  , prop_NotPreturb1XSameSemanticsX
-  , assertNotPreturb1XSameSemanticsX
-  , namePreturbNegateNPreturbNXSameSemanticsX
-  , prop_PreturbNegateNPreturbNXSameSemanticsX
-  , assertPreturbNegateNPreturbNXSameSemanticsX
-  , nameHsPreturbNXSameSemanticsCPreturbNX
-  , prop_HsPreturbNXSameSemanticsCPreturbNX
-  , assertHsPreturbNXSameSemanticsCPreturbNX
+  , namePerturb0XSameSemanticsX
+  , prop_Perturb0XSameSemanticsX
+  , assertPerturb0XSameSemanticsX
+  , nameNotPerturb1XSameSemanticsX
+  , prop_NotPerturb1XSameSemanticsX
+  , assertNotPerturb1XSameSemanticsX
+  , namePerturbNegateNPerturbNXSameSemanticsX
+  , prop_PerturbNegateNPerturbNXSameSemanticsX
+  , assertPerturbNegateNPerturbNXSameSemanticsX
+  , nameHsPerturbNXSameSemanticsCPerturbNX
+  , prop_HsPerturbNXSameSemanticsCPerturbNX
+  , assertHsPerturbNXSameSemanticsCPerturbNX
   ) where
 
 import Control.Monad (unless)
@@ -29,11 +29,11 @@ import HsBindgen.TestRuntime.SameSemantics (SameSemantics (sameSemantics),
                                             (/=~), (==~), (@/=~?), (@==~?))
 
 {-------------------------------------------------------------------------------
-  Preturb
+  Perturb
 -------------------------------------------------------------------------------}
 
--- | Preturb a value
-class Preturb a where
+-- | Perturb a value
+class Perturb a where
   -- | Indexed perturbation
   --
   -- The @size@ is interpreted on a per-type basis.  Intuitively, smaller
@@ -42,222 +42,222 @@ class Preturb a where
   -- Type 'FC.CLLong' is used so that the Haskell implementation can match the C
   -- implementation.
   --
-  -- prop> preturb 0 x `sameSemantics` x
+  -- prop> perturb 0 x `sameSemantics` x
   --
-  -- prop> not (preturb 1 x `sameSemantics` x)
+  -- prop> not (perturb 1 x `sameSemantics` x)
   --
-  -- prop> preturb (negate size) (preturb size x) `sameSemantics` x
-  preturb :: FC.CLLong -> a -> a
+  -- prop> perturb (negate size) (perturb size x) `sameSemantics` x
+  perturb :: FC.CLLong -> a -> a
 
-instance Preturb FC.CChar where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CChar where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CSChar where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CSChar where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CUChar where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CUChar where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CShort where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CShort where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CUShort where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CUShort where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CInt where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CInt where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CUInt where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CUInt where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CLong where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CLong where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CULong where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CULong where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CPtrdiff where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CPtrdiff where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CSize where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CSize where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CWchar where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CWchar where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CSigAtomic where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CSigAtomic where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CLLong where
-  preturb size n = n + size
+instance Perturb FC.CLLong where
+  perturb size n = n + size
 
-instance Preturb FC.CULLong where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CULLong where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CBool where
-  preturb size (FC.CBool n) =
+instance Perturb FC.CBool where
+  perturb size (FC.CBool n) =
     FC.CBool $ if (size `mod` 2 == 1) /= (n > 0) then 1 else 0
 
-instance Preturb FC.CIntPtr where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CIntPtr where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CUIntPtr where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CUIntPtr where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CIntMax where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CIntMax where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CUIntMax where
-  preturb size n = n + fromIntegral size
+instance Perturb FC.CUIntMax where
+  perturb size n = n + fromIntegral size
 
-instance Preturb FC.CClock where
-  preturb size (FC.CClock n) = FC.CClock $ n + fromIntegral size
+instance Perturb FC.CClock where
+  perturb size (FC.CClock n) = FC.CClock $ n + fromIntegral size
 
-instance Preturb FC.CTime where
-  preturb size (FC.CTime n) = FC.CTime $ n + fromIntegral size
+instance Perturb FC.CTime where
+  perturb size (FC.CTime n) = FC.CTime $ n + fromIntegral size
 
-instance Preturb FC.CFloat where
-  preturb size (FC.CFloat x) = FC.CFloat $ preturbFloat size x
+instance Perturb FC.CFloat where
+  perturb size (FC.CFloat x) = FC.CFloat $ perturbFloat size x
 
-instance Preturb FC.CDouble where
-  preturb size (FC.CDouble x) = FC.CDouble $ preturbDouble size x
+instance Perturb FC.CDouble where
+  perturb size (FC.CDouble x) = FC.CDouble $ perturbDouble size x
 
 {-------------------------------------------------------------------------------
   Properties
 -------------------------------------------------------------------------------}
 
--- | A value preturbed with size 0 has the same semantics as the original value
-namePreturb0XSameSemanticsX :: String
-namePreturb0XSameSemanticsX = "Preturb0XSameSemanticsX"
+-- | A value perturbed with size 0 has the same semantics as the original value
+namePerturb0XSameSemanticsX :: String
+namePerturb0XSameSemanticsX = "Perturb0XSameSemanticsX"
 
--- | A value preturbed with size 0 has the same semantics as the original value
-prop_Preturb0XSameSemanticsX ::
-     (Preturb a, SameSemantics a, Show a)
+-- | A value perturbed with size 0 has the same semantics as the original value
+prop_Perturb0XSameSemanticsX ::
+     (Perturb a, SameSemantics a, Show a)
   => a
   -> Property
-prop_Preturb0XSameSemanticsX x = preturb 0 x ==~ x
+prop_Perturb0XSameSemanticsX x = perturb 0 x ==~ x
 
--- | A value preturbed with size 0 has the same semantics as the original value
-assertPreturb0XSameSemanticsX ::
-     (Preturb a, SameSemantics a, Show a)
+-- | A value perturbed with size 0 has the same semantics as the original value
+assertPerturb0XSameSemanticsX ::
+     (Perturb a, SameSemantics a, Show a)
   => a
   -> Assertion
-assertPreturb0XSameSemanticsX x = preturb 0 x @==~? x
+assertPerturb0XSameSemanticsX x = perturb 0 x @==~? x
 
--- | A value preturbed with size 1 does /not/ have the same semantics as the
+-- | A value perturbed with size 1 does /not/ have the same semantics as the
 -- original value
-nameNotPreturb1XSameSemanticsX :: String
-nameNotPreturb1XSameSemanticsX = "NotPreturb1XSameSemanticsX"
+nameNotPerturb1XSameSemanticsX :: String
+nameNotPerturb1XSameSemanticsX = "NotPerturb1XSameSemanticsX"
 
--- | A value preturbed with size 1 does /not/ have the same semantics as the
+-- | A value perturbed with size 1 does /not/ have the same semantics as the
 -- original value
-prop_NotPreturb1XSameSemanticsX ::
-     (Preturb a, SameSemantics a, Show a)
+prop_NotPerturb1XSameSemanticsX ::
+     (Perturb a, SameSemantics a, Show a)
   => a
   -> Property
-prop_NotPreturb1XSameSemanticsX x = preturb 1 x /=~ x
+prop_NotPerturb1XSameSemanticsX x = perturb 1 x /=~ x
 
--- | A value preturbed with size 1 does /not/ have the same semantics as the
+-- | A value perturbed with size 1 does /not/ have the same semantics as the
 -- original value
-assertNotPreturb1XSameSemanticsX ::
-     (Preturb a, SameSemantics a, Show a)
+assertNotPerturb1XSameSemanticsX ::
+     (Perturb a, SameSemantics a, Show a)
   => a
   -> Assertion
-assertNotPreturb1XSameSemanticsX x = preturb 1 x @/=~? x
+assertNotPerturb1XSameSemanticsX x = perturb 1 x @/=~? x
 
--- | A value preturbed with a size and the negated size has the same semantics
+-- | A value perturbed with a size and the negated size has the same semantics
 -- as the original value
 --
--- In other words, @'preturb' (negate size)@ is the inverse of @'preturb' size@.
+-- In other words, @'perturb' (negate size)@ is the inverse of @'perturb' size@.
 --
 -- This property does not apply when the size is @0@ or @minBound@.
-namePreturbNegateNPreturbNXSameSemanticsX :: String
-namePreturbNegateNPreturbNXSameSemanticsX =
-    "PreturbNegateNPreturbNXSameSemanticsX"
+namePerturbNegateNPerturbNXSameSemanticsX :: String
+namePerturbNegateNPerturbNXSameSemanticsX =
+    "PerturbNegateNPerturbNXSameSemanticsX"
 
--- | A value preturbed with a size and the negated size has the same semantics
+-- | A value perturbed with a size and the negated size has the same semantics
 -- as the original value
 --
--- In other words, @'preturb' (negate size)@ is the inverse of @'preturb' size@.
+-- In other words, @'perturb' (negate size)@ is the inverse of @'perturb' size@.
 --
 -- This property does not apply when the size is @0@ or @minBound@.
-prop_PreturbNegateNPreturbNXSameSemanticsX ::
-     (Preturb a, SameSemantics a, Show a)
+prop_PerturbNegateNPerturbNXSameSemanticsX ::
+     (Perturb a, SameSemantics a, Show a)
   => FC.CLLong
   -> a
   -> Property
-prop_PreturbNegateNPreturbNXSameSemanticsX size x
+prop_PerturbNegateNPerturbNXSameSemanticsX size x
   | size == 0        = discard
   | size == minBound = discard
-  | otherwise        = preturb (negate size) (preturb size x) ==~ x
+  | otherwise        = perturb (negate size) (perturb size x) ==~ x
 
--- | A value preturbed with a size and the negated size has the same semantics
+-- | A value perturbed with a size and the negated size has the same semantics
 -- as the original value
 --
--- In other words, @'preturb' (negate size)@ is the inverse of @'preturb' size@.
+-- In other words, @'perturb' (negate size)@ is the inverse of @'perturb' size@.
 --
 -- This property does not apply when the size is @minBound@.
-assertPreturbNegateNPreturbNXSameSemanticsX ::
-     (Preturb a, SameSemantics a, Show a)
+assertPerturbNegateNPerturbNXSameSemanticsX ::
+     (Perturb a, SameSemantics a, Show a)
   => FC.CLLong
   -> a
   -> Assertion
-assertPreturbNegateNPreturbNXSameSemanticsX size x =
+assertPerturbNegateNPerturbNXSameSemanticsX size x =
     unless (size == 0 || size == minBound) $
-      preturb (negate size) (preturb size x) @==~? x
+      perturb (negate size) (perturb size x) @==~? x
 
--- | A value preturbed using Haskell has the same semantics as the value
--- preturbed using C (using the same size)
-nameHsPreturbNXSameSemanticsCPreturbNX :: String
-nameHsPreturbNXSameSemanticsCPreturbNX = "HsPreturbNXSameSemanticsCPreturbNX"
+-- | A value perturbed using Haskell has the same semantics as the value
+-- perturbed using C (using the same size)
+nameHsPerturbNXSameSemanticsCPerturbNX :: String
+nameHsPerturbNXSameSemanticsCPerturbNX = "HsPerturbNXSameSemanticsCPerturbNX"
 
--- | A value preturbed using Haskell has the same semantics as the value
--- preturbed using C (using the same size)
-prop_HsPreturbNXSameSemanticsCPreturbNX ::
-     (Preturb a, SameSemantics a)
+-- | A value perturbed using Haskell has the same semantics as the value
+-- perturbed using C (using the same size)
+prop_HsPerturbNXSameSemanticsCPerturbNX ::
+     (Perturb a, SameSemantics a)
   => (FC.CLLong -> a -> IO a)
   -> FC.CLLong
   -> a
   -> Property
-prop_HsPreturbNXSameSemanticsCPreturbNX cPreturb size x = QCM.monadicIO $ do
-    x' <- QCM.run $ cPreturb size x
-    QCM.assert $ preturb size x `sameSemantics` x'
+prop_HsPerturbNXSameSemanticsCPerturbNX cPerturb size x = QCM.monadicIO $ do
+    x' <- QCM.run $ cPerturb size x
+    QCM.assert $ perturb size x `sameSemantics` x'
 
--- | A value preturbed using Haskell has the same semantics as the value
--- preturbed using C (using the same size)
-assertHsPreturbNXSameSemanticsCPreturbNX ::
-     (Preturb a, SameSemantics a, Show a)
+-- | A value perturbed using Haskell has the same semantics as the value
+-- perturbed using C (using the same size)
+assertHsPerturbNXSameSemanticsCPerturbNX ::
+     (Perturb a, SameSemantics a, Show a)
   => (FC.CLLong -> a -> IO a)
   -> FC.CLLong
   -> a
   -> Assertion
-assertHsPreturbNXSameSemanticsCPreturbNX cPreturb size x = do
-    x' <- cPreturb size x
-    preturb size x @==~? x'
+assertHsPerturbNXSameSemanticsCPerturbNX cPerturb size x = do
+    x' <- cPerturb size x
+    perturb size x @==~? x'
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
--- | Preturb a 'Float' value
+-- | Perturb a 'Float' value
 --
--- Different kinds of values are preturbed separately:
+-- Different kinds of values are perturbed separately:
 --
--- * NaN and negative zero are preturbed to each other.
--- * Positive and negative infinity are preturbed to each other.
--- * Zero and subnormal values are preturbed as follows.
+-- * NaN and negative zero are perturbed to each other.
+-- * Positive and negative infinity are perturbed to each other.
+-- * Zero and subnormal values are perturbed as follows.
 --     1. Fraction
 --     2. Sign
--- * Normal values are preturbed as follows.
+-- * Normal values are perturbed as follows.
 --     1. Fraction
 --     2. Exponent
 --     3. Sign
-preturbFloat :: FC.CLLong -> Float -> Float
+perturbFloat :: FC.CLLong -> Float -> Float
 -- Any changes to this implementation must also be made in the C implementation.
 -- Note that the @'@ character is not used in variable names so that variable
 -- names can be translated to C, making it easier to compare the two
 -- implementations.
-preturbFloat size x
+perturbFloat size x
     | isNaN x          = if even size then RF.nan     else RF.negZero
     | isNegativeZero x = if even size then RF.negZero else RF.nan
     | isInfinite x     = if even size then x          else negate x
@@ -306,7 +306,7 @@ preturbFloat size x
     eSize = fromIntegral $ eMask - 1
     fSize = fromIntegral $ fMask + 1
 
-    -- w: passed value as a word to preturb at the representation level
+    -- w: passed value as a word to perturb at the representation level
     -- s: masked sign bit (not shifted)
     -- sC: complemented masked sign bit (not shifted)
     -- e: exponent (shifted)
@@ -323,25 +323,25 @@ preturbFloat size x
     (sizeDiv, sizeMod) = size `divMod` fSize
     (fDiv, fMod) = (sizeMod + fromIntegral f) `divMod` fSize
 
--- | Preturb a 'Double' value
+-- | Perturb a 'Double' value
 --
--- Different kinds of values are preturbed separately:
+-- Different kinds of values are perturbed separately:
 --
--- * NaN and negative zero are preturbed to each other.
--- * Positive and negative infinity are preturbed to each other.
--- * Zero and subnormal values are preturbed as follows.
+-- * NaN and negative zero are perturbed to each other.
+-- * Positive and negative infinity are perturbed to each other.
+-- * Zero and subnormal values are perturbed as follows.
 --     1. Fraction
 --     2. Sign
--- * Normal values are preturbed as follows.
+-- * Normal values are perturbed as follows.
 --     1. Fraction
 --     2. Exponent
 --     3. Sign
-preturbDouble :: FC.CLLong -> Double -> Double
+perturbDouble :: FC.CLLong -> Double -> Double
 -- Any changes to this implementation must also be made in the C implementation.
 -- Note that the @'@ character is not used in variable names so that variable
 -- names can be translated to C, making it easier to compare the two
 -- implementations.
-preturbDouble size x
+perturbDouble size x
     | isNaN x          = if even size then RF.nan     else RF.negZero
     | isNegativeZero x = if even size then RF.negZero else RF.nan
     | isInfinite x     = if even size then x          else negate x
@@ -390,7 +390,7 @@ preturbDouble size x
     eSize = fromIntegral $ eMask - 1
     fSize = fromIntegral $ fMask + 1
 
-    -- w: passed value as a word to preturb at the representation level
+    -- w: passed value as a word to perturb at the representation level
     -- s: masked sign bit (not shifted)
     -- sC: complemented masked sign bit (not shifted)
     -- e: exponent (shifted)
