@@ -153,7 +153,7 @@ jobs:
           git config --global core.eol lf
 
       - name: "[checkout] Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "[checkout] Debug disk usage"
         run: |
