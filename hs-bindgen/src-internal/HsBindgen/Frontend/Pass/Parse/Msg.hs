@@ -115,6 +115,16 @@ data DelayedParseMsg =
 
   | ParseInvalidVisibility
 
+    -- | Failed to parse a declaration because some of its nested declarations
+    -- failed to parse
+    --
+    -- For example, to successfully parse a struct (or union), all of its
+    -- nested declarations have to be parsed successfully as well. If any
+    -- nested declaration fails to parse, then we could miss seeing some
+    -- (implicit) fields, and we can't generate Haskell bindings for structs
+    -- (or unions) with an incomplete list of fields.
+  | ParseNestedDeclsFailed
+
     -- | A function declaration or global variable declaration has a problematic
     -- case of non-public visibility that can lead to linker errors if the
     -- symbol is defined in a shared library.
@@ -285,6 +295,10 @@ instance PrettyForTrace DelayedParseMsg where
         "Invalid linkage (CXLinkage_Invalid)"
       ParseInvalidVisibility ->
         "Invalid visibility (CXVisibility_Invalid)"
+      ParseNestedDeclsFailed -> PP.hsep [
+          "Failed to parse a declaration because some of its nested declarations"
+        , "failed to parse"
+        ]
       ParseNonPublicVisibility -> PP.hsep [
           "Bindings may result in linker errors"
         , "because the symbol has non-public visibility"
@@ -371,6 +385,7 @@ instance IsTrace Level DelayedParseMsg where
       ParseFunctionOfTypeTypedef{}      -> Warning
       ParseInvalidLinkage               -> Warning
       ParseInvalidVisibility            -> Warning
+      ParseNestedDeclsFailed{}          -> Warning
       ParseNonPublicVisibility{}        -> Warning
       ParseUnknownCursorAvailability{}  -> Warning
       ParseUnknownStorageClass{}        -> Warning

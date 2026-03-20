@@ -5,27 +5,28 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Members (
   , parseUnionMembersWith
   ) where
 
-import Data.Bifunctor (Bifunctor (first))
 import Data.Either (partitionEithers)
 import Data.List qualified as List
+import Data.List.NonEmpty qualified as NE
 import GHC.Records (HasField)
 
 import Clang.Enum.Simple (fromSimpleEnum)
-import Clang.HighLevel.Types (Fold, Next, foldContinueWith, foldRecurseWith,
-                              simpleFold)
+import Clang.HighLevel.Types (Fold, FoldException (exception), Next,
+                              foldContinueWith, foldRecurseWith, foldTry)
 import Clang.LowLevel.Core (CXCursor, CXCursorKind (CXCursor_FieldDecl),
                             clang_getCursorKind)
 
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Deps (depsOfField)
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Pass.Parse.Context (ParseCtx)
+import HsBindgen.Frontend.Pass.Parse.Context (ExceptionInCtx (exception),
+                                              ParseCtx)
 import HsBindgen.Frontend.Pass.Parse.Decl.Field (structFieldDecl,
                                                  unionFieldDecl)
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
-import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseUnsupportedImplicitFields))
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseNestedDeclsFailed, ParseUnsupportedImplicitFields))
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Anon, Named))
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
                                              getParseResultEitherDecl,
                                              parseSucceed)
@@ -40,10 +41,12 @@ data ParseMembersResult field = ParseMembersResult {
       declMembers  :: [ParseResult Parse]
       -- | Field declarations
       --
-      -- Returns 'Left' if any implicit fields were detected in the
-      -- struct\/union. Returns 'Right' otherwise.
+      -- Returns 'Left' if any nested struct\/union declarations or field
+      -- declarations failed to be parsed. Returns 'Right' otherwise.
     , fieldMembers :: Either DelayedParseMsg [field Parse]
     }
+
+deriving stock instance Show (field Parse) => Show (ParseMembersResult field)
 
 -- | Parse the members of a struct
 parseStructMembersWith ::
@@ -69,7 +72,7 @@ parseUnionMembersWith ctx parseObject = parseMembersWith ctx unionFieldDecl pars
 
 -- | Parse all members of a struct\/union
 parseMembersWith ::
-     HasField "typ" (field Parse) (C.Type Parse)
+     (HasField "typ" (field Parse) (C.Type Parse))
   => ParseCtx
      -- | How to parse a field declaration
   -> (ParseCtx -> CXCursor -> ParseDecl (field Parse))
@@ -81,44 +84,70 @@ parseMembersWith ::
   -> ParseDecl (Next ParseDecl a)
 parseMembersWith ctx parseField parseObject k =
     foldRecurseWith (parseMember ctx parseField parseObject) $ \xs -> do
-      let (otherRs, fields)   = first concat $ partitionEithers xs
+      let (foldExceptions, decls, fields) = partitionParseMemberResults xs
           (fails, successes) = partitionEithers $
-                                  map getParseResultEitherDecl otherRs
-          -- Separate out nested declarations from regular struct\/union fields
-          --
-          -- Local declarations inside structs\/unions that are not used by any
-          -- fields result in implicit fields. Unfortunately, @libclang@ does
-          -- not make these visible
-          -- <https://github.com/llvm/llvm-project/issues/122257>. This matters,
-          -- because we need the offsets of these implicit fields. For now we
-          -- therefore only try to detect the situation and report an error when
-          -- it happens. Hopefully this is anyway very rare.
-          (used, unused) = detectImplicitFields successes fields
-          -- Implicit fields might exist for fields of nested anonymous
-          -- structs\/unions that failed to parse. However, we don't know what
-          -- the names of the relevant unparsed fields are. As such we'll have
-          -- to assume that implicit fields exist when there are unparsed nested
-          -- declarations.
-          --
-          -- If all nested anonymous structs\/unions were parsed successfully,
-          -- then we can properly detect implicit fields using
-          -- 'detectImplicitFields'.
-          hasImplicitFields = not (null fails) || not (null unused)
+                                  map getParseResultEitherDecl decls
           -- Always return all nested declarations, regardless of their parse
           -- status. The @Select@ pass wil handle deselecting declarations if
           -- necessary.
-          declMembers = fails ++ map parseSucceed used
-      if hasImplicitFields then
-        -- If the struct has implicit fields, don't return any fields.
-        k ParseMembersResult {
-              declMembers  = declMembers
-            , fieldMembers = Left ParseUnsupportedImplicitFields
-            }
-      else
-        k ParseMembersResult {
-              declMembers  = declMembers
-            , fieldMembers = Right fields
-            }
+          declMembers = fails ++ map parseSucceed successes
+      if
+        -- If any nested declarations failed to parse, then we can't parse the
+        -- current declaration for fear of missing (implicit) fields.
+        | not (null fails)
+        -> k ParseMembersResult {
+                declMembers = declMembers
+              , fieldMembers = Left ParseNestedDeclsFailed
+              }
+        -- If any exceptions occurred during folding, only return the first one
+        | Just foldExceptions' <- NE.nonEmpty foldExceptions
+        -> k ParseMembersResult {
+                declMembers = declMembers
+              , fieldMembers = Left (NE.head foldExceptions').exception.exception
+              }
+        -- Local declarations inside structs\/unions that are not used by any
+        -- fields result in implicit fields. Unfortunately, @libclang@ does
+        -- not make these visible
+        -- <https://github.com/llvm/llvm-project/issues/122257>. This matters,
+        -- because we need the offsets of these implicit fields. For now we
+        -- therefore only try to detect the situation and report an error when
+        -- it happens. Hopefully this is anyway very rare.
+        --
+        -- Implicit fields might exist for fields of nested anonymous
+        -- structs\/unions that failed to parse. At this point, we have already
+        -- checked that there are no failed parses. So all nested anonymous
+        -- structs\/unions were parsed successfully, and we can properly detect
+        -- implicit fields using 'detectImplicitFields'.
+        | let (_used, unused) = detectImplicitFields successes fields
+        , not (null unused)
+        -> k ParseMembersResult {
+                declMembers  = declMembers
+              , fieldMembers = Left ParseUnsupportedImplicitFields
+              }
+        | otherwise
+        -> k ParseMembersResult {
+                declMembers  = declMembers
+              , fieldMembers = Right fields
+              }
+
+-- | The result of parsing a single member of a struct\/union
+data ParseMemberResult field =
+    ParseMemberResultFoldException (FoldException (ExceptionInCtx DelayedParseMsg))
+  | ParseMemberResultDecls [ParseResult Parse]
+  | ParseMemberResultField (field Parse)
+
+partitionParseMemberResults ::
+     [ParseMemberResult field]
+  -> ( [FoldException (ExceptionInCtx DelayedParseMsg)]
+     , [(ParseResult Parse)]
+     , [field Parse]
+     )
+partitionParseMemberResults = mconcat . fmap f
+  where
+    f = \case
+          ParseMemberResultFoldException e -> ([e], [], [] )
+          ParseMemberResultDecls xs        -> ([] , xs, [] )
+          ParseMemberResultField x         -> ([] , [], [x])
 
 -- | Parse a single member of a struct\/union
 parseMember ::
@@ -128,18 +157,27 @@ parseMember ::
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
   -> (ParseCtx -> Parser)
-  -> Fold ParseDecl (Either [ParseResult Parse] (field Parse))
-parseMember ctx parseField parseObject = simpleFold $ \curr -> do
-    kind <- fromSimpleEnum <$> clang_getCursorKind curr
-    case kind of
-      Right CXCursor_FieldDecl -> do
-        field <- parseField ctx curr
-        -- Field declarations can have struct\/union declarations as children in
-        -- the clang AST; however, those are duplicates of declarations that
-        -- appear elsewhere, so here we choose not to recurse.
-        foldContinueWith $ Right field
-      _otherwise -> do
-        fmap Left <$> parseObject ctx curr
+  -> Fold ParseDecl (ParseMemberResult field)
+parseMember ctx parseField parseObject =
+    fmap flatten $
+    foldTry $ \curr -> do
+      kind <- fromSimpleEnum <$> clang_getCursorKind curr
+      case kind of
+        Right CXCursor_FieldDecl -> do
+          field <- parseField ctx curr
+          -- Field declarations can have struct\/union declarations as children in
+          -- the clang AST; however, those are duplicates of declarations that
+          -- appear elsewhere, so here we choose not to recurse.
+          foldContinueWith $ ParseMemberResultField field
+        _otherwise -> do
+          fmap ParseMemberResultDecls <$> parseObject ctx curr
+  where
+    flatten ::
+         Either (FoldException (ExceptionInCtx DelayedParseMsg)) (ParseMemberResult field)
+      -> ParseMemberResult field
+    flatten = \case
+        Left e -> ParseMemberResultFoldException e
+        Right x -> x
 
 -- | Detect implicit fields inside a struct\/union
 --
@@ -201,5 +239,12 @@ detectImplicitFields nestedDecls outerFields =
         , concatMap (either depsOfField depsOfField) nestedFields
         ]
 
+    -- Note: nested declarations belong to the same scope as the enclosing
+    -- object
+    --
+    -- <https://en.cppreference.com/w/c/language/scope.html#Notes>
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.info.id `elem` fieldDeps
+    declIsUsed decl = case decl.info.id of
+        -- Implicit fields can not refer to named declarations
+        Named{} -> True
+        Anon{} -> decl.info.id `elem` fieldDeps

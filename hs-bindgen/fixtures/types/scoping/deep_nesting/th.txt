@@ -1,0 +1,59 @@
+-- addDependentFile examples/golden/types/scoping/deep_nesting.h
+-- #include <types/scoping/deep_nesting.h>
+-- /* test_typesscopingdeep_nesting_Example_get_X */
+-- __attribute__ ((const))
+-- struct baz *hs_bindgen_d6029a840689b228 (void)
+-- {
+--   return &X;
+-- }
+{-| __C declaration:__ @struct baz@
+
+    __defined at:__ @types\/scoping\/deep_nesting.h 18:12@
+
+    __exported by:__ @types\/scoping\/deep_nesting.h@
+-}
+data Baz
+    = Baz {baz_x1_2_1 :: CInt
+           {- ^ __C declaration:__ @x1_2_1@
+
+                __defined at:__ @types\/scoping\/deep_nesting.h 19:11@
+
+                __exported by:__ @types\/scoping\/deep_nesting.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Baz
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Baz
+    where readRaw = \ptr_0 -> pure Baz <*> readRaw (Proxy @"baz_x1_2_1") ptr_0
+instance WriteRaw Baz
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Baz baz_x1_2_1_2 -> writeRaw (Proxy @"baz_x1_2_1") ptr_0 baz_x1_2_1_2
+deriving via (EquivStorable Baz) instance Storable Baz
+instance HasCField Baz "baz_x1_2_1"
+    where type CFieldType Baz "baz_x1_2_1" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "baz_x1_2_1" (Ptr Baz) (Ptr ty)
+    where getField = fromPtr (Proxy @"baz_x1_2_1")
+-- __unique:__ @test_typesscopingdeep_nesting_Example_get_X@
+foreign import ccall unsafe "hs_bindgen_d6029a840689b228" hs_bindgen_d6029a840689b228_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_typesscopingdeep_nesting_Example_get_X@
+hs_bindgen_d6029a840689b228 :: IO (Ptr Baz)
+-- __unique:__ @test_typesscopingdeep_nesting_Example_get_X@
+hs_bindgen_d6029a840689b228 = fromFFIType hs_bindgen_d6029a840689b228_base
+{-# NOINLINE x #-}
+{-| __C declaration:__ @X@
+
+    __defined at:__ @types\/scoping\/deep_nesting.h 25:19@
+
+    __exported by:__ @types\/scoping\/deep_nesting.h@
+-}
+x :: Ptr Baz
+{-| __C declaration:__ @X@
+
+    __defined at:__ @types\/scoping\/deep_nesting.h 25:19@
+
+    __exported by:__ @types\/scoping\/deep_nesting.h@
+-}
+x = unsafePerformIO hs_bindgen_d6029a840689b228

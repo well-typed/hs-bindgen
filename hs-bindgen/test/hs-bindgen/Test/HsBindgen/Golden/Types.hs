@@ -53,6 +53,9 @@ testCases = [
     , test_types_primitives_bool_macro_override
     , test_types_primitives_bool_typedef_override
     , test_types_primitives_least_fast
+    , test_types_scoping_deep_nesting
+    , test_types_scoping_nesting
+    , test_types_scoping_wide_nesting
     , test_types_special_parse_failure_long_double
     , test_types_structs_named_vs_anon
     , test_types_structs_bitfields
@@ -115,6 +118,43 @@ test_types_primitives_least_fast :: TestCase
 test_types_primitives_least_fast =
     defaultTest "types/primitives/least_fast"
       & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
+
+test_types_scoping_deep_nesting :: TestCase
+test_types_scoping_deep_nesting =
+    testTraceMulti "types/scoping/deep_nesting" declsWithMsgs $ \case
+      MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
+        Just $ Expected name
+      MatchDelayed name@"struct bar" ParseUnsupportedLongDouble ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [CDeclName]
+    declsWithMsgs = ["struct foo", "struct bar"]
+
+test_types_scoping_nesting :: TestCase
+test_types_scoping_nesting =
+    testTraceMulti "types/scoping/nesting" declsWithMsgs $ \case
+      MatchDelayed name@"struct foo" ParseUnsupportedLongDouble ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [CDeclName]
+    declsWithMsgs = ["struct foo"]
+
+test_types_scoping_wide_nesting :: TestCase
+test_types_scoping_wide_nesting =
+    testTraceMulti "types/scoping/wide_nesting" declsWithMsgs $ \case
+      MatchDelayed name@"struct foo" ParseNestedDeclsFailed ->
+        Just $ Expected name
+      MatchDelayed name@"struct bar" ParseUnsupportedLongDouble ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [CDeclName]
+    declsWithMsgs = ["struct foo", "struct bar"]
 
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =

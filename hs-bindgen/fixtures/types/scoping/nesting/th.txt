@@ -1,0 +1,59 @@
+-- addDependentFile examples/golden/types/scoping/nesting.h
+-- #include <types/scoping/nesting.h>
+-- /* test_typesscopingnesting_Example_get_X */
+-- __attribute__ ((const))
+-- struct bar *hs_bindgen_7640032abd722ca9 (void)
+-- {
+--   return &X;
+-- }
+{-| __C declaration:__ @struct bar@
+
+    __defined at:__ @types\/scoping\/nesting.h 14:10@
+
+    __exported by:__ @types\/scoping\/nesting.h@
+-}
+data Bar
+    = Bar {bar_x1_1 :: CInt
+           {- ^ __C declaration:__ @x1_1@
+
+                __defined at:__ @types\/scoping\/nesting.h 15:9@
+
+                __exported by:__ @types\/scoping\/nesting.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Bar
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Bar
+    where readRaw = \ptr_0 -> pure Bar <*> readRaw (Proxy @"bar_x1_1") ptr_0
+instance WriteRaw Bar
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Bar bar_x1_1_2 -> writeRaw (Proxy @"bar_x1_1") ptr_0 bar_x1_1_2
+deriving via (EquivStorable Bar) instance Storable Bar
+instance HasCField Bar "bar_x1_1"
+    where type CFieldType Bar "bar_x1_1" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "bar_x1_1" (Ptr Bar) (Ptr ty)
+    where getField = fromPtr (Proxy @"bar_x1_1")
+-- __unique:__ @test_typesscopingnesting_Example_get_X@
+foreign import ccall unsafe "hs_bindgen_7640032abd722ca9" hs_bindgen_7640032abd722ca9_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_typesscopingnesting_Example_get_X@
+hs_bindgen_7640032abd722ca9 :: IO (Ptr Bar)
+-- __unique:__ @test_typesscopingnesting_Example_get_X@
+hs_bindgen_7640032abd722ca9 = fromFFIType hs_bindgen_7640032abd722ca9_base
+{-# NOINLINE x #-}
+{-| __C declaration:__ @X@
+
+    __defined at:__ @types\/scoping\/nesting.h 20:19@
+
+    __exported by:__ @types\/scoping\/nesting.h@
+-}
+x :: Ptr Bar
+{-| __C declaration:__ @X@
+
+    __defined at:__ @types\/scoping\/nesting.h 20:19@
+
+    __exported by:__ @types\/scoping\/nesting.h@
+-}
+x = unsafePerformIO hs_bindgen_7640032abd722ca9
