@@ -24,7 +24,7 @@ import HsBindgen.Frontend.Pass.Parse.Decl.Field (structFieldDecl,
                                                  unionFieldDecl)
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
-import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseUnsupportedImplicitFields))
+import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseNestedDeclsFailed, ParseUnsupportedImplicitFields))
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Anon, Named))
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
                                              getParseResultEitherDecl,
@@ -40,10 +40,12 @@ data ParseMembersResult field = ParseMembersResult {
       declMembers  :: [ParseResult Parse]
       -- | Field declarations
       --
-      -- Returns 'Left' if any implicit fields were detected in the
-      -- struct\/union. Returns 'Right' otherwise.
+      -- Returns 'Left' if any nested struct\/union declarations or field
+      -- declarations failed to be parsed. Returns 'Right' otherwise.
     , fieldMembers :: Either DelayedParseMsg [field Parse]
     }
+
+deriving stock instance Show (field Parse) => Show (ParseMembersResult field)
 
 -- | Parse the members of a struct
 parseStructMembersWith ::
@@ -84,41 +86,42 @@ parseMembersWith ctx parseField parseObject k =
       let (otherRs, fields)   = first concat $ partitionEithers xs
           (fails, successes) = partitionEithers $
                                   map getParseResultEitherDecl otherRs
-          -- Separate out nested declarations from regular struct\/union fields
-          --
-          -- Local declarations inside structs\/unions that are not used by any
-          -- fields result in implicit fields. Unfortunately, @libclang@ does
-          -- not make these visible
-          -- <https://github.com/llvm/llvm-project/issues/122257>. This matters,
-          -- because we need the offsets of these implicit fields. For now we
-          -- therefore only try to detect the situation and report an error when
-          -- it happens. Hopefully this is anyway very rare.
-          (used, unused) = detectImplicitFields successes fields
-          -- Implicit fields might exist for fields of nested anonymous
-          -- structs\/unions that failed to parse. However, we don't know what
-          -- the names of the relevant unparsed fields are. As such we'll have
-          -- to assume that implicit fields exist when there are unparsed nested
-          -- declarations.
-          --
-          -- If all nested anonymous structs\/unions were parsed successfully,
-          -- then we can properly detect implicit fields using
-          -- 'detectImplicitFields'.
-          hasImplicitFields = not (null fails) || not (null unused)
           -- Always return all nested declarations, regardless of their parse
           -- status. The @Select@ pass wil handle deselecting declarations if
           -- necessary.
-          declMembers = fails ++ map parseSucceed used
-      if hasImplicitFields then
-        -- If the struct has implicit fields, don't return any fields.
-        k ParseMembersResult {
-              declMembers  = declMembers
-            , fieldMembers = Left ParseUnsupportedImplicitFields
-            }
-      else
-        k ParseMembersResult {
-              declMembers  = declMembers
-            , fieldMembers = Right fields
-            }
+          declMembers = fails ++ map parseSucceed successes
+      if
+        -- If any nested declarations failed to parse, then we can't parse the
+        -- current declaration for fear of missing (implicit) fields.
+        | not (null fails)
+        -> k ParseMembersResult {
+                declMembers = declMembers
+              , fieldMembers = Left ParseNestedDeclsFailed
+              }
+        -- Local declarations inside structs\/unions that are not used by any
+        -- fields result in implicit fields. Unfortunately, @libclang@ does
+        -- not make these visible
+        -- <https://github.com/llvm/llvm-project/issues/122257>. This matters,
+        -- because we need the offsets of these implicit fields. For now we
+        -- therefore only try to detect the situation and report an error when
+        -- it happens. Hopefully this is anyway very rare.
+        --
+        -- Implicit fields might exist for fields of nested anonymous
+        -- structs\/unions that failed to parse. At this point, we have already
+        -- checked that there are no failed parses. So all nested anonymous
+        -- structs\/unions were parsed successfully, and we can properly detect
+        -- implicit fields using 'detectImplicitFields'.
+        | let (_used, unused) = detectImplicitFields successes fields
+        , not (null unused)
+        -> k ParseMembersResult {
+                declMembers  = declMembers
+              , fieldMembers = Left ParseUnsupportedImplicitFields
+              }
+        | otherwise
+        -> k ParseMembersResult {
+                declMembers  = declMembers
+              , fieldMembers = Right fields
+              }
 
 -- | Parse a single member of a struct\/union
 parseMember ::
