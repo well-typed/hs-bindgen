@@ -5,6 +5,8 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Field (
   , getFieldInfo
   ) where
 
+import Control.Monad.IO.Class (MonadIO)
+
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.LowLevel.Core (CXCursor, clang_Cursor_getOffsetOfField,
@@ -35,7 +37,7 @@ structFieldDecl ctx = \curr -> do
       , ann    = structFieldAnn
       }
 
-structWidth :: CXCursor -> ParseDecl (Maybe Int)
+structWidth :: MonadIO m => CXCursor -> m (Maybe Int)
 structWidth = \curr -> do
     isBitField <- clang_Cursor_isBitField curr
     if isBitField
@@ -53,7 +55,7 @@ unionFieldDecl ctx = \curr -> do
       , ann  = unionFieldAnn
       }
 
-getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
+getFieldInfo :: MonadIO m => CXCursor -> m (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
     fieldLoc     <- HighLevel.clang_getCursorLocation' curr
     fieldName    <- CScopedName <$> clang_getCursorDisplayName curr
