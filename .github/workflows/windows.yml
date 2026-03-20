@@ -235,7 +235,7 @@ jobs:
         # Do not restore the cache if it is disabled in a manual dispatch.
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true' }}
         id: restore-cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         env:
           key: build-and-test-${{ env.cache-reset-number }}-windows-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
         with:
@@ -341,7 +341,7 @@ jobs:
         # Do not save the cache if it is disabled in a manual dispatch or it
         # already exists.
         if: ${{ (github.event_name != 'workflow_dispatch' || inputs.enable_cache == 'true') && (steps.restore-cache.outputs.cache-hit != 'true') }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}
           key: ${{steps.restore-cache.outputs.cache-primary-key }}

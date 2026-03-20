@@ -101,7 +101,7 @@ jobs:
     # changes, and we'll save a new cache.
     - name: 💾 Restore Cabal dependencies
       id: cache-cabal-restore
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v5
       env:
         key: build-example-${{ matrix.example }}-${{ env.cache-reset-number }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
         plan-file-hs-bindgen-cli: './dist-newstyle/cache/plan.json'
@@ -128,7 +128,7 @@ jobs:
 
     # Only save a new cache if it does not exist yet
     - name: 💾 Save Cabal dependencies
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}
