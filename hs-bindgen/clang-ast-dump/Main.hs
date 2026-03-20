@@ -20,7 +20,7 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.Enum.Bitfield
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types
+import Clang.HighLevel.Types hiding (FoldException (..))
 import Clang.LowLevel.Core
 import Clang.LowLevel.Doxygen
 import Clang.Paths
