@@ -5,7 +5,7 @@ index-state: 2026-03-12T10:22:50Z
 source-repository-package
     type: git
     location: https://github.com/well-typed/libclang
-    tag: d6e482df49b88375cf3075928a78ee86c2a068d4
+    tag: ea43e2a9dae591967c784d01dfa8fcbaf8961152
 
 --
 -- Temporary package bounds overrides for ghc 9.14
