@@ -75,7 +75,7 @@ jobs:
       # changes, and we'll save a new cache.
       - name: 💾 Restore Cabal dependencies
         id: cache-cabal-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         env:
           key: compile-fixtures-${{ env.cache-reset-number }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
         with:
@@ -87,7 +87,7 @@ jobs:
         run: cabal build all --only-dependencies
 
       - name: 💾 Save Cabal dependencies
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
         with:
           path: ${{ steps.setup-haskell.outputs.cabal-store }}

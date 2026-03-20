@@ -35,7 +35,7 @@ jobs:
 
     - name: Restore cache
       id: cache-cabal-restore
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v5
       env:
         key: stylish-haskell-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
       with:
@@ -50,7 +50,7 @@ jobs:
         cabal install stylish-haskell --ignore-project --index-state=${{ env.hackage-index-state }}
 
     - name: Save cache
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}

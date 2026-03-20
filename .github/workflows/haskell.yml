@@ -182,7 +182,7 @@ jobs:
 
     - name: 💾 Restore cache
       id: cache-cabal-restore
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v5
       env:
         key: build-and-test-${{ env.cache-reset-number }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
       with:
@@ -232,7 +232,7 @@ jobs:
 
     # Save the cache after building the project AND the manual.
     - name: 💾 Save cache
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v5
       # Even save the cache, even when a previous job failed. Do not save the
       # cache when the job gets canceled.
       if: ${{ !cancelled() }}
