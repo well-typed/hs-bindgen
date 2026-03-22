@@ -6,6 +6,11 @@
 
 * Remove `withPtr` for `IncompleteArray` and `ConstArray`. Use `withElemPtr`
   from the `IsArray` class instead. See [PR #1712][pr-1712].
+* The `BitfieldPtr` constructor pattern is removed, making the type opaque.  A
+  smart constructor and accessor functions are exported instead.
+* `StaticSize` constraints are added to `HasCBitfield` API functions, in order
+  to calculate memory bounds.  This enables single `peek`/`poke` reads/writes
+  when possible while ensuring that neighboring memory is not accessed.
 
 ### New features
 
