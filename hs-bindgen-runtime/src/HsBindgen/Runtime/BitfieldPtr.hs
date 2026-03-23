@@ -54,12 +54,15 @@ mkBitfieldPtr :: forall s a.
   -> Int    -- ^ Offset of the bit-field (0 or more bits)
   -> Int    -- ^ Width of the bit-field (1 to 64 bits)
   -> BitfieldPtr a
-mkBitfieldPtr ptr off width = UnsafeBitfieldPtr{
-      startingByte = castPtr $ ptr `plusPtr` offBytes
-    , offset       = offBits
-    , width        = width
-    , bounds       = (ptrL, ptrH)
-    }
+mkBitfieldPtr ptr off width
+    | width < 1 || width > 64 =
+        error $ "invalid bit-field width: " ++ show width
+    | otherwise = UnsafeBitfieldPtr{
+          startingByte = castPtr $ ptr `plusPtr` offBytes
+        , offset       = offBits
+        , width        = width
+        , bounds       = (ptrL, ptrH)
+        }
   where
     offBytes, offBits :: Int
     (offBytes, offBits) = off `quotRem` 8
