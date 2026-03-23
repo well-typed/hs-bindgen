@@ -207,12 +207,12 @@ structDecl ctx info = \curr -> do
                   info = info
                 , ann  = NoAnn
                 , kind = C.DeclStruct C.Struct{
-                             sizeof    = fromIntegral sizeof
-                           , alignment = fromIntegral alignment
-                           , fields    = filter isNotZeroWidth regularFields
-                           , flam      = mFlam
-                           , ann       = NoAnn
-                           }
+                      sizeof    = fromIntegral sizeof
+                    , alignment = fromIntegral alignment
+                    , fields    = filter isField regularFields
+                    , flam      = mFlam
+                    , ann       = NoAnn
+                    }
                 }
               where
                 (regularFields, mFlam) = partitionFields allFields
@@ -264,13 +264,13 @@ structDecl ctx info = \curr -> do
                           _otherwise->
                             go (f:acc) fs
 
-    -- A bit-field declaration with no declarator and width zero is a special
-    -- case that instructs the compiler to not pack any more fields into the
-    -- current storage unit.  This is used to conform to externally imposed
-    -- layouts.  This predicate is used to filter out such declarations, which
-    -- are not actual bit-fields.
-    isNotZeroWidth :: C.StructField Parse -> Bool
-    isNotZeroWidth field = maybe True (> 0) field.width
+    -- An unnamed bit-field declaration is used to specify padding, using a
+    -- specified padding width or zero to instruct the compiler to not pack
+    -- any more fields into the current storage unit.  This is used to conform
+    -- to externally imposed layouts.  This predicate is used to filter out such
+    -- declarations, which do not create fields.
+    isField :: C.StructField Parse -> Bool
+    isField field = not $ Text.null field.info.name.text && isJust field.width
 
 unionDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 unionDecl ctx info = \curr -> do
@@ -288,7 +288,7 @@ unionDecl ctx info = \curr -> do
                 , kind = C.DeclUnion C.Union{
                              sizeof    = fromIntegral sizeof
                            , alignment = fromIntegral alignment
-                           , fields    = fields
+                           , fields    = filter isField fields
                            , ann       = NoAnn
                            }
                 }
@@ -321,7 +321,14 @@ unionDecl ctx info = \curr -> do
         foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
         foldContinue
-
+  where
+    -- An unnamed bit-field declaration is used to specify padding, using a
+    -- specified padding width or zero to instruct the compiler to not pack
+    -- any more fields into the current storage unit.  This is used to conform
+    -- to externally imposed layouts.  This predicate is used to filter out such
+    -- declarations, which do not create fields.
+    isField :: C.UnionField Parse -> Bool
+    isField field = not $ Text.null field.info.name.text
 
 typedefDecl :: ParseCtx -> C.DeclInfo Parse -> Parser
 typedefDecl ctx info = \curr -> do

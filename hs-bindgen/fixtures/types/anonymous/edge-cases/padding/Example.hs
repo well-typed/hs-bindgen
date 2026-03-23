@@ -15,8 +15,6 @@ module Example
     ( Example.SS_y(..)
     , Example.SS(..)
     , Example.SU_y(..)
-    , Example.get_sU_y_
-    , Example.set_sU_y_
     , Example.get_sU_y_y
     , Example.set_sU_y_y
     , Example.SU(..)
@@ -29,8 +27,6 @@ module Example
     , Example.get_uS_z
     , Example.set_uS_z
     , Example.UU_y(..)
-    , Example.get_uU_y_
-    , Example.set_uU_y_
     , Example.get_uU_y_y
     , Example.set_uU_y_y
     , Example.UU(..)
@@ -43,8 +39,6 @@ module Example
     )
   where
 
-import qualified HsBindgen.Runtime.BitfieldPtr as BitfieldPtr
-import qualified HsBindgen.Runtime.HasCBitfield as HasCBitfield
 import qualified HsBindgen.Runtime.HasCField as HasCField
 import qualified HsBindgen.Runtime.Internal.Prelude as RIP
 import qualified HsBindgen.Runtime.Marshal as Marshal
@@ -56,14 +50,7 @@ import qualified HsBindgen.Runtime.Marshal as Marshal
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 data SS_y = SS_y
-  { sS_y_ :: RIP.CChar
-    {- ^ __C declaration:__ @@
-
-         __defined at:__ @types\/anonymous\/edge-cases\/padding.h 16:5@
-
-         __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
-    -}
-  , sS_y_y :: RIP.CInt
+  { sS_y_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/anonymous\/edge-cases\/padding.h 17:9@
@@ -84,7 +71,6 @@ instance Marshal.ReadRaw SS_y where
   readRaw =
     \ptr0 ->
           pure SS_y
-      <*> HasCBitfield.peek (RIP.Proxy @"sS_y_") ptr0
       <*> HasCField.readRaw (RIP.Proxy @"sS_y_y") ptr0
 
 instance Marshal.WriteRaw SS_y where
@@ -93,24 +79,10 @@ instance Marshal.WriteRaw SS_y where
     \ptr0 ->
       \s1 ->
         case s1 of
-          SS_y sS_y_2 sS_y_y3 ->
-               HasCBitfield.poke (RIP.Proxy @"sS_y_") ptr0 sS_y_2
-            >> HasCField.writeRaw (RIP.Proxy @"sS_y_y") ptr0 sS_y_y3
+          SS_y sS_y_y2 ->
+            HasCField.writeRaw (RIP.Proxy @"sS_y_y") ptr0 sS_y_y2
 
 deriving via Marshal.EquivStorable SS_y instance RIP.Storable SS_y
-
-instance HasCBitfield.HasCBitfield SS_y "sS_y_" where
-
-  type CBitfieldType SS_y "sS_y_" = RIP.CChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 3
-
-instance ( ((~) ty) RIP.CChar
-         ) => RIP.HasField "sS_y_" (RIP.Ptr SS_y) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"sS_y_")
 
 instance HasCField.HasCField SS_y "sS_y_y" where
 
@@ -235,31 +207,6 @@ deriving via Marshal.EquivStorable SU_y instance RIP.Storable SU_y
 
 {-|
 
-  __See:__ 'set_sU_y_'
-
-__C declaration:__ @@
-
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 25:5@
-
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_sU_y_ ::
-     SU_y
-  -> RIP.CChar
-get_sU_y_ = RIP.getUnionPayload
-
-{-|
-
-  __See:__ 'get_sU_y_'
-
--}
-set_sU_y_ ::
-     RIP.CChar
-  -> SU_y
-set_sU_y_ = RIP.setUnionPayload
-
-{-|
-
   __See:__ 'set_sU_y_y'
 
 __C declaration:__ @y@
@@ -282,17 +229,6 @@ set_sU_y_y ::
      RIP.CInt
   -> SU_y
 set_sU_y_y = RIP.setUnionPayload
-
-instance HasCField.HasCField SU_y "sU_y_" where
-
-  type CFieldType SU_y "sU_y_" = RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ((~) ty) RIP.CChar
-         ) => RIP.HasField "sU_y_" (RIP.Ptr SU_y) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"sU_y_")
 
 instance HasCField.HasCField SU_y "sU_y_y" where
 
@@ -403,14 +339,7 @@ instance ( ((~) ty) RIP.CInt
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 data US_y = US_y
-  { uS_y_ :: RIP.CChar
-    {- ^ __C declaration:__ @@
-
-         __defined at:__ @types\/anonymous\/edge-cases\/padding.h 34:5@
-
-         __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
-    -}
-  , uS_y_y :: RIP.CInt
+  { uS_y_y :: RIP.CInt
     {- ^ __C declaration:__ @y@
 
          __defined at:__ @types\/anonymous\/edge-cases\/padding.h 35:9@
@@ -431,7 +360,6 @@ instance Marshal.ReadRaw US_y where
   readRaw =
     \ptr0 ->
           pure US_y
-      <*> HasCBitfield.peek (RIP.Proxy @"uS_y_") ptr0
       <*> HasCField.readRaw (RIP.Proxy @"uS_y_y") ptr0
 
 instance Marshal.WriteRaw US_y where
@@ -440,24 +368,10 @@ instance Marshal.WriteRaw US_y where
     \ptr0 ->
       \s1 ->
         case s1 of
-          US_y uS_y_2 uS_y_y3 ->
-               HasCBitfield.poke (RIP.Proxy @"uS_y_") ptr0 uS_y_2
-            >> HasCField.writeRaw (RIP.Proxy @"uS_y_y") ptr0 uS_y_y3
+          US_y uS_y_y2 ->
+            HasCField.writeRaw (RIP.Proxy @"uS_y_y") ptr0 uS_y_y2
 
 deriving via Marshal.EquivStorable US_y instance RIP.Storable US_y
-
-instance HasCBitfield.HasCBitfield US_y "uS_y_" where
-
-  type CBitfieldType US_y "uS_y_" = RIP.CChar
-
-  bitfieldOffset# = \_ -> \_ -> 0
-
-  bitfieldWidth# = \_ -> \_ -> 3
-
-instance ( ((~) ty) RIP.CChar
-         ) => RIP.HasField "uS_y_" (RIP.Ptr US_y) (BitfieldPtr.BitfieldPtr ty) where
-
-  getField = HasCBitfield.toPtr (RIP.Proxy @"uS_y_")
 
 instance HasCField.HasCField US_y "uS_y_y" where
 
@@ -617,31 +531,6 @@ deriving via Marshal.EquivStorable UU_y instance RIP.Storable UU_y
 
 {-|
 
-  __See:__ 'set_uU_y_'
-
-__C declaration:__ @@
-
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 43:5@
-
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_uU_y_ ::
-     UU_y
-  -> RIP.CChar
-get_uU_y_ = RIP.getUnionPayload
-
-{-|
-
-  __See:__ 'get_uU_y_'
-
--}
-set_uU_y_ ::
-     RIP.CChar
-  -> UU_y
-set_uU_y_ = RIP.setUnionPayload
-
-{-|
-
   __See:__ 'set_uU_y_y'
 
 __C declaration:__ @y@
@@ -664,17 +553,6 @@ set_uU_y_y ::
      RIP.CInt
   -> UU_y
 set_uU_y_y = RIP.setUnionPayload
-
-instance HasCField.HasCField UU_y "uU_y_" where
-
-  type CFieldType UU_y "uU_y_" = RIP.CChar
-
-  offset# = \_ -> \_ -> 0
-
-instance ( ((~) ty) RIP.CChar
-         ) => RIP.HasField "uU_y_" (RIP.Ptr UU_y) (RIP.Ptr ty) where
-
-  getField = HasCField.fromPtr (RIP.Proxy @"uU_y_")
 
 instance HasCField.HasCField UU_y "uU_y_y" where
 

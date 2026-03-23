@@ -3,10 +3,30 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: types/structs/unnamed_bitfield.h
+- headers: types/structs/padding.h
   cname: struct foo
   hsname: Foo
+- headers: types/structs/padding.h
+  cname: struct bar
+  hsname: Bar
 hstypes:
+- hsname: Bar
+  representation:
+    record:
+      constructor: Bar
+      fields:
+      - bar_x
+      - bar_y
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
 - hsname: Foo
   representation:
     record:
