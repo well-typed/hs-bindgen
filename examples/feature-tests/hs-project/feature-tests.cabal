@@ -52,6 +52,8 @@ library generated
     Generated.Callbacks.Unions.FunPtr
     Generated.Callbacks.Unions.Safe
     Generated.Callbacks.Unions.Unsafe
+    Generated.Types.Anonymous
+    Generated.Types.Anonymous.Global
 
   build-depends:
     , base
@@ -71,6 +73,7 @@ test-suite feature-tests
     Test.Callbacks.Basic
     Test.Callbacks.Structs
     Test.Callbacks.Unions
+    Test.Types.Anonymous
     Test.Util
     Test.Util.Orphans
 

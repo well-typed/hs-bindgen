@@ -4,13 +4,21 @@ default: libfeature-tests.so
 clean:
 	rm -f *.o *.so
 
-libfeature-tests.so: arrays/known_size.o arrays/unknown_size.o basic.o structs.o unions.o
+libfeature-tests.so: \
+		arrays/known_size.o \
+		arrays/unknown_size.o \
+		basic.o \
+		structs.o \
+		unions.o \
+		types/anonymous.o
+
 	gcc -Wall -shared -o libfeature-tests.so \
 		callbacks/arrays/known_size.o \
 		callbacks/arrays/unknown_size.o \
 		callbacks/basic.o \
 		callbacks/structs.o \
-		callbacks/unions.o
+		callbacks/unions.o \
+		types/anonymous.o
 
 # callbacks
 
@@ -28,3 +36,10 @@ structs.o: callbacks/structs.h callbacks/structs.c
 
 unions.o: callbacks/unions.h callbacks/unions.c
 	gcc -Wall -o callbacks/unions.o -c -fPIC callbacks/unions.c
+
+# types
+
+## anonymous
+
+types/anonymous.o: types/anonymous.h types/anonymous.c
+	gcc -Wall -o types/anonymous.o -c -fPIC types/anonymous.c

@@ -28,6 +28,8 @@ if [ -d "$GENERATED_DIR" ]; then
   rm -r "$GENERATED_DIR"
 fi
 
+echo "## Callbacks"
+
 cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I c \
@@ -77,6 +79,20 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --overwrite-files \
     --module Generated.Callbacks.Unions \
     callbacks/unions.h
+
+echo "## Types"
+
+echo "### Anonymous"
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --hs-output-dir hs-project/src-generated \
+    --unique-id feature-tests.well-typed.com \
+    --create-output-dirs \
+    --overwrite-files \
+    --module Generated.Types.Anonymous \
+    types/anonymous.h
 
 echo "# "
 echo "# Updating cabal.project.local"
