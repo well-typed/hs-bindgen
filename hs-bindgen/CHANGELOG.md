@@ -50,6 +50,11 @@
   * Generate an `IsArray` instance for each newtype of a type with an `IsArray`
 * Support unnamed bit-field declarations (of width zero), used to instruct the
   compiler to not pack any more fields into the current storage unit.
+* Generate bindings for nested struct and union declarations even if we failed
+  to generate bindings for the enclosing struct or union. See [PR
+  #1849][pr-1849].
+* Generate bindings for nested anonymous structs and unions. See [PR
+  #1839][pr-1839].
 
 ### Minor changes
 
@@ -100,6 +105,8 @@
 [pr-1712]: https://github.com/well-typed/hs-bindgen/pull/1712
 [pr-1724]: https://github.com/well-typed/hs-bindgen/pull/1724
 [issue-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
+[pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
+[pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
 
 ## 0.1.0-alpha -- 2026-02-06
 
