@@ -240,25 +240,10 @@ entryToAvailability = \case
 empty :: DeclIndex
 empty = DeclIndex Map.empty
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1777>
--- Cross-namespace conflicts should be identified in the @MangleNames@ pass, and
--- conflicting declarations should only be thrown out in the @Select@ pass when
--- more than one are selected.
---
--- Currently, we check for conflicts between ordinary declarations and macro
--- declarations here.  This must be done specially because they are in separate
--- namespaces.  Since macros are not parsed yet, conflicts are detected
--- regardless of if we can parse the macro or not.  We cannot yet check for such
--- conflicts in @MangleNames@ because macros that we cannot parse are thrown out
--- in the @HandleMacros@ pass, so we would then always select the ordinary
--- declaration.  This is problematic because it means that we (may) generate
--- invalid C code.
---
--- See golden test: @macros/macro_redefines_global@
---
--- When the above issue is resolved, this function should be changed to just
--- check for same-namespace conflicts.  Travis has already implemented this and
--- has it stashed.
+-- This function checks for conflicts between ordinary declarations and macro
+-- declarations, which must be done specially because they are in separate
+-- namespaces.  This is done here because we need to detect conflicts even with
+-- macros that we cannot parse, which are thrown out in the @HandleMacros@ pass.
 fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
 fromParseResults results = flip execState empty $ mapM_ aux results
   where
