@@ -19,13 +19,12 @@ let
 in
 {
   haskell = prev.haskell // {
-    packageOverrides =
+    packageOverrides = final.lib.composeExtensions prev.haskell.packageOverrides (
       hfinal: hprev:
       let
         hsBindgenPkgs = mkHsBindgenPkgs hfinal;
       in
-      prev.haskell.packageOverrides hfinal hprev
-      // {
+      {
         inherit (hsBindgenPkgs) hs-bindgen-runtime hs-bindgen-test-runtime;
         # TODO: The documentation fails to build.
         c-expr-dsl = hlib.dontHaddock hsBindgenPkgs.c-expr-dsl;
@@ -46,7 +45,8 @@ in
             final.hsBindgenHook
           ];
         }) hsBindgenPkgs.hs-bindgen;
-      };
+      }
+    );
     lib.compose = prev.haskell.lib.compose // final.callPackage ../hs-bindgen-lib.nix { };
   };
   hsBindgenHook = final.callPackage ../hs-bindgen-hook.nix { inherit llvmPackages; };

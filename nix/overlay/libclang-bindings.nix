@@ -13,11 +13,10 @@ let
 in
 {
   haskell = prev.haskell // {
-    packageOverrides =
-      hfinal: hprev:
-      prev.haskell.packageOverrides hfinal hprev
-      // {
+    packageOverrides = final.lib.composeExtensions prev.haskell.packageOverrides (
+      hfinal: hprev: {
         libclang-bindings = hfinal.callPackage libclang-bindings { inherit llvmPackages; };
-      };
+      }
+    );
   };
 }
