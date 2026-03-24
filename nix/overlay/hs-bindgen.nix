@@ -47,7 +47,9 @@ in
           ];
         }) hsBindgenPkgs.hs-bindgen;
       };
-    lib.compose = prev.haskell.lib.compose // final.callPackage ../hs-bindgen-lib.nix { };
+    lib = prev.haskell.lib // {
+      compose = prev.haskell.lib.compose // final.callPackage ../hs-bindgen-lib.nix { };
+    };
   };
   hsBindgenHook = final.callPackage ../hs-bindgen-hook.nix { inherit llvmPackages; };
   hs-bindgen-cli = final.callPackage ../hs-bindgen-cli.nix { inherit llvmPackages; };
