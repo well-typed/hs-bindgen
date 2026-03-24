@@ -92,6 +92,7 @@ bug reports, feature requests, blog posts, etc., including:
 * [Jonathan Lorimer](https://github.com/JonathanLorimer)
 * [Joris Dral](https://github.com/jorisdral)
 * [`Krantz98`](https://www.reddit.com/user/Krantz98)
+* [Lin Jian](https://github.com/jian-lin)
 * [`Merivuokko`](https://github.com/Merivuokko)
 * [Oleg Grenrus](https://github.com/phadej)
 * [Sam Derbyshire](https://github.com/sheaf)
