@@ -49,96 +49,9 @@ newtype Triple_t = Triple_t { unwrapTriple_t :: Triple }
   deriving newtype (Storable)
 ```
 
-## Nested structures
+## Nesting
 
-A nested structure is a structure inside another structure. Nested structures
-can be declared _separately_ or in an _embedded_ way.
-
-### Separate declaration
-
-First we declare a named structure, and then refer to it from the declaration of
-the nested structure:
-
-```c
-/* Separate declaration of named structure. */
-struct door {
-  float height;
-  float width;
-};
-
-/* Use named structure in declaration of nested structure. */
-struct room {
-  struct door door1;
-  struct door door2;
-};
-```
-
-creates the following bindings (instances omitted for brevity):
-
-```haskell
-data Door = Door
-  { door_height :: CFloat
-  , door_width  :: CFloat
-  }
-
-data Room = Room
-  { room_door1 :: Door
-  , room_door2 :: Door
-  }
-```
-
-### Embedded declaration (anonymous)
-
-Anonymous structures do not have a name nor a `typedef`. They are sometimes used
-when defining nested structures in an embedded way:
-
-```c
-/* Declare nested structure in an embedded way. The embedded structure is
-   anonymous. */
-struct aula1 {
-  struct {
-    float door_height;
-    float door_width;
-  };
-  int n_doors;
-};
-```
-
-Sometimes, we refer to such fields as _implicit fields_. `libclang` [does not
-provide enough information about the alignment of implicit
-fields](https://github.com/llvm/llvm-project/issues/122257), and so `hs-bindgen`
-does not support implicit fields yet. We [plan to support implicit
-fields](https://github.com/well-typed/hs-bindgen/issues/659) in the future.
-
-### Embedded declaration (with variable name)
-
-Embedded structures can also have variable names:
-
-```c
-/* Declare nested structure in an embedded way. The embedded structure has a
-   variable name.  */
-struct aula2 {
-  struct {
-    float height;
-    float width;
-  } door;
-  int n_doors;
-};
-```
-
-`hs-bindgen` generates the following bindings (instances omitted for brevity):
-
-```haskell
-data Aula2_door = Aula2_door
-  { aula2_door_height :: CFloat
-  , aula2_door_width  :: CFloat
-  }
-
-data Aula2 = Aula2
-  { aula2_door :: Aula2_door
-  , aula2_n_doors :: CInt
-  }
-```
+See the [Structs/Nesting](./02-Structs/Nesting.md) manual section.
 
 ## Bitfields
 
