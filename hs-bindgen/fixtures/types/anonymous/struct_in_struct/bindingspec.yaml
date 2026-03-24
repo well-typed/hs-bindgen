@@ -1,0 +1,129 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/struct_in_struct.h
+  cname: struct outer1
+  hsname: Outer1
+- headers: types/anonymous/struct_in_struct.h
+  cname: struct @outer1_fieldX
+  hsname: Outer1_fieldX
+- headers: types/anonymous/struct_in_struct.h
+  cname: struct outer2
+  hsname: Outer2
+- headers: types/anonymous/struct_in_struct.h
+  cname: struct @outer2_fieldB
+  hsname: Outer2_fieldB
+- headers: types/anonymous/struct_in_struct.h
+  cname: struct outer3
+  hsname: Outer3
+- headers: types/anonymous/struct_in_struct.h
+  cname: struct inner3
+  hsname: Inner3
+hstypes:
+- hsname: Inner3
+  representation:
+    record:
+      constructor: Inner3
+      fields:
+      - inner3_fieldX
+      - inner3_fieldY
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer1
+  representation:
+    record:
+      constructor: Outer1
+      fields:
+      - outer1_fieldA
+      - outer1_fieldX
+      - outer1_fieldC
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer1_fieldX
+  representation:
+    record:
+      constructor: Outer1_fieldX
+      fields:
+      - outer1_fieldX_fieldX
+      - outer1_fieldX_fieldY
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer2
+  representation:
+    record:
+      constructor: Outer2
+      fields:
+      - outer2_fieldA
+      - outer2_fieldB
+      - outer2_fieldC
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer2_fieldB
+  representation:
+    record:
+      constructor: Outer2_fieldB
+      fields:
+      - outer2_fieldB_fieldX
+      - outer2_fieldB_fieldY
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer3
+  representation:
+    record:
+      constructor: Outer3
+      fields:
+      - outer3_fieldA
+      - outer3_fieldB
+      - outer3_fieldC
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

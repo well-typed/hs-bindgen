@@ -138,10 +138,10 @@ determineTHStatus tc
       , "program-analysis/selection_merge_traces"
       , "program-analysis/selection_omit_prescriptive"
       , "program-analysis/selection_squash_typedef"
+      , "types/anonymous/edge-cases/empty_anon"
+      , "types/anonymous/edge-cases/unnamed_bitfield"
       , "types/special/long_double"
-      , "types/structs/implicit_fields_struct"
       , "types/structs/unnamed_struct"
-      , "types/unions/implicit_fields_union"
       , "types/typedefs/typenames"
       ]
 

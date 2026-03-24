@@ -1,0 +1,307 @@
+-- addDependentFile examples/golden/types/anonymous/struct_in_struct.h
+{-| __C declaration:__ @struct \@outer1_fieldX@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 8:3@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
+data Outer1_fieldX
+    = Outer1_fieldX {outer1_fieldX_fieldX :: CInt
+                     {- ^ __C declaration:__ @fieldX@
+
+                          __defined at:__ @types\/anonymous\/struct_in_struct.h 9:9@
+
+                          __exported by:__ @types\/anonymous\/struct_in_struct.h@
+                     -},
+                     outer1_fieldX_fieldY :: CInt
+                     {- ^ __C declaration:__ @fieldY@
+
+                          __defined at:__ @types\/anonymous\/struct_in_struct.h 10:9@
+
+                          __exported by:__ @types\/anonymous\/struct_in_struct.h@
+                     -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Outer1_fieldX
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Outer1_fieldX
+    where readRaw = \ptr_0 -> (pure Outer1_fieldX <*> readRaw (Proxy @"outer1_fieldX_fieldX") ptr_0) <*> readRaw (Proxy @"outer1_fieldX_fieldY") ptr_0
+instance WriteRaw Outer1_fieldX
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Outer1_fieldX outer1_fieldX_fieldX_2
+                                                     outer1_fieldX_fieldY_3 -> writeRaw (Proxy @"outer1_fieldX_fieldX") ptr_0 outer1_fieldX_fieldX_2 >> writeRaw (Proxy @"outer1_fieldX_fieldY") ptr_0 outer1_fieldX_fieldY_3
+deriving via (EquivStorable Outer1_fieldX) instance Storable Outer1_fieldX
+instance HasCField Outer1_fieldX "outer1_fieldX_fieldX"
+    where type CFieldType Outer1_fieldX "outer1_fieldX_fieldX" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "outer1_fieldX_fieldX" (Ptr Outer1_fieldX) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_fieldX_fieldX")
+instance HasCField Outer1_fieldX "outer1_fieldX_fieldY"
+    where type CFieldType Outer1_fieldX "outer1_fieldX_fieldY" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "outer1_fieldX_fieldY" (Ptr Outer1_fieldX) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_fieldX_fieldY")
+{-| __C declaration:__ @struct outer1@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 6:8@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
+data Outer1
+    = Outer1 {outer1_fieldA :: CChar
+              {- ^ __C declaration:__ @fieldA@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 7:8@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -},
+              outer1_fieldX :: Outer1_fieldX
+              {- ^ __C declaration:__ @fieldX@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 8:3@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -},
+              outer1_fieldC :: CInt
+              {- ^ __C declaration:__ @fieldC@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 12:7@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Outer1
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Outer1
+    where readRaw = \ptr_0 -> ((pure Outer1 <*> readRaw (Proxy @"outer1_fieldA") ptr_0) <*> readRaw (Proxy @"outer1_fieldX") ptr_0) <*> readRaw (Proxy @"outer1_fieldC") ptr_0
+instance WriteRaw Outer1
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Outer1 outer1_fieldA_2
+                                              outer1_fieldX_3
+                                              outer1_fieldC_4 -> writeRaw (Proxy @"outer1_fieldA") ptr_0 outer1_fieldA_2 >> (writeRaw (Proxy @"outer1_fieldX") ptr_0 outer1_fieldX_3 >> writeRaw (Proxy @"outer1_fieldC") ptr_0 outer1_fieldC_4)
+deriving via (EquivStorable Outer1) instance Storable Outer1
+instance HasCField Outer1 "outer1_fieldA"
+    where type CFieldType Outer1 "outer1_fieldA" = CChar
+          offset# = \_ -> \_ -> 0
+instance (~) ty CChar =>
+         HasField "outer1_fieldA" (Ptr Outer1) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_fieldA")
+instance HasCField Outer1 "outer1_fieldX"
+    where type CFieldType Outer1 "outer1_fieldX" = Outer1_fieldX
+          offset# = \_ -> \_ -> 4
+instance (~) ty Outer1_fieldX =>
+         HasField "outer1_fieldX" (Ptr Outer1) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_fieldX")
+instance HasCField Outer1 "outer1_fieldC"
+    where type CFieldType Outer1 "outer1_fieldC" = CInt
+          offset# = \_ -> \_ -> 12
+instance (~) ty CInt =>
+         HasField "outer1_fieldC" (Ptr Outer1) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer1_fieldC")
+{-| __C declaration:__ @struct \@outer2_fieldB@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 17:3@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
+data Outer2_fieldB
+    = Outer2_fieldB {outer2_fieldB_fieldX :: CInt
+                     {- ^ __C declaration:__ @fieldX@
+
+                          __defined at:__ @types\/anonymous\/struct_in_struct.h 18:9@
+
+                          __exported by:__ @types\/anonymous\/struct_in_struct.h@
+                     -},
+                     outer2_fieldB_fieldY :: CInt
+                     {- ^ __C declaration:__ @fieldY@
+
+                          __defined at:__ @types\/anonymous\/struct_in_struct.h 19:9@
+
+                          __exported by:__ @types\/anonymous\/struct_in_struct.h@
+                     -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Outer2_fieldB
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Outer2_fieldB
+    where readRaw = \ptr_0 -> (pure Outer2_fieldB <*> readRaw (Proxy @"outer2_fieldB_fieldX") ptr_0) <*> readRaw (Proxy @"outer2_fieldB_fieldY") ptr_0
+instance WriteRaw Outer2_fieldB
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Outer2_fieldB outer2_fieldB_fieldX_2
+                                                     outer2_fieldB_fieldY_3 -> writeRaw (Proxy @"outer2_fieldB_fieldX") ptr_0 outer2_fieldB_fieldX_2 >> writeRaw (Proxy @"outer2_fieldB_fieldY") ptr_0 outer2_fieldB_fieldY_3
+deriving via (EquivStorable Outer2_fieldB) instance Storable Outer2_fieldB
+instance HasCField Outer2_fieldB "outer2_fieldB_fieldX"
+    where type CFieldType Outer2_fieldB "outer2_fieldB_fieldX" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "outer2_fieldB_fieldX" (Ptr Outer2_fieldB) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer2_fieldB_fieldX")
+instance HasCField Outer2_fieldB "outer2_fieldB_fieldY"
+    where type CFieldType Outer2_fieldB "outer2_fieldB_fieldY" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "outer2_fieldB_fieldY" (Ptr Outer2_fieldB) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer2_fieldB_fieldY")
+{-| __C declaration:__ @struct outer2@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 15:8@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
+data Outer2
+    = Outer2 {outer2_fieldA :: CChar
+              {- ^ __C declaration:__ @fieldA@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 16:8@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -},
+              outer2_fieldB :: Outer2_fieldB
+              {- ^ __C declaration:__ @fieldB@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 20:5@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -},
+              outer2_fieldC :: CInt
+              {- ^ __C declaration:__ @fieldC@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 21:7@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Outer2
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Outer2
+    where readRaw = \ptr_0 -> ((pure Outer2 <*> readRaw (Proxy @"outer2_fieldA") ptr_0) <*> readRaw (Proxy @"outer2_fieldB") ptr_0) <*> readRaw (Proxy @"outer2_fieldC") ptr_0
+instance WriteRaw Outer2
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Outer2 outer2_fieldA_2
+                                              outer2_fieldB_3
+                                              outer2_fieldC_4 -> writeRaw (Proxy @"outer2_fieldA") ptr_0 outer2_fieldA_2 >> (writeRaw (Proxy @"outer2_fieldB") ptr_0 outer2_fieldB_3 >> writeRaw (Proxy @"outer2_fieldC") ptr_0 outer2_fieldC_4)
+deriving via (EquivStorable Outer2) instance Storable Outer2
+instance HasCField Outer2 "outer2_fieldA"
+    where type CFieldType Outer2 "outer2_fieldA" = CChar
+          offset# = \_ -> \_ -> 0
+instance (~) ty CChar =>
+         HasField "outer2_fieldA" (Ptr Outer2) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer2_fieldA")
+instance HasCField Outer2 "outer2_fieldB"
+    where type CFieldType Outer2 "outer2_fieldB" = Outer2_fieldB
+          offset# = \_ -> \_ -> 4
+instance (~) ty Outer2_fieldB =>
+         HasField "outer2_fieldB" (Ptr Outer2) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer2_fieldB")
+instance HasCField Outer2 "outer2_fieldC"
+    where type CFieldType Outer2 "outer2_fieldC" = CInt
+          offset# = \_ -> \_ -> 12
+instance (~) ty CInt =>
+         HasField "outer2_fieldC" (Ptr Outer2) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer2_fieldC")
+{-| __C declaration:__ @struct inner3@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 26:10@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
+data Inner3
+    = Inner3 {inner3_fieldX :: CInt
+              {- ^ __C declaration:__ @fieldX@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 27:9@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -},
+              inner3_fieldY :: CInt
+              {- ^ __C declaration:__ @fieldY@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 28:9@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Inner3
+    where staticSizeOf = \_ -> 8 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Inner3
+    where readRaw = \ptr_0 -> (pure Inner3 <*> readRaw (Proxy @"inner3_fieldX") ptr_0) <*> readRaw (Proxy @"inner3_fieldY") ptr_0
+instance WriteRaw Inner3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Inner3 inner3_fieldX_2
+                                              inner3_fieldY_3 -> writeRaw (Proxy @"inner3_fieldX") ptr_0 inner3_fieldX_2 >> writeRaw (Proxy @"inner3_fieldY") ptr_0 inner3_fieldY_3
+deriving via (EquivStorable Inner3) instance Storable Inner3
+instance HasCField Inner3 "inner3_fieldX"
+    where type CFieldType Inner3 "inner3_fieldX" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt =>
+         HasField "inner3_fieldX" (Ptr Inner3) (Ptr ty)
+    where getField = fromPtr (Proxy @"inner3_fieldX")
+instance HasCField Inner3 "inner3_fieldY"
+    where type CFieldType Inner3 "inner3_fieldY" = CInt
+          offset# = \_ -> \_ -> 4
+instance (~) ty CInt =>
+         HasField "inner3_fieldY" (Ptr Inner3) (Ptr ty)
+    where getField = fromPtr (Proxy @"inner3_fieldY")
+{-| __C declaration:__ @struct outer3@
+
+    __defined at:__ @types\/anonymous\/struct_in_struct.h 24:8@
+
+    __exported by:__ @types\/anonymous\/struct_in_struct.h@
+-}
+data Outer3
+    = Outer3 {outer3_fieldA :: CChar
+              {- ^ __C declaration:__ @fieldA@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 25:8@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -},
+              outer3_fieldB :: Inner3
+              {- ^ __C declaration:__ @fieldB@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 29:5@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -},
+              outer3_fieldC :: CInt
+              {- ^ __C declaration:__ @fieldC@
+
+                   __defined at:__ @types\/anonymous\/struct_in_struct.h 30:7@
+
+                   __exported by:__ @types\/anonymous\/struct_in_struct.h@
+              -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize Outer3
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw Outer3
+    where readRaw = \ptr_0 -> ((pure Outer3 <*> readRaw (Proxy @"outer3_fieldA") ptr_0) <*> readRaw (Proxy @"outer3_fieldB") ptr_0) <*> readRaw (Proxy @"outer3_fieldC") ptr_0
+instance WriteRaw Outer3
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       Outer3 outer3_fieldA_2
+                                              outer3_fieldB_3
+                                              outer3_fieldC_4 -> writeRaw (Proxy @"outer3_fieldA") ptr_0 outer3_fieldA_2 >> (writeRaw (Proxy @"outer3_fieldB") ptr_0 outer3_fieldB_3 >> writeRaw (Proxy @"outer3_fieldC") ptr_0 outer3_fieldC_4)
+deriving via (EquivStorable Outer3) instance Storable Outer3
+instance HasCField Outer3 "outer3_fieldA"
+    where type CFieldType Outer3 "outer3_fieldA" = CChar
+          offset# = \_ -> \_ -> 0
+instance (~) ty CChar =>
+         HasField "outer3_fieldA" (Ptr Outer3) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer3_fieldA")
+instance HasCField Outer3 "outer3_fieldB"
+    where type CFieldType Outer3 "outer3_fieldB" = Inner3
+          offset# = \_ -> \_ -> 4
+instance (~) ty Inner3 =>
+         HasField "outer3_fieldB" (Ptr Outer3) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer3_fieldB")
+instance HasCField Outer3 "outer3_fieldC"
+    where type CFieldType Outer3 "outer3_fieldC" = CInt
+          offset# = \_ -> \_ -> 12
+instance (~) ty CInt =>
+         HasField "outer3_fieldC" (Ptr Outer3) (Ptr ty)
+    where getField = fromPtr (Proxy @"outer3_fieldC")

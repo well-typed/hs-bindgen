@@ -1,0 +1,114 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/union_in_struct.h
+  cname: struct outer1
+  hsname: Outer1
+- headers: types/anonymous/union_in_struct.h
+  cname: union @outer1_fieldX
+  hsname: Outer1_fieldX
+- headers: types/anonymous/union_in_struct.h
+  cname: struct outer2
+  hsname: Outer2
+- headers: types/anonymous/union_in_struct.h
+  cname: union @outer2_fieldB
+  hsname: Outer2_fieldB
+- headers: types/anonymous/union_in_struct.h
+  cname: struct outer3
+  hsname: Outer3
+- headers: types/anonymous/union_in_struct.h
+  cname: union inner3
+  hsname: Inner3
+hstypes:
+- hsname: Inner3
+  representation:
+    newtype:
+      constructor: Inner3
+      fields:
+      - unwrapInner3
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer1
+  representation:
+    record:
+      constructor: Outer1
+      fields:
+      - outer1_fieldA
+      - outer1_fieldX
+      - outer1_fieldC
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer1_fieldX
+  representation:
+    newtype:
+      constructor: Outer1_fieldX
+      fields:
+      - unwrapOuter1_fieldX
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer2
+  representation:
+    record:
+      constructor: Outer2
+      fields:
+      - outer2_fieldA
+      - outer2_fieldB
+      - outer2_fieldC
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer2_fieldB
+  representation:
+    newtype:
+      constructor: Outer2_fieldB
+      fields:
+      - unwrapOuter2_fieldB
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer3
+  representation:
+    record:
+      constructor: Outer3
+      fields:
+      - outer3_fieldA
+      - outer3_fieldB
+      - outer3_fieldC
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

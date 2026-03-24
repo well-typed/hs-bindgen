@@ -1,0 +1,64 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/edge-cases/duplicate_field_names.h
+  cname: struct S
+  hsname: S
+- headers: types/anonymous/edge-cases/duplicate_field_names.h
+  cname: struct @S_y
+  hsname: S_y
+- headers: types/anonymous/edge-cases/duplicate_field_names.h
+  cname: struct @S_y_x
+  hsname: S_y_x
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_x
+      - s_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_y
+  representation:
+    record:
+      constructor: S_y
+      fields:
+      - s_y_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S_y_x
+  representation:
+    record:
+      constructor: S_y_x
+      fields:
+      - s_y_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw

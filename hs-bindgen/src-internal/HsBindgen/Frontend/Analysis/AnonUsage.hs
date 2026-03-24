@@ -31,7 +31,7 @@ data AnonUsageAnalysis = AnonUsageAnalysis{
   deriving stock (Show)
 
 data Context =
-    -- | Anonymous declaration used inside a field
+    -- | Anonymous declaration used inside a named field.
     --
     -- E.g.
     --
@@ -39,6 +39,11 @@ data Context =
     -- >   struct { int x; int y; } topleft;
     -- >   struct { int x; int y; } bottomright;
     -- > }
+    --
+    -- NOTE: fields can not be unnamed. In case we parse unnamed fields (i.e.,
+    -- implicit fields) in the @Parse@ pass, then we generate a name for those
+    -- fields. See the "HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields"
+    -- module for more information.
     Field (C.DeclInfo Parse) (C.FieldInfo Parse)
 
     -- | Direct use of anonymous declaration inside in a typedef

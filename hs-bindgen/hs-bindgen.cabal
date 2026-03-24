@@ -187,6 +187,7 @@ library internal
     HsBindgen.Frontend.Pass.Parse.Decl
     HsBindgen.Frontend.Pass.Parse.Decl.Comment
     HsBindgen.Frontend.Pass.Parse.Decl.Field
+    HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields
     HsBindgen.Frontend.Pass.Parse.Decl.Macro
     HsBindgen.Frontend.Pass.Parse.Decl.Members
     HsBindgen.Frontend.Pass.Parse.IsPass

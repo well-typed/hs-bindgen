@@ -1,0 +1,101 @@
+-- addDependentFile examples/golden/types/anonymous/edge-cases/duplicate_field_names.h
+{-| __C declaration:__ @struct \@S_y_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 16:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+-}
+data S_y_x
+    = S_y_x {s_y_x_x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 17:11@
+
+                  __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_y_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_y_x
+    where readRaw = \ptr_0 -> pure S_y_x <*> readRaw (Proxy @"s_y_x_x") ptr_0
+instance WriteRaw S_y_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_y_x s_y_x_x_2 -> writeRaw (Proxy @"s_y_x_x") ptr_0 s_y_x_x_2
+deriving via (EquivStorable S_y_x) instance Storable S_y_x
+instance HasCField S_y_x "s_y_x_x"
+    where type CFieldType S_y_x "s_y_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "s_y_x_x" (Ptr S_y_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y_x_x")
+{-| __C declaration:__ @struct \@S_y@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 15:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+-}
+data S_y
+    = S_y {s_y_x :: S_y_x
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 16:5@
+
+                __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S_y
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S_y
+    where readRaw = \ptr_0 -> pure S_y <*> readRaw (Proxy @"s_y_x") ptr_0
+instance WriteRaw S_y
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S_y s_y_x_2 -> writeRaw (Proxy @"s_y_x") ptr_0 s_y_x_2
+deriving via (EquivStorable S_y) instance Storable S_y
+instance HasCField S_y "s_y_x"
+    where type CFieldType S_y "s_y_x" = S_y_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty S_y_x => HasField "s_y_x" (Ptr S_y) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y_x")
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 13:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+-}
+data S
+    = S {s_x :: CULLong
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 14:22@
+
+              __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+         -},
+         s_y :: S_y
+         {- ^ __C declaration:__ @y@
+
+              __defined at:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h 19:5@
+
+              __exported by:__ @types\/anonymous\/edge-cases\/duplicate_field_names.h@
+         -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize S
+    where staticSizeOf = \_ -> 16 :: Int
+          staticAlignment = \_ -> 8 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> (pure S <*> readRaw (Proxy @"s_x") ptr_0) <*> readRaw (Proxy @"s_y") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_x_2
+                                         s_y_3 -> writeRaw (Proxy @"s_x") ptr_0 s_x_2 >> writeRaw (Proxy @"s_y") ptr_0 s_y_3
+deriving via (EquivStorable S) instance Storable S
+instance HasCField S "s_x"
+    where type CFieldType S "s_x" = CULLong
+          offset# = \_ -> \_ -> 0
+instance (~) ty CULLong => HasField "s_x" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_x")
+instance HasCField S "s_y"
+    where type CFieldType S "s_y" = S_y
+          offset# = \_ -> \_ -> 8
+instance (~) ty S_y => HasField "s_y" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y")

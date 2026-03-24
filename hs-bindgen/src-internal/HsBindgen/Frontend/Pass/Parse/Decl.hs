@@ -219,9 +219,12 @@ structDecl ctx info = \curr -> do
 
         -- Recursively parse all members of the struct. These members include
         -- field declarations and nested struct/union declarations.
-        parseStructMembersWith ctx parseDeclNested $ \membersResult ->
+        parseStructMembersWith ty ctx parseDeclNested $ \membersResult ->
           -- The parse results of nested struct/union declarations are returned
           -- regardless of the parse status of field declarations.
+          --
+          -- NOTE: the parse results *must* be returned here. The
+          -- 'withImplicitFields' algorithm relies on it.
           (membersResult.declMembers ++) <$>
             -- If we failed to parse any of the field declarations, then we will
             -- not return a struct object, because it will have missing fields
@@ -292,9 +295,12 @@ unionDecl ctx info = \curr -> do
 
         -- Recursively parse all members of the union. These members include
         -- field declarations and nested struct/union declarations.
-        parseUnionMembersWith ctx parseDeclNested $ \membersResult ->
+        parseUnionMembersWith ty ctx parseDeclNested $ \membersResult ->
           -- The parse results of nested struct/union declarations are returned
           -- regardless of the parse status of field declarations.
+          --
+          -- NOTE: the parse results *must* be returned here. The
+          -- 'withImplicitFields' algorithm relies on it.
           (membersResult.declMembers ++) <$>
             -- If we failed to parse any of the field declarations, then we will
             -- not return a union object, because it will have missing fields

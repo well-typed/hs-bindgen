@@ -211,7 +211,7 @@ instance UpdateUseSites C.StructField where
           , info   = structFieldInfo'
           , offset = field.offset
           , width  = field.width
-          , ann    = field.ann
+          , ann    = fst field.ann
           }
 
 instance UpdateUseSites C.Union where
@@ -239,7 +239,7 @@ instance UpdateUseSites C.UnionField where
       reconstruct unionFieldType' unionFieldInfo' = C.UnionField {
           typ  = unionFieldType'
         , info = unionFieldInfo'
-        , ann  = field.ann
+        , ann  = fst field.ann
         }
 
 instance UpdateUseSites C.Typedef where

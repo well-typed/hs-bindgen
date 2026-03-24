@@ -1,0 +1,103 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/edge-cases/bitfield.h
+  cname: struct S1
+  hsname: S1
+- headers: types/anonymous/edge-cases/bitfield.h
+  cname: struct @S1_y
+  hsname: S1_y
+- headers: types/anonymous/edge-cases/bitfield.h
+  cname: struct S2
+  hsname: S2
+- headers: types/anonymous/edge-cases/bitfield.h
+  cname: struct @S2_y
+  hsname: S2_y
+- headers: types/anonymous/edge-cases/bitfield.h
+  cname: struct @S2_y_y
+  hsname: S2_y_y
+hstypes:
+- hsname: S1
+  representation:
+    record:
+      constructor: S1
+      fields:
+      - s1_y
+      - s1_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S1_y
+  representation:
+    record:
+      constructor: S1_y
+      fields:
+      - s1_y_y
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2
+  representation:
+    record:
+      constructor: S2
+      fields:
+      - s2_y
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2_y
+  representation:
+    record:
+      constructor: S2_y
+      fields:
+      - s2_y_y
+      - s2_y_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2_y_y
+  representation:
+    record:
+      constructor: S2_y_y
+      fields:
+      - s2_y_y_y
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
