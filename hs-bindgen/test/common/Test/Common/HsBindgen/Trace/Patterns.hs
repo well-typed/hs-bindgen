@@ -7,6 +7,7 @@ module Test.Common.HsBindgen.Trace.Patterns (
     -- * Parse
   , pattern MatchImmediate
   , pattern MatchDelayed
+  , pattern MatchDelayedImplicitField
     -- * HandleMacros
   , pattern MatchHandleMacros
     -- * ResolveBindingSpecs
@@ -27,6 +28,7 @@ import Data.Text qualified as Text
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
@@ -76,6 +78,9 @@ pattern MatchImmediate name x <- TraceFrontend (
 
 pattern MatchDelayed :: CDeclName -> DelayedParseMsg -> TraceMsg
 pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
+
+pattern MatchDelayedImplicitField :: CDeclName -> ParseImplicitFieldsMsg -> TraceMsg
+pattern MatchDelayedImplicitField name x <- MatchDelayed name (ParseImplicitFieldFailed x)
 
 {-------------------------------------------------------------------------------
   HandleMacros

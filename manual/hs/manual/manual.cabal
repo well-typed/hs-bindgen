@@ -85,7 +85,9 @@ executable run-manual
     Manual.Tools
     OmitFieldPrefixes
     Structs
+    Structs.Nesting
     Structs.Safe
+    Unions.Nesting
     ZeroCopy
     ZeroCopy.FunPtr
     ZeroCopy.Safe

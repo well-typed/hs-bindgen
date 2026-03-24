@@ -5,6 +5,7 @@ module HsBindgen.Frontend.Pass.Parse.Msg (
 
     -- * Delayed parse messages
   , DelayedParseMsg(..)
+  , ParseImplicitFieldsMsg(..)
   ) where
 
 import Control.Exception (Exception (..))
@@ -214,9 +215,6 @@ data DelayedParseMsg =
     -- | We do not support @float128@
   | ParseUnsupportedFloat128
 
-    -- | Struct with implicit fields
-  | ParseUnsupportedImplicitFields
-
   | ParseUnsupportedLinkage String CXLinkageKind
 
     -- | We do not support @long double@
@@ -241,6 +239,10 @@ data DelayedParseMsg =
   | ParseUnusableAnonDecl AnonId
 
   | ParseExpectedFunctionType String
+
+    -- | We tried to parse an implicit field for a struct or union object, but
+    -- it was unsuccesful
+  | ParseImplicitFieldFailed ParseImplicitFieldsMsg
 
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
@@ -319,8 +321,6 @@ instance PrettyForTrace DelayedParseMsg where
         "Unsupported built-in " >< PP.show name
       ParseUnsupportedFloat128 ->
         "Unsupported float128"
-      ParseUnsupportedImplicitFields ->
-        "Unsupported implicit fields"
       ParseUnsupportedLinkage comment linkage -> PP.hcat [
           "Unsupported linkage: "
         , PP.show linkage
@@ -348,6 +348,11 @@ instance PrettyForTrace DelayedParseMsg where
       ParseExpectedFunctionType ty -> PP.hsep [
           "Expected function type, but got"
         , PP.string ty
+        ]
+      ParseImplicitFieldFailed reason -> PP.hsep [
+          "Failed to parse an implicit struct or union field"
+        , "referencing an anonymous object. Reason: "
+        , prettyForTrace reason
         ]
       ParseUnexpectedComplexType ty ->
         unexpected $ "complex type " >< PP.show ty
@@ -393,18 +398,70 @@ instance IsTrace Level DelayedParseMsg where
       ParseUnsupportedAnonInSignature{} -> Warning
       ParseUnsupportedBuiltin{}         -> Warning
       ParseUnsupportedFloat128          -> Warning
-      ParseUnsupportedImplicitFields{}  -> Warning
       ParseUnsupportedLinkage{}         -> Warning
       ParseUnsupportedLongDouble        -> Warning
       ParseUnsupportedTLS{}             -> Warning
       ParseUnsupportedVariadicFunction  -> Warning
       ParseUnusableAnonDecl{}           -> Warning
       ParseExpectedFunctionType{}       -> Bug
+      ParseImplicitFieldFailed{}        -> Bug
       ParseUnexpectedComplexType{}      -> Bug
       ParseUnexpectedCursorKind{}       -> Bug
       ParseUnexpectedLinkage{}          -> Bug
       ParseUnexpectedTypeKind{}         -> Bug
       ParseUnexpectedVisibility{}       -> Bug
       ParseNoMainHeadersException{}     -> Error
+  getSource  = const HsBindgen
+  getTraceId = const "parse"
+
+{-------------------------------------------------------------------------------
+  Delayed parse messages: implicit fields
+-------------------------------------------------------------------------------}
+
+data ParseImplicitFieldsMsg =
+    -- | Unsupported empty anonymous nested struct or union
+    --
+    -- Anonymous nested structs and unions need to have at least one named
+    -- member for parsing of implicit fields to succeed.
+    UnsupportedEmptyAnon
+    -- | Unsupported anonymous nested struct or union with an unnamed bit-field
+    --
+    -- Anonymous nested structs and unions should not have unnamed bit-field for
+    -- parsing of implicit fields to succeed.
+  | UnsupportedUnnamedBitfield
+    -- | An unexpected exception was thrown when using @clang_Type_getOffsetOf@
+    --
+    -- This is likely a bug in implicit field parsing.
+  | UnexpectedClangOffsetOfException Text String
+    -- | An unexpected non-zero field offset for an implicit field of a union
+    -- was computed
+    --
+    -- This is likely a bug in implicit field parsing.
+  | UnexpectedNonZeroFieldOffset Int
+  deriving stock (Show, Eq, Ord, Generic)
+
+
+instance PrettyForTrace ParseImplicitFieldsMsg where
+  prettyForTrace = \case
+      UnsupportedEmptyAnon ->
+          "Usupported empty nested anonymous union or struct"
+      UnsupportedUnnamedBitfield ->
+          "Unsupported anonymous nested struct or union with an unnamed bit-field"
+      UnexpectedClangOffsetOfException field exc -> PP.hsep [
+          "Unexpected exception when using clang_Type_getOffsetOf"
+        , "with field name", PP.text field, ":", PP.string exc
+        ]
+      UnexpectedNonZeroFieldOffset off -> PP.hsep [
+          "Unexpected non-zero field offset for an implicit field of a union:"
+        , PP.show off
+        ]
+
+-- | Unsupported features are warnings
+instance IsTrace Level ParseImplicitFieldsMsg where
+  getDefaultLogLevel = \case
+      UnsupportedEmptyAnon{}              -> Warning
+      UnsupportedUnnamedBitfield{}        -> Warning
+      UnexpectedNonZeroFieldOffset{}      -> Bug
+      UnexpectedClangOffsetOfException{}  -> Bug
   getSource  = const HsBindgen
   getTraceId = const "parse"

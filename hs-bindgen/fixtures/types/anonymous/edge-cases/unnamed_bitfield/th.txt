@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/types/anonymous/edge-cases/unnamed_bitfield.h

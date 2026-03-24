@@ -1,0 +1,428 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct SSS
+  hsname: SSS
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @SSS_x
+  hsname: SSS_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @SSS_x_x
+  hsname: SSS_x_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union USS
+  hsname: USS
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @USS_x
+  hsname: USS_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @USS_x_x
+  hsname: USS_x_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct SUS
+  hsname: SUS
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @SUS_x
+  hsname: SUS_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @SUS_x_x
+  hsname: SUS_x_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union UUS
+  hsname: UUS
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @UUS_x
+  hsname: UUS_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @UUS_x_x
+  hsname: UUS_x_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct SSU
+  hsname: SSU
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @SSU_x
+  hsname: SSU_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @SSU_x_x
+  hsname: SSU_x_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union USU
+  hsname: USU
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct @USU_x
+  hsname: USU_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @USU_x_x
+  hsname: USU_x_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: struct SUU
+  hsname: SUU
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @SUU_x
+  hsname: SUU_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @SUU_x_x
+  hsname: SUU_x_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union UUU
+  hsname: UUU
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @UUU_x
+  hsname: UUU_x
+- headers: types/anonymous/edge-cases/multi_nesting.h
+  cname: union @UUU_x_x
+  hsname: UUU_x_x
+hstypes:
+- hsname: SSS
+  representation:
+    record:
+      constructor: SSS
+      fields:
+      - sSS_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SSS_x
+  representation:
+    record:
+      constructor: SSS_x
+      fields:
+      - sSS_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SSS_x_x
+  representation:
+    record:
+      constructor: SSS_x_x
+      fields:
+      - sSS_x_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SSU
+  representation:
+    record:
+      constructor: SSU
+      fields:
+      - sSU_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SSU_x
+  representation:
+    record:
+      constructor: SSU_x
+      fields:
+      - sSU_x_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SSU_x_x
+  representation:
+    newtype:
+      constructor: SSU_x_x
+      fields:
+      - unwrapSSU_x_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SUS
+  representation:
+    record:
+      constructor: SUS
+      fields:
+      - sUS_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SUS_x
+  representation:
+    newtype:
+      constructor: SUS_x
+      fields:
+      - unwrapSUS_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SUS_x_x
+  representation:
+    record:
+      constructor: SUS_x_x
+      fields:
+      - sUS_x_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SUU
+  representation:
+    record:
+      constructor: SUU
+      fields:
+      - sUU_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SUU_x
+  representation:
+    newtype:
+      constructor: SUU_x
+      fields:
+      - unwrapSUU_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SUU_x_x
+  representation:
+    newtype:
+      constructor: SUU_x_x
+      fields:
+      - unwrapSUU_x_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: USS
+  representation:
+    newtype:
+      constructor: USS
+      fields:
+      - unwrapUSS
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: USS_x
+  representation:
+    record:
+      constructor: USS_x
+      fields:
+      - uSS_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: USS_x_x
+  representation:
+    record:
+      constructor: USS_x_x
+      fields:
+      - uSS_x_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: USU
+  representation:
+    newtype:
+      constructor: USU
+      fields:
+      - unwrapUSU
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: USU_x
+  representation:
+    record:
+      constructor: USU_x
+      fields:
+      - uSU_x_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: USU_x_x
+  representation:
+    newtype:
+      constructor: USU_x_x
+      fields:
+      - unwrapUSU_x_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UUS
+  representation:
+    newtype:
+      constructor: UUS
+      fields:
+      - unwrapUUS
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UUS_x
+  representation:
+    newtype:
+      constructor: UUS_x
+      fields:
+      - unwrapUUS_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UUS_x_x
+  representation:
+    record:
+      constructor: UUS_x_x
+      fields:
+      - uUS_x_x_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UUU
+  representation:
+    newtype:
+      constructor: UUU
+      fields:
+      - unwrapUUU
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UUU_x
+  representation:
+    newtype:
+      constructor: UUU_x
+      fields:
+      - unwrapUUU_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UUU_x_x
+  representation:
+    newtype:
+      constructor: UUU_x_x
+      fields:
+      - unwrapUUU_x_x
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

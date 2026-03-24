@@ -98,16 +98,6 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     -I c \
     --create-output-dirs \
     --overwrite-files \
-    --unique-id com.hs-bindgen.manual.structs \
-    --hs-output-dir hs/manual/generated \
-    --module Structs \
-    structs.h
-
-cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
-    preprocess \
-    -I c \
-    --create-output-dirs \
-    --overwrite-files \
     --unique-id com.hs-bindgen.manual.globals \
     --hs-output-dir hs/manual/generated \
     --module Globals \
@@ -162,6 +152,54 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --hs-output-dir hs/manual/generated \
     --module ZeroCopy \
     zero_copy.h
+
+echo "# "
+echo "# Structs"
+echo "# "
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.structs \
+    --hs-output-dir hs/manual/generated \
+    --module Structs \
+    structs.h
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.structs \
+    --hs-output-dir hs/manual/generated \
+    --module Structs.Nesting \
+    structs/nesting.h
+
+echo "# "
+echo "# Unions"
+echo "# "
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.unions \
+    --hs-output-dir hs/manual/generated \
+    --module Unions \
+    unions.h
+
+cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
+    preprocess \
+    -I c \
+    --create-output-dirs \
+    --overwrite-files \
+    --unique-id com.hs-bindgen.manual.unions \
+    --hs-output-dir hs/manual/generated \
+    --module Unions.Nesting \
+    unions/nesting.h
 
 echo "# "
 echo "# Unprefixed field names"

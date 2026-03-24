@@ -18,7 +18,9 @@ import HsBindgen.Frontend.Naming (CScopedName (CScopedName))
 import HsBindgen.Frontend.Pass.Parse.Context (ParseCtx)
 import HsBindgen.Frontend.Pass.Parse.Decl.Comment (parseCommentReferences)
 import HsBindgen.Frontend.Pass.Parse.Decl.Macro (getReparseInfo)
-import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
+import HsBindgen.Frontend.Pass.Parse.IsPass (ExplicitFieldOrigin (ExplicitFieldOrigin),
+                                             FieldOrigin (ExplicitParsed),
+                                             Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
 import HsBindgen.Frontend.Pass.Parse.Type (fromCXType)
 
@@ -34,7 +36,7 @@ structFieldDecl ctx = \curr -> do
       , typ    = structFieldType
       , offset = structFieldOffset
       , width  = structFieldWidth
-      , ann    = structFieldAnn
+      , ann    = (structFieldAnn, ExplicitParsed ExplicitFieldOrigin)
       }
 
 structWidth :: MonadIO m => CXCursor -> m (Maybe Int)
@@ -52,7 +54,7 @@ unionFieldDecl ctx = \curr -> do
     pure C.UnionField{
         info = unionFieldInfo
       , typ  = unionFieldType
-      , ann  = unionFieldAnn
+      , ann  = (unionFieldAnn, ExplicitParsed ExplicitFieldOrigin)
       }
 
 getFieldInfo :: MonadIO m => CXCursor -> m (C.FieldInfo Parse)

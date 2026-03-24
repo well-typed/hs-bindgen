@@ -1,0 +1,108 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/union_in_union.h
+  cname: union outer1
+  hsname: Outer1
+- headers: types/anonymous/union_in_union.h
+  cname: union @outer1_fieldX
+  hsname: Outer1_fieldX
+- headers: types/anonymous/union_in_union.h
+  cname: union outer2
+  hsname: Outer2
+- headers: types/anonymous/union_in_union.h
+  cname: union @outer2_fieldB
+  hsname: Outer2_fieldB
+- headers: types/anonymous/union_in_union.h
+  cname: union outer3
+  hsname: Outer3
+- headers: types/anonymous/union_in_union.h
+  cname: union inner3
+  hsname: Inner3
+hstypes:
+- hsname: Inner3
+  representation:
+    newtype:
+      constructor: Inner3
+      fields:
+      - unwrapInner3
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer1
+  representation:
+    newtype:
+      constructor: Outer1
+      fields:
+      - unwrapOuter1
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer1_fieldX
+  representation:
+    newtype:
+      constructor: Outer1_fieldX
+      fields:
+      - unwrapOuter1_fieldX
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer2
+  representation:
+    newtype:
+      constructor: Outer2
+      fields:
+      - unwrapOuter2
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer2_fieldB
+  representation:
+    newtype:
+      constructor: Outer2_fieldB
+      fields:
+      - unwrapOuter2_fieldB
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Outer3
+  representation:
+    newtype:
+      constructor: Outer3
+      fields:
+      - unwrapOuter3
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

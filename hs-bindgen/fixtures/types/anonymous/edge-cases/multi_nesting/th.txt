@@ -1,0 +1,965 @@
+-- addDependentFile examples/golden/types/anonymous/edge-cases/multi_nesting.h
+{-| __C declaration:__ @struct \@SSS_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 17:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SSS_x_x
+    = SSS_x_x {sSS_x_x_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 18:11@
+
+                    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize SSS_x_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SSS_x_x
+    where readRaw = \ptr_0 -> pure SSS_x_x <*> readRaw (Proxy @"sSS_x_x_x") ptr_0
+instance WriteRaw SSS_x_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SSS_x_x sSS_x_x_x_2 -> writeRaw (Proxy @"sSS_x_x_x") ptr_0 sSS_x_x_x_2
+deriving via (EquivStorable SSS_x_x) instance Storable SSS_x_x
+instance HasCField SSS_x_x "sSS_x_x_x"
+    where type CFieldType SSS_x_x "sSS_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "sSS_x_x_x" (Ptr SSS_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSS_x_x_x")
+{-| __C declaration:__ @struct \@SSS_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SSS_x
+    = SSS_x {sSS_x_x :: SSS_x_x
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 17:5@
+
+                  __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize SSS_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SSS_x
+    where readRaw = \ptr_0 -> pure SSS_x <*> readRaw (Proxy @"sSS_x_x") ptr_0
+instance WriteRaw SSS_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SSS_x sSS_x_x_2 -> writeRaw (Proxy @"sSS_x_x") ptr_0 sSS_x_x_2
+deriving via (EquivStorable SSS_x) instance Storable SSS_x
+instance HasCField SSS_x "sSS_x_x"
+    where type CFieldType SSS_x "sSS_x_x" = SSS_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SSS_x_x => HasField "sSS_x_x" (Ptr SSS_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSS_x_x")
+{-| __C declaration:__ @struct SSS@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 15:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SSS
+    = SSS {sSS_x :: SSS_x
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 16:3@
+
+                __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+           -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize SSS
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SSS
+    where readRaw = \ptr_0 -> pure SSS <*> readRaw (Proxy @"sSS_x") ptr_0
+instance WriteRaw SSS
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SSS sSS_x_2 -> writeRaw (Proxy @"sSS_x") ptr_0 sSS_x_2
+deriving via (EquivStorable SSS) instance Storable SSS
+instance HasCField SSS "sSS_x"
+    where type CFieldType SSS "sSS_x" = SSS_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SSS_x => HasField "sSS_x" (Ptr SSS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSS_x")
+{-| __C declaration:__ @struct \@USS_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 25:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data USS_x_x
+    = USS_x_x {uSS_x_x_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 26:11@
+
+                    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize USS_x_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw USS_x_x
+    where readRaw = \ptr_0 -> pure USS_x_x <*> readRaw (Proxy @"uSS_x_x_x") ptr_0
+instance WriteRaw USS_x_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       USS_x_x uSS_x_x_x_2 -> writeRaw (Proxy @"uSS_x_x_x") ptr_0 uSS_x_x_x_2
+deriving via (EquivStorable USS_x_x) instance Storable USS_x_x
+instance HasCField USS_x_x "uSS_x_x_x"
+    where type CFieldType USS_x_x "uSS_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "uSS_x_x_x" (Ptr USS_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSS_x_x_x")
+{-| __C declaration:__ @struct \@USS_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data USS_x
+    = USS_x {uSS_x_x :: USS_x_x
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 25:5@
+
+                  __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+             -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize USS_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw USS_x
+    where readRaw = \ptr_0 -> pure USS_x <*> readRaw (Proxy @"uSS_x_x") ptr_0
+instance WriteRaw USS_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       USS_x uSS_x_x_2 -> writeRaw (Proxy @"uSS_x_x") ptr_0 uSS_x_x_2
+deriving via (EquivStorable USS_x) instance Storable USS_x
+instance HasCField USS_x "uSS_x_x"
+    where type CFieldType USS_x "uSS_x_x" = USS_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty USS_x_x => HasField "uSS_x_x" (Ptr USS_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSS_x_x")
+{-| __C declaration:__ @union USS@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 23:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype USS = USS {unwrapUSS :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize USS
+deriving via (SizedByteArray 4 4) instance ReadRaw USS
+deriving via (SizedByteArray 4 4) instance WriteRaw USS
+deriving via (EquivStorable USS) instance Storable USS
+{-|
+
+  __See:__ 'set_uSS_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uSS_x :: USS -> USS_x
+{-|
+
+  __See:__ 'set_uSS_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 24:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uSS_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uSS_x'
+
+-}
+set_uSS_x :: USS_x -> USS
+{-|
+
+  __See:__ 'get_uSS_x'
+
+-}
+set_uSS_x = setUnionPayload
+instance HasCField USS "uSS_x"
+    where type CFieldType USS "uSS_x" = USS_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty USS_x => HasField "uSS_x" (Ptr USS) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSS_x")
+{-| __C declaration:__ @struct \@SUS_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SUS_x_x
+    = SUS_x_x {sUS_x_x_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 34:11@
+
+                    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize SUS_x_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SUS_x_x
+    where readRaw = \ptr_0 -> pure SUS_x_x <*> readRaw (Proxy @"sUS_x_x_x") ptr_0
+instance WriteRaw SUS_x_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SUS_x_x sUS_x_x_x_2 -> writeRaw (Proxy @"sUS_x_x_x") ptr_0 sUS_x_x_x_2
+deriving via (EquivStorable SUS_x_x) instance Storable SUS_x_x
+instance HasCField SUS_x_x "sUS_x_x_x"
+    where type CFieldType SUS_x_x "sUS_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "sUS_x_x_x" (Ptr SUS_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUS_x_x_x")
+{-| __C declaration:__ @union \@SUS_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype SUS_x
+    = SUS_x {unwrapSUS_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize SUS_x
+deriving via (SizedByteArray 4 4) instance ReadRaw SUS_x
+deriving via (SizedByteArray 4 4) instance WriteRaw SUS_x
+deriving via (EquivStorable SUS_x) instance Storable SUS_x
+{-|
+
+  __See:__ 'set_sUS_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sUS_x_x :: SUS_x -> SUS_x_x
+{-|
+
+  __See:__ 'set_sUS_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 33:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sUS_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_sUS_x_x'
+
+-}
+set_sUS_x_x :: SUS_x_x -> SUS_x
+{-|
+
+  __See:__ 'get_sUS_x_x'
+
+-}
+set_sUS_x_x = setUnionPayload
+instance HasCField SUS_x "sUS_x_x"
+    where type CFieldType SUS_x "sUS_x_x" = SUS_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SUS_x_x => HasField "sUS_x_x" (Ptr SUS_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUS_x_x")
+{-| __C declaration:__ @struct SUS@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 31:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SUS
+    = SUS {sUS_x :: SUS_x
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 32:3@
+
+                __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+           -}}
+    deriving stock Generic
+instance StaticSize SUS
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SUS
+    where readRaw = \ptr_0 -> pure SUS <*> readRaw (Proxy @"sUS_x") ptr_0
+instance WriteRaw SUS
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SUS sUS_x_2 -> writeRaw (Proxy @"sUS_x") ptr_0 sUS_x_2
+deriving via (EquivStorable SUS) instance Storable SUS
+instance HasCField SUS "sUS_x"
+    where type CFieldType SUS "sUS_x" = SUS_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SUS_x => HasField "sUS_x" (Ptr SUS) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUS_x")
+{-| __C declaration:__ @struct \@UUS_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data UUS_x_x
+    = UUS_x_x {uUS_x_x_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 42:11@
+
+                    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+               -}}
+    deriving stock (Eq, Generic, Show)
+instance StaticSize UUS_x_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw UUS_x_x
+    where readRaw = \ptr_0 -> pure UUS_x_x <*> readRaw (Proxy @"uUS_x_x_x") ptr_0
+instance WriteRaw UUS_x_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       UUS_x_x uUS_x_x_x_2 -> writeRaw (Proxy @"uUS_x_x_x") ptr_0 uUS_x_x_x_2
+deriving via (EquivStorable UUS_x_x) instance Storable UUS_x_x
+instance HasCField UUS_x_x "uUS_x_x_x"
+    where type CFieldType UUS_x_x "uUS_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "uUS_x_x_x" (Ptr UUS_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUS_x_x_x")
+{-| __C declaration:__ @union \@UUS_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype UUS_x
+    = UUS_x {unwrapUUS_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize UUS_x
+deriving via (SizedByteArray 4 4) instance ReadRaw UUS_x
+deriving via (SizedByteArray 4 4) instance WriteRaw UUS_x
+deriving via (EquivStorable UUS_x) instance Storable UUS_x
+{-|
+
+  __See:__ 'set_uUS_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUS_x_x :: UUS_x -> UUS_x_x
+{-|
+
+  __See:__ 'set_uUS_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 41:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUS_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uUS_x_x'
+
+-}
+set_uUS_x_x :: UUS_x_x -> UUS_x
+{-|
+
+  __See:__ 'get_uUS_x_x'
+
+-}
+set_uUS_x_x = setUnionPayload
+instance HasCField UUS_x "uUS_x_x"
+    where type CFieldType UUS_x "uUS_x_x" = UUS_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty UUS_x_x => HasField "uUS_x_x" (Ptr UUS_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUS_x_x")
+{-| __C declaration:__ @union UUS@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 39:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype UUS = UUS {unwrapUUS :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize UUS
+deriving via (SizedByteArray 4 4) instance ReadRaw UUS
+deriving via (SizedByteArray 4 4) instance WriteRaw UUS
+deriving via (EquivStorable UUS) instance Storable UUS
+{-|
+
+  __See:__ 'set_uUS_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUS_x :: UUS -> UUS_x
+{-|
+
+  __See:__ 'set_uUS_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 40:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUS_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uUS_x'
+
+-}
+set_uUS_x :: UUS_x -> UUS
+{-|
+
+  __See:__ 'get_uUS_x'
+
+-}
+set_uUS_x = setUnionPayload
+instance HasCField UUS "uUS_x"
+    where type CFieldType UUS "uUS_x" = UUS_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty UUS_x => HasField "uUS_x" (Ptr UUS) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUS_x")
+{-| __C declaration:__ @union \@SSU_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 49:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype SSU_x_x
+    = SSU_x_x {unwrapSSU_x_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize SSU_x_x
+deriving via (SizedByteArray 4 4) instance ReadRaw SSU_x_x
+deriving via (SizedByteArray 4 4) instance WriteRaw SSU_x_x
+deriving via (EquivStorable SSU_x_x) instance Storable SSU_x_x
+{-|
+
+  __See:__ 'set_sSU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sSU_x_x_x :: SSU_x_x -> CInt
+{-|
+
+  __See:__ 'set_sSU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 50:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sSU_x_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_sSU_x_x_x'
+
+-}
+set_sSU_x_x_x :: CInt -> SSU_x_x
+{-|
+
+  __See:__ 'get_sSU_x_x_x'
+
+-}
+set_sSU_x_x_x = setUnionPayload
+instance HasCField SSU_x_x "sSU_x_x_x"
+    where type CFieldType SSU_x_x "sSU_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "sSU_x_x_x" (Ptr SSU_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSU_x_x_x")
+{-| __C declaration:__ @struct \@SSU_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 48:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SSU_x
+    = SSU_x {sSU_x_x :: SSU_x_x
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 49:5@
+
+                  __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+             -}}
+    deriving stock Generic
+instance StaticSize SSU_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SSU_x
+    where readRaw = \ptr_0 -> pure SSU_x <*> readRaw (Proxy @"sSU_x_x") ptr_0
+instance WriteRaw SSU_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SSU_x sSU_x_x_2 -> writeRaw (Proxy @"sSU_x_x") ptr_0 sSU_x_x_2
+deriving via (EquivStorable SSU_x) instance Storable SSU_x
+instance HasCField SSU_x "sSU_x_x"
+    where type CFieldType SSU_x "sSU_x_x" = SSU_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SSU_x_x => HasField "sSU_x_x" (Ptr SSU_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSU_x_x")
+{-| __C declaration:__ @struct SSU@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 47:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SSU
+    = SSU {sSU_x :: SSU_x
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 48:3@
+
+                __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+           -}}
+    deriving stock Generic
+instance StaticSize SSU
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SSU
+    where readRaw = \ptr_0 -> pure SSU <*> readRaw (Proxy @"sSU_x") ptr_0
+instance WriteRaw SSU
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SSU sSU_x_2 -> writeRaw (Proxy @"sSU_x") ptr_0 sSU_x_2
+deriving via (EquivStorable SSU) instance Storable SSU
+instance HasCField SSU "sSU_x"
+    where type CFieldType SSU "sSU_x" = SSU_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SSU_x => HasField "sSU_x" (Ptr SSU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sSU_x")
+{-| __C declaration:__ @union \@USU_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 57:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype USU_x_x
+    = USU_x_x {unwrapUSU_x_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize USU_x_x
+deriving via (SizedByteArray 4 4) instance ReadRaw USU_x_x
+deriving via (SizedByteArray 4 4) instance WriteRaw USU_x_x
+deriving via (EquivStorable USU_x_x) instance Storable USU_x_x
+{-|
+
+  __See:__ 'set_uSU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uSU_x_x_x :: USU_x_x -> CInt
+{-|
+
+  __See:__ 'set_uSU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 58:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uSU_x_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uSU_x_x_x'
+
+-}
+set_uSU_x_x_x :: CInt -> USU_x_x
+{-|
+
+  __See:__ 'get_uSU_x_x_x'
+
+-}
+set_uSU_x_x_x = setUnionPayload
+instance HasCField USU_x_x "uSU_x_x_x"
+    where type CFieldType USU_x_x "uSU_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "uSU_x_x_x" (Ptr USU_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSU_x_x_x")
+{-| __C declaration:__ @struct \@USU_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data USU_x
+    = USU_x {uSU_x_x :: USU_x_x
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 57:5@
+
+                  __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+             -}}
+    deriving stock Generic
+instance StaticSize USU_x
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw USU_x
+    where readRaw = \ptr_0 -> pure USU_x <*> readRaw (Proxy @"uSU_x_x") ptr_0
+instance WriteRaw USU_x
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       USU_x uSU_x_x_2 -> writeRaw (Proxy @"uSU_x_x") ptr_0 uSU_x_x_2
+deriving via (EquivStorable USU_x) instance Storable USU_x
+instance HasCField USU_x "uSU_x_x"
+    where type CFieldType USU_x "uSU_x_x" = USU_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty USU_x_x => HasField "uSU_x_x" (Ptr USU_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSU_x_x")
+{-| __C declaration:__ @union USU@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 55:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype USU = USU {unwrapUSU :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize USU
+deriving via (SizedByteArray 4 4) instance ReadRaw USU
+deriving via (SizedByteArray 4 4) instance WriteRaw USU
+deriving via (EquivStorable USU) instance Storable USU
+{-|
+
+  __See:__ 'set_uSU_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uSU_x :: USU -> USU_x
+{-|
+
+  __See:__ 'set_uSU_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 56:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uSU_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uSU_x'
+
+-}
+set_uSU_x :: USU_x -> USU
+{-|
+
+  __See:__ 'get_uSU_x'
+
+-}
+set_uSU_x = setUnionPayload
+instance HasCField USU "uSU_x"
+    where type CFieldType USU "uSU_x" = USU_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty USU_x => HasField "uSU_x" (Ptr USU) (Ptr ty)
+    where getField = fromPtr (Proxy @"uSU_x")
+{-| __C declaration:__ @union \@SUU_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype SUU_x_x
+    = SUU_x_x {unwrapSUU_x_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize SUU_x_x
+deriving via (SizedByteArray 4 4) instance ReadRaw SUU_x_x
+deriving via (SizedByteArray 4 4) instance WriteRaw SUU_x_x
+deriving via (EquivStorable SUU_x_x) instance Storable SUU_x_x
+{-|
+
+  __See:__ 'set_sUU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sUU_x_x_x :: SUU_x_x -> CInt
+{-|
+
+  __See:__ 'set_sUU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 66:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sUU_x_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_sUU_x_x_x'
+
+-}
+set_sUU_x_x_x :: CInt -> SUU_x_x
+{-|
+
+  __See:__ 'get_sUU_x_x_x'
+
+-}
+set_sUU_x_x_x = setUnionPayload
+instance HasCField SUU_x_x "sUU_x_x_x"
+    where type CFieldType SUU_x_x "sUU_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "sUU_x_x_x" (Ptr SUU_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUU_x_x_x")
+{-| __C declaration:__ @union \@SUU_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 64:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype SUU_x
+    = SUU_x {unwrapSUU_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize SUU_x
+deriving via (SizedByteArray 4 4) instance ReadRaw SUU_x
+deriving via (SizedByteArray 4 4) instance WriteRaw SUU_x
+deriving via (EquivStorable SUU_x) instance Storable SUU_x
+{-|
+
+  __See:__ 'set_sUU_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sUU_x_x :: SUU_x -> SUU_x_x
+{-|
+
+  __See:__ 'set_sUU_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 65:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_sUU_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_sUU_x_x'
+
+-}
+set_sUU_x_x :: SUU_x_x -> SUU_x
+{-|
+
+  __See:__ 'get_sUU_x_x'
+
+-}
+set_sUU_x_x = setUnionPayload
+instance HasCField SUU_x "sUU_x_x"
+    where type CFieldType SUU_x "sUU_x_x" = SUU_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SUU_x_x => HasField "sUU_x_x" (Ptr SUU_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUU_x_x")
+{-| __C declaration:__ @struct SUU@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 63:8@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+data SUU
+    = SUU {sUU_x :: SUU_x
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 64:3@
+
+                __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+           -}}
+    deriving stock Generic
+instance StaticSize SUU
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw SUU
+    where readRaw = \ptr_0 -> pure SUU <*> readRaw (Proxy @"sUU_x") ptr_0
+instance WriteRaw SUU
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       SUU sUU_x_2 -> writeRaw (Proxy @"sUU_x") ptr_0 sUU_x_2
+deriving via (EquivStorable SUU) instance Storable SUU
+instance HasCField SUU "sUU_x"
+    where type CFieldType SUU "sUU_x" = SUU_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty SUU_x => HasField "sUU_x" (Ptr SUU) (Ptr ty)
+    where getField = fromPtr (Proxy @"sUU_x")
+{-| __C declaration:__ @union \@UUU_x_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype UUU_x_x
+    = UUU_x_x {unwrapUUU_x_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize UUU_x_x
+deriving via (SizedByteArray 4 4) instance ReadRaw UUU_x_x
+deriving via (SizedByteArray 4 4) instance WriteRaw UUU_x_x
+deriving via (EquivStorable UUU_x_x) instance Storable UUU_x_x
+{-|
+
+  __See:__ 'set_uUU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUU_x_x_x :: UUU_x_x -> CInt
+{-|
+
+  __See:__ 'set_uUU_x_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 74:11@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUU_x_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uUU_x_x_x'
+
+-}
+set_uUU_x_x_x :: CInt -> UUU_x_x
+{-|
+
+  __See:__ 'get_uUU_x_x_x'
+
+-}
+set_uUU_x_x_x = setUnionPayload
+instance HasCField UUU_x_x "uUU_x_x_x"
+    where type CFieldType UUU_x_x "uUU_x_x_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "uUU_x_x_x" (Ptr UUU_x_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUU_x_x_x")
+{-| __C declaration:__ @union \@UUU_x@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype UUU_x
+    = UUU_x {unwrapUUU_x :: ByteArray}
+    deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize UUU_x
+deriving via (SizedByteArray 4 4) instance ReadRaw UUU_x
+deriving via (SizedByteArray 4 4) instance WriteRaw UUU_x
+deriving via (EquivStorable UUU_x) instance Storable UUU_x
+{-|
+
+  __See:__ 'set_uUU_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUU_x_x :: UUU_x -> UUU_x_x
+{-|
+
+  __See:__ 'set_uUU_x_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 73:5@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUU_x_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uUU_x_x'
+
+-}
+set_uUU_x_x :: UUU_x_x -> UUU_x
+{-|
+
+  __See:__ 'get_uUU_x_x'
+
+-}
+set_uUU_x_x = setUnionPayload
+instance HasCField UUU_x "uUU_x_x"
+    where type CFieldType UUU_x "uUU_x_x" = UUU_x_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty UUU_x_x => HasField "uUU_x_x" (Ptr UUU_x) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUU_x_x")
+{-| __C declaration:__ @union UUU@
+
+    __defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 71:7@
+
+    __exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+newtype UUU = UUU {unwrapUUU :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize UUU
+deriving via (SizedByteArray 4 4) instance ReadRaw UUU
+deriving via (SizedByteArray 4 4) instance WriteRaw UUU
+deriving via (EquivStorable UUU) instance Storable UUU
+{-|
+
+  __See:__ 'set_uUU_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUU_x :: UUU -> UUU_x
+{-|
+
+  __See:__ 'set_uUU_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @types\/anonymous\/edge-cases\/multi_nesting.h 72:3@
+
+__exported by:__ @types\/anonymous\/edge-cases\/multi_nesting.h@
+-}
+get_uUU_x = getUnionPayload
+{-|
+
+  __See:__ 'get_uUU_x'
+
+-}
+set_uUU_x :: UUU_x -> UUU
+{-|
+
+  __See:__ 'get_uUU_x'
+
+-}
+set_uUU_x = setUnionPayload
+instance HasCField UUU "uUU_x"
+    where type CFieldType UUU "uUU_x" = UUU_x
+          offset# = \_ -> \_ -> 0
+instance (~) ty UUU_x => HasField "uUU_x" (Ptr UUU) (Ptr ty)
+    where getField = fromPtr (Proxy @"uUU_x")

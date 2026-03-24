@@ -6,30 +6,27 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Members (
   ) where
 
 import Data.Either (partitionEithers)
-import Data.List qualified as List
 import Data.List.NonEmpty qualified as NE
 import GHC.Records (HasField)
 
 import Clang.Enum.Simple (fromSimpleEnum)
 import Clang.HighLevel.Types (Fold, FoldException (exception), Next,
                               foldContinueWith, foldRecurseWith, foldTry)
-import Clang.LowLevel.Core (CXCursor, CXCursorKind (CXCursor_FieldDecl),
+import Clang.LowLevel.Core (CXCursor, CXCursorKind (CXCursor_FieldDecl), CXType,
                             clang_getCursorKind)
 
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.AST.Deps (depsOfField)
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.Parse.Context (ExceptionInCtx (exception),
                                               ParseCtx)
 import HsBindgen.Frontend.Pass.Parse.Decl.Field (structFieldDecl,
                                                  unionFieldDecl)
+import HsBindgen.Frontend.Pass.Parse.Decl.ImplicitFields qualified as IFields
 import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.Monad.Decl (ParseDecl)
-import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseNestedDeclsFailed, ParseUnsupportedImplicitFields))
-import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Anon, Named))
+import HsBindgen.Frontend.Pass.Parse.Msg (DelayedParseMsg (ParseImplicitFieldFailed, ParseNestedDeclsFailed))
 import HsBindgen.Frontend.Pass.Parse.Result (ParseResult,
-                                             getParseResultEitherDecl,
-                                             parseSucceed)
+                                             getParseResultEitherDecl)
 
 -- NOTE: this is a copy of 'HsBindgen.Frontend.Pass.Parse.Decl.Parser' for
 -- internal use to prevent cyclic module dependencies
@@ -50,30 +47,38 @@ deriving stock instance Show (field Parse) => Show (ParseMembersResult field)
 
 -- | Parse the members of a struct
 parseStructMembersWith ::
-     ParseCtx
+     -- | Type of the enclosing object
+     CXType
+  -> ParseCtx
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
   -> (ParseCtx -> Parser)
       -- | How to continue with the result of parsing members
   -> (ParseMembersResult C.StructField -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
-parseStructMembersWith ctx parseObject = parseMembersWith ctx structFieldDecl parseObject
+parseStructMembersWith ty ctx parseObject = parseMembersWith ty ctx structFieldDecl parseObject
 
 -- | Parse the members of a union
 parseUnionMembersWith ::
-     ParseCtx
+     -- | Type of the enclosing object
+     CXType
+  -> ParseCtx
      -- | How to parse a non-field declaration (e.g., a union or struct
      -- declaration)
   -> (ParseCtx -> Parser)
       -- | How to continue with the result of parsing members
   -> (ParseMembersResult C.UnionField -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
-parseUnionMembersWith ctx parseObject = parseMembersWith ctx unionFieldDecl parseObject
+parseUnionMembersWith ty ctx parseObject = parseMembersWith ty ctx unionFieldDecl parseObject
 
 -- | Parse all members of a struct\/union
 parseMembersWith ::
-     (HasField "typ" (field Parse) (C.Type Parse))
-  => ParseCtx
+     ( IFields.MakeImplicitField field
+     , HasField "typ" (field Parse) (C.Type Parse)
+     )
+     -- | Type of the enclosing object
+  => CXType
+  -> ParseCtx
      -- | How to parse a field declaration
   -> (ParseCtx -> CXCursor -> ParseDecl (field Parse))
      -- | How to parse a non-field declaration (e.g., a union or struct
@@ -82,15 +87,13 @@ parseMembersWith ::
      -- | How to continue with the result of parsing members
   -> (ParseMembersResult field -> ParseDecl a)
   -> ParseDecl (Next ParseDecl a)
-parseMembersWith ctx parseField parseObject k =
+parseMembersWith ty ctx parseField parseObject k =
     foldRecurseWith (parseMember ctx parseField parseObject) $ \xs -> do
-      let (foldExceptions, decls, fields) = partitionParseMemberResults xs
-          (fails, successes) = partitionEithers $
-                                  map getParseResultEitherDecl decls
+      let (foldExceptions, allDecls, fails, successes) = partitionParseMemberResults xs
           -- Always return all nested declarations, regardless of their parse
           -- status. The @Select@ pass wil handle deselecting declarations if
           -- necessary.
-          declMembers = fails ++ map parseSucceed successes
+          declMembers = allDecls
       if
         -- If any nested declarations failed to parse, then we can't parse the
         -- current declaration for fear of missing (implicit) fields.
@@ -117,18 +120,25 @@ parseMembersWith ctx parseField parseObject k =
         -- structs\/unions that failed to parse. At this point, we have already
         -- checked that there are no failed parses. So all nested anonymous
         -- structs\/unions were parsed successfully, and we can properly detect
-        -- implicit fields using 'detectImplicitFields'.
-        | let (_used, unused) = detectImplicitFields successes fields
-        , not (null unused)
-        -> k ParseMembersResult {
-                declMembers  = declMembers
-              , fieldMembers = Left ParseUnsupportedImplicitFields
-              }
+        -- implicit fields using 'IFields.withImplicitFields'.
         | otherwise
-        -> k ParseMembersResult {
-                declMembers  = declMembers
-              , fieldMembers = Right fields
-              }
+        -> do -- From the explicit members, derive implicit fields and include them in
+              -- the list of members
+              members <- IFields.withImplicitFields (IFields.EnclosingObject ty) successes
+              k $ case members of
+                -- Some implicit fields were not successfully detected. It is unsafe
+                -- to return an incomplete list of implicit and explicit fields, so we
+                -- return a failure message instead.
+                IFields.OutputFail exc ->
+                  ParseMembersResult {
+                      declMembers = declMembers
+                    , fieldMembers = Left (ParseImplicitFieldFailed exc)
+                    }
+                IFields.OutputSuccess fields ->
+                  ParseMembersResult {
+                      declMembers = declMembers
+                    , fieldMembers = Right fields
+                    }
 
 -- | The result of parsing a single member of a struct\/union
 data ParseMemberResult field =
@@ -139,15 +149,24 @@ data ParseMemberResult field =
 partitionParseMemberResults ::
      [ParseMemberResult field]
   -> ( [FoldException (ExceptionInCtx DelayedParseMsg)]
-     , [(ParseResult Parse)]
-     , [field Parse]
+     , [ParseResult Parse]  -- ^ All parse results
+     , [ParseResult Parse]  -- ^ Only parse failures
+     , IFields.Inputs field -- ^ Only parse successes
      )
 partitionParseMemberResults = mconcat . fmap f
   where
     f = \case
-          ParseMemberResultFoldException e -> ([e], [], [] )
-          ParseMemberResultDecls xs        -> ([] , xs, [] )
-          ParseMemberResultField x         -> ([] , [], [x])
+          ParseMemberResultFoldException e ->
+                ([e], [], [], IFields.inputEmpty)
+          ParseMemberResultDecls xs ->
+            let (fails, successes) = partitionEithers $ map getParseResultEitherDecl xs
+            in  ( []
+                , xs
+                , fails
+                , mconcat $ map IFields.inputDecl successes
+                )
+          ParseMemberResultField x ->
+                ([], [], [], IFields.inputField x)
 
 -- | Parse a single member of a struct\/union
 parseMember ::
@@ -178,73 +197,3 @@ parseMember ctx parseField parseObject =
     flatten = \case
         Left e -> ParseMemberResultFoldException e
         Right x -> x
-
--- | Detect implicit fields inside a struct\/union
---
--- Implicit fields arise from structs\/unions that are declared inside an outer
--- struct\/union, but without an explicit reference from any of the fields in
--- that outer struct\/union. Something like this:
---
--- > struct outer {
--- >   struct inner {
--- >     int x;
--- >     int y;
--- >   };
--- >   int z;
--- > };
---
--- We cannot support implicit fields due to a limitation of clang
--- (<https://github.com/well-typed/hs-bindgen/issues/659>), but we should at
--- least detect when they are used and issue an error.
---
--- This function partitions local declarations into those that are referenced by
--- some field ("regular declarations"), and those that are not (that is, the
--- implicit fields). Doing this correctly is a little tricky, because clang
--- reports /all/ nested declarations at once. For example, in
---
--- > struct outer {
--- >   struct {
--- >     int x1_1;
--- >     struct {
--- >       int x1_2_1;
--- >     } x1_2;
--- >   } x1;
--- >   int x2;
--- > };
---
--- there are no implicit fields, but we see both nested structs at once (inside
--- the outermost struct), and so we need to check if there is a reference to the
--- inner struct from /any/ nested field, not just fields of the outermost
--- struct.
-detectImplicitFields ::
-     HasField "typ" (field Parse) (C.Type Parse)
-  => [C.Decl Parse]
-     -- ^ Nested declarations inside a struct\/union
-  -> [field Parse]
-     -- ^ Fields of the (outer) struct\/union
-  -> ([C.Decl Parse], [C.Decl Parse])
-detectImplicitFields nestedDecls outerFields =
-    List.partition declIsUsed nestedDecls
-  where
-    nestedFields :: [Either (C.StructField Parse) (C.UnionField Parse)]
-    nestedFields = flip concatMap nestedDecls $ \decl ->
-        case decl.kind of
-          C.DeclStruct struct -> map Left  struct.fields
-          C.DeclUnion union   -> map Right union.fields
-          _otherwise          -> []
-
-    fieldDeps :: [PrelimDeclId]
-    fieldDeps = map snd $ concat [
-          concatMap depsOfField outerFields
-        , concatMap (either depsOfField depsOfField) nestedFields
-        ]
-
-    -- Note: nested declarations belong to the same scope as the enclosing
-    -- object
-    --
-    -- <https://en.cppreference.com/w/c/language/scope.html#Notes>
-    declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = case decl.info.id of
-        -- Implicit fields can not refer to named declarations
-        Named{} -> True
-        Anon{} -> decl.info.id `elem` fieldDeps

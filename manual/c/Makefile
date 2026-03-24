@@ -26,11 +26,22 @@ ifeq ($(OS),Windows_NT)
 	TARGET_EXT=.dll
 endif
 
-default: libexample${TARGET_EXT} libvector${TARGET_EXT} libgame${TARGET_EXT} libstructs${TARGET_EXT} libglobals${TARGET_EXT} libarrays${TARGET_EXT} libfunctionpointers${TARGET_EXT} libhsb_complex_test${TARGET_EXT} libcallbacks${TARGET_EXT} libzerocopy${TARGET_EXT}
+default: \
+	libexample${TARGET_EXT} \
+	libvector${TARGET_EXT} \
+	libgame${TARGET_EXT} \
+	libglobals${TARGET_EXT} \
+	libarrays${TARGET_EXT} \
+	libfunctionpointers${TARGET_EXT} \
+	libhsb_complex_test${TARGET_EXT} \
+	libcallbacks${TARGET_EXT} \
+	libzerocopy${TARGET_EXT} \
+	libstructs${TARGET_EXT} \
+	libunions${TARGET_EXT}
 
 .PHONY: clean
 clean:
-	rm -f *.so *.dll *.o
+	rm -f *.so *.dll *.o */*.o
 
 # Basic examples
 
@@ -40,11 +51,6 @@ libexample${TARGET_EXT}: manual_examples.o
 manual_examples.o: manual_examples.c manual_examples.h
 	clang ${EXTRAFLAGS} -Wall -o manual_examples.o -c -fPIC manual_examples.c -I${PROJECT_ROOT}/hs-bindgen/manual/c
 
-libstructs${TARGET_EXT}: structs.o
-	clang ${EXTRAFLAGS} -Wall -shared -o libstructs${TARGET_EXT} structs.o
-
-structs.o: structs.c structs.h
-	clang ${EXTRAFLAGS} -Wall -o structs.o -c -fPIC structs.c
 
 libglobals${TARGET_EXT}: globals.o
 	clang ${EXTRAFLAGS} -Wall -shared -o libglobals${TARGET_EXT} globals.o
@@ -81,6 +87,36 @@ libzerocopy${TARGET_EXT}: zero_copy.o
 
 zero_copy.o: zero_copy.c zero_copy.h
 	clang ${EXTRAFLAGS} -Wall -o zero_copy.o -c -fPIC zero_copy.c
+
+## Structs
+
+libstructs${TARGET_EXT}: \
+		structs.o \
+		structs/nesting.o
+	clang ${EXTRAFLAGS} -Wall -shared -o libstructs${TARGET_EXT} \
+		structs.o \
+		structs/nesting.o
+
+structs.o: structs.c structs.h
+	clang ${EXTRAFLAGS} -Wall -o structs.o -c -fPIC structs.c
+
+structs/nesting.o: structs/nesting.c structs/nesting.h
+	clang ${EXTRAFLAGS} -Wall -Wno-missing-declarations -o structs/nesting.o -c -fPIC structs/nesting.c
+
+## Unions
+
+libunions${TARGET_EXT}: \
+		unions.o \
+		unions/nesting.o
+	clang ${EXTRAFLAGS} -Wall -shared -o libunions${TARGET_EXT} \
+		unions.o \
+		unions/nesting.o
+
+unions.o: unions.c unions.h
+	clang ${EXTRAFLAGS} -Wall -o unions.o -c -fPIC unions.c
+
+unions/nesting.o: unions/nesting.c unions/nesting.h
+	clang ${EXTRAFLAGS} -Wall -Wno-missing-declarations -o unions/nesting.o -c -fPIC unions/nesting.c
 
 # Example for external bindings
 

@@ -1,0 +1,80 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/union.h
+  cname: union has_implicit_fields
+  hsname: Has_implicit_fields
+- headers: types/anonymous/union.h
+  cname: struct @has_implicit_fields_x2_1
+  hsname: Has_implicit_fields_x2_1
+- headers: types/anonymous/union.h
+  cname: struct @has_implicit_fields_x4_1
+  hsname: Has_implicit_fields_x4_1
+- headers: types/anonymous/union.h
+  cname: union @has_implicit_fields_x5_1
+  hsname: Has_implicit_fields_x5_1
+hstypes:
+- hsname: Has_implicit_fields
+  representation:
+    newtype:
+      constructor: Has_implicit_fields
+      fields:
+      - unwrapHas_implicit_fields
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Has_implicit_fields_x2_1
+  representation:
+    record:
+      constructor: Has_implicit_fields_x2_1
+      fields:
+      - has_implicit_fields_x2_1_x2_1
+      - has_implicit_fields_x2_1_x2_2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Has_implicit_fields_x4_1
+  representation:
+    record:
+      constructor: Has_implicit_fields_x4_1
+      fields:
+      - has_implicit_fields_x4_1_x4_1
+      - has_implicit_fields_x4_1_x4_2
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: Has_implicit_fields_x5_1
+  representation:
+    newtype:
+      constructor: Has_implicit_fields_x5_1
+      fields:
+      - unwrapHas_implicit_fields_x5_1
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

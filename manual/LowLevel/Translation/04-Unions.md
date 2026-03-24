@@ -63,7 +63,9 @@ introduce or eliminate union values. For the same reason, we _only_ provide a
 > alternative, and are equal in the relevant parts of the ByteArray, then we
 > should consider them equal, even if they have different "trailing" data.
 
-## Unions nested inside of structs
+[hackage:base:ByteArray]: https://hackage.haskell.org/package/base/docs/Data-Array-Byte.html#t:ByteArray
+
+## High-level API generation
 
 Consider a union declaration inside of a struct:
 
@@ -103,3 +105,7 @@ do a much better job showing the `Occupation` (it can take advantage of the
 for `Person` either.
 
 [hackage:base:ByteArray]: https://hackage.haskell.org/package/base/docs/Data-Array-Byte.html#t:ByteArray
+
+## Nesting
+
+See the [Unions/Nesting](./04-Unions/Nesting.md) manual section.

@@ -14,42 +14,9 @@ typedef struct triple triple_t;
 void mk_triple(int a, int b, int c, triple *triple);
 
 /* -------------------------------------------------------------------------- */
-/* Nested structures. */
+/* Nesting */
 
-/* Separate declaration of named structure. */
-struct door {
-  float height;
-  float width;
-};
-
-/* Use named structure in declaration of nested structure. */
-struct room {
-  struct door door1;
-  struct door door2;
-};
-
-/* Embedded anonymous structures lead to an error while generating bindings. */
-/* Issue https://github.com/well-typed/hs-bindgen/issues/659. */
-
-/* /\* Declare nested structure in an embedded way. The embedded structure is */
-/*    anonymous. *\/ */
-/* struct aula1 { */
-/*   struct { */
-/*     float door_height; */
-/*     float door_width; */
-/*   }; */
-/*   int n_doors; */
-/* }; */
-
-/* Declare nested structure in an embedded way. The embedded structure has a
-   variable name.  */
-struct aula2 {
-  struct {
-    float height;
-    float width;
-  } door;
-  int n_doors;
-};
+// See structs/nesting.h
 
 /* -------------------------------------------------------------------------- */
 /* Bitfields. */
