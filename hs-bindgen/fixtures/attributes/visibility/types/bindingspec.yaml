@@ -1,0 +1,996 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: attributes/visibility/types.h
+  cname: struct S0
+  hsname: S0
+- headers: attributes/visibility/types.h
+  cname: struct S1
+  hsname: S1
+- headers: attributes/visibility/types.h
+  cname: struct S2
+  hsname: S2
+- headers: attributes/visibility/types.h
+  cname: struct S3
+  hsname: S3
+- headers: attributes/visibility/types.h
+  cname: struct S4
+  hsname: S4
+- headers: attributes/visibility/types.h
+  cname: struct S5
+  hsname: S5
+- headers: attributes/visibility/types.h
+  cname: struct S6
+  hsname: S6
+- headers: attributes/visibility/types.h
+  cname: struct S7
+  hsname: S7
+- headers: attributes/visibility/types.h
+  cname: struct S8
+  hsname: S8
+- headers: attributes/visibility/types.h
+  cname: struct S9
+  hsname: S9
+- headers: attributes/visibility/types.h
+  cname: struct S10
+  hsname: S10
+- headers: attributes/visibility/types.h
+  cname: struct S11
+  hsname: S11
+- headers: attributes/visibility/types.h
+  cname: struct S12
+  hsname: S12
+- headers: attributes/visibility/types.h
+  cname: struct S13
+  hsname: S13
+- headers: attributes/visibility/types.h
+  cname: struct S14
+  hsname: S14
+- headers: attributes/visibility/types.h
+  cname: struct S15
+  hsname: S15
+- headers: attributes/visibility/types.h
+  cname: struct S16
+  hsname: S16
+- headers: attributes/visibility/types.h
+  cname: struct S17
+  hsname: S17
+- headers: attributes/visibility/types.h
+  cname: struct S18
+  hsname: S18
+- headers: attributes/visibility/types.h
+  cname: struct S19
+  hsname: S19
+- headers: attributes/visibility/types.h
+  cname: union U0
+  hsname: U0
+- headers: attributes/visibility/types.h
+  cname: union U1
+  hsname: U1
+- headers: attributes/visibility/types.h
+  cname: union U2
+  hsname: U2
+- headers: attributes/visibility/types.h
+  cname: union U3
+  hsname: U3
+- headers: attributes/visibility/types.h
+  cname: union U4
+  hsname: U4
+- headers: attributes/visibility/types.h
+  cname: union U5
+  hsname: U5
+- headers: attributes/visibility/types.h
+  cname: union U6
+  hsname: U6
+- headers: attributes/visibility/types.h
+  cname: union U7
+  hsname: U7
+- headers: attributes/visibility/types.h
+  cname: union U8
+  hsname: U8
+- headers: attributes/visibility/types.h
+  cname: union U9
+  hsname: U9
+- headers: attributes/visibility/types.h
+  cname: union U10
+  hsname: U10
+- headers: attributes/visibility/types.h
+  cname: union U11
+  hsname: U11
+- headers: attributes/visibility/types.h
+  cname: union U12
+  hsname: U12
+- headers: attributes/visibility/types.h
+  cname: union U13
+  hsname: U13
+- headers: attributes/visibility/types.h
+  cname: union U14
+  hsname: U14
+- headers: attributes/visibility/types.h
+  cname: union U15
+  hsname: U15
+- headers: attributes/visibility/types.h
+  cname: union U16
+  hsname: U16
+- headers: attributes/visibility/types.h
+  cname: union U17
+  hsname: U17
+- headers: attributes/visibility/types.h
+  cname: union U18
+  hsname: U18
+- headers: attributes/visibility/types.h
+  cname: union U19
+  hsname: U19
+- headers: attributes/visibility/types.h
+  cname: enum E0
+  hsname: E0
+- headers: attributes/visibility/types.h
+  cname: enum E1
+  hsname: E1
+- headers: attributes/visibility/types.h
+  cname: enum E2
+  hsname: E2
+- headers: attributes/visibility/types.h
+  cname: enum E3
+  hsname: E3
+- headers: attributes/visibility/types.h
+  cname: enum E4
+  hsname: E4
+- headers: attributes/visibility/types.h
+  cname: enum E5
+  hsname: E5
+- headers: attributes/visibility/types.h
+  cname: enum E6
+  hsname: E6
+- headers: attributes/visibility/types.h
+  cname: enum E7
+  hsname: E7
+- headers: attributes/visibility/types.h
+  cname: enum E8
+  hsname: E8
+- headers: attributes/visibility/types.h
+  cname: enum E9
+  hsname: E9
+- headers: attributes/visibility/types.h
+  cname: enum E10
+  hsname: E10
+- headers: attributes/visibility/types.h
+  cname: enum E11
+  hsname: E11
+- headers: attributes/visibility/types.h
+  cname: enum E12
+  hsname: E12
+- headers: attributes/visibility/types.h
+  cname: enum E13
+  hsname: E13
+- headers: attributes/visibility/types.h
+  cname: enum E14
+  hsname: E14
+- headers: attributes/visibility/types.h
+  cname: enum E15
+  hsname: E15
+- headers: attributes/visibility/types.h
+  cname: enum E16
+  hsname: E16
+- headers: attributes/visibility/types.h
+  cname: enum E17
+  hsname: E17
+- headers: attributes/visibility/types.h
+  cname: enum E18
+  hsname: E18
+- headers: attributes/visibility/types.h
+  cname: enum E19
+  hsname: E19
+hstypes:
+- hsname: E0
+  representation: emptydata
+- hsname: E1
+  representation: emptydata
+- hsname: E10
+  representation:
+    newtype:
+      constructor: E10
+      fields:
+      - unwrapE10
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E11
+  representation:
+    newtype:
+      constructor: E11
+      fields:
+      - unwrapE11
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E12
+  representation:
+    newtype:
+      constructor: E12
+      fields:
+      - unwrapE12
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E13
+  representation:
+    newtype:
+      constructor: E13
+      fields:
+      - unwrapE13
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E14
+  representation:
+    newtype:
+      constructor: E14
+      fields:
+      - unwrapE14
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E15
+  representation:
+    newtype:
+      constructor: E15
+      fields:
+      - unwrapE15
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E16
+  representation:
+    newtype:
+      constructor: E16
+      fields:
+      - unwrapE16
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E17
+  representation:
+    newtype:
+      constructor: E17
+      fields:
+      - unwrapE17
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E18
+  representation:
+    newtype:
+      constructor: E18
+      fields:
+      - unwrapE18
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E19
+  representation:
+    newtype:
+      constructor: E19
+      fields:
+      - unwrapE19
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E2
+  representation: emptydata
+- hsname: E3
+  representation: emptydata
+- hsname: E4
+  representation: emptydata
+- hsname: E5
+  representation:
+    newtype:
+      constructor: E5
+      fields:
+      - unwrapE5
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E6
+  representation:
+    newtype:
+      constructor: E6
+      fields:
+      - unwrapE6
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E7
+  representation:
+    newtype:
+      constructor: E7
+      fields:
+      - unwrapE7
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E8
+  representation:
+    newtype:
+      constructor: E8
+      fields:
+      - unwrapE8
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: E9
+  representation:
+    newtype:
+      constructor: E9
+      fields:
+      - unwrapE9
+  instances:
+  - CEnum
+  - Eq
+  - Generic
+  - HasCField
+  - HasFFIType
+  - HasField
+  - Ord
+  - Prim
+  - Read
+  - ReadRaw
+  - SequentialCEnum
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S0
+  representation: emptydata
+- hsname: S1
+  representation: emptydata
+- hsname: S10
+  representation:
+    record:
+      constructor: S10
+      fields:
+      - s10_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S11
+  representation:
+    record:
+      constructor: S11
+      fields:
+      - s11_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S12
+  representation:
+    record:
+      constructor: S12
+      fields:
+      - s12_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S13
+  representation:
+    record:
+      constructor: S13
+      fields:
+      - s13_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S14
+  representation:
+    record:
+      constructor: S14
+      fields:
+      - s14_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S15
+  representation:
+    record:
+      constructor: S15
+      fields:
+      - s15_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S16
+  representation:
+    record:
+      constructor: S16
+      fields:
+      - s16_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S17
+  representation:
+    record:
+      constructor: S17
+      fields:
+      - s17_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S18
+  representation:
+    record:
+      constructor: S18
+      fields:
+      - s18_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S19
+  representation:
+    record:
+      constructor: S19
+      fields:
+      - s19_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S2
+  representation: emptydata
+- hsname: S3
+  representation: emptydata
+- hsname: S4
+  representation: emptydata
+- hsname: S5
+  representation:
+    record:
+      constructor: S5
+      fields:
+      - s5_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S6
+  representation:
+    record:
+      constructor: S6
+      fields:
+      - s6_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S7
+  representation:
+    record:
+      constructor: S7
+      fields:
+      - s7_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S8
+  representation:
+    record:
+      constructor: S8
+      fields:
+      - s8_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: S9
+  representation:
+    record:
+      constructor: S9
+      fields:
+      - s9_x
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U0
+  representation: emptydata
+- hsname: U1
+  representation: emptydata
+- hsname: U10
+  representation:
+    newtype:
+      constructor: U10
+      fields:
+      - unwrapU10
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U11
+  representation:
+    newtype:
+      constructor: U11
+      fields:
+      - unwrapU11
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U12
+  representation:
+    newtype:
+      constructor: U12
+      fields:
+      - unwrapU12
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U13
+  representation:
+    newtype:
+      constructor: U13
+      fields:
+      - unwrapU13
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U14
+  representation:
+    newtype:
+      constructor: U14
+      fields:
+      - unwrapU14
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U15
+  representation:
+    newtype:
+      constructor: U15
+      fields:
+      - unwrapU15
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U16
+  representation:
+    newtype:
+      constructor: U16
+      fields:
+      - unwrapU16
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U17
+  representation:
+    newtype:
+      constructor: U17
+      fields:
+      - unwrapU17
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U18
+  representation:
+    newtype:
+      constructor: U18
+      fields:
+      - unwrapU18
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U19
+  representation:
+    newtype:
+      constructor: U19
+      fields:
+      - unwrapU19
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U2
+  representation: emptydata
+- hsname: U3
+  representation: emptydata
+- hsname: U4
+  representation: emptydata
+- hsname: U5
+  representation:
+    newtype:
+      constructor: U5
+      fields:
+      - unwrapU5
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U6
+  representation:
+    newtype:
+      constructor: U6
+      fields:
+      - unwrapU6
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U7
+  representation:
+    newtype:
+      constructor: U7
+      fields:
+      - unwrapU7
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U8
+  representation:
+    newtype:
+      constructor: U8
+      fields:
+      - unwrapU8
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U9
+  representation:
+    newtype:
+      constructor: U9
+      fields:
+      - unwrapU9
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

@@ -1,0 +1,40 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: attributes/visibility/edge-cases/nested_types.h
+  cname: struct S
+  hsname: S
+- headers: attributes/visibility/edge-cases/nested_types.h
+  cname: union U
+  hsname: U
+hstypes:
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_y
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - unwrapU
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

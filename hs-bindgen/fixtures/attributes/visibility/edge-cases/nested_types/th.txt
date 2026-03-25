@@ -1,0 +1,80 @@
+-- addDependentFile examples/golden/attributes/visibility/edge-cases/nested_types.h
+{-| __C declaration:__ @union U@
+
+    __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 3:49@
+
+    __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
+-}
+newtype U = U {unwrapU :: ByteArray} deriving stock Generic
+deriving via (SizedByteArray 4 4) instance StaticSize U
+deriving via (SizedByteArray 4 4) instance ReadRaw U
+deriving via (SizedByteArray 4 4) instance WriteRaw U
+deriving via (EquivStorable U) instance Storable U
+{-|
+
+  __See:__ 'set_u_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
+
+__exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
+-}
+get_u_x :: U -> CInt
+{-|
+
+  __See:__ 'set_u_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 4:9@
+
+__exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
+-}
+get_u_x = getUnionPayload
+{-|
+
+  __See:__ 'get_u_x'
+
+-}
+set_u_x :: CInt -> U
+{-|
+
+  __See:__ 'get_u_x'
+
+-}
+set_u_x = setUnionPayload
+instance HasCField U "u_x"
+    where type CFieldType U "u_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance (~) ty CInt => HasField "u_x" (Ptr U) (Ptr ty)
+    where getField = fromPtr (Proxy @"u_x")
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 2:49@
+
+    __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
+-}
+data S
+    = S {s_y :: U
+         {- ^ __C declaration:__ @y@
+
+              __defined at:__ @attributes\/visibility\/edge-cases\/nested_types.h 5:5@
+
+              __exported by:__ @attributes\/visibility\/edge-cases\/nested_types.h@
+         -}}
+    deriving stock Generic
+instance StaticSize S
+    where staticSizeOf = \_ -> 4 :: Int
+          staticAlignment = \_ -> 4 :: Int
+instance ReadRaw S
+    where readRaw = \ptr_0 -> pure S <*> readRaw (Proxy @"s_y") ptr_0
+instance WriteRaw S
+    where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
+                                       S s_y_2 -> writeRaw (Proxy @"s_y") ptr_0 s_y_2
+deriving via (EquivStorable S) instance Storable S
+instance HasCField S "s_y"
+    where type CFieldType S "s_y" = U
+          offset# = \_ -> \_ -> 0
+instance (~) ty U => HasField "s_y" (Ptr S) (Ptr ty)
+    where getField = fromPtr (Proxy @"s_y")
