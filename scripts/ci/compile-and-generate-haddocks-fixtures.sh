@@ -94,8 +94,9 @@ KNOWN_EMPTY=(
 # -Werror
 KNOWN_WERROR_UNCLEAN=(
     arrays/array
+    attributes/visibility/functions
+    attributes/visibility/variables
     edge-cases/adios
-    attributes/visibility_attributes
     declarations/tentative_definitions
 )
 
@@ -103,7 +104,7 @@ KNOWN_WERROR_UNCLEAN=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=197
+KNOWN_FIXTURES_COUNT=198
 
 # Default options
 JOBS=4
