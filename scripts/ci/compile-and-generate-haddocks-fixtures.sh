@@ -66,6 +66,7 @@ KNOWN_FAILURES=(
 # Known fixtures without code - these will be skipped
 # NOTE: Mirrored in Test.HsBindgen.THFixtures.TestCases.emptyOutputFixtures
 KNOWN_EMPTY=(
+    attributes/deprecated
     declarations/declaration_unselected_b
     declarations/name_collision
     declarations/redeclaration_different
@@ -102,7 +103,7 @@ KNOWN_WERROR_UNCLEAN=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=196
+KNOWN_FIXTURES_COUNT=197
 
 # Default options
 JOBS=4

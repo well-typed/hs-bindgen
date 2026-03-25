@@ -21,6 +21,7 @@ testCases :: [TestCase]
 testCases = [
       test_attributes_asm
     , test_attributes_attributes
+    , test_attributes_deprecated
     , test_attributes_type_attributes
     , test_attributes_visibility_attributes
     ]
@@ -39,6 +40,21 @@ test_attributes_attributes :: TestCase
 test_attributes_attributes =
     testDiagnostic "attributes/attributes" $ \diag ->
       diagnosticCategoryText diag == "Nullability Issue"
+
+test_attributes_deprecated :: TestCase
+test_attributes_deprecated =
+  defaultTest "attributes/deprecated"
+    & #onFrontend .~ ( #selectPredicate .~
+          BAnd
+            (BIf (SelectHeader FromMainHeaders))
+            (BNot (BIf (SelectDecl DeclDeprecated)))
+        )
+    & #tracePredicate .~ singleTracePredicate (\case
+            MatchNoDeclarations ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
 
 test_attributes_type_attributes :: TestCase
 test_attributes_type_attributes =
