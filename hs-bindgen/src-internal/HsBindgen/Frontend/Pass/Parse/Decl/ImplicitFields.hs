@@ -40,8 +40,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOr
                                                                  ImplicitFieldOrigin (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (..))
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Named))
-import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text,
-                          catMaybes)
+import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text)
 
 {-------------------------------------------------------------------------------
   Inputs
@@ -305,9 +304,8 @@ getImplicitField encObj decl = do
       offset'
       (mkOrigin target)
   where
-    -- NOTE: only named fields are valid targets
     targets :: [Target]
-    targets = catMaybes $ case decl.kind of
+    targets = case decl.kind of
         C.DeclStruct struct -> map getOffsetOfTarget struct.fields
         C.DeclUnion  union  -> map getOffsetOfTarget union.fields
         _                   -> []
@@ -343,12 +341,9 @@ getImplicitField encObj decl = do
 getOffsetOfTarget ::
      IsField field
   => field Parse
-  -> Maybe Target
-getOffsetOfTarget (Field -> field)
-  | Text.null field.info.name.text
-  = Nothing
-  | otherwise
-  = Just Target {
+  -> Target
+getOffsetOfTarget (Field -> field) =
+    Target {
         fieldName = FieldName field.info.name.text
       , originName = FieldName $ case snd field.ann of
           Origin.ExplicitParsed Origin.ExplicitFieldOrigin
