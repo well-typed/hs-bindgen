@@ -1,0 +1,156 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/anonymous/edge-cases/padding.h
+  cname: struct SS
+  hsname: SS
+- headers: types/anonymous/edge-cases/padding.h
+  cname: struct @SS_y
+  hsname: SS_y
+- headers: types/anonymous/edge-cases/padding.h
+  cname: struct SU
+  hsname: SU
+- headers: types/anonymous/edge-cases/padding.h
+  cname: union @SU_y
+  hsname: SU_y
+- headers: types/anonymous/edge-cases/padding.h
+  cname: union US
+  hsname: US
+- headers: types/anonymous/edge-cases/padding.h
+  cname: struct @US_y
+  hsname: US_y
+- headers: types/anonymous/edge-cases/padding.h
+  cname: union UU
+  hsname: UU
+- headers: types/anonymous/edge-cases/padding.h
+  cname: union @UU_y
+  hsname: UU_y
+hstypes:
+- hsname: SS
+  representation:
+    record:
+      constructor: SS
+      fields:
+      - sS_x
+      - sS_y
+      - sS_z
+  instances:
+  - Eq
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SS_y
+  representation:
+    record:
+      constructor: SS_y
+      fields:
+      - sS_y_
+      - sS_y_y
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SU
+  representation:
+    record:
+      constructor: SU
+      fields:
+      - sU_x
+      - sU_y
+      - sU_z
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: SU_y
+  representation:
+    newtype:
+      constructor: SU_y
+      fields:
+      - unwrapSU_y
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: US
+  representation:
+    newtype:
+      constructor: US
+      fields:
+      - unwrapUS
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: US_y
+  representation:
+    record:
+      constructor: US_y
+      fields:
+      - uS_y_
+      - uS_y_y
+  instances:
+  - Eq
+  - Generic
+  - HasCBitfield
+  - HasCField
+  - HasField
+  - ReadRaw
+  - Show
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UU
+  representation:
+    newtype:
+      constructor: UU
+      fields:
+      - unwrapUU
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw
+- hsname: UU_y
+  representation:
+    newtype:
+      constructor: UU_y
+      fields:
+      - unwrapUU_y
+  instances:
+  - Generic
+  - HasCField
+  - HasField
+  - ReadRaw
+  - StaticSize
+  - Storable
+  - WriteRaw

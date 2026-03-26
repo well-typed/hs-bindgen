@@ -41,7 +41,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOr
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (..))
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Named))
 import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text,
-                          isJust)
+                          catMaybes)
 
 {-------------------------------------------------------------------------------
   Inputs
@@ -84,29 +84,65 @@ data Outputs field =
 --
 -- PRECONDITION: the inputs must include all nested struct\/union\/field
 -- declarations that are present in the C source. If any failed to parse and are
--- not included, then it is unsafe to use 'withImplicitFields'.
+-- not included, then it is unsafe to use 'withImplicitFields'. Except for
+-- unnamed bit-fields, those can be omitted freely.
 --
 -- === Algorithm description
 --
 -- Implicit fields for nested anonymous structs and unions are not reported by
--- @libclang@, so we detect them instead. The key observation is that the offset
--- to a nested anonymous struct or union is equal to the offset to its first
--- field. Using the offset to the first field, we generate a so-called implicit
--- field and we include it as a struct/union field in the C AST. Haskell
--- bindings are generated for such implicit fields like for any other explicit
--- field.
+-- @libclang@, so we detect them instead.
+--
+-- Given an enclosing object struct\/union $E$, and a nested anonymous
+--struct\/union $A$, the goal is to compute the offset of the (hidden) implicit
+-- field of $E$ that reference $A$. The key observation is that the offset to
+-- that implicit field is equal to the offset to any of $A$'s fields (let's say
+-- $F$), subtracted by the offset to $F$ with respect to $A$.
+--
+-- Let's walk through an example to make this more concrete. We asssume that
+-- @int@s are 4 bytes.
+--
+-- > struct E {
+-- >   int x;
+-- >   struct A {
+-- >     int : 3;
+-- >     int y;
+-- >   };
+-- > };
+--
+-- The offsets that are reported by @libclang@ are as follows:
+--
+-- * @offsetOf(E, x) = 0@
+-- * @offsetOf(A, y) = 4@
+-- * @offsetOf(E, y) = 12@
+--
+-- We can ask @libclang@ for the offset of $y$ with respect to $E$ because $y$
+-- is considered an indirect field of $E$. It can be accessed as if it were a
+-- true field of $E$ itself. We can not ask for the offset of $A$ with respect
+-- to $E$, unfortunately, so we have to compute it ourselves instead.
+--
+-- * @offsetOf(E, A) = offsetOf(E, y) - offsetOf(A, y) = 12 - 4 = 8@
+--
+-- The compiler implementation is not allowed to include padding before the
+-- first field of a struct\/union, but it is free to include padding between
+-- fields. For that reason, we could not have used the /size/ of individual
+-- fields to compute @offsetOf(E, A)@. In the example, $x$ has a size of $4$
+-- bytes, while the offset to $A$ is $8$ bytes because the "compiler" has
+-- inserted $4$ padding bytes between the $x$ and $A$. In practice, there will
+-- probably be no padding in this case, but there could be and we have to design
+-- the algorithm with that assumption in mind.
+--
+-- Using the computed offset, we generate a so-called implicit field and we
+-- include it as a struct\/union field in the C AST. Haskell bindings are
+-- generated for such implicit fields like for any other explicit field.
 --
 -- The implicit field detection algorithm is the same for any nesting of structs
 -- or unions, in any order, even recursively.
 --
--- The implicit field detection algorithm does rely on two conditions:
---
--- 1. the anonymous nested struct or union should have at least one field
--- 2. the anonymous nested struct or union should have only *named* fields
---
--- Concretely, this means that empty anonymous structs/unions and anonymous
--- structs/unions with unnamed bit-fields are not supported. A warning-level
--- trace message will be emitted if these conditions are not met.
+-- The implicit field detection algorithm does rely on one condition: the
+-- anonymous nested struct or union should have at least one named field. In
+-- other words, the anonymous nested struct\/union should be "non-empty". A
+-- struct\/union with only unnamed bit-fields is also considered empty. A
+-- warning-level trace message will be emitted if these conditions are not met.
 --
 -- Anonymous nested structs/unions have no name, but they need one for our Haskell
 -- bindings, so they are named after their first field. Informally, the former will
@@ -145,7 +181,6 @@ withImplicitFields encObj inputs = do
             $ sortOn (.number)
             $ classifications.explicitFields ++ implicitFields
         }
-
   where
     classifications = classifyInputs inputs
 
@@ -251,28 +286,31 @@ getImplicitField ::
   -> C.Decl Parse
   -> M m (field Parse)
 getImplicitField encObj decl = do
-    targets <- liftEither getTargets
     targetsNE <- liftEither $ checkNonEmpty targets
     offsets <- mapM offsetOf' targetsNE
-    -- There can be no unnamed padding at the start of a struct or union, so the
-    -- offset to the first field of an anonymous struct/union is also the offset
-    -- to the anonymous struct/union
+    -- The offset to the implicit field is equal to the offset to any of the
+    -- nested object's fields, subtracted by the offset of that same field with
+    -- respect to the nested object.
     --
-    -- NOTE: we do not assume that the fields are ordered in anyway, hence we
-    -- use 'minimumBy' to determine which field is the first.
+    -- We do not assume that the fields are ordered in any way, hence we use
+    -- 'minimumBy' to determine which /named/ field is the first. We need to
+    -- know which field is first so that we can use that field's name as the
+    -- implicit field's name as well.
     let (target, offset) = minimumBy (\x y -> compare (snd x) (snd y)) offsets
+        offset' = offset - target.fieldOffset
     makeImplicitFieldM
       decl.info.loc
       (mkName target)
       (C.TypeRef decl.info.id)
-      offset
+      offset'
       (mkOrigin target)
   where
-    getTargets :: Either ParseImplicitFieldsMsg [Target]
-    getTargets = case decl.kind of
-        C.DeclStruct struct -> mapM getOffsetOfTarget struct.fields
-        C.DeclUnion  union  -> mapM getOffsetOfTarget union.fields
-        _                   -> pure []
+    -- NOTE: only named fields are valid targets
+    targets :: [Target]
+    targets = catMaybes $ case decl.kind of
+        C.DeclStruct struct -> map getOffsetOfTarget struct.fields
+        C.DeclUnion  union  -> map getOffsetOfTarget union.fields
+        _                   -> []
 
     checkNonEmpty :: [Target] -> Either ParseImplicitFieldsMsg (NonEmpty Target)
     checkNonEmpty xs = case NonEmpty.nonEmpty xs of
@@ -293,8 +331,8 @@ getImplicitField encObj decl = do
     mkName target = CScopedName target.fieldName.text
 
 -- | When the field is implicit and we want to ask for its offset using its
--- name, then we should ask for the offset to the first field of the referenced
--- anonymous object instead.
+-- name, then we should ask for the offset to an explicit field of the
+-- referenced anonymous object instead.
 --
 -- Implicit fields are generated by @hs-bindgen@ and therefore not present in
 -- the header file. As such, when 'offsetOf' is used to ask @libclang@ what the
@@ -303,70 +341,86 @@ getImplicitField encObj decl = do
 -- field names.
 --
 getOffsetOfTarget ::
-     ( HasField "ann" (FieldWithWidth field) (ReparseInfo, Origin.FieldOrigin)
-     , HasField "info" (FieldWithWidth field) (C.FieldInfo Parse)
-     , HasField "width" (FieldWithWidth field) (Maybe Int)
-     )
+     IsField field
   => field Parse
-  -> Either ParseImplicitFieldsMsg Target
-getOffsetOfTarget (FieldWithWidth -> field)
-  | isJust field.width
-  , Text.null field.info.name.text
-  = Left UnsupportedUnnamedBitfield
+  -> Maybe Target
+getOffsetOfTarget (Field -> field)
+  | Text.null field.info.name.text
+  = Nothing
   | otherwise
-  = Right Target {
+  = Just Target {
         fieldName = FieldName field.info.name.text
       , originName = FieldName $ case snd field.ann of
           Origin.ExplicitParsed Origin.ExplicitFieldOrigin
             -> field.info.name.text
           Origin.ImplicitGenerated origin
             -> origin.field.text
+      , fieldOffset = FieldOffset $ field.offset
       }
 
 data Target = Target {
       fieldName  :: FieldName
     , originName :: FieldName
+    , fieldOffset :: FieldOffset
     }
 
 {-------------------------------------------------------------------------------
-  Field width
+  Field
 -------------------------------------------------------------------------------}
 
-newtype FieldWithWidth field = FieldWithWidth { unwrap :: field Parse }
+class ( HasField "ann" (Field field) (ReparseInfo, Origin.FieldOrigin)
+      , HasField "info" (Field field) (C.FieldInfo Parse)
+      , HasField "width" (Field field) (Maybe Int)
+      , HasField "offset" (Field field) Int
+      )
+   => IsField field
 
-instance HasField "ann" (FieldWithWidth C.StructField) (ReparseInfo, Origin.FieldOrigin) where
+instance IsField C.StructField
+instance IsField C.UnionField
+
+newtype Field field = Field { unwrap :: field Parse }
+
+instance HasField "ann" (Field C.StructField) (ReparseInfo, Origin.FieldOrigin) where
   getField x = getField @"ann" x.unwrap
 
-instance HasField "info" (FieldWithWidth C.StructField) (C.FieldInfo Parse) where
+instance HasField "info" (Field C.StructField) (C.FieldInfo Parse) where
   getField x = getField @"info" x.unwrap
 
-instance HasField "width" (FieldWithWidth C.StructField) (Maybe Int) where
+instance HasField "width" (Field C.StructField) (Maybe Int) where
   getField x = getField @"width" x.unwrap
 
-instance HasField "ann" (FieldWithWidth C.UnionField) (ReparseInfo, Origin.FieldOrigin) where
+instance HasField "offset" (Field C.StructField) Int where
+  getField x = getField @"offset" x.unwrap
+
+instance HasField "ann" (Field C.UnionField) (ReparseInfo, Origin.FieldOrigin) where
   getField x = getField @"ann" x.unwrap
 
-instance HasField "info" (FieldWithWidth C.UnionField) (C.FieldInfo Parse) where
+instance HasField "info" (Field C.UnionField) (C.FieldInfo Parse) where
   getField x = getField @"info" x.unwrap
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1253>
 -- Once bit-fields are supported in union fields, then we can implement this
 -- instance properly
-instance HasField "width" (FieldWithWidth C.UnionField) (Maybe Int) where
+instance HasField "width" (Field C.UnionField) (Maybe Int) where
   getField _ = Nothing
+
+-- offsets for union fields are always 0
+instance HasField "offset" (Field C.UnionField) Int where
+  getField _ = 0
 
 {-------------------------------------------------------------------------------
   Field offset
 -------------------------------------------------------------------------------}
 
-data EnclosingObject = EnclosingObject { typ :: CXType }
+newtype EnclosingObject = EnclosingObject { typ :: CXType }
   deriving stock Show
 
 newtype FieldName = FieldName { text :: Text }
   deriving stock (Show, Eq, Ord)
 
-data FieldOffset = FieldOffset { int :: Int }
+newtype FieldOffset = FieldOffset { int :: Int }
   deriving stock (Show, Eq, Ord)
+  deriving newtype (Num)
 
 -- | Get the offset of a named field with respect to an enclosing object.
 --

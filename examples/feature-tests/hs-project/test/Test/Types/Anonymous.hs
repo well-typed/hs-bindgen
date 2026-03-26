@@ -74,7 +74,7 @@ prop_offsets ::
   -> (Proxy t2, Proxy field2, CSize)
   -> Property
 prop_offsets (ps1, pf1, off1) (ps2, pf2, off2) = conjoin [
-      HasCField.offset ps1 pf1 === fromIntegral off1
-    , HasCField.offset ps2 pf2 === fromIntegral off2
-    , off1 === off2
+      counterexample "a" $ HasCField.offset ps1 pf1 === fromIntegral off1
+    , counterexample "b" $ HasCField.offset ps2 pf2 === fromIntegral off2
+    , counterexample "c" $ off1 === off2
     ]

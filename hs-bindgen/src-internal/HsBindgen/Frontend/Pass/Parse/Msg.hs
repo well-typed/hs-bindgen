@@ -424,11 +424,6 @@ data ParseImplicitFieldsMsg =
     -- Anonymous nested structs and unions need to have at least one named
     -- member for parsing of implicit fields to succeed.
     UnsupportedEmptyAnon
-    -- | Unsupported anonymous nested struct or union with an unnamed bit-field
-    --
-    -- Anonymous nested structs and unions should not have unnamed bit-field for
-    -- parsing of implicit fields to succeed.
-  | UnsupportedUnnamedBitfield
     -- | An unexpected exception was thrown when using @clang_Type_getOffsetOf@
     --
     -- This is likely a bug in implicit field parsing.
@@ -443,10 +438,10 @@ data ParseImplicitFieldsMsg =
 
 instance PrettyForTrace ParseImplicitFieldsMsg where
   prettyForTrace = \case
-      UnsupportedEmptyAnon ->
-          "Usupported empty nested anonymous union or struct"
-      UnsupportedUnnamedBitfield ->
-          "Unsupported anonymous nested struct or union with an unnamed bit-field"
+      UnsupportedEmptyAnon -> PP.hsep [
+          "Usupported empty nested anonymous union or struct:"
+        , "it should have at least one named field"
+        ]
       UnexpectedClangOffsetOfException field exc -> PP.hsep [
           "Unexpected exception when using clang_Type_getOffsetOf"
         , "with field name", PP.text field, ":", PP.string exc
@@ -460,7 +455,6 @@ instance PrettyForTrace ParseImplicitFieldsMsg where
 instance IsTrace Level ParseImplicitFieldsMsg where
   getDefaultLogLevel = \case
       UnsupportedEmptyAnon{}              -> Warning
-      UnsupportedUnnamedBitfield{}        -> Warning
       UnexpectedNonZeroFieldOffset{}      -> Bug
       UnexpectedClangOffsetOfException{}  -> Bug
   getSource  = const HsBindgen
