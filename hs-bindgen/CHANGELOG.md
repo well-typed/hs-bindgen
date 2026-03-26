@@ -54,7 +54,7 @@
   to generate bindings for the enclosing struct or union. See [PR
   #1849][pr-1849].
 * Generate bindings for nested anonymous structs and unions. See [PR
-  #1839][pr-1839].
+  #1839][pr-1839] and [PR #1869][pr-1869].
 
 ### Minor changes
 
@@ -107,6 +107,7 @@
 [issue-1806]: https://github.com/well-typed/hs-bindgen/issues/1806
 [pr-1839]: https://github.com/well-typed/hs-bindgen/pull/1839
 [pr-1849]: https://github.com/well-typed/hs-bindgen/pull/1849
+[pr-1869]: https://github.com/well-typed/hs-bindgen/pull/1869
 
 ## 0.1.0-alpha -- 2026-02-06
 
