@@ -198,15 +198,10 @@ If these generated names are too unwieldy, they can always be customised using
 
 ### Limitations
 
-For technical reasons we can only generate bindings for anonymous structs if the
-following two conditions are met:
-
-1. the anonymous nested struct should have at least one field
-2. the anonymous nested struct should have only *named* fields
-
-Concretely, this means that empty anonymous structs and anonymous structs with
-unnamed bit-fields are not supported. A warning-level trace message will be
-emitted if these conditions are not met.
+For technical reasons we can only generate bindings for anonymous structs that
+have at least one field. Empty anonymous structs and anonymous structs with only
+padding (specified using unnamed bit-field declarations) are not supported.  A
+warning-level trace message will be emitted in this case.
 
 
 

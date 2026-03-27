@@ -51,12 +51,10 @@ hstypes:
     record:
       constructor: SS_y
       fields:
-      - sS_y_
       - sS_y_y
   instances:
   - Eq
   - Generic
-  - HasCBitfield
   - HasCField
   - HasField
   - ReadRaw
@@ -113,12 +111,10 @@ hstypes:
     record:
       constructor: US_y
       fields:
-      - uS_y_
       - uS_y_y
   instances:
   - Eq
   - Generic
-  - HasCBitfield
   - HasCField
   - HasField
   - ReadRaw

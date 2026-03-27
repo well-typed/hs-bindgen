@@ -6,14 +6,7 @@
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 data SS_y
-    = SS_y {sS_y_ :: CChar
-            {- ^ __C declaration:__ @@
-
-                 __defined at:__ @types\/anonymous\/edge-cases\/padding.h 16:5@
-
-                 __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
-            -},
-            sS_y_y :: CInt
+    = SS_y {sS_y_y :: CInt
             {- ^ __C declaration:__ @y@
 
                  __defined at:__ @types\/anonymous\/edge-cases\/padding.h 17:9@
@@ -25,19 +18,11 @@ instance StaticSize SS_y
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
 instance ReadRaw SS_y
-    where readRaw = \ptr_0 -> (pure SS_y <*> peek (Proxy @"sS_y_") ptr_0) <*> readRaw (Proxy @"sS_y_y") ptr_0
+    where readRaw = \ptr_0 -> pure SS_y <*> readRaw (Proxy @"sS_y_y") ptr_0
 instance WriteRaw SS_y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       SS_y sS_y__2
-                                            sS_y_y_3 -> poke (Proxy @"sS_y_") ptr_0 sS_y__2 >> writeRaw (Proxy @"sS_y_y") ptr_0 sS_y_y_3
+                                       SS_y sS_y_y_2 -> writeRaw (Proxy @"sS_y_y") ptr_0 sS_y_y_2
 deriving via (EquivStorable SS_y) instance Storable SS_y
-instance HasCBitfield SS_y "sS_y_"
-    where type CBitfieldType SS_y "sS_y_" = CChar
-          bitfieldOffset# = \_ -> \_ -> 0
-          bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CChar =>
-         HasField "sS_y_" (Ptr SS_y) (BitfieldPtr ty)
-    where getField = toPtr (Proxy @"sS_y_")
 instance HasCField SS_y "sS_y_y"
     where type CFieldType SS_y "sS_y_y" = CInt
           offset# = \_ -> \_ -> 4
@@ -113,40 +98,6 @@ deriving via (SizedByteArray 4 4) instance WriteRaw SU_y
 deriving via (EquivStorable SU_y) instance Storable SU_y
 {-|
 
-  __See:__ 'set_sU_y_'
-
-__C declaration:__ @@
-
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 25:5@
-
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_sU_y_ :: SU_y -> CChar
-{-|
-
-  __See:__ 'set_sU_y_'
-
-__C declaration:__ @@
-
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 25:5@
-
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_sU_y_ = getUnionPayload
-{-|
-
-  __See:__ 'get_sU_y_'
-
--}
-set_sU_y_ :: CChar -> SU_y
-{-|
-
-  __See:__ 'get_sU_y_'
-
--}
-set_sU_y_ = setUnionPayload
-{-|
-
   __See:__ 'set_sU_y_y'
 
 __C declaration:__ @y@
@@ -179,11 +130,6 @@ set_sU_y_y :: CInt -> SU_y
 
 -}
 set_sU_y_y = setUnionPayload
-instance HasCField SU_y "sU_y_"
-    where type CFieldType SU_y "sU_y_" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "sU_y_" (Ptr SU_y) (Ptr ty)
-    where getField = fromPtr (Proxy @"sU_y_")
 instance HasCField SU_y "sU_y_y"
     where type CFieldType SU_y "sU_y_y" = CInt
           offset# = \_ -> \_ -> 0
@@ -251,14 +197,7 @@ instance (~) ty CInt => HasField "sU_z" (Ptr SU) (Ptr ty)
     __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
 -}
 data US_y
-    = US_y {uS_y_ :: CChar
-            {- ^ __C declaration:__ @@
-
-                 __defined at:__ @types\/anonymous\/edge-cases\/padding.h 34:5@
-
-                 __exported by:__ @types\/anonymous\/edge-cases\/padding.h@
-            -},
-            uS_y_y :: CInt
+    = US_y {uS_y_y :: CInt
             {- ^ __C declaration:__ @y@
 
                  __defined at:__ @types\/anonymous\/edge-cases\/padding.h 35:9@
@@ -270,19 +209,11 @@ instance StaticSize US_y
     where staticSizeOf = \_ -> 8 :: Int
           staticAlignment = \_ -> 4 :: Int
 instance ReadRaw US_y
-    where readRaw = \ptr_0 -> (pure US_y <*> peek (Proxy @"uS_y_") ptr_0) <*> readRaw (Proxy @"uS_y_y") ptr_0
+    where readRaw = \ptr_0 -> pure US_y <*> readRaw (Proxy @"uS_y_y") ptr_0
 instance WriteRaw US_y
     where writeRaw = \ptr_0 -> \s_1 -> case s_1 of
-                                       US_y uS_y__2
-                                            uS_y_y_3 -> poke (Proxy @"uS_y_") ptr_0 uS_y__2 >> writeRaw (Proxy @"uS_y_y") ptr_0 uS_y_y_3
+                                       US_y uS_y_y_2 -> writeRaw (Proxy @"uS_y_y") ptr_0 uS_y_y_2
 deriving via (EquivStorable US_y) instance Storable US_y
-instance HasCBitfield US_y "uS_y_"
-    where type CBitfieldType US_y "uS_y_" = CChar
-          bitfieldOffset# = \_ -> \_ -> 0
-          bitfieldWidth# = \_ -> \_ -> 3
-instance (~) ty CChar =>
-         HasField "uS_y_" (Ptr US_y) (BitfieldPtr ty)
-    where getField = toPtr (Proxy @"uS_y_")
 instance HasCField US_y "uS_y_y"
     where type CFieldType US_y "uS_y_y" = CInt
           offset# = \_ -> \_ -> 4
@@ -431,40 +362,6 @@ deriving via (SizedByteArray 4 4) instance WriteRaw UU_y
 deriving via (EquivStorable UU_y) instance Storable UU_y
 {-|
 
-  __See:__ 'set_uU_y_'
-
-__C declaration:__ @@
-
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 43:5@
-
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_uU_y_ :: UU_y -> CChar
-{-|
-
-  __See:__ 'set_uU_y_'
-
-__C declaration:__ @@
-
-__defined at:__ @types\/anonymous\/edge-cases\/padding.h 43:5@
-
-__exported by:__ @types\/anonymous\/edge-cases\/padding.h@
--}
-get_uU_y_ = getUnionPayload
-{-|
-
-  __See:__ 'get_uU_y_'
-
--}
-set_uU_y_ :: CChar -> UU_y
-{-|
-
-  __See:__ 'get_uU_y_'
-
--}
-set_uU_y_ = setUnionPayload
-{-|
-
   __See:__ 'set_uU_y_y'
 
 __C declaration:__ @y@
@@ -497,11 +394,6 @@ set_uU_y_y :: CInt -> UU_y
 
 -}
 set_uU_y_y = setUnionPayload
-instance HasCField UU_y "uU_y_"
-    where type CFieldType UU_y "uU_y_" = CChar
-          offset# = \_ -> \_ -> 0
-instance (~) ty CChar => HasField "uU_y_" (Ptr UU_y) (Ptr ty)
-    where getField = fromPtr (Proxy @"uU_y_")
 instance HasCField UU_y "uU_y_y"
     where type CFieldType UU_y "uU_y_y" = CInt
           offset# = \_ -> \_ -> 0

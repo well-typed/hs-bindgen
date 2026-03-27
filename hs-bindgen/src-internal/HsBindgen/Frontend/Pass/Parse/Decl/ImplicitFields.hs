@@ -40,8 +40,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass qualified as Origin (ExplicitFieldOr
                                                                  ImplicitFieldOrigin (..))
 import HsBindgen.Frontend.Pass.Parse.Msg (ParseImplicitFieldsMsg (..))
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId (Named))
-import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text,
-                          catMaybes)
+import HsBindgen.Imports (Bifunctor (bimap), MonadIO (..), NonEmpty, Text)
 
 {-------------------------------------------------------------------------------
   Inputs
@@ -84,8 +83,10 @@ data Outputs field =
 --
 -- PRECONDITION: the inputs must include all nested struct\/union\/field
 -- declarations that are present in the C source. If any failed to parse and are
--- not included, then it is unsafe to use 'withImplicitFields'. Except for
--- unnamed bit-fields, those can be omitted freely.
+-- not included, then it is unsafe to use 'withImplicitFields'.
+--
+-- Unnamed bit-field declarations, used to specify padding, are already filtered
+-- out.
 --
 -- === Algorithm description
 --
@@ -93,7 +94,7 @@ data Outputs field =
 -- @libclang@, so we detect them instead.
 --
 -- Given an enclosing object struct\/union $E$, and a nested anonymous
---struct\/union $A$, the goal is to compute the offset of the (hidden) implicit
+-- struct\/union $A$, the goal is to compute the offset of the (hidden) implicit
 -- field of $E$ that reference $A$. The key observation is that the offset to
 -- that implicit field is equal to the offset to any of $A$'s fields (let's say
 -- $F$), subtracted by the offset to $F$ with respect to $A$.
@@ -141,8 +142,9 @@ data Outputs field =
 -- The implicit field detection algorithm does rely on one condition: the
 -- anonymous nested struct or union should have at least one named field. In
 -- other words, the anonymous nested struct\/union should be "non-empty". A
--- struct\/union with only unnamed bit-fields is also considered empty. A
--- warning-level trace message will be emitted if these conditions are not met.
+-- struct\/union with only unnamed bit-field declarations, used to specify
+-- padding, is also considered empty. A warning-level trace message will be
+-- emitted if these conditions are not met.
 --
 -- Anonymous nested structs/unions have no name, but they need one for our Haskell
 -- bindings, so they are named after their first field. Informally, the former will
@@ -305,9 +307,8 @@ getImplicitField encObj decl = do
       offset'
       (mkOrigin target)
   where
-    -- NOTE: only named fields are valid targets
     targets :: [Target]
-    targets = catMaybes $ case decl.kind of
+    targets = case decl.kind of
         C.DeclStruct struct -> map getOffsetOfTarget struct.fields
         C.DeclUnion  union  -> map getOffsetOfTarget union.fields
         _                   -> []
@@ -343,12 +344,9 @@ getImplicitField encObj decl = do
 getOffsetOfTarget ::
      IsField field
   => field Parse
-  -> Maybe Target
-getOffsetOfTarget (Field -> field)
-  | Text.null field.info.name.text
-  = Nothing
-  | otherwise
-  = Just Target {
+  -> Target
+getOffsetOfTarget (Field -> field) =
+    Target {
         fieldName = FieldName field.info.name.text
       , originName = FieldName $ case snd field.ann of
           Origin.ExplicitParsed Origin.ExplicitFieldOrigin
