@@ -227,15 +227,10 @@ If these generated names are too unwieldy, they can always be customised using
 
 ### Limitations
 
-For technical reasons we can only generate bindings for anonymous unions if the
-following two conditions are met:
-
-1. the anonymous nested union should have at least one field
-2. the anonymous nested union should have only *named* fields
-
-Concretely, this means that empty anonymous unions and anonymous unions with
-unnamed bit-fields are not supported. A warning-level trace message will be
-emitted if these conditions are not met.
+For technical reasons we can only generate bindings for anonymous unions that
+have at least one field. Empty anonymous unions and anonymous unions with only
+padding (specified using unnamed bit-field declarations) are not supported. A
+warning-level trace message will be emitted in this case.
 
 
 
